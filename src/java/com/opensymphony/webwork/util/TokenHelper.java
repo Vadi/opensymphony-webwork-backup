@@ -23,31 +23,31 @@ public class TokenHelper {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
-    * The default name to map the token value
-    */
+     * The default name to map the token value
+     */
     final public static String DEFAULT_TOKEN_NAME = "webwork.token";
 
     /**
-    * The name of the field which will hold the token name
-    */
+     * The name of the field which will hold the token name
+     */
     final public static String TOKEN_NAME_FIELD = "webwork.token.name";
     private static final Log LOG = LogFactory.getLog(TokenHelper.class);
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-    * Sets a transaction token into the session using the default token name.
-    * @return the token string
-    */
+     * Sets a transaction token into the session using the default token name.
+     * @return the token string
+     */
     public static String setToken() {
         return setToken(DEFAULT_TOKEN_NAME);
     }
 
     /**
-    * Sets a transaction token into the session using the provided token name.
-    * @param tokenName the name to store into the session with the token as the value
-    * @return the token string
-    */
+     * Sets a transaction token into the session using the provided token name.
+     * @param tokenName the name to store into the session with the token as the value
+     * @return the token string
+     */
     public static String setToken(String tokenName) {
         Map session = ServletActionContext.getContext().getSession();
         String token = GUID.generateGUID();
@@ -57,10 +57,10 @@ public class TokenHelper {
     }
 
     /**
-    * Gets the Token value from the params in the ServletActionContext using the given name
-    * @param tokenName the name of the parameter which holds the token value
-    * @return the token String or null, if the token could not be found
-    */
+     * Gets the Token value from the params in the ServletActionContext using the given name
+     * @param tokenName the name of the parameter which holds the token value
+     * @return the token String or null, if the token could not be found
+     */
     public static String getToken(String tokenName) {
         Map params = ServletActionContext.getContext().getParameters();
         String[] tokens = (String[]) params.get(tokenName);
@@ -78,9 +78,9 @@ public class TokenHelper {
     }
 
     /**
-    * Gets the token name from the Parameters in the ServletActionContext
-    * @return the token name found in the params, or null if it could not be found
-    */
+     * Gets the token name from the Parameters in the ServletActionContext
+     * @return the token name found in the params, or null if it could not be found
+     */
     public static String getTokenName() {
         Map params = ServletActionContext.getContext().getParameters();
 
@@ -105,16 +105,16 @@ public class TokenHelper {
     }
 
     /**
-    * Checks for a valid transaction token in the current request params. If a valid token is found, it is
-    * removed so the it is not valid again.
-    * @return true if there was no token set into the params (check by looking for {@link #TOKEN_NAME_FIELD})
-    *
-    */
+     * Checks for a valid transaction token in the current request params. If a valid token is found, it is
+     * removed so the it is not valid again.
+     * @return false if there was no token set into the params (check by looking for {@link #TOKEN_NAME_FIELD}), true if a valid token is found
+     *
+     */
     public static boolean validToken() {
         String tokenName = getTokenName();
 
         if (tokenName == null) {
-            return true;
+            return false;
         }
 
         String token = getToken(tokenName);
