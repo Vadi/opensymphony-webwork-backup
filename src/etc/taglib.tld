@@ -136,7 +136,7 @@
     </tag>
 
     <tag>
-        <name>com.opensymphony.webwork.example.counter</name>
+        <name>property</name>
         <tagclass>com.opensymphony.webwork.views.jsp.PropertyTag</tagclass>
         <bodycontent>empty</bodycontent>
         <info>
