@@ -12,14 +12,14 @@
   #else
       #set( $itemValue = $item.toString() )
   #end
-  <option value="$!webwork.htmlEncode($itemValue)"#if( $tag.contains($tag.ActualValue, $itemValue) ) selected#end>$!{itemKey}</option>
+  <option value="$!webwork.htmlEncode($itemValue)"#if( $tag.contains($tag.ActualValue, $itemValue) ) selected="selected"#end>$!{itemKey}</option>
 #end
 </select>
 
 <select name="$!{tag.DoubleName}" #if( $tag.Size > 0 )size="${tag.Size}" #end #if( $tag.Multiple ) multiple#end>
 </select>
 
-<script>
+<script type="text/javascript">
 <!--
 var $!{tag.Name}Group = new Array($items.size())
 for (i = 0; i < $items.size(); i++)
