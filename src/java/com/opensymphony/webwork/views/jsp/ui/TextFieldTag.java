@@ -6,7 +6,6 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 
-
 /**
  * @author $Author$
  * @version $Revision$
