@@ -11,3 +11,7 @@
    $name.setRequest($req)
    $name.setResponse($res)
 #end
+
+#macro(property $object $property)
+##$property#end
+$!{ognl.findValue($property, $object)}#end
