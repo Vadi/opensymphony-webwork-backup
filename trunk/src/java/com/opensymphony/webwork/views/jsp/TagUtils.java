@@ -37,7 +37,7 @@ public class TagUtils {
             stack = new OgnlValueStack();
 
             HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
-            Map extraContext = ServletDispatcher.createContextMap(new RequestMap(req), req.getParameterMap(), new SessionMap(req.getSession()), new ApplicationMap(pageContext.getServletContext()), req, res, pageContext.getServletConfig());
+            Map extraContext = ServletDispatcher.createContextMap(new RequestMap(req), req.getParameterMap(), new SessionMap(req), new ApplicationMap(pageContext.getServletContext()), req, res, pageContext.getServletConfig());
             extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
             stack.getContext().putAll(extraContext);
             req.setAttribute("webwork.valueStack", stack);

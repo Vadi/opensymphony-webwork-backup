@@ -93,7 +93,7 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
                 extraContext.put(ActionContext.PARAMETERS, request.getParameterMap());
                 extraContext.put(HTTP_REQUEST, request);
                 extraContext.put(HTTP_RESPONSE, response);
-                extraContext.put(ActionContext.SESSION, new SessionMap(request.getSession()));
+                extraContext.put(ActionContext.SESSION, new SessionMap(request));
                 extraContext.put(ActionContext.APPLICATION, new ApplicationMap(filterConfig.getServletContext()));
                 extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
 

@@ -130,7 +130,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         ServletConfig servletConfig = pageContext.getServletConfig();
         ServletContext servletContext = pageContext.getServletContext();
 
-        Map extraContext = ServletDispatcher.createContextMap(new RequestMap(request), newParams, new SessionMap(request.getSession()), new ApplicationMap(servletContext), request, response, servletConfig);
+        Map extraContext = ServletDispatcher.createContextMap(new RequestMap(request), newParams, new SessionMap(request), new ApplicationMap(servletContext), request, response, servletConfig);
         extraContext.put(PAGE_CONTEXT, pageContext);
 
         OgnlValueStack vs = ActionContext.getContext().getValueStack();
