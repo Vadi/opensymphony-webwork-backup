@@ -1,4 +1,4 @@
-<form name="myForm" action="/testNamespace/testNamespaceAction.jspa" method="POST" >
+<form id="testNamespaceAction" name="myForm" action="/testNamespace/testNamespaceAction.jspa" method="POST" >
 <table class="wwFormTable">
 </table>
 </form>

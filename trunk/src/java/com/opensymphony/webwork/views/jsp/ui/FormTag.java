@@ -147,6 +147,16 @@ public class FormTag extends AbstractClosingUITag {
             } else if (action != null) {
                 String result = UrlHelper.buildUrl(action, request, response, null);
                 addParameter("action", result);
+
+                // cut out anything between / and . should be the id and name
+                int slash = result.lastIndexOf('/');
+                int dot = result.indexOf('.', slash);
+                if (dot != -1) {
+                    id = result.substring(slash + 1, dot);
+                } else {
+                    id = result.substring(slash + 1);
+                }
+                addParameter("id", id);
             }
 
             // only create the javaScriptValidationHolder if the actionName,and class is known

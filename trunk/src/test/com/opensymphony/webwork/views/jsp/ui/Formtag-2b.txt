@@ -1,12 +1,12 @@
-<form name="myForm" action="/testAction.action" method="POST" enctype="myEncType" onsubmit="return(myForm_validate())" >
+<form id="testAction" name="myForm" action="/testAction.action" method="POST" enctype="myEncType" onsubmit="return(myForm_validate())" >
 <table class="wwFormTable">
 <tr>
  <td align="right" valign="top"></td>
- <td><input type="text" name="foo" value="bar" /></td>
+ <td><input type="text" name="foo" value="bar" id="testAction_foo" /></td>
 </tr>
 <tr>
  <td align="right" valign="top"></td>
- <td><input type="text" name="user.name" value="Bobby" /></td>
+ <td><input type="text" name="user.name" value="Bobby" id="testAction_user.name" /></td>
 </tr>
 </table>
 </form>
@@ -38,15 +38,15 @@ function myForm_validate_actual() {
   return null;
 }
 </script>
-<form name="myForm" action="/testAction.action" method="POST" enctype="myEncType" onsubmit="return(myForm_validate())" >
+<form id="testAction" name="myForm" action="/testAction.action" method="POST" enctype="myEncType" onsubmit="return(myForm_validate())" >
 <table class="wwFormTable">
 <tr>
  <td align="right" valign="top"></td>
- <td><input type="text" name="foo" value="bar" /></td>
+ <td><input type="text" name="foo" value="bar" id="testAction_foo" /></td>
 </tr>
 <tr>
  <td align="right" valign="top"></td>
- <td><input type="text" name="user.name" value="Bobby" /></td>
+ <td><input type="text" name="user.name" value="Bobby" id="testAction_user.name" /></td>
 </tr>
 </table>
 </form>
