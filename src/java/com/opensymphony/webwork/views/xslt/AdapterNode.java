@@ -1,7 +1,6 @@
 package com.opensymphony.webwork.views.xslt;
 
 import org.w3c.dom.Node;
-import com.sun.jdi.Location;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
