@@ -12,6 +12,8 @@ import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.ResultConfig;
+import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
+import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 import org.apache.commons.logging.Log;
@@ -86,7 +88,7 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
                 extraContext.put(HTTP_RESPONSE, response);
                 extraContext.put(ActionContext.SESSION, new SessionMap(request));
                 extraContext.put(ActionContext.APPLICATION, new ApplicationMap(filterConfig.getServletContext()));
-                extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
+                extraContext.put(ComponentInterceptor.COMPONENT_MANAGER, request.getAttribute(ComponentManager.COMPONENT_MANAGER_KEY));
 
                 try {
                     ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, extraContext);

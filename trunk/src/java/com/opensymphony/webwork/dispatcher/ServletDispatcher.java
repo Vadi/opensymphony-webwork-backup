@@ -17,6 +17,8 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.ConfigurationException;
+import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
+import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 import org.apache.commons.logging.Log;
@@ -144,7 +146,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         extraContext.put(HTTP_REQUEST, request);
         extraContext.put(HTTP_RESPONSE, response);
         extraContext.put(SERVLET_CONFIG, servletConfig);
-        extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
+        extraContext.put(ComponentInterceptor.COMPONENT_MANAGER, request.getAttribute(ComponentManager.COMPONENT_MANAGER_KEY));
 
         // helpers to get access to request/session/application scope
         extraContext.put("request", requestMap);

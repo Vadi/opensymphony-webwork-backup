@@ -45,11 +45,6 @@ public interface WebWorkStatics {
     public static final String SERVLET_CONFIG = "com.opensymphony.xwork.dispatcher.ServletConfig";
 
     /**
-     * Constant for the XWork compontent interceptor.
-     */
-    public static final String COMPONENT_MANAGER = "com.opensymphony.xwork.interceptor.component.ComponentManager";
-
-    /**
      * Constant for the JSP {@link javax.servlet.jsp.PageContext page context}.
      */
     public static final String PAGE_CONTEXT = "com.opensymphony.xwork.dispatcher.PageContext";

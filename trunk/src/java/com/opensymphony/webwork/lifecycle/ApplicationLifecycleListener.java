@@ -42,7 +42,7 @@ public class ApplicationLifecycleListener implements ServletContextListener {
      */
     public void contextDestroyed(ServletContextEvent event) {
         ServletContext application = event.getServletContext();
-        ComponentManager container = (ComponentManager) application.getAttribute("DefaultComponentManager");
+        ComponentManager container = (ComponentManager) application.getAttribute(ComponentManager.COMPONENT_MANAGER_KEY);
 
         if (container != null) {
             container.dispose();
@@ -62,7 +62,7 @@ public class ApplicationLifecycleListener implements ServletContextListener {
 
         config.configure(container, "application");
 
-        application.setAttribute("DefaultComponentManager", container);
+        application.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
         application.setAttribute("ComponentConfiguration", config);
     }
 

@@ -44,12 +44,12 @@ public class SessionLifecycleListener implements HttpSessionListener, Serializab
         HttpSession session = event.getSession();
         ComponentManager container = createComponentManager();
         ServletContext application = getServletContext(session);
-        ComponentManager fallback = (ComponentManager) application.getAttribute("DefaultComponentManager");
+        ComponentManager fallback = (ComponentManager) application.getAttribute(ComponentManager.COMPONENT_MANAGER_KEY);
         container.setFallback(fallback);
 
         ComponentConfiguration config = (ComponentConfiguration) application.getAttribute("ComponentConfiguration");
         config.configure(container, "session");
-        session.setAttribute("DefaultComponentManager", container);
+        session.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
     }
 
     /**
