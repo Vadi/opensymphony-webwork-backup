@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.StringTokenizer;
 
 
 /**
@@ -46,6 +47,25 @@ public class DefaultConfiguration extends Configuration {
 
         Configuration[] configList = new Configuration[list.size()];
         config = new DelegatingConfiguration((Configuration[]) list.toArray(configList));
+
+        // Add list of additional properties configurations
+        try {
+            StringTokenizer configFiles = new StringTokenizer((String) config.getImpl("webwork.custom.properties"), ",");
+
+            while (configFiles.hasMoreTokens()) {
+                String name = configFiles.nextToken();
+
+                try {
+                    list.add(new PropertiesConfiguration(name));
+                } catch (Exception e) {
+                    log.error("Could not find " + name + ".properties. Skipping");
+                }
+            }
+
+            configList = new Configuration[list.size()];
+            config = new DelegatingConfiguration((Configuration[]) list.toArray(configList));
+        } catch (IllegalArgumentException e) {
+        }
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
