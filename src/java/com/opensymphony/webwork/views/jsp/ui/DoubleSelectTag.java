@@ -4,6 +4,7 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * @version $Id$
@@ -13,31 +14,59 @@ public class DoubleSelectTag extends AbstractDoubleListTag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
-     * The name of the default template for the SelectTag
+     * The name of the default template for the DoubleSelectTag.
      */
     final public static String TEMPLATE = "doubleselect.vm";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private boolean multiple;
-    private int size;
+    protected String emptyOptionAttr;
+    protected String headerKeyAttr;
+    protected String headerValueAttr;
+    protected String multipleAttr;
+    protected String sizeAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setMultiple(boolean multiple) {
-        this.multiple = multiple;
+    public void setEmptyOption(String emptyOption) {
+        this.emptyOptionAttr = emptyOption;
     }
 
-    public boolean isMultiple() {
-        return multiple;
+    public void setHeaderKey(String headerKey) {
+        this.headerKeyAttr = headerKey;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setHeaderValue(String headerValue) {
+        this.headerValueAttr = headerValue;
     }
 
-    public int getSize() {
-        return size;
+    public void setMultiple(String multiple) {
+        this.multipleAttr = multiple;
+    }
+
+    public void setSize(String size) {
+        this.sizeAttr = size;
+    }
+
+    public void evaluateExtraParams(OgnlValueStack stack) {
+        super.evaluateExtraParams(stack);
+
+        if (emptyOptionAttr != null) {
+            addParam("emptyOption", findValue(emptyOptionAttr, Boolean.class));
+        }
+
+        if (multipleAttr != null) {
+            addParam("multiple", findValue(multipleAttr, Boolean.class));
+        }
+
+        if (sizeAttr != null) {
+            addParam("size", findValue(sizeAttr, String.class));
+        }
+
+        if ((headerKeyAttr != null) && (headerValueAttr != null)) {
+            addParam("headerKey", findValue(headerKeyAttr, String.class));
+            addParam("headerValue", findValue(headerValueAttr, String.class));
+        }
     }
 
     protected String getDefaultTemplate() {

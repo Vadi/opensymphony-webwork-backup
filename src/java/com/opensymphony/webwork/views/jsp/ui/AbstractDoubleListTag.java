@@ -4,6 +4,11 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.webwork.util.MakeIterator;
+
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import java.util.Collection;
 
 /**
  *
@@ -14,42 +19,42 @@ package com.opensymphony.webwork.views.jsp.ui;
 public abstract class AbstractDoubleListTag extends AbstractListTag {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private Object doubleListValue;
-    private Object doubleName;
-    private String doubleList;
-    private String doubleListKey;
+    protected String doubleListAttr;
+    protected String doubleListKeyAttr;
+    protected String doubleListValueAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setDoubleList(String doubleList) {
-        this.doubleList = doubleList;
+    
+    public void setDoubleList(String list) {
+        this.doubleListAttr = list;
     }
 
-    public String getDoubleList() {
-        return doubleList;
+    public void setDoubleListKey(String listKey) {
+        this.doubleListKeyAttr = listKey;
     }
 
-    public void setDoubleListKey(String doubleListKey) {
-        this.doubleListKey = doubleListKey;
+    public void setDoubleListValue(String listValue) {
+        this.doubleListValueAttr = listValue;
     }
+    
+    public void evaluateExtraParams(OgnlValueStack stack) {
+        super.evaluateExtraParams(stack);
+        
+        if (doubleListAttr != null) {
+            Object value = findValue(doubleListAttr);
+            addParam("doubleList", MakeIterator.convert(value));
+            if (value instanceof Collection) {
+                addParam("doubleListSize", new Integer(((Collection) value).size()));
+            }
+        }
 
-    public String getDoubleListKey() {
-        return doubleListKey;
-    }
+        if (doubleListKeyAttr != null) {
+            addParam("doubleListKey", doubleListKeyAttr);
+        }
 
-    public void setDoubleListValue(Object doubleListValue) {
-        this.doubleListValue = doubleListValue;
-    }
-
-    public Object getDoubleListValue() {
-        return doubleListValue;
-    }
-
-    public void setDoubleName(Object doubleName) {
-        this.doubleName = doubleName;
-    }
-
-    public Object getDoubleName() {
-        return doubleName;
+        if (doubleListValueAttr != null) {
+            addParam("doubleListValue", doubleListValueAttr);
+        }
     }
 }
