@@ -40,6 +40,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>validation</servlet-name>
+        <servlet-class>com.opensymphony.webwork.validators.ValidationServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>freemarker</servlet-name>
         <servlet-class>com.opensymphony.webwork.views.freemarker.FreemarkerServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
@@ -59,6 +64,11 @@
     <servlet-mapping>
         <servlet-name>webwork</servlet-name>
         <url-pattern>*.action</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>validation</servlet-name>
+        <url-pattern>/validation</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
