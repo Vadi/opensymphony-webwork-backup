@@ -28,6 +28,8 @@
     <property name="src.webapp" value="${src}/webapp"/>
     <property name="src.etc" value="${src}/etc"/>
     <property name="src.config-browser" value="${config-browser}/src"/>
+    <property name="src.migration" value="${src}/migration"/>
+    <property name="src.migration-test" value="${src}/migration-test"/>
 
     <property name="build" value="build"/>
     <property name="build.test" value="${build}/test"/>
