@@ -16,6 +16,14 @@
 </benchmark:duration> ms</td></tr>
 
 <benchmark:duration output="true">
+<ww:label label="'label test'" name="'some random label (name) (compatibility)'"/>
+</benchmark:duration> ms</td></tr>
+
+<benchmark:duration output="true">
+<ww:label label="'label test'" value="'some random label (value)'"/>
+</benchmark:duration> ms</td></tr>
+
+<benchmark:duration output="true">
 <ww:textfield label="'textfield test'" name="'textfieldName'" value="scalar" size="50"/>
 </benchmark:duration> ms</td></tr>
 
