@@ -5,23 +5,22 @@
 package com.opensymphony.webwork.views.util;
 
 import com.opensymphony.webwork.ServletActionContext;
-
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 
-import java.net.URLEncoder;
-
-import java.util.Iterator;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
+import java.util.Iterator;
+import java.util.Map;
 
 
 /**
  * UrlHelper
+ *
  * @author Jason Carreira
- * Created Apr 19, 2003 9:32:19 PM
+ *         Created Apr 19, 2003 9:32:19 PM
  */
 public class UrlHelper {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -39,6 +38,9 @@ public class UrlHelper {
 
         boolean changedScheme = false;
 
+        int httpPort = Integer.parseInt((String) Configuration.get("webwork.url.http.port"));
+        int httpsPort = Integer.parseInt((String) Configuration.get("webwork.url.https.port"));
+
         // only append scheme if it is different to the current scheme
         if ((scheme != null) && !scheme.equals(request.getScheme())) {
             changedScheme = true;
@@ -49,7 +51,7 @@ public class UrlHelper {
             // do not append port for default ports
             int port = request.getServerPort();
 
-            if (!(scheme.equals("http") && (port == 80)) && !(scheme.equals("https") && (port == 443))) {
+            if (!(scheme.equals("http") && (port == httpPort)) && !(scheme.equals("https") && (port == httpsPort))) {
                 link.append(":");
                 link.append(port);
             }
@@ -139,6 +141,7 @@ public class UrlHelper {
     /**
      * Translates any script expressions using {@link com.opensymphony.xwork.util.TextParseUtil#translateVariables} and
      * encodes the URL using {@link java.net.URLEncoder#encode}
+     *
      * @param input
      * @return the translated and encoded string
      */
