@@ -122,7 +122,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         Map extraContext = ServletDispatcher.createContextMap(new RequestMap(request), newParams, new SessionMap(request), new ApplicationMap(servletContext), request, response, servletConfig);
         extraContext.put(PAGE_CONTEXT, pageContext);
 
-        OgnlValueStack vs = ActionContext.getContext().getValueStack();
+        OgnlValueStack vs = getStack();
         OgnlValueStack newStack = new OgnlValueStack(vs);
         extraContext.put(ActionContext.VALUE_STACK, newStack);
 
@@ -153,22 +153,23 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
             namespace = findString(namespaceAttr);
         }
 
+         // get the old value stack from the request
+         OgnlValueStack stack = getStack();
         // execute at this point, after params have been set
         try {
-            // get the old value stack from the request
-            OgnlValueStack stack = getStack();
             proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actualName, createExtraContext(), executeResult);
             // set the new stack into the request for the taglib to use
             request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY,proxy.getInvocation().getStack());
             proxy.execute();
-            // set the old stack back on the request
-            request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY,stack);
+
         } catch (Exception e) {
             log.error("Could not execute action: " + namespace + "/" + actualName, e);
+        } finally {
+            // set the old stack back on the request
+            request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY,stack);
         }
 
         if (getId() != null) {
-            final OgnlValueStack stack = getStack();
             final Map context = stack.getContext();
             context.put(getId(), proxy.getAction());
         }
