@@ -1,11 +1,11 @@
 <tr>
     <td colspan="2" class="error"><span class="errorMessage">
-              {bar error message}
+              bar error message
         </span></td>
   </tr>
   <tr>
-  <td align="right" valign="top" class="error"><label class="label">{mylabel}:</label></td>
+  <td align="right" valign="top" class="error"><label class="label">mylabel:</label></td>
   <td class="error">
-<input type="text" name="foo" value="" />
+<input type="text" name="foo" />
   </td>
 </tr>

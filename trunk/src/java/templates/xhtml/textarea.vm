@@ -1,3 +1,7 @@
 #parse( "/templates/xhtml/controlheader.vm" )
-<textarea name="${tag.Name}" #if( ${tag.Rows} )rows="${tag.Rows}"#end #if( ${tag.Cols} )cols="${tag.Cols}"#end>$!{tag.ActualValue}</textarea>
+<textarea
+    #if ($parameters.name)      name="$parameters.name"     #end
+    #if ($parameters.rows)      rows="$parameters.rows"     #end
+    #if ($parameters.cols)      cols="$parameters.cols"     #end
+>$!parameters.value</textarea>
 #parse( "/templates/xhtml/controlfooter.vm" )

@@ -40,12 +40,11 @@ public class TextfieldTest extends AbstractJspTest {
 
         TextFieldTag tag = new TextFieldTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("mylabel");
-        tag.setName("foo");
+        tag.setLabel("'mylabel'");
+        tag.setName("'foo'");
         tag.setValue("bar");
 
         testAction.addFieldError("foo", "bar error message");
-        testAction.addFieldError("bar", "bar error message");
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("Textfield-2.txt"));
@@ -60,9 +59,10 @@ public class TextfieldTest extends AbstractJspTest {
 
         TextFieldTag tag = new TextFieldTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("mylabel");
-        tag.setName("myname");
+        tag.setLabel("'mylabel'");
+        tag.setName("'myname'");
         tag.setValue("foo");
+        tag.setSize("'10'");
 
         tag.doEndTag();
 

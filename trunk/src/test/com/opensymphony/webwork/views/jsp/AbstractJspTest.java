@@ -200,6 +200,7 @@ public abstract class AbstractJspTest extends TestCase {
         stack.push(action);
 
         request = new WebWorkMockHttpServletRequest();
+        request.setAttribute("webwork.valueStack", stack);
         response = new WebWorkMockHttpServletResponse();
         request.setSession(new WebWorkMockHttpSession());
         ActionContext.getContext().setValueStack(stack);

@@ -1,6 +1,6 @@
 <tr>
-  <td align="right" valign="top"><label class="label">{mylabel}:</label></td>
+  <td align="right" valign="top"><label class="label">mylabel:</label></td>
   <td>
-<input type="text" name="myname" value="bar" />
+<input type="text" name="myname" value="bar" size="10" />
   </td>
 </tr>

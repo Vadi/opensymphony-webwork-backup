@@ -38,8 +38,8 @@ public class PasswordTest extends AbstractJspTest {
 
         PasswordTag tag = new PasswordTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("mylabel");
-        tag.setName("myname");
+        tag.setLabel("'mylabel'");
+        tag.setName("'myname'");
         tag.setValue("foo");
 
         int result = tag.doEndTag();
