@@ -6,6 +6,7 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.WebWorkStatics;
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
@@ -79,7 +80,7 @@ import java.util.Map;
  * <li>{@link #getSessionMap(HttpServletRequest)}</li>
  * <li>{@link #getNameSpace(HttpServletRequest)}</li></ul>
  *
- * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
+ * @author <a href="mailto:rickard@middleware-company.com">Rickard ï¿½berg</a>
  * @author <a href="mailto:matt@smallleap.com">Matt Baldree</a>
  * @author Jason Carreira
  * @author <a href="mailto:cameron@datacodex.net">Cameron Braid</a>
@@ -225,7 +226,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
 
         try {
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, extraContext);
-            request.setAttribute("webwork.valueStack", proxy.getInvocation().getStack());
+            request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, proxy.getInvocation().getStack());
             proxy.execute();
         } catch (ConfigurationException e) {
             log.error("Could not find action", e);

@@ -24,6 +24,7 @@ import java.util.Map;
  * @author Bill Lynch (docs)
  */
 public class ServletActionContext extends ActionContext implements WebWorkStatics {
+    public static final String WEBWORK_VALUESTACK_KEY = "webwork.valueStack";
     //~ Constructors ///////////////////////////////////////////////////////////
 
     private ServletActionContext(Map context) {

@@ -123,6 +123,14 @@
 
         <action name="exception" class="com.opensymphony.webwork.example.ExceptionAction">
         </action>
+        
+        <action name="includeTest" class="com.opensymphony.xwork.ActionSupport">
+            <result name="success">includetagtest.jsp</result>
+        </action>
+
+        <action name="included" class="com.opensymphony.webwork.example.Test">
+            <result name="success">included.jsp</result>
+        </action>
 
         <action name="basicValidation" class="com.opensymphony.webwork.example.ValidatedAction">
             <interceptor-ref name="validationWorkflowStack"/>

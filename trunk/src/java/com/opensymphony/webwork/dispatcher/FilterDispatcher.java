@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.WebWorkStatics;
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
@@ -71,7 +72,7 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         // check to see if maybe the ServletDispatcher already fielded this?
         boolean invoked = false;
 
-        if (request.getAttribute("webwork.valueStack") == null) {
+        if (request.getAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY) == null) {
             Map namespaceAction = (Map) config.get(request.getServletPath());
 
             if (namespaceAction != null) {
@@ -88,7 +89,7 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
 
                 try {
                     ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, extraContext);
-                    request.setAttribute("webwork.valueStack", proxy.getInvocation().getStack());
+                    request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, proxy.getInvocation().getStack());
                     proxy.execute();
                 } catch (Exception e) {
                     try {

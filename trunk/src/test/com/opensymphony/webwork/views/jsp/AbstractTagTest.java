@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.TestAction;
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.velocity.AbstractTagDirective;
 import com.opensymphony.xwork.Action;
@@ -74,7 +75,7 @@ public abstract class AbstractTagTest extends TestCase {
         stack.push(action);
 
         request = new WebWorkMockHttpServletRequest();
-        request.setAttribute("webwork.valueStack", stack);
+        request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
         response = new WebWorkMockHttpServletResponse();
         request.setSession(new WebWorkMockHttpSession());
 
