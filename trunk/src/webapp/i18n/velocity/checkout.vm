@@ -26,11 +26,12 @@ $action.getText('checkout.title')
 #bodytag( Push "value=#pricer")
 #set($pricer = $stack.peek())
 #foreach($item in $cart.items)
+#set ($price = $pricer.computePrice($item.cd.price))
 	<tr>
 		<td><b>$item.cd.album</b></td>
 		<td><b>$item.cd.artist</b></td>
 		<td><b>$item.cd.country</b></td>
-		<td><b>$pricer.computePrice($item.cd.price)</b></td>
+		<td><b>$stack.findValue("getText('price', { $price })")</b></td>
 		<td><b>$item.quantity</b></td>
 	</tr>
 #end
@@ -39,7 +40,7 @@ $action.getText('checkout.title')
 		<td>     </td>
 		<td>     </td>
 		<td><b>$action.getText('checkout.totalLabel')</b></td>
-		<td><b>$totalPrice</b></td>
+		<td><b>$stack.findValue("getText('price', { $totalPrice })")</b></td>
 		<td>     </td>
 	</tr>
 
