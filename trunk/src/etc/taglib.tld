@@ -478,6 +478,11 @@
         <bodycontent>empty</bodycontent>
         <info>An HTML Hidden UI widget</info>
         <attribute>
+            <name>label</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

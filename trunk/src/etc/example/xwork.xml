@@ -62,6 +62,12 @@
             </result>
         </action>
 
+        <action name="showVelocityForm" class="com.opensymphony.webwork.example.FormAction">
+            <result name="success" type="velocity">
+                <param name="location">/form.vm</param>
+            </result>
+        </action>
+
         <action name="formTest" class="com.opensymphony.webwork.example.FormAction" method="processForm" >
             <result name="success" type="dispatcher">
                 <param name="location">/form.jsp</param>

@@ -4,7 +4,19 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.util.UrlHelper;
+import com.opensymphony.webwork.views.velocity.IterationRenderer;
+
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.context.Context;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Jason Carreira
  * Created Apr 1, 2003 8:19:47 PM
  */
-public class FormTag extends AbstractClosingUITag {
+public class FormTag extends AbstractClosingUITag implements IterationRenderer {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     final public static String OPEN_TEMPLATE = "form.vm";
@@ -30,10 +42,24 @@ public class FormTag extends AbstractClosingUITag {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAction(String action) {
-        HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
-        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-        String result = UrlHelper.buildUrl(action, request, response, null);
+        /**
+         * If called from a JSP, pageContext will not be null.  otherwise, we'll get request and response from the
+         * ServletActionContext.
+         *
+         * todo - determine if there's any reason we can't just always use ServletActionContext
+         */
+        HttpServletResponse response = null;
+        HttpServletRequest request = null;
 
+        if (pageContext != null) {
+            response = (HttpServletResponse) pageContext.getResponse();
+            request = (HttpServletRequest) pageContext.getRequest();
+        } else {
+            request = ServletActionContext.getRequest();
+            response = ServletActionContext.getResponse();
+        }
+
+        String result = UrlHelper.buildUrl(action, request, response, null);
         this.action = result;
     }
 
@@ -61,9 +87,38 @@ public class FormTag extends AbstractClosingUITag {
         return method;
     }
 
+    public int doAfterRender(Context context, Writer writer) {
+        return IterationRenderer.RENDER_DONE;
+    }
+
+    public void doBeforeRender(Context context, Writer writer) {
+        this.evaluateActualValue();
+
+        try {
+            String openTemplate = this.getOpenTemplate();
+
+            if (openTemplate == null) {
+                openTemplate = OPEN_TEMPLATE;
+            }
+
+            String templateName = buildTemplateName(getTemplate(), openTemplate);
+
+            Template template = velocityEngine.getTemplate(templateName);
+            template.merge(context, writer);
+        } catch (Exception e) {
+            try {
+                writer.write("<pre>");
+                e.printStackTrace(new PrintWriter(writer));
+                writer.write("</pre>");
+            } catch (IOException e1) {
+                // ok
+            }
+        }
+    }
+
     /**
-    * Clears all the instance variables to allow this instance to be reused.
-    */
+     * Clears all the instance variables to allow this instance to be reused.
+     */
     public void release() {
         super.release();
         method = null;

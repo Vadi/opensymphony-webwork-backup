@@ -8,6 +8,10 @@ import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.webwork.util.TokenHelper;
 
+import org.apache.velocity.context.Context;
+
+import java.io.Writer;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,13 +43,13 @@ public class TokenTag extends AbstractUITag {
     }
 
     /**
-    * First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
-    * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
-    * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
-    * the name.
-    * @return
-    * @throws JspException
-    */
+ * First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
+ * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
+ * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
+ * the name.
+ * @return
+ * @throws JspException
+ */
     public int doEndTag() throws JspException {
         if (name == null) {
             name = TokenHelper.DEFAULT_TOKEN_NAME;
@@ -57,12 +61,22 @@ public class TokenTag extends AbstractUITag {
     }
 
     /**
-    * Clears all the instance variables to allow this instance to be reused.
-    */
+ * Clears all the instance variables to allow this instance to be reused.
+ */
     public void release() {
         super.release();
         token = null;
         name = null;
+    }
+
+    public void render(Context context, Writer writer) throws Exception {
+        /**
+ * todo - look for a better way of implementing this.  this smells bad.
+ */
+        verifySession();
+        this.token = TokenHelper.setToken(name.toString());
+
+        super.render(context, writer);
     }
 
     protected String getDefaultTemplate() {
@@ -83,15 +97,22 @@ public class TokenTag extends AbstractUITag {
     }
 
     /**
-    * This method checks to see if a HttpSession object exists in the context. If a session
-    * doesn't exist, it creates a new one and adds it to the context.
-    */
+ * This method checks to see if a HttpSession object exists in the context. If a session
+ * doesn't exist, it creates a new one and adds it to the context.
+ */
     private void verifySession() {
         Map session = ServletActionContext.getContext().getSession();
 
         // if the session is null, add a new HttpSession to the context
         if (session == null) {
-            HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+            HttpServletRequest request = ServletActionContext.getRequest();
+
+            if (pageContext != null) {
+                request = (HttpServletRequest) pageContext.getRequest();
+            } else {
+                request = ServletActionContext.getRequest();
+            }
+
             ServletActionContext.getContext().setSession(new SessionMap(request.getSession()));
         }
     }
