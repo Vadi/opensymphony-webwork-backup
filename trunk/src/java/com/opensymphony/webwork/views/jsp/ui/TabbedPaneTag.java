@@ -130,7 +130,7 @@ public class TabbedPaneTag extends ComponentTag {
 
     protected String strVal(String objName) {
         try {
-            return String.valueOf(findValue(objName));
+            return findString(objName);
         } catch (Exception e) {
             return objName;
         }

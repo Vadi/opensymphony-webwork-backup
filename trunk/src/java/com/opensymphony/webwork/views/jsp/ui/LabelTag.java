@@ -30,9 +30,14 @@ public class LabelTag extends AbstractUITag {
 
         // try value first, then name (this overrides the default behavior in the superclass)
         if (valueAttr != null) {
-            addParameter("nameValue", findValue(valueAttr, String.class));
+            addParameter("nameValue", findString(valueAttr));
         } else if (nameAttr != null) {
-            addParameter("nameValue", findValue(nameAttr, String.class));
+            String expr = nameAttr;
+            if (ALT_SYNTAX) {
+                expr = "%{" + expr + "}";
+            }
+
+            addParameter("nameValue", findString(expr));
         }
     }
 }

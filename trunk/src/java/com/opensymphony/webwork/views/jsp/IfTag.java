@@ -36,14 +36,10 @@ public class IfTag extends WebWorkTagSupport {
     }
 
     public int doStartTag() throws JspException {
-        Object o = findValue(test);
+        answer = (Boolean) findValue(test, Boolean.class);
 
-        if ((o != null) && o instanceof Boolean) {
-            answer = (Boolean) o;
-
-            if (answer.booleanValue()) {
-                return EVAL_BODY_INCLUDE;
-            }
+        if (answer != null && answer.booleanValue()) {
+            return EVAL_BODY_INCLUDE;
         }
 
         return SKIP_BODY;

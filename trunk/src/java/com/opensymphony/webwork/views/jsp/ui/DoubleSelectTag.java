@@ -61,12 +61,12 @@ public class DoubleSelectTag extends AbstractDoubleListTag {
         }
 
         if (sizeAttr != null) {
-            addParameter("size", findValue(sizeAttr, String.class));
+            addParameter("size", findString(sizeAttr));
         }
 
         if ((headerKeyAttr != null) && (headerValueAttr != null)) {
-            addParameter("headerKey", findValue(headerKeyAttr, String.class));
-            addParameter("headerValue", findValue(headerValueAttr, String.class));
+            addParameter("headerKey", findString(headerKeyAttr));
+            addParameter("headerValue", findString(headerValueAttr));
         }
     }
 

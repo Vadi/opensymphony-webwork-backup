@@ -47,7 +47,7 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
         Object doubleName = null;
 
         if (doubleNameAttr != null) {
-            doubleName = findValue(doubleNameAttr, String.class);
+            doubleName = findString(doubleNameAttr);
             addParameter("doubleName", doubleName);
         }
 
