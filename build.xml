@@ -311,8 +311,8 @@
             author="true"
             version="true"
             overview="${src.java}/overview.html"
-            windowTitle="${fullname} API - ${fullversion}"
-            doctitle="${fullname} API (${fullversion})"
+            windowTitle="${fullname} API - ${version}"
+            doctitle="${fullname} API (${version})"
             footer="&lt;a href=&quot;http://www.opensymphony.com/&quot; target=&quot;_top&quot;&gt;WebWork2 Project Page&lt;/a&gt;"
             use="true"
             verbose="false">
