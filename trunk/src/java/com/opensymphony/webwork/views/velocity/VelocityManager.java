@@ -178,10 +178,8 @@ public class VelocityManager {
 
         if (Configuration.isSet("webwork.velocity.configfile")) {
             configfile = Configuration.getString("webwork.velocity.configfile");
-            log.info("Initializing velocity using '" + configfile + "'");
         } else {
             configfile = "velocity.properties";
-            log.info("Initializing velocity using '" + configfile + "'");
         }
 
         configfile = configfile.trim();
@@ -218,10 +216,11 @@ public class VelocityManager {
 
             // if we've got something, load 'er up
             if (in != null) {
+                log.info("Initializing velocity using '" + configfile + "'");
                 properties.load(in);
             }
         } catch (IOException e) {
-            log.warn("unable to load velocity configuration file, '" + configfile + "'", e);
+            log.warn("Unable to load velocity configuration file '" + configfile + "'", e);
         } finally {
             if (in != null) {
                 try {
