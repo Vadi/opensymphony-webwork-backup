@@ -1,18 +1,26 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
+
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ValidationAware;
 import com.opensymphony.xwork.interceptor.Interceptor;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
+
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
+
 
 /**
  * Interceptor that is based off of {@link MultiPartRequestWrapper}. It adds the following
@@ -27,17 +35,17 @@ import java.util.Iterator;
  * of the three patterns above, such as setDocument(File document), setDocumentContentType(String contentType), etc.
  */
 public class FileUploadInterceptor implements Interceptor {
+    //~ Static fields/initializers /////////////////////////////////////////////
+
     protected static final Log log = LogFactory.getLog(FileUploadInterceptor.class);
 
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    protected Long maximumSize;
     protected String allowedTypes;
     protected String disallowedTypes;
-    protected Long maximumSize;
 
-    public void init() {
-    }
-
-    public void destroy() {
-    }
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAllowedTypes(String allowedTypes) {
         this.allowedTypes = allowedTypes;
@@ -51,6 +59,12 @@ public class FileUploadInterceptor implements Interceptor {
         this.maximumSize = maximumSize;
     }
 
+    public void destroy() {
+    }
+
+    public void init() {
+    }
+
     public String intercept(ActionInvocation invocation) throws Exception {
         if (!(ServletActionContext.getRequest() instanceof MultiPartRequestWrapper)) {
             if (log.isDebugEnabled()) {
@@ -62,14 +76,17 @@ public class FileUploadInterceptor implements Interceptor {
 
         ValidationAware validation = null;
         Action action = invocation.getAction();
+
         if (action instanceof ValidationAware) {
             validation = (ValidationAware) action;
         }
 
         MultiPartRequestWrapper multiWrapper = (MultiPartRequestWrapper) ServletActionContext.getRequest();
+
         if (multiWrapper.hasErrors()) {
             Collection errors = multiWrapper.getErrors();
             Iterator i = errors.iterator();
+
             while (i.hasNext()) {
                 String error = (String) i.next();
 
@@ -87,10 +104,13 @@ public class FileUploadInterceptor implements Interceptor {
         while (e.hasMoreElements()) {
             // get the value of this input tag
             String inputName = (String) e.nextElement();
+
             // get the content type
             String contentType = multiWrapper.getContentType(inputName);
+
             // get the name of the file from the input tag
             String fileName = multiWrapper.getFilesystemName(inputName);
+
             // Get a File object for the uploaded File
             File file = multiWrapper.getFile(inputName);
 
@@ -115,11 +135,15 @@ public class FileUploadInterceptor implements Interceptor {
 
         // cleanup
         e = multiWrapper.getFileNames();
+
         while (e.hasMoreElements()) {
             String inputValue = (String) e.nextElement();
             File file = multiWrapper.getFile(inputValue);
             log.info("removing file " + inputValue + " " + file);
-            if (file != null && file.isFile()) file.delete();
+
+            if ((file != null) && file.isFile()) {
+                file.delete();
+            }
         }
 
         return result;

@@ -5,16 +5,20 @@
 package com.opensymphony.webwork.dispatcher.multipart;
 
 import com.opensymphony.webwork.config.Configuration;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.File;
 import java.io.IOException;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 
 /**
@@ -89,13 +93,13 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
                 }
 
                 // get the constructor
-                Constructor ctor = clazz.getDeclaredConstructor(new Class[]{
-                    Class.forName("javax.servlet.http.HttpServletRequest"),
-                    java.lang.String.class, int.class
-                });
+                Constructor ctor = clazz.getDeclaredConstructor(new Class[] {
+                        Class.forName("javax.servlet.http.HttpServletRequest"),
+                        java.lang.String.class, int.class
+                    });
 
                 // build the parameter list
-                Object[] parms = new Object[]{
+                Object[] parms = new Object[] {
                     request, saveDir, new Integer(maxSize)
                 };
 
