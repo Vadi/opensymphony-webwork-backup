@@ -1,19 +1,16 @@
 <tr>
-    <td align="left" valign="top" colspan="2">
-        <span class="errorMessage">Some Foo Error</span>
-    </td>
+    <td align="left" valign="top" colspan="2"><span class="errorMessage">Some Foo Error</span></td>
 </tr>
 <tr>
-    <td align="left" valign="top" colspan="2">
-        <span class="errorMessage">Another Foo Error</span>
-    </td>
+    <td align="left" valign="top" colspan="2"><span class="errorMessage">Another Foo Error</span></td>
 </tr>
-<tr><td valign="top" colspan="2">
-    <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td valign="top">
-        <input type="checkbox" name="foo" value="baz"
-            checked="true"
-    /></td><td width="100%" valign="top">
-        <label class="checkboxErrorLabel">mylabel</label>
-    </td></tr></table>
+<tr>
+    <td valign="top" colspan="2">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td valign="top"><input type="checkbox" name="foo" value="baz" checked="true" /></td>
+                <td width="100%" valign="top"><label class="checkboxErrorLabel">mylabel</label></td>
+            </tr>
+        </table>
     </td>
 </tr>

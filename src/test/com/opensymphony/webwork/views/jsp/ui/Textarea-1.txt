@@ -1,9 +1,6 @@
 <tr>
-    <td align="right" valign="top">
-        <label for="the_id" class="label"> mylabel: </label>
-    </td>
-    <td>
-        <textarea name="myname"
+    <td align="right" valign="top"><label for="the_id" class="label">mylabel:</label></td>
+    <td><textarea name="myname"
                   cols="20"
                   rows="30"
                   value="bar"
@@ -13,6 +10,5 @@
                   tabindex="5"
                   onchange="alert('goodbye');"
                   id="the_id"
-        >bar</textarea>
-    </td>
+        >bar</textarea></td>
 </tr>

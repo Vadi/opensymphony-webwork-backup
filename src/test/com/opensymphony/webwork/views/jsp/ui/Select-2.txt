@@ -1,14 +1,8 @@
 <tr>
-    <td align="right" valign="top">
-        <label class="label"> mylabel: </label>
-    </td>
-    <td>
-        <select name="collection"
-                multiple="multiple"
-        >
+    <td align="right" valign="top"><label class="label">mylabel:</label></td>
+    <td><select name="collection" multiple="multiple" >
             <option value="hello" selected="true" >world</option>
             <option value="foo" selected="true" >bar</option>
             <option value="cat" >dog</option>
-        </select>
-    </td>
+        </select></td>
 </tr>

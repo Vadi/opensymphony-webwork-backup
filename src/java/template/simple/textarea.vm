@@ -1,25 +1,3 @@
-#*
-  -- textarea.vm
-  --
-  -- Required Parameters:
-  --   * label  - The description that will be used to identfy the control.
-  --   * name   - The name of the attribute to put and pull the result from.
-  --              Equates to the NAME parameter of the HTML INPUT tag.
-  --   * cols   - Width of the textarea.  Equates to the COLS parameter of
-  --              HTML tag TEXTAREA.
-  --   * rows   - Height of the textarea.  Equates to the ROWS parameter of
-  --              HTML tag TEXTAREA.
-  --
-  -- Optional Parameters:
-  --   * labelposition   - determines were the label will be place in relation
-  --                       to the control.  Default is to the left of the control.
-  --   * disabled  - DISABLED parameter of the HTML TEXTAREA tag.
-  --   * readonly  - READONLY parameter of the HTML TEXTAREA tag.
-  --   * onkeyup   - onkeyup parameter of the HTML TEXTAREA tag.
-  --   * tabindex  - tabindex parameter of the HTML TEXTAREA tag.
-  --   * onchange  - onkeyup parameter of the HTML TEXTAREA tag.
-  --
-    *#
 <textarea name="$!webwork.htmlEncode($parameters.name)"
           cols="$!webwork.htmlEncode($parameters.cols)"
           rows="$!webwork.htmlEncode($parameters.rows)"
