@@ -56,6 +56,7 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
     Map params;
     String name;
     String namespace;
+    boolean executeResult;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -73,6 +74,14 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
+    }
+
+    /**
+     * If set to true the result of an action will be executed.
+     * @param executeResult
+     */
+    public void setExecuteResult(boolean executeResult) {
+        this.executeResult = executeResult;
     }
 
     public Map getParams() {
@@ -212,7 +221,7 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
 
         // execute at this point, after params have been set
         try {
-            proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, createExtraContext(), false);
+            proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, createExtraContext(), executeResult);
             proxy.execute();
         } catch (Exception e) {
             log.error("Could not execute action: " + namespace + "/" + name, e);
