@@ -61,10 +61,6 @@ public class WebWorkVelocityServlet extends VelocityServlet {
         VelocityManager.init(servletConfig.getServletContext());
     }
 
-    protected Context createContext(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        return VelocityManager.createContext(this.getServletConfig(), httpServletRequest, httpServletResponse);
-    }
-
     protected Template handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Context context) throws Exception {
         String servletPath = (String) httpServletRequest.getAttribute("javax.servlet.include.servlet_path");
 

@@ -49,13 +49,14 @@ public class TagDirectiveTest extends TestCase {
     Mock mockResponse;
     MockTag mockTag;
     VelocityEngine velocityEngine;
+    OgnlValueStack stack;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testBodyTag() throws Exception {
         Template template = velocityEngine.getTemplate("/com/opensymphony/webwork/views/velocity/bodytag.vm");
         StringWriter writer = new StringWriter();
-        Context context = VelocityManager.createContext((ServletConfig) mockConfig.proxy(), (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
+        Context context = VelocityManager.createContext(stack, (ServletConfig) mockConfig.proxy(), (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
         template.merge(context, writer);
 
         // verify that we got one param, hello=world
@@ -89,7 +90,7 @@ public class TagDirectiveTest extends TestCase {
     public void testTag() throws Exception {
         Template template = velocityEngine.getTemplate("/com/opensymphony/webwork/views/velocity/tag.vm");
         StringWriter writer = new StringWriter();
-        Context context = VelocityManager.createContext((ServletConfig) mockConfig.proxy(), (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
+        Context context = VelocityManager.createContext(stack, (ServletConfig) mockConfig.proxy(), (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
         template.merge(context, writer);
 
         // verify that our date thingy was populated correctly
@@ -113,7 +114,7 @@ public class TagDirectiveTest extends TestCase {
         ConfigurationManager.clearConfigurationProviders();
         ConfigurationManager.destroyConfiguration();
 
-        OgnlValueStack stack = new OgnlValueStack();
+        stack = new OgnlValueStack();
         ActionContext.setContext(new ActionContext(stack.getContext()));
 
         /**

@@ -207,7 +207,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     protected void mergeTemplate(String templateName) throws Exception {
         Template t = velocityEngine.getTemplate(templateName);
-        Context context = VelocityManager.createContext(pageContext.getServletConfig(), pageContext.getRequest(), pageContext.getResponse());
+        Context context = VelocityManager.createContext(getValueStack(), pageContext.getServletConfig(), pageContext.getRequest(), pageContext.getResponse());
 
         Writer outputWriter = pageContext.getOut();
 
