@@ -1,0 +1,41 @@
+<b>New style using \#tag</b>
+<table border="0" align="center">
+
+#tag( Label "label=label test" "name='label name'" "value=scalar" )
+#tag( TextField "label=textfield test" "name=textfieldName" "value=scalar" "size=50" )
+#tag( File "label=file test" "name=uploadedFile" "value=" "size=30" )
+#tag( Password "label=password test" "name=passwordField" "value=scalar" "size=50" )
+#tag( Checkbox "label=checkbox test" "name=checkboxField" )
+#tag( CheckboxList "label=checkboxlist test" "name=radioField" "value=list[1].value" "list=list" "listKey=key" "listValue=value" )
+#tag( Component "label=component test" "name=componentField" "template=/templates/xhtml/empty.vm" )
+#tag( Radio "label=radio test" "name=radioField" "value=list[1].value" "list=list" "listKey=key" "listValue=value" )
+#tag( Select "label=multiple select test" "name=select1" "value=multiValues" "list=multiList" "multiple=true" "size=5" )
+#tag( Select "label=select test" "name=select2" "value=list[1].value" "list=list" "listKey=key" "listValue=value" "size=5" )
+#tag( Select "label=pulldown test" "name=select3" "value=list[1].value" "list=list" "listKey=key" "listValue=value" )
+#tag( Textarea "label=textarea test" "name=textareaField" "value=scalar" "rows=10" "cols=30" )
+#tag( Hidden "name=hiddenField" "value=scalar" )
+#tag( Submit "value='submit this thang!'" "align=right" )
+
+</table>
+
+<b>Old style using \$ui (deprecated)</b>
+
+<table border="0" align="center">
+
+$ui.Label.set("label test", "label name", "scalar").Show
+$ui.TextField.set("textfield test", "textfieldName", "scalar").Size(50).Show
+$ui.File.set("file test", "uploadedFile", "").Size(30).Show
+$ui.Password.set("password test", "passwordField", "scalar").Size(50).Show
+$ui.Checkbox.set("checkbox test", "checkboxField").Show
+$ui.CheckboxList.set("checkboxlist test", "radioField", "list[1].value").List("list").ListKey("key").ListValue("value").Show
+$ui.Component.set("component test", "componentField").Template("/templates/xhtml/empty.vm").Show
+$ui.Radio.set("radio test", "radioField", "list[1].value").List("list").ListKey("key").ListValue("value").Show
+$ui.Select.set("multiple select test", "select1", "multiValues").List("multiList").Multiple(true).Size(5).Show
+$ui.Select.set("select test", "select2", "list[1].value").List("list").ListKey("key").ListValue("value").Size(5).Show
+$ui.Select.set("pulldown test", "select3", "list[1].value").List("list").ListKey("key").ListValue("value").Show
+$ui.Textarea.set("textarea test", "textareaField", "scalar").Rows(10).Cols(30).Show
+$ui.Hidden.Name("hiddenField").Value("scalar").Show
+$ui.Submit.Value("'submit this thang!'").Align("right").Show
+
+</table>
+

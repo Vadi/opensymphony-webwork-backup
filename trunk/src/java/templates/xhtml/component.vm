@@ -1,0 +1,3 @@
+#parse( "/templates/xhtml/controlheader.vm" )
+<input type="text" name="${name}" value="$!{value}"/>
+#parse( "/templates/xhtml/controlfooter.vm" )

@@ -1,0 +1,16 @@
+#set( $submitValue = $stack.findValue("getText('$tag.ActualValue')") )
+#if( !$submitValue )
+#set( $submitValue = $tag.ActualValue )
+#end
+#if( !$submitValue )
+#set( $submitValue = "Submit" )
+#end
+#set( $alignValue = $tag.Align )
+#if( !$alignValue )
+#set( $alignValue = "right" )
+#end
+<tr>
+  <td colspan="2"><div align="${alignValue}">
+    <input type="submit" #if( $tag.Name )name="$tag.Name"#end value="$!{submitValue}"/>
+  </div></td>
+</tr>

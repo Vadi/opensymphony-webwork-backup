@@ -1,0 +1,12 @@
+#set( $labelValue = $stack.findValue("getText('$tag.Label')") )
+#if( !$labelValue )
+#set( $labelValue = $tag.Label )
+#end
+<td colspan="2">
+<table width="100%" >
+<tr>
+  <td valign="top" align="right"><input type="checkbox" name="${tag.Name}" id="${tag.Name}" #if( ${tag.Value} )value="${tag.Value}" #end#if( ${tag.ActualValue} == "true" )checked="checked"#end/></td>
+  <td><label for="${tag.Name}">$!{labelValue}</label></td>
+</tr>
+</table>
+</td>

@@ -1,0 +1,23 @@
+#if( $stack.findValue("fieldErrors") )
+  #set( $error = $stack.findValue("fieldErrors.get('$tag.Name')") )
+  #if( $error )
+  <tr>
+    <td colspan="2" class="error"><span class="errorMessage">
+    #set( $message = $stack.findValue("getText('${error}')") )
+    #if( $message && $message != "" )
+      $message
+    #else
+      $error
+    #end
+    </span></td>
+  </tr>
+  #end
+#end
+#set( $labelValue = $stack.findValue("getText('$tag.Label')") )
+#if( !$labelValue )
+#set( $labelValue = $tag.Label )
+#end
+<tr>
+  <td align="right" valign="top" #if($error)class="error"#end><label class="label">$!{labelValue}:</label></td>
+  <td#if($error) class="error"#end>
+

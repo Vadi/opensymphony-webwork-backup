@@ -1,0 +1,4 @@
+<table>
+<form name="myForm" action="myAction" method="POST" enctype="myEncType">
+</form>
+</table>
