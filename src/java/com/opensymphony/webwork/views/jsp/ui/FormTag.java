@@ -4,11 +4,11 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.TagUtils;
 import com.opensymphony.webwork.views.util.JavaScriptValidationHolder;
 import com.opensymphony.webwork.views.util.UrlHelper;
-import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.ActionConfig;
@@ -132,6 +132,18 @@ public class FormTag extends AbstractClosingUITag {
 
                 String result = UrlHelper.buildUrl(namespace + "/" + action + "." + Configuration.get("webwork.action.extension"), request, response, null);
                 addParameter("action", result);
+
+                // if the name isn't specified, use the action name
+                if (nameAttr == null) {
+                    nameAttr = action;
+                    addParameter("name", action);
+                }
+
+                // if the id isn't specified, use the action name
+                if (id == null) {
+                    id = action;
+                    addParameter("id", action);
+                }
             } else if (action != null) {
                 String result = UrlHelper.buildUrl(action, request, response, null);
                 addParameter("action", result);
@@ -195,6 +207,7 @@ public class FormTag extends AbstractClosingUITag {
     /**
      * Provide access to the JavaScriptValidationHolder so that the AbstractUITag
      * can trigger the registration of all validators.
+     *
      * @return
      */
     JavaScriptValidationHolder getJavaScriptValidationHolder() {
