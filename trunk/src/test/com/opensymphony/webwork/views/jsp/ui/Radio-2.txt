@@ -1,0 +1,7 @@
+<tr>
+  <td align="right" valign="top"><label class="label">mylabel:</label></td>
+  <td>
+        <label class="label" for="myname2">Two</label> <input type="radio" name="myname" value="2" />
+        <label class="label" for="myname1">One</label> <input type="radio" name="myname" value="1" checked="checked"/>
+  </td>
+</tr>
