@@ -1,0 +1,18 @@
+<tr>
+    <td align="right" valign="top">
+        <span class="label"> mylabel: </span>
+    </td>
+    <td>
+        <label>world</label>
+        <input type="radio"
+               name="myname"
+               value="hello"
+        />
+
+        <label>bar</label>
+        <input type="radio"
+               name="myname"
+               value="foo"
+        />
+    </td>
+</tr>

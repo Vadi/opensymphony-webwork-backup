@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html">WebWork2 Documentation</a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Iteration Tags
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ <ul class="star">
+<li>iterator</li>
+<li><i class="italic">generator</i></li>
+<li><i class="italic">append</i></li>
+<li><i class="italic">subset</i></li>
+<li><i class="italic">merge</i></li>
+<li><i class="italic">sort</i></li>
+</ul><p class="paragraph"/>
+Iterator will iterate over a value. An iterable value can be either of: java.util.Collection,  java.util.Iterator, java.util.Enumeration, java.util.Map, array.<p class="paragraph"/>
+Example:<p class="paragraph"/><div class="code"><pre>&#60;ww:iterator value=<span class="java&#45;quote">"days"</span>&#62;
+   &#60;p&#62;day is: &#60;ww:property/&#62;&#60;/p&#62;
+ &#60;/ww:iterator&#62;</pre></div><p class="paragraph"/><p class="paragraph"/>The above example retrieves the value of the getDays() method of the current object on the value stack and uses  it to iterate over. The &#60;ww:property/&#62; tag prints out the current value of the iterator.<p class="paragraph"/><p class="paragraph"/>The following example uses a BeanTag and places it into the ActionContext. The iterator tag will  retrieve that object from the ActionContext and then calls its getDays() method as above. The status attribute is also  used to create a IteratorStatus object, which in this example, its odd() method is used to  alternate row colours:<p class="paragraph"/><div class="code"><pre>&#60;ww:bean name=<span class="java&#45;quote">"com.opensymphony.webwork.example.IteratorExample"</span> id=<span class="java&#45;quote">"it"</span>&#62;
+   &#60;ww:param name=<span class="java&#45;quote">"day"</span> value=<span class="java&#45;quote">"'foo'"</span>/&#62;
+   &#60;ww:param name=<span class="java&#45;quote">"day"</span> value=<span class="java&#45;quote">"'bar'"</span>/&#62;
+ &#60;/ww:bean&#62;<p class="paragraph"/> &#60;table border=<span class="java&#45;quote">"0"</span> cellspacing=<span class="java&#45;quote">"0"</span> cellpadding=<span class="java&#45;quote">"1"</span>&#62;
+ &#60;tr&#62;
+   &#60;th&#62;Days of the week&#60;/th&#62;
+ &#60;/tr&#62;<p class="paragraph"/> &#60;ww:iterator value=<span class="java&#45;quote">"#it.days"</span> status=<span class="java&#45;quote">"rowstatus"</span>&#62;
+   &#60;tr&#62;
+     &#60;ww:<span class="java&#45;keyword">if</span> test=<span class="java&#45;quote">"#rowstatus.odd == <span class="java&#45;keyword">true</span>"</span>&#62;
+       &#60;td style=<span class="java&#45;quote">"background: grey"</span>&#62;&#60;ww:property/&#62;&#60;/td&#62;
+     &#60;/ww:<span class="java&#45;keyword">if</span>&#62;
+     &#60;ww:<span class="java&#45;keyword">else</span>&#62;
+       &#60;td&#62;&#60;ww:property/&#62;&#60;/td&#62;
+     &#60;/ww:<span class="java&#45;keyword">else</span>&#62;
+   &#60;/tr&#62;
+ &#60;/ww:iterator&#62;
+ &#60;/table&#62;</pre></div><p class="paragraph"/>The next example iterates over a an action collection and passes every iterator value to another action.<p class="paragraph"/><div class="code"><pre>&#60;ww:action name=<span class="java&#45;quote">"entries"</span> id=<span class="java&#45;quote">"entries"</span>/&#62;
+&#60;ww:iterator value=<span class="java&#45;quote">"#entries.entries"</span> &#62;
+   &#60;ww:property value=<span class="java&#45;quote">"name"</span> /&#62;
+   &#60;ww:property /&#62;
+   &#60;ww:push value=<span class="java&#45;quote">"..."</span>/&#62;<p class="paragraph"/>   &#60;ww:action name=<span class="java&#45;quote">"edit"</span> id=<span class="java&#45;quote">"edit"</span> &#62;
+     &#60;ww:param name=<span class="java&#45;quote">"entry"</span> value=<span class="java&#45;quote">"&#91;0&#93;"</span> /&#62;
+   &#60;/ww:action&#62;
+&#60;/ww:iterator&#62;</pre></div><p class="paragraph"/>The trick here lies in the use of the '&#91;0&#93;' operator. It takes the current iterator value and passes it on to the edit action. Using the '&#91;0&#93;' operator has the same effect as using <i class="italic">&#60;ww:property /&#62;</i>. (The latter, however, does not work from inside the param tag).
+See also WebWork2 EL.
+  </div>
+</body>
+</html>

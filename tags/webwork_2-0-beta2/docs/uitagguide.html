@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html">WebWork2 Documentation</a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">WebWork 2 UI Tag Guide
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ <h3 class="heading-1">Overview
+</h3><p class="paragraph"/>In WebWork 2, the UI tags wrap generic HTML controls while providing tight integration with the core framework. The tags have been designed to minimize the amount of logic in compiled code and delegate the actual rendering of HTML to a template system. The UI tags attempt to cover the most common scenarios, while providing a Component Tag for creating custom components. The UI tags also provide built-in support for displaying inline error messages.
+<h3 class="heading-1">Template System
+</h3><p class="paragraph"/>WebWork 2 uses the Velocity template system to render the actual HTML output for all UI tags. A default implementation of all templates has been included with the core distribution allowing users to use WebWork's UI tags "out of the box". Templates can be edited individually or replaced entirely allowing for complete customization of the resulting HTML output. In addition, the default template can be overridden on a per tag basis allowing for a very fine level of control. The default templates are located in the webwork-2.0.jar file under /decorators/xhtml.<p class="paragraph"/>Update: it is now found in /templates/xhtml<p class="paragraph"/>Note: (this is going to change with the theme support that was added)
+The AbstractUI class is the base class that other UI tags extend. It provides a set of attributes that are common across UI components. The AbstractUI class defines an abstract method:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">protected</span> <span class="java&#45;keyword">abstract</span> <span class="java&#45;object">String</span> getTemplateName();</pre></div><p class="paragraph"/>The AbstractUI class will load the template specified by the subclass or optionally, a template specified by the user. As part of the doStartTag() method, a VelocityContext object is created with the following items:
+<ul class="star">
+<li>tag - a reference to the tag object</li>
+<li>stack - the ValueStack</li>
+<li>ognl - a reference to the utility class OgnlTool</li>
+<li>req - a reference to the HttpServletRequest object</li>
+</ul><p class="paragraph"/>These variables can be accessed in the template by using $TAG_NAME where TAG_NAME is one of tag, stack, ognl or req. The template file is then processed.
+<h3 class="heading-1">Template support for CSS
+</h3><p class="paragraph"/>The default templates provided with WebWork define two properties for use with CSS. The first property, 'label', is applied to text specified in a label attribute in a JspTag. The second property, 'errorMessage', is applied when displaying inline error messages. Many developers need to highlight error messages more prominently by using an alternative color. The code block below can be used in an external stylesheet or in a style element to display error messages in red.<p class="paragraph"/><div class="code"><pre>.errorMessage &#123;
+    color: red;
+&#125;</pre></div><p class="paragraph"/>Note: A default stylesheet is not provided with the core distribution. Users are encouraged to define their own stylesheet using the properties WebWork exposes or modify the supplied templates to work with an existing stylesheet.
+<h3 class="heading-1">Validation
+</h3><p class="paragraph"/>Validation and error handling are an integrated part of the core framework. The UI tags extend this by providing built-in support for displaying inline error messages. To use this functionality, just have your actions implement the ValidationAware interface or extend the ActionSupport class. The ActionSupport class provides a default implementation of ValidationAware and also provides support for internationalization. UI tags that support displaying error messages include: Component Tag, Password Tag, Radio Tag, Select Tag, Textarea Tag and Textfield Tag.<p class="paragraph"/>A very simple example of validation is included below. The key point to understand is how to add an error message to a specific control. WebWork will display the specified message inline with the form element.<p class="paragraph"/>Users are encouraged to take a closer look at the validation framework in XWork. It provides a number of benefits including separating validation code from your action class, declaring rules based on field type, and providing different validation rules for each action alias. The XWork validation framework is based on an interceptor allowing validation to be added or removed from an action with a quick configuration file change. For more information see the <a href="http://wiki.opensymphony.com/space/Xwork+Validation+Framework">Xwork Validation Framework</a>.
+<h3 class="heading-1-1">Example
+</h3><p class="paragraph"/>Action class:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">import</span> com.opensymphony.xwork.ActionSupport;<p class="paragraph"/><span class="java&#45;keyword">public</span> class RegisterEmail <span class="java&#45;keyword">extends</span> ActionSupport &#123;<p class="paragraph"/>    <span class="java&#45;keyword">private</span> <span class="java&#45;object">String</span> email;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> void setEmail(<span class="java&#45;object">String</span> email) &#123;
+        <span class="java&#45;keyword">this</span>.email = email;
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> getEmail() &#123;
+        <span class="java&#45;keyword">return</span> email;
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> execute() <span class="java&#45;keyword">throws</span> Exception &#123;
+        <span class="java&#45;keyword">if</span> (email == <span class="java&#45;keyword">null</span> || email.equals(<span class="java&#45;quote">""</span>)) &#123;
+            // the first parameter is the name attribute
+            //   specified in &#60;ui:textfield&#62;
+            // the second parameter is the error message
+            //   to display
+            addFieldError(<span class="java&#45;quote">"email"</span>, <span class="java&#45;quote">"Email address is required."</span>);
+        &#125;<p class="paragraph"/>        <span class="java&#45;keyword">if</span> (hasErrors()) &#123;
+            <span class="java&#45;keyword">return</span> ERROR;
+        &#125; <span class="java&#45;keyword">else</span> &#123;
+            <span class="java&#45;keyword">return</span> SUCCESS;
+        &#125;
+    &#125;<p class="paragraph"/>&#125;</pre></div><p class="paragraph"/>Jsp page:<p class="paragraph"/><div class="code"><pre>&#60;%@ taglib uri=<span class="java&#45;quote">"webwork"</span> prefix=<span class="java&#45;quote">"ui"</span> %&#62;<p class="paragraph"/>&#60;html&#62;
+&#60;head&#62;&#60;title&#62;validation example&#60;/title&#62;&#60;/head&#62;
+&#60;style type=<span class="java&#45;quote">"text/css"</span>&#62;
+.errorMessage &#123;
+    color: red;
+&#125;
+&#60;/style&#62;
+&#60;body&#62;<p class="paragraph"/>&#60;form name=<span class="java&#45;quote">"frmRegister"</span> action=<span class="java&#45;quote">"RegisterEmail.action"</span> method=<span class="java&#45;quote">"POST"</span>&#62;
+    &#60;table&#62;
+        &#60;ui:textfield label=<span class="java&#45;quote">"Email"</span> name=<span class="java&#45;quote">"email"</span> value=<span class="java&#45;quote">""</span> size=<span class="java&#45;quote">"50"</span> /&#62;
+        &#60;tr&#62;
+            &#60;td colspan=<span class="java&#45;quote">"2"</span>&#62;
+                &#60;input type=<span class="java&#45;quote">"submit"</span> name=<span class="java&#45;quote">"submit"</span> value=<span class="java&#45;quote">"Register"</span> /&#62;
+            &#60;/td&#62;
+        &#60;/tr&#62;
+    &#60;/table&#62;
+&#60;/form&#62;<p class="paragraph"/>&#60;/body&#62;
+&#60;/html&#62;</pre></div><p class="paragraph"/>HTML output (before submitting):<p class="paragraph"/><div class="code"><pre>&#60;html&#62;
+&#60;head&#62;&#60;title&#62;validation example&#60;/title&#62;&#60;/head&#62;
+&#60;style type=<span class="java&#45;quote">"text/css"</span>&#62;
+.errorMessage &#123;
+    color: red;
+&#125;
+&#60;/style&#62;
+&#60;body&#62;<p class="paragraph"/>&#60;form name=<span class="java&#45;quote">"frmRegister"</span> method=<span class="java&#45;quote">"POST"</span> action=<span class="java&#45;quote">"RegisterEmail.action"</span>&#62;
+    &#60;table&#62;
+        &#60;tr&#62;
+  &#60;td align=<span class="java&#45;quote">"right"</span> valign=<span class="java&#45;quote">"top"</span>&#62;&#60;span class=<span class="java&#45;quote">"label"</span>&#62;Email:&#60;/span&#62;&#60;/td&#62;
+  &#60;td&#62;
+&#60;input type=<span class="java&#45;quote">"text"</span> name=<span class="java&#45;quote">"email"</span> value=<span class="java&#45;quote">""</span> size=<span class="java&#45;quote">"50"</span>/&#62;
+  &#60;/td&#62;
+&#60;/tr&#62;
+        &#60;tr&#62;
+            &#60;td colspan=<span class="java&#45;quote">"2"</span>&#62;
+                &#60;input type=<span class="java&#45;quote">"submit"</span> name=<span class="java&#45;quote">"submit"</span> value=<span class="java&#45;quote">"Register"</span> /&#62;
+            &#60;/td&#62;
+        &#60;/tr&#62;
+    &#60;/table&#62;
+&#60;/form&#62;<p class="paragraph"/>&#60;/body&#62;
+&#60;/html&#62;</pre></div><p class="paragraph"/>HTML output (after submitting):
+<div class="code"><pre>&#60;html&#62;
+&#60;head&#62;&#60;title&#62;validation example&#60;/title&#62;&#60;/head&#62;
+&#60;style type=<span class="java&#45;quote">"text/css"</span>&#62;
+.errorMessage &#123;
+    color: red;
+&#125;
+&#60;/style&#62;
+&#60;body&#62;<p class="paragraph"/>&#60;form name=<span class="java&#45;quote">"frmRegister"</span> method=<span class="java&#45;quote">"POST"</span> action=<span class="java&#45;quote">"RegisterEmail.action"</span>&#62;
+    &#60;table&#62;
+            &#60;tr&#62;
+    &#60;td colspan=<span class="java&#45;quote">"2"</span>&#62;&#60;span class=<span class="java&#45;quote">"errorMessage"</span>&#62;
+              Email address is required.
+        &#60;/span&#62;&#60;/td&#62;
+  &#60;/tr&#62;
+  &#60;tr&#62;
+  &#60;td align=<span class="java&#45;quote">"right"</span> valign=<span class="java&#45;quote">"top"</span>&#62;&#60;span class=<span class="java&#45;quote">"label"</span>&#62;Email:&#60;/span&#62;&#60;/td&#62;
+  &#60;td&#62;
+&#60;input type=<span class="java&#45;quote">"text"</span> name=<span class="java&#45;quote">"email"</span> value=<span class="java&#45;quote">""</span> size=<span class="java&#45;quote">"50"</span>/&#62;
+  &#60;/td&#62;
+&#60;/tr&#62;<p class="paragraph"/>        &#60;tr&#62;
+            &#60;td colspan=<span class="java&#45;quote">"2"</span>&#62;
+                &#60;input type=<span class="java&#45;quote">"submit"</span> name=<span class="java&#45;quote">"submit"</span> value=<span class="java&#45;quote">"Register"</span> /&#62;
+            &#60;/td&#62;
+        &#60;/tr&#62;
+    &#60;/table&#62;
+&#60;/form&#62;<p class="paragraph"/>&#60;/body&#62;
+&#60;/html&#62;</pre></div>
+<h3 class="heading-1">Creating Custom Components
+</h3><p class="paragraph"/>At first glance the component tag doesn't look that impressive. The ability to specify a single template and use a number of predetermined attributes looks rather lacking. But the supplied tag offers a number of benefits to developers.<p class="paragraph"/>Before diving right into the custom component, first I will identify some advantages to using the component tag to create your components. Then I will detail the two types of error messages in WebWork 2 and how our custom component (for displaying one of these types) fits into the equation. Finally, I will present a sample Action class, Jsp file and template file for our component. When we are finished, you will be able to incorporate the new component into your application.<p class="paragraph"/>Why use the component tag?
+<ul class="star">
+<li>removes the need to develop your own Jsp tag library</li>
+<li>provides integrated support for accessing the ValueStack</li>
+<li>leverages XWork's support for internationalization, localization and error handling</li>
+<li>faster prototyping using templates (editable text files) instead of compiled code</li>
+<li>re-use and combine existing templates</li>
+</ul><p class="paragraph"/>More on error message support:<p class="paragraph"/>In WebWork 2, there are two types of error messages: field error messages and action error messages. Field error messages are used to indicate a problem with a specific control and are displayed inline with the control. A number of tags provide built-in support for displaying these types of messages. Action error messages on the other hand, indicate a problem with executing an action. Many things can go wrong in a web application, especially an application that relies on external resources such as a database, remote web service, or other resource that might not be accessible during the execution of an action. Handling an error gracefully and presenting the user with a useful message can often be the difference in a positive user/customer experience and a bad one.<p class="paragraph"/>When these types of errors occur, it is more appropriate to display these messages separate from individual controls on the form. In the example below, we will create a custom component that can be used to display action error messages in a bulletted list. This component can then be used on all your forms to display these error messages.<p class="paragraph"/>The action class below was created to handle a promotion on the website: a free e-certificate. It will try to email the certificate, but an exception will be thrown.<p class="paragraph"/>Action class:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">package</span> example;<p class="paragraph"/><span class="java&#45;keyword">import</span> com.opensymphony.xwork.ActionSupport;<p class="paragraph"/><span class="java&#45;keyword">public</span> class AddUser <span class="java&#45;keyword">extends</span> ActionSupport &#123;<p class="paragraph"/>    <span class="java&#45;keyword">private</span> <span class="java&#45;object">String</span> fullname;
+    <span class="java&#45;keyword">private</span> <span class="java&#45;object">String</span> email;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> execute() <span class="java&#45;keyword">throws</span> Exception &#123;
+        // we are ignoring field validation in <span class="java&#45;keyword">this</span> example<p class="paragraph"/>        <span class="java&#45;keyword">try</span> &#123;
+            MailUtil.sendCertificate(email, fullname);
+        &#125; <span class="java&#45;keyword">catch</span> (Exception ex) &#123;
+            // there was a problem sending the email
+            // in a real application, we would also
+            // log the exception
+            addActionError(<span class="java&#45;quote">"We are experiencing a technical problem and have contacted our support staff. "</span> +
+                           <span class="java&#45;quote">"Please <span class="java&#45;keyword">try</span> again later."</span>);
+        &#125;<p class="paragraph"/>        <span class="java&#45;keyword">if</span> (hasErrors()) &#123;
+            <span class="java&#45;keyword">return</span> ERROR;
+        &#125; <span class="java&#45;keyword">else</span> &#123;
+            <span class="java&#45;keyword">return</span> SUCCESS;
+        &#125;
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> getFullname() &#123;
+        <span class="java&#45;keyword">return</span> fullname;
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> void setFullname(<span class="java&#45;object">String</span> fullname) &#123;
+        <span class="java&#45;keyword">this</span>.fullname = fullname;
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> getEmail() &#123;
+        <span class="java&#45;keyword">return</span> email;
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> void setEmail(<span class="java&#45;object">String</span> email) &#123;
+        <span class="java&#45;keyword">this</span>.email = email;
+    &#125;<p class="paragraph"/>&#125;</pre></div><p class="paragraph"/>Jsp page:<p class="paragraph"/><div class="code"><pre>&#60;%@ taglib uri=<span class="java&#45;quote">"webwork"</span> prefix=<span class="java&#45;quote">"ui"</span> %&#62;<p class="paragraph"/>&#60;html&#62;
+&#60;head&#62;&#60;title&#62;custom component example&#60;/title&#62;&#60;/head&#62;
+&#60;style type=<span class="java&#45;quote">"text/css"</span>&#62;
+.errorMessage &#123;
+    color: red;
+&#125;
+&#60;/style&#62;
+&#60;body&#62;<p class="paragraph"/>&#60;ui:form action=<span class="java&#45;quote">"AddUser.action"</span> method=<span class="java&#45;quote">"POST"</span>&#62;
+&#60;table&#62;
+    &#60;ui:component template=<span class="java&#45;quote">"action&#45;errors.vm"</span> /&#62;
+    &#60;ui:textfield label=<span class="java&#45;quote">"Full Name"</span> name=<span class="java&#45;quote">"fullname"</span> /&#62;
+    &#60;ui:textfield label=<span class="java&#45;quote">"Email"</span> name=<span class="java&#45;quote">"email"</span> /&#62;
+    &#60;ui:submit name=<span class="java&#45;quote">"submit"</span> value=<span class="java&#45;quote">"Send me a free E&#45;Certificate!"</span> /&#62;
+&#60;/table&#62;
+&#60;/ui:form&#62;<p class="paragraph"/>&#60;/body&#62;
+&#60;/html&#62;</pre></div><p class="paragraph"/>HTML output (before submitting):<p class="paragraph"/><div class="code"><pre>&#60;html&#62;
+&#60;head&#62;&#60;title&#62;custom component example&#60;/title&#62;&#60;/head&#62;
+&#60;style type=<span class="java&#45;quote">"text/css"</span>&#62;
+.errorMessage &#123;
+    color: red;
+&#125;
+&#60;/style&#62;
+&#60;body&#62;<p class="paragraph"/>&#60;form  action=<span class="java&#45;quote">"AddUser.action"</span> method=<span class="java&#45;quote">"POST"</span> /&#62;<p class="paragraph"/>&#60;table&#62;<p class="paragraph"/>
+    &#60;tr&#62;
+  &#60;td align=<span class="java&#45;quote">"right"</span> valign=<span class="java&#45;quote">"top"</span>&#62;&#60;span class=<span class="java&#45;quote">"label"</span>&#62;Full Name:&#60;/span&#62;&#60;/td&#62;
+  &#60;td&#62;
+&#60;input type=<span class="java&#45;quote">"text"</span> name=<span class="java&#45;quote">"fullname"</span> value=<span class="java&#45;quote">""</span> /&#62;
+  &#60;/td&#62;
+&#60;/tr&#62;
+    &#60;tr&#62;
+  &#60;td align=<span class="java&#45;quote">"right"</span> valign=<span class="java&#45;quote">"top"</span>&#62;&#60;span class=<span class="java&#45;quote">"label"</span>&#62;Email:&#60;/span&#62;&#60;/td&#62;
+  &#60;td&#62;
+&#60;input type=<span class="java&#45;quote">"text"</span> name=<span class="java&#45;quote">"email"</span> value=<span class="java&#45;quote">""</span> /&#62;
+  &#60;/td&#62;
+&#60;/tr&#62;<p class="paragraph"/>&#60;tr&#62;
+  &#60;td colspan=<span class="java&#45;quote">"2"</span>&#62;
+    &#60;div align=<span class="java&#45;quote">"right"</span>&#62;
+      &#60;input type=<span class="java&#45;quote">"submit"</span> name=<span class="java&#45;quote">"submit"</span> value=<span class="java&#45;quote">"Send me a free E&#45;Certificate!"</span>/&#62;
+    &#60;/div&#62;
+  &#60;/td&#62;
+&#60;/tr&#62;<p class="paragraph"/>
+&#60;/table&#62;
+&#60;/form&#62;<p class="paragraph"/>&#60;/body&#62;
+&#60;/html&#62;</pre></div><p class="paragraph"/>The template below will loop through any action errors and display them to the user in a bulletted list.<p class="paragraph"/>Template (action-errors.vm)<p class="paragraph"/><div class="code"><pre>#set ($actionErrors = $stack.findValue(<span class="java&#45;quote">"actionErrors"</span>))<p class="paragraph"/>#<span class="java&#45;keyword">if</span> ($actionErrors)
+&#60;tr&#62;
+    &#60;td colspan=<span class="java&#45;quote">"2"</span>&#62;
+        &#60;span class=<span class="java&#45;quote">"errorMessage"</span>&#62;The following errors occurred:&#60;/span&#62;
+        &#60;ul&#62;
+            #foreach ($actionError in $actionErrors)
+            &#60;li&#62;&#60;span class=<span class="java&#45;quote">"errorMessage"</span>&#62;$actionError&#60;/span&#62;&#60;/li&#62;
+            #end
+        &#60;/ul&#62;
+    &#60;/td&#62;
+&#60;/tr&#62;
+#end</pre></div><p class="paragraph"/>HTML output (after submitting):<p class="paragraph"/><div class="code"><pre>&#60;html&#62;
+&#60;head&#62;&#60;title&#62;custom component example&#60;/title&#62;&#60;/head&#62;
+&#60;style type=<span class="java&#45;quote">"text/css"</span>&#62;
+.errorMessage &#123;
+    color: red;
+&#125;
+&#60;/style&#62;
+&#60;body&#62;<p class="paragraph"/>&#60;form  action=<span class="java&#45;quote">"AddUser.action"</span> method=<span class="java&#45;quote">"POST"</span> /&#62;<p class="paragraph"/>&#60;table&#62;<p class="paragraph"/>&#60;tr&#62;
+    &#60;td colspan=<span class="java&#45;quote">"2"</span>&#62;
+        &#60;span class=<span class="java&#45;quote">"errorMessage"</span>&#62;The following errors occurred:&#60;/span&#62;
+        &#60;ul&#62;
+            &#60;li class=<span class="java&#45;quote">"errorMessage"</span>&#62;
+                We are experiencing a technical problem and have contacted our 
+                support staff. Please <span class="java&#45;keyword">try</span> again later.
+            &#60;/li&#62;
+        &#60;/ul&#62;
+    &#60;/td&#62;
+&#60;/tr&#62;<p class="paragraph"/>    &#60;tr&#62;
+  &#60;td align=<span class="java&#45;quote">"right"</span> valign=<span class="java&#45;quote">"top"</span>&#62;&#60;span class=<span class="java&#45;quote">"label"</span>&#62;Full Name:&#60;/span&#62;&#60;/td&#62;
+  &#60;td&#62;
+&#60;input type=<span class="java&#45;quote">"text"</span> name=<span class="java&#45;quote">"fullname"</span> value=<span class="java&#45;quote">"Sample User"</span> /&#62;
+  &#60;/td&#62;
+&#60;/tr&#62;
+    &#60;tr&#62;
+  &#60;td align=<span class="java&#45;quote">"right"</span> valign=<span class="java&#45;quote">"top"</span>&#62;&#60;span class=<span class="java&#45;quote">"label"</span>&#62;Email:&#60;/span&#62;&#60;/td&#62;
+  &#60;td&#62;
+&#60;input type=<span class="java&#45;quote">"text"</span> name=<span class="java&#45;quote">"email"</span> value=<span class="java&#45;quote">"user@example.com"</span> /&#62;
+  &#60;/td&#62;
+&#60;/tr&#62;<p class="paragraph"/>&#60;tr&#62;
+  &#60;td colspan=<span class="java&#45;quote">"2"</span>&#62;
+    &#60;div align=<span class="java&#45;quote">"right"</span>&#62;
+      &#60;input type=<span class="java&#45;quote">"submit"</span> name=<span class="java&#45;quote">"submit"</span> value=<span class="java&#45;quote">"Send me a free E&#45;Certificate!"</span>/&#62;
+    &#60;/div&#62;
+  &#60;/td&#62;
+&#60;/tr&#62;<p class="paragraph"/>
+&#60;/table&#62;
+&#60;/form&#62;<p class="paragraph"/>&#60;/body&#62;
+&#60;/html&#62;</pre></div>
+<h3 class="heading-1">Changes from WebWork 1
+</h3><p class="paragraph"/>TODO<p class="paragraph"/>
+  </div>
+</body>
+</html>

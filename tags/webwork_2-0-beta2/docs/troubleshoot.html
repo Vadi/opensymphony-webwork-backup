@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html">WebWork2 Documentation</a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Webwork troubleshooting
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ Allrighty, trying to get Webwork2 installed, and this is what I have found so far.<p class="paragraph"/>Make sure you include all the dependent libraries. You find these in 'lib/core' from CVS.<p class="paragraph"/>You need to place 'xwork.xml' and 'components.xml' in your WEB-INF/classes directory. You can find sample files in 'src/etc/example' and 'src/webapp/WEB-INF' from CVS.<p class="paragraph"/>Components are part of <a href="http://wiki.opensymphony.com/space/Xwork">Xwork</a>. If you don't have 'components.xml', you get an error. An empty file with the following tags seem to be fine.<p class="paragraph"/><div class="code"><pre>&#60;components&#62;&#60;component/&#62;&#60;/components&#62;</pre></div><p class="paragraph"/>
+  </div>
+</body>
+</html>

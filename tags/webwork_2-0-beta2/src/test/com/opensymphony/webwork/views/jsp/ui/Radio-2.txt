@@ -1,0 +1,19 @@
+<tr>
+    <td align="right" valign="top">
+        <span class="label"> mylabel: </span>
+    </td>
+    <td>
+        <label>Two</label>
+        <input type="radio"
+               name="myname"
+               value="2"
+        />
+
+        <label>One</label>
+        <input type="radio"
+               checked="checked"
+               name="myname"
+               value="1"
+        />
+    </td>
+</tr>

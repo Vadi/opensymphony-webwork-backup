@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html">WebWork2 Documentation</a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Differences between WebWork Code and WebWork 2 Code
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ Lets enumerate some examples of differences between code snips using <a href="http://wiki.opensymphony.com/space/WebWork">WebWork</a> and <a href="index.html">WebWork2</a>.
+<ul class="star">
+<li><i class="italic">New JSP syntax</i></li>
+</ul><p class="paragraph"/>There are numerous changes in syntax. First of all there are new tags and secondly there is a new expression language. Here's a small example:<p class="paragraph"/><b class="bold">Webwork 1</b>
+<div class="code"><pre>&#60;ww:property value=<span class="xml&#45;quote">"a/b"</class>&#62;
+  &#60;ww:property value=<span class="xml&#45;quote">"foo"</class> /&#62;
+&#60;/ww:property&#62;</pre></div>
+<b class="bold">Webwork 2</b>
+<div class="code"><pre>&#60;ww:push value=<span class="xml&#45;quote">"a.b"</class>&#62;
+  &#60;ww:property value=<span class="xml&#45;quote">"foo"</class> /&#62;
+&#60;/ww:push&#62;</pre></div><p class="paragraph"/>One can note that the "push" tag doesn't just push it pops too at the end of the tag. Surprise! Also note the "." instead of the "/" for traversing object properties.
+<ul class="star">
+<li><i class="italic">List errors posted by an Action</i></li>
+</ul>
+<b class="bold">Webwork 1</b>
+<div class="code"><pre>&#60;webwork:if test=<span class="xml&#45;quote">"hasErrorMessages == true"</class>&#62;
+  ERROR:&#60;br /&#62;
+  &#60;font color=<span class="xml&#45;quote">"red"</class>&#62;
+    &#60;webwork:iterator value=<span class="xml&#45;quote">"errorMessages"</class>&#62;
+      &#60;webwork:property/&#62;&#60;br /&#62;
+    &#60;/webwork:iterator&#62;
+  &#60;/font&#62;
+&#60;/webwork:if&#62;</pre></div>
+<b class="bold">Webwork 2</b>
+<div class="code"><pre>&#60;webwork:if test=<span class="xml&#45;quote">"hasErrors()"</class>&#62;
+  ERROR:&#60;br /&#62;
+  &#60;font color=<span class="xml&#45;quote">"red"</class>&#62;
+    &#60;webwork:iterator value=<span class="xml&#45;quote">"actionErrors"</class>&#62;
+      &#60;webwork:property/&#62;&#60;br /&#62;
+    &#60;/webwork:iterator&#62;
+  &#60;/font&#62;
+&#60;/webwork:if&#62;</pre></div>
+
+  </div>
+</body>
+</html>

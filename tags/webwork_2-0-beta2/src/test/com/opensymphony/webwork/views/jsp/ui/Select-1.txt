@@ -1,0 +1,14 @@
+<tr>
+    <td align="right" valign="top">
+        <span class="label"> mylabel: </span>
+    </td>
+    <td>
+        <select name="foo"
+        >
+            <option value="headerKey">headerValue</option>
+            <option value=""></option>
+            <option value="hello" selected >world</option>
+            <option value="foo" >bar</option>
+        </select>
+    </td>
+</tr>

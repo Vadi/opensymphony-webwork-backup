@@ -1,0 +1,99 @@
+body, table, td, p, li {
+    font-family: verdana,arial,helvetica;
+    font-size: 12px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #164a7d;
+    text-align: left;
+}
+
+p {
+    width: 90%;
+}
+
+acronym, abbr {
+    border-bottom: 1px dotted #cccccc;
+    font-style: normal;
+}
+
+hr {
+    color: #164a7d;
+}
+
+table, td, p, li {
+    line-height: 1.5em;
+}
+
+em {
+    line-height: 2.0em;
+}
+
+table {
+    border: solid 1px #cccccc;
+    width: 90%;
+}
+
+th {
+    color: #000000;
+    background-color: #f4f4f4;
+    border-bottom: solid 1px #cccccc;
+}
+
+pre {
+    font-family: monospace;
+    font-size: 90%;
+    padding: 5px;
+    border: solid 1px #cccccc;
+    background-color: #f4f4f4;
+    width: 90%;
+}
+
+a, a:visited {
+    color: #164a7d;
+}
+
+.content {
+    margin-left: 15px;
+}
+
+.bannerrow {
+    padding: 8px;
+    border-bottom: solid 1px #164a7d;
+    color: #164a7d;
+    background-color: #cccccc;
+}
+
+.title {
+    padding: 0px;
+    margin: 0px;
+    color: #164a7d;
+    background-color: #cccccc;
+}
+
+.subheader {
+    color: #164a7d;
+    background-color: #ffffff;
+    font-weight: bold;
+    line-height: 1.5em;
+    margin: 10px 0px;
+}
+
+.rowtitle {
+    color: #000000;
+    background-color: #f4f4f4;
+    border-right: solid 1px #cccccc;
+}
+
+.altrow {
+    color: #000000;
+    background-color: #fafafa;
+}
+
+.conditional {
+    font-weight: bold;
+}
+
+.required {
+    font-weight: bold;
+}

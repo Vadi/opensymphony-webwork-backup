@@ -1,0 +1,83 @@
+#parse("/tigris-macros.vm")
+#startPage("Action information")
+<h3>Action information - $actionName</h3>
+
+#set ($params = "")
+#foreach ($name in $config.params.keySet())
+	#set ($params = "$name = $config.params.get($name)<br>")
+#end
+<table>
+	<tr><td width="100%">
+#bodytag (Form)
+	#tag (Label "label='Action name'" "name=actionName")
+	#tag (Label "label='Namespace'" "name=namespace")
+	#tag (Label "label='Action class'" "name=config.class")
+	#tag (Label "label='Action method'" "name=config.method.name")
+	#tag (Label "label='Parameters'" "name='$params'")
+	#tag (Label "label='Location'" "name='<a href=\"${req.contextPath}${namespace}/${actionName}.action\">${req.contextPath}${namespace}/${actionName}.action</a>'")
+#end
+
+	</td><td style="text-align: right;"><!-- Placeholder for Action Graph --></td></tr>
+</table>
+<!-- URLTag is faulty -->
+#set($url = "showConfig.action?namespace=$namespace&actionName=$actionName&detailView=")
+<!-- Set all to false -->
+#set($detailsSelected = false)
+#set($interceptorsSelected = false)
+#set($propertiesSelected = false)
+<!-- Set selected to true -->
+#if($detailView == "results")
+	#set($detailsSelected = true)
+#elseif($detailView == "interceptors")
+	#set($interceptorsSelected = true)
+#else
+	#set($propertiesSelected = true)
+#end
+
+#startTabs()
+	#tab("Results" "${url}results" $detailsSelected)
+	#tab("Interceptors" "${url}interceptors" $interceptorsSelected)
+	#tab("Properties" "${url}properties" $propertiesSelected)
+#endTabs()
+
+#if($detailsSelected)
+	<!-- Action results -->
+    <table width="100%">
+    	<tr><th>Name</th><th>Type</th><th>Parameters</th></tr>
+    	#foreach ($r in $config.results)
+    		#rows()
+    			<td>$r.name</td>
+    			<td>$r.clazz.name</td>
+    			<td>
+    				#foreach ($name in $r.params.keySet())
+    					$name = $r.params.get($name)<br>
+    				#end
+    			</td>
+    		</tr>
+    	#end
+    </table>
+#elseif ($interceptorsSelected)
+	<!-- Action interceptors -->
+    <table width="100%">
+        <tr><th>Name</th><th>Type</th></tr>
+        #foreach ($i in $config.interceptors)
+    		#rows()
+    			<td>$action.stripPackage($i.class)</td>
+    			<td>$i.class.name</td>
+    		</tr>
+    	#end
+    </table>
+#else
+    <table width="100%">
+        <tr><th>Name</th><th>Type</th></tr>
+        #foreach ($prop in $properties)
+    		#rows()
+    			<td>$prop.name</td>
+    			<td>$prop.propertyType</td>
+    		</tr>
+    	#end
+    </table>
+
+#end
+
+#endPage()

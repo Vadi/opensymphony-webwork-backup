@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html">WebWork2 Documentation</a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Chat Application
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ The following is a sample application I did to study how webwork works. Hopefully it'll help other newbies gain footing on this great framework. Having said that, if I have made some mistakes in this example, or if there is a better way of doing things, please feel free to contribute to this wiki.<p class="paragraph"/>The application works like a mini-BBS. Users login to the application with a nickname. The user session is saved in a session scoped component. Once logged in, they can leave quips or messages.<p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1">Basic Application and Environment Setup
+</h3>
+webwork.properties
+<div class="code"><pre># Nothing here&#8230; that's right, it's empty. Using the webwork defaults.</pre></div><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1">Action Classes
+</h3>
+LoginAction extends ActionSupport, which already implements some of the basic action methods. Additionally, it provides some validation support.<p class="paragraph"/>The two main methods we are concerned with in ActionSupport are validate() and execute().<p class="paragraph"/>(Note : this has changed from an earlier beta which uses doValidation() and doExecute(). )
+<h3 class="heading-1">Validation
+</h3>
+Validation is performed on your Action class if it implements Validatable (ActionSupport does), and your DefaultWorkflowInterceptor is activated on that action.
+<h3 class="heading-1">Execution
+</h3>
+execute() returns a String. This String will be used to determine which result is used.<p class="paragraph"/>The framework provides some default return Strings, namely 
+<div class="code"><pre>Action.SUCCESS = <span class="java&#45;quote">"success"</span>
+Action.INPUT = <span class="java&#45;quote">"input"</span>
+Action.NONE = <span class="java&#45;quote">"none"</span>
+Action.ERROR = <span class="java&#45;quote">"error"</span>
+Action.LOGIN = <span class="java&#45;quote">"login"</span></pre></div>
+For example, lets take a look at the relevant part of our xwork.xml configuration for LoginAction ...
+xwork.xml
+<div class="code"><pre>&#60;action name=<span class="java&#45;quote">"login"</span> class=<span class="java&#45;quote">"example.LoginAction"</span>&#62; 
+  &#60;result name=<span class="java&#45;quote">"success"</span> type=<span class="java&#45;quote">"chain"</span>&#62; 
+    &#60;param name=<span class="java&#45;quote">"actionName"</span>&#62;viewMessages&#60;/param&#62; &#60;/result&#62;
+  &#60;result name=<span class="java&#45;quote">"input"</span> type=<span class="java&#45;quote">"chain"</span>&#62; 
+    &#60;param name=<span class="java&#45;quote">"actionName"</span>&#62;viewMessages&#60;/param&#62; &#60;/result&#62;
+&#60;/action&#62;</pre></div>
+If execute() returns a String of "success", the result with attribute "success" will be used. If doExecute() returns a String of "input", the result with attribute "success" will be used.<p class="paragraph"/>You can define your own return results. For example,
+<div class="code"><pre><span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> doExecute() &#123;
+  <span class="java&#45;keyword">return</span> <span class="java&#45;quote">"resetPassword"</span>;
+&#125;</pre></div>
+<div class="code"><pre>&#60;action name=<span class="java&#45;quote">"login"</span> class=<span class="java&#45;quote">"example.LoginAction"</span>&#62; 
+  &#60;result name=<span class="java&#45;quote">"resetPassword"</span> type=<span class="java&#45;quote">"chain"</span>&#62; 
+    &#60;param name=<span class="java&#45;quote">"actionName"</span>&#62;viewResetPassword&#60;/param&#62; &#60;/result&#62;
+&#60;/action&#62;</pre></div>
+<h3 class="heading-1">Context Variables / Mapping
+</h3><p class="paragraph"/>LoginAction.java
+<div class="code"><pre><span class="java&#45;keyword">public</span> class LoginAction <span class="java&#45;keyword">extends</span> ActionSupport &#123;<p class="paragraph"/>	<span class="java&#45;keyword">private</span> <span class="java&#45;object">String</span> loginName;<p class="paragraph"/>	<span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> getLoginName() &#123;
+		<span class="java&#45;keyword">return</span> loginName;
+	&#125;<p class="paragraph"/>	<span class="java&#45;keyword">public</span> void setLoginName(<span class="java&#45;object">String</span> loginName) &#123;
+		<span class="java&#45;keyword">this</span>.loginName = loginName;
+	&#125;
+&#125;</pre></div>
+If you notice, login has a bean property loginName. This property will be set automatically by webwork from your web forms.
+<div class="code"><pre>&#60;form method=<span class="java&#45;quote">"POST"</span> action=<span class="java&#45;quote">"login.action"</span>&#62;
+  &#60;input type=<span class="java&#45;quote">"text"</span> name=<span class="java&#45;quote">"loginName"</span> size=<span class="java&#45;quote">"20"</span>&#62;
+  &#60;input type=<span class="java&#45;quote">"submit"</span> value=<span class="java&#45;quote">"Login"</span>&#62;
+&#60;/form&#62;</pre></div>
+Also, the bean property is available to your views. In velocity, this accessible via the VelocityContext
+<div class="code"><pre>$loginName</pre></div>
+which is mapped to getLoginName() from your Action class.<p class="paragraph"/>getLoginName() is mapped to $loginName. You can map any other object you wish. For example, I could have a User object, and thus...
+<div class="code"><pre>class User &#123;
+   <span class="java&#45;keyword">private</span> Account account;
+   <span class="java&#45;keyword">private</span> <span class="java&#45;object">String</span> name;
+   // with the relevant getX() methods...
+&#125;</pre></div>
+in my action class...
+<div class="code"><pre>class MyExampleAction &#123;
+   //...
+   User getUser() &#123;
+      returns user;
+   &#125;
+   //...
+&#125;</pre></div>
+and in my velocity template, have a 
+<div class="code"><pre>Welcome, $user.name.
+You last logged on at $user.lastLogin.
+You currently have $user.account.balance left in your account.</pre></div><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1">Result Types
+</h3>
+Predefined in webwork-default.xml
+<div class="code"><pre>&#60;result&#45;types&#62;
+            &#60;result&#45;type name=<span class="java&#45;quote">"dispatcher"</span> class=<span class="java&#45;quote">"com.opensymphony.webwork.dispatcher.ServletDispatcherResult"</span>/&#62;
+            &#60;result&#45;type name=<span class="java&#45;quote">"redirect"</span> class=<span class="java&#45;quote">"com.opensymphony.webwork.dispatcher.ServletRedirectResult"</span>/&#62;
+            &#60;result&#45;type name=<span class="java&#45;quote">"velocity"</span> class=<span class="java&#45;quote">"com.opensymphony.webwork.dispatcher.VelocityResult"</span>/&#62;
+            &#60;result&#45;type name=<span class="java&#45;quote">"chain"</span> class=<span class="java&#45;quote">"com.opensymphony.xwork.ActionChainResult"</span>/&#62;
+        &#60;/result&#45;types&#62;</pre></div><p class="paragraph"/>In our example, we have only used the results of &#60;chain&#62; and &#60;velocity&#62;.<p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1">Interceptors
+</h3>
+is there an order execution of the interceptors ? Which interceptor is executed first ?<p class="paragraph"/>Interceptors are called before the actions are invoked. With interceptors, you can "wrap" your action classes to provide additional services or functions. You can even prevent the execution of the action classes if you wish.<p class="paragraph"/>Some interceptors are predefined in webwork-default.xml
+<div class="code"><pre>&#60;interceptors&#62;
+            &#60;interceptor name=<span class="java&#45;quote">"component"</span> class=<span class="java&#45;quote">"com.opensymphony.xwork.interceptor.component.ComponentInterceptor"</span>/&#62;
+            &#60;interceptor name=<span class="java&#45;quote">"validation"</span> class=<span class="java&#45;quote">"com.opensymphony.xwork.validator.ValidationInterceptor"</span>/&#62;
+            &#60;interceptor name=<span class="java&#45;quote">"workflow"</span> class=<span class="java&#45;quote">"com.opensymphony.xwork.interceptor.DefaultWorkflowInterceptor"</span>/&#62;
+            &#60;interceptor&#45;stack name=<span class="java&#45;quote">"defaultStack"</span>&#62;
+                &#60;interceptor&#45;ref name=<span class="java&#45;quote">"timer"</span>/&#62;
+                &#60;interceptor&#45;ref name=<span class="java&#45;quote">"logger"</span>/&#62;
+                &#60;interceptor&#45;ref name=<span class="java&#45;quote">"<span class="java&#45;keyword">static</span>&#45;params"</span>/&#62;
+                &#60;interceptor&#45;ref name=<span class="java&#45;quote">"params"</span>/&#62;
+            &#60;/interceptor&#45;stack&#62;
+        &#60;/interceptors&#62;</pre></div><p class="paragraph"/>&#8230; more info on interceptor-ref<p class="paragraph"/>&#8230; more info on interceptor-stack<p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1">Components
+</h3>
+components.xml
+<div class="code"><pre>&#60;components&#62;<p class="paragraph"/>    &#60;component&#62; 
+      &#60;scope&#62;application&#60;/scope&#62;
+      &#60;class&#62;example.data.MessageList&#60;/class&#62;
+      &#60;enabler&#62;example.data.MessageListAware&#60;/enabler&#62;
+    &#60;/component&#62;<p class="paragraph"/>    &#60;component&#62; 
+      &#60;scope&#62;session&#60;/scope&#62;
+      &#60;class&#62;example.web.UserSession&#60;/class&#62;
+      &#60;enabler&#62;example.web.UserSessionAware&#60;/enabler&#62;
+    &#60;/component&#62;<p class="paragraph"/>  &#60;/components&#62;</pre></div><p class="paragraph"/>Two components, one to hold the application scoped chat messages, another to hold the user's session information (login account name, etc.) For all practical purposes, you can replace the application scoped component with a database. i.e. instead of reading/writing to the component, read/write to the database.<p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1">Comments
+</h3>
+Feedback welcome. I'm also a newbie, and may have misused the framework, coded some mistakes above. Apologies if that be the case.
+  </div>
+</body>
+</html>
