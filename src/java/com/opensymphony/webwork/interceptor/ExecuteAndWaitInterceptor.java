@@ -22,7 +22,7 @@ import java.util.Map;
  * <p/>
  * <p/>
  * <pre>
- *  &lt;meta http-equiv="refresh" content="5;url=&lyww:url includeParams="'all'" /&gt"/&gt;
+ *  &lt;meta http-equiv="refresh" content="5;url=&lt;ww:url includeParams="'all'" /&gt;"/&gt;
  * </pre>
  * <p/>
  * <p/>
