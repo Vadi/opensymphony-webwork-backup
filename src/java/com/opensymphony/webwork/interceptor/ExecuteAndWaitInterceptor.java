@@ -64,6 +64,9 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
                 session.remove(KEY + name);
                 actionInvocation.getStack().push(bp.getAction());
 
+                // if an exception occured during action execution, throw it here
+                if (bp.getException() != null) throw bp.getException();
+
                 return bp.getResult();
             }
         }
@@ -82,19 +85,22 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
     static class BackgroundProcess implements Serializable {
         private Action action;
         private ActionInvocation invocation;
+
         private String result;
+        private Exception exception;
+
         private boolean done;
 
         public BackgroundProcess(final String threadName, final ActionInvocation invocation, final int threadPriority) {
             this.invocation = invocation;
             this.action = invocation.getAction();
 
-            Thread t = new Thread(new Runnable() {
+            final Thread t = new Thread(new Runnable() {
                 public void run() {
                     try {
                         result = action.execute();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        exception = e;
                     }
 
                     done = true;
@@ -115,6 +121,10 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
 
         public String getResult() {
             return result;
+        }
+
+        public Exception getException() {
+            return exception;
         }
 
         public boolean isDone() {
