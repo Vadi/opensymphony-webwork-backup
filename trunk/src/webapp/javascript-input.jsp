@@ -9,7 +9,7 @@
         <ww:form name="'test'" action="'javascriptValidation'" validate="true" >
             <ww:textfield label="'Required String'" name="'requiredString'" required="true"/>
             <ww:textfield label="'Some Int'" name="'intRange'" required="true"/>
-            <ww:textfield label="'Email'" name="'email'" required="true"/>
+            <ww:select label="'Email (select)" name="'email'" list="{'Select', 'foo@bar.com', 'baz@biz.com'}"/>
             <ww:textfield label="'URL'" name="'url'" required="true"/>
             <ww:textfield label="'Date'" name="'date'" required="true"/>
             <tr><td colspan="2"><hr/></td></tr>
