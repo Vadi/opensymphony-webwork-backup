@@ -255,36 +255,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         }
     }
 
-    protected boolean shouldSet(Object key, Object value) {
-        if (value == null) {
-            return false;
-        }
-
-        if ((value instanceof String) && (((String) value).trim().length() < 1)) {
-            return false;
-        }
-
-        if (value instanceof String[]) {
-            String[] strArray = (String[]) value;
-
-            if (strArray.length < 1) {
-                return false;
-            }
-
-            if (strArray.length > 1) {
-                return true;
-            }
-
-            String str = strArray[0];
-
-            if (str.trim().length() < 1) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     /**
 * Wrap servlet request with the appropriate request. It will check to
 * see if request is a multipart request and wrap in appropriately.
