@@ -8,29 +8,23 @@ import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.webwork.views.util.UrlHelper;
-
-import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.ActionConfig;
-import com.opensymphony.xwork.validator.FieldValidator;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
-import org.apache.velocity.Template;
-import org.apache.velocity.context.Context;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
  * FormTag
+ *
  * @author Jason Carreira
- * Created Apr 1, 2003 8:19:47 PM
+ *         Created Apr 1, 2003 8:19:47 PM
  */
 public class FormTag extends AbstractClosingUITag {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -105,7 +99,11 @@ public class FormTag extends AbstractClosingUITag {
 
             ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
             if (actionConfig != null) {
-                actionClass = actionConfig.getClazz();
+                try {
+                    actionClass = ObjectFactory.getObjectFactory().getClassInstance(actionConfig.getClassName());
+                } catch (ClassNotFoundException e) {
+                    // this is ok
+                }
                 actionName = action;
                 String result = UrlHelper.buildUrl(namespace + "/" + action + "." + Configuration.get("webwork.action.extension"), request, response, null);
                 addParameter("action", result);

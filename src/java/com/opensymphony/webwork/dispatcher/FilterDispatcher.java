@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.WebWorkStatics;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
@@ -13,28 +12,19 @@ import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.ResultConfig;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 
 /**
- *
  * @author Jason Carreira
  */
 public class FilterDispatcher implements Filter, WebWorkStatics {
@@ -60,11 +50,10 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     /**
-     *
-     * @param servletRequest the servlet request.
+     * @param servletRequest  the servlet request.
      * @param servletResponse the servlet response.
-     * @param filterChain the filter chain.
-     * @throws IOException if an error occurs when executing the filter.
+     * @param filterChain     the filter chain.
+     * @throws IOException      if an error occurs when executing the filter.
      * @throws ServletException if an error occurs when executing the filter.
      */
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -112,7 +101,6 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     /**
-     *
      * @param filterConfig the filter configuration.
      * @throws ServletException if an error occurs when initializing this filter.
      */
@@ -125,13 +113,13 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         HashMap newConfig = new HashMap();
 
         for (Iterator iterator = namespaceActionConfigs.entrySet().iterator();
-                iterator.hasNext();) {
+             iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
             String namespace = (String) entry.getKey();
             Map actionConfigs = (Map) entry.getValue();
 
             for (Iterator configIterator = actionConfigs.entrySet().iterator();
-                    configIterator.hasNext();) {
+                 configIterator.hasNext();) {
                 Map.Entry entry2 = (Map.Entry) configIterator.next();
                 String actionName = (String) entry2.getKey();
                 ActionConfig actionConfig = (ActionConfig) entry2.getValue();
@@ -168,18 +156,18 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     /**
-     * <p>
+     * <p/>
      * getActionResultConfig returns the value of the location associated with a specified result and ActionConfig.  If
      * there is no associated view or the Result has been configured as something besides dispatcher, this method will
      * return null.
      * </p>
-     *
-     * <p>
+     * <p/>
+     * <p/>
      * Consider the following example xwork.xml configuration:
      * </p>
-     *
+     * <p/>
      * <pre>
-     *
+     * <p/>
      * &lt;action name="SimpleCounter" class="com.opensymphony.webwork.example.counter.SimpleCounter"&gt;
      *   &lt;result name="success" type="dispatcher"&gt;
      *     &lt;param name="location"&gt;/success.jsp&lt;/param&gt;
@@ -190,17 +178,17 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
      *   ...
      * &lt;/action&gt;
      * </pre>
-     *
-     * <p>
+     * <p/>
+     * <p/>
      * Assuming actionConfig references the above configuration
      * <ul>
-     *   <li>getActionConfig("success", actionConfig) will return /success.jsp</li>
-     *   <li>getActionConfig("input", actionConfig) will return null</li>
-     *   <li>and getActionConfig("failure", actionConfig) will also return null</li>
+     * <li>getActionConfig("success", actionConfig) will return /success.jsp</li>
+     * <li>getActionConfig("input", actionConfig) will return null</li>
+     * <li>and getActionConfig("failure", actionConfig) will also return null</li>
      * </ul>
      * </p>
      *
-     * @param result the name of the target we're testing against
+     * @param result       the name of the target we're testing against
      * @param actionConfig the action to be introspected
      * @return the path to the view is a view exists or null otherwise
      */
@@ -208,12 +196,12 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         Map results = actionConfig.getResults();
 
         ResultConfig resultConfig = (ResultConfig) results.get(result);
-        Class clazz = resultConfig.getClazz();
+        String className = resultConfig.getClassName();
 
         /**
          * getActionResultConfig is _only_ valid for ServletDispatchResults
          */
-        if ((clazz == null) || !clazz.equals(ServletDispatcherResult.class)) {
+        if ((className == null) || !className.equals(ServletDispatcherResult.class.getName())) {
             return null;
         }
 

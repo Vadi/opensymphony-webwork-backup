@@ -1,5 +1,6 @@
 package com.opensymphony.webwork.config_browser;
 
+import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import ognl.OgnlRuntime;
 import org.apache.commons.logging.Log;
@@ -71,7 +72,8 @@ public class ShowConfigAction extends ActionNamesAction {
         actionNames =
                 new TreeSet(ConfigurationHelper.getActionNames(namespace));
         try {
-            java.util.Collection pds = OgnlRuntime.getPropertyDescriptors(getConfig().getClazz()).values();
+            Class clazz = ObjectFactory.getObjectFactory().getClassInstance(getConfig().getClassName());
+            java.util.Collection pds = OgnlRuntime.getPropertyDescriptors(clazz).values();
             properties = (PropertyDescriptor[]) pds.toArray(PDSAT);
         } catch (Exception e) {
             log.error("Unable to get properties for action " + actionName, e);
