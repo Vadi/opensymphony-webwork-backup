@@ -6,7 +6,6 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.util.UrlHelper;
-import com.opensymphony.webwork.views.velocity.IterationRenderer;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;

@@ -9,7 +9,6 @@ import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
-import com.opensymphony.webwork.views.velocity.Renderer;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
@@ -44,7 +43,7 @@ import javax.servlet.jsp.JspException;
  * @author <a href="mailto:plightbo@hotmail.com">Pat Lightbody</a>
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
  */
-public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics, Renderer {
+public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(ActionTag.class);
@@ -112,20 +111,6 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         this.params = null;
         this.name = null;
         this.namespace = null;
-    }
-
-    /**
-     * executes the action under Velocity
-     * <p>
-     *   <i>com.opensymphony.webwork.views.velocity.Renderer implementation</i>
-     * </p>
-     *
-     * @param context
-     * @param writer
-     * @throws Exception
-     */
-    public void render(Context context, Writer writer) throws Exception {
-        executeAction();
     }
 
     String buildNamespace() {
