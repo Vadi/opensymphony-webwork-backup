@@ -38,19 +38,16 @@ import javax.servlet.http.HttpServlet;
  *
  */
 public abstract class AbstractServletDispatcherTestCase extends TestCase {
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    /**
-     *
-     */
-    public AbstractServletDispatcherTestCase(String name) {
-        super(name);
-    }
-
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getConfigFilename() {
         return "xwork.xml";
+    }
+
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        loadConfig();
     }
 
     public abstract ServletDispatcher getServletDispatcher();
