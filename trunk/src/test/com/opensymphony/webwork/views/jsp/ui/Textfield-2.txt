@@ -4,8 +4,8 @@
         </span></td>
   </tr>
   <tr>
-  <td align="right" valign="top"><label class="label">{mylabel}:</label></td>
-  <td>
+  <td align="right" valign="top" class="error"><label class="label">{mylabel}:</label></td>
+  <td class="error">
 <input type="text" name="foo" value="" />
   </td>
 </tr>
