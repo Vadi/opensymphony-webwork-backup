@@ -47,6 +47,9 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     static {
         try {
             THEME = Configuration.getString("webwork.ui.theme");
+            if (!THEME.endsWith("/")) {
+                THEME += "/";
+            }
         } catch (IllegalArgumentException e) {
             LOG.warn("Unable to find 'webwork.ui.theme' property setting. Defaulting to /template/xhtml/", e);
             THEME = "/template/xhtml/";

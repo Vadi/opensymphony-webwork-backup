@@ -12,7 +12,7 @@
 </tr>
 
 <benchmark:duration output="true">
-<ww:label label="'label test'" name="scalar"/>
+<ww:label label="'label test'" name="'scalar'" value="scalar"/>
 </benchmark:duration> ms</td></tr>
 
 <benchmark:duration output="true">
