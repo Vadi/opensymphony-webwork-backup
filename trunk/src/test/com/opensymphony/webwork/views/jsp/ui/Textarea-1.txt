@@ -9,6 +9,7 @@
                   onkeyup="alert('hello');"
                   tabindex="5"
                   onchange="alert('goodbye');"
+                  onclick="alert('onclick');"
                   id="the_id"
         >bar</textarea></td>
 </tr>

@@ -8,6 +8,7 @@
 #if ($parameters.onkeyup)          onkeyup="$!webwork.htmlEncode($parameters.onkeyup)"      #end
 #if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)"    #end
 #if ($parameters.onchange)         onchange="$!webwork.htmlEncode($parameters.onchange)"    #end
+#if ($parameters.onclick)          onclick="$!webwork.htmlEncode($parameters.onclick)"    #end
 #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
 #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"       #end
 #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"       #end

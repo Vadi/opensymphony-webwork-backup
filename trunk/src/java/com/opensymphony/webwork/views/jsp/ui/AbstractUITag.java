@@ -42,6 +42,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String labelPositionAttr;
     protected String nameAttr;
     protected String onchangeAttr;
+    protected String onclickAttr;
     protected String requiredAttr;
     protected String tabindexAttr;
     protected String templateAttr;
@@ -78,6 +79,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     public void setOnchange(String onchange) {
         this.onchangeAttr = onchange;
+    }
+
+    public void setOnclick(String onclick) {
+        this.onclickAttr = onclick;
     }
 
     public void setRequired(String required) {
@@ -239,6 +244,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
         if (onchangeAttr != null) {
             addParameter("onchange", findString(onchangeAttr));
+        }
+
+        if (onclickAttr != null) {
+            addParameter("onclick", findString(onclickAttr));
         }
 
         if (cssClassAttr != null) {
