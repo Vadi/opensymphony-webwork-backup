@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.TestConfigurationProvider;
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
 import com.opensymphony.xwork.config.ConfigurationManager;
@@ -60,6 +61,54 @@ public class FormTagTest extends AbstractUITagTest {
         fTag.doEndTag();
 
         verify(FormTag.class.getResource("Formtag-2.txt"));
+    }
+
+
+    /**
+     * Testing that this: <p>
+     * &lt;ww:form name=&quot;'myForm'&quot; action=&quot;'/testNamespace/testNamespaceAction.jspa'&quot; method=&quot;'POST'&quot;&gt;
+     * <p>
+     * doesn't create an action of &quot;/testNamespace/testNamespaceAction.action&quot;
+     */
+    public void testFormTagWithDifferentActionExtensionHardcoded() throws Exception {
+        request.setupGetServletPath("/testNamespace/testNamespaceAction");
+
+        FormTag tag = new FormTag();
+        tag.setPageContext(pageContext);
+        tag.setAction("'/testNamespace/testNamespaceAction.jspa'");
+        tag.setMethod("'POST'");
+        tag.setName("'myForm'");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(FormTag.class.getResource("Formtag-5.txt"));
+    }
+
+    /**
+     * Testing that this: <p>
+     * &lt;ww:form name=&quot;'myForm'&quot; namespace=&quot;'/testNamespace'&quot; action=&quot;'testNamespaceAction'&quot; method=&quot;'POST'&quot;&gt;
+     * <p>
+     * doesn't create an action of &quot;/testNamespace/testNamespaceAction.action&quot; when the &quot;webwork.action.extension&quot;
+     * config property is set to &quot;jspa&quot;.
+     */
+    public void testFormTagWithDifferentActionExtension() throws Exception {
+        request.setupGetServletPath("/testNamespace/testNamespaceAction");
+        Configuration.set("webwork.action.extension","jspa");
+
+        FormTag tag = new FormTag();
+        tag.setPageContext(pageContext);
+        tag.setNamespace("'/testNamespace'");
+        tag.setAction("'testNamespaceAction'");
+        tag.setMethod("'POST'");
+        tag.setName("'myForm'");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(FormTag.class.getResource("Formtag-5.txt"));
+        // set it back to the default
+        Configuration.set("webwork.action.extension","action");
     }
 
     public void testForm() throws Exception {
