@@ -65,7 +65,7 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
         responseMock = new Mock(HttpServletResponse.class);
 
         requestMock = new Mock(HttpServletRequest.class);
-        requestMock.matchAndReturn("getContextPath", "/context/");
+        requestMock.matchAndReturn("getContextPath", "/context");
 
         ActionContext ac = new ActionContext(Ognl.createDefaultContext(null));
         ActionContext.setContext(ac);
