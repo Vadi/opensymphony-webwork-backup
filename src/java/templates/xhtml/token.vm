@@ -1,2 +1,2 @@
-<input type="hidden" name="${tag.tokenNameField}" value="${tag.name}"/>
-<input type="hidden" name="${tag.name}" value="${tag.token}"/>
+<input type="hidden" name="${tag.tokenNameField}" value="$parameters.name"/>
+<input type="hidden" name="$parameters.name" value="$parameters.token"/>

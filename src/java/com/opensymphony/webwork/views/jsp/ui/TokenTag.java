@@ -28,15 +28,7 @@ public class TokenTag extends AbstractUITag {
 
     final public static String TEMPLATE = "token.vm";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
-
-    String token;
-
     //~ Methods ////////////////////////////////////////////////////////////////
-
-    public String getToken() {
-        return token;
-    }
 
     public String getTokenNameField() {
         return TokenHelper.TOKEN_NAME_FIELD;
@@ -51,32 +43,14 @@ public class TokenTag extends AbstractUITag {
      * @throws JspException
      */
     public int doEndTag() throws JspException {
-        //if (name == null) {
-        //    name = TokenHelper.DEFAULT_TOKEN_NAME;
-        //}
+        if (nameAttr == null) {
+            nameAttr = TokenHelper.DEFAULT_TOKEN_NAME;
+        }
 
-        //token = buildToken(name.toString());
+        String token = buildToken(nameAttr.toString());
+        addParam("token", token);
 
         return super.doEndTag();
-    }
-
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        token = null;
-        //name = null;
-    }
-
-    public void render(Context context, Writer writer) throws Exception {
-        //if (name == null) {
-        //    name = TokenHelper.DEFAULT_TOKEN_NAME;
-        //}
-
-        //token = buildTokenForVelocity(context, name.toString());
-
-        super.render(context, writer);
     }
 
     protected String getDefaultTemplate() {
@@ -91,19 +65,6 @@ public class TokenTag extends AbstractUITag {
             verifySession();
             myToken = TokenHelper.setToken(name.toString());
             pageContext.setAttribute(name, myToken);
-        }
-
-        return myToken.toString();
-    }
-
-    private String buildTokenForVelocity(Context context, String name) {
-        Object myToken = context.get(name);
-
-        if (myToken == null) {
-            verifySession();
-            ;
-            myToken = TokenHelper.setToken(name.toString());
-            context.put(name, myToken);
         }
 
         return myToken.toString();
