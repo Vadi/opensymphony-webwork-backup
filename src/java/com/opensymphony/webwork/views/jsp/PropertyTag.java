@@ -29,9 +29,14 @@ public class PropertyTag extends TagSupport {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    private String defaultValue;
     private String value;
 
     //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setDefault(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
 
     public void setValue(String value) {
         this.value = value;
@@ -40,16 +45,26 @@ public class PropertyTag extends TagSupport {
     public int doStartTag() throws JspException {
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
-        if (stack != null) {
-            try {
+        try {
+            if ((stack != null) && (stack.size() > 0)) {
+                Object actualValue = null;
+
                 if (value == null) {
-                    pageContext.getOut().print(stack.getRoot().peek());
+                    actualValue = stack.getRoot().peek();
                 } else {
-                    pageContext.getOut().print(stack.findValue(value, String.class));
+                    actualValue = stack.findValue(value, String.class);
                 }
-            } catch (IOException e) {
-                log.info("Could not print out value '" + value + "': " + e.getMessage());
+
+                if (actualValue != null) {
+                    pageContext.getOut().print(actualValue);
+                } else if (defaultValue != null) {
+                    pageContext.getOut().print(defaultValue);
+                }
+            } else if (defaultValue != null) {
+                pageContext.getOut().print(defaultValue);
             }
+        } catch (IOException e) {
+            log.info("Could not print out value '" + value + "': " + e.getMessage());
         }
 
         return EVAL_PAGE;
@@ -61,5 +76,6 @@ public class PropertyTag extends TagSupport {
     public void release() {
         super.release();
         this.value = null;
+        this.defaultValue = null;
     }
 }

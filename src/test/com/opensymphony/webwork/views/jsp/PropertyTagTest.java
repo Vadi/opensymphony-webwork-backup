@@ -25,6 +25,73 @@ import javax.servlet.jsp.JspException;
 public class PropertyTagTest extends TestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    public void testDefaultValue() {
+        PropertyTag tag = new PropertyTag();
+
+        Foo foo = new Foo();
+
+        OgnlValueStack stack = new OgnlValueStack();
+        stack.push(foo);
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        ActionContext.getContext().setValueStack(stack);
+
+        MockJspWriter jspWriter = new MockJspWriter();
+        jspWriter.setExpectedData("TEST");
+
+        MockPageContext pageContext = new MockPageContext();
+        pageContext.setJspWriter(jspWriter);
+        pageContext.setRequest(request);
+
+        tag.setPageContext(pageContext);
+        tag.setValue("title");
+        tag.setDefault("TEST");
+
+        try {
+            tag.doStartTag();
+        } catch (JspException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        request.verify();
+        jspWriter.verify();
+        pageContext.verify();
+    }
+
+    public void testNull() {
+        PropertyTag tag = new PropertyTag();
+
+        Foo foo = new Foo();
+
+        OgnlValueStack stack = new OgnlValueStack();
+        stack.push(foo);
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        ActionContext.getContext().setValueStack(stack);
+
+        MockJspWriter jspWriter = new MockJspWriter();
+        jspWriter.setExpectedData("");
+
+        MockPageContext pageContext = new MockPageContext();
+        pageContext.setJspWriter(jspWriter);
+        pageContext.setRequest(request);
+
+        tag.setPageContext(pageContext);
+        tag.setValue("title");
+
+        try {
+            tag.doStartTag();
+        } catch (JspException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        request.verify();
+        jspWriter.verify();
+        pageContext.verify();
+    }
+
     public void testSimple() {
         PropertyTag tag = new PropertyTag();
 
