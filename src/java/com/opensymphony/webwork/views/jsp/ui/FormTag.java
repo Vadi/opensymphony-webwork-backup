@@ -36,18 +36,24 @@ public class FormTag extends AbstractClosingUITag {
     Class actionClass;
     List fieldParameters;
     List fieldValidators;
-    String actionAttr;
     String actionName;
+    JavaScriptValidationHolder javaScriptValidationHolder;
+
+    String actionAttr;
+    String targetAttr;
     String enctypeAttr;
     String methodAttr;
     String namespaceAttr;
     String validateAttr;
-    JavaScriptValidationHolder javaScriptValidationHolder;
-    
+
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAction(String action) {
         this.actionAttr = action;
+    }
+
+    public void setTarget(String target) {
+        this.targetAttr = target;
     }
 
     public Class getActionClass() {
@@ -100,7 +106,7 @@ public class FormTag extends AbstractClosingUITag {
                 response = ServletActionContext.getResponse();
             }
 
-            String action = (String) findString(actionAttr);
+            final String action = (String) findString(actionAttr);
             String namespace;
 
             if (namespaceAttr == null) {
@@ -113,7 +119,7 @@ public class FormTag extends AbstractClosingUITag {
                 namespace = "";
             }
 
-            ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
+            final ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
 
             if (actionConfig != null) {
                 try {
@@ -130,13 +136,17 @@ public class FormTag extends AbstractClosingUITag {
                 String result = UrlHelper.buildUrl(action, request, response, null);
                 addParameter("action", result);
             }
-            
+
             // only create the javaScriptValidationHolder if the actionName,and class is known
             // and the javaScriptValidationHolder hasn't been created already
             // i.e. don'r re-create it on the second call to evaluateExtraParams
             if (actionName != null && actionClass != null && javaScriptValidationHolder == null) {
                 javaScriptValidationHolder = new JavaScriptValidationHolder(actionName, actionClass, getStack());
             }
+        }
+
+        if (targetAttr != null) {
+            addParameter("target", findString(targetAttr));
         }
 
         if (enctypeAttr != null) {
@@ -150,8 +160,7 @@ public class FormTag extends AbstractClosingUITag {
         if (validateAttr != null) {
             addParameter("validate", findValue(validateAttr, Boolean.class));
         }
-        
-        
+
         if (javaScriptValidationHolder != null && javaScriptValidationHolder.hasValidators()) {
             addParameter("javascriptValidation", javaScriptValidationHolder.toJavaScript());
         } else {
@@ -166,7 +175,7 @@ public class FormTag extends AbstractClosingUITag {
     protected boolean evaluateNameValue() {
         return false;
     }
-    
+
     /**
      * Resets the attributes of this tag so that the tag may be reused.  As a general rule, only
      * properties that are not specified as an attribute or properties that are derived need to be
@@ -176,16 +185,16 @@ public class FormTag extends AbstractClosingUITag {
      */
     protected void reset() {
         super.reset();
-        
+
         javaScriptValidationHolder = null;
         if (getActionName() != null && getActionClass() != null) {
             javaScriptValidationHolder = new JavaScriptValidationHolder(getActionName(), getActionClass(), getStack());
         }
     }
-    
+
     /**
-     * provide access to the JavaScriptValidationHolder so that the AbstractUITag 
-     * can trigger the registration of all validators
+     * Provide access to the JavaScriptValidationHolder so that the AbstractUITag
+     * can trigger the registration of all validators.
      * @return
      */
     JavaScriptValidationHolder getJavaScriptValidationHolder() {
