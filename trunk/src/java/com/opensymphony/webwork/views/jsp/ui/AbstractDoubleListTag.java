@@ -58,11 +58,7 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
         }
         
         if (doubleListAttr != null) {
-            Object value = findValue(doubleListAttr);
-            addParam("doubleList", MakeIterator.convert(value));
-            if (value instanceof Collection) {
-                addParam("doubleListSize", new Integer(((Collection) value).size()));
-            }
+            addParam("doubleList", doubleListAttr);
         }
 
         if (doubleListKeyAttr != null) {
