@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html">WebWork2 Documentation</a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Webwork 2 skinning
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ Skinning in Webwork 2 can be done more than one way.  We will show how to use two skins called "html" and "wml", and we'll be working with the following directory structure:<p class="paragraph"/><div class="code"><pre>/WEB&#45;INF
+   /web.xml
+/html
+   /index.jsp
+   /Register.jsp
+/wml
+   /index.jsp
+   /Register.jsp
+/index.jsp</pre></div>
+<h3 class="heading-1-1">Classic Approach
+</h3>
+If you want to go the Webwork 1.3 route, simply place all actions in the default namespace so that they are accessible from any URL path.  When you create your views, place them in the sub-directory that corresponds with the skin's identifier.<p class="paragraph"/>
+Your action configuration would look like this (simplified, without defined interceptors):
+<div class="code"><pre>&#60;<span class="java&#45;keyword">package</span> name=<span class="java&#45;quote">"<span class="java&#45;keyword">default</span>"</span>&#62;
+   &#60;action name=<span class="java&#45;quote">"registration"</span> class=<span class="java&#45;quote">"x.actionset.Register"</span>&#62;
+      &#60;result name=<span class="java&#45;quote">"success"</span> type=<span class="java&#45;quote">"dispatcher"</span>&#62;
+         &#60;param name=<span class="java&#45;quote">"location"</span>&#62;Register.jsp&#60;/param&#62;
+      &#60;/result&#62;
+      &#60;interceptor&#45;ref name=<span class="java&#45;quote">"defaultStack"</span>/&#62;
+   &#60;/action&#62;
+&#60;/<span class="java&#45;keyword">package</span>&#62;</pre></div><p class="paragraph"/>If a user requested <span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="http://yoursite/html/register.action,">&#104;ttp://yoursite/html/register.action,</a></span> he would see the JSP located at /html/Register.jsp.
+<h3 class="heading-1-1">Namespace Defined
+</h3>
+If you require the use of namespaces, you can do the following:<p class="paragraph"/>Simplified configuration example:
+<div class="code"><pre>&#60;<span class="java&#45;keyword">package</span> name=<span class="java&#45;quote">"user"</span> <span class="java&#45;keyword">extends</span>=<span class="java&#45;quote">"<span class="java&#45;keyword">default</span>"</span>&#62;
+   &#60;action name=<span class="java&#45;quote">"register"</span> class=<span class="java&#45;quote">"x.x.actionset.Register"</span>&#62;
+      &#60;result name=<span class="java&#45;quote">"success"</span> type=<span class="java&#45;quote">"dispatcher"</span>&#62;
+         &#60;param name=<span class="java&#45;quote">"location"</span>&#62;Register.jsp&#60;/param&#62;
+      &#60;/result&#62;<p class="paragraph"/>      &#60;interceptor&#45;ref name=<span class="java&#45;quote">"defaultStack"</span>/&#62;
+  &#60;/action&#62;
+&#60;/<span class="java&#45;keyword">package</span>&#62;<p class="paragraph"/>&#60;<span class="java&#45;keyword">package</span> name=<span class="java&#45;quote">"user&#45;html"</span> <span class="java&#45;keyword">extends</span>=<span class="java&#45;quote">"user"</span> namespace=<span class="java&#45;quote">"/user/html"</span> /&#62;
+&#60;<span class="java&#45;keyword">package</span> name=<span class="java&#45;quote">"user&#45;wml"</span> <span class="java&#45;keyword">extends</span>=<span class="java&#45;quote">"user"</span> namespace=<span class="java&#45;quote">"/user/wml"</span> /&#62;</pre></div><p class="paragraph"/>The last two package definitions extend the first package, changing only the namespace.  The view result defined in the "register" action has a relative path.  Because of this, you'll get the same behavior as the Classic Approach, but with the security of knowing that ONLY those two paths can be accessed for the action, instead of ANY path.
+  </div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html">WebWork2 Documentation</a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">WW2 UI Tags
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ <h3 class="heading-1">WebWork 2 UI Tags <a name="top"/><a href="uitags.html#top" title="Permalink to top"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a>
+</h3><p class="paragraph"/>Click on a tag to find more information on the tag.<p class="paragraph"/><table class="wiki-table" cellpadding="0" cellspacing="0" border="0"><tr><th>Tag Name</th><th>Description</th></tr><tr class="table-odd"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#checkbox">checkbox</a></span></td><td>render a checkbox input field</td></tr><tr class="table-even"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#component">component</a></span></td><td>render a custom ui widget</td></tr><tr class="table-odd"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#doubleselect">doubleselect</a></span></td><td>renders a nested select</td></tr><tr class="table-even"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#file">file</a></span></td><td>renders a file select input field</td></tr><tr class="table-odd"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#form">form</a></span></td><td>defines an input form</td></tr><tr class="table-even"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#hidden">hidden</a></span></td><td>render a hidden field</td></tr><tr class="table-odd"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#label">label</a></span></td><td>render a label that displays read-only information</td></tr><tr class="table-even"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#password">password</a></span></td><td>render a password input field</td></tr><tr class="table-odd"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#radio">radio</a></span></td><td>renders a radio button input field</td></tr><tr class="table-even"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#select">select</a></span></td><td>renders a select element</td></tr><tr class="table-odd"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#submit">submit</a></span></td><td>renders a submit button</td></tr><tr class="table-even"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#textfield">textfield</a></span></td><td>renders an input field of type text</td></tr><tr class="table-odd"><td><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#textarea">textarea</a></span></td><td>renders a text area input field</td></tr></table><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">checkbox tag</b> <a name="checkbox"/><a href="uitags.html#checkbox" title="Permalink to checkbox"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/>Renders an HTML &#60;input&#62; element of type checkbox, populated by the specified property from the OgnlValueStack.<p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre>JSP
+    &#60;ww:checkbox label=<span class="java&#45;quote">"checkbox test"</span> name=<span class="java&#45;quote">"checkboxField1"</span>/&#62;<p class="paragraph"/>Velocity
+    #tag( Checkbox <span class="java&#45;quote">"label=checkbox test"</span> <span class="java&#45;quote">"name=checkboxField1"</span> )</pre></div><p class="paragraph"/><b class="bold">Attributes</b>
+<ul class="star">
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#label">label</a></span>  - <b class="bold">required</b></li>
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#name">name</a></span></li>
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#value">value</a></span></li>
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#onchange">onchange</a></span></li>
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#template">template</a></span></li>
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#theme">theme</a></span></li>
+</ul><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">component tag</b> <a name="component"/><a href="uitags.html#component" title="Permalink to component"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/>Renders an custom UI widget using the specified templates.  Additional objects can be passed in to the template using the param tags.  Objects provided can be retrieve from within the template via $tag.Param.<b class="bold">paramname</b>.<p class="paragraph"/>In the bottom JSP and Velocity samples, two parameters are being passed in to the component.  From within the component, they can be accessed as $tag.getParams().get('key1') and $tags.getParams().get('key2').  Velocity also allows you reference them as $tag.Params.key1 and $tag.Params.key2.<p class="paragraph"/>Currently, your custom UI components <b class="bold">must</b> be written in Velocity.<p class="paragraph"/><b class="bold">Remember:</b> the value params will always be resolved against the OgnlValueStack so if you mean to pass a string literal to your component, make sure to wrap it in quotes i.e. value="'value1'" otherwise, the the value stack will search for an Object on the stack with a method of getValue1().  (now that i've written this, i'm not entirely sure this is the case.  i should verify this manana)<p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre>JSP
+    &#60;ww:component template=<span class="java&#45;quote">"/my/custom/component.vm"</span>/&#62;
+      or<p class="paragraph"/>    &#60;ww:component template=<span class="java&#45;quote">"/my/custom/component.vm"</span>&#62;
+      &#60;ww:param name=<span class="java&#45;quote">"key1"</span> value=<span class="java&#45;quote">"value1"</span>/&#62;
+      &#60;ww:param name=<span class="java&#45;quote">"key2"</span> value=<span class="java&#45;quote">"value2"</span>/&#62;
+    &#60;/ww:component&#62;<p class="paragraph"/>Velocity
+    #tag( Component <span class="java&#45;quote">"template=/my/custom/component.vm"</span> )<p class="paragraph"/>      or<p class="paragraph"/>    #bodytag( Component <span class="java&#45;quote">"template=/my/custom/component.vm"</span> )
+      #param( <span class="java&#45;quote">"key1"</span> <span class="java&#45;quote">"value1"</span> )
+      #param( <span class="java&#45;quote">"key2"</span> <span class="java&#45;quote">"value2"</span> )
+    #end</pre></div><p class="paragraph"/><b class="bold">Attributes</b>
+<ul class="star">
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#label">label</a></span></li>
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#name">name</a></span></li>
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#value">value</a></span></li>
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#required">required</a></span></li>
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#template">template</a></span> - <b class="bold">required</b></li>
+<li><span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#theme">theme</a></span></li>
+</ul><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">doubleselect tag</b> <a name="doubleselect"/><a href="uitags.html#doubleselect" title="Permalink to doubleselect"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">file tag</b> <a name="file"/><a href="uitags.html#file" title="Permalink to file"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><b class="bold">Attributes</b><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">form tag</b> <a name="form"/><a href="uitags.html#form" title="Permalink to form"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><b class="bold">Attributes</b><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">hidden tag</b> <a name="hidden"/><a href="uitags.html#hidden" title="Permalink to hidden"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><b class="bold">Attributes</b><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">label tag</b> <a name="label"/><a href="uitags.html#label" title="Permalink to label"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><b class="bold">Attributes</b><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">password tag</b> <a name="password"/><a href="uitags.html#password" title="Permalink to password"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><b class="bold">Attributes</b><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">radio tag</b> <a name="radio"/><a href="uitags.html#radio" title="Permalink to radio"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><b class="bold">Attributes</b><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">select tag</b> <a name="select"/><a href="uitags.html#select" title="Permalink to select"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><b class="bold">Attributes</b><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">submit tag</b> <a name="submit"/><a href="uitags.html#submit" title="Permalink to submit"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><b class="bold">Attributes</b><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">textfield tag</b> <a name="textfield"/><a href="uitags.html#textfield" title="Permalink to textfield"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><b class="bold">Attributes</b><p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1"><b class="bold">textarea tag</b> <a name="textarea"/><a href="uitags.html#textarea" title="Permalink to textarea"><img src="http://wiki.opensymphony.com/images/permalink.png" alt="" border="0"/></a> (<span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="#top">back to the top</a></span>)
+</h3><p class="paragraph"/><b class="bold">Sample Usages</b>
+<div class="code"><pre></pre></div><p class="paragraph"/><b class="bold">Attributes</b><p class="paragraph"/><hr class="line"/>
+To be completed ...<p class="paragraph"/><hr class="line"/>
+<h3 class="heading-1">Glossary
+</h3><p class="paragraph"/><table class="wiki-table" cellpadding="0" cellspacing="0" border="0"><tr><th>property</th><th>description</th><th>&#160;</th></tr><tr class="table-odd"><td>action</td><td>the name of the action to execute (should this value include the namespace?  or can you only execute actions in the same namespace?)</td></tr><tr class="table-even"><td>label</td><td>the text label to be associated with the ui widget.</td></tr><tr class="table-odd"><td>name</td><td>the name of the input field associated with this ui widget.  <br/>For example, <div class="code"><pre>&#60;ui:textfield label=<span class="java&#45;quote">"'Member ID'"</span> name=<span class="java&#45;quote">"'username'"</span>/&#62;</pre></div> would generate HTML that contained &#60;input &#8230; name="username" ...</td></tr></table>
+
+  </div>
+</body>
+</html>
