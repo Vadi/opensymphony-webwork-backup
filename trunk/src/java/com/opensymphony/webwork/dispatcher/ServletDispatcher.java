@@ -158,6 +158,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         extraContext.put("request", parameterMap);
         extraContext.put("session", sessionMap);
         extraContext.put("application", applicationMap);
+        extraContext.put("parameters", parameterMap);
 
         try {
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, extraContext);
