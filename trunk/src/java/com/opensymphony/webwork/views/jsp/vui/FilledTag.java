@@ -6,6 +6,10 @@ package com.opensymphony.webwork.views.jsp.vui;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import com.opensymphony.webwork.views.util.UrlHelper;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -71,11 +75,14 @@ public class FilledTag extends AbstractVUITag {
     }
 
     protected void initializeAttributes() {
-        String url = ((actionAttr != null) ? constructURL((String) findValue(actionAttr)) : null);
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
+
+        String url = ((actionAttr != null) ? UrlHelper.buildUrl((String) findValue(actionAttr), request, response, null) : null);
 
         if (url != null) {
             addParam("action", url);
-            url = ((actionaudioAttr != null) ? constructURL((String) findValue(actionaudioAttr)) : null);
+            url = ((actionaudioAttr != null) ? UrlHelper.buildUrl((String) findValue(actionaudioAttr), request, response, null) : null);
 
             if (url != null) {
                 addParam("actionaudio", url);
