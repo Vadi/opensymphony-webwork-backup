@@ -1,102 +1,150 @@
-#set( $items = ${stack.findValue($tag.list)} )
+#parse("/template/xhtml/controlheader.vm")
+
+<select name="$!parameters.name"
+    #if ($parameters.size)             size="$parameters.size"                              #end
+    #if ($parameters.disabled)         disabled="disabled"                                  #end
+    #if ($parameters.tabindex)         tabindex="$parameters.tabindex"                      #end
+    #if ($parameters.id)               id="$parameters.id"                                  #end
+    #if ($parameters.multiple)         multiple="multiple"                                  #end
+    #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"   #end
+    #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"   #end
+    onchange="$!{parameters.name}Redirect(this.options.selectedIndex)"
+>
+
+#set ( $startCount = 0)
+#if ($parameters.headerKey && $parameters.headerValue)
+    <option value="$!webwork.htmlEncode($parameters.headerKey)">$!webwork.htmlEncode($parameters.headerValue)</option>
+    #set ( $startCount = $startCount + 1)
+#end
+
+#if ($parameters.emptyOption)
+    <option value=""></option>
+    #set ( $startCount = $startCount + 1)
+#end
+
+#set( $items = $parameters.list )
 #if( $items )
-<select name="$!{tag.Name}" #if( $tag.Size > 0 )size="${tag.Size}" #end onChange="$!{tag.Name}Redirect(this.options.selectedIndex)">
-#foreach( $item in $items )
-  #if( $tag.ListKey )
-      #set( $itemKey = $ognl.findValue($tag.ListKey, $item) )
-  #else
-      #set( $itemKey = $item.toString() )
-  #end
-  #if( $tag.ListValue )
-      #set( $itemValue = $ognl.findValue($tag.ListValue, $item) )
-  #else
-      #set( $itemValue = $item.toString() )
-  #end
-  <option value="$!webwork.htmlEncode($itemValue)"#if( $tag.contains($tag.ActualValue, $itemValue) ) selected="selected"#end>$!{itemKey}</option>
+    #foreach( $item in $items )
+        $stack.push($item)
+
+        #if( $parameters.listKey )
+            #set( $itemKey = $stack.findValue($parameters.listKey) )
+        #else
+            #set( $itemKey = $item )
+        #end
+
+        #if( $parameters.listValue )
+            #set( $itemValue  = $stack.findValue($parameters.listValue) )
+        #else
+            #set( $itemValue = $item )
+        #end
+
+        <option value="$!webwork.htmlEncode($itemKey)"
+            #if( $tag.contains($parameters.nameValue, $itemKey) )selected="selected"#end
+        >$!webwork.htmlEncode($itemValue)</option>
+
+        #set ($trash = $stack.pop())
+    #end
 #end
 </select>
 
-<select name="$!{tag.DoubleName}" #if( $tag.Size > 0 )size="${tag.Size}" #end #if( $tag.Multiple ) multiple#end>
+<br/>
+
+<select name="$!parameters.doubleName"
+    #if ($parameters.doubleTabindex)   tabindex="$parameters.doubleTabindex"                #end
+    #if ($parameters.doubleId)         id="$parameters.doubleId"                            #end
+    #if ($parameters.multiple)         multiple="multiple"                                  #end
+    #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"   #end
+    #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"   #end
+>
 </select>
 
 <script type="text/javascript">
 <!--
-var $!{tag.Name}Group = new Array($items.size())
-for (i = 0; i < $items.size(); i++)
-$!{tag.Name}Group[i] = new Array()
+#set( $itemCount = $startCount )
+var $!{parameters.name}Group = new Array($items.size() + $startCount)
+for (i = 0; i < ($items.size() + $startCount); i++)
+$!{parameters.name}Group[i] = new Array()
 
-#set( $itemCount = 0 )
 #foreach( $item in $items )
-  #if( $tag.ListKey )
-      #set( $itemKey = $ognl.findValue($tag.ListKey, $item) )
-  #else
-      #set( $itemKey = $item.toString() )
-  #end
-  #if( $tag.ListValue )
-      #set( $itemValue = $ognl.findValue($tag.ListValue, $item) )
-  #else
-      #set( $itemValue = $item.toString() )
-  #end
+    $stack.push($item)
 
-## CHANGE YOUR DOUBLE ITEMS HERE, WILL BE FIXED BY USING OGNL, NEED TO FIX THIS
-  #set( $doubleItems = $item.getChildren())
-  #set( $doubleItemCount = 0 )
-
-  #if( $doubleItems )
-    #foreach( $doubleItem in $doubleItems )
-      #if( $tag.DoubleListKey )
-          #set( $doubleItemKey = $ognl.findValue($tag.DoubleListKey, $doubleItem) )
-      #else
-          #set( $doubleItemKey = $doubleItem.toString() )
-      #end
-      #if( $tag.DoubleListValue )
-          #set( $doubleItemValue = $ognl.findValue($tag.DoubleListValue, $doubleItem) )
-      #else
-          #set( $doubleItemValue = $doubleItem.toString() )
-      #end
-
-$!{tag.Name}Group[$itemCount][$doubleItemCount] = new Option("$doubleItemKey", "$doubleItemValue")
-
-      #set( $doubleItemCount = $doubleItemCount + 1 )
+    #if( $parameters.listKey )
+        #set( $itemKey = $stack.findValue($parameters.listKey) )
+    #else
+        #set( $itemKey = $item )
     #end
-    #set( $itemCount = $itemCount + 1 )
-  #end
+
+    #if( $parameters.listValue )
+        #set( $itemValue  = $stack.findValue($parameters.listValue) )
+    #else
+        #set( $itemValue = $item )
+    #end
+
+    #set( $doubleItems = $stack.findValue($parameters.doubleList) )
+    #set( $doubleItemCount = 0 )
+
+    #if( $doubleItems )
+        #foreach( $doubleItem in $doubleItems )
+            #if( $parameters.doubleListKey )
+                #set( $doubleItemKey = $stack.findValue($parameters.doubleListKey) )
+            #else
+                #set( $doubleItemKey = $doubleItem )
+            #end
+
+            #if( $parameters.doubleListValue )
+                #set( $doubleItemValue  = $stack.findValue($parameters.doubleListValue) )
+            #else
+                #set( $doubleItemValue = $doubleItem )
+            #end
+
+            $!{parameters.name}Group[$itemCount][$doubleItemCount] = new Option("$doubleItemKey", "$doubleItemValue")
+            #set( $doubleItemCount = $doubleItemCount + 1 )
+        #end
+
+        #set( $itemCount = $itemCount + 1 )
+    #end
+
+    #set ($trash = $stack.pop())
 #end
 
 ## CHANGE THE NAME OF YOUR FORM HERE, NEED TO FIX THIS
-var $!{tag.Name}Temp = document.inputform.$!{tag.DoubleName}
+var $!{parameters.name}Temp = document.$!{parameters.form.name}.$!{parameters.doubleName}
 
-#set( $itemCount = 0 )
+#set( $itemCount = $startCount )
 #set( $redirectTo = 0 )
 #foreach( $item in $items )
-  #if( $tag.ListValue )
-      #set( $itemValue = $ognl.findValue($tag.ListValue, $item) )
-  #else
-      #set( $itemValue = $item.toString() )
-  #end
+    $stack.push($item)
 
-  #if( $tag.contains($tag.ActualValue, $itemValue) )
-    #set( $redirectTo = $itemCount )
-  #end
-  #set( $itemCount = $itemCount + 1 )
+    #if( $parameters.listValue )
+        #set( $itemValue  = $stack.findValue($parameters.listValue) )
+    #else
+        #set( $itemValue = $item )
+    #end
+
+    #if( $tag.contains($parameters.nameValue, $itemKey) )
+        #set( $redirectTo = $itemCount )
+    #end
+    #set( $itemCount = $itemCount + 1 )
+
+    #set ($trash = $stack.pop())
 #end
 
-$!{tag.Name}Redirect($redirectTo)
+$!{parameters.name}Redirect($redirectTo)
 
-function $!{tag.Name}Redirect(x) {
-  for (m = $!{tag.Name}Temp.options.length - 1; m >= 0; m--)
-    $!{tag.Name}Temp.options[m] = null
+function $!{parameters.name}Redirect(x) {
+    for (m = $!{parameters.name}Temp.options.length - 1; m >= 0; m--)
+        $!{parameters.name}Temp.options[m] = null
 
-  for (i = 0; i < $!{tag.Name}Group[x].length; i++) {
-    $!{tag.Name}Temp.options[i] = new Option($!{tag.Name}Group[x][i].text, $!{tag.Name}Group[x][i].value)
-  }
+    for (i = 0; i < $!{parameters.name}Group[x].length; i++) {
+        $!{parameters.name}Temp.options[i] = new Option($!{parameters.name}Group[x][i].text, $!{parameters.name}Group[x][i].value)
+    }
 
-  if ($!{tag.Name}Temp.options.length > 0)
-    $!{tag.Name}Temp.options[0].selected = true
+    if ($!{parameters.name}Temp.options.length > 0)
+        $!{parameters.name}Temp.options[0].selected = true
 }
 //-->
 </script>
 
-#else
-  &nbsp;
-#end
+
+#parse("/template/xhtml/controlfooter.vm")
