@@ -29,15 +29,28 @@ public class ServletConfigInterceptor extends AroundInterceptor implements WebWo
 
     protected void before(ActionInvocation invocation) throws Exception {
         Action action = invocation.getAction();
+        ActionContext context = ActionContext.getContext();
 
-        if (action instanceof HttpServletRequestAware) {
-            HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(HTTP_REQUEST);
-            ((HttpServletRequestAware) action).setHttpServletRequest(request);
+        if (action instanceof ServletRequestAware) {
+            HttpServletRequest request = (HttpServletRequest) context.get(HTTP_REQUEST);
+            ((ServletRequestAware) action).setServletRequest(request);
         }
 
-        if (action instanceof HttpServletResponseAware) {
-            HttpServletResponse response = (HttpServletResponse) ActionContext.getContext().get(HTTP_RESPONSE);
-            ((HttpServletResponseAware) action).setHttpServletResponse(response);
+        if (action instanceof ServletResponseAware) {
+            HttpServletResponse response = (HttpServletResponse) context.get(HTTP_RESPONSE);
+            ((ServletResponseAware) action).setServletResponse(response);
+        }
+
+        if (action instanceof ParameterAware) {
+            ((ParameterAware) action).setParameters(context.getParameters());
+        }
+
+        if (action instanceof SessionAware) {
+            ((SessionAware) action).setSession(context.getSession());
+        }
+
+        if (action instanceof ApplicationAware) {
+            ((ApplicationAware) action).setApplication(context.getApplication());
         }
     }
 }
