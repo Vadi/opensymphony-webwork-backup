@@ -38,7 +38,7 @@ public class LabelTest extends AbstractUITagTest {
         verify(LabelTest.class.getResource("Label-1.txt"));
     }
 
-    public void testWithValue() throws Exception {
+    public void testWithNoValue() throws Exception {
         Template template = Velocity.getTemplate(AbstractUITag.THEME + LabelTag.TEMPLATE);
         Assert.assertNotNull(template); // ensure this is a valid decorators
 
@@ -48,7 +48,7 @@ public class LabelTest extends AbstractUITagTest {
         LabelTag tag = new LabelTag();
         tag.setPageContext(pageContext);
         tag.setLabel("'mylabel'");
-        tag.setName("foo");
+        tag.setName("'foo'");
 
         int result = tag.doEndTag();
 
