@@ -38,6 +38,8 @@
                 #if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)"    #end
                 #if ($parameters.onchange)         onchange="$!webwork.htmlEncode($parameters.onchange)"    #end
                 #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
+                #if ($parameters.get('class'))     class="$!webwork.htmlEncode($parameters.get('class'))"   #end
+                #if ($parameters.style)            style="$!webwork.htmlEncode($parameters.style)"          #end
                 />
             </td>
             <td width="100%" valign="top">
