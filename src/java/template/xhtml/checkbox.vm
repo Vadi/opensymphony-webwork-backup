@@ -15,7 +15,7 @@
     *#
 
 #if( $fieldErrors.get($parameters.name) )
-  #set ($errors = $fieldErrors.get($parameters.name))
+  #set ($hasFieldErrors = $fieldErrors.get($parameters.name))
   #foreach ($error in $fieldErrors.get($parameters.name))
     <tr>
         <td align="left" valign="top" colspan="2">
@@ -41,7 +41,7 @@
                 />
             </td>
             <td width="100%" valign="top">
-                #if ($errors)
+                #if ($hasFieldErrors)
                     <span class="checkboxErrorLabel">
                 #else
                     <span class="checkboxLabel">

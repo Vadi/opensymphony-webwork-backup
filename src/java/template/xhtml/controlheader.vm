@@ -2,7 +2,7 @@
 ## This will be done if ActionSupport is used.
 
 #if( $fieldErrors.get($parameters.name) )
-  #set ($errors = $fieldErrors.get($parameters.name))
+  #set ($hasFieldErrors = $fieldErrors.get($parameters.name))
   #foreach ($error in $fieldErrors.get($parameters.name))
     <tr>
         #if ($parameters.labelposition == 'top')
@@ -26,7 +26,7 @@
         <td align="right" valign="top">
     #end
 
-        #if ($errors)
+        #if ($hasFieldErrors)
             <span class="errorLabel">
         #else
             <span class="label">
