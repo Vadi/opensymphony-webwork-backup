@@ -110,7 +110,7 @@ public class URLTagTest extends TestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
 
         MockJspWriter jspWriter = new MockJspWriter();
-        jspWriter.setExpectedData("TestAction.action?parm1=value1");
+        jspWriter.setExpectedData("TestAction.action?param2=value2&param1=value1");
 
         MockPageContext pageContext = new MockPageContext();
         pageContext.setJspWriter(jspWriter);
@@ -122,7 +122,8 @@ public class URLTagTest extends TestCase {
 
         try {
             tag.doStartTag();
-            tag.addParam("parm1", "value1");
+            tag.addParam("param1", "value1");
+            tag.addParam("param2", "value2");
             tag.doEndTag();
         } catch (JspException ex) {
             ex.printStackTrace();
