@@ -17,7 +17,7 @@
 #parse("/template/xhtml/controlheader.vm")
 
 <input type="file"
-                                   name="$parameters.name"
+                                   name="$!parameters.name"
 #if ($parameters.size)             size="$parameters.size"            #end
 #if ($parameters.nameValue)        value="$parameters.nameValue"      #end
 #if ($parameters.disabled == true) disabled="disabled"                #end

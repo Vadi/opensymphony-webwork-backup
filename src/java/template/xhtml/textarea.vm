@@ -22,9 +22,9 @@
     *#
 #parse("/template/xhtml/controlheader.vm")
 
-<textarea name="$parameters.name"
-          cols="$parameters.cols"
-          rows="$parameters.rows"
+<textarea name="$!parameters.name"
+          cols="$!parameters.cols"
+          rows="$!parameters.rows"
 #if ($parameters.nameValue)        value="$parameters.nameValue"      #end
 #if ($parameters.disabled == true) disabled="disabled"                #end
 #if ($parameters.readonly)         readonly="readonly"                #end
@@ -32,6 +32,6 @@
 #if ($parameters.tabindex)         tabindex="$parameters.tabindex"    #end
 #if ($parameters.onchange)         onchange="$parameters.onchange"    #end
 #if ($parameters.id)               id="$parameters.id"                #end
->$parameters.nameValue</textarea>
+>$!parameters.nameValue</textarea>
 
 #parse("/template/xhtml/controlfooter.vm")
