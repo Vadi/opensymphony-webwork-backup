@@ -22,6 +22,7 @@ import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
+import freemarker.core.Environment;
 import freemarker.template.Configuration;
 import freemarker.template.ObjectWrapper;
 import freemarker.template.Template;
@@ -135,7 +136,12 @@ public class FreemarkerServlet extends HttpServlet {
                 }
             }
         } catch (TemplateException te) {
-            throw new ServletException("Error executing FreeMarker template", te);
+            // only throw a servlet exception if not a debug handler
+            // this is what the original freemarker.ext.servlet.FreemarkerServlet does
+            if (    configuration.getTemplateExceptionHandler() != freemarker.template.TemplateExceptionHandler.HTML_DEBUG_HANDLER 
+                 && configuration.getTemplateExceptionHandler() != freemarker.template.TemplateExceptionHandler.DEBUG_HANDLER) {
+               throw new ServletException(te);
+            }
         }
     }
 
