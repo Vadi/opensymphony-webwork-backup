@@ -3,7 +3,7 @@
   <td>
 <select name="myname"   >
           <option value="world">hello</option>
-          <option value="bar">foo</option>
+          <option value="bar" selected>foo</option>
 
 </select>
   </td>
