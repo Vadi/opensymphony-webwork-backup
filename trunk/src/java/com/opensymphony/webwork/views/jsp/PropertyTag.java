@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.util.TextUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,10 +28,12 @@ public class PropertyTag extends TagSupport {
 
     private static final Log log = LogFactory.getLog(PropertyTag.class);
 
+
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private String defaultValue;
     private String value;
+    private boolean escape = false;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -42,6 +45,10 @@ public class PropertyTag extends TagSupport {
         this.value = value;
     }
 
+    public void setEscape(boolean escape) {
+        this.escape = escape;
+    }
+
     public int doStartTag() throws JspException {
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
@@ -50,24 +57,32 @@ public class PropertyTag extends TagSupport {
                 Object actualValue = null;
 
                 if (value == null) {
-                    actualValue = stack.getRoot().peek();
-                } else {
-                    actualValue = stack.findValue(value, String.class);
+                    value = "that";
                 }
 
+                actualValue = stack.findValue(value, String.class);
+
                 if (actualValue != null) {
-                    pageContext.getOut().print(actualValue);
+                    pageContext.getOut().print(prepare(actualValue));
                 } else if (defaultValue != null) {
-                    pageContext.getOut().print(defaultValue);
+                    pageContext.getOut().print(prepare(defaultValue));
                 }
             } else if (defaultValue != null) {
-                pageContext.getOut().print(defaultValue);
+                pageContext.getOut().print(prepare(defaultValue));
             }
         } catch (IOException e) {
             log.info("Could not print out value '" + value + "': " + e.getMessage());
         }
 
         return SKIP_BODY;
+    }
+
+    private Object prepare(Object value) {
+        if (escape) {
+            return TextUtils.htmlEncode(value.toString());
+        } else {
+            return value;
+        }
     }
 
     /**
@@ -77,5 +92,6 @@ public class PropertyTag extends TagSupport {
         super.release();
         this.value = null;
         this.defaultValue = null;
+        this.escape = false;
     }
 }
