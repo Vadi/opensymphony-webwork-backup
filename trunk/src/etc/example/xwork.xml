@@ -121,26 +121,26 @@
         <action name="basicValidation" class="com.opensymphony.webwork.example.ValidatedAction">
             <interceptor-ref name="validationWorkflowStack"/>
 
-            <result name="success" type="dispatcher">valid.vm</result>
-            <result name="input" type="dispatcher">validationForm.vm</result>
-            <result name="error" type="dispatcher">validationForm.vm</result>
+            <result name="success" type="velocity">valid.vm</result>
+            <result name="input" type="velocity">validationForm.vm</result>
+            <result name="error" type="velocity">validationForm.vm</result>
         </action>
 
         <action name="visitorValidation" class="com.opensymphony.webwork.example.ValidatedAction">
             <interceptor-ref name="validationWorkflowStack"/>
             <param name="validationAction">visitorValidation.action</param>
-            <result name="success">valid.vm</result>
-            <result name="input">validationForm.vm</result>
-            <result name="error">validationForm.vm</result>
+            <result name="success" type="velocity">valid.vm</result>
+            <result name="input" type="velocity">validationForm.vm</result>
+            <result name="error" type="velocity">validationForm.vm</result>
         </action>
 
         <action name="expressionValidation" class="com.opensymphony.webwork.example.ValidatedAction">
             <interceptor-ref name="validationWorkflowStack"/>
             <param name="validationAction">expressionValidation.action</param>
             <param name="bean.number2">15</param>
-            <result name="success">valid.vm</result>
-            <result name="input">validationForm.vm</result>
-            <result name="error">validationForm.vm</result>
+            <result name="success" type="velocity">valid.vm</result>
+            <result name="input" type="velocity">validationForm.vm</result>
+            <result name="error" type="velocity">validationForm.vm</result>
         </action>
 
         <action name="javascriptValidation" class="com.opensymphony.webwork.example.JavascriptValidationAction">
@@ -151,51 +151,51 @@
 
 		 <!-- JasperReport Basic Test Actions -->
         <action name="jasperTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
-            <param name="dataSource">orders</param>
-            <result name="success" type="dispatcher">
+            <result name="success" type="jasper">
                 <param name="location">orderList.jasper</param>
+                <param name="dataSource">orders</param>
             </result>
             <interceptor-ref name="defaultStack"/>
         </action>
 
         <action name="jasperPDFTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
-            <param name="dataSource">orders</param>
-            <param name="format">PDF</param>
-            <result name="success" type="dispatcher">
+            <result name="success" type="jasper">
                 <param name="location">orderList.jasper</param>
+                <param name="dataSource">orders</param>
+                <param name="format">PDF</param>
             </result>
             <interceptor-ref name="defaultStack"/>
         </action>
 
         <action name="jasperCSVTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
-            <param name="dataSource">orders</param>
-            <param name="format">CSV</param>
-            <result name="success" type="dispatcher">
+            <result name="success" type="jasper">
                 <param name="location">orderList.jasper</param>
+                <param name="dataSource">orders</param>
+                <param name="format">CSV</param>
             </result>
             <interceptor-ref name="defaultStack"/>
         </action>
         <action name="jasperHTMLTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
-            <param name="dataSource">orders</param>
-            <param name="format">HTML</param>
-            <result name="success" type="dispatcher">
+            <result name="success" type="jasper">
                 <param name="location">orderList.jasper</param>
+                <param name="dataSource">orders</param>
+                <param name="format">HTML</param>
             </result>
             <interceptor-ref name="defaultStack"/>
         </action>
         <action name="jasperXLSTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
-            <param name="dataSource">orders</param>
-            <param name="format">XLS</param>
-            <result name="success" type="dispatcher">
+            <result name="success" type="jasper">
                 <param name="location">orderList.jasper</param>
+                <param name="dataSource">orders</param>
+                <param name="format">XLS</param>
             </result>
             <interceptor-ref name="defaultStack"/>
         </action>
         <action name="jasperXMLTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
-            <param name="dataSource">orders</param>
-            <param name="format">XML</param>
-            <result name="success" type="dispatcher">
+            <result name="success" type="jasper">
                 <param name="location">orderList.jasper</param>
+                <param name="dataSource">orders</param>
+                <param name="format">XML</param>
             </result>
             <interceptor-ref name="defaultStack"/>
         </action>

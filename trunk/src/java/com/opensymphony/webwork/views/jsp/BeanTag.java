@@ -70,7 +70,7 @@ public class BeanTag extends WebWorkTagSupport implements ParamTag.Parametric {
     }
 
     public void addParameter(String key, Object value) {
-        OgnlUtil.setProperty(findString(key), value, bean, getStack().getContext());
+        OgnlUtil.setProperty(key, value, bean, getStack().getContext());
     }
 
     public int doEndTag() throws JspException {

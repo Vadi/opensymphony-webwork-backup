@@ -4,12 +4,11 @@
  */
 package com.opensymphony.webwork.example.jasperreports;
 
-import com.opensymphony.webwork.views.jasperreports.JasperReportAction;
+import com.opensymphony.xwork.ActionSupport;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -24,7 +23,7 @@ import java.util.StringTokenizer;
  * @author &lt;a href="hermanns@aixcept.de"&gt;Rainer Hermanns&lt;/a&gt;
  * @version $Id$
  */
-public class OrderListAction extends JasperReportAction {
+public class OrderListAction extends ActionSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     // Attributes ----------------------------------------------------
@@ -173,9 +172,6 @@ public class OrderListAction extends JasperReportAction {
         }
     }
 
-    public OrderListAction() {
-        setDataSource("orders");
-    }
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public Object[] getOrderArray() {
