@@ -52,25 +52,22 @@ public class SubsetIteratorTag extends ActionTag {
     }
 
     public int doStartTag() throws JspException {
-        super.doStartTag();
+        int returnVal = super.doStartTag();
 
-        // Pop holder temporarily while we resolve names
-        Object holder = getStack().pop();
+        if (sourceAttr == null) {
+            addParam("source", findValue("top"));
+        } else {
+            addParam("source", findValue(sourceAttr));
+        }
 
-        // todo: make this work with the new action tag
-        //      if (sourceAttr == null)
-        //         ((SubsetIteratorFilter)bean).setSource(findValue("top"));
-        //      else
-        //         ((SubsetIteratorFilter)bean).setSource(findValue(sourceAttr));
-        //
-        //      if (countAttr != null)
-        //         ((SubsetIteratorFilter)bean).setCount(Integer.parseInt(findString(countAttr)));
-        //
-        //      if (startAttr != null)
-        //         ((SubsetIteratorFilter)bean).setStart(Integer.parseInt(findString(startAttr)));
-        // Push holder back on stack
-        getStack().push(holder);
+        if (countAttr != null) {
+            addParam("count", findValue(countAttr));
+        }
 
-        return EVAL_BODY_INCLUDE;
+        if (startAttr != null) {
+            addParam("start", findValue(startAttr));
+        }
+
+        return returnVal;
     }
 }

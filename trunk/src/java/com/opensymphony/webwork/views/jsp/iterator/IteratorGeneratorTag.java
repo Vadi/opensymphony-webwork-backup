@@ -47,21 +47,19 @@ public class IteratorGeneratorTag extends ActionTag {
         valueAttr = aValue;
     }
 
-    // BodyTag implementation ----------------------------------------
     public int doStartTag() throws JspException {
         super.doStartTag();
 
-        // Pop holder temporarily while we resolve names
-        //        Object holder = getStack().popValue();
-        //
-        //        ((IteratorGenerator) bean).setValues(findValue(valueAttr));
-        //        if (countAttr != null)
-        //            ((IteratorGenerator) bean).setCount(Integer.parseInt(findString(countAttr)));
-        //        if (separatorAttr != null)
-        //            ((IteratorGenerator) bean).setSeparator(findString(separatorAttr));
-        //
-        //        // Push holder back on stack
-        //        getStack().pushValue(holder);
+        addParam("values", findValue(valueAttr));
+
+        if (countAttr != null) {
+            addParam("count", findValue(countAttr));
+        }
+
+        if (separatorAttr != null) {
+            addParam("separator", findValue(separatorAttr));
+        }
+
         return EVAL_BODY_INCLUDE;
     }
 }
