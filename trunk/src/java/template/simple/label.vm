@@ -2,4 +2,4 @@
 #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
 #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"       #end
 #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"       #end
->$!webwork.htmlEncode($parameters.nameValue)</label>
+>#if ($parameters.nameValue)$!webwork.htmlEncode($parameters.nameValue)#end</label>
