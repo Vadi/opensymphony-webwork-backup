@@ -10,6 +10,7 @@
             <result-type name="xslt" class="com.opensymphony.webwork.views.xslt.XSLTResult"/>
             <result-type name="jasper" class="com.opensymphony.webwork.views.jasperreports.JasperReportsResult"/>
             <result-type name="freemarker" class="com.opensymphony.webwork.views.freemarker.FreemarkerResult"/>
+            <result-type name="httpheader" class="com.opensymphony.webwork.dispatcher.HttpHeaderResult"/>
         </result-types>
 
         <interceptors>
