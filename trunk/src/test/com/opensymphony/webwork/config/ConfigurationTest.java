@@ -30,7 +30,7 @@ public class ConfigurationTest extends TestCase {
         assertEquals("de", locale.getLanguage());
 
         int count = getKeyCount();
-        assertEquals(10, count);
+        assertEquals(11, count);
     }
 
     public void testSetConfiguration() {
