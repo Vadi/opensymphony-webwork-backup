@@ -35,12 +35,11 @@ public class TokenTag extends AbstractUITag {
     }
 
     /**
- * First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
- * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
- * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
- * the name.
- *
- */
+     * First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
+     * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
+     * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
+     * the name.
+     */
     protected void evaluateExtraParams(OgnlValueStack stack) {
         super.evaluateExtraParams(stack);
 

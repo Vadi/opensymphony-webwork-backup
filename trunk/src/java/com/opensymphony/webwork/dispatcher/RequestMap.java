@@ -26,10 +26,10 @@ public class RequestMap extends AbstractMap implements Serializable {
     //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
- * Saves the request to use as the backing for getting and setting values
- *
- * @param request the http servlet request.
- */
+     * Saves the request to use as the backing for getting and setting values
+     *
+     * @param request the http servlet request.
+     */
     public RequestMap(final HttpServletRequest request) {
         this.request = request;
     }
@@ -37,8 +37,8 @@ public class RequestMap extends AbstractMap implements Serializable {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
- * Removes all attributes from the request as well as clears entries in this map.
- */
+     * Removes all attributes from the request as well as clears entries in this map.
+     */
     public void clear() {
         Enumeration keys = request.getAttributeNames();
 
@@ -49,10 +49,10 @@ public class RequestMap extends AbstractMap implements Serializable {
     }
 
     /**
- * Returns a Set of attributes from the http request.
- *
- * @return a Set of attributes from the http request.
- */
+     * Returns a Set of attributes from the http request.
+     *
+     * @return a Set of attributes from the http request.
+     */
     public Set entrySet() {
         if (entries == null) {
             entries = new HashSet();
@@ -94,22 +94,22 @@ public class RequestMap extends AbstractMap implements Serializable {
     }
 
     /**
- * Returns the request attribute associated with the given key or <tt>null</tt> if it doesn't exist.
- *
- * @param key the name of the request attribute.
- * @return the request attribute or <tt>null</tt> if it doesn't exist.
- */
+     * Returns the request attribute associated with the given key or <tt>null</tt> if it doesn't exist.
+     *
+     * @param key the name of the request attribute.
+     * @return the request attribute or <tt>null</tt> if it doesn't exist.
+     */
     public Object get(Object key) {
         return request.getAttribute(key.toString());
     }
 
     /**
- * Saves an attribute in the request.
- *
- * @param key   the name of the request attribute.
- * @param value the value to set.
- * @return the object that was just set.
- */
+     * Saves an attribute in the request.
+     *
+     * @param key   the name of the request attribute.
+     * @param value the value to set.
+     * @return the object that was just set.
+     */
     public Object put(Object key, Object value) {
         entries = null;
         request.setAttribute(key.toString(), value);
@@ -118,11 +118,11 @@ public class RequestMap extends AbstractMap implements Serializable {
     }
 
     /**
- * Removes the specified request attribute.
- *
- * @param key the name of the attribute to remove.
- * @return the value that was removed or <tt>null</tt> if the value was not found (and hence, not removed).
- */
+     * Removes the specified request attribute.
+     *
+     * @param key the name of the attribute to remove.
+     * @return the value that was removed or <tt>null</tt> if the value was not found (and hence, not removed).
+     */
     public Object remove(Object key) {
         entries = null;
 
