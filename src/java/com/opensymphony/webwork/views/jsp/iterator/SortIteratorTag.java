@@ -1,21 +1,35 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp.iterator;
 
-import com.opensymphony.webwork.views.jsp.ActionTag;
 import com.opensymphony.webwork.util.SortIteratorFilter;
+import com.opensymphony.webwork.views.jsp.ActionTag;
+
+import java.util.Comparator;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
-import java.util.Comparator;
+
 
 /**
- *	@author Rickard Öberg (rickard@dreambean.com)
- *	@version $Revision$
+ *        @author Rickard Öberg (rickard@dreambean.com)
+ *        @version $Revision$
  */
-public class SortIteratorTag
-        extends ActionTag {
+public class SortIteratorTag extends ActionTag {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    String comparatorAttr;
+
     // Attributes ----------------------------------------------------
     String sourceAttr;
-    String comparatorAttr;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setComparator(String aComparator) {
+        comparatorAttr = aComparator;
+    }
 
     // Constructor ---------------------------------------------------
     public void setParent(Tag t) {
@@ -28,28 +42,23 @@ public class SortIteratorTag
         sourceAttr = aName;
     }
 
-    public void setComparator(String aComparator) {
-        comparatorAttr = aComparator;
-    }
-
     public int doStartTag() throws JspException {
         super.doStartTag();
 
         // todo: make this work with the new action tag
         // Pop holder temporarily while we resolve names
-//        Object holder = getStack().popValue();
-//
-//        if (sourceAttr == null)
-//            ((SortIteratorFilter) bean).setSource(findValue("."));
-//        else
-//            ((SortIteratorFilter) bean).setSource(findValue(sourceAttr));
-//
-//        Comparator c = (Comparator) findValue(comparatorAttr);
-//        ((SortIteratorFilter) bean).setComparator((Comparator) findValue(comparatorAttr));
-//
-//        // Push holder back on stack
-//        getStack().pushValue(holder);
-
+        //        Object holder = getStack().popValue();
+        //
+        //        if (sourceAttr == null)
+        //            ((SortIteratorFilter) bean).setSource(findValue("."));
+        //        else
+        //            ((SortIteratorFilter) bean).setSource(findValue(sourceAttr));
+        //
+        //        Comparator c = (Comparator) findValue(comparatorAttr);
+        //        ((SortIteratorFilter) bean).setComparator((Comparator) findValue(comparatorAttr));
+        //
+        //        // Push holder back on stack
+        //        getStack().pushValue(holder);
         return EVAL_BODY_INCLUDE;
     }
 }

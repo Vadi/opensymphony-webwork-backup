@@ -87,7 +87,7 @@ public class CoolUriServletDispatcher extends ServletDispatcher {
 
         try {
             request = wrapRequest(request);
-            serviceAction(request, response, "", actionName, parameters, getSessionMap(request), getApplicationMap());
+            serviceAction(request, response, "", actionName, getRequestMap(request), parameters, getSessionMap(request), getApplicationMap());
         } catch (IOException e) {
             String message = "Could not wrap servlet request with MultipartRequestWrapper!";
             log.error(message, e);

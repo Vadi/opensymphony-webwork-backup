@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp.vui;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 
 /**
  * Voice UI for grammar tag
@@ -9,32 +14,29 @@ import org.apache.commons.logging.LogFactory;
  * @author Jeff Haynie (jhaynie@vocalocity.net)
  * @version $Revision$
  */
-public class GrammarTag
-        extends AbstractVUITag {
+public class GrammarTag extends AbstractVUITag {
+    //~ Static fields/initializers /////////////////////////////////////////////
+
     // Attributes ----------------------------------------------------
     protected static Log log = LogFactory.getLog(GrammarTag.class);
-    protected String nameAttr;
+
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     protected String langAttr;
-    protected String modelAttr;
     protected String modeAttr;
+    protected String modelAttr;
+    protected String nameAttr;
     protected String weightAttr;
 
-    // Public --------------------------------------------------------
-
-    public String getHeaderTemplate() {
-        return "grammar-header.jsp";
-    }
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getFooterTemplate() {
         return "grammar-footer.jsp";
     }
 
-    public void setName(String aName) {
-        nameAttr = aName;
-    }
-
-    public String getName() {
-        return nameAttr;
+    // Public --------------------------------------------------------
+    public String getHeaderTemplate() {
+        return "grammar-header.jsp";
     }
 
     public void setLang(String aName) {
@@ -45,6 +47,14 @@ public class GrammarTag
         return langAttr;
     }
 
+    public void setMode(String aName) {
+        modeAttr = aName;
+    }
+
+    public String getMode() {
+        return modeAttr;
+    }
+
     public void setModel(String aName) {
         modelAttr = aName;
     }
@@ -53,12 +63,12 @@ public class GrammarTag
         return modelAttr;
     }
 
-    public void setMode(String aName) {
-        modeAttr = aName;
+    public void setName(String aName) {
+        nameAttr = aName;
     }
 
-    public String getMode() {
-        return modeAttr;
+    public String getName() {
+        return nameAttr;
     }
 
     public void setWeight(String aName) {

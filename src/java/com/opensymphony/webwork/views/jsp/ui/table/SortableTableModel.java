@@ -1,15 +1,30 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp.ui.table;
 
 import javax.swing.table.TableModel;
 
+
+/**
+ * DOCUMENT ME!
+ *
+ * @author $author$
+ * @version $Revision$
+ */
 public interface SortableTableModel extends TableModel {
+    //~ Static fields/initializers /////////////////////////////////////////////
+
     final static public String NONE = "NONE";
     final static public String ASC = "ASC";
     final static public String DESC = "DESC";
 
+    //~ Methods ////////////////////////////////////////////////////////////////
+
     public int getSortedColumnNumber();
 
-    public void sort(int columnNumber, String direction);
-
     public String getSortedDirection(int columnNumber);
+
+    public void sort(int columnNumber, String direction);
 }

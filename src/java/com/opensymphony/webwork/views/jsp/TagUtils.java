@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
+import com.opensymphony.webwork.dispatcher.RequestMap;
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 
@@ -34,7 +35,7 @@ public class TagUtils {
             stack = new OgnlValueStack();
 
             HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
-            Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(), new SessionMap(req.getSession()), new ApplicationMap(pageContext.getServletContext()), req, res, pageContext.getServletConfig());
+            Map extraContext = ServletDispatcher.createContextMap(new RequestMap(req), req.getParameterMap(), new SessionMap(req.getSession()), new ApplicationMap(pageContext.getServletContext()), req, res, pageContext.getServletConfig());
             extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
             stack.getContext().putAll(extraContext);
             req.setAttribute("webwork.valueStack", stack);

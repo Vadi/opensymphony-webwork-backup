@@ -31,9 +31,9 @@ import javax.servlet.jsp.PageContext;
  * used to create a {@link IteratorStatus} object, which in this example, its odd() method is used to
  * alternate row colours:</p>
  * <pre>
- * &lt;ww:bean name="com.opensymphony.webwork.example.IteratorExample" id="it"&gt;
- *   &lt;ww:param name="day" value="'foo'"/&gt;
- *   &lt;ww:param name="day" value="'bar'"/&gt;
+ * &lt;ww:bean name="'com.opensymphony.webwork.example.IteratorExample'" id="it"&gt;
+ *   &lt;ww:param name="'day'" value="'foo'"/&gt;
+ *   &lt;ww:param name="'day'" value="'bar'"/&gt;
  * &lt;/ww:bean&gt;
 
  * &lt;table border="0" cellspacing="0" cellpadding="1"&gt;
@@ -65,15 +65,10 @@ public class IteratorTag extends WebWorkBodyTagSupport {
     protected IteratorStatus status;
     protected Object oldStatus;
     protected IteratorStatus.StatusState statusState;
-    protected String id;
     protected String statusAttr;
     protected String value;
 
     //~ Methods ////////////////////////////////////////////////////////////////
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public void setStatus(String name) {
         this.statusAttr = name;
@@ -90,6 +85,8 @@ public class IteratorTag extends WebWorkBodyTagSupport {
         if (iterator.hasNext()) {
             Object currentValue = iterator.next();
             stack.push(currentValue);
+
+            String id = getId();
 
             if ((id != null) && (currentValue != null)) {
                 pageContext.setAttribute(id, currentValue);
@@ -140,11 +137,19 @@ public class IteratorTag extends WebWorkBodyTagSupport {
             value = "top";
         }
 
-        iterator = MakeIterator.convert(stack.findValue(value));
+        iterator = MakeIterator.convert(findValue(value));
 
         // get the first
         if ((iterator != null) && iterator.hasNext()) {
-            stack.push(iterator.next());
+            Object currentValue = iterator.next();
+            stack.push(currentValue);
+
+            String id = getId();
+
+            if ((id != null) && (currentValue != null)) {
+                pageContext.setAttribute(id, currentValue);
+                pageContext.setAttribute(id, currentValue, PageContext.REQUEST_SCOPE);
+            }
 
             // Status object
             if (statusAttr != null) {

@@ -54,18 +54,22 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    protected String disabledAttr;
     protected String labelAttr;
     protected String labelPositionAttr;
     protected String nameAttr;
+    protected String onchangeAttr;
     protected String requiredAttr;
+    protected String tabindexAttr;
     protected String templateAttr;
     protected String themeAttr;
     protected String valueAttr;
-    protected String disabledAttr;
-    protected String tabindexAttr;
-    protected String onchangeAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setDisabled(String disabled) {
+        this.disabledAttr = disabled;
+    }
 
     public void setLabel(String aLabel) {
         labelAttr = aLabel;
@@ -79,8 +83,16 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         nameAttr = aName;
     }
 
+    public void setOnchange(String onchange) {
+        this.onchangeAttr = onchange;
+    }
+
     public void setRequired(String required) {
         this.requiredAttr = required;
+    }
+
+    public void setTabindex(String tabindex) {
+        this.tabindexAttr = tabindex;
     }
 
     public void setTemplate(String aName) {
@@ -93,18 +105,6 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     public void setValue(String aValue) {
         valueAttr = aValue;
-    }
-
-    public void setDisabled(String disabled) {
-        this.disabledAttr = disabled;
-    }
-
-    public void setTabindex(String tabindex) {
-        this.tabindexAttr = tabindex;
-    }
-
-    public void setOnchange(String onchange) {
-        this.onchangeAttr = onchange;
     }
 
     public int doEndTag() throws JspException {
@@ -147,6 +147,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
      */
     protected String getTemplateName() {
         return buildTemplateName(templateAttr, getDefaultTemplate());
+    }
+
+    protected Class getValueClassType() {
+        return String.class;
     }
 
     /**
@@ -224,6 +228,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         Class valueClazz = getValueClassType();
+
         if (valueClazz != null) {
             if (valueAttr != null) {
                 addParam("nameValue", findValue(valueAttr, valueClazz));
@@ -243,10 +248,6 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         evaluateExtraParams(stack);
-    }
-
-    protected Class getValueClassType() {
-        return String.class;
     }
 
     protected void mergeTemplate(String templateName) throws Exception {

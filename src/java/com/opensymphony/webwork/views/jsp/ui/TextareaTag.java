@@ -21,25 +21,23 @@ public class TextareaTag extends AbstractUITag {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    protected String readonlyAttr;
-    protected String onkeyupAttr;
     protected String colsAttr;
+    protected String onkeyupAttr;
+    protected String readonlyAttr;
     protected String rowsAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setReadonly(String readonly)
-    {
-       this.readonlyAttr = readonly;
-    }
-
-    public void setOnkeyup(String onkeyup)
-    {
-       this.onkeyupAttr = onkeyup;
-    }
-
     public void setCols(String cols) {
         this.colsAttr = cols;
+    }
+
+    public void setOnkeyup(String onkeyup) {
+        this.onkeyupAttr = onkeyup;
+    }
+
+    public void setReadonly(String readonly) {
+        this.readonlyAttr = readonly;
     }
 
     public void setRows(String rows) {

@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
+/*
  * WebWork, Web Application Framework
  *
  * Distributable under Apache license.
@@ -8,8 +12,9 @@ package com.opensymphony.webwork.interceptor;
 
 import java.util.Map;
 
+
 /**
- *	This interface gives actions an alternative way of receiving
+ *        This interface gives actions an alternative way of receiving
  * input parameters. The map will contain all input parameters as
  * name/value entries. Actions that need this should simply implement it.
  *
@@ -19,9 +24,11 @@ import java.util.Map;
  * Note that all parameter values for a given name will be returned,
  * so the type of the objects in the map is java.lang.String[]
  *
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ *        @author Rickard Öberg (rickard@middleware-company.com)
+ *        @version $Revision$
  */
 public interface ParameterAware {
+    //~ Methods ////////////////////////////////////////////////////////////////
+
     public void setParameters(Map parameters);
 }

@@ -1,22 +1,30 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 /**
- *	A bean that takes several iterators and outputs the merge of them.
+ *        A bean that takes several iterators and outputs the merge of them.
  *
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ *        @author Rickard Öberg (rickard@middleware-company.com)
+ *        @version $Revision$
  */
-public class MergeIteratorFilter
-        extends IteratorFilterSupport
-        implements java.util.Iterator, webwork.action.Action {
+public class MergeIteratorFilter extends IteratorFilterSupport implements java.util.Iterator, webwork.action.Action {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    List iterators = new ArrayList();
+
     // Attributes ----------------------------------------------------
     List sources = new ArrayList();
-    List iterators = new ArrayList();
     int idx = 0;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     // Public --------------------------------------------------------
     public void setSource(Object anIterator) {
@@ -37,14 +45,17 @@ public class MergeIteratorFilter
     // Iterator implementation ---------------------------------------
     public boolean hasNext() {
         while (iterators.size() > 0) {
-            if (((Iterator) iterators.get(idx)).hasNext())
+            if (((Iterator) iterators.get(idx)).hasNext()) {
                 return true;
-            else {
+            } else {
                 iterators.remove(idx);
-                if (iterators.size() > 0)
+
+                if (iterators.size() > 0) {
                     idx = idx % iterators.size();
+                }
             }
         }
+
         return false;
     }
 

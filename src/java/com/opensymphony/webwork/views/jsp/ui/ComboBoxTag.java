@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 
 /**
  * User: plightbo
@@ -15,25 +20,37 @@ public class ComboBoxTag extends AbstractUITag {
      */
     final public static String TEMPLATE = "combobox.vm";
 
-    protected String sizeAttr;
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    protected String list;
     protected String maxlengthAttr;
     protected String onkeyupAttr;
-    protected String list;
+    protected String sizeAttr;
 
-    public void setSize(String aSize) {
-        this.sizeAttr = aSize;
+    //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setList(String aList) {
+        this.list = aList;
     }
 
     public void setMaxlength(String aMaxlength) {
         this.maxlengthAttr = aMaxlength;
     }
 
-    public void setList(String aList) {
-        this.list = aList;
-    }
-
     public void setOnkeyup(String onkeyup) {
         this.onkeyupAttr = onkeyup;
+    }
+
+    public void setSize(String aSize) {
+        this.sizeAttr = aSize;
+    }
+
+    protected String getDefaultTemplate() {
+        return TEMPLATE;
+    }
+
+    protected Class getValueClassType() {
+        return Boolean.class; // for checkboxes, everything needs to end up as a Boolean
     }
 
     protected void evaluateExtraParams(OgnlValueStack stack) {
@@ -52,13 +69,5 @@ public class ComboBoxTag extends AbstractUITag {
         if (onkeyupAttr != null) {
             addParam("onkeyup", findValue(onkeyupAttr));
         }
-    }
-
-    protected Class getValueClassType() {
-        return Boolean.class; // for checkboxes, everything needs to end up as a Boolean
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
     }
 }

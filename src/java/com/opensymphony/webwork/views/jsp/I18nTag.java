@@ -1,13 +1,19 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp;
+
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 import org.apache.commons.logging.*;
 
-import javax.servlet.jsp.JspException;
-import java.util.ResourceBundle;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
-import com.opensymphony.xwork.util.LocalizedTextUtil;
-import com.opensymphony.xwork.ActionContext;
+import javax.servlet.jsp.JspException;
+
 
 /**
  * Gets a resource bundle and place it on the value stack. This allows
@@ -17,14 +23,23 @@ import com.opensymphony.xwork.ActionContext;
  * @author Rickard Öberg (rickard@dreambean.com)
  * @version $Revision$
  */
-public class I18nTag
-        extends WebWorkTagSupport {
+public class I18nTag extends WebWorkTagSupport {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     // Attributes ----------------------------------------------------
     protected String nameAttr;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     // Public --------------------------------------------------------
     public void setName(String aName) {
         nameAttr = aName;
+    }
+
+    public int doEndTag() throws JspException {
+        getStack().pop();
+
+        return EVAL_PAGE;
     }
 
     // BodyTag implementation ----------------------------------------
@@ -47,10 +62,7 @@ public class I18nTag
         return EVAL_BODY_INCLUDE;
     }
 
-    public int doEndTag() throws JspException {
-        getStack().pop();
-        return EVAL_PAGE;
-    }
+    //~ Inner Classes //////////////////////////////////////////////////////////
 
     // This is what the text tag will use to access the bundle
     public static class BundleAccessor {
@@ -65,5 +77,3 @@ public class I18nTag
         }
     }
 }
-
-

@@ -63,6 +63,6 @@ public class RequestMap extends AbstractMap implements Serializable {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public Set entrySet() {
-        return null;
+        return entrySet;
     }
 }
