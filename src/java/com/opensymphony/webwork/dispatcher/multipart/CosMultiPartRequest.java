@@ -13,27 +13,22 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
-
-/* ------------------------------------------------------------ */
-
 /**
- * Multipart Form Data request adapter for Jason Hunter's multipart
- * utils. You need to watch his license. He requires you to own his
- * book.
+ * Multipart form data request adapter for Jason Hunter's
+ * <a href="http://www.servlets.com/cos/index.html" target="_blank">multipart utils</a>
+ * (COS == com.oreilly.servlet).
  *
- * @version $Id$
- * @author  Matt Baldree (matt@smallleap.com) modified for WW's use
- * @author  Scott Farquhar (scott@atlassian.com) added i18n handling (WW-109)
+ * @author <a href="mailto:matt@smallleap.com">Matt Baldree</a> (modified for WW's use)
+ * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a> (added i18n handling (WW-109))
  */
 public class CosMultiPartRequest extends MultiPartRequest {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
-    /* ------------------------------------------------------------ */
     private MultipartRequest multi;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
-
     /**
+     * Creates a new request wrapper to handle multi-part data using methods adapted from the COS
+     * multipart classes (see class description).
+     *
      * @param maxSize maximum size post allowed
      * @param saveDir the directory to save off the file
      * @param servletRequest the request containing the multipart
@@ -48,8 +43,6 @@ public class CosMultiPartRequest extends MultiPartRequest {
         }
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
     public String getContentType(String name) {
         return multi.getContentType(name);
     }
@@ -58,7 +51,6 @@ public class CosMultiPartRequest extends MultiPartRequest {
         return multi.getFile(name);
     }
 
-    // Methods only in MultipartRequest
     public Enumeration getFileNames() {
         return multi.getFileNames();
     }
@@ -80,11 +72,11 @@ public class CosMultiPartRequest extends MultiPartRequest {
     }
 
     /**
-     * Set the encoding for the uploaded params.  This needs to be set if you are using character sets other than
-     * ASCII.
-     * <p>
+     * Set the encoding for the uploaded parameters. This needs to be set if you are using character sets
+     * other than ASCII.<p>
+     *
      * The encoding is looked up from the configuration setting 'webwork.i18n.encoding'.  This is usually set in
-     * default.properties & webwork.properties.
+     * default.properties and webwork.properties.
      */
     private static String getEncoding() {
         return "utf-8";

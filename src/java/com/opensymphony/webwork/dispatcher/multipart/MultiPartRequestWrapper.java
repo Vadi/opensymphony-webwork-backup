@@ -27,41 +27,31 @@ import javax.servlet.http.HttpServletRequestWrapper;
 
 
 /**
- * <code>MultiPartRequestWrapper</code> will parse a multipart request and
- * provide a wrapper around the request. The parse it uses depends on
- * the "webwork.multipart.parser" setting. It should be set to a class which
- * extends com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest.
+ * Parses a multipart request and provides a wrapper around the request. The parsing implementation used
+ * depends on the <tt>webwork.multipart.parser</tt> setting. It should be set to a class which
+ * extends {@link com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest}. <p>
+ *
  * Webwork ships with two implementations,
- * com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest and
- * com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest. Pell
- * is the default.
- * "pell" for Jason Pell and "cos" for Jason Hunter.
+ * {@link com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest} and
+ * {@link com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest}. The Pell implementation
+ * is the default. The <tt>webwork.multipart.parser</tt> property should be set to <tt>pell</tt> for
+ * the Pell implementation and <tt>cos</tt> for the Jason Hunter implementation. <p>
  *
- * The files are uploaded when the object is instantiated. If there are
- * any errors they are logged using addError. An action handling a
- * multipart form should first check <code>hasErrors()</code> before doing
- * any other processing.
- *
- * Currently the max file size check just checks the ful
+ * The files are uploaded when the object is instantiated. If there are any errors they are logged using
+ * {@link #addError(String)}. An action handling a multipart form should first check {@link #hasErrors()}
+ * before doing any other processing. <p>
  *
  * @author Matt Baldree
- * @version $Revision$
  */
 public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     protected static final Log log = LogFactory.getLog(MultiPartRequestWrapper.class);
-
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Collection errors;
     MultiPartRequest multi;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
-
     /**
-     * Constructor. Creates the appropriate MultiPartRequest object and processes
-     * the data.
+     * Instantiates the appropriate MultiPartRequest parser implementation and processes the data.
      *
      * @param request the servlet request object
      * @param saveDir directory to save the file(s) to
@@ -130,14 +120,11 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
         }
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
     /**
-     * Get the content encoding type for the file 'name'. Name is the name field
-     * on the input tag.
+     * Get the content encoding type for the given file name. Name is the name field on the input tag.
      *
      * @param name uploaded filename.
-     * @return content encoding for file 'name'
+     * @return content encoding for file name
      */
     public String getContentType(String name) {
         if (multi == null) {
@@ -148,7 +135,7 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * Returns the error Collection.
+     * Returns a collection of any errors generated when parsing the multipart request.
      *
      * @return the error Collection.
      */
@@ -157,11 +144,10 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * Get a java.io.File for the file 'name'. Name is the name field on the
-     * input tag.
+     * Get a {@link java.io.File} for the give file name. Name is the name field on the input tag.
      *
      * @param name uploaded filename
-     * @return File object for filename
+     * @return File object for file name
      */
     public File getFile(String name) {
         if (multi == null) {
@@ -170,8 +156,6 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
 
         return multi.getFile(name);
     }
-
-    // Methods only in MultipartRequest
 
     /**
      * Get an enumeration of the filenames uploaded
@@ -187,10 +171,11 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * Get the filename of the file uploaded for the given input field name.
+     * Get the filename of the file uploaded for the given input field name. Returns <tt>null</tt> if the
+     * file is not found.
      *
      * @param name uploaded filename
-     * @return null if name not found.
+     * @return the file system name of the given file or <tt>null</tt> if name not found.
      */
     public String getFilesystemName(String name) {
         if (multi == null) {
@@ -201,19 +186,27 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * The value of the url parameter 'name'.
+     * Returns <tt>true</tt> if any errors occured when parsing the HTTP multipart request, <tt>false</tt> otherwise.
      *
-     * @param name to lookup
-     * @return url parameter value of name
+     * @return <tt>true</tt> if any errors occured when parsing the HTTP multipart request, <tt>false</tt> otherwise.
+     */
+    public boolean hasErrors() {
+        if ((errors == null) || errors.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * @see javax.servlet.http.HttpServletRequest#getParameter(String)
      */
     public String getParameter(String name) {
         return ((multi == null) || (multi.getParameter(name) == null)) ? super.getParameter(name) : multi.getParameter(name);
     }
 
     /**
-     * An map of all URL Parameters for the current HTTP Request.
-     *
-     * @return map of params
+     * @see javax.servlet.http.HttpServletRequest#getParameterMap()
      */
     public Map getParameterMap() {
         Map map = new HashMap();
@@ -228,9 +221,7 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * An enumeration of all URL Parameter names for the current HTTP Request.
-     *
-     * @return enumeration of names
+     * @see javax.servlet.http.HttpServletRequest#getParameterNames()
      */
     public Enumeration getParameterNames() {
         if (multi == null) {
@@ -241,28 +232,17 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * An array of all URL Parameter values for the current HTTP Request for name.
-     *
-     * @param name key
-     * @return array of values associated with name
+     * @see javax.servlet.http.HttpServletRequest#getParameterValues(String)
      */
     public String[] getParameterValues(String name) {
         return ((multi == null) || (multi.getParameterValues(name) == null)) ? super.getParameterValues(name) : multi.getParameterValues(name);
     }
 
     /**
-     * If any errors have been logged return true.
+     * Adds an error message.
      *
-     * @return true if errors have occured
+     * @param anErrorMessage the error message to report.
      */
-    public boolean hasErrors() {
-        if ((errors == null) || errors.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     protected void addError(String anErrorMessage) {
         if (errors == null) {
             errors = new ArrayList();
@@ -271,7 +251,13 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
         errors.add(anErrorMessage);
     }
 
-    //private
+    /**
+     * Merges 2 enumeration of parameters as one.
+     *
+     * @param params1 the first enumeration.
+     * @param params2 the second enumeration.
+     * @return a single Enumeration of all elements from both Enumerations.
+     */
     protected Enumeration mergeParams(Enumeration params1, Enumeration params2) {
         Vector temp = new Vector();
 
