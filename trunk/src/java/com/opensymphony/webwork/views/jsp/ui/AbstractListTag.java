@@ -4,6 +4,9 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.util.MakeIterator;
+
 import java.lang.reflect.Array;
 
 import java.util.Collection;
@@ -17,34 +20,22 @@ import java.util.Map;
 public abstract class AbstractListTag extends AbstractUITag {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private Object listValue;
-    private String list;
-    private String listKey;
+    protected String listAttr;
+    protected String listKeyAttr;
+    protected String listValueAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setList(String list) {
-        this.list = list;
-    }
-
-    public String getList() {
-        return list;
+        this.listAttr = list;
     }
 
     public void setListKey(String listKey) {
-        this.listKey = listKey;
+        this.listKeyAttr = listKey;
     }
 
-    public String getListKey() {
-        return listKey;
-    }
-
-    public void setListValue(Object listValue) {
-        this.listValue = listValue;
-    }
-
-    public Object getListValue() {
-        return listValue;
+    public void setListValue(String listValue) {
+        this.listValueAttr = listValue;
     }
 
     public boolean contains(Object obj1, Object obj2) {
@@ -78,13 +69,18 @@ public abstract class AbstractListTag extends AbstractUITag {
         return false;
     }
 
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.list = null;
-        this.listKey = null;
-        this.listValue = null;
+    void evaluateParams(OgnlValueStack stack) {
+        if (listAttr != null) {
+            addParam("list", MakeIterator.convert(stack.findValue(listAttr)));
+        }
+
+        if (listKeyAttr != null) {
+            addParam("listKey", listKeyAttr);
+        }
+
+        if (listValueAttr != null) {
+            addParam("listValue", listValueAttr);
+        }
     }
+
 }

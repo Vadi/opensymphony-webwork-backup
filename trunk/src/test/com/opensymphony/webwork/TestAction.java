@@ -22,6 +22,7 @@ public class TestAction extends ActionSupport {
     private String result;
     private String[] array;
     private String[][] list;
+    private Map map;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -47,6 +48,14 @@ public class TestAction extends ActionSupport {
 
     public String[][] getList() {
         return list;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public Map getMap() {
+        return map;
     }
 
     public void setResult(String result) {

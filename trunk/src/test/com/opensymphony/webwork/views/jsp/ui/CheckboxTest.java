@@ -23,10 +23,6 @@ public class CheckboxTest extends AbstractJspTest {
     public CheckboxTest() {
     }
 
-    public CheckboxTest(String s) {
-        super(s);
-    }
-
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testChecked() throws Exception {

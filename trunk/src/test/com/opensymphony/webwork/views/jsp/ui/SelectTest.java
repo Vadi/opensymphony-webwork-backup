@@ -43,12 +43,12 @@ public class SelectTest extends AbstractJspTest {
         SelectTag tag = new SelectTag();
         tag.setPageContext(pageContext);
         tag.setEmptyOption(false);
-        tag.setLabel("mylabel");
-        tag.setName("myname");
-        tag.setValue("that.list[1][1]");
+        tag.setLabel("'mylabel'");
+        tag.setName("'myname'");
+        tag.setValue("'bar'");
         tag.setList("list");
-        tag.setListKey("[0]");
-        tag.setListValue("[1]");
+        tag.setListKey("that[0]");
+        tag.setListValue("that[1]");
 
         int result = tag.doEndTag();
 
