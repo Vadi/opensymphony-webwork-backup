@@ -27,6 +27,9 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
     private String pathInfo;
     private String queryString;
     private String requestURI;
+    private String scheme;
+    private String serverName;
+    private int serverPort;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -100,5 +103,29 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
 
     public void setupGetPathInfo(String pathInfo) {
         this.pathInfo = pathInfo;
+    }
+
+    public String getScheme() {
+        return scheme;
+    }
+
+    public void setScheme(String scheme) {
+        this.scheme = scheme;
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+
+    public int getServerPort() {
+        return serverPort;
+    }
+
+    public void setServerPort(int serverPort) {
+        this.serverPort = serverPort;
     }
 }
