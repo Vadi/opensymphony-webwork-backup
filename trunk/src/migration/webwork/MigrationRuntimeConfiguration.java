@@ -5,13 +5,13 @@ import com.opensymphony.xwork.config.RuntimeConfiguration;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.PackageConfig;
 import com.opensymphony.xwork.config.entities.InterceptorStackConfig;
+import com.opensymphony.webwork.config.Configuration;
 import ognl.Ognl;
 import ognl.OgnlContext;
 import ognl.OgnlRuntime;
 import webwork.action.Action;
 import webwork.action.CommandDriven;
 import webwork.action.factory.*;
-import webwork.config.Configuration;
 import webwork.dispatcher.DefaultViewMapping;
 import webwork.dispatcher.ViewMapping;
 

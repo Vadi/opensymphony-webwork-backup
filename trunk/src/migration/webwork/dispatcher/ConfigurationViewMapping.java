@@ -7,7 +7,7 @@
 package webwork.dispatcher;
 
 import webwork.action.Action;
-import webwork.config.Configuration;
+import com.opensymphony.webwork.config.Configuration;
 
 /**
  * View mapping that uses the Configuration. This maps {action name, view name} tuples to views, e.g. JSP files.

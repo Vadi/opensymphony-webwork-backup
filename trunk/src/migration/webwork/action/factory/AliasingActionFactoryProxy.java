@@ -7,12 +7,12 @@
 package webwork.action.factory;
 
 import webwork.action.Action;
-import webwork.config.Configuration;
 
 import java.util.Hashtable;
 import java.util.Map;
 
 import org.apache.commons.logging.*;
+import com.opensymphony.webwork.config.Configuration;
 
 /**
  * Aliasing action factory proxy. This will convert the given name

@@ -8,9 +8,9 @@ package webwork.dispatcher;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.config.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import webwork.config.Configuration;
 
 import java.util.*;
 

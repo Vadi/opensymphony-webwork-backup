@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.config.PropertiesConfiguration;
+import com.opensymphony.webwork.config.DelegatingConfiguration;
+
 /**
  * Default implementation of configuration. Creates and delegates to other configurations.
  *
