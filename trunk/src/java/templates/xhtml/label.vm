@@ -1,3 +1,0 @@
-#parse( "/templates/xhtml/controlheader.vm" )
-$parameters.value
-#parse( "/templates/xhtml/controlfooter.vm" )

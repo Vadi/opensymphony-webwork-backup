@@ -1,2 +1,0 @@
-<input type="hidden" name="${tag.tokenNameField}" value="$parameters.name"/>
-<input type="hidden" name="$parameters.name" value="$parameters.token"/>
