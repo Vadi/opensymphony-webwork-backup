@@ -21,6 +21,8 @@ public class FormTagTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testClientSideValidation() throws Exception {
+        request.setupGetServletPath("/testAction");
+
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 
@@ -61,6 +63,8 @@ public class FormTagTest extends AbstractUITagTest {
     }
 
     public void testForm() throws Exception {
+        request.setupGetServletPath("/testAction");
+
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 
@@ -75,6 +79,33 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doEndTag();
 
         verify(FormTag.class.getResource("Formtag-1.txt"));
+    }
+
+    public void testFormWithNamespaceDefaulting() throws Exception {
+        request.setupGetServletPath("/testNamespace/testNamespaceAction");
+
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        FormTag tag = new FormTag();
+        tag.setPageContext(pageContext);
+        tag.setName("'myForm'");
+        tag.setMethod("'POST'");
+        tag.setAction("'testNamespaceAction'");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(FormTag.class.getResource("Formtag-3.txt"));
+    }
+
+    public void testFormWithNoAction() throws Exception {
+        FormTag tag = new FormTag();
+        tag.setPageContext(pageContext);
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(FormTag.class.getResource("Formtag-4.txt"));
     }
 
     protected void setUp() throws Exception {

@@ -11,7 +11,6 @@ import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 
 import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -102,21 +101,6 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         return EVAL_BODY_INCLUDE;
     }
 
-    String buildNamespace() {
-        ActionContext context = new ActionContext(getStack().getContext());
-        ActionInvocation invocation = context.getActionInvocation();
-
-        if (invocation == null) {
-            // Path is always original path, even if it is included in page with another path
-            HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-            String actionPath = request.getServletPath();
-
-            return ServletDispatcher.getNamespaceFromServletPath(actionPath);
-        } else {
-            return invocation.getProxy().getNamespace();
-        }
-    }
-
     private Map createExtraContext() {
         Map parentParams = null;
 
@@ -149,7 +133,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
      * attempt to derive a namespace using buildNamespace().  The ActionProxy
      * and the namespace will be saved into the instance variables proxy and
      * namespace respectively.
-     * @see #buildNamespace
+     * @see com.opensymphony.webwork.views.jsp.TagUtils#buildNamespace
      */
     private void executeAction() throws JspException {
         String actualName = findString(name);
@@ -161,7 +145,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         String namespace;
 
         if (namespaceAttr == null) {
-            namespace = buildNamespace();
+            namespace = TagUtils.buildNamespace(getStack(), (HttpServletRequest) pageContext.getRequest());
         } else {
             namespace = findString(namespaceAttr);
         }

@@ -12,6 +12,7 @@ import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.webwork.util.AttributeMap;
 
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import java.util.Map;
@@ -54,5 +55,19 @@ public class TagUtils {
         }
 
         return stack;
+    }
+
+    public static String buildNamespace(OgnlValueStack stack, HttpServletRequest request) {
+        ActionContext context = new ActionContext(stack.getContext());
+        ActionInvocation invocation = context.getActionInvocation();
+
+        if (invocation == null) {
+            // Path is always original path, even if it is included in page with another path
+            String actionPath = request.getServletPath();
+
+            return ServletDispatcher.getNamespaceFromServletPath(actionPath);
+        } else {
+            return invocation.getProxy().getNamespace();
+        }
     }
 }
