@@ -65,6 +65,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String themeAttr;
     protected String valueAttr;
     protected String classAttr;
+    protected String styleAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -110,6 +111,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     public void setClass(String aClass) {
         classAttr = aClass;
+    }
+
+    public void setStyle(String aStyle) {
+        this.styleAttr = aStyle;
     }
 
     public int doEndTag() throws JspException {
@@ -231,6 +236,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
         if (classAttr != null) {
             addParameter("class", findValue(classAttr, String.class));
+        }
+
+        if (classAttr != null) {
+            addParameter("style", findValue(styleAttr, String.class));
         }
 
         FormTag tag = (FormTag) findAncestorWithClass(this, FormTag.class);
