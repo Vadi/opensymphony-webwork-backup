@@ -225,7 +225,10 @@
 
         <copy file="${src.etc}/taglib.tld" tofile="${build}/webwork.tld"/>
 
-        <war destfile="${build}/${name}-example.war" basedir="${src.webapp}" webxml="${src.webapp}/WEB-INF/web.xml">
+        <war destfile="${build}/${name}-example.war" webxml="${src.webapp}/WEB-INF/web.xml">
+            <fileset dir="${src.webapp}">
+                <exclude name="**/web.xml" />
+            </fileset>
             <lib dir="${lib.core}"/>
             <lib dir="${lib.optional}"/>
             <lib dir="${lib.example}"/>
