@@ -4,18 +4,14 @@
  */
 package com.opensymphony.webwork.validators;
 
-import com.opensymphony.xwork.validator.FieldValidator;
-
 import java.util.Map;
 
 
 /**
- * DOCUMENT ME!
- *
- * @author $author$
- * @version $Revision$
+ * This interface indicates that its implementor can produce JavaScript to perform client-side
+ * validation.
  */
-public interface ScriptValidationAware extends FieldValidator {
+public interface ScriptValidationAware {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public String validationScript(Map parameters);
