@@ -61,6 +61,9 @@ public class ServletDispatcherResult extends WebWorkResultSupport {
             // Otherwise do forward 
             // This allow the page to, for example, set content type 
             if (!response.isCommitted() && (request.getAttribute("javax.servlet.include.servlet_path") == null)) {
+                request.setAttribute("webwork.view_uri", finalLocation);
+                request.setAttribute("webwork.request_uri", request.getRequestURI());
+
                 dispatcher.forward(request, response);
             } else {
                 dispatcher.include(request, response);
