@@ -8,13 +8,6 @@
  */
 package com.opensymphony.webwork.views.freemarker;
 
-import java.io.IOException;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.opensymphony.xwork.ActionContext;
 
 import freemarker.template.ObjectWrapper;
@@ -23,6 +16,13 @@ import freemarker.template.Template;
 import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
+
+import java.io.IOException;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -33,8 +33,8 @@ public class FreemarkerServlet extends freemarker.ext.servlet.FreemarkerServlet 
     //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
- *
- */
+*
+*/
     public FreemarkerServlet() {
         super();
     }
@@ -42,22 +42,22 @@ public class FreemarkerServlet extends freemarker.ext.servlet.FreemarkerServlet 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /* (non-Javadoc)
- * @see freemarker.ext.servlet.FreemarkerServlet#createModel(freemarker.template.ObjectWrapper, javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
- */
+* @see freemarker.ext.servlet.FreemarkerServlet#createModel(freemarker.template.ObjectWrapper, javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+*/
     protected TemplateModel createModel(ObjectWrapper wrapper, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) throws TemplateModelException {
         // get the superclasses model and wrap it in a ValueStackModelWrapper
         TemplateHashModel model = (TemplateHashModel) super.createModel(wrapper, servletContext, request, response);
 
-		ValueStackModel valueStackModel = new ValueStackModel(model);
-		valueStackModel.setObjectWrapper(getObjectWrapper());
-		
-		return valueStackModel;
+        ValueStackModel valueStackModel = new ValueStackModel(model);
+        valueStackModel.setObjectWrapper(getObjectWrapper());
+
+        return valueStackModel;
     }
 
     /*
- *
- * @see freemarker.ext.servlet.FreemarkerServlet#preTemplateProcess(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, freemarker.template.Template, freemarker.template.TemplateModel)
- */
+*
+* @see freemarker.ext.servlet.FreemarkerServlet#preTemplateProcess(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, freemarker.template.Template, freemarker.template.TemplateModel)
+*/
     protected boolean preTemplateProcess(HttpServletRequest request, HttpServletResponse response, Template template, TemplateModel templateModel) throws ServletException, IOException {
         super.preTemplateProcess(request, response, template, templateModel);
 
