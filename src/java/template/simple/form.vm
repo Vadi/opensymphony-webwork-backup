@@ -6,7 +6,6 @@
 #if ($parameters.target)    target="$!webwork.htmlEncode($parameters.target)"   #end
 #if ($parameters.method)    method="$!webwork.htmlEncode($parameters.method)"   #end
 #if ($parameters.enctype)   enctype="$!webwork.htmlEncode($parameters.enctype)" #end
-#if ($parameters.validate)  onsubmit="return(${parameters.name}_validate())"    #end
 #if ($parameters.cssClass)  class="$!webwork.htmlEncode($parameters.cssClass)"  #end
 #if ($parameters.cssStyle)  style="$!webwork.htmlEncode($parameters.cssStyle)"  #end
 >
