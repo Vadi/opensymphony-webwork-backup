@@ -31,12 +31,6 @@ public class SubmitTag extends AbstractUITag {
         return align;
     }
 
-    public Object Align(String align) {
-        setAlign(align);
-
-        return this;
-    }
-
     protected String getDefaultTemplate() {
         return TEMPLATE;
     }

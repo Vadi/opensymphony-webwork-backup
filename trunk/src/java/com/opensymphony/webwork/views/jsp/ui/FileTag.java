@@ -45,18 +45,6 @@ public class FileTag extends AbstractUITag {
         return size;
     }
 
-    public Object Accept(String accept) {
-        this.accept = accept;
-
-        return this;
-    }
-
-    public Object Size(int size) {
-        this.size = size;
-
-        return this;
-    }
-
     /**
      * Clears all the instance variables to allow this instance to be reused.
      */

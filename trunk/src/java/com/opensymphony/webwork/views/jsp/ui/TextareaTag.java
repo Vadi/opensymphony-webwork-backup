@@ -40,18 +40,6 @@ public class TextareaTag extends AbstractUITag {
         return rows;
     }
 
-    public Object Cols(int cols) {
-        setCols(cols);
-
-        return this;
-    }
-
-    public Object Rows(int rows) {
-        setRows(rows);
-
-        return this;
-    }
-
     protected String getDefaultTemplate() {
         return TEMPLATE;
     }

@@ -31,12 +31,6 @@ public class TextFieldTag extends AbstractUITag {
         return size;
     }
 
-    public Object Size(int size) {
-        this.size = size;
-
-        return this;
-    }
-
     /**
      * Clears all the instance variables to allow this instance to be reused.
      */

@@ -53,34 +53,6 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
         return doubleName;
     }
 
-    public Object DoubleList(String list) {
-        setDoubleList(list);
-
-        return this;
-    }
-
-    public Object DoubleListKey(String listKey) {
-        setDoubleListKey(listKey);
-
-        return this;
-    }
-
-    public Object DoubleListValue(Object listValue) {
-        this.setDoubleListValue(listValue);
-
-        return this;
-    }
-
-    /**
-     * simple setter method for Velocity
-     * @param name
-     */
-    public Object DoubleName(Object doubleName) {
-        setDoubleName(doubleName);
-
-        return this;
-    }
-
     /**
      * Clears all the instance variables to allow this instance to be reused.
      */

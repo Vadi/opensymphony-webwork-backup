@@ -59,13 +59,8 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    Map params;
-    Object actualValue;
-    Object name;
-    Object value;
+    Map params = new HashMap();
     String id;
-    String label;
-    String onchange;
     String template;
     String theme;
     Writer writer;
@@ -73,9 +68,6 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public Object getActualValue() {
-        return actualValue;
-    }
 
     public void setId(String id) {
         this.id = id;
@@ -86,32 +78,17 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getLabel() {
-        return label;
+        params.put("label", label);
     }
 
     public void setName(Object name) {
-        this.name = name;
-    }
-
-    public Object getName() {
-        return name;
+        params.put("name", name);
     }
 
     public void setOnchange(String onchange) {
-        this.onchange = onchange;
+        params.put("onchange", onchange);
     }
 
-    public String getOnchange() {
-        return onchange;
-    }
-
-    public void setOut(Writer writer) {
-        this.writer = writer;
-    }
 
     /**
      * com.opensymphony.webwork.views.jsp.ParameterizedTag implementation
@@ -119,10 +96,6 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
      * @see ParameterizedTag
      */
     public Map getParams() {
-        if (params == null) {
-            params = new HashMap();
-        }
-
         return params;
     }
 
@@ -132,18 +105,6 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
 
     public boolean getRequired() {
         return required;
-    }
-
-    /**
-     * for Velocity
-     * @return
-     * @throws JspException
-     */
-    public String getShow() throws JspException {
-        int result = doStartTag();
-        doEndTag();
-
-        return "";
     }
 
     public void setTemplate(String template) {
@@ -163,97 +124,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     public void setValue(Object value) {
-        this.value = value;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-
-    /**
-     * simple setter method for Velocity
-     * @param id
-     */
-    public Object Id(String id) {
-        setId(id);
-
-        return this;
-    }
-
-    /**
-     * simple setter method for Velocity
-     * @param label
-     */
-    public Object Label(String label) {
-        setLabel(label);
-
-        return this;
-    }
-
-    /**
-     * simple setter method for Velocity
-     * @param name
-     */
-    public Object Name(Object name) {
-        setName(name);
-
-        return this;
-    }
-
-    /**
-     * simple setter method for Velocity
-     * @param onchange
-     */
-    public Object Onchange(String onchange) {
-        setOnchange(onchange);
-
-        return this;
-    }
-
-    public Object Param(String key, Object value) {
-        this.addParam(key, value);
-
-        return this;
-    }
-
-    /**
-     * simple setter method for Velocity
-     * @param required whether or not this tag is required
-     */
-    public Object Required(boolean required) {
-        setRequired(required);
-
-        return this;
-    }
-
-    /**
-     * simple setter method for Velocity
-     * @param template
-     */
-    public Object Template(String template) {
-        setTemplate(template);
-
-        return this;
-    }
-
-    /**
-     * simple setter method for Velocity
-     * @param theme
-     */
-    public Object Theme(String theme) {
-        setTheme(theme);
-
-        return this;
-    }
-
-    /**
-     * simple setter method for Velocity
-     * @param value
-     */
-    public Object Value(Object value) {
-        setValue(value);
-
-        return this;
+        params.put("value", value);
     }
 
     /**
@@ -274,19 +145,11 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
 
             return EVAL_BODY_INCLUDE;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Could npt generate UI template", e);
 
             return SKIP_BODY;
         } finally {
-            this.params = null;
-            this.id = null;
-            this.label = null;
-            this.name = null;
-            this.onchange = null;
-            this.theme = null;
-            this.template = null;
-            this.value = null;
-            this.actualValue = null;
+            nullifyVars();
         }
     }
 
@@ -305,120 +168,48 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
      */
     public void release() {
         super.release();
+        nullifyVars();
+    }
+
+    private void nullifyVars() {
         this.params = null;
         this.id = null;
-        this.label = null;
         this.required = false;
-        this.name = null;
-        this.onchange = null;
         this.theme = null;
         this.template = null;
-        this.value = null;
-        this.actualValue = null;
     }
 
     public void render(Context context, Writer writer) throws Exception {
-        OgnlValueStack stack = ActionContext.getContext().getValueStack();
-
-        if (stack != null) {
-            if (value != null) {
-                actualValue = stack.findValue(value.toString());
-            } else if (name != null) {
-                actualValue = stack.findValue(name.toString());
-            }
-        }
+        evaluateActualValue();
 
         Template template = velocityEngine.getTemplate(this.getTemplateName());
         template.merge(context, writer);
     }
 
-    /**
-     * For Velocity
-     * @param label
-     * @return
-     * @throws JspException
-     */
     public Object set(String label) throws JspException {
         return this.set(label, null, null, null, null, null, null);
     }
 
-    /**
-     * For Velocity
-     * @param label
-     * @param name
-     * @return
-     * @throws JspException
-     */
     public Object set(String label, Object name) throws JspException {
         return this.set(label, name, null, null, null, null, null);
     }
 
-    /**
-     * For Velocity
-     * @param label
-     * @param name
-     * @param value
-     * @return
-     * @throws JspException
-     */
     public Object set(String label, Object name, Object value) throws JspException {
         return this.set(label, name, value, null, null, null, null);
     }
 
-    /**
-     * For Velocity
-     * @param label
-     * @param name
-     * @param value
-     * @param id
-     * @return
-     * @throws JspException
-     */
     public Object set(String label, Object name, Object value, String id) throws JspException {
         return this.set(label, name, value, id, null, null, null);
     }
 
-    /**
-     * For Velocity
-     * @param label
-     * @param name
-     * @param value
-     * @param id
-     * @param onchange
-     * @return
-     * @throws JspException
-     */
     public Object set(String label, Object name, Object value, String id, String onchange) throws JspException {
         return this.set(label, name, value, id, onchange, null, null);
     }
 
-    /**
-     * For Velocity
-     * @param label
-     * @param name
-     * @param value
-     * @param id
-     * @param onchange
-     * @param template
-     * @return
-     * @throws JspException
-     */
     public Object set(String label, Object name, Object value, String id, String onchange, String template) throws JspException {
         return this.set(label, name, value, id, onchange, template, null);
     }
 
-    /**
-     * For Velocity
-     * @param label
-     * @param name
-     * @param value
-     * @param id
-     * @param onchange
-     * @param template
-     * @param theme
-     * @return
-     * @throws JspException
-     */
     public Object set(String label, Object name, Object value, String id, String onchange, String template, String theme) throws JspException {
         this.setLabel(label);
         this.setName(name);
@@ -492,19 +283,6 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
      * already been set
      */
     protected void evaluateActualValue() {
-        if (this.actualValue != null) {
-            return;
-        }
-
-        OgnlValueStack stack = ActionContext.getContext().getValueStack();
-
-        if (stack != null) {
-            if (value != null) {
-                actualValue = stack.findValue(value.toString());
-            } else if (name != null) {
-                actualValue = stack.findValue(name.toString());
-            }
-        }
     }
 
     protected void mergeTemplate(String templateName) throws Exception {
@@ -512,7 +290,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
         Context context = VelocityManager.createContext(pageContext.getServletConfig(), pageContext.getRequest(), pageContext.getResponse());
 
         Writer outputWriter = writer;
-        if( outputWriter == null ) {
+        if (outputWriter == null) {
             outputWriter = pageContext.getOut();
         }
 

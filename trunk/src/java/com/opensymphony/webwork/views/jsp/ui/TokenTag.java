@@ -43,38 +43,38 @@ public class TokenTag extends AbstractUITag {
     }
 
     /**
-* First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
-* if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
-* the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
-* the name.
-* @return
-* @throws JspException
-*/
+     * First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
+     * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
+     * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
+     * the name.
+     * @return
+     * @throws JspException
+     */
     public int doEndTag() throws JspException {
-        if (name == null) {
-            name = TokenHelper.DEFAULT_TOKEN_NAME;
-        }
+        //if (name == null) {
+        //    name = TokenHelper.DEFAULT_TOKEN_NAME;
+        //}
 
-        token = buildToken(name.toString());
+        //token = buildToken(name.toString());
 
         return super.doEndTag();
     }
 
     /**
-* Clears all the instance variables to allow this instance to be reused.
-*/
+     * Clears all the instance variables to allow this instance to be reused.
+     */
     public void release() {
         super.release();
         token = null;
-        name = null;
+        //name = null;
     }
 
     public void render(Context context, Writer writer) throws Exception {
-        if (name == null) {
-            name = TokenHelper.DEFAULT_TOKEN_NAME;
-        }
+        //if (name == null) {
+        //    name = TokenHelper.DEFAULT_TOKEN_NAME;
+        //}
 
-        token = buildTokenForVelocity(context, name.toString());
+        //token = buildTokenForVelocity(context, name.toString());
 
         super.render(context, writer);
     }
@@ -110,9 +110,9 @@ public class TokenTag extends AbstractUITag {
     }
 
     /**
-* This method checks to see if a HttpSession object exists in the context. If a session
-* doesn't exist, it creates a new one and adds it to the context.
-*/
+     * This method checks to see if a HttpSession object exists in the context. If a session
+     * doesn't exist, it creates a new one and adds it to the context.
+     */
     private void verifySession() {
         Map session = ServletActionContext.getContext().getSession();
 

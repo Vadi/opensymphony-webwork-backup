@@ -24,17 +24,20 @@ import javax.servlet.jsp.JspException;
  */
 public class PropertyTagTest extends TestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
+    OgnlValueStack stack = new OgnlValueStack();
+    MockHttpServletRequest request = new MockHttpServletRequest();
+
+    protected void setUp() throws Exception {
+        ActionContext.getContext().setValueStack(stack);
+        request.setupGetAttribute(stack);
+    }
 
     public void testDefaultValue() {
         PropertyTag tag = new PropertyTag();
 
         Foo foo = new Foo();
 
-        OgnlValueStack stack = new OgnlValueStack();
         stack.push(foo);
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ActionContext.getContext().setValueStack(stack);
 
         MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("TEST");
@@ -64,11 +67,7 @@ public class PropertyTagTest extends TestCase {
 
         Foo foo = new Foo();
 
-        OgnlValueStack stack = new OgnlValueStack();
         stack.push(foo);
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ActionContext.getContext().setValueStack(stack);
 
         MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("");
@@ -98,11 +97,7 @@ public class PropertyTagTest extends TestCase {
         Foo foo = new Foo();
         foo.setTitle("test");
 
-        OgnlValueStack stack = new OgnlValueStack();
         stack.push(foo);
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ActionContext.getContext().setValueStack(stack);
 
         MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("test");
@@ -132,11 +127,7 @@ public class PropertyTagTest extends TestCase {
         Foo foo = new Foo();
         foo.setTitle("test");
 
-        OgnlValueStack stack = new OgnlValueStack();
         stack.push(foo);
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ActionContext.getContext().setValueStack(stack);
 
         MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("Foo is: test");
