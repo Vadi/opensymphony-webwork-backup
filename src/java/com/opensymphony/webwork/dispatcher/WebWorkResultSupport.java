@@ -106,14 +106,15 @@ public abstract class WebWorkResultSupport implements Result, WebWorkStatics {
      * @throws Exception if an error occurs while executing the result.
      */
     public void execute(ActionInvocation invocation) throws Exception {
-        String finalLocation = location;
+        doExecute(conditionalParse(location, invocation), invocation);
+    }
 
+    protected String conditionalParse(String param, ActionInvocation invocation) {
         if (parse) {
-            OgnlValueStack stack = ActionContext.getContext().getValueStack();
-            finalLocation = TextParseUtil.translateVariables(location, stack);
+            return TextParseUtil.translateVariables(param, invocation.getStack());
+        } else {
+            return param;
         }
-
-        doExecute(finalLocation, invocation);
     }
 
     /**
