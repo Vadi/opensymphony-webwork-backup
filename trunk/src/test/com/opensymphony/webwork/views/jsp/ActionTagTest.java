@@ -55,10 +55,7 @@ public class ActionTagTest extends TestCase {
             Object o = pageContext.findAttribute(TestConfigurationProvider.TEST_NAMESPACE_ACTION);
             assertTrue(o instanceof TestAction);
 
-            // Since the tag executes the proxy, the ActionContext is set back to the original action context, we
-            // want to check the old one (the one the proxy was run as)
-            ActionInvocation actionInvocation = tag.proxy.getLastContext().getActionInvocation();
-            assertEquals(TestConfigurationProvider.TEST_NAMESPACE, actionInvocation.getProxy().getNamespace());
+            assertEquals(TestConfigurationProvider.TEST_NAMESPACE, tag.proxy.getNamespace());
         } catch (JspException ex) {
             ex.printStackTrace();
             fail();
