@@ -13,7 +13,7 @@ public class ChecboxListTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
   public void testSimple() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + SelectTag.TEMPLATE);
+        Template template = Velocity.getTemplate(AbstractUITag.THEME + CheckboxListTag.TEMPLATE);
         Assert.assertNotNull(template); // ensure this is a valid decorators
 
         TestAction testAction = (TestAction) action;
@@ -33,11 +33,11 @@ public class ChecboxListTest extends AbstractUITagTest {
 
         int result = tag.doEndTag();
 
-        verify(SelectTag.class.getResource("CheckboxList-1.txt"));
+        verify(CheckboxListTag.class.getResource("CheckboxList-1.txt"));
     }
 
     public void testMultiple() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + SelectTag.TEMPLATE);
+        Template template = Velocity.getTemplate(AbstractUITag.THEME + CheckboxListTag.TEMPLATE);
         Assert.assertNotNull(template); // ensure this is a valid decorators
 
         TestAction testAction = (TestAction) action;
@@ -61,6 +61,6 @@ public class ChecboxListTest extends AbstractUITagTest {
 
         int result = tag.doEndTag();
 
-        verify(SelectTag.class.getResource("CheckboxList-2.txt"));
+        verify(CheckboxListTag.class.getResource("CheckboxList-2.txt"));
     }
 }

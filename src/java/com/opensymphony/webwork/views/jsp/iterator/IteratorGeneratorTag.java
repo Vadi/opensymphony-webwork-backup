@@ -43,16 +43,16 @@ public class IteratorGeneratorTag
         super.doStartTag();
 
         // Pop holder temporarily while we resolve names
-        Object holder = getStack().popValue();
-
-        ((IteratorGenerator) bean).setValues(findValue(valueAttr));
-        if (countAttr != null)
-            ((IteratorGenerator) bean).setCount(Integer.parseInt(findString(countAttr)));
-        if (separatorAttr != null)
-            ((IteratorGenerator) bean).setSeparator(findString(separatorAttr));
-
-        // Push holder back on stack
-        getStack().pushValue(holder);
+//        Object holder = getStack().popValue();
+//
+//        ((IteratorGenerator) bean).setValues(findValue(valueAttr));
+//        if (countAttr != null)
+//            ((IteratorGenerator) bean).setCount(Integer.parseInt(findString(countAttr)));
+//        if (separatorAttr != null)
+//            ((IteratorGenerator) bean).setSeparator(findString(separatorAttr));
+//
+//        // Push holder back on stack
+//        getStack().pushValue(holder);
 
         return EVAL_BODY_INCLUDE;
     }

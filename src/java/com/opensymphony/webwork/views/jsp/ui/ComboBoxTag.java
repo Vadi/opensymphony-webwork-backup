@@ -1,0 +1,64 @@
+package com.opensymphony.webwork.views.jsp.ui;
+
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+/**
+ * User: plightbo
+ * Date: Nov 3, 2003
+ * Time: 9:31:30 PM
+ */
+public class ComboBoxTag extends AbstractUITag {
+    //~ Static fields/initializers /////////////////////////////////////////////
+
+    /**
+     * The name of the default template for the CheckboxTag
+     */
+    final public static String TEMPLATE = "combobox.vm";
+
+    protected String sizeAttr;
+    protected String maxlengthAttr;
+    protected String onkeyupAttr;
+    protected String list;
+
+    public void setSize(String aSize) {
+        this.sizeAttr = aSize;
+    }
+
+    public void setMaxlength(String aMaxlength) {
+        this.maxlengthAttr = aMaxlength;
+    }
+
+    public void setList(String aList) {
+        this.list = aList;
+    }
+
+    public void setOnkeyup(String onkeyup) {
+        this.onkeyupAttr = onkeyup;
+    }
+
+    protected void evaluateExtraParams(OgnlValueStack stack) {
+        if (list != null) {
+            addParam("list", findValue(list));
+        }
+
+        if (sizeAttr != null) {
+            addParam("size", findValue(sizeAttr));
+        }
+
+        if (maxlengthAttr != null) {
+            addParam("maxlength", findValue(maxlengthAttr));
+        }
+
+        if (onkeyupAttr != null) {
+            addParam("onkeyup", findValue(onkeyupAttr));
+        }
+    }
+
+    protected Class getValueClassType() {
+        return Boolean.class; // for checkboxes, everything needs to end up as a Boolean
+    }
+
+    protected String getDefaultTemplate() {
+        return TEMPLATE;
+    }
+}
