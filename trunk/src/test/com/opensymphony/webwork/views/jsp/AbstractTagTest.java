@@ -30,7 +30,7 @@ import javax.servlet.jsp.JspWriter;
  * User: jcarreira
  * Created: Oct 17, 2003 10:24:34 PM
  */
-public class AbstractTagTest extends TestCase {
+public abstract class AbstractTagTest extends TestCase {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     protected Action action;
