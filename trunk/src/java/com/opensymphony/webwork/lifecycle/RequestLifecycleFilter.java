@@ -16,6 +16,7 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- *
+ * @author scottnelsonsmith@yahoo.com added {@link getServletContext(HttpSession)}.
  * @author joew@thoughtworks.com
  * @author $Author$
  * @version $Revision$
@@ -34,35 +35,12 @@ public class RequestLifecycleFilter implements Filter {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(RequestLifecycleFilter.class);
-
+    
     //~ Methods ////////////////////////////////////////////////////////////////
-
-    /**
-     * This method is required by Weblogic 6.1 SP4
-     * instead of {@link init(FilterConfig)} because
-     * they defined this as a required method just before
-     * the Servlet 2.3 specification was finalized.
-     *
-     * @param filterConfig the filter configuration for this filter
-     */
-    public final void setFilterConfig(FilterConfig filterConfig) throws ServletException {
-        init(filterConfig);
-    }
-
-    /**
-     * This method is required by Weblogic 6.1 SP4 because
-     * they defined this as a required method just before
-     * the Servlet 2.3 specification was finalized.
-     *
-     * @return the filter's filter configuration
-     */
-    public FilterConfig getFilterConfig() {
-        return null;
-    }
 
     public void destroy() {
     }
-
+    
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         ComponentManager container = new DefaultComponentManager();
 
@@ -76,7 +54,7 @@ public class RequestLifecycleFilter implements Filter {
 
             container.setFallback(fallback);
 
-            ComponentConfiguration config = (ComponentConfiguration) session.getServletContext().getAttribute("ComponentConfiguration");
+            ComponentConfiguration config = (ComponentConfiguration) getServletContext(session).getAttribute("ComponentConfiguration");
 
             config.configure(container, "request");
 
@@ -89,6 +67,24 @@ public class RequestLifecycleFilter implements Filter {
 
             container.dispose();
         }
+    }
+    
+    /**
+     * answers the servlet context.
+     * <p>
+     * Servlet 2.3 specifies that this can be retrieved from
+     * the session.  Unfortunately, weblogic.jar can only retrieve
+     * the servlet context from the filter config.  Hence, this method
+     * enables subclasses to retrieve the servlet context from other
+     * sources.
+     * 
+     * @param session the HTTP session where, in Servlet 2.3, the
+     *          servlet context can be retrieved
+     * @return the servlet context.
+     */
+    protected ServletContext getServletContext(HttpSession session)
+    {
+        return session.getServletContext();
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {
