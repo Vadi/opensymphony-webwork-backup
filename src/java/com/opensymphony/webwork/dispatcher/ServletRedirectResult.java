@@ -16,6 +16,7 @@ import com.opensymphony.xwork.util.TextParseUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -51,6 +52,7 @@ public class ServletRedirectResult implements Result, WebWorkStatics {
     }
 
     public void execute(ActionInvocation invocation) throws Exception {
+        HttpServletRequest request = ServletActionContext.getRequest();
         HttpServletResponse response = ServletActionContext.getResponse();
 
         if (parse) {
@@ -62,6 +64,10 @@ public class ServletRedirectResult implements Result, WebWorkStatics {
             log.debug("Redirecting to location " + location);
         }
 
-        response.sendRedirect(location);
+        if (location.startsWith("/")) {
+            response.sendRedirect(location);
+        } else {
+            response.sendRedirect(request.getContextPath() + location);
+        }
     }
 }

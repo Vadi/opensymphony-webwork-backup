@@ -27,21 +27,17 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  */
 public class ServletRedirectResultTest extends TestCase implements WebWorkStatics {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    protected ServletRedirectResult view;
+    private Mock requestMock;
+    private Mock responseMock;
+
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void testSimple() {
-        ServletRedirectResult view = new ServletRedirectResult();
-        view.setLocation("foo.jsp");
-
-        Mock responseMock = new Mock(HttpServletResponse.class);
-        responseMock.expectVoid("sendRedirect", C.args(C.eq("foo.jsp")));
-
-        Mock requestMock = new Mock(HttpServletRequest.class);
-
-        ActionContext ac = new ActionContext(Ognl.createDefaultContext(null));
-        ActionContext.setContext(ac);
-        ServletActionContext.setResponse((HttpServletResponse) responseMock.proxy());
-        ServletActionContext.setRequest((HttpServletRequest) requestMock.proxy());
+    public void testAbsoluteRedirect() {
+        view.setLocation("/bar/foo.jsp");
+        responseMock.expect("sendRedirect", C.args(C.eq("/bar/foo.jsp")));
 
         try {
             view.execute(null);
@@ -49,7 +45,35 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
             e.printStackTrace();
             fail();
         }
+    }
 
+    public void testRelativeRedirect() {
+        view.setLocation("foo.jsp");
+        responseMock.expect("sendRedirect", C.args(C.eq("/context/foo.jsp")));
+
+        try {
+            view.execute(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    protected void setUp() {
+        view = new ServletRedirectResult();
+
+        responseMock = new Mock(HttpServletResponse.class);
+
+        requestMock = new Mock(HttpServletRequest.class);
+        requestMock.matchAndReturn("getContextPath", "/context/");
+
+        ActionContext ac = new ActionContext(Ognl.createDefaultContext(null));
+        ActionContext.setContext(ac);
+        ServletActionContext.setResponse((HttpServletResponse) responseMock.proxy());
+        ServletActionContext.setRequest((HttpServletRequest) requestMock.proxy());
+    }
+
+    protected void tearDown() {
         requestMock.verify();
         responseMock.verify();
     }
