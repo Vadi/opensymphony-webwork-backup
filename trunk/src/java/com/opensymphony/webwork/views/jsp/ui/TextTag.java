@@ -7,6 +7,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.views.jsp.ParamTag;
 import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 import com.opensymphony.xwork.TextProvider;
+import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -123,6 +124,7 @@ public class TextTag extends WebWorkBodyTagSupport implements ParamTag.UnnamedPa
         }
 
         String msg = null;
+        OgnlValueStack stack = getStack();
 
         for (Iterator iterator = getStack().getRoot().iterator();
              iterator.hasNext();) {
@@ -130,7 +132,7 @@ public class TextTag extends WebWorkBodyTagSupport implements ParamTag.UnnamedPa
 
             if (o instanceof TextProvider) {
                 TextProvider tp = (TextProvider) o;
-                msg = tp.getText(actualName, defaultMessage, values);
+                msg = tp.getText(actualName, defaultMessage, values,stack);
 
                 break;
             }
@@ -151,20 +153,5 @@ public class TextTag extends WebWorkBodyTagSupport implements ParamTag.UnnamedPa
         values = null;
 
         return super.doStartTag();
-    }
-
-    //~ Inner Classes //////////////////////////////////////////////////////////
-
-    private class ListValueHolder {
-        // try to give it an uncommon name
-        private List textTagListValueHolderList;
-
-        public ListValueHolder(List textTagListValueHolderList) {
-            this.textTagListValueHolderList = textTagListValueHolderList;
-        }
-
-        public List getTextTagListValueHolderList() {
-            return textTagListValueHolderList;
-        }
     }
 }
