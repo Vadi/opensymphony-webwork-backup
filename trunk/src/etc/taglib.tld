@@ -198,7 +198,7 @@
         <info>Iterates over a collection</info>
         <attribute>
             <name>value</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
