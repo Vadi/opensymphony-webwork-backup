@@ -65,10 +65,10 @@
 <ww:select label="'pulldown test (empty option)'" name="'select4'" value="list[2].key" list="list" listKey="key" listValue="value" />
 </benchmark:duration> ms</td></tr>
 
-<benchmark:duration output="true">
-<ww:doubleselect label="'double select test'" name="'dselect1'" doubleName="'dselect2'" value="list[1].key"
-                 list="list" listKey="key" listValue="value" doubleList="children"/>
-</benchmark:duration> ms</td></tr>
+<%--<benchmark:duration output="true">--%>
+<%--<ww:doubleselect label="'double select test'" name="'dselect1'" doubleName="'dselect2'" value="list[1].key"--%>
+<%--                 list="list" listKey="key" listValue="value" doubleList="children"/>--%>
+<%--</benchmark:duration> ms</td></tr>--%>
 
 <benchmark:duration output="true">
 <ww:textarea rows="'10'" cols="'30'" label="'textarea test'" name="'textareaField'" value="scalar" />
