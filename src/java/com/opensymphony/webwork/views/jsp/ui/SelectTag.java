@@ -19,6 +19,7 @@ public class SelectTag extends AbstractListTag {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    private boolean emptyOption;
     private boolean multiple;
     private int size;
     private String defaultKey = "";
@@ -26,6 +27,14 @@ public class SelectTag extends AbstractListTag {
 
 
     //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setEmptyOption(boolean emptyOption) {
+        this.emptyOption = emptyOption;
+    }
+
+    public boolean isEmptyOption() {
+        return emptyOption;
+    }
 
     public void setMultiple(boolean multiple) {
         this.multiple = multiple;
@@ -76,6 +85,7 @@ public class SelectTag extends AbstractListTag {
      */
     public void release() {
         super.release();
+        this.emptyOption = false;
         this.multiple = false;
         this.size = 0;
         this.defaultKey = "";
