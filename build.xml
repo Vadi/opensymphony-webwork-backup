@@ -168,6 +168,7 @@
 
         <war destfile="${build}/${name}-example.war" basedir="${src.webapp}" webxml="${src.webapp}/WEB-INF/web.xml">
             <lib dir="${lib.core}"/>
+            <lib dir="${lib.optional}"/>
             <lib dir="${lib.example}"/>
             <lib file="${build}/${name}-${version}.jar"/>
             <lib file="${build.config-browser.jar}"/>
