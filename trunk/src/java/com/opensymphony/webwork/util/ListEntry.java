@@ -30,15 +30,15 @@ public class ListEntry {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    public boolean getIsSelected() {
+        return isSelected;
+    }
+
     public Object getKey() {
         return key;
     }
 
     public Object getValue() {
         return value;
-    }
-
-    public boolean getIsSelected() {
-        return isSelected;
     }
 }
