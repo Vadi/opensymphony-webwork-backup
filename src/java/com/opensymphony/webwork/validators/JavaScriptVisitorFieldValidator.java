@@ -11,8 +11,11 @@ import java.util.Map;
 
 /**
  * This validator adds client-side validation to make sure a required field has been filled in.
+ * <p>
+ * <i>Implementation note:</i> this class is marked final because WebWork handles visitor field
+ * validation as a special case to cache validator lookups.
  */
-public class JavaScriptVisitorFieldValidator extends VisitorFieldValidator implements ScriptValidationAware {
+public final class JavaScriptVisitorFieldValidator extends VisitorFieldValidator implements ScriptValidationAware {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private Class m_validatedClass;
@@ -37,7 +40,7 @@ public class JavaScriptVisitorFieldValidator extends VisitorFieldValidator imple
 
     public String validationScript(Map parameters) {
         // Don't actually do anything.  The real work for this is done in
-        // AbstractUITag.findScriptingValidators() since we want to cache child validators as well 
+        // AbstractUITag.findScriptingValidators() since we want to cache child validators as well
         return "";
     }
 }
