@@ -11,6 +11,7 @@
             <result-type name="jasper" class="com.opensymphony.webwork.views.jasperreports.JasperReportsResult"/>
             <result-type name="freemarker" class="com.opensymphony.webwork.views.freemarker.FreemarkerResult"/>
             <result-type name="httpheader" class="com.opensymphony.webwork.dispatcher.HttpHeaderResult"/>
+            <result-type name="stream" class="com.opensymphony.webwork.dispatcher.StreamResult"/>
         </result-types>
 
         <interceptors>
