@@ -6,7 +6,7 @@
  * Created on 6/09/2003
  *
  */
-package com.opensymphony.webwork.views.freemarker;
+package com.opensymphony.webwork.util;
 
 
 /**
@@ -18,12 +18,14 @@ public class ListEntry {
 
     final private Object key;
     final private Object value;
+    final private boolean isSelected;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
-    public ListEntry(Object key, Object value) {
+    public ListEntry(Object key, Object value, boolean isSelected) {
         this.key = key;
         this.value = value;
+        this.isSelected = isSelected;
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -34,5 +36,9 @@ public class ListEntry {
 
     public Object getValue() {
         return value;
+    }
+
+    public boolean getIsSelected() {
+        return isSelected;
     }
 }

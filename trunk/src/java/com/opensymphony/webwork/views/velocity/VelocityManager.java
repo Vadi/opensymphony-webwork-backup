@@ -4,33 +4,35 @@
  */
 package com.opensymphony.webwork.views.velocity;
 
-import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.util.WebWorkUtil;
-import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+import java.util.StringTokenizer;
 
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.ActionInvocation;
-import com.opensymphony.xwork.ObjectFactory;
-import com.opensymphony.xwork.util.OgnlValueStack;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import java.util.*;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.util.VelocityWebWorkUtil;
+import com.opensymphony.webwork.util.WebWorkUtil;
+import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
@@ -118,13 +120,13 @@ public class VelocityManager {
 *
 * @return a new WebWorkVelocityContext
 */
-    public Context createContext(OgnlValueStack stack, ServletRequest servletRequest, ServletResponse servletResponse) {
+    public Context createContext(OgnlValueStack stack, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
         WebWorkVelocityContext context = new WebWorkVelocityContext(chainedContexts, stack);
         context.put(REQUEST, servletRequest);
         context.put(RESPONSE, servletResponse);
         context.put(STACK, stack);
         context.put(OGNL, ognlTool);
-        context.put(WEBWORK, new WebWorkUtil(context, stack));
+        context.put(WEBWORK, new VelocityWebWorkUtil(context, stack, servletRequest, servletResponse));
 
         ActionInvocation invocation = (ActionInvocation) stack.getContext().get(ActionContext.ACTION_INVOCATION);
 

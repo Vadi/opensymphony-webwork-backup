@@ -8,16 +8,18 @@
  */
 package com.opensymphony.webwork.views.freemarker;
 
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.util.OgnlValueStack;
-
-import freemarker.template.SimpleHash;
-import freemarker.template.SimpleSequence;
+import java.util.List;
 
 import junit.framework.TestCase;
 
-import java.util.Collection;
-import java.util.List;
+import com.opensymphony.webwork.util.FreemarkerWebWorkUtil;
+import com.opensymphony.webwork.util.ListEntry;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import freemarker.template.ObjectWrapper;
+import freemarker.template.SimpleHash;
+import freemarker.template.SimpleSequence;
 
 
 /**
@@ -41,21 +43,21 @@ public class FreemarkerTest extends TestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSelectHelper() {
-        FreemarkerUtil wwUtil = new FreemarkerUtil();
+        FreemarkerWebWorkUtil wwUtil = new FreemarkerWebWorkUtil(ActionContext.getContext().getValueStack(), null, null);
 
         List selectList = null;
 
-        selectList = wwUtil.makeSelectList("stringList", null, null);
+        selectList = wwUtil.makeSelectList("ignored", "stringList", null, null);
         assertEquals("one", ((ListEntry) selectList.get(0)).getKey());
         assertEquals("one", ((ListEntry) selectList.get(0)).getValue());
 
-        selectList = wwUtil.makeSelectList("beanList", "name", "value");
+        selectList = wwUtil.makeSelectList("ignored", "beanList", "name", "value");
         assertEquals("one", ((ListEntry) selectList.get(0)).getKey());
         assertEquals("1", ((ListEntry) selectList.get(0)).getValue());
     }
 
     public void testValueStackMode() throws Exception {
-        ValueStackModel model = new ValueStackModel(new SimpleHash());
+        ValueStackModel model = new ValueStackModel(ActionContext.getContext().getValueStack(), new SimpleHash(), ObjectWrapper.DEFAULT_WRAPPER);
 
         SimpleSequence stringList = null;
 

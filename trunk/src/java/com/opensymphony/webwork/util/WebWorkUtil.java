@@ -4,54 +4,55 @@
  */
 package com.opensymphony.webwork.util;
 
-import com.opensymphony.util.TextUtils;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.Hashtable;
+import java.util.Map;
 
-import com.opensymphony.xwork.ObjectFactory;
-import com.opensymphony.xwork.util.OgnlValueStack;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.context.Context;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
-
-import java.io.*;
-
-import java.net.URLEncoder;
-
-import java.util.Hashtable;
-import java.util.Map;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
+import com.opensymphony.util.TextUtils;
+import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
+import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
- *        WebWork utility methods for Velocity templates
+ *        WebWork base utility class, for use in Velocity and Freemarker templates
  *
- *        @author Rickard Ã–berg (rickard@dreambean.com)
- *        @version $Revision$
+ * @author Rickard Ã–berg (rickard@dreambean.com)
+ * @author Cameron Braid
+ * @version $Revision$
  */
-public final class WebWorkUtil {
+public class WebWorkUtil {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    private static final Log log = LogFactory.getLog(WebWorkUtil.class);
+    protected static final Log log = LogFactory.getLog(WebWorkUtil.class);
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    Map classes = new Hashtable();
-    private Context ctx;
-    private OgnlValueStack stack;
-
+    protected Map classes = new Hashtable();
+    protected OgnlValueStack stack;
+    protected HttpServletRequest request;
+    protected HttpServletResponse response;
+    protected OgnlTool ognl = OgnlTool.getInstance();
+    
     //~ Constructors ///////////////////////////////////////////////////////////
 
-    public WebWorkUtil(Context ctx, OgnlValueStack stack) {
-        this.ctx = ctx;
+    public WebWorkUtil(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         this.stack = stack;
+        this.request = request;
+        this.response = response;
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -68,26 +69,18 @@ public final class WebWorkUtil {
         return ObjectFactory.getObjectFactory().buildBean(c);
     }
 
-    public String evaluate(String expression) throws IOException, ResourceNotFoundException, MethodInvocationException, ParseErrorException {
-        CharArrayWriter writer = new CharArrayWriter();
-        Velocity.evaluate(ctx, writer, "Error parsing " + expression, expression);
-
-        return writer.toString();
-    }
-
     public Object findString(String name) {
         return stack.findValue(name, String.class);
     }
 
-    public String htmlEncode(Object obj) {
-        if (obj == null) {
-            return null;
-        }
-
-        return TextUtils.htmlEncode(obj.toString());
+    public String include(Object aName) throws Exception {
+        return include(aName, request, response);
     }
-
-    public String include(Object aName, ServletRequest aRequest, ServletResponse aResponse) throws Exception {
+    
+    /**
+     * @deprecated the request and response are stored in this util class, please use include(string)
+     */
+    public String include(Object aName, HttpServletRequest aRequest, HttpServletResponse aResponse) throws Exception {
         try {
             RequestDispatcher dispatcher = aRequest.getRequestDispatcher(aName.toString());
 
@@ -95,7 +88,7 @@ public final class WebWorkUtil {
                 throw new IllegalArgumentException("Cannot find included file " + aName);
             }
 
-            ResponseWrapper responseWrapper = new ResponseWrapper((HttpServletResponse) aResponse);
+            ResponseWrapper responseWrapper = new ResponseWrapper(aResponse);
 
             dispatcher.include(aRequest, responseWrapper);
 
@@ -108,30 +101,6 @@ public final class WebWorkUtil {
 
     public String textToHtml(String s) {
         return TextUtils.plainTextToHtml(s);
-    }
-
-    public int toInt(long aLong) {
-        return (int) aLong;
-    }
-
-    public long toLong(int anInt) {
-        return (long) anInt;
-    }
-
-    public long toLong(String aLong) {
-        if (aLong == null) {
-            return 0;
-        }
-
-        return Long.parseLong(aLong);
-    }
-
-    public String toString(long aLong) {
-        return Long.toString(aLong);
-    }
-
-    public String toString(int anInt) {
-        return Integer.toString(anInt);
     }
 
     public String urlEncode(String s) {
@@ -178,4 +147,5 @@ public final class WebWorkUtil {
             stream.write(aByte);
         }
     }
+    
 }
