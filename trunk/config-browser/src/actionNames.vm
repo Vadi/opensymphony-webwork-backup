@@ -1,14 +1,13 @@
-<html>
-<head>
-<title>WebWork Configuration Browser: Action Names for $namespace</title>
-</head>
-<body>
-<h1>WebWork Configuration Browser: Action Names for $namespace</h1>
-
+#parse("/tigris-macros.vm")
+#startPage("Actions in namespace")
+<h3>Actions in #if ($namespace == "") default namespace #else $namespace #end</h3>
+<table><tr><td>
 <ul>
 #foreach ($name in $actionNames)
-<li><a href="showConfig.action?namespace=$namespace&actionName=$name">&quot;$name&quot;</a></li>
+<li><a href="showConfig.action?namespace=$namespace&actionName=$name">$name</a></li>
 #end
 </ul>
-</body>
-</html>
+</td><td><!-- Placeholder for namespace graph --></td></tr></table>
+
+
+#endPage()

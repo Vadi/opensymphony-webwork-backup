@@ -1,35 +1,35 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+
 /**
- *	A bean that generates an iterator filled with a given object
+ *        A bean that generates an iterator filled with a given object
  *
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ *        @author Rickard Öberg (rickard@middleware-company.com)
+ *        @version $Revision$
  */
-public class IteratorGenerator
-        implements java.util.Iterator, webwork.action.Action {
+public class IteratorGenerator implements java.util.Iterator, webwork.action.Action {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    List values;
+    Object value;
+    String separator;
+
     // Attributes ----------------------------------------------------
     int count = 0;
     int currentCount = 0;
-    String separator;
-    Object value;
-    List values;
 
-    // Public --------------------------------------------------------
-    public void setValues(Object aValue) {
-        value = aValue;
-    }
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setCount(int aCount) {
         this.count = aCount;
-    }
-
-    public void setSeparator(String aChar) {
-        separator = aChar;
     }
 
     public boolean getHasNext() {
@@ -40,14 +40,25 @@ public class IteratorGenerator
         return next();
     }
 
+    public void setSeparator(String aChar) {
+        separator = aChar;
+    }
+
+    // Public --------------------------------------------------------
+    public void setValues(Object aValue) {
+        value = aValue;
+    }
+
     // Action implementation -----------------------------------------
     public String execute() {
         if (value == null) {
             return ERROR;
         } else {
             values = new ArrayList();
+
             if (separator != null) {
                 StringTokenizer tokens = new StringTokenizer(value.toString(), separator);
+
                 while (tokens.hasMoreTokens()) {
                     values.add(tokens.nextToken());
                 }
@@ -56,8 +67,9 @@ public class IteratorGenerator
             }
 
             // Count default is the size of the list of values
-            if (count == 0)
+            if (count == 0) {
                 count = values.size();
+            }
 
             return SUCCESS;
         }
@@ -65,7 +77,7 @@ public class IteratorGenerator
 
     // Iterator implementation ---------------------------------------
     public boolean hasNext() {
-        return (value == null) ? false : (currentCount < count || count == -1);
+        return (value == null) ? false : ((currentCount < count) || (count == -1));
     }
 
     public Object next() {
