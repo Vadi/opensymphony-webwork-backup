@@ -36,7 +36,7 @@ import javax.servlet.jsp.PageContext;
 
 
 /**
- * Include a servlets output (e.g. result of servlet, or a JSP page).
+ * Include a servlet's output (result of servlet or a JSP page).
  *
  * @author Rickard Öberg (rickard@dreambean.com)
  * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a>

@@ -26,7 +26,6 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
     /**
      * Handles the case of an invalid token
      * @param invocation
-     * @return
      */
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
         HttpServletRequest request = ServletActionContext.getRequest();
@@ -60,7 +59,6 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
     /**
      * Handle the case of a valid token
      * @param invocation
-     * @return
      * @throws Exception
      */
     protected String handleValidToken(ActionInvocation invocation) throws Exception {
