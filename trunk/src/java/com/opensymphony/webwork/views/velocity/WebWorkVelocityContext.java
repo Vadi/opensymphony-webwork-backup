@@ -59,4 +59,8 @@ public class WebWorkVelocityContext extends VelocityContext {
             }
         }
     }
+
+    public Object internalPut(String string, Object object) {
+        return super.internalPut(string, object);
+    }
 }

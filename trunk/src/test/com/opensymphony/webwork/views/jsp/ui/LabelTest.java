@@ -49,4 +49,21 @@ public class LabelTest extends AbstractJspTest {
 
         verify(LabelTest.class.getResource("Label-1.txt"));
     }
+
+    public void testWithValue() throws Exception {
+        Template template = Velocity.getTemplate(AbstractUITag.THEME + LabelTag.TEMPLATE);
+        Assert.assertNotNull(template); // ensure this is a valid decorators
+
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("baz");
+
+        LabelTag tag = new LabelTag();
+        tag.setPageContext(pageContext);
+        tag.setLabel("'mylabel'");
+        tag.setName("'foo'");
+
+        int result = tag.doEndTag();
+
+        verify(LabelTest.class.getResource("Label-2.txt"));
+    }
 }
