@@ -15,6 +15,8 @@ import junit.framework.TestCase;
 
 import java.util.HashMap;
 
+import ognl.Ognl;
+
 
 /**
  * MigrationConfigurationTest
@@ -25,6 +27,7 @@ public class MigrationConfigurationTest extends TestCase {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private HashMap parameters;
+    private ActionContext oldContext;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -54,6 +57,8 @@ public class MigrationConfigurationTest extends TestCase {
         ConfigurationManager.setConfiguration(configuration);
         configuration.reload();
         parameters = new HashMap();
+        oldContext = ActionContext.getContext();
+        ActionContext.setContext(new ActionContext(Ognl.createDefaultContext(null)));
         ActionContext.getContext().setParameters(parameters);
     }
 

@@ -32,6 +32,7 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
     protected ServletRedirectResult view;
     private Mock requestMock;
     private Mock responseMock;
+    private ActionContext oldContext;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -62,18 +63,13 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
         }
     }
 
-    public void testRelativeRedirect() {
+    public void testRelativeRedirect() throws Exception {
         view.setLocation("foo.jsp");
         requestMock.expectAndReturn("getServletPath", "/namespace/some.action");
         responseMock.expectAndReturn("encodeRedirectURL", "/context/namespace/foo.jsp", "/context/namespace/foo.jsp");
         responseMock.expect("sendRedirect", C.args(C.eq("/context/namespace/foo.jsp")));
 
-        try {
-            view.execute(null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        view.execute(null);
     }
 
     protected void setUp() {
@@ -83,7 +79,7 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
 
         requestMock = new Mock(HttpServletRequest.class);
         requestMock.matchAndReturn("getContextPath", "/context");
-
+        oldContext = ActionContext.getContext();
         ActionContext ac = new ActionContext(Ognl.createDefaultContext(null));
         ActionContext.setContext(ac);
         ServletActionContext.setResponse((HttpServletResponse) responseMock.proxy());
@@ -93,5 +89,6 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
     protected void tearDown() {
         requestMock.verify();
         responseMock.verify();
+        ActionContext.setContext(oldContext);
     }
 }

@@ -58,6 +58,7 @@ public class TagDirectiveTest extends TestCase {
     MockTag mockTag;
     OgnlValueStack stack;
     VelocityEngine velocityEngine;
+    private ActionContext oldContext;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -123,6 +124,7 @@ public class TagDirectiveTest extends TestCase {
         ConfigurationManager.clearConfigurationProviders();
         ConfigurationManager.destroyConfiguration();
 
+        oldContext = ActionContext.getContext();
         stack = new OgnlValueStack();
         ActionContext.setContext(new ActionContext(stack.getContext()));
 
@@ -177,6 +179,7 @@ public class TagDirectiveTest extends TestCase {
 
     protected void tearDown() throws Exception {
         pageContext.release();
+        ActionContext.setContext(oldContext);
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////
