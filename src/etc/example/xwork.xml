@@ -201,6 +201,10 @@
             <result name="success">tabbedpanetest.jsp</result>
         </action>
 
+        <action name="indexedProperties" class="com.opensymphony.webwork.example.IndexedPropertyAction">
+            <result name="success">/indexedProperties.jsp</result>
+        </action>
+
     </package>
 
     <include file="month.xml"/>
