@@ -5,38 +5,29 @@
 package com.opensymphony.webwork.dispatcher.multipart;
 
 import com.opensymphony.webwork.config.Configuration;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.File;
-import java.io.IOException;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 
 /**
  * Parses a multipart request and provides a wrapper around the request. The parsing implementation used
  * depends on the <tt>webwork.multipart.parser</tt> setting. It should be set to a class which
  * extends {@link com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest}. <p>
- *
+ * <p/>
  * Webwork ships with two implementations,
  * {@link com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest} and
  * {@link com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest}. The Pell implementation
  * is the default. The <tt>webwork.multipart.parser</tt> property should be set to <tt>pell</tt> for
  * the Pell implementation and <tt>cos</tt> for the Jason Hunter implementation. <p>
- *
+ * <p/>
  * The files are uploaded when the object is instantiated. If there are any errors they are logged using
  * {@link #addError(String)}. An action handling a multipart form should first check {@link #hasErrors()}
  * before doing any other processing. <p>
@@ -75,14 +66,14 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
             // If it's not set, use Pell
             if (parser.equals("")) {
                 log.warn("Property webwork.multipart.parser not set." + " Using com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest");
-                parser = "com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest";
+                parser = com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest.class.getName();
             }
 
             // legacy support for old style property values
             if (parser.equals("pell")) {
-                parser = "com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest";
+                parser = com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest.class.getName();
             } else if (parser.equals("cos")) {
-                parser = "com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest";
+                parser = com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest.class.getName();
             }
 
             try {
@@ -98,13 +89,13 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
                 }
 
                 // get the constructor
-                Constructor ctor = clazz.getDeclaredConstructor(new Class[] {
-                        Class.forName("javax.servlet.http.HttpServletRequest"),
-                        java.lang.String.class, int.class
-                    });
+                Constructor ctor = clazz.getDeclaredConstructor(new Class[]{
+                    Class.forName("javax.servlet.http.HttpServletRequest"),
+                    java.lang.String.class, int.class
+                });
 
                 // build the parameter list
-                Object[] parms = new Object[] {
+                Object[] parms = new Object[]{
                     request, saveDir, new Integer(maxSize)
                 };
 
