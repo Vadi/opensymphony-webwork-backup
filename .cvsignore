@@ -12,3 +12,4 @@ velocity.log
 webapps
 .classpath
 .project
+build-*
