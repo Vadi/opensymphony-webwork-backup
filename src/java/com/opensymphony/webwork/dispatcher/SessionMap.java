@@ -33,44 +33,48 @@ public class SessionMap extends AbstractMap {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void clear() {
-        entries = null;
-        session.invalidate();
+        synchronized (session) {
+            entries = null;
+            session.invalidate();
+        }
     }
 
     public Set entrySet() {
-        if (entries == null) {
-            entries = new HashSet();
+        synchronized (session) {
+            if (entries == null) {
+                entries = new HashSet();
 
-            Enumeration enum = session.getAttributeNames();
+                Enumeration enum = session.getAttributeNames();
 
-            while (enum.hasMoreElements()) {
-                final String key = enum.nextElement().toString();
-                final Object value = session.getAttribute(key);
-                entries.add(new Map.Entry() {
-                        public boolean equals(Object obj) {
-                            Map.Entry entry = (Map.Entry) obj;
+                while (enum.hasMoreElements()) {
+                    final String key = enum.nextElement().toString();
+                    final Object value = session.getAttribute(key);
+                    entries.add(new Map.Entry() {
+                            public boolean equals(Object obj) {
+                                Map.Entry entry = (Map.Entry) obj;
 
-                            return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey())) && ((value == null) ? (entry.getValue() == null) : value.equals(entry.getValue()));
-                        }
+                                return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey())) && ((value == null) ? (entry.getValue() == null) : value.equals(entry.getValue()));
+                            }
 
-                        public int hashCode() {
-                            return ((key == null) ? 0 : key.hashCode()) ^ ((value == null) ? 0 : value.hashCode());
-                        }
+                            public int hashCode() {
+                                return ((key == null) ? 0 : key.hashCode()) ^ ((value == null) ? 0 : value.hashCode());
+                            }
 
-                        public Object getKey() {
-                            return key;
-                        }
+                            public Object getKey() {
+                                return key;
+                            }
 
-                        public Object getValue() {
-                            return value;
-                        }
+                            public Object getValue() {
+                                return value;
+                            }
 
-                        public Object setValue(Object obj) {
-                            session.setAttribute(key.toString(), obj);
+                            public Object setValue(Object obj) {
+                                session.setAttribute(key.toString(), obj);
 
-                            return value;
-                        }
-                    });
+                                return value;
+                            }
+                        });
+                }
             }
         }
 
@@ -78,22 +82,28 @@ public class SessionMap extends AbstractMap {
     }
 
     public Object get(Object key) {
-        return session.getAttribute(key.toString());
+        synchronized (session) {
+            return session.getAttribute(key.toString());
+        }
     }
 
     public Object put(Object key, Object value) {
-        entries = null;
-        session.setAttribute(key.toString(), value);
+        synchronized (session) {
+            entries = null;
+            session.setAttribute(key.toString(), value);
 
-        return get(key);
+            return get(key);
+        }
     }
 
     public Object remove(Object key) {
-        entries = null;
+        synchronized (session) {
+            entries = null;
 
-        Object value = get(key);
-        session.removeAttribute(key.toString());
+            Object value = get(key);
+            session.removeAttribute(key.toString());
 
-        return value;
+            return value;
+        }
     }
 }
