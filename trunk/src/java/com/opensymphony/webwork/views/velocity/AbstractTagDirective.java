@@ -42,7 +42,7 @@ import javax.servlet.jsp.tagext.Tag;
 
 /**
  * Custom user Directive that enables the WebWork2 UI tags to be easily accessed from Velocity pages
- * 
+ *
  * @author $author$
  * @version $id$
  */
@@ -50,21 +50,21 @@ public abstract class AbstractTagDirective extends Directive {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
- * a params of tagname to tagclass that provides faster lookup that searching through the tagpath.  for example,
- * <pre>#tag( TextField )</pre>
- * would result in "TextField" and com.opensymphony.webwork.views.jsp.ui.TextFieldTag.class being stored in the
- * tagclassMap
- * todo enable this params to be reloaded or reset
- */
+     * a params of tagname to tagclass that provides faster lookup that searching through the tagpath.  for example,
+     * <pre>#tag( TextField )</pre>
+     * would result in "TextField" and com.opensymphony.webwork.views.jsp.ui.TextFieldTag.class being stored in the
+     * tagclassMap
+     * todo enable this params to be reloaded or reset
+     */
     protected static Map tagclassMap = new HashMap();
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
- * the guts of this directive that indicates how this directive should be rendered.  Conceptually, this method is
- * a controller that delegates the work to other methods.  by convention, i'm using process* for the delegated
- * methods.  processRenderer and processTag respectively.
- */
+     * the guts of this directive that indicates how this directive should be rendered.  Conceptually, this method is
+     * a controller that delegates the work to other methods.  by convention, i'm using process* for the delegated
+     * methods.  processRenderer and processTag respectively.
+     */
     public boolean render(InternalContextAdapter contextAdapter, Writer writer, Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
         if (node.jjtGetNumChildren() < 1) {
             throw new ParseErrorException("no tag specified!  to use the #tag directive, you must specify at least the name of the tag to use");
@@ -80,37 +80,34 @@ public abstract class AbstractTagDirective extends Directive {
         OgnlUtil.setProperties(propertyMap, object);
 
         /**
- * if this directive allows for a body, the last child Node will be the body.  we'll want to grab a handle to
- * this Node to allow the processTag method to use it
- */
+         * if this directive allows for a body, the last child Node will be the body.  we'll want to grab a handle to
+         * this Node to allow the processTag method to use it
+         */
         Node bodyNode = null;
 
         /**
- * if this Directive is a BLOCK directive, then we <b>know</b> we must have a body.  store the reference to
- * the directive's body in bodyNode
- */
+         * if this Directive is a BLOCK directive, then we <b>know</b> we must have a body.  store the reference to
+         * the directive's body in bodyNode
+         */
         if (this.getType() == BLOCK) {
             bodyNode = node.jjtGetChild(node.jjtGetNumChildren() - 1);
         }
 
         /**
- * save the previous parent and tag if there are any
- */
+         * save the previous parent and tag if there are any
+         */
         Object currentParent = contextAdapter.get(VelocityManager.PARENT);
         Object currentTag = contextAdapter.get(VelocityManager.TAG);
 
         try {
             // if we're already inside a tag, then make this tag the new parent
-            if (currentTag != null) {
-                contextAdapter.put(VelocityManager.PARENT, currentTag);
-            }
-
+            contextAdapter.put(VelocityManager.PARENT, currentTag);
             contextAdapter.put(VelocityManager.TAG, object);
-
             InternalContextAdapter subContextAdapter = new WrappedInternalContextAdapter(contextAdapter);
 
             if (object instanceof Tag) {
                 PageContext pageContext = ServletActionContext.getPageContext();
+                ((Tag) object).setParent((Tag) currentTag);
 
                 return this.processTag(pageContext, (Tag) object, subContextAdapter, writer, bodyNode);
             } else {
@@ -118,8 +115,8 @@ public abstract class AbstractTagDirective extends Directive {
             }
         } finally {
             /**
- * replace the parent and/or child if there were any
- */
+             * replace the parent and/or child if there were any
+             */
             if (currentParent != null) {
                 contextAdapter.put(VelocityManager.PARENT, currentParent);
             } else {
@@ -135,11 +132,11 @@ public abstract class AbstractTagDirective extends Directive {
     }
 
     /**
- * todo it would be nice for the Configuration object to allow listeners to be registered so that they can be
- * notified of changes to the Configuration files
- * 
- * @return an array of paths to search for our tag library
- */
+     * todo it would be nice for the Configuration object to allow listeners to be registered so that they can be
+     * notified of changes to the Configuration files
+     *
+     * @return an array of paths to search for our tag library
+     */
     protected String[] getTagPath() throws ResourceNotFoundException {
         List pathList = new ArrayList();
 
@@ -167,15 +164,15 @@ public abstract class AbstractTagDirective extends Directive {
     }
 
     /**
- * create a new instance of our rendering object.  this will usually be a Tag, but I've left it as an Object just
- * in case we want to define more abitrary rendering mechanisms that are not JSP tags
- * 
- * @param node the node that contains the label for our rendering object.  this will usually be something like
- *             TextField, Password, or Component
- * @return a new instance of the object specified by the Node
- * @throws org.apache.velocity.exception.ResourceNotFoundException
- *          
- */
+     * create a new instance of our rendering object.  this will usually be a Tag, but I've left it as an Object just
+     * in case we want to define more abitrary rendering mechanisms that are not JSP tags
+     *
+     * @param node the node that contains the label for our rendering object.  this will usually be something like
+     *             TextField, Password, or Component
+     * @return a new instance of the object specified by the Node
+     * @throws org.apache.velocity.exception.ResourceNotFoundException
+     *
+     */
     protected Object createObject(Node node) throws ResourceNotFoundException {
         String tagname = node.getFirstToken().toString();
         Class clazz = (Class) tagclassMap.get(tagname);
@@ -196,23 +193,23 @@ public abstract class AbstractTagDirective extends Directive {
     }
 
     /**
- * create a Map of properties that the user has passed in.  for example,
- * <pre>
- * #tag( TextField "name=hello" "value=world" "template=foo" )
- * </pre>
- * would yield a params that contains {["name", "hello"], ["value", "world"], ["template", "foo"]}
- * 
- * @param node the Node passed in to the render method
- * @return a Map of the user specified properties
- * @throws org.apache.velocity.exception.ParseErrorException
- *          if the was an error in the format of the property
- * @see #render
- */
+     * create a Map of properties that the user has passed in.  for example,
+     * <pre>
+     * #tag( TextField "name=hello" "value=world" "template=foo" )
+     * </pre>
+     * would yield a params that contains {["name", "hello"], ["value", "world"], ["template", "foo"]}
+     *
+     * @param node the Node passed in to the render method
+     * @return a Map of the user specified properties
+     * @throws org.apache.velocity.exception.ParseErrorException
+     *          if the was an error in the format of the property
+     * @see #render
+     */
     protected Map createPropertyMap(InternalContextAdapter contextAdapter, Node node) throws ParseErrorException, MethodInvocationException {
         Map propertyMap = new HashMap();
 
         for (int index = 1, length = node.jjtGetNumChildren(); index < length;
-                index++) {
+             index++) {
             this.putProperty(propertyMap, contextAdapter, node.jjtGetChild(index));
         }
 
@@ -220,35 +217,35 @@ public abstract class AbstractTagDirective extends Directive {
     }
 
     /**
- * Searches for tags (class that are instances of Renderers or Tags) in the webwork.velocity.tag.path using the
- * following rules:
- * <ul>
- * <li>append the tagname + 'Tag' to the path and see if a class exists and is a Renderer or Tag</li>
- * <li>append the tagname to the path and see if a class exists and is a Renderer or Tag</li>
- * </ul>
- * For example, let us say that we're search for a custom tag, Foobar.  Assuming our webwork.velocity.tag.path is
- * the default ("com.opensymphony.webwork.views.jsp.ui", "com.opensymphony.webwork.views.jsp", ""), then we will search
- * for our tag in the following locations:
- * <ul>
- * <li>com.opensymphony.webwork.views.jsp.ui.FoobarTag</li>
- * <li>com.opensymphony.webwork.views.jsp.ui.Foobar</li>
- * <li>com.opensymphony.webwork.views.jsp.FoobarTag</li>
- * <li>com.opensymphony.webwork.views.jsp.Foobar</li>
- * <li>FoobarTag</li>
- * <li>Foobar</li>
- * </ul>
- * 
- * @param tagname 
- * @return 
- * @see #getTagPath
- */
+     * Searches for tags (class that are instances of Renderers or Tags) in the webwork.velocity.tag.path using the
+     * following rules:
+     * <ul>
+     * <li>append the tagname + 'Tag' to the path and see if a class exists and is a Renderer or Tag</li>
+     * <li>append the tagname to the path and see if a class exists and is a Renderer or Tag</li>
+     * </ul>
+     * For example, let us say that we're search for a custom tag, Foobar.  Assuming our webwork.velocity.tag.path is
+     * the default ("com.opensymphony.webwork.views.jsp.ui", "com.opensymphony.webwork.views.jsp", ""), then we will search
+     * for our tag in the following locations:
+     * <ul>
+     * <li>com.opensymphony.webwork.views.jsp.ui.FoobarTag</li>
+     * <li>com.opensymphony.webwork.views.jsp.ui.Foobar</li>
+     * <li>com.opensymphony.webwork.views.jsp.FoobarTag</li>
+     * <li>com.opensymphony.webwork.views.jsp.Foobar</li>
+     * <li>FoobarTag</li>
+     * <li>Foobar</li>
+     * </ul>
+     *
+     * @param tagname
+     * @return
+     * @see #getTagPath
+     */
     protected Class findTagInPath(String tagname) throws ResourceNotFoundException {
         String[] tagpath = this.getTagPath();
 
         Class clazz = null;
 
         for (int index = 0; (clazz == null) && (index < tagpath.length);
-                index++) {
+             index++) {
             try {
                 clazz = Class.forName(tagpath[index] + "." + tagname + "Tag");
             } catch (ClassNotFoundException e) {
@@ -266,8 +263,8 @@ public abstract class AbstractTagDirective extends Directive {
     }
 
     /**
- *
- */
+     *
+     */
     protected boolean processTag(PageContext pageContext, Tag tag, InternalContextAdapter context, Writer writer, Node bodyNode) throws ParseErrorException, IOException, MethodInvocationException, ResourceNotFoundException {
         tag.setPageContext(pageContext);
         writer = pageContext.getOut();
@@ -322,12 +319,12 @@ public abstract class AbstractTagDirective extends Directive {
     }
 
     /**
- * adds a given Node's key/value pair to the propertyMap.  For example, if this Node contained the value "rows=20",
- * then the key, rows, would be added to the propertyMap with the String value, 20.
- * 
- * @param propertyMap a params containing all the properties that we wish to set
- * @param node        the parameter to set expressed in "name=value" format
- */
+     * adds a given Node's key/value pair to the propertyMap.  For example, if this Node contained the value "rows=20",
+     * then the key, rows, would be added to the propertyMap with the String value, 20.
+     *
+     * @param propertyMap a params containing all the properties that we wish to set
+     * @param node        the parameter to set expressed in "name=value" format
+     */
     protected void putProperty(Map propertyMap, InternalContextAdapter contextAdapter, Node node) throws ParseErrorException, MethodInvocationException {
         // node.value uses the WebWorkValueStack to evaluate the directive's value parameter
         String param = node.value(contextAdapter).toString();
@@ -347,9 +344,9 @@ public abstract class AbstractTagDirective extends Directive {
     //~ Inner Classes //////////////////////////////////////////////////////////
 
     /**
- * the WrappedInternalContextAdapter is a simple wrapper around the InternalContextAdapter that allows us to
- * effectively create local variables within each custom directive that don't bleed into the main context.
- */
+     * the WrappedInternalContextAdapter is a simple wrapper around the InternalContextAdapter that allows us to
+     * effectively create local variables within each custom directive that don't bleed into the main context.
+     */
     class WrappedInternalContextAdapter implements InternalContextAdapter {
         private HashMap params = new HashMap();
         private InternalContextAdapter contextAdapter;
