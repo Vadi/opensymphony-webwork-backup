@@ -13,12 +13,17 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 
 /**
- * A base class for all WebWork action execution results. This class provides two common parameters for any
- * subclass: <ul>
+ * A base class for all WebWork action execution results.
+ * The "location" param is the default parameter, meaning the most common usage of this result would be:
  *
- *      <li>location - the location to go to after execution (could be a jsp page or another action)</li>
- *      <li>parse - <tt>true</tt> if the location should be parsed as an OGNL expression, <tt>false</tt> if not
- *              (default is <tt>false</tt>)</li></ul>
+ * This class provides two common parameters for any subclass:
+ * <ul>
+ *  <li>location - the location to go to after execution (could be a jsp page or another action).
+ *      It can be parsed as per the rules definied in the
+ *      {@link TextParseUtil#translateVariables(java.lang.String, com.opensymphony.xwork.util.OgnlValueStack) translateVariables}
+ *      method</li>
+ *  <li>parse - true by default. If set to false, the location param will not be parsed for expressions</li>
+ * </ul>
  *
  * In the xwork.xml configuration file, these would be included as:
  *
@@ -28,11 +33,17 @@ import com.opensymphony.xwork.util.TextParseUtil;
  *  &lt;/result&gt;</pre>
  *
  * or
+ *
  * <pre>
  *  &lt;result name="success" type="redirect" &gt;
  *      &lt;param name="<b>location</b>"&gt;foo.jsp&lt;/param&gt;
- *      &lt;param name="<b>parse</b>"&gt;true&lt;/param&gt;
+ *      &lt;param name="<b>parse</b>"&gt;false&lt;/param&gt;
  *  &lt;/result&gt;</pre>
+ *
+ * or when using the default parameter feature
+ *
+ * <pre>
+ *  &lt;result name="success" type="redirect"&gt;<b>foo.jsp</b>&lt;/result&gt;</pre>
  *
  * You should subclass this class if you're interested in adding more parameters or functionality
  * to your Result. If you do subclass this class you will need to
