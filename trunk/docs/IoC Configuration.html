@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>IoC Configuration</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+
+				    <p class="paragraph"><h2 class="heading2">Configuration - web.xml</h2></p>To configure WebWork&#039;s component management, the following lines must be added in the appropriate places to web.xml:
+
+<div class="code"><pre>&lt;filter&gt;&#10;    &lt;filter&#45;name&gt;container&lt;/filter&#45;name&gt;&#10;    &lt;filter&#45;class&gt;com.opensymphony.webwork.lifecycle.RequestLifecycleFilter&lt;/filter&#45;class&gt;&#10;&lt;/filter&gt;&#10;&#10;&lt;filter&#45;mapping&gt;&#10;   &lt;filter&#45;name&gt;container&lt;/filter&#45;name&gt;&#10;   &lt;url&#45;pattern&gt;&#42;.action&lt;/url&#45;pattern&gt; &lt;&#33;&#45;&#45; modify appropriately &#45;&#45;&gt;&#10;&lt;/filter&#45;mapping&gt;&#10;&#10;&lt;listener&gt;&#10;    &lt;listener&#45;class&gt;com.opensymphony.webwork.lifecycle.SessionLifecycleListener&lt;/listener&#45;class&gt;&#10;&lt;/listener&gt;&#10;&#10;&lt;listener&gt;&#10;    &lt;listener&#45;class&gt;com.opensymphony.webwork.lifecycle.ApplicationLifecycleListener&lt;/listener&#45;class&gt;&#10;&lt;/listener&gt;</pre></div><p class="paragraph">These settings allow WebWork to manage components across the application, session and request scopes. Note that even if one or more of the scopes are not required by your application, all three scopes need to be specified in web.xml for WebWork&#039;s component management to function correctly.</p><h2 class="heading2">Configuration - xwork.xml</h2><p class="paragraph">The ComponentInterceptor class is used to apply the IoC pattern to XWork actions (ie, to supply components to actions). The ComponentInterceptor should be declared in the &lt;interceptors&gt; block of xwork.xml as follows:</p><div class="code"><pre>&lt;interceptor name=&quot;component&quot;&#10;        class=&quot;com.opensymphony.xwork.interceptor.component.ComponentInterceptor&quot;/&gt;</pre></div><p class="paragraph">You should ensure that any actions that are to be supplied with components have this interceptor applied. (See OS:XWork Interceptors for information on how to apply interceptors to actions.)<br/>
+If you want to apply IoC to objects other than actions or other components, you will need to use the ComponentManager object directly.</p>Note too, that the ComponentInterceptor is applied as part of the webwork defaultStack. Thus, if you are applying the defaultStack to the action, you would include the ComponentInterceptor.<p class="paragraph"><h2 class="heading2">Configuration - components.xml</h2></p>The components.xml file is used to specify the components that are to be available. The components specified here are loaded into XWork&#039;s ComponentManager and are then made available to any actions that are an instance of the specified enabler. The components.xml file must be placed in the root of the classpath (ie, in the WEB-INF/classes directory).<br/>
+Here is an example components.xml file that configures a Counter component. The Counter object will live in session scope, and will be passed to any objects that are enabled due to their implementing the CounterAware interface:
+
+<div class="code"><pre>&lt;components&gt;&#10;    &lt;component&gt;&#10;        &lt;scope&gt;session&lt;/scope&gt;&#10;        &lt;class&gt;com.opensymphony.webwork.example.counter.Counter&lt;/class&gt;&#10;        &lt;enabler&gt;com.opensymphony.webwork.example.counter.CounterAware&lt;/enabler&gt;&#10;    &lt;/component&gt;&#10;&lt;/components&gt;</pre></div><p class="paragraph">Each component must have the following three attributes:
+<ul class="star">
+<li> <em class="emphasis">scope</em>: Valid values are <em class="emphasis">application</em>, <em class="emphasis">session</em> and <em class="emphasis">request</em>. This determines the component&#039;s lifetime. Application scope components will be created when the webapp starts up, and they will survive for the whole lifetime of the webapp. Session scoped components exist for the duration of a user session, while components in request scope only last for the duration of a single client request.</li>
+<li> <em class="emphasis">class</em>: This specifies the component&#039;s class. An instance of this object will live for the duration of the specified scope, and will be made available to any actions (or other code) as required. Note that components are lazy-loaded, so if nothing makes use of the component during its lifetime, the component will never actually be instantiated. At the moment components must have a zero argument constructor.</li>
+<li> <em class="emphasis">enabler</em>: Any actions that are an instanceof the enabler class or interface will be passed an instance of the component.</li>
+</ul></p>Note that while components are allowed to have dependencies on other components they must not depend on another component that is of a narrower scope. So for example, a session component cannot depend on a component that is only of request scope.
+
+				    
+			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Getting Started</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+
+				    <p class="paragraph">This site is geared towards developers that have an understanding towards certain technologies.  Before diving into how Webwork works and running demos, it is recommended that you review the concepts below:<ul type="square" class="minus">
+<li> Java</li>
+<li> Servlets, JSP, and Tag Libraries</li>
+<li> JavaBeans</li>
+<li> HTML and HTTP</li>
+<li> Web Containers (ex. Tomcat)</li>
+<li> XML</li>
+</ul>
+<h4 class="heading4"> Website &amp; downloads <a name="Getting+Started-Website&downloads" ></a></h4></p>This site is set up with many features.  Here are links to help you around:
+<ul type="square" class="minus">
+<li> <span class="nobr"><a href="https://webwork.dev.java.net/servlets/ProjectDocumentList">Download Webwork<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span> - download Webwork Distribution</li>
+<li> <span class="nobr"><a href="http://www.opensymphony.com/contact.jsp">Webwork Mailing List<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span> - <span class="nobr"><a href="https://webwork.dev.java.net/servlets/SummarizeList?listName=dev">Browse mail archive<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span> or <span class="nobr"><a href="mailto:dev@webwork.dev.java.net">post a question<sup><img src="./icons/mail_small.gif" height="12" width="13" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span>. The list is full of active developers, contributors, and power users.  This is the best and quickest way to get a question answered.</li>
+<li> <span class="nobr"><a href="https://webwork.dev.java.net/source/browse/webwork">CVS<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span> - Browse CVS and source at java.net</li>
+<li> <span class="nobr"><a href="http://wiki.opensymphony.com/display/WW/WebWork">Webwork Wiki<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span> - Powered by <span class="nobr"><a href="http://www.atlassian.com/software/confluence/default.jsp?clicked=footer">Confluence<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span>, the professional J2EE wiki</li>
+<li> <span class="nobr"><a href="http://jira.opensymphony.com/secure/BrowseProject.jspa?id=10030">Webwork Bugs &amp; Issues<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span> - Powered by <span class="nobr"><a href="http://www.atlassian.com/software/jira">JIRA:Bug &amp; Issue Traking System<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span></li>
+<li> <span class="nobr"><a href="http://www.opensymphony.com">OpenSymphony Home<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span></li>
+</ul>
+<h4 class="heading4"> What&#039;s included in the distro <a name="Getting+Started-included in distro" ></a></h4><p class="paragraph">The distribution contains the following directory layout:</p><div class="preformatted"><div class="preformattedContent">
+<pre>docs/&#10;lib/&#10;src/&#10;src/template/&#10;webwork&#45;(VERSION).jar&#10;webwork&#45;example.war&#10;webwork&#45;migration.jar</pre>
+</div></div><p class="paragraph">The docs directory contains the current Javadocs, the document you are reading, as well as JUnit reports for the build.  The lib directory contains the required as well as the optional dependencies for Webwork:</p><div class="preformatted"><div class="preformattedContent">
+<pre>lib/&#10;      core/&#10;      migration/&#10;      optional/</pre>
+</div></div><p class="paragraph">Note that none of the optional packages are required to use Webwork.  If you wish to use certain features such as JasperReports and FreeMarker results, you must include the optional packages.</p>Webwork also comes packaged with all the source files and the templates for the JSP tags.<p class="paragraph"><h4 class="heading4"> Installing <a name="Getting+Started-Installing" ></a></h4></p>The following illustrates how your web application should be set up.  Copy the webwork-(VERSION).jar, all the *.jar files in /lib/core and any necessary optional *.jar files in /lib/optional to your webapp/lib directory.  Also, copy the /src/template directory into your webapp/ directory.  Your webapp should look similar to this:
+
+<div class="code"><pre>/mywebapp/&#10;/mywebapp/template/&#10;/mywebapp/META&#45;INF/&#10;/mywebapp/WEB&#45;INF/&#10;/mywebapp/WEB&#45;INF/classes/&#10;/mywebapp/WEB&#45;INF/lib/&#10;/mywebapp/WEB&#45;INF/lib/CORE&OPTIONAL &#42;.jar&#10;/mywebapp/WEB&#45;INF/web.xml</pre></div><p class="paragraph">Onward to <a href="Documentation.html#Documentation-Configuration">Configuration</a> or the <a href="Documentation.html#Documentation-Tutorial">Webwork Tutorial</a></p><h4 class="heading4"> Running demos <a name="Getting+Started-Running demos" ></a></h4><p class="paragraph">In order to run webwork applications and demos, you need to have a servlet/jsp engine. If you don&#039;t, we suggest you learn about <span class="nobr"><a href="http://jakarta.apache.org/tomcat/">Apache Tomcat<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span>, which is a free Servlet container from the Apache Jakarta Project, or Resin, from <span class="nobr"><a href="http://www.caucho.com/">Caucho Technology<sup><img src="./icons/linkext7.gif" height="7" width="7" align="absmiddle" alt="&gt;&gt;" border="0"/></sup></a></span>, which is free for non-comercial use.  Once you a Servlet container setup, you can install the webwork example applications (*.war) and any other demos by placing the .war file inside the containers webapp directory.  Example of location with tomcat:
+<div class="code"><pre>&lt;TOMCAT&#95;HOME&gt;/webapps/webwork&#45;example.war</pre></div><br/>
+After the war file is in the correct location, start your web container and access your application through a web browser with the following url.</p><b class="strong">http://</b><cite class="citation">HOST:PORT</cite><b class="strong">/webwork-example</b>
+
+
+
+				    
+			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

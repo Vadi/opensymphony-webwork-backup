@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Packages</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+
+				    <p class="paragraph"><h3 class="heading3"> Overview</h3></p>Packages are a way to group Actions, Results, Result Types, Interceptors and Stacks into a logical unit that shares a common configuration. Packages are similiar to objects in that they can be extended and have individual parts overridden by &quot;sub&quot; packages.<p class="paragraph"><h4 class="heading4"> Packages</h4></p>The package element has one required attribute, &quot;name&quot;, which acts as the key for later reference to this package. The &quot;extends&quot; attribute is optional and allows one package to inherit the configuration of one or more previous packages including all interceptor, interceptor-stack, and action configurations. Note that the configuration file is processed sequentially down the document, so the package referenced by an &quot;extends&quot; should be defined above the package which extends it. The &quot;abstract&quot; optional attribute allows you to make a package abstract, which will allow you to extend from it without the action configurations defined in the abstract package actually being available at runtime.
+
+<table class="wikitable">
+<tr>
+<th> Attribute </th><th> Required </th><th> Description </th>
+</tr><tr>
+<td> name </td><td> <b class="strong">yes</b> </td><td> key to for other packages to reference </td>
+</tr><tr>
+<td> extends </td><td> no </td><td> inherits package behavior of the package it extends </td>
+</tr><tr>
+<td> namespace </td><td> no </td><td> see <a href="Namespaces.html">Namespaces</a> </td>
+</tr><tr>
+<td> abstract </td><td> no </td><td> declares package to be abstract (no action configurations required in package) </td>
+</tr>
+</table>
+<h5 class="heading5"> Sample usage of packages in xwork.xml</h5>
+<div class="code"><pre>&lt;<span class="java&#45;keyword">package</span> name=&quot;bar&quot; <span class="java&#45;keyword">extends</span>=&quot;webwork&#45;<span class="java&#45;keyword">default</span>&quot; namespace=&quot;/foo/bar&quot;&gt;&#10;        &lt;interceptors&gt;&#10;            &lt;interceptor&#45;stack name=&quot;barDefaultStack&quot;&gt;&#10;                &lt;interceptor&#45;ref name=&quot;debugStack&quot;/&gt;&#10;                &lt;interceptor&#45;ref name=&quot;defaultStack&quot;/&gt;&#10;            &lt;/interceptor&#45;stack&gt;&#10;        &lt;/interceptors&gt;&#10;&#10;        &lt;action name=&quot;Bar&quot; class=&quot;com.opensymphony.xwork.SimpleAction&quot;&gt;&#10;            &lt;interceptor&#45;ref name=&quot;barDefaultStack&quot;/&gt;&#10;        &lt;/action&gt;&#10;&#10;        &lt;action name=&quot;TestInterceptorParamInheritance&quot; class=&quot;com.opensymphony.xwork.SimpleAction&quot;&gt;&#10;            &lt;interceptor&#45;ref name=&quot;test&quot;&gt;&#10;                &lt;param name=&quot;expectedFoo&quot;&gt;expectedFoo&lt;/param&gt;&#10;            &lt;/interceptor&#45;ref&gt;&#10;        &lt;/action&gt;&#10;&#10;        &lt;action name=&quot;TestInterceptorParamInehritanceOverride&quot; class=&quot;com.opensymphony.xwork.SimpleAction&quot;&gt;&#10;            &lt;interceptor&#45;ref name=&quot;test&quot;&gt;&#10;                &lt;param name=&quot;foo&quot;&gt;foo123&lt;/param&gt;&#10;                &lt;param name=&quot;expectedFoo&quot;&gt;foo123&lt;/param&gt;&#10;            &lt;/interceptor&#45;ref&gt;&#10;        &lt;/action&gt;&#10;    &lt;/<span class="java&#45;keyword">package</span>&gt;&#10;&#10;    &lt;<span class="java&#45;keyword">package</span> name=&quot;abstractPackage&quot; namespace=&quot;/<span class="java&#45;keyword">abstract</span>&quot; <span class="java&#45;keyword">abstract</span>=&quot;<span class="java&#45;keyword">true</span>&quot;&gt;&#10;        &lt;action name=&quot;test&quot; class=&quot;com.opensymphony.xwork.SimpleAction&quot;/&gt;&#10;    &lt;/<span class="java&#45;keyword">package</span>&gt;&#10;&#10;    &lt;<span class="java&#45;keyword">package</span> name=&quot;nonAbstractPackage&quot; <span class="java&#45;keyword">extends</span>=&quot;abstractPackage&quot; namespace=&quot;/nonAbstract&quot;/&gt;&#10;&#10;    &lt;<span class="java&#45;keyword">package</span> name=&quot;baz&quot; <span class="java&#45;keyword">extends</span>=&quot;<span class="java&#45;keyword">default</span>&quot; namespace=&quot;baz&quot;&gt;&#10;        &lt;action name=&quot;commandTest&quot; class=&quot;com.opensymphony.xwork.SimpleAction&quot;&gt;&#10;            &lt;param name=&quot;foo&quot;&gt;123&lt;/param&gt;&#10;            &lt;result name=&quot;error&quot; type=&quot;chain&quot;&gt;&#10;                &lt;param name=&quot;actionName&quot;&gt;bar&lt;/param&gt;&#10;            &lt;/result&gt;&#10;            &lt;interceptor&#45;ref name=&quot;<span class="java&#45;keyword">static</span>&#45;params&quot;/&gt;&#10;        &lt;/action&gt;&#10;        &lt;action name=&quot;myCommand&quot; class=&quot;com.opensymphony.xwork.SimpleAction&quot; method=&quot;commandMethod&quot;&gt;&#10;            &lt;param name=&quot;bar&quot;&gt;456&lt;/param&gt;&#10;            &lt;result name=&quot;success&quot; type=&quot;chain&quot;&gt;&#10;                &lt;param name=&quot;actionName&quot;&gt;foo&lt;/param&gt;&#10;            &lt;/result&gt;&#10;            &lt;interceptor&#45;ref name=&quot;logger&quot;/&gt;&#10;        &lt;/action&gt;&#10;    &lt;/<span class="java&#45;keyword">package</span>&gt;&#10;&#10;    &lt;<span class="java&#45;keyword">package</span> name=&quot;multipleInheritance&quot; <span class="java&#45;keyword">extends</span>=&quot;<span class="java&#45;keyword">default</span>,abstractPackage,bar&quot; namespace=&quot;multipleInheritance&quot;&gt;&#10;        &lt;action name=&quot;testMultipleInheritance&quot; class=&quot;com.opensymphony.xwork.SimpleAction&quot;&gt;&#10;            &lt;result name=&quot;success&quot; type=&quot;chain&quot;&gt;&#10;                &lt;param name=&quot;actionName&quot;&gt;foo&lt;/param&gt;&#10;            &lt;/result&gt;&#10;            &lt;interceptor&#45;ref name=&quot;barDefaultStack&quot;/&gt;&#10;        &lt;/action&gt;&#10;    &lt;/<span class="java&#45;keyword">package</span>&gt;</pre></div>
+
+				    
+			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

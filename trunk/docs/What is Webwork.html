@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>What is Webwork</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+
+				    <p class="paragraph"><h2 class="heading2"> Welcome to Webwork!</h2></p>Webwork is a powerful web-based MVC framework built on top of a command pattern framework API called <a href="http://wiki.opensymphony.com//display/XW/XWork">XWork</a>.  Webwork&#039;s specific features include dispatchers that handle and delegate requests, result types that support several view technologies ( JSP, Velocity, JasperReports, XML, Freemarker), and a small but powerful library of JSP tags and Velocity macros.  Dispatchers invoke specified XWork actions that access and manipulate the model and provide easy access for the view to display model data.  Webwork&#039;s true power is its underlying concept of simplicity and interoperability.  Using Webwork will help minimize code and allow developers to concentrate more on business logic and modeling, rather than things like building Servlets.<p class="paragraph"><h4 class="heading4"> Features <a name="What+is+Webwork-Features" ></a></h4></p>Some of Webwork&#039;s key features include:
+<ul type="square" class="minus">
+<li> A flexible <b class="strong">Validation</b> framework allowing you to define validation with XML files that are  automatically applied at runtime via an Interceptor and therefore completely decoupled from the Action class.  New support for client side validation.</li>
+<li> <b class="strong">Type conversion</b> allowing you to easily convert objects from one class to another.</li>
+<li> A powerful <b class="strong">Expression Language</b> (EL) with OGNL allowing dynamic object graph traversal and method execution and transparent access to properties from multiple beans using a ValueStack.  Webwork also has the ability to use JSTL.</li>
+<li> <b class="strong">Inversion of Control</b> (IoC) that manages component lifecycle and dependencies without the need to build registry classes that clients must call to obtain a component instance.</li>
+<li> <b class="strong">Velocity Templates</b> which are reusable UI components allowing the developer to easily customize the look &amp; feel of web pages.</li>
+<li> <b class="strong">Interceptors</b> that dynamically intercept actions enabling before and/or after processing which simplify the action code itself and increase opportunities for code reuse.</li>
+<li> Support for <b class="strong">I18n</b>.</li>
+<li> Easy integration with third party software including <b class="strong">Hibernate</b>, <b class="strong">Spring</b>, <b class="strong">Pico</b>, <b class="strong">Sitemesh</b>.</li>
+<li> Support for many view technologies such as <b class="strong">JSP</b>, <b class="strong">Velocity</b>, <b class="strong">FreeMarker</b>, <b class="strong">JasperReports</b>, <b class="strong">XML</b>.</li>
+<li> <b class="strong">Packages</b> and <b class="strong">Namespaces</b> to manage hundreds of actions.</li>
+</ul>
+<h4 class="heading4"> Background and Purpose <a name="What+is+Webwork-Background" ></a></h4><p class="paragraph">WebWork is a community project conducted using the Open Source process, aimed at providing tools and a framework for building complex websites in a short amount of time, that are easy to understand and easy to maintain. Java is the platform and language upon which it is based, although it supports many others as the language in which systems are built, such as JavaScript and XML.</p>WebWork is architecturally based upon best practices and design patterns that have proven themselves to be useful in this context. It is also based on a strong motivation to keep things as simple as possible, while maintaining flexibility (which is a difficult balancing act).<p class="paragraph">It also encourages you, as a user, to do things the way you seem fit for your needs. WebWork can be configured and used in a wide range of ways, many of which are useful depending on the context. As an example of this, WebWork supports many different ways of providing the HTML generation technology, such as JSP, the Velocity template engine, and XSLT. They are all widely different, both philosophically and technologically, but can all be used with WebWork, and different users do indeed use all of these ways. &quot;You can&#039;t do that&quot; is a statement that we try to avoid as much as possible, and when we can&#039;t it is often because another tool would be better suited for the task.</p><h4 class="heading4"> WebWork&#039;s Model-1 and Model-2 Support <a name="What+is+Webwork-MVC" ></a></h4><p class="paragraph">One of the most important tasks of a web application framework is to support the concept of separation of logic, content, and presentation. If this is not done one typically gets problems with maintenance, and it also makes the construction of the application more difficult if teams are involved, since each team member usually has responsibility of a particular aspect of the application. A popular way to accomplish this separation is to use the design pattern known as Model-View-Controller . This pattern enourages the separation of code into pieces that each handles the model (aka &quot;business logic&quot;), the controller (aka &quot;application logic&quot;), and the view. With this separation in place, the next question is how the controller code and the presentation should interact. There are two popular models for how to do this, which are called Model-1 and Model-2 respectively. These two are described below.</p><h5 class="heading5"> Model-1</h5><p class="paragraph">The basic idea in the Model-1 approach is to invoke the controller code from within your presentation layer, e.g. the JSP&#039;s or templates. If you are using JSP&#039;s this would mean that your WebWork actions are executed by using the &quot;webwork:action&quot; custom tag, or by invoking regular JavaBeans using the &quot;webwork:bean&quot; tag.</p><h5 class="heading5"> Model-2</h5><p class="paragraph">In the Model-2 approach, the decision of what code to call and what view to present is determined by a third party, normally a servlet dispatcher. The dispatcher will decode the URL of the HTTP request, and determine what code to execute. A Java object representing the controller code is retrieved and executed, thus performing some custom application logic and business logic processing. After the execution is done, the dispatcher forwards the request to a view handler (for example a JSP), which then renders the result view using the data from the previous processing.</p><h5 class="heading5"> When to use what?</h5><p class="paragraph">Since the controller logic and presentation generation is completely decoupled, it is possible to show different result pages depending on how the execution went. For example, if the processing went wrong an error page might be shown instead of the usual result page.</p>The benefits of the Model-1 approach are as follows.
+<ul type="square" class="minus">
+<li> No need to create a mapping between code and presentation.</li>
+<li> Easy to see in the JSP or template what code is being executed for that page.</li>
+<li> If a part of the page requires some custom processing that can only result in success (or system failure), then that code invocation and presentation code (e.g. JSP taglib and HTML) does not have to be separated out into a new action mapping and JSP page. This will improve performance and readability.</li>
+</ul><br/>
+The benefits of the Model-2 approach are as follows.
+<ul type="square" class="minus">
+<li> Very clean separation between code and presentation. The same presentation page can be reused with many different actions, each of which may access data differently but present them in the same way.</li>
+<li> If an action processing can result in many different states, such as &quot;success&quot;, &quot;need more input&quot;, or &quot;error occurred&quot;, then using a Model-2 approach will make it trivial to map these states to different pages.</li>
+</ul><br/>
+A general rule of thumb of when to use what is to use Model-1 for read-type code that can only result in the retrieved data being showed, and use Model-2 whenever the model is updated by the action or a process flow is being done.
+
+
+
+				    
+			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

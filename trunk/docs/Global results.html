@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Global results</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+
+				    <p class="paragraph">Global results allows you to define result mappings which will be used as defaults for all action configurations and will be automatically inherited by all action configurations in this package and all packages which extend this package.  In other words, if you have the same result specified within multiple actions, then you can define it as a global result.
+<h5 class="heading5"> global results example</h5>
+<div class="code"><pre>&lt;<span class="java&#45;keyword">package</span> name=&quot;<span class="java&#45;keyword">default</span>&quot;&gt;&#10;....&#10;&lt;global&#45;results&gt; &#10;    &lt;result name=&quot;login&quot; type=&quot;dispatcher&quot;&gt; &#10;        &lt;param name=&quot;location&quot;&gt;login.jsp&lt;/param&gt; &#10;    &lt;/result&gt; &#10;&lt;/global&#45;results&gt; &#10;&lt;action name=&quot;foo&quot;  class=&quot;mypackage.fooAction&quot;&gt;&#10;    &lt;result name=&quot;success&quot; type=&quot;dispatcher&quot;&gt;bar.jsp&lt;/result&gt; &#10;&lt;/action&gt;&#10;&lt;action name=&quot;submitForm&quot;  class=&quot;mypackage.submitFormAction&quot;&gt;&#10;    &lt;result name=&quot;success&quot; type=&quot;dispatcher&quot;&gt;submitSuccess.jsp&lt;/result&gt; &#10;&lt;/action&gt;&#10;...&#10;&lt;/<span class="java&#45;keyword">package</span>&gt;</pre></div><br/>
+Same thing
+<div class="code"><pre>&lt;<span class="java&#45;keyword">package</span> name=&quot;<span class="java&#45;keyword">default</span>&quot;&gt;&#10;....&#10;&lt;action name=&quot;foo&quot;  class=&quot;mypackage.fooAction&quot;&gt;&#10;    &lt;result name=&quot;success&quot; type=&quot;dispatcher&quot;&gt;bar.jsp&lt;/result&gt; &#10;    &lt;result name=&quot;login&quot; type=&quot;dispatcher&quot;&gt;login.jsp&lt;/result&gt; &#10;&lt;/action&gt;&#10;&lt;action name=&quot;submitForm&quot;  class=&quot;mypackage.submitFormAction&quot;&gt;&#10;    &lt;result name=&quot;success&quot; type=&quot;dispatcher&quot;&gt;submitSuccess.jsp&lt;/result&gt;&#10;    &lt;result name=&quot;login&quot; type=&quot;dispatcher&quot;&gt;login.jsp&lt;/result&gt;  &#10;&lt;/action&gt;&#10;...&#10;&lt;/<span class="java&#45;keyword">package</span>&gt;</pre></div></p>
+
+				    
+			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
