@@ -1,1 +1,1 @@
-#parse("/template/simple/table.vm")
+#parse("/${tag.templateDir}/simple/table.vm")

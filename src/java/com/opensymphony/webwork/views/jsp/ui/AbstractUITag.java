@@ -26,6 +26,8 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     private static final Log LOG = LogFactory.getLog(AbstractUITag.class);
 
+    private static final String FILE_SEPARATOR = System.getProperty("file.separator");
+
     protected String cssClassAttr;
     protected String cssStyleAttr;
     protected String disabledAttr;
@@ -34,11 +36,14 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String nameAttr;
     protected String requiredAttr;
     protected String tabindexAttr;
-    protected String templateAttr;
-    protected String templateDir;
-    protected String theme;
-    protected String themeAttr;
     protected String valueAttr;
+
+    /** The Velocity template to use, overrides the default one. */
+    protected String templateAttr;
+
+    // templateDir and theme attributes
+    protected String templateDirAttr;
+    protected String themeAttr;
 
     // HTML scripting events attributes
     protected String onclickAttr;
@@ -90,24 +95,39 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         this.tabindexAttr = tabindex;
     }
 
+    public void setValue(String aValue) {
+        valueAttr = aValue;
+    }
+
     public void setTemplate(String aName) {
         templateAttr = aName;
     }
 
+    public void setTemplateDir(String aName) {
+        templateDirAttr = aName;
+    }
+
     public String getTemplateDir() {
+        String templateDir = null;
+
+        if (templateDirAttr != null) {
+            templateDir = findString(templateDirAttr);
+        }
+
         // If templateDir is not explicitly given,
         // try to find attribute which states the dir set to use
         if ((templateDir == null) || (templateDir == "")) {
-            templateDir = setupPath((String) pageContext.findAttribute("templateDir"), true);
+            templateDir = (String) pageContext.findAttribute("templateDir");
         }
 
         // Default template set
         if ((templateDir == null) || (templateDir == "")) {
-            templateDir = setupPath(Configuration.getString("webwork.ui.templateDir"), true);
+            templateDir = Configuration.getString("webwork.ui.templateDir");
         }
 
+        // Defaults to 'template'
         if ((templateDir == null) || (templateDir == "")) {
-            templateDir = "/template/";
+            templateDir = "template";
         }
 
         return templateDir;
@@ -118,26 +138,24 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     public String getTheme() {
+        String theme = null;
+
         if (themeAttr != null) {
-            theme = setupPath(findString(themeAttr), false);
+            theme = findString(themeAttr);
         }
 
         // If theme set is not explicitly given,
         // try to find attribute which states the theme set to use
         if ((theme == null) || (theme == "")) {
-            theme = setupPath((String) pageContext.findAttribute("theme"), false);
+            theme = (String) pageContext.findAttribute("theme");
         }
 
-        // Default template set
+        // Default theme set
         if ((theme == null) || (theme == "")) {
-            theme = setupPath(Configuration.getString("webwork.ui.theme"), false);
+            theme = Configuration.getString("webwork.ui.theme");
         }
 
         return theme;
-    }
-
-    public void setValue(String aValue) {
-        valueAttr = aValue;
     }
 
     // HTML scripting attribute setters
@@ -200,11 +218,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     public int doEndTag() throws JspException {
         try {
-            OgnlValueStack stack = getStack();
-            evaluateParams(stack);
+            evaluateParams(getStack());
 
             try {
-                mergeTemplate(this.getTemplateName());
+                mergeTemplate(getTemplateName());
 
                 return EVAL_PAGE;
             } catch (Exception e) {
@@ -259,7 +276,25 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             }
         }
 
-        return getTemplateDir() + getTheme() + template;
+        final StringBuffer templateName = new StringBuffer(30);
+
+        final String templateDir = getTemplateDir();
+        if (!templateDir.startsWith(FILE_SEPARATOR)) {
+            templateName.append(FILE_SEPARATOR);
+        }
+        templateName.append(templateDir);
+
+        final String theme = getTheme();
+        if (theme != null && !templateDir.endsWith(FILE_SEPARATOR) && !theme.startsWith(FILE_SEPARATOR) ) {
+            templateName.append(FILE_SEPARATOR);
+        }
+        templateName.append(theme);
+
+        if (template != null && !template.startsWith(FILE_SEPARATOR)) {
+           templateName.append(FILE_SEPARATOR);
+        }
+        templateName.append(template);
+        return templateName.toString();
     }
 
     protected void evaluateExtraParams(OgnlValueStack stack) {
@@ -362,7 +397,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         if (evaluateNameValue()) {
-            Class valueClazz = getValueClassType();
+            final Class valueClazz = getValueClassType();
 
             if (valueClazz != null) {
                 if (valueAttr != null) {
@@ -384,7 +419,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             }
         }
 
-        FormTag formTag = (FormTag) findAncestorWithClass(this, FormTag.class);
+        final FormTag formTag = (FormTag) findAncestorWithClass(this, FormTag.class);
 
         if (id != null) {
             addParameter("id", id);
@@ -409,32 +444,18 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     protected void mergeTemplate(String templateName) throws Exception {
-        TemplateEngine engine = TemplateEngineManager.getTemplateEngine(templateName);
+        final TemplateEngine engine = TemplateEngineManager.getTemplateEngine(templateName);
         if (engine == null) {
             throw new ConfigurationException("Unable to find a TemplateEngine for template " + templateName);
         }
+
         String finalTemplateName = engine.getFinalTemplateName(templateName);
         if (LOG.isDebugEnabled()) {
             LOG.debug("Got template engine " + engine.getClass().getName() + " for template '" + templateName + "'" +
                     ((templateName.equals(finalTemplateName)) ? null : " final template name '" + finalTemplateName + "'"));
         }
-        TemplateRenderingContext context = new TemplateRenderingContext(finalTemplateName, pageContext, getStack(), getParameters(), this);
+
+        final TemplateRenderingContext context = new TemplateRenderingContext(finalTemplateName, pageContext, getStack(), getParameters(), this);
         engine.renderTemplate(context);
-    }
-
-    private String setupPath(String path, boolean prefix) {
-        if ((path != null) && (path != "")) {
-            if (prefix) {
-                if (!path.startsWith("/")) {
-                    path = "/" + path;
-                }
-            }
-
-            if (!path.endsWith("/")) {
-                path += "/";
-            }
-        }
-
-        return path;
     }
 }

@@ -6,5 +6,5 @@
 #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
 #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"       #end
 #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"       #end
-#parse("/template/simple/scripting-events.vm")
+#parse("/${tag.templateDir}/simple/scripting-events.vm")
 />
