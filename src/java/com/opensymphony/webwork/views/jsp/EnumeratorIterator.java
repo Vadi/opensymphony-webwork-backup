@@ -25,6 +25,6 @@ public class EnumeratorIterator implements Iterator {
     }
 
     public void remove() {
-        throw UnsupportedOperationException("Cannot remove elements from an Enumerator");
+        throw new UnsupportedOperationException("Cannot remove elements from an Enumerator");
     }
 }
