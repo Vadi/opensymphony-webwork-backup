@@ -11,6 +11,7 @@ import com.opensymphony.webwork.views.jsp.ParameterizedTagSupport;
 import com.opensymphony.webwork.views.jsp.ui.template.TemplateEngine;
 import com.opensymphony.webwork.views.jsp.ui.template.TemplateEngineManager;
 import com.opensymphony.webwork.views.jsp.ui.template.TemplateRenderingContext;
+import com.opensymphony.webwork.views.util.JavaScriptValidationHolder;
 import com.opensymphony.xwork.ModelDriven;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -24,6 +25,7 @@ import java.beans.PropertyDescriptor;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -405,8 +407,9 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             // register ScriptValiationAware validators for this UI tag with the form
             Boolean validate = (Boolean) formTag.getParameters().get("validate");
 
-            if ((validate != null) && validate.booleanValue() && (formTag.getActionClass() != null) && (formTag.getActionName() != null) && name != null) {
-                findScriptingValidators(formTag, (String) name, formTag.getActionClass(), null);
+            if ((validate != null) && validate.booleanValue() && name != null) {
+                if (formTag.getJavaScriptValidationHolder() != null)
+                    formTag.getJavaScriptValidationHolder().registerValidateField((String) name, getParameters());
             }
         }
 
@@ -425,92 +428,6 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
         TemplateRenderingContext context = new TemplateRenderingContext(finalTemplateName, pageContext, getStack(), getParameters(), this);
         engine.renderTemplate(context);
-    }
-
-    /**
-     * Finds all ScriptValidationAware validators that apply to the field covered by this tag.
-     *
-     * @param formTag      the parent form tag this tag is in
-     * @param fieldName    the name of the field to validate (used for error message key)
-     * @param fieldClass   the Class of the object the field is for
-     * @param propertyName the actual property name to get validator for; if null, fieldName is used
-     */
-    private void findScriptingValidators(FormTag formTag, String fieldName, Class fieldClass, String propertyName) {
-        List validators = ActionValidatorManager.getValidators(fieldClass, formTag.getActionName());
-        String name = fieldName;
-
-        if (propertyName != null) {
-            name = propertyName;
-        }
-
-        for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
-            Validator validator = (Validator) iterator.next();
-
-            if (!(validator instanceof ScriptValidationAware)) {
-                continue;
-            }
-
-            ValidatorContext validatorContext = new DelegatingValidatorContext(fieldClass);
-
-            if (validator instanceof FieldValidator) {
-                FieldValidator fieldValidator = (FieldValidator) validator;
-
-                // JavaScriptVisitorFieldValidators must validate model, not action
-                if (validator instanceof JavaScriptVisitorFieldValidator) {
-                    JavaScriptVisitorFieldValidator visitorValidator = (JavaScriptVisitorFieldValidator) validator;
-                    String propName = null;
-                    boolean visit;
-
-                    if (visitorValidator.getFieldName().equals("model") && ModelDriven.class.isAssignableFrom(fieldClass)) {
-                        visit = true;
-                    } else {
-                        String baseName = name;
-                        int idx = name.indexOf(".");
-
-                        if (idx != -1) {
-                            baseName = name.substring(0, idx);
-                            propName = name.substring(idx + 1);
-                        }
-
-                        visit = baseName.equals(visitorValidator.getFieldName());
-                    }
-
-                    if (visit) {
-                        Class realFieldClass = visitorValidator.getValidatedClass();
-
-                        if (realFieldClass == null) {
-                            for (Iterator iterator1 = getStack().getRoot().iterator(); iterator1.hasNext();) {
-                                Object o = iterator1.next();
-                                try {
-                                    PropertyDescriptor pd =
-                                            OgnlRuntime.getPropertyDescriptor(o.getClass(), visitorValidator.getFieldName());
-                                    realFieldClass = pd.getPropertyType();
-                                    break;
-                                } catch (Throwable t) {
-                                    // just keep trying
-                                }
-                            }
-                        }
-
-                        if (realFieldClass != null) {
-                            if (visitorValidator.isAppendPrefix()) {
-                                findScriptingValidators(formTag, visitorValidator.getFieldName() + "." + name, realFieldClass, propName);
-                            } else {
-                                findScriptingValidators(formTag, name, realFieldClass, propName);
-                            }
-                        } else {
-                            LOG.warn("Cannot figure out class of visited object");
-                        }
-                    }
-                } else if (fieldValidator.getFieldName().equals(name)) {
-                    validator.setValidatorContext(validatorContext);
-                    formTag.registerValidator((ScriptValidationAware) fieldValidator, new HashMap(getParameters()));
-                }
-            } else {
-                validator.setValidatorContext(validatorContext);
-                formTag.registerValidator((ScriptValidationAware) validator, new HashMap(getParameters()));
-            }
-        }
     }
 
     private String setupPath(String path, boolean prefix) {
