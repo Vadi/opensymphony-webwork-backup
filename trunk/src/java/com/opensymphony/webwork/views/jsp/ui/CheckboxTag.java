@@ -15,8 +15,8 @@ public class CheckboxTag extends AbstractUITag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
-     * The name of the default template for the CheckboxTag
-     */
+ * The name of the default template for the CheckboxTag
+ */
     final public static String TEMPLATE = "checkbox.vm";
 
     //~ Instance fields ////////////////////////////////////////////////////////

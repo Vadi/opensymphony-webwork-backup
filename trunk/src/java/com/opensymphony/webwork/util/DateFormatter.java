@@ -7,19 +7,26 @@ package com.opensymphony.webwork.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
+
 /**
- *	A bean that can be used to format dates
- *      
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ *        A bean that can be used to format dates
+ *
+ *        @author Rickard Öberg (rickard@middleware-company.com)
+ *        @version $Revision$
  */
 public class DateFormatter {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    Date date;
+    DateFormat format;
+
     // Attributes ----------------------------------------------------
     DateFormat parser;
-    DateFormat format;
-    Date date;
+
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     // Public --------------------------------------------------------
     public DateFormatter() {
@@ -28,17 +35,7 @@ public class DateFormatter {
         this.date = new Date();
     }
 
-    public void setFormat(String format) {
-        this.format = new SimpleDateFormat(format);
-    }
-
-    public void setParseFormat(String format) {
-        this.parser = new SimpleDateFormat(format);
-    }
-
-    public String getFormattedDate() {
-        return format.format(date);
-    }
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setDate(String date) {
         try {
@@ -60,15 +57,27 @@ public class DateFormatter {
         return this.date;
     }
 
-    public void setTime(long time) {
-        date.setTime(time);
+    public void setFormat(String format) {
+        this.format = new SimpleDateFormat(format);
+    }
+
+    public void setFormat(DateFormat format) {
+        this.format = format;
+    }
+
+    public String getFormattedDate() {
+        return format.format(date);
+    }
+
+    public void setParseFormat(String format) {
+        this.parser = new SimpleDateFormat(format);
     }
 
     public void setParser(DateFormat parser) {
         this.parser = parser;
     }
 
-    public void setFormat(DateFormat format) {
-        this.format = format;
+    public void setTime(long time) {
+        date.setTime(time);
     }
 }

@@ -4,11 +4,12 @@
  */
 package com.opensymphony.webwork.util;
 
+import com.opensymphony.xwork.Action;
+
 import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
 
-import com.opensymphony.xwork.Action;
 
 /**
  *        A bean that takes an iterator and outputs a subset of it.

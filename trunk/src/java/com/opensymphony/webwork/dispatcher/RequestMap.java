@@ -26,38 +26,37 @@ public class RequestMap extends AbstractMap implements Serializable {
 
     public RequestMap(final HttpServletRequest request) {
         for (Enumeration attrNames = request.getAttributeNames();
-             attrNames.hasMoreElements();) {
+                attrNames.hasMoreElements();) {
             final String attrName = (String) attrNames.nextElement();
             entrySet.add(new Map.Entry() {
-                public Object getKey() {
-                    return attrName;
-                }
-
-                public Object getValue() {
-                    return request.getAttribute(attrName);
-                }
-
-                public Object setValue(Object value) {
-                    request.setAttribute(attrName, value);
-
-                    return value;
-                }
-
-                public int hashCode() {
-                    return (getKey() == null ? 0 : getKey().hashCode()) ^
-                            (getValue() == null ? 0 : getValue().hashCode());
-                }
-
-                public boolean equals(Object obj) {
-                    if ((obj != null) && obj instanceof Entry) {
-                        Entry me = (Entry) obj;
-
-                        return me.getKey().equals(getKey()) && me.getValue().equals(getValue());
+                    public Object getKey() {
+                        return attrName;
                     }
 
-                    return false;
-                }
-            });
+                    public Object getValue() {
+                        return request.getAttribute(attrName);
+                    }
+
+                    public Object setValue(Object value) {
+                        request.setAttribute(attrName, value);
+
+                        return value;
+                    }
+
+                    public int hashCode() {
+                        return ((getKey() == null) ? 0 : getKey().hashCode()) ^ ((getValue() == null) ? 0 : getValue().hashCode());
+                    }
+
+                    public boolean equals(Object obj) {
+                        if ((obj != null) && obj instanceof Entry) {
+                            Entry me = (Entry) obj;
+
+                            return me.getKey().equals(getKey()) && me.getValue().equals(getValue());
+                        }
+
+                        return false;
+                    }
+                });
         }
     }
 

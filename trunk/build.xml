@@ -17,6 +17,7 @@
     <property name="lib.core" value="${lib}/core"/>
     <property name="lib.build" value="${lib}/build"/>
     <property name="lib.optional" value="${lib}/optional"/>
+    <property name="lib.migration" value="${lib}/migration"/>
     <property name="lib.example" value="${lib}/example"/>
 
     <property name="src" value="src"/>
@@ -283,10 +284,32 @@
 
     <target name="dist" depends="jar, migration, example-war, docs">
         <copy file="${build}/${name}-${version}.jar" todir="${build.dist}"/>
+        <copy file="${build.migration.jar}" todir="${build.dist}"/>
         <copy file="${build}/${name}-example.war" todir="${build.dist}"/>
         <copy todir="${build.dist}/src">
             <fileset dir="${src.java}"/>
         </copy>
+
+        <mkdir dir="${build.dist}/lib/core"/>
+        <copy todir="${build.dist}/lib/core">
+            <fileset dir="${lib.core}"/>
+        </copy>
+
+        <mkdir dir="${build.dist}/lib/example"/>
+        <copy todir="${build.dist}/lib/example">
+            <fileset dir="${lib.example}"/>
+        </copy>
+
+        <mkdir dir="${build.dist}/lib/migration"/>
+        <copy todir="${build.dist}/lib/migration">
+            <fileset dir="${lib.migration}"/>
+        </copy>
+
+        <mkdir dir="${build.dist}/lib/optional"/>
+        <copy todir="${build.dist}/lib/optional">
+            <fileset dir="${lib.optional}"/>
+        </copy>
+
         <zip zipfile="${build}/${name}-${version}.zip" basedir="${build.dist}"/>
     </target>
 </project>

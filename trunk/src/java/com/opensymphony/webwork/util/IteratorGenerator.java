@@ -7,9 +7,9 @@ package com.opensymphony.webwork.util;
 import com.opensymphony.xwork.Action;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.Iterator;
 
 
 /**

@@ -285,10 +285,10 @@ public class WebTable extends ComponentTag {
     //~ Inner Classes //////////////////////////////////////////////////////////
 
     /**
-     * inner class to iteratoe over a row of the table.
-     * It can return formatted data, using the columnRenderer
-     * for the column or it can return the raw data.
-     */
+ * inner class to iteratoe over a row of the table.
+ * It can return formatted data, using the columnRenderer
+ * for the column or it can return the raw data.
+ */
     public class WebTableRowIterator implements Iterator {
         public static final int FORMATTED_DATA = 0;
         public static final int RAW_DATA = 1;
