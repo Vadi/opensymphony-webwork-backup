@@ -36,7 +36,7 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
             if (savedInvocation != null) {
                 // set the valuestack to the request scope
                 OgnlValueStack stack = savedInvocation.getStack();
-                ServletActionContext.getRequest().setAttribute("webwork.valueStack", stack);
+                ServletActionContext.getRequest().setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
 
                 Result result = savedInvocation.getResult();
 

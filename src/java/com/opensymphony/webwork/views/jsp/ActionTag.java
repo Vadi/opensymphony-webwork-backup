@@ -121,7 +121,8 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         extraContext.put(PAGE_CONTEXT, pageContext);
 
         OgnlValueStack vs = ActionContext.getContext().getValueStack();
-        extraContext.put(ActionContext.VALUE_STACK, vs);
+        OgnlValueStack newStack = new OgnlValueStack(vs);
+        extraContext.put(ActionContext.VALUE_STACK, newStack);
 
         return extraContext;
     }
