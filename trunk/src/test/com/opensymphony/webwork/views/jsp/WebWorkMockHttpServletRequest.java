@@ -30,6 +30,7 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
     private String scheme;
     private String serverName;
     private int serverPort;
+    private String encoding;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -58,6 +59,14 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
 
     public Locale getLocale() {
         return locale;
+    }
+
+    public void setCharacterEncoding(String s) {
+        this.encoding = s;
+    }
+
+    public String getCharacterEncoding() {
+        return encoding;
     }
 
     public void setParameterMap(Map parameterMap) {
