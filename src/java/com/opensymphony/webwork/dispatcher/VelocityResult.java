@@ -5,16 +5,12 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
 import com.opensymphony.webwork.views.velocity.WebWorkVelocityServlet;
-import com.opensymphony.webwork.views.velocity.ui.JSPTagAdapterFactory;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
-import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.util.TextParseUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,34 +37,19 @@ import javax.servlet.jsp.PageContext;
  * @version $Id$
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
  */
-public class VelocityResult implements Result, WebWorkStatics {
+public class VelocityResult extends WebWorkResultSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(VelocityResult.class);
     private static VelocityEngine velocityEngine = VelocityManager.getVelocityEngine();
-    public static final String DEFAULT_PARAM = "location";
-
-    //~ Instance fields ////////////////////////////////////////////////////////
-
-    private JSPTagAdapterFactory adapterFactory = new JSPTagAdapterFactory();
-    private String location;
-    private boolean parse;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setParse(boolean parse) {
-        this.parse = parse;
-    }
-
-    public void execute(ActionInvocation invocation) throws Exception {
+    public void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
         try {
-            Template t = getTemplate(stack, velocityEngine, invocation);
+            Template t = getTemplate(stack, velocityEngine, invocation, finalLocation);
 
             Context context = VelocityManager.createContext(ServletActionContext.getServletConfig(), ServletActionContext.getRequest(), ServletActionContext.getResponse());
             HttpServletResponse response = ServletActionContext.getResponse();
@@ -98,7 +79,7 @@ public class VelocityResult implements Result, WebWorkStatics {
                 writer.flush();
             }
         } catch (Exception e) {
-            log.error("Unable to render Velocity Template, '" + location + "'", e);
+            log.error("Unable to render Velocity Template, '" + finalLocation + "'", e);
             throw e;
         }
 
@@ -115,16 +96,12 @@ public class VelocityResult implements Result, WebWorkStatics {
      * @return the Template to render
      * @throws Exception when the requested template could not be found
      */
-    protected Template getTemplate(OgnlValueStack stack, VelocityEngine velocity, ActionInvocation invocation) throws Exception {
-        if (parse) {
-            location = TextParseUtil.translateVariables(location, stack);
-        }
-
+    protected Template getTemplate(OgnlValueStack stack, VelocityEngine velocity, ActionInvocation invocation, String location) throws Exception {
         if (!location.startsWith("/")) {
-            this.location = invocation.getProxy().getNamespace() + "/" + this.location;
+            location = invocation.getProxy().getNamespace() + "/" + location;
         }
 
-        Template template = velocity.getTemplate(this.location);
+        Template template = velocity.getTemplate(location);
 
         return template;
     }

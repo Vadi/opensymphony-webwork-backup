@@ -5,13 +5,8 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.WebWorkStatics;
 
-import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
-import com.opensymphony.xwork.Result;
-import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.util.TextParseUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,17 +26,14 @@ import javax.servlet.http.HttpServletResponse;
  * @author $Author$
  * @version $Revision$
  */
-public class ServletRedirectResult implements Result, WebWorkStatics {
+public class ServletRedirectResult extends WebWorkResultSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(ServletRedirectResult.class);
-    public static final String DEFAULT_PARAM = "location";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private String location;
-    private boolean prependServletContext = true;
-    private boolean parse = true;
+    protected boolean prependServletContext = true;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -49,63 +41,41 @@ public class ServletRedirectResult implements Result, WebWorkStatics {
         this.prependServletContext = prependServletContext;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setParse(boolean parse) {
-        this.parse = parse;
-    }
-
-    public void execute(ActionInvocation invocation) throws Exception {
+    protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpServletResponse response = ServletActionContext.getResponse();
 
-        if (parse) {
-            OgnlValueStack stack = ActionContext.getContext().getValueStack();
-            location = TextParseUtil.translateVariables(location, stack);
+        if (isPathUrl(finalLocation)) {
+            if (!finalLocation.startsWith("/")) {
+                String actionPath = request.getServletPath();
+                String namespace = ServletDispatcher.getNamespaceFromServletPath(actionPath);
+
+                if ((namespace != null) && (namespace.length() > 0)) {
+                    finalLocation = namespace + "/" + finalLocation;
+                } else {
+                    finalLocation = "/" + finalLocation;
+                }
+            }
+
+            // if the URL's are relative to the servlet context, append the servlet context path
+            if (prependServletContext && (request.getContextPath() != null) && (request.getContextPath().length() > 0)) {
+                finalLocation = request.getContextPath() + finalLocation;
+            }
+
+            finalLocation = response.encodeRedirectURL(finalLocation);
         }
-
-        String redirectLocation = location;
-
-        if (isPathUrl(redirectLocation))
-    	{
-    		
-	        if (!redirectLocation.startsWith("/")) {
-	
-	            String actionPath = request.getServletPath();
-	            String namespace = ServletDispatcher.getNamespaceFromServletPath(actionPath);
-	
-	            if ((namespace != null) && (namespace.length() > 0)) {
-	                redirectLocation = namespace + "/" + redirectLocation;
-	            }
-	            else {
-	            	redirectLocation = "/" + redirectLocation;
-	            }
-	
-	        }
-	
-			// if the URL's are relative to the servlet context, append the servlet context path 
-			if (prependServletContext && request.getContextPath() != null && request.getContextPath().length() > 0)
-			{
-				redirectLocation = request.getContextPath() + redirectLocation; 
-			}
-
-			redirectLocation = response.encodeRedirectURL(redirectLocation);
-		}
 
         if (log.isDebugEnabled()) {
-            log.debug("Redirecting to location " + redirectLocation);
+            log.debug("Redirecting to finalLocation " + finalLocation);
         }
 
-        response.sendRedirect(redirectLocation);
+        response.sendRedirect(finalLocation);
     }
 
-	private static boolean isPathUrl(String url)
-	{
-		// filter out "http:", "https:", "mailto:", "file:", "ftp:"
-		// since the only valid places for : in URL's is before the path specification
-		// either before the port, or after the protocol
-		return (url.indexOf(':') == -1);
-	}
+    private static boolean isPathUrl(String url) {
+        // filter out "http:", "https:", "mailto:", "file:", "ftp:"
+        // since the only valid places for : in URL's is before the path specification
+        // either before the port, or after the protocol
+        return (url.indexOf(':') == -1);
+    }
 }
