@@ -11,20 +11,17 @@
             </interceptor-stack>
         </interceptors>
         <default-interceptor-ref name="config-browser-default"/>
-        <global-results>
-            <result name="error" type="velocity">/error.vm</result>
-        </global-results>
-        <action name="namespace" class="com.opensymphony.webwork.config_browser.NamespaceAction">
-            <result type="velocity" name="success">/namespaces.vm</result>
-            <result type="velocity" name="input">/namespaces.vm</result>
-        </action>
-        <action name="actionNames" class="com.opensymphony.webwork.config_browser.ActionNamesAction">
-            <result type="velocity" name="success">/actionNames.vm</result>
-            <result type="velocity" name="input">/actionNames.vm</result>
-        </action>
-        <action name="showConfig" class="com.opensymphony.webwork.config_browser.ShowConfigAction">
-            <result type="velocity" name="success">/showConfig.vm</result>
-            <result type="velocity" name="input">/showConfig.vm</result>
-        </action>
+        
+		<global-results>
+			<result name="error" type="velocity">/error.vm</result>
+		</global-results>
+
+		<action name="actionNames" class="com.opensymphony.webwork.config_browser.ActionNamesAction">
+			<result type="velocity" name="success">/actionNames.vm</result>
+		</action>
+
+		<action name="showConfig" class="com.opensymphony.webwork.config_browser.ShowConfigAction">
+			<result type="velocity" name="success">/showConfig.vm</result>
+		</action> 
     </package>
 </xwork>

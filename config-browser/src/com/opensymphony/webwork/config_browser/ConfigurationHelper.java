@@ -1,12 +1,11 @@
 package com.opensymphony.webwork.config_browser;
 
-import com.opensymphony.xwork.config.ConfigurationManager;
-import com.opensymphony.xwork.config.entities.ActionConfig;
-
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
+
+import com.opensymphony.xwork.config.ConfigurationManager;
+import com.opensymphony.xwork.config.entities.ActionConfig;
 
 /**
  * ConfigurationHelper
@@ -14,6 +13,7 @@ import java.util.Set;
  * Created Aug 11, 2003 8:41:17 PM
  */
 public class ConfigurationHelper {
+	
     public static Set getNamespaces() {
         Set namespaces = Collections.EMPTY_SET;
         Map allActionConfigs = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfigs();
@@ -45,5 +45,5 @@ public class ConfigurationHelper {
             }
         }
         return config;
-    }
+    }    
 }

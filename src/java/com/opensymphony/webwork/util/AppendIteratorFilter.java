@@ -1,22 +1,30 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 /**
- *	A bean that takes several iterators and outputs them in sequence
+ *        A bean that takes several iterators and outputs them in sequence
  *
- *	@see <related>
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ *        @see <related>
+ *        @author Rickard Öberg (rickard@middleware-company.com)
+ *        @version $Revision$
  */
-public class AppendIteratorFilter
-        extends IteratorFilterSupport
-        implements java.util.Iterator, webwork.action.Action {
+public class AppendIteratorFilter extends IteratorFilterSupport implements java.util.Iterator, webwork.action.Action {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    List iterators = new ArrayList();
+
     // Attributes ----------------------------------------------------
     List sources = new ArrayList();
-    List iterators = new ArrayList();
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     // Public --------------------------------------------------------
     public void setSource(Object anIterator) {
@@ -38,8 +46,9 @@ public class AppendIteratorFilter
     public boolean hasNext() {
         if (iterators.size() > 0) {
             return (((Iterator) iterators.get(0)).hasNext());
-        } else
+        } else {
             return false;
+        }
     }
 
     public Object next() {
