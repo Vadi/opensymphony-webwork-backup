@@ -1,44 +1,34 @@
 /*
- * Created on 26/10/2004
+ * Copyright (c) 2004 Opensymphony. All Rights Reserved.
  */
 package com.opensymphony.webwork.views.util;
 
-import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import ognl.OgnlRuntime;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.validators.JavaScriptVisitorFieldValidator;
 import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.xwork.ModelDriven;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.validator.ActionValidatorManager;
-import com.opensymphony.xwork.validator.DelegatingValidatorContext;
-import com.opensymphony.xwork.validator.FieldValidator;
-import com.opensymphony.xwork.validator.Validator;
-import com.opensymphony.xwork.validator.ValidatorContext;
+import com.opensymphony.xwork.validator.*;
+import ognl.OgnlRuntime;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.beans.PropertyDescriptor;
+import java.util.*;
 
 /**
  * @author CameronBraid
  */
 public class JavaScriptValidationHolder {
 
-    public JavaScriptValidationHolder(String actionName, Class actionClass) {
+    public JavaScriptValidationHolder(String actionName, Class actionClass, OgnlValueStack stack) {
         this.actionName = actionName;
         this.actionClass = actionClass;
+        this.valueStack = stack;
     }
 
     private static final Log LOG = LogFactory.getLog(JavaScriptValidationHolder.class);
 
-    OgnlValueStack valueStack = ServletActionContext.getContext().getValueStack();
+    OgnlValueStack valueStack;
     Class actionClass;
     String actionName;
     List fieldValidators = new ArrayList();

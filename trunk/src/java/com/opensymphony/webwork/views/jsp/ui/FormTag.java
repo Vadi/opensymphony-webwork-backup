@@ -4,12 +4,11 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.webwork.views.jsp.TagUtils;
 import com.opensymphony.webwork.views.util.JavaScriptValidationHolder;
 import com.opensymphony.webwork.views.util.UrlHelper;
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.ActionConfig;
@@ -17,11 +16,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -92,6 +87,7 @@ public class FormTag extends AbstractClosingUITag {
              * ServletActionContext.
              *
              * todo - determine if there's any reason we can't just always use ServletActionContext
+             * -> because we want to be able to use the tags if we went directly to the page
              */
             HttpServletResponse response;
             HttpServletRequest request;
@@ -139,7 +135,7 @@ public class FormTag extends AbstractClosingUITag {
             // and the javaScriptValidationHolder hasn't been created already
             // i.e. don'r re-create it on the second call to evaluateExtraParams
             if (actionName != null && actionClass != null && javaScriptValidationHolder == null) {
-                javaScriptValidationHolder = new JavaScriptValidationHolder(actionName, actionClass);
+                javaScriptValidationHolder = new JavaScriptValidationHolder(actionName, actionClass, getStack());
             }
         }
 
@@ -183,7 +179,7 @@ public class FormTag extends AbstractClosingUITag {
         
         javaScriptValidationHolder = null;
         if (getActionName() != null && getActionClass() != null) {
-            javaScriptValidationHolder = new JavaScriptValidationHolder(getActionName(), getActionClass());
+            javaScriptValidationHolder = new JavaScriptValidationHolder(getActionName(), getActionClass(), getStack());
         }
     }
     
