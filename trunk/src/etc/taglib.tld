@@ -812,6 +812,11 @@
             <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
+            <name>for</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>cssClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
