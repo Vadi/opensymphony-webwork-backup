@@ -5,12 +5,15 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.TextProviderSupport;
+import com.opensymphony.xwork.LocaleProvider;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 import org.apache.commons.logging.*;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.List;
 
 import javax.servlet.jsp.JspException;
 
@@ -50,30 +53,22 @@ public class I18nTag extends WebWorkTagSupport {
             ResourceBundle bundle = (ResourceBundle) findValue("texts('" + name + "')");
 
             if (bundle == null) {
-                LocalizedTextUtil.findResourceBundle(name, (Locale) getStack().getContext().get(ActionContext.LOCALE));
+                bundle = LocalizedTextUtil.findResourceBundle(name, (Locale) getStack().getContext().get(ActionContext.LOCALE));
             }
 
-            getStack().push(new BundleAccessor(bundle));
+            if (bundle != null) {
+                final Locale locale = (Locale) getStack().getContext().get(ActionContext.LOCALE);
+                getStack().push(new TextProviderSupport(bundle, new LocaleProvider() {
+                    public Locale getLocale() {
+                        return locale;
+                    }
+                }));
+            }
         } catch (Exception e) {
             LogFactory.getLog(getClass()).error("Could not find the bundle " + nameAttr, e);
             throw new JspException("Could not find the bundle " + nameAttr);
         }
 
         return EVAL_BODY_INCLUDE;
-    }
-
-    //~ Inner Classes //////////////////////////////////////////////////////////
-
-    // This is what the text tag will use to access the bundle
-    public static class BundleAccessor {
-        ResourceBundle bundle;
-
-        public BundleAccessor(ResourceBundle aBundle) {
-            bundle = aBundle;
-        }
-
-        public String getText(String aName) {
-            return bundle.getString(aName);
-        }
     }
 }
