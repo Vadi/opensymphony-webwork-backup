@@ -6,6 +6,7 @@ package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.TextUtils;
 
+import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
@@ -64,7 +65,7 @@ public final class WebWorkUtil {
             classes.put(name, c);
         }
 
-        return c.newInstance();
+        return ObjectFactory.getObjectFactory().buildBean(c);
     }
 
     public String evaluate(String expression) throws IOException, ResourceNotFoundException, MethodInvocationException, ParseErrorException {
