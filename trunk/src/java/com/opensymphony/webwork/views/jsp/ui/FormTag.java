@@ -136,13 +136,11 @@ public class FormTag extends AbstractClosingUITag {
 
                 // if the name isn't specified, use the action name
                 if (nameAttr == null) {
-                    nameAttr = action;
                     addParameter("name", action);
                 }
 
                 // if the id isn't specified, use the action name
                 if (id == null) {
-                    id = action;
                     addParameter("id", action);
                 }
             } else if (action != null) {
