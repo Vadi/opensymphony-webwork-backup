@@ -117,7 +117,6 @@ public class VelocityResult extends WebWorkResultSupport {
             location = invocation.getProxy().getNamespace() + "/" + location;
         }
 
-        System.out.println("velocity = " + velocity);
         Template template = velocity.getTemplate(location);
 
         return template;
