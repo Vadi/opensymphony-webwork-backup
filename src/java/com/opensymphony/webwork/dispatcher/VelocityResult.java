@@ -58,6 +58,8 @@ public class VelocityResult extends WebWorkResultSupport {
         ServletContext servletContext = ServletActionContext.getServletContext();
         Servlet servlet = (Servlet) servletContext.getAttribute("webwork.servlet");
 
+        VelocityManager.getInstance().init(servletContext);
+
         boolean usedJspFactory = false;
         PageContext pageContext = (PageContext) ActionContext.getContext().get(ServletActionContext.PAGE_CONTEXT);
 
