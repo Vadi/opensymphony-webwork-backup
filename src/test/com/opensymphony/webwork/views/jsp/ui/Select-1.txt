@@ -4,6 +4,6 @@
             <option value="headerKey">headerValue</option>
             <option value=""></option>
             <option value="hello" selected="selected">world</option>
-            <option value="foo" >bar</option>
+            <option value="foo">bar</option>
         </select></td>
 </tr>

@@ -1,8 +1,8 @@
 <tr>
     <td align="right" valign="top"><label class="label">mylabel:</label></td>
     <td><select name="collection" multiple="multiple" onmousedown="alert('onmousedown');" onmouseup="alert('onmouseup');" onmouseover="alert('onmouseover');" onmousemove="alert('onmousemove');" onmouseout="alert('onmouseout');" >
-            <option value="hello" selected="selected">world</option>
-            <option value="foo" selected="selected">bar</option>
-            <option value="cat">dog</option>
+            <option value="hello" selected="selected">1</option>
+            <option value="foo" selected="selected">2</option>
+            <option value="&lt;cat&gt;">1.5</option>
         </select></td>
 </tr>

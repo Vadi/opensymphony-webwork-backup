@@ -10,6 +10,7 @@ import com.opensymphony.xwork.ActionSupport;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.List;
 
 
 /**
@@ -26,6 +27,7 @@ public class TestAction extends ActionSupport {
     private User user;
     private String[] array;
     private String[][] list;
+    private List list2;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -59,6 +61,14 @@ public class TestAction extends ActionSupport {
 
     public String[][] getList() {
         return list;
+    }
+
+    public List getList2() {
+        return list2;
+    }
+
+    public void setList2(List list2) {
+        this.list2 = list2;
     }
 
     public void setMap(Map map) {
