@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <title>WebWork Documentation</title>
   <link type="text/css" href="main.css" rel="STYLESHEET"/>
 </head>
 <body>
   <div id="page-logo">
-    <a href="index.html">WebWork2 Documentation</a>
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
   </div>
     <div class="snip-title">
 	  <h1 class="snip-name">JFreeChartResult
@@ -84,6 +84,9 @@ makes the chart available on the ValueStack, which the result gets via
 <h3 class="heading-1">Suggestions for the next developer...
 </h3>
 Currently the "chart" property is hardcoded. There should be a better way of transferring data from the Action to the Result, via some externally defined variable or something.<p class="paragraph"/>As mentioned by John Patterson (mailing list), the Action is still dependant on a JFreeChart Chart class. This can be improved. The seperation between Action and View can be made cleaner. A chart-agonistic List or Array can be used as the data, and the configuration of the chart details (font, axis, etc...) be done via the result properties in the xwork.xml.<p class="paragraph"/>But hey, the above works for now. Any suggestions are welcome.
+<h3 class="heading-1">Creating charts via CeWolf directly in Velocity templates
+</h3>
+See <a href="http://wiki.opensymphony.com/space/CeWolf+charts+using+Velocity+templates">CeWolf charts using Velocity templates</a>.
 <h3 class="heading-1">Conclusion
 </h3>
 That's about it for now. As noted in the above section, there are areas that can be improved. But for now, this might suffice to give some guidelines to how the Result works. I'll put up something about PdfResult later when I get to it on my project. Hope this helps.<p class="paragraph"/>Cheers,
