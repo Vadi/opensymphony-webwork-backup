@@ -56,19 +56,34 @@ public class UrlHelper {
             // Set params
             Iterator enum = params.entrySet().iterator();
 
+            String[] valueHolder = new String[1];
             while (enum.hasNext()) {
                 Map.Entry entry = (Map.Entry) enum.next();
                 String name = (String) entry.getKey();
                 Object value = entry.getValue();
 
-                if (value != null) {
-                    link.append(name);
-                    link.append('=');
-                    link.append(translateAndEncode(value.toString()));
+                String[] values;
+                if (value instanceof String[]) {
+                    values = (String[]) value;
+                } else {
+                    valueHolder[0] = value.toString();
+                    values = valueHolder;
+                }
+
+                for (int i = 0; i < values.length; i++) {
+                    if (values[i] != null) {
+                        link.append(name);
+                        link.append('=');
+                        link.append(translateAndEncode(values[i]));
+                    }
+
+                    if (i < values.length - 1) {
+                        link.append("&");
+                    }
                 }
 
                 if (enum.hasNext()) {
-                    link.append(AMP);
+                    link.append("&");
                 }
             }
         }
@@ -87,11 +102,11 @@ public class UrlHelper {
     }
 
     /**
-    * Translates any script expressions using {@link com.opensymphony.xwork.util.TextParseUtil#translateVariables} and
-    * encodes the URL using {@link java.net.URLEncoder#encode}
-    * @param input
-    * @return the translated and encoded string
-    */
+     * Translates any script expressions using {@link com.opensymphony.xwork.util.TextParseUtil#translateVariables} and
+     * encodes the URL using {@link java.net.URLEncoder#encode}
+     * @param input
+     * @return the translated and encoded string
+     */
     public static String translateAndEncode(String input) {
         OgnlValueStack valueStack = ServletActionContext.getContext().getValueStack();
         String output = TextParseUtil.translateVariables(input, valueStack);
