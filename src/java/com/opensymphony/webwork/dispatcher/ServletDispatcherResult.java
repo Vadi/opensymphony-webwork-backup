@@ -51,7 +51,13 @@ public class ServletDispatcherResult extends WebWorkResultSupport {
             HttpServletResponse response = ServletActionContext.getResponse();
             RequestDispatcher dispatcher = request.getRequestDispatcher(finalLocation);
 
-            // If we're included, then include the view 
+            // if the view doesn't exist, let's do a 404
+            if (dispatcher == null) {
+                response.sendError(404, "result '" + finalLocation + "' not found");
+                return;
+            }
+
+            // If we're included, then include the view
             // Otherwise do forward 
             // This allow the page to, for example, set content type 
             if (!response.isCommitted() && (request.getAttribute("javax.servlet.include.servlet_path") == null)) {
