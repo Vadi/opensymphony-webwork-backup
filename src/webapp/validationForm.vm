@@ -1,5 +1,5 @@
 <html>
-<head><title>Webwork Validation Example</title></head>
+<head><title>OpenSymphony WebWork2 Validation Example</title></head>
 <body>
 #if( $actionErrors.size() > 0 )
 <p>

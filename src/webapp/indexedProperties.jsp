@@ -1,6 +1,6 @@
 <%@ taglib prefix="ww" uri="webwork" %>
 <html>
-<head><title>WebWork2: Indexed Property Example</title></head>
+<head><title>OpenSymphony WebWork2 Indexed Property Example</title></head>
 <body>
 <div align="center">
 <p><h2>Indexed Property Example</h2></p>
