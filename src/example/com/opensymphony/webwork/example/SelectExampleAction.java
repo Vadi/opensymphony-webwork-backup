@@ -16,9 +16,9 @@ public class SelectExampleAction extends ActionSupport {
 
     public String execute() throws Exception {
         selectMap = new HashMap();
-        selectMap.put(new Long(1),"Value 1");
-        selectMap.put(new Long(2),"Value 2");
-        selectMap.put(new Long(3),"Value 3");
+        selectMap.put(new Long(1), "Value 1");
+        selectMap.put(new Long(2), "Value 2");
+        selectMap.put(new Long(3), "Value 3");
         return SUCCESS;
     }
 

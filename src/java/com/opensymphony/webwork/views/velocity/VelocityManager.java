@@ -123,7 +123,7 @@ public class VelocityManager {
         context.put(RESPONSE, servletResponse);
         context.put(STACK, stack);
         context.put(OGNL, ognlTool);
-        context.put(WEBWORK, new WebWorkUtil(context));
+        context.put(WEBWORK, new WebWorkUtil(context, stack));
 
         ActionInvocation invocation = (ActionInvocation) stack.getContext().get(ActionContext.ACTION_INVOCATION);
 
