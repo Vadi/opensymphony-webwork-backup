@@ -103,37 +103,37 @@
         </attribute>
     </tag>
 
-     <tag>
-         <name>text</name>
-         <tagclass>com.opensymphony.webwork.views.jsp.ui.TextTag</tagclass>
-         <bodycontent>JSP</bodycontent>
-         <info>Print out an internationalized string</info>
-         <attribute>
-             <name>name</name>
-             <required>true</required>
-             <rtexprvalue>false</rtexprvalue>
-         </attribute>
-         <attribute>
-             <name>value0</name>
-             <required>false</required>
-             <rtexprvalue>false</rtexprvalue>
-         </attribute>
-         <attribute>
-             <name>value1</name>
-             <required>false</required>
-             <rtexprvalue>false</rtexprvalue>
-         </attribute>
-         <attribute>
-             <name>value2</name>
-             <required>false</required>
-             <rtexprvalue>false</rtexprvalue>
-         </attribute>
-         <attribute>
-             <name>value3</name>
-             <required>false</required>
-             <rtexprvalue>false</rtexprvalue>
-         </attribute>
-     </tag>
+    <tag>
+        <name>text</name>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.TextTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Print out an internationalized string</info>
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value0</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value1</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value2</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value3</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+    </tag>
 
     <tag>
         <name>property</name>
@@ -190,6 +190,11 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -202,6 +207,11 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -209,6 +219,11 @@
         <tagclass>com.opensymphony.webwork.views.jsp.ElseTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>Evaluates a boolean expression</info>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -251,6 +266,11 @@
         <bodycontent>empty</bodycontent>
         <info>An HTML Checkbox UI widget</info>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -264,6 +284,11 @@
             <name>label</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
             <name>required</name>
@@ -280,6 +305,26 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>fieldValue</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>disabled</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>tabindex</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onchange</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -287,6 +332,11 @@
         <tagclass>com.opensymphony.webwork.views.jsp.ui.CheckboxListTag</tagclass>
         <bodycontent>empty</bodycontent>
         <info>An HTML Checkbox List UI widget</info>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
         <attribute>
             <name>theme</name>
             <required>false</required>
@@ -301,6 +351,11 @@
             <name>label</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
             <name>required</name>
@@ -340,6 +395,11 @@
         <bodycontent>JSP</bodycontent>
         <info>An HTML Component UI widget</info>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -351,6 +411,11 @@
         </attribute>
         <attribute>
             <name>label</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>labelposition</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -441,6 +506,11 @@
         <bodycontent>empty</bodycontent>
         <info>An HTML Label UI widget</info>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -454,6 +524,11 @@
             <name>label</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
             <name>required</name>
@@ -473,6 +548,11 @@
         <bodycontent>empty</bodycontent>
         <info>An HTML Password UI widget</info>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -486,6 +566,11 @@
             <name>label</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
             <name>required</name>
@@ -507,6 +592,41 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>maxlength</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>disabled</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>readonly</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onkeyup</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>tabindex</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onchange</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>show</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -514,6 +634,11 @@
         <tagclass>com.opensymphony.webwork.views.jsp.ui.HiddenTag</tagclass>
         <bodycontent>empty</bodycontent>
         <info>An HTML Hidden UI widget</info>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
         <attribute>
             <name>theme</name>
             <required>false</required>
@@ -542,9 +667,19 @@
         <bodycontent>empty</bodycontent>
         <info>An HTML Hidden UI widget</info>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>label</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
             <name>theme</name>
@@ -579,6 +714,11 @@
         <bodycontent>empty</bodycontent>
         <info>An HTML Radiobox UI widget</info>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -592,6 +732,11 @@
             <name>label</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
             <name>required</name>
@@ -623,6 +768,21 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>disabled</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+          </attribute>
+          <attribute>
+            <name>tabindex</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+          </attribute>
+          <attribute>
+            <name>onchange</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+          </attribute>
     </tag>
 
     <tag>
@@ -630,6 +790,11 @@
         <tagclass>com.opensymphony.webwork.views.jsp.ui.SelectTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>An HTML Select UI widget</info>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
         <attribute>
             <name>theme</name>
             <required>false</required>
@@ -644,6 +809,11 @@
             <name>label</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
             <name>required</name>
@@ -690,6 +860,31 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>disabled</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>tabindex</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onchange</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>headerKey</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>headerValue</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -711,6 +906,11 @@
             <name>label</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
             <name>required</name>
@@ -795,6 +995,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>required</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -819,6 +1024,31 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>disabled</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>readonly</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onkeyup</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>tabindex</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onchange</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -842,6 +1072,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>required</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -860,6 +1095,36 @@
             <name>size</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>maxlength</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>disabled</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>readonly</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onkeyup</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>tabindex</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onchange</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
         </attribute>
     </tag>
 
@@ -882,6 +1147,11 @@
             <name>label</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>labelposition</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
             <name>required</name>
@@ -910,7 +1180,7 @@
         </attribute>
     </tag>
 
-     <tag>
+    <tag>
         <name>url</name>
         <tagclass>com.opensymphony.webwork.views.jsp.URLTag</tagclass>
         <bodycontent>JSP</bodycontent>
