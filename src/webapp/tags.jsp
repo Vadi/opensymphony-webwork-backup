@@ -1,6 +1,9 @@
 <%@ taglib uri="webwork" prefix="ww" %>
 <%@ taglib uri="benchmark" prefix="benchmark" %>
 
+<%-- this is to make our special controlfooter not close the row yet --%>
+<ww:set name="extraCol" value="'true'" scope="webwork" />
+
 <ww:form action="">
 
 <tr>
