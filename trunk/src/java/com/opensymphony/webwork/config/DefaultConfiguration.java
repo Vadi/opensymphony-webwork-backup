@@ -76,17 +76,21 @@ public class DefaultConfiguration extends Configuration {
         }
 
         // Add addtional list of i18n global resource bundles
-        StringTokenizer bundleFiles = new StringTokenizer((String) config.getImpl("webwork.custom.i18n.resources"), ",");
+        try {
+            StringTokenizer bundleFiles = new StringTokenizer((String) config.getImpl("webwork.custom.i18n.resources"), ",");
 
-        while (bundleFiles.hasMoreTokens()) {
-            String name = bundleFiles.nextToken();
+            while (bundleFiles.hasMoreTokens()) {
+                String name = bundleFiles.nextToken();
 
-            try {
-                log.info("Loading global messages from " + name);
-                LocalizedTextUtil.addDefaultResourceBundle(name);
-            } catch (Exception e) {
-                log.error("Could not find " + name + ".properties. Skipping");
+                try {
+                    log.info("Loading global messages from " + name);
+                    LocalizedTextUtil.addDefaultResourceBundle(name);
+                } catch (Exception e) {
+                    log.error("Could not find " + name + ".properties. Skipping");
+                }
             }
+        } catch (IllegalArgumentException e) {
+            // webwork.custom.i18n.resources wasn't provided
         }
     }
 
