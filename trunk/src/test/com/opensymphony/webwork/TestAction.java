@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork;
 
+import com.opensymphony.webwork.views.jsp.ui.User;
+
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionSupport;
 
@@ -22,6 +24,7 @@ public class TestAction extends ActionSupport {
     private Map map;
     private String foo;
     private String result;
+    private User m_user;
     private String[] array;
     private String[][] list;
 
@@ -73,6 +76,14 @@ public class TestAction extends ActionSupport {
 
     public String getResult() {
         return result;
+    }
+
+    public void setUser(User user) {
+        m_user = user;
+    }
+
+    public User getUser() {
+        return m_user;
     }
 
     public String execute() throws Exception {
