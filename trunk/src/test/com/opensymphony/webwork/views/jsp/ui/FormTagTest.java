@@ -49,6 +49,7 @@ public class FormTagTest extends AbstractUITagTest {
      */
     public void testFormTagWithDifferentActionExtension() throws Exception {
         request.setupGetServletPath("/testNamespace/testNamespaceAction");
+        String oldConfiguration = (String) Configuration.get("webwork.action.extension");
         Configuration.set("webwork.action.extension", "jspa");
 
         FormTag tag = new FormTag();
@@ -60,6 +61,8 @@ public class FormTagTest extends AbstractUITagTest {
 
         tag.doStartTag();
         tag.doEndTag();
+
+        Configuration.set("webwork.action.extension", oldConfiguration);
 
         verify(FormTag.class.getResource("Formtag-5.txt"));
 
