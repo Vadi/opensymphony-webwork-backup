@@ -6,11 +6,8 @@ package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.TextUtils;
 
-import com.opensymphony.webwork.views.util.UrlHelper;
-
-import com.opensymphony.xwork.Action;
-
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
@@ -20,19 +17,14 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 
 import java.io.*;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-
 import java.net.URLEncoder;
 
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 
 /**
@@ -90,13 +82,11 @@ public final class WebWorkUtil {
                 throw new IllegalArgumentException("Cannot find included file " + aName);
             }
 
-            ServletResponseHandler responseHandler = new ServletResponseHandler(aResponse);
-            Class[] interfaces = new Class[]{HttpServletResponse.class};
-            HttpServletResponse response = (HttpServletResponse) Proxy.newProxyInstance(getClass().getClassLoader(), interfaces, responseHandler);
+            ResponseWrapper responseWrapper = new ResponseWrapper((HttpServletResponse) aResponse);
 
-            dispatcher.include(aRequest, response);
+            dispatcher.include(aRequest, responseWrapper);
 
-            return responseHandler.getData();
+            return responseWrapper.getData();
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -137,26 +127,13 @@ public final class WebWorkUtil {
 
     //~ Inner Classes //////////////////////////////////////////////////////////
 
-    static class ServletOutputStreamWrapper extends ServletOutputStream {
-        ByteArrayOutputStream stream;
-
-        ServletOutputStreamWrapper(ByteArrayOutputStream aStream) {
-            stream = aStream;
-        }
-
-        public void write(int aByte) {
-            stream.write(aByte);
-        }
-    }
-
-    static class ServletResponseHandler implements InvocationHandler {
+    static class ResponseWrapper extends HttpServletResponseWrapper {
         ByteArrayOutputStream bout;
         PrintWriter writer;
         ServletOutputStream sout;
-        ServletResponse response;
 
-        ServletResponseHandler(ServletResponse aResponse) {
-            response = aResponse;
+        ResponseWrapper(HttpServletResponse aResponse) {
+            super(aResponse);
             bout = new ByteArrayOutputStream();
             sout = new ServletOutputStreamWrapper(bout);
             writer = new PrintWriter(new OutputStreamWriter(bout));
@@ -168,18 +145,24 @@ public final class WebWorkUtil {
             return bout.toString();
         }
 
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            if (method.getName().equals("getOutputStream")) {
-                return getOutputStream();
-            } else if (method.getName().equals("getWriter")) {
-                return writer;
-            } else {
-                return method.invoke(response, args);
-            }
+        public ServletOutputStream getOutputStream() {
+            return sout;
         }
 
-        ServletOutputStream getOutputStream() {
-            return sout;
+        public PrintWriter getWriter() throws IOException {
+            return writer;
+        }
+    }
+
+    static class ServletOutputStreamWrapper extends ServletOutputStream {
+        ByteArrayOutputStream stream;
+
+        ServletOutputStreamWrapper(ByteArrayOutputStream aStream) {
+            stream = aStream;
+        }
+
+        public void write(int aByte) {
+            stream.write(aByte);
         }
     }
 }
