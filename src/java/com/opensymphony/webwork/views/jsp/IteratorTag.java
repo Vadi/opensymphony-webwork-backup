@@ -10,6 +10,7 @@ import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.util.MakeIterator;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -144,8 +145,7 @@ public class IteratorTag extends BodyTagSupport {
             req.setAttribute("webwork.valueStack", stack);
         }
 
-
-        iterator = getIterator();
+        iterator = MakeIterator.convert(stack.findValue(value));
 
         // get the first
         if ((iterator != null) && iterator.hasNext()) {
@@ -176,32 +176,6 @@ public class IteratorTag extends BodyTagSupport {
         this.statusState = null;
         this.statusAttr = null;
         this.value = null;
-    }
-
-    private Iterator getIterator() {
-        if (stack == null) {
-            return null;
-        }
-
-        Object o = stack.findValue(value);
-
-        if (o == null) {
-            return null;
-        }
-
-        if (o instanceof Collection) {
-            return ((Collection) o).iterator();
-        } else if (o.getClass().isArray()) {
-            return Arrays.asList((Object[]) o).iterator();
-        } else if (o instanceof Map) {
-            return ((Map) o).entrySet().iterator();
-        } else if (o instanceof Iterator) {
-            return (Iterator) o;
-        } else if (o instanceof Enumeration) {
-            return new EnumeratorIterator((Enumeration) o);
-        }
-
-        return null;
     }
 
 }

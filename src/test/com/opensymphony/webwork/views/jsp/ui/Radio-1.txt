@@ -1,8 +1,8 @@
 <tr>
-  <td align="right" valign="top"><label class="label">{mylabel}:</label></td>
+  <td align="right" valign="top"><label class="label">mylabel:</label></td>
   <td>
-        <label class="label" for="mynameworld">hello</label> <input type="radio" name="myname" value="world" />
-        <label class="label" for="mynamebar">foo</label> <input type="radio" name="myname" value="bar" />
+        <label class="label" for="mynamehello">world</label> <input type="radio" name="myname" value="hello" />
+        <label class="label" for="mynamefoo">bar</label> <input type="radio" name="myname" value="foo" />
 
   </td>
 </tr>

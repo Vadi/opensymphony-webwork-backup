@@ -1,20 +1,30 @@
 #parse( "/templates/xhtml/controlheader.vm" )
-#set( $items = ${stack.findValue($tag.list)} )
+#set( $items = $parameters.list )
 #if( $items )
-#foreach( $item in $items )
-  #if( $tag.ListKey )
-      #set( $itemKey = $ognl.findValue($tag.ListKey, $item) )
-  #else
-      #set( $itemKey = $item.toString() )
-  #end
-  #if( $tag.ListValue )
-      #set( $itemValue = $ognl.findValue($tag.ListValue, $item) )
-  #else
-      #set( $itemValue = $item.toString() )
-  #end
-<label class="label" for="${tag.Name}$!{itemValue}">$!{itemKey}</label> <input type="radio" name="${tag.Name}" value="$!{itemValue}" #if( $tag.ActualValue && $itemValue && $tag.ActualValue == $itemValue )checked="checked"#end/>
-#end
+    #foreach( $item in $items )
+        $stack.push($item)
 
+        #if( $parameters.listKey )
+            #set( $itemKey = $stack.findValue($parameters.listKey) )
+        #else
+            #set( $itemKey = $item )
+        #end
+
+        #if( $parameters.listValue )
+            #set( $itemValue  = $stack.findValue($parameters.listValue) )
+        #else
+            #set( $itemValue = $item )
+        #end
+
+        <label class="label" for="$!parameters.name$!itemKey">$!itemValue</label>
+        <input
+            type="radio"
+            #if ($parameters.name)      name="$parameters.name"     #end
+            #if ($itemKey)              value="$itemKey"            #end
+            #if( $parameters.value && $itemKey && $parameters.value == $itemKey )checked="checked"#end/>
+
+        #set ($trash = $stack.pop())
+    #end
 #else
   &nbsp;
 #end

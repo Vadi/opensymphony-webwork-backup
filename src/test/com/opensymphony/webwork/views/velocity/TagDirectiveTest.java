@@ -8,6 +8,7 @@ import com.mockobjects.dynamic.Mock;
 import com.opensymphony.webwork.views.jsp.WebWorkMockServletContext;
 import com.opensymphony.webwork.views.velocity.ui.MockTag;
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -109,6 +110,8 @@ public class TagDirectiveTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
+
+        ConfigurationManager.destroyConfiguration();
 
         OgnlValueStack stack = new OgnlValueStack();
         ActionContext.setContext(new ActionContext(stack.getContext()));
