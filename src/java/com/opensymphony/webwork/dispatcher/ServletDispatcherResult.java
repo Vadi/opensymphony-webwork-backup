@@ -5,9 +5,7 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
-
 import com.opensymphony.xwork.ActionInvocation;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,7 +21,7 @@ import javax.servlet.jsp.PageContext;
  * specified as the parameter "location" and then formwards it. The
  * following params are required:
  * <ul>
- *  <li>location - the URL to use when creating the RequestDispatcher</li>
+ * <li>location - the URL to use when creating the RequestDispatcher</li>
  * </ul>
  *
  * @author $Author$
@@ -41,8 +39,7 @@ public class ServletDispatcherResult extends WebWorkResultSupport {
             log.debug("Forwarding to location " + finalLocation);
         }
 
-        // todo check back on this as this the only reference to PageContext in this manner
-        PageContext pageContext = (PageContext) ServletActionContext.getContext().get("javax.servlet.jsp.PageContext");
+        PageContext pageContext = (PageContext) invocation.getInvocationContext().get(PAGE_CONTEXT);
 
         if (pageContext != null) {
             pageContext.include(finalLocation);
