@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.util.AttributeMap;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
 import com.opensymphony.webwork.dispatcher.RequestMap;
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
@@ -39,6 +40,12 @@ public class TagUtils {
             extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
             stack.getContext().putAll(extraContext);
             req.setAttribute("webwork.valueStack", stack);
+        } else {
+            // let's make sure that the current page context is in the action context
+            Map context = stack.getContext();
+            context.put(ServletActionContext.PAGE_CONTEXT, pageContext);
+            AttributeMap attrMap = new AttributeMap(context);
+            context.put("attr", attrMap);
         }
 
         return stack;
