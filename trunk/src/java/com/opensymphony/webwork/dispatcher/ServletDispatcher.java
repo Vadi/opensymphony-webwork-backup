@@ -18,6 +18,7 @@ import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
+import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -224,10 +225,19 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         HashMap extraContext = createContextMap(requestMap, parameterMap, sessionMap, applicationMap, request, response, getServletConfig());
         extraContext.put(SERVLET_DISPATCHER, this);
 
+        // If there was a previous value stack, then create a new copy and pass it in to be used by the new Action
+        OgnlValueStack stack = (OgnlValueStack) request.getAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY);
+        if (stack != null) {
+            extraContext.put(ActionContext.VALUE_STACK,new OgnlValueStack(stack));
+        }
         try {
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, extraContext);
             request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, proxy.getInvocation().getStack());
             proxy.execute();
+            // If there was a previous value stack then set it back onto the request
+            if (stack != null){
+                request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY,stack);
+            }
         } catch (ConfigurationException e) {
             log.error("Could not find action", e);
             sendError(request, response, HttpServletResponse.SC_NOT_FOUND, e);

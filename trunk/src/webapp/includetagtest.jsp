@@ -8,5 +8,10 @@
 <ww:include page="included.action"/>
 <br>
 <jsp:include page="included.jsp" />
+<br>
+<jsp:include page="included.action"/>
+<br>
+<jsp:include page="included.jsp" />
+
 </body>
 </html>

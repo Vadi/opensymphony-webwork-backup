@@ -152,33 +152,8 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
         // execute at this point, after params have been set
         try {
-            ActionContext actionContext = ActionContext.getContext();
-            OgnlValueStack stack = getStack();
-
-            Object top = null;
-
-            if ((stack != null) && (stack.size() > 0)) {
-                top = stack.peek();
-            }
-
             proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actualName, createExtraContext(), executeResult);
             proxy.execute();
-
-            if (actionContext != null) {
-                if ((stack != null) && (stack.size() > 1)) {
-                    Object newTop = stack.peek();
-
-                    while ((newTop != null) && !newTop.equals(top)) {
-                        stack.pop();
-
-                        if (stack.size() == 0) {
-                            newTop = null;
-                        } else {
-                            newTop = stack.peek();
-                        }
-                    }
-                }
-            }
         } catch (Exception e) {
             log.error("Could not execute action: " + namespace + "/" + actualName, e);
         }
