@@ -21,36 +21,34 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * TokenInterceptor
+ *
+ *
  * @author Jason Carreira
- * Created Apr 2, 2003 11:27:57 PM
  */
 public class TokenInterceptor implements Interceptor {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     public static final String INVALID_TOKEN_CODE = "invalid.token";
     private static final Log LOG = LogFactory.getLog(TokenInterceptor.class);
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
     /**
-     * Called to let an interceptor clean up any resources it has allocated.
+     * Called to let an interceptor clean up any resources it has allocated. Does nothing by default -
+     * subclass and overwrite to customize.
      */
     public void destroy() {
     }
 
     /**
-     * Called after an Interceptor is created, but before any requests are processed using the intercept() methodName. This
-     * gives the Interceptor a chance to initialize any needed resources.
+     * Called after an Interceptor is created, but before any requests are processed using the
+     * {@link #intercept(ActionInvocation)} method.. This gives the Interceptor a chance to
+     * initialize any needed resources. Currently does nothing - subclass and overwrite to customize.
      */
     public void init() {
     }
 
     /**
-     * Allows the Interceptor to do some processing on the request before and/or after the rest of the processing of the
-     * request by the DefaultActionInvocation or to short-circuit the processing and just return a String return code.
      *
-     * @param invocation
+     *
+     * @param invocation an encapsulation of the action execution state.
      * @throws Exception
      */
     public String intercept(ActionInvocation invocation) throws Exception {
@@ -70,8 +68,11 @@ public class TokenInterceptor implements Interceptor {
     }
 
     /**
-     * Handles the case of an invalid token
+     *
+     * 
      * @param invocation
+     * @return
+     * @throws Exception
      */
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
         Action action = invocation.getAction();
@@ -87,7 +88,8 @@ public class TokenInterceptor implements Interceptor {
     }
 
     /**
-     * Handle the case of a valid token
+     *
+     *
      * @param invocation
      * @throws Exception
      */

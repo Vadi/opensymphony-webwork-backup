@@ -16,16 +16,18 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * TokenSessionStoreInterceptor
+ *
+ *
  * @author Jason Carreira
- * Created Apr 14, 2003 10:33:19 PM
  */
 public class TokenSessionStoreInterceptor extends TokenInterceptor {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-     * Handles the case of an invalid token
+     *
+     *
      * @param invocation
+     * @return
+     * @throws Exception
      */
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
         HttpServletRequest request = ServletActionContext.getRequest();
@@ -57,10 +59,12 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
     }
 
     /**
-     * Handle the case of a valid token
+     *
+     *
      * @param invocation
+     * @return
      * @throws Exception
-     */
+     */ 
     protected String handleValidToken(ActionInvocation invocation) throws Exception {
         // we know the token name and token must be there
         HttpServletRequest request = ServletActionContext.getRequest();

@@ -8,18 +8,20 @@ import java.util.Map;
 
 
 /**
- *        Actions that want to be aware of the application Map object
- * should implement this interface. This will give them access
- * to a Map where they can put objects that should be available
- * to other parts of the application.
+ * Actions that want to be aware of the application Map object should implement this interface.
+ * This will give them access to a Map where they can put objects that should be available
+ * to other parts of the application. <p>
  *
  * Typical uses are configuration objects and caches.
  *
- *        @author Rickard Öberg (rickard@middleware-company.com)
- *        @version $Revision$
+ * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
  */
 public interface ApplicationAware {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+     * Sets the map of application properties in the implementing class.
+     *
+     * @param application a Map of application properties.
+     */
     public void setApplication(Map application);
 }
