@@ -127,6 +127,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
 		try {
+            request = wrapRequest(request);
 	        serviceAction(request, response, getNameSpace(request), getActionName(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
 		} catch (IOException e) {
 			String message = "Could not wrap servlet request with MultipartRequestWrapper!";
@@ -142,22 +143,8 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
  */
     public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace, String actionName, Map parameterMap, Map sessionMap, Map applicationMap) {
 
-        HashMap extraContext = new HashMap();
-        extraContext.put(ActionContext.PARAMETERS, parameterMap);
-        extraContext.put(ActionContext.SESSION, sessionMap);
-        extraContext.put(ActionContext.APPLICATION, applicationMap);
-
-        extraContext.put(HTTP_REQUEST, request);
-        extraContext.put(HTTP_RESPONSE, response);
-        extraContext.put(SERVLET_CONFIG, getServletConfig());
-        extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
+        HashMap extraContext = createContextMap(parameterMap, sessionMap, applicationMap, request, response, getServletConfig());
         extraContext.put(SERLVET_DISPATCHER, this);
-
-        // helpers to get access to request/session/application scope
-        extraContext.put("request", parameterMap);
-        extraContext.put("session", sessionMap);
-        extraContext.put("application", applicationMap);
-        extraContext.put("parameters", parameterMap);
 
         try {
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, extraContext);
@@ -170,6 +157,28 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
             log.error("Could not execute action", e);
             sendError(request, response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e);
         }
+    }
+
+    public static HashMap createContextMap(Map parameterMap, Map sessionMap, Map applicationMap, 
+                                           HttpServletRequest request, HttpServletResponse response,
+                                           ServletConfig servletConfig) {
+        HashMap extraContext = new HashMap();
+        extraContext.put(ActionContext.PARAMETERS, parameterMap);
+        extraContext.put(ActionContext.SESSION, sessionMap);
+        extraContext.put(ActionContext.APPLICATION, applicationMap);
+
+        extraContext.put(HTTP_REQUEST, request);
+        extraContext.put(HTTP_RESPONSE, response);
+        extraContext.put(SERVLET_CONFIG, servletConfig);
+        extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
+
+        // helpers to get access to request/session/application scope
+        extraContext.put("request", parameterMap);
+        extraContext.put("session", sessionMap);
+        extraContext.put("application", applicationMap);
+        extraContext.put("parameters", parameterMap);
+
+        return extraContext;
     }
 
     /**
@@ -204,7 +213,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     protected Map getParameterMap(HttpServletRequest request) throws IOException {
-		request = wrapRequest(request);
         return request.getParameterMap();
     }
 
@@ -265,7 +273,7 @@ writer.print("</pre>\n");
  * @param request
  * @return wrapped request or original request
  */
-    private HttpServletRequest wrapRequest(HttpServletRequest request) throws IOException {
+    protected HttpServletRequest wrapRequest(HttpServletRequest request) throws IOException {
         // don't wrap more than once
         if (request instanceof MultiPartRequestWrapper) {
             return request;

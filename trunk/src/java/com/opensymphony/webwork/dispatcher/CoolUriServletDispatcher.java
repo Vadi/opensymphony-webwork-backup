@@ -13,6 +13,7 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +84,13 @@ public class CoolUriServletDispatcher extends ServletDispatcher {
             log.warn(e);
         }
 
-        serviceAction(request, response, "", actionName, parameters, getSessionMap(request), getApplicationMap());
+        try {
+            request = wrapRequest(request);
+            serviceAction(request, response, "", actionName, parameters, getSessionMap(request), getApplicationMap());
+        } catch (IOException e) {
+            String message = "Could not wrap servlet request with MultipartRequestWrapper!";
+            log.error(message, e);
+            sendError(request, response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new ServletException(message, e));
+        }
     }
 }
