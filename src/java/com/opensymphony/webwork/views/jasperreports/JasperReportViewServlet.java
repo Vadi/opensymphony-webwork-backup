@@ -8,19 +8,8 @@ import com.opensymphony.webwork.ServletActionContext;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 
-import dori.jasper.engine.JRException;
-import dori.jasper.engine.JRExporter;
-import dori.jasper.engine.JRExporterParameter;
-import dori.jasper.engine.JasperExportManager;
-import dori.jasper.engine.JasperFillManager;
-import dori.jasper.engine.JasperManager;
-import dori.jasper.engine.JasperPrint;
-import dori.jasper.engine.JasperReport;
-import dori.jasper.engine.export.JRCsvExporter;
-import dori.jasper.engine.export.JRHtmlExporter;
-import dori.jasper.engine.export.JRHtmlExporterParameter;
-import dori.jasper.engine.export.JRXlsExporter;
-import dori.jasper.engine.export.JRXmlExporter;
+import dori.jasper.engine.*;
+import dori.jasper.engine.export.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -91,106 +81,133 @@ public class JasperReportViewServlet extends HttpServlet implements JasperReport
     }
 
     /**
-     * Service a HTTP request
-     * @param request the request to service
-     * @param response the response to send to the client
-     */
+    * Service a HTTP request
+    * @param request the request to service
+    * @param response the response to send to the client
+    */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        //construct the data source for the report
-        OgnlValueStack stack = ServletActionContext.getContext().getValueStack();
-        String dataSource = "" + request.getAttribute("dataSource");
-        OgnlValueStackDataSource stackDataSource = new OgnlValueStackDataSource(stack, dataSource);
+        String imageName = request.getParameter("image");
 
-        //get the output format
-        String outputFormat = "" + request.getAttribute("format");
+        //load image from IMAGES_MAP
+        if (imageName != null) {
+            Map imagesMap = (Map) request.getSession().getAttribute("IMAGES_MAP");
 
-        if (outputFormat == null) {
-            outputFormat = FORMAT_PDF;
-        }
+            if (imagesMap != null) {
+                byte[] imageData = (byte[]) imagesMap.get(imageName);
 
-        if (!"contype".equals(request.getHeader("User-Agent"))) {
-            // Determine the directory that the report file is in and set the reportDirectory parameter
-            String systemId = getServletContext().getRealPath(request.getServletPath());
-            Map parameters = new OgnlValueStackShadowMap(stack);
-            File directory = new File(systemId.substring(0, systemId.lastIndexOf(File.separator)));
-            parameters.put("reportDirectory", directory);
+                try {
+                    response.setContentLength(imageData.length);
 
-            byte[] output = null;
-            JasperPrint jasperPrint = null;
-
-            // Fill the report and produce a print object
-            try {
-                JasperReport jasperReport = JasperManager.loadReport(systemId);
-                jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, stackDataSource);
-            } catch (JRException e) {
-                log.error("Error building report for uri " + systemId, e);
-                throw new ServletException(e.getMessage(), e);
-            }
-
-            // Export the print object to the desired output format
-            try {
-                if (outputFormat.equals(FORMAT_PDF)) {
-                    response.setContentType("application/pdf");
-
-                    // response.setHeader("Content-disposition", "inline; filename=report.pdf");
-                    output = JasperExportManager.exportReportToPdf(jasperPrint);
-                } else {
-                    JRExporter exporter = null;
-
-                    if (outputFormat.equals(FORMAT_CSV)) {
-                        response.setContentType("text/plain");
-                        exporter = new JRCsvExporter();
-                    } else if (outputFormat.equals(FORMAT_HTML)) {
-                        // todo fixme... currently not working...
-                        response.setContentType("text/html");
-                        exporter = new JRHtmlExporter();
-                        ((JRHtmlExporter) exporter).setParameter(JRHtmlExporterParameter.IMAGES_URI, IMAGES_URI);
-                    } else if (outputFormat.equals(FORMAT_XLS)) {
-                        response.setContentType("application/vnd.ms-excel");
-                        exporter = new JRXlsExporter();
-                    } else if (outputFormat.equals(FORMAT_XML)) {
-                        response.setContentType("text/xml");
-                        exporter = new JRXmlExporter();
-                    } else {
-                        throw new ServletException("Unknown report format: " + outputFormat);
-                    }
-
-                    output = exportReportToBytes(jasperPrint, exporter);
+                    ServletOutputStream ouputStream = response.getOutputStream();
+                    ouputStream.write(imageData, 0, imageData.length);
+                    ouputStream.flush();
+                    ouputStream.close();
+                } catch (IOException ioe) {
+                    log.warn(ioe.toString());
                 }
-            } catch (JRException e) {
-                String message = "Error producing " + outputFormat + " report for uri " + systemId;
-                log.error(message, e);
-                throw new ServletException(e.getMessage(), e);
-            }
-
-            response.setContentLength(output.length);
-
-            ServletOutputStream ouputStream;
-
-            try {
-                if (log.isDebugEnabled()) {
-                    log.debug("Writing " + output.length + " bytes to output stream");
-                }
-
-                ouputStream = response.getOutputStream();
-                ouputStream.write(output);
-                ouputStream.flush();
-                ouputStream.close();
-            } catch (IOException e) {
-                log.error("Error writing report output", e);
-                throw new ServletException(e.getMessage(), e);
             }
         } else {
-            // Code to handle "contype" request from IE
-            try {
-                ServletOutputStream outputStream;
-                response.setContentType("application/pdf");
-                response.setContentLength(0);
-                outputStream = response.getOutputStream();
-                outputStream.close();
-            } catch (IOException e) {
-                log.error("Error writing report output", e);
-                throw new ServletException(e.getMessage(), e);
+            //construct the data source for the report
+            OgnlValueStack stack = ServletActionContext.getContext().getValueStack();
+            String dataSource = "" + request.getAttribute("dataSource");
+            OgnlValueStackDataSource stackDataSource = new OgnlValueStackDataSource(stack, dataSource);
+
+            //get the output format
+            String outputFormat = "" + request.getAttribute("format");
+
+            // (Map) ActionContext.getContext().getSession().get("IMAGES_MAP");
+            if (outputFormat == null) {
+                outputFormat = FORMAT_PDF;
+            }
+
+            if (!"contype".equals(request.getHeader("User-Agent"))) {
+                // Determine the directory that the report file is in and set the reportDirectory parameter
+                String systemId = getServletContext().getRealPath(request.getServletPath());
+                Map parameters = new OgnlValueStackShadowMap(stack);
+                File directory = new File(systemId.substring(0, systemId.lastIndexOf(File.separator)));
+                parameters.put("reportDirectory", directory);
+
+                byte[] output = null;
+                JasperPrint jasperPrint = null;
+
+                // Fill the report and produce a print object
+                try {
+                    JasperReport jasperReport = JasperManager.loadReport(systemId);
+                    jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, stackDataSource);
+                } catch (JRException e) {
+                    log.error("Error building report for uri " + systemId, e);
+                    throw new ServletException(e.getMessage(), e);
+                }
+
+                // Export the print object to the desired output format
+                try {
+                    if (outputFormat.equals(FORMAT_PDF)) {
+                        response.setContentType("application/pdf");
+
+                        // response.setHeader("Content-disposition", "inline; filename=report.pdf");
+                        output = JasperExportManager.exportReportToPdf(jasperPrint);
+                    } else {
+                        JRExporter exporter = null;
+
+                        if (outputFormat.equals(FORMAT_CSV)) {
+                            response.setContentType("text/plain");
+                            exporter = new JRCsvExporter();
+                        } else if (outputFormat.equals(FORMAT_HTML)) {
+                            response.setContentType("text/html");
+
+                            Map imagesMap = new HashMap();
+
+                            request.getSession().setAttribute("IMAGES_MAP", imagesMap);
+                            exporter = new JRHtmlExporter();
+                            exporter.setParameter(JRHtmlExporterParameter.IMAGES_MAP, imagesMap);
+                            exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, "*.jasper?image=");
+                        } else if (outputFormat.equals(FORMAT_XLS)) {
+                            response.setContentType("application/vnd.ms-excel");
+                            exporter = new JRXlsExporter();
+                        } else if (outputFormat.equals(FORMAT_XML)) {
+                            response.setContentType("text/xml");
+                            exporter = new JRXmlExporter();
+                        } else {
+                            throw new ServletException("Unknown report format: " + outputFormat);
+                        }
+
+                        output = exportReportToBytes(jasperPrint, exporter);
+                    }
+                } catch (JRException e) {
+                    String message = "Error producing " + outputFormat + " report for uri " + systemId;
+                    log.error(message, e);
+                    throw new ServletException(e.getMessage(), e);
+                }
+
+                response.setContentLength(output.length);
+
+                ServletOutputStream ouputStream;
+
+                try {
+                    if (log.isDebugEnabled()) {
+                        //log.debug("Writing " + output.length + " bytes to output stream");
+                    }
+
+                    ouputStream = response.getOutputStream();
+                    ouputStream.write(output);
+                    ouputStream.flush();
+                    ouputStream.close();
+                } catch (IOException e) {
+                    log.error("Error writing report output", e);
+                    throw new ServletException(e.getMessage(), e);
+                }
+            } else {
+                // Code to handle "contype" request from IE
+                try {
+                    ServletOutputStream outputStream;
+                    response.setContentType("application/pdf");
+                    response.setContentLength(0);
+                    outputStream = response.getOutputStream();
+                    outputStream.close();
+                } catch (IOException e) {
+                    log.error("Error writing report output", e);
+                    throw new ServletException(e.getMessage(), e);
+                }
             }
         }
     }
@@ -200,7 +217,7 @@ public class JasperReportViewServlet extends HttpServlet implements JasperReport
      * @param jasperPrint The Print object to render as CSV
      * @param exporter The exporter to use to export the report
      * @return A CSV formatted report
-     * @throws JRException If there is a problem running the report
+     * @throws dori.jasper.engine.JRException If there is a problem running the report
      */
     private byte[] exportReportToBytes(JasperPrint jasperPrint, JRExporter exporter) throws JRException {
         byte[] output;
