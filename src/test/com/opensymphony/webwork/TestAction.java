@@ -30,37 +30,60 @@ public class TestAction extends ActionSupport {
     private List list2;
 
     //~ Methods ////////////////////////////////////////////////////////////////
-
-    public void setArray(String[] array) {
-        this.array = array;
-    }
-
-    public String[] getArray() {
-        return array;
+    public Collection getCollection() {
+        return collection;
     }
 
     public void setCollection(Collection collection) {
         this.collection = collection;
     }
 
-    public Collection getCollection() {
-        return collection;
+    public Map getMap() {
+        return map;
     }
 
-    public void setFoo(String foo) {
-        this.foo = foo;
+    public void setMap(Map map) {
+        this.map = map;
     }
 
     public String getFoo() {
         return foo;
     }
 
-    public void setList(String[][] list) {
-        this.list = list;
+    public void setFoo(String foo) {
+        this.foo = foo;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String[] getArray() {
+        return array;
+    }
+
+    public void setArray(String[] array) {
+        this.array = array;
     }
 
     public String[][] getList() {
         return list;
+    }
+
+    public void setList(String[][] list) {
+        this.list = list;
     }
 
     public List getList2() {
@@ -69,30 +92,6 @@ public class TestAction extends ActionSupport {
 
     public void setList2(List list2) {
         this.list2 = list2;
-    }
-
-    public void setMap(Map map) {
-        this.map = map;
-    }
-
-    public Map getMap() {
-        return map;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public User getUser() {
-        return user;
     }
 
     public String execute() throws Exception {
