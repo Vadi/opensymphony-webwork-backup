@@ -92,5 +92,29 @@
 
         <action name="exception" class="com.opensymphony.webwork.example.ExceptionAction">
         </action>
+
+        <action name="basicValidation" class="com.opensymphony.webwork.example.ValidatedAction">
+            <interceptor-ref name="validationWorkflowStack"/>
+
+            <result name="success" type="dispatcher">valid.vm</result>
+            <result name="input" type="dispatcher">validationForm.vm</result>
+            <result name="error" type="dispatcher">validationForm.vm</result>
+        </action>
+
+        <action name="visitorValidation" class="com.opensymphony.webwork.example.ValidatedAction">
+            <interceptor-ref name="validationWorkflowStack"/>
+            <param name="validationAction">visitorValidation.action</param>
+            <result name="success">valid.vm</result>
+            <result name="input">validationForm.vm</result>
+            <result name="error">validationForm.vm</result>
+        </action>
+
+        <action name="expressionValidation" class="com.opensymphony.webwork.example.ValidatedAction">
+            <interceptor-ref name="validationWorkflowStack"/>
+            <param name="validationAction">expressionValidation.action</param>
+            <result name="success">valid.vm</result>
+            <result name="input">validationForm.vm</result>
+            <result name="error">validationForm.vm</result>
+        </action>
     </package>
 </xwork>
