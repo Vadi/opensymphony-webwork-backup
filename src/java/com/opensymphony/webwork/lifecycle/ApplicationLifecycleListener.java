@@ -22,11 +22,11 @@ import javax.servlet.ServletContextListener;
 
 
 /**
+ * A servlet context listener to handle the lifecycle of an application-based XWork component manager.
  *
- *
- * @author joew@thoughtworks.com
- * @author $Author$
- * @version $Revision$
+ * @author <a href="mailto:joew@thoughtworks.com">Joe Walnes</a>
+ * @author Patrick Lightbody
+ * @author Bill Lynch (docs)
  */
 public class ApplicationLifecycleListener implements ServletContextListener {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -35,6 +35,11 @@ public class ApplicationLifecycleListener implements ServletContextListener {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+ * Destroys the XWork component manager because the server is shutting down.
+ *
+ * @param event the servlet context event.
+ */
     public void contextDestroyed(ServletContextEvent event) {
         ServletContext application = event.getServletContext();
         ComponentManager container = (ComponentManager) application.getAttribute("DefaultComponentManager");
@@ -44,6 +49,12 @@ public class ApplicationLifecycleListener implements ServletContextListener {
         }
     }
 
+    /**
+ * Initializes the XWork compontent manager. Loads component config from the  <tt>components.xml</tt> file
+ * in the classpath. Adds the component manager and compontent config as attributes of the servlet context.
+ *
+ * @param event the servlet context event.
+ */
     public void contextInitialized(ServletContextEvent event) {
         ServletContext application = event.getServletContext();
         ComponentManager container = createComponentManager();
@@ -55,6 +66,12 @@ public class ApplicationLifecycleListener implements ServletContextListener {
         application.setAttribute("ComponentConfiguration", config);
     }
 
+    /**
+ * Returns a new <tt>DefaultComponentManager</tt> instance. This method is useful for developers
+ * wishing to subclass this class and provide a different implementation of <tt>DefaultComponentManager</tt>.
+ *
+ * @return a new <tt>DefaultComponentManager</tt> instance.
+ */
     protected DefaultComponentManager createComponentManager() {
         return new DefaultComponentManager();
     }
