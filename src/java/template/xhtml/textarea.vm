@@ -25,7 +25,7 @@
 <textarea name="$!parameters.name"
           cols="$!parameters.cols"
           rows="$!parameters.rows"
-#if ($parameters.nameValue)        value="$parameters.nameValue"      #end
+#if ($parameters.nameValue)        value="$webwork.htmlEncode($parameters.nameValue)"      #end
 #if ($parameters.disabled == true) disabled="disabled"                #end
 #if ($parameters.readonly)         readonly="readonly"                #end
 #if ($parameters.onkeyup)          onkeyup="$parameters.onkeyup"      #end

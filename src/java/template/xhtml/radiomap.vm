@@ -50,7 +50,7 @@
             type="radio"
             #if( $tag.contains($parameters.nameValue, $itemKey) )checked="checked"#end
             #if ($parameters.name)      name="$parameters.name"         #end
-            #if ($itemKey)              value="$itemKey"                #end
+            #if ($itemKey)              value="$webwork.htmlEncode($itemKey)"                #end
             #if ($parameters.disabled)  disabled="disabled"             #end
             #if ($parameters.tabindex)  tabindex="$parameters.tabindex" #end
             #if ($parameters.onchange)  onchange="$parameters.onchange" #end

@@ -19,7 +19,7 @@
 <input type="file"
                                    name="$!parameters.name"
 #if ($parameters.size)             size="$parameters.size"            #end
-#if ($parameters.nameValue)        value="$parameters.nameValue"      #end
+#if ($parameters.nameValue)        value="$webwork.htmlEncode($parameters.nameValue)"      #end
 #if ($parameters.disabled == true) disabled="disabled"                #end
 #if ($parameters.id)               id="$parameters.id"                #end
 #if ($parameters.accept)           accept="$parameters.accept"        #end

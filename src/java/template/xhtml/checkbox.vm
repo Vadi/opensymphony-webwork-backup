@@ -32,7 +32,7 @@
             <tr><td valign="top">
                 <input type="checkbox"
                        name="$!parameters.name"
-                       value="$!parameters.fieldValue"
+                       value="$!webwork.htmlEncode($parameters.fieldValue)"
                 #if ($parameters.nameValue)        checked="checked" #end
                 #if ($parameters.disabled == true) disabled="disabled"                #end
                 #if ($parameters.tabindex)         tabindex="$parameters.tabindex"    #end

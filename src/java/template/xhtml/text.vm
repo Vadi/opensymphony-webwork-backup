@@ -24,7 +24,7 @@
                                    name="$!parameters.name"
 #if ($parameters.size)             size="$parameters.size"            #end
 #if ($parameters.maxlength)        maxlength="$parameters.maxlength"  #end
-#if ($parameters.nameValue)        value="$parameters.nameValue"      #end
+#if ($parameters.nameValue)        value="$webwork.htmlEncode($parameters.nameValue)"      #end
 #if ($parameters.disabled == true) disabled="disabled"                #end
 #if ($parameters.readonly)         readonly="readonly"                #end
 #if ($parameters.onkeyup)          onkeyup="$parameters.onkeyup"      #end

@@ -34,7 +34,7 @@
 >
 
 #if ($parameters.headerKey && $parameters.headerValue)
-    <option value="$parameters.headerKey">$parameters.headerValue</option>
+    <option value="$webwork.htmlEncode($parameters.headerKey)">$parameters.headerValue</option>
 #end
 
 #if ($parameters.emptyOption)
@@ -58,7 +58,7 @@
             #set( $itemValue = $item )
         #end
 
-        <option value="$!itemKey"
+        <option value="$!webwork.htmlEncode($itemKey)"
             #if( $tag.contains($parameters.nameValue, $itemKey) )selected#end
         >$!itemValue</option>
 

@@ -15,10 +15,10 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
-import org.apache.velocity.VelocityContext;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,9 +45,7 @@ public class VelocityManager {
     public static final String STACK = "stack";
     public static final String OGNL = "ognl";
     public static final String WEBWORK = "webwork";
-    public static final String UI = "ui";
     public static final String ACTION = "action";
-    public static final String TOOLS = "tools";
 
     /** the parent JSP tag */
     public static final String PARENT = "parent";
@@ -58,7 +56,6 @@ public class VelocityManager {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private OgnlTool ognlTool = OgnlTool.getInstance();
-    private ViewToolsBean viewTools = new ViewToolsBean();
     private VelocityEngine velocityEngine;
     private VelocityContext[] chainedContexts;
 
@@ -69,42 +66,6 @@ public class VelocityManager {
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
-
-    /**
-     * performs one-time initializations
-     */
-    protected void init() {
-        /**
-         * allow users to specify via the webwork.properties file a set of additional VelocityContexts to chain to the
-         * the WebWorkVelocityContext.  The intent is to allow these contexts to store helper objects that the ui
-         * developer may want access to.  Examples of reasonable VelocityContexts would be an IoCVelocityContext, a
-         * SpringReferenceVelocityContext, and a ToolboxVelocityContext
-         */
-        if (Configuration.isSet("webwork.velocity.contexts")) {
-
-            // we expect contexts to be a comma separated list of classnames
-            String contexts = Configuration.get("webwork.velocity.contexts").toString();
-            StringTokenizer st = new StringTokenizer(contexts, ",");
-            List contextList = new ArrayList();
-            while (st.hasMoreTokens()) {
-                String classname = st.nextToken();
-                try {
-                    VelocityContext velocityContext = (VelocityContext) Class.forName(classname).newInstance();
-                    contextList.add(velocityContext);
-                } catch (Exception e) {
-                    log.warn("Warning.  " + e.getClass().getName() + " caught while attempting to instantiate a chained VelocityContext, " + classname + " -- skipping");
-                }
-            }
-
-            if (contextList.size() > 0) {
-                VelocityContext[] chainedContexts = new VelocityContext[contextList.size()];
-                contextList.toArray(chainedContexts);
-                this.chainedContexts = chainedContexts;
-            } else {
-                this.chainedContexts = null;
-            }
-        }
-    }
 
     /**
      * retrieve an instance to the current VelocityManager
@@ -152,7 +113,6 @@ public class VelocityManager {
      * <li><strong>ognl</strong> - an {@link OgnlTool}</li>
      * <li><strong>webwork</strong> - an instance of {@link WebWorkUtil}</li>
      * <li><strong>action</strong> - the current WebWork action</li>
-     * <li><strong>tools</strong> - an instance of {@link ViewToolsBean}</li>
      * </ul>
      *
      * @return a new WebWorkVelocityContext
@@ -163,7 +123,6 @@ public class VelocityManager {
         context.put(RESPONSE, servletResponse);
         context.put(STACK, stack);
         context.put(OGNL, ognlTool);
-        context.put(TOOLS, viewTools);
         context.put(WEBWORK, new WebWorkUtil(context));
 
         ActionInvocation invocation = (ActionInvocation) stack.getContext().get(ActionContext.ACTION_INVOCATION);
@@ -280,7 +239,7 @@ public class VelocityManager {
             log.debug("Initializing Velocity with the following properties ...");
 
             for (Iterator iter = properties.keySet().iterator();
-                 iter.hasNext();) {
+                    iter.hasNext();) {
                 String key = (String) iter.next();
                 String value = properties.getProperty(key);
 
@@ -291,6 +250,43 @@ public class VelocityManager {
         }
 
         return properties;
+    }
+
+    /**
+     * performs one-time initializations
+     */
+    protected void init() {
+        /**
+         * allow users to specify via the webwork.properties file a set of additional VelocityContexts to chain to the
+         * the WebWorkVelocityContext.  The intent is to allow these contexts to store helper objects that the ui
+         * developer may want access to.  Examples of reasonable VelocityContexts would be an IoCVelocityContext, a
+         * SpringReferenceVelocityContext, and a ToolboxVelocityContext
+         */
+        if (Configuration.isSet("webwork.velocity.contexts")) {
+            // we expect contexts to be a comma separated list of classnames
+            String contexts = Configuration.get("webwork.velocity.contexts").toString();
+            StringTokenizer st = new StringTokenizer(contexts, ",");
+            List contextList = new ArrayList();
+
+            while (st.hasMoreTokens()) {
+                String classname = st.nextToken();
+
+                try {
+                    VelocityContext velocityContext = (VelocityContext) Class.forName(classname).newInstance();
+                    contextList.add(velocityContext);
+                } catch (Exception e) {
+                    log.warn("Warning.  " + e.getClass().getName() + " caught while attempting to instantiate a chained VelocityContext, " + classname + " -- skipping");
+                }
+            }
+
+            if (contextList.size() > 0) {
+                VelocityContext[] chainedContexts = new VelocityContext[contextList.size()];
+                contextList.toArray(chainedContexts);
+                this.chainedContexts = chainedContexts;
+            } else {
+                this.chainedContexts = null;
+            }
+        }
     }
 
     /**
@@ -390,12 +386,11 @@ public class VelocityManager {
          */
         String userdirective = p.getProperty("userdirective");
         String directives = "com.opensymphony.webwork.views.velocity.ParamDirective" + "," + "com.opensymphony.webwork.views.velocity.TagDirective" + "," + "com.opensymphony.webwork.views.velocity.BodyTagDirective";
-        p.setProperty("velocimacro.library", "webwork.vm");
 
         if ((userdirective == null) || userdirective.trim().equals("")) {
             userdirective = directives;
         } else {
-            userdirective = directives + "," + userdirective.trim();
+            userdirective = userdirective.trim() + "," + directives;
         }
 
         p.setProperty("userdirective", userdirective);

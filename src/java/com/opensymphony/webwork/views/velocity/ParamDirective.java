@@ -6,8 +6,8 @@ package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.views.jsp.ParameterizedTag;
 
-import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.velocity.context.InternalContextAdapter;
 import org.apache.velocity.exception.MethodInvocationException;
@@ -18,6 +18,7 @@ import org.apache.velocity.runtime.parser.node.Node;
 
 import java.io.IOException;
 import java.io.Writer;
+
 
 /**
  * <p>
@@ -63,7 +64,7 @@ public class ParamDirective extends Directive {
         Object object = contextAdapter.get(VelocityManager.TAG);
 
         if ((object != null) && (object instanceof ParameterizedTag)) {
-            if (node.jjtGetNumChildren() != 2 || node.jjtGetNumChildren() != 3) {
+            if ((node.jjtGetNumChildren() != 2) && (node.jjtGetNumChildren() != 3)) {
                 throw new ParseErrorException("#param directive requires two parameters, a key and a value.  an optional flag to evaluate it may be included.");
             }
 
@@ -71,7 +72,7 @@ public class ParamDirective extends Directive {
             Object value = node.jjtGetChild(1).value(contextAdapter);
 
             // if there are ever 3 params, the we should look up the value against the value stack
-            if (node.jjtGetNumChildren() == 3 && "TRUE".equalsIgnoreCase(node.jjtGetChild(2).value(contextAdapter).toString())) {
+            if ((node.jjtGetNumChildren() == 3) && "TRUE".equalsIgnoreCase(node.jjtGetChild(2).value(contextAdapter).toString())) {
                 OgnlValueStack valueStack = ActionContext.getContext().getValueStack();
                 value = valueStack.findValue(value.toString());
             }
