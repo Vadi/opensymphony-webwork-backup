@@ -3,7 +3,7 @@
 
 var validationServlet = new ValidationServlet("$parameters.url");
 validationServlet.onErrors = function(input, errors) {
-	alert(1)
+
 	var table = input.parentNode.parentNode.parentNode;
 	var form = input.form;
 		
