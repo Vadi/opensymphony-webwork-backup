@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.validators;
 
 import com.opensymphony.util.TextUtils;
+import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.views.util.TextUtil;
 import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.entities.ActionConfig;
@@ -59,6 +60,8 @@ public class ValidationServlet extends HttpServlet {
             Action a = null;
             HashMap ctx = new HashMap();
             ctx.put(ActionContext.PARAMETERS, params);
+            ctx.put(ServletDispatcher.SERVLET_CONFIG, getServletConfig());
+
             ValidatorActionProxy proxy = new ValidatorActionProxy(namespace, action, ctx);
             proxy.execute();
             a = proxy.getAction();
@@ -110,7 +113,7 @@ public class ValidationServlet extends HttpServlet {
 
     public static class ValidatorActionProxy extends DefaultActionProxy {
         protected ValidatorActionProxy(String namespace, String actionName, Map extraContext) throws Exception {
-            super(namespace, actionName, extraContext, false);
+            super(namespace, actionName,extraContext,false);
         }
 
         protected void prepare() throws Exception {
