@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2002-2003 by OpenSymphony
- * All rights reserved.
- */
 package com.opensymphony.webwork.views.util;
 
 import com.opensymphony.webwork.ServletActionContext;
@@ -25,6 +21,12 @@ import java.util.Map;
 public class UrlHelper {
     //~ Static fields/initializers /////////////////////////////////////////////
 
+    /** Default HTTP port (80). */
+    private static final int DEFAULT_HTTP_PORT = 80;
+
+    /** Default HTTPS port (443). */
+    private static final int DEFAULT_HTTPS_PORT = 443;
+
     private static final String AMP = "&";
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -38,14 +40,14 @@ public class UrlHelper {
 
         boolean changedScheme = false;
 
-        int httpPort = 80;
+        int httpPort = DEFAULT_HTTP_PORT;
 
         try {
             httpPort = Integer.parseInt((String) Configuration.get("webwork.url.http.port"));
         } catch (Exception ex) {
         }
 
-        int httpsPort = 443;
+        int httpsPort = DEFAULT_HTTPS_PORT;
 
         try {
             httpsPort = Integer.parseInt((String) Configuration.get("webwork.url.https.port"));
@@ -59,12 +61,9 @@ public class UrlHelper {
             link.append("://");
             link.append(request.getServerName());
 
-            // do not append port for default ports
-            int port = request.getServerPort();
-
-            if (!(scheme.equals("http") && (port == httpPort)) && !(scheme.equals("https") && (port == httpsPort))) {
+            if ((scheme.equals("http") && (httpPort != DEFAULT_HTTP_PORT)) || (scheme.equals("https") && httpsPort != DEFAULT_HTTPS_PORT)) {
                 link.append(":");
-                link.append(port);
+                link.append(scheme.equals("http") ? httpPort : httpsPort);
             }
         }
 
