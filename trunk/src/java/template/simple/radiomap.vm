@@ -27,7 +27,7 @@
             #if ($parameters.tabindex)  tabindex="$!webwork.htmlEncode($parameters.tabindex)" #end
             #if ($parameters.cssClass)  class="$!webwork.htmlEncode($parameters.cssClass)"    #end
             #if ($parameters.cssStyle)  style="$!webwork.htmlEncode($parameters.cssStyle)"    #end
-            #parse("/template/simple/scripting-events.vm")
+            #parse("/${tag.templateDir}/simple/scripting-events.vm")
         /><label for="$!webwork.htmlEncode($parameters.name)$!webwork.htmlEncode($itemKey)">$!itemValue</label>
 
         #set ($trash = $stack.pop())

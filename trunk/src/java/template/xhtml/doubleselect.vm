@@ -1,1 +1,1 @@
-#parse("/template/xhtml/controlheader.vm")#parse("/template/simple/doubleselect.vm")#parse("/template/xhtml/controlfooter.vm")
+#parse("/${tag.templateDir}/xhtml/controlheader.vm")#parse("/${tag.templateDir}/simple/doubleselect.vm")#parse("/${tag.templateDir}/xhtml/controlfooter.vm")
