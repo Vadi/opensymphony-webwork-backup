@@ -7,25 +7,30 @@ package com.opensymphony.webwork.views.velocity;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.webwork.views.velocity.ui.JSPTagAdapterFactory;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import java.util.Iterator;
+import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
-import java.util.Properties;
 
 
 /**
@@ -197,7 +202,7 @@ public class VelocityManager {
             log.debug("Initializing Velocity with the following properties ...");
 
             for (Iterator iter = properties.keySet().iterator();
-                 iter.hasNext();) {
+                    iter.hasNext();) {
                 String key = (String) iter.next();
                 String value = properties.getProperty(key);
 
@@ -314,5 +319,4 @@ public class VelocityManager {
 
         p.setProperty("userdirective", userdirective);
     }
-
 }
