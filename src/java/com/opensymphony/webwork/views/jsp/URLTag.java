@@ -33,11 +33,9 @@ public class URLTag extends ParametereizedBodyTagSupport {
     private static final Log LOG = LogFactory.getLog(URLTag.class);
 
     // Attributes ----------------------------------------------------
-    protected String page;
     protected String valueAttr;
     protected String value;
     protected String includeParamsAttr;
-    protected Map params;
 
     // Public --------------------------------------------------------
     /**
@@ -53,13 +51,6 @@ public class URLTag extends ParametereizedBodyTagSupport {
     public static final String GET = "get";
     public static final String ALL = "all";
 
-    /**
-     * @deprecated use value instead
-     */
-    public void setPage(String aName) {
-        page = aName;
-    }
-
     public void setValue(String aName) {
         valueAttr = aName;
     }
@@ -70,12 +61,8 @@ public class URLTag extends ParametereizedBodyTagSupport {
 
     // BodyTag implementation ----------------------------------------
     public int doStartTag() throws JspException {
-        if (page == null) {
-            if (valueAttr != null) {
-                value = findString(valueAttr);
-            }
-        } else {
-            value = page;
+        if (valueAttr != null) {
+            value = findString(valueAttr);
         }
 
         // Clear the params map if it has been instantiated before

@@ -25,6 +25,8 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
     private Map attributes = new HashMap();
     private Map parameterMap = new HashMap();
     private String pathInfo;
+    private String queryString;
+    private String requestURI;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -81,5 +83,21 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
 
     public void setupGetPathInfo(String pathInfo) {
         this.pathInfo = pathInfo;
+    }
+
+    public void setQueryString(String queryString) {
+        this.queryString = queryString;
+    }
+
+    public String getQueryString() {
+        return queryString;
+    }
+
+    public void setRequestURI(String requestURI) {
+        this.requestURI = requestURI;
+    }
+
+    public String getRequestURI() {
+        return requestURI;
     }
 }
