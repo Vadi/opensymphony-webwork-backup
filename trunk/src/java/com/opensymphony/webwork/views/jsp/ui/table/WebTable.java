@@ -216,7 +216,7 @@ public class WebTable extends ComponentTag {
 
     public void addParameter(String name, Object value) {
         OgnlUtil.setProperty(name, value, this, getStack().getContext());
-        super.addParam(name, value);
+        super.addParameter(name, value);
     }
 
     public int doEndTag() throws JspException {
@@ -296,7 +296,7 @@ public class WebTable extends ComponentTag {
         }
 
         // evaluate all the parameters for the webtable
-        Map params = getParams();
+        Map params = getParameters();
         Set set = params.keySet();
 
         for (Iterator iterator = set.iterator(); iterator.hasNext();) {

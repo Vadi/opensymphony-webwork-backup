@@ -46,10 +46,10 @@ public class TokenTag extends AbstractUITag {
             }
         }
 
-        addParam("name", tokenName);
+        addParameter("name", tokenName);
 
         String token = buildToken(tokenName);
-        addParam("token", token);
+        addParameter("token", token);
 
         return super.doEndTag();
     }

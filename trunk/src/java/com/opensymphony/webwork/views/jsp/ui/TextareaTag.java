@@ -48,19 +48,19 @@ public class TextareaTag extends AbstractUITag {
         super.evaluateExtraParams(stack);
 
         if (readonlyAttr != null) {
-            addParam("readonly", findValue(readonlyAttr, Boolean.class));
+            addParameter("readonly", findValue(readonlyAttr, Boolean.class));
         }
 
         if (onkeyupAttr != null) {
-            addParam("onkeyup", findValue(onkeyupAttr, String.class));
+            addParameter("onkeyup", findValue(onkeyupAttr, String.class));
         }
 
         if (colsAttr != null) {
-            addParam("cols", findValue(colsAttr, String.class));
+            addParameter("cols", findValue(colsAttr, String.class));
         }
 
         if (rowsAttr != null) {
-            addParam("rows", findValue(rowsAttr, String.class));
+            addParameter("rows", findValue(rowsAttr, String.class));
         }
     }
 

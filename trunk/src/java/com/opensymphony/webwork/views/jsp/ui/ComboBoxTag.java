@@ -55,19 +55,19 @@ public class ComboBoxTag extends AbstractUITag {
 
     protected void evaluateExtraParams(OgnlValueStack stack) {
         if (list != null) {
-            addParam("list", findValue(list));
+            addParameter("list", findValue(list));
         }
 
         if (sizeAttr != null) {
-            addParam("size", findValue(sizeAttr));
+            addParameter("size", findValue(sizeAttr));
         }
 
         if (maxlengthAttr != null) {
-            addParam("maxlength", findValue(maxlengthAttr));
+            addParameter("maxlength", findValue(maxlengthAttr));
         }
 
         if (onkeyupAttr != null) {
-            addParam("onkeyup", findValue(onkeyupAttr));
+            addParameter("onkeyup", findValue(onkeyupAttr));
         }
     }
 }

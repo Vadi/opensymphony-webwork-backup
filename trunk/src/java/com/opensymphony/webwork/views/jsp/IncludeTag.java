@@ -42,7 +42,7 @@ import javax.servlet.jsp.PageContext;
  * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a>
  * @version $Revision$
  */
-public class IncludeTag extends WebWorkBodyTagSupport implements ParameterizedTag {
+public class IncludeTag extends WebWorkBodyTagSupport implements ParamTag.Parametric {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static String encoding;
@@ -145,9 +145,9 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParameterizedTa
     }
 
     /* (non-Javadoc)
-    * @see com.opensymphony.webwork.views.jsp.ParameterizedTag#getParams()
+    * @see com.opensymphony.webwork.views.jsp.ParameterizedTag#getParameters()
     */
-    public Map getParams() {
+    public Map getParameters() {
         return params;
     }
 
@@ -168,7 +168,7 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParameterizedTa
     * @param   name
     * @param   value
     */
-    public void addParam(String name, Object value) {
+    public void addParameter(String name, Object value) {
         if (value != null) {
             List currentValues = (List) params.get(name);
 

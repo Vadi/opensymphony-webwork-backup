@@ -20,7 +20,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Time: 11:00:38 PM
  * To change this template use Options | File Templates.
  */
-public abstract class ParameterizedTagSupport extends WebWorkTagSupport implements ParameterizedTag {
+public abstract class ParameterizedTagSupport extends WebWorkTagSupport implements ParamTag.Parametric {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     final protected static Log log = LogFactory.getLog(ParameterizedTagSupport.class);
@@ -31,7 +31,7 @@ public abstract class ParameterizedTagSupport extends WebWorkTagSupport implemen
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public Map getParams() {
+    public Map getParameters() {
         if (params == null) {
             params = new HashMap();
         }
@@ -39,9 +39,9 @@ public abstract class ParameterizedTagSupport extends WebWorkTagSupport implemen
         return params;
     }
 
-    public void addParam(String key, Object value) {
+    public void addParameter(String key, Object value) {
         if (key != null) {
-            Map myParams = getParams();
+            Map myParams = getParameters();
 
             if (value == null) {
                 myParams.remove(key);
@@ -63,6 +63,6 @@ public abstract class ParameterizedTagSupport extends WebWorkTagSupport implemen
      * </p>
      */
     protected void reset() {
-        this.getParams().clear();
+        this.getParameters().clear();
     }
 }

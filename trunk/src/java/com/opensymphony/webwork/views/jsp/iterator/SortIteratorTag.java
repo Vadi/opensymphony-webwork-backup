@@ -46,13 +46,13 @@ public class SortIteratorTag extends ActionTag {
         int returnVal = super.doStartTag();
 
         if (sourceAttr == null) {
-            addParam("source", findValue("top"));
+            addParameter("source", findValue("top"));
         } else {
-            addParam("source", findValue(sourceAttr));
+            addParameter("source", findValue(sourceAttr));
         }
 
         Comparator c = (Comparator) findValue(comparatorAttr);
-        addParam("comparator", c);
+        addParameter("comparator", c);
 
         return returnVal;
     }

@@ -81,16 +81,16 @@ public class FormTag extends AbstractClosingUITag {
 
             if (actionObj != null) {
                 String result = UrlHelper.buildUrl(actionObj.toString(), request, response, null);
-                addParam("action", result);
+                addParameter("action", result);
             }
         }
 
         if (enctypeAttr != null) {
-            addParam("enctype", findValue(enctypeAttr, String.class));
+            addParameter("enctype", findValue(enctypeAttr, String.class));
         }
 
         if (methodAttr != null) {
-            addParam("method", findValue(methodAttr, String.class));
+            addParameter("method", findValue(methodAttr, String.class));
         }
     }
 

@@ -16,7 +16,7 @@ import java.util.Map;
  * Date: Nov 16, 2003
  * Time: 3:25:09 PM
  */
-public class ParametereizedBodyTagSupport extends WebWorkBodyTagSupport implements ParameterizedTag {
+public class ParametereizedBodyTagSupport extends WebWorkBodyTagSupport implements ParamTag.Parametric {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     final protected static Log log = LogFactory.getLog(ParameterizedTagSupport.class);
@@ -27,7 +27,7 @@ public class ParametereizedBodyTagSupport extends WebWorkBodyTagSupport implemen
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public Map getParams() {
+    public Map getParameters() {
         if (params == null) {
             params = new HashMap();
         }
@@ -35,9 +35,9 @@ public class ParametereizedBodyTagSupport extends WebWorkBodyTagSupport implemen
         return params;
     }
 
-    public void addParam(String key, Object value) {
+    public void addParameter(String key, Object value) {
         if (key != null) {
-            Map myParams = getParams();
+            Map myParams = getParameters();
 
             if (value == null) {
                 myParams.remove(key);

@@ -4,7 +4,7 @@
  */
 package com.opensymphony.webwork.views.velocity;
 
-import com.opensymphony.webwork.views.jsp.ParameterizedTag;
+import com.opensymphony.webwork.views.jsp.ParamTag;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -62,7 +62,7 @@ public class ParamDirective extends Directive {
     public boolean render(InternalContextAdapter contextAdapter, Writer writer, Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
         Object object = contextAdapter.get(VelocityManager.TAG);
 
-        if ((object != null) && (object instanceof ParameterizedTag)) {
+        if ((object != null) && (object instanceof ParamTag.Parametric)) {
             if ((node.jjtGetNumChildren() != 2) && (node.jjtGetNumChildren() != 3)) {
                 throw new ParseErrorException("#param directive requires two parameters, a key and a value.  an optional flag to evaluate it may be included.");
             }
@@ -76,10 +76,10 @@ public class ParamDirective extends Directive {
                 value = valueStack.findValue(value.toString());
             }
 
-            ParameterizedTag parameterizedTag = (ParameterizedTag) object;
+            ParamTag.Parametric parameterizedTag = (ParamTag.Parametric) object;
 
             if (key != null) {
-                parameterizedTag.addParam(key.toString(), value);
+                parameterizedTag.addParameter(key.toString(), value);
             }
 
             return true;

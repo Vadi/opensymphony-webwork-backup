@@ -69,7 +69,7 @@ public class TagDirectiveTest extends TestCase {
         template.merge(context, writer);
 
         // verify that we got one param, hello=world
-        Map params = mockTag.getParams();
+        Map params = mockTag.getParameters();
         Assert.assertNotNull(params);
         Assert.assertEquals(2, params.size());
         Assert.assertTrue(params.containsKey("hello"));

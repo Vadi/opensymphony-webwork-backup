@@ -48,24 +48,24 @@ public abstract class AbstractListTag extends AbstractUITag {
         Object value = findValue(listAttr);
         if (listAttr != null) {
             if (value instanceof Collection) {
-                addParam("list", value);
-                addParam("listSize", new Integer(((Collection) value).size()));
+                addParameter("list", value);
+                addParameter("listSize", new Integer(((Collection) value).size()));
             }
             else {
-                addParam("list", MakeIterator.convert(value));
+                addParameter("list", MakeIterator.convert(value));
             }
         }
 
         if (listKeyAttr != null) {
-            addParam("listKey", listKeyAttr);
+            addParameter("listKey", listKeyAttr);
         } else if (value instanceof Map) {
-            addParam("listKey", "key");
+            addParameter("listKey", "key");
         }
 
         if (listValueAttr != null) {
-            addParam("listValue", listValueAttr);
+            addParameter("listValue", listValueAttr);
         } else if (value instanceof Map) {
-            addParam("listValue", "value");
+            addParameter("listValue", "value");
         }
     }
 
