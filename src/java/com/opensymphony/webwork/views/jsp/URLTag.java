@@ -5,23 +5,19 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.views.util.UrlHelper;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.IOException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.TagSupport;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -42,11 +38,16 @@ public class URLTag extends TagSupport implements ParameterizedTag {
 
     protected Map params;
     protected String value;
+    protected String page;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public Map getParams() {
         return params;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
     }
 
     public void setValue(String value) {
@@ -68,7 +69,7 @@ public class URLTag extends TagSupport implements ParameterizedTag {
     public int doEndTag() throws JspException {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
-        String result = UrlHelper.buildUrl(value, request, response, params);
+        String result = UrlHelper.buildUrl(page, request, response, params);
 
         String id = getId();
 
@@ -99,7 +100,13 @@ public class URLTag extends TagSupport implements ParameterizedTag {
 
         params = null;
 
-        if (value == null) {
+        if (value != null) {
+            page = value;
+        }
+
+        // if no value was given, we can assume we're going to the same page,
+        // ... so we better get all the request params so we can re-set them.
+        if (page == null) {
             HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
 
             try {
@@ -123,5 +130,6 @@ public class URLTag extends TagSupport implements ParameterizedTag {
         super.release();
         this.params = null;
         this.value = null;
+        this.page = null;
     }
 }

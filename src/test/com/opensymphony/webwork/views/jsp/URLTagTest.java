@@ -7,15 +7,12 @@ package com.opensymphony.webwork.views.jsp;
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
 
-import java.util.HashMap;
-
 import javax.servlet.jsp.JspException;
+import java.util.HashMap;
 
 
 /**
@@ -40,6 +37,61 @@ public class URLTagTest extends TestCase {
         URLTag tag = new URLTag();
         tag.setPageContext(pageContext);
         tag.setValue("TestAction.action");
+
+        try {
+            tag.doStartTag();
+            tag.doEndTag();
+        } catch (JspException ex) {
+            ex.printStackTrace();
+            fail();
+        }
+
+        request.verify();
+        jspWriter.verify();
+        pageContext.verify();
+    }
+
+    public void testSetPageAttribute() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        MockJspWriter jspWriter = new MockJspWriter();
+        jspWriter.setExpectedData("foo.jsp");
+
+        MockPageContext pageContext = new MockPageContext();
+        pageContext.setJspWriter(jspWriter);
+        pageContext.setRequest(request);
+
+        URLTag tag = new URLTag();
+        tag.setPageContext(pageContext);
+        tag.setPage("foo.jsp");
+
+        try {
+            tag.doStartTag();
+            tag.doEndTag();
+        } catch (JspException ex) {
+            ex.printStackTrace();
+            fail();
+        }
+
+        request.verify();
+        jspWriter.verify();
+        pageContext.verify();
+    }
+
+    public void testSetPageAndValueAttribute() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        MockJspWriter jspWriter = new MockJspWriter();
+        jspWriter.setExpectedData("bar.jsp");
+
+        MockPageContext pageContext = new MockPageContext();
+        pageContext.setJspWriter(jspWriter);
+        pageContext.setRequest(request);
+
+        URLTag tag = new URLTag();
+        tag.setPageContext(pageContext);
+        tag.setPage("foo.jsp");
+        tag.setValue("'bar.jsp'");
 
         try {
             tag.doStartTag();
