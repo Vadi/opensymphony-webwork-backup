@@ -49,10 +49,10 @@ public class ParamTag extends TagSupport implements Renderer {
                 Object o = null;
 
                 if (value == null) {
-                    o = vs.getRoot().peek();
-                } else {
-                    o = vs.findValue(value);
+                    value = "that";
                 }
+
+                o = vs.findValue(value);
 
                 parent.addParam(name, o);
 
