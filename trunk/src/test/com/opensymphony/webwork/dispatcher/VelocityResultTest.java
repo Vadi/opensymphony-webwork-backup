@@ -36,27 +36,6 @@ public class VelocityResultTest extends TestCase {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void testResourcesFoundUsingAbsolutePath() throws Exception {
-        String location = "/WEB-INF/views/registration.vm";
-
-        result.setLocation(location);
-
-        Template template = result.getTemplate(stack, velocity, actionInvocation);
-        assertNotNull(template);
-        assertEquals("expect absolute locations to be handled as is", location, velocity.templateName);
-    }
-
-    public void testResourcesFoundUsingNames() throws Exception {
-        String location = "Registration.vm";
-        String expectedTemplateName = namespace + "/" + location;
-
-        result.setLocation(location);
-
-        Template template = result.getTemplate(stack, velocity, actionInvocation);
-        assertNotNull(template);
-        assertEquals("expect the prefix to be appended to the path when the location is not absolute", expectedTemplateName, velocity.templateName);
-    }
-
     public void testCanResolveLocationUsingOgnl() throws Exception {
         String location = "/myaction.action";
         Bean bean = new Bean();
@@ -65,18 +44,33 @@ public class VelocityResultTest extends TestCase {
 
         assertEquals(location, stack.findValue("location"));
 
-        result.setLocation("${location}");
         result.setParse(true);
-        result.getTemplate(stack, velocity, actionInvocation);
+        result.getTemplate(stack, velocity, actionInvocation, "${location}");
         assertEquals(location, velocity.templateName);
     }
 
     public void testCanResolveLocationUsingStaticExpression() throws Exception {
         String location = "/any.action";
-        result.setLocation("${'" + location + "'}");
         result.setParse(true);
-        result.getTemplate(stack, velocity, actionInvocation);
+        result.getTemplate(stack, velocity, actionInvocation, "${'" + location + "'}");
         assertEquals(location, velocity.templateName);
+    }
+
+    public void testResourcesFoundUsingAbsolutePath() throws Exception {
+        String location = "/WEB-INF/views/registration.vm";
+
+        Template template = result.getTemplate(stack, velocity, actionInvocation, location);
+        assertNotNull(template);
+        assertEquals("expect absolute locations to be handled as is", location, velocity.templateName);
+    }
+
+    public void testResourcesFoundUsingNames() throws Exception {
+        String location = "Registration.vm";
+        String expectedTemplateName = namespace + "/" + location;
+
+        Template template = result.getTemplate(stack, velocity, actionInvocation, location);
+        assertNotNull(template);
+        assertEquals("expect the prefix to be appended to the path when the location is not absolute", expectedTemplateName, velocity.templateName);
     }
 
     protected void setUp() throws Exception {
@@ -94,6 +88,18 @@ public class VelocityResultTest extends TestCase {
 
     //~ Inner Classes //////////////////////////////////////////////////////////
 
+    class Bean {
+        private String location;
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
+
+        public String getLocation() {
+            return location;
+        }
+    }
+
     class TestVelocityEngine extends VelocityEngine {
         public String templateName;
 
@@ -101,18 +107,6 @@ public class VelocityResultTest extends TestCase {
             this.templateName = templateName;
 
             return new Template();
-        }
-    }
-
-    class Bean {
-        private String location;
-
-        public String getLocation() {
-            return location;
-        }
-
-        public void setLocation(String location) {
-            this.location = location;
         }
     }
 }
