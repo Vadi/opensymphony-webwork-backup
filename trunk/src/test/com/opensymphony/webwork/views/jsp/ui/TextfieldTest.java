@@ -44,6 +44,8 @@ public class TextfieldTest extends AbstractJspTest {
         tag.setName("foo");
         tag.setValue("bar");
 
+        testAction.addFieldError("foo", "bar error message");
+        testAction.addFieldError("bar", "bar error message");
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("Textfield-2.txt"));

@@ -31,6 +31,15 @@ import javax.servlet.http.HttpSession;
  * Created Apr 9, 2003 11:42:01 PM
  */
 public class TokenInterceptorTest extends TestCase {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    private ActionContext oldContext;
+    private HttpSession httpSession;
+    private Map extraContext;
+    private Map params;
+    private Map session;
+    private WebWorkMockHttpServletRequest request;
+
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testNoTokenInParams() {
@@ -43,27 +52,19 @@ public class TokenInterceptorTest extends TestCase {
         }
     }
 
-    public void testNoTokenInSession() {
-        try {
-            ActionProxy proxy = buildProxy(getActionName());
-            setToken();
-            ActionContext.getContext().getSession().clear();
-            assertEquals(TokenInterceptor.INVALID_TOKEN_CODE, proxy.execute());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+    public void testNoTokenInSession() throws Exception {
+        assertEquals(oldContext, ActionContext.getContext());
+
+        ActionProxy proxy = buildProxy(getActionName());
+        setToken();
+        ActionContext.getContext().getSession().clear();
+        assertEquals(TokenInterceptor.INVALID_TOKEN_CODE, proxy.execute());
     }
 
-    public void testTokenInterceptorSuccess() {
-        try {
-            ActionProxy proxy = buildProxy(getActionName());
-            setToken();
-            assertEquals(Action.SUCCESS, proxy.execute());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+    public void testTokenInterceptorSuccess() throws Exception {
+        ActionProxy proxy = buildProxy(getActionName());
+        setToken();
+        assertEquals(Action.SUCCESS, proxy.execute());
     }
 
     protected String getActionName() {
@@ -90,20 +91,32 @@ public class TokenInterceptorTest extends TestCase {
         ConfigurationManager.clearConfigurationProviders();
         ConfigurationManager.addConfigurationProvider(new TestConfigurationProvider());
         ConfigurationManager.getConfiguration().reload();
-    }
 
-    protected ActionProxy buildProxy(String actionName) throws Exception {
-        Map session = new HashMap();
-        Map params = new HashMap();
-        Map extraContext = new HashMap();
+        session = new HashMap();
+        params = new HashMap();
+        extraContext = new HashMap();
         extraContext.put(ActionContext.SESSION, session);
         extraContext.put(ActionContext.PARAMETERS, params);
 
-        WebWorkMockHttpServletRequest request = new WebWorkMockHttpServletRequest();
-        HttpSession httpSession = new MockHttpSession();
+        request = new WebWorkMockHttpServletRequest();
+        httpSession = new MockHttpSession();
         request.setSession(httpSession);
         extraContext.put(ServletActionContext.HTTP_REQUEST, request);
 
+        // we need to create an ActionContext that exists before the Proxy is created
+        // so that the values can be set into our data structures by the TokenHelper.
+        // These same data structures will be in the new ActionContext, so it will mimic
+        // the values being set in during the proxy.execute()
+        oldContext = new ActionContext(extraContext);
+        ActionContext.setContext(oldContext);
+    }
+
+    protected ActionProxy buildProxy(String actionName) throws Exception {
         return ActionProxyFactory.getFactory().createActionProxy("", actionName, extraContext, true);
+    }
+
+    protected void tearDown() throws Exception {
+        ConfigurationManager.destroyConfiguration();
+        ActionContext.setContext(null);
     }
 }

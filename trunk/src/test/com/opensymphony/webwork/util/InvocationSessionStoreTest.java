@@ -64,9 +64,10 @@ public class InvocationSessionStoreTest extends TestCase {
 
         stack = new OgnlValueStack();
         actionContext.setValueStack(stack);
+        invocationMock.matchAndReturn("getStack", stack);
 
         Mock proxyMock = new Mock(ActionProxy.class);
-        proxyMock.matchAndReturn("getValueStack", stack);
+        proxyMock.matchAndReturn("getInvocation", invocation);
 
         ActionProxy proxy = (ActionProxy) proxyMock.proxy();
 

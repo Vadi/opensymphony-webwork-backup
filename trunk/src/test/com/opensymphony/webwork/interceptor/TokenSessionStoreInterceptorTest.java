@@ -7,10 +7,7 @@ package com.opensymphony.webwork.interceptor;
 import com.opensymphony.webwork.TestConfigurationProvider;
 
 import com.opensymphony.xwork.Action;
-import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
-
-import java.util.Map;
 
 
 /**
@@ -21,14 +18,15 @@ import java.util.Map;
 public class TokenSessionStoreInterceptorTest extends TokenInterceptorTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+ * @see {@link com.opensymphony.webwork.TestConfigurationProvider#init}
+ */
     public void testDuplicateToken() {
         try {
             ActionProxy proxy = buildProxy(getActionName());
             String token = setToken();
-            Map session = ActionContext.getContext().getSession();
             assertEquals(Action.SUCCESS, proxy.execute());
             proxy = buildProxy(getActionName());
-            ActionContext.getContext().setSession(session);
             setToken(token);
             assertEquals(Action.SUCCESS, proxy.execute());
         } catch (Exception e) {
