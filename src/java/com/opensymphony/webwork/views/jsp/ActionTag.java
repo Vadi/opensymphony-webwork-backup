@@ -171,7 +171,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
             if (actionContext != null) {
                 OgnlValueStack stack = actionContext.getValueStack();
 
-                if (stack != null) {
+                if ((stack != null) && (stack.size() > 0)) {
                     top = stack.peek();
                 }
             }
