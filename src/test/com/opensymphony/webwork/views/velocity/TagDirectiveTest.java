@@ -48,8 +48,8 @@ public class TagDirectiveTest extends TestCase {
     Mock mockRequest;
     Mock mockResponse;
     MockTag mockTag;
-    VelocityEngine velocityEngine;
     OgnlValueStack stack;
+    VelocityEngine velocityEngine;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -84,9 +84,9 @@ public class TagDirectiveTest extends TestCase {
     }
 
     /**
-     * pretty much the same as the BodyTag test, but we're not passing in any parameters
-     * @throws Exception
-     */
+* pretty much the same as the BodyTag test, but we're not passing in any parameters
+* @throws Exception
+*/
     public void testTag() throws Exception {
         Template template = velocityEngine.getTemplate("/com/opensymphony/webwork/views/velocity/tag.vm");
         StringWriter writer = new StringWriter();
@@ -118,11 +118,14 @@ public class TagDirectiveTest extends TestCase {
         ActionContext.setContext(new ActionContext(stack.getContext()));
 
         /**
-         * construct our sandbox VelocityEngine
-         */
+ * construct our sandbox VelocityEngine
+ */
         Properties props = new Properties();
 
-        props.setProperty("resource.loader", "file");
+        props.setProperty("resource.loader", "file, wwclass");
+
+        props.setProperty("wwclass.resource.loader.description", "Velocity Classpath Resource Loader");
+        props.setProperty("wwclass.resource.loader.class", "com.opensymphony.webwork.views.velocity.WebWorkResourceLoader");
 
         // adding src/java to the Velocity load path
         props.setProperty("file.resource.loader.description", "Velocity File Resource Loader");

@@ -4,13 +4,15 @@
  */
 package com.opensymphony.webwork.interceptor;
 
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.util.InvocationSessionStore;
 import com.opensymphony.webwork.util.TokenHelper;
-import com.opensymphony.webwork.ServletActionContext;
 
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -22,13 +24,14 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-    * Handles the case of an invalid token
-    * @param invocation
-    * @return
-    */
+* Handles the case of an invalid token
+* @param invocation
+* @return
+*/
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
-        String tokenName = TokenHelper.getTokenName();
-        String token = TokenHelper.getToken(tokenName);
+        HttpServletRequest request = ServletActionContext.getRequest();
+        String tokenName = TokenHelper.getTokenName(request);
+        String token = TokenHelper.getToken(tokenName, request);
 
         if ((tokenName != null) && (token != null)) {
             ActionInvocation savedInvocation = InvocationSessionStore.loadInvocation(tokenName, token);
@@ -55,15 +58,16 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
     }
 
     /**
-    * Handle the case of a valid token
-    * @param invocation
-    * @return
-    * @throws Exception
-    */
+* Handle the case of a valid token
+* @param invocation
+* @return
+* @throws Exception
+*/
     protected String handleValidToken(ActionInvocation invocation) throws Exception {
         // we know the token name and token must be there
-        String key = TokenHelper.getTokenName();
-        String token = TokenHelper.getToken(key);
+        HttpServletRequest request = ServletActionContext.getRequest();
+        String key = TokenHelper.getTokenName(request);
+        String token = TokenHelper.getToken(key, request);
         InvocationSessionStore.storeInvocation(key, token, invocation);
 
         return invocation.invoke();

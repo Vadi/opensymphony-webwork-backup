@@ -4,24 +4,22 @@
  */
 package com.opensymphony.webwork.interceptor;
 
-import com.mockobjects.servlet.MockHttpSession;
-
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.util.TokenHelper;
 import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletRequest;
+import com.opensymphony.webwork.views.jsp.WebWorkMockHttpSession;
 
-import com.opensymphony.xwork.Action;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.ActionProxy;
-import com.opensymphony.xwork.ActionProxyFactory;
+import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.ConfigurationManager;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import junit.framework.TestCase;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -56,14 +54,14 @@ public class TokenInterceptorTest extends TestCase {
         assertEquals(oldContext, ActionContext.getContext());
 
         ActionProxy proxy = buildProxy(getActionName());
-        setToken(session);
-        ActionContext.getContext().getSession().clear();
+        setToken(request);
+        request.setSession(null);
         assertEquals(TokenInterceptor.INVALID_TOKEN_CODE, proxy.execute());
     }
 
     public void testTokenInterceptorSuccess() throws Exception {
         ActionProxy proxy = buildProxy(getActionName());
-        setToken(session);
+        setToken(request);
         assertEquals(Action.SUCCESS, proxy.execute());
     }
 
@@ -71,18 +69,18 @@ public class TokenInterceptorTest extends TestCase {
         return TestConfigurationProvider.TOKEN_ACTION_NAME;
     }
 
-    protected String setToken(Map session) {
-        String token = TokenHelper.setToken(session);
+    protected String setToken(HttpServletRequest request) {
+        String token = TokenHelper.setToken(request);
         setToken(token);
 
         return token;
     }
 
     protected void setToken(String token) {
-        ActionContext.getContext().getParameters().put(TokenHelper.TOKEN_NAME_FIELD, new String[] {
+        request.getParameterMap().put(TokenHelper.TOKEN_NAME_FIELD, new String[] {
                 TokenHelper.DEFAULT_TOKEN_NAME
             });
-        ActionContext.getContext().getParameters().put(TokenHelper.DEFAULT_TOKEN_NAME, new String[] {
+        request.getParameterMap().put(TokenHelper.DEFAULT_TOKEN_NAME, new String[] {
                 token
             });
     }
@@ -99,15 +97,14 @@ public class TokenInterceptorTest extends TestCase {
         extraContext.put(ActionContext.PARAMETERS, params);
 
         request = new WebWorkMockHttpServletRequest();
-        httpSession = new MockHttpSession();
+        httpSession = new WebWorkMockHttpSession();
         request.setSession(httpSession);
+        request.setParameterMap(params);
         extraContext.put(ServletActionContext.HTTP_REQUEST, request);
 
-        // we need to create an ActionContext that exists before the Proxy is created
-        // so that the values can be set into our data structures by the TokenHelper.
-        // These same data structures will be in the new ActionContext, so it will mimic
-        // the values being set in during the proxy.execute()
-        oldContext = new ActionContext(extraContext);
+        OgnlValueStack stack = new OgnlValueStack();
+        stack.getContext().putAll(extraContext);
+        oldContext = new ActionContext(stack.getContext());
         ActionContext.setContext(oldContext);
     }
 

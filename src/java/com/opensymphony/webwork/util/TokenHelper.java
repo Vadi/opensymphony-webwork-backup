@@ -6,12 +6,15 @@ package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.GUID;
 
-import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -39,8 +42,8 @@ public class TokenHelper {
      * Sets a transaction token into the session using the default token name.
      * @return the token string
      */
-    public static String setToken(Map session) {
-        return setToken(session, DEFAULT_TOKEN_NAME);
+    public static String setToken(HttpServletRequest request) {
+        return setToken(DEFAULT_TOKEN_NAME, request);
     }
 
     /**
@@ -48,9 +51,10 @@ public class TokenHelper {
      * @param tokenName the name to store into the session with the token as the value
      * @return the token string
      */
-    public static String setToken(Map session, String tokenName) {
+    public static String setToken(String tokenName, HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
         String token = GUID.generateGUID();
-        session.put(tokenName, token);
+        session.setAttribute(tokenName, token);
 
         return token;
     }
@@ -60,8 +64,8 @@ public class TokenHelper {
      * @param tokenName the name of the parameter which holds the token value
      * @return the token String or null, if the token could not be found
      */
-    public static String getToken(String tokenName) {
-        Map params = ServletActionContext.getContext().getParameters();
+    public static String getToken(String tokenName, HttpServletRequest request) {
+        Map params = request.getParameterMap();
         String[] tokens = (String[]) params.get(tokenName);
         String token;
 
@@ -80,8 +84,8 @@ public class TokenHelper {
      * Gets the token name from the Parameters in the ServletActionContext
      * @return the token name found in the params, or null if it could not be found
      */
-    public static String getTokenName() {
-        Map params = ServletActionContext.getContext().getParameters();
+    public static String getTokenName(HttpServletRequest request) {
+        Map params = request.getParameterMap();
 
         if (!params.containsKey(TOKEN_NAME_FIELD)) {
             LOG.warn("Could not find token name in params.");
@@ -109,29 +113,32 @@ public class TokenHelper {
      * @return false if there was no token set into the params (check by looking for {@link #TOKEN_NAME_FIELD}), true if a valid token is found
      *
      */
-    public static boolean validToken(Map session) {
-        String tokenName = getTokenName();
+    public static boolean validToken(HttpServletRequest request) {
+        String tokenName = getTokenName(request);
 
         if (tokenName == null) {
             return false;
         }
 
-        String token = getToken(tokenName);
+        String token = getToken(tokenName, request);
 
         if (token == null) {
             return false;
         }
 
-        String sessionToken = (String) session.get(tokenName);
+        HttpSession session = request.getSession(true);
+        String sessionToken = (String) session.getAttribute(tokenName);
 
         if (!token.equals(sessionToken)) {
-            LOG.warn("Form token " + token + " does not match the session token " + sessionToken);
+            LOG.warn(LocalizedTextUtil.findText(TokenHelper.class, "webwork.invalid.token", request.getLocale(), "Form token {0} does not match the session token {1}.", new Object[] {
+                        token, sessionToken
+                    }));
 
             return false;
         }
 
         // remove the token so it won't be used again
-        session.remove(tokenName);
+        session.removeAttribute(tokenName);
 
         return true;
     }

@@ -4,16 +4,7 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.webwork.util.TokenHelper;
-import com.opensymphony.xwork.ActionContext;
-
-import org.apache.velocity.context.Context;
-
-import java.io.Writer;
-
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
@@ -36,22 +27,27 @@ public class TokenTag extends AbstractUITag {
     }
 
     /**
-     * First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
-     * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
-     * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
-     * the name.
-     * @return
-     * @throws JspException
-     */
+ * First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
+ * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
+ * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
+ * the name.
+ * @return
+ * @throws JspException
+ */
     public int doEndTag() throws JspException {
         String tokenName = null;
+
         if (nameAttr == null) {
             tokenName = TokenHelper.DEFAULT_TOKEN_NAME;
         } else {
             tokenName = (String) getValueStack().findValue(nameAttr, String.class);
-        }
-        addParam("name", tokenName);
 
+            if (tokenName == null) {
+                tokenName = nameAttr;
+            }
+        }
+
+        addParam("name", tokenName);
 
         String token = buildToken(tokenName);
         addParam("token", token);
@@ -67,8 +63,7 @@ public class TokenTag extends AbstractUITag {
         Object myToken = pageContext.getAttribute(name);
 
         if (myToken == null) {
-            Map session = (Map) getValueStack().getContext().get(ActionContext.SESSION);
-            myToken = TokenHelper.setToken(session, name.toString());
+            myToken = TokenHelper.setToken(name, (HttpServletRequest) pageContext.getRequest());
             pageContext.setAttribute(name, myToken);
         }
 

@@ -4,13 +4,18 @@
  */
 package com.opensymphony.webwork.util;
 
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.util.OgnlValueStack;
+import com.mockobjects.dynamic.C;
+import com.mockobjects.dynamic.Mock;
+
+import com.opensymphony.webwork.views.jsp.WebWorkMockHttpSession;
 
 import junit.framework.TestCase;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -19,42 +24,45 @@ import java.util.Map;
  * Created Apr 3, 2003 10:13:08 AM
  */
 public class TokenHelperTest extends TestCase {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    private HttpServletRequest request;
+    private HttpSession session;
+    private Mock mockRequest;
+
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSetToken() {
-        Map session = new HashMap();
-        ActionContext.getContext().setSession(session);
-
-        String token = TokenHelper.setToken(session);
-        assertEquals(token, session.get(TokenHelper.DEFAULT_TOKEN_NAME));
+        String token = TokenHelper.setToken(request);
+        assertEquals(token, session.getAttribute(TokenHelper.DEFAULT_TOKEN_NAME));
     }
 
     public void testSetTokenWithName() {
-        Map session = new HashMap();
-        ActionContext.getContext().setSession(session);
-
         String tokenName = "myTestToken";
-        String token = TokenHelper.setToken(session, tokenName);
-        assertEquals(token, session.get(tokenName));
+        String token = TokenHelper.setToken(tokenName, request);
+        assertEquals(token, session.getAttribute(tokenName));
     }
 
     public void testValidToken() {
         String tokenName = "validTokenTest";
-        Map session = new HashMap();
         Map params = new HashMap();
-        ActionContext.getContext().setSession(session);
 
-        String token = TokenHelper.setToken(session, tokenName);
-        assertEquals(token, session.get(tokenName));
+        String token = TokenHelper.setToken(tokenName, request);
+        assertEquals(token, session.getAttribute(tokenName));
         params.put(TokenHelper.TOKEN_NAME_FIELD, new String[] {tokenName});
         params.put(tokenName, new String[] {token});
-        ActionContext.getContext().setParameters(params);
-        assertTrue(TokenHelper.validToken(session));
+        mockRequest.matchAndReturn("getParameterMap", params);
+        assertTrue(TokenHelper.validToken(request));
     }
 
     protected void setUp() throws Exception {
-        OgnlValueStack stack = new OgnlValueStack();
-        ActionContext actionContext = new ActionContext(stack.getContext());
-        ActionContext.setContext(actionContext);
+        session = new WebWorkMockHttpSession();
+        mockRequest = new Mock(HttpServletRequest.class);
+        mockRequest.matchAndReturn("getSession", C.ANY_ARGS, session);
+        request = (HttpServletRequest) mockRequest.proxy();
+    }
+
+    protected void tearDown() {
+        mockRequest.verify();
     }
 }

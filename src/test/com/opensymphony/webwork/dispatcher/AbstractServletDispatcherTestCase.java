@@ -11,11 +11,12 @@ package com.opensymphony.webwork.dispatcher;
 import com.mockobjects.dynamic.C;
 import com.mockobjects.dynamic.Mock;
 
-import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockHttpServletResponse;
 import com.mockobjects.servlet.MockHttpSession;
 import com.mockobjects.servlet.MockServletConfig;
 import com.mockobjects.servlet.MockServletOutputStream;
+
+import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletRequest;
 
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.providers.XmlConfigurationProvider;
@@ -44,24 +45,22 @@ public abstract class AbstractServletDispatcherTestCase extends TestCase {
         return "xwork.xml";
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        loadConfig();
-    }
-
     public abstract ServletDispatcher getServletDispatcher();
 
     public abstract String getServletPath();
 
     public void testServletDispatcher() throws ServletException, IOException {
-        loadConfig();
-
         service(getServletDispatcher());
     }
 
     protected Map getParameterMap() {
         return new HashMap();
+    }
+
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        loadConfig();
     }
 
     protected void loadConfig() {
@@ -71,21 +70,25 @@ public abstract class AbstractServletDispatcherTestCase extends TestCase {
         ConfigurationManager.getConfiguration();
     }
 
+    protected void tearDown() throws Exception {
+        ConfigurationManager.destroyConfiguration();
+    }
+
     private void service(HttpServlet servlet) throws ServletException, IOException {
         Mock dispatcherMock = new Mock(RequestDispatcher.class);
         dispatcherMock.expect("include", C.ANY_ARGS);
 
         MockHttpSession session = new MockHttpSession();
 
-        MockHttpServletRequestExt request = new MockHttpServletRequestExt();
+        WebWorkMockHttpServletRequest request = new WebWorkMockHttpServletRequest();
         request.setSession(session);
         request.setupAddHeader("Content-Type", "dunno what this should be... just not multipart !");
-        request.setupGetParameterMap(getParameterMap());
+        request.setParameterMap(getParameterMap());
         request.setupGetServletPath(getServletPath());
         request.setupGetPathInfo(getServletPath());
 
-        request.setupGetAttribute("javax.servlet.include.servlet_path", null);
-        request.setupGetAttribute("DefaultComponentManager", null);
+        request.setAttribute("javax.servlet.include.servlet_path", null);
+        request.setAttribute("DefaultComponentManager", null);
 
         MockHttpServletResponse response = new MockHttpServletResponse();
         response.setupOutputStream(new MockServletOutputStream());
@@ -103,53 +106,5 @@ public abstract class AbstractServletDispatcherTestCase extends TestCase {
 
         servlet.init(servletConfigMock);
         servlet.service(request, response);
-    }
-
-    //~ Inner Classes //////////////////////////////////////////////////////////
-
-    class MockHttpServletRequestExt extends MockHttpServletRequest {
-        public Map attributes = new HashMap();
-        private String pathInfo;
-
-        public Object getAttribute(String name) {
-            return attributes.get(name);
-        }
-
-        public String getPathInfo() {
-            return pathInfo;
-        }
-
-        public void setupGetAttribute(String name, Object value) {
-            this.attributes.put(name, value);
-        }
-
-        public void setupGetAttributes(Map attributes) {
-            this.attributes = attributes;
-        }
-
-        public void setupGetPathInfo(String pathInfo) {
-            this.pathInfo = pathInfo;
-        }
-
-        //		public Map parameters = new HashMap();
-        //		public void setupGetParameters(Map parameters)
-        //		{
-        //			this.parameters = parameters;
-        //		}
-        //		
-        //		public void setupGetParameter(String name, String[] value)
-        //		{
-        //			this.parameters.put(name, value);
-        //		}
-        //
-        //		public String getParameter(String name)
-        //		{
-        //			return (String)parameters.get(name);
-        //		}
-        //
-        //		public Map getParameterMap()
-        //		{
-        //			return parameters;
-        //		}
     }
 }

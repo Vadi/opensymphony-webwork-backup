@@ -19,20 +19,15 @@ public class TokenSessionStoreInterceptorTest extends TokenInterceptorTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-    * @see {@link com.opensymphony.webwork.TestConfigurationProvider#init}
-    */
-    public void testDuplicateToken() {
-        try {
-            ActionProxy proxy = buildProxy(getActionName());
-            String token = setToken(session);
-            assertEquals(Action.SUCCESS, proxy.execute());
-            proxy = buildProxy(getActionName());
-            setToken(token);
-            assertEquals(Action.SUCCESS, proxy.execute());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+* @see {@link com.opensymphony.webwork.TestConfigurationProvider#init}
+*/
+    public void testDuplicateToken() throws Exception {
+        ActionProxy proxy = buildProxy(getActionName());
+        String token = setToken(request);
+        assertEquals(Action.SUCCESS, proxy.execute());
+        proxy = buildProxy(getActionName());
+        setToken(token);
+        assertEquals(Action.SUCCESS, proxy.execute());
     }
 
     protected String getActionName() {
