@@ -123,7 +123,15 @@ public abstract class AbstractTagDirective extends Directive {
                     ((Tag) object).setParent((Tag) currentTag);
                 }
 
-                return this.processTag(pageContext, (Tag) object, subContextAdapter, writer, node, bodyNode);
+                try
+                {
+                    return this.processTag(pageContext, (Tag) object, subContextAdapter, writer, node, bodyNode);
+                }
+                catch (Exception e)
+                {
+                    log.error("Error processing tag: " + e, e);
+                    return false;
+                }
             } else {
                 return true;
             }
