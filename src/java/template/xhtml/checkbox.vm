@@ -8,18 +8,23 @@
     </tr>
   #end
 #end
-<tr><td valign="top" colspan="2">
-<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td valign="top">
-<input type="checkbox" name="$!webwork.htmlEncode($parameters.name)" value="$!webwork.htmlEncode($parameters.fieldValue)"
-#if ($parameters.nameValue)        checked="true"                                           #end
-#if ($parameters.disabled == true) disabled="disabled"                                      #end
-#if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)"    #end
-#if ($parameters.onchange)         onchange="$!webwork.htmlEncode($parameters.onchange)"    #end
-#if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
-#if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"       #end
-#if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"       #end
-/></td><td width="100%" valign="top">
-<label #if ($parameters.id) for="$!webwork.htmlEncode($parameters.id)"#end
-#if ($hasFieldErrors) class="checkboxErrorLabel"#else class="checkboxLabel"#end>$!webwork.htmlEncode($parameters.label)</label>
-</td></tr></table>
+
+<tr>
+    <td  valign="top" colspan="2">
+#* Use an extra table so that the checkbox doesn't align with the other columns. *#
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr><td valign="top">
+#parse("/template/simple/checkbox.vm")
+    </td>
+    <td width="100%" valign="top">
+        #if ($hasFieldErrors)
+            <span class="checkboxErrorLabel">
+        #else
+            <span class="checkboxLabel">
+        #end
+                $!webwork.htmlEncode($parameters.label)
+            </span>
+    </td>
+    </tr>
+</table>
 #parse("/template/xhtml/controlfooter.vm")
