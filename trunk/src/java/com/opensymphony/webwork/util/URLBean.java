@@ -5,6 +5,7 @@ import com.opensymphony.webwork.views.util.UrlHelper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User: plightbo
@@ -44,13 +45,29 @@ public class URLBean {
     }
 
     public String getURL() {
+        // all this trickier with maps is to reduce the number of objects created
+        Map fullParams = null;
+        if (params != null) {
+            fullParams = new HashMap();
+        }
+
+
         if (page == null) {
             // No particular page requested, so go to "same page"
             // Add query params to parameters
-            params.putAll(request.getParameterMap());
+            if (fullParams != null) {
+                fullParams.putAll(request.getParameterMap());
+            } else {
+                fullParams = request.getParameterMap();
+            }
         }
 
-        return UrlHelper.buildUrl(page, request, response, params);
+        // added parameters override, just like in URLTag
+        if (params != null) {
+            fullParams.putAll(params);
+        }
+
+        return UrlHelper.buildUrl(page, request, response, fullParams);
     }
 
     public String toString() {

@@ -32,7 +32,7 @@
         $stack.push($c)
 
         <th width="10%"
-            #if ($tag.selectedIndex == $tabIndex.current)
+            #if ($tag.compareNumbers($tag.selectedIndex, $tabIndex.current))
                 #set ($isCur = 'true')
                 bgcolor="#A0B3FC"
             #else
@@ -42,7 +42,7 @@
         >
 
         #url ($url)
-        <a href="$url.addParameter("indexLink", $tabIndex.next)">
+        <a href="$url.addParameter($tag.indexLink, $tabIndex.next)">
 
         #if ($isCur == 'true')
             <em>
