@@ -65,6 +65,7 @@ public abstract class AbstractServletDispatcherTestCase extends TestCase {
 
     protected void loadConfig() {
         XmlConfigurationProvider c = new XmlConfigurationProvider(getConfigFilename());
+        ConfigurationManager.clearConfigurationProviders();
         ConfigurationManager.destroyConfiguration();
         ConfigurationManager.addConfigurationProvider(c);
         ConfigurationManager.getConfiguration();
