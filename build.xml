@@ -395,9 +395,9 @@
     <target name="release">
         <!-- update the navpanel.jsp to include the download link -->
         <filter token="DOWNLOAD" value="${latest.download}"/>
-        <copy tofile="${docs}/navpanel.jsp" file="${docs}/navpanel-source.jsp" filtering="yes"/>
+        <copy tofile="${docs}/navpanel.jsp" file="${docs}/navpanel-source.jsp" filtering="yes" overwrite="yes" />
 
-        <cvs command="commit ${docs}/navpanel.jsp"/>
+        <cvs command="commit -m '${name} ${version} release' ${docs}/navpanel.jsp"/>
         <cvs command="tag -F ${cvs.tag}"/>
 
         <!-- update the website -->
