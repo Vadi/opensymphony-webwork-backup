@@ -4,11 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.util.TokenHelper;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
-
-import com.opensymphony.xwork.ActionContext;
 
 import javax.servlet.jsp.JspException;
 
@@ -58,7 +55,7 @@ public class TokenTagTest extends AbstractUITagTest {
 
             token = (String) pageContext.getAttribute(tokenName);
             assertNotNull(token);
-            assertEquals(token, ActionContext.getContext().getSession().get(tokenName));
+            assertEquals(token, pageContext.getSession().getAttribute(tokenName));
         } catch (JspException e) {
             e.printStackTrace();
             fail();

@@ -16,6 +16,7 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.ConfigurationException;
+import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -62,6 +63,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         extraContext.put(ActionContext.PARAMETERS, parameterMap);
         extraContext.put(ActionContext.SESSION, sessionMap);
         extraContext.put(ActionContext.APPLICATION, applicationMap);
+        extraContext.put(ActionContext.LOCALE, request.getLocale());
 
         extraContext.put(HTTP_REQUEST, request);
         extraContext.put(HTTP_RESPONSE, response);
@@ -82,6 +84,8 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
 
         // initialize the VelocityEngine
         VelocityManager.init(config.getServletContext());
+
+        LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
 
         //check for configuration reloading
         if ("true".equalsIgnoreCase(Configuration.getString("webwork.configuration.xml.reload"))) {

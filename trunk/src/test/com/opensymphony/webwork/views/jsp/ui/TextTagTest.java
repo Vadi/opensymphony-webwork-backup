@@ -4,14 +4,12 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.mockobjects.servlet.MockBodyContent;
-
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractTagTest;
 
 import com.opensymphony.xwork.Action;
-
-import java.io.*;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import java.text.MessageFormat;
 
@@ -20,8 +18,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.Tag;
 
 
@@ -100,9 +96,19 @@ public class TextTagTest extends AbstractTagTest {
         assertEquals(key, writer.toString());
     }
 
+    /**
+ * todo remove ActionContext set after LocalizedTextUtil is fixed to not use ThreadLocal
+ * @throws Exception
+ */
     protected void setUp() throws Exception {
         super.setUp();
         tag = new TextTag();
         tag.setPageContext(pageContext);
+        ActionContext.setContext(new ActionContext(stack.getContext()));
+    }
+
+    protected void tearDown() throws Exception {
+        OgnlValueStack valueStack = new OgnlValueStack();
+        ActionContext.setContext(new ActionContext(valueStack.getContext()));
     }
 }

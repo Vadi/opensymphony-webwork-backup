@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -49,6 +51,16 @@ public class WebWorkMockPageContext extends MockPageContext {
 
     public ServletResponse getResponse() {
         return response;
+    }
+
+    public HttpSession getSession() {
+        HttpSession session = super.getSession();
+
+        if (session == null) {
+            session = ((HttpServletRequest) getRequest()).getSession();
+        }
+
+        return session;
     }
 
     public Object findAttribute(String s) {

@@ -14,15 +14,10 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
-
-import ognl.Ognl;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.velocity.context.Context;
-
-import java.io.Writer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -140,9 +135,6 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     }
 
     private Map createExtraContext() {
-        // Leave the ValueStack out -- We're not processing inside the tag
-        //        OgnlValueStack vs = ActionContext.getContext().getValueStack();
-        //        extraContext.put(ActionContext.VALUE_STACK, vs);
         Map parentParams = new ActionContext(getValueStack().getContext()).getParameters();
         Map newParams = (parentParams != null) ? new HashMap(parentParams) : new HashMap();
 
@@ -170,6 +162,9 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         Map extraContext = ServletDispatcher.createContextMap(newParams, new SessionMap(request.getSession()), new ApplicationMap(servletContext), request, response, servletConfig);
         extraContext.put(PAGE_CONTEXT, pageContext);
 
+        OgnlValueStack vs = ActionContext.getContext().getValueStack();
+        extraContext.put(ActionContext.VALUE_STACK, vs);
+
         return extraContext;
     }
 
@@ -186,8 +181,32 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
         // execute at this point, after params have been set
         try {
+            Object top = null;
+            ActionContext actionContext = ActionContext.getContext();
+
+            if (actionContext != null) {
+                OgnlValueStack stack = actionContext.getValueStack();
+
+                if (stack != null) {
+                    top = stack.peek();
+                }
+            }
+
             proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, createExtraContext(), executeResult);
             proxy.execute();
+
+            if (actionContext != null) {
+                OgnlValueStack stack = actionContext.getValueStack();
+
+                if (stack != null) {
+                    Object newTop = stack.peek();
+
+                    while (!(newTop == null) && !newTop.equals(top)) {
+                        stack.pop();
+                        newTop = stack.peek();
+                    }
+                }
+            }
         } catch (Exception e) {
             log.error("Could not execute action: " + namespace + "/" + name, e);
         }

@@ -7,38 +7,22 @@ package com.opensymphony.webwork.views.jsp;
 import com.mockobjects.dynamic.C;
 import com.mockobjects.dynamic.Mock;
 
-import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockServletConfig;
-import com.mockobjects.servlet.MockServletContext;
 
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.TestAction;
-import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-
-import com.opensymphony.xwork.Action;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.util.OgnlValueStack;
-
-import junit.framework.TestCase;
 
 import org.apache.velocity.app.Velocity;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 
 import java.net.URL;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspWriter;
 
 
 /**
@@ -46,8 +30,48 @@ import javax.servlet.jsp.JspWriter;
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
  */
 public abstract class AbstractUITagTest extends AbstractTagTest {
-
     //~ Methods ////////////////////////////////////////////////////////////////
+
+    /**
+    * Attempt to verify the contents of this.writer against the contents of the URL specified.  verify() performs a
+    * trim on both ends
+    * @param url the HTML snippet that we want to validate against
+    * @throws Exception if the validation failed
+    */
+    public void verify(URL url) throws Exception {
+        if (url == null) {
+            fail("unable to verify a null URL");
+        } else if (this.writer == null) {
+            fail("AbstractJspWriter.writer not initialized.  Unable to verify");
+        }
+
+        StringBuffer buffer = new StringBuffer(128);
+        InputStream in = url.openStream();
+        byte[] buf = new byte[4096];
+        int nbytes;
+
+        while ((nbytes = in.read(buf)) > 0) {
+            buffer.append(new String(buf, 0, nbytes));
+        }
+
+        in.close();
+
+        /**
+        * compare the trimmed values of each buffer and make sure they're equivalent.  however, let's make sure to
+        * normalize the strings first to account for line termination differences between platforms.
+        */
+        String writerString = normalize(writer.getBuffer());
+        String bufferString = normalize(buffer);
+
+        if (!writerString.equals(bufferString)) {
+            StringBuffer gripe = new StringBuffer((writerString.length() * 2) + 64);
+            gripe.append("\r\n");
+            gripe.append("expected: ").append(bufferString).append("\r\n");
+            gripe.append("actual:   ").append(writerString).append("\r\n");
+            gripe.append("file:     ").append(url.toExternalForm()).append("\r\n");
+            fail(gripe.toString());
+        }
+    }
 
     protected void setUp() throws Exception {
         Properties props = new Properties();
@@ -105,51 +129,9 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
 
         config.setInitParameter("class.resource.loader.description", "Velocity Classpath Resource Loader");
         config.setInitParameter("class.resource.loader.class", "com.opensymphony.webwork.views.velocity.WebWorkResourceLoader");
-
         ServletActionContext.setServletConfig(config);
 
         super.setUp();
-    }
-
-    /**
-    * Attempt to verify the contents of this.writer against the contents of the URL specified.  verify() performs a
-    * trim on both ends
-    * @param url the HTML snippet that we want to validate against
-    * @throws Exception if the validation failed
-    */
-    public void verify(URL url) throws Exception {
-        if (url == null) {
-            fail("unable to verify a null URL");
-        } else if (this.writer == null) {
-            fail("AbstractJspWriter.writer not initialized.  Unable to verify");
-        }
-
-        StringBuffer buffer = new StringBuffer(128);
-        InputStream in = url.openStream();
-        byte[] buf = new byte[4096];
-        int nbytes;
-
-        while ((nbytes = in.read(buf)) > 0) {
-            buffer.append(new String(buf, 0, nbytes));
-        }
-
-        in.close();
-
-        /**
-        * compare the trimmed values of each buffer and make sure they're equivalent.  however, let's make sure to
-        * normalize the strings first to account for line termination differences between platforms.
-        */
-        String writerString = normalize(writer.getBuffer());
-        String bufferString = normalize(buffer);
-
-        if (!writerString.equals(bufferString)) {
-            StringBuffer gripe = new StringBuffer((writerString.length() * 2) + 64);
-            gripe.append("\r\n");
-            gripe.append("expected: ").append(bufferString).append("\r\n");
-            gripe.append("actual:   ").append(writerString).append("\r\n");
-            gripe.append("file:     ").append(url.toExternalForm()).append("\r\n");
-            fail(gripe.toString());
-        }
     }
 
     /**

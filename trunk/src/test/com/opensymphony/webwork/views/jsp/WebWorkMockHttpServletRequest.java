@@ -6,7 +6,10 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.mockobjects.servlet.MockHttpServletRequest;
 
+import junit.framework.AssertionFailedError;
+
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -20,7 +23,10 @@ import javax.servlet.http.HttpSession;
 public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    Locale locale = Locale.US;
     private Map attributes = new HashMap();
+    private Map parameterMap = new HashMap();
+    private String pathInfo;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -32,11 +38,44 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
         return attributes.get(s);
     }
 
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setParameterMap(Map parameterMap) {
+        this.parameterMap = parameterMap;
+    }
+
+    public Map getParameterMap() {
+        return parameterMap;
+    }
+
+    public String getPathInfo() {
+        return pathInfo;
+    }
+
     public HttpSession getSession() {
-        if (super.getSession() == null) {
-            setSession(new WebWorkMockHttpSession());
+        HttpSession session = null;
+
+        try {
+            session = super.getSession();
+        } catch (AssertionFailedError e) {
+            //ignore
         }
 
-        return super.getSession();
+        if (session == null) {
+            session = new WebWorkMockHttpSession();
+            setSession(session);
+        }
+
+        return session;
+    }
+
+    public void setupGetPathInfo(String pathInfo) {
+        this.pathInfo = pathInfo;
     }
 }

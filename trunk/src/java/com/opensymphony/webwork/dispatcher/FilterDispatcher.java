@@ -12,6 +12,7 @@ import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.ResultConfig;
+import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -123,6 +124,8 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     */
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
+
+        LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
 
         Map namespaceActionConfigs = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfigs();
         HashMap newConfig = new HashMap();
