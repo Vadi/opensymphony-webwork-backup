@@ -34,6 +34,6 @@ Click <a href="displaytag.vm">here</a> for example of using 3rd party JSP tags i
 Click <a href="i18n/jsp/index.html">here</a> for a JSP example of i18n<br>
 Click <a href="i18n/velocity/index.html">here</a> for a Velocity example of i18n<br>
 Click <a href="include.vm">here</a> to see the include tag in use<br>
-Click <a href="/TabbedPaneTest.action">here</a> to a simple tabbed pane example<br>
+Click <a href="TabbedPaneTest.action">here</a> to a simple tabbed pane example<br>
 </body>
 </html>

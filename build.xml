@@ -29,6 +29,7 @@
     <property name="src.config-browser" value="${src}/config-browser"/>
     <property name="src.migration" value="${src}/migration"/>
     <property name="src.migration-test" value="${src}/migration-test"/>
+    <property name="src.taglib.tld" value="${src.etc}/taglib.tld"/>
 
     <property name="build" value="build"/>
     <property name="build.test" value="${build}/test"/>
@@ -43,11 +44,13 @@
     <property name="build.migration.jar" value="${build}/webwork-migration.jar"/>
     <property name="build.clover" value="${build}/clover"/>
     <property name="build.dist" value="${build}/dist"/>
+    <property name="build.webwork.tld" value="${src.webapp}/WEB-INF/webwork.tld"/>
 
     <property name="docs" value="docs"/>
 
     <target name="clean">
         <delete dir="${build}"/>
+        <delete file="${build.webwork.tld}"/>
     </target>
 
     <target name="java">
@@ -59,6 +62,7 @@
                 <exclude name="**/package.html"/>
             </fileset>
         </copy>
+        <copy file="${src.taglib.tld}" tofile="${build.webwork.tld}"/>
     </target>
 
     <target name="test" depends="format, java">
