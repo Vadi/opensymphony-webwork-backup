@@ -11,21 +11,16 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.views.util.UrlHelper;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.IOException;
-
-import java.net.URLEncoder;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpUtils;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import java.io.IOException;
+import java.util.HashMap;
 
 
 /**
@@ -33,9 +28,9 @@ import javax.servlet.jsp.PageContext;
  * You can use the "param" tag inside the body to provide
  * additional request parameters.
  *
- * @see com.opensymphony.webwork.views.jsp.ParamTag
  * @author Rickard Öberg (rickard@dreambean.com)
  * @version $Revision$
+ * @see com.opensymphony.webwork.views.jsp.ParamTag
  */
 public class URLTag extends ParametereizedBodyTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -64,7 +59,7 @@ public class URLTag extends ParametereizedBodyTagSupport {
 
     // Attributes ----------------------------------------------------
     protected String valueAttr;
-    protected String scheme = "http";
+    protected String schemeAttr;
     protected boolean includeContext = true;
     protected boolean encodeResult = true;
 
@@ -78,8 +73,8 @@ public class URLTag extends ParametereizedBodyTagSupport {
         valueAttr = aName;
     }
 
-    public void setScheme(String aScheme) {
-        scheme = aScheme;
+    public void setSchemeAttr(String aScheme) {
+        schemeAttr = aScheme;
     }
 
     public void setIncludeContext(boolean includeContext) {
@@ -93,6 +88,11 @@ public class URLTag extends ParametereizedBodyTagSupport {
     public int doEndTag() throws JspException {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
+        String scheme = request.getScheme();
+        if (schemeAttr != null) {
+            scheme = schemeAttr;
+        }
+
         String result = UrlHelper.buildUrl(value, request, response, params, scheme, includeContext, encodeResult);
 
         String id = getId();
