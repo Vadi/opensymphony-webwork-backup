@@ -37,6 +37,9 @@
     <property name="build.example-war" value="${build}/example-war"/>
     <property name="build.config-browser" value="${build}/config-browser"/>
     <property name="build.config-browser.jar" value="${build}/webwork-config-browser.jar"/>
+    <property name="build.migration" value="${build}/migration"/>
+    <property name="build.migration-test" value="${build}/migration-test"/>
+    <property name="build.migration.jar" value="${build}/webwork-migration.jar"/>
     <property name="build.clover" value="${build}/clover"/>
     <property name="build.dist" value="${build}/dist"/>
 
@@ -154,6 +157,57 @@
         <jar basedir="${build.config-browser}" jarfile="${build.config-browser.jar}"/>
     </target>
 
+    <target name="migration" depends="java">
+        <mkdir dir="${build.migration}"/>
+        <mkdir dir="${build.migration-test}"/>
+
+        <javac srcdir="${src.migration}" destdir="${build.migration}" classpath="${build.java}" classpathref="cp" debug="on"/>
+
+        <copy filtering="no" todir="${build.migration}">
+            <fileset dir="${src.migration}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <javac srcdir="${src.migration-test}" destdir="${build.migration-test}" classpath="${build.java}" classpathref="cp" debug="on">
+            <classpath>
+                <pathelement location="${build.java}"/>
+                <pathelement location="${build.migration}"/>
+                <path refid="cp"/>
+            </classpath>
+        </javac>
+
+        <copy filtering="no" todir="${build.migration-test}">
+            <fileset dir="${src.migration-test}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"/>
+
+        <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
+            <classpath>
+                <pathelement location="${build.java}"/>
+                <pathelement location="${build.migration}"/>
+                <pathelement location="${build.migration-test}"/>
+                <path refid="cp"/>
+            </classpath>
+
+            <formatter type="brief" usefile="false"/>
+
+            <batchtest>
+                <fileset dir="${src.migration-test}">
+                    <exclude name="**/Abstract*.java"/>
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+
+        <jar basedir="${build.migration}" jarfile="${build.migration.jar}"/>
+    </target>
+
     <target name="example-war" depends="java, jar, config-browser">
         <mkdir dir="${build.example}"/>
         <javac srcdir="${src.example}" destdir="${build.example}" classpath="${build.java}" classpathref="cp" debug="on"/>
@@ -227,7 +281,7 @@
         </copy>
     </target>
 
-    <target name="dist" depends="jar, example-war, docs">
+    <target name="dist" depends="jar, migration, example-war, docs">
         <copy file="${build}/${name}-${version}.jar" todir="${build.dist}"/>
         <copy file="${build}/${name}-example.war" todir="${build.dist}"/>
         <copy todir="${build.dist}/src">
