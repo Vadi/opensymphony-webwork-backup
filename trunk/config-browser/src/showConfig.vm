@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>WebWork Configuration Browser: Action Config $actionName</title>
+</head>
+<body>
+<h1>WebWork Configuration Browser: Action Config $actionName</h1>
+
+<table>
+<tr><td>Action Class</td><td>$config.clazz</td></tr>
+<tr>
+<td colspan="2">Interceptors</td>
+</tr>
+<td>
+    <table>
+    <tr><td>Name</td><td>Class</td></tr>
+    #foreach ($interceptor in $interceptors)
+    <tr><td>$interceptor.name</td><td>$interceptor.class</td></tr>
+    #end
+    </table>
+</td>
+</table>
+<ul>
+#foreach ($namespace in $namespaces)
+<li><a href="actionNames.action?namespace=$namespace">&quot;$namespace&quot;</a></li>
+#end
+</ul>
+</body>
+</html>

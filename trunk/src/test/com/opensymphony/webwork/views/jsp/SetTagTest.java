@@ -41,7 +41,7 @@ public class SetTagTest extends TestCase {
 
     public void testApplicationScope() throws JspException {
         Mock application = new Mock(ServletContext.class);
-        application.expectVoid("setAttribute", C.args(C.eq("foo"), C.eq("chewie")));
+        application.expect("setAttribute", C.args(C.eq("foo"), C.eq("chewie")));
         pageContext.setServletContext((ServletContext) application.proxy());
 
         tag.setName("foo");
@@ -60,7 +60,7 @@ public class SetTagTest extends TestCase {
 
     public void testRequestScope() throws JspException {
         Mock request = new Mock(ServletRequest.class);
-        request.expectVoid("setAttribute", C.args(C.eq("foo"), C.eq("chewie")));
+        request.expect("setAttribute", C.args(C.eq("foo"), C.eq("chewie")));
         pageContext.setRequest((ServletRequest) request.proxy());
 
         tag.setName("foo");
@@ -72,7 +72,7 @@ public class SetTagTest extends TestCase {
 
     public void testSessionScope() throws JspException {
         Mock session = new Mock(HttpSession.class);
-        session.expectVoid("setAttribute", C.args(C.eq("foo"), C.eq("chewie")));
+        session.expect("setAttribute", C.args(C.eq("foo"), C.eq("chewie")));
         pageContext.setSession((HttpSession) session.proxy());
 
         tag.setName("foo");

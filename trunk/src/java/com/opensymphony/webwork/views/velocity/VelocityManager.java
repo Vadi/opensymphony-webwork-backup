@@ -9,8 +9,7 @@ import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.webwork.views.velocity.ui.JSPTagAdapterFactory;
 
 import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.Action;
-import com.opensymphony.xwork.LocaleAware;
+import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
@@ -90,7 +89,12 @@ public class VelocityManager {
         context.put(STACK, stack);
         context.put(OGNL, ognlTool);
         context.put(UI, adapterFactory.createJSPTagAdapter(config, servletRequest, servletResponse));
-        context.put(ACTION, ActionContext.getContext().getActionInvocation().getAction());
+
+        ActionInvocation invocation = ActionContext.getContext().getActionInvocation();
+
+        if (invocation != null) {
+            context.put(ACTION, invocation.getAction());
+        }
 
         return context;
     }

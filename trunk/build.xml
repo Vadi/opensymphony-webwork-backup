@@ -13,6 +13,8 @@
 
     <property file="build.properties"/>
 
+    <property name="config-browser" value="${basedir}/config-browser"/>
+
     <property name="lib" value="lib"/>
     <property name="lib.core" value="${lib}/core"/>
     <property name="lib.build" value="${lib}/build"/>
@@ -25,6 +27,7 @@
     <property name="src.example" value="${src}/example"/>
     <property name="src.webapp" value="${src}/webapp"/>
     <property name="src.etc" value="${src}/etc"/>
+    <property name="src.config-browser" value="${config-browser}/src"/>
 
     <property name="build" value="build"/>
     <property name="build.test" value="${build}/test"/>
@@ -32,6 +35,8 @@
     <property name="build.java" value="${build}/java"/>
     <property name="build.example" value="${build}/example"/>
     <property name="build.example-war" value="${build}/example-war"/>
+    <property name="build.config-browser" value="${build}/config-browser"/>
+    <property name="build.config-browser.jar" value="${build}/webwork-config-browser.jar"/>
     <property name="build.clover" value="${build}/clover"/>
     <property name="build.dist" value="${build}/dist"/>
 
@@ -129,7 +134,22 @@
         <jar basedir="${build.java}" jarfile="${build}/${name}-${version}.jar"/>
     </target>
 
-    <target name="example-war" depends="jar">
+    <target name="config-browser" depends="java">
+        <mkdir dir="${build.config-browser}"/>
+
+        <javac srcdir="${src.config-browser}" destdir="${build.config-browser}" classpath="${build.java}" classpathref="cp" debug="on"/>
+
+        <copy filtering="no" todir="${build.config-browser}">
+            <fileset dir="${src.config-browser}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <jar basedir="${build.config-browser}" jarfile="${build.config-browser.jar}"/>
+    </target>
+
+    <target name="example-war" depends="jar, config-browser">
         <mkdir dir="${build.example}"/>
         <javac srcdir="${src.example}" destdir="${build.example}" classpath="${build.java}" classpathref="cp" debug="on"/>
         <copy filtering="no" todir="${build.example}">
@@ -145,6 +165,7 @@
             <lib dir="${lib.core}"/>
             <lib dir="${lib.example}"/>
             <lib file="${build}/${name}-${version}.jar"/>
+            <lib file="${build.config-browser.jar}"/>
             <webinf file="${build}/webwork.tld"/>
             <classes dir="${build.example}"/>
             <classes dir="${src.etc}/example"/>
@@ -203,6 +224,9 @@
     <target name="dist" depends="jar, docs, example-war">
         <copy file="${build}/${name}-${version}.jar" todir="${build.dist}"/>
         <copy file="${build}/${name}-example.war" todir="${build.dist}"/>
+        <copy todir="${build.dist}/src">
+            <fileset dir="${src.java}"/>
+        </copy>
         <zip zipfile="${build}/${name}-${version}.zip" basedir="${build.dist}"/>
     </target>
 </project>
