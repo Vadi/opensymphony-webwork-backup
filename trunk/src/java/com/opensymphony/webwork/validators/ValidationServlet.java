@@ -85,7 +85,7 @@ public class ValidationServlet extends HttpServlet {
         }
     }
 
-    static class ValidatorActionInvocation extends DefaultActionInvocation {
+    public static class ValidatorActionInvocation extends DefaultActionInvocation {
         protected ValidatorActionInvocation(ActionProxy proxy, Map extraContext) throws Exception {
             super(proxy, extraContext, true);
         }
@@ -95,7 +95,7 @@ public class ValidationServlet extends HttpServlet {
         }
     }
 
-    static class ValidatorActionProxy extends DefaultActionProxy {
+    public static class ValidatorActionProxy extends DefaultActionProxy {
         protected ValidatorActionProxy(String namespace, String actionName, Map extraContext) throws Exception {
             super(namespace, actionName, extraContext, false);
         }
