@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.jsp.iterator;
 
-import webwork.util.SortIteratorFilter;
-import webwork.view.taglib.ActionTag;
+import com.opensymphony.webwork.views.jsp.ActionTag;
+import com.opensymphony.webwork.util.SortIteratorFilter;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
@@ -35,19 +35,20 @@ public class SortIteratorTag
     public int doStartTag() throws JspException {
         super.doStartTag();
 
+        // todo: make this work with the new action tag
         // Pop holder temporarily while we resolve names
-        Object holder = getStack().popValue();
-
-        if (sourceAttr == null)
-            ((SortIteratorFilter) bean).setSource(findValue("."));
-        else
-            ((SortIteratorFilter) bean).setSource(findValue(sourceAttr));
-
-        Comparator c = (Comparator) findValue(comparatorAttr);
-        ((SortIteratorFilter) bean).setComparator((Comparator) findValue(comparatorAttr));
-
-        // Push holder back on stack
-        getStack().pushValue(holder);
+//        Object holder = getStack().popValue();
+//
+//        if (sourceAttr == null)
+//            ((SortIteratorFilter) bean).setSource(findValue("."));
+//        else
+//            ((SortIteratorFilter) bean).setSource(findValue(sourceAttr));
+//
+//        Comparator c = (Comparator) findValue(comparatorAttr);
+//        ((SortIteratorFilter) bean).setComparator((Comparator) findValue(comparatorAttr));
+//
+//        // Push holder back on stack
+//        getStack().pushValue(holder);
 
         return EVAL_BODY_INCLUDE;
     }
