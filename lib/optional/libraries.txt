@@ -1,1 +1,11 @@
+bsh.jar - BeanShell version 1.2 b6
+commons-beanutils.jar - Apache Commons BeanUtils version 1.5
+commons-collections.jar - Apache Commons Collections version 2.1
+commons-digester.jar - Apache Commons Digester version 1.3
+itext.jar - IText version 1.01
+jakarta-poi.jar - Apache POI version 2.0 final 20040126
+jasperreports.jar - JasperReports version 0.6.3
+jcommon.jar - JCommon version 0.8.8
+jfreechart.jar - JFreeChart version 0.9.13
+dom.jar - from JAXP DOM3 support needed for XSLT view running JDKs prior to JDK 1.5
 freemarker.jar - FreeMarker version 2.3.2
