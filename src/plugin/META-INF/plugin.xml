@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE idea-plugin PUBLIC "" "http://plugins.intellij.net/plugin.dtd">
+<idea-plugin>
+    <name>Jira Browser</name>
+    <description>
+        The Jira Issue Browser plugin integrates the Atlassian Jira ( http://www.atlassian.com ) issue tracking
+        system into the IntelliJ IDEA development environment.  The plugin provides quick access to assigned and
+        outstanding issues and the ability to annotate classes/methods worked on whilst developing against an issue.
+        The plugin also provides the ability to create, comment, and resolve issues direct fromm the IntelliJ
+        environment.
+    </description>
+    <version>0.1.5.0</version>
+    <vendor>Mark Derricutt</vendor>
+    <idea-version since-build="3095"/>
+
+    <project-components>
+        <component>
+            <implementation-class>com.opensymphony.webwork.plugin.ActionBrowser</implementation-class>
+        </component>
+    </project-components>
+
+    <actions>
+        <action class="com.opensymphony.webwork.plugin.DoStuffAction" text="Do _Stuff" id="odStuff" description="Does stuff">
+            <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="Compile"/>
+        </action>
+    </actions>
+</idea-plugin>

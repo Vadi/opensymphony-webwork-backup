@@ -1,95 +1,78 @@
 package com.opensymphony.webwork.plugin;
 
-import com.intellij.openapi.components.ApplicationComponent;
-import com.intellij.openapi.fileEditor.*;
+import com.intellij.openapi.components.ProjectComponent;
+import com.intellij.openapi.options.Configurable;
+import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowAnchor;
+import com.intellij.openapi.wm.ToolWindowManager;
+import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.config.ConfigurationManager;
 
 import javax.swing.*;
-import java.beans.PropertyChangeListener;
 
-public class ActionBrowser implements FileEditorProvider, FileEditor, ApplicationComponent {
+public class ActionBrowser implements ProjectComponent, Configurable {
+    Project project;
+
+    public ActionBrowser() {
+    }
+
+    public ActionBrowser(Project project) {
+        System.out.println("ActionBrowser.ActionBrowser");
+        this.project = project;
+    }
+
+    public void projectOpened() {
+        ConfigurationManager.clearConfigurationProviders();
+        String base = "c:\\docs\\opensource\\test";
+        ConfigurationManager.addConfigurationProvider(new PluginConfigProvider(base + "\\src"));
+        ObjectFactory.setObjectFactory(new PluginObjectFactory(base + "\\classes"));
+        ActionsPanel ap = new ActionsPanel(project, new String[] { "webapp" });
+        ToolWindow toolWindow = ToolWindowManager.getInstance(project).registerToolWindow("Actions", ap, ToolWindowAnchor.BOTTOM);
+    }
+
+    public void projectClosed() {
+        ToolWindowManager.getInstance(project).unregisterToolWindow("Actions");
+    }
+
     public String getComponentName() {
-        return "WebWork-ActionBrowser";  //To change body of implemented methods use File | Settings | File Templates.
+        return "ActionBrowser";
     }
 
     public void initComponent() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void disposeComponent() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public boolean accept(Project project, VirtualFile virtualFile) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public String getDisplayName() {
+        return "WebWork Action Browser";
     }
 
-    public FileEditor createEditor(Project project, VirtualFile virtualFile) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Icon getIcon() {
+        return null;
     }
 
-    public void disposeEditor(FileEditor fileEditor) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public String getHelpTopic() {
+        return null;
     }
 
-    public FileEditorState readState(org.jdom.Element element, Project project, VirtualFile virtualFile) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public void writeState(FileEditorState fileEditorState, Project project, org.jdom.Element element) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public String getEditorTypeId() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public FileEditorPolicy getPolicy() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public JComponent getComponent() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public JComponent getPreferredFocusedComponent() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public String getName() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public FileEditorState getState(FileEditorStateLevel fileEditorStateLevel) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public void setState(FileEditorState fileEditorState) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public JComponent createComponent() {
+        return null;
     }
 
     public boolean isModified() {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return false;
     }
 
-    public boolean isValid() {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public void apply() throws ConfigurationException {
     }
 
-    public void selectNotify() {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void reset() {
     }
 
-    public void deselectNotify() {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void disposeUIResources() {
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener propertyChangeListener) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
 }
