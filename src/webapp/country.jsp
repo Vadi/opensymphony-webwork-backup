@@ -1,14 +1,18 @@
 <%@ taglib uri="webwork" prefix="ww" %>
 <%@ taglib uri="benchmark" prefix="benchmark" %>
 
-<benchmark:duration >
-<ww:select label="'multiple select test'" name="'select1'" value="countries[0][1]" list="countries" listKey="that.[0]" listValue="that.[1]" multiple="'true'" size="'5'"/>
-</benchmark:duration>
+<%-- this is to make our special controlfooter not close the row yet --%>
+<ww:set name="extraCol" value="'true'" scope="webwork" />
 
-<table>
-<ww:select label="'multiple select test'" name="'select1'" value="countries[0][1]" list="countries" listKey="that.[0]" listValue="that.[1]" multiple="'true'" size="'5'"/>
-</table>
+<ww:form action="">
 
-</table>
+<tr>
+    <th colspan="2" align="center">Tag</th>
+    <th>Time</th>
+</tr>
 
-k
+<benchmark:duration output="true" >
+<ww:select label="'multiple select test'" name="'select1'" value="countries[0][1]" list="countries" listKey="that[1]" listValue="that[0]" multiple="'true'" size="'5'"/>
+</benchmark:duration> ms</td></tr>
+
+</ww:form>
