@@ -47,7 +47,7 @@ public class SetTagTest extends TestCase {
         tag.setName("foo");
         tag.setValue("name");
         tag.setScope("application");
-        assertEquals(Tag.EVAL_PAGE, tag.doStartTag());
+        assertEquals(Tag.SKIP_BODY, tag.doStartTag());
         application.verify();
     }
 
@@ -55,7 +55,7 @@ public class SetTagTest extends TestCase {
         tag.setName("foo");
         tag.setValue("name");
         tag.setScope("page");
-        assertEquals(Tag.EVAL_PAGE, tag.doStartTag());
+        assertEquals(Tag.SKIP_BODY, tag.doStartTag());
     }
 
     public void testRequestScope() throws JspException {
@@ -66,7 +66,7 @@ public class SetTagTest extends TestCase {
         tag.setName("foo");
         tag.setValue("name");
         tag.setScope("request");
-        assertEquals(Tag.EVAL_PAGE, tag.doStartTag());
+        assertEquals(Tag.SKIP_BODY, tag.doStartTag());
         request.verify();
     }
 
@@ -78,20 +78,20 @@ public class SetTagTest extends TestCase {
         tag.setName("foo");
         tag.setValue("name");
         tag.setScope("session");
-        assertEquals(Tag.EVAL_PAGE, tag.doStartTag());
+        assertEquals(Tag.SKIP_BODY, tag.doStartTag());
         session.verify();
     }
 
     public void testWebWorkScope() throws JspException {
         tag.setName("foo");
         tag.setValue("name");
-        assertEquals(Tag.EVAL_PAGE, tag.doStartTag());
+        assertEquals(Tag.SKIP_BODY, tag.doStartTag());
         assertEquals("chewie", ActionContext.getContext().get("foo"));
     }
 
     public void testWebWorkScope2() throws JspException {
         tag.setName("chewie");
-        assertEquals(Tag.EVAL_PAGE, tag.doStartTag());
+        assertEquals(Tag.SKIP_BODY, tag.doStartTag());
         assertEquals(chewie, ActionContext.getContext().get("chewie"));
     }
 

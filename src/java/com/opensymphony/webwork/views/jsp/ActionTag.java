@@ -10,14 +10,23 @@ import com.opensymphony.webwork.dispatcher.ApplicationMap;
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.webwork.views.velocity.Renderer;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
+
 import ognl.Ognl;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.apache.velocity.context.Context;
+
+import java.io.Writer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -25,9 +34,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -55,6 +61,14 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
+     * If set to true the result of an action will be executed.
+     * @param executeResult
+     */
+    public void setExecuteResult(boolean executeResult) {
+        this.executeResult = executeResult;
+    }
+
+    /**
      * Sets the name of the action to be invoked
      * @param name the name of the Action as defined in the xwork.xml file
      */
@@ -68,14 +82,6 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
-    }
-
-    /**
-     * If set to true the result of an action will be executed.
-     * @param executeResult
-     */
-    public void setExecuteResult(boolean executeResult) {
-        this.executeResult = executeResult;
     }
 
     public Map getParams() {
@@ -96,7 +102,7 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
 
         pageContext.setAttribute(getId(), proxy.getAction());
 
-        return EVAL_PAGE;
+        return SKIP_BODY;
     }
 
     public int doStartTag() throws JspException {

@@ -44,7 +44,7 @@ public class PushTag extends BodyTagSupport {
             stack.pop();
         }
 
-        return EVAL_PAGE;
+        return SKIP_BODY;
     }
 
     public int doStartTag() throws JspException {

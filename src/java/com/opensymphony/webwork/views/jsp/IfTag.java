@@ -39,7 +39,7 @@ public class IfTag extends TagSupport {
             pageContext.setAttribute(ANSWER, answer);
         }
 
-        return EVAL_PAGE;
+        return SKIP_BODY;
     }
 
     public int doStartTag() throws JspException {
