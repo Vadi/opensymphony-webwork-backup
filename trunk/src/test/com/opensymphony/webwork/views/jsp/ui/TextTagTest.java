@@ -6,19 +6,16 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractTagTest;
-
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.Tag;
 import java.text.MessageFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.Tag;
 
 
 /**
@@ -62,9 +59,9 @@ public class TextTagTest extends AbstractTagTest {
 
         String expected = MessageFormat.format(pattern, params.toArray());
         tag.setName(key);
-        tag.addParam(param1);
-        tag.addParam(param2);
-        tag.addParam(param3);
+        tag.addParameter(param1);
+        tag.addParameter(param2);
+        tag.addParameter(param3);
         assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
         assertEquals(expected, writer.toString());
     }
@@ -98,6 +95,7 @@ public class TextTagTest extends AbstractTagTest {
 
     /**
      * todo remove ActionContext set after LocalizedTextUtil is fixed to not use ThreadLocal
+     *
      * @throws Exception
      */
     protected void setUp() throws Exception {
