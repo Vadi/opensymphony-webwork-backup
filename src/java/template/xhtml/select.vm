@@ -51,7 +51,7 @@
         #end
 
         <option value="$itemKey"
-            #if( $parameters.value && $itemKey && $parameters.value == $itemKey )selected#end
+            #if( $parameters.nameValue && $itemKey && $parameters.nameValue == $itemKey )selected#end
         >$itemValue</option>
 
         #set ($trash = $stack.pop())

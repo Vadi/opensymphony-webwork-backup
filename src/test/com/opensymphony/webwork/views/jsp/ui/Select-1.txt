@@ -3,9 +3,9 @@
         <span class="label"> mylabel: </span>
     </td>
     <td>
-        <select name="myname"
+        <select name="foo"
         >
-            <option value="hello" >world</option>
+            <option value="hello" selected >world</option>
             <option value="foo" >bar</option>
         </select>
     </td>
