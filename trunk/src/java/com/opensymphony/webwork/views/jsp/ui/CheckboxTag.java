@@ -31,15 +31,10 @@ public class CheckboxTag extends AbstractUITag {
         if (fieldValueAttr != null) {
             addParam("fieldValue", stack.findValue(fieldValueAttr, String.class));
         }
+    }
 
-        // this is a duplicate of the super class, but we care about booleans with checkbox
-        // ... the duplication might want to be removed someday
-        Object name = getParams().get("name");
-        if (valueAttr != null) {
-            addParam("nameValue", stack.findValue(valueAttr, Boolean.class));
-        } else if (name != null) {
-            addParam("nameValue", stack.findValue(name.toString(), Boolean.class));
-        }
+    protected Class getValueClassType() {
+        return Boolean.class; // for checkboxes, everything needs to end up as a Boolean
     }
 
     protected String getDefaultTemplate() {

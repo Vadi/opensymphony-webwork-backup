@@ -9,6 +9,7 @@ import com.opensymphony.xwork.ActionSupport;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Collection;
 
 
 /**
@@ -23,6 +24,7 @@ public class TestAction extends ActionSupport {
     private String result;
     private String[] array;
     private String[][] list;
+    private Collection collection;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -64,6 +66,14 @@ public class TestAction extends ActionSupport {
 
     public String getResult() {
         return result;
+    }
+
+    public Collection getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Collection collection) {
+        this.collection = collection;
     }
 
     public String execute() throws Exception {

@@ -63,8 +63,6 @@ public abstract class AbstractListTag extends AbstractUITag {
             }
         } else if (obj1.equals(obj2)) {
             return true;
-        } else if (obj1.toString().equals(obj2.toString())) {
-            return true;
         }
 
         return false;
@@ -82,5 +80,9 @@ public abstract class AbstractListTag extends AbstractUITag {
         if (listValueAttr != null) {
             addParam("listValue", listValueAttr);
         }
+    }
+
+    protected Class getValueClassType() {
+        return null; // don't convert nameValue to anything, we need the raw value
     }
 }
