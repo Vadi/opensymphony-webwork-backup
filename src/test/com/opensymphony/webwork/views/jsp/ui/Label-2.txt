@@ -1,6 +1,6 @@
 <tr>
   <td align="right" valign="top"><label class="label">mylabel:</label></td>
   <td>
-bar
+baz
   </td>
 </tr>

@@ -65,10 +65,6 @@ public class TestAction extends ActionSupport {
         return result;
     }
 
-    public String getText(String text) {
-        return "{" + text + "}";
-    }
-
     public String execute() throws Exception {
         if (result == null) {
             result = Action.SUCCESS;

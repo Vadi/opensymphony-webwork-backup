@@ -1,3 +1,7 @@
 #parse( "/templates/xhtml/controlheader.vm" )
-$!{tag.params.get('name')}
+#set ($a = ${tag.params.get('value')})
+#if (!$a)
+    #set ($a = $stack.findValue(${tag.params.get('name')}))
+#end
+$!{stack.findValue($a)}
 #parse( "/templates/xhtml/controlfooter.vm" )
