@@ -6,13 +6,11 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 
-
 /**
- * User: plightbo
- * Date: Nov 3, 2003
- * Time: 9:31:30 PM
+ * @author $Author$
+ * @version $Revision$
  */
-public class ComboBoxTag extends AbstractUITag {
+public class ComboBoxTag extends TextFieldTag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
@@ -23,42 +21,20 @@ public class ComboBoxTag extends AbstractUITag {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     protected String list;
-    protected String maxlengthAttr;
-    protected String sizeAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setList(String aList) {
-        this.list = aList;
-    }
-
-    public void setMaxlength(String aMaxlength) {
-        this.maxlengthAttr = aMaxlength;
-    }
-
-    public void setSize(String aSize) {
-        this.sizeAttr = aSize;
+    public void setList(String list) {
+        this.list = list;
     }
 
     protected String getDefaultTemplate() {
         return TEMPLATE;
     }
 
-    protected Class getValueClassType() {
-        return Boolean.class; // for checkboxes, everything needs to end up as a Boolean
-    }
-
-    protected void evaluateExtraParams(OgnlValueStack stack) {
+    public void evaluateExtraParams(OgnlValueStack stack) {
         if (list != null) {
             addParameter("list", findValue(list));
-        }
-
-        if (sizeAttr != null) {
-            addParameter("size", findValue(sizeAttr, Integer.class));
-        }
-
-        if (maxlengthAttr != null) {
-            addParameter("maxlength", findValue(maxlengthAttr, Integer.class));
         }
     }
 }

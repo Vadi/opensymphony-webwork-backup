@@ -1,13 +1,13 @@
 #parse("/template/xhtml/controlheader.vm")
 
-<select name="$!parameters.name"
-    #if ($parameters.size)             size="$parameters.size"                              #end
-    #if ($parameters.disabled)         disabled="disabled"                                  #end
-    #if ($parameters.tabindex)         tabindex="$parameters.tabindex"                      #end
-    #if ($parameters.id)               id="$parameters.id"                                  #end
-    #if ($parameters.multiple)         multiple="multiple"                                  #end
-    #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"   #end
-    #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"   #end
+<select name="$!webwork.htmlEncode($parameters.name)"
+    #if ($parameters.size)             size="$!webwork.htmlEncode($parameters.size)"         #end
+    #if ($parameters.disabled)         disabled="disabled"                                   #end
+    #if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)" #end
+    #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"             #end
+    #if ($parameters.multiple)         multiple="multiple"                                   #end
+    #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"    #end
+    #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"    #end
     onchange="$!{parameters.name}Redirect(this.options.selectedIndex)"
 >
 
@@ -50,12 +50,12 @@
 
 <br/>
 
-<select name="$!parameters.doubleName"
-    #if ($parameters.doubleTabindex)   tabindex="$parameters.doubleTabindex"                #end
-    #if ($parameters.doubleId)         id="$parameters.doubleId"                            #end
-    #if ($parameters.multiple)         multiple="multiple"                                  #end
-    #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"   #end
-    #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"   #end
+<select name="$!webwork.htmlEncode($parameters.doubleName)"
+    #if ($parameters.doubleTabindex)   tabindex="$!webwork.htmlEncode($parameters.doubleTabindex)" #end
+    #if ($parameters.doubleId)         id="$!webwork.htmlEncode($parameters.doubleId)"             #end
+    #if ($parameters.multiple)         multiple="multiple"                                         #end
+    #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"          #end
+    #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"          #end
 >
 </select>
 
@@ -145,6 +145,5 @@ function $!{parameters.name}Redirect(x) {
 }
 //-->
 </script>
-
 
 #parse("/template/xhtml/controlfooter.vm")

@@ -8,7 +8,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
- * @author <a href="mailto:m.bogaert@intrasoft.be">Mathias Bogaert</a>
+ * @author <a href="mailto:m.bogaert@memenco.com">Mathias Bogaert</a>
  * @version $Id$
  */
 public class DoubleSelectTag extends AbstractDoubleListTag {
