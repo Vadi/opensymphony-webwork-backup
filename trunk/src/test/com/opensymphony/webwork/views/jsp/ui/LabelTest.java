@@ -14,9 +14,6 @@ import org.apache.velocity.app.Velocity;
 
 
 /**
- * Denali - A CarShare Reservation System developed by EngineGreen<br/>
- * &copy; 2002-2003, EngineGreen.  All Rights Reserved.<br/>
- *
  * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
