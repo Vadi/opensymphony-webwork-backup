@@ -22,11 +22,15 @@ public class ConfigurationTest extends TestCase {
         assertEquals("12345", Configuration.getString("webwork.multipart.maxSize"));
         assertEquals("\temp", Configuration.getString("webwork.multipart.saveDir"));
 
+        assertEquals("test,com/opensymphony/webwork/othertest", Configuration.getString("webwork.custom.properties"));
+        assertEquals("testvalue", Configuration.getString("testkey"));
+        assertEquals("othertestvalue", Configuration.getString("othertestkey"));
+
         Locale locale = Configuration.getLocale();
         assertEquals("de", locale.getLanguage());
 
         int count = getKeyCount();
-        assertEquals(7, count);
+        assertEquals(10, count);
     }
 
     public void testSetConfiguration() {
