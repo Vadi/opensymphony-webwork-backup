@@ -45,6 +45,17 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>jasperreports</servlet-name>
+        <servlet-class>com.opensymphony.webwork.views.jasperreports.JasperReportViewServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+   <servlet-mapping>
+        <servlet-name>jasperreports</servlet-name>
+        <url-pattern>*.jasper</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>velocity</servlet-name>
         <url-pattern>*.vm</url-pattern>
