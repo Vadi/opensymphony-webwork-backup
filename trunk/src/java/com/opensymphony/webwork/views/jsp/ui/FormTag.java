@@ -8,6 +8,7 @@ import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.webwork.views.jsp.TagUtils;
+import com.opensymphony.webwork.views.util.JavaScriptValidationHolder;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.config.ConfigurationManager;
@@ -16,6 +17,8 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +47,8 @@ public class FormTag extends AbstractClosingUITag {
     String methodAttr;
     String namespaceAttr;
     String validateAttr;
-
+    JavaScriptValidationHolder javaScriptValidationHolder;
+    
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAction(String action) {
@@ -130,6 +134,13 @@ public class FormTag extends AbstractClosingUITag {
                 String result = UrlHelper.buildUrl(action, request, response, null);
                 addParameter("action", result);
             }
+            
+            // only create the javaScriptValidationHolder if the actionName,and class is known
+            // and the javaScriptValidationHolder hasn't been created already
+            // i.e. don'r re-create it on the second call to evaluateExtraParams
+            if (actionName != null && actionClass != null && javaScriptValidationHolder == null) {
+                javaScriptValidationHolder = new JavaScriptValidationHolder(actionName, actionClass);
+            }
         }
 
         if (enctypeAttr != null) {
@@ -143,39 +154,13 @@ public class FormTag extends AbstractClosingUITag {
         if (validateAttr != null) {
             addParameter("validate", findValue(validateAttr, Boolean.class));
         }
-
-        if (fieldValidators != null) {
-            StringBuffer js = new StringBuffer();
-
-            // loop backwards so that the first elements are validated first
-            for (int i = 0; i < fieldValidators.size(); i++) {
-                ScriptValidationAware sva = (ScriptValidationAware) fieldValidators.get(i);
-                Map params = (Map) fieldParameters.get(i);
-                js.append(sva.validationScript(params));
-                js.append('\n');
-            }
-
-            addParameter("javascriptValidation", js.toString());
+        
+        
+        if (javaScriptValidationHolder != null && javaScriptValidationHolder.hasValidators()) {
+            addParameter("javascriptValidation", javaScriptValidationHolder.toJavaScript());
         } else {
             addParameter("javascriptValidation", "// cannot find any applicable validators");
         }
-    }
-
-    /**
-     * Registers ScriptAware validators that should be called when the form is closed to output
-     * necessary script.
-     * <p />
-     * Registration of validators is open until the first time the end of the tag is reached or
-     * there will be duplicate validators if the tag is cached.
-     */
-    public void registerValidator(ScriptValidationAware sva, Map params) {
-        if (fieldValidators == null) {
-            fieldValidators = new ArrayList();
-            fieldParameters = new ArrayList();
-        }
-
-        fieldValidators.add(sva);
-        fieldParameters.add(params);
     }
 
     protected String getDefaultTemplate() {
@@ -185,7 +170,7 @@ public class FormTag extends AbstractClosingUITag {
     protected boolean evaluateNameValue() {
         return false;
     }
-
+    
     /**
      * Resets the attributes of this tag so that the tag may be reused.  As a general rule, only
      * properties that are not specified as an attribute or properties that are derived need to be
@@ -195,10 +180,19 @@ public class FormTag extends AbstractClosingUITag {
      */
     protected void reset() {
         super.reset();
-
-        if (fieldValidators != null) {
-            fieldValidators.clear();
-            fieldParameters.clear();
+        
+        javaScriptValidationHolder = null;
+        if (getActionName() != null && getActionClass() != null) {
+            javaScriptValidationHolder = new JavaScriptValidationHolder(getActionName(), getActionClass());
         }
+    }
+    
+    /**
+     * provide access to the JavaScriptValidationHolder so that the AbstractUITag 
+     * can trigger the registration of all validators
+     * @return
+     */
+    JavaScriptValidationHolder getJavaScriptValidationHolder() {
+        return javaScriptValidationHolder;
     }
 }
