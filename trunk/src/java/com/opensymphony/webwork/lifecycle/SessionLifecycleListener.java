@@ -36,20 +36,29 @@ public class SessionLifecycleListener implements HttpSessionListener {
         if (log.isDebugEnabled()) {
             log.debug("Session DefaultComponentManager : init");
         }
-
         HttpSession session = event.getSession();
         ComponentManager container = new SessionComponentManager();
-
-        ServletContext application = session.getServletContext();
+        ServletContext application = getServletContext(session);
         ComponentManager fallback = (ComponentManager) application.getAttribute("DefaultComponentManager");
-
         container.setFallback(fallback);
-
         ComponentConfiguration config = (ComponentConfiguration) application.getAttribute("ComponentConfiguration");
-
         config.configure(container, "session");
-
         session.setAttribute("DefaultComponentManager", container);
+    }
+    
+    /**
+     * answers the servlet context.
+     * <p>
+     * Normally, Servlet 2.3 would get this from the session;
+     * however, Weblogic 6.1 doesn't provide the servlet context
+     * in the session.  Hence, this method allows subclasses to
+     * retrieve the servlet context from other resources.
+     * 
+     * @param session the HTTP session
+     * @return the servlet context.
+     */
+    protected ServletContext getServletContext(HttpSession session) {
+        return session.getServletContext();
     }
 
     public void sessionDestroyed(HttpSessionEvent event) {
