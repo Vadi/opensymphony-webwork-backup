@@ -4,10 +4,10 @@
 <table>
 <tr><td width="100%">
 #bodytag (Form)
-    #tag( Label "label=Validated Class" "name=$action.stripPackage($clazz)")
-    #tag( Label "label=Context" "name=$context")
-    #tag( Label "label=Validator Number" "name=$selected")
-    #tag( Label "label=Validator Type" "name=$action.stripPackage($selectedValidator.class)")
+    #tag( Label "label='Validated Class'" "name='$action.stripPackage($clazz)'")
+    #tag( Label "label='Context'" "name='$context'")
+    #tag( Label "label='Validator Number'" "name='$selected'")
+    #tag( Label "label='Validator Type'" "name='$action.stripPackage($selectedValidator.class)'")
 #end
 </td><td style="text-align: right;"><!-- Placeholder for Action Graph --></td></tr>
 </table>

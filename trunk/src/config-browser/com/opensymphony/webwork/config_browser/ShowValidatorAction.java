@@ -64,13 +64,18 @@ public class ShowValidatorAction extends ListValidatorsAction {
             for (int i = 0; i < pds.length; i++) {
                 PropertyDescriptor pd = pds[i];
                 String name = pd.getName();
-                try {
-                    Object expr = OgnlUtil.compile(name);
-                    Object value = Ognl.getValue(expr, context, validator);
-                    properties.add(new PropertyInfo(name, pd.getPropertyType(), value));
-                } catch (OgnlException e) {
-                    addActionError("Caught OGNL exception while getting property value for '" + name + "' on validator of type " + validator.getClass().getName());
+                Object value = null;
+                if (pd.getReadMethod() == null) {
+                    value = "No read method for property";
+                } else {
+                    try {
+                        Object expr = OgnlUtil.compile(name);
+                        value = Ognl.getValue(expr, context, validator);
+                    } catch (OgnlException e) {
+                        addActionError("Caught OGNL exception while getting property value for '" + name + "' on validator of type " + validator.getClass().getName());
+                    }
                 }
+                properties.add(new PropertyInfo(name, pd.getPropertyType(), value));
             }
         } catch (Exception e) {
             log.warn("Unable to retrieve properties.", e);
