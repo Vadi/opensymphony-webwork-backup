@@ -1,0 +1,89 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+
+<xwork>
+    <include file="webwork-default.xml"/>
+
+    <package name="default" extends="webwork-default">
+
+        <interceptors>
+            <interceptor-stack name="defaultComponentStack">
+                <interceptor-ref name="component"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="defaultStack"/>
+
+        <action name="SimpleCounter" class="com.opensymphony.webwork.example.counter.SimpleCounter">
+            <result name="success" type="dispatcher">
+                <param name="location">/success.jsp</param>
+            </result>
+            <interceptor-ref name="defaultComponentStack"/>
+        </action>
+
+        <!--
+          - Velocity implementation of the SimpleCounter
+          -->
+        <action name="VelocityCounter" class="com.opensymphony.webwork.example.counter.SimpleCounter">
+            <result name="success" type="velocity">
+                <param name="location">/success.vm</param>
+            </result>
+            <interceptor-ref name="defaultComponentStack"/>
+        </action>
+
+        <action name="TagTest" class="com.opensymphony.webwork.example.ui.SimpleAction">
+            <result name="success" type="dispatcher">
+                <param name="location">/tags.jsp</param>
+            </result>
+        </action>
+
+        <action name="VelocityTagTest" class="com.opensymphony.webwork.example.ui.SimpleAction">
+            <result name="success" type="velocity">
+                <param name="location">/tags.vm</param>
+            </result>
+        </action>
+
+        <action name="CountryTest" class="com.opensymphony.webwork.example.ui.SimpleCountry">
+            <result name="success" type="dispatcher">
+                <param name="location">/country.jsp</param>
+            </result>
+        </action>
+
+        <action name="IteratorTest" class="com.opensymphony.webwork.example.IteratorExample">
+
+            <result name="success" type="dispatcher">
+                <param name="location">/iterator.jsp</param>
+            </result>
+        </action>
+
+        <action name="showForm" class="com.opensymphony.webwork.example.FormAction">
+            <result name="success" type="dispatcher">
+                <param name="location">/form.jsp</param>
+            </result>
+        </action>
+
+        <action name="formTest" class="com.opensymphony.webwork.example.FormAction" method="processForm" >
+            <result name="success" type="dispatcher">
+                <param name="location">/form.jsp</param>
+            </result>
+             <result name="invalid.token" type="dispatcher">
+                <param name="location">/form.jsp</param>
+            </result>
+
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="token"/>
+        </action>
+
+        <action name="formTest2" class="com.opensymphony.webwork.example.FormAction" method="processForm" >
+            <result name="success" type="dispatcher">
+                <param name="location">/form2-success.jsp</param>
+            </result>
+
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="token-session"/>
+        </action>
+
+        <action name="exception" class="com.opensymphony.webwork.example.ExceptionAction">
+        </action>
+    </package>
+</xwork>

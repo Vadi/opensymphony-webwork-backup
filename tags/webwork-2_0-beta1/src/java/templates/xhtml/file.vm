@@ -1,0 +1,3 @@
+#parse( "/templates/xhtml/controlheader.vm" )
+<input type="file" name="${tag.Name}" value="$!{tag.ActualValue}" #if( $tag.Accept)accept="${tag.Accept}" #end#if( $tag.Size > 0 )size="${tag.Size}"#end/>
+#parse( "/templates/xhtml/controlfooter.vm" )

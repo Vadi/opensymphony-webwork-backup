@@ -1,0 +1,12 @@
+<html>
+<head><title>Velocity test</title></head>
+<body>
+Success!
+<hr>
+
+$counter.count
+</body>
+</html>
+
+
+

@@ -1,0 +1,2 @@
+<table>
+<form #if ( ${tag.name})name="${tag.name}"#end action="${tag.action}" #if ( ${tag.method})method="${tag.method}"#end #if ( ${tag.enctype})enctype="${tag.enctype}"#end>
