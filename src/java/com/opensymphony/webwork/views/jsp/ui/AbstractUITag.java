@@ -5,12 +5,9 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.views.jsp.ParameterizedTag;
+import com.opensymphony.webwork.views.jsp.ParameterizedTagSupport;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-import com.opensymphony.webwork.dispatcher.ServletDispatcher;
-import com.opensymphony.webwork.dispatcher.SessionMap;
-import com.opensymphony.webwork.dispatcher.ApplicationMap;
-import com.opensymphony.webwork.ServletActionContext;
+
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
@@ -24,23 +21,18 @@ import org.apache.velocity.context.Context;
 import java.io.Writer;
 
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
 
 
 /**
  * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
-public abstract class AbstractUITag extends TagSupport implements ParameterizedTag {
+public abstract class AbstractUITag extends ParameterizedTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log LOG = LogFactory.getLog(AbstractUITag.class);
@@ -62,57 +54,37 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    protected Map params = new HashMap();
-    protected String themeAttr;
-    protected String templateAttr;
-    protected String nameAttr;
-    protected String valueAttr;
     protected String labelAttr;
     protected String labelPositionAttr;
+    protected String nameAttr;
+    protected String templateAttr;
+    protected String themeAttr;
+    protected String valueAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setTheme(String aName) {
-       themeAttr = aName;
-    }
-
-    public void setTemplate(String aName) {
-       templateAttr = aName;
-    }
-
     public void setLabel(String aLabel) {
-       labelAttr = aLabel;
-    }
-
-    public void setName(String aName) {
-       nameAttr = aName;
-    }
-
-    public void setValue(String aValue) {
-       valueAttr = aValue;
+        labelAttr = aLabel;
     }
 
     public void setLabelposition(String aLabelPosition) {
-       labelPositionAttr = aLabelPosition;
+        labelPositionAttr = aLabelPosition;
     }
 
-    /**
-     * com.opensymphony.webwork.views.jsp.ParameterizedTag implementation
-     * @return a Map of user specified Map parameters
-     * @see ParameterizedTag
-     */
-    public Map getParams() {
-        return params;
+    public void setName(String aName) {
+        nameAttr = aName;
     }
 
-    /**
-     * com.opensymphony.webwork.views.jsp.ParameterizedTag implementation
-     * @param key the String name of a parameter to add
-     * @param value the value associated with that parameter
-     * @see ParameterizedTag
-     */
-    public void addParam(String key, Object value) {
-        this.getParams().put(key, value);
+    public void setTemplate(String aName) {
+        templateAttr = aName;
+    }
+
+    public void setTheme(String aName) {
+        themeAttr = aName;
+    }
+
+    public void setValue(String aValue) {
+        valueAttr = aValue;
     }
 
     public int doEndTag() throws JspException {
@@ -130,58 +102,12 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
         }
     }
 
-    protected void evaluateParams(OgnlValueStack stack) {
-        Object name = null;
-        if (nameAttr != null) {
-            name = stack.findValue(nameAttr, String.class);
-            addParam("name", name);
-        }
-
-        if (labelAttr != null) {
-            addParam("label", stack.findValue(labelAttr, String.class));
-        }
-
-        if (labelPositionAttr != null) {
-            addParam("labelPosition", stack.findValue(labelPositionAttr, String.class));
-        }
-
-        if (valueAttr != null) {
-            addParam("value", stack.findValue(valueAttr, String.class));
-        } else if (name != null) {
-            addParam("value", stack.findValue(name.toString(), String.class));
-        }
-
-        evaluateExtraParams(stack);
-   }
-
-    protected void evaluateExtraParams(OgnlValueStack stack) {
-    }
-
-    protected OgnlValueStack getValueStack() {
-        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
-        OgnlValueStack stack = (OgnlValueStack) req.getAttribute("webwork.valueStack");
-        if (stack == null) {
-            stack = new OgnlValueStack();
-            HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
-            Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(),
-                    new SessionMap(req.getSession()),
-                    new ApplicationMap(pageContext.getServletContext()),
-                    req,
-                    res,
-                    pageContext.getServletConfig());
-            extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
-            stack.getContext().putAll(extraContext);
-            req.setAttribute("webwork.valueStack", stack);
-        }
-        return stack;
-    }
-
     public int doStartTag() throws JspException {
         /**
          * Migrated instantiation of the params HashMap to here from the constructor to facilitate implementation of the
          * release() method.
          */
-        this.params = new HashMap();
+        getParams().clear();
 
         return EVAL_BODY_INCLUDE;
     }
@@ -201,6 +127,10 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
      */
     protected String getTemplateName() {
         return buildTemplateName(templateAttr, getDefaultTemplate());
+    }
+
+    protected OgnlValueStack getValueStack() {
+        return UITagUtil.getValueStack(pageContext);
     }
 
     /**
@@ -242,6 +172,34 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
         }
     }
 
+    protected void evaluateExtraParams(OgnlValueStack stack) {
+    }
+
+    protected void evaluateParams(OgnlValueStack stack) {
+        Object name = null;
+
+        if (nameAttr != null) {
+            name = stack.findValue(nameAttr, String.class);
+            addParam("name", name);
+        }
+
+        if (labelAttr != null) {
+            addParam("label", stack.findValue(labelAttr, String.class));
+        }
+
+        if (labelPositionAttr != null) {
+            addParam("labelPosition", stack.findValue(labelPositionAttr, String.class));
+        }
+
+        if (valueAttr != null) {
+            addParam("value", stack.findValue(valueAttr, String.class));
+        } else if (name != null) {
+            addParam("value", stack.findValue(name.toString(), String.class));
+        }
+
+        evaluateExtraParams(stack);
+    }
+
     protected void mergeTemplate(String templateName) throws Exception {
         Template t = velocityEngine.getTemplate(templateName);
         Context context = VelocityManager.createContext(pageContext.getServletConfig(), pageContext.getRequest(), pageContext.getResponse());
@@ -254,7 +212,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
          * the request, it might also make sense for consistency to send the page and res and any others.
          */
         context.put("tag", this);
-        context.put("parameters", params);
+        context.put("parameters", getParams());
 
         t.merge(context, outputWriter);
     }

@@ -5,19 +5,22 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.views.util.UrlHelper;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.io.IOException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.TagSupport;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -29,22 +32,17 @@ import java.util.Map;
  * @author Jason Carreira (jason@zenfrog.com)
  * @version $Revision$
  */
-public class URLTag extends TagSupport implements ParameterizedTag {
+public class URLTag extends ParameterizedTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(URLTag.class);
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    protected Map params;
-    protected String value;
     protected String page;
+    protected String value;
 
     //~ Methods ////////////////////////////////////////////////////////////////
-
-    public Map getParams() {
-        return params;
-    }
 
     public void setPage(String page) {
         this.page = page;
@@ -52,18 +50,6 @@ public class URLTag extends TagSupport implements ParameterizedTag {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public void addParam(String key, Object value) {
-        if (params == null) {
-            params = new HashMap();
-        }
-
-        if (value == null) {
-            params.remove(key);
-        } else {
-            params.put(key, value);
-        }
     }
 
     public int doEndTag() throws JspException {

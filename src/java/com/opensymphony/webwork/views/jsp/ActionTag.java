@@ -33,7 +33,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
 
 
 /**
@@ -45,7 +44,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author <a href="mailto:plightbo@hotmail.com">Pat Lightbody</a>
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
  */
-public class ActionTag extends TagSupport implements WebWorkStatics, ParameterizedTag, Renderer {
+public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics, Renderer {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(ActionTag.class);
@@ -53,7 +52,6 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
     //~ Instance fields ////////////////////////////////////////////////////////
 
     ActionProxy proxy;
-    Map params;
     String name;
     String namespace;
     boolean executeResult;
@@ -82,18 +80,6 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
-    }
-
-    public Map getParams() {
-        return params;
-    }
-
-    public void addParam(String key, Object value) {
-        if (params == null) {
-            params = new HashMap();
-        }
-
-        params.put(key, value);
     }
 
     public int doEndTag() throws JspException {
