@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2005 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.views.jsp.ui;
@@ -56,7 +56,7 @@ public abstract class AbstractListTag extends AbstractUITag {
                 addParameter("listSize", new Integer(((Collection) value).size()));
             } else if (value instanceof Map) {
                 addParameter("listSize", new Integer(((Map) value).size()));
-            } else if (value.getClass().isArray()) {
+            } else if (value != null && value.getClass().isArray()) {
                 addParameter("listSize", new Integer(Array.getLength(value)));
             }
         }
