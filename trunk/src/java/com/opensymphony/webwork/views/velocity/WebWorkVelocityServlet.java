@@ -52,7 +52,7 @@ public class WebWorkVelocityServlet extends VelocityServlet {
 
         // initialize our VelocityManager
         VelocityManager.init(servletConfig.getServletContext());
-        servletConfig.getServletContext().setAttribute("servlet", this);
+        servletConfig.getServletContext().setAttribute("webwork.servlet", this);
     }
 
     protected Context createContext(HttpServletRequest request, HttpServletResponse response) {
