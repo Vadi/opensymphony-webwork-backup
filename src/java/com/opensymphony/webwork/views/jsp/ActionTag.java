@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.WebWorkStatics;
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
 import com.opensymphony.webwork.dispatcher.RequestMap;
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
@@ -18,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -144,22 +146,31 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
         String namespace;
 
+        final ServletRequest request = pageContext.getRequest();
         if (namespaceAttr == null) {
-            namespace = TagUtils.buildNamespace(getStack(), (HttpServletRequest) pageContext.getRequest());
+            namespace = TagUtils.buildNamespace(getStack(), (HttpServletRequest) request);
         } else {
             namespace = findString(namespaceAttr);
         }
 
         // execute at this point, after params have been set
         try {
+            // get the old value stack from the request
+            OgnlValueStack stack = getStack();
             proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actualName, createExtraContext(), executeResult);
+            // set the new stack into the request for the taglib to use
+            request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY,proxy.getInvocation().getStack());
             proxy.execute();
+            // set the old stack back on the request
+            request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY,stack);
         } catch (Exception e) {
             log.error("Could not execute action: " + namespace + "/" + actualName, e);
         }
 
         if (getId() != null) {
-            getStack().getContext().put(getId(), proxy.getAction());
+            final OgnlValueStack stack = getStack();
+            final Map context = stack.getContext();
+            context.put(getId(), proxy.getAction());
         }
     }
 }
