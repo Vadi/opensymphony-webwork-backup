@@ -51,6 +51,7 @@ import java.io.OutputStream;
  */
 public class StreamResult extends WebWorkResultSupport {
     protected String contentType = "text/plain";
+    protected int contentLength;
     protected String contentDisposition = "inline";
     protected String inputName = "inputStream";
     protected int bufferSize = 1024;
@@ -81,6 +82,20 @@ public class StreamResult extends WebWorkResultSupport {
      */
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    /**
+     * @return Returns the contentLength.
+     */
+    public int getContentLength() {
+        return contentLength;
+    }
+
+    /**
+     * @param contentLength The contentLength to set.
+     */
+    public void setContentLength(int contentLength) {
+        this.contentLength = contentLength;
     }
 
     /**
@@ -123,6 +138,11 @@ public class StreamResult extends WebWorkResultSupport {
 
         // Set the content type
         oResponse.setContentType(conditionalParse(contentType, invocation));
+
+        // Set the content length
+        if (contentLength > 0) {
+             oResponse.setContentLength(contentLength);
+        }
 
         // Set the content-disposition
         if (contentDisposition != null) {
