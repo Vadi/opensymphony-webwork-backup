@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.config;
 
+import com.opensymphony.xwork.util.LocalizedTextUtil;
+
 import junit.framework.TestCase;
 
 import java.util.Iterator;
@@ -31,7 +33,13 @@ public class ConfigurationTest extends TestCase {
         assertEquals("de", locale.getLanguage());
 
         int count = getKeyCount();
-        assertEquals(15, count);
+        assertEquals(16, count);
+    }
+
+    public void testDefaultResourceBundlesLoaded() {
+        assertEquals("testmessages,testmessages2", Configuration.getString("webwork.custom.i18n.resources"));
+        assertEquals("This is a test message", LocalizedTextUtil.findDefaultText("default.testmessage", Locale.getDefault()));
+        assertEquals("This is another test message", LocalizedTextUtil.findDefaultText("default.testmessage2", Locale.getDefault()));
     }
 
     public void testSetConfiguration() {
