@@ -49,7 +49,7 @@ public class PropertyTag extends WebWorkTagSupport {
 
     public int doStartTag() throws JspException {
         try {
-            OgnlValueStack stack = getValueStack();
+            OgnlValueStack stack = getStack();
 
             Object actualValue = null;
 

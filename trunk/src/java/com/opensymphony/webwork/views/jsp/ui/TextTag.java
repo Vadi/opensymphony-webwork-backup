@@ -98,7 +98,7 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
 
     // BodyTag implementation ----------------------------------------
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
 
         actualName = (String) stack.findValue(nameAttr, String.class);
 

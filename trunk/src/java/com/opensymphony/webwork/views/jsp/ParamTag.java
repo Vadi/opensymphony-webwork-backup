@@ -39,7 +39,7 @@ public class ParamTag extends WebWorkTagSupport {
         ParameterizedTag parent = (ParameterizedTag) findAncestorWithClass(this, ParameterizedTag.class);
 
         if (parent != null) {
-            OgnlValueStack stack = getValueStack();
+            OgnlValueStack stack = getStack();
 
             if (stack != null) {
                 Object o = null;

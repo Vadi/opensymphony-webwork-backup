@@ -108,7 +108,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
         evaluateParams(stack);
 
         try {
@@ -251,7 +251,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     protected void mergeTemplate(String templateName) throws Exception {
         Template t = velocityEngine.getTemplate(templateName);
-        Context context = VelocityManager.createContext(getValueStack(), pageContext.getRequest(), pageContext.getResponse());
+        Context context = VelocityManager.createContext(getStack(), pageContext.getRequest(), pageContext.getResponse());
 
         Writer outputWriter = pageContext.getOut();
 

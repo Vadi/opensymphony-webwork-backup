@@ -186,7 +186,7 @@ public class IncludeTag extends WebWorkTagSupport implements ParameterizedTag {
     }
 
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
 
         String page;
 

@@ -37,7 +37,7 @@ public class PushTag extends WebWorkBodyTagSupport {
     }
 
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
 
         if (pushed && (stack != null)) {
             stack.pop();
@@ -47,7 +47,7 @@ public class PushTag extends WebWorkBodyTagSupport {
     }
 
     public int doStartTag() throws JspException {
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
 
         if (stack != null) {
             stack.push(stack.findValue(value));

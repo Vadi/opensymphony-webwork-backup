@@ -42,7 +42,7 @@ public class ElseIfTag extends WebWorkTagSupport {
     }
 
     public int doStartTag() throws JspException {
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
 
         Boolean ifResult = (Boolean) pageContext.getAttribute(IfTag.ANSWER);
 

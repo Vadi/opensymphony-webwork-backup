@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.util.MakeIterator;
+import com.opensymphony.webwork.util.ContainUtil;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -40,32 +41,7 @@ public abstract class AbstractListTag extends AbstractUITag {
     }
 
     public boolean contains(Object obj1, Object obj2) {
-        if ((obj1 == null) || (obj2 == null)) {
-            return false;
-        }
-
-        if (obj1 instanceof Map) {
-            if (((Map) obj1).containsValue(obj2)) {
-                return true;
-            }
-        } else if (obj1 instanceof Collection) {
-            if (((Collection) obj1).contains(obj2)) {
-                return true;
-            }
-        } else if (obj1.getClass().isArray()) {
-            for (int i = 0; i < Array.getLength(obj1); i++) {
-                Object value = null;
-                value = Array.get(obj1, i);
-
-                if (value.toString().equals(obj2.toString())) {
-                    return true;
-                }
-            }
-        } else if (obj1.equals(obj2)) {
-            return true;
-        }
-
-        return false;
+        return ContainUtil.contains(obj1, obj2);
     }
 
     public void evaluateExtraParams(OgnlValueStack stack) {

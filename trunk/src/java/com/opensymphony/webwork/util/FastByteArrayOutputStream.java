@@ -10,14 +10,12 @@
  */
 package com.opensymphony.webwork.util;
 
+import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
-
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import javax.servlet.jsp.JspWriter;
 
 
 /**
