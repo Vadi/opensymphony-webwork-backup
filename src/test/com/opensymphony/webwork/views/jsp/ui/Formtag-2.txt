@@ -30,7 +30,7 @@ function myForm_validate_actual() {
   }
   value = form.elements['user.name'].value;
   if (value == "") {
-    alert('You must enter a name.');
+    alert('Please enter a name!');
     return 'user.name';
   }
   return null;

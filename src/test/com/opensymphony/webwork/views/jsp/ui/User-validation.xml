@@ -2,7 +2,7 @@
 <validators>
     <field name="name">
         <field-validator type="required">
-            <message>You must enter a name.</message>
+            <message key="err.name">You must enter a name.</message>
         </field-validator>
     </field>
 </validators>
