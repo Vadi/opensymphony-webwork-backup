@@ -100,6 +100,7 @@ public abstract class AbstractServletDispatcherTestCase extends TestCase {
         servletContextDMock.matchAndReturn("log", C.ANY_ARGS, null);
 
         ServletContext servletContextMock = (ServletContext) servletContextDMock.proxy();
+        servletContextDMock.expect("setAttribute", C.args(C.eq("webwork.servlet"), C.eq(servlet)));
 
         MockServletConfig servletConfigMock = new MockServletConfig();
         servletConfigMock.setServletContext(servletContextMock);
