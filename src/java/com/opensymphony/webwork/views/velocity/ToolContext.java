@@ -11,11 +11,6 @@ import java.util.HashMap;
 import com.opensymphony.webwork.config.Configuration;
 
 /**
- * <p>
- * Denali - A CarShare Reservation System developed by EngineGreen
- * Copyright 2003, EngineGreen.  All Rights Reserved.
- * </p>
- *
  * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
