@@ -77,6 +77,7 @@ public class VelocityResult extends WebWorkResultSupport {
             }
 
             t.merge(context, writer);
+            writer.flush();
         } catch (Exception e) {
             log.error("Unable to render Velocity Template, '" + finalLocation + "'", e);
             throw e;
