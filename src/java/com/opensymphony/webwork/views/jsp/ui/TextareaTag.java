@@ -24,6 +24,7 @@ public class TextareaTag extends AbstractUITag {
     protected String colsAttr;
     protected String readonlyAttr;
     protected String rowsAttr;
+    protected String wrapAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -39,6 +40,10 @@ public class TextareaTag extends AbstractUITag {
         this.rowsAttr = rows;
     }
 
+    public void setWrap(String wrap) {
+        this.wrapAttr = wrap;
+    }
+
     public void evaluateExtraParams(OgnlValueStack stack) {
         super.evaluateExtraParams(stack);
 
@@ -52,6 +57,10 @@ public class TextareaTag extends AbstractUITag {
 
         if (rowsAttr != null) {
             addParameter("rows", findString(rowsAttr));
+        }
+
+        if (wrapAttr != null) {
+            addParameter("wrap", findString(wrapAttr));
         }
     }
 
