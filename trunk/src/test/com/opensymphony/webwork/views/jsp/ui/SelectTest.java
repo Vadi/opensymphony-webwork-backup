@@ -38,6 +38,11 @@ public class SelectTest extends AbstractUITagTest {
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
         tag.setMultiple("true");
+        tag.setOnmousedown("'alert(\\'onmousedown\\');'");
+        tag.setOnmousemove("'alert(\\'onmousemove\\');'");
+        tag.setOnmouseout("'alert(\\'onmouseout\\');'");
+        tag.setOnmouseover("'alert(\\'onmouseover\\');'");
+        tag.setOnmouseup("'alert(\\'onmouseup\\');'");
 
         int result = tag.doEndTag();
 

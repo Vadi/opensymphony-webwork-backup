@@ -41,8 +41,6 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String labelAttr;
     protected String labelPositionAttr;
     protected String nameAttr;
-    protected String onchangeAttr;
-    protected String onclickAttr;
     protected String requiredAttr;
     protected String tabindexAttr;
     protected String templateAttr;
@@ -50,6 +48,22 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String theme;
     protected String themeAttr;
     protected String valueAttr;
+
+    // HTML scripting events attributes
+    protected String onclickAttr;
+    protected String ondblclickAttr;
+    protected String onmousedownAttr;
+    protected String onmouseupAttr;
+    protected String onmouseoverAttr;
+    protected String onmousemoveAttr;
+    protected String onmouseoutAttr;
+    protected String onfocusAttr;
+    protected String onblurAttr;
+    protected String onkeypressAttr;
+    protected String onkeydownAttr;
+    protected String onkeyupAttr;
+    protected String onselectAttr;
+    protected String onchangeAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -75,14 +89,6 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     public void setName(String aName) {
         nameAttr = aName;
-    }
-
-    public void setOnchange(String onchange) {
-        this.onchangeAttr = onchange;
-    }
-
-    public void setOnclick(String onclick) {
-        this.onclickAttr = onclick;
     }
 
     public void setRequired(String required) {
@@ -141,6 +147,64 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     public void setValue(String aValue) {
         valueAttr = aValue;
+    }
+
+    // HTML scripting attribute setters
+
+    public void setOnclick(String onclick) {
+        this.onclickAttr = onclick;
+    }
+
+    public void setOndblclick(String ondblclick) {
+        this.ondblclickAttr = ondblclick;
+    }
+
+    public void setOnmousedown(String onmousedown) {
+        this.onmousedownAttr = onmousedown;
+    }
+
+    public void setOnmouseup(String onmouseup) {
+        this.onmouseupAttr = onmouseup;
+    }
+
+    public void setOnmouseover(String onmouseover) {
+        this.onmouseoverAttr = onmouseover;
+    }
+
+    public void setOnmousemove(String onmousemove) {
+        this.onmousemoveAttr = onmousemove;
+    }
+
+    public void setOnmouseout(String onmouseout) {
+        this.onmouseoutAttr = onmouseout;
+    }
+
+    public void setOnfocus(String onfocus) {
+        this.onfocusAttr = onfocus;
+    }
+
+    public void setOnblur(String onblur) {
+        this.onblurAttr = onblur;
+    }
+
+    public void setOnkeypress(String onkeypress) {
+        this.onkeypressAttr = onkeypress;
+    }
+
+    public void setOnkeydown(String onkeydown) {
+        this.onkeydownAttr = onkeydown;
+    }
+
+    public void setOnkeyup(String onkeyup) {
+        this.onkeyupAttr = onkeyup;
+    }
+
+    public void setOnselect(String onselect) {
+        this.onselectAttr = onselect;
+    }
+
+    public void setOnchange(String onchange) {
+        this.onchangeAttr = onchange;
     }
 
     public int doEndTag() throws JspException {
@@ -242,12 +306,60 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             addParameter("tabindex", findString(tabindexAttr));
         }
 
-        if (onchangeAttr != null) {
-            addParameter("onchange", findString(onchangeAttr));
-        }
-
         if (onclickAttr != null) {
             addParameter("onclick", findString(onclickAttr));
+        }
+
+        if (ondblclickAttr != null) {
+            addParameter("ondblclick", findString(ondblclickAttr));
+        }
+
+        if (onmousedownAttr != null) {
+            addParameter("onmousedown", findString(onmousedownAttr));
+        }
+
+        if (onmouseupAttr != null) {
+            addParameter("onmouseup", findString(onmouseupAttr));
+        }
+
+        if (onmouseoverAttr != null) {
+            addParameter("onmouseover", findString(onmouseoverAttr));
+        }
+
+        if (onmousemoveAttr != null) {
+            addParameter("onmousemove", findString(onmousemoveAttr));
+        }
+
+        if (onmouseoutAttr != null) {
+            addParameter("onmouseout", findString(onmouseoutAttr));
+        }
+
+        if (onfocusAttr != null) {
+            addParameter("onfocus", findString(onfocusAttr));
+        }
+
+        if (onblurAttr != null) {
+            addParameter("onblur", findString(onblurAttr));
+        }
+
+        if (onkeypressAttr != null) {
+            addParameter("onkeypress", findString(onkeypressAttr));
+        }
+
+        if (onkeydownAttr != null) {
+            addParameter("onkeydown", findString(onkeydownAttr));
+        }
+
+        if (onkeyupAttr != null) {
+            addParameter("onkeyup", findString(onkeyupAttr));
+        }
+
+        if (onselectAttr != null) {
+            addParameter("onselect", findString(onselectAttr));
+        }
+
+        if (onchangeAttr != null) {
+            addParameter("onchange", findString(onchangeAttr));
         }
 
         if (cssClassAttr != null) {

@@ -40,6 +40,7 @@ public class TextfieldTest extends AbstractUITagTest {
         tag.setName("'myname'");
         tag.setValue("foo");
         tag.setSize("'10'");
+        tag.setOnblur("'blahescape(\\'somevalue\\');'");
 
         tag.doEndTag();
 

@@ -24,7 +24,6 @@ public class ComboBoxTag extends AbstractUITag {
 
     protected String list;
     protected String maxlengthAttr;
-    protected String onkeyupAttr;
     protected String sizeAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -35,10 +34,6 @@ public class ComboBoxTag extends AbstractUITag {
 
     public void setMaxlength(String aMaxlength) {
         this.maxlengthAttr = aMaxlength;
-    }
-
-    public void setOnkeyup(String onkeyup) {
-        this.onkeyupAttr = onkeyup;
     }
 
     public void setSize(String aSize) {
@@ -64,10 +59,6 @@ public class ComboBoxTag extends AbstractUITag {
 
         if (maxlengthAttr != null) {
             addParameter("maxlength", findValue(maxlengthAttr, Integer.class));
-        }
-
-        if (onkeyupAttr != null) {
-            addParameter("onkeyup", findString(onkeyupAttr));
         }
     }
 }

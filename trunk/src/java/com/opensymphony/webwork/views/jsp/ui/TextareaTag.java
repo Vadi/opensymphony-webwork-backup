@@ -22,7 +22,6 @@ public class TextareaTag extends AbstractUITag {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     protected String colsAttr;
-    protected String onkeyupAttr;
     protected String readonlyAttr;
     protected String rowsAttr;
 
@@ -30,10 +29,6 @@ public class TextareaTag extends AbstractUITag {
 
     public void setCols(String cols) {
         this.colsAttr = cols;
-    }
-
-    public void setOnkeyup(String onkeyup) {
-        this.onkeyupAttr = onkeyup;
     }
 
     public void setReadonly(String readonly) {
@@ -49,10 +44,6 @@ public class TextareaTag extends AbstractUITag {
 
         if (readonlyAttr != null) {
             addParameter("readonly", findValue(readonlyAttr, Boolean.class));
-        }
-
-        if (onkeyupAttr != null) {
-            addParameter("onkeyup", findString(onkeyupAttr));
         }
 
         if (colsAttr != null) {
