@@ -14,6 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -51,17 +52,22 @@ public class ServletDispatcherResult implements Result, WebWorkStatics {
             log.debug("Forwarding to location " + location);
         }
 
-        HttpServletRequest request = ServletActionContext.getRequest();
-        HttpServletResponse response = ServletActionContext.getResponse();
-        RequestDispatcher dispatcher = request.getRequestDispatcher(location);
-
-        // If we're included, then include the view
-        // Otherwise do forward
-        // This allow the page to, for example, set content type
-        if (!response.isCommitted() && (request.getAttribute("javax.servlet.include.servlet_path") == null)) {
-            dispatcher.forward(request, response);
+        PageContext pageContext = (PageContext) ServletActionContext.getContext().get("javax.servlet.jsp.PageContext");
+        if (pageContext != null) {
+            pageContext.include(location);
         } else {
-            dispatcher.include(request, response);
+            HttpServletRequest request = ServletActionContext.getRequest();
+            HttpServletResponse response = ServletActionContext.getResponse();
+            RequestDispatcher dispatcher = request.getRequestDispatcher(location); 
+ 
+            // If we're included, then include the view 
+            // Otherwise do forward 
+            // This allow the page to, for example, set content type 
+            if (!response.isCommitted() && (request.getAttribute("javax.servlet.include.servlet_path") == null)) {
+                dispatcher.forward(request, response);
+            } else {
+                dispatcher.include(request, response);
+            }
         }
     }
 }

@@ -100,7 +100,9 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
         // execute the action and save the proxy (and the namespace) as instance variables
         executeAction();
 
-        pageContext.setAttribute(getId(), proxy.getAction());
+        if (getId() != null) {
+            pageContext.setAttribute(getId(), proxy.getAction());
+        }
 
         return SKIP_BODY;
     }
