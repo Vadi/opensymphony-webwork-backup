@@ -42,7 +42,7 @@
     <servlet>
         <servlet-name>freemarker</servlet-name>
         <servlet-class>com.opensymphony.webwork.views.freemarker.FreemarkerServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
+                <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet>
@@ -51,7 +51,26 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-   <servlet-mapping>
+    <servlet>
+        <servlet-name>JnlpDownloadServlet</servlet-name>
+        <servlet-class>com.sun.javaws.servlet.JnlpDownloadServlet</servlet-class>
+        <init-param>
+            <param-name>
+                logLevel
+            </param-name>
+            <param-value>
+                DEBUG
+            </param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+       <servlet-name>client</servlet-name>
+       <servlet-class>com.opensymphony.webwork.dispatcher.client.ServerHttpDispatcher</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
         <servlet-name>freemarker</servlet-name>
         <url-pattern>*.ftl</url-pattern>
     </servlet-mapping>
@@ -65,6 +84,16 @@
         <servlet-name>velocity</servlet-name>
         <url-pattern>*.vm</url-pattern>
     </servlet-mapping>
+
+     <servlet-mapping>
+        <servlet-name>JnlpDownloadServlet</servlet-name>
+        <url-pattern>*.jnlp</url-pattern>
+     </servlet-mapping>
+
+   <servlet-mapping>
+       <servlet-name>client</servlet-name>
+       <url-pattern>/ClientDispatcher</url-pattern>
+   </servlet-mapping>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
