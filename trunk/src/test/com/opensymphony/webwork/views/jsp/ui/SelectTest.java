@@ -25,7 +25,7 @@ public class SelectTest extends AbstractUITagTest {
         Assert.assertNotNull(template); // ensure this is a valid decorators
 
         TestAction testAction = (TestAction) action;
-        testAction.setFoo("bar");
+        testAction.setFoo("hello");
         testAction.setList(new String[][] {
                 {"hello", "world"},
                 {"foo", "bar"}
@@ -35,8 +35,7 @@ public class SelectTest extends AbstractUITagTest {
         tag.setPageContext(pageContext);
         tag.setEmptyOption("true");
         tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
-        tag.setValue("'foo'");
+        tag.setName("'foo'");
         tag.setList("list");
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
