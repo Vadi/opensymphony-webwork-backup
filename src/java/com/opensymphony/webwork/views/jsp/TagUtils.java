@@ -12,6 +12,7 @@ import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.ActionContext;
 
 import java.util.Map;
 
@@ -40,6 +41,9 @@ public class TagUtils {
             extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
             stack.getContext().putAll(extraContext);
             req.setAttribute("webwork.valueStack", stack);
+
+            // also tie this stack/context to the ThreadLocal
+            ActionContext.setContext(new ActionContext(stack.getContext()));
         } else {
             // let's make sure that the current page context is in the action context
             Map context = stack.getContext();
