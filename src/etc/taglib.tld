@@ -200,6 +200,16 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>includeContext</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>encode</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>

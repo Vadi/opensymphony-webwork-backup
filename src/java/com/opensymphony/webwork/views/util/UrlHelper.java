@@ -29,10 +29,11 @@ public class UrlHelper {
     private static final String AMP = "&";
 
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params) {
-        return buildUrl(action, request, response, params, null);
+        return buildUrl(action, request, response, params, null, true, true);
     }
 
-    public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params, String scheme) {
+    public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response,
+                                  Map params, String scheme, boolean includeContext, boolean encodeResult) {
         StringBuffer link = new StringBuffer();
 
          boolean changedScheme = false;
@@ -55,7 +56,7 @@ public class UrlHelper {
         if (action != null) {
             // Check if context path needs to be added
             // Add path to absolute links
-            if (action.startsWith("/")) {
+            if (action.startsWith("/") && includeContext) {
                 link.append(request.getContextPath());
             }
             else if (changedScheme) {
@@ -121,7 +122,7 @@ public class UrlHelper {
         String result;
 
         try {
-            result = response.encodeURL(link.toString());
+            result = encodeResult ? response.encodeURL(link.toString()) : link.toString();
         } catch (Exception ex) {
             // Could not encode the URL for some reason
             // Use it unchanged
