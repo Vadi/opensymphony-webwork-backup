@@ -9,7 +9,6 @@ import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.util.TextParseUtil;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.*;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -40,7 +39,7 @@ import java.util.Map;
  * <ul>
  * <li>format - the format in which the report should be generated. Valid values can be found
  * in {@link JasperReportConstants}. If no format is specified, PDF will be used.</li>
- * <li>contentDisposition : disposition (default : inline)</li>
+ * <li>contentDisposition : disposition (no default, value is typically <i>filename="document.pdf"</i>)</li>
  * <li>documentName : name of the document (will generate the http header Content-disposition = X; filename=X.[format])</li>
  * </ul>
  * <p/>
@@ -103,18 +102,15 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
         OgnlValueStack stack = invocation.getStack();
         OgnlValueStackDataSource stackDataSource = new OgnlValueStackDataSource(stack, dataSource);
 
-        // parse if needed
-        if (parse) {
-            format = TextParseUtil.translateVariables(format, stack);
-            dataSource = TextParseUtil.translateVariables(dataSource, stack);
+        format = conditionalParse(format, invocation);
+        dataSource = conditionalParse(dataSource, invocation);
 
-            if (contentDisposition != null) {
-            	contentDisposition = TextParseUtil.translateVariables(contentDisposition, stack);
-            }
+        if (contentDisposition != null) {
+            contentDisposition = conditionalParse(contentDisposition, invocation);
+        }
 
-            if (documentName != null) {
-            	documentName = TextParseUtil.translateVariables(documentName, stack);
-            }
+        if (documentName != null) {
+            documentName = conditionalParse(documentName, invocation);
         }
 
         // (Map) ActionContext.getContext().getSession().get("IMAGES_MAP");
@@ -135,14 +131,12 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
             // Fill the report and produce a print object
             try {
-    			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(systemId);
+                JasperReport jasperReport = (JasperReport) JRLoader.loadObject(systemId);
 
-    			jasperPrint =
-    				JasperFillManager.fillReport(
-    					jasperReport,
-    					parameters,
-    					stackDataSource
-    					);
+                jasperPrint =
+                        JasperFillManager.fillReport(jasperReport,
+                                parameters,
+                                stackDataSource);
             } catch (JRException e) {
                 LOG.error("Error building report for uri " + systemId, e);
                 throw new ServletException(e.getMessage(), e);
@@ -151,18 +145,18 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
             // Export the print object to the desired output format
             try {
                 if (contentDisposition != null || documentName != null) {
-					final StringBuffer tmp = new StringBuffer();
-					tmp.append((contentDisposition == null) ? "inline" : contentDisposition);
+                    final StringBuffer tmp = new StringBuffer();
+                    tmp.append((contentDisposition == null) ? "inline" : contentDisposition);
 
-					if (documentName != null) {
-						tmp.append("; filename=");
-						tmp.append(documentName);
-						tmp.append(".");
-						tmp.append(format.toLowerCase());
-					}
+                    if (documentName != null) {
+                        tmp.append("; filename=");
+                        tmp.append(documentName);
+                        tmp.append(".");
+                        tmp.append(format.toLowerCase());
+                    }
 
-					response.setHeader("Content-disposition", tmp.toString());
-				}
+                    response.setHeader("Content-disposition", tmp.toString());
+                }
 
                 if (format.equals(FORMAT_PDF)) {
                     response.setContentType("application/pdf");
@@ -236,7 +230,8 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
      * @param jasperPrint The Print object to render as CSV
      * @param exporter    The exporter to use to export the report
      * @return A CSV formatted report
-     * @throws net.sf.jasperreports.engine.JRException If there is a problem running the report
+     * @throws net.sf.jasperreports.engine.JRException
+     *          If there is a problem running the report
      */
     private byte[] exportReportToBytes(JasperPrint jasperPrint, JRExporter exporter) throws JRException {
         byte[] output;

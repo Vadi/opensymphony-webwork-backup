@@ -9,26 +9,43 @@ import java.io.OutputStream;
 /**
  * Implements an XWork Result that takes an InputStream object available from a chained
  * Action and redirects it to the browser.
+ *
  * <p/>
- * The following declaration must be added to the xwork.xml file after the <package>
+ *
+ * The following declaration must be added to the xwork.xml file after the &lt;package&gt;
  * element:
+ *
  * <p/>
- * <result-types>
- * <result-type name="stream" class="StreamResult"/>
- * </result-types>
+ *
+ * <pre>
+ * &lt;result-types&gt;
+ * &lt;result-type name="stream" class="com.opensymphony.webwork.dispatcher.StreamResult"/&gt;
+ * &lt;/result-types&gt;
+ * </pre>
+ *
  * <p/>
+ *
  * To use the stream result type add the following as part of the action declaration:
+ *
  * <p/>
- * <result name="success" type="stream">
- * <param name="contentType">image/jpeg</param>
- * <param name="inputName">imageStream</param>
- * <param name="bufferSize">1024</param>
- * </result>
+ *
+ * <pre>
+ * &lt;result name="success" type="stream"&gt;
+ * &lt;param name="contentType"&gt;image/jpeg&lt/param&gt;
+ * &lt;param name="inputName"&gt;imageStream&lt/param&gt;
+ * &lt;param name="contentDisposition"&gt;filename="document.pdf"&lt/param&gt;
+ * &lt;param name="bufferSize"&gt;1024&lt/param&gt;
+ * &lt;/result&gt;
+ * </pre>
+ *
  * <p/>
- * contentType = the stream mime-type as sent to the web browser
- * contentDispostion = (optional) the content disposition header value (for sending files)
- * inputName = the name of the InputStream property from the chained action (default = "inputStream")
- * bufferSize = the size of the buffer to copy from input to output (defaul = 1024)
+ *
+ * <ul>
+ * <li>contentType - the stream mime-type as sent to the web browser</li>
+ * <li>contentDispostion - (optional) the content disposition header value (for sending files)</li>
+ * <li>inputName - the name of the InputStream property from the chained action (default = "inputStream")</li>
+ * <li>bufferSize - the size of the buffer to copy from input to output (defaul = 1024)</li>
+ * </ul>
  *
  * @author mcrawford
  */
@@ -98,19 +115,18 @@ public class StreamResult extends WebWorkResultSupport {
      * @see com.opensymphony.xwork.Result#execute(com.opensymphony.xwork.ActionInvocation)
      */
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
-
         // Find the inputstream from the invocation variable stack
-        InputStream oInput = (InputStream) invocation.getStack().findValue(inputName);
+        InputStream oInput = (InputStream) invocation.getStack().findValue(conditionalParse(inputName, invocation));
 
         // Find the Response in context
         HttpServletResponse oResponse = (HttpServletResponse) invocation.getInvocationContext().get(HTTP_RESPONSE);
 
         // Set the content type
-        oResponse.setContentType(contentType);
+        oResponse.setContentType(conditionalParse(contentType, invocation));
 
         // Set the content-disposition
         if (contentDisposition != null) {
-            oResponse.addHeader("Content-Disposition", contentDisposition);
+            oResponse.addHeader("Content-Disposition", conditionalParse(contentDisposition, invocation));
         }
 
         // Get the outputstream
