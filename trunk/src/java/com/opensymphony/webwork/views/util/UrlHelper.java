@@ -29,13 +29,38 @@ public class UrlHelper {
     private static final String AMP = "&";
 
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params) {
+        return buildUrl(action, request, response, params, null);
+    }
+
+    public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params, String scheme) {
         StringBuffer link = new StringBuffer();
+
+         boolean changedScheme = false;
+
+        // only append scheme if it is different to the current scheme
+        if (scheme != null && !scheme.equals(request.getScheme())) {
+            changedScheme = true;
+            link.append(scheme);
+            link.append("://");
+            link.append(request.getServerName());
+
+            // do not append port for default ports
+            int port = request.getServerPort();
+            if (!(scheme.equals("http") && port == 80) && !(scheme.equals("https") && port == 443)) {
+                link.append(":");
+                link.append(port);
+            }
+        }
 
         if (action != null) {
             // Check if context path needs to be added
             // Add path to absolute links
             if (action.startsWith("/")) {
                 link.append(request.getContextPath());
+            }
+            else if (changedScheme) {
+                String uri = request.getRequestURI();
+                link.append(uri.substring(0, uri.lastIndexOf('/')));
             }
 
             // Add page
