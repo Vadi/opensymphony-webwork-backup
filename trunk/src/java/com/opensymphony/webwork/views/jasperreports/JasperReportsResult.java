@@ -1,9 +1,11 @@
 package com.opensymphony.webwork.views.jasperreports;
 
+import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.util.TextParseUtil;
 import dori.jasper.engine.*;
 import dori.jasper.engine.export.*;
 import org.apache.commons.logging.Log;
@@ -22,6 +24,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Genreates a JasperReports report using the specified format or PDF if no format is specified.
+ * The following parameters are required:
+ * <ul>
+ * <li>location - the location where the compiled jasper report definition is (foo.jasper), relative from current URL</li>
+ * <li>dataSource - the Ognl expression used to retrieve the datasource from the value stack (usually a List)</li>
+ * </ul>
+ * <p/>
+ * A third, optional parameter can also be specified:
+ * <ul>
+ * <li>format - the format in which the report should be generated. Valid values can be found
+ * in {@link JasperReportConstants}. If no format is specified, PDF will be used.</li>
+ * </ul>
+ * <p/>
+ * This result follows the same rules from {@link WebWorkResultSupport}.
+ * Specifically, all three parameters will be parsed if the "parse" parameter is not set to false.
+ *
+ * @author Patrick Lightbody
+ * @author <a href="mailto:hermanns@aixcept.de">Rainer Hermanns</a>
  */
 public class JasperReportsResult extends WebWorkResultSupport implements JasperReportConstants {
     private final static Log LOG = LogFactory.getLog(JasperReportsResult.class);
@@ -32,8 +52,8 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
     protected String IMAGES_URI = "/images/";
 
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
-        if (format == null) {
-            format = FORMAT_PDF;
+        if (this.format == null) {
+            this.format = FORMAT_PDF;
         }
 
         if (dataSource == null) {
@@ -43,23 +63,25 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
         }
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Creating JasperReport for dataSource = " + dataSource + ", format = " + format);
+            LOG.debug("Creating JasperReport for dataSource = " + dataSource + ", format = " + this.format);
         }
 
         HttpServletRequest request = (HttpServletRequest) invocation.getInvocationContext().get(ServletActionContext.HTTP_REQUEST);
         HttpServletResponse response = (HttpServletResponse) invocation.getInvocationContext().get(ServletActionContext.HTTP_RESPONSE);
 
         //construct the data source for the report
-        OgnlValueStack stack = ServletActionContext.getContext().getValueStack();
-        String dataSource = "" + request.getAttribute("dataSource");
+        OgnlValueStack stack = invocation.getStack();
         OgnlValueStackDataSource stackDataSource = new OgnlValueStackDataSource(stack, dataSource);
 
-        //get the output format
-        String outputFormat = "" + request.getAttribute("format");
+        // parse if needed
+        if (parse) {
+            format = TextParseUtil.translateVariables(format, stack);
+            dataSource = TextParseUtil.translateVariables(dataSource, stack);
+        }
 
         // (Map) ActionContext.getContext().getSession().get("IMAGES_MAP");
-        if (outputFormat == null) {
-            outputFormat = FORMAT_PDF;
+        if (!TextUtils.stringSet(format)) {
+            format = FORMAT_PDF;
         }
 
         if (!"contype".equals(request.getHeader("User-Agent"))) {
@@ -86,7 +108,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
             // Export the print object to the desired output format
             try {
-                if (outputFormat.equals(FORMAT_PDF)) {
+                if (format.equals(FORMAT_PDF)) {
                     response.setContentType("application/pdf");
 
                     // response.setHeader("Content-disposition", "inline; filename=report.pdf");
@@ -94,10 +116,10 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
                 } else {
                     JRExporter exporter = null;
 
-                    if (outputFormat.equals(FORMAT_CSV)) {
+                    if (format.equals(FORMAT_CSV)) {
                         response.setContentType("text/plain");
                         exporter = new JRCsvExporter();
-                    } else if (outputFormat.equals(FORMAT_HTML)) {
+                    } else if (format.equals(FORMAT_HTML)) {
                         response.setContentType("text/html");
 
                         Map imagesMap = new HashMap();
@@ -106,20 +128,20 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
                         exporter = new JRHtmlExporter();
                         exporter.setParameter(JRHtmlExporterParameter.IMAGES_MAP, imagesMap);
                         exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, IMAGES_URI);
-                    } else if (outputFormat.equals(FORMAT_XLS)) {
+                    } else if (format.equals(FORMAT_XLS)) {
                         response.setContentType("application/vnd.ms-excel");
                         exporter = new JRXlsExporter();
-                    } else if (outputFormat.equals(FORMAT_XML)) {
+                    } else if (format.equals(FORMAT_XML)) {
                         response.setContentType("text/xml");
                         exporter = new JRXmlExporter();
                     } else {
-                        throw new ServletException("Unknown report format: " + outputFormat);
+                        throw new ServletException("Unknown report format: " + format);
                     }
 
                     output = exportReportToBytes(jasperPrint, exporter);
                 }
             } catch (JRException e) {
-                String message = "Error producing " + outputFormat + " report for uri " + systemId;
+                String message = "Error producing " + format + " report for uri " + systemId;
                 LOG.error(message, e);
                 throw new ServletException(e.getMessage(), e);
             }
