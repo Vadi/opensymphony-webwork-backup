@@ -7,11 +7,11 @@
 #end
 
 #macro(url $name)
-   #set ($name = $webwork.bean("webwork.view.velocity.URLBean"))
+   #set ($name = $webwork.bean("com.opensymphony.webwork.util.URLBean"))
    $name.setRequest($req)
    $name.setResponse($res)
 #end
 
 #macro(property $object $property)
-##$property#end
-$!{ognl.findValue($property, $object)}#end
+$!{ognl.findValue($property, $object)}
+#end

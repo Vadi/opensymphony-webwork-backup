@@ -6,12 +6,14 @@ package com.opensymphony.webwork.util;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.apache.commons.logging.*;
 import org.apache.velocity.app.Velocity;
@@ -20,6 +22,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import com.opensymphony.xwork.Action;
+import com.opensymphony.webwork.views.util.UrlHelper;
 
 /**
  *	WebWork utility methods for Velocity templates
@@ -147,4 +150,5 @@ public final class WebWorkUtil {
             stream.write(aByte);
         }
     }
+
 }
