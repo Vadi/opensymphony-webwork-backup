@@ -1,5 +1,5 @@
 ## Only show message if errors are available.
-## This will be done if ActionFormSupport is used.
+## This will be done if ActionSupport is used.
 
 #if( $fieldErrors.get($parameters.name) )
   #set ($errors = $fieldErrors.get($parameters.name))
