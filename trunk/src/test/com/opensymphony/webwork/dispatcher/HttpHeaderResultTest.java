@@ -6,27 +6,22 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.mockobjects.dynamic.C;
 import com.mockobjects.dynamic.Mock;
-
 import com.opensymphony.webwork.ServletActionContext;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlUtil;
-import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
  * HttpHeaderResultTest
+ *
  * @author Jason Carreira
- * Date: Nov 16, 2003 1:08:20 AM
+ *         Date: Nov 16, 2003 1:08:20 AM
  */
 public class HttpHeaderResultTest extends TestCase {
     //~ Instance fields ////////////////////////////////////////////////////////

@@ -5,14 +5,14 @@
 package com.opensymphony.webwork.util;
 
 import java.lang.reflect.Array;
-
 import java.util.*;
 
 
 /**
  * MakeIterator
- *
+ * <p/>
  * Taken from WebWork 1.x by:
+ *
  * @author &lt;a href="hermanns@aixcept.de"&gt;Rainer Hermanns&lt;/a&gt;
  * @version $Id$
  */
@@ -21,9 +21,10 @@ public class MakeIterator {
 
     /**
      * Determine whether a given object can be made into an <code>Iterator</code>
+     *
      * @param object the object to check
      * @return <code>true</code> if the object can be converted to an iterator and
-     * <code>false</code> otherwise
+     *         <code>false</code> otherwise
      */
     public static boolean isIterable(Object object) {
         if (object == null) {

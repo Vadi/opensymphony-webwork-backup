@@ -11,16 +11,13 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
-
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
-
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 
-import java.io.OutputStream;
-
 import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
 
 
 /**

@@ -8,37 +8,34 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 import java.net.URLDecoder;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 
 /**
  * A custom servlet dispatcher that maps servlet paths to actions. The format is the following:
- *
- *
+ * <p/>
+ * <p/>
  * <ul><tt>http://HOST/ACTION_NAME/PARAM_NAME1/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt></ul>
- *
+ * <p/>
  * You can have as many parameters you'd like to use. Alternatively the URL can be shortened to the following:
- *
+ * <p/>
  * <ul><tt>http://HOST/ACTION_NAME/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt></ul>
- *
+ * <p/>
  * This is the same as:
- *
+ * <p/>
  * <ul><tt>http://HOST/ACTION_NAME/ACTION_NAME/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt></ul>
- *
+ * <p/>
  * Suppose for example we would like to display some articles by id at using the following URL sheme:
- *
+ * <p/>
  * <ul><tt>http://HOST/article/ID</tt></ul>
- *
+ * <p/>
  * All we would have to do is to map the <tt>/article/*</tt> to this servlet and declare in WebWork an
  * action named <tt>article</tt>. This action would set its <tt>article</tt> parameter <tt>ID</tt>.
  *
@@ -60,10 +57,10 @@ public class CoolUriServletDispatcher extends ServletDispatcher {
      * {@link #serviceAction(HttpServletRequest, HttpServletResponse, String, String, Map, Map, Map, Map)}
      * method for action execution.
      *
-     * @param request the http servlet request.
+     * @param request  the http servlet request.
      * @param response the http servlet response.
      * @throws ServletException if an error occurs parsing the action name or parameters or if
-     *      an action occurs whene executing the action.
+     *                          an action occurs whene executing the action.
      */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         String actionName = request.getServletPath().substring(1, request.getServletPath().indexOf('/', 1));

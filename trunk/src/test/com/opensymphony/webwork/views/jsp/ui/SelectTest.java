@@ -24,11 +24,11 @@ public class SelectTest extends AbstractUITagTest {
         collection.add("hello");
         collection.add("foo");
         testAction.setCollection(collection);
-        testAction.setList(new String[][] {
-                {"hello", "world"},
-                {"foo", "bar"},
-                {"cat", "dog"}
-            });
+        testAction.setList(new String[][]{
+            {"hello", "world"},
+            {"foo", "bar"},
+            {"cat", "dog"}
+        });
 
         SelectTag tag = new SelectTag();
         tag.setPageContext(pageContext);
@@ -47,10 +47,10 @@ public class SelectTest extends AbstractUITagTest {
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("hello");
-        testAction.setList(new String[][] {
-                {"hello", "world"},
-                {"foo", "bar"}
-            });
+        testAction.setList(new String[][]{
+            {"hello", "world"},
+            {"foo", "bar"}
+        });
 
         SelectTag tag = new SelectTag();
         tag.setPageContext(pageContext);

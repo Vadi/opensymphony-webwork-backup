@@ -9,10 +9,10 @@ import java.util.Iterator;
 
 
 /**
- *        A base class for iterator filters
+ * A base class for iterator filters
  *
- *        @author Rickard Öberg (rickard@middleware-company.com)
- *        @version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
  */
 public abstract class IteratorFilterSupport {
     //~ Methods ////////////////////////////////////////////////////////////////

@@ -7,11 +7,6 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
-import junit.framework.Assert;
-
-import org.apache.velocity.Template;
-import org.apache.velocity.app.Velocity;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -31,11 +26,11 @@ public class CheckboxListTest extends AbstractUITagTest {
         collection.add("hello");
         collection.add("foo");
         testAction.setCollection(collection);
-        testAction.setList(new String[][] {
-                {"hello", "world"},
-                {"foo", "bar"},
-                {"cat", "dog"}
-            });
+        testAction.setList(new String[][]{
+            {"hello", "world"},
+            {"foo", "bar"},
+            {"cat", "dog"}
+        });
 
         CheckboxListTag tag = new CheckboxListTag();
         tag.setPageContext(pageContext);
@@ -53,10 +48,10 @@ public class CheckboxListTest extends AbstractUITagTest {
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("hello");
-        testAction.setList(new String[][] {
-                {"hello", "world"},
-                {"foo", "bar"}
-            });
+        testAction.setList(new String[][]{
+            {"hello", "world"},
+            {"foo", "bar"}
+        });
 
         CheckboxListTag tag = new CheckboxListTag();
         tag.setPageContext(pageContext);

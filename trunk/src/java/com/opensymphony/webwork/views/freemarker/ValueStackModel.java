@@ -9,12 +9,7 @@
 package com.opensymphony.webwork.views.freemarker;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
-
-import freemarker.template.ObjectWrapper;
-import freemarker.template.SimpleHash;
-import freemarker.template.TemplateHashModel;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
+import freemarker.template.*;
 
 
 /**

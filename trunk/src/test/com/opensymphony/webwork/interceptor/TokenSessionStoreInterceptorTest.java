@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.webwork.TestConfigurationProvider;
-
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionProxy;
 

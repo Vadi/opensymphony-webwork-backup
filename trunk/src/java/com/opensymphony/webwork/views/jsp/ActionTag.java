@@ -9,23 +9,20 @@ import com.opensymphony.webwork.dispatcher.ApplicationMap;
 import com.opensymphony.webwork.dispatcher.RequestMap;
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -33,9 +30,9 @@ import javax.servlet.jsp.JspException;
  * namespace.  The body content of the tag is used to render the results from the Action.  Any Result processor defined
  * for this Action in xwork.xml will be ignored.
  *
- * @version $Id$
  * @author <a href="mailto:plightbo@hotmail.com">Pat Lightbody</a>
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
+ * @version $Id$
  */
 public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -68,6 +65,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
     /**
      * Sets the name of the action to be invoked
+     *
      * @param name the name of the Action as defined in the xwork.xml file
      */
     public void setName(String name) {
@@ -133,6 +131,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
      * attempt to derive a namespace using buildNamespace().  The ActionProxy
      * and the namespace will be saved into the instance variables proxy and
      * namespace respectively.
+     *
      * @see com.opensymphony.webwork.views.jsp.TagUtils#buildNamespace
      */
     private void executeAction() throws JspException {

@@ -1,17 +1,17 @@
 package com.opensymphony.webwork.dispatcher;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 
 /**
  * When running Weblogic Server 6.1, this class should be
  * specified in web.xml instead of {@link FilterDispatcher}.
- * <p>
+ * <p/>
  * This class properly handles the weblogic.jar handling
  * of servlet filters.  There is one serious incompatibility, and
  * that is that while {@link FilterConfig#init(FilterConfig)}
@@ -21,17 +21,18 @@ import org.apache.commons.logging.LogFactory;
  * invokes {@link FilterConfig#init(FilterConfig)}, the setter
  * must "swallow" the exception.  This it does by logging the
  * exception as an error.
- * 
+ *
  * @author Scott N. Smith scottnelsonsmith@yahoo.com
  * @version $Id$
  */
 public class FilterDispatcherCompatWeblogic61
-    extends FilterDispatcher
-    implements Filter
-{
-    /** the standard logger */
+        extends FilterDispatcher
+        implements Filter {
+    /**
+     * the standard logger
+     */
     private static Log log =
-        LogFactory.getLog(FilterDispatcherCompatWeblogic61.class);
+            LogFactory.getLog(FilterDispatcherCompatWeblogic61.class);
 
     /**
      * This method is required by Weblogic 6.1 SP4 because
@@ -40,8 +41,7 @@ public class FilterDispatcherCompatWeblogic61
      *
      * @return the filter's filter configuration
      */
-    public FilterConfig getFilterConfig()
-    {
+    public FilterConfig getFilterConfig() {
         return super.getFilterConfig();
     }
 
@@ -53,17 +53,12 @@ public class FilterDispatcherCompatWeblogic61
      *
      * @param filterConfig the filter configuration for this filter
      */
-    public final void setFilterConfig(FilterConfig filterConfig)
-    {
-        try
-        {
+    public final void setFilterConfig(FilterConfig filterConfig) {
+        try {
             init(filterConfig);
-        }
-        catch (ServletException se)
-        {
-            log.error(
-                "Couldn't set the filter configuration in this filter",
-                se);
+        } catch (ServletException se) {
+            log.error("Couldn't set the filter configuration in this filter",
+                    se);
         }
     }
 

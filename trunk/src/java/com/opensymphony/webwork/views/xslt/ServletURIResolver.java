@@ -7,20 +7,18 @@ package com.opensymphony.webwork.views.xslt;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.InputStream;
-
 import javax.servlet.ServletContext;
-
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
+import java.io.InputStream;
 
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- * Date: 14.10.2003
- * Time: 16:50:06
+ *         Date: 14.10.2003
+ *         Time: 16:50:06
  */
 public class ServletURIResolver implements URIResolver {
     //~ Static fields/initializers /////////////////////////////////////////////

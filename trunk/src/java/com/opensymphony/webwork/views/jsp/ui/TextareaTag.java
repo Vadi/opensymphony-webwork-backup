@@ -17,7 +17,7 @@ public class TextareaTag extends AbstractUITag {
     /**
      * The name of the default template for the TextareaTag
      */
-    final public static String TEMPLATE = "textarea.vm";
+    final public static String TEMPLATE = "textarea";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 

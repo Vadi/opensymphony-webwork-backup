@@ -6,14 +6,10 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.mockobjects.dynamic.C;
 import com.mockobjects.dynamic.Mock;
-
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkStatics;
-
 import com.opensymphony.xwork.ActionContext;
-
 import junit.framework.TestCase;
-
 import ognl.Ognl;
 
 import javax.servlet.http.HttpServletRequest;

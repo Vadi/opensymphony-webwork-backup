@@ -16,11 +16,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Simple Hash model that also searches other scopes.
- *
+ * <p/>
  * If the key doesn't exist in this hash, this template model tries to
  * resolve the key within the attributes of the following scopes,
  * in the order stated: Request, Session, Servlet Context
- *
  */
 public class ScopesHashModel extends SimpleHash {
     //~ Instance fields ////////////////////////////////////////////////////////

@@ -6,10 +6,10 @@
             <exclude name="build/servlet.jar"/>
         </fileset>
         <fileset dir="${basedir}/build">
-        	<include name="webwork-2.0-beta.jar"/>
+            <include name="webwork-2.0-beta.jar"/>
         </fileset>
         <fileset dir="${env.WEBLOGIC_HOME}/lib">
-        	<include name="weblogic.jar"/>
+            <include name="weblogic.jar"/>
         </fileset>
     </path>
 
@@ -23,8 +23,8 @@
 
     <property name="config-browser" value="${basedir}/config-browser"/>
 
-	<property name="misc-weblogic-61" value="${basedir}/misc/weblogic6.1"/>
-	
+    <property name="misc-weblogic-61" value="${basedir}/misc/weblogic6.1"/>
+
     <property name="lib" value="${basedir}/lib"/>
     <property name="lib.core" value="${lib}/core"/>
     <property name="lib.build" value="${lib}/build"/>
@@ -164,16 +164,16 @@
     </target>
 
     <target name="example-war" depends="clean, jar, config-browser">
-    	<mkdir dir="${build.webapp}"/>
-    	<copy todir="${build.webapp}">
-    		<fileset dir="${src.webapp}">
-    		</fileset>
-    	</copy>
-    	<mkdir dir="${build.webinf}"/>
-    	<copy file="${src.webapp}/WEB-INF/web.xml" todir="${build.webinf}"/>
+        <mkdir dir="${build.webapp}"/>
+        <copy todir="${build.webapp}">
+            <fileset dir="${src.webapp}">
+            </fileset>
+        </copy>
+        <mkdir dir="${build.webinf}"/>
+        <copy file="${src.webapp}/WEB-INF/web.xml" todir="${build.webinf}"/>
         <mkdir dir="${build.example}"/>
         <javac srcdir="${src.example}" destdir="${build.example}" classpath="${build.java}" classpathref="cp" debug="on"/>
-		
+
         <copy filtering="no" todir="${build.example}">
             <fileset dir="${src.example}">
                 <exclude name="**/*.java"/>
@@ -181,20 +181,20 @@
             </fileset>
         </copy>
         <copy filtering="no" TODIR="${build.example}">
-        	<fileset dir="${src}/webapp">
-        		<include name="**/*.jsp"/>
-        		<include name="**/*.vm"/>
-        		<include name="**/*.tld"/>
-        		<include name="**/*.xml"/>
-        	</fileset>
+            <fileset dir="${src}/webapp">
+                <include name="**/*.jsp"/>
+                <include name="**/*.vm"/>
+                <include name="**/*.tld"/>
+                <include name="**/*.xml"/>
+            </fileset>
         </copy>
         <copy filtering="no" TODIR="${build.example}">
-        	<fileset dir="${src.weblogic61.webapp}">
-        		<include name="**/*.jsp"/>
-        		<include name="**/*.vm"/>
-        		<include name="**/*.tld"/>
-        		<include name="**/*.xml"/>
-        	</fileset>
+            <fileset dir="${src.weblogic61.webapp}">
+                <include name="**/*.jsp"/>
+                <include name="**/*.vm"/>
+                <include name="**/*.tld"/>
+                <include name="**/*.xml"/>
+            </fileset>
         </copy>
 
         <copy tofile="${build}/webwork.tld" file="${src.etc}/taglib.tld"/>
@@ -209,7 +209,7 @@
             <classes dir="${build.example}"/>
             <classes dir="${src.etc}/example"/>
         </war>
-        
+
     </target>
 
     <target name="javadocs">

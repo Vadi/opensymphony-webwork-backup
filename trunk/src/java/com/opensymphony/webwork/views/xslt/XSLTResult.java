@@ -6,36 +6,25 @@ package com.opensymphony.webwork.views.xslt;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
-
-import java.net.URL;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
-
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Source;
-import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -139,9 +128,9 @@ public class XSLTResult implements Result {
                 }
 
                 if (
-                    // This may result in the template being put into the cache multiple times
-                    // if concurrent requests are made, but that's ok.
-                    log.isDebugEnabled()) {
+                // This may result in the template being put into the cache multiple times
+                // if concurrent requests are made, but that's ok.
+                        log.isDebugEnabled()) {
                     // This may result in the template being put into the cache multiple times
                     // if concurrent requests are made, but that's ok.
                     log.debug("Preparing new XSLT stylesheet: " + path);

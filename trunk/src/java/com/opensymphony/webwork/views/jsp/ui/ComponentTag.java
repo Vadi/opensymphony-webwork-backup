@@ -15,7 +15,7 @@ public class ComponentTag extends AbstractUITag {
     /**
      * The name of the default template for the ComponentTag
      */
-    private final static String TEMPLATE = "empty.vm";
+    private final static String TEMPLATE = "empty";
 
     //~ Methods ////////////////////////////////////////////////////////////////
 

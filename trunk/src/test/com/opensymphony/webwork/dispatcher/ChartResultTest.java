@@ -11,25 +11,18 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.mockobjects.dynamic.Mock;
-
 import com.opensymphony.webwork.ServletActionContext;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
-
 import junit.framework.TestCase;
-
 import ognl.Ognl;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-
 import org.jfree.data.DefaultPieDataset;
-
-import java.io.IOException;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 
 /**

@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.config;
 
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -17,7 +16,6 @@ import java.util.StringTokenizer;
 /**
  * Default implementation of Configuration - creates and delegates to other configurations by using an internal
  * {@link DelegatingConfiguration}.
- *
  *
  * @author Rickard Öberg
  * @author Jason Carreira

@@ -7,13 +7,11 @@ package com.opensymphony.webwork.views.jsp;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.Map;
-
 import javax.servlet.jsp.JspException;
+import java.util.Map;
 
 
 /**
@@ -25,7 +23,7 @@ import javax.servlet.jsp.JspException;
  * <pre>
  * <ww:bean name="'com.opensymphony.webwork.example.counter.SimpleCounter'" id="counter">
  *   <ww:param name="'foo'" value="'BAR'"/>
- *
+ * <p/>
  *   The value of foo is : <ww:property value="foo"/>, when inside the bean tag.<br />
  * </ww:bean>
  * </pre>

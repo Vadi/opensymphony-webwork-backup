@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.webwork.WebWorkStatics;
-
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * An interceptor which sets action properties based on the interfaces an action implements.
  * For example, if the action implements {@link ParameterAware} then the action
  * context's parameter map will be set on it. <p>
- *
+ * <p/>
  * This interceptor is designed to set all properties an action needs if it's aware of servlet
  * parametes, the servlet context, the session, etc.
  *

@@ -5,9 +5,7 @@
 package com.opensymphony.webwork.config;
 
 import java.io.IOException;
-
 import java.net.URL;
-
 import java.util.Iterator;
 import java.util.Properties;
 

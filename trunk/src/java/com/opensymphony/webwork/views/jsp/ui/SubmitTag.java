@@ -17,7 +17,7 @@ public class SubmitTag extends AbstractUITag {
     /**
      * The name of the default template for the LabelTag
      */
-    final public static String TEMPLATE = "submit.vm";
+    final public static String TEMPLATE = "submit";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 

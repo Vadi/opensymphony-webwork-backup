@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

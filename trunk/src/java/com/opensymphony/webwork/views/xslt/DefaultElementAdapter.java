@@ -4,11 +4,7 @@
  */
 package com.opensymphony.webwork.views.xslt;
 
-import org.w3c.dom.Attr;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,8 +14,8 @@ import java.util.List;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- * Date: 14.10.2003
- * Time: 19:01:02
+ *         Date: 14.10.2003
+ *         Time: 19:01:02
  */
 public abstract class DefaultElementAdapter extends DefaultAdapterNode implements AdapterNode, Element {
     //~ Instance fields ////////////////////////////////////////////////////////
@@ -34,18 +30,22 @@ public abstract class DefaultElementAdapter extends DefaultAdapterNode implement
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    /**************************************************************************************
+    /**
+     * ***********************************************************************************
      * Not supported below
-     **************************************************************************************/
+     * ************************************************************************************
+     */
 
     //
     public void setAttribute(String string, String string1) throws DOMException {
         operationNotSupported();
     }
 
-    /**************************************************************************************
+    /**
+     * ***********************************************************************************
      * No attributes, return empty attributes if asked.
-     **************************************************************************************/
+     * ************************************************************************************
+     */
     public String getAttribute(String string) {
         return "";
     }

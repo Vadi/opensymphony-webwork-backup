@@ -5,13 +5,10 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
 
-import java.io.PrintWriter;
-
-import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.TagSupport;
+import java.io.PrintWriter;
 
 
 /**
@@ -25,8 +22,6 @@ public abstract class WebWorkTagSupport extends TagSupport {
     }
 
     protected String findString(String expr) {
-        expr = CompatUtil.compat(expr);
-
         return (String) findValue(expr, String.class);
     }
 

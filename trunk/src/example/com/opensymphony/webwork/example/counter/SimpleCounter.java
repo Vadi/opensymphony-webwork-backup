@@ -4,13 +4,10 @@
  */
 package com.opensymphony.webwork.example.counter;
 
-import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionSupport;
 
 
 /**
- *
- *
  * @author $Author$
  * @version $Revision$
  */

@@ -6,11 +6,10 @@ package com.opensymphony.webwork.util;
 
 import com.opensymphony.webwork.ServletActionContext;
 
+import javax.servlet.jsp.PageContext;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-
-import javax.servlet.jsp.PageContext;
 
 
 /**

@@ -8,14 +8,13 @@ import org.w3c.dom.Node;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-
 import java.util.Collection;
 
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- * Date: 10.10.2003
- * Time: 19:39:13
+ *         Date: 10.10.2003
+ *         Time: 19:39:13
  */
 public class DOMAdapter {
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -45,13 +44,13 @@ public class DOMAdapter {
                 }
             }
 
-            Constructor c = adapterClass.getConstructor(new Class[] {
-                    DOMAdapter.class, AdapterNode.class, String.class,
-                    Object.class
-                });
-            AdapterNode adapter = ((AdapterNode) c.newInstance(new Object[] {
-                    this, parent, propertyName, value
-                }));
+            Constructor c = adapterClass.getConstructor(new Class[]{
+                DOMAdapter.class, AdapterNode.class, String.class,
+                Object.class
+            });
+            AdapterNode adapter = ((AdapterNode) c.newInstance(new Object[]{
+                this, parent, propertyName, value
+            }));
 
             return adapter;
         } catch (IllegalAccessException e) {

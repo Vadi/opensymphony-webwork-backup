@@ -15,7 +15,7 @@ public class CheckboxListTag extends AbstractListTag {
     /**
      * The name of the default template for the RadioTag
      */
-    final public static String TEMPLATE = "checkboxlist.vm";
+    final public static String TEMPLATE = "checkboxlist";
 
     //~ Methods ////////////////////////////////////////////////////////////////
 

@@ -7,15 +7,13 @@ package com.opensymphony.webwork.lifecycle;
 import com.opensymphony.xwork.interceptor.component.ComponentConfiguration;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.interceptor.component.DefaultComponentManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.IOException;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 
 /**

@@ -4,14 +4,11 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.mockobjects.servlet.MockJspWriter;
-
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.BodyContent;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.BodyContent;
 
 
 /**

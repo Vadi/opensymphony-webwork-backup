@@ -5,18 +5,13 @@
 package com.opensymphony.webwork.views.xslt;
 
 import org.apache.commons.logging.LogFactory;
-
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- * Date: 10.10.2003
- * Time: 19:46:43
+ *         Date: 10.10.2003
+ *         Time: 19:46:43
  */
 public abstract class DefaultAdapterNode implements Node, AdapterNode {
     //~ Static fields/initializers /////////////////////////////////////////////

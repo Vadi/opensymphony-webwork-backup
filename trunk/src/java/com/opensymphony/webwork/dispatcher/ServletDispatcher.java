@@ -5,14 +5,11 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.util.FileManager;
-
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
 import com.opensymphony.webwork.util.AttributeMap;
-import com.opensymphony.webwork.views.velocity.VelocityManager;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
@@ -20,21 +17,18 @@ import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.File;
-import java.io.IOException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /*
@@ -107,7 +101,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
 
     // Path to save uploaded files to (this is configurable).
     String saveDir;
-    
+
     boolean paramsWorkaroundEnabled = false;
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -165,18 +159,12 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     /**
      * Initalizes the servlet. Please read the {@link ServletDispatcher class documentation} for more
      * detail. <p>
-     * <p/>
-     * Note, the <a href="http://jakarta.apache.org/velocity/" target="_blank">Velocity</a> compontent is also
-     * initialized in this method - it is used in many of the WebWork2 JSP tags.
      *
      * @param config the ServletConfig object.
      * @throws ServletException if an error occurs during initialization.
      */
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-
-        // initialize the VelocityEngine
-        VelocityManager.getInstance().init(config.getServletContext());
 
         LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
 
@@ -236,11 +224,10 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         config.getServletContext().setAttribute("webwork.servlet", this);
         
         // test wether param-access workaround needs to be enabled
-        if(config.getServletContext().getServerInfo().indexOf("WebLogic") >= 0) {
+        if (config.getServletContext().getServerInfo().indexOf("WebLogic") >= 0) {
             log.info("WebLogic server detected. Enabling parameter access work-around.");
             paramsWorkaroundEnabled = true;
-        }
-        else {
+        } else {
             log.debug("Parameter access work-around disabled.");
         }
     }
@@ -257,9 +244,9 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
-            if(paramsWorkaroundEnabled)
+            if (paramsWorkaroundEnabled)
                 request.getParameter("foo"); // simply read any parameter (existing or not) to "prime" the request
-	   
+
             request = wrapRequest(request);
             serviceAction(request, response, getNameSpace(request), getActionName(request), getRequestMap(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
         } catch (IOException e) {
@@ -286,7 +273,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      */
     public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace, String actionName, Map requestMap, Map parameterMap, Map sessionMap, Map applicationMap) {
         HashMap extraContext = createContextMap(requestMap, parameterMap, sessionMap, applicationMap, request, response, getServletConfig());
-        extraContext.put(SERLVET_DISPATCHER, this);
+        extraContext.put(SERVLET_DISPATCHER, this);
 
         try {
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, extraContext);

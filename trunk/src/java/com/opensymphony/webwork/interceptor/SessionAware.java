@@ -9,9 +9,9 @@ import java.util.Map;
 
 /**
  * Actions that want access to the user's HTTP session should implement this interface.<p>
- *
+ * <p/>
  * This interface is only relevant if the Action is used in a servlet environment.<p>
- *
+ * <p/>
  * Note that using this interface makes the Action tied to a servlet environment, so it should be
  * avoided if possible since things like unit testing will become more difficult.
  *

@@ -18,7 +18,7 @@ public class ComboBoxTag extends AbstractUITag {
     /**
      * The name of the default template for the CheckboxTag
      */
-    final public static String TEMPLATE = "combobox.vm";
+    final public static String TEMPLATE = "combobox";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 

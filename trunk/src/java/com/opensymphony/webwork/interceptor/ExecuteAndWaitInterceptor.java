@@ -9,7 +9,6 @@ import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.interceptor.Interceptor;
 
 import java.io.Serializable;
-
 import java.util.Map;
 
 
@@ -81,16 +80,16 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
             this.action = invocation.getAction();
 
             Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try {
-                            result = action.execute();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        done = true;
+                public void run() {
+                    try {
+                        result = action.execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
+
+                    done = true;
+                }
+            });
             t.start();
         }
     }

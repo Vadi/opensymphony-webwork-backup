@@ -5,34 +5,28 @@
 package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.TextUtils;
-
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
-
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-
-import java.net.URLEncoder;
-
-import java.util.Hashtable;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.Hashtable;
+import java.util.Map;
 
 
 /**
- *        WebWork base utility class, for use in Velocity and Freemarker templates
+ * WebWork base utility class, for use in Velocity and Freemarker templates
  *
  * @author Rickard Ã–berg (rickard@dreambean.com)
  * @author Cameron Braid

@@ -4,9 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import java.util.Map;
-
 import javax.servlet.jsp.JspException;
+import java.util.Map;
 
 
 /**

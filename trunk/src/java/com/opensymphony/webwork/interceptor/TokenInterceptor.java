@@ -6,14 +6,12 @@ package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.util.TokenHelper;
-
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ValidationAware;
 import com.opensymphony.xwork.interceptor.Interceptor;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- *
- *
  * @author Jason Carreira
  */
 public class TokenInterceptor implements Interceptor {
@@ -49,8 +45,6 @@ public class TokenInterceptor implements Interceptor {
     }
 
     /**
-     *
-     *
      * @param invocation an encapsulation of the action execution state.
      * @throws Exception
      */
@@ -71,8 +65,6 @@ public class TokenInterceptor implements Interceptor {
     }
 
     /**
-     *
-     *
      * @param invocation
      * @return
      * @throws Exception
@@ -91,8 +83,6 @@ public class TokenInterceptor implements Interceptor {
     }
 
     /**
-     *
-     *
      * @param invocation
      * @throws Exception
      */

@@ -7,16 +7,13 @@ package com.opensymphony.webwork.dispatcher;
 import com.mockobjects.constraint.Constraint;
 import com.mockobjects.constraint.IsAnything;
 import com.mockobjects.constraint.IsEqual;
-
 import com.mockobjects.dynamic.Mock;
-
 import junit.framework.TestCase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -40,9 +37,9 @@ public class SessionMapTest extends TestCase {
 
     public void testGetOnSessionMapUsesWrappedSessionsGetAttribute() throws Exception {
         Object value = new Object();
-        sessionMock.expectAndReturn("getAttribute", new Constraint[] {
-                new IsEqual("KEY")
-            }, value);
+        sessionMock.expectAndReturn("getAttribute", new Constraint[]{
+            new IsEqual("KEY")
+        }, value);
 
         SessionMap sessionMap = new SessionMap((HttpServletRequest) requestMock.proxy());
         assertEquals("Expected the get using KEY to return the value object setup in the mockSession", value, sessionMap.get("KEY"));
@@ -51,10 +48,10 @@ public class SessionMapTest extends TestCase {
 
     public void testPutOnSessionMapUsesWrappedSessionsSetsAttribute() throws Exception {
         Object value = new Object();
-        sessionMock.expect("getAttribute", new Constraint[] {new IsAnything()});
-        sessionMock.expect("setAttribute", new Constraint[] {
-                new IsEqual("KEY"), new IsEqual(value)
-            });
+        sessionMock.expect("getAttribute", new Constraint[]{new IsAnything()});
+        sessionMock.expect("setAttribute", new Constraint[]{
+            new IsEqual("KEY"), new IsEqual(value)
+        });
 
         SessionMap sessionMap = new SessionMap((HttpServletRequest) requestMock.proxy());
         sessionMap.put("KEY", value);
@@ -63,12 +60,12 @@ public class SessionMapTest extends TestCase {
 
     public void testPuttingObjectInMapReturnsNullForPreviouslyUnusedKey() throws Exception {
         Object value = new Object();
-        sessionMock.expectAndReturn("getAttribute", new Constraint[] {
-                new IsEqual("KEY")
-            }, null);
-        sessionMock.expect("setAttribute", new Constraint[] {
-                new IsEqual("KEY"), new IsEqual(value)
-            });
+        sessionMock.expectAndReturn("getAttribute", new Constraint[]{
+            new IsEqual("KEY")
+        }, null);
+        sessionMock.expect("setAttribute", new Constraint[]{
+            new IsEqual("KEY"), new IsEqual(value)
+        });
 
         SessionMap sessionMap = new SessionMap((HttpServletRequest) requestMock.proxy());
         assertNull("should be null, as the contract for Map says that put returns the previous value in the map for the key", sessionMap.put("KEY", value));
@@ -78,18 +75,18 @@ public class SessionMapTest extends TestCase {
     public void testPuttingObjectInMapReturnsPreviousValueForKey() throws Exception {
         Object originalValue = new Object();
         Object value = new Object();
-        sessionMock.expectAndReturn("getAttribute", new Constraint[] {
-                new IsEqual("KEY")
-            }, null);
-        sessionMock.expect("setAttribute", new Constraint[] {
-                new IsEqual("KEY"), new IsEqual(originalValue)
-            });
-        sessionMock.expectAndReturn("getAttribute", new Constraint[] {
-                new IsEqual("KEY")
-            }, originalValue);
-        sessionMock.expect("setAttribute", new Constraint[] {
-                new IsEqual("KEY"), new IsEqual(value)
-            });
+        sessionMock.expectAndReturn("getAttribute", new Constraint[]{
+            new IsEqual("KEY")
+        }, null);
+        sessionMock.expect("setAttribute", new Constraint[]{
+            new IsEqual("KEY"), new IsEqual(originalValue)
+        });
+        sessionMock.expectAndReturn("getAttribute", new Constraint[]{
+            new IsEqual("KEY")
+        }, originalValue);
+        sessionMock.expect("setAttribute", new Constraint[]{
+            new IsEqual("KEY"), new IsEqual(value)
+        });
 
         SessionMap sessionMap = new SessionMap((HttpServletRequest) requestMock.proxy());
         sessionMap.put("KEY", originalValue);
@@ -99,12 +96,12 @@ public class SessionMapTest extends TestCase {
 
     public void testRemovePassThroughCallToRemoveAttribute() throws Exception {
         Object value = new Object();
-        sessionMock.expectAndReturn("getAttribute", new Constraint[] {
-                new IsEqual("KEY")
-            }, value);
-        sessionMock.expect("removeAttribute", new Constraint[] {
-                new IsEqual("KEY")
-            });
+        sessionMock.expectAndReturn("getAttribute", new Constraint[]{
+            new IsEqual("KEY")
+        }, value);
+        sessionMock.expect("removeAttribute", new Constraint[]{
+            new IsEqual("KEY")
+        });
 
         SessionMap sessionMap = new SessionMap((HttpServletRequest) requestMock.proxy());
         assertEquals(value, sessionMap.remove("KEY"));

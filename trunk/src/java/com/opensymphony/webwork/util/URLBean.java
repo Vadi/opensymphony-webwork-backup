@@ -6,11 +6,10 @@ package com.opensymphony.webwork.util;
 
 import com.opensymphony.webwork.views.util.UrlHelper;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**

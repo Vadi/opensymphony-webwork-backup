@@ -6,18 +6,15 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.util.ContainUtil;
 import com.opensymphony.webwork.util.MakeIterator;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
-
-import java.lang.reflect.Array;
 
 import java.util.Collection;
 import java.util.Map;
 
 
 /**
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @version $Id$
  */
 public abstract class AbstractListTag extends AbstractUITag {
     //~ Instance fields ////////////////////////////////////////////////////////

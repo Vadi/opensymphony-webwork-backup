@@ -5,12 +5,10 @@
 package com.opensymphony.webwork.util;
 
 import com.mockobjects.dynamic.Mock;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
 
 import java.util.HashMap;

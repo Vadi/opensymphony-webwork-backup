@@ -8,16 +8,13 @@ import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockHttpServletResponse;
 import com.mockobjects.servlet.MockServletConfig;
 import com.mockobjects.servlet.MockServletContext;
-
 import com.opensymphony.xwork.ActionContext;
-
 import junit.framework.TestCase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**

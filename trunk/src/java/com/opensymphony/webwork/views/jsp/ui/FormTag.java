@@ -9,18 +9,16 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.webwork.views.jsp.TagUtils;
 import com.opensymphony.webwork.views.util.UrlHelper;
-
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -32,8 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 public class FormTag extends AbstractClosingUITag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    final public static String OPEN_TEMPLATE = "form.vm";
-    final public static String TEMPLATE = "form-close.vm";
+    final public static String OPEN_TEMPLATE = "form";
+    final public static String TEMPLATE = "form-close";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 

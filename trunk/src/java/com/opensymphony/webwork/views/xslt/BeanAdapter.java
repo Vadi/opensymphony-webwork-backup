@@ -10,9 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-
 import java.lang.reflect.Method;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +19,8 @@ import java.util.Map;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- * Date: 10.10.2003
- * Time: 20:08:17
+ *         Date: 10.10.2003
+ *         Time: 20:08:17
  */
 public class BeanAdapter extends DefaultElementAdapter {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -105,7 +103,7 @@ public class BeanAdapter extends DefaultElementAdapter {
 
     /**
      * Caching facade method to Introspector.getBeanInfo(Class, Class).getPropertyDescriptors();
-     **/
+     */
     private synchronized PropertyDescriptor[] getPropertyDescriptors(Object bean) {
         try {
             if (propertyDescriptorCache == null) {

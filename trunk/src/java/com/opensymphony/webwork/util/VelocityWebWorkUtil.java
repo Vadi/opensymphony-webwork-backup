@@ -8,20 +8,17 @@
 package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.TextUtils;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
-import java.io.CharArrayWriter;
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.CharArrayWriter;
+import java.io.IOException;
 
 
 /**

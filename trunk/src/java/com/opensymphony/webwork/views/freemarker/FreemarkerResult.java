@@ -9,25 +9,16 @@ package com.opensymphony.webwork.views.freemarker;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
-
 import com.opensymphony.xwork.ActionInvocation;
-
-import freemarker.template.Configuration;
-import freemarker.template.ObjectWrapper;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
-
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-
-import java.util.Locale;
+import freemarker.template.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.Locale;
 
 
 /**
@@ -64,9 +55,9 @@ public class FreemarkerResult extends WebWorkResultSupport {
 
     /**
      * execute this result, using the specified template location.
-     *
+     * <p/>
      * The template location has already been interoplated for any variable substitutions
-     *
+     * <p/>
      * this method obtains the freemarker configuration and the object wrapper from the provided hooks.
      * It them implements the template processing workflow by calling the hooks for
      * preTemplateProcess and postTemplateProcess
@@ -97,7 +88,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
      * FreeMarker configuration object that this result will use for template loading. This is a
      * hook that allows you to custom-configure the configuration object in a subclass, or to fetch
      * it from an IoC container.
-     *
+     * <p/>
      * <b>
      * The default implementation obtains the configuration from the ConfigurationManager instance.
      * </b>
@@ -110,7 +101,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
      * This method is called from {@link #doExecute(String, ActionInvocation)}  to obtain the
      * FreeMarker object wrapper object that this result will use for adapting objects into template
      * models. This is a hook that allows you to custom-configure the wrapper object in a subclass.
-     *
+     * <p/>
      * <b>
      * The default implementation returns {@link Configuration#getObjectWrapper()}
      * </b>
@@ -128,22 +119,22 @@ public class FreemarkerResult extends WebWorkResultSupport {
 
     /**
      * Build the instance of the ScopesHashModel, including JspTagLib support
-     *
+     * <p/>
      * Objects added to the model are
-     *
+     * <p/>
      * <ul>
-     *  <li>Application - servlet context attributes hash model
-     *  <li>JspTaglibs - jsp tag lib factory model
-     *  <li>Request - request attributes hash model
-     *  <li>Session - session attributes hash model
-     *  <li>req - the HttpServletRequst object for direct access
-     *  <li>res - the HttpServletResponse object for direct access
-     *  <li>stack - the OgnLValueStack instance for direct access
-     *  <li>ognl - the instance of the OgnlTool
-     *  <li>action - the action itself
-     *  <li>exception - optional : the JSP or Servlet exception as per the servlet spec (for JSP Exception pages)
-     *  <li>webwork - instance of the WebWorkUtil class
-     *</ul>
+     * <li>Application - servlet context attributes hash model
+     * <li>JspTaglibs - jsp tag lib factory model
+     * <li>Request - request attributes hash model
+     * <li>Session - session attributes hash model
+     * <li>req - the HttpServletRequst object for direct access
+     * <li>res - the HttpServletResponse object for direct access
+     * <li>stack - the OgnLValueStack instance for direct access
+     * <li>ognl - the instance of the OgnlTool
+     * <li>action - the action itself
+     * <li>exception - optional : the JSP or Servlet exception as per the servlet spec (for JSP Exception pages)
+     * <li>webwork - instance of the WebWorkUtil class
+     * </ul>
      */
     protected TemplateModel createModel() throws TemplateModelException {
         ServletContext servletContext = ServletActionContext.getServletContext();
@@ -178,6 +169,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
      * action before the template is processed. By default does nothing.
      * A typical action to perform here is to inject application-specific
      * objects into the model root
+     *
      * @return true to process the template, false to suppress template processing.
      */
     protected boolean preTemplateProcess(Template template, TemplateModel model) throws IOException {
