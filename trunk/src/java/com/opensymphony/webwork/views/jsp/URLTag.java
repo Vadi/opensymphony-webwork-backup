@@ -65,6 +65,8 @@ public class URLTag extends ParametereizedBodyTagSupport {
     // Attributes ----------------------------------------------------
     protected String valueAttr;
     protected String scheme = "http";
+    protected boolean includeContext = true;
+    protected boolean encodeResult = true;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -80,10 +82,18 @@ public class URLTag extends ParametereizedBodyTagSupport {
         scheme = aScheme;
     }
 
+    public void setIncludeContext(boolean includeContext) {
+        this.includeContext = includeContext;
+    }
+
+    public void setEncodeResult(boolean encodeResult) {
+        this.encodeResult = encodeResult;
+    }
+
     public int doEndTag() throws JspException {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
-        String result = UrlHelper.buildUrl(value, request, response, params, scheme);
+        String result = UrlHelper.buildUrl(value, request, response, params, scheme, includeContext, encodeResult);
 
         String id = getId();
 
