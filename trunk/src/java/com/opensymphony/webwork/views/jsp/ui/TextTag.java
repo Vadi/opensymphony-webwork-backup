@@ -152,6 +152,8 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
             } catch (IOException e) {
                 throw new JspException(e);
             }
+        } else {
+            LOG.warn("No message found for expression: " + expression);
         }
 
         return EVAL_PAGE;
