@@ -3,9 +3,9 @@ package webwork;
 import com.opensymphony.xwork.ActionChainResult;
 import com.opensymphony.xwork.config.entities.ResultConfig;
 import com.opensymphony.webwork.dispatcher.ServletDispatcherResult;
+import com.opensymphony.webwork.config.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import webwork.config.Configuration;
 import webwork.dispatcher.ViewMapping;
 
 import java.util.HashMap;

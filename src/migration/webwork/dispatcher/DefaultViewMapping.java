@@ -6,9 +6,6 @@
  */
 package webwork.dispatcher;
 
-import webwork.action.Action;
-import webwork.config.Configuration;
-
 /**
  * Default view mapping.
  *

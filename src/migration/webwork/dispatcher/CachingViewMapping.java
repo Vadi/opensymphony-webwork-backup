@@ -6,9 +6,6 @@
  */
 package webwork.dispatcher;
 
-import webwork.action.Action;
-import webwork.config.Configuration;
-
 import java.util.Map;
 import java.util.Collections;
 import java.util.HashMap;

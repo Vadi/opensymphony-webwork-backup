@@ -8,12 +8,13 @@ package webwork.action.factory;
 
 import org.apache.commons.logging.*;
 import webwork.action.Action;
-import webwork.config.Configuration;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.StringTokenizer;
+
+import com.opensymphony.webwork.config.Configuration;
 
 /**
  * Locate an action based on the configured list of package prefixes.

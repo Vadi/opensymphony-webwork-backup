@@ -8,7 +8,6 @@ package webwork.action.factory;
 
 import org.apache.commons.logging.*;
 import webwork.action.Action;
-import webwork.config.Configuration;
 import webwork.util.ClassLoaderUtils;
 
 /**
@@ -20,7 +19,7 @@ import webwork.util.ClassLoaderUtils;
  * or the specified class cannot be instantiated, the
  * {@link MigrationActionFactory} class will be instantiated.
  *
- *	@author Rickard Öberg (rickard@middleware-company.com)
+ *	@author Rickard Ã–berg (rickard@middleware-company.com)
  *	@version $Revision$
  */
 public abstract class ActionFactory
@@ -33,7 +32,7 @@ public abstract class ActionFactory
       // Create default implementation
       try
       {
-         String className = Configuration.getString("webwork.action.factory");
+         String className = com.opensymphony.webwork.config.Configuration.getString("webwork.action.factory");
          try
          {
             defaultActionFactory = (ActionFactory)ClassLoaderUtils.loadClass(className, ActionFactory.class).newInstance();

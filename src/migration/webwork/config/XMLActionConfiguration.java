@@ -26,17 +26,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import webwork.util.ClassLoaderUtils;
+import com.opensymphony.webwork.config.Configuration;
 
 /**
  * Access view configuration from an XML file.
  *
- *	@author Rickard Öberg (rickard@middleware-company.com)
+ *	@author Rickard Ã–berg (rickard@middleware-company.com)
  *	@author Scott Farquhar (scott@atlassian.com)
  *	@version $Revision$
  *
  */
-public class XMLActionConfiguration
-   extends Configuration
+public class XMLActionConfiguration extends Configuration
 {
    // Attributes ----------------------------------------------------
    /**
