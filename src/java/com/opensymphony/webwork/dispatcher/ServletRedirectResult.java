@@ -40,9 +40,14 @@ public class ServletRedirectResult implements Result, WebWorkStatics {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private String location;
+    private boolean prependServletContext = true;
     private boolean parse = true;
 
     //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setPrependServletContext(boolean prependServletContext) {
+        this.prependServletContext = prependServletContext;
+    }
 
     public void setLocation(String location) {
         this.location = location;
@@ -61,14 +66,46 @@ public class ServletRedirectResult implements Result, WebWorkStatics {
             location = TextParseUtil.translateVariables(location, stack);
         }
 
+        String redirectLocation = location;
+
+        if (isPathUrl(redirectLocation))
+    	{
+    		
+	        if (!redirectLocation.startsWith("/")) {
+	
+	            String actionPath = request.getServletPath();
+	            String namespace = ServletDispatcher.getNamespaceFromServletPath(actionPath);
+	
+	            if ((namespace != null) && (namespace.length() > 0)) {
+	                redirectLocation = namespace + "/" + redirectLocation;
+	            }
+	            else {
+	            	redirectLocation = "/" + redirectLocation;
+	            }
+	
+	        }
+	
+			// if the URL's are relative to the servlet context, append the servlet context path 
+			if (prependServletContext && request.getContextPath() != null && request.getContextPath().length() > 0)
+			{
+				redirectLocation = request.getContextPath() + redirectLocation; 
+			}
+
+			redirectLocation = response.encodeRedirectURL(redirectLocation);
+		}
+
         if (log.isDebugEnabled()) {
-            log.debug("Redirecting to location " + location);
+            log.debug("Redirecting to location " + redirectLocation);
         }
 
-        if (location.startsWith("/")) {
-            response.sendRedirect(location);
-        } else {
-            response.sendRedirect(request.getContextPath()+ "/" + location);
-        }
+        response.sendRedirect(redirectLocation);
     }
+
+	private static boolean isPathUrl(String url)
+	{
+		// filter out "http:", "https:", "mailto:", "file:", "ftp:"
+		// since the only valid places for : in URL's is before the path specification
+		// either before the port, or after the protocol
+		return (url.indexOf(':') == -1);
+	}
 }
