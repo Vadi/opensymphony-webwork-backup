@@ -24,7 +24,7 @@ import javax.servlet.jsp.JspException;
  * @author Brock Bulger (brockman_bulger@hotmail.com)
  * @version $Revision$
  */
-public class URLTagTest extends AbstractJspTest {
+public class URLTagTest extends AbstractUITagTest {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private MockJspWriter jspWriter;

@@ -6,7 +6,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.util.TokenHelper;
-import com.opensymphony.webwork.views.jsp.AbstractJspTest;
+import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
 import com.opensymphony.xwork.ActionContext;
 
@@ -18,7 +18,7 @@ import javax.servlet.jsp.JspException;
  * @author Jason Carreira
  * Created Apr 10, 2003 7:12:12 PM
  */
-public class TokenTagTest extends AbstractJspTest {
+public class TokenTagTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testDefaultName() {

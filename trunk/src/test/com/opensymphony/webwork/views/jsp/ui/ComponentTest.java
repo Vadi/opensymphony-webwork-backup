@@ -5,14 +5,14 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
-import com.opensymphony.webwork.views.jsp.AbstractJspTest;
+import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
 
 /**
  * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
-public class ComponentTest extends AbstractJspTest {
+public class ComponentTest extends AbstractUITagTest {
     //~ Constructors ///////////////////////////////////////////////////////////
 
     public ComponentTest() {

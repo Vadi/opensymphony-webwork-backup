@@ -45,7 +45,7 @@ import javax.servlet.jsp.JspWriter;
  * @version $Id$
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
  */
-public abstract class AbstractJspTest extends TestCase {
+public abstract class AbstractUITagTest extends AbstractTagTest {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
@@ -112,40 +112,16 @@ public abstract class AbstractJspTest extends TestCase {
         ServletActionContext.setServletConfig(config);
     }
 
-    //~ Instance fields ////////////////////////////////////////////////////////
-
-    protected Action action;
-    protected Map context;
-    protected Map session;
-    protected OgnlValueStack stack;
-
-    /**
-    * contains the buffer that our unit test will write to.  we can later verify this buffer for correctness.
-    */
-    protected StringWriter writer;
-    protected WebWorkMockHttpServletRequest request;
-    protected WebWorkMockPageContext pageContext;
-    private HttpServletResponse response;
-
     //~ Constructors ///////////////////////////////////////////////////////////
 
-    public AbstractJspTest() {
+    public AbstractUITagTest() {
     }
 
-    public AbstractJspTest(String s) {
+    public AbstractUITagTest(String s) {
         super(s);
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
-
-    /**
-    * Constructs the action that we're going to test against.  For most UI tests, this default action should be enough.
-    * However, simply override getAction to return a custom Action if you need something more sophisticated.
-    * @return the Action to be added to the OgnlValueStack as part of the unit test
-    */
-    public Action getAction() {
-        return new TestAction();
-    }
 
     /**
     * Attempt to verify the contents of this.writer against the contents of the URL specified.  verify() performs a
@@ -188,43 +164,6 @@ public abstract class AbstractJspTest extends TestCase {
         }
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        /**
-        * create our standard mock objects
-        */
-        action = this.getAction();
-        stack = new OgnlValueStack();
-        context = stack.getContext();
-        stack.push(action);
-
-        request = new WebWorkMockHttpServletRequest();
-        request.setAttribute("webwork.valueStack", stack);
-        response = new WebWorkMockHttpServletResponse();
-        request.setSession(new WebWorkMockHttpSession());
-        ActionContext.getContext().setValueStack(stack);
-
-        writer = new StringWriter();
-
-        JspWriter jspWriter = new TestJspWriter(writer);
-
-        pageContext = new WebWorkMockPageContext();
-        pageContext.setRequest(request);
-        pageContext.setResponse(response);
-        pageContext.setJspWriter(jspWriter);
-
-        session = new HashMap();
-        ActionContext.getContext().setSession(session);
-
-        Configuration.setConfiguration(null);
-    }
-
-    protected void tearDown() throws Exception {
-        pageContext.verify();
-        request.verify();
-    }
-
     /**
     * normalizes a string so that strings generated on different platforms can be compared.  any group of one or more
     * space, tab, \r, and \n characters are converted to a single space character
@@ -244,38 +183,5 @@ public abstract class AbstractJspTest extends TestCase {
         }
 
         return buffer.toString();
-    }
-
-    //~ Inner Classes //////////////////////////////////////////////////////////
-
-    /**
-    * Unforunately, the MockJspWriter throws a NotImplementedException when any of the Writer methods are invoked and
-    * as you might guess, Velocity uses the Writer methods.  I'velocityEngine subclassed the MockJspWriter for the time being so
-    * that we can do testing on the results until MockJspWriter gets fully implemented.
-    *
-    * @todo replace this once MockJspWriter implements Writer correctly (i.e. doesn't throw NotImplementException)
-    */
-    public class TestJspWriter extends MockJspWriter {
-        StringWriter writer;
-
-        public TestJspWriter(StringWriter writer) {
-            this.writer = writer;
-        }
-
-        public void write(String str) throws IOException {
-            writer.write(str);
-        }
-
-        public void write(int c) throws IOException {
-            writer.write(c);
-        }
-
-        public void write(char[] cbuf) throws IOException {
-            writer.write(cbuf);
-        }
-
-        public void write(String str, int off, int len) throws IOException {
-            writer.write(str, off, len);
-        }
     }
 }

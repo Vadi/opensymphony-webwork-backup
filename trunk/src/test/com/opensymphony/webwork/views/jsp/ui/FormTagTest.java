@@ -5,7 +5,7 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
-import com.opensymphony.webwork.views.jsp.AbstractJspTest;
+import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
 import junit.framework.Assert;
 
@@ -18,7 +18,7 @@ import org.apache.velocity.app.Velocity;
  * @author Jason Carreira
  * Created Apr 3, 2003 10:28:58 AM
  */
-public class FormTagTest extends AbstractJspTest {
+public class FormTagTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testForm() throws Exception {

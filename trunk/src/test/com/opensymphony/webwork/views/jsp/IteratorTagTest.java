@@ -26,7 +26,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author $Author$
  * @version $Revision$
  */
-public class IteratorTagTest extends AbstractJspTest {
+public class IteratorTagTest extends AbstractUITagTest {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     IteratorTag tag;
