@@ -1,10 +1,17 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.views.jsp.AbstractJspTest;
 import com.opensymphony.webwork.TestAction;
+import com.opensymphony.webwork.views.jsp.AbstractJspTest;
+
+import junit.framework.Assert;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.app.Velocity;
-import junit.framework.Assert;
+
 
 /**
  * User: plightbo

@@ -6,9 +6,12 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockPageContext;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 import junit.framework.TestCase;
+
 import ognl.Ognl;
 
 import javax.servlet.jsp.JspException;
@@ -20,14 +23,10 @@ import javax.servlet.jsp.JspException;
  * @author $author$
  * @version $Revision$
  */
-public class BeanTagTest extends TestCase {
+public class BeanTagTest extends AbstractJspTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockPageContext pageContext = new MockPageContext();
-        pageContext.setRequest(request);
-
         BeanTag tag = new BeanTag();
         tag.setPageContext(pageContext);
         tag.setName("com.opensymphony.webwork.TestAction");
@@ -36,11 +35,10 @@ public class BeanTagTest extends TestCase {
             tag.doStartTag();
             tag.addParam("result", "success");
 
-            OgnlValueStack stack = ActionContext.getContext().getValueStack();
             assertEquals("success", stack.findValue("result"));
-            assertEquals(1, ActionContext.getContext().getValueStack().size());
+            assertEquals(2, stack.size());
             tag.doEndTag();
-            assertEquals(0, ActionContext.getContext().getValueStack().size());
+            assertEquals(1, stack.size());
         } catch (JspException ex) {
             ex.printStackTrace();
             fail();
@@ -48,14 +46,5 @@ public class BeanTagTest extends TestCase {
 
         request.verify();
         pageContext.verify();
-    }
-
-    protected void setUp() throws Exception {
-        super.setUp();
-        ActionContext.setContext(new ActionContext(Ognl.createDefaultContext(null)));
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 }

@@ -39,6 +39,10 @@ public class FileTag extends AbstractUITag {
         this.sizeAttr = size;
     }
 
+    protected String getDefaultTemplate() {
+        return TEMPLATE;
+    }
+
     protected void evaluateParams(OgnlValueStack stack) {
         super.evaluateParams(stack);
 
@@ -49,9 +53,5 @@ public class FileTag extends AbstractUITag {
         if (sizeAttr != null) {
             addParam("size", stack.findValue(sizeAttr, String.class));
         }
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
     }
 }

@@ -32,13 +32,13 @@ public class InvocationSessionStore {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
- * Checks the Map in the Session for the key and the token. If the
- * ActionInvocation is saved in the Session, the ValueStack from the
- * ActionProxy associated with the ActionInvocation is set into the
- * ActionContext and the ActionInvocation is returned.
- * @param key the name the DefaultActionInvocation and ActionContext were saved as
- * @return the DefaultActionInvocation saved using the key, or null if none was found
- */
+    * Checks the Map in the Session for the key and the token. If the
+    * ActionInvocation is saved in the Session, the ValueStack from the
+    * ActionProxy associated with the ActionInvocation is set into the
+    * ActionContext and the ActionInvocation is returned.
+    * @param key the name the DefaultActionInvocation and ActionContext were saved as
+    * @return the DefaultActionInvocation saved using the key, or null if none was found
+    */
     public static ActionInvocation loadInvocation(String key, String token) {
         InvocationContext invocationContext = (InvocationContext) getInvocationMap().get(key);
 
@@ -53,11 +53,11 @@ public class InvocationSessionStore {
     }
 
     /**
-* Stores the DefaultActionInvocation and ActionContext into the Session using the provided key for loading later using
-* {@link #loadInvocation}
-* @param key
-* @param invocation
-*/
+    * Stores the DefaultActionInvocation and ActionContext into the Session using the provided key for loading later using
+    * {@link #loadInvocation}
+    * @param key
+    * @param invocation
+    */
     public static void storeInvocation(String key, String token, ActionInvocation invocation) {
         InvocationContext invocationContext = new InvocationContext(invocation, token);
         Map invocationMap = getInvocationMap();

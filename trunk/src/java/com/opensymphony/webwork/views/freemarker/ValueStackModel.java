@@ -29,8 +29,8 @@ public class ValueStackModel extends SimpleHash implements TemplateHashModel {
     //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
- *
- */
+    *
+    */
     public ValueStackModel(TemplateHashModel wrappedModel) {
         super();
         this.wrappedModel = wrappedModel;
@@ -43,8 +43,8 @@ public class ValueStackModel extends SimpleHash implements TemplateHashModel {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /* (non-Javadoc)
- * @see freemarker.template.TemplateHashModel#isEmpty()
- */
+    * @see freemarker.template.TemplateHashModel#isEmpty()
+    */
     public boolean isEmpty() throws TemplateModelException {
         // not quite sure what to return here.
         // should we check if anything exists in the stack ? - though won't something always exist ?
@@ -52,8 +52,8 @@ public class ValueStackModel extends SimpleHash implements TemplateHashModel {
     }
 
     /* (non-Javadoc)
- * @see freemarker.template.TemplateHashModel#get(java.lang.String)
- */
+    * @see freemarker.template.TemplateHashModel#get(java.lang.String)
+    */
     public TemplateModel get(String key) throws TemplateModelException {
         Object result = null;
 

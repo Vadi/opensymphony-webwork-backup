@@ -21,23 +21,11 @@ import javax.servlet.jsp.JspException;
  * @author $Author$
  * @version $Revision$
  */
-public class PushTagTest extends TestCase {
+public class PushTagTest extends AbstractJspTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() {
         PushTag tag = new PushTag();
-
-        Foo foo = new Foo();
-        foo.setTitle("test");
-
-        OgnlValueStack stack = new OgnlValueStack();
-        stack.push(foo);
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ActionContext.getContext().setValueStack(stack);
-
-        MockPageContext pageContext = new MockPageContext();
-        pageContext.setRequest(request);
 
         tag.setPageContext(pageContext);
         tag.setValue("title");
@@ -51,23 +39,6 @@ public class PushTagTest extends TestCase {
         } catch (JspException e) {
             e.printStackTrace();
             fail();
-        }
-
-        request.verify();
-        pageContext.verify();
-    }
-
-    //~ Inner Classes //////////////////////////////////////////////////////////
-
-    public class Foo {
-        private String title;
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getTitle() {
-            return title;
         }
     }
 }

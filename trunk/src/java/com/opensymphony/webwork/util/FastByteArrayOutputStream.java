@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
+/*
  * WebWork, Web Application Framework
  *
  * Distributable under Apache license.
@@ -6,12 +10,15 @@
  */
 package com.opensymphony.webwork.util;
 
-import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
+
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import javax.servlet.jsp.JspWriter;
+
 
 /**
  * A speedy implementation of ByteArrayOutputStream. It's not synchronized, and it
@@ -21,20 +28,27 @@ import java.util.LinkedList;
  * @author Rickard Öberg
  * @version $Revision$
  */
-public class FastByteArrayOutputStream
-        extends OutputStream {
+public class FastByteArrayOutputStream extends OutputStream {
+    //~ Static fields/initializers /////////////////////////////////////////////
+
     // Static --------------------------------------------------------
     private static final int DEFAULT_BLOCK_SIZE = 8192;
+
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    private LinkedList buffers;
 
     // Attributes ----------------------------------------------------
     // internal buffer
     private byte[] buffer;
-    private LinkedList buffers;
-    private int index;
-    private int size;
-    private int blockSize;
+
     // is the stream closed?
     private boolean closed;
+    private int blockSize;
+    private int index;
+    private int size;
+
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     // Constructors --------------------------------------------------
     public FastByteArrayOutputStream() {
@@ -46,58 +60,14 @@ public class FastByteArrayOutputStream
         buffer = new byte[blockSize];
     }
 
-    // Public
-    public void writeTo(OutputStream out) throws IOException {
-        // Check if we have a list of buffers
-        if (buffers != null) {
-            Iterator enum = buffers.iterator();
-            while (enum.hasNext()) {
-                byte[] bytes = (byte[]) enum.next();
-                out.write(bytes, 0, blockSize);
-            }
-        }
-
-        // write the internal buffer directly
-        out.write(buffer, 0, index);
-    }
-
-    public void writeTo(RandomAccessFile out) throws IOException {
-        // Check if we have a list of buffers
-        if (buffers != null) {
-            Iterator enum = buffers.iterator();
-            while (enum.hasNext()) {
-                byte[] bytes = (byte[]) enum.next();
-                out.write(bytes, 0, blockSize);
-            }
-        }
-
-        // write the internal buffer directly
-        out.write(buffer, 0, index);
-    }
-
-    public void writeTo(JspWriter out, String encoding) throws IOException {
-        // Check if we have a list of buffers
-        if (buffers != null) {
-            Iterator enum = buffers.iterator();
-            while (enum.hasNext()) {
-                byte[] bytes = (byte[]) enum.next();
-
-                if (encoding != null)
-                    out.write(new String(bytes, encoding));
-                else
-                    out.write(new String(bytes));
-            }
-        }
-
-        // write the internal buffer directly
-        if (encoding != null)
-            out.write(new String(buffer, 0, index, encoding));
-        else
-            out.write(new String(buffer, 0, index));
-    }
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public int getSize() {
         return size + index;
+    }
+
+    public void close() {
+        closed = true;
     }
 
     public byte[] toByteArray() {
@@ -105,8 +75,10 @@ public class FastByteArrayOutputStream
 
         // Check if we have a list of buffers
         int pos = 0;
+
         if (buffers != null) {
             Iterator enum = buffers.iterator();
+
             while (enum.hasNext()) {
                 byte[] bytes = (byte[]) enum.next();
                 System.arraycopy(bytes, 0, data, pos, blockSize);
@@ -131,8 +103,9 @@ public class FastByteArrayOutputStream
         } else {
             if (index == blockSize) {
                 // Create new buffer and store current in linked list
-                if (buffers == null)
+                if (buffers == null) {
                     buffers = new LinkedList();
+                }
 
                 buffers.addLast(buffer);
 
@@ -146,21 +119,20 @@ public class FastByteArrayOutputStream
         }
     }
 
-    public void write(byte[] data, int offset, int length)
-            throws IOException {
+    public void write(byte[] data, int offset, int length) throws IOException {
         if (data == null) {
             throw new NullPointerException();
-        } else if ((offset < 0) || (offset + length > data.length)
-                || (length < 0)) {
+        } else if ((offset < 0) || ((offset + length) > data.length) || (length < 0)) {
             throw new IndexOutOfBoundsException();
         } else if (closed) {
             throw new IOException("Stream closed");
         } else {
-            if (index + length >= blockSize) {
+            if ((index + length) >= blockSize) {
                 // Write byte by byte
                 // FIXME optimize this to use arraycopy's instead
-                for (int i = 0; i < length; i++)
+                for (int i = 0; i < length; i++) {
                     write(data[offset + i]);
+                }
             } else {
                 // Copy in the subarray
                 System.arraycopy(data, offset, buffer, index, length);
@@ -169,8 +141,58 @@ public class FastByteArrayOutputStream
         }
     }
 
-    public void close() {
-        closed = true;
+    // Public
+    public void writeTo(OutputStream out) throws IOException {
+        // Check if we have a list of buffers
+        if (buffers != null) {
+            Iterator enum = buffers.iterator();
+
+            while (enum.hasNext()) {
+                byte[] bytes = (byte[]) enum.next();
+                out.write(bytes, 0, blockSize);
+            }
+        }
+
+        // write the internal buffer directly
+        out.write(buffer, 0, index);
+    }
+
+    public void writeTo(RandomAccessFile out) throws IOException {
+        // Check if we have a list of buffers
+        if (buffers != null) {
+            Iterator enum = buffers.iterator();
+
+            while (enum.hasNext()) {
+                byte[] bytes = (byte[]) enum.next();
+                out.write(bytes, 0, blockSize);
+            }
+        }
+
+        // write the internal buffer directly
+        out.write(buffer, 0, index);
+    }
+
+    public void writeTo(JspWriter out, String encoding) throws IOException {
+        // Check if we have a list of buffers
+        if (buffers != null) {
+            Iterator enum = buffers.iterator();
+
+            while (enum.hasNext()) {
+                byte[] bytes = (byte[]) enum.next();
+
+                if (encoding != null) {
+                    out.write(new String(bytes, encoding));
+                } else {
+                    out.write(new String(bytes));
+                }
+            }
+        }
+
+        // write the internal buffer directly
+        if (encoding != null) {
+            out.write(new String(buffer, 0, index, encoding));
+        } else {
+            out.write(new String(buffer, 0, index));
+        }
     }
 }
-

@@ -29,6 +29,10 @@ public class SubmitTag extends AbstractUITag {
         this.alignAttr = align;
     }
 
+    protected String getDefaultTemplate() {
+        return TEMPLATE;
+    }
+
     protected void evaluateParams(OgnlValueStack stack) {
         if (alignAttr == null) {
             alignAttr = "'right'";
@@ -41,9 +45,5 @@ public class SubmitTag extends AbstractUITag {
         super.evaluateParams(stack);
 
         addParam("align", stack.findValue(alignAttr, String.class));
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
     }
 }

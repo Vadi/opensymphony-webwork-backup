@@ -20,14 +20,13 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * @author $Author$
  * @version $Revision$
  */
-public class PushTag extends BodyTagSupport {
+public class PushTag extends WebWorkBodyTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(PushTag.class);
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private OgnlValueStack stack;
     private String value;
     private boolean pushed = false;
 
@@ -38,7 +37,7 @@ public class PushTag extends BodyTagSupport {
     }
 
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = getStack();
+        OgnlValueStack stack = getValueStack();
 
         if (pushed && (stack != null)) {
             stack.pop();
@@ -48,7 +47,7 @@ public class PushTag extends BodyTagSupport {
     }
 
     public int doStartTag() throws JspException {
-        OgnlValueStack stack = getStack();
+        OgnlValueStack stack = getValueStack();
 
         if (stack != null) {
             stack.push(stack.findValue(value));
@@ -63,16 +62,7 @@ public class PushTag extends BodyTagSupport {
     */
     public void release() {
         super.release();
-        this.stack = null;
         this.value = null;
         this.pushed = false;
-    }
-
-    protected OgnlValueStack getStack() {
-        if (stack == null) {
-            stack = (OgnlValueStack) ActionContext.getContext().getValueStack();
-        }
-
-        return stack;
     }
 }

@@ -28,7 +28,7 @@ public class WebWorkMockPageContext extends MockPageContext {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAttribute(String s, Object o) {
-        if (s == null || o == null) {
+        if ((s == null) || (o == null)) {
             throw new NullPointerException("PageContext does not accept null attributes");
         }
 

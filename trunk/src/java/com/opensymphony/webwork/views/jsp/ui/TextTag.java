@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.ParameterizedTag;
+import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -32,7 +33,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author Jason Carreira
  */
-public class TextTag extends BodyTagSupport implements ParameterizedTag {
+public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     List values;
@@ -66,7 +67,7 @@ public class TextTag extends BodyTagSupport implements ParameterizedTag {
 
     // BodyTag implementation ----------------------------------------
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = UITagUtil.getValueStack(pageContext);
+        OgnlValueStack stack = getValueStack();
 
         String defaultMessage;
 

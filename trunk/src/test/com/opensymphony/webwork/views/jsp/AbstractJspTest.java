@@ -220,6 +220,11 @@ public abstract class AbstractJspTest extends TestCase {
         Configuration.setConfiguration(null);
     }
 
+    protected void tearDown() throws Exception {
+        pageContext.verify();
+        request.verify();
+    }
+
     /**
     * normalizes a string so that strings generated on different platforms can be compared.  any group of one or more
     * space, tab, \r, and \n characters are converted to a single space character

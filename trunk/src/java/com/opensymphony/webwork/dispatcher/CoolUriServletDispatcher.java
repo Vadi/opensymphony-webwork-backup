@@ -8,12 +8,13 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
+import java.io.IOException;
+
 import java.net.URLDecoder;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

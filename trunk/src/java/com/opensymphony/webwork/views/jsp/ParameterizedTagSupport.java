@@ -17,7 +17,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Time: 11:00:38 PM
  * To change this template use Options | File Templates.
  */
-public abstract class ParameterizedTagSupport extends TagSupport implements ParameterizedTag {
+public abstract class ParameterizedTagSupport extends WebWorkTagSupport implements ParameterizedTag {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     Map params;

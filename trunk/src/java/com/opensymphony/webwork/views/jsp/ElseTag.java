@@ -14,7 +14,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @version $Revision$
  */
-public class ElseTag extends TagSupport {
+public class ElseTag extends WebWorkTagSupport {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public int doStartTag() throws JspException {

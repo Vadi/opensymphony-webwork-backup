@@ -18,11 +18,11 @@ import java.util.Map;
 public class TestAction extends ActionSupport {
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    private Map map;
     private String foo;
     private String result;
     private String[] array;
     private String[][] list;
-    private Map map;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 

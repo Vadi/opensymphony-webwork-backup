@@ -35,12 +35,12 @@ public class RequestLifecycleFilter implements Filter {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(RequestLifecycleFilter.class);
-    
+
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void destroy() {
     }
-    
+
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         ComponentManager container = new DefaultComponentManager();
 
@@ -68,7 +68,10 @@ public class RequestLifecycleFilter implements Filter {
             container.dispose();
         }
     }
-    
+
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
     /**
      * answers the servlet context.
      * <p>
@@ -77,16 +80,12 @@ public class RequestLifecycleFilter implements Filter {
      * the servlet context from the filter config.  Hence, this method
      * enables subclasses to retrieve the servlet context from other
      * sources.
-     * 
+     *
      * @param session the HTTP session where, in Servlet 2.3, the
      *          servlet context can be retrieved
      * @return the servlet context.
      */
-    protected ServletContext getServletContext(HttpSession session)
-    {
+    protected ServletContext getServletContext(HttpSession session) {
         return session.getServletContext();
-    }
-
-    public void init(FilterConfig filterConfig) throws ServletException {
     }
 }

@@ -59,10 +59,6 @@ public class IteratorStatus {
 
     //~ Inner Classes //////////////////////////////////////////////////////////
 
-    // Package protected ---------------------------------------------
-    // Protected -----------------------------------------------------
-    // Private -------------------------------------------------------
-    // Inner classes -------------------------------------------------
     public static class StatusState {
         boolean last = false;
         int index = 0;

@@ -52,7 +52,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author Brock Bulger
  * @version $Revision$
  */
-public class BeanTag extends TagSupport implements ParameterizedTag {
+public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     protected static Log log = LogFactory.getLog(BeanTag.class);
@@ -77,7 +77,7 @@ public class BeanTag extends TagSupport implements ParameterizedTag {
     }
 
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = ActionContext.getContext().getValueStack();
+        OgnlValueStack stack = getValueStack();
         stack.pop();
 
         return SKIP_BODY;
@@ -101,14 +101,7 @@ public class BeanTag extends TagSupport implements ParameterizedTag {
             }
         }
 
-        OgnlValueStack stack = ActionContext.getContext().getValueStack();
-
-        //If the stack is null, the ActionContext hasn't been created yet. Must be a directly accessed JSP. If so,
-        //create a new ActionContext.
-        if (stack == null) {
-            stack = new OgnlValueStack();
-            ActionContext.getContext().setValueStack(stack);
-        }
+        OgnlValueStack stack = getValueStack();
 
         // push bean on stack
         stack.push(bean);

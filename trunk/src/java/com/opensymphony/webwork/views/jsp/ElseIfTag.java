@@ -17,11 +17,10 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @version $Revision$
  */
-public class ElseIfTag extends TagSupport {
+public class ElseIfTag extends WebWorkTagSupport {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     protected Boolean answer;
-    protected OgnlValueStack stack;
     protected String test;
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -43,7 +42,7 @@ public class ElseIfTag extends TagSupport {
     }
 
     public int doStartTag() throws JspException {
-        stack = ActionContext.getContext().getValueStack();
+        OgnlValueStack stack = getValueStack();
 
         Boolean ifResult = (Boolean) pageContext.getAttribute(IfTag.ANSWER);
 
@@ -75,7 +74,6 @@ public class ElseIfTag extends TagSupport {
     public void release() {
         super.release();
         this.answer = null;
-        this.stack = null;
         this.test = null;
     }
 }
