@@ -64,7 +64,16 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
                         values = new ArrayList();
                     }
 
-                    values.add(item.getString(servletRequest.getCharacterEncoding()));
+                    // note: see http://jira.opensymphony.com/browse/WW-633
+                    // basically, in some cases the charset may be null, so
+                    // we're just going to try to "other" method (no idea if this
+                    // will work)
+                    String charset = servletRequest.getCharacterEncoding();
+                    if (charset != null) {
+                        values.add(item.getString(charset));
+                    } else {
+                        values.add(item.getString());
+                    }
                     params.put(item.getFieldName(), values);
                 } else if (item.getSize() == 0) {
                     log.debug("Item is a file upload of 0 size, ignoring");
