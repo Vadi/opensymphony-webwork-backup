@@ -40,18 +40,6 @@ public class DoubleSelectTag extends AbstractDoubleListTag {
         return size;
     }
 
-    public Object Multiple(boolean multiple) {
-        setMultiple(multiple);
-
-        return this;
-    }
-
-    public Object Size(int size) {
-        setSize(size);
-
-        return this;
-    }
-
     /**
      * Clears all the instance variables to allow this instance to be reused.
      */

@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.util;
 
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import junit.framework.TestCase;
 
@@ -49,5 +50,11 @@ public class TokenHelperTest extends TestCase {
         params.put(tokenName, new String[] {token});
         ActionContext.getContext().setParameters(params);
         assertTrue(TokenHelper.validToken());
+    }
+
+    protected void setUp() throws Exception {
+        OgnlValueStack stack = new OgnlValueStack();
+        ActionContext actionContext = new ActionContext(stack.getContext());
+        ActionContext.setContext(actionContext);
     }
 }

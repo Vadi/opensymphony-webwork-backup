@@ -18,7 +18,7 @@ import javax.servlet.jsp.JspException;
 public abstract class AbstractClosingUITag extends AbstractUITag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    private static final Log log = LogFactory.getLog(AbstractClosingUITag.class);
+    private static final Log LOG = LogFactory.getLog(AbstractClosingUITag.class);
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
@@ -41,7 +41,7 @@ public abstract class AbstractClosingUITag extends AbstractUITag {
             String openTemplateName = buildTemplateName(getOpenTemplate(), getDefaultOpenTemplate());
             mergeTemplate(openTemplateName);
         } catch (Exception e) {
-            log.error("Could not open template", e);
+            LOG.error("Could not open template", e);
 
             return SKIP_PAGE;
         }

@@ -83,6 +83,7 @@ public class VelocityResultTest extends TestCase {
         namespace = "/html";
         result = new VelocityResult();
         stack = new OgnlValueStack();
+        ActionContext.getContext().setValueStack(stack);
         velocity = new TestVelocityEngine();
         mockActionProxy = new Mock(ActionProxy.class);
         mockActionProxy.expectAndReturn("getNamespace", "/html");

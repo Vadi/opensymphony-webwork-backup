@@ -47,24 +47,6 @@ public abstract class AbstractListTag extends AbstractUITag {
         return listValue;
     }
 
-    public Object List(String list) {
-        setList(list);
-
-        return this;
-    }
-
-    public Object ListKey(String listKey) {
-        setListKey(listKey);
-
-        return this;
-    }
-
-    public Object ListValue(Object listValue) {
-        this.setListValue(listValue);
-
-        return this;
-    }
-
     public boolean contains(Object obj1, Object obj2) {
         if ((obj1 == null) || (obj2 == null)) {
             return false;
@@ -97,8 +79,8 @@ public abstract class AbstractListTag extends AbstractUITag {
     }
 
     /**
-* Clears all the instance variables to allow this instance to be reused.
-*/
+     * Clears all the instance variables to allow this instance to be reused.
+     */
     public void release() {
         super.release();
         this.list = null;

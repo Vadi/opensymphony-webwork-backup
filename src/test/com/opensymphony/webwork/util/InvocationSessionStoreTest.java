@@ -55,14 +55,16 @@ public class InvocationSessionStoreTest extends TestCase {
     }
 
     protected void setUp() throws Exception {
-        ActionContext actionContext = ActionContext.getContext();
+        stack = new OgnlValueStack();
+        ActionContext actionContext = new ActionContext(stack.getContext());
+        ActionContext.setContext(actionContext);
+
         session = new HashMap();
         actionContext.setSession(session);
 
         invocationMock = new Mock(ActionInvocation.class);
         invocation = (ActionInvocation) invocationMock.proxy();
 
-        stack = new OgnlValueStack();
         actionContext.setValueStack(stack);
         invocationMock.matchAndReturn("getStack", stack);
 

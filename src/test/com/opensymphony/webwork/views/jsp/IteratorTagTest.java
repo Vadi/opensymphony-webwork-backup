@@ -219,6 +219,7 @@ public class IteratorTagTest extends TestCase {
         // create the mock http servlet request
         MockHttpServletRequest request = new MockHttpServletRequest();
         ActionContext.getContext().setValueStack(stack);
+        request.setupGetAttribute(stack);
 
         // create the mock page context
         MockPageContext pageContext = new MockPageContext();

@@ -13,11 +13,7 @@
   </tr>
   #end
 #end
-#set( $labelValue = $stack.findValue("getText('$tag.Label')") )
-#if( !$labelValue )
-#set( $labelValue = $tag.Label )
-#end
 <tr>
-  <td align="right" valign="top"#if($error) class="error"#end><label class="label">$!{labelValue}:</label></td>
+  <td align="right" valign="top"#if($error) class="error"#end><label class="label">$stack.findValue(${tag.params.get('label')}):</label></td>
   <td#if($error) class="error"#end>
 
