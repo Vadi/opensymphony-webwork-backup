@@ -23,24 +23,17 @@ import java.io.Writer;
 public class VelocityTemplateEngine extends BaseTemplateEngine {
     private static final Log LOG = LogFactory.getLog(VelocityTemplateEngine.class);
 
-    protected static VelocityManager velocityManager = VelocityManager.getInstance();
-    protected static VelocityEngine velocityEngine = velocityManager.getVelocityEngine();
-    private static boolean velocityInitialized = false;
-
     public void renderTemplate(TemplateRenderingContext templateContext) throws Exception {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Rendering template '" + templateContext.getTemplateName() + "'");
         }
         PageContext pageContext = templateContext.getPageContext();
-        if (!velocityInitialized) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Initializing Velocity...");
-            }
-            // initialize the VelocityEngine
-            // this may happen more than once, but it's not a big deal
-            VelocityManager.getInstance().init(pageContext.getServletContext());
-            velocityInitialized = true;
-        }
+
+        // initialize the VelocityEngine
+        // this may happen more than once, but it's not a big deal
+        VelocityManager velocityManager = VelocityManager.getInstance();
+        velocityManager.init(pageContext.getServletContext());
+        VelocityEngine velocityEngine = velocityManager.getVelocityEngine();
 
         Template t = velocityEngine.getTemplate(templateContext.getTemplateName());
 
@@ -53,10 +46,6 @@ public class VelocityTemplateEngine extends BaseTemplateEngine {
             outputWriter = pageContext.getOut();
         }
 
-        // Make the OGNL stack available to the velocityEngine templates.
-        // todo Consider putting all the VelocityServlet Context values in
-        // after all, if we're already sending the request, it might also
-        // make sense for consistency to send the page and res and any others.
         context.put("tag", templateContext.getTag());
         context.put("parameters", templateContext.getParameters());
 
