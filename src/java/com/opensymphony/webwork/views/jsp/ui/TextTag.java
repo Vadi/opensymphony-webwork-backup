@@ -78,16 +78,22 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
         }
 
         String expression = "text(" + nameAttr + ", " + defaultMessage;
+        boolean pushed = false;
 
         if (values != null) {
             ListValueHolder listValueHolder = new ListValueHolder(values);
             stack.push(listValueHolder);
+            pushed = true;
             expression = expression + ", textTagListValueHolderList";
         }
 
         expression = expression + ")";
 
         String msg = (String) stack.findValue(expression, String.class);
+
+        if (pushed) {
+            stack.pop();
+        }
 
         try {
             pageContext.getOut().write(msg);
