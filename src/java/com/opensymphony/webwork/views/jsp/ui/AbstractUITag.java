@@ -12,6 +12,8 @@ import com.opensymphony.webwork.views.velocity.VelocityManager;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.validator.ActionValidatorManager;
 import com.opensymphony.xwork.validator.Validator;
+import com.opensymphony.xwork.validator.FieldValidator;
+import com.opensymphony.xwork.validator.validators.VisitorFieldValidator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -258,12 +260,6 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             addParameter("cssStyle", findValue(cssStyleAttr, String.class));
         }
 
-        FormTag tag = (FormTag) findAncestorWithClass(this, FormTag.class);
-
-        if (tag != null) {
-            addParameter("form", tag.getParameters());
-        }
-
         if (evaluateNameValue()) {
             Class valueClazz = getValueClassType();
 
@@ -286,25 +282,58 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             addParameter("id", getId());
         }
 
-        // now let's do some JavaScript stuff. or something
-        if ((tag != null) && (tag.getActionClass() != null) && (tag.getActionName() != null)) {
-            List validators = ActionValidatorManager.getValidators(tag.getActionClass(), tag.getActionName());
+        FormTag formTag = (FormTag) findAncestorWithClass(this, FormTag.class);
+        if (formTag != null) {
+            addParameter("form", formTag.getParameters());
 
-            for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
-                Validator validator = (Validator) iterator.next();
-
-                if (validator instanceof ScriptValidationAware) {
-                    ScriptValidationAware fieldValidator = (ScriptValidationAware) validator;
-
-                    if (fieldValidator.getFieldName().equals(name)) {
-                        tag.registerValidator(name, fieldValidator, new HashMap(getParameters()));
-                    }
-                }
+            // register ScriptValiationAware validators with the form
+            if ((formTag.getActionClass() != null) && (formTag.getActionName() != null)) {
+                findScriptingValidators(formTag, (String)name, formTag.getActionClass());
             }
         }
 
         evaluateExtraParams(stack);
     }
+
+
+    /**
+     * Finds all ScriptValidationAware validators that apply to the field covered by this tag.
+     *
+     * @param formTag the parent form tag this tag is in
+     * @param fieldName the name of the field to validate
+     * @param fieldClass the Class of the object the field is for
+     */
+    private void findScriptingValidators(FormTag formTag, String fieldName, Class fieldClass) {
+
+        List validators = ActionValidatorManager.getValidators(fieldClass, formTag.getActionName());
+        for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
+            Validator validator = (Validator) iterator.next();
+
+            // VisitorFieldValidators must validate model, not action
+            if (validator instanceof VisitorFieldValidator) {
+                VisitorFieldValidator visitorValidator = (VisitorFieldValidator)validator;
+                Object fieldValue = findValue(visitorValidator.getFieldName());
+                if (fieldValue != null) {
+                    fieldClass = fieldValue.getClass();
+                    if (visitorValidator.isAppendPrefix()) {
+                        findScriptingValidators(formTag, visitorValidator.getFieldName() + "." + fieldName, fieldClass);
+                    } else {
+                        findScriptingValidators(formTag, fieldName, fieldClass);
+                    }
+                } else {
+                    LOG.warn("Cannot figure out class of visited object");
+                }
+                continue;
+            }
+            if (validator instanceof ScriptValidationAware) {
+                FieldValidator fieldValidator = (FieldValidator)validator;
+                if (fieldValidator.getFieldName().equals(fieldName)) {
+                    formTag.registerValidator(fieldName, (ScriptValidationAware)fieldValidator, new HashMap(getParameters()));
+                }
+            }
+        }
+    }
+
 
     protected void mergeTemplate(String templateName) throws Exception {
         Template t = velocityEngine.getTemplate(templateName);
