@@ -26,7 +26,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * Date: Oct 17, 2003
  * Time: 7:06:19 AM
  */
-public class WebWorkTagSupport extends TagSupport {
+public abstract class WebWorkTagSupport extends TagSupport {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     protected OgnlValueStack getStack() {

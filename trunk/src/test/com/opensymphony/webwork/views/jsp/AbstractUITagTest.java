@@ -106,7 +106,7 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
         ServletContext servletContext = (ServletContext) mockServletContext.proxy();
 
         // ensure that the VelocityManager has been initialized prior to any work going on!
-        VelocityManager.init(servletContext);
+        VelocityManager.getInstance().init(servletContext);
 
         MockServletConfig config = new MockServletConfig();
 

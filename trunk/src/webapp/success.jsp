@@ -78,3 +78,33 @@ Here is an action inside an action. This should make the counter increase twice 
  foo is also: <ww:property value="foo"/>
 </pre>
 </ww:push>
+
+<hr/>
+<p>
+    The following is a test of the push tag.  We call &lt;ww:property/&gt; 4 times.  One the second call, we've pushed
+    the word 'counter' on the stack.  What we expect to see is an A, B, B, A pattern where A is the toString() of the
+    action, and b is the word counter.
+</p>
+<table border="1">
+<tr>
+    <td>Stack (before push)</td>
+    <td><ww:property/></td>
+</tr>
+<ww:push value="'counter'">
+<tr>
+    <td>Stack (inside push)</td>
+    <td><ww:property/></td>
+</tr>
+<tr>
+    <td>Top (inside push)</td>
+    <td><ww:property value="top"/></td>
+</tr>
+</ww:push>
+<tr>
+    <td>Stack (after push)</td>
+    <td><ww:property/></td>
+</tr>
+</table>
+
+
+<br/>

@@ -40,15 +40,6 @@ public class DoubleSelectTag extends AbstractDoubleListTag {
         return size;
     }
 
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.multiple = false;
-        this.size = 0;
-    }
-
     protected String getDefaultTemplate() {
         return TEMPLATE;
     }

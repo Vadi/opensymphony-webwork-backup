@@ -163,17 +163,4 @@ public class IteratorTag extends WebWorkBodyTagSupport {
             return SKIP_BODY;
         }
     }
-
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.iterator = null;
-        this.status = null;
-        this.oldStatus = null;
-        this.statusState = null;
-        this.statusAttr = null;
-        this.value = null;
-    }
 }

@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
+/*
  * WebWork, Web Application Framework
  *
  * Distributable under Apache license.
@@ -6,19 +10,23 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import com.opensymphony.webwork.views.util.UrlHelper;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.http.*;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import java.io.IOException;
+
 import java.net.URLEncoder;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.opensymphony.webwork.views.util.UrlHelper;
+import javax.servlet.http.*;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+
 
 /**
  * This tag is used to create a URL.
@@ -30,14 +38,12 @@ import com.opensymphony.webwork.views.util.UrlHelper;
  * @version $Revision$
  */
 public class URLTag extends ParametereizedBodyTagSupport {
+    //~ Static fields/initializers /////////////////////////////////////////////
+
     private static final Log LOG = LogFactory.getLog(URLTag.class);
 
-    // Attributes ----------------------------------------------------
-    protected String valueAttr;
-    protected String value;
-    protected String includeParamsAttr;
-
     // Public --------------------------------------------------------
+
     /**
      * The includeParams attribute may have the value 'none', 'get' or 'all'.
      * It is used when the url tag is used without a value or page attribute.
@@ -51,12 +57,43 @@ public class URLTag extends ParametereizedBodyTagSupport {
     public static final String GET = "get";
     public static final String ALL = "all";
 
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    protected String includeParamsAttr;
+    protected String value;
+
+    // Attributes ----------------------------------------------------
+    protected String valueAttr;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setIncludeParams(String aName) {
+        includeParamsAttr = aName;
+    }
+
     public void setValue(String aName) {
         valueAttr = aName;
     }
 
-    public void setIncludeParams(String aName) {
-        includeParamsAttr = aName;
+    public int doEndTag() throws JspException {
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
+        String result = UrlHelper.buildUrl(value, request, response, params);
+
+        String id = getId();
+
+        if (id != null) {
+            pageContext.setAttribute(id, result);
+            pageContext.setAttribute(id, result, PageContext.REQUEST_SCOPE);
+        } else {
+            try {
+                pageContext.getOut().write(result);
+            } catch (IOException _ioe) {
+                throw new JspException("IOError: " + _ioe.getMessage());
+            }
+        }
+
+        return EVAL_PAGE;
     }
 
     // BodyTag implementation ----------------------------------------
@@ -77,21 +114,26 @@ public class URLTag extends ParametereizedBodyTagSupport {
                 if (params == null) {
                     params = new HashMap();
                 }
+
                 String includeParams = null;
+
                 if (includeParamsAttr != null) {
                     includeParams = findString(includeParamsAttr);
                 }
 
-                if (includeParams == null || includeParams.equals(GET)) {
+                if ((includeParams == null) || includeParams.equals(GET)) {
                     // Parse the query string to make sure that the parameters come from the query, and not some posted data
                     HttpServletRequest req = ((HttpServletRequest) pageContext.getRequest());
                     String query = req.getQueryString();
+
                     if (query != null) {
                         // Remove possible #foobar suffix
                         int idx = query.lastIndexOf('#');
+
                         if (idx != -1) {
                             query = query.substring(0, idx - 1);
                         }
+
                         params.putAll(HttpUtils.parseQueryString(query));
                     }
                 } else if (includeParams.equals(ALL)) {
@@ -103,26 +145,7 @@ public class URLTag extends ParametereizedBodyTagSupport {
                 LOG.warn("Unable to put request parameters (" + ((HttpServletRequest) pageContext.getRequest()).getQueryString() + ") into parameter map.", e);
             }
         }
+
         return EVAL_BODY_BUFFERED;
-    }
-
-    public int doEndTag() throws JspException {
-        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-        HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
-        String result = UrlHelper.buildUrl(value, request, response, params);
-
-        String id = getId();
-        if (id != null) {
-            pageContext.setAttribute(id, result);
-            pageContext.setAttribute(id, result, PageContext.REQUEST_SCOPE);
-        } else {
-            try {
-                pageContext.getOut().write(result);
-            } catch (IOException _ioe) {
-                throw new JspException("IOError: " + _ioe.getMessage());
-            }
-        }
-
-        return EVAL_PAGE;
     }
 }

@@ -42,6 +42,16 @@ public class WebWorkVelocityServlet extends VelocityServlet {
     /** The encoding to use when generating outputing. */
     private static String encoding = null;
 
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    private VelocityManager velocityManager;
+
+    //~ Constructors ///////////////////////////////////////////////////////////
+
+    public WebWorkVelocityServlet() {
+        velocityManager = VelocityManager.getInstance();
+    }
+
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void init(ServletConfig servletConfig) throws ServletException {
@@ -51,12 +61,12 @@ public class WebWorkVelocityServlet extends VelocityServlet {
         encoding = RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, DEFAULT_OUTPUT_ENCODING);
 
         // initialize our VelocityManager
-        VelocityManager.init(servletConfig.getServletContext());
+        velocityManager.init(servletConfig.getServletContext());
         servletConfig.getServletContext().setAttribute("webwork.servlet", this);
     }
 
     protected Context createContext(HttpServletRequest request, HttpServletResponse response) {
-        return VelocityManager.createContext(ActionContext.getContext().getValueStack(), request, response);
+        return velocityManager.createContext(ActionContext.getContext().getValueStack(), request, response);
     }
 
     protected Template handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Context context) throws Exception {
@@ -70,27 +80,27 @@ public class WebWorkVelocityServlet extends VelocityServlet {
     }
 
     /**
-     * This method extends the VelocityServlet's loadConfiguration method by performing the following actions:
-     * <ul>
-     * <li>invokes VelocityServlet.loadConfiguration to create a properties object</li>
-     * <li>alters the RESOURCE_LOADER to include a class loader</li>
-     * <li>configures the class loader using the WebWorkResourceLoader</li>
-     * </ul>
-     *
-     * @param servletConfig
-     * @return
-     * @throws IOException
-     * @throws FileNotFoundException
-     * @see org.apache.velocity.servlet.VelocityServlet#loadConfiguration
-     */
+ * This method extends the VelocityServlet's loadConfiguration method by performing the following actions:
+ * <ul>
+ * <li>invokes VelocityServlet.loadConfiguration to create a properties object</li>
+ * <li>alters the RESOURCE_LOADER to include a class loader</li>
+ * <li>configures the class loader using the WebWorkResourceLoader</li>
+ * </ul>
+ *
+ * @param servletConfig
+ * @return
+ * @throws IOException
+ * @throws FileNotFoundException
+ * @see org.apache.velocity.servlet.VelocityServlet#loadConfiguration
+ */
     protected Properties loadConfiguration(ServletConfig servletConfig) throws IOException, FileNotFoundException {
-        return VelocityManager.loadConfiguration(servletConfig.getServletContext());
+        return velocityManager.loadConfiguration(servletConfig.getServletContext());
     }
 
     /**
-     * create a PageContext and render the template to PageContext.getOut()
-     * @see VelocityServlet#mergeTemplate(Template, Context, HttpServletResponse) for additional documentation
-     */
+ * create a PageContext and render the template to PageContext.getOut()
+ * @see VelocityServlet#mergeTemplate(Template, Context, HttpServletResponse) for additional documentation
+ */
     protected void mergeTemplate(Template template, Context context, HttpServletResponse response) throws ResourceNotFoundException, ParseErrorException, MethodInvocationException, IOException, UnsupportedEncodingException, Exception {
         // save the old PageContext
         PageContext oldPageContext = ServletActionContext.getPageContext();

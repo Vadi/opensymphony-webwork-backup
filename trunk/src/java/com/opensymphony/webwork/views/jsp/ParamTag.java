@@ -52,13 +52,4 @@ public class ParamTag extends WebWorkTagSupport {
 
         return SKIP_BODY;
     }
-
-    /**
-    * Clears all the instance variables to allow this instance to be reused.
-    */
-    public void release() {
-        super.release();
-        this.name = null;
-        this.value = null;
-    }
 }

@@ -21,8 +21,11 @@ import javax.servlet.jsp.tagext.TagSupport;
  * To change this template use Options | File Templates.
  */
 public abstract class ParameterizedTagSupport extends WebWorkTagSupport implements ParameterizedTag {
-    //~ Instance fields ////////////////////////////////////////////////////////
+    //~ Static fields/initializers /////////////////////////////////////////////
+
     final protected static Log log = LogFactory.getLog(ParameterizedTagSupport.class);
+
+    //~ Instance fields ////////////////////////////////////////////////////////
 
     Map params;
 
@@ -46,5 +49,20 @@ public abstract class ParameterizedTagSupport extends WebWorkTagSupport implemen
                 params.put(key, value);
             }
         }
+    }
+
+    /**
+     * <p>
+     * Resets the attributes of this tag so that the tag may be reused.  As a general rule, only properties that are
+     * not specified as an attribute or properties that are derived need to be reset.  Examples of this would include
+     * the parameters Map in ParameterizedTag and the namespace in the ActionTag (which can be a derived value).
+     * </p>
+     *
+     * <p>
+     * This should be the last thing called as part of the doEndTag
+     * </p>
+     */
+    protected void reset() {
+        this.getParams().clear();
     }
 }

@@ -87,7 +87,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         super.init(config);
 
         // initialize the VelocityEngine
-        VelocityManager.init(config.getServletContext());
+        VelocityManager.getInstance().init(config.getServletContext());
 
         LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
 

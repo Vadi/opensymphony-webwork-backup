@@ -64,7 +64,7 @@ public class TagDirectiveTest extends TestCase {
     public void testBodyTag() throws Exception {
         Template template = velocityEngine.getTemplate("/com/opensymphony/webwork/views/velocity/bodytag.vm");
         StringWriter writer = new StringWriter();
-        Context context = VelocityManager.createContext(stack, (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
+        Context context = VelocityManager.getInstance().createContext(stack, (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
         template.merge(context, writer);
 
         // verify that we got one param, hello=world
@@ -99,7 +99,7 @@ public class TagDirectiveTest extends TestCase {
     public void testTag() throws Exception {
         Template template = velocityEngine.getTemplate("/com/opensymphony/webwork/views/velocity/tag.vm");
         StringWriter writer = new StringWriter();
-        Context context = VelocityManager.createContext(stack, (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
+        Context context = VelocityManager.getInstance().createContext(stack, (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
         template.merge(context, writer);
 
         // verify that our date thingy was populated correctly
@@ -163,7 +163,7 @@ public class TagDirectiveTest extends TestCase {
         mockRequest.matchAndReturn("getAttribute", "webwork.valueStack", stack);
 
         // initialize the VelocityManager.  required to use the UI tag libraries
-        VelocityManager.init(servletContext);
+        VelocityManager.getInstance().init(servletContext);
 
         // initialize the MockTag for use
         mockTag = MockTag.getInstance();

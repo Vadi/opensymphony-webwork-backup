@@ -69,16 +69,6 @@ public class PropertyTag extends WebWorkTagSupport {
         return SKIP_BODY;
     }
 
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.value = null;
-        this.defaultValue = null;
-        this.escape = false;
-    }
-
     private Object prepare(Object value) {
         if (escape) {
             return TextUtils.htmlEncode(value.toString());

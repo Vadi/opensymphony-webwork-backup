@@ -110,13 +110,4 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
 
         return EVAL_BODY_INCLUDE;
     }
-
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.bean = null;
-        this.name = null;
-    }
 }

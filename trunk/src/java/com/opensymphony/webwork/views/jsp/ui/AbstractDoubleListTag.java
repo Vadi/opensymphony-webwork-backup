@@ -52,15 +52,4 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
     public Object getDoubleName() {
         return doubleName;
     }
-
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        doubleName = null;
-        doubleListValue = null;
-        doubleList = null;
-        doubleListKey = null;
-    }
 }
