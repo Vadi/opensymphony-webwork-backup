@@ -1,6 +1,12 @@
 #parse( "/templates/xhtml/controlheader.vm" )
 <select name="$!{tag.Name}" #if( $tag.Size > 0 )size="${tag.Size}" #end #if( $tag.Multiple ) multiple#end >
-#if( $tag.EmptyOption)<option></option>#end
+#if($tag.defaultKey  || $tag.DefaultValue)
+  #set( $defaultKeyValue = $stack.findValue("getText('$!tag.defaultKey')") )
+  #if( !$defaultKeyValue)
+    #set( $defaultKeyValue = $!tag.defaultKey )
+  #end
+  <option value="$!{tag.defaultValue}"#if( $tag.contains($tag.ActualValue, $itemValue) ) selected="selected"#end>$!{defaultKeyValue}</option>
+#end
 #set( $items = ${stack.findValue($tag.list)} )
 #if( $items )
 #foreach( $item in $items )

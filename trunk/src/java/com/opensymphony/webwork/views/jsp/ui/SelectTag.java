@@ -19,19 +19,13 @@ public class SelectTag extends AbstractListTag {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private boolean emptyOption;
     private boolean multiple;
     private int size;
+    private String defaultKey = "";
+    private String defaultValue = "";
+
 
     //~ Methods ////////////////////////////////////////////////////////////////
-
-    public void setEmptyOption(boolean emptyOption) {
-        this.emptyOption = emptyOption;
-    }
-
-    public boolean isEmptyOption() {
-        return emptyOption;
-    }
 
     public void setMultiple(boolean multiple) {
         this.multiple = multiple;
@@ -49,10 +43,20 @@ public class SelectTag extends AbstractListTag {
         return size;
     }
 
-    public Object EmptyOption(boolean emptyOption) {
-        setEmptyOption(emptyOption);
+    public String getDefaultKey() {
+        return defaultKey;
+    }
 
-        return this;
+    public void setDefaultKey(String defaultKey) {
+        this.defaultKey = defaultKey;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
     }
 
     public Object Multiple(boolean multiple) {
@@ -72,9 +76,10 @@ public class SelectTag extends AbstractListTag {
      */
     public void release() {
         super.release();
-        this.emptyOption = false;
         this.multiple = false;
         this.size = 0;
+        this.defaultKey = "";
+        this.defaultValue = "";
     }
 
     protected String getDefaultTemplate() {
