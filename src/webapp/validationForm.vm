@@ -19,7 +19,7 @@
 Action Properties:
 <br>
 <table>
-#tag( TextField "label=Name" "name=name" "value=name" )
+#tag( TextField "label='Name'" "name='name'" "value=name" )
 </table>
 Bean Properties:
 #if( $stack.findValue("fieldErrors") )
@@ -37,10 +37,10 @@ Bean Properties:
     #end
 #end
 <table>
-#tag( TextField "label=Bean.Text" "name=bean.text" "value=bean.text" )<br>
-#tag( TextField "label=Bean.Date" "name=bean.date" "value=bean.date" )<br>
-#tag( TextField "label=Bean.Number" "name=bean.number" "value=bean.number" )<br>
-#tag( TextField "label=Bean.Number2" "name=bean.number2" "value=bean.number2" )<br>
+#tag( TextField "label='Bean.Text'" "name='bean.text'" "value=bean.text" )<br>
+#tag( TextField "label='Bean.Date'" "name='bean.date'" "value=bean.date" )<br>
+#tag( TextField "label='Bean.Number'" "name='bean.number'" "value=bean.number" )<br>
+#tag( TextField "label='Bean.Number2'" "name='bean.number2'" "value=bean.number2" )<br>
 </table>
 <input type="submit" value="Test Validation"/>
 </form>
