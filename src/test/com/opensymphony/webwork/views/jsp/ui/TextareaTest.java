@@ -34,6 +34,12 @@ public class TextareaTest extends AbstractUITagTest {
         tag.setValue("foo");
         tag.setRows("'30'");
         tag.setCols("'20'");
+        tag.setDisabled("true");
+        tag.setTabindex("'5'");
+        tag.setOnchange("'alert(\\'goodbye\\');'");
+        tag.setId("the_id");
+        tag.setOnkeyup("'alert(\\'hello\\');'");
+        tag.setReadonly("true");
 
         int result = tag.doEndTag();
 

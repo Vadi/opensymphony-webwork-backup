@@ -51,7 +51,7 @@ public class LabelTest extends AbstractUITagTest {
         LabelTag tag = new LabelTag();
         tag.setPageContext(pageContext);
         tag.setLabel("'mylabel'");
-        tag.setName("'foo'");
+        tag.setName("foo");
 
         int result = tag.doEndTag();
 

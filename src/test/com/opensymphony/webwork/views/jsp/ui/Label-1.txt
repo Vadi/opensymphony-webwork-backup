@@ -1,6 +1,8 @@
 <tr>
-  <td align="right" valign="top"><label class="label">mylabel:</label></td>
-  <td>
-bar
-  </td>
+    <td align="right" valign="top">
+        <span class="label"> mylabel: </span>
+    </td>
+    <td>
+        <label> myname </label>
+    </td>
 </tr>

@@ -1,11 +1,12 @@
 <tr>
-  <td align="right" valign="top"><label class="label">mylabel:</label></td>
-  <td>
-<select name="myname"   >
-          <option></option>
-          <option value="hello" >world</option>
-          <option value="foo" selected >bar</option>
-
-</select>
-  </td>
+    <td align="right" valign="top">
+        <span class="label"> mylabel: </span>
+    </td>
+    <td>
+        <select name="myname"
+        >
+            <option value="hello" >world</option>
+            <option value="foo" >bar</option>
+        </select>
+    </td>
 </tr>

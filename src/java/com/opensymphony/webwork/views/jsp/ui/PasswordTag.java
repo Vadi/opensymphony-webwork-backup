@@ -4,12 +4,14 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
+
 
 /**
  * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
-public class PasswordTag extends AbstractUITag {
+public class PasswordTag extends TextFieldTag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
@@ -19,24 +21,20 @@ public class PasswordTag extends AbstractUITag {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private int size;
+    protected String showPasswordAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setShow(String aShowPasswordAttr) {
+        this.showPasswordAttr = aShowPasswordAttr;
     }
 
-    public int getSize() {
-        return size;
-    }
+    public void evaluateExtraParams(OgnlValueStack stack) {
+        super.evaluateExtraParams(stack);
 
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.size = 0;
+        if (showPasswordAttr != null) {
+            addParam("showPassword", stack.findValue(showPasswordAttr, Boolean.class));
+        }
     }
 
     protected String getDefaultTemplate() {

@@ -19,11 +19,14 @@ public class TextFieldTag extends AbstractUITag {
     /**
      * The name of the default template for the TextFieldTag
      */
-    final public static String TEMPLATE = "textfield.vm";
+    final public static String TEMPLATE = "text.vm";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
     protected String sizeAttr;
+    protected String maxLengthAttr;
+    protected String readonlyAttr;
+    protected String onkeyupAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -31,9 +34,33 @@ public class TextFieldTag extends AbstractUITag {
         this.sizeAttr = size;
     }
 
+    public void setMaxlength(String aMaxLength) {
+        this.maxLengthAttr = aMaxLength;
+    }
+
+    public void setReadonly(String readonly) {
+        this.readonlyAttr = readonly;
+    }
+
+    public void setOnkeyup(String onkeyup) {
+        this.onkeyupAttr = onkeyup;
+    }
+
     public void evaluateExtraParams(OgnlValueStack stack) {
         if (sizeAttr != null) {
             addParam("size", stack.findValue(sizeAttr, String.class));
+        }
+
+        if (maxLengthAttr != null) {
+            addParam("maxLength", stack.findValue(maxLengthAttr, String.class));
+        }
+
+        if (readonlyAttr!= null) {
+            addParam("readonly", stack.findValue(readonlyAttr, Boolean.class));
+        }
+
+        if (onkeyupAttr!= null) {
+            addParam("onkeyup", stack.findValue(onkeyupAttr, String.class));
         }
     }
 
