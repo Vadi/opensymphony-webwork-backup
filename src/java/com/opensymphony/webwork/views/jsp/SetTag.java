@@ -47,7 +47,7 @@ public class SetTag extends WebWorkTagSupport {
             value = "top";
         }
 
-        o = stack.findValue(value);
+        o = findValue(value);
 
         if ("application".equals(scope)) {
             super.pageContext.getServletContext().setAttribute(name, o);

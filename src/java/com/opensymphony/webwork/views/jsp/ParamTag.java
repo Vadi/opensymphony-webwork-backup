@@ -39,26 +39,15 @@ public class ParamTag extends WebWorkTagSupport {
         ParameterizedTag parent = (ParameterizedTag) findAncestorWithClass(this, ParameterizedTag.class);
 
         if (parent != null) {
-            OgnlValueStack stack = getStack();
+            Object o = null;
 
-            if (stack != null) {
-                Object o = null;
-
-                if (value == null) {
-                    value = "top";
-                }
-
-                o = stack.findValue(value);
-
-                parent.addParam(name, o);
-
-                /**
-                * If the page has been accessed directly and there is no ValueStack, we should just add the name/value pair
-                * to the parent as is
-                */
-            } else {
-                parent.addParam(name, value);
+            if (value == null) {
+                value = "top";
             }
+
+            o = findValue(value);
+
+            parent.addParam(name, o);
         }
 
         return SKIP_BODY;

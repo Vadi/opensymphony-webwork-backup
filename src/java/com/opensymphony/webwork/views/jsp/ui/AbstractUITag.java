@@ -195,46 +195,46 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         Object name = null;
 
         if (nameAttr != null) {
-            name = stack.findValue(nameAttr, String.class);
+            name = findValue(nameAttr, String.class);
             addParam("name", name);
         }
 
         if (labelAttr != null) {
-            addParam("label", stack.findValue(labelAttr, String.class));
+            addParam("label", findValue(labelAttr, String.class));
         }
 
         if (labelPositionAttr != null) {
-            addParam("labelPosition", stack.findValue(labelPositionAttr, String.class));
+            addParam("labelPosition", findValue(labelPositionAttr, String.class));
         }
 
         if (requiredAttr != null) {
-            addParam("required", stack.findValue(requiredAttr, Boolean.class));
+            addParam("required", findValue(requiredAttr, Boolean.class));
         }
 
         if (disabledAttr != null) {
-            addParam("disabled", stack.findValue(disabledAttr, Boolean.class));
+            addParam("disabled", findValue(disabledAttr, Boolean.class));
         }
 
         if (tabindexAttr != null) {
-            addParam("tabindex", stack.findValue(tabindexAttr, String.class));
+            addParam("tabindex", findValue(tabindexAttr, String.class));
         }
 
         if (onchangeAttr != null) {
-            addParam("onchange", stack.findValue(onchangeAttr, String.class));
+            addParam("onchange", findValue(onchangeAttr, String.class));
         }
 
         Class valueClazz = getValueClassType();
         if (valueClazz != null) {
             if (valueAttr != null) {
-                addParam("nameValue", stack.findValue(valueAttr, valueClazz));
+                addParam("nameValue", findValue(valueAttr, valueClazz));
             } else if (name != null) {
-                addParam("nameValue", stack.findValue(name.toString(), valueClazz));
+                addParam("nameValue", findValue(name.toString(), valueClazz));
             }
         } else {
             if (valueAttr != null) {
-                addParam("nameValue", stack.findValue(valueAttr));
+                addParam("nameValue", findValue(valueAttr));
             } else if (name != null) {
-                addParam("nameValue", stack.findValue(name.toString()));
+                addParam("nameValue", findValue(name.toString()));
             }
         }
 

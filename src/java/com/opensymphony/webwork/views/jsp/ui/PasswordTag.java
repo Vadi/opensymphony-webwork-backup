@@ -33,7 +33,7 @@ public class PasswordTag extends TextFieldTag {
         super.evaluateExtraParams(stack);
 
         if (showPasswordAttr != null) {
-            addParam("showPassword", stack.findValue(showPasswordAttr, Boolean.class));
+            addParam("showPassword", findValue(showPasswordAttr, Boolean.class));
         }
     }
 

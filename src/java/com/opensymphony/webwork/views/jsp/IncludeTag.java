@@ -186,13 +186,11 @@ public class IncludeTag extends WebWorkTagSupport implements ParameterizedTag {
     }
 
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = getStack();
-
         String page;
 
         // If value is set, we resolve it to get the page name
         if (valueAttr != null) {
-            page = (String) stack.findValue(valueAttr);
+            page = findString(valueAttr);
         } else {
             page = pageAttr;
         }

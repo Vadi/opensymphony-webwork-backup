@@ -49,15 +49,13 @@ public class PropertyTag extends WebWorkTagSupport {
 
     public int doStartTag() throws JspException {
         try {
-            OgnlValueStack stack = getStack();
-
             Object actualValue = null;
 
             if (value == null) {
                 value = "top";
             }
 
-            actualValue = stack.findValue(value, String.class);
+            actualValue = findValue(value, String.class);
 
             if (actualValue != null) {
                 pageContext.getOut().print(prepare(actualValue));

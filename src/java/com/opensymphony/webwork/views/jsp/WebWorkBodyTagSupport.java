@@ -36,8 +36,12 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
         return getStack().findValue(expr);
     }
 
+    protected Object findValue(String expr, Class toType) {
+        return getStack().findValue(expr, toType);
+    }
+
     protected String findString(String expr) {
-        return (String) getStack().findValue(expr, String.class);
+        return (String) findValue(expr, String.class);
     }
 
     protected String toString(Throwable t)
