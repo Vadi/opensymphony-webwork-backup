@@ -4,23 +4,19 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 import com.opensymphony.webwork.views.jsp.ParamTag;
-
-import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 import com.opensymphony.xwork.TextProvider;
-
+import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.jsp.JspException;
 import java.io.IOException;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
-
-import javax.servlet.jsp.JspException;
 
 
 /**
@@ -29,15 +25,15 @@ import javax.servlet.jsp.JspException;
  * this means that you should create a properties file in the same package
  * as your Java class with the same name as your class, but with .properties
  * extension.
- *
+ * <p/>
  * See examples for further info on how to use.
- *
+ * <p/>
  * If the named message is not found, then the body of the tag will be used as default message.
  * If no body is used, then the name of the message will be used.
  *
  * @author Jason Carreira
  */
-public class TextTag extends WebWorkBodyTagSupport implements ParamTag.Parametric {
+public class TextTag extends WebWorkBodyTagSupport implements ParamTag.UnnamedParametric {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log LOG = LogFactory.getLog(TextTag.class);
@@ -83,10 +79,10 @@ public class TextTag extends WebWorkBodyTagSupport implements ParamTag.Parametri
     }
 
     public void addParameter(String key, Object value) {
-        addParam(value);
+        addParameter(value);
     }
 
-    public void addParam(Object value) {
+    public void addParameter(Object value) {
         if (value == null) {
             return;
         }
@@ -107,19 +103,19 @@ public class TextTag extends WebWorkBodyTagSupport implements ParamTag.Parametri
         // Add tag attribute values
         // These can be used to parameterize the i18n-ized message
         if (value0Attr != null) {
-            addParam(findValue(value0Attr));
+            addParameter(findValue(value0Attr));
         }
 
         if (value1Attr != null) {
-            addParam(findValue(value1Attr));
+            addParameter(findValue(value1Attr));
         }
 
         if (value2Attr != null) {
-            addParam(findValue(value2Attr));
+            addParameter(findValue(value2Attr));
         }
 
         if (value3Attr != null) {
-            addParam(findValue(value3Attr));
+            addParameter(findValue(value3Attr));
         }
 
         String defaultMessage;
