@@ -45,16 +45,19 @@
             #set( $itemValue = $item )
         #end
 
-        <label>$!itemValue</label>
         <input
             type="radio"
             #if( $tag.contains($parameters.nameValue, $itemKey) )checked="checked"#end
-            #if ($parameters.name)      name="$!webwork.htmlEncode($parameters.name)"         #end
+            #if ($parameters.name)
+                                        name="$!webwork.htmlEncode($parameters.name)"
+                                        id="$!webwork.htmlEncode($parameters.nameValue)$!webwork.htmlEncode($itemKey)"
+            #end
             #if ($itemKey)              value="$!webwork.htmlEncode($itemKey)"                #end
             #if ($parameters.disabled)  disabled="disabled"             #end
             #if ($parameters.tabindex)  tabindex="$!webwork.htmlEncode($parameters.tabindex)" #end
             #if ($parameters.onchange)  onchange="$!webwork.htmlEncode($parameters.onchange)" #end
         />
+        <label for="$!webwork.htmlEncode($parameters.nameValue)$!webwork.htmlEncode($itemKey)">$!itemValue</label>
 
         #set ($trash = $stack.pop())
     #end
