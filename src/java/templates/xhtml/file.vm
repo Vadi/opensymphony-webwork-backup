@@ -1,9 +1,0 @@
-#parse( "/templates/xhtml/controlheader.vm" )
-<input
-    type="file"
-    #if ($parameters.name)      name="$parameters.name"     #end
-    #if ($parameters.value)     value="$parameters.value"   #end
-    #if ($parameters.accept)    accept="$parameters.accept" #end
-    #if ($parameters.size)      size="$parameters.size"     #end
-/>
-#parse( "/templates/xhtml/controlfooter.vm" )

@@ -1,7 +1,0 @@
-<table>
-<form
-    #if ($parameters.name)      name="$parameters.name"       #end
-    #if ($parameters.action)    action="$parameters.action"   #end
-    #if ($parameters.method)    method="$parameters.method"   #end
-    #if ($parameters.enctype)   enctype="$parameters.enctype" #end
->
