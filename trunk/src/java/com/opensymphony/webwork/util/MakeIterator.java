@@ -49,6 +49,10 @@ public class MakeIterator {
     public static Iterator convert(Object value) {
         Iterator iterator;
 
+        if (value instanceof Iterator) {
+            return (Iterator) value;
+        }
+
         if (value instanceof Map) {
             value = ((Map) value).entrySet();
         }
@@ -80,7 +84,9 @@ public class MakeIterator {
 
             iterator = list.iterator();
         } else {
-            iterator = (Iterator) value;
+            List list = new ArrayList(1);
+            list.add(value);
+            iterator = list.iterator();
         }
 
         return iterator;
