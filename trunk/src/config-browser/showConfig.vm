@@ -9,10 +9,10 @@
 <table>
 	<tr><td width="100%">
 #bodytag (Form)
-	#tag (Label "label='Action name'" "name=actionName")
-	#tag (Label "label='Namespace'" "name=namespace")
-	#tag (Label "label='Action class'" "name=config.class")
-	#tag (Label "label='Action method'" "name=config.method.name")
+	#tag (Label "label='Action name'" "name='actionName'")
+	#tag (Label "label='Namespace'" "name='namespace'")
+	#tag (Label "label='Action class'" "name='config.class'")
+	#tag (Label "label='Action method'" "name='config.method.name'")
 	#tag (Label "label='Parameters'" "name='$params'")
 	#tag (Label "label='Location'" "name='<a href=\"${req.contextPath}${namespace}/${actionName}.action\">${req.contextPath}${namespace}/${actionName}.action</a>'")
 #end
