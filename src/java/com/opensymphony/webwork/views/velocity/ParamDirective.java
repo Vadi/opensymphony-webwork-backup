@@ -58,11 +58,6 @@ public class ParamDirective extends Directive {
 
             Object key = node.jjtGetChild(0).value(contextAdapter);
             Object value = node.jjtGetChild(1).value(contextAdapter);
-            OgnlValueStack stack = (OgnlValueStack) contextAdapter.get(VelocityManager.STACK);
-
-            if (stack != null) {
-                value = stack.findValue(value.toString());
-            }
 
             ParameterizedTag parameterizedTag = (ParameterizedTag) object;
 
