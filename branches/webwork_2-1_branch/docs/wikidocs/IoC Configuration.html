@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>WebWork 2 : IoC Configuration</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork 2 : IoC Configuration
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Dec 13, 2004 by <font color="#0050B2">mcampbell</font>.
+				    </div>
+
+				    <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a name="IoCConfiguration-Configurationweb.xml">Configuration - web.xml</a></h2></p>To configure WebWork&#039;s component management, the following lines must be added in the appropriate places to web.xml:<br/>
+
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;filter&gt;</span>&#10;    <span class="xml&#45;tag">&lt;filter&#45;name&gt;</span>container<span class="xml&#45;tag">&lt;/filter&#45;name&gt;</span>&#10;    <span class="xml&#45;tag">&lt;filter&#45;class&gt;</span>com.opensymphony.webwork.lifecycle.RequestLifecycleFilter<span class="xml&#45;tag">&lt;/filter&#45;class&gt;</span>&#10;<span class="xml&#45;tag">&lt;/filter&gt;</span>&#10;&#10;<span class="xml&#45;tag">&lt;filter&#45;mapping&gt;</span>&#10;   <span class="xml&#45;tag">&lt;filter&#45;name&gt;</span>container<span class="xml&#45;tag">&lt;/filter&#45;name&gt;</span>&#10;   <span class="xml&#45;tag">&lt;url&#45;pattern&gt;</span>&#42;.action<span class="xml&#45;tag">&lt;/url&#45;pattern&gt;</span>&#160;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; modify appropriately &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag">&lt;/filter&#45;mapping&gt;</span>&#10;&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; Optionally you may instead apply the filter to EVERY URI instead of just &#42;.action.  &#45;&#45;&gt;</span></span> &#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; You might want to do this for example:  &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; &#42; your page flow goes to a jsp directly (as opposed to only &#42;.action URIs) &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; &#42; the jsp has an action in it to be run with the ww:action tag &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; &#42; the action in the jsp implements any enabler interfaces to get components served to it &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; The reason: (Per Patrick Lightbody) &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; <span class="xml&#45;quote">&quot;The components work by looking for a ComponentManager in the request &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; attributes. It gets placed there by a filter. If it is on &#42;.action and a &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; request comes in through a JSP, the filter won&#039;t be applied and it will &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; never work.&quot;</span> &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; The overhead in doing this is small, so don&#039;t worry overly much about the  &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; performance of this. &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; &lt;filter&#45;mapping&gt;</span> &#45;&#45;&gt;</span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45;    &lt;filter&#45;name&gt;</span>container<span class="xml&#45;tag">&lt;/filter&#45;name&gt;</span> &#45;&#45;&gt;</span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45;    &lt;url&#45;pattern&gt;</span>&#42;<span class="xml&#45;tag">&lt;/url&#45;pattern&gt;</span>  &#45;&#45;&gt;</span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; &lt;/filter&#45;mapping&gt;</span> &#45;&#45;&gt;</span>&#10;&#10;<span class="xml&#45;tag">&lt;listener&gt;</span>&#10;    <span class="xml&#45;tag">&lt;listener&#45;class&gt;</span>com.opensymphony.webwork.lifecycle.SessionLifecycleListener<span class="xml&#45;tag">&lt;/listener&#45;class&gt;</span>&#10;<span class="xml&#45;tag">&lt;/listener&gt;</span>&#10;&#10;<span class="xml&#45;tag">&lt;listener&gt;</span>&#10;    <span class="xml&#45;tag">&lt;listener&#45;class&gt;</span>com.opensymphony.webwork.lifecycle.ApplicationLifecycleListener<span class="xml&#45;tag">&lt;/listener&#45;class&gt;</span>&#10;<span class="xml&#45;tag">&lt;/listener&gt;</span></pre>
+</div></div><p class="paragraph">These settings allow WebWork to manage components across the application, session and request scopes. Note that even if one or more of the scopes are not required by your application, all three scopes need to be specified in web.xml for WebWork&#039;s component management to function correctly.</p><h2 class="heading2"><a name="IoCConfiguration-Configurationxwork.xml">Configuration - xwork.xml</a></h2><p class="paragraph">The ComponentInterceptor class is used to apply the IoC pattern to XWork actions (ie, to supply components to actions). The ComponentInterceptor should be declared in the &lt;interceptors&gt; block of xwork.xml as follows:</p><div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;interceptor name=<span class="xml&#45;quote">&quot;component&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.xwork.interceptor.component.ComponentInterceptor&quot;</span>/&gt;</span></pre>
+</div></div><p class="paragraph">You should ensure that any actions that are to be supplied with components have this interceptor applied. (See OS:XWork Interceptors for information on how to apply interceptors to actions.)<br/>
+If you want to apply IoC to objects other than actions or other components, you will need to use the ComponentManager object directly.</p>Note too, that the ComponentInterceptor is applied as part of the webwork defaultStack. Thus, if you are applying the defaultStack to the action, you would include the ComponentInterceptor.<p class="paragraph"><h2 class="heading2"><a name="IoCConfiguration-Configurationcomponents.xml">Configuration - components.xml</a></h2></p>The components.xml file is used to specify the components that are to be available. The components specified here are loaded into XWork&#039;s ComponentManager and are then made available to any actions that are an instance of the specified enabler. The components.xml file must be placed in the root of the classpath (ie, in the WEB-INF/classes directory).<br/>
+Here is an example components.xml file that configures a Counter component. The Counter object will live in session scope, and will be passed to any objects that are enabled due to their implementing the CounterAware interface:<br/>
+
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;components&gt;</span>&#10;    <span class="xml&#45;tag">&lt;component&gt;</span>&#10;        <span class="xml&#45;tag">&lt;scope&gt;</span>session<span class="xml&#45;tag">&lt;/scope&gt;</span>&#10;        <span class="xml&#45;tag">&lt;class&gt;</span>com.opensymphony.webwork.example.counter.Counter<span class="xml&#45;tag">&lt;/class&gt;</span>&#10;        <span class="xml&#45;tag">&lt;enabler&gt;</span>com.opensymphony.webwork.example.counter.CounterAware<span class="xml&#45;tag">&lt;/enabler&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/component&gt;</span>&#10;<span class="xml&#45;tag">&lt;/components&gt;</span></pre>
+</div></div><p class="paragraph">Each component must have the following three attributes:</p><ul class="star">
+<li> <em class="emphasis">scope</em>: Valid values are <em class="emphasis">application</em>, <em class="emphasis">session</em> and <em class="emphasis">request</em>. This determines the component&#039;s lifetime. Application scope components will be created when the webapp starts up, and they will survive for the whole lifetime of the webapp. Session scoped components exist for the duration of a user session, while components in request scope only last for the duration of a single client request.</li>
+<li> <em class="emphasis">class</em>: This specifies the component&#039;s class. An instance of this object will live for the duration of the specified scope, and will be made available to any actions (or other code) as required. Note that components are lazy-loaded, so if nothing makes use of the component during its lifetime, the component will never actually be instantiated. At the moment components must have a zero argument constructor.</li>
+<li> <em class="emphasis">enabler</em>: Any actions that are an instanceof the enabler class or interface will be passed an instance of the component.</li>
+</ul><p class="paragraph">Note that while components are allowed to have dependencies on other components they must not depend on another component that is of a narrower scope. So for example, a session component cannot depend on a component that is only of request scope.</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Dec 14, 2004 16:36</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

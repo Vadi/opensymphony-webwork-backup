@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <title>WebWork 2 : Simple validators</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork 2 : Simple validators
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jul 10, 2004 by <font color="#0050B2">unkyaku</font>.
+				    </div>
+
+				    <p class="paragraph"><a name="Simplevalidators-top"></a></p>The following validators are included in the default validators.xml:<br/>
+
+<table class="wikitable">
+<tr>
+<th>Name</th><th>JavaScript aware</th><th>Description</th>
+</tr><tr>
+<td><a href="#Simplevalidators-required" title="required on Simple validators">#required</a></td><td> </td><td>Field value must have a value (non-null)</td>
+</tr><tr>
+<td><a href="#Simplevalidators-requiredstring" title="requiredstring on Simple validators">#requiredstring</a></td><td>x</td><td>Field value is non-null and has a length &gt; 0</td>
+</tr><tr>
+<td><a href="#Simplevalidators-int" title="int on Simple validators">#int</a></td><td>x</td><td>Field value must be an integer and within a range</td>
+</tr><tr>
+<td><a href="#Simplevalidators-date" title="date on Simple validators">#date</a></td><td> </td><td>Field value must be a date (the format is based on locale) and within a range</td>
+</tr><tr>
+<td><a href="#Simplevalidators-expression" title="expression on Simple validators">#expression</a></td><td> </td><td>A given OGNL expression is evaluated against the value stack and must return true.  This is mostly usefully for cross-field validation.  Errors are added as action errors</td>
+</tr><tr>
+<td><a href="#Simplevalidators-fieldexpression" title="fieldexpression on Simple validators">#fieldexpression</a></td><td> </td><td>A given OGNL expression is evaluated against the value stack and must return true.  This is similar to <b class="strong">expression</b> but errors are added as field errors</td>
+</tr><tr>
+<td><a href="#Simplevalidators-email" title="email on Simple validators">#email</a></td><td>x</td><td>Field value must be a valid e-mail address</td>
+</tr><tr>
+<td><a href="#Simplevalidators-url" title="url on Simple validators">#url</a></td><td>x</td><td>Field value must be a valid url</td>
+</tr><tr>
+<td><a href="http://wiki.opensymphony.com//display/XW/Standard+Validators#StandardValidators-VisitorFieldValidator" title="VisitorFieldValidator on Standard Validators">visitor</a></td><td> </td><td>Allows you to forward validation to object properties of your action using the objects own validation files</td>
+</tr><tr>
+<td>conversion</td><td> </td><td>Add conversion errors from ActionContext to field errors of the action.  This does the same thing as <a href="Interceptors.html" title="Interceptors">WebWorkConversionErrorInterceptor</a></td>
+</tr>
+</table><br/>
+Note: the above name can be changed if you supply your own validators.xml.<p class="paragraph"><h2 class="heading2"><a name="Simplevalidators-required%3Caname%3D%22Simplevalidatorsrequired%22%3E%3C%2Fa%3E"> required <a name="Simplevalidators-required"></a></a></h2></p>In SimpleAction-validation.xml:<br/>
+
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;validators&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;bar&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;required&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message&gt;</span>You must enter a value for bar.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div><p class="paragraph"><a href="#Simplevalidators-top" title="top on Simple validators">#top</a></p><h2 class="heading2"><a name="Simplevalidators-requiredstring%3Caname%3D%22Simplevalidatorsrequiredstring%22%3E%3C%2Fa%3E"> requiredstring <a name="Simplevalidators-requiredstring"></a></a></h2><p class="paragraph">In LoginAction-validation.xml:</p><div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;validators&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;userName&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message&gt;</span>You must enter an username.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div><p class="paragraph">The error is shown if request parameter <b class="strong">userName</b> is missing or an empty string</p><a href="#Simplevalidators-top" title="top on Simple validators">#top</a><p class="paragraph"><h2 class="heading2"><a name="Simplevalidators-int%3Caname%3D%22Simplevalidatorsint%22%3E%3C%2Fa%3E"> int <a name="Simplevalidators-int"></a></a></h2></p><div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;validators&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;foo&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;int&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;min&quot;</span>&gt;</span>0<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;max&quot;</span>&gt;</span>100<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message key=<span class="xml&#45;quote">&quot;foo.range&quot;</span>&gt;</span>Could not find foo.range&#33;<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div><p class="paragraph"><a href="#Simplevalidators-top" title="top on Simple validators">#top</a></p><h2 class="heading2"><a name="Simplevalidators-date%3Caname%3D%22Simplevalidatorsdate%22%3E%3C%2Fa%3E"> date <a name="Simplevalidators-date"></a></a></h2>
+
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;validators&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;startDate&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;date&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;min&quot;</span>&gt;</span>12/22/2002<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;max&quot;</span>&gt;</span>12/25/2002<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message&gt;</span>The date must be between 12&#45;22&#45;2002 and 12&#45;25&#45;2002.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div><p class="paragraph"><a href="#Simplevalidators-top" title="top on Simple validators">#top</a></p><h2 class="heading2"><a name="Simplevalidators-expression%3Caname%3D%22Simplevalidatorsexpression%22%3E%3C%2Fa%3E"> expression <a name="Simplevalidators-expression"></a></a></h2>
+
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;validators&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator type=<span class="xml&#45;quote">&quot;expression&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;expression&quot;</span>&gt;</span>foo &gt; bar<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;        <span class="xml&#45;tag">&lt;message&gt;</span>Foo must be greater than Bar. Foo = $&#123;foo&#125;, Bar = $&#123;bar&#125;.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/validator&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div><p class="paragraph">The validator is not associated with a single field.  You may need to place your expression within a CDATA if it contains bad xml characters.</p><a href="#Simplevalidators-top" title="top on Simple validators">#top</a><p class="paragraph"><h2 class="heading2"><a name="Simplevalidators-fieldexpression%3Caname%3D%22Simplevalidatorsfieldexpression%22%3E%3C%2Fa%3E"> fieldexpression <a name="Simplevalidators-fieldexpression"></a></a></h2></p><div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;validators&gt;</span>&#10;     <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;productCode&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;fieldexpression&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;expression&quot;</span>&gt;</span>name.length() == 5<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message&gt;</span>Product code must be 5 characters, it is currently &#039;$&#123;productCode&#125;&#039;<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div><p class="paragraph"><a href="#Simplevalidators-top" title="top on Simple validators">#top</a></p><h2 class="heading2"><a name="Simplevalidators-email%3Caname%3D%22Simplevalidatorsemail%22%3E%3C%2Fa%3E"> email <a name="Simplevalidators-email"></a></a></h2>
+
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;validators&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;email&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;email&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message&gt;</span>You must enter a valid email address.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div><p class="paragraph">The address must be in the format  xxx@yyy.com|net|gov|org|edu|info|mil|biz|tv|&#8230;</p><a href="#Simplevalidators-top" title="top on Simple validators">#top</a><p class="paragraph"><h2 class="heading2"><a name="Simplevalidators-url%3Caname%3D%22Simplevalidatorsurl%22%3E%3C%2Fa%3E"> url  <a name="Simplevalidators-url"></a></a></h2></p><div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;validators&gt;</span>&#10;     <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;companyUrl&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;url&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message&gt;</span>You must enter a valid URL.<span class="xml&#45;tag">&lt;/message&gt;</span>            &#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div><p class="paragraph"><a href="#Simplevalidators-top" title="top on Simple validators">#top</a></p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Dec 14, 2004 16:36</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,2 @@
+#parse("/$parameters.templateDir/simple/form.vm")
+<table class="wwFormTable">
