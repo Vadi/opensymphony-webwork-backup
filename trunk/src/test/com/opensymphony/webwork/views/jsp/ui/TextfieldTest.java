@@ -21,6 +21,7 @@ public class TextfieldTest extends AbstractUITagTest {
 
         TextFieldTag tag = new TextFieldTag();
         tag.setPageContext(pageContext);
+        tag.setId("myId");
         tag.setLabel("'mylabel'");
         tag.setName("'foo'");
         tag.setValue("'bar'");
