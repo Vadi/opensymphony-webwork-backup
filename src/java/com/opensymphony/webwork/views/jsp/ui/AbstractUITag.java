@@ -40,7 +40,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     protected static VelocityManager velocityManager = VelocityManager.getInstance();
     protected static VelocityEngine velocityEngine = velocityManager.getVelocityEngine();
-    private static final Log LOG = LogFactory.getLog(AbstractClosingUITag.class);
+    private static final Log LOG = LogFactory.getLog(AbstractUITag.class);
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
