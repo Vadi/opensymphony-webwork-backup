@@ -13,8 +13,9 @@
 	#tag (Label "label='Namespace'" "name='namespace'")
 	#tag (Label "label='Action class'" "name='config.class'")
 	#tag (Label "label='Action method'" "name='config.method.name'")
-	#tag (Label "label='Parameters'" "name='$params'")
-	#tag (Label "label='Location'" "name='<a href=\"${req.contextPath}${namespace}/${actionName}.action\">${req.contextPath}${namespace}/${actionName}.action</a>'")
+	#tag (Label "label='Parameters'" "name='config.params'")
+	<tr><td align="right">Location :</td><td><a href="${req.contextPath}${namespace}/${actionName}.action">${req.contextPath}${namespace}/${actionName}.action</a></td></tr>
+	<!-- #tag (Label "label='Location'" "name='<a href=\"${req.contextPath}${namespace}/${actionName}.action\">${req.contextPath}${namespace}/${actionName}.action</a>'") -->
 #end
 
 	</td><td style="text-align: right;"><!-- Placeholder for Action Graph --></td></tr>
