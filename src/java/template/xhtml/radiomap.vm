@@ -48,7 +48,7 @@
         <label>$itemValue</label>
         <input
             type="radio"
-            #if( $parameters.nameValue && $itemKey && $parameters.nameValue == $itemKey )checked="checked"#end
+            #if( $tag.contains($parameters.nameValue, $itemKey) )checked="checked"#end
             #if ($parameters.name)      name="$parameters.name"         #end
             #if ($itemKey)              value="$itemKey"                #end
             #if ($parameters.disabled)  disabled="disabled"             #end

@@ -38,7 +38,7 @@ public class RadioTest extends AbstractUITagTest {
         tag.setPageContext(pageContext);
         tag.setLabel("'mylabel'");
         tag.setName("'myname'");
-        tag.setValue("1");
+        tag.setValue("\"1\"");
         tag.setList("map");
         tag.setListKey("key");
         tag.setListValue("value");

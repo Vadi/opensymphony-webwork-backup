@@ -223,10 +223,19 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             addParam("onchange", stack.findValue(onchangeAttr, String.class));
         }
 
-        if (valueAttr != null) {
-            addParam("nameValue", stack.findValue(valueAttr, String.class));
-        } else if (name != null) {
-            addParam("nameValue", stack.findValue(name.toString(), String.class));
+        Class valueClazz = getValueClassType();
+        if (valueClazz != null) {
+            if (valueAttr != null) {
+                addParam("nameValue", stack.findValue(valueAttr, valueClazz));
+            } else if (name != null) {
+                addParam("nameValue", stack.findValue(name.toString(), valueClazz));
+            }
+        } else {
+            if (valueAttr != null) {
+                addParam("nameValue", stack.findValue(valueAttr));
+            } else if (name != null) {
+                addParam("nameValue", stack.findValue(name.toString()));
+            }
         }
 
         if (id != null) {
@@ -234,6 +243,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         evaluateExtraParams(stack);
+    }
+
+    protected Class getValueClassType() {
+        return String.class;
     }
 
     protected void mergeTemplate(String templateName) throws Exception {

@@ -6,33 +6,61 @@ import org.apache.velocity.Template;
 import org.apache.velocity.app.Velocity;
 import junit.framework.Assert;
 
+import java.util.Collection;
+import java.util.ArrayList;
+
 public class ChecboxListTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void testSimple() throws Exception {
+  public void testSimple() throws Exception {
         Template template = Velocity.getTemplate(AbstractUITag.THEME + SelectTag.TEMPLATE);
         Assert.assertNotNull(template); // ensure this is a valid decorators
 
         TestAction testAction = (TestAction) action;
-        testAction.setFoo("bar");
+        testAction.setFoo("hello");
         testAction.setList(new String[][] {
                 {"hello", "world"},
                 {"foo", "bar"}
             });
-        // TODO: write a damn test
-//
-//        ChecboxList tag = new ChecboxList();
-//        tag.setPageContext(pageContext);
-//        tag.setEmptyOption("true");
-//        tag.setLabel("'mylabel'");
-//        tag.setName("'myname'");
-//        tag.setValue("'foo'");
-//        tag.setList("list");
-//        tag.setListKey("that[0]");
-//        tag.setListValue("that[1]");
-//
-//        int result = tag.doEndTag();
-//
-//        verify(SelectTag.class.getResource("Select-1.txt"));
+
+        CheckboxListTag tag = new CheckboxListTag();
+        tag.setPageContext(pageContext);
+        tag.setLabel("'mylabel'");
+        tag.setName("'foo'");
+        tag.setList("list");
+        tag.setListKey("top[0]");
+        tag.setListValue("top[1]");
+
+        int result = tag.doEndTag();
+
+        verify(SelectTag.class.getResource("CheckboxList-1.txt"));
+    }
+
+    public void testMultiple() throws Exception {
+        Template template = Velocity.getTemplate(AbstractUITag.THEME + SelectTag.TEMPLATE);
+        Assert.assertNotNull(template); // ensure this is a valid decorators
+
+        TestAction testAction = (TestAction) action;
+        Collection collection = new ArrayList(2);
+        collection.add("hello");
+        collection.add("foo");
+        testAction.setCollection(collection);
+        testAction.setList(new String[][] {
+                {"hello", "world"},
+                {"foo", "bar"},
+                {"cat", "dog"}
+            });
+
+        CheckboxListTag tag = new CheckboxListTag();
+        tag.setPageContext(pageContext);
+        tag.setLabel("'mylabel'");
+        tag.setName("'collection'");
+        tag.setList("list");
+        tag.setListKey("top[0]");
+        tag.setListValue("top[1]");
+
+        int result = tag.doEndTag();
+
+        verify(SelectTag.class.getResource("CheckboxList-2.txt"));
     }
 }
