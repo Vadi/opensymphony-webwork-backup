@@ -244,8 +244,9 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
-            if (paramsWorkaroundEnabled)
+            if (paramsWorkaroundEnabled) {
                 request.getParameter("foo"); // simply read any parameter (existing or not) to "prime" the request
+            }
 
             request = wrapRequest(request);
             serviceAction(request, response, getNameSpace(request), getActionName(request), getRequestMap(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
