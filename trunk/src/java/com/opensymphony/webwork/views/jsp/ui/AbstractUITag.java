@@ -13,11 +13,12 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.validator.ActionValidatorManager;
 import com.opensymphony.xwork.validator.Validator;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.io.Writer;
 
@@ -124,6 +125,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     public String getTheme() {
+        if (themeAttr != null) {
+            theme = setupPath(findString(themeAttr), false);
+        }
+
         // If theme set is not explicitly given,
         // try to find attribute which states the theme set to use
         if ((theme == null) || (theme == "")) {
@@ -192,13 +197,11 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
      * @param myDefaultTemplate
      */
     protected String buildTemplateName(String myTemplate, String myDefaultTemplate) {
-        if (themeAttr != null) {
-            theme = findString(themeAttr);
-        }
-
         String template = myDefaultTemplate;
+
         if (myTemplate != null) {
             template = findString(myTemplate);
+
             if (template == null) {
                 LOG.warn("template attribute evaluated to null; using value as-is for backwards compatibility");
                 template = myTemplate;
@@ -321,7 +324,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     private String setupPath(String path, boolean prefix) {
-        if (path != null) {
+        if ((path != null) && (path != "")) {
             if (prefix) {
                 if (!path.startsWith("/")) {
                     path = "/" + path;
