@@ -3,6 +3,7 @@
 *.iml
 build
 dist
+bin
 test*
 cache
 logs
