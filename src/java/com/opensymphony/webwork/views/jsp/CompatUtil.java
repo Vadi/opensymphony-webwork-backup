@@ -8,7 +8,8 @@ import com.opensymphony.webwork.config.Configuration;
  * Time: 7:32:57 AM
  */
 public class CompatUtil {
-    private static boolean compatMode = false;
+    public static boolean compatMode = false;
+
     static {
         if (Configuration.isSet("compatibility.mode")) {
             compatMode = "true".equals(Configuration.getString("compatibility.mode"));
