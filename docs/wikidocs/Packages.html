@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>WebWork 2 : Packages</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork 2 : Packages
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jun 17, 2004 by <font color="#0050B2">casey</font>.
+				    </div>
+
+				    <p class="paragraph"><h3 style="margin: 4px 0px 4px 0px;" class="heading3"><a name="Packages-Overview"> Overview</a></h3></p>Packages are a way to group Actions, Results, Result Types, Interceptors and Stacks into a logical unit that shares a common configuration. Packages are similiar to objects in that they can be extended and have individual parts overridden by &quot;sub&quot; packages.<p class="paragraph"><h4 class="heading4"><a name="Packages-Packages"> Packages</a></h4></p>The package element has one required attribute, &quot;name&quot;, which acts as the key for later reference to this package. The &quot;extends&quot; attribute is optional and allows one package to inherit the configuration of one or more previous packages including all interceptor, interceptor-stack, and action configurations. Note that the configuration file is processed sequentially down the document, so the package referenced by an &quot;extends&quot; should be defined above the package which extends it. The &quot;abstract&quot; optional attribute allows you to make a package abstract, which will allow you to extend from it without the action configurations defined in the abstract package actually being available at runtime.<br/>
+
+<table class="wikitable">
+<tr>
+<th> Attribute </th><th> Required </th><th> Description </th>
+</tr><tr>
+<td> name </td><td> <b class="strong">yes</b> </td><td> key to for other packages to reference </td>
+</tr><tr>
+<td> extends </td><td> no </td><td> inherits package behavior of the package it extends </td>
+</tr><tr>
+<td> namespace </td><td> no </td><td> see <a href="Namespaces.html" title="Namespaces">Namespaces</a> </td>
+</tr><tr>
+<td> abstract </td><td> no </td><td> declares package to be abstract (no action configurations required in package) </td>
+</tr>
+</table>
+<h5 class="heading5"><a name="Packages-Sampleusageofpackagesinxwork.xml"> Sample usage of packages in xwork.xml</a></h5>
+<div class="code"><div class="codeContent">
+<pre>&lt;<span class="java&#45;keyword">package</span> name=<span class="java&#45;quote">&quot;bar&quot;</span>&#160;<span class="java&#45;keyword">extends</span>=<span class="java&#45;quote">&quot;webwork&#45;<span class="java&#45;keyword">default</span>&quot;</span> namespace=<span class="java&#45;quote">&quot;/foo/bar&quot;</span>&gt;&#10;        &lt;interceptors&gt;&#10;            &lt;interceptor&#45;stack name=<span class="java&#45;quote">&quot;barDefaultStack&quot;</span>&gt;&#10;                &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;debugStack&quot;</span>/&gt;&#10;                &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;defaultStack&quot;</span>/&gt;&#10;            &lt;/interceptor&#45;stack&gt;&#10;        &lt;/interceptors&gt;&#10;&#10;        &lt;action name=<span class="java&#45;quote">&quot;Bar&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.xwork.SimpleAction&quot;</span>&gt;&#10;            &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;barDefaultStack&quot;</span>/&gt;&#10;        &lt;/action&gt;&#10;&#10;        &lt;action name=<span class="java&#45;quote">&quot;TestInterceptorParamInheritance&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.xwork.SimpleAction&quot;</span>&gt;&#10;            &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;test&quot;</span>&gt;&#10;                &lt;param name=<span class="java&#45;quote">&quot;expectedFoo&quot;</span>&gt;expectedFoo&lt;/param&gt;&#10;            &lt;/interceptor&#45;ref&gt;&#10;        &lt;/action&gt;&#10;&#10;        &lt;action name=<span class="java&#45;quote">&quot;TestInterceptorParamInehritanceOverride&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.xwork.SimpleAction&quot;</span>&gt;&#10;            &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;test&quot;</span>&gt;&#10;                &lt;param name=<span class="java&#45;quote">&quot;foo&quot;</span>&gt;foo123&lt;/param&gt;&#10;                &lt;param name=<span class="java&#45;quote">&quot;expectedFoo&quot;</span>&gt;foo123&lt;/param&gt;&#10;            &lt;/interceptor&#45;ref&gt;&#10;        &lt;/action&gt;&#10;    &lt;/<span class="java&#45;keyword">package</span>&gt;&#10;&#10;    &lt;<span class="java&#45;keyword">package</span> name=<span class="java&#45;quote">&quot;abstractPackage&quot;</span> namespace=<span class="java&#45;quote">&quot;/<span class="java&#45;keyword">abstract</span>&quot;</span>&#160;<span class="java&#45;keyword">abstract</span>=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span>&gt;&#10;        &lt;action name=<span class="java&#45;quote">&quot;test&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.xwork.SimpleAction&quot;</span>/&gt;&#10;    &lt;/<span class="java&#45;keyword">package</span>&gt;&#10;&#10;    &lt;<span class="java&#45;keyword">package</span> name=<span class="java&#45;quote">&quot;nonAbstractPackage&quot;</span>&#160;<span class="java&#45;keyword">extends</span>=<span class="java&#45;quote">&quot;abstractPackage&quot;</span> namespace=<span class="java&#45;quote">&quot;/nonAbstract&quot;</span>/&gt;&#10;&#10;    &lt;<span class="java&#45;keyword">package</span> name=<span class="java&#45;quote">&quot;baz&quot;</span>&#160;<span class="java&#45;keyword">extends</span>=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">default</span>&quot;</span> namespace=<span class="java&#45;quote">&quot;baz&quot;</span>&gt;&#10;        &lt;action name=<span class="java&#45;quote">&quot;commandTest&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.xwork.SimpleAction&quot;</span>&gt;&#10;            &lt;param name=<span class="java&#45;quote">&quot;foo&quot;</span>&gt;123&lt;/param&gt;&#10;            &lt;result name=<span class="java&#45;quote">&quot;error&quot;</span> type=<span class="java&#45;quote">&quot;chain&quot;</span>&gt;&#10;                &lt;param name=<span class="java&#45;quote">&quot;actionName&quot;</span>&gt;bar&lt;/param&gt;&#10;            &lt;/result&gt;&#10;            &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">static</span>&#45;params&quot;</span>/&gt;&#10;        &lt;/action&gt;&#10;        &lt;action name=<span class="java&#45;quote">&quot;myCommand&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.xwork.SimpleAction&quot;</span> method=<span class="java&#45;quote">&quot;commandMethod&quot;</span>&gt;&#10;            &lt;param name=<span class="java&#45;quote">&quot;bar&quot;</span>&gt;456&lt;/param&gt;&#10;            &lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;chain&quot;</span>&gt;&#10;                &lt;param name=<span class="java&#45;quote">&quot;actionName&quot;</span>&gt;foo&lt;/param&gt;&#10;            &lt;/result&gt;&#10;            &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;logger&quot;</span>/&gt;&#10;        &lt;/action&gt;&#10;    &lt;/<span class="java&#45;keyword">package</span>&gt;&#10;&#10;    &lt;<span class="java&#45;keyword">package</span> name=<span class="java&#45;quote">&quot;multipleInheritance&quot;</span>&#160;<span class="java&#45;keyword">extends</span>=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">default</span>,abstractPackage,bar&quot;</span> namespace=<span class="java&#45;quote">&quot;multipleInheritance&quot;</span>&gt;&#10;        &lt;action name=<span class="java&#45;quote">&quot;testMultipleInheritance&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.xwork.SimpleAction&quot;</span>&gt;&#10;            &lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;chain&quot;</span>&gt;&#10;                &lt;param name=<span class="java&#45;quote">&quot;actionName&quot;</span>&gt;foo&lt;/param&gt;&#10;            &lt;/result&gt;&#10;            &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;barDefaultStack&quot;</span>/&gt;&#10;        &lt;/action&gt;&#10;    &lt;/<span class="java&#45;keyword">package</span>&gt;</pre>
+</div></div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Aug 27, 2004 11:46</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>
