@@ -24,6 +24,10 @@ public class TemplateEngineManager {
         templateEngines.put("jsp", new JspTemplateEngine());
     }
 
+    public static void registerTemplateEngine(String templateExtension, TemplateEngine templateEngine) {
+        MANAGER.templateEngines.put(templateExtension,templateEngine);
+    }
+
     /**
      * Gets the TemplateEngine for the template name. If the template name has an extension (for instance foo.jsp), then
      * this extension will be used to look up the appropriate TemplateEngine. If it does not have an extension, it will
