@@ -36,7 +36,6 @@
     <property name="build.example" value="${build}/example"/>
     <property name="build.example.jars" value="${build}/example-jars"/>
     <property name="build.example-war" value="${build}/example-war"/>
-    <property name="build.example.client.jar" value="${build}/example-client.jar"/>
     <property name="build.config-browser" value="${build}/config-browser"/>
     <property name="build.config-browser.jar" value="${build}/webwork-config-browser.jar"/>
     <property name="build.migration" value="${build}/migration"/>
@@ -232,15 +231,6 @@
         </copy>
 
         <copy file="${src.etc}/taglib.tld" tofile="${build}/webwork.tld"/>
-
-        <jar basedir="${build.example}" jarfile="${build.example.client.jar}">
-                <include name="**/client/**"/>
-                <include name="**/log4j.properties"/>
-        </jar>
-
-        <jar basedir="${src.etc}/example/client" jarfile="${build.example.client.jar}" update="true">
-                <include name="*.xml"/>
-        </jar>
     </target>
 
     <target name="signjar" depends="example-jar">
@@ -255,7 +245,6 @@
                 <include name="xwork.jar"/>
             </fileset>
             <fileset file="${build}/${name}-${version}.jar"/>
-            <fileset file="${build.example.client.jar}"/>
             <fileset file="${lib.build}/servlet.jar"/>
             <fileset dir="${lib.optional}">
                 <include name="object-dispatcher.jar"/>
@@ -304,7 +293,6 @@
                 <include name="oscore.jar"/>
                 <include name="xwork.jar"/>
                 <include name="${name}-${version}.jar"/>
-                <include name="example-client.jar"/>
                 <include name="servlet.jar"/>
                 <include name="object-dispatcher.jar"/>
                 <include name="log4j-1.2.8.jar"/>
@@ -314,7 +302,6 @@
             <lib dir="${lib.example}"/>
             <lib file="${build}/${name}-${version}.jar"/>
             <lib file="${build.config-browser.jar}"/>
-            <lib file="${build.example.client.jar}"/>
             <webinf file="${build}/webwork.tld"/>
             <classes dir="${build.example}"/>
             <classes dir="${src.etc}/example"/>

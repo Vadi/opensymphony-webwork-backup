@@ -15,7 +15,7 @@
        </webwork:iterator>
     </webwork:if>
 
-    <form action="<webwork:url page="userreg.userregistration.action"/>" method="POST">
+    <form action="<webwork:url value="userreg.userregistration.action"/>" method="POST">
         <table width="100%">
         <tr>
            <!-- start cell with webwork components -->

@@ -7,7 +7,7 @@
 <webwork:property/><BR>
 </webwork:iterator>
 
-<FORM ACTION="<webwork:url page="helloworld.login.action"/>" METHOD="POST">
+<FORM ACTION="<webwork:url value="helloworld.login.action"/>" METHOD="POST">
 <TABLE BORDER="1" BGCOLOR=lightyellow>
 <TR><TH COLSPAN=2><webwork:text name="'login'"/></TH></TR>
 

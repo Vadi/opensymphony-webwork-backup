@@ -10,7 +10,7 @@
 <body>
    <table>
    <H2> Money Transfer </H2>
-   <form action="<webwork:url page="bank.transfer.action"/>" method="post">
+   <form action="<webwork:url value="bank.transfer.action"/>" method="post">
 
    <ui:textfield label="'Receiver'" name="'receiver'" maxlength="30"/>
 

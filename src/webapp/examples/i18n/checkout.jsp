@@ -28,13 +28,13 @@
 <webwork:iterator value="cart/items">
 
 		<tr>
-         <webwork:property value="cd" id="cd">
+         <webwork:push value="cd">
 			   <td><b><webwork:property value="album"/></b></td>
 			   <td><b><webwork:property value="artist"/></b></td>
 			   <td><b><webwork:property value="country"/></b></td>
 			   <td><b><webwork:text name="'price'"
                value0="@pricer/computePrice(price)"/></b></td>
-			</webwork:property>
+			</webwork:push>
 
 			<td><b><webwork:property value="quantity"/></b></td>
 		</tr>
