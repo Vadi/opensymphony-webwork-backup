@@ -141,7 +141,7 @@ public class IteratorTag extends BodyTagSupport {
                     pageContext.getServletConfig());
             extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
             stack.getContext().putAll(extraContext);
-            pageContext.setAttribute("webwork.valueStack", stack);
+            req.setAttribute("webwork.valueStack", stack);
         }
 
 
