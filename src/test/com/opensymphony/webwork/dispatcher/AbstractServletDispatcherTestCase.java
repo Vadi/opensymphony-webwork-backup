@@ -15,6 +15,7 @@ import com.mockobjects.servlet.MockHttpSession;
 import com.mockobjects.servlet.MockServletConfig;
 import com.mockobjects.servlet.MockServletOutputStream;
 import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletRequest;
+import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletResponse;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.providers.XmlConfigurationProvider;
 import junit.framework.TestCase;
@@ -81,7 +82,7 @@ public abstract class AbstractServletDispatcherTestCase extends TestCase {
         request.setupGetServletPath(getServletPath());
         request.setupGetPathInfo(getServletPath());
 
-        MockHttpServletResponse response = new MockHttpServletResponse();
+        MockHttpServletResponse response = new WebWorkMockHttpServletResponse();
         response.setupOutputStream(new MockServletOutputStream());
 
         Mock servletContextDMock = new Mock(ServletContext.class);

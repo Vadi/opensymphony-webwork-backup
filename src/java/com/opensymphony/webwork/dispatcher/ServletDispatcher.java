@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Locale;
 
 
 /*
@@ -96,6 +97,12 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      */
     protected static final Log log = LogFactory.getLog(ServletDispatcher.class);
 
+    // set from the webwork.i18n.encoding property in webwork.properties
+    protected static String encoding = null;
+
+    // set from webwork.locale property in webwork.properties
+    protected static Locale locale = null;
+
     //~ Instance fields ////////////////////////////////////////////////////////
 
     boolean paramsWorkaroundEnabled = false;
@@ -133,7 +140,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         extraContext.put(ActionContext.PARAMETERS, parameterMap);
         extraContext.put(ActionContext.SESSION, sessionMap);
         extraContext.put(ActionContext.APPLICATION, applicationMap);
-        extraContext.put(ActionContext.LOCALE, request.getLocale());
+        extraContext.put(ActionContext.LOCALE, (locale == null) ? request.getLocale() : locale);
 
         extraContext.put(HTTP_REQUEST, request);
         extraContext.put(HTTP_RESPONSE, response);
@@ -152,6 +159,18 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         return extraContext;
     }
 
+    public static String getEncoding() {
+        return encoding;
+    }
+
+    public static Locale getLocale() {
+        return locale;
+    }
+
+    public boolean isParamsWorkaroundEnabled() {
+        return paramsWorkaroundEnabled;
+    }
+
     /**
      * Initalizes the servlet. Please read the {@link ServletDispatcher class documentation} for more
      * detail. <p>
@@ -167,6 +186,14 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         //check for configuration reloading
         if ("true".equalsIgnoreCase(Configuration.getString("webwork.configuration.xml.reload"))) {
             FileManager.setReloadingConfigs(true);
+        }
+
+        if (Configuration.isSet("webwork.i18n.encoding")) {
+            encoding = Configuration.getString("webwork.i18n.encoding");
+        }
+
+        if (Configuration.isSet("webwork.locale")) {
+            locale = localeFromString(Configuration.getString("webwork.locale"));
         }
 
         // store a reference to ourself into the SessionContext so that we can generate a PageContext
@@ -193,6 +220,15 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
+            if (encoding != null) {
+                try {
+                    request.setCharacterEncoding(encoding);
+                } catch (Exception e) {
+                }
+            }
+            if (locale != null) {
+                response.setLocale(locale);
+            }
             if (paramsWorkaroundEnabled) {
                 request.getParameter("foo"); // simply read any parameter (existing or not) to "prime" the request
             }
@@ -443,5 +479,36 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         }
 
         return maxSize.intValue();
+    }
+
+    /**
+     * Builds a {@link java.util.Locale} from a String of the form en_US_foo into a Locale
+     * with language "en", country "US" and variant "foo". This will parse the output of
+     * {@link java.util.Locale#toString()}.
+     * todo move this to LocalizedTextUtil in xwork 1.0.6
+     */
+    public static Locale localeFromString(String localeStr) {
+        if ((localeStr == null) || (localeStr.trim().length() == 0) || (localeStr.equals("_"))) {
+            return null;
+        }
+        int index = localeStr.indexOf('_');
+        if (index < 0) {
+            return new Locale(localeStr);
+        }
+        String language = localeStr.substring(0,index);
+        if (index == localeStr.length()) {
+            return new Locale(language);
+        }
+        localeStr = localeStr.substring(index +1);
+        index = localeStr.indexOf('_');
+        if (index < 0) {
+            return new Locale(language,localeStr);
+        }
+        String country = localeStr.substring(0,index);
+        if (index == localeStr.length()) {
+            return new Locale(language,country);
+        }
+        localeStr = localeStr.substring(index +1);
+        return new Locale(language,country,localeStr);
     }
 }
