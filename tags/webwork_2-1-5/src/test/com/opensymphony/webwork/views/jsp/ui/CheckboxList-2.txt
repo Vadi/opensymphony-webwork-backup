@@ -1,0 +1,17 @@
+<tr>
+    <td align="right" valign="top"><label class="label">mylabel:</label></td>
+    <td>
+        <div>
+            <input type="checkbox" name="collection" value="hello" id="collection-1" checked="checked" />
+            <label for="collection-1" class="checkboxLabel">world</label>
+        </div>
+        <div>
+            <input type="checkbox" name="collection" value="foo" id="collection-2" checked="checked" />
+            <label for="collection-2" class="checkboxLabel">bar</label>
+        </div>
+        <div>
+            <input type="checkbox" name="collection" value="cat" id="collection-3" />
+            <label for="collection-3" class="checkboxLabel">dog</label>
+        </div>
+    </td>
+</tr>

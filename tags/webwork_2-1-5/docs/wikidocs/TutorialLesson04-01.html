@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <title>WebWork 2 : TutorialLesson04-01</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork 2 : TutorialLesson04-01
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Oct 04, 2004 by <font color="#0050B2">kousuke</font>.
+				    </div>
+
+				    <p class="paragraph"><h1 style="margin: 4px 0px 4px 0px;" class="heading1"><a name="TutorialLesson04-01-Lesson4.1%3AUsingJSPastheView"> Lesson 4.1: Using JSP as the View</a></h1></p>When using JSP to render the views, you can choose to access the action&#039;s data using scriptlets or tags. Tags are the recommended approach.
+<p class="paragraph"><h2 class="heading2"><a name="TutorialLesson04-01-AccessingActionDatathroughScriplets%3A"> Accessing Action Data through Scriplets:</a></h2></p>Action data can be accessed through an object called <em class="emphasis">Value Stack</em>. The example below does the same thing as the result page of <a href="TutorialLesson03.html" title="TutorialLesson03">lesson 3</a>&#039;s second example (<em class="emphasis">Supplying Data to the Action</em>), but using scriptlets:<br/>
+
+<div class="code"><div class="codeContent">
+<pre>&lt;&#37;&#64; page <span class="java&#45;keyword">import</span>=<span class="java&#45;quote">&quot;com.opensymphony.xwork.util.OgnlValueStack&quot;</span> &#37;&gt;&#10;&lt;html&gt;&#10;&lt;head&gt;&#10;&lt;title&gt;WebWork Tutorial &#45; Lesson 4.1 &#45; Lesson 3&#039;s example modified&lt;/title&gt;&#10;&lt;/head&gt;&#10;&lt;body&gt;&#10;&#10;&lt;&#37;&#10;OgnlValueStack stack = (OgnlValueStack)request.getAttribute(<span class="java&#45;quote">&quot;webwork.valueStack&quot;</span>);&#10;out.write(<span class="java&#45;quote">&quot;Hello, &quot;</span> &#43; stack.findValue(<span class="java&#45;quote">&quot;person&quot;</span>));&#10;&#37;&gt;&#10;&#10;&lt;/body&gt;&#10;&lt;/html&gt;</pre>
+</div></div><p class="paragraph">WebWork tags, however, are recommended over scriptlets. For instance, <tt class="monospaced">&lt;ww:property /&gt;</tt> tags do exactly what the scriptlet above does, with a cleaner syntax and also handles the case where the Value Stack doesn&#039;t exist.</p><h2 class="heading2"><a name="TutorialLesson04-01-WebWorkTagLibrary%3A"> WebWork Tag Library:</a></h2><p class="paragraph">We&#039;ve already showed in <a href="TutorialLesson03.html" title="TutorialLesson03">lesson 3</a>&#039;s example how to access an action&#039;s property using tags. This section describes and exemplifies the use of the WebWork Tag Library, which can be divided in seven categories:</p><ul class="star">
+<li> <b class="strong">Common tags</b>: the most frequently used, basic tags;</li>
+<li> <b class="strong">Componentisation tags</b>: foster componentisation within your views;</li>
+<li> <b class="strong">Flow control tags</b>: govern the flow of control within the JSP page;</li>
+<li> <b class="strong">Iteration tags</b>: iterate over elements and manipulate iterable objects;</li>
+<li> <b class="strong">UI tags</b>: generate HTML form fields and controls;</li>
+<li> <b class="strong">VUI tags</b>: <font color="red"><em class="emphasis">volunteers needed to write this part</em></font>;</li>
+<li> <b class="strong">Internationalisation tags</b>: internationalise your views.</li>
+</ul><br/>
+ 
+<h3 class="heading3"><a name="TutorialLesson04-01-Commontags"> Common tags</a></h3>
+
+<table class="wikitable">
+<tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:property /&gt;</tt></b></td><td>Gets the value of a result attribute. If the value isn&#039;t given, the top of the stack will be returned.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:push /&gt;</tt></b></td><td>Pushes a value onto the Value Stack.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:param /&gt;</tt></b></td><td>Sets a parent tag&#039;s parameter. This tag is used only inside another tag to set the value of some property of the parent tag.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:set /&gt;</tt></b></td><td>Sets the value of an object in the Value Stack to a scope (page, stack, application, session). If the value is not given, the top of the stack is used. If the scope is not given, the default scope of &quot;webwork&quot; is used.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:url /&gt;</tt></b></td><td>Builds an encoded URL.</td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>EXAMPLE NEEDED.</pre>
+</div></div><br/>
+
+<blockquote class="blockquote"> Read more: <a href="Non-UI Tags.html" title="Non-UI Tags">Non-UI Tags</a></blockquote>
+<p class="paragraph"><h3 class="heading3"><a name="TutorialLesson04-01-Componentisationtags"> Componentisation tags</a></h3></p><table class="wikitable">
+<tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:action /&gt;</tt></b></td><td>Executes an Action from within the context of a taglib. The body of the tag is used to display the results of the action invocation.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:bean /&gt;</tt></b></td><td>Creates a JavaBean, instantiate its properties and place it in the ActionContext for later use.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:include /&gt;</tt></b></td><td>Includes another page or action.</td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>EXAMPLE NEEDED.</pre>
+</div></div><br/>
+
+<blockquote class="blockquote"> Read more: <a href="Non-UI Tags.html" title="Non-UI Tags">Non-UI Tags</a></blockquote>
+<p class="paragraph"><h3 class="heading3"><a name="TutorialLesson04-01-Flowcontroltags"> Flow control tags</a></h3></p>This if-else set of tags works just like if-else scriptlets.<br/>
+
+<table class="wikitable">
+<tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:if /&gt;</tt></b></td><td>Conditional execution path. That is, evaluates the tag body if a boolean expression is true.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:else /&gt;</tt></b></td><td>Negative execution path for the if tag. That is, if the preceeding conditional tag&#039;s boolean expression evaluated to false, then evaluate this tag&#039;s body.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:elseif /&gt;</tt></b></td><td>Negative conditional execution path for the if tag. That is, if the preceeding conditional tag&#039;s boolean expression evaluated to false and if this tag&#039;s boolean expression evaluates to true, then evaluate this tag&#039;s body.</td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>EXAMPLE NEEDED.</pre>
+</div></div><br/>
+
+<blockquote class="blockquote"> Read more: <a href="Non-UI Tags.html" title="Non-UI Tags">Non-UI Tags</a></blockquote>
+<p class="paragraph"><h3 class="heading3"><a name="TutorialLesson04-01-Iterationtags"> Iteration tags</a></h3></p><table class="wikitable">
+<tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:iterator /&gt;</tt></b></td><td>Iterates over a collection.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:generator /&gt;</tt></b></td><td>Generates iterators.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:append /&gt;</tt></b></td><td>Appends several iterators.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:subset /&gt;</tt></b></td><td>Gets a subset of an iterator.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:merge /&gt;</tt></b></td><td>Merges several iterators into one.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:sort /&gt;</tt></b></td><td>Sorts an iterator.</td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>EXAMPLE NEEDED.</pre>
+</div></div><br/>
+
+<blockquote class="blockquote"> Read more: <a href="Non-UI Tags.html" title="Non-UI Tags">Non-UI Tags</a></blockquote>
+<p class="paragraph"><h3 class="heading3"><a name="TutorialLesson04-01-UItags"> UI tags</a></h3></p>The UI tags wrap generic HTML controls while providing tight integration with the core framework. The tags have been designed to minimize the amount of logic in compiled code and delegate the actual rendering of HTML to a template system. The UI tags attempt to cover the most common scenarios, while providing a Component Tag for creating custom components. The UI tags also provide built-in support for displaying inline error messages.<p class="paragraph">There is a separate lesson about WebWork UI Tags which explains in detail how they work, how you could cusomize their appearance through the use of templates, how to create custom components, etc.</p><a href="TutorialLesson04-01-01.html" title="TutorialLesson04-01-01">Go to WebWork UI Tags Lesson</a>.
+<p class="paragraph"><h3 class="heading3"><a name="TutorialLesson04-01-VUI%28VoiceUI%29tags"> VUI(Voice UI) tags</a></h3>
+<table class="wikitable">
+<tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:audio /&gt;</tt></b></td><td>???</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:prompt /&gt;</tt></b></td><td>???</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:filled /&gt;</tt></b></td><td>???</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:log /&gt;</tt></b></td><td>???</td>
+</tr>
+</table><br/>
+<font color="red"><em class="emphasis">Volunteers needed to write this part.</em></font></p><h3 class="heading3"><a name="TutorialLesson04-01-Internationalisationtags"> Internationalisation tags</a></h3>
+
+<table class="wikitable">
+<tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:text /&gt;</tt></b></td><td>Prints out an internationalized string.</td>
+</tr><tr>
+<td><b class="strong"><tt class="monospaced">&lt;ww:i18n /&gt;</tt></b></td><td>Places a resource bundle on the Value Stack, for access by the text tag.</td>
+</tr>
+</table><br/>
+<blockquote class="blockquote"> Read more: <a href="UI Tags.html" title="UI Tags">UI Tags</a></blockquote><p class="paragraph"><hr class="line"/></p><a href="TutorialLesson04.html" title="TutorialLesson04">Previous Lesson</a> | <a href="TutorialLesson04-02.html" title="TutorialLesson04-02">Next Lesson</a><br/>
+
+
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Oct 23, 2004 17:36</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>
