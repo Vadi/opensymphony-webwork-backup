@@ -46,12 +46,12 @@
         <attribute>
             <name>page</name>
             <required>false</required>
-            <rtexprvalue>false</rtexprvalue>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>value</name>
             <required>false</required>
-            <rtexprvalue>false</rtexprvalue>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 
@@ -71,7 +71,7 @@
         <attribute>
             <name>id</name>
             <required>false</required>
-            <rtexprvalue>false</rtexprvalue>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 
@@ -199,7 +199,7 @@
         <attribute>
             <name>status</name>
             <required>false</required>
-            <rtexprvalue>false</rtexprvalue>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 
@@ -886,12 +886,17 @@
         <attribute>
             <name>value</name>
             <required>false</required>
-            <rtexprvalue>false</rtexprvalue>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>page</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>id</name>
             <required>false</required>
-            <rtexprvalue>false</rtexprvalue>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 </taglib>
