@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
+
 
 /**
  * @version $Id$
@@ -19,25 +21,27 @@ public class TextareaTag extends AbstractUITag {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private int cols;
-    private int rows;
+    protected String colsAttr;
+    protected String rowsAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setCols(int cols) {
-        this.cols = cols;
+    public void setCols(String cols) {
+        this.colsAttr = cols;
     }
 
-    public int getCols() {
-        return cols;
+    public void setRows(String rows) {
+        this.rowsAttr = rows;
     }
 
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
+    void evaluateParams(OgnlValueStack stack) {
+        if (colsAttr != null) {
+            addParam("cols", stack.findValue(colsAttr, String.class));
+        }
 
-    public int getRows() {
-        return rows;
+        if (rowsAttr != null) {
+            addParam("rows", stack.findValue(rowsAttr, String.class));
+        }
     }
 
     protected String getDefaultTemplate() {

@@ -61,8 +61,7 @@ public class PropertyTag extends TagSupport {
         OgnlValueStack stack = (OgnlValueStack) req.getAttribute("webwork.valueStack");
 
         try {
-            if (stack == null)
-            {
+            if (stack == null) {
                 stack = new OgnlValueStack();
                 HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
                 Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(),

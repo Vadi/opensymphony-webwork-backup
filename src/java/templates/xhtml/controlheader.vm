@@ -1,19 +1,14 @@
-#if( $stack.findValue("fieldErrors") )
-  #set( $error = $stack.findValue("fieldErrors.get('$tag.Name')") )
-  #if( $error )
-  <tr>
-    <td colspan="2" class="error"><span class="errorMessage">
-    #set( $message = $stack.findValue("getText('${error}')") )
-    #if( $message && $message != "" )
-      $message
-    #else
-      $error
-    #end
-    </span></td>
-  </tr>
+#if( $fieldErrors.get($parameters.name) )
+  #set ($errors = $fieldErrors.get($parameters.name))
+  #foreach ($error in $errors)
+      <tr>
+        <td colspan="2" class="error"><span class="errorMessage">
+        $error
+        </span></td>
+      </tr>
   #end
 #end
 <tr>
-  <td align="right" valign="top"#if($error) class="error"#end><label class="label">$stack.findValue(${tag.params.get('label')}):</label></td>
-  <td#if($error) class="error"#end>
+  <td align="right" valign="top"#if($errors) class="error"#end><label class="label">$parameters.label:</label></td>
+  <td#if($errors) class="error"#end>
 

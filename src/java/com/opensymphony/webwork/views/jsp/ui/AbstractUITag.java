@@ -6,10 +6,11 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.ParameterizedTag;
-import com.opensymphony.webwork.views.velocity.Renderer;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-
-import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.webwork.dispatcher.ServletDispatcher;
+import com.opensymphony.webwork.dispatcher.SessionMap;
+import com.opensymphony.webwork.dispatcher.ApplicationMap;
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
@@ -29,6 +30,8 @@ import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -37,7 +40,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
-public abstract class AbstractUITag extends TagSupport implements ParameterizedTag, Renderer {
+public abstract class AbstractUITag extends TagSupport implements ParameterizedTag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log LOG = LogFactory.getLog(AbstractUITag.class);
@@ -59,36 +62,39 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    Map params = new HashMap();
-    String id;
-    String template;
-    String theme;
-    Writer writer;
-    boolean required;
+    protected Map params = new HashMap();
+    protected String themeAttr;
+    protected String templateAttr;
+    protected String nameAttr;
+    protected String valueAttr;
+    protected String labelAttr;
+    protected String labelPositionAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-
-    public void setId(String id) {
-        this.id = id;
+    public void setTheme(String aName) {
+       themeAttr = aName;
     }
 
-    public String getId() {
-        return id;
+    public void setTemplate(String aName) {
+       templateAttr = aName;
     }
 
-    public void setLabel(String label) {
-        params.put("label", label);
+    public void setLabel(String aLabel) {
+       labelAttr = aLabel;
     }
 
-    public void setName(Object name) {
-        params.put("name", name);
+    public void setName(String aName) {
+       nameAttr = aName;
     }
 
-    public void setOnchange(String onchange) {
-        params.put("onchange", onchange);
+    public void setValue(String aValue) {
+       valueAttr = aValue;
     }
 
+    public void setLabelposition(String aLabelPosition) {
+       labelPositionAttr = aLabelPosition;
+    }
 
     /**
      * com.opensymphony.webwork.views.jsp.ParameterizedTag implementation
@@ -97,34 +103,6 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
      */
     public Map getParams() {
         return params;
-    }
-
-    public void setRequired(boolean required) {
-        this.required = required;
-    }
-
-    public boolean getRequired() {
-        return required;
-    }
-
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    public String getTemplate() {
-        return template;
-    }
-
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
-
-    public String getTheme() {
-        return theme;
-    }
-
-    public void setValue(Object value) {
-        params.put("value", value);
     }
 
     /**
@@ -138,7 +116,43 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     public int doEndTag() throws JspException {
-        evaluateActualValue();
+        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+        OgnlValueStack stack = (OgnlValueStack) req.getAttribute("webwork.valueStack");
+        if (stack == null) {
+                stack = new OgnlValueStack();
+                HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
+                Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(),
+                        new SessionMap(req.getSession()),
+                        new ApplicationMap(pageContext.getServletContext()),
+                        req,
+                        res,
+                        pageContext.getServletConfig());
+                extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
+                stack.getContext().putAll(extraContext);
+                req.setAttribute("webwork.valueStack", stack);
+            }
+
+        Object name = null;
+        if (nameAttr != null) {
+            name = stack.findValue(nameAttr, String.class);
+            addParam("name", name);
+        }
+
+        if (labelAttr != null) {
+            addParam("label", stack.findValue(labelAttr, String.class));
+        }
+
+        if (labelPositionAttr != null) {
+            addParam("labelPosition", stack.findValue(labelPositionAttr, String.class));
+        }
+
+        if (valueAttr != null) {
+            addParam("value", stack.findValue(valueAttr, String.class));
+        } else {
+            addParam("value", stack.findValue(name.toString(), String.class));
+        }
+
+        evaluateParams(stack);
 
         try {
             mergeTemplate(this.getTemplateName());
@@ -148,9 +162,10 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
             LOG.error("Could npt generate UI template", e);
 
             return SKIP_BODY;
-        } finally {
-            nullifyVars();
         }
+    }
+
+    void evaluateParams(OgnlValueStack stack) {
     }
 
     public int doStartTag() throws JspException {
@@ -163,63 +178,9 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
         return EVAL_BODY_INCLUDE;
     }
 
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        nullifyVars();
-    }
-
-    private void nullifyVars() {
-        this.params = null;
-        this.id = null;
-        this.required = false;
-        this.theme = null;
-        this.template = null;
-    }
-
     public void render(Context context, Writer writer) throws Exception {
-        evaluateActualValue();
-
         Template template = velocityEngine.getTemplate(this.getTemplateName());
         template.merge(context, writer);
-    }
-
-    public Object set(String label) throws JspException {
-        return this.set(label, null, null, null, null, null, null);
-    }
-
-    public Object set(String label, Object name) throws JspException {
-        return this.set(label, name, null, null, null, null, null);
-    }
-
-    public Object set(String label, Object name, Object value) throws JspException {
-        return this.set(label, name, value, null, null, null, null);
-    }
-
-    public Object set(String label, Object name, Object value, String id) throws JspException {
-        return this.set(label, name, value, id, null, null, null);
-    }
-
-    public Object set(String label, Object name, Object value, String id, String onchange) throws JspException {
-        return this.set(label, name, value, id, onchange, null, null);
-    }
-
-    public Object set(String label, Object name, Object value, String id, String onchange, String template) throws JspException {
-        return this.set(label, name, value, id, onchange, template, null);
-    }
-
-    public Object set(String label, Object name, Object value, String id, String onchange, String template, String theme) throws JspException {
-        this.setLabel(label);
-        this.setName(name);
-        this.setValue(value);
-        this.setId(id);
-        this.setOnchange(onchange);
-        this.setTemplate(template);
-        this.setTheme(theme);
-
-        return this;
     }
 
     /**
@@ -236,7 +197,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
      * @return The name of the Velocity template that we should use. This value should begin with a '/'
      */
     protected String getTemplateName() {
-        return buildTemplateName(getTemplate(), getDefaultTemplate());
+        return buildTemplateName(templateAttr, getDefaultTemplate());
     }
 
     /**
@@ -250,12 +211,12 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
          * If no used defined template has been speccified, apply the appropriate theme to the default template
          */
         if (myTemplate == null) {
-            if (this.theme == null) {
+            if (this.themeAttr == null) {
                 return THEME + myDefaultTemplate;
-            } else if (this.theme.endsWith("/")) {
-                return this.theme + myDefaultTemplate;
+            } else if (this.themeAttr.endsWith("/")) {
+                return this.themeAttr + myDefaultTemplate;
             } else {
-                return this.theme + "/" + myDefaultTemplate;
+                return this.themeAttr + "/" + myDefaultTemplate;
             }
 
             /**
@@ -268,31 +229,21 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
              * Otherwise, apply the appropriate theme to the user specified template
              */
         } else {
-            if (this.theme == null) {
+            if (this.themeAttr == null) {
                 return THEME + myTemplate;
-            } else if (this.theme.endsWith("/")) {
-                return this.theme + myTemplate;
+            } else if (this.themeAttr.endsWith("/")) {
+                return this.themeAttr + myTemplate;
             } else {
-                return this.theme + "/" + myTemplate;
+                return this.themeAttr + "/" + myTemplate;
             }
         }
-    }
-
-    /**
-     * this method derives the value of this.actualValue from the value stack if this.actualValue has not
-     * already been set
-     */
-    protected void evaluateActualValue() {
     }
 
     protected void mergeTemplate(String templateName) throws Exception {
         Template t = velocityEngine.getTemplate(templateName);
         Context context = VelocityManager.createContext(pageContext.getServletConfig(), pageContext.getRequest(), pageContext.getResponse());
 
-        Writer outputWriter = writer;
-        if (outputWriter == null) {
-            outputWriter = pageContext.getOut();
-        }
+        Writer outputWriter = pageContext.getOut();
 
         /**
          * Make the OGNL stack available to the velocityEngine templates.
@@ -300,6 +251,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
          * the request, it might also make sense for consistency to send the page and res and any others.
          */
         context.put("tag", this);
+        context.put("parameters", params);
 
         t.merge(context, outputWriter);
     }

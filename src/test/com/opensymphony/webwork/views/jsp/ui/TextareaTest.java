@@ -38,11 +38,11 @@ public class TextareaTest extends AbstractJspTest {
 
         TextareaTag tag = new TextareaTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("mylabel");
-        tag.setName("myname");
+        tag.setLabel("'mylabel'");
+        tag.setName("'myname'");
         tag.setValue("foo");
-        tag.setRows(30);
-        tag.setCols(20);
+        tag.setRows("'30'");
+        tag.setCols("'20'");
 
         int result = tag.doEndTag();
 

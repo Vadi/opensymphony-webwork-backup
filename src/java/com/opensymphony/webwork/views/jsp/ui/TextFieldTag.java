@@ -4,6 +4,10 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import javax.servlet.jsp.JspException;
+
 
 /**
  * @author $Author$
@@ -17,26 +21,18 @@ public class TextFieldTag extends AbstractUITag {
      */
     final public static String TEMPLATE = "textfield.vm";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
-
-    private int size;
-
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setSize(int size) {
-        this.size = size;
+    protected String sizeAttr;
+
+    public void setSize(String size) {
+        this.sizeAttr = size;
     }
 
-    public int getSize() {
-        return size;
-    }
-
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.size = 0;
+    void evaluateParams(OgnlValueStack stack) {
+        if (sizeAttr != null) {
+            addParam("size", stack.findValue(sizeAttr, String.class));
+        }
     }
 
     protected String getDefaultTemplate() {

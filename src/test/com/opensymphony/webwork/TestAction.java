@@ -33,14 +33,6 @@ public class TestAction extends ActionSupport {
         return array;
     }
 
-    public Map getFieldErrors() {
-        Map map = new HashMap();
-
-        map.put("foo", "bar error message");
-
-        return map;
-    }
-
     public void setFoo(String foo) {
         this.foo = foo;
     }

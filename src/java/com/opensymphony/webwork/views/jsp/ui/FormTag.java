@@ -92,7 +92,7 @@ public class FormTag extends AbstractClosingUITag implements IterationRenderer {
     }
 
     public void doBeforeRender(Context context, Writer writer) {
-        this.evaluateActualValue();
+        //this.evaluateActualValue();
 
         try {
             String openTemplate = this.getOpenTemplate();
@@ -101,7 +101,7 @@ public class FormTag extends AbstractClosingUITag implements IterationRenderer {
                 openTemplate = OPEN_TEMPLATE;
             }
 
-            String templateName = buildTemplateName(getTemplate(), openTemplate);
+            String templateName = buildTemplateName(templateAttr, openTemplate);
 
             Template template = velocityEngine.getTemplate(templateName);
             template.merge(context, writer);
