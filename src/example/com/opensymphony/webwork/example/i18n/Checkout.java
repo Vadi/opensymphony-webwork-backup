@@ -11,24 +11,24 @@ package com.opensymphony.webwork.example.i18n;
  * http://www.javaworld.com/javaworld/jw-03-2000/jw-03-ssj-jsp_p.html
  */
 public class Checkout extends Shop {
-	// Checkout
-	double totalPrice;
+    // Checkout
+    double totalPrice;
 
-	// Public  ------------------------------------------------------
-	public double getTotalPrice() {
-		return totalPrice;
-	}
+    // Public  ------------------------------------------------------
+    public double getTotalPrice() {
+        return totalPrice;
+    }
 
-	// Action implementation -----------------------------------------
-	public String execute() throws Exception {
-		Cart cart = getCart();
+    // Action implementation -----------------------------------------
+    public String execute() throws Exception {
+        Cart cart = getCart();
 
-		// Calculate total
-		ComputePrice cp = new ComputePrice();
-		//cp.setSession(session);
-		cp.setPrice(cart.getTotal());
-		totalPrice = cp.getRealPrice();
+        // Calculate total
+        ComputePrice cp = new ComputePrice();
+        //cp.setSession(session);
+        cp.setPrice(cart.getTotal());
+        totalPrice = cp.getRealPrice();
 
-		return SUCCESS;
-	}
+        return SUCCESS;
+    }
 }

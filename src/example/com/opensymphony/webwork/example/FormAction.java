@@ -38,7 +38,7 @@ public class FormAction extends ActionSupport {
 
     public String processForm() {
         try {
-            Thread.sleep(2000*3);
+            Thread.sleep(2000 * 3);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -38,8 +38,8 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     private static final Log LOG = LogFactory.getLog(AbstractUITag.class);
 
     /**
-* The name of the default theme used by WW2.
-*/
+     * The name of the default theme used by WW2.
+     */
     public static String THEME;
     protected static VelocityManager velocityManager = VelocityManager.getInstance();
     protected static VelocityEngine velocityEngine = velocityManager.getVelocityEngine();
@@ -131,18 +131,18 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     /**
-* A contract that requires each concrete UI Tag to specify which template should be used as a default.  For
-* example, the CheckboxTab might return "checkbox.vm" while the RadioTag might return "radio.vm".  This value
-* <strong>not</strong> begin with a '/' unless you intend to make the path absolute rather than relative to the
-* current theme.
-* @return The name of the template to be used as the default.
-*/
+     * A contract that requires each concrete UI Tag to specify which template should be used as a default.  For
+     * example, the CheckboxTab might return "checkbox.vm" while the RadioTag might return "radio.vm".  This value
+     * <strong>not</strong> begin with a '/' unless you intend to make the path absolute rather than relative to the
+     * current theme.
+     * @return The name of the template to be used as the default.
+     */
     protected abstract String getDefaultTemplate();
 
     /**
-* Find the name of the Velocity template that we should use.
-* @return The name of the Velocity template that we should use. This value should begin with a '/'
-*/
+     * Find the name of the Velocity template that we should use.
+     * @return The name of the Velocity template that we should use. This value should begin with a '/'
+     */
     protected String getTemplateName() {
         return buildTemplateName(templateAttr, getDefaultTemplate());
     }
@@ -152,15 +152,15 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     /**
-*
-* @param myTemplate
-* @param myDefaultTemplate
-* @return
-*/
+     *
+     * @param myTemplate
+     * @param myDefaultTemplate
+     * @return
+     */
     protected String buildTemplateName(String myTemplate, String myDefaultTemplate) {
         /**
-* If no used defined template has been speccified, apply the appropriate theme to the default template
-*/
+         * If no used defined template has been speccified, apply the appropriate theme to the default template
+         */
         if (myTemplate == null) {
             if (this.themeAttr == null) {
                 return THEME + myDefaultTemplate;
@@ -171,14 +171,14 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             }
 
             /**
-* If a theme has been specified and it begins with a '/', allow this to override any theme value provided.
-*/
+             * If a theme has been specified and it begins with a '/', allow this to override any theme value provided.
+             */
         } else if (myTemplate.startsWith("/")) {
             return myTemplate;
 
             /**
-* Otherwise, apply the appropriate theme to the user specified template
-*/
+             * Otherwise, apply the appropriate theme to the user specified template
+             */
         } else {
             if (this.themeAttr == null) {
                 return THEME + myTemplate;
@@ -255,10 +255,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         Writer outputWriter = pageContext.getOut();
 
         /**
-* Make the OGNL stack available to the velocityEngine templates.
-* todo Consider putting all the VelocityServlet Context values in - after all, if we're already sending
-* the request, it might also make sense for consistency to send the page and res and any others.
-*/
+         * Make the OGNL stack available to the velocityEngine templates.
+         * todo Consider putting all the VelocityServlet Context values in - after all, if we're already sending
+         * the request, it might also make sense for consistency to send the page and res and any others.
+         */
         context.put("tag", this);
         context.put("parameters", getParams());
 

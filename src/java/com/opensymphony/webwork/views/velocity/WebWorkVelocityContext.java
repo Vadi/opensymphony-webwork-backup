@@ -73,13 +73,13 @@ public class WebWorkVelocityContext extends VelocityContext {
         // still no luck?  let's look against the value stack
         if (stack != null) {
             Object object = stack.findValue(key);
-            if( object != null ) {
+            if (object != null) {
                 return object;
             }
         }
 
         // finally, if we're chained to other contexts, let's look in them
-        if( chainedContexts != null ) {
+        if (chainedContexts != null) {
             for (int index = 0; index < chainedContexts.length; index++) {
                 if (chainedContexts[index].containsKey(key)) {
                     return chainedContexts[index].internalGet(key);

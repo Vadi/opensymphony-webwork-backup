@@ -45,16 +45,14 @@ import webwork.action.Action;
  * @version $Revision$
  */
 public class MigrationActionFactory
-   extends ActionFactory
-{
-   // Attributes ----------------------------------------------------
-   protected ActionFactory factory;
+        extends ActionFactory {
+    // Attributes ----------------------------------------------------
+    protected ActionFactory factory;
 
-   /**
-    * Initialize action factory proxy delegation chain.
-    */
-   public MigrationActionFactory()
-   {
+    /**
+     * Initialize action factory proxy delegation chain.
+     */
+    public MigrationActionFactory() {
         factory = new JavaActionFactory();
         factory = new ScriptActionFactoryProxy(factory);
         factory = new XMLActionFactoryProxy(factory);
@@ -64,22 +62,21 @@ public class MigrationActionFactory
         factory = new AliasingActionFactoryProxy(factory);
         factory = new CommandActionFactoryProxy(factory);
         factory = new ContextActionFactoryProxy(factory);
-      
-   }
 
-   /**
-    * Get an action object. The name should be the fully qualified classname of
-    * the action. Returns an instance of the matching action class by
-    * searching through the action factory proxy delegation chain.
-    *
-    * @param   name classname of the action to be created
-    * @return   the action corresponding to the given name
-    * @exception   Exception
-    */
-   public Action getActionImpl(String name)
-     throws Exception
-   {
-      return factory.getActionImpl(name);
-   }
-   
+    }
+
+    /**
+     * Get an action object. The name should be the fully qualified classname of
+     * the action. Returns an instance of the matching action class by
+     * searching through the action factory proxy delegation chain.
+     *
+     * @param   name classname of the action to be created
+     * @return   the action corresponding to the given name
+     * @exception   Exception
+     */
+    public Action getActionImpl(String name)
+            throws Exception {
+        return factory.getActionImpl(name);
+    }
+
 }

@@ -239,7 +239,7 @@ public class VelocityManager {
             log.debug("Initializing Velocity with the following properties ...");
 
             for (Iterator iter = properties.keySet().iterator();
-                    iter.hasNext();) {
+                 iter.hasNext();) {
                 String key = (String) iter.next();
                 String value = properties.getProperty(key);
 

@@ -13,9 +13,9 @@ import com.opensymphony.xwork.ActionContext;
  * http://www.javaworld.com/javaworld/jw-03-2000/jw-03-ssj-jsp_p.html
  */
 public class Restart extends Shop {
-	// Action implementation -----------------------------------------
-	public String execute() throws Exception {
-		ActionContext.getContext().getSession().remove("cart");
-		return SUCCESS;
-	}
+    // Action implementation -----------------------------------------
+    public String execute() throws Exception {
+        ActionContext.getContext().getSession().remove("cart");
+        return SUCCESS;
+    }
 }

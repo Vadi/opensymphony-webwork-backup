@@ -13,7 +13,7 @@ import com.opensymphony.xwork.config.entities.ActionConfig;
  * Created Aug 11, 2003 8:41:17 PM
  */
 public class ConfigurationHelper {
-	
+
     public static Set getNamespaces() {
         Set namespaces = Collections.EMPTY_SET;
         Map allActionConfigs = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfigs();
@@ -45,5 +45,5 @@ public class ConfigurationHelper {
             }
         }
         return config;
-    }    
+    }
 }

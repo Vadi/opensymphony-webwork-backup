@@ -92,15 +92,15 @@ public class VelocityResult extends WebWorkResultSupport {
     }
 
     /**
- * given a value stack, a velocity engine, and an action invocation, return the appropriate velocity Template to
- * render
- *
- * @param stack the value stack to resolve the location again (when parse == true)
- * @param velocity the velocity engine to process the request against
- * @param invocation the current ActionInvocation
- * @return the Template to render
- * @throws Exception when the requested template could not be found
- */
+     * given a value stack, a velocity engine, and an action invocation, return the appropriate velocity Template to
+     * render
+     *
+     * @param stack the value stack to resolve the location again (when parse == true)
+     * @param velocity the velocity engine to process the request against
+     * @param invocation the current ActionInvocation
+     * @return the Template to render
+     * @throws Exception when the requested template could not be found
+     */
     protected Template getTemplate(OgnlValueStack stack, VelocityEngine velocity, ActionInvocation invocation, String location) throws Exception {
         if (!location.startsWith("/")) {
             location = invocation.getProxy().getNamespace() + "/" + location;

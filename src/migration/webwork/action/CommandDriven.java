@@ -13,9 +13,8 @@ package webwork.action;
  * @see webwork.action.factory.MigrationActionFactory
  * @see webwork.action.factory.CommandActionFactoryProxy
  */
-public interface CommandDriven
-{
-	// Public Interfaces ---------------------------------------------
+public interface CommandDriven {
+    // Public Interfaces ---------------------------------------------
 
-	public void setCommand(String command);
+    public void setCommand(String command);
 }

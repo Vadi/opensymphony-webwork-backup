@@ -39,8 +39,8 @@ public abstract class AbstractTagTest extends TestCase {
     protected OgnlValueStack stack;
 
     /**
-    * contains the buffer that our unit test will write to.  we can later verify this buffer for correctness.
-    */
+     * contains the buffer that our unit test will write to.  we can later verify this buffer for correctness.
+     */
     protected StringWriter writer;
     protected WebWorkMockHttpServletRequest request;
     protected WebWorkMockPageContext pageContext;
@@ -59,10 +59,10 @@ public abstract class AbstractTagTest extends TestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-    * Constructs the action that we're going to test against.  For most UI tests, this default action should be enough.
-    * However, simply override getAction to return a custom Action if you need something more sophisticated.
-    * @return the Action to be added to the OgnlValueStack as part of the unit test
-    */
+     * Constructs the action that we're going to test against.  For most UI tests, this default action should be enough.
+     * However, simply override getAction to return a custom Action if you need something more sophisticated.
+     * @return the Action to be added to the OgnlValueStack as part of the unit test
+     */
     public Action getAction() {
         return new TestAction();
     }
@@ -71,8 +71,8 @@ public abstract class AbstractTagTest extends TestCase {
         super.setUp();
 
         /**
-        * create our standard mock objects
-        */
+         * create our standard mock objects
+         */
         action = this.getAction();
         stack = new OgnlValueStack();
         context = stack.getContext();
@@ -105,12 +105,12 @@ public abstract class AbstractTagTest extends TestCase {
     //~ Inner Classes //////////////////////////////////////////////////////////
 
     /**
-    * Unforunately, the MockJspWriter throws a NotImplementedException when any of the Writer methods are invoked and
-    * as you might guess, Velocity uses the Writer methods.  I'velocityEngine subclassed the MockJspWriter for the time being so
-    * that we can do testing on the results until MockJspWriter gets fully implemented.
-    *
-    * todo replace this once MockJspWriter implements Writer correctly (i.e. doesn't throw NotImplementException)
-    */
+     * Unforunately, the MockJspWriter throws a NotImplementedException when any of the Writer methods are invoked and
+     * as you might guess, Velocity uses the Writer methods.  I'velocityEngine subclassed the MockJspWriter for the time being so
+     * that we can do testing on the results until MockJspWriter gets fully implemented.
+     *
+     * todo replace this once MockJspWriter implements Writer correctly (i.e. doesn't throw NotImplementException)
+     */
     public class TestJspWriter extends MockJspWriter {
         StringWriter writer;
 

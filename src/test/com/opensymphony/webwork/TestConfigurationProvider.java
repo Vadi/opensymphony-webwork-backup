@@ -40,14 +40,14 @@ public class TestConfigurationProvider implements ConfigurationProvider {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-    * Allows the configuration to clean up any resources used
-    */
+     * Allows the configuration to clean up any resources used
+     */
     public void destroy() {
     }
 
     /**
-    * Initializes the configuration object.
-    */
+     * Initializes the configuration object.
+     */
     public void init(Configuration configurationManager) {
         PackageConfig defaultPackageConfig = new PackageConfig();
 
@@ -116,9 +116,9 @@ public class TestConfigurationProvider implements ConfigurationProvider {
     }
 
     /**
-    * Tells whether the ConfigurationProvider should reload its configuration
-    * @return
-    */
+     * Tells whether the ConfigurationProvider should reload its configuration
+     * @return
+     */
     public boolean needsReload() {
         return false;
     }

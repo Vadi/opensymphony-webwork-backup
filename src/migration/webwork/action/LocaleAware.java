@@ -17,8 +17,7 @@ import java.util.Locale;
  *
  * @deprecated Use {@link ActionContext#getLocale()} instead.
  */
-public interface LocaleAware
-{
-   // Public --------------------------------------------------------
-   public void setLocale(Locale aLocale);
+public interface LocaleAware {
+    // Public --------------------------------------------------------
+    public void setLocale(Locale aLocale);
 }

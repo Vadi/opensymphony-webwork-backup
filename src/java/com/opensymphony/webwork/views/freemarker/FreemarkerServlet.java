@@ -33,8 +33,8 @@ public class FreemarkerServlet extends freemarker.ext.servlet.FreemarkerServlet 
     //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
-    *
-    */
+     *
+     */
     public FreemarkerServlet() {
         super();
     }

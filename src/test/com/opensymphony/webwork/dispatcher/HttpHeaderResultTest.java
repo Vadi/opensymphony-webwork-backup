@@ -37,7 +37,7 @@ public class HttpHeaderResultTest extends TestCase {
     }
 
     public void testStatusIsSet() throws Exception {
-        responseMock.expect("setStatus",C.eq(123));
+        responseMock.expect("setStatus", C.eq(123));
         result.setStatus(123);
         result.execute(invocation);
         responseMock.verify();
@@ -45,34 +45,34 @@ public class HttpHeaderResultTest extends TestCase {
 
     public void testHeaderValuesAreParsedAndSet() throws Exception {
         Map params = new HashMap();
-        params.put("headers.foo","${bar}");
-        params.put("headers.baz","baz");
+        params.put("headers.foo", "${bar}");
+        params.put("headers.baz", "baz");
 
         Map values = new HashMap();
-        values.put("bar","abc");
+        values.put("bar", "abc");
         ActionContext.getContext().getValueStack().push(values);
 
-        OgnlUtil.setProperties(params,result);
+        OgnlUtil.setProperties(params, result);
 
-        responseMock.expect("addHeader",C.args(C.eq("foo"),C.eq("abc")));
-        responseMock.expect("addHeader",C.args(C.eq("baz"),C.eq("baz")));
+        responseMock.expect("addHeader", C.args(C.eq("foo"), C.eq("abc")));
+        responseMock.expect("addHeader", C.args(C.eq("baz"), C.eq("baz")));
         result.execute(invocation);
         responseMock.verify();
     }
 
     public void testHeaderValuesAreNotParsedWhenParseIsFalse() throws Exception {
         Map params = new HashMap();
-        params.put("headers.foo","${bar}");
-        params.put("headers.baz","baz");
+        params.put("headers.foo", "${bar}");
+        params.put("headers.baz", "baz");
 
         Map values = new HashMap();
-        values.put("bar","abc");
+        values.put("bar", "abc");
         ActionContext.getContext().getValueStack().push(values);
 
-        OgnlUtil.setProperties(params,result);
+        OgnlUtil.setProperties(params, result);
 
-        responseMock.expect("addHeader",C.args(C.eq("foo"),C.eq("${bar}")));
-        responseMock.expect("addHeader",C.args(C.eq("baz"),C.eq("baz")));
+        responseMock.expect("addHeader", C.args(C.eq("foo"), C.eq("${bar}")));
+        responseMock.expect("addHeader", C.args(C.eq("baz"), C.eq("baz")));
         result.setParse(false);
         result.execute(invocation);
         responseMock.verify();

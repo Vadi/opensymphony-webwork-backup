@@ -8,37 +8,31 @@ package webwork.dispatcher;
 
 import java.util.Map;
 
-class ViewActionWrapper
-{
-   // Attributes ----------------------------------------------------
-   private String actionName;
-   private Map params;
+class ViewActionWrapper {
+    // Attributes ----------------------------------------------------
+    private String actionName;
+    private Map params;
 
-   // Constructors --------------------------------------------------
-   public ViewActionWrapper(String actionName)
-   {
-      this.actionName = actionName;
-   }
+    // Constructors --------------------------------------------------
+    public ViewActionWrapper(String actionName) {
+        this.actionName = actionName;
+    }
 
-   public ViewActionWrapper(String actionName, Map params)
-   {
-      this.actionName = actionName;
-      this.params = params;
-   }
+    public ViewActionWrapper(String actionName, Map params) {
+        this.actionName = actionName;
+        this.params = params;
+    }
 
-	// Public --------------------------------------------------------
-   public String getActionName()
-   {
-      return actionName;
-   }
+    // Public --------------------------------------------------------
+    public String getActionName() {
+        return actionName;
+    }
 
-   public boolean hasParams()
-   {
-      return params != null;
-   }
-   
-   public Map getParams()
-   {
-      return params;
-   }
+    public boolean hasParams() {
+        return params != null;
+    }
+
+    public Map getParams() {
+        return params;
+    }
 }

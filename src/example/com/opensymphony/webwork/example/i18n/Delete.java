@@ -11,23 +11,23 @@ package com.opensymphony.webwork.example.i18n;
  * http://www.javaworld.com/javaworld/jw-03-2000/jw-03-ssj-jsp_p.html
  */
 public class Delete extends Shop {
-	// Attributes ----------------------------------------------------
-	String album;
+    // Attributes ----------------------------------------------------
+    String album;
 
-	// Public  ------------------------------------------------------
-	public void setAlbum(String title) {
-		this.album = title;
-	}
+    // Public  ------------------------------------------------------
+    public void setAlbum(String title) {
+        this.album = title;
+    }
 
-	// Action implementation -----------------------------------------
-	public String execute() throws Exception {
-		Cart cart = getCart();
-		CDList cdList = new CDList();
-		cdList.execute();
-		CD cd = cdList.getCD(album);
+    // Action implementation -----------------------------------------
+    public String execute() throws Exception {
+        Cart cart = getCart();
+        CDList cdList = new CDList();
+        cdList.execute();
+        CD cd = cdList.getCD(album);
 
-		cart.removeItem(cd);
+        cart.removeItem(cd);
 
-		return SUCCESS;
-	}
+        return SUCCESS;
+    }
 }

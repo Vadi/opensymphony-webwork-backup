@@ -34,26 +34,26 @@ public class TokenInterceptor implements Interceptor {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-    * Called to let an interceptor clean up any resources it has allocated.
-    */
+     * Called to let an interceptor clean up any resources it has allocated.
+     */
     public void destroy() {
     }
 
     /**
-    * Called after an Interceptor is created, but before any requests are processed using the intercept() methodName. This
-    * gives the Interceptor a chance to initialize any needed resources.
-    */
+     * Called after an Interceptor is created, but before any requests are processed using the intercept() methodName. This
+     * gives the Interceptor a chance to initialize any needed resources.
+     */
     public void init() {
     }
 
     /**
-    * Allows the Interceptor to do some processing on the request before and/or after the rest of the processing of the
-    * request by the DefaultActionInvocation or to short-circuit the processing and just return a String return code.
-    *
-    * @param invocation
-    * @return
-    * @throws Exception
-    */
+     * Allows the Interceptor to do some processing on the request before and/or after the rest of the processing of the
+     * request by the DefaultActionInvocation or to short-circuit the processing and just return a String return code.
+     *
+     * @param invocation
+     * @return
+     * @throws Exception
+     */
     public String intercept(ActionInvocation invocation) throws Exception {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Intercepting invocation to check for valid transaction token.");
@@ -71,10 +71,10 @@ public class TokenInterceptor implements Interceptor {
     }
 
     /**
-    * Handles the case of an invalid token
-    * @param invocation
-    * @return
-    */
+     * Handles the case of an invalid token
+     * @param invocation
+     * @return
+     */
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
         Action action = invocation.getAction();
         String errorMessage = LocalizedTextUtil.findText(this.getClass(), "webwork.messages.invalid.token", ActionContext.getContext().getLocale(), "The form has already been processed or no token was supplied, please try again.", new Object[0]);
@@ -89,11 +89,11 @@ public class TokenInterceptor implements Interceptor {
     }
 
     /**
-    * Handle the case of a valid token
-    * @param invocation
-    * @return
-    * @throws Exception
-    */
+     * Handle the case of a valid token
+     * @param invocation
+     * @return
+     * @throws Exception
+     */
     protected String handleValidToken(ActionInvocation invocation) throws Exception {
         return invocation.invoke();
     }

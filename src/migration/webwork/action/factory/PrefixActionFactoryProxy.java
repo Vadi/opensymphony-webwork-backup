@@ -27,89 +27,76 @@ import com.opensymphony.webwork.config.Configuration;
  * @version $Revision$
  */
 public class PrefixActionFactoryProxy
-   extends ActionFactoryProxy
-{
-   // Attributes ----------------------------------------------------
-   static String actionPrefix ="webwork.action.test,webwork.action.standard";
-   String[] actionPrefixes;
+        extends ActionFactoryProxy {
+    // Attributes ----------------------------------------------------
+    static String actionPrefix = "webwork.action.test,webwork.action.standard";
+    String[] actionPrefixes;
 
-   Map actionNames = new Hashtable();
+    Map actionNames = new Hashtable();
 
-   // Constructors --------------------------------------------------
-   public PrefixActionFactoryProxy(ActionFactory aFactory)
-   {
-      super(aFactory);
+    // Constructors --------------------------------------------------
+    public PrefixActionFactoryProxy(ActionFactory aFactory) {
+        super(aFactory);
 
-      // Get list of prefixes to try
-      try
-      {
-         actionPrefix += ","+(Configuration.getString("webwork.action.packages")).trim();
-      } catch (IllegalArgumentException e)
-      {
-         LogFactory.getLog(this.getClass()).info("Error loading action prefixes. Only using default prefixes:"+actionPrefix);
-      }
+        // Get list of prefixes to try
+        try {
+            actionPrefix += "," + (Configuration.getString("webwork.action.packages")).trim();
+        } catch (IllegalArgumentException e) {
+            LogFactory.getLog(this.getClass()).info("Error loading action prefixes. Only using default prefixes:" + actionPrefix);
+        }
 
-      StringTokenizer tokens = new StringTokenizer(actionPrefix, ", ");
-      ArrayList prefixes = new ArrayList();
-      while (tokens.hasMoreTokens())
-      {
-         prefixes.add(tokens.nextToken());
-      }
-      actionPrefixes = new String[prefixes.size()];
-      //Category.getInstance(this.getClass()).debug(prefixes.toString());
-      prefixes.toArray(actionPrefixes);
-   }
+        StringTokenizer tokens = new StringTokenizer(actionPrefix, ", ");
+        ArrayList prefixes = new ArrayList();
+        while (tokens.hasMoreTokens()) {
+            prefixes.add(tokens.nextToken());
+        }
+        actionPrefixes = new String[prefixes.size()];
+        //Category.getInstance(this.getClass()).debug(prefixes.toString());
+        prefixes.toArray(actionPrefixes);
+    }
 
-   // ActionFactory overrides ---------------------------------------
-  /**
-   * Returns an action class instance after searching through a list of
-   * package prefixes from the configuration properties.  If no action
-   * was found, get the action from the action factory proxy chain.
-   *
-   * @param   aName
-   * @return   action whose name may be prefixed by this factory
-   * @exception   Exception
-   */
-   public Action getActionImpl(String aName)
-     throws Exception
-   {
-      // Check cache
-      String actionName = (String)actionNames.get(aName);
+    // ActionFactory overrides ---------------------------------------
+    /**
+     * Returns an action class instance after searching through a list of
+     * package prefixes from the configuration properties.  If no action
+     * was found, get the action from the action factory proxy chain.
+     *
+     * @param   aName
+     * @return   action whose name may be prefixed by this factory
+     * @exception   Exception
+     */
+    public Action getActionImpl(String aName)
+            throws Exception {
+        // Check cache
+        String actionName = (String) actionNames.get(aName);
 
-      // Find class
-      if (actionName == null)
-      {
-         Action action = null;
-         for (int i = 0; i < actionPrefixes.length; i++)
-         {
-            try
-            {
-               action = getNextFactory().getActionImpl(actionPrefixes[i] + "."+aName);
-               if(action != null)
-               {
-                 // Put in cache
-                 actionNames.put(aName, actionPrefixes[i] + "."+aName);
-                 break;
-               }
-            } catch (Exception e)
-            {
-               // Not found with this prefix
+        // Find class
+        if (actionName == null) {
+            Action action = null;
+            for (int i = 0; i < actionPrefixes.length; i++) {
+                try {
+                    action = getNextFactory().getActionImpl(actionPrefixes[i] + "." + aName);
+                    if (action != null) {
+                        // Put in cache
+                        actionNames.put(aName, actionPrefixes[i] + "." + aName);
+                        break;
+                    }
+                } catch (Exception e) {
+                    // Not found with this prefix
+                }
             }
-         }
 
-         // Try without prefix
-         if (action == null)
-         {
-            action = getNextFactory().getActionImpl(aName);
-            // Put in cache
-            actionNames.put(aName, aName);
-         }
+            // Try without prefix
+            if (action == null) {
+                action = getNextFactory().getActionImpl(aName);
+                // Put in cache
+                actionNames.put(aName, aName);
+            }
 
-         // Return the action
-         return action;
-      } else
-      {
-         return getNextFactory().getActionImpl(actionName);
-      }
-   }
+            // Return the action
+            return action;
+        } else {
+            return getNextFactory().getActionImpl(actionName);
+        }
+    }
 }

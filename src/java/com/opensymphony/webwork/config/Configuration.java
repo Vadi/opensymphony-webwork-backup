@@ -90,8 +90,8 @@ public class Configuration {
     }
 
     /**
-    * Get a named setting.
-    */
+     * Get a named setting.
+     */
     public static Object get(String aName) throws IllegalArgumentException {
         Object val = getConfiguration().getImpl(aName);
 

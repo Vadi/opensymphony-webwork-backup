@@ -101,7 +101,7 @@ class MigrationRuntimeConfiguration implements RuntimeConfiguration {
             actionConfig = new ActionConfig(method, action.getClass(), params, results, null);
             String defaultInterceptorRef = packageConfig.getDefaultInterceptorRef();
             InterceptorStackConfig interceptors = (InterceptorStackConfig) packageConfig.getInterceptorConfigs().get(defaultInterceptorRef);
-            actionConfig.addInterceptors((List)interceptors.getInterceptors());
+            actionConfig.addInterceptors((List) interceptors.getInterceptors());
         } catch (Exception e) {
             throw new ConfigurationException("Unable to create a migrated Action with name " + name, e);
         }

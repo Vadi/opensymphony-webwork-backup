@@ -97,9 +97,9 @@ public class TextTagTest extends AbstractTagTest {
     }
 
     /**
-    * todo remove ActionContext set after LocalizedTextUtil is fixed to not use ThreadLocal
-    * @throws Exception
-    */
+     * todo remove ActionContext set after LocalizedTextUtil is fixed to not use ThreadLocal
+     * @throws Exception
+     */
     protected void setUp() throws Exception {
         super.setUp();
         tag = new TextTag();

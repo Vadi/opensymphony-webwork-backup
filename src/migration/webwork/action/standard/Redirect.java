@@ -19,48 +19,43 @@ import javax.servlet.http.HttpServletResponse;
  *	@version $Revision$
  */
 public class Redirect
-   extends ActionSupport
-   implements ServletResponseAware
-{
-   // Attributes ----------------------------------------------------
-   String url;
-   HttpServletResponse response;
+        extends ActionSupport
+        implements ServletResponseAware {
+    // Attributes ----------------------------------------------------
+    String url;
+    HttpServletResponse response;
 
-   // Static --------------------------------------------------------
+    // Static --------------------------------------------------------
 
-   // Implements ServletResponseAware -------------------------------
-   public void setServletResponse(HttpServletResponse aResponse)
-   {
-      response = aResponse;
-   }
+    // Implements ServletResponseAware -------------------------------
+    public void setServletResponse(HttpServletResponse aResponse) {
+        response = aResponse;
+    }
 
-   // Public --------------------------------------------------------
-   /**
-    * URL to redirect to
-    */
-   public void setUrl(String aUrl)
-   {
-      url = aUrl;
-   }
+    // Public --------------------------------------------------------
+    /**
+     * URL to redirect to
+     */
+    public void setUrl(String aUrl) {
+        url = aUrl;
+    }
 
-   public String getUrl()
-   {
-      return url;
-   }
+    public String getUrl() {
+        return url;
+    }
 
-   // Action implementation -----------------------------------------
-   /**
-    * Redirect to URL
-    */
-   protected String doExecute()
-      throws Exception
-   {
-      if (url == null)
-        return ERROR;
+    // Action implementation -----------------------------------------
+    /**
+     * Redirect to URL
+     */
+    protected String doExecute()
+            throws Exception {
+        if (url == null)
+            return ERROR;
 
-      url = response.encodeUrl(url);
-      response.sendRedirect(url);
-      return NONE;
-   }
+        url = response.encodeUrl(url);
+        response.sendRedirect(url);
+        return NONE;
+    }
 }
 

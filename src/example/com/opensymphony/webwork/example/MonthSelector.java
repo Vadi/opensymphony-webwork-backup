@@ -10,19 +10,16 @@ import com.opensymphony.xwork.ActionSupport;
  *	@version $Revision$
  */
 public class MonthSelector
-   extends ActionSupport
-{
-   // Attributes ----------------------------------------------------
-   int month = -1;
-   
-   // Public --------------------------------------------------------
-   public void setMonth(int aMonth)
-   {
-      this.month = aMonth;
-   }
-   
-   public int getMonth()
-   {
-      return month;
-   }
+        extends ActionSupport {
+    // Attributes ----------------------------------------------------
+    int month = -1;
+
+    // Public --------------------------------------------------------
+    public void setMonth(int aMonth) {
+        this.month = aMonth;
+    }
+
+    public int getMonth() {
+        return month;
+    }
 }
