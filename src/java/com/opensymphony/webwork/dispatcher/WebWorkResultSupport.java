@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2004 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.dispatcher;
@@ -12,15 +12,45 @@ import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-
-
 /**
- * WebWorkResultSupport
+ * A base class for all WebWork action execution results. This class provides two common parameters for any
+ * subclass: <ul>
+ *
+ *      <li>location - the location to go to after execution (could be a jsp page or another action)</li>
+ *      <li>parse - <tt>true</tt> if the location should be parsed as an OGNL expression, <tt>false</tt> if not
+ *              (default is <tt>false</tt>)</li></ul>
+ *
+ * In the xwork.xml configuration file, these would be included as:
+ *
+ * <pre>
+ *  &lt;result name="success" type="redirect"&gt;
+ *      &lt;param name="<b>location</b>"&gt;foo.jsp&lt;/param&gt;
+ *  &lt;/result&gt;</pre>
+ *
+ * or
+ * <pre>
+ *  &lt;result name="success" type="redirect" &gt;
+ *      &lt;param name="<b>location</b>"&gt;foo.jsp&lt;/param&gt;
+ *      &lt;param name="<b>parse</b>"&gt;true&lt;/param&gt;
+ *  &lt;/result&gt;</pre>
+ *
+ * You should subclass this class if you're interested in adding more parameters or functionality
+ * to your Result. If you do subclass this class you will need to
+ * override {@link #doExecute(String, ActionInvocation)}.<p>
+ *
+ * Any custom result can be defined in xwork.xml as:
+ *
+ * <pre>
+ *  &lt;result-types&gt;
+ *      ...
+ *      &lt;result-type name="myresult" class="com.foo.MyResult" /&gt;
+ *  &lt;/result-types&gt;</pre>
+ *
+ * Please see the {@link com.opensymphony.xwork.Result} class for more info on Results in general.
+ *
+ * @see com.opensymphony.xwork.Result
  * @author Jason Carreira
- * Created Oct 1, 2003 10:53:57 AM
+ * @author Bill Lynch (docs)
  */
 public abstract class WebWorkResultSupport implements Result, WebWorkStatics {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -34,14 +64,36 @@ public abstract class WebWorkResultSupport implements Result, WebWorkStatics {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+     * The location to go to after action execution. This could be a JSP page or another action.
+     * The location can contain OGNL expressions which will be evaulated if the <tt>parse</tt>
+     * parameter is set to <tt>true</tt>.
+     *
+     * @see #setParse(boolean)
+     * @param location the location to go to after action execution.
+     */
     public void setLocation(String location) {
         this.location = location;
     }
 
+    /**
+     * Set parse to <tt>true</tt> to indicate that the location should be parsed as an OGNL expression. This
+     * is set to <tt>false</tt> by default.
+     * 
+     * @param parse <tt>true</tt> if the location parameter is an OGNL expression, <tt>false</tt> otherwise.
+     */
     public void setParse(boolean parse) {
         this.parse = parse;
     }
 
+    /**
+     * Implementation of the <tt>execute</tt> method from the <tt>Result</tt> interface. This will call
+     * the abstract method {@link #doExecute(String, ActionInvocation)} after optionally evaluating the
+     * location as an OGNL evaluation.
+     *
+     * @param invocation the execution state of the action.
+     * @throws Exception if an error occurs while executing the result.
+     */
     public void execute(ActionInvocation invocation) throws Exception {
         String finalLocation = location;
 
@@ -53,5 +105,14 @@ public abstract class WebWorkResultSupport implements Result, WebWorkStatics {
         doExecute(finalLocation, invocation);
     }
 
+    /**
+     * Executes the result given a final location (jsp page, action, etc) and the action invocation
+     * (the state in which the action was executed). Subclasses must implement this class to handle
+     * custom logic for result handling.
+     *
+     * @param finalLocation the location (jsp page, action, etc) to go to.
+     * @param invocation the execution state of the action.
+     * @throws Exception if an error occurs while executing the result.
+     */
     protected abstract void doExecute(String finalLocation, ActionInvocation invocation) throws Exception;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2004 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.dispatcher;
@@ -14,18 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
-
 /**
- * Pulls the HttpServletRequest and HttpServletResponse objects from the
- * action context and creates a RequestDispatcher to the location
- * specified as the parameter "location" and then formwards it. The
- * following params are required:
- * <ul>
- * <li>location - the URL to use when creating the RequestDispatcher</li>
- * </ul>
+ * Pulls the HttpServletRequest and HttpServletResponse objects from the action context and creates a
+ * RequestDispatcher to the location specified as the parameter "location" and then forwards it. The
+ * following parameter is required:
  *
- * @author $Author$
- * @version $Revision$
+ * <ul><li>location - the page or resource to dispatch to</li></ul>
+ *
+ * @see javax.servlet.RequestDispatcher
+ * @author Patrick Lightbody
  */
 public class ServletDispatcherResult extends WebWorkResultSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -34,6 +31,15 @@ public class ServletDispatcherResult extends WebWorkResultSupport {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+     * Dispatches to the given location. Does its forward via a RequestDispatcher. If the
+     * dispatch fails a 404 error will be sent back in the http response.
+     *
+     * @param finalLocation the location to dispatch to.
+     * @param invocation the execution state of the action
+     * @throws Exception if an error occurs. If the dispatch fails the error will go back via the
+     *      HTTP request.
+     */
     public void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
         if (log.isDebugEnabled()) {
             log.debug("Forwarding to location " + finalLocation);
