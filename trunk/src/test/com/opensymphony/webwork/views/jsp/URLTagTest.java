@@ -39,9 +39,9 @@ public class URLTagTest extends AbstractUITagTest {
     public void testAddParameters() {
         request.setAttribute("webwork.request_uri", "/Test.action");
 
-        jspWriter.setExpectedData("/TestAction.action?param2=value2&param1=value1");
+        jspWriter.setExpectedData("/TestAction.action?param2=value2&param0=value0&param1=value1");
         request.setAttribute("webwork.request_uri", "/TestAction.action");
-        request.setQueryString("TestAction.action");
+        request.setQueryString("param0=value0");
 
         try {
             tag.doStartTag();
