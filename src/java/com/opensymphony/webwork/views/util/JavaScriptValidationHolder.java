@@ -33,11 +33,11 @@ public class JavaScriptValidationHolder {
     String actionName;
     List fieldValidators = new ArrayList();
     List fieldParameters = new ArrayList();
-    
+
     public boolean hasValidators() {
         return (fieldValidators.size() > 0);
     }
-    
+
     public String toJavaScript() {
         StringBuffer js = new StringBuffer();
 
@@ -50,12 +50,12 @@ public class JavaScriptValidationHolder {
         }
         return js.toString();
     }
-    
+
     public void registerValidator(ScriptValidationAware scriptValidator, Map params) {
         fieldValidators.add(scriptValidator);
         fieldParameters.add(params);
     }
-    
+
     public void registerValidateField(String fieldName, Map parameters) {
         registerScriptingValidators(fieldName, parameters, actionClass, null);
     }
@@ -138,6 +138,11 @@ public class JavaScriptValidationHolder {
                 } else if (fieldValidator.getFieldName().equals(name)) {
                     validator.setValidatorContext(validatorContext);
                     registerValidator((ScriptValidationAware) fieldValidator, new HashMap(parameters));
+
+                    // set the required bit to true if it isn't define
+                    if (!parameters.containsKey("required")) {
+                        parameters.put("required", Boolean.TRUE);
+                    }
                 }
             } else {
                 validator.setValidatorContext(validatorContext);
