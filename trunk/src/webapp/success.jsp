@@ -3,6 +3,10 @@
 <%@ taglib uri="webwork" prefix="ww" %>
 <%@ taglib uri="c" prefix="c" %>
 
+This url is: <ww:url/>
+
+<hr>
+
 Escaped:     <ww:property value="'this &amp; that'" escape="true" /><br/>
 Not escaped: <ww:property value="'this &amp; that'" escape="false" /><br/>
 
