@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="styles.css">
         <ww:url id="validation" value="'/validation'"/>
         <ww:component template="'validation'">
-            <ww:param name="url" value="#validation"/>
+            <ww:param name="'url'" value="#validation"/>
         </ww:component>
     </head>
 
