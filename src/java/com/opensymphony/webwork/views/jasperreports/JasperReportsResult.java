@@ -10,8 +10,9 @@ import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
-import dori.jasper.engine.*;
-import dori.jasper.engine.export.*;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.export.*;
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,7 +27,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * Genreates a JasperReports report using the specified format or PDF if no format is specified.
@@ -135,8 +135,14 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
             // Fill the report and produce a print object
             try {
-                JasperReport jasperReport = JasperManager.loadReport(systemId);
-                jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, stackDataSource);
+    			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(systemId);
+
+    			jasperPrint =
+    				JasperFillManager.fillReport(
+    					jasperReport,
+    					parameters,
+    					stackDataSource
+    					);
             } catch (JRException e) {
                 LOG.error("Error building report for uri " + systemId, e);
                 throw new ServletException(e.getMessage(), e);
@@ -230,7 +236,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
      * @param jasperPrint The Print object to render as CSV
      * @param exporter    The exporter to use to export the report
      * @return A CSV formatted report
-     * @throws dori.jasper.engine.JRException If there is a problem running the report
+     * @throws net.sf.jasperreports.engine.JRException If there is a problem running the report
      */
     private byte[] exportReportToBytes(JasperPrint jasperPrint, JRExporter exporter) throws JRException {
         byte[] output;

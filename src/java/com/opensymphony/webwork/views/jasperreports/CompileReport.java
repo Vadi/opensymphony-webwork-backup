@@ -4,9 +4,8 @@
  */
 package com.opensymphony.webwork.views.jasperreports;
 
-import dori.jasper.engine.JRException;
-import dori.jasper.engine.JasperCompileManager;
-
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 
 /**
  * Ported to WebWork2:
