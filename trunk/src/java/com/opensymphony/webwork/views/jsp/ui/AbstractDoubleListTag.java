@@ -19,12 +19,17 @@ import java.util.Collection;
 public abstract class AbstractDoubleListTag extends AbstractListTag {
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    protected String doubleNameAttr;
     protected String doubleListAttr;
     protected String doubleListKeyAttr;
     protected String doubleListValueAttr;
+    protected String doubleValueAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    public void setDoubleName(String aName) {
+        doubleNameAttr = aName;
+    }
     
     public void setDoubleList(String list) {
         this.doubleListAttr = list;
@@ -38,8 +43,19 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
         this.doubleListValueAttr = listValue;
     }
     
+    public void setDoubleValue(String doubleValue) {
+        this.doubleValueAttr = doubleValue;
+    }
+    
     public void evaluateExtraParams(OgnlValueStack stack) {
         super.evaluateExtraParams(stack);
+        
+        Object doubleName = null;
+        
+        if (doubleNameAttr != null) {
+            doubleName = findValue(doubleNameAttr, String.class);
+            addParam("doubleName", doubleName);
+        }
         
         if (doubleListAttr != null) {
             Object value = findValue(doubleListAttr);
@@ -55,6 +71,22 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
 
         if (doubleListValueAttr != null) {
             addParam("doubleListValue", doubleListValueAttr);
+        }
+        
+        Class valueClazz = getValueClassType();
+
+        if (valueClazz != null) {
+            if (doubleValueAttr != null) {
+                addParam("doubleNameValue", findValue(doubleValueAttr, valueClazz));
+            } else if (doubleName != null) {
+                addParam("doubleNameValue", findValue(doubleName.toString(), valueClazz));
+            }
+        } else {
+            if (doubleValueAttr != null) {
+                addParam("doubleNameValue", findValue(doubleValueAttr));
+            } else if (doubleName != null) {
+                addParam("doubleNameValue", findValue(doubleName.toString()));
+            }
         }
     }
 }
