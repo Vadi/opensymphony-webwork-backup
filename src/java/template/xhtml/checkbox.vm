@@ -16,4 +16,4 @@
         <td width="100%" valign="middle"><label #if ($parameters.id) for="$!webwork.htmlEncode($parameters.id)"#end#if ($hasFieldErrors) class="checkboxErrorLabel"#else class="checkboxLabel"#end>$!webwork.htmlEncode($parameters.label)</label></td>
     </tr>
 </table>
-#parse("/${tag.templateDir}/xhtml/controlfooter.vm")
+#parse("/$parameters.templateDir/xhtml/controlfooter.vm")

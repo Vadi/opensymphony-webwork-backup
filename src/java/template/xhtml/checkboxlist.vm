@@ -1,4 +1,4 @@
-#parse( "$!{tag.templateDir}xhtml/controlheader.vm" )
+#parse( "/$parameters.templateDir/xhtml/controlheader.vm" )
 #set( $items = $parameters.list )
 #if( $items )
     #set( $itemCount = 0 )
@@ -25,4 +25,4 @@
 #else
   &nbsp;
 #end
-#parse( "/${tag.templateDir}/xhtml/controlfooter.vm" )
+#parse( "/$parameters.templateDir/xhtml/controlfooter.vm" )

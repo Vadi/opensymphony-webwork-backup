@@ -1,2 +1,2 @@
-#parse("/${tag.templateDir}/simple/form.vm")
+#parse("/$parameters.templateDir/simple/form.vm")
 <table class="wwFormTable">

@@ -1,2 +1,2 @@
 </table>
-#parse("/${tag.templateDir}/simple/form-close.vm")
+#parse("/$parameters.templateDir/simple/form-close.vm")
