@@ -1,0 +1,11 @@
+<mappings>
+        <mappingSet name="demo-mappings">
+                <parameterMappings>
+                        <mapping pojoExpression="invocationNumber.text" actionExpression="param1"/>
+                </parameterMappings>
+                <resultMappings>
+                        <mapping actionExpression="param1" pojoExpression="input.text"/>
+                        <mapping actionExpression="result1" pojoExpression="output.text"/>
+                </resultMappings>
+        </mappingSet>
+</mappings>

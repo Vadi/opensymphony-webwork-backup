@@ -1,0 +1,394 @@
+<project name="webwork" default="jar" basedir=".">
+
+    <path id="cp">
+        <fileset dir="lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <property file="build.properties"/>
+
+    <property name="lib" value="lib"/>
+    <property name="lib.core" value="${lib}/core"/>
+    <property name="lib.build" value="${lib}/build"/>
+    <property name="lib.optional" value="${lib}/optional"/>
+    <property name="lib.migration" value="${lib}/migration"/>
+    <property name="lib.example" value="${lib}/example"/>
+
+    <property name="src" value="src"/>
+    <property name="src.java" value="${src}/java"/>
+    <property name="src.test" value="${src}/test"/>
+    <property name="src.example" value="${src}/example"/>
+    <property name="src.webapp" value="${src}/webapp"/>
+    <property name="src.etc" value="${src}/etc"/>
+    <property name="src.config-browser" value="${src}/config-browser"/>
+    <property name="src.migration" value="${src}/migration"/>
+    <property name="src.migration-test" value="${src}/migration-test"/>
+    <property name="src.taglib.tld" value="${src.etc}/taglib.tld"/>
+
+    <property name="build" value="build"/>
+    <property name="build.test" value="${build}/test"/>
+    <property name="build.java-test" value="${build}/java-test"/>
+    <property name="build.java" value="${build}/java"/>
+    <property name="build.example" value="${build}/example"/>
+    <property name="build.example.jars" value="${build}/example-jars"/>
+    <property name="build.example-war" value="${build}/example-war"/>
+    <property name="build.example.client.jar" value="${build}/example-client.jar"/>
+    <property name="build.config-browser" value="${build}/config-browser"/>
+    <property name="build.config-browser.jar" value="${build}/webwork-config-browser.jar"/>
+    <property name="build.migration" value="${build}/migration"/>
+    <property name="build.migration-test" value="${build}/migration-test"/>
+    <property name="build.migration.jar" value="${build}/webwork-migration.jar"/>
+    <property name="build.clover" value="${build}/clover"/>
+    <property name="build.dist" value="${build}/dist"/>
+    <property name="build.webwork.tld" value="${src.webapp}/WEB-INF/webwork.tld"/>
+
+    <property name="demo.keystore.password" value="webwork"/>
+    <property name="demo.keystore" value="${src.etc}/security/demoKeystore"/>
+
+    <property name="docs" value="docs"/>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete file="${build.webwork.tld}"/>
+    </target>
+
+    <target name="java">
+        <mkdir dir="${build.java}"/>
+        <javac srcdir="${src.java}" destdir="${build.java}" classpathref="cp" debug="on"/>
+        <copy filtering="no" todir="${build.java}">
+            <fileset dir="${src.java}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+        <copy file="${src.taglib.tld}" tofile="${build.webwork.tld}"/>
+    </target>
+
+    <target name="test" depends="java">
+        <taskdef resource="clovertasks"/>
+        <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"/>
+
+        <mkdir dir="${build.clover}"/>
+        <clover-setup initString="${build.clover}/coverage.db">
+            <files>
+                <exclude name="src/example/**/*.java"/>
+                <exclude name="src/test/**/*.java"/>
+            </files>
+        </clover-setup>
+
+        <mkdir dir="${build.test}"/>
+        <javac srcdir="${src.test}" destdir="${build.test}" classpath="${build.java}" classpathref="cp" debug="on"/>
+        <copy filtering="no" todir="${build.test}">
+            <fileset dir="${src.test}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <mkdir dir="${build.java-test}"/>
+        <javac srcdir="${src.java}" destdir="${build.java-test}" classpathref="cp" debug="on"/>
+        <copy filtering="no" todir="${build.java-test}">
+            <fileset dir="${src.java}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <mkdir dir="${build.dist}/docs/junit"/>
+        <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
+            <classpath>
+                <pathelement location="${build.test}"/>
+                <pathelement location="${build.java-test}"/>
+                <pathelement location="${src.etc}/test"/>
+                <pathelement location="${src.etc}"/>
+                <path refid="cp"/>
+            </classpath>
+
+            <formatter type="xml"/>
+            <formatter type="brief" usefile="false"/>
+
+            <batchtest todir="${build.dist}/docs/junit">
+                <fileset dir="${src.test}">
+                    <exclude name="**/Abstract*.java"/>
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="jar" depends="java">
+        <mkdir dir="${build}"/>
+
+        <mkdir dir="${build.java}/META-INF"/>
+        <copy file="${src.etc}/taglib.tld" todir="${build.java}/META-INF"/>
+
+        <jar basedir="${build.java}" jarfile="${build}/${name}-${version}.jar"/>
+    </target>
+
+    <target name="plugin">
+        <javac srcdir="src/plugin" destdir="C:\IntelliJ-IDEA-4.0\test\plugins\webwork\classes" classpathref="cp" debug="on">
+            <classpath location="C:\IntelliJ-IDEA-4.0\lib\idea.jar"/>
+            <classpath location="C:\IntelliJ-IDEA-4.0\lib\jdom.jar"/>
+        </javac>
+
+        <copy file="src/plugin/META-INF/plugin.xml" todir="C:\IntelliJ-IDEA-4.0\test\plugins\webwork\META-INF"/>
+    </target>
+
+    <target name="config-browser" depends="java">
+        <mkdir dir="${build.config-browser}"/>
+
+        <javac srcdir="${src.config-browser}" destdir="${build.config-browser}" classpath="${build.java}" classpathref="cp" debug="on"/>
+
+        <copy filtering="no" todir="${build.config-browser}">
+            <fileset dir="${src.config-browser}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <jar basedir="${build.config-browser}" jarfile="${build.config-browser.jar}"/>
+    </target>
+
+    <target name="migration" depends="java">
+        <mkdir dir="${build.migration}"/>
+        <mkdir dir="${build.migration-test}"/>
+
+        <javac srcdir="${src.migration}" destdir="${build.migration}" classpath="${build.java}" classpathref="cp" debug="on"/>
+
+        <copy filtering="no" todir="${build.migration}">
+            <fileset dir="${src.migration}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <javac srcdir="${src.migration-test}" destdir="${build.migration-test}" classpath="${build.java}" classpathref="cp" debug="on">
+            <classpath>
+                <pathelement location="${build.java}"/>
+                <pathelement location="${build.migration}"/>
+                <path refid="cp"/>
+            </classpath>
+        </javac>
+
+        <copy filtering="no" todir="${build.migration-test}">
+            <fileset dir="${src.migration-test}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"/>
+
+        <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
+            <classpath>
+                <pathelement location="${build.java}"/>
+                <pathelement location="${build.migration}"/>
+                <pathelement location="${build.migration-test}"/>
+                <path refid="cp"/>
+            </classpath>
+
+            <formatter type="brief" usefile="false"/>
+
+            <batchtest>
+                <fileset dir="${src.migration-test}">
+                    <exclude name="**/Abstract*.java"/>
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+
+        <jar basedir="${build.migration}" jarfile="${build.migration.jar}"/>
+    </target>
+
+    <target name="example-jar" depends="java, jar, config-browser">
+        <mkdir dir="${build.example}"/>
+        <javac srcdir="${src.example}" destdir="${build.example}" classpath="${build.java}" classpathref="cp" debug="on"/>
+        <copy filtering="no" todir="${build.example}">
+            <fileset dir="${src.example}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <copy file="${src.etc}/taglib.tld" tofile="${build}/webwork.tld"/>
+
+        <jar basedir="${build.example}" jarfile="${build.example.client.jar}">
+                <include name="**/client/**"/>
+                <include name="**/log4j.properties"/>
+        </jar>
+
+        <jar basedir="${src.etc}/example/client" jarfile="${build.example.client.jar}" update="true">
+                <include name="*.xml"/>
+        </jar>
+    </target>
+
+    <target name="signjar" depends="example-jar">
+        <!-- Copy the jars for the client before signing them - we don't want the server jars signed -->
+        <mkdir dir="${build.example.jars}"/>
+        <copy todir="${build.example.jars}">
+            <fileset dir="${lib.core}">
+                <include name="cglib-full-2.0.2.jar"/>
+                <include name="commons-logging.jar"/>
+                <include name="ognl.jar"/>
+                <include name="oscore.jar"/>
+                <include name="xwork.jar"/>
+            </fileset>
+            <fileset file="${build}/${name}-${version}.jar"/>
+            <fileset file="${build.example.client.jar}"/>
+            <fileset file="${lib.build}/servlet.jar"/>
+            <fileset dir="${lib.optional}">
+                <include name="object-dispatcher.jar"/>
+                <include name="commons-digester.jar"/>
+                <include name="commons-collections.jar"/>
+                <include name="commons-beanutils.jar"/>
+                <include name="log4j-1.2.8.jar"/>
+            </fileset>
+        </copy>
+        <signjar
+           keystore="${demo.keystore}" alias="demo"
+              storepass="${demo.keystore.password}"
+           verbose="false"
+        >
+            <fileset dir="${build.example.jars}">
+                <include name="cglib-full-2.0.2.jar"/>
+                <include name="commons-logging.jar"/>
+                <include name="commons-digester.jar"/>
+                <include name="commons-collections.jar"/>
+                <include name="commons-beanutils.jar"/>
+                <include name="ognl.jar"/>
+                <include name="oscore.jar"/>
+                <include name="xwork.jar"/>
+                <include name="${name}-${version}.jar"/>
+                <include name="example-client.jar"/>
+                <include name="servlet.jar"/>
+                <include name="object-dispatcher.jar"/>
+                <include name="log4j-1.2.8.jar"/>
+            </fileset>
+        </signjar>
+    </target>
+
+    <target name="example-war" depends="signjar">
+
+        <war destfile="${build}/${name}-example.war" webxml="${src.webapp}/WEB-INF/web.xml">
+            <fileset dir="${src.webapp}">
+                <exclude name="**/web.xml"/>
+            </fileset>
+            <fileset dir="${build.example.jars}">
+                <include name="cglib-full-2.0.2.jar"/>
+                <include name="commons-logging.jar"/>
+                <include name="commons-digester.jar"/>
+                <include name="commons-collections.jar"/>
+                <include name="commons-beanutils.jar"/>
+                <include name="ognl.jar"/>
+                <include name="oscore.jar"/>
+                <include name="xwork.jar"/>
+                <include name="${name}-${version}.jar"/>
+                <include name="example-client.jar"/>
+                <include name="servlet.jar"/>
+                <include name="object-dispatcher.jar"/>
+                <include name="log4j-1.2.8.jar"/>
+            </fileset>
+            <lib dir="${lib.core}"/>
+            <lib dir="${lib.optional}"/>
+            <lib dir="${lib.example}"/>
+            <lib file="${build}/${name}-${version}.jar"/>
+            <lib file="${build.config-browser.jar}"/>
+            <lib file="${build.example.client.jar}"/>
+            <webinf file="${build}/webwork.tld"/>
+            <classes dir="${build.example}"/>
+            <classes dir="${src.etc}/example"/>
+        </war>
+    </target>
+
+    <target name="javadocs">
+        <mkdir dir="${build.dist}/docs/api"/>
+        <javadoc sourcepath="${src.java}"
+            destdir="${build.dist}/docs/api"
+            packagenames="com.opensymphony.*"
+            classpathref="cp"
+            author="true"
+            version="true"
+            overview="${src.java}/overview.html"
+            windowTitle="${fullname} API - ${fullversion}"
+            doctitle="${fullname} API (${fullversion})"
+            footer="&lt;a href=&quot;http://www.opensymphony.com/&quot; target=&quot;_top&quot;&gt;WebWork2 Project Page&lt;/a&gt;"
+            use="true"
+            verbose="false">
+            <link href="http://java.sun.com/j2se/1.3/docs/api/"/>
+            <link href="http://java.sun.com/j2ee/sdk_1.3/techdocs/api/"/>
+        </javadoc>
+        <!-- <copy overwrite="yes" file="${docs}/main.css" tofile="${docs}/api/stylesheet.css"/> -->
+    </target>
+
+    <target name="clover.report" depends="test">
+        <clover-report>
+            <current outfile="${build.dist}/docs/clover">
+                <format type="html"/>
+            </current>
+        </clover-report>
+    </target>
+
+    <target name="clover.historical" depends="clover.report">
+        <clover-historypoint historyDir="${build.clover}"/>
+
+        <clover-report>
+            <historical outfile="${build.dist}/docs/clover" historyDir="${build.clover}">
+                <format type="html"/>
+            </historical>
+        </clover-report>
+    </target>
+
+    <target name="junit.report" depends="test">
+        <junitreport todir="${build.dist}/docs/junit">
+            <fileset dir="${build.dist}/docs/junit">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${build.dist}/docs/junit"/>
+        </junitreport>
+    </target>
+
+    <target name="docs" depends="javadocs, clover.report, junit.report">
+        <copy todir="${build.dist}/docs">
+            <fileset dir="${docs}"/>
+        </copy>
+    </target>
+
+    <target name="dist" depends="jar, migration, example-war, docs">
+        <copy file="${build}/${name}-${version}.jar" todir="${build.dist}"/>
+        <copy file="${build.migration.jar}" todir="${build.dist}"/>
+        <copy file="${build}/${name}-example.war" todir="${build.dist}"/>
+        <copy todir="${build.dist}/src">
+            <fileset dir="${src}"/>
+        </copy>
+
+        <mkdir dir="${build.dist}/lib"/>
+        <copy todir="${build.dist}/lib">
+            <fileset dir="${lib}"/>
+        </copy>
+
+        <copy todir="${build.dist}">
+            <fileset dir="${basedir}">
+                <include name="build.*"/>
+            </fileset>
+        </copy>
+
+        <!-- copy README -->
+        <tstamp/>
+        <copy filtering="on" todir="${build.dist}">
+            <fileset dir=".">
+                <include name="*.html"/>
+            </fileset>
+            <filterset>
+                <filter token="version" value="${version}"/>
+                <filter token="builddate" value="${TODAY}"/>
+            </filterset>
+        </copy>
+
+        <zip zipfile="${build}/${name}-${version}.zip" basedir="${build.dist}">
+            <exclude name="docs/clover/**/*"/>
+            <exclude name="docs/junit/**/*"/>
+        </zip>
+    </target>
+</project>
+
