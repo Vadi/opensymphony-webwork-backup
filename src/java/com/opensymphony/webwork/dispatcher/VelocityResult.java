@@ -71,7 +71,7 @@ public class VelocityResult extends WebWorkResultSupport {
             VelocityManager velocityManager = VelocityManager.getInstance();
             Template t = getTemplate(stack, velocityManager.getVelocityEngine(), invocation, finalLocation);
 
-            Context context = velocityManager.createContext(stack, request, response);
+            Context context = createContext(velocityManager, stack, request, response, finalLocation);
             Writer writer = pageContext.getOut();
 
             // @todo can t.getEncoding() ever return a null value?
@@ -103,6 +103,17 @@ public class VelocityResult extends WebWorkResultSupport {
     }
 
     /**
+     * Creates the VelocityContext that we'll use to render this page
+     * @param velocityManager a reference to the velocityManager to use
+     * @param stack the value stack to resolve the location again (when parse == true)
+     * @param location the name of the template that is being used
+     * @return the newly minted Context
+     */
+    protected Context createContext(VelocityManager velocityManager, OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response, String location) {
+        return velocityManager.createContext(stack, request, response);
+    }
+
+    /**
      * given a value stack, a velocity engine, and an action invocation, return the appropriate velocity Template to
      * render
      *
@@ -121,4 +132,5 @@ public class VelocityResult extends WebWorkResultSupport {
 
         return template;
     }
+
 }
