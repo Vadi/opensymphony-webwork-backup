@@ -195,48 +195,6 @@ public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements Pa
         return BrowserSupport.getBrowserTemplateDirectory(ua);
     }
 
-    protected String constructURL(String value) {
-        // this was taken from URLTag
-        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-        HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
-        StringBuffer link = new StringBuffer();
-
-        if (value != null) {
-            // Check if context path needs to be added
-            // Add path to absolute links
-            if (value.startsWith("/")) {
-                link.append(request.getContextPath());
-            }
-
-            // Add page
-            link.append(value);
-        } else {
-            // Go to "same page"
-            String requestURI = (String) request.getAttribute("webwork.request_uri");
-
-            //         String contextPath=(String)request.getAttribute("webwork.context_path");
-            if (requestURI == null) {
-                requestURI = request.getRequestURI();
-            }
-
-            //         if(contextPath==null) contextPath=request.getContextPath();
-            link.append(requestURI);
-        }
-
-        String result;
-
-        try {
-            //Category.getInstance(this.getClass().getName()).debug(link.toString());
-            result = response.encodeURL(link.toString());
-        } catch (Exception e) {
-            // Could not encode URL for some reason
-            // Use it unchanged
-            result = link.toString();
-        }
-
-        return result;
-    }
-
     private void addParameterInternal(String name, Object value) {
         params.put(name, value);
     }
