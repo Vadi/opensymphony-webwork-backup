@@ -10,4 +10,5 @@ Click <a href="IteratorTest.action">here</a> for an example of the Iterator Tag<
 Click <a href="showForm.action">here</a> for an example of the Form Tag and the Token Tag for hidden transaction tokens<br>
 Click <a href="showVelocityForm.action">here</a> for an example of the Form Tag and the Token Tag for hidden transaction tokens <strong>using Velocity as the view</strong><br>
 Click <a href="form2.jsp">here</a> for an example of the Form Tag and the Token Tag for hidden transaction tokens. This example shows you the original result rather than an error (TokenSessionInterceptor).<br>
-Click <a href="exception.action">here</a> for an example of what happens when exceptions are thrown
+Click <a href="exception.action">here</a> for an example of what happens when exceptions are thrown<br>
+Click <a href="config-browser/namespace.action">here</a> for the WebWork configuration browser

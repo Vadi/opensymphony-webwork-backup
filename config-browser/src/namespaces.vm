@@ -1,0 +1,14 @@
+<html>
+<head>
+<title>WebWork Configuration Browser: Namespaces</title>
+</head>
+<body>
+<h1>WebWork Configuration Browser: Namespaces</h1>
+
+<ul>
+#foreach ($namespace in $namespaces)
+<li><a href="actionNames.action?namespace=$namespace">&quot;$namespace&quot;</a></li>
+#end
+</ul>
+</body>
+</html>

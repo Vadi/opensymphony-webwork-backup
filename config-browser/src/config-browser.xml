@@ -1,0 +1,30 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+
+<xwork>
+    <include file="webwork-default.xml"/>
+
+    <package name="config" extends="webwork-default" namespace="/config-browser">
+        <interceptors>
+            <interceptor-stack name="config-browser-default">
+                <interceptor-ref name="component"/>
+                <interceptor-ref name="validationWorkflowStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="config-browser-default"/>
+        <global-results>
+            <result name="error" type="velocity">error.vm</result>
+        </global-results>
+        <action name="namespace" class="com.opensymphony.webwork.config_browser.NamespaceAction">
+            <result type="velocity" name="success">namespaces.vm</result>
+            <result type="velocity" name="input">namespaces.vm</result>
+        </action>
+        <action name="actionNames" class="com.opensymphony.webwork.config_browser.ActionNamesAction">
+            <result type="velocity" name="success">actionNames.vm</result>
+            <result type="velocity" name="input">actionNames.vm</result>
+        </action>
+        <action name="showConfig" class="com.opensymphony.webwork.config_browser.ShowConfigAction">
+            <result type="velocity" name="success">showConfig.vm</result>
+            <result type="velocity" name="input">showConfig.vm</result>
+        </action>
+    </package>
+</xwork>

@@ -35,7 +35,7 @@ public class ServletDispatcherResultTest extends TestCase implements WebWorkStat
         view.setLocation("foo.jsp");
 
         Mock dispatcherMock = new Mock(RequestDispatcher.class);
-        dispatcherMock.expectVoid("include", C.ANY_ARGS);
+        dispatcherMock.expect("include", C.ANY_ARGS);
 
         Mock requestMock = new Mock(HttpServletRequest.class);
         requestMock.expectAndReturn("getRequestDispatcher", C.args(C.eq("foo.jsp")), dispatcherMock.proxy());
@@ -65,7 +65,7 @@ public class ServletDispatcherResultTest extends TestCase implements WebWorkStat
         view.setLocation("foo.jsp");
 
         Mock dispatcherMock = new Mock(RequestDispatcher.class);
-        dispatcherMock.expectVoid("forward", C.ANY_ARGS);
+        dispatcherMock.expect("forward", C.ANY_ARGS);
 
         Mock requestMock = new Mock(HttpServletRequest.class);
         requestMock.expectAndReturn("getAttribute", "javax.servlet.include.servlet_path", null);
