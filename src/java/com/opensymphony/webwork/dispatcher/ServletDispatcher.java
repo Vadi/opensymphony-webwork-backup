@@ -255,6 +255,20 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
+     * Determine action name by extracting last string and removing extension (i.e., /.../.../Foo.action -> Foo).
+     *
+     * @param name the full action path.
+     * @return the action name stripped of path/context info.
+     */
+    protected String getActionName(String name) {
+        // Get action name ("Foo.action" -> "Foo" action)
+        int beginIdx = name.lastIndexOf("/");
+        int endIdx = name.lastIndexOf(".");
+
+        return name.substring(((beginIdx == -1) ? 0 : (beginIdx + 1)), (endIdx == -1) ? name.length() : endIdx);
+    }
+
+    /**
      * Returns a Map of all application attributes. The default implementation is to wrap the ServletContext
      * in an {@link ApplicationMap}. Override this method to customize how application attributes are mapped.
      *
@@ -418,19 +432,5 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         }
 
         return maxSize.intValue();
-    }
-
-    /**
-     * Determine action name by extracting last string and removing extension (i.e., /.../.../Foo.action -> Foo).
-     *
-     * @param name the full action path.
-     * @return the action name stripped of path/context info.
-     */
-    String getActionName(String name) {
-        // Get action name ("Foo.action" -> "Foo" action)
-        int beginIdx = name.lastIndexOf("/");
-        int endIdx = name.lastIndexOf(".");
-
-        return name.substring(((beginIdx == -1) ? 0 : (beginIdx + 1)), (endIdx == -1) ? name.length() : endIdx);
     }
 }
