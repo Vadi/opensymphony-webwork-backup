@@ -7,6 +7,7 @@ package com.opensymphony.webwork.dispatcher;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
+import com.opensymphony.webwork.views.velocity.WebWorkVelocityServlet;
 import com.opensymphony.webwork.views.velocity.ui.JSPTagAdapterFactory;
 
 import com.opensymphony.xwork.ActionContext;
@@ -21,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
+import org.apache.velocity.runtime.RuntimeSingleton;
 
 import java.io.Writer;
 
@@ -65,17 +67,15 @@ public class VelocityResult implements Result, WebWorkStatics {
     public void execute(ActionInvocation invocation) throws Exception {
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
-        if (parse) {
-            location = TextParseUtil.translateVariables(location, stack);
-        }
-
         try {
-            Template t = velocityEngine.getTemplate(this.location);
+            Template t = getTemplate(stack, velocityEngine, invocation);
+
             Context context = VelocityManager.createContext(ServletActionContext.getServletConfig(), ServletActionContext.getRequest(), ServletActionContext.getResponse());
             HttpServletResponse response = ServletActionContext.getResponse();
             PageContext pageContext = ServletActionContext.getPageContext();
 
             Writer writer;
+
             if (pageContext != null) {
                 writer = pageContext.getOut();
             } else {
@@ -83,8 +83,10 @@ public class VelocityResult implements Result, WebWorkStatics {
             }
 
             // @todo can t.getEncoding() ever return a null value?
-            if (t.getEncoding() != null) {
-                response.setContentType("text/html; charset=" + t.getEncoding());
+            String encoding = RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, WebWorkVelocityServlet.DEFAULT_OUTPUT_ENCODING);
+
+            if (encoding != null) {
+                response.setContentType("text/html; charset=" + encoding);
             } else {
                 response.setContentType("text/html");
             }
@@ -101,5 +103,29 @@ public class VelocityResult implements Result, WebWorkStatics {
         }
 
         return;
+    }
+
+    /**
+     * given a value stack, a velocity engine, and an action invocation, return the appropriate velocity Template to
+     * render
+     *
+     * @param stack the value stack to resolve the location again (when parse == true)
+     * @param velocity the velocity engine to process the request against
+     * @param invocation the current ActionInvocation
+     * @return the Template to render
+     * @throws Exception when the requested template could not be found
+     */
+    protected Template getTemplate(OgnlValueStack stack, VelocityEngine velocity, ActionInvocation invocation) throws Exception {
+        if (parse) {
+            location = TextParseUtil.translateVariables(location, stack);
+        }
+
+        if (!location.startsWith("/")) {
+            this.location = invocation.getProxy().getNamespace() + "/" + this.location;
+        }
+
+        Template template = velocity.getTemplate(this.location);
+
+        return template;
     }
 }
