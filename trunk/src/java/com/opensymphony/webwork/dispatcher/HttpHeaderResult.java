@@ -21,23 +21,23 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * HttpHeaderResult
+ * A custom Result type for evaluating HTTP headers against the ValueStack.
+ *
  * @author Jason Carreira
- * Date: Nov 16, 2003 12:12:44 AM
  */
 public class HttpHeaderResult implements Result {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     public static final String DEFAULT_PARAM = "status";
-
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected boolean parse = true;
     private Map headers;
     private int status = -1;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
+    /**
+     * Returns a Map of all HTTP headers.
+     *
+     * @return a Map of all HTTP headers.
+     */
     public Map getHeaders() {
         if (headers == null) {
             headers = new HashMap();
@@ -47,15 +47,19 @@ public class HttpHeaderResult implements Result {
     }
 
     /**
-     * If parse is true (the default) the header values will be evaluated against the ValueStack
-     * @param parse
+     * Sets whether or not the HTTP header values should be evaluated against the ValueStack (by default they are).
+     *
+     * @param parse <tt>true</tt> if HTTP header values should be evaluated agains the ValueStack, <tt>false</tt>
+     *      otherwise.
      */
     public void setParse(boolean parse) {
         this.parse = parse;
     }
 
     /**
-     * If set this int value will be set using HttpServletResponse.setStatus(int status)
+     * Sets the http servlet response status code that should be set on a response.
+     *
+     * @see javax.servlet.http.HttpServletResponse#setStatus(int)
      * @param status the Http status code
      */
     public void setStatus(int status) {
@@ -63,8 +67,11 @@ public class HttpHeaderResult implements Result {
     }
 
     /**
-     * Represents a generic interface for all action execution results, whether that be displaying a webpage, generating
-     * an email, sending a JMS message, etc.
+     * Sets the optional HTTP response status code and also re-sets HTTP headers after they've
+     * been optionally evaluated against the ValueStack.
+     *
+     * @param invocation an encapsulation of the action execution state.
+     * @throws Exception if an error occurs when re-setting the headers.
      */
     public void execute(ActionInvocation invocation) throws Exception {
         HttpServletResponse response = ServletActionContext.getResponse();

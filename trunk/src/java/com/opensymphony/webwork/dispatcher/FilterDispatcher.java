@@ -35,35 +35,37 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- *
- * @author $Author$
- * @version $Revision$
+ * @author Jason Carreira
  */
 public class FilterDispatcher implements Filter, WebWorkStatics {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(FilterDispatcher.class);
-
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private FilterConfig filterConfig;
     private Map config;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
+    /**
+     * Returns the filter config object.
+     *
+     * @return the filter config object.
+     */
     public FilterConfig getFilterConfig() {
         return filterConfig;
     }
 
+    /**
+     * Does nothing.
+     */
     public void destroy() {
     }
 
     /**
-     * @param servletRequest
-     * @param servletResponse
-     * @param filterChain
-     * @throws IOException
-     * @throws ServletException
+     *
+     * @param servletRequest the servlet request.
+     * @param servletResponse the servlet response.
+     * @param filterChain the filter chain.
+     * @throws IOException if an error occurs when executing the filter.
+     * @throws ServletException if an error occurs when executing the filter.
      */
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         //todo verify that this works with namepaces
@@ -110,8 +112,9 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     /**
-     * @param filterConfig
-     * @throws ServletException
+     *
+     * @param filterConfig the filter configuration.
+     * @throws ServletException if an error occurs when initializing this filter.
      */
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;

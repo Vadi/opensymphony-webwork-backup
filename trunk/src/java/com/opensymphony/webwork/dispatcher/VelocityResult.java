@@ -33,19 +33,25 @@ import javax.servlet.jsp.PageContext;
 
 /**
  * Using the Servlet container's {@link JspFactory}, this result mocks a JSP execution environment
- * and then displays a Velocity template that will be streamed directly to the servlet output.
+ * and then displays a Velocity template that will be streamed directly to the servlet output. <p>
  *
  * This result follows the same rules from {@link WebWorkResultSupport}.
  *
- * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
+ * @author <a href="mailto:matt@indigoegg.com">Matt Ho</a>
  */
 public class VelocityResult extends WebWorkResultSupport {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(VelocityResult.class);
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
+    /**
+     * Creates a Velocity context from the action, loads a Velocity template and executes the
+     * template. Output is written to the servlet output stream.
+     *
+     * @param finalLocation the location of the Velocity template
+     * @param invocation an encapsulation of the action execution state.
+     * @throws Exception if an error occurs when creating the Velocity context, loading or executing
+     *      the template or writing output to the servlet response stream.
+     */
     public void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
@@ -57,6 +63,7 @@ public class VelocityResult extends WebWorkResultSupport {
 
         boolean usedJspFactory = false;
         PageContext pageContext = (PageContext) ActionContext.getContext().get(ServletActionContext.PAGE_CONTEXT);
+
         if (pageContext == null) {
             jspFactory = JspFactory.getDefaultFactory();
             pageContext = jspFactory.getPageContext(servlet, request, response, null, true, 8192, true);
@@ -100,24 +107,14 @@ public class VelocityResult extends WebWorkResultSupport {
     }
 
     /**
-     * Creates the VelocityContext that we'll use to render this page
-     * @param velocityManager a reference to the velocityManager to use
-     * @param stack the value stack to resolve the location again (when parse == true)
-     * @param location the name of the template that is being used
-     * @return the newly minted Context
-     */
-    protected Context createContext(VelocityManager velocityManager, OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response, String location) {
-        return velocityManager.createContext(stack, request, response);
-    }
-
-    /**
-     * given a value stack, a velocity engine, and an action invocation, return the appropriate velocity Template to
-     * render
+     * Given a value stack, a Velocity engine, and an action invocation, this method returns the appropriate
+     * Velocity template to render.
      *
-     * @param stack the value stack to resolve the location again (when parse == true)
+     * @param stack the value stack to resolve the location again (when parse equals true)
      * @param velocity the velocity engine to process the request against
-     * @param invocation the current ActionInvocation
-     * @return the Template to render
+     * @param invocation an encapsulation of the action execution state.
+     * @param location the location of the template
+     * @return the template to render
      * @throws Exception when the requested template could not be found
      */
     protected Template getTemplate(OgnlValueStack stack, VelocityEngine velocity, ActionInvocation invocation, String location) throws Exception {
@@ -130,4 +127,15 @@ public class VelocityResult extends WebWorkResultSupport {
         return template;
     }
 
+    /**
+     * Creates the VelocityContext that we'll use to render this page.
+     *
+     * @param velocityManager a reference to the velocityManager to use
+     * @param stack the value stack to resolve the location against (when parse equals true)
+     * @param location the name of the template that is being used
+     * @return the a minted Velocity context.
+     */
+    protected Context createContext(VelocityManager velocityManager, OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response, String location) {
+        return velocityManager.createContext(stack, request, response);
+    }
 }

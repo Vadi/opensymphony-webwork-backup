@@ -16,23 +16,30 @@ import javax.servlet.ServletContext;
 
 
 /**
- * @author Rickard Öberg (rickard@middleware-company.com)
- * @version $Revision$
+ * A simple implementation of the {@link java.util.Map} interface to handle a collection of attributes and
+ * init parameters in a {@link javax.servlet.ServletContext} object. The {@link #entrySet()} method
+ * enumerates over all servlet context attributes and init parameters and returns a collection of both.
+ * Note, this will occur lazily - only when the entry set is asked for.
+ *
+ * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
+ * @author Bill Lynch (docs)
  */
 public class ApplicationMap extends AbstractMap implements Serializable {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     ServletContext context;
     Set entries;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
-
+    /**
+     * Creates a new map object given the servlet context.
+     * @param ctx the servlet context
+     */
     public ApplicationMap(ServletContext ctx) {
         this.context = ctx;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
+    /**
+     * Removes all entries from the Map and removes all attributes from the servlet context.
+     */
     public void clear() {
         entries = null;
 
@@ -43,6 +50,11 @@ public class ApplicationMap extends AbstractMap implements Serializable {
         }
     }
 
+    /**
+     * Creates a Set of all servlet context attributes as well as context init parameters.
+     *
+     * @return a Set of all servlet context attributes as well as context init parameters.
+     */
     public Set entrySet() {
         if (entries == null) {
             entries = new HashSet();
@@ -117,6 +129,13 @@ public class ApplicationMap extends AbstractMap implements Serializable {
         return entries;
     }
 
+    /**
+     * Returns the servlet context attribute or init parameter based on the given key. If the
+     * entry is not found, <tt>null</tt> is returned.
+     *
+     * @param key the entry key.
+     * @return the servlet context attribute or init parameter or <tt>null</tt> if the entry is not found.
+     */
     public Object get(Object key) {
         // Try context attributes first, then init params
         // This gives the proper shadowing effects
@@ -126,6 +145,13 @@ public class ApplicationMap extends AbstractMap implements Serializable {
         return (value == null) ? context.getInitParameter(keyString) : value;
     }
 
+    /**
+     * Sets a servlet context attribute given a attribute name and value.
+     *
+     * @param key the name of the attribute.
+     * @param value the value to set.
+     * @return the attribute that was just set.
+     */
     public Object put(Object key, Object value) {
         entries = null;
         context.setAttribute(key.toString(), value);
@@ -133,6 +159,12 @@ public class ApplicationMap extends AbstractMap implements Serializable {
         return get(key);
     }
 
+    /**
+     * Removes the specified servlet context attribute.
+     *
+     * @param key the attribute to remove.
+     * @return the entry that was just removed.
+     */
     public Object remove(Object key) {
         entries = null;
 
