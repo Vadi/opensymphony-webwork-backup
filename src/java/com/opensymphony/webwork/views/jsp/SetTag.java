@@ -44,7 +44,7 @@ public class SetTag extends WebWorkTagSupport {
         OgnlValueStack stack = getValueStack();
 
         if (value == null) {
-            value = "that";
+            value = "top";
         }
 
         o = stack.findValue(value);

@@ -45,7 +45,7 @@ public class ParamTag extends WebWorkTagSupport {
                 Object o = null;
 
                 if (value == null) {
-                    value = "that";
+                    value = "top";
                 }
 
                 o = stack.findValue(value);

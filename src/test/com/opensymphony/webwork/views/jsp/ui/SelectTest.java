@@ -38,8 +38,8 @@ public class SelectTest extends AbstractUITagTest {
         tag.setName("'myname'");
         tag.setValue("'foo'");
         tag.setList("list");
-        tag.setListKey("that[0]");
-        tag.setListValue("that[1]");
+        tag.setListKey("top[0]");
+        tag.setListValue("top[1]");
 
         int result = tag.doEndTag();
 

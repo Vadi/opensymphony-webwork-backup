@@ -12,7 +12,7 @@
 </tr>
 
 <benchmark:duration output="true" >
-<ww:select label="'multiple select test'" name="'select1'" value="countries[0][1]" list="countries" listKey="that[1]" listValue="that[0]" multiple="'true'" size="'5'"/>
+<ww:select label="'multiple select test'" name="'select1'" value="countries[0][1]" list="countries" listKey="top[1]" listValue="top[0]" multiple="'true'" size="'5'"/>
 </benchmark:duration> ms</td></tr>
 
 </ww:form>
