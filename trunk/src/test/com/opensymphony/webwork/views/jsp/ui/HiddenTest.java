@@ -12,15 +12,6 @@ import junit.framework.Assert;
  * Time: 10:49:54 PM
  */
 public class HiddenTest extends AbstractJspTest {
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    public HiddenTest () {
-    }
-
-    public HiddenTest (String s) {
-        super(s);
-    }
-
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() throws Exception {
