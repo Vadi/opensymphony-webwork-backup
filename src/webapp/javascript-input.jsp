@@ -10,8 +10,9 @@
         </ww:component>
     </head>
 
+
     <body>
-        <ww:form name="'javascriptValidation'" action="'javascriptValidation'" validate="true" >
+        <ww:form name="'javascriptValidation'" action="'javascriptValidation'" validate="true">
             <ww:textfield label="'Required String'" name="'requiredString'" />
             <ww:textfield label="'Some Int'" name="'intRange'" />
             <ww:select label="'Email (select)'" name="'email'" list="{'Select', 'foo@bar.com', 'baz@biz.com'}"/>

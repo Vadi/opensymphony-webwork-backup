@@ -1,5 +1,7 @@
 package com.opensymphony.webwork.validators;
 
+import com.opensymphony.util.TextUtils;
+import com.opensymphony.webwork.views.util.TextUtil;
 import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import org.w3c.dom.Document;
@@ -63,23 +65,34 @@ public class ValidationServlet extends HttpServlet {
 
             PrintWriter out = res.getWriter();
             out.println("<?xml version=\"1.0\"?>");
-            out.println("<es>");
+            out.println("<errors>");
 
             if (a instanceof ValidationAware) {
                 ValidationAware va = (ValidationAware) a;
+                out.println("<actionErrors>");
+                for (Iterator iter = va.getActionErrors().iterator(); iter.hasNext(); ) {
+					String ae = (String) iter.next();
+					// TODO xmlencode the error strings
+					out.println("<errorMessage>" + ae + "</errorMessage>");
+				}
+                out.println("</actionErrors>");
+				
                 Map fe = va.getFieldErrors();
                 for (Iterator iterator = fe.entrySet().iterator(); iterator.hasNext();) {
                     Map.Entry entry = (Map.Entry) iterator.next();
                     String name = (String) entry.getKey();
                     List errors = (List) entry.getValue();
+                    out.println("<fieldErrors fieldName=\"" + name + "\">");
                     for (Iterator iterator1 = errors.iterator(); iterator1.hasNext();) {
                         String error = (String) iterator1.next();
-                        out.println("<e n=\"" + name + "\">" + error + "</e>");
+    					// TODO xmlencode the error strings and field names
+                        out.println("<errorMessage>" + error + "</errorMessage>");
                     }
+                    out.println("</fieldErrors>");
                 }
             }
 
-            out.println("</es>");
+            out.println("</errors>");
         } catch (Exception e) {
             e.printStackTrace();
         }

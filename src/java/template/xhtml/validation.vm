@@ -1,49 +1,30 @@
+<script src="validationServlet.js"></script>
+
 <script>
-var xmlhttp=false;
 
-/*@cc_on @*/
-/*@if (@_jscript_version >= 5)
-// JScript gives us Conditional compilation, we can cope with old IE versions.
-// and security blocked creation of the objects.
- try {
-  xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");  } catch (e) {
-  try {
-   xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-  } catch (E) {
-   xmlhttp = false;
-  }
- }
-@end @*/
+// TODO is this the best way to subclass in javascript ?
 
-if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
-  xmlhttp = new XMLHttpRequest();
+var validationServlet = new ValidationServlet("$parameters.url");
+var oldOnErrors = validationServlet.onErrors;
+
+validationServlet.onErrors = function(validateElement, errors) {
+	clearErrorRows(validateElement.parentNode.parentNode.parentNode);
+	clearErrorLabels(validateElement.form);
+	oldOnErrors.call(this, validateElement, errors);
+}
+validationServlet.onFieldError = function(validateElement, fieldName, errorMessages) {
+	if (validateElement.form.elements[fieldName].touched) {
+		for (var i = 0; i < errorMessages.length; i++) {
+			addError(validateElement.form.elements[fieldName], errorMessages[i]);
+		}
+	}
 }
 
-function validate(e) {
-    // mark the element as touch
-    e.touched = true;
-    xmlhttp.open("POST", "$parameters.url", true);
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4) {
-            var xml = xmlhttp.responseXML;
-            clearErrorRows(e.parentNode.parentNode.parentNode);
-            clearErrorLabels(e.form);
-            var errors = xml.childNodes[0].getElementsByTagName("e");
-            for (var i = 0; i < errors.length; i++) {
-                var error = errors[i];
-                var errorName = error.getAttribute("n");
-                var errorText = error.childNodes[0].textContent;
-                // there was an error, report it
-                var element = e.form.elements[errorName];
-                if (element != null && element.touched && element.touched == true) {
-                    addError(element, errorText);
-                }
-            }
-        }
-    }
 
-    var req = getValidateXml(e.form);
-    xmlhttp.send(req);
+function validate(element) {
+    // mark the element as touch
+    element.touched = true;
+	validationServlet.validate(element, element.form.namespace, element.form.name);
 }
 
 function clearErrorRows(table) {
@@ -80,17 +61,6 @@ function clearErrorLabels(form) {
 
 }
 
-function getValidateXml(f) {
-    var actionName = f.name;
-    var namespace = f.getAttribute("namespace");
-    var xml = '<r a="' + actionName + '" ns="' + namespace +'">\n';
-    for (var i = 0; i < f.elements.length; i++) {
-        var e = f.elements[i];
-        xml = xml + '<p n="' + e.name + '">' + e.value + '</p>\n';
-    }
-    xml = xml + '</r>\n';
-    return xml;
-}
 
 function addError(e, errorText) {
     try {
@@ -118,4 +88,5 @@ function addError(e, errorText) {
         alert(e);
     }
 }
+
 </script>

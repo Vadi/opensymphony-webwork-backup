@@ -291,7 +291,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * @param request the HttpServletRequest object.
      * @return the name or alias of the action to execute.
      */
-    protected String getActionName(HttpServletRequest request) {
+    public static String getActionName(HttpServletRequest request) {
         String servletPath = (String) request.getAttribute("javax.servlet.include.servlet_path");
 
         if (servletPath == null) {
@@ -307,7 +307,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * @param name the full action path.
      * @return the action name stripped of path/context info.
      */
-    protected String getActionName(String name) {
+    public static String getActionName(String name) {
         // Get action name ("Foo.action" -> "Foo" action)
         int beginIdx = name.lastIndexOf("/");
         int endIdx = name.lastIndexOf(".");
