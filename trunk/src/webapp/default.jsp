@@ -2,21 +2,21 @@
 
 <html>
 <head>
-    <title>WebWork2 Examples</title>
+    <title>OpenSymphony WebWork2 Examples</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<h1>WebWork2 Demos</h1>
+<h1>OpenSymphony WebWork2 Examples</h1>
 
 <p class="msg">
-Note, some of the demos might be slow the first time they are run as resources
+Note, some of the examples might be slow the first time they are run as resources
 are loaded and JSP pages are compiled.
 </p>
 
 <p class="title">
-Simple Demos
+Simple Examples
 </p>
 
 <ul>
@@ -41,7 +41,7 @@ Simple Demos
 
 
 <p class="title">
-UI Tag Demos
+UI Tag Examples
 </p>
 
 <ul>
@@ -69,7 +69,7 @@ Stress Tests
 
 
 <p class="title">
-Iterator Demos
+Iterator Examples
 </p>
 
 <ul>
@@ -78,7 +78,7 @@ Iterator Demos
 
 
 <p class="title">
-Form Demos
+Form Examples
 </p>
 
 <ul>
@@ -98,7 +98,7 @@ Form Demos
 
 
 <p class="title">
-Exceptions
+Exception Examples
 </p>
 
 <ul>
@@ -128,7 +128,7 @@ Configuration Browser
 
 
 <p class="title">
-Validation Demos
+Validation Examples
 </p>
 
 <ul>
@@ -145,7 +145,7 @@ Validation Demos
 
 
 <p class="title">
-Jasper Reports Demos
+Jasper Reports Examples
 </p>
 
 <ul>
@@ -160,7 +160,7 @@ Jasper Reports Demos
 
 
 <p class="title">
-I18n Demos
+Internationalization (i18n) Examples
 </p>
 
 <ul>
@@ -170,7 +170,7 @@ I18n Demos
 </ul>
 
 <p class="title">
-Misc Demos
+Misc Examples
 </p>
 
 <ul>
@@ -196,14 +196,16 @@ Misc Demos
 </ul>
 
 <p class="title">
-Freemarker Demos
+Freemarker Examples
 </p>
 <ul>
     <li><a href="FreemarkerTest.action">FreeMarker Example</a></li>
     <li><a href="FreemarkerTest_Servlet.action">FreeMarker Example (using servlet)</a></li>
 </ul>
 
-<br><br>
+<p class="msg">
+<a href="http://www.opensymphony.com/webwork/">Visit the OpenSymphony WebWork2 site</a>!
+</p>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 <%@ taglib prefix="ww" uri="webwork" %>
 <html>
-<head><title>Webwork Form Example</title></head>
+<head><title>OpenSymphony WebWork2 Form Example</title></head>
 <body>
 
 <ww:if test="errorMessages != null">

@@ -1,6 +1,6 @@
 <%@ taglib prefix="ww" uri="webwork" %>
 <html>
-<head><title>Webwork Form Example</title></head>
+<head><title>OpenSymphony WebWork2 Form Example</title></head>
 <body>
 
 Congrats, <ww:property value="foo"/>, <ww:property value="status"/>
