@@ -5,7 +5,7 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
-import com.opensymphony.webwork.views.jsp.AbstractJspTest;
+import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
 import junit.framework.Assert;
 
@@ -19,7 +19,7 @@ import java.util.HashMap;
  * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
-public class RadioTest extends AbstractJspTest {
+public class RadioTest extends AbstractUITagTest {
     //~ Constructors ///////////////////////////////////////////////////////////
 
     public RadioTest() {

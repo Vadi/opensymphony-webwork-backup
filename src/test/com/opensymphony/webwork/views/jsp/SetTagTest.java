@@ -30,7 +30,7 @@ import javax.servlet.jsp.tagext.Tag;
  * @author $Author$
  * @version $Revision$
  */
-public class SetTagTest extends AbstractJspTest {
+public class SetTagTest extends AbstractUITagTest {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     Chewbacca chewie;

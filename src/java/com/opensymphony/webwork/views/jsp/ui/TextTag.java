@@ -9,6 +9,9 @@ import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -16,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 
 /**
@@ -34,8 +36,16 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * @author Jason Carreira
  */
 public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
+    //~ Static fields/initializers /////////////////////////////////////////////
+
+    private static final Log LOG = LogFactory.getLog(TextTag.class);
+
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    protected String value0Attr;
+    protected String value1Attr;
+    protected String value2Attr;
+    protected String value3Attr;
     List values;
     String nameAttr;
 
@@ -47,6 +57,26 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
 
     public Map getParams() {
         return null;
+    }
+
+    public void setValue0(String aName) {
+        LOG.warn("The value attributes of TextTag are deprecated.");
+        value0Attr = aName;
+    }
+
+    public void setValue1(String aName) {
+        LOG.warn("The value attributes of TextTag are deprecated.");
+        value1Attr = aName;
+    }
+
+    public void setValue2(String aName) {
+        LOG.warn("The value attributes of TextTag are deprecated.");
+        value2Attr = aName;
+    }
+
+    public void setValue3(String aName) {
+        LOG.warn("The value attributes of TextTag are deprecated.");
+        value3Attr = aName;
     }
 
     public void addParam(String key, Object value) {
@@ -69,6 +99,24 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
     public int doEndTag() throws JspException {
         OgnlValueStack stack = getValueStack();
 
+        // Add tag attribute values
+        // These can be used to parameterize the i18n-ized message
+        if (value0Attr != null) {
+            addParam(stack.findValue(value0Attr));
+        }
+
+        if (value1Attr != null) {
+            addParam(stack.findValue(value1Attr));
+        }
+
+        if (value2Attr != null) {
+            addParam(stack.findValue(value2Attr));
+        }
+
+        if (value3Attr != null) {
+            addParam(stack.findValue(value3Attr));
+        }
+
         String defaultMessage;
 
         if ((bodyContent != null) && (bodyContent.getString().trim().length() > 0)) {
@@ -77,7 +125,7 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
             defaultMessage = nameAttr;
         }
 
-        String expression = "text(" + nameAttr + ", " + defaultMessage;
+        String expression = "getText('" + nameAttr + "', '" + defaultMessage + "'";
         boolean pushed = false;
 
         if (values != null) {

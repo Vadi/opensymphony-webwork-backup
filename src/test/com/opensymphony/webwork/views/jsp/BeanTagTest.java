@@ -23,7 +23,7 @@ import javax.servlet.jsp.JspException;
  * @author $author$
  * @version $Revision$
  */
-public class BeanTagTest extends AbstractJspTest {
+public class BeanTagTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() {
