@@ -96,19 +96,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         return EVAL_BODY_INCLUDE;
     }
 
-    /**
-     * @see ParameterizedTagSupport#reset for documentation
-     */
-    protected void reset() {
-        super.reset();
-
-        // because namespace may be a derived value, we need to make sure we explicitly clear it out
-        this.namespace = null;
-        this.name = null;
-        this.executeResult = false;
-    }
-
-    String buildNamespace() {
+   String buildNamespace() {
         String namespace = "";
         ActionInvocation invocation = null;
         ActionContext context = new ActionContext(getStack().getContext());
