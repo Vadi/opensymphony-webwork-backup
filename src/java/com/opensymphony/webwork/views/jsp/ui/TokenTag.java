@@ -7,6 +7,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.webwork.util.TokenHelper;
+import com.opensymphony.xwork.ActionContext;
 
 import org.apache.velocity.context.Context;
 
@@ -61,33 +62,10 @@ public class TokenTag extends AbstractUITag {
         Object myToken = pageContext.getAttribute(name);
 
         if (myToken == null) {
-            // verify the session exists before passing control to the TokenHelper
-            verifySession();
             myToken = TokenHelper.setToken(name.toString());
             pageContext.setAttribute(name, myToken);
         }
 
         return myToken.toString();
-    }
-
-    /**
-     * This method checks to see if a HttpSession object exists in the context. If a session
-     * doesn't exist, it creates a new one and adds it to the context.
-     */
-    private void verifySession() {
-        Map session = ServletActionContext.getContext().getSession();
-
-        // if the session is null, add a new HttpSession to the context
-        if (session == null) {
-            HttpServletRequest request = ServletActionContext.getRequest();
-
-            if (pageContext != null) {
-                request = (HttpServletRequest) pageContext.getRequest();
-            } else {
-                request = ServletActionContext.getRequest();
-            }
-
-            ServletActionContext.getContext().setSession(new SessionMap(request.getSession()));
-        }
     }
 }

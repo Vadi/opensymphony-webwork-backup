@@ -60,6 +60,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String templateAttr;
     protected String themeAttr;
     protected String valueAttr;
+    protected String requiredAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -85,6 +86,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     public void setValue(String aValue) {
         valueAttr = aValue;
+    }
+
+    public void setRequired(String required) {
+        this.requiredAttr = required;
     }
 
     public int doEndTag() throws JspException {
@@ -185,6 +190,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
         if (labelPositionAttr != null) {
             addParam("labelPosition", stack.findValue(labelPositionAttr, String.class));
+        }
+
+        if (requiredAttr != null) {
+            addParam("required", stack.findValue(requiredAttr, String.class));
         }
 
         if (valueAttr != null) {

@@ -4,25 +4,24 @@
 <table border="0" align="center">
 <form name="inputform">
 
-<ww:label label="textfield test" value="scalar"/>
-<ww:label label="required textfield test" required="true" value="scalar"/>
-<ww:textfield label="textfield test" name="textfieldName" value="scalar" size="50"/>
-<ww:file label="file test" name="uploadedFile" size="30"/>
-<ww:password label="password test" name="passwordField" value="scalar" size="50"/>
-<ww:checkbox label="checkbox test" value="blah" name="checkboxField1"/>
-<ww:checkboxlist label="checkboxlist test" name="RadioField" value="list[1].value" list="list" listKey="key" listValue="value"/>
-<ww:component label="component test" name="componentField" template="/templates/xhtml/empty.vm" />
-<ww:radio label="radio test" name="RadioField" value="list[1].value" list="list" listKey="key" listValue="value"/>
-<ww:select label="multiple select test" name="select1" value="multiValues" list="multiList" multiple="true" size="5"/>
-<ww:select label="select test" name="select2" value="list[1].value" list="list" listKey="key" listValue="value" size="5"/>
-<ww:select label="pulldown test" name="select3" value="list[1].value" list="list" listKey="key" listValue="value"/>
-<%-- todo what is emptyOption ? --%>
-<ww:select label="pulldown test (empty option)" name="select4" value="list[1].value" list="list" listKey="key" listValue="value" />
-<ww:doubleselect label="double select test" name="dselect1" doubleName="dselect2" value="list[1].value" 
+<ww:label label="'textfield test'" value="scalar"/>
+<ww:label label="'required textfield test'" required="true" value="scalar"/>
+<ww:textfield label="'textfield test'" name="textfieldName" value="scalar" size="50"/>
+<ww:file label="'file test'" name="uploadedFile" size="30"/>
+<ww:password label="'password test'" name="passwordField" value="scalar" size="50"/>
+<ww:checkbox label="'checkbox test'" value="blah" name="checkboxField1"/>
+<ww:checkboxlist label="'checkboxlist test'" name="RadioField" value="list[1].value" list="list" listKey="key" listValue="value"/>
+<ww:component label="'component test'" name="componentField" template="/templates/xhtml/empty.vm" />
+<ww:radio label="'radio test'" name="RadioField" value="list[1].value" list="list" listKey="key" listValue="value"/>
+<ww:select label="'multiple select test'" name="select1" value="multiValues" list="multiList" multiple="true" size="5"/>
+<ww:select label="'select test'" name="select2" value="list[1].value" list="list" listKey="key" listValue="value" size="5"/>
+<ww:select label="'pulldown test'" name="select3" value="list[1].value" list="list" listKey="key" listValue="value"/>
+<ww:select label="'pulldown test (empty option)'" name="select4" value="list[1].value" list="list" listKey="key" listValue="value" />
+<ww:doubleselect label="'double select test'" name="dselect1" doubleName="dselect2" value="list[1].value"
                  list="list" listKey="key" listValue="value" doubleList="children"/>
-<ww:textarea rows="10" cols="30" label="textarea test" name="textareaField" value="scalar" />
-<ww:hidden name="hiddenField" value="scalar"/>
-<ww:submit value="'submit this thang!'" align="right"/>
+<ww:textarea rows="'10'" cols="'30'" label="'textarea test'" name="'textareaField'" value="scalar" />
+<ww:hidden name="'hiddenField'" value="scalar"/>
+<ww:submit value="'submit this thang!'" align="'right'"/>
 </table>
 
 <p>

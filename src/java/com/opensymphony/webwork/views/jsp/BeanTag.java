@@ -73,7 +73,7 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
     }
 
     public void addParam(String key, Object value) {
-        OgnlUtil.setProperty(key, value, bean, ActionContext.getContext().getContextMap());
+        OgnlUtil.setProperty(key, value, bean, getValueStack().getContext());
     }
 
     public int doEndTag() throws JspException {
@@ -109,7 +109,7 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
         // Store as attribute in page context and in the ActionContext for use with the property tag.
         if (getId() != null) {
             pageContext.setAttribute(getId(), bean);
-            ActionContext.getContext().put(getId(), bean);
+            getValueStack().getContext().put(getId(), bean);
         }
 
         return EVAL_BODY_INCLUDE;
