@@ -57,7 +57,7 @@ public class RequestLifecycleFilter implements Filter {
             }
 
             HttpSession session = ((HttpServletRequest) request).getSession(true);
-            ComponentManager fallback = (ComponentManager) session.getAttribute("DefaultComponentManager");
+            ComponentManager fallback = (ComponentManager) session.getAttribute(ComponentManager.COMPONENT_MANAGER_KEY);
 
             container.setFallback(fallback);
 
@@ -65,7 +65,7 @@ public class RequestLifecycleFilter implements Filter {
 
             config.configure(container, "request");
 
-            request.setAttribute("DefaultComponentManager", container);
+            request.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
             chain.doFilter(request, response);
         } finally {
             if (log.isDebugEnabled()) {
