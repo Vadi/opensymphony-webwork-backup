@@ -438,11 +438,11 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-        <!--        <attribute>-->
-        <!--            <name>fieldValue</name>-->
-        <!--            <required>true</required>-->
-        <!--            <rtexprvalue>false</rtexprvalue>-->
-        <!--        </attribute>-->
+        <attribute>
+            <name>fieldValue</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
         <attribute>
             <name>disabled</name>
             <required>false</required>
