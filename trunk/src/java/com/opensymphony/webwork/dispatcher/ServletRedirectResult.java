@@ -35,6 +35,7 @@ public class ServletRedirectResult implements Result, WebWorkStatics {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(ServletRedirectResult.class);
+    public static final String DEFAULT_PARAM = "location";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
