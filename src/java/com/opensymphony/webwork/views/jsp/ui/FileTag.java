@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
+
 
 /**
  * @author $Author$
@@ -24,34 +26,29 @@ public class FileTag extends AbstractUITag {
      * (that can be attached to the contents of a form) using an ACCEPT
      * attribute.
      */
-    private String accept;
-    private int size;
+    protected String acceptAttr;
+    protected String sizeAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAccept(String accept) {
-        this.accept = accept;
+        this.acceptAttr = accept;
     }
 
-    public String getAccept() {
-        return accept;
+    public void setSize(String size) {
+        this.sizeAttr = size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
+    protected void evaluateParams(OgnlValueStack stack) {
+        super.evaluateParams(stack);
 
-    public int getSize() {
-        return size;
-    }
+        if (acceptAttr != null) {
+            addParam("accept", stack.findValue(acceptAttr, String.class));
+        }
 
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.size = 0;
-        this.accept = null;
+        if (sizeAttr != null) {
+            addParam("size", stack.findValue(sizeAttr, String.class));
+        }
     }
 
     protected String getDefaultTemplate() {
