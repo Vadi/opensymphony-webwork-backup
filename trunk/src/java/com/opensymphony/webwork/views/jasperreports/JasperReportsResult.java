@@ -36,10 +36,12 @@ import java.util.Map;
  * <li>dataSource - the Ognl expression used to retrieve the datasource from the value stack (usually a List)</li>
  * </ul>
  * <p/>
- * A third, optional parameter can also be specified:
+ * Three optional parameter can also be specified:
  * <ul>
  * <li>format - the format in which the report should be generated. Valid values can be found
  * in {@link JasperReportConstants}. If no format is specified, PDF will be used.</li>
+ * <li>contentDisposition : disposition (default : inline)</li>
+ * <li>documentName : name of the document (will generate the http header Content-disposition = X; filename=X.[format])</li>
  * </ul>
  * <p/>
  * This result follows the same rules from {@link WebWorkResultSupport}.
@@ -58,6 +60,8 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
     protected String IMAGES_DIR = "/images/";
     private String dataSource;
     private String format;
+    private String documentName;
+    private String contentDisposition;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -67,6 +71,14 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
     public void setFormat(String format) {
         this.format = format;
+    }
+
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
+    }
+
+    public void setContentDisposition(String contentDisposition) {
+        this.contentDisposition = contentDisposition;
     }
 
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
@@ -95,6 +107,14 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
         if (parse) {
             format = TextParseUtil.translateVariables(format, stack);
             dataSource = TextParseUtil.translateVariables(dataSource, stack);
+
+            if (contentDisposition != null) {
+            	contentDisposition = TextParseUtil.translateVariables(contentDisposition, stack);
+            }
+
+            if (documentName != null) {
+            	documentName = TextParseUtil.translateVariables(documentName, stack);
+            }
         }
 
         // (Map) ActionContext.getContext().getSession().get("IMAGES_MAP");
@@ -124,6 +144,20 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
             // Export the print object to the desired output format
             try {
+                if (contentDisposition != null || documentName != null) {
+					final StringBuffer tmp = new StringBuffer();
+					tmp.append((contentDisposition == null) ? "inline" : contentDisposition);
+
+					if (documentName != null) {
+						tmp.append("; filename=");
+						tmp.append(documentName);
+						tmp.append(".");
+						tmp.append(format.toLowerCase());
+					}
+
+					response.setHeader("Content-disposition", tmp.toString());
+				}
+
                 if (format.equals(FORMAT_PDF)) {
                     response.setContentType("application/pdf");
 
