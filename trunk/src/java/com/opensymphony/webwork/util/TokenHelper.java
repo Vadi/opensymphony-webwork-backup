@@ -39,8 +39,8 @@ public class TokenHelper {
      * Sets a transaction token into the session using the default token name.
      * @return the token string
      */
-    public static String setToken() {
-        return setToken(DEFAULT_TOKEN_NAME);
+    public static String setToken(Map session) {
+        return setToken(session, DEFAULT_TOKEN_NAME);
     }
 
     /**
@@ -48,8 +48,7 @@ public class TokenHelper {
      * @param tokenName the name to store into the session with the token as the value
      * @return the token string
      */
-    public static String setToken(String tokenName) {
-        Map session = ServletActionContext.getContext().getSession();
+    public static String setToken(Map session, String tokenName) {
         String token = GUID.generateGUID();
         session.put(tokenName, token);
 
@@ -110,7 +109,7 @@ public class TokenHelper {
      * @return false if there was no token set into the params (check by looking for {@link #TOKEN_NAME_FIELD}), true if a valid token is found
      *
      */
-    public static boolean validToken() {
+    public static boolean validToken(Map session) {
         String tokenName = getTokenName();
 
         if (tokenName == null) {
@@ -123,7 +122,6 @@ public class TokenHelper {
             return false;
         }
 
-        Map session = ServletActionContext.getContext().getSession();
         String sessionToken = (String) session.get(tokenName);
 
         if (!token.equals(sessionToken)) {

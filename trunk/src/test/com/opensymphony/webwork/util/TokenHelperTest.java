@@ -25,7 +25,7 @@ public class TokenHelperTest extends TestCase {
         Map session = new HashMap();
         ActionContext.getContext().setSession(session);
 
-        String token = TokenHelper.setToken();
+        String token = TokenHelper.setToken(session);
         assertEquals(token, session.get(TokenHelper.DEFAULT_TOKEN_NAME));
     }
 
@@ -34,7 +34,7 @@ public class TokenHelperTest extends TestCase {
         ActionContext.getContext().setSession(session);
 
         String tokenName = "myTestToken";
-        String token = TokenHelper.setToken(tokenName);
+        String token = TokenHelper.setToken(session, tokenName);
         assertEquals(token, session.get(tokenName));
     }
 
@@ -44,12 +44,12 @@ public class TokenHelperTest extends TestCase {
         Map params = new HashMap();
         ActionContext.getContext().setSession(session);
 
-        String token = TokenHelper.setToken(tokenName);
+        String token = TokenHelper.setToken(session, tokenName);
         assertEquals(token, session.get(tokenName));
         params.put(TokenHelper.TOKEN_NAME_FIELD, new String[] {tokenName});
         params.put(tokenName, new String[] {token});
         ActionContext.getContext().setParameters(params);
-        assertTrue(TokenHelper.validToken());
+        assertTrue(TokenHelper.validToken(session));
     }
 
     protected void setUp() throws Exception {
