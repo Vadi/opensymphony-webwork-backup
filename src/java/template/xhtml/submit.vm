@@ -3,7 +3,7 @@
         #if ($parameters.align)      align="$parameters.align"     #end
         ><input
             type="submit"
-            #if ($parameters.name)   name="$parameters.name"       #end
-            #if ($parameters.value)  value="$parameters.value"     #end
+            #if ($parameters.name)       name="$parameters.name"           #end
+            #if ($parameters.nameValue)  value="$parameters.nameValue"     #end
         /></div>
-#parse( "/templates/xhtml/controlfooter.vm" )
+#parse( "/template/xhtml/controlfooter.vm" )
