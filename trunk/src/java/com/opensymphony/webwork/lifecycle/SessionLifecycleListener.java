@@ -38,7 +38,7 @@ public class SessionLifecycleListener implements HttpSessionListener {
         }
 
         HttpSession session = event.getSession();
-		ComponentManager container = new SessionComponentManager();
+        ComponentManager container = new SessionComponentManager();
 
         ServletContext application = session.getServletContext();
         ComponentManager fallback = (ComponentManager) application.getAttribute("DefaultComponentManager");
@@ -64,20 +64,19 @@ public class SessionLifecycleListener implements HttpSessionListener {
             container.dispose();
         }
     }
-    
-	class SessionComponentManager extends DefaultComponentManager implements HttpSessionBindingListener
-	{
-		public void valueBound(HttpSessionBindingEvent event)
-		{
-		}
 
-		public void valueUnbound(HttpSessionBindingEvent event)
-		{
-			if (log.isDebugEnabled()) {
-					log.debug("Session DefaultComponentManager : destroy");
-				}
-			this.dispose();
-		}
-	}
+    //~ Inner Classes //////////////////////////////////////////////////////////
 
+    class SessionComponentManager extends DefaultComponentManager implements HttpSessionBindingListener {
+        public void valueBound(HttpSessionBindingEvent event) {
+        }
+
+        public void valueUnbound(HttpSessionBindingEvent event) {
+            if (log.isDebugEnabled()) {
+                log.debug("Session DefaultComponentManager : destroy");
+            }
+
+            this.dispose();
+        }
+    }
 }
