@@ -8,30 +8,25 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.util.WebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.util.*;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -244,7 +239,7 @@ public class VelocityManager {
             log.debug("Initializing Velocity with the following properties ...");
 
             for (Iterator iter = properties.keySet().iterator();
-                    iter.hasNext();) {
+                 iter.hasNext();) {
                 String key = (String) iter.next();
                 String value = properties.getProperty(key);
 
@@ -375,8 +370,18 @@ public class VelocityManager {
             p.setProperty("wwfile.resource.loader.path", context.getRealPath(""));
             p.setProperty("wwfile.resource.loader.modificationCheckInterval", "2");
             p.setProperty("wwfile.resource.loader.cache", "true");
-        } else if (p.getProperty(Velocity.RESOURCE_LOADER) == null) {
-            p.setProperty(Velocity.RESOURCE_LOADER, "wwclass");
+        } else {
+            // remove wwfile from resource loader property
+            String prop = p.getProperty(Velocity.RESOURCE_LOADER);
+            if (prop.indexOf("wwfile,") != -1) {
+                prop = replace(prop, "wwfile,", "");
+            } else if (prop.indexOf(", wwfile") != -1) {
+                prop = replace(prop, ", wwfile", "");
+            } else if (prop.indexOf("wwfile") != -1) {
+                prop = replace(prop, "wwfile", "");
+            }
+
+            p.setProperty(Velocity.RESOURCE_LOADER, prop);
         }
 
         /**
@@ -405,5 +410,36 @@ public class VelocityManager {
         }
 
         p.setProperty("userdirective", userdirective);
+    }
+
+    private static final String replace(String string, String oldString, String newString) {
+        if (string == null) {
+            return null;
+        }
+        // If the newString is null, just return the string since there's nothing to replace.
+        if (newString == null) {
+            return string;
+        }
+        int i = 0;
+        // Make sure that oldString appears at least once before doing any processing.
+        if ((i = string.indexOf(oldString, i)) >= 0) {
+            // Use char []'s, as they are more efficient to deal with.
+            char[] string2 = string.toCharArray();
+            char[] newString2 = newString.toCharArray();
+            int oLength = oldString.length();
+            StringBuffer buf = new StringBuffer(string2.length);
+            buf.append(string2, 0, i).append(newString2);
+            i += oLength;
+            int j = i;
+            // Replace all remaining instances of oldString with newString.
+            while ((i = string.indexOf(oldString, i)) > 0) {
+                buf.append(string2, j, i - j).append(newString2);
+                i += oLength;
+                j = i;
+            }
+            buf.append(string2, j, string2.length - j);
+            return buf.toString();
+        }
+        return string;
     }
 }
