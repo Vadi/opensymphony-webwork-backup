@@ -1,8 +1,8 @@
 #parse( "/templates/xhtml/controlheader.vm" )
 <select
       #if ($parameters.name)      name="$parameters.name"     #end
-      #if ($parameters.size)      name="$parameters.size"     #end
-      #if ($parameters.multiple == "true")       multiple     #end
+      #if ($parameters.size)      size="$parameters.size"     #end
+      #if ($parameters.multiple.equals("true"))  multiple     #end
 >
 #if( $parameters.emptyOption == "true" )<option></option>#end
 #set( $items = $parameters.list )
