@@ -30,18 +30,11 @@ import javax.servlet.jsp.JspException;
  * @author Jason Carreira
  * Created Mar 27, 2003 9:10:27 PM
  */
-public class ActionTagTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
-
-    HttpServletRequest request;
-    Mock reqMock;
-    Mock servletConfigMock;
-    WebWorkMockPageContext pageContext;
-
+public class ActionTagTest extends AbstractTagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testActionTagWithNamespace() {
-        reqMock.expectAndReturn("getServletPath", TestConfigurationProvider.TEST_NAMESPACE + "/" + "foo.action");
+        request.setupGetServletPath(TestConfigurationProvider.TEST_NAMESPACE + "/" + "foo.action");
 
         ActionTag tag = new ActionTag();
         tag.setPageContext(pageContext);
@@ -60,40 +53,10 @@ public class ActionTagTest extends TestCase {
             ex.printStackTrace();
             fail();
         }
-
-        reqMock.verify();
-        pageContext.verify();
-    }
-
-    public void testRenderer() {
-        reqMock.expectAndReturn("getServletPath", "/foo.action");
-
-        ActionTag tag = new ActionTag();
-        tag.setName("testAction");
-        tag.setId("testAction");
-
-        try {
-            tag.addParam("foo", "myFoo");
-            tag.render(null, null);
-
-            OgnlValueStack stack = ActionContext.getContext().getValueStack();
-            assertEquals("myFoo", stack.findValue("#testAction.foo"));
-            assertEquals(0, ActionContext.getContext().getValueStack().size());
-
-            Object o = stack.findValue("#testAction");
-            assertTrue(o instanceof TestAction);
-            assertEquals("myFoo", ((TestAction) o).getFoo());
-            assertEquals(Action.SUCCESS, ((TestAction) o).getResult());
-        } catch (Exception e) {
-            fail("unexpected " + e.getClass().getName() + " thrown!");
-        }
-
-        reqMock.verify();
-        pageContext.verify();
     }
 
     public void testSimple() {
-        reqMock.expectAndReturn("getServletPath", "/foo.action");
+        request.setupGetServletPath("/foo.action");
 
         ActionTag tag = new ActionTag();
         tag.setPageContext(pageContext);
@@ -105,7 +68,6 @@ public class ActionTagTest extends TestCase {
             tag.addParam("foo", "myFoo");
             tag.doEndTag();
 
-            OgnlValueStack stack = ActionContext.getContext().getValueStack();
             assertEquals("myFoo", stack.findValue("#testAction.foo"));
             assertEquals(0, ActionContext.getContext().getValueStack().size());
 
@@ -117,9 +79,6 @@ public class ActionTagTest extends TestCase {
             ex.printStackTrace();
             fail();
         }
-
-        reqMock.verify();
-        pageContext.verify();
     }
 
     public void testSimpleWithoutServletActionContext() {
@@ -130,26 +89,10 @@ public class ActionTagTest extends TestCase {
     }
 
     protected void setUp() throws Exception {
+        super.setUp();
+
         ConfigurationManager.clearConfigurationProviders();
         ConfigurationManager.addConfigurationProvider(new TestConfigurationProvider());
         ConfigurationManager.getConfiguration().reload();
-
-        OgnlValueStack vs = new OgnlValueStack();
-        ActionContext.setContext(new ActionContext(vs.getContext()));
-
-        reqMock = new Mock(HttpServletRequest.class);
-        request = (HttpServletRequest) reqMock.proxy();
-        pageContext = new WebWorkMockPageContext();
-        pageContext.setRequest(request);
-
-        reqMock.expectAndReturn("getAttribute", "DefaultComponentManager", null);
-        reqMock.expectAndReturn("getSession", new MockHttpSession());
-
-        pageContext.setRequest(request);
-
-        servletConfigMock = new Mock(ServletConfig.class);
-        servletConfigMock.expectAndReturn("getServletContext", null);
-        ServletActionContext.setRequest(request); // provide the request to the ServletActionContext for buildNamespace
-        ServletActionContext.setServletConfig((ServletConfig) servletConfigMock.proxy());
     }
 }
