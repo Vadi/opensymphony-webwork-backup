@@ -1,0 +1,24 @@
+</form>
+#if ($parameters.validate)
+    <script type="text/javascript">
+    function ${parameters.name}_validate() {
+        var form = document.forms['${parameters.name}'];
+        var focus = ${parameters.name}_validate_actual();
+        if (focus != null) {
+            form.elements[focus].focus();
+            if (form.elements[focus].type == 'text' || form.elements[focus].type == 'textarea') {
+                form.elements[focus].select();
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function ${parameters.name}_validate_actual() {
+        var form = document.forms['${parameters.name}'];
+        $parameters.javascriptValidation
+        return null;
+    }
+    </script>
+#end

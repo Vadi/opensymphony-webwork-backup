@@ -1,0 +1,13 @@
+#parse("/tigris-macros.vm")
+#startPage("Actions in namespace")
+<h3>Actions in #if ($namespace == "") default namespace #else $namespace #end</h3>
+<table><tr><td>
+<ul>
+#foreach ($name in $actionNames)
+<li><a href="showConfig.action?namespace=$namespace&actionName=$name">$name</a></li>
+#end
+</ul>
+</td><td><!-- Placeholder for namespace graph --></td></tr></table>
+
+
+#endPage()

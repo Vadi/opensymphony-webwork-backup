@@ -1,0 +1,273 @@
+<project default="jar" basedir="../..">
+    <property environment="env"/>
+    <path id="cp">
+        <fileset dir="${basedir}/lib">
+            <include name="**/*.jar"/>
+            <exclude name="build/servlet.jar"/>
+        </fileset>
+        <fileset dir="${basedir}/build">
+            <include name="webwork-2.0-beta.jar"/>
+        </fileset>
+        <fileset dir="${env.WEBLOGIC_HOME}/lib">
+            <include name="weblogic.jar"/>
+        </fileset>
+    </path>
+
+    <path id="jalopy.classpath">
+        <fileset dir="${basedir}/lib/build/jalopy">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <property file="build.properties"/>
+
+    <property name="config-browser" value="${basedir}/config-browser"/>
+
+    <property name="misc-weblogic-61" value="${basedir}/misc/weblogic6.1"/>
+
+    <property name="lib" value="${basedir}/lib"/>
+    <property name="lib.core" value="${lib}/core"/>
+    <property name="lib.build" value="${lib}/build"/>
+    <property name="lib.optional" value="${lib}/optional"/>
+    <property name="lib.example" value="${lib}/example"/>
+
+    <property name="src" value="${misc-weblogic-61}/src"/>
+    <property name="src.java" value="${src}/java"/>
+    <property name="src.test" value="${basedir}/test"/>
+    <property name="src.example" value="${basedir}/src/example"/>
+    <property name="src.webapp" value="${basedir}/src/webapp"/>
+    <property name="src.weblogic61.webapp" value="${misc-weblogic-61}/src/webapp"/>
+    <property name="src.etc" value="${basedir}/src/etc"/>
+    <property name="src.config-browser" value="${config-browser}/src"/>
+
+    <property name="build" value="${misc-weblogic-61}/build"/>
+    <property name="build.test" value="${build}/test"/>
+    <property name="build.java-test" value="${build}/java-test"/>
+    <property name="build.java" value="${build}/java"/>
+    <property name="build.example" value="${build}/example"/>
+    <property name="build.example-war" value="${build}/example-war"/>
+    <property name="build.config-browser" value="${build}/config-browser"/>
+    <property name="build.config-browser.jar" value="${build}/webwork-config-browser.jar"/>
+    <property name="build.webapp" value="${build}/webapp"/>
+    <property name="build.webinf" value="${build.webapp}/WEB-INF"/>
+    <property name="build.webapp-weblogic.jar" value="${name}-weblogic61-${version}.jar"/>
+    <property name="build.clover" value="${build}/clover"/>
+    <property name="build.dist" value="${build}/dist"/>
+
+    <property name="docs" value="docs"/>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+    </target>
+
+    <target name="java">
+        <mkdir dir="${build.java}"/>
+        <javac srcdir="${src.java}" destdir="${build.java}" classpathref="cp" debug="on"/>
+        <copy filtering="no" todir="${build.java}">
+            <fileset dir="${src.java}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="test" depends="format, java">
+        <taskdef resource="clovertasks"/>
+        <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"/>
+
+        <mkdir dir="${build.clover}"/>
+        <clover-setup initString="${build.clover}/coverage.db"/>
+
+        <mkdir dir="${build.test}"/>
+        <javac srcdir="${src.test}" destdir="${build.test}" classpath="${build.java}" classpathref="cp" debug="on"/>
+        <copy filtering="no" todir="${build.test}">
+            <fileset dir="${src.test}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <mkdir dir="${build.java-test}"/>
+        <javac srcdir="${src.java}" destdir="${build.java-test}" classpathref="cp" debug="on" compiler="org.apache.tools.ant.taskdefs.CloverCompilerAdapter"/>
+        <copy filtering="no" todir="${build.java-test}">
+            <fileset dir="${src.java}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <mkdir dir="${build.dist}/docs/junit"/>
+        <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
+            <classpath>
+                <pathelement location="${build.test}"/>
+                <pathelement location="${build.java-test}"/>
+                <pathelement location="${src.etc}/test"/>
+                <pathelement location="${src.etc}"/>
+                <path refid="cp"/>
+            </classpath>
+
+            <formatter type="xml"/>
+            <formatter type="brief" usefile="false"/>
+
+            <batchtest todir="${build.dist}/docs/junit">
+                <fileset dir="${src.test}">
+                    <exclude name="**/Abstract*.java"/>
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="format">
+        <taskdef name="jalopy" classname="de.hunsicker.jalopy.plugin.ant.AntPlugin">
+            <classpath refid="jalopy.classpath"/>
+        </taskdef>
+
+        <jalopy fileformat="unix"
+            convention="src/etc/jalopy.xml"
+            history="file"
+            historymethod="adler32"
+            loglevel="error"
+            threads="2"
+            classpathref="cp">
+            <fileset dir="${src.java}">
+                <include name="**/*.java"/>
+            </fileset>
+            <fileset dir="${src.test}">
+                <include name="**/*.java"/>
+            </fileset>
+        </jalopy>
+    </target>
+
+    <target name="jar" depends="java">
+        <mkdir dir="${build}"/>
+
+        <mkdir dir="${build.java}/META-INF"/>
+        <copy file="${src.etc}/taglib.tld" todir="${build.java}/META-INF"/>
+
+        <jar basedir="${build.java}" jarfile="${build}/${build.webapp-weblogic.jar}"/>
+    </target>
+
+    <target name="config-browser" depends="java">
+        <mkdir dir="${build.config-browser}"/>
+
+        <javac srcdir="${src.config-browser}" destdir="${build.config-browser}" classpath="${build.java}" classpathref="cp" debug="on"/>
+
+        <copy filtering="no" todir="${build.config-browser}">
+            <fileset dir="${src.config-browser}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <jar basedir="${build.config-browser}" jarfile="${build.config-browser.jar}"/>
+    </target>
+
+    <target name="example-war" depends="clean, jar, config-browser">
+        <mkdir dir="${build.webapp}"/>
+        <copy todir="${build.webapp}">
+            <fileset dir="${src.webapp}">
+            </fileset>
+        </copy>
+        <mkdir dir="${build.webinf}"/>
+        <copy file="${src.webapp}/WEB-INF/web.xml" todir="${build.webinf}"/>
+        <mkdir dir="${build.example}"/>
+        <javac srcdir="${src.example}" destdir="${build.example}" classpath="${build.java}" classpathref="cp" debug="on"/>
+
+        <copy filtering="no" todir="${build.example}">
+            <fileset dir="${src.example}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+        <copy filtering="no" TODIR="${build.example}">
+            <fileset dir="${src}/webapp">
+                <include name="**/*.jsp"/>
+                <include name="**/*.vm"/>
+                <include name="**/*.tld"/>
+                <include name="**/*.xml"/>
+            </fileset>
+        </copy>
+        <copy filtering="no" TODIR="${build.example}">
+            <fileset dir="${src.weblogic61.webapp}">
+                <include name="**/*.jsp"/>
+                <include name="**/*.vm"/>
+                <include name="**/*.tld"/>
+                <include name="**/*.xml"/>
+            </fileset>
+        </copy>
+
+        <copy tofile="${build}/webwork.tld" file="${src.etc}/taglib.tld"/>
+
+        <war destfile="${build}/${name}-weblogic61-example.war" basedir="${build.webapp}" webxml="${misc-weblogic-61}/src/webapp/WEB-INF/web.xml">
+            <lib dir="${lib.core}"/>
+            <lib dir="${lib.example}"/>
+            <lib file="${basedir}/build/webwork-${version}.jar"/>
+            <lib file="${build}/${build.webapp-weblogic.jar}"/>
+            <lib file="${build.config-browser.jar}"/>
+            <webinf file="${build}/webwork.tld"/>
+            <classes dir="${build.example}"/>
+            <classes dir="${src.etc}/example"/>
+        </war>
+
+    </target>
+
+    <target name="javadocs">
+        <mkdir dir="${build.dist}/docs/api"/>
+        <javadoc sourcepath="${src.java}"
+            destdir="${build.dist}/docs/api"
+            packagenames="com.opensymphony.*"
+            classpathref="cp"
+            author="true"
+            version="true"
+            windowTitle="${name} ${version} API"
+            doctitle="${name}"
+            footer="See &lt;a href=&quot;http://www.opensymphony.com&quot;&gt;www.opensymphony.com&lt;/a&gt; for more information."
+            use="true"
+            verbose="false"/>
+        <!-- <copy overwrite="yes" file="${docs}/main.css" tofile="${docs}/api/stylesheet.css"/> -->
+    </target>
+
+    <target name="clover.report" depends="test">
+        <clover-report>
+            <current outfile="${build.dist}/docs/clover">
+                <format type="html"/>
+            </current>
+        </clover-report>
+    </target>
+
+    <target name="clover.historical" depends="clover.report">
+        <clover-historypoint historyDir="${build.clover}"/>
+
+        <clover-report>
+            <historical outfile="${build.dist}/docs/clover" historyDir="${build.clover}">
+                <format type="html"/>
+            </historical>
+        </clover-report>
+    </target>
+
+    <target name="junit.report" depends="test">
+        <junitreport todir="${build.dist}/docs/junit">
+            <fileset dir="${build.dist}/docs/junit">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${build.dist}/docs/junit"/>
+        </junitreport>
+    </target>
+
+    <target name="docs" depends="javadocs, clover.report, junit.report">
+        <copy todir="${build.dist}/docs">
+            <fileset dir="${docs}"/>
+        </copy>
+    </target>
+
+    <target name="dist" depends="jar, docs, example-war">
+        <copy file="${build}/${name}-${version}.jar" todir="${build.dist}"/>
+        <copy file="${build}/${name}-example.war" todir="${build.dist}"/>
+        <copy todir="${build.dist}/src">
+            <fileset dir="${src.java}"/>
+        </copy>
+        <zip zipfile="${build}/${name}-${version}.zip" basedir="${build.dist}"/>
+    </target>
+</project>
+

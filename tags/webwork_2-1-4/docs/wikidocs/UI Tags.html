@@ -1,0 +1,700 @@
+<html>
+    <head>
+        <title>WebWork 2 : UI Tags</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork 2 : UI Tags
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Aug 05, 2004 by <font color="#0050B2">plightbo</font>.
+				    </div>
+
+				    <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a name="UITags-WebWork2UITags%3Caname%3D%22UITagstop%22%3E%3C%2Fa%3E"> WebWork 2 UI Tags <a name="UITags-top"></a></a></h2></p>Click on a tag to find more information on the tag.  Note that all UI tags are now evaluated against the value stack so you need to (single) quote your literal string values.<p class="paragraph">The actual rendering of these tags can be customized.  The location of the tag templates is defined by the webwork.ui.theme property in webwork.properties. See the <a href="Themes.html" title="Themes">Themes</a> reference for more details.</p><table class="wikitable">
+<tr>
+<th> Tag Name 		</th><th> Description </th>
+</tr><tr>
+<td> <a href="#UITags-checkbox" title="checkbox on UI Tags">&lt;ww:checkbox /&gt;</a> 		</td><td> render a checkbox input field </td>
+</tr><tr>
+<td> <a href="#UITags-checkboxlist" title="checkboxlist on UI Tags">&lt;ww:checkboxlist /&gt;</a> 		</td><td> render a list of checkboxes  </td>
+</tr><tr>
+<td> <a href="#UITags-combobox" title="combobox on UI Tags">&lt;ww:combobox /&gt;</a> 		</td><td> Widget that fills a text box from a select  </td>
+</tr><tr>
+<td> <a href="#UITags-component" title="component on UI Tags">&lt;ww:component /&gt;</a>		</td><td> render a custom ui widget </td>
+</tr><tr>
+<td> <a href="#UITags-file" title="file on UI Tags">&lt;ww:file /&gt;</a>			</td><td> renders a file select input field </td>
+</tr><tr>
+<td> <a href="#UITags-form" title="form on UI Tags">&lt;ww:form /&gt;</a>			</td><td> defines an input form </td>
+</tr><tr>
+<td> <a href="#UITags-hidden" title="hidden on UI Tags">&lt;ww:hidden /&gt;</a>			</td><td> render a hidden field </td>
+</tr><tr>
+<td> <a href="#UITags-label" title="label on UI Tags">&lt;ww:label /&gt;</a>			</td><td> render a label that displays read-only information </td>
+</tr><tr>
+<td> <a href="#UITags-password" title="password on UI Tags">&lt;ww:password /&gt;</a>		</td><td> render a password input field </td>
+</tr><tr>
+<td> <a href="#UITags-radio" title="radio on UI Tags">&lt;ww:radio /&gt;</a>			</td><td> renders a radio button input field </td>
+</tr><tr>
+<td> <a href="#UITags-select" title="select on UI Tags">&lt;ww:select /&gt;</a>			</td><td> renders a select element </td>
+</tr><tr>
+<td> <a href="#UITags-submit" title="submit on UI Tags">&lt;ww:submit /&gt;</a>			</td><td> renders a submit button </td>
+</tr><tr>
+<td> <a href="#UITags-table" title="table on UI Tags">&lt;ww:table /&gt;</a>				</td><td> renders a table </td>
+</tr><tr>
+<td> <a href="#UITags-tabbedpane" title="tabbedpane on UI Tags">&lt;ww:tabbedpane /&gt;</a>		</td><td> renders a tabbedpane </td>
+</tr><tr>
+<td> <a href="#UITags-textarea" title="textarea on UI Tags">&lt;ww:textarea /&gt;</a>		</td><td> renders a text area input field </td>
+</tr><tr>
+<td> <a href="#UITags-textfield" title="textfield on UI Tags">&lt;ww:textfield /&gt;</a>		</td><td> renders an input field of type text </td>
+</tr><tr>
+<td> <a href="#UITags-token" title="token on UI Tags">&lt;ww:token /&gt;</a>		</td><td> Stop double-submission of forms </td>
+</tr><tr>
+<th>Internationalization Tags</th><th> </th>
+</tr><tr>
+<td> <a href="#UITags-i18n" title="i18n on UI Tags">&lt;ww:i18n /&gt;</a>				</td><td> put resource bundle in stack </td>
+</tr><tr>
+<td> <a href="#UITags-text" title="text on UI Tags">&lt;ww:text /&gt;</a>				</td><td> renders string from bundle </td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Acheckbox%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagscheckbox%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:checkbox /&gt;</b></font>&#160;<a name="UITags-checkbox"></a> </a></h3><p class="paragraph">Renders an HTML &lt;input&gt; element of type checkbox, populated by the specified property from the OgnlValueStack.</p><b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>JSP&#10;    &lt;ww:checkbox label=<span class="java&#45;quote">&quot;&#039;checkbox test&#039;&quot;</span> name=<span class="java&#45;quote">&quot;&#039;checkboxField1&#039;&quot;</span> value=<span class="java&#45;quote">&quot;aBoolean&quot;</span> fieldValue=<span class="java&#45;quote">&quot;&#039;<span class="java&#45;keyword">true</span>&#039;&quot;</span>/&gt;&#10;&#10;Velocity&#10;    #tag( Checkbox <span class="java&#45;quote">&quot;label=&#039;checkbox test&#039;&quot;</span>&#160;<span class="java&#45;quote">&quot;name=&#039;checkboxField1&#039;&quot;</span> value=<span class="java&#45;quote">&quot;aBoolean&quot;</span> fieldValue=<span class="java&#45;quote">&quot;&#039;<span class="java&#45;keyword">true</span>&#039;&quot;</span> )&#10;&#10;HTML (simple template, aBoolean == <span class="java&#45;keyword">true</span>)&#10;	&lt;input type=<span class="java&#45;quote">&quot;checkbox&quot;</span> name=<span class="java&#45;quote">&quot;checkboxField1&quot;</span> value=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span> checked=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span> /&gt;</pre>
+</div></div><p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	required		</td><td>	no			</td><td>	Is field required for form submission	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Boolean which if true adds &quot;checked=true&quot; to tag	</td>
+</tr><tr>
+<td>	fieldValue		</td><td>	<b class="strong">yes</b>		</td><td>	the actual HTML value attribute of the checkbox	</td>
+</tr><tr>
+<td>	tabindex		</td><td>	no			</td><td>	HTML tabindex attribute	</td>
+</tr><tr>
+<td>	onchange		</td><td>	no			</td><td>	HTML onchange attribute	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Acheckboxlist%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagscheckboxlist%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:checkboxlist /&gt;</b></font>&#160;<a name="UITags-checkboxlist"></a> </a></h3></p>Creates a series of checkboxes from a list. Setup is like &lt;ww:select /&gt; or &lt;ww:radio /&gt;, but creates checkbox tags.<p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as field value	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	required		</td><td>	no			</td><td>	Is field required for form submission	</td>
+</tr><tr>
+<td>	list			</td><td>	no			</td><td>	Iteratable source to populate from	</td>
+</tr><tr>
+<td>	listKey			</td><td>	no			</td><td>	Property of list objects to get field value from	</td>
+</tr><tr>
+<td>	listValue		</td><td>	no			</td><td>	Property of list objects to get field content from	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Acombobox%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagscombobox%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:combobox /&gt;</b></font>&#160;<a name="UITags-combobox"></a> </a></h3></p>The combo box is basically an HTML INPUT of type text and HTML SELECT grouped together to give you a combo box functionality. You can place text in the INPUT control by using the SELECT control or type it in directly in the text field. <p class="paragraph">In this example, the SELECT will be populated from id=year attribute. Counter is itself an Iterator. It will span from first to last.</p><div class="code"><div class="codeContent">
+<pre>&lt;ww:bean name=<span class="java&#45;quote">&quot;&#039;webwork.util.Counter&#039;&quot;</span> id=<span class="java&#45;quote">&quot;year&quot;</span>&gt;&#10;  &lt;ww:param name=<span class="java&#45;quote">&quot;&#039;first&#039;&quot;</span> value=<span class="java&#45;quote">&quot;text(&#039;firstBirthYear&#039;)&quot;</span>/&gt;&#10;  &lt;ww:param name=<span class="java&#45;quote">&quot;&#039;last&#039;&quot;</span> value=<span class="java&#45;quote">&quot;2000&quot;</span>/&gt;&#10;&#10;  &lt;ww:combobox label=<span class="java&#45;quote">&quot;&#039;Birth year&#039;&quot;</span> size=<span class="java&#45;quote">&quot;6&quot;</span> maxlength=<span class="java&#45;quote">&quot;4&quot;</span> name=<span class="java&#45;quote">&quot;&#039;birthYear&#039;&quot;</span> list=<span class="java&#45;quote">&quot;#year&quot;</span>/&gt;&#10;&lt;/ww:bean&gt;</pre>
+</div></div><p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as field value	</td>
+</tr><tr>
+<td>	list			</td><td>	no			</td><td>	Iteratable source to populate from	</td>
+</tr><tr>
+<td>	size			</td><td>	no			</td><td>	HTML size attribute	</td>
+</tr><tr>
+<td>	maxlength		</td><td>	no			</td><td>	HTML maxlength attribute	</td>
+</tr><tr>
+<td>	disabled		</td><td>	no			</td><td>	HTML disabled attribute	</td>
+</tr><tr>
+<td>	tabindex		</td><td>	no			</td><td>	HTML tabindex attribute	</td>
+</tr><tr>
+<td>	onkeyup			</td><td>	no			</td><td>	HTML onkeyup attribute	</td>
+</tr><tr>
+<td>	onchange		</td><td>	no			</td><td>	HTML onchange attribute	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Acomponent%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagscomponent%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:component /&gt;</b></font>&#160;<a name="UITags-component"></a> </a></h3></p>Renders an custom UI widget using the specified templates.  Additional objects can be passed in to the template using the param tags.  Objects provided can be retrieve from within the template via $parameters._<em class="emphasis">paramname</em>_.  <p class="paragraph">In the bottom JSP and Velocity samples, two parameters are being passed in to the component.  From within the component, they can be accessed as $parameters.get(&#039;key1&#039;) and $parameters.get(&#039;key2&#039;).  Velocity also allows you reference them as $parameters.key1 and $parameters.key2.</p>Currently, your custom UI components <b class="strong">must</b> be written in Velocity.<p class="paragraph"><b class="strong">Remember:</b> the value params will always be resolved against the OgnlValueStack so if you mean to pass a string literal to your component, make sure to wrap it in quotes i.e. value=&quot;&#039;value1&#039;&quot; otherwise, the the value stack will search for an Object on the stack with a method of getValue1().  (now that i&#039;ve written this, i&#039;m not entirely sure this is the case.  i should verify this manana)</p><b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>JSP&#10;    &lt;ww:component template=<span class="java&#45;quote">&quot;/my/custom/component.vm&quot;</span>/&gt;&#10;      or&#10;&#10;    &lt;ww:component template=<span class="java&#45;quote">&quot;/my/custom/component.vm&quot;</span>&gt;&#10;      &lt;ww:param name=<span class="java&#45;quote">&quot;key1&quot;</span> value=<span class="java&#45;quote">&quot;value1&quot;</span>/&gt;&#10;      &lt;ww:param name=<span class="java&#45;quote">&quot;key2&quot;</span> value=<span class="java&#45;quote">&quot;value2&quot;</span>/&gt;&#10;    &lt;/ww:component&gt;&#10;&#10;Velocity&#10;    #tag( Component <span class="java&#45;quote">&quot;template=/my/custom/component.vm&quot;</span> )&#10;&#10;      or&#10;&#10;    #bodytag( Component <span class="java&#45;quote">&quot;template=/my/custom/component.vm&quot;</span> )&#10;      #param( <span class="java&#45;quote">&quot;key1&quot;</span>&#160;<span class="java&#45;quote">&quot;value1&quot;</span> )&#10;      #param( <span class="java&#45;quote">&quot;key2&quot;</span>&#160;<span class="java&#45;quote">&quot;value2&quot;</span> )&#10;    #end</pre>
+</div></div><p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as field value	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	required		</td><td>	no			</td><td>	Is field required for form submission	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	<b class="strong">yes</b>			</td><td>	Name of template to use	</td>
+</tr>
+</table></p>(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Afile%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagsfile%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:file /&gt;</b></font>&#160;<a name="UITags-file"></a> </a></h3><p class="paragraph">File upload form tag.</p><b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:file name=<span class="java&#45;quote">&quot;&#039;uploadedFile&#039;&quot;</span> /&gt;</pre>
+</div></div><p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as field value	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	required		</td><td>	no			</td><td>	Is field required for form submission	</td>
+</tr><tr>
+<td>	accept			</td><td>	no			</td><td>	HTML accept attribute: list of file types to accept	</td>
+</tr><tr>
+<td>	onchange		</td><td>	no			</td><td>	HTML onchange attribute	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Aform%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagsform%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:form /&gt;</b></font>&#160;<a name="UITags-form"></a> </a></h3></p>An HTML form. <p class="paragraph"><b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:form name=<span class="java&#45;quote">&quot;&#039;myForm&#039;&quot;</span> action=<span class="java&#45;quote">&quot;&#039;submit.action&#039;&quot;</span>&gt;&#10;...&#10;&lt;/ww:form&gt;</pre>
+</div></div></p><div class="code"><div class="codeContent">
+<pre>&lt;ww:form name=<span class="java&#45;quote">&quot;&#039;myForm&#039;&quot;</span> action=<span class="java&#45;quote">&quot;&#039;submit&#039;&quot;</span> namespace=<span class="java&#45;quote">&quot;&#039;/foo&#039;&quot;</span>&gt;&#10;...&#10;&lt;/ww:form&gt;</pre>
+</div></div>
+<p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as field value	</td>
+</tr><tr>
+<td>	openTemplate	</td><td>	no			</td><td>	Template to use for the open form tag	</td>
+</tr><tr>
+<td>	action			</td><td>	<b class="strong">yes</b>		</td><td>	HTML action attribute </td>
+</tr><tr>
+<td>	namespace		</td><td>	no			</td><td>	Namespace of action	</td>
+</tr><tr>
+<td>	method			</td><td>	no			</td><td>	&#039;GET&#039; or &#039;POST&#039;	</td>
+</tr><tr>
+<td>	enctype			</td><td>	no			</td><td>	HTML enctype attribute	</td>
+</tr><tr>
+<td>	validate		</td><td>	no			</td><td>	Whether to use client-side validation	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use for the closing form tag	</td>
+</tr>
+</table><br/>
+<b class="strong">Note</b>: The <b class="strong">action</b> attribute works in two different ways. The original (and deprecated) format is shown in the first sample usage. The newer format allows you to specify just the action name (as well as a namespace, if there is one) as defined in xwork.xml. This is <b class="strong">required</b> if you wish to do any form of <a href="Client-Side Validation.html" title="Client-Side Validation">Client-Side Validation</a></p>(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Ahidden%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagshidden%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:hidden /&gt;</b></font>&#160;<a name="UITags-hidden"></a> </a></h3><p class="paragraph">An HTML input tag of type &quot;hidden&quot;.</p><b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:hidden name=<span class="java&#45;quote">&quot;&#039;someName&#039;&quot;</span> value=<span class="java&#45;quote">&quot;value&quot;</span>/&gt;</pre>
+</div></div><br/>
+
+
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as text	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Alabel%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagslabel%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:label /&gt;</b></font>&#160;<a name="UITags-label"></a> </a></h3><p class="paragraph">An HTML LABEL that will allow you to output label:name combination that has the same format treatment as the rest of your UI controls.</p><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	no			</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as text	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	required		</td><td>	no			</td><td>	Is field required for form submission	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table><br/>
+In this example, a label is rendered. The label is retrieved from a ResourceBundle by calling ActionSupport&#039;s getText() method giving you an output of User name: a label. 
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:label label=<span class="java&#45;quote">&quot;text(&#039;user&#95;name&#039;)&quot;</span> name=<span class="java&#45;quote">&quot;&#039;a label&#039;&quot;</span>/&gt;</pre>
+</div></div><p class="paragraph">(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Apassword%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagspassword%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:password /&gt;</b></font>&#160;<a name="UITags-password"></a> </a></h3></p>An HTML input tag of type password.<p class="paragraph">In this example, a password control is displayed. For the label, we are calling ActionSupport&#039;s getText() to retrieve password label from a resource bundle. 
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:password label=<span class="java&#45;quote">&quot;text(&#039;password&#039;)&quot;</span> name=<span class="java&#45;quote">&quot;&#039;password&#039;&quot;</span> size=<span class="java&#45;quote">&quot;10&quot;</span> maxlength=<span class="java&#45;quote">&quot;15&quot;</span>/&gt;</pre>
+</div></div></p><table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as text	</td>
+</tr><tr>
+<td>	size			</td><td>	no			</td><td>	HTML size attribute	</td>
+</tr><tr>
+<td>	maxlength		</td><td>	no			</td><td>	HTML maxlength attribute	</td>
+</tr><tr>
+<td>	disabled		</td><td>	no			</td><td>	HTML disabled attribute	</td>
+</tr><tr>
+<td>	readonly		</td><td>	no			</td><td>	HTML readonly attribute	</td>
+</tr><tr>
+<td>	onkeyup			</td><td>	no			</td><td>	HTML onkeyup attribute	</td>
+</tr><tr>
+<td>	tabindex		</td><td>	no			</td><td>	HTML tabindex attribute	</td>
+</tr><tr>
+<td>	onchange		</td><td>	no			</td><td>	HTML onchange attribute	</td>
+</tr><tr>
+<td>	show			</td><td>	no			</td><td>	Redisplay value (security concerns)	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	required		</td><td>	no			</td><td>	Is field required for form submission	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Aradio%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagsradio%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:radio /&gt;</b></font>&#160;<a name="UITags-radio"></a> </a></h3><p class="paragraph">An HTML Radiobox UI widget</p>In this example, a radio control is displayed with a list of genders. The gender list is built from attribute id=genders. WW calls getGenders() which will return a Map. For examples using listKey and listValue attributes, see the section select tag. 
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:action name=<span class="java&#45;quote">&quot;&#039;GenderMap&#039;&quot;</span> id=<span class="java&#45;quote">&quot;genders&quot;</span>/&gt;&#10;&lt;ww:radio label=<span class="java&#45;quote">&quot;&#039;Gender&#039;&quot;</span> name=<span class="java&#45;quote">&quot;&#039;male&#039;&quot;</span> list=<span class="java&#45;quote">&quot;#genders.genders&quot;</span>/&gt;</pre>
+</div></div><p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as field value	</td>
+</tr><tr>
+<td>	list			</td><td>	no			</td><td>	Iteratable source to populate from	</td>
+</tr><tr>
+<td>	listKey			</td><td>	no			</td><td>	Property of list objects to get field value from	</td>
+</tr><tr>
+<td>	listValue		</td><td>	no			</td><td>	Property of list objects to get field content from	</td>
+</tr><tr>
+<td>	disabled		</td><td>	no			</td><td>	HTML disabled attribute	</td>
+</tr><tr>
+<td>	tabindex		</td><td>	no			</td><td>	HTML tabindex attribute	</td>
+</tr><tr>
+<td>	onchange		</td><td>	no			</td><td>	HTML onchange attribute	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr><tr>
+<td>	required		</td><td>	no			</td><td>	Is field required for form submission	</td>
+</tr>
+</table></p>(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Aselect%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagsselect%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:select /&gt;</b></font>&#160;<a name="UITags-select"></a> </a></h3><p class="paragraph">Generates a select list filled with a specified list. The &quot;listKey&quot; attribute is the property to pull from each item in the list to generate the value of the &lt;option&gt; tag for that item. The &quot;listValue&quot; attribute fills the label of the option (the display name). One great feature is that it will auto-select the appropriate option based on the &quot;value&quot; attribute. If the value matches the current listKey, that option will be selected.</p><div class="code"><div class="codeContent">
+<pre>&lt;ww:select label=<span class="java&#45;quote">&quot;&#039;Users&#039;&quot;</span> &#10;	name=<span class="java&#45;quote">&quot;&#039;userId&#039;&quot;</span> &#10;	listKey=<span class="java&#45;quote">&quot;id&quot;</span> &#10;	listValue=<span class="java&#45;quote">&quot;name&quot;</span> &#10;	list=<span class="java&#45;quote">&quot;app.users&quot;</span> &#10;	value=<span class="java&#45;quote">&quot;app.user.id&quot;</span> &#10;	onchange=<span class="java&#45;quote">&quot;&#039;chooseUser(<span class="java&#45;keyword">this</span>)&#039;&quot;</span>&#10;/&gt;</pre>
+</div></div><p class="paragraph">will create the following (if getApp().getUser().getId() == 2):
+<div class="code"><div class="codeContent">
+<pre>&lt;tr&gt;&#10;	&lt;td&gt;Users&lt;/td&gt;&#10;	&lt;td&gt;&#10;		&lt;select name=<span class="java&#45;quote">&quot;userId&quot;</span> onchange=<span class="java&#45;quote">&quot;chooseUser(<span class="java&#45;keyword">this</span>)&quot;</span>&gt;&#10;			&lt;option value=<span class="java&#45;quote">&quot;1&quot;</span>&gt;&#10;				User <span class="java&#45;object">Number</span> One&#10;			&lt;/option&gt;&#10;			&lt;option value=<span class="java&#45;quote">&quot;2&quot;</span> selected&gt;&#10;				User <span class="java&#45;object">Number</span> Two&#10;			&lt;/option&gt;&#10;		&lt;/select&gt;&#10;	&lt;td&gt;&#10;&lt;/tr&gt;</pre>
+</div></div></p>Of course, the &lt;td&gt; formatting and such depends on the <a href="Themes.html" title="Themes">template</a> you are using.<p class="paragraph"><b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:select label=<span class="java&#45;quote">&quot;&#039;Pets&#039;&quot;</span> &#10;        name=<span class="java&#45;quote">&quot;&#039;petIds&#039;&quot;</span> &#10;        list=<span class="java&#45;quote">&quot;petDao.pets&quot;</span> &#10;        listKey=<span class="java&#45;quote">&quot;id&quot;</span> &#10;        listValue=<span class="java&#45;quote">&quot;name&quot;</span> &#10;        multiple=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span> &#10;        size=<span class="java&#45;quote">&quot;3&quot;</span> &#10;        required=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span> &#10;/&gt;</pre>
+</div></div></p><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as field value	</td>
+</tr><tr>
+<td>	required		</td><td>	no			</td><td>	Is field required for form submission	</td>
+</tr><tr>
+<td>	list			</td><td>	no			</td><td>	Iteratable source to populate from.  If the list is a Map (key, value), the Map key will become the option &quot;value&quot; parameter and the Map value will become the option body. </td>
+</tr><tr>
+<td>	listKey			</td><td>	no			</td><td>	Property of list objects to get field value from	</td>
+</tr><tr>
+<td>	listValue		</td><td>	no			</td><td>	Property of list objects to get field content from	</td>
+</tr><tr>
+<td>	emptyOption		</td><td>	no			</td><td>	Whether or not to add an empty (--) option after the header option	</td>
+</tr><tr>
+<td>	multiple		</td><td>	no			</td><td>	Is this a multiple select?	</td>
+</tr><tr>
+<td>	size			</td><td>	no			</td><td>	Character width	</td>
+</tr><tr>
+<td>	disabled		</td><td>	no			</td><td>	HTML disabled attribute	</td>
+</tr><tr>
+<td>	tabindex		</td><td>	no			</td><td>	HTML tabindex attribute	</td>
+</tr><tr>
+<td>	onchange		</td><td>	no			</td><td>	HTML onchange attribute	</td>
+</tr><tr>
+<td>	headerKey		</td><td>	no			</td><td>	Key for first item in list	</td>
+</tr><tr>
+<td>	headerValue		</td><td>	no			</td><td>	Value for first item in list	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table>
+<p class="paragraph">(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Asubmit%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagssubmit%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:submit /&gt;</b></font>&#160;<a name="UITags-submit"></a> </a></h3></p>Submit button.<p class="paragraph"><b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:submit value=<span class="java&#45;quote">&quot;&#039;Submit&#039;&quot;</span>/&gt;</pre>
+</div></div></p><table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	no			</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	<b class="strong">yes</b>		</td><td>	Data to pass as text	</td>
+</tr><tr>
+<td>	align			</td><td>	no			</td><td>	HTML align attribute	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Atabbedpane%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagstabbedpane%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:tabbedpane /&gt;</b></font>&#160;<a name="UITags-tabbedpane"></a> </a></h3><p class="paragraph">Tabbed pane allows you to associated tabs with different views. When the user clicks the tab, that view will render and become current. Tabbed pane is basically a table which includes the selected tab&#039;s page in its bottom row.</p>In this example, a tabbed pane is rendered with tabs aligned right. See WW&#039;s example for a more complete picture. 
+<div class="code"><div class="codeContent">
+<pre>&lt;p&gt;&lt;ww:tabbedpane id=<span class="java&#45;quote">&quot;tp1&quot;</span> contentName=<span class="java&#45;quote">&quot;&#039;tabs1&#039;&quot;</span> tabAlign=<span class="java&#45;quote">&quot;&#039;RIGHT&#039;&quot;</span>/&gt;&lt;/p&gt;</pre>
+</div></div><br/>
+
+
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	contentName 	</td><td>	<b class="strong">yes</b>		</td><td>	???	</td>
+</tr><tr>
+<td>	tabAlign		</td><td>	no			</td><td>	Tab horizontal alignment: RIGHT,LEFT,CENTER	</td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Atable%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagstable%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:table /&gt;</b></font>&#160;<a name="UITags-table"></a> </a></h3><p class="paragraph">HTML table using the displaytag library.</p><b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:table modelName=<span class="java&#45;quote">&quot;&#039;/result&#039;&quot;</span> sortable=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span> sortColumn=<span class="java&#45;quote">&quot;0&quot;</span> sortOrder=<span class="java&#45;quote">&quot;ASC&quot;</span>&gt;&#10;  &lt;ww:param name=<span class="java&#45;quote">&quot;&#039;columnHidden(1)&#039;&quot;</span> value=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span>/&gt;&#10;  &lt;ww:param name=<span class="java&#45;quote">&quot;&#039;columnDisplayName(2)&#039;&quot;</span> value=<span class="java&#45;quote">&quot;&#039;New Display Name&#039;&quot;</span>/&gt;&#10;  &lt;ww:param name=<span class="java&#45;quote">&quot;&#039;columnRenderer(0)&#039;&quot;</span> value=<span class="java&#45;quote">&quot;#dateRenderer&quot;</span>/&gt;&#10;  &lt;ww:param name=<span class="java&#45;quote">&quot;&#039;columnRenderer(2)&#039;&quot;</span> value=<span class="java&#45;quote">&quot;#linkRenderer&quot;</span>/&gt;&#10;  &lt;ww:param name=<span class="java&#45;quote">&quot;&#039;columnRenderer(4)&#039;&quot;</span> value=<span class="java&#45;quote">&quot;#intRenderer&quot;</span>/&gt;&#10;&lt;/ww:table&gt;</pre>
+</div></div><br/>
+
+
+<table class="wikitable">
+<tr>
+<th>	Name				</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	theme				</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	modelName 			</td><td>	<b class="strong">yes</b>		</td><td>	???	</td>
+</tr><tr>
+<td>	sortable			</td><td>	no			</td><td>	Whether the columns are sortable	</td>
+</tr><tr>
+<td>	sortColumn			</td><td>	no			</td><td>	Index of initial sorted column	</td>
+</tr><tr>
+<td>	sortOrder			</td><td>	no			</td><td>	ASC,DESC,NONE	</td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Atextarea%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagstextarea%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:textarea /&gt;</b></font>&#160;<a name="UITags-textarea"></a> </a></h3><p class="paragraph">Renders a &lt;textarea&gt;&lt;/textarea&gt; tag.</p><b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:textarea label=<span class="java&#45;quote">&quot;&#039;Comments&#039;&quot;</span> name=<span class="java&#45;quote">&quot;&#039;comments&#039;&quot;</span> cols=<span class="java&#45;quote">&quot;30&quot;</span> rows=<span class="java&#45;quote">&quot;8&quot;</span>/&gt;</pre>
+</div></div><p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as field value	</td>
+</tr><tr>
+<td>	required		</td><td>	no			</td><td>	Is field required for form submission	</td>
+</tr><tr>
+<td>	rows			</td><td>	no			</td><td>	HTML rows attribute	</td>
+</tr><tr>
+<td>	cols			</td><td>	no			</td><td>	HTML cols attribute	</td>
+</tr><tr>
+<td>	readonly		</td><td>	no			</td><td>	HTML readonly attribute	</td>
+</tr><tr>
+<td>	disabled		</td><td>	no			</td><td>	HTML disabled attribute	</td>
+</tr><tr>
+<td>	tabindex		</td><td>	no			</td><td>	HTML tabindex attribute	</td>
+</tr><tr>
+<td>	onkeyup			</td><td>	no			</td><td>	HTML onkeyup attribute	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table><br/>
+(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Atextfield%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagstextfield%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:textfield /&gt;</b></font>&#160;<a name="UITags-textfield"></a> </a></h3></p>In this example, a text control is rendered. The label is retrieved from a ResourceBundle by calling ActionSupport&#039;s getText() method. 
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:textfield label=<span class="java&#45;quote">&quot;text(&#039;user&#95;name&#039;)&quot;</span> name=<span class="java&#45;quote">&quot;&#039;user&#039;&quot;</span>/&gt;</pre>
+</div></div><p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	id				</td><td>	no			</td><td>	HTML id attribute	</td>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	HTML name attribute	</td>
+</tr><tr>
+<td>	value			</td><td>	no			</td><td>	Data to pass as field value	</td>
+</tr><tr>
+<td>	required		</td><td>	no			</td><td>	Indicates if this field is required for form submission	</td>
+</tr><tr>
+<td>	size			</td><td>	no			</td><td>	HTML size attribute	</td>
+</tr><tr>
+<td>	maxlength		</td><td>	no			</td><td>	HTML maxlength attribute	</td>
+</tr><tr>
+<td>	readonly		</td><td>	no			</td><td>	HTML readonly attribute	</td>
+</tr><tr>
+<td>	disabled		</td><td>	no			</td><td>	HTML disabled attribute	</td>
+</tr><tr>
+<td>	tabindex		</td><td>	no			</td><td>	HTML tabindex attribute	</td>
+</tr><tr>
+<td>	onkeyup			</td><td>	no			</td><td>	HTML onkeyup attribute	</td>
+</tr><tr>
+<td>	onchange		</td><td>	no			</td><td>	HTML onchange attribute	</td>
+</tr><tr>
+<td>	label			</td><td>	no			</td><td>	Text used as label in template	</td>
+</tr><tr>
+<td>	labelposition	</td><td>	no			</td><td>	Alignment of label (left,right,center)	</td>
+</tr><tr>
+<td>	cssClass		</td><td>	no			</td><td>	HTML class attribute	</td>
+</tr><tr>
+<td>	cssStyle		</td><td>	no			</td><td>	HTML style attribute	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table><br/>
+Note that the default template name for this tag is <tt class="monospaced">text.vm</tt> and not <tt class="monospaced">textfield.vm</tt>.</p>(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Atoken%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagstoken%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:token /&gt;</b></font>&#160;<a name="UITags-token"></a> </a></h3><p class="paragraph">The token tag is used to help with the &quot;double click&quot; submission problem. It is needed if you are using the TokenInterceptor or the TokenSessionInterceptor. They are documented somewhere in the wiki. The ww:token tag merely places a hidden element that contains the unique token.</p><b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:token /&gt;</pre>
+</div></div><p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	name 			</td><td>	no			</td><td>	Name of token	</td>
+</tr><tr>
+<td>	theme			</td><td>	no			</td><td>	Theme to use	</td>
+</tr><tr>
+<td>	template		</td><td>	no			</td><td>	Name of template to use	</td>
+</tr>
+</table>
+<h2 class="heading2"><a name="UITags-InternationalizationTags"> Internationalization Tags</a></h2></p>(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Ai18n%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagsi18n%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:i18n /&gt;</b></font>&#160;<a name="UITags-i18n"></a> </a></h3><p class="paragraph">Place a resource bundle on the value stack, for access by the text tag.</p><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	Name of bundle	</td>
+</tr>
+</table><br/>
+<b class="strong">Sample Usages</b><br/>
+-see text tag below<p class="paragraph">(<a href="#top" title="Visit page outside Confluence">back to the top</a>)
+<h3 class="heading3"><a name="UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Atext%2F%26gt%3B%3C%2Ffont%3E%3Caname%3D%22UITagstext%22%3E%3C%2Fa%3E"><font color="blue"><b class="strong">&lt;ww:text /&gt;</b></font>&#160;<a name="UITags-text"></a> </a></h3></p>Print out an internationalized string. It is used in conjuction with the i18n tag. The text tag gets a specific message from the bundle specified in the surrounding i18n tag. Values can be passed into the message for parsing, for instance to format a date or currency.<p class="paragraph"><b class="strong">Attributes</b>
+<table class="wikitable">
+<tr>
+<th>	Name			</th><th>	Required	</th><th>	Description	</th>
+</tr><tr>
+<td>	name 			</td><td>	<b class="strong">yes</b>		</td><td>	Name of property to fetch	</td>
+</tr><tr>
+<td>	value0			</td><td>	no			</td><td>	Pass data to param 0 in message	</td>
+</tr><tr>
+<td>	value1			</td><td>	no			</td><td>	Pass data to param 1 in message	</td>
+</tr><tr>
+<td>	value2			</td><td>	no			</td><td>	Pass data to param 2 in message	</td>
+</tr><tr>
+<td>	value3			</td><td>	no			</td><td>	Pass data to param 3 in message	</td>
+</tr>
+</table><br/>
+<b class="strong">Sample Usages</b>
+<div class="code"><div class="codeContent">
+<pre>Accessing messages from a given bundle (the i18n Shop example bundle in <span class="java&#45;keyword">this</span>&#160;<span class="java&#45;keyword">case</span>)&lt;br&gt;&#10;&lt;ww:i18n name=<span class="java&#45;quote">&quot;&#039;webwork.action.test.i18n.Shop&#039;&quot;</span>&gt;&#10;  &lt;ww:text name=<span class="java&#45;quote">&quot;&#039;main.title&#039;&quot;</span>/&gt;&#10;&lt;/ww:i18n&gt;</pre>
+</div></div></p>Note that instead of using value0..value4, you may also:
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:text name=<span class="java&#45;quote">&quot;&#039;someKey&#039;&quot;</span>&gt;&#10;    &lt;ww:param value=<span class="java&#45;quote">&quot;&#039;Hello&#039;&quot;</span>/&gt;&#10;&lt;/ww:text&gt;</pre>
+</div></div><br/>
+ 
+OR<br/>
+
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:text name=<span class="java&#45;quote">&quot;&#039;someKey&#039;&quot;</span>&gt;&#10;    &lt;ww:param&gt;Hello&lt;/ww:param&gt;&#10;&lt;/ww:text&gt;</pre>
+</div></div><p class="paragraph">As per Patrick Lightbody:</p><blockquote class="blockquote"> The last format is particularly good when you are embedding HTML in to the message, since you don&#146;t need to worry about escaping the various quotes that might be there.</blockquote>
+<p class="paragraph"><h3 class="heading3"><a name="UITags-Notes"> Notes</a></h3></p><img class="rendericon" src="./icons/emoticons/information.png" height="16" width="16" align="absmiddle" alt="" border="0"/> The &quot;required&quot; attribute on many WebWork UI tags has nothing to do with client-side validation.  It serves as a flag that allows the template to display some kind of indication to the user that a particular field is required for form submisison.
+<p class="paragraph"><img class="rendericon" src="./icons/emoticons/information.png" height="16" width="16" align="absmiddle" alt="" border="0"/> It&#039;s very important to note that all tags that insert something into the valuestack (like i18n or bean tags) will remove those objects from the stack on its end tag.  This means that if you instantiate a bean with the bean tag (&lt;ww:bean name=&quot;&#039;br.univap.fcc.sgpw.util.FormattersHelper&#039;&quot;&gt;) that bean will be avaliable on the valuestack only until the &lt;/ww:bean&gt; tag.</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Oct 18, 2004 00:08</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>
