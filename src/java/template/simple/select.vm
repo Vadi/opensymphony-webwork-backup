@@ -3,6 +3,7 @@
     #if ($parameters.disabled)         disabled="disabled"                                  #end
     #if ($parameters.tabindex)         tabindex="$parameters.tabindex"                      #end
     #if ($parameters.onchange)         onchange="$parameters.onchange"                      #end
+    #if ($parameters.onclick)          onclick="$parameters.onclick"                        #end
     #if ($parameters.id)               id="$parameters.id"                                  #end
     #if ($parameters.multiple)         multiple="multiple"                                  #end
     #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"   #end

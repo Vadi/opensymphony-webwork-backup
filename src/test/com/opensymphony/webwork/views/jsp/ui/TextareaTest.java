@@ -29,6 +29,7 @@ public class TextareaTest extends AbstractUITagTest {
         tag.setDisabled("true");
         tag.setTabindex("'5'");
         tag.setOnchange("'alert(\\'goodbye\\');'");
+        tag.setOnclick("'alert(\\'onclick\\');'");
         tag.setId("the_id");
         tag.setOnkeyup("'alert(\\'hello\\');'");
         tag.setReadonly("true");

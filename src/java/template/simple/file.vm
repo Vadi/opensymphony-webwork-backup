@@ -6,6 +6,7 @@
 #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
 #if ($parameters.accept)           accept="$!webwork.htmlEncode($parameters.accept)"        #end
 #if ($parameters.onchange)         onchange="$!parameters.onchange"                         #end
+#if ($parameters.onclick)          onchange="$!parameters.onclick"                          #end
 #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"       #end
 #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"       #end
 />
