@@ -37,6 +37,21 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
 
     public void testAbsoluteRedirect() {
         view.setLocation("/bar/foo.jsp");
+        responseMock.expectAndReturn("encodeRedirectURL", "/context/bar/foo.jsp", "/context/bar/foo.jsp");
+        responseMock.expect("sendRedirect", C.args(C.eq("/context/bar/foo.jsp")));
+
+        try {
+            view.execute(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    public void testPrependServletContextFalse() {
+        view.setLocation("/bar/foo.jsp");
+        view.setPrependServletContext(false);
+        responseMock.expectAndReturn("encodeRedirectURL", "/bar/foo.jsp", "/bar/foo.jsp");
         responseMock.expect("sendRedirect", C.args(C.eq("/bar/foo.jsp")));
 
         try {
@@ -49,7 +64,9 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
 
     public void testRelativeRedirect() {
         view.setLocation("foo.jsp");
-        responseMock.expect("sendRedirect", C.args(C.eq("/context/foo.jsp")));
+        requestMock.expectAndReturn("getServletPath", "/namespace/some.action");
+        responseMock.expectAndReturn("encodeRedirectURL", "/context/namespace/foo.jsp", "/context/namespace/foo.jsp");
+        responseMock.expect("sendRedirect", C.args(C.eq("/context/namespace/foo.jsp")));
 
         try {
             view.execute(null);
