@@ -36,5 +36,6 @@ Click <a href="i18n/velocity/index.html">here</a> for a Velocity example of i18n
 Click <a href="include.vm">here</a> to see the include tag in use<br>
 Click <a href="TabbedPaneTest.action">here</a> to see a simple tabbed pane example<br>
 Click <a href="select.action">here</a> for a select tag test<br>
+Click <a href="indexedProperties.action">here</a> for an indexed property example<br>
 </body>
 </html>
