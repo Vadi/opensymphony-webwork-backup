@@ -12,8 +12,6 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.RequestDispatcher;
@@ -182,8 +180,6 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParamTag.Parame
     public int doEndTag() throws JspException {
         String page;
 
-        // Save the current value stack to set back into the request in case the include resets it
-        OgnlValueStack stack = getStack();
         // If value is set, we resolve it to get the page name
         if (valueAttr != null) {
             page = findString(valueAttr);
@@ -236,8 +232,6 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParamTag.Parame
             LogFactory.getLog(getClass()).warn("Exception thrown during include of " + result, e);
             throw new JspTagException(e.toString());
         }
-        // Set the old value stack back into the request just in case it's been set by the include
-        pageContext.getRequest().setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY,stack);
 
         return EVAL_PAGE;
     }
