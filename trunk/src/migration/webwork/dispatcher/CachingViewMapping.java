@@ -18,38 +18,34 @@ import java.util.HashMap;
  * @author Rickard Öberg (rickard@middleware-company.com)
  * @version $Revision$
  */
-public class CachingViewMapping implements ViewMapping
-{
-   protected ViewMapping delegate;
-   protected Map cache;
-   protected final Object NULL_VIEW = new Object();
+public class CachingViewMapping implements ViewMapping {
+    protected ViewMapping delegate;
+    protected Map cache;
+    protected final Object NULL_VIEW = new Object();
 
-   // Constructors --------------------------------------------------
-   public CachingViewMapping(ViewMapping aDelegate)
-   {
-      delegate = aDelegate;
-      cache = Collections.synchronizedMap(new HashMap());
-   }
+    // Constructors --------------------------------------------------
+    public CachingViewMapping(ViewMapping aDelegate) {
+        delegate = aDelegate;
+        cache = Collections.synchronizedMap(new HashMap());
+    }
 
-   // ViewMapping implementation ------------------------------------
-   /**
-    * Get view corresponding to given action and view names
-    */
-   public Object getView(String anActionName, String aViewName)
-   {
-      Object view = cache.get(anActionName+"."+aViewName);      
-      if (view == null)
-      {
-         view = delegate.getView(anActionName, aViewName);
-         // If the view was null we cache it but use the NULL_VIEW object to be able to
-         // distinguish it from a non-cached view
-         if (view == null)
-            view = NULL_VIEW;
-         cache.put(anActionName+"."+aViewName,view);
-      }
-      if (view == NULL_VIEW)
-         return null;
-      else
-         return view;
-   }
+    // ViewMapping implementation ------------------------------------
+    /**
+     * Get view corresponding to given action and view names
+     */
+    public Object getView(String anActionName, String aViewName) {
+        Object view = cache.get(anActionName + "." + aViewName);
+        if (view == null) {
+            view = delegate.getView(anActionName, aViewName);
+            // If the view was null we cache it but use the NULL_VIEW object to be able to
+            // distinguish it from a non-cached view
+            if (view == null)
+                view = NULL_VIEW;
+            cache.put(anActionName + "." + aViewName, view);
+        }
+        if (view == NULL_VIEW)
+            return null;
+        else
+            return view;
+    }
 }

@@ -173,10 +173,9 @@ public class OrderListAction extends JasperReportAction {
         }
     }
 
-	public OrderListAction()
-	{
-		setDataSource("orders");
-	}
+    public OrderListAction() {
+        setDataSource("orders");
+    }
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public Object[] getOrderArray() {
@@ -191,9 +190,8 @@ public class OrderListAction extends JasperReportAction {
     public String getTitle() {
         return "Dynamic Order Report Title";
     }
-    
-	public String getNullpx()
-	{
-		return "here";
-	}
+
+    public String getNullpx() {
+        return "here";
+    }
 }

@@ -91,7 +91,7 @@ public final class WebWorkUtil {
             }
 
             ServletResponseHandler responseHandler = new ServletResponseHandler(aResponse);
-            Class[] interfaces = new Class[] {HttpServletResponse.class};
+            Class[] interfaces = new Class[]{HttpServletResponse.class};
             HttpServletResponse response = (HttpServletResponse) Proxy.newProxyInstance(getClass().getClassLoader(), interfaces, responseHandler);
 
             dispatcher.include(aRequest, response);

@@ -68,12 +68,12 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     /**
-    * @param servletRequest
-    * @param servletResponse
-    * @param filterChain
-    * @throws IOException
-    * @throws ServletException
-    */
+     * @param servletRequest
+     * @param servletResponse
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         //todo verify that this works with namepaces
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -119,9 +119,9 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     /**
-    * @param filterConfig
-    * @throws ServletException
-    */
+     * @param filterConfig
+     * @throws ServletException
+     */
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
 
@@ -131,13 +131,13 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         HashMap newConfig = new HashMap();
 
         for (Iterator iterator = namespaceActionConfigs.entrySet().iterator();
-                iterator.hasNext();) {
+             iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
             String namespace = (String) entry.getKey();
             Map actionConfigs = (Map) entry.getValue();
 
             for (Iterator configIterator = actionConfigs.entrySet().iterator();
-                    configIterator.hasNext();) {
+                 configIterator.hasNext();) {
                 Map.Entry entry2 = (Map.Entry) configIterator.next();
                 String actionName = (String) entry2.getKey();
                 ActionConfig actionConfig = (ActionConfig) entry2.getValue();
@@ -174,42 +174,42 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     /**
-    * <p>
-    * getActionResultConfig returns the value of the location associated with a specified result and ActionConfig.  If
-    * there is no associated view or the Result has been configured as something besides dispatcher, this method will
-    * return null.
-    * </p>
-    *
-    * <p>
-    * Consider the following example xwork.xml configuration:
-    * </p>
-    *
-    * <pre>
-    *
-    * &lt;action name="SimpleCounter" class="com.opensymphony.webwork.example.counter.SimpleCounter"&gt;
-    *   &lt;result name="success" type="dispatcher"&gt;
-    *     &lt;param name="location"&gt;/success.jsp&lt;/param&gt;
-    *   &lt;/result&gt;
-    *   &lt;result name="input" type="chain"&gt;
-    *     &lt;param name="actionName"&gt;home&lt;/param&gt;
-    *   &lt;/result&gt;
-    *   ...
-    * &lt;/action&gt;
-    * </pre>
-    *
-    * <p>
-    * Assuming actionConfig references the above configuration
-    * <ul>
-    *   <li>getActionConfig("success", actionConfig) will return /success.jsp</li>
-    *   <li>getActionConfig("input", actionConfig) will return null</li>
-    *   <li>and getActionConfig("failure", actionConfig) will also return null</li>
-    * </ul>
-    * </p>
-    *
-    * @param result the name of the target we're testing against
-    * @param actionConfig the action to be introspected
-    * @return the path to the view is a view exists or null otherwise
-    */
+     * <p>
+     * getActionResultConfig returns the value of the location associated with a specified result and ActionConfig.  If
+     * there is no associated view or the Result has been configured as something besides dispatcher, this method will
+     * return null.
+     * </p>
+     *
+     * <p>
+     * Consider the following example xwork.xml configuration:
+     * </p>
+     *
+     * <pre>
+     *
+     * &lt;action name="SimpleCounter" class="com.opensymphony.webwork.example.counter.SimpleCounter"&gt;
+     *   &lt;result name="success" type="dispatcher"&gt;
+     *     &lt;param name="location"&gt;/success.jsp&lt;/param&gt;
+     *   &lt;/result&gt;
+     *   &lt;result name="input" type="chain"&gt;
+     *     &lt;param name="actionName"&gt;home&lt;/param&gt;
+     *   &lt;/result&gt;
+     *   ...
+     * &lt;/action&gt;
+     * </pre>
+     *
+     * <p>
+     * Assuming actionConfig references the above configuration
+     * <ul>
+     *   <li>getActionConfig("success", actionConfig) will return /success.jsp</li>
+     *   <li>getActionConfig("input", actionConfig) will return null</li>
+     *   <li>and getActionConfig("failure", actionConfig) will also return null</li>
+     * </ul>
+     * </p>
+     *
+     * @param result the name of the target we're testing against
+     * @param actionConfig the action to be introspected
+     * @return the path to the view is a view exists or null otherwise
+     */
     private String getActionResultConfig(String result, ActionConfig actionConfig) {
         Map results = actionConfig.getResults();
 
@@ -217,8 +217,8 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         Class clazz = resultConfig.getClazz();
 
         /**
-        * getActionResultConfig is _only_ valid for ServletDispatchResults
-        */
+         * getActionResultConfig is _only_ valid for ServletDispatchResults
+         */
         if ((clazz == null) || !clazz.equals(ServletDispatcherResult.class)) {
             return null;
         }

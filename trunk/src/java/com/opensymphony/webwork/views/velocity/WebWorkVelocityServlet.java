@@ -80,27 +80,27 @@ public class WebWorkVelocityServlet extends VelocityServlet {
     }
 
     /**
- * This method extends the VelocityServlet's loadConfiguration method by performing the following actions:
- * <ul>
- * <li>invokes VelocityServlet.loadConfiguration to create a properties object</li>
- * <li>alters the RESOURCE_LOADER to include a class loader</li>
- * <li>configures the class loader using the WebWorkResourceLoader</li>
- * </ul>
- *
- * @param servletConfig
- * @return
- * @throws IOException
- * @throws FileNotFoundException
- * @see org.apache.velocity.servlet.VelocityServlet#loadConfiguration
- */
+     * This method extends the VelocityServlet's loadConfiguration method by performing the following actions:
+     * <ul>
+     * <li>invokes VelocityServlet.loadConfiguration to create a properties object</li>
+     * <li>alters the RESOURCE_LOADER to include a class loader</li>
+     * <li>configures the class loader using the WebWorkResourceLoader</li>
+     * </ul>
+     *
+     * @param servletConfig
+     * @return
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @see org.apache.velocity.servlet.VelocityServlet#loadConfiguration
+     */
     protected Properties loadConfiguration(ServletConfig servletConfig) throws IOException, FileNotFoundException {
         return velocityManager.loadConfiguration(servletConfig.getServletContext());
     }
 
     /**
- * create a PageContext and render the template to PageContext.getOut()
- * @see VelocityServlet#mergeTemplate(Template, Context, HttpServletResponse) for additional documentation
- */
+     * create a PageContext and render the template to PageContext.getOut()
+     * @see VelocityServlet#mergeTemplate(Template, Context, HttpServletResponse) for additional documentation
+     */
     protected void mergeTemplate(Template template, Context context, HttpServletResponse response) throws ResourceNotFoundException, ParseErrorException, MethodInvocationException, IOException, UnsupportedEncodingException, Exception {
         // save the old PageContext
         PageContext oldPageContext = ServletActionContext.getPageContext();

@@ -52,7 +52,7 @@ public class ComponentTest extends AbstractUITagTest {
         tag.addParam("hello", "world");
         tag.addParam("argle", "bargle");
         tag.addParam("glip", "glop");
-        tag.addParam("array", new String[] {"a", "b", "c"});
+        tag.addParam("array", new String[]{"a", "b", "c"});
         tag.addParam("obj", tag);
 
         int result = tag.doEndTag();

@@ -29,8 +29,8 @@ public class ValueStackModel extends SimpleHash implements TemplateHashModel {
     //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
-    *
-    */
+     *
+     */
     public ValueStackModel(TemplateHashModel wrappedModel) {
         super();
         this.wrappedModel = wrappedModel;

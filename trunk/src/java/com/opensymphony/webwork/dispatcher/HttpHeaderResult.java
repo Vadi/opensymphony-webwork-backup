@@ -65,9 +65,9 @@ public class HttpHeaderResult implements Result {
             OgnlValueStack stack = ActionContext.getContext().getValueStack();
             for (Iterator iterator = headers.entrySet().iterator(); iterator.hasNext();) {
                 Map.Entry entry = (Map.Entry) iterator.next();
-                String value = (String)entry.getValue();
+                String value = (String) entry.getValue();
                 String finalValue = parse ? TextParseUtil.translateVariables(value, stack) : value;
-                response.addHeader((String)entry.getKey(),finalValue);
+                response.addHeader((String) entry.getKey(), finalValue);
             }
         }
     }

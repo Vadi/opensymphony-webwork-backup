@@ -44,11 +44,10 @@ public class URLBean {
     }
 
     public String getURL() {
-        if (page == null)
-        {
-           // No particular page requested, so go to "same page"
-           // Add query params to parameters
-           params.putAll(request.getParameterMap());
+        if (page == null) {
+            // No particular page requested, so go to "same page"
+            // Add query params to parameters
+            params.putAll(request.getParameterMap());
         }
 
         return UrlHelper.buildUrl(page, request, response, params);

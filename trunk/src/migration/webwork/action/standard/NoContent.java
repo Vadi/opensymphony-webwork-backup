@@ -25,17 +25,15 @@ import com.opensymphony.webwork.ServletActionContext;
  *	@author Dick Zetterberg (dick@transitor.se)
  *	@version $Revision$
  */
-public class NoContent implements Action
-{
-   protected static Log log = LogFactory.getLog(NoContent.class);
+public class NoContent implements Action {
+    protected static Log log = LogFactory.getLog(NoContent.class);
 
-   public String execute()
-   {
-      log.debug("NoContent action setting HTTP response to 204");
-      HttpServletResponse response = ServletActionContext.getResponse();
-      response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-      // Return NONE so that no view is used by the dispatcher
-      return NONE;
-   }
+    public String execute() {
+        log.debug("NoContent action setting HTTP response to 204");
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        // Return NONE so that no view is used by the dispatcher
+        return NONE;
+    }
 }
 

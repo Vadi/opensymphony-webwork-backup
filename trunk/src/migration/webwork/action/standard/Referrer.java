@@ -25,28 +25,25 @@ import java.util.Enumeration;
  *	@version $Revision$
  */
 public class Referrer
-   extends Redirect
-   implements ServletRequestAware
-{
-   // Attributes ----------------------------------------------------
-   HttpServletRequest request;
+        extends Redirect
+        implements ServletRequestAware {
+    // Attributes ----------------------------------------------------
+    HttpServletRequest request;
 
-   // Implements ServletRequestAware --------------------------------
-   public void setServletRequest(HttpServletRequest request)
-   {
-      this.request = request;
-   }
+    // Implements ServletRequestAware --------------------------------
+    public void setServletRequest(HttpServletRequest request) {
+        this.request = request;
+    }
 
-   // Action implementation -----------------------------------------
-   /**
-    * Redirect to URL
-    */
-   protected String doExecute()
-      throws Exception
-   {
-      setUrl(request.getHeader("referer"));
+    // Action implementation -----------------------------------------
+    /**
+     * Redirect to URL
+     */
+    protected String doExecute()
+            throws Exception {
+        setUrl(request.getHeader("referer"));
 
-      return super.doExecute();
-   }
+        return super.doExecute();
+    }
 }
 

@@ -108,8 +108,8 @@ public abstract class AbstractTagDirective extends Directive {
 
             // populate our tag with all the user specified properties
             if (object instanceof ParameterizedTag) {
-                Map params = ((ParameterizedTag)object).getParams();
-                if( params != null ) {
+                Map params = ((ParameterizedTag) object).getParams();
+                if (params != null) {
                     params.clear();
                 }
             }
@@ -224,7 +224,7 @@ public abstract class AbstractTagDirective extends Directive {
         Map propertyMap = new HashMap();
 
         for (int index = 1, length = node.jjtGetNumChildren(); index < length;
-                index++) {
+             index++) {
             this.putProperty(propertyMap, contextAdapter, node.jjtGetChild(index));
         }
 
@@ -260,7 +260,7 @@ public abstract class AbstractTagDirective extends Directive {
         Class clazz = null;
 
         for (int index = 0; (clazz == null) && (index < tagpath.length);
-                index++) {
+             index++) {
             try {
                 clazz = Class.forName(tagpath[index] + "." + tagname + "Tag");
             } catch (ClassNotFoundException e) {
@@ -390,7 +390,7 @@ public abstract class AbstractTagDirective extends Directive {
         Map ognlContext = Ognl.createDefaultContext(object);
 
         for (Iterator iterator = propertyMap.entrySet().iterator();
-                iterator.hasNext();) {
+             iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
             String key = entry.getKey().toString();
             Object value = entry.getValue();

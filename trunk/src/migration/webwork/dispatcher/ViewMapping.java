@@ -14,11 +14,10 @@ package webwork.dispatcher;
  * @author Rickard Öberg (rickard@middleware-company.com)
  * @version $Revision$
  */
-public interface ViewMapping
-{
-   // Public ---------------------------------------------------------
-   /**
-    * Get view corresponding to given action and view names.
-    */
-   public Object getView(String anActionName, String aViewName);
+public interface ViewMapping {
+    // Public ---------------------------------------------------------
+    /**
+     * Get view corresponding to given action and view names.
+     */
+    public Object getView(String anActionName, String aViewName);
 }

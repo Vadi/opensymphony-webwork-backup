@@ -22,37 +22,32 @@ package webwork.action;
  *	@version $Revision$
  */
 public class ResultException
-   extends Exception
-{
-   String result;
-   String message;
+        extends Exception {
+    String result;
+    String message;
 
-   // Public --------------------------------------------------------
-   public ResultException(String aResult)
-   {
-      this.result = aResult;
-   }
+    // Public --------------------------------------------------------
+    public ResultException(String aResult) {
+        this.result = aResult;
+    }
 
-   /**
-    *
-    *
-    * @param aResult the result view; i.e. - ERROR, INPUT, etc
-    * @param message the error message
-    */
-   public ResultException(String aResult, String message)
-   {
-      this.result = aResult;
-      this.message = message;
-   }
+    /**
+     *
+     *
+     * @param aResult the result view; i.e. - ERROR, INPUT, etc
+     * @param message the error message
+     */
+    public ResultException(String aResult, String message) {
+        this.result = aResult;
+        this.message = message;
+    }
 
 
-   public String getResult()
-   {
-      return result;
-   }
+    public String getResult() {
+        return result;
+    }
 
-   public String getMessage()
-   {
-      return message;
-   }
+    public String getMessage() {
+        return message;
+    }
 }

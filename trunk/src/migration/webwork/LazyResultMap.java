@@ -43,14 +43,14 @@ class LazyResultMap extends HashMap {
             String resultStr = (String) views.getView(actionName, (String) key);
             if (resultStr != null) {
                 if (resultStr.endsWith(actionSuffix)) {
-                    String actionName = resultStr.substring(0,resultStr.lastIndexOf(actionSuffix));
+                    String actionName = resultStr.substring(0, resultStr.lastIndexOf(actionSuffix));
                     Map params = new HashMap();
-                    params.put(ActionChainResult.DEFAULT_PARAM,actionName);
-                    resultConfig = new ResultConfig((String)key,ActionChainResult.class,params);
+                    params.put(ActionChainResult.DEFAULT_PARAM, actionName);
+                    resultConfig = new ResultConfig((String) key, ActionChainResult.class, params);
                 } else {
                     Map params = new HashMap();
-                    params.put(ServletDispatcherResult.DEFAULT_PARAM,actionName);
-                    resultConfig = new ResultConfig((String)key,ServletDispatcherResult.class,params);
+                    params.put(ServletDispatcherResult.DEFAULT_PARAM, actionName);
+                    resultConfig = new ResultConfig((String) key, ServletDispatcherResult.class, params);
                 }
                 put(key, resultConfig);
             }

@@ -47,7 +47,7 @@ public class UrlHelperTest extends TestCase {
 
         String actionName = "my.actionName";
         TreeMap params = new TreeMap();
-        params.put("hello", new String[] {"earth", "mars"});
+        params.put("hello", new String[]{"earth", "mars"});
         params.put("foo", "bar");
 
         String urlString = UrlHelper.buildUrl(actionName, (HttpServletRequest) mockHttpServletRequest.proxy(), (HttpServletResponse) mockHttpServletResponse.proxy(), params);

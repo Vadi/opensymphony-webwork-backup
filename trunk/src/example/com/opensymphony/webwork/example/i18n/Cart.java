@@ -8,69 +8,69 @@ import java.util.List;
  * http://www.javaworld.com/javaworld/jw-03-2000/jw-03-ssj-jsp_p.html
  */
 public class Cart {
-	List items;
+    List items;
 
-	public void addItem(CD cd, int quantity) {
-		if (items == null)
-			items = new ArrayList();
+    public void addItem(CD cd, int quantity) {
+        if (items == null)
+            items = new ArrayList();
 
-		for (int i = 0; i < items.size(); i++) {
-			CartItem ci = (CartItem) items.get(i);
-			if (cd.equals(ci.cd)) {
-				ci.addQuantity(quantity);
-				return;
-			}
-		}
+        for (int i = 0; i < items.size(); i++) {
+            CartItem ci = (CartItem) items.get(i);
+            if (cd.equals(ci.cd)) {
+                ci.addQuantity(quantity);
+                return;
+            }
+        }
 
-		items.add(new CartItem(cd, quantity));
-	}
+        items.add(new CartItem(cd, quantity));
+    }
 
-	public void removeItem(CD cd) {
-		for (int i = 0; i < items.size(); i++) {
-			CartItem ci = (CartItem) items.get(i);
-			if (cd.equals(ci.cd)) {
-				items.remove(ci);
+    public void removeItem(CD cd) {
+        for (int i = 0; i < items.size(); i++) {
+            CartItem ci = (CartItem) items.get(i);
+            if (cd.equals(ci.cd)) {
+                items.remove(ci);
 
-				if (items.size() == 0)
-					items = null;
+                if (items.size() == 0)
+                    items = null;
 
-				return;
-			}
-		}
-	}
+                return;
+            }
+        }
+    }
 
-	public List getItems() {
-		return items;
-	}
+    public List getItems() {
+        return items;
+    }
 
-	public double getTotal() {
-		double total = 0;
-		for (int i = 0; i < items.size(); i++) {
-			CartItem ci = (CartItem) items.get(i);
-			total += ci.getCd().getPrice() * ci.getQuantity();
-		}
-		return total;
-	}
+    public double getTotal() {
+        double total = 0;
+        for (int i = 0; i < items.size(); i++) {
+            CartItem ci = (CartItem) items.get(i);
+            total += ci.getCd().getPrice() * ci.getQuantity();
+        }
+        return total;
+    }
 
-	static public class CartItem {
-		int qty;
-		CD cd;
+    static public class CartItem {
+        int qty;
+        CD cd;
 
-		CartItem(CD cd, int qty) {
-			this.cd = cd;
-			addQuantity(qty);
-		}
+        CartItem(CD cd, int qty) {
+            this.cd = cd;
+            addQuantity(qty);
+        }
 
-		public void addQuantity(int qty) {
-			this.qty += qty;
-		}
+        public void addQuantity(int qty) {
+            this.qty += qty;
+        }
 
-		public int getQuantity() {
-			return qty;
-		}
+        public int getQuantity() {
+            return qty;
+        }
 
-		public CD getCd() {
-			return cd;
-		}
-	}
+        public CD getCd() {
+            return cd;
+        }
+    }
 }

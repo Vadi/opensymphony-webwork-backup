@@ -22,5 +22,5 @@ import com.opensymphony.xwork.Preparable;
  *	@version $Revision$
  */
 public interface PrepareAction extends Preparable {
-   // Public --------------------------------------------------------
+    // Public --------------------------------------------------------
 }

@@ -19,58 +19,51 @@ import java.util.Map;
  *	@version $Revision$
  */
 public class CardPane
-   extends ActionSupport
-   implements ParameterAware
-{
-   // Attributes ----------------------------------------------------
-   String defaultName;
-   String paneName;
-   Map parameters;
+        extends ActionSupport
+        implements ParameterAware {
+    // Attributes ----------------------------------------------------
+    String defaultName;
+    String paneName;
+    Map parameters;
 
-   // Static --------------------------------------------------------
+    // Static --------------------------------------------------------
 
-   // Public --------------------------------------------------------
-   /**
-    * Default pane
-    */
-   public void setDefaultName(String aName)
-   {
-      defaultName = aName;
-   }
+    // Public --------------------------------------------------------
+    /**
+     * Default pane
+     */
+    public void setDefaultName(String aName) {
+        defaultName = aName;
+    }
 
-   public String getDefaultName()
-   {
-      return defaultName;
-   }
+    public String getDefaultName() {
+        return defaultName;
+    }
 
-   public void setPaneName(String aName)
-   {
-      paneName = aName;
-   }
+    public void setPaneName(String aName) {
+        paneName = aName;
+    }
 
-   public String getPaneName()
-   {
-      return paneName;
-   }
+    public String getPaneName() {
+        return paneName;
+    }
 
-   // ParameterAware implementation ---------------------------------
-   public void setParameters(Map aMap)
-   {
-      parameters = new SingleValueMap(aMap);
-   }
+    // ParameterAware implementation ---------------------------------
+    public void setParameters(Map aMap) {
+        parameters = new SingleValueMap(aMap);
+    }
 
-   // Action implementation -----------------------------------------
-   /**
-    * Get chosen pane, or default if no pane is selected
-    */
-   public String execute()
-      throws Exception
-   {
-      // Get state of pane by getting parameter with name=pane name
-      String name = (String)parameters.get(paneName);
+    // Action implementation -----------------------------------------
+    /**
+     * Get chosen pane, or default if no pane is selected
+     */
+    public String execute()
+            throws Exception {
+        // Get state of pane by getting parameter with name=pane name
+        String name = (String) parameters.get(paneName);
 
-      // Return name of chosen pane prefixed with the name of this pane set
-      return paneName+"."+(name==null?defaultName:name);
-   }
+        // Return name of chosen pane prefixed with the name of this pane set
+        return paneName + "." + (name == null ? defaultName : name);
+    }
 }
 

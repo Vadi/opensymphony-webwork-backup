@@ -33,66 +33,57 @@ import com.opensymphony.webwork.config.Configuration;
  * @version $Revision$
  */
 public class AliasingActionFactoryProxy
-   extends ActionFactoryProxy
-{
-   // Attributes ----------------------------------------------------
-   Map actionAliases = new Hashtable();
-   boolean aliasingOnly;
+        extends ActionFactoryProxy {
+    // Attributes ----------------------------------------------------
+    Map actionAliases = new Hashtable();
+    boolean aliasingOnly;
 
-   // Constructors --------------------------------------------------
-   public AliasingActionFactoryProxy(ActionFactory aFactory)
-   {
-      super(aFactory);
+    // Constructors --------------------------------------------------
+    public AliasingActionFactoryProxy(ActionFactory aFactory) {
+        super(aFactory);
 
-      try
-      {
-         aliasingOnly = Boolean.valueOf(Configuration.getString("webwork.aliasing.only")).booleanValue();
-      } catch (IllegalArgumentException e)
-      {
-         // Ignore - hence default is false
-      }
-   }
+        try {
+            aliasingOnly = Boolean.valueOf(Configuration.getString("webwork.aliasing.only")).booleanValue();
+        } catch (IllegalArgumentException e) {
+            // Ignore - hence default is false
+        }
+    }
 
-   // ActionFactory overrides ---------------------------------------
-  /**
-   * Searches for the action from the configuration properties substituting
-   * the alias with the associated action and then returns the matching
-   * action from the action factory proxy chain.  For the alias to match, it
-   * must be specified with an <code>".action"</code> suffix.
-   *
-   * @param   aName
-   * @return the action corresponding to the given alias
-   * @exception Exception
-   *
-   */
-   public Action getActionImpl(String aName)
-     throws Exception
-   {
-      // Check cache
-      String actionName = (String)actionAliases.get(aName);
+    // ActionFactory overrides ---------------------------------------
+    /**
+     * Searches for the action from the configuration properties substituting
+     * the alias with the associated action and then returns the matching
+     * action from the action factory proxy chain.  For the alias to match, it
+     * must be specified with an <code>".action"</code> suffix.
+     *
+     * @param   aName
+     * @return the action corresponding to the given alias
+     * @exception Exception
+     *
+     */
+    public Action getActionImpl(String aName)
+            throws Exception {
+        // Check cache
+        String actionName = (String) actionAliases.get(aName);
 
-      // Find class
-      if (actionName == null)
-      {
-         try
-         {
-            // Get alias
-            actionName = Configuration.getString(aName+"." +
-               Configuration.getString("webwork.action.extension"));
-         } catch (IllegalArgumentException e)
-         {
-            // No alias for this name -> use as-is
-            // Check if this is allowed
-            LogFactory.getLog(getClass()).debug("Aliasing only:"+aliasingOnly);
-            if (aliasingOnly)
-            {
-               //TODO
+        // Find class
+        if (actionName == null) {
+            try {
+                // Get alias
+                actionName = Configuration.getString(aName + "." +
+                        Configuration.getString("webwork.action.extension"));
+            } catch (IllegalArgumentException e) {
+                // No alias for this name -> use as-is
+                // Check if this is allowed
+                LogFactory.getLog(getClass()).debug("Aliasing only:" + aliasingOnly);
+                if (aliasingOnly) {
+                    //TODO
+                }
+                actionName = aName;
             }
-            actionName = aName;
-         }
-         actionAliases.put(aName, actionName);
-      }
+            actionAliases.put(aName, actionName);
+        }
 
-      return getNextFactory().getActionImpl(actionName);
-   }
+        return getNextFactory().getActionImpl(actionName);
+    }
 }

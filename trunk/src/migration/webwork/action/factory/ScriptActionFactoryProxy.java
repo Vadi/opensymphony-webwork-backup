@@ -16,42 +16,37 @@ import webwork.action.standard.Script;
  * @version $Revision$
  */
 public class ScriptActionFactoryProxy
-   extends ActionFactoryProxy
-{
-   // Attributes ----------------------------------------------------
+        extends ActionFactoryProxy {
+    // Attributes ----------------------------------------------------
 
-   // Constructors --------------------------------------------------
-   public ScriptActionFactoryProxy(ActionFactory aFactory)
-   {
-      super(aFactory);
-   }
+    // Constructors --------------------------------------------------
+    public ScriptActionFactoryProxy(ActionFactory aFactory) {
+        super(aFactory);
+    }
 
-   // ActionFactory overrides ---------------------------------------
-  /**
-   * If the suffix of the action is a scripting extension, get the Script
-   * action and then load the script.  Currently, <code>".js"</code>
-   * is the only suffix supported.
-   *
-   * @param   aName
-   * @return   the script action or an action corresponding to the given name
-   * @exception   Exception
-   */
-   public Action getActionImpl(String aName)
-     throws Exception
-   {
-      // Check for scripting extension
-      if (aName.endsWith(".js"))
-      {
-         Script script = (Script)ActionFactory.getAction("Script");
-         script.setScript(aName);
+    // ActionFactory overrides ---------------------------------------
+    /**
+     * If the suffix of the action is a scripting extension, get the Script
+     * action and then load the script.  Currently, <code>".js"</code>
+     * is the only suffix supported.
+     *
+     * @param   aName
+     * @return   the script action or an action corresponding to the given name
+     * @exception   Exception
+     */
+    public Action getActionImpl(String aName)
+            throws Exception {
+        // Check for scripting extension
+        if (aName.endsWith(".js")) {
+            Script script = (Script) ActionFactory.getAction("Script");
+            script.setScript(aName);
 
-         if (script.getScriptURL() == null)
-            throw new IllegalArgumentException("Script '"+aName+"' does not exist");
+            if (script.getScriptURL() == null)
+                throw new IllegalArgumentException("Script '" + aName + "' does not exist");
 
-         return script;
-      } else
-      {
-         return getNextFactory().getActionImpl(aName);
-      }
-   }
+            return script;
+        } else {
+            return getNextFactory().getActionImpl(aName);
+        }
+    }
 }

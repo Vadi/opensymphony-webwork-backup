@@ -32,84 +32,86 @@ import com.opensymphony.xwork.ActionInvocation;
  */
 public class ChartResultTest extends TestCase {
 
-	private JFreeChart mockChart;
+    private JFreeChart mockChart;
 
-	private ActionInvocation actionInvocation;
-	private MockServletOutputStream os;
-	private Mock responseMock;
+    private ActionInvocation actionInvocation;
+    private MockServletOutputStream os;
+    private Mock responseMock;
 
-	protected void setUp() throws Exception {
+    protected void setUp() throws Exception {
         DefaultPieDataset data = new DefaultPieDataset();
         data.setValue("Java", new Double(43.2));
         data.setValue("Visual Basic", new Double(0.0));
         data.setValue("C/C++", new Double(17.5));
         mockChart = ChartFactory.createPieChart("Pie Chart", data, true, true, false);
 
-		Mock mockActionInvocation = new Mock(ActionInvocation.class);
-		actionInvocation = (ActionInvocation) mockActionInvocation.proxy();
-		os = new MockServletOutputStream();
-		responseMock = new Mock(HttpServletResponse.class);
+        Mock mockActionInvocation = new Mock(ActionInvocation.class);
+        actionInvocation = (ActionInvocation) mockActionInvocation.proxy();
+        os = new MockServletOutputStream();
+        responseMock = new Mock(HttpServletResponse.class);
 
-		ActionContext.setContext(
-			new ActionContext(Ognl.createDefaultContext(null)));
-		ServletActionContext.setResponse(
-			(HttpServletResponse) responseMock.proxy());
-	}
+        ActionContext.setContext(
+                new ActionContext(Ognl.createDefaultContext(null)));
+        ServletActionContext.setResponse(
+                (HttpServletResponse) responseMock.proxy());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	protected void tearDown() throws Exception {
-		actionInvocation = null;
-		os = null;
-		responseMock = null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see junit.framework.TestCase#tearDown()
+     */
+    protected void tearDown() throws Exception {
+        actionInvocation = null;
+        os = null;
+        responseMock = null;
+    }
 
-	public void testChartNotSet() {
-		ChartResult result = new ChartResult();
+    public void testChartNotSet() {
+        ChartResult result = new ChartResult();
 
-		// expect exception if chart not set.
-		result.setChart(null);
+        // expect exception if chart not set.
+        result.setChart(null);
 
-		try {
-			result.execute(actionInvocation);
-			fail();
-		} catch (Exception e) {
-		}
+        try {
+            result.execute(actionInvocation);
+            fail();
+        } catch (Exception e) {
+        }
 
-		responseMock.verify();
-		assertFalse(os.isWritten());
-	}
+        responseMock.verify();
+        assertFalse(os.isWritten());
+    }
 
-	public void testChart() throws Exception {
-		responseMock.expectAndReturn("getOutputStream", os);
+    public void testChart() throws Exception {
+        responseMock.expectAndReturn("getOutputStream", os);
 
-		ChartResult result = new ChartResult();
+        ChartResult result = new ChartResult();
 
-		result.setChart(mockChart);
+        result.setChart(mockChart);
 
         result.setHeight(10);
         result.setWidth(10);
-		result.execute(actionInvocation);
+        result.execute(actionInvocation);
 
-		responseMock.verify();
-		assertTrue(os.isWritten());
-	}
+        responseMock.verify();
+        assertTrue(os.isWritten());
+    }
 
-	private class MockServletOutputStream extends ServletOutputStream {
-		// very simple check that outputStream was written to.
-		private boolean written = false;
-		public void write(int arg0) throws IOException {
-			written = true;
-		}
-		/**
-		 * @return Returns the written.
-		 */
-		public boolean isWritten() {
-			return written;
-		}
+    private class MockServletOutputStream extends ServletOutputStream {
+        // very simple check that outputStream was written to.
+        private boolean written = false;
 
-	}
+        public void write(int arg0) throws IOException {
+            written = true;
+        }
+
+        /**
+         * @return Returns the written.
+         */
+        public boolean isWritten() {
+            return written;
+        }
+
+    }
 }
