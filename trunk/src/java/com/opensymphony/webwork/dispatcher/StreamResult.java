@@ -134,34 +134,39 @@ public class StreamResult extends WebWorkResultSupport {
         // Find the inputstream from the invocation variable stack
         InputStream oInput = (InputStream) invocation.getStack().findValue(conditionalParse(inputName, invocation));
 
-        // Find the Response in context
-        HttpServletResponse oResponse = (HttpServletResponse) invocation.getInvocationContext().get(HTTP_RESPONSE);
+        try {
+            // Find the Response in context
+            HttpServletResponse oResponse = (HttpServletResponse) invocation.getInvocationContext().get(HTTP_RESPONSE);
 
-        // Set the content type
-        oResponse.setContentType(conditionalParse(contentType, invocation));
+            // Set the content type
+            oResponse.setContentType(conditionalParse(contentType, invocation));
 
-        // Set the content length
-        if (contentLength > 0) {
-             oResponse.setContentLength(contentLength);
+            // Set the content length
+            if (contentLength != 0) {
+                 oResponse.setContentLength(contentLength);
+            }
+
+            // Set the content-disposition
+            if (contentDisposition != null) {
+                oResponse.addHeader("Content-disposition", conditionalParse(contentDisposition, invocation));
+            }
+
+            // Get the outputstream
+            OutputStream oOutput = oResponse.getOutputStream();
+
+            // Copy input to output
+            byte[] oBuff = new byte[bufferSize];
+            int iSize = 0;
+            while (-1 != (iSize = oInput.read(oBuff))) {
+                oOutput.write(oBuff, 0, iSize);
+            }
+
+            // Flush
+            oOutput.flush();
         }
-
-        // Set the content-disposition
-        if (contentDisposition != null) {
-            oResponse.addHeader("Content-disposition", conditionalParse(contentDisposition, invocation));
+        finally {
+            if (oInput != null) oInput.close();
         }
-
-        // Get the outputstream
-        OutputStream oOutput = oResponse.getOutputStream();
-
-        // Copy input to output
-        byte[] oBuff = new byte[bufferSize];
-        int iSize = 0;
-        while (-1 != (iSize = oInput.read(oBuff))) {
-            oOutput.write(oBuff, 0, iSize);
-        }
-
-        // Flush
-        oOutput.flush();
     }
 
 }
