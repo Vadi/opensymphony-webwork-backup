@@ -7,35 +7,26 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.ParameterizedTagSupport;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.validator.ActionValidatorManager;
-import com.opensymphony.xwork.validator.Validator;
 import com.opensymphony.xwork.validator.FieldValidator;
-import com.opensymphony.xwork.Action;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.ActionInvocation;
-
+import com.opensymphony.xwork.validator.Validator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.velocity.Template;
-import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 
-import java.io.Writer;
-
-import java.util.*;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.jsp.JspException;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @version $Id$
  */
 public abstract class AbstractUITag extends ParameterizedTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -148,12 +139,14 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
      * example, the CheckboxTab might return "checkbox.vm" while the RadioTag might return "radio.vm".  This value
      * <strong>not</strong> begin with a '/' unless you intend to make the path absolute rather than relative to the
      * current theme.
+     *
      * @return The name of the template to be used as the default.
      */
     protected abstract String getDefaultTemplate();
 
     /**
      * Find the name of the Velocity template that we should use.
+     *
      * @return The name of the Velocity template that we should use. This value should begin with a '/'
      */
     protected String getTemplateName() {
@@ -165,7 +158,6 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     /**
-     *
      * @param myTemplate
      * @param myDefaultTemplate
      */
@@ -242,8 +234,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         FormTag tag = (FormTag) findAncestorWithClass(this, FormTag.class);
-        if (tag != null)
-        {
+        if (tag != null) {
             addParameter("form", tag.getParameters());
         }
 
@@ -268,12 +259,11 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         // now let's do some JavaScript stuff. or something
-        if (tag != null) {
+        if (tag != null && tag.getActionClass() != null && tag.getActionName() != null) {
             List validators = ActionValidatorManager.getValidators(tag.getActionClass(), tag.getActionName());
             for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
                 Validator validator = (Validator) iterator.next();
-                if (validator instanceof FieldValidator)
-                {
+                if (validator instanceof FieldValidator) {
                     FieldValidator fieldValidator = (FieldValidator) validator;
                     if (fieldValidator.getFieldName().equals(name)) {
                         tag.registerValidator(name, fieldValidator, new HashMap(getParameters()));
