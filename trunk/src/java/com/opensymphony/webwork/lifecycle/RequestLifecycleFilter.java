@@ -42,7 +42,7 @@ public class RequestLifecycleFilter implements Filter {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        ComponentManager container = new DefaultComponentManager();
+        ComponentManager container = createComponentManager();
 
         try {
             if (log.isDebugEnabled()) {
@@ -67,6 +67,10 @@ public class RequestLifecycleFilter implements Filter {
 
             container.dispose();
         }
+    }
+
+    protected DefaultComponentManager createComponentManager() {
+        return new DefaultComponentManager();
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {

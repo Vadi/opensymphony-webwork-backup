@@ -46,13 +46,17 @@ public class ApplicationLifecycleListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent event) {
         ServletContext application = event.getServletContext();
-        ComponentManager container = new DefaultComponentManager();
+        ComponentManager container = createComponentManager();
         ComponentConfiguration config = loadConfiguration();
 
         config.configure(container, "application");
 
         application.setAttribute("DefaultComponentManager", container);
         application.setAttribute("ComponentConfiguration", config);
+    }
+
+    protected DefaultComponentManager createComponentManager() {
+        return new DefaultComponentManager();
     }
 
     private ComponentConfiguration loadConfiguration() {
