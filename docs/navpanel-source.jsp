@@ -1,7 +1,7 @@
 <p>
 <h3>WebWork</h3>
 <a href="/webwork">Home</a><br/>
-<a href="@DOWNLOAD@">Download</a><br>
+<a href="@DOWNLOAD@">Download</a> (<a href="@DOWNLOAD_JAR@">JAR</a>)<br>
 <a href="/webwork/wikidocs/Documentation.html">Documentation</a> (<a href="/webwork/wikidocs/docs.pdf">PDF</a>)<br>
 <a href="/webwork/api/">API Documentation</a><br>
 </p>
