@@ -16,7 +16,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Locale;
 
@@ -111,13 +110,10 @@ public class FreemarkerResult extends WebWorkResultSupport {
     }
 
     /**
-     * the default writer writes directly to the response output stream
+     * The default writer writes directly to the response writer.
      */
     protected Writer getWriter() throws IOException {
-        return new OutputStreamWriter(
-                ServletActionContext.getResponse().getOutputStream(),
-                ServletActionContext.getResponse().getCharacterEncoding()
-        );
+        return ServletActionContext.getResponse().getWriter();
     }
 
     /**
