@@ -6,7 +6,7 @@
     </head>
     
     <body>
-        <ww:form name="'test'" action="javascript" validate="true" >
+        <ww:form name="'test'" action="'javascriptValidation'" validate="true" >
             <ww:textfield label="'Can't be empty'" name="'test'" required="true"/>
             <ww:submit value="'Submit'"/>
         </ww:form>
