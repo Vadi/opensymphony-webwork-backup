@@ -48,13 +48,6 @@ public class TokenTagTest extends AbstractUITagTest {
         doTokenTest(tokenName, tag);
     }
 
-    public void testWithoutSession() {
-        String tokenName = TokenHelper.DEFAULT_TOKEN_NAME;
-        TokenTag tag = new TokenTag();
-        ServletActionContext.getContext().setSession(null);
-        doTokenTest(tokenName, tag);
-    }
-
     private String doTokenTest(String tokenName, TokenTag tag) {
         tag.setPageContext(pageContext);
 

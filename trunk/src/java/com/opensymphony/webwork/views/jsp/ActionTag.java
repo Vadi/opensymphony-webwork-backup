@@ -131,7 +131,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     String buildNamespace() {
         String namespace = "";
         ActionInvocation invocation = null;
-        ActionContext context = ActionContext.getContext();
+        ActionContext context = new ActionContext(getValueStack().getContext());
 
         if (context != null) {
             invocation = context.getActionInvocation();
@@ -158,7 +158,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         // Leave the ValueStack out -- We're not processing inside the tag
         //        OgnlValueStack vs = ActionContext.getContext().getValueStack();
         //        extraContext.put(ActionContext.VALUE_STACK, vs);
-        Map parentParams = ActionContext.getContext().getParameters();
+        Map parentParams = new ActionContext(getValueStack().getContext()).getParameters();
         Map newParams = (parentParams != null) ? new HashMap(parentParams) : new HashMap();
 
         if (params != null) {
@@ -208,7 +208,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         }
 
         if (getId() != null) {
-            ActionContext.getContext().put(getId(), proxy.getAction());
+            getValueStack().getContext().put(getId(), proxy.getAction());
         }
     }
 }
