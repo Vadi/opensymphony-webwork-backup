@@ -322,10 +322,6 @@
             </fileset>
         </copy>
 
-        <!-- don't ship with clover and junit docs -->
-<!--        <delete dir="${build.dist}/docs/clover"/>-->
-<!--        <delete dir="${build.dist}/docs/junit"/>-->
-
         <!-- copy README -->
         <tstamp/>
         <copy filtering="on" todir="${build.dist}">
