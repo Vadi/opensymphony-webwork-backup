@@ -49,6 +49,9 @@ public class VelocityTemplateEngine extends BaseTemplateEngine {
                 (HttpServletResponse) pageContext.getResponse());
 
         Writer outputWriter = (Writer) ActionContext.getContext().get(AbstractTagDirective.VELOCITY_WRITER);
+        if (outputWriter == null) {
+            outputWriter = pageContext.getOut();
+        }
 
         // Make the OGNL stack available to the velocityEngine templates.
         // todo Consider putting all the VelocityServlet Context values in
