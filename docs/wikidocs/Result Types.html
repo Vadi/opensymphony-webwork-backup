@@ -15,7 +15,7 @@
                                                     </span>
 				    </div>
 				    <div class="pagesubheading">
-					    This page last changed on Jun 11, 2004 by <font color="#0050B2">mbogaert</font>.
+					    This page last changed on Sep 10, 2004 by <font color="#0050B2">casey</font>.
 				    </div>
 
 				    <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a name="ResultTypes-Overview">  Overview</a></h2></p><b class="strong">Result Types</b> are classes that determine what happens after an Action executes and a Result is returned. Developers are free to create their own Result Types according to the needs of their application or environment. In WebWork 2 for example, Servlet and Velocity Result Types have been created to handle rendering views in web applications.<p class="paragraph"><ins class="inserted">Note:</ins> All built in webwork result types implement the <tt class="monospaced">com.opensymphony.xwork.Result</tt> interface, which represents a generic interface for all action execution results, whether that be displaying a webpage, generating an email, sending a JMS message, etc.</p>Result types define classes and map them to names to be referred in the action configuration results. This serves as a shorthand name-value pair for these classes. 
@@ -89,17 +89,18 @@ or simplified
 </tr><tr>
 <td> actionName </td><td> <b class="strong">yes</b> </td><td> the name of the action that will be chained to</td>
 </tr><tr>
-<td> namespace </td><td> no </td><td> sets the namespace of the Action that we&#039;re chaining to.  If namespace is null, this defaults to the current namespace. </td><td>
+<td> namespace </td><td> no </td><td> sets the namespace of the Action that we&#039;re chaining to.  If namespace is null, this defaults to the current namespace. </td>
+</tr>
+</table>
 <div class="code"><div class="codeContent">
 <pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;chain&quot;</span>&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;actionName&quot;</span>&gt;bar&lt;/param&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;namespace&quot;</span>&gt;/foo&lt;/param&gt;&#10;&lt;/result&gt;</pre>
 </div></div><br/>
 invokes this
 <div class="code"><div class="codeContent">
 <pre>&lt;action name=<span class="java&#45;quote">&quot;bar&quot;</span> class=<span class="java&#45;quote">&quot;myPackage.barAction&quot;</span>&gt;&#10;    ...&#10;&lt;/action&gt;</pre>
-</div></div></td>
-</tr>
-</table>
-<h4 class="heading4"><a name="ResultTypes-Velocity%3Caname%3D%22ResultTypesVelocity%22%3E%3C%2Fa%3E"> Velocity <a name="ResultTypes-Velocity"></a></a></h4><p class="paragraph">This result mocks a JSP execution environment and then displays a Velocity template that will be streamed directly to the servlet output.</p><table class="wikitable">
+</div></div><p class="paragraph"><h4 class="heading4"><a name="ResultTypes-Velocity%3Caname%3D%22ResultTypesVelocity%22%3E%3C%2Fa%3E"> Velocity <a name="ResultTypes-Velocity"></a></a></h4></p>This result mocks a JSP execution environment and then displays a Velocity template that will be streamed directly to the servlet output.<br/>
+
+<table class="wikitable">
 <tr>
 <th>Parameters </th><th> Required </th><th> Description </th>
 </tr><tr>
@@ -118,13 +119,14 @@ invokes this
 </tr><tr>
 <td> parse </td><td> no </td><td> true by default. If set to false, the location param will not be parsed for Ognl expressions </td>
 </tr><tr>
-<td> contentType </td><td> no </td><td> defaults to &quot;text/html&quot; unless specified </td><td>
-<div class="code"><div class="codeContent">
-<pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;freemarker&quot;</span>&gt;foo.ftl&lt;/result&gt;</pre>
-</div></div></td>
+<td> contentType </td><td> no </td><td> defaults to &quot;text/html&quot; unless specified </td>
 </tr>
 </table>
-<h4 class="heading4"><a name="ResultTypes-JasperReports%3Caname%3D%22ResultTypesJasperReports%22%3E%3C%2Fa%3E"> JasperReports <a name="ResultTypes-JasperReports"></a></a></h4><p class="paragraph">Generates a JasperReports report using the specified format or PDF if no format is specified.</p><table class="wikitable">
+<div class="code"><div class="codeContent">
+<pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;freemarker&quot;</span>&gt;foo.ftl&lt;/result&gt;</pre>
+</div></div><p class="paragraph"><h4 class="heading4"><a name="ResultTypes-JasperReports%3Caname%3D%22ResultTypesJasperReports%22%3E%3C%2Fa%3E"> JasperReports <a name="ResultTypes-JasperReports"></a></a></h4></p>Generates a JasperReports report using the specified format or PDF if no format is specified.<br/>
+
+<table class="wikitable">
 <tr>
 <th>Parameters </th><th> Required </th><th> Description </th>
 </tr><tr>
@@ -184,7 +186,7 @@ Example:
 				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
 			</tr>
 		    <tr>
-			    <td align="center"><font color="grey">Document generated by Confluence on Aug 27, 2004 11:46</font></td>
+			    <td align="center"><font color="grey">Document generated by Confluence on Oct 15, 2004 01:45</font></td>
 		    </tr>
 	    </table>
     </body>
