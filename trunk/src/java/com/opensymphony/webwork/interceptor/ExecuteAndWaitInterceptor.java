@@ -56,24 +56,25 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
                 session.put(KEY + name, bp);
             }
 
-            if (!bp.done) {
+            if (!bp.isDone()) {
+                actionInvocation.getStack().push(bp.getAction());
                 return "wait";
             } else {
                 session.remove(KEY + name);
-                actionInvocation.getStack().push(bp.action);
+                actionInvocation.getStack().push(bp.getAction());
 
-                return bp.result;
+                return bp.getResult();
             }
         }
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////
 
-    class BackgroundProcess implements Serializable {
-        Action action;
-        ActionInvocation invocation;
-        String result;
-        boolean done;
+    static class BackgroundProcess implements Serializable {
+        private Action action;
+        private ActionInvocation invocation;
+        private String result;
+        private boolean done;
 
         public BackgroundProcess(final ActionInvocation invocation) {
             this.invocation = invocation;
@@ -91,6 +92,18 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
                 }
             });
             t.start();
+        }
+
+        public Action getAction() {
+            return action;
+        }
+
+        public String getResult() {
+            return result;
+        }
+
+        public boolean isDone() {
+            return done;
         }
     }
 }
