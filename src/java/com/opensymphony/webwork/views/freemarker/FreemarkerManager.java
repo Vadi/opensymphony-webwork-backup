@@ -109,7 +109,7 @@ public class FreemarkerManager {
         if (config == null) {
             config = createConfiguration(servletContext);
 
-            // store this configuration in the servlet context 
+            // store this configuration in the servlet context
             servletContext.setAttribute(CONFIG_SERVLET_CONTEXT_KEY, config);
         }
 
@@ -212,7 +212,7 @@ public class FreemarkerManager {
      */
     protected TemplateLoader getTemplateLoader(ServletContext servletContext) {
         // presume that most apps will require the class and webapp template loader
-        // if people wish to 
+        // if people wish to
         TemplateLoader multiLoader = new MultiTemplateLoader(new TemplateLoader[]{
             new WebappTemplateLoader(servletContext),
             new ClassTemplateLoader(FreemarkerResult.class, "/")
@@ -252,7 +252,7 @@ public class FreemarkerManager {
     /**
      * Load the settings from the /freemarker.properties file on the classpath
      *
-     * @see freemarker.template.Configurable#setSetting for the definition of valid settings
+     * @see freemarker.template.Configuration#setSettings for the definition of valid settings
      */
     protected void loadSettings(ServletContext servletContext, freemarker.template.Configuration configuration) {
         try {

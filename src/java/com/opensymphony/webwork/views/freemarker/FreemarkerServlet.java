@@ -60,7 +60,7 @@ public class FreemarkerServlet extends HttpServlet {
     }
 
     /**
-     * This method is called from {@link #doExecute()} to obtain the
+     * This method is called from {@link #process(HttpServletRequest, HttpServletResponse)} to obtain the
      * FreeMarker object wrapper object that this result will use
      * for adapting objects into
      * template models.. This is a hook that allows you
@@ -175,7 +175,7 @@ public class FreemarkerServlet extends HttpServlet {
             return (includePathInfo == null) ? includeServletPath : includePathInfo;
         }
 
-        // Seems that the servlet was not called as the result of a 
+        // Seems that the servlet was not called as the result of a
         // RequestDispatcher.include(...). Try pathInfo then servletPath again,
         // only now directly on the request object:
         String path = request.getPathInfo();
