@@ -1,4 +1,10 @@
 #*
+  -- WebWork, Web Application Framework
+  --
+  -- Distributable under LGPL license.
+  -- See terms of license at opensource.org
+  --
+  --
   -- tabbedpane.jsp
   --
   -- Required Parameters:
@@ -8,30 +14,49 @@
   --   * tabAlign 	-	 The Alignment of the tabs. Default is the CENTER of the control.
   --   * id  				- 	 Id of the control.
   --
-    *#
+  *#
 
-<webwork:bean name="'webwork.util.Counter'" id="tabIndex">
-	<webwork:param name="'first'" value="0"/>
-	<webwork:param name="'last'" value="content/size"/>
-</webwork:bean>
+#bean ("com.opensymphony.webwork.util.Counter" $tabIndex)
+$tabIndex.setFirst(0)
+$tabIndex.setLast($content.size())
 
-<table border="1" cellspacing="0" cellpadding="5" id="<webwork:property value="id"/>">
+<table border="1" cellspacing="0" cellpadding="5" id="$webwork.encodeHtml($id)">
 
-	<tr valign="bottom" align="<webwork:property value="tabAlign"/>">
+	<tr valign="bottom" align="$webwork.encodeHtml($tabAlign)">
 
-		<webwork:if test="tabAlign == 'CENTER' || tabAlign == 'RIGHT'"><th colspan ="1" width="*"></th></webwork:if>
+	#if ($tabAlign == 'CENTER' || $tabAlign == 'RIGHT')
+        <th colspan ="1" width="*"></th>
+    #end
 
-		<webwork:iterator value="content">
-			<th width="10%"
-				<webwork:if id="isCur" test="selectedIndex == @tabIndex/current">bgcolor="#A0B3FC"</webwork:if>
-				<webwork:else>bgcolor="#C0C0C0"</webwork:else>>
-				<a href="<webwork:url includeParams="'all'"><webwork:param name="indexLink" value="@tabIndex/next"/></webwork:url>">
-				<webwork:if test="@isCur == true"><em></webwork:if>
-					<webwork:property value="key"/>
-				<webwork:if test="@isCur == true"></em></webwork:if>
-				</a>
-			</th>
-		</webwork:iterator>
+    #foreach ($c in $content)
+        $stack.pushValue($c)
+
+        <th width="10%"
+            #if ($selectedIndex == #attr.tabIndex.current)
+                #set ($isCur = 'true')
+                bgcolor="#A0B3FC"
+            #else
+                bgcolor="#C0C0C0"
+            #end
+        >
+
+        <a href="#bodytag( URL "includeParams='all'" )
+            #param ("indexLink" #attr.tabIndex.next)
+        #end">
+
+        #if ($isCur)
+            <em>
+        #end
+        $webwork.encodeHtml($key)
+        #if ($isCur)
+            </em>
+        #end
+
+        </a>
+        </th>
+
+        #set ($trash = $stack.popValue())
+    #end
 
 		<webwork:if test="tabAlign == 'CENTER' || tabAlign == 'LEFT'"><th colspan ="1" width="*"></th></webwork:if>
 

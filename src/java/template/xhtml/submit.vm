@@ -1,9 +1,9 @@
 <tr>
     <td colspan="2"><div
-        #if ($parameters.align)      align="$parameters.align"     #end
+        #if ($parameters.align)      align="$!webwork.htmlEncode($parameters.align)"     #end
         ><input
             type="submit"
-            #if ($parameters.name)       name="$parameters.name"           #end
-            #if ($parameters.nameValue)  value="$webwork.htmlEncode($parameters.nameValue)"     #end
+            #if ($parameters.name)       name="$!webwork.htmlEncode($parameters.name)"           #end
+            #if ($parameters.nameValue)  value="$!webwork.htmlEncode($parameters.nameValue)"     #end
         /></div>
 #parse( "/template/xhtml/controlfooter.vm" )

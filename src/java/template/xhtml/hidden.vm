@@ -1,5 +1,5 @@
 <input
     type="hidden"
-    #if ($parameters.name)      name="$parameters.name"       #end
-    #if ($parameters.nameValue) value="$webwork.htmlEncode($parameters.nameValue)" #end
+    #if ($parameters.name)      name="$!webwork.htmlEncode($parameters.name)"       #end
+    #if ($parameters.nameValue) value="$!webwork.htmlEncode($parameters.nameValue)" #end
 />

@@ -190,6 +190,9 @@
             <interceptor-ref name="defaultStack"/>
         </action>
 
+        <action name="Test" class="com.opensymphony.webwork.example.Test">
+        </action>
+
     </package>
 
     <include file="month.xml"/>

@@ -22,16 +22,16 @@
     *#
 #parse("/template/xhtml/controlheader.vm")
 
-<textarea name="$!parameters.name"
-          cols="$!parameters.cols"
-          rows="$!parameters.rows"
-#if ($parameters.nameValue)        value="$webwork.htmlEncode($parameters.nameValue)"      #end
+<textarea name="$!webwork.htmlEncode($parameters.name)"
+          cols="$!webwork.htmlEncode($parameters.cols)"
+          rows="$!webwork.htmlEncode($parameters.rows)"
+#if ($parameters.nameValue)        value="$!webwork.htmlEncode($parameters.nameValue)"      #end
 #if ($parameters.disabled == true) disabled="disabled"                #end
 #if ($parameters.readonly)         readonly="readonly"                #end
-#if ($parameters.onkeyup)          onkeyup="$parameters.onkeyup"      #end
-#if ($parameters.tabindex)         tabindex="$parameters.tabindex"    #end
-#if ($parameters.onchange)         onchange="$parameters.onchange"    #end
-#if ($parameters.id)               id="$parameters.id"                #end
->$!parameters.nameValue</textarea>
+#if ($parameters.onkeyup)          onkeyup="$!webwork.htmlEncode($parameters.onkeyup)"      #end
+#if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)"    #end
+#if ($parameters.onchange)         onchange="$!webwork.htmlEncode($parameters.onchange)"    #end
+#if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
+>$!webwork.htmlEncode($parameters.nameValue)</textarea>
 
 #parse("/template/xhtml/controlfooter.vm")

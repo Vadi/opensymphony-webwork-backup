@@ -10,7 +10,7 @@
         #else
             <td align="center" valign="top" colspan="2">
         #end
-            <span class="errorMessage">$!error</span>
+            <span class="errorMessage">$!webwork.htmlEncode($error)</span>
             </td>
     </tr>
   #end
@@ -33,7 +33,7 @@
         #end
 
         #if ($parameters.label)
-            $parameters.label:
+            $!webwork.htmlEncode($parameters.label):
         #end
             </span>
         </td>

@@ -17,12 +17,12 @@
 #parse("/template/xhtml/controlheader.vm")
 
 <input type="file"
-                                   name="$!parameters.name"
-#if ($parameters.size)             size="$parameters.size"            #end
-#if ($parameters.nameValue)        value="$webwork.htmlEncode($parameters.nameValue)"      #end
+                                   name="$!webwork.htmlEncode($parameters.name)"
+#if ($parameters.size)             size="$!webwork.htmlEncode($parameters.size)"            #end
+#if ($parameters.nameValue)        value="$!webwork.htmlEncode($parameters.nameValue)"      #end
 #if ($parameters.disabled == true) disabled="disabled"                #end
-#if ($parameters.id)               id="$parameters.id"                #end
-#if ($parameters.accept)           accept="$parameters.accept"        #end
+#if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
+#if ($parameters.accept)           accept="$!webwork.htmlEncode($parameters.accept)"        #end
 />
 
 #parse("/template/xhtml/controlfooter.vm")
