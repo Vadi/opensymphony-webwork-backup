@@ -10,9 +10,9 @@
 </webwork:iterator>
 
 <FORM ACTION="helloworld.login.action" METHOD="POST">
-<ui:textfield label="text('name')" name="'name'"/> 
+<ui:textfield label="getText('name')" name="'name'"/>
 
-<ui:password label="text('password')" name="'password'" size="10" maxlength="15"/>
+<ui:password label="getText('password')" name="'password'" size="10" maxlength="15"/>
 
 <INPUT TYPE=submit VALUE=" Login " >
 </FORM>
