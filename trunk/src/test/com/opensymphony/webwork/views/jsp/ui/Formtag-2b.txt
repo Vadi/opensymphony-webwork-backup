@@ -1,79 +1,80 @@
-<table>
 <form name="myForm" action="/testAction.action" method="POST" enctype="myEncType" onsubmit="return(myForm_validate())" >
+<table class="wwFormTable">
 <tr>
- <td align="right" valign="top"> <span class="label"> </span> </td>
+ <td align="right" valign="top">  </td>
  <td> <input type="text" name="foo" value="bar" /> </td>
 </tr>
 <tr>
- <td align="right" valign="top"> <span class="label"> </span> </td>
+ <td align="right" valign="top">  </td>
  <td> <input type="text" name="user.name" value="Bobby" /> </td>
 </tr>
-<script type="text/javascript">
-function myForm_validate() {
-  var form = document.forms['myForm'];
-  var focus = myForm_validate_actual();
-  if (focus != null) { form.elements[focus].focus();
-    if (form.elements[focus].type == 'text' || form.elements[focus].type == 'textarea') {
-      form.elements[focus].select();
-    }
-    return false;
-  } else {
-    return true;
-  }
-}
-function myForm_validate_actual() {
-  var form = document.forms['myForm'];
-  value = form.elements['foo'].value;
-  if (value == "") {
-    alert('Foo is required!');
-    return 'foo';
-  }
-  value = form.elements['user.name'].value;
-  if (value == "") {
-    alert('Please enter a name!');
-    return 'user.name';
-  }
-  return null;
-}
-</script>
-</form>
-</table><table>
-<form name="myForm" action="/testAction.action" method="POST" enctype="myEncType" onsubmit="return(myForm_validate())" >
-<tr>
- <td align="right" valign="top"> <span class="label"> </span> </td>
- <td> <input type="text" name="foo" value="bar" /> </td>
-</tr>
-<tr>
- <td align="right" valign="top"> <span class="label"> </span> </td>
- <td> <input type="text" name="user.name" value="Bobby" /> </td>
-</tr>
-<script type="text/javascript">
-function myForm_validate() {
-  var form = document.forms['myForm'];
-  var focus = myForm_validate_actual();
-  if (focus != null) { form.elements[focus].focus();
-    if (form.elements[focus].type == 'text' || form.elements[focus].type == 'textarea') {
-      form.elements[focus].select();
-    }
-    return false;
-  } else {
-    return true;
-  }
-}
-function myForm_validate_actual() {
-  var form = document.forms['myForm'];
-  value = form.elements['foo'].value;
-  if (value == "") {
-    alert('Foo is required!');
-    return 'foo';
-  }
-  value = form.elements['user.name'].value;
-  if (value == "") {
-    alert('Please enter a name!');
-    return 'user.name';
-  }
-  return null;
-}
-</script>
-</form>
 </table>
+</form>
+<script type="text/javascript">
+function myForm_validate() {
+  var form = document.forms['myForm'];
+  var focus = myForm_validate_actual();
+  if (focus != null) { form.elements[focus].focus();
+    if (form.elements[focus].type == 'text' || form.elements[focus].type == 'textarea') {
+      form.elements[focus].select();
+    }
+    return false;
+  } else {
+    return true;
+  }
+}
+function myForm_validate_actual() {
+  var form = document.forms['myForm'];
+  value = form.elements['foo'].value;
+  if (value == "") {
+    alert('Foo is required!');
+    return 'foo';
+  }
+  value = form.elements['user.name'].value;
+  if (value == "") {
+    alert('Please enter a name!');
+    return 'user.name';
+  }
+  return null;
+}
+</script>
+<form name="myForm" action="/testAction.action" method="POST" enctype="myEncType" onsubmit="return(myForm_validate())" >
+<table class="wwFormTable">
+<tr>
+ <td align="right" valign="top">  </td>
+ <td> <input type="text" name="foo" value="bar" /> </td>
+</tr>
+<tr>
+ <td align="right" valign="top">  </td>
+ <td> <input type="text" name="user.name" value="Bobby" /> </td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+function myForm_validate() {
+  var form = document.forms['myForm'];
+  var focus = myForm_validate_actual();
+  if (focus != null) { form.elements[focus].focus();
+    if (form.elements[focus].type == 'text' || form.elements[focus].type == 'textarea') {
+      form.elements[focus].select();
+    }
+    return false;
+  } else {
+    return true;
+  }
+}
+function myForm_validate_actual() {
+  var form = document.forms['myForm'];
+  value = form.elements['foo'].value;
+  if (value == "") {
+    alert('Foo is required!');
+    return 'foo';
+  }
+  value = form.elements['user.name'].value;
+  if (value == "") {
+    alert('Please enter a name!');
+    return 'user.name';
+  }
+  return null;
+}
+</script>

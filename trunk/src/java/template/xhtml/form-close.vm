@@ -1,2 +1,2 @@
-#parse("/template/simple/form-close.vm")
 </table>
+#parse("/template/simple/form-close.vm")

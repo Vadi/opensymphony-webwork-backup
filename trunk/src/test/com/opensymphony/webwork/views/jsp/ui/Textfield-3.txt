@@ -1,6 +1,5 @@
 <tr>
     <td align="right" valign="top">
-        <span class="label"> </span>
     </td>
     <td>
         <input type="text"

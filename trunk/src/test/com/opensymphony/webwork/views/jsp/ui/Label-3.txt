@@ -1,6 +1,6 @@
 <tr>
     <td align="left" valign="top" colspan="2">
-        <span class="label"> mylabel: </span>
+        <label class="label"> mylabel: </label>
     </td>
 </tr>
 <tr>

@@ -1,6 +1,6 @@
 <tr>
     <td align="right" valign="top">
-        <span class="label"> mylabel: </span>
+        <label class="label"> mylabel: </label>
     </td>
     <td>
         <select name="collection"
