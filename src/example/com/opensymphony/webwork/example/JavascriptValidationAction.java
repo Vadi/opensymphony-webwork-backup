@@ -11,7 +11,7 @@ public class JavascriptValidationAction extends ActionSupport {
     String email;
     String url;
     Date date;
-    ValidatedBean bean = new ValidatedBean();
+    ValidatedBean bean;
 
     public String execute() throws Exception {
         return SUCCESS;
