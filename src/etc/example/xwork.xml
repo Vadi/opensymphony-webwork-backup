@@ -130,5 +130,57 @@
             <result name="input">validationForm.vm</result>
             <result name="error">validationForm.vm</result>
         </action>
+
+		 <!-- JasperReport Basic Test Actions -->
+        <action name="jasperTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
+            <param name="dataSource">orders</param>
+            <result name="success" type="dispatcher">
+                <param name="location">orderList.jasper</param>
+            </result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+        <action name="jasperPDFTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
+            <param name="dataSource">orders</param>
+            <param name="format">PDF</param>
+            <result name="success" type="dispatcher">
+                <param name="location">orderList.jasper</param>
+            </result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+        <action name="jasperCSVTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
+            <param name="dataSource">orders</param>
+            <param name="format">CSV</param>
+            <result name="success" type="dispatcher">
+                <param name="location">orderList.jasper</param>
+            </result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="jasperHTMLTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
+            <param name="dataSource">orders</param>
+            <param name="format">HTML</param>
+            <result name="success" type="dispatcher">
+                <param name="location">orderList.jasper</param>
+            </result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="jasperXLSTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
+            <param name="dataSource">orders</param>
+            <param name="format">XLS</param>
+            <result name="success" type="dispatcher">
+                <param name="location">orderList.jasper</param>
+            </result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="jasperXMLTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
+            <param name="dataSource">orders</param>
+            <param name="format">XML</param>
+            <result name="success" type="dispatcher">
+                <param name="location">orderList.jasper</param>
+            </result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
     </package>
 </xwork>

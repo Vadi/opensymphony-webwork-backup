@@ -17,3 +17,7 @@ Click <a href="visitorValidation.action">here</a> for a visitor validation examp
 Click <a href="expressionValidation.action">here</a> for a visitor validation example with expression validation<br>
 Click <a href="redirect.action">here</a> to be test the ServletRedirectResult using a location resolved via ognl<br>
 Click <a href="parseLocation.action">here</a> to view the FormTag example using a location resolved via ognl<br>
+Click <a href="jasperTest.action">here</a> for a jasper reports PDF example<br>
+Click <a href="jasperHTMLTest.action">here</a> for a jasper reports HTML example<br>
+Click <a href="jasperXMLTest.action">here</a> for a jasper reports XML example<br>
+Click <a href="jasperCSVTest.action">here</a> for a jasper reports CSV example<br>
