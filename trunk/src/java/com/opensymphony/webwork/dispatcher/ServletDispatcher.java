@@ -96,12 +96,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    // Max upload size allowed for multipart request (this is configurable).
-    Integer maxSize;
-
-    // Path to save uploaded files to (this is configurable).
-    String saveDir;
-
     boolean paramsWorkaroundEnabled = false;
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -160,11 +154,11 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * Initalizes the servlet. Please read the {@link ServletDispatcher class documentation} for more
      * detail. <p>
      *
-     * @param config the ServletConfig object.
+     * @param servletConfig the ServletConfig object.
      * @throws ServletException if an error occurs during initialization.
      */
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init(ServletConfig servletConfig) throws ServletException {
+        super.init(servletConfig);
 
         LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
 
@@ -173,58 +167,11 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
             FileManager.setReloadingConfigs(true);
         }
 
-        //load multipart configuration
-        //saveDir
-        saveDir = Configuration.getString("webwork.multipart.saveDir").trim();
-
-        if (saveDir.equals("")) {
-            File tempdir = (File) config.getServletContext().getAttribute("javax.servlet.context.tempdir");
-            log.warn("Unable to find 'webwork.multipart.saveDir' property setting. Defaulting to javax.servlet.context.tempdir");
-
-            if (tempdir != null) {
-                saveDir = tempdir.toString();
-            }
-        } else {
-            File multipartSaveDir = new File(saveDir);
-
-            if (!multipartSaveDir.exists()) {
-                multipartSaveDir.mkdir();
-            }
-        }
-
-        if (log.isDebugEnabled()) {
-            log.debug("saveDir=" + saveDir);
-        }
-
-        //maxSize
-        try {
-            String maxSizeStr = Configuration.getString("webwork.multipart.maxSize");
-
-            if (maxSizeStr != null) {
-                try {
-                    maxSize = new Integer(maxSizeStr);
-                } catch (NumberFormatException e) {
-                    maxSize = new Integer(Integer.MAX_VALUE);
-                    log.warn("Unable to format 'webwork.multipart.maxSize' property setting. Defaulting to Integer.MAX_VALUE");
-                }
-            } else {
-                maxSize = new Integer(Integer.MAX_VALUE);
-                log.warn("Unable to format 'webwork.multipart.maxSize' property setting. Defaulting to Integer.MAX_VALUE");
-            }
-        } catch (IllegalArgumentException e1) {
-            maxSize = new Integer(Integer.MAX_VALUE);
-            log.warn("Unable to format 'webwork.multipart.maxSize' property setting. Defaulting to Integer.MAX_VALUE");
-        }
-
-        if (log.isDebugEnabled()) {
-            log.debug("maxSize=" + maxSize);
-        }
-
         // store a reference to ourself into the SessionContext so that we can generate a PageContext
-        config.getServletContext().setAttribute("webwork.servlet", this);
-        
+        servletConfig.getServletContext().setAttribute("webwork.servlet", this);
+
         // test wether param-access workaround needs to be enabled
-        if (config.getServletContext().getServerInfo().indexOf("WebLogic") >= 0) {
+        if (servletConfig.getServletContext().getServerInfo().indexOf("WebLogic") >= 0) {
             log.info("WebLogic server detected. Enabling parameter access work-around.");
             paramsWorkaroundEnabled = true;
         } else {
@@ -407,10 +354,70 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         }
 
         if (MultiPartRequest.isMultiPart(request)) {
-            request = new MultiPartRequestWrapper(request, saveDir, maxSize.intValue());
+            request = new MultiPartRequestWrapper(request, getSaveDir(), getMaxSize());
         }
 
         return request;
+    }
+
+    /**
+     * Returns the path to save uploaded files to (this is configurable).
+     *
+     * @return the path to save uploaded files to
+     */
+    protected String getSaveDir() {
+        String saveDir = Configuration.getString("webwork.multipart.saveDir").trim();
+
+        if (saveDir.equals("")) {
+            File tempdir = (File) getServletConfig().getServletContext().getAttribute("javax.servlet.context.tempdir");
+            log.warn("Unable to find 'webwork.multipart.saveDir' property setting. Defaulting to javax.servlet.context.tempdir");
+
+            if (tempdir != null) {
+                saveDir = tempdir.toString();
+            }
+        } else {
+            File multipartSaveDir = new File(saveDir);
+
+            if (!multipartSaveDir.exists()) {
+                multipartSaveDir.mkdir();
+            }
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("saveDir=" + saveDir);
+        }
+
+        return saveDir;
+    }
+
+    /**
+     * Returns the maximum upload size allowed for multipart requests (this is configurable).
+     *
+     * @return the maximum upload size allowed for multipart requests
+     */
+    protected int getMaxSize() {
+        Integer maxSize = new Integer(Integer.MAX_VALUE);
+        try {
+            String maxSizeStr = Configuration.getString("webwork.multipart.maxSize");
+
+            if (maxSizeStr != null) {
+                try {
+                    maxSize = new Integer(maxSizeStr);
+                } catch (NumberFormatException e) {
+                    log.warn("Unable to format 'webwork.multipart.maxSize' property setting. Defaulting to Integer.MAX_VALUE");
+                }
+            } else {
+                log.warn("Unable to format 'webwork.multipart.maxSize' property setting. Defaulting to Integer.MAX_VALUE");
+            }
+        } catch (IllegalArgumentException e1) {
+            log.warn("Unable to format 'webwork.multipart.maxSize' property setting. Defaulting to Integer.MAX_VALUE");
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("maxSize=" + maxSize);
+        }
+
+        return maxSize.intValue();
     }
 
     /**
