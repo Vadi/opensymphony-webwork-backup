@@ -6,6 +6,8 @@ package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.TextUtils;
 
+import com.opensymphony.xwork.util.XWorkBasicConverter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,7 +32,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 /**
  *        WebWork utility methods for Velocity templates
  *
- *        @author Rickard Öberg (rickard@dreambean.com)
+ *        @author Rickard Ã–berg (rickard@dreambean.com)
  *        @version $Revision$
  */
 public final class WebWorkUtil {
@@ -42,6 +44,7 @@ public final class WebWorkUtil {
 
     Map classes = new Hashtable();
     private Context ctx;
+    private XWorkBasicConverter converter = new XWorkBasicConverter();
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
@@ -70,8 +73,13 @@ public final class WebWorkUtil {
         return writer.toString();
     }
 
-    public String htmlEncode(String s) {
-        return TextUtils.htmlEncode(s);
+    //    public String htmlEncode(String s) {
+    //        return TextUtils.htmlEncode(s);
+    //    }
+    public String htmlEncode(Object obj) {
+        String str = (String) converter.convertValue(null, null, null, null, obj, String.class);
+
+        return TextUtils.htmlEncode(str);
     }
 
     public String include(Object aName, ServletRequest aRequest, ServletResponse aResponse) throws Exception {
