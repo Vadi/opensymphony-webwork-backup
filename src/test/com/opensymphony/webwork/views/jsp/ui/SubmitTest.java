@@ -1,10 +1,17 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp.ui;
+
+import com.opensymphony.webwork.TestAction;
+import com.opensymphony.webwork.views.jsp.AbstractJspTest;
+
+import junit.framework.Assert;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.app.Velocity;
-import junit.framework.Assert;
-import com.opensymphony.webwork.TestAction;
-import com.opensymphony.webwork.views.jsp.AbstractJspTest;
+
 
 /**
  * User: plightbo
@@ -13,6 +20,23 @@ import com.opensymphony.webwork.views.jsp.AbstractJspTest;
  */
 public class SubmitTest extends AbstractJspTest {
     //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void testDefaultValues() throws Exception {
+        Template template = Velocity.getTemplate(AbstractUITag.THEME + SubmitTag.TEMPLATE);
+        Assert.assertNotNull(template); // ensure this is a valid decorators
+
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        SubmitTag tag = new SubmitTag();
+        tag.setPageContext(pageContext);
+        tag.setLabel("'mylabel'");
+        tag.setName("'myname'");
+
+        tag.doEndTag();
+
+        verify(TextFieldTag.class.getResource("Submit-2.txt"));
+    }
 
     public void testSimple() throws Exception {
         Template template = Velocity.getTemplate(AbstractUITag.THEME + SubmitTag.TEMPLATE);
@@ -31,22 +55,5 @@ public class SubmitTest extends AbstractJspTest {
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("Submit-1.txt"));
-    }
-
-    public void testDefaultValues() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + SubmitTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
-        TestAction testAction = (TestAction) action;
-        testAction.setFoo("bar");
-
-        SubmitTag tag = new SubmitTag();
-        tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
-
-        tag.doEndTag();
-
-        verify(TextFieldTag.class.getResource("Submit-2.txt"));
     }
 }

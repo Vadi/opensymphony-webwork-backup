@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -16,7 +17,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author $Author$
  * @version $Revision$
  */
-public class SetTag extends TagSupport {
+public class SetTag extends WebWorkTagSupport {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     String name;
@@ -40,11 +41,13 @@ public class SetTag extends TagSupport {
     public int doStartTag() throws JspException {
         Object o;
 
-        if (value != null) {
-            o = ActionContext.getContext().getValueStack().findValue(value);
-        } else {
-            o = ActionContext.getContext().getValueStack().getRoot().peek();
+        OgnlValueStack stack = getValueStack();
+
+        if (value == null) {
+            value = "that";
         }
+
+        o = stack.findValue(value);
 
         if ("application".equals(scope)) {
             super.pageContext.getServletContext().setAttribute(name, o);
@@ -55,7 +58,7 @@ public class SetTag extends TagSupport {
         } else if ("page".equals(scope)) {
             pageContext.setAttribute(name, o);
         } else {
-            ActionContext.getContext().put(name, o);
+            stack.getContext().put(name, o);
         }
 
         return SKIP_BODY;

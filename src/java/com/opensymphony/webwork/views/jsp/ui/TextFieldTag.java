@@ -21,9 +21,11 @@ public class TextFieldTag extends AbstractUITag {
      */
     final public static String TEMPLATE = "textfield.vm";
 
-    //~ Methods ////////////////////////////////////////////////////////////////
+    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected String sizeAttr;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setSize(String size) {
         this.sizeAttr = size;

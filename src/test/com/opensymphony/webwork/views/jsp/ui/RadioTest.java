@@ -31,6 +31,32 @@ public class RadioTest extends AbstractJspTest {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    public void testMapChecked() throws Exception {
+        Template template = Velocity.getTemplate(AbstractUITag.THEME + RadioTag.TEMPLATE);
+        Assert.assertNotNull(template); // ensure this is a valid decorators
+
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        HashMap map = new HashMap();
+        map.put("1", "One");
+        map.put("2", "Two");
+        testAction.setMap(map);
+
+        RadioTag tag = new RadioTag();
+        tag.setPageContext(pageContext);
+        tag.setLabel("'mylabel'");
+        tag.setName("'myname'");
+        tag.setValue("1");
+        tag.setList("map");
+        tag.setListKey("key");
+        tag.setListValue("value");
+
+        int result = tag.doEndTag();
+
+        verify(RadioTag.class.getResource("Radio-2.txt"));
+    }
+
     public void testSimple() throws Exception {
         Template template = Velocity.getTemplate(AbstractUITag.THEME + RadioTag.TEMPLATE);
         Assert.assertNotNull(template); // ensure this is a valid decorators
@@ -54,30 +80,5 @@ public class RadioTest extends AbstractJspTest {
         int result = tag.doEndTag();
 
         verify(RadioTag.class.getResource("Radio-1.txt"));
-    }
-
-    public void testMapChecked() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + RadioTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
-        TestAction testAction = (TestAction) action;
-        testAction.setFoo("bar");
-        HashMap map = new HashMap();
-        map.put("1", "One");
-        map.put("2", "Two");
-        testAction.setMap(map);
-
-        RadioTag tag = new RadioTag();
-        tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
-        tag.setValue("1");
-        tag.setList("map");
-        tag.setListKey("key");
-        tag.setListValue("value");
-
-        int result = tag.doEndTag();
-
-        verify(RadioTag.class.getResource("Radio-2.txt"));
     }
 }

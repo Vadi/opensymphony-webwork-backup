@@ -4,24 +4,16 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.util.TextUtils;
-import com.opensymphony.webwork.dispatcher.ServletDispatcher;
-import com.opensymphony.webwork.dispatcher.SessionMap;
-import com.opensymphony.webwork.dispatcher.ApplicationMap;
-import com.opensymphony.webwork.ServletActionContext;
+
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -30,11 +22,10 @@ import javax.servlet.http.HttpServletResponse;
  * @author $Author$
  * @version $Revision$
  */
-public class PropertyTag extends TagSupport {
+public class PropertyTag extends WebWorkTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(PropertyTag.class);
-
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
@@ -48,32 +39,17 @@ public class PropertyTag extends TagSupport {
         this.defaultValue = defaultValue;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public void setEscape(boolean escape) {
         this.escape = escape;
     }
 
-    public int doStartTag() throws JspException {
-        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
-        OgnlValueStack stack = (OgnlValueStack) req.getAttribute("webwork.valueStack");
+    public void setValue(String value) {
+        this.value = value;
+    }
 
+    public int doStartTag() throws JspException {
         try {
-            if (stack == null) {
-                stack = new OgnlValueStack();
-                HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
-                Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(),
-                        new SessionMap(req.getSession()),
-                        new ApplicationMap(pageContext.getServletContext()),
-                        req,
-                        res,
-                        pageContext.getServletConfig());
-                extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
-                stack.getContext().putAll(extraContext);
-                req.setAttribute("webwork.valueStack", stack);
-            }
+            OgnlValueStack stack = getValueStack();
 
             Object actualValue = null;
 
@@ -95,14 +71,6 @@ public class PropertyTag extends TagSupport {
         return SKIP_BODY;
     }
 
-    private Object prepare(Object value) {
-        if (escape) {
-            return TextUtils.htmlEncode(value.toString());
-        } else {
-            return value;
-        }
-    }
-
     /**
      * Clears all the instance variables to allow this instance to be reused.
      */
@@ -111,5 +79,13 @@ public class PropertyTag extends TagSupport {
         this.value = null;
         this.defaultValue = null;
         this.escape = false;
+    }
+
+    private Object prepare(Object value) {
+        if (escape) {
+            return TextUtils.htmlEncode(value.toString());
+        } else {
+            return value;
+        }
     }
 }

@@ -4,19 +4,14 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.webwork.dispatcher.ServletDispatcher;
-import com.opensymphony.webwork.dispatcher.SessionMap;
-import com.opensymphony.webwork.dispatcher.ApplicationMap;
-import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.util.MakeIterator;
 
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import java.util.Iterator;
+
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.*;
 
 
 /**
@@ -63,13 +58,12 @@ import java.util.*;
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @version $Revision$
  */
-public class IteratorTag extends BodyTagSupport {
+public class IteratorTag extends WebWorkBodyTagSupport {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     protected Iterator iterator;
     protected IteratorStatus status;
     protected Object oldStatus;
-    protected OgnlValueStack stack;
     protected IteratorStatus.StatusState statusState;
     protected String statusAttr;
     protected String value;
@@ -85,6 +79,7 @@ public class IteratorTag extends BodyTagSupport {
     }
 
     public int doAfterBody() throws JspException {
+        OgnlValueStack stack = getValueStack();
         stack.pop();
 
         if (iterator.hasNext()) {
@@ -101,9 +96,9 @@ public class IteratorTag extends BodyTagSupport {
             // Reset status object in case someone else uses the same name in another iterator tag instance
             if (status != null) {
                 if (oldStatus == null) {
-                    ActionContext.getContext().put(statusAttr, null);
+                    stack.getContext().put(statusAttr, null);
                 } else {
-                    ActionContext.getContext().put(statusAttr, oldStatus);
+                    stack.getContext().put(statusAttr, oldStatus);
                 }
             }
 
@@ -128,22 +123,7 @@ public class IteratorTag extends BodyTagSupport {
             status = new IteratorStatus(statusState);
         }
 
-        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
-        stack = (OgnlValueStack) req.getAttribute("webwork.valueStack");
-        if (stack == null)
-        {
-            stack = new OgnlValueStack();
-            HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
-            Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(),
-                    new SessionMap(req.getSession()),
-                    new ApplicationMap(pageContext.getServletContext()),
-                    req,
-                    res,
-                    pageContext.getServletConfig());
-            extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
-            stack.getContext().putAll(extraContext);
-            req.setAttribute("webwork.valueStack", stack);
-        }
+        OgnlValueStack stack = getValueStack();
 
         iterator = MakeIterator.convert(stack.findValue(value));
 
@@ -154,8 +134,8 @@ public class IteratorTag extends BodyTagSupport {
             // Status object
             if (statusAttr != null) {
                 statusState.setLast(!iterator.hasNext());
-                oldStatus = ActionContext.getContext().get(statusAttr);
-                ActionContext.getContext().put(statusAttr, status);
+                oldStatus = stack.getContext().get(statusAttr);
+                stack.getContext().put(statusAttr, status);
             }
 
             return EVAL_BODY_AGAIN;
@@ -172,10 +152,8 @@ public class IteratorTag extends BodyTagSupport {
         this.iterator = null;
         this.status = null;
         this.oldStatus = null;
-        this.stack = null;
         this.statusState = null;
         this.statusAttr = null;
         this.value = null;
     }
-
 }

@@ -79,6 +79,7 @@ public class FormTag extends AbstractClosingUITag {
             }
 
             Object actionObj = stack.findValue(actionAttr, String.class);
+
             if (actionObj != null) {
                 String result = UrlHelper.buildUrl(actionObj.toString(), request, response, null);
                 addParam("action", result);

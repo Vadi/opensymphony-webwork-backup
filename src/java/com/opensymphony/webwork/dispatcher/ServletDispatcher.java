@@ -57,6 +57,26 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         return servletPath;
     }
 
+    public static HashMap createContextMap(Map parameterMap, Map sessionMap, Map applicationMap, HttpServletRequest request, HttpServletResponse response, ServletConfig servletConfig) {
+        HashMap extraContext = new HashMap();
+        extraContext.put(ActionContext.PARAMETERS, parameterMap);
+        extraContext.put(ActionContext.SESSION, sessionMap);
+        extraContext.put(ActionContext.APPLICATION, applicationMap);
+
+        extraContext.put(HTTP_REQUEST, request);
+        extraContext.put(HTTP_RESPONSE, response);
+        extraContext.put(SERVLET_CONFIG, servletConfig);
+        extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
+
+        // helpers to get access to request/session/application scope
+        extraContext.put("request", parameterMap);
+        extraContext.put("session", sessionMap);
+        extraContext.put("application", applicationMap);
+        extraContext.put("parameters", parameterMap);
+
+        return extraContext;
+    }
+
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
@@ -125,7 +145,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * @exception javax.servlet.ServletException
      */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-
         try {
             request = wrapRequest(request);
             serviceAction(request, response, getNameSpace(request), getActionName(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
@@ -142,7 +161,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * Then the request is handed to GenericDispatcher and executed.
      */
     public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace, String actionName, Map parameterMap, Map sessionMap, Map applicationMap) {
-
         HashMap extraContext = createContextMap(parameterMap, sessionMap, applicationMap, request, response, getServletConfig());
         extraContext.put(SERLVET_DISPATCHER, this);
 
@@ -157,28 +175,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
             log.error("Could not execute action", e);
             sendError(request, response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e);
         }
-    }
-
-    public static HashMap createContextMap(Map parameterMap, Map sessionMap, Map applicationMap,
-                                           HttpServletRequest request, HttpServletResponse response,
-                                           ServletConfig servletConfig) {
-        HashMap extraContext = new HashMap();
-        extraContext.put(ActionContext.PARAMETERS, parameterMap);
-        extraContext.put(ActionContext.SESSION, sessionMap);
-        extraContext.put(ActionContext.APPLICATION, applicationMap);
-
-        extraContext.put(HTTP_REQUEST, request);
-        extraContext.put(HTTP_RESPONSE, response);
-        extraContext.put(SERVLET_CONFIG, servletConfig);
-        extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
-
-        // helpers to get access to request/session/application scope
-        extraContext.put("request", parameterMap);
-        extraContext.put("session", sessionMap);
-        extraContext.put("application", applicationMap);
-        extraContext.put("parameters", parameterMap);
-
-        return extraContext;
     }
 
     /**
@@ -244,18 +240,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-     * Determine action name by extracting last string and removing
-     * extension. (/.../.../Foo.action -> Foo)
-     */
-    String getActionName(String name) {
-        // Get action name ("Foo.action" -> "Foo" action)
-        int beginIdx = name.lastIndexOf("/");
-        int endIdx = name.lastIndexOf(".");
-
-        return name.substring(((beginIdx == -1) ? 0 : (beginIdx + 1)), (endIdx == -1) ? name.length() : endIdx);
-    }
-
-    /**
      * Wrap servlet request with the appropriate request. It will check to
      * see if request is a multipart request and wrap in appropriately.
      *
@@ -273,5 +257,17 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         }
 
         return request;
+    }
+
+    /**
+     * Determine action name by extracting last string and removing
+     * extension. (/.../.../Foo.action -> Foo)
+     */
+    String getActionName(String name) {
+        // Get action name ("Foo.action" -> "Foo" action)
+        int beginIdx = name.lastIndexOf("/");
+        int endIdx = name.lastIndexOf(".");
+
+        return name.substring(((beginIdx == -1) ? 0 : (beginIdx + 1)), (endIdx == -1) ? name.length() : endIdx);
     }
 }

@@ -18,6 +18,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
@@ -29,12 +30,10 @@ import javax.servlet.jsp.tagext.Tag;
  * @author $Author$
  * @version $Revision$
  */
-public class SetTagTest extends TestCase {
+public class SetTagTest extends AbstractJspTest {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     Chewbacca chewie;
-    MockPageContext pageContext;
-    OgnlValueStack vs;
     SetTag tag;
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -59,15 +58,11 @@ public class SetTagTest extends TestCase {
     }
 
     public void testRequestScope() throws JspException {
-        Mock request = new Mock(ServletRequest.class);
-        request.expect("setAttribute", C.args(C.eq("foo"), C.eq("chewie")));
-        pageContext.setRequest((ServletRequest) request.proxy());
-
         tag.setName("foo");
         tag.setValue("name");
         tag.setScope("request");
         assertEquals(Tag.SKIP_BODY, tag.doStartTag());
-        request.verify();
+        assertEquals("chewie", request.getAttribute("foo"));
     }
 
     public void testSessionScope() throws JspException {
@@ -86,30 +81,21 @@ public class SetTagTest extends TestCase {
         tag.setName("foo");
         tag.setValue("name");
         assertEquals(Tag.SKIP_BODY, tag.doStartTag());
-        assertEquals("chewie", ActionContext.getContext().get("foo"));
+        assertEquals("chewie", context.get("foo"));
     }
 
     public void testWebWorkScope2() throws JspException {
         tag.setName("chewie");
         assertEquals(Tag.SKIP_BODY, tag.doStartTag());
-        assertEquals(chewie, ActionContext.getContext().get("chewie"));
+        assertEquals(chewie, context.get("chewie"));
     }
 
     protected void setUp() throws Exception {
+        super.setUp();
+
         tag = new SetTag();
-
         chewie = new Chewbacca("chewie", true);
-
-        vs = new OgnlValueStack();
-
-        Map context = vs.getContext();
-        vs.push(chewie);
-
-        ActionContext ac = new ActionContext(context);
-        ActionContext.setContext(ac);
-        ActionContext.getContext().setValueStack(vs);
-
-        pageContext = new MockPageContext();
+        stack.push(chewie);
         tag.setPageContext(pageContext);
     }
 

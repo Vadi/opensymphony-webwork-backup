@@ -7,12 +7,15 @@ package com.opensymphony.webwork.views.jsp;
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 import junit.framework.TestCase;
 
-import javax.servlet.jsp.JspException;
 import java.util.HashMap;
+
+import javax.servlet.jsp.JspException;
 
 
 /**
@@ -21,21 +24,16 @@ import java.util.HashMap;
  * @author Brock Bulger (brockman_bulger@hotmail.com)
  * @version $Revision$
  */
-public class URLTagTest extends TestCase {
+public class URLTagTest extends AbstractJspTest {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    private MockJspWriter jspWriter;
+    private URLTag tag;
+
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testActionURL() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-
-        MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("TestAction.action");
-
-        MockPageContext pageContext = new MockPageContext();
-        pageContext.setJspWriter(jspWriter);
-        pageContext.setRequest(request);
-
-        URLTag tag = new URLTag();
-        tag.setPageContext(pageContext);
         tag.setValue("TestAction.action");
 
         try {
@@ -45,79 +43,10 @@ public class URLTagTest extends TestCase {
             ex.printStackTrace();
             fail();
         }
-
-        request.verify();
-        jspWriter.verify();
-        pageContext.verify();
-    }
-
-    public void testSetPageAttribute() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-
-        MockJspWriter jspWriter = new MockJspWriter();
-        jspWriter.setExpectedData("foo.jsp");
-
-        MockPageContext pageContext = new MockPageContext();
-        pageContext.setJspWriter(jspWriter);
-        pageContext.setRequest(request);
-
-        URLTag tag = new URLTag();
-        tag.setPageContext(pageContext);
-        tag.setPage("foo.jsp");
-
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
-
-        request.verify();
-        jspWriter.verify();
-        pageContext.verify();
-    }
-
-    public void testSetPageAndValueAttribute() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-
-        MockJspWriter jspWriter = new MockJspWriter();
-        jspWriter.setExpectedData("bar.jsp");
-
-        MockPageContext pageContext = new MockPageContext();
-        pageContext.setJspWriter(jspWriter);
-        pageContext.setRequest(request);
-
-        URLTag tag = new URLTag();
-        tag.setPageContext(pageContext);
-        tag.setPage("foo.jsp");
-        tag.setValue("'bar.jsp'");
-
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
-
-        request.verify();
-        jspWriter.verify();
-        pageContext.verify();
     }
 
     public void testAddParameters() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-
-        MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("TestAction.action?param2=value2&param1=value1");
-
-        MockPageContext pageContext = new MockPageContext();
-        pageContext.setJspWriter(jspWriter);
-        pageContext.setRequest(request);
-
-        URLTag tag = new URLTag();
-        tag.setPageContext(pageContext);
         tag.setValue("TestAction.action");
 
         try {
@@ -129,31 +58,13 @@ public class URLTagTest extends TestCase {
             ex.printStackTrace();
             fail();
         }
-
-        request.verify();
-        jspWriter.verify();
-        pageContext.verify();
     }
 
     public void testEvaluateValue() {
         Foo foo = new Foo();
         foo.setTitle("test");
-
-        OgnlValueStack stack = new OgnlValueStack();
         stack.push(foo);
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ActionContext.getContext().setValueStack(stack);
-
-        MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("test");
-
-        MockPageContext pageContext = new MockPageContext();
-        pageContext.setJspWriter(jspWriter);
-        pageContext.setRequest(request);
-
-        URLTag tag = new URLTag();
-        tag.setPageContext(pageContext);
         tag.setValue("title");
 
         try {
@@ -163,31 +74,13 @@ public class URLTagTest extends TestCase {
             ex.printStackTrace();
             fail();
         }
-
-        request.verify();
-        jspWriter.verify();
-        pageContext.verify();
     }
 
     public void testEvaluateValueNotFound() {
         Foo foo = new Foo();
         foo.setTitle("test");
-
-        OgnlValueStack stack = new OgnlValueStack();
         stack.push(foo);
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ActionContext.getContext().setValueStack(stack);
-
-        MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("email");
-
-        MockPageContext pageContext = new MockPageContext();
-        pageContext.setJspWriter(jspWriter);
-        pageContext.setRequest(request);
-
-        URLTag tag = new URLTag();
-        tag.setPageContext(pageContext);
         tag.setValue("email");
 
         try {
@@ -197,30 +90,16 @@ public class URLTagTest extends TestCase {
             ex.printStackTrace();
             fail();
         }
-
-        request.verify();
-        jspWriter.verify();
-        pageContext.verify();
     }
 
     public void testSamePageUrl() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
         request.setupGetRequestURI("testSamePageUrl.action?foo=bar");
 
         // Unfortunately, the MockHttpServletRequest returns null for getParameterMap()
         //        request.setupAddParameter("requestParam1", "requestValue1");
         //        request.setupAddParameter("requestParam2", "requestValue2");
         request.setupGetParameterMap(new HashMap());
-
-        MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("testSamePageUrl.action?foo=bar");
-
-        MockPageContext pageContext = new MockPageContext();
-        pageContext.setJspWriter(jspWriter);
-        pageContext.setRequest(request);
-
-        URLTag tag = new URLTag();
-        tag.setPageContext(pageContext);
 
         try {
             tag.doStartTag();
@@ -229,10 +108,47 @@ public class URLTagTest extends TestCase {
             ex.printStackTrace();
             fail();
         }
+    }
 
-        request.verify();
+    public void testSetPageAndValueAttribute() {
+        jspWriter.setExpectedData("bar.jsp");
+        tag.setPage("foo.jsp");
+        tag.setValue("'bar.jsp'");
+
+        try {
+            tag.doStartTag();
+            tag.doEndTag();
+        } catch (JspException ex) {
+            ex.printStackTrace();
+            fail();
+        }
+    }
+
+    public void testSetPageAttribute() {
+        jspWriter.setExpectedData("foo.jsp");
+        tag.setPage("foo.jsp");
+
+        try {
+            tag.doStartTag();
+            tag.doEndTag();
+        } catch (JspException ex) {
+            ex.printStackTrace();
+            fail();
+        }
+    }
+
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        tag = new URLTag();
+        tag.setPageContext(pageContext);
+        jspWriter = new MockJspWriter();
+        pageContext.setJspWriter(jspWriter);
+    }
+
+    protected void tearDown() throws Exception {
+        super.tearDown();
         jspWriter.verify();
-        pageContext.verify();
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////

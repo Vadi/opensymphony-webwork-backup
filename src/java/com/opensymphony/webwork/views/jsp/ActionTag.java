@@ -155,8 +155,6 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     }
 
     private Map createExtraContext() {
-        Map extraContext = Ognl.createDefaultContext(this);
-
         // Leave the ValueStack out -- We're not processing inside the tag
         //        OgnlValueStack vs = ActionContext.getContext().getValueStack();
         //        extraContext.put(ActionContext.VALUE_STACK, vs);
@@ -166,8 +164,6 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         if (params != null) {
             newParams.putAll(params);
         }
-
-        extraContext.put(ActionContext.PARAMETERS, newParams);
 
         HttpServletRequest request = null;
         HttpServletResponse response = null;
@@ -186,12 +182,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
             servletContext = ServletActionContext.getServletContext();
         }
 
-        extraContext.put(ActionContext.APPLICATION, new ApplicationMap(servletContext));
-        extraContext.put(ActionContext.SESSION, new SessionMap(request.getSession()));
-        extraContext.put(HTTP_REQUEST, request);
-        extraContext.put(HTTP_RESPONSE, response);
-        extraContext.put(SERVLET_CONFIG, servletConfig);
-        extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
+        Map extraContext = ServletDispatcher.createContextMap(newParams, new SessionMap(request.getSession()), new ApplicationMap(servletContext), request, response, servletConfig);
         extraContext.put(PAGE_CONTEXT, pageContext);
 
         return extraContext;

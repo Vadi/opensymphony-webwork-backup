@@ -4,20 +4,23 @@
  */
 package com.opensymphony.webwork.views.util;
 
+import com.mockobjects.dynamic.Mock;
+
 import junit.framework.TestCase;
 
 import java.util.TreeMap;
 
-import com.mockobjects.dynamic.Mock;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
 public class UrlHelperTest extends TestCase {
+    //~ Methods ////////////////////////////////////////////////////////////////
+
     /**
      * just one &, not &amp;
      */

@@ -129,10 +129,6 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         return buildTemplateName(templateAttr, getDefaultTemplate());
     }
 
-    protected OgnlValueStack getValueStack() {
-        return UITagUtil.getValueStack(pageContext);
-    }
-
     /**
      *
      * @param myTemplate

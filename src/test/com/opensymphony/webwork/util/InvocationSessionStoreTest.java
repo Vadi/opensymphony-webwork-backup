@@ -56,6 +56,7 @@ public class InvocationSessionStoreTest extends TestCase {
 
     protected void setUp() throws Exception {
         stack = new OgnlValueStack();
+
         ActionContext actionContext = new ActionContext(stack.getContext());
         ActionContext.setContext(actionContext);
 

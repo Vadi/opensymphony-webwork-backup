@@ -4,8 +4,9 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.webwork.util.MakeIterator;
+
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import java.lang.reflect.Array;
 
@@ -82,5 +83,4 @@ public abstract class AbstractListTag extends AbstractUITag {
             addParam("listValue", listValueAttr);
         }
     }
-
 }

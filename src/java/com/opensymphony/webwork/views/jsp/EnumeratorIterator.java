@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp;
 
 import java.util.Enumeration;
 import java.util.Iterator;
+
 
 /**
  *
@@ -10,11 +15,17 @@ import java.util.Iterator;
  * @version $Revision$
  */
 public class EnumeratorIterator implements Iterator {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     Enumeration e;
+
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     public EnumeratorIterator(Enumeration e) {
         this.e = e;
     }
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public boolean hasNext() {
         return e.hasMoreElements();

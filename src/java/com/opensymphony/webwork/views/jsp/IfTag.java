@@ -17,7 +17,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author $Author$
  * @version $Revision$
  */
-public class IfTag extends TagSupport {
+public class IfTag extends WebWorkTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     public static final String ANSWER = "webwork.if.answer";
@@ -25,7 +25,6 @@ public class IfTag extends TagSupport {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     Boolean answer;
-    OgnlValueStack stack;
     String test;
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -43,7 +42,7 @@ public class IfTag extends TagSupport {
     }
 
     public int doStartTag() throws JspException {
-        stack = ActionContext.getContext().getValueStack();
+        OgnlValueStack stack = getValueStack();
 
         Object o = null;
 
@@ -68,7 +67,6 @@ public class IfTag extends TagSupport {
     public void release() {
         super.release();
         this.answer = null;
-        this.stack = null;
         this.test = null;
     }
 }

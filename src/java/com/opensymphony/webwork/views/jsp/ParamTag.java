@@ -23,7 +23,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author $Author$
  * @version $Revision$
  */
-public class ParamTag extends TagSupport implements Renderer {
+public class ParamTag extends WebWorkTagSupport implements Renderer {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     String name;
@@ -43,16 +43,16 @@ public class ParamTag extends TagSupport implements Renderer {
         ParameterizedTag parent = (ParameterizedTag) findAncestorWithClass(this, ParameterizedTag.class);
 
         if (parent != null) {
-            OgnlValueStack vs = ActionContext.getContext().getValueStack();
+            OgnlValueStack stack = getValueStack();
 
-            if (vs != null) {
+            if (stack != null) {
                 Object o = null;
 
                 if (value == null) {
                     value = "that";
                 }
 
-                o = vs.findValue(value);
+                o = stack.findValue(value);
 
                 parent.addParam(name, o);
 

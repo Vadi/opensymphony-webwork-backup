@@ -23,14 +23,12 @@ import javax.servlet.jsp.JspException;
  * @version $Revision$
  */
 public class PropertyTagTest extends TestCase {
-    //~ Methods ////////////////////////////////////////////////////////////////
-    OgnlValueStack stack = new OgnlValueStack();
-    MockHttpServletRequest request = new MockHttpServletRequest();
+    //~ Instance fields ////////////////////////////////////////////////////////
 
-    protected void setUp() throws Exception {
-        ActionContext.getContext().setValueStack(stack);
-        request.setupGetAttribute(stack);
-    }
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    OgnlValueStack stack = new OgnlValueStack();
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testDefaultValue() {
         PropertyTag tag = new PropertyTag();
@@ -148,6 +146,11 @@ public class PropertyTagTest extends TestCase {
         request.verify();
         jspWriter.verify();
         pageContext.verify();
+    }
+
+    protected void setUp() throws Exception {
+        ActionContext.getContext().setValueStack(stack);
+        request.setupGetAttribute(stack);
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////

@@ -8,13 +8,16 @@ import com.mockobjects.servlet.MockBodyContent;
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 import junit.framework.TestCase;
+
+import java.util.*;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
-import java.util.*;
 
 
 /**
@@ -23,21 +26,35 @@ import java.util.*;
  * @author $Author$
  * @version $Revision$
  */
-public class IteratorTagTest extends TestCase {
+public class IteratorTagTest extends AbstractJspTest {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     IteratorTag tag;
-    OgnlValueStack stack;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testArrayIterator() {
         Foo foo = new Foo();
-        foo.setArray(new String[]{"test1", "test2", "test3"});
+        foo.setArray(new String[] {"test1", "test2", "test3"});
 
         stack.push(foo);
 
         tag.setValue("array");
+
+        iterateThreeStrings();
+    }
+
+    public void testCollectionIterator() {
+        Foo foo = new Foo();
+        ArrayList list = new ArrayList();
+        list.add("test1");
+        list.add("test2");
+        list.add("test3");
+        foo.setList(list);
+
+        stack.push(foo);
+
+        tag.setValue("list");
 
         iterateThreeStrings();
     }
@@ -62,21 +79,6 @@ public class IteratorTagTest extends TestCase {
         }
     }
 
-    public void testCollectionIterator() {
-        Foo foo = new Foo();
-        ArrayList list = new ArrayList();
-        list.add("test1");
-        list.add("test2");
-        list.add("test3");
-        foo.setList(list);
-
-        stack.push(foo);
-
-        tag.setValue("list");
-
-        iterateThreeStrings();
-    }
-
     public void testMapIterator() {
         Foo foo = new Foo();
         HashMap map = new HashMap();
@@ -99,7 +101,7 @@ public class IteratorTagTest extends TestCase {
         }
 
         assertEquals(TagSupport.EVAL_BODY_AGAIN, result);
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
         assertTrue(stack.getRoot().peek() instanceof Map.Entry);
 
         try {
@@ -110,7 +112,7 @@ public class IteratorTagTest extends TestCase {
         }
 
         assertEquals(TagSupport.EVAL_BODY_AGAIN, result);
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
         assertTrue(stack.getRoot().peek() instanceof Map.Entry);
 
         try {
@@ -121,7 +123,7 @@ public class IteratorTagTest extends TestCase {
         }
 
         assertEquals(TagSupport.EVAL_BODY_AGAIN, result);
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
         assertTrue(stack.getRoot().peek() instanceof Map.Entry);
 
         try {
@@ -132,12 +134,12 @@ public class IteratorTagTest extends TestCase {
         }
 
         assertEquals(TagSupport.SKIP_BODY, result);
-        assertEquals(1, stack.size());
+        assertEquals(2, stack.size());
     }
 
     public void testStatus() {
         Foo foo = new Foo();
-        foo.setArray(new String[]{"test1", "test2", "test3"});
+        foo.setArray(new String[] {"test1", "test2", "test3"});
 
         stack.push(foo);
 
@@ -155,9 +157,9 @@ public class IteratorTagTest extends TestCase {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test1", stack.getRoot().peek());
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
 
-        IteratorStatus status = (IteratorStatus) ActionContext.getContext().getContextMap().get("fooStatus");
+        IteratorStatus status = (IteratorStatus) context.get("fooStatus");
         assertNotNull(status);
         assertFalse(status.isLast());
         assertTrue(status.isFirst());
@@ -175,9 +177,9 @@ public class IteratorTagTest extends TestCase {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test2", stack.getRoot().peek());
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
 
-        status = (IteratorStatus) ActionContext.getContext().getContextMap().get("fooStatus");
+        status = (IteratorStatus) context.get("fooStatus");
         assertNotNull(status);
         assertFalse(status.isLast());
         assertFalse(status.isFirst());
@@ -195,9 +197,9 @@ public class IteratorTagTest extends TestCase {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test3", stack.getRoot().peek());
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
 
-        status = (IteratorStatus) ActionContext.getContext().getContextMap().get("fooStatus");
+        status = (IteratorStatus) context.get("fooStatus");
         assertNotNull(status);
         assertTrue(status.isLast());
         assertFalse(status.isFirst());
@@ -208,22 +210,14 @@ public class IteratorTagTest extends TestCase {
     }
 
     protected void setUp() throws Exception {
+        super.setUp();
+
         // create the needed objects
         tag = new IteratorTag();
 
         MockBodyContent mockBodyContent = new MockBodyContent();
         mockBodyContent.setupGetEnclosingWriter(new MockJspWriter());
         tag.setBodyContent(mockBodyContent);
-        stack = new OgnlValueStack();
-
-        // create the mock http servlet request
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ActionContext.getContext().setValueStack(stack);
-        request.setupGetAttribute(stack);
-
-        // create the mock page context
-        MockPageContext pageContext = new MockPageContext();
-        pageContext.setRequest(request);
 
         // associate the tag with the mock page request
         tag.setPageContext(pageContext);
@@ -241,7 +235,7 @@ public class IteratorTagTest extends TestCase {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test1", stack.getRoot().peek());
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
 
         try {
             result = tag.doAfterBody();
@@ -252,7 +246,7 @@ public class IteratorTagTest extends TestCase {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test2", stack.getRoot().peek());
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
 
         try {
             result = tag.doAfterBody();
@@ -263,7 +257,7 @@ public class IteratorTagTest extends TestCase {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test3", stack.getRoot().peek());
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
 
         try {
             result = tag.doAfterBody();
@@ -273,7 +267,7 @@ public class IteratorTagTest extends TestCase {
         }
 
         assertEquals(result, TagSupport.SKIP_BODY);
-        assertEquals(1, stack.size());
+        assertEquals(2, stack.size());
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////
