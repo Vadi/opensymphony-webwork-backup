@@ -325,6 +325,24 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/idea.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/jdom.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
   <component name="WebModuleBuildComponent">
     <setting name="EXPLODED_URL" value="file://" />
@@ -615,6 +633,22 @@
         </key>
         <value predicate="moduleLibrary">
           <url>jar://$MODULE_DIR$/lib/optional/itext.jar!/</url>
+        </value>
+      </pairs>
+      <pairs>
+        <key>
+          <option name="value" value="998" />
+        </key>
+        <value predicate="moduleLibrary">
+          <url>jar://$APPLICATION_HOME_DIR$/lib/idea.jar!/</url>
+        </value>
+      </pairs>
+      <pairs>
+        <key>
+          <option name="value" value="999" />
+        </key>
+        <value predicate="moduleLibrary">
+          <url>jar://$APPLICATION_HOME_DIR$/lib/jdom.jar!/</url>
         </value>
       </pairs>
     </orderEntriesWatcher>
@@ -928,6 +962,24 @@
       <info>
         <key>
           <option name="value" value="995" />
+        </key>
+        <value>
+          <setting name="copy" value="false" />
+          <setting name="URI" value="" />
+        </value>
+      </info>
+      <info>
+        <key>
+          <option name="value" value="998" />
+        </key>
+        <value>
+          <setting name="copy" value="false" />
+          <setting name="URI" value="" />
+        </value>
+      </info>
+      <info>
+        <key>
+          <option name="value" value="999" />
         </key>
         <value>
           <setting name="copy" value="false" />
