@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp.ui.table.renderer;
 
 import com.opensymphony.webwork.views.jsp.ui.table.WebTable;
+
 
 /**
  * this is the base class that most renderers will be derived from.
@@ -8,21 +13,21 @@ import com.opensymphony.webwork.views.jsp.ui.table.WebTable;
  * content by implementing getCellValue
  */
 abstract public class AbstractCellRenderer implements CellRenderer {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     /**
      * used for horizontal cell alignmnet
      */
     protected String _alignment = null;
 
-    protected boolean isAligned() {
-        return _alignment != null;
+    //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setAlignment(String alignment) {
+        _alignment = alignment;
     }
 
     public String getAlignment() {
         return _alignment;
-    }
-
-    public void setAlignment(String alignment) {
-        _alignment = alignment;
     }
 
     /**
@@ -35,9 +40,15 @@ abstract public class AbstractCellRenderer implements CellRenderer {
             buf.append("<div align='").append(_alignment).append("'>");
             buf.append(getCellValue(table, data, row, col));
             buf.append("</div>");
+
             return buf.toString();
         }
+
         return getCellValue(table, data, row, col);
+    }
+
+    protected boolean isAligned() {
+        return _alignment != null;
     }
 
     /**

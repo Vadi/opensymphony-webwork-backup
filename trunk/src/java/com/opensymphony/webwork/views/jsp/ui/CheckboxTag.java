@@ -19,6 +19,8 @@ public class CheckboxTag extends AbstractUITag {
      */
     final public static String TEMPLATE = "checkbox.vm";
 
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     protected String fieldValueAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -27,17 +29,17 @@ public class CheckboxTag extends AbstractUITag {
         this.fieldValueAttr = aValue;
     }
 
-    protected void evaluateExtraParams(OgnlValueStack stack) {
-        if (fieldValueAttr != null) {
-            addParam("fieldValue", findValue(fieldValueAttr, String.class));
-        }
+    protected String getDefaultTemplate() {
+        return TEMPLATE;
     }
 
     protected Class getValueClassType() {
         return Boolean.class; // for checkboxes, everything needs to end up as a Boolean
     }
 
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
+    protected void evaluateExtraParams(OgnlValueStack stack) {
+        if (fieldValueAttr != null) {
+            addParam("fieldValue", findValue(fieldValueAttr, String.class));
+        }
     }
 }

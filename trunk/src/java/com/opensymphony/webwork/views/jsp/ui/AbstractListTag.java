@@ -4,8 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.util.MakeIterator;
 import com.opensymphony.webwork.util.ContainUtil;
+import com.opensymphony.webwork.util.MakeIterator;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 

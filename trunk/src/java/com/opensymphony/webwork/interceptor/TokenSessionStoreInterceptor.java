@@ -24,10 +24,10 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-* Handles the case of an invalid token
-* @param invocation
-* @return
-*/
+    * Handles the case of an invalid token
+    * @param invocation
+    * @return
+    */
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
         HttpServletRequest request = ServletActionContext.getRequest();
         String tokenName = TokenHelper.getTokenName(request);
@@ -58,11 +58,11 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
     }
 
     /**
-* Handle the case of a valid token
-* @param invocation
-* @return
-* @throws Exception
-*/
+    * Handle the case of a valid token
+    * @param invocation
+    * @return
+    * @throws Exception
+    */
     protected String handleValidToken(ActionInvocation invocation) throws Exception {
         // we know the token name and token must be there
         HttpServletRequest request = ServletActionContext.getRequest();

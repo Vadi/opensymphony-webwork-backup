@@ -1,8 +1,14 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.util;
 
 import java.lang.reflect.Array;
+
 import java.util.Collection;
 import java.util.Map;
+
 
 /**
  * <code>ContainUtil</code> will check if object 1 contains object 2.
@@ -12,8 +18,10 @@ import java.util.Map;
  * @version $Revision$
  */
 public class ContainUtil {
+    //~ Methods ////////////////////////////////////////////////////////////////
+
     public static boolean contains(Object obj1, Object obj2) {
-        if (obj1 == null || obj2 == null) {
+        if ((obj1 == null) || (obj2 == null)) {
             //log.debug("obj1 or obj2 are null.");
             return false;
         }
@@ -32,6 +40,7 @@ public class ContainUtil {
             for (int i = 0; i < Array.getLength(obj1); i++) {
                 Object value = null;
                 value = Array.get(obj1, i);
+
                 if (value.equals(obj2)) {
                     //log.debug("obj1 is an array and contains obj2");
                     return true;
@@ -41,6 +50,7 @@ public class ContainUtil {
             //log.debug("obj1 is an object and equals obj2");
             return true;
         }
+
         //log.debug("obj1 does not contain obj2: " + obj1 + ", " + obj2);
         return false;
     }

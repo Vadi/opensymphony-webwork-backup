@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
+import com.opensymphony.webwork.dispatcher.RequestMap;
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 
@@ -142,7 +143,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         ServletConfig servletConfig = pageContext.getServletConfig();
         ServletContext servletContext = pageContext.getServletContext();
 
-        Map extraContext = ServletDispatcher.createContextMap(newParams, new SessionMap(request.getSession()), new ApplicationMap(servletContext), request, response, servletConfig);
+        Map extraContext = ServletDispatcher.createContextMap(new RequestMap(request), newParams, new SessionMap(request.getSession()), new ApplicationMap(servletContext), request, response, servletConfig);
         extraContext.put(PAGE_CONTEXT, pageContext);
 
         OgnlValueStack vs = ActionContext.getContext().getValueStack();

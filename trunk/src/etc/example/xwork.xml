@@ -191,6 +191,8 @@
 
     </package>
 
+    <include file="month.xml"/>
+
     <include file="i18n.xml"/>
 
 </xwork>

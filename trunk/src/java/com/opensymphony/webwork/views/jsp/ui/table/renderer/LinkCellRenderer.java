@@ -1,8 +1,21 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp.ui.table.renderer;
 
 import com.opensymphony.webwork.views.jsp.ui.table.WebTable;
 
+
+/**
+ * DOCUMENT ME!
+ *
+ * @author $author$
+ * @version $Revision$
+ */
 public class LinkCellRenderer extends AbstractCellRenderer {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     /**
      * this is the actual renderer tha will be used to display the text
      */
@@ -20,6 +33,13 @@ public class LinkCellRenderer extends AbstractCellRenderer {
     protected String _param = null;
 
     /**
+     * directly set the value for the param.  Will overide paramColumn if set.
+     * optional.  Either this or paramColumn must be set if param is used.
+     * Will be ignored if param not used
+     */
+    protected String _paramValue = null;
+
+    /**
      * the target frame to open in. Optional
      */
     protected String _target = null;
@@ -32,15 +52,12 @@ public class LinkCellRenderer extends AbstractCellRenderer {
      */
     protected int _paramColumn = -1;
 
-    /**
-     * directly set the value for the param.  Will overide paramColumn if set.
-     * optional.  Either this or paramColumn must be set if param is used.
-     * Will be ignored if param not used
-     */
-    protected String _paramValue = null;
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     public LinkCellRenderer() {
     }
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * should the link data be encodeed?
@@ -50,8 +67,10 @@ public class LinkCellRenderer extends AbstractCellRenderer {
 
         StringBuffer cell = new StringBuffer(256);
         cell.append("<a href='").append(_link);
+
         if (_param != null) {
             cell.append("?").append(_param).append("=");
+
             if (_paramValue != null) {
                 cell.append(_paramValue);
             } else if (_paramColumn >= 0) {
@@ -66,6 +85,7 @@ public class LinkCellRenderer extends AbstractCellRenderer {
         }
 
         cell.append(">").append(value).append("</a>");
+
         return cell.toString();
     }
 
@@ -77,12 +97,12 @@ public class LinkCellRenderer extends AbstractCellRenderer {
         _param = param;
     }
 
-    public void setTarget(String target) {
-        _target = target;
-    }
-
     public void setParamColumn(int paramColumn) {
         _paramColumn = paramColumn;
+    }
+
+    public void setParamValue(String paramValue) {
+        _paramValue = paramValue;
     }
 
     /**
@@ -92,12 +112,13 @@ public class LinkCellRenderer extends AbstractCellRenderer {
      */
     public void setRenderer(CellRenderer delegateRenderer) {
         _delegateRenderer = delegateRenderer;
+
         if (_delegateRenderer instanceof AbstractCellRenderer) {
             setAlignment(((AbstractCellRenderer) _delegateRenderer).getAlignment());
         }
     }
 
-    public void setParamValue(String paramValue) {
-        _paramValue = paramValue;
+    public void setTarget(String target) {
+        _target = target;
     }
 }

@@ -23,6 +23,35 @@ import java.util.Collection;
 public class SelectTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    public void testMultiple() throws Exception {
+        Template template = Velocity.getTemplate(AbstractUITag.THEME + SelectTag.TEMPLATE);
+        Assert.assertNotNull(template); // ensure this is a valid decorators
+
+        TestAction testAction = (TestAction) action;
+        Collection collection = new ArrayList(2);
+        collection.add("hello");
+        collection.add("foo");
+        testAction.setCollection(collection);
+        testAction.setList(new String[][] {
+                {"hello", "world"},
+                {"foo", "bar"},
+                {"cat", "dog"}
+            });
+
+        SelectTag tag = new SelectTag();
+        tag.setPageContext(pageContext);
+        tag.setLabel("'mylabel'");
+        tag.setName("'collection'");
+        tag.setList("list");
+        tag.setListKey("top[0]");
+        tag.setListValue("top[1]");
+        tag.setMultiple("true");
+
+        int result = tag.doEndTag();
+
+        verify(SelectTag.class.getResource("Select-2.txt"));
+    }
+
     public void testSimple() throws Exception {
         Template template = Velocity.getTemplate(AbstractUITag.THEME + SelectTag.TEMPLATE);
         Assert.assertNotNull(template); // ensure this is a valid decorators
@@ -53,34 +82,5 @@ public class SelectTest extends AbstractUITagTest {
         int result = tag.doEndTag();
 
         verify(SelectTag.class.getResource("Select-1.txt"));
-    }
-
-    public void testMultiple() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + SelectTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
-        TestAction testAction = (TestAction) action;
-        Collection collection = new ArrayList(2);
-        collection.add("hello");
-        collection.add("foo");
-        testAction.setCollection(collection);
-        testAction.setList(new String[][] {
-                {"hello", "world"},
-                {"foo", "bar"},
-                {"cat", "dog"}
-            });
-
-        SelectTag tag = new SelectTag();
-        tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'collection'");
-        tag.setList("list");
-        tag.setListKey("top[0]");
-        tag.setListValue("top[1]");
-        tag.setMultiple("true");
-
-        int result = tag.doEndTag();
-
-        verify(SelectTag.class.getResource("Select-2.txt"));
     }
 }

@@ -4,7 +4,6 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -16,7 +15,6 @@ import java.beans.Beans;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
 
 
 /**
@@ -26,8 +24,8 @@ import javax.servlet.jsp.tagext.TagSupport;
  * ActionContext.</p>
  * <p>Examples:</p>
  * <pre>
- * <ww:bean name="com.opensymphony.webwork.example.counter.SimpleCounter" id="counter">
- *   <ww:param name="foo" value="'BAR'"/>
+ * <ww:bean name="'com.opensymphony.webwork.example.counter.SimpleCounter'" id="counter">
+ *   <ww:param name="'foo'" value="'BAR'"/>
  *
  *   The value of foo is : <ww:property value="foo"/>, when inside the bean tag.<br />
  * </ww:bean>
@@ -73,7 +71,7 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
     }
 
     public void addParam(String key, Object value) {
-        OgnlUtil.setProperty(key, value, bean, getStack().getContext());
+        OgnlUtil.setProperty(findString(key), value, bean, getStack().getContext());
     }
 
     public int doEndTag() throws JspException {
@@ -92,9 +90,10 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
         }
 
         try {
-            bean = Beans.instantiate(cl, name);
+            bean = Beans.instantiate(cl, findString(name));
         } catch (Exception e) {
             log.error("Could not instantiate bean", e);
+
             return SKIP_PAGE;
         }
 

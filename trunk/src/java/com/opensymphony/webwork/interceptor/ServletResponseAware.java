@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  * Note that using this interface makes the Action tied to a servlet
  * environment, so it should be avoided if possible.
  *
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ *        @author Rickard Öberg (rickard@middleware-company.com)
+ *        @version $Revision$
  */
 public interface ServletResponseAware {
     //~ Methods ////////////////////////////////////////////////////////////////

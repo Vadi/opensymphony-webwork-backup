@@ -41,6 +41,24 @@ public class TextfieldTest extends AbstractUITagTest {
         verify(TextFieldTag.class.getResource("Textfield-2.txt"));
     }
 
+    public void testNoLabel() throws Exception {
+        Template template = Velocity.getTemplate(AbstractUITag.THEME + TextFieldTag.TEMPLATE);
+        Assert.assertNotNull(template); // ensure this is a valid decorators
+
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        TextFieldTag tag = new TextFieldTag();
+        tag.setPageContext(pageContext);
+        tag.setName("'myname'");
+        tag.setValue("foo");
+        tag.setSize("'10'");
+
+        tag.doEndTag();
+
+        verify(TextFieldTag.class.getResource("Textfield-3.txt"));
+    }
+
     public void testSimple() throws Exception {
         Template template = Velocity.getTemplate(AbstractUITag.THEME + TextFieldTag.TEMPLATE);
         Assert.assertNotNull(template); // ensure this is a valid decorators
@@ -58,23 +76,5 @@ public class TextfieldTest extends AbstractUITagTest {
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("Textfield-1.txt"));
-    }
-
-    public void testNoLabel() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + TextFieldTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
-        TestAction testAction = (TestAction) action;
-        testAction.setFoo("bar");
-
-        TextFieldTag tag = new TextFieldTag();
-        tag.setPageContext(pageContext);
-        tag.setName("'myname'");
-        tag.setValue("foo");
-        tag.setSize("'10'");
-
-        tag.doEndTag();
-
-        verify(TextFieldTag.class.getResource("Textfield-3.txt"));
     }
 }

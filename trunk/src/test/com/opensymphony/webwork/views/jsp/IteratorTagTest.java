@@ -35,7 +35,7 @@ public class IteratorTagTest extends AbstractUITagTest {
 
     public void testArrayIterator() {
         Foo foo = new Foo();
-        foo.setArray(new String[]{"test1", "test2", "test3"});
+        foo.setArray(new String[] {"test1", "test2", "test3"});
 
         stack.push(foo);
 
@@ -43,12 +43,6 @@ public class IteratorTagTest extends AbstractUITagTest {
 
         iterateThreeStrings();
     }
-
-    public void testIteratorWithDefaultValue() {
-        stack.push(new String[]{"test1", "test2", "test3"});
-        iterateThreeStrings();
-    }
-
 
     public void testCollectionIterator() {
         Foo foo = new Foo();
@@ -83,6 +77,11 @@ public class IteratorTagTest extends AbstractUITagTest {
         } catch (Exception e) {
             // this is expected
         }
+    }
+
+    public void testIteratorWithDefaultValue() {
+        stack.push(new String[] {"test1", "test2", "test3"});
+        iterateThreeStrings();
     }
 
     public void testMapIterator() {
@@ -145,7 +144,7 @@ public class IteratorTagTest extends AbstractUITagTest {
 
     public void testStatus() {
         Foo foo = new Foo();
-        foo.setArray(new String[]{"test1", "test2", "test3"});
+        foo.setArray(new String[] {"test1", "test2", "test3"});
 
         stack.push(foo);
 

@@ -7,9 +7,9 @@ package com.opensymphony.webwork;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionSupport;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Collection;
 
 
 /**
@@ -19,12 +19,12 @@ import java.util.Collection;
 public class TestAction extends ActionSupport {
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    private Collection collection;
     private Map map;
     private String foo;
     private String result;
     private String[] array;
     private String[][] list;
-    private Collection collection;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -34,6 +34,14 @@ public class TestAction extends ActionSupport {
 
     public String[] getArray() {
         return array;
+    }
+
+    public void setCollection(Collection collection) {
+        this.collection = collection;
+    }
+
+    public Collection getCollection() {
+        return collection;
     }
 
     public void setFoo(String foo) {
@@ -66,14 +74,6 @@ public class TestAction extends ActionSupport {
 
     public String getResult() {
         return result;
-    }
-
-    public Collection getCollection() {
-        return collection;
-    }
-
-    public void setCollection(Collection collection) {
-        this.collection = collection;
     }
 
     public String execute() throws Exception {

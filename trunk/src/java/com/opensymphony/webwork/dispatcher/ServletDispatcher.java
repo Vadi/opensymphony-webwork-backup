@@ -10,6 +10,7 @@ import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
+import com.opensymphony.webwork.util.AttributeMap;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
 
 import com.opensymphony.xwork.ActionContext;
@@ -58,9 +59,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         return servletPath;
     }
 
-    public static HashMap createContextMap(Map parameterMap, Map sessionMap, Map applicationMap,
-                                           HttpServletRequest request, HttpServletResponse response,
-                                           ServletConfig servletConfig) {
+    public static HashMap createContextMap(Map requestMap, Map parameterMap, Map sessionMap, Map applicationMap, HttpServletRequest request, HttpServletResponse response, ServletConfig servletConfig) {
         HashMap extraContext = new HashMap();
         extraContext.put(ActionContext.PARAMETERS, parameterMap);
         extraContext.put(ActionContext.SESSION, sessionMap);
@@ -73,10 +72,13 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
 
         // helpers to get access to request/session/application scope
-        extraContext.put("request", parameterMap);
+        extraContext.put("request", requestMap);
         extraContext.put("session", sessionMap);
         extraContext.put("application", applicationMap);
         extraContext.put("parameters", parameterMap);
+
+        AttributeMap attrMap = new AttributeMap(extraContext);
+        extraContext.put("attr", attrMap);
 
         return extraContext;
     }
@@ -156,7 +158,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
             request = wrapRequest(request);
-            serviceAction(request, response, getNameSpace(request), getActionName(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
+            serviceAction(request, response, getNameSpace(request), getActionName(request), getRequestMap(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
         } catch (IOException e) {
             String message = "Could not wrap servlet request with MultipartRequestWrapper!";
             log.error(message, e);
@@ -169,9 +171,8 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * is wrapped so WW will be able to work with the multi-part as if it was a normal request.
      * Then the request is handed to GenericDispatcher and executed.
      */
-    public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace,
-                              String actionName, Map parameterMap, Map sessionMap, Map applicationMap) {
-        HashMap extraContext = createContextMap(parameterMap, sessionMap, applicationMap, request, response, getServletConfig());
+    public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace, String actionName, Map requestMap, Map parameterMap, Map sessionMap, Map applicationMap) {
+        HashMap extraContext = createContextMap(requestMap, parameterMap, sessionMap, applicationMap, request, response, getServletConfig());
         extraContext.put(SERLVET_DISPATCHER, this);
 
         try {
@@ -220,6 +221,10 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
 
     protected Map getParameterMap(HttpServletRequest request) throws IOException {
         return request.getParameterMap();
+    }
+
+    protected Map getRequestMap(HttpServletRequest request) {
+        return new RequestMap(request);
     }
 
     protected Map getSessionMap(HttpServletRequest request) {

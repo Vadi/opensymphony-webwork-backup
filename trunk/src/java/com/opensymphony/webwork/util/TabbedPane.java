@@ -1,45 +1,57 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.util;
 
 import java.util.Vector;
 
+
 /**
  * A bean that helps implement a tabbed pane
- *	@author Onyeje Bose (digi9ten@yahoo.com)
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ *        @author Onyeje Bose (digi9ten@yahoo.com)
+ *        @author Rickard Öberg (rickard@middleware-company.com)
+ *        @version $Revision$
  */
 public class TabbedPane {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    protected String tabAlign = null;
+
     // Attributes ----------------------------------------------------
     protected Vector content = null;
     protected int selectedIndex = 0;
-    protected String tabAlign = null;
+
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     // Public --------------------------------------------------------
     public TabbedPane(int defaultIndex) {
         selectedIndex = defaultIndex;
     }
 
-    public int getSelectedIndex() {
-        return selectedIndex;
-    }
+    //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setSelectedIndex(int selectedIndex) {
-        this.selectedIndex = selectedIndex;
+    public void setContent(Vector content) {
+        this.content = content;
     }
 
     public Vector getContent() {
         return content;
     }
 
-    public void setContent(Vector content) {
-        this.content = content;
+    public void setSelectedIndex(int selectedIndex) {
+        this.selectedIndex = selectedIndex;
     }
 
-    public String getTabAlign() {
-        return tabAlign;
+    public int getSelectedIndex() {
+        return selectedIndex;
     }
 
     public void setTabAlign(String tabAlign) {
         this.tabAlign = tabAlign;
+    }
+
+    public String getTabAlign() {
+        return tabAlign;
     }
 }

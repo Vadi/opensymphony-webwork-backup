@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp.vui;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 
 /**
  * Voice UI for prompt tag
@@ -9,25 +14,21 @@ import org.apache.commons.logging.LogFactory;
  * @author Jeff Haynie (jhaynie@vocalocity.net)
  * @version $Revision$
  */
-public class PromptTag
-        extends AbstractVUITag {
+public class PromptTag extends AbstractVUITag {
+    //~ Static fields/initializers /////////////////////////////////////////////
+
     // Attributes ----------------------------------------------------
     protected static Log log = LogFactory.getLog(PromptTag.class);
+
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     protected String bargeinAttr;
-    protected String timeoutAttr;
-    protected String langAttr;
     protected String condAttr;
     protected String countAttr;
+    protected String langAttr;
+    protected String timeoutAttr;
 
-    // Public --------------------------------------------------------
-
-    public String getHeaderTemplate() {
-        return "prompt-header.jsp";
-    }
-
-    public String getFooterTemplate() {
-        return "prompt-footer.jsp";
-    }
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setBargein(String aName) {
         bargeinAttr = aName;
@@ -35,22 +36,6 @@ public class PromptTag
 
     public String getBargein() {
         return bargeinAttr;
-    }
-
-    public void setTimeout(String aName) {
-        timeoutAttr = aName;
-    }
-
-    public String getTimeout() {
-        return timeoutAttr;
-    }
-
-    public void setLang(String aName) {
-        langAttr = aName;
-    }
-
-    public String getLang() {
-        return langAttr;
     }
 
     public void setCond(String aName) {
@@ -67,6 +52,31 @@ public class PromptTag
 
     public String getCount() {
         return countAttr;
+    }
+
+    public String getFooterTemplate() {
+        return "prompt-footer.jsp";
+    }
+
+    // Public --------------------------------------------------------
+    public String getHeaderTemplate() {
+        return "prompt-header.jsp";
+    }
+
+    public void setLang(String aName) {
+        langAttr = aName;
+    }
+
+    public String getLang() {
+        return langAttr;
+    }
+
+    public void setTimeout(String aName) {
+        timeoutAttr = aName;
+    }
+
+    public String getTimeout() {
+        return timeoutAttr;
     }
 
     protected void initializeAttributes() {

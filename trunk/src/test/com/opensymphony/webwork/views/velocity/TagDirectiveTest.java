@@ -92,10 +92,10 @@ public class TagDirectiveTest extends TestCase {
     }
 
     /**
- * pretty much the same as the BodyTag test, but we're not passing in any parameters
- * 
- * @throws Exception 
- */
+    * pretty much the same as the BodyTag test, but we're not passing in any parameters
+    *
+    * @throws Exception
+    */
     public void testTag() throws Exception {
         Template template = velocityEngine.getTemplate("/com/opensymphony/webwork/views/velocity/tag.vm");
         StringWriter writer = new StringWriter();
@@ -127,8 +127,8 @@ public class TagDirectiveTest extends TestCase {
         ActionContext.setContext(new ActionContext(stack.getContext()));
 
         /**
- * construct our sandbox VelocityEngine
- */
+        * construct our sandbox VelocityEngine
+        */
         Properties props = new Properties();
 
         props.setProperty("resource.loader", "file, wwclass");
@@ -182,8 +182,8 @@ public class TagDirectiveTest extends TestCase {
     //~ Inner Classes //////////////////////////////////////////////////////////
 
     /**
- * our BodyContent that returns a non-null enclosingWriter
- */
+    * our BodyContent that returns a non-null enclosingWriter
+    */
     class TestBodyContent extends MockBodyContent {
         JspWriter writer;
 
@@ -197,9 +197,9 @@ public class TagDirectiveTest extends TestCase {
     }
 
     /**
- * the MockPageContext doesn't return a BodyContent that we can use.  We need one that returns a non-null
- * getEnclosingWriter method
- */
+    * the MockPageContext doesn't return a BodyContent that we can use.  We need one that returns a non-null
+    * getEnclosingWriter method
+    */
     class TestPageContext extends MockPageContext {
         public BodyContent pushBody() {
             return new TestBodyContent(this.getOut());
