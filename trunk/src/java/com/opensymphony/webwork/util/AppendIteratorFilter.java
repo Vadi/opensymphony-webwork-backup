@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.util;
 
+import com.opensymphony.xwork.Action;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
  *        @author Rickard Öberg (rickard@middleware-company.com)
  *        @version $Revision$
  */
-public class AppendIteratorFilter extends IteratorFilterSupport implements java.util.Iterator, webwork.action.Action {
+public class AppendIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     List iterators = new ArrayList();

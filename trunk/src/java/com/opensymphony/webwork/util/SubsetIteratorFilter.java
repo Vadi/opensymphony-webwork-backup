@@ -9,6 +9,8 @@ import org.apache.commons.logging.LogFactory;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.opensymphony.xwork.Action;
+
 
 /**
  *        A bean that takes an iterator and outputs a subset of it.
@@ -16,7 +18,7 @@ import java.util.Iterator;
  *        @author Rickard Öberg (rickard@middleware-company.com)
  *        @version $Revision$
  */
-public class SubsetIteratorFilter extends IteratorFilterSupport implements java.util.Iterator, webwork.action.Action {
+public class SubsetIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     Iterator iterator;

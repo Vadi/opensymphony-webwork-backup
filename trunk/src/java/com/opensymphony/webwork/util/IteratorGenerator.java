@@ -4,9 +4,12 @@
  */
 package com.opensymphony.webwork.util;
 
+import com.opensymphony.xwork.Action;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Iterator;
 
 
 /**
@@ -15,7 +18,7 @@ import java.util.StringTokenizer;
  *        @author Rickard Öberg (rickard@middleware-company.com)
  *        @version $Revision$
  */
-public class IteratorGenerator implements java.util.Iterator, webwork.action.Action {
+public class IteratorGenerator implements Iterator, Action {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     List values;
