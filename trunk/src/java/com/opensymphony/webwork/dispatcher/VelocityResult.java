@@ -56,11 +56,18 @@ public class VelocityResult extends WebWorkResultSupport {
 
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpServletResponse response = ServletActionContext.getResponse();
-        JspFactory jspFactory = JspFactory.getDefaultFactory();
+        JspFactory jspFactory = null;
         ServletContext servletContext = ServletActionContext.getServletContext();
         Servlet servlet = (Servlet) servletContext.getAttribute("webwork.servlet");
-        PageContext pageContext = jspFactory.getPageContext(servlet, request, response, null, true, 8192, true);
-        ActionContext.getContext().put(ServletActionContext.PAGE_CONTEXT, pageContext);
+
+        boolean usedJspFactory = false;
+        PageContext pageContext = (PageContext) ActionContext.getContext().get(ServletActionContext.PAGE_CONTEXT);
+        if (pageContext == null) {
+            jspFactory = JspFactory.getDefaultFactory();
+            pageContext = jspFactory.getPageContext(servlet, request, response, null, true, 8192, true);
+            ActionContext.getContext().put(ServletActionContext.PAGE_CONTEXT, pageContext);
+            usedJspFactory = true;
+        }
 
         try {
             Template t = getTemplate(stack, velocityEngine, invocation, finalLocation);
@@ -71,19 +78,24 @@ public class VelocityResult extends WebWorkResultSupport {
             // @todo can t.getEncoding() ever return a null value?
             String encoding = RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, WebWorkVelocityServlet.DEFAULT_OUTPUT_ENCODING);
 
-            if (encoding != null) {
-                response.setContentType("text/html; charset=" + encoding);
-            } else {
-                response.setContentType("text/html");
+            if (usedJspFactory) {
+                if (encoding != null) {
+                    response.setContentType("text/html; charset=" + encoding);
+                } else {
+                    response.setContentType("text/html");
+                }
             }
 
             t.merge(context, writer);
-            writer.flush();
+
+            if (usedJspFactory) {
+                writer.flush();
+            }
         } catch (Exception e) {
             log.error("Unable to render Velocity Template, '" + finalLocation + "'", e);
             throw e;
         } finally {
-            if (pageContext != null) {
+            if (usedJspFactory) {
                 jspFactory.releasePageContext(pageContext);
             }
         }
