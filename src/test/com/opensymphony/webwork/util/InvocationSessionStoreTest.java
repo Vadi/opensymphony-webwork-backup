@@ -12,7 +12,6 @@ import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.Configuration;
-import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.ConfigurationProvider;
 import com.opensymphony.xwork.config.entities.ActionConfig;
@@ -76,7 +75,7 @@ public class InvocationSessionStoreTest extends TestCase {
         /**
         * Initializes the configuration object.
         */
-        public void init(Configuration configuration) throws ConfigurationException {
+        public void init(Configuration configuration) {
             PackageConfig defaultPackageConfig = new PackageConfig();
 
             List interceptors = new ArrayList();
