@@ -1,4 +1,5 @@
-#parse( "/templates/xhtml/controlheader.vm" )
+#parse( "/template/xhtml/controlheader.vm" )
+
 #set( $items = ${stack.findValue($tag.list)} )
 #if( $items )
 #foreach( $item in $items )
@@ -18,4 +19,5 @@
 #else
   &nbsp;
 #end
-#parse( "/templates/xhtml/controlfooter.vm" )
+
+#parse( "/template/xhtml/controlfooter.vm" )
