@@ -87,18 +87,15 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
         // Instantiate bean
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
 
-        try {
-            if (name == null) {
-                throw new JspException("Bean name must be specified.");
-            }
+        if (name == null) {
+            throw new JspException("Bean name must be specified.");
+        }
 
+        try {
             bean = Beans.instantiate(cl, name);
-        } catch (Exception ex) {
-            try {
-                pageContext.handlePageException(ex);
-            } catch (Exception e) {
-                // ignore
-            }
+        } catch (Exception e) {
+            log.error("Could not instantiate bean", e);
+            return SKIP_PAGE;
         }
 
         OgnlValueStack stack = getValueStack();
