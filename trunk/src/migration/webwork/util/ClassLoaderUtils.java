@@ -14,7 +14,7 @@ public class ClassLoaderUtils extends com.opensymphony.webwork.util.ClassLoaderU
     }
 
     public static InputStream getResourceAsStream(String resourceName, Class callingClass) {
-        return com.opensymphony.webwork.util..getResourceAsStream(resourceName, callingClass);
+        return com.opensymphony.webwork.util.ClassLoaderUtils.getResourceAsStream(resourceName, callingClass);
     }
 
     public static void printClassLoader() {
