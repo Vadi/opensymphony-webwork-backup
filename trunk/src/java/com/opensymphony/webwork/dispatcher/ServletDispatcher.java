@@ -138,6 +138,9 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         if (log.isDebugEnabled()) {
             log.debug("maxSize=" + maxSize);
         }
+
+        // store a reference to ourself into the SessionContext so that we can generate a PageContext
+        config.getServletContext().setAttribute("webwork.servlet", this);
     }
 
     /**
