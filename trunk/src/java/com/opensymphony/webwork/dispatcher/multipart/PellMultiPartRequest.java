@@ -5,18 +5,15 @@
 package com.opensymphony.webwork.dispatcher.multipart;
 
 import com.opensymphony.webwork.config.Configuration;
-
 import http.utils.multipartrequest.ServletMultipartRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -51,20 +48,28 @@ public class PellMultiPartRequest extends MultiPartRequest {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public String getContentType(String name) {
-        return multi.getContentType(name);
-    }
-
-    public File getFile(String name) {
-        return multi.getFile(name);
-    }
-
-    public Enumeration getFileNames() {
+    public Enumeration getFileParameterNames() {
         return multi.getFileParameterNames();
     }
 
-    public String getFilesystemName(String name) {
-        return multi.getFileSystemName(name);
+    public String[] getContentType(String fieldName) {
+        return new String[]{multi.getContentType(fieldName)};
+    }
+
+    public File[] getFile(String fieldName) {
+        return new File[]{multi.getFile(fieldName)};
+    }
+
+    public String[] getFileNames(String fieldName) {
+
+        // TODO - not sure about this - is this the filename of the actual file or
+        // TODO - the uploaded filename as provided by the browser?
+        // TODO - Not sure what version of Pell this class uses as it doesn't seem to be the latest
+        return new String[]{multi.getFile(fieldName).getName()};
+    }
+
+    public String[] getFilesystemName(String fieldName) {
+        return new String[]{multi.getFileSystemName(fieldName)};
     }
 
     public String getParameter(String name) {

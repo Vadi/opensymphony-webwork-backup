@@ -6,17 +6,14 @@ package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
-
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ValidationAware;
 import com.opensymphony.xwork.interceptor.Interceptor;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
-
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -98,7 +95,7 @@ public class FileUploadInterceptor implements Interceptor {
             }
         }
 
-        Enumeration e = multiWrapper.getFileNames();
+        Enumeration e = multiWrapper.getFileParameterNames();
 
         // Bind allowed Files
         while (e.hasMoreElements()) {
@@ -106,20 +103,24 @@ public class FileUploadInterceptor implements Interceptor {
             String inputName = (String) e.nextElement();
 
             // get the content type
-            String contentType = multiWrapper.getContentType(inputName);
+            String[] contentType = multiWrapper.getContentTypes(inputName);
 
             // get the name of the file from the input tag
-            String fileName = multiWrapper.getFilesystemName(inputName);
+            String[] fileName = multiWrapper.getFileNames(inputName);
 
             // Get a File object for the uploaded File
-            File file = multiWrapper.getFile(inputName);
+            File[] file = multiWrapper.getFiles(inputName);
 
-            log.info("file " + inputName + " " + contentType + " " + fileName + " " + file);
+            if (file != null) {
+                for (int i = 0; i < file.length; i++) {
+                    log.info("file " + inputName + " " + contentType[i] + " " + fileName[i] + " " + file[i]);
+                }
+            }
 
             // If it's null the upload failed
             if (file == null) {
                 if (validation != null) {
-                    validation.addFieldError(inputName, "Could not upload file. Perhaps it is too large?");
+                    validation.addFieldError(inputName, "Could not upload file(s). Perhaps it is too large?");
                 }
 
                 log.error("Error uploading: " + fileName);
@@ -134,15 +135,18 @@ public class FileUploadInterceptor implements Interceptor {
         String result = invocation.invoke();
 
         // cleanup
-        e = multiWrapper.getFileNames();
+        e = multiWrapper.getFileParameterNames();
 
         while (e.hasMoreElements()) {
             String inputValue = (String) e.nextElement();
-            File file = multiWrapper.getFile(inputValue);
-            log.info("removing file " + inputValue + " " + file);
+            File[] file = multiWrapper.getFiles(inputValue);
+            for (int i = 0; i < file.length; i++) {
+                File f = file[i];
+                log.info("removing file " + inputValue + " " + f);
 
-            if ((file != null) && file.isFile()) {
-                file.delete();
+                if ((f != null) && f.isFile()) {
+                    f.delete();
+                }
             }
         }
 
