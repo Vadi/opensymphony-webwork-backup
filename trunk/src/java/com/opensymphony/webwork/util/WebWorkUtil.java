@@ -16,10 +16,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URLEncoder;
 import java.util.Hashtable;
 import java.util.Map;
@@ -91,7 +90,8 @@ public class WebWorkUtil {
             dispatcher.include(aRequest, responseWrapper);
 
             return responseWrapper.getData();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
@@ -108,21 +108,21 @@ public class WebWorkUtil {
     //~ Inner Classes //////////////////////////////////////////////////////////
 
     static class ResponseWrapper extends HttpServletResponseWrapper {
-        ByteArrayOutputStream bout;
+        StringWriter strout;
         PrintWriter writer;
         ServletOutputStream sout;
 
         ResponseWrapper(HttpServletResponse aResponse) {
             super(aResponse);
-            bout = new ByteArrayOutputStream();
-            sout = new ServletOutputStreamWrapper(bout);
-            writer = new PrintWriter(new OutputStreamWriter(bout));
+            strout = new StringWriter();
+            sout = new ServletOutputStreamWrapper(strout);
+            writer = new PrintWriter(strout);
         }
 
         public String getData() {
             writer.flush();
 
-            return bout.toString();
+            return strout.toString();
         }
 
         public ServletOutputStream getOutputStream() {
@@ -135,14 +135,14 @@ public class WebWorkUtil {
     }
 
     static class ServletOutputStreamWrapper extends ServletOutputStream {
-        ByteArrayOutputStream stream;
+        StringWriter writer;
 
-        ServletOutputStreamWrapper(ByteArrayOutputStream aStream) {
-            stream = aStream;
+        ServletOutputStreamWrapper(StringWriter aWriter) {
+            writer = aWriter;
         }
 
         public void write(int aByte) {
-            stream.write(aByte);
+            writer.write(aByte);
         }
     }
 }
