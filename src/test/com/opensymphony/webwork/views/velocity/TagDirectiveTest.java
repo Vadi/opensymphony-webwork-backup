@@ -72,9 +72,9 @@ public class TagDirectiveTest extends TestCase {
         Assert.assertNotNull(params);
         Assert.assertEquals(2, params.size());
         Assert.assertTrue(params.containsKey("hello"));
-        Assert.assertEquals("world", params.get("hello")); // hello = world
+        Assert.assertEquals("'world'", params.get("hello")); // hello = world
         Assert.assertTrue(params.containsKey("foo"));
-        Assert.assertEquals("bar", params.get("foo")); // foo = bar
+        Assert.assertEquals("'bar'", params.get("foo")); // foo = bar
 
         // verify that our date thingy was populated correctly
         Calendar cal = Calendar.getInstance();
