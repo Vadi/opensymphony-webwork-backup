@@ -1,12 +1,12 @@
 <form name="myForm" action="/testAction.action" method="POST" enctype="myEncType" onsubmit="return(myForm_validate())" >
 <table class="wwFormTable">
 <tr>
- <td align="right" valign="top"> </td>
- <td> <input type="text" name="foo" value="bar" /> </td>
+ <td align="right" valign="top"></td>
+ <td><input type="text" name="foo" value="bar" /></td>
 </tr>
 <tr>
- <td align="right" valign="top"> </td>
- <td> <input type="text" name="user.name" value="Bobby" /> </td>
+ <td align="right" valign="top"></td>
+ <td><input type="text" name="user.name" value="Bobby" /></td>
 </tr>
 </table>
 </form>
