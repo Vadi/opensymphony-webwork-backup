@@ -7,7 +7,6 @@ package com.opensymphony.webwork.views.jsp;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.TestConfigurationProvider;
-
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.config.ConfigurationManager;

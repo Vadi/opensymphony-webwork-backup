@@ -6,9 +6,7 @@ package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
-
 import com.opensymphony.xwork.ActionContext;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.exception.MethodInvocationException;
@@ -17,19 +15,17 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.RuntimeSingleton;
 import org.apache.velocity.servlet.VelocityServlet;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
-
-import java.util.Properties;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.PageContext;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.util.Properties;
 
 
 /**

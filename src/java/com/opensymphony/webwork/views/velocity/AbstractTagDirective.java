@@ -7,16 +7,12 @@ package com.opensymphony.webwork.views.velocity;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.ParamTag;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import ognl.Ognl;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.velocity.app.event.EventCartridge;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.context.InternalContextAdapter;
@@ -28,17 +24,15 @@ import org.apache.velocity.runtime.parser.node.Node;
 import org.apache.velocity.runtime.resource.Resource;
 import org.apache.velocity.util.introspection.IntrospectionCacheData;
 
-import java.io.IOException;
-import java.io.Writer;
-
-import java.util.*;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTag;
 import javax.servlet.jsp.tagext.IterationTag;
 import javax.servlet.jsp.tagext.Tag;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.*;
 
 
 /**
@@ -228,7 +222,7 @@ public abstract class AbstractTagDirective extends Directive {
         Map propertyMap = new HashMap();
 
         for (int index = 1, length = node.jjtGetNumChildren(); index < length;
-                index++) {
+             index++) {
             this.putProperty(propertyMap, contextAdapter, node.jjtGetChild(index));
         }
 
@@ -263,7 +257,7 @@ public abstract class AbstractTagDirective extends Directive {
         Class clazz = null;
 
         for (int index = 0; (clazz == null) && (index < tagpath.length);
-                index++) {
+             index++) {
             try {
                 clazz = Class.forName(tagpath[index] + "." + tagname + "Tag");
             } catch (ClassNotFoundException e) {
@@ -394,7 +388,7 @@ public abstract class AbstractTagDirective extends Directive {
         Map ognlContext = Ognl.createDefaultContext(object);
 
         for (Iterator iterator = propertyMap.entrySet().iterator();
-                iterator.hasNext();) {
+             iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
             String key = entry.getKey().toString();
             Object value = entry.getValue();

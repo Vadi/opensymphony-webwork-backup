@@ -8,7 +8,6 @@ package com.opensymphony.webwork.example.i18n;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.NumberFormat;
 import java.util.Properties;
 
 /**

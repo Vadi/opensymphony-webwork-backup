@@ -1,23 +1,26 @@
 package com.opensymphony.webwork.config_browser;
 
-import ognl.Ognl;
-import ognl.OgnlException;
-
-import java.util.*;
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
-
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.validator.Validator;
+import ognl.Ognl;
+import ognl.OgnlException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * ShowValidatorAction
+ *
  * @author Jason Carreira
- * Date: Jun 1, 2004 9:01:02 PM
+ *         Date: Jun 1, 2004 9:01:02 PM
  */
 public class ShowValidatorAction extends ListValidatorsAction {
     private static Log log = LogFactory.getLog(ShowValidatorAction.class);
@@ -64,13 +67,13 @@ public class ShowValidatorAction extends ListValidatorsAction {
                 try {
                     Object expr = OgnlUtil.compile(name);
                     Object value = Ognl.getValue(expr, context, validator);
-                    properties.add(new PropertyInfo(name,pd.getPropertyType(),value));
+                    properties.add(new PropertyInfo(name, pd.getPropertyType(), value));
                 } catch (OgnlException e) {
                     addActionError("Caught OGNL exception while getting property value for '" + name + "' on validator of type " + validator.getClass().getName());
                 }
             }
         } catch (Exception e) {
-            log.warn("Unable to retrieve properties.",e);
+            log.warn("Unable to retrieve properties.", e);
             addActionError("Unable to retrieve properties: " + e.toString());
         }
 

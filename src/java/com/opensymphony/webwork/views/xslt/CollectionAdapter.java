@@ -15,8 +15,8 @@ import java.util.List;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- * Date: 14.10.2003
- * Time: 18:59:07
+ *         Date: 14.10.2003
+ *         Time: 18:59:07
  */
 public class CollectionAdapter extends DefaultElementAdapter {
     //~ Instance fields ////////////////////////////////////////////////////////

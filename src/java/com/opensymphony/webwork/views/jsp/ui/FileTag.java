@@ -17,7 +17,7 @@ public class FileTag extends AbstractUITag {
     /**
      * The name of the default template for the FileTag
      */
-    final public static String TEMPLATE = "file.vm";
+    final public static String TEMPLATE = "file";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 

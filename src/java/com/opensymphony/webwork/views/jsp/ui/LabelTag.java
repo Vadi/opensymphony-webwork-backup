@@ -17,7 +17,7 @@ public class LabelTag extends AbstractUITag {
     /**
      * The name of the default template for the LabelTag
      */
-    final public static String TEMPLATE = "label.vm";
+    final public static String TEMPLATE = "label";
 
     //~ Methods ////////////////////////////////////////////////////////////////
 

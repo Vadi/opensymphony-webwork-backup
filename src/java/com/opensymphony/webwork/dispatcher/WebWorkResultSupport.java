@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.WebWorkStatics;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;

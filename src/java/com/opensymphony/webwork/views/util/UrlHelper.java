@@ -6,17 +6,14 @@ package com.opensymphony.webwork.views.util;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 
-import java.net.URLEncoder;
-
-import java.util.Iterator;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
+import java.util.Iterator;
+import java.util.Map;
 
 
 /**
@@ -153,12 +150,12 @@ public class UrlHelper {
     }
 
     /**
- * Translates any script expressions using {@link com.opensymphony.xwork.util.TextParseUtil#translateVariables} and
- * encodes the URL using {@link java.net.URLEncoder#encode}
- *
- * @param input
- * @return the translated and encoded string
- */
+     * Translates any script expressions using {@link com.opensymphony.xwork.util.TextParseUtil#translateVariables} and
+     * encodes the URL using {@link java.net.URLEncoder#encode}
+     *
+     * @param input
+     * @return the translated and encoded string
+     */
     public static String translateAndEncode(String input) {
         OgnlValueStack valueStack = ServletActionContext.getContext().getValueStack();
         String output = TextParseUtil.translateVariables(input, valueStack);

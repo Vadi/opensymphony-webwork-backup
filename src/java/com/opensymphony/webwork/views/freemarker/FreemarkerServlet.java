@@ -9,22 +9,18 @@
 package com.opensymphony.webwork.views.freemarker;
 
 import com.opensymphony.webwork.ServletActionContext;
-
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import freemarker.template.*;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import java.util.Locale;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Locale;
 
 
 /**

@@ -6,8 +6,6 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 
-import javax.servlet.jsp.JspException;
-
 
 /**
  * @author $Author$
@@ -19,7 +17,7 @@ public class TextFieldTag extends AbstractUITag {
     /**
      * The name of the default template for the TextFieldTag
      */
-    final public static String TEMPLATE = "text.vm";
+    final public static String TEMPLATE = "text";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 

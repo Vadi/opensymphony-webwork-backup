@@ -5,10 +5,8 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.views.jsp.ParamTag;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.velocity.context.InternalContextAdapter;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;

@@ -6,21 +6,17 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.ParamTag;
 import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
-
 import com.opensymphony.xwork.TextProvider;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.jsp.JspException;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.jsp.JspException;
 
 
 /**
@@ -133,7 +129,7 @@ public class TextTag extends WebWorkBodyTagSupport implements ParamTag.UnnamedPa
         String msg = null;
 
         for (Iterator iterator = getStack().getRoot().iterator();
-                iterator.hasNext();) {
+             iterator.hasNext();) {
             Object o = iterator.next();
 
             if (o instanceof TextProvider) {

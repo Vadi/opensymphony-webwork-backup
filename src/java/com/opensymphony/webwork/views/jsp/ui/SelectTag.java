@@ -17,7 +17,7 @@ public class SelectTag extends AbstractListTag {
     /**
      * The name of the default template for the SelectTag
      */
-    final public static String TEMPLATE = "select.vm";
+    final public static String TEMPLATE = "select";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 

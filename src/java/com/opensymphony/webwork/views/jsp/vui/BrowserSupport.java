@@ -5,12 +5,10 @@
 package com.opensymphony.webwork.views.jsp.vui;
 
 import com.opensymphony.webwork.util.ClassLoaderUtils;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.InputStream;
-
 import java.util.*;
 
 

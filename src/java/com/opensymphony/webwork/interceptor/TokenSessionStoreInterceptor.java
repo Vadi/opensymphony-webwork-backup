@@ -7,7 +7,6 @@ package com.opensymphony.webwork.interceptor;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.util.InvocationSessionStore;
 import com.opensymphony.webwork.util.TokenHelper;
-
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -16,16 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- *
- *
  * @author Jason Carreira
  */
 public class TokenSessionStoreInterceptor extends TokenInterceptor {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-     *
-     *
      * @param invocation
      * @return
      * @throws Exception
@@ -60,8 +55,6 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
     }
 
     /**
-     *
-     *
      * @param invocation
      * @return
      * @throws Exception

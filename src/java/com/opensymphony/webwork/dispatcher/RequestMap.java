@@ -4,11 +4,12 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
-import java.io.Serializable;
-
-import java.util.*;
-
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.util.AbstractMap;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -63,30 +64,30 @@ public class RequestMap extends AbstractMap implements Serializable {
                 final String key = enumeration.nextElement().toString();
                 final Object value = request.getAttribute(key);
                 entries.add(new Entry() {
-                        public boolean equals(Object obj) {
-                            Entry entry = (Entry) obj;
+                    public boolean equals(Object obj) {
+                        Entry entry = (Entry) obj;
 
-                            return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey())) && ((value == null) ? (entry.getValue() == null) : value.equals(entry.getValue()));
-                        }
+                        return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey())) && ((value == null) ? (entry.getValue() == null) : value.equals(entry.getValue()));
+                    }
 
-                        public int hashCode() {
-                            return ((key == null) ? 0 : key.hashCode()) ^ ((value == null) ? 0 : value.hashCode());
-                        }
+                    public int hashCode() {
+                        return ((key == null) ? 0 : key.hashCode()) ^ ((value == null) ? 0 : value.hashCode());
+                    }
 
-                        public Object getKey() {
-                            return key;
-                        }
+                    public Object getKey() {
+                        return key;
+                    }
 
-                        public Object getValue() {
-                            return value;
-                        }
+                    public Object getValue() {
+                        return value;
+                    }
 
-                        public Object setValue(Object obj) {
-                            request.setAttribute(key.toString(), obj);
+                    public Object setValue(Object obj) {
+                        request.setAttribute(key.toString(), obj);
 
-                            return value;
-                        }
-                    });
+                        return value;
+                    }
+                });
             }
         }
 

@@ -8,22 +8,19 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.validators.JavaScriptVisitorFieldValidator;
 import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.webwork.views.jsp.ParameterizedTagSupport;
-import com.opensymphony.webwork.views.velocity.VelocityManager;
+import com.opensymphony.webwork.views.jsp.ui.template.TemplateEngine;
+import com.opensymphony.webwork.views.jsp.ui.template.TemplateEngineManager;
+import com.opensymphony.webwork.views.jsp.ui.template.TemplateRenderingContext;
 import com.opensymphony.xwork.ModelDriven;
+import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.validator.*;
 import ognl.OgnlRuntime;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.velocity.Template;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.context.Context;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import java.beans.PropertyDescriptor;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -37,8 +34,6 @@ import java.util.List;
 public abstract class AbstractUITag extends ParameterizedTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    protected static VelocityManager velocityManager = VelocityManager.getInstance();
-    protected static VelocityEngine velocityEngine = velocityManager.getVelocityEngine();
     private static final Log LOG = LogFactory.getLog(AbstractUITag.class);
 
     //~ Instance fields ////////////////////////////////////////////////////////
@@ -296,19 +291,17 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     protected void mergeTemplate(String templateName) throws Exception {
-        Template t = velocityEngine.getTemplate(templateName);
-        Context context = velocityManager.createContext(getStack(), (HttpServletRequest) pageContext.getRequest(), (HttpServletResponse) pageContext.getResponse());
-
-        Writer outputWriter = pageContext.getOut();
-
-        // Make the OGNL stack available to the velocityEngine templates.
-        // todo Consider putting all the VelocityServlet Context values in
-        // after all, if we're already sending the request, it might also
-        // make sense for consistency to send the page and res and any others.
-        context.put("tag", this);
-        context.put("parameters", getParameters());
-
-        t.merge(context, outputWriter);
+        TemplateEngine engine = TemplateEngineManager.getTemplateEngine(templateName);
+        if (engine == null) {
+            throw new ConfigurationException("Unable to find a TemplateEngine for template " + templateName);
+        }
+        String finalTemplateName = engine.getFinalTemplateName(templateName);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Got template engine " + engine.getClass().getName() + " for template '" + templateName + "'" +
+                    ((templateName.equals(finalTemplateName)) ? null : " final template name '" + finalTemplateName + "'"));
+        }
+        TemplateRenderingContext context = new TemplateRenderingContext(finalTemplateName, pageContext, getStack(), getParameters(), this);
+        engine.renderTemplate(context);
     }
 
     /**

@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.util;
 
 import com.opensymphony.xwork.Action;
-
 import org.apache.commons.logging.LogFactory;
 
 import java.util.*;

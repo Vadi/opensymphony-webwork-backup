@@ -6,13 +6,11 @@
  */
 package com.opensymphony.webwork.example.i18n;
 
-import java.util.Locale;
-import java.util.Map;
-
-import com.opensymphony.util.TextUtils;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionSupport;
-import com.opensymphony.xwork.util.LocalizedTextUtil;
+
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * This code is an adaptation of the I18N example from the JavaWorld article by Govind Seshadri.

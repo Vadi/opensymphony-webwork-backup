@@ -7,19 +7,14 @@ package com.opensymphony.webwork.dispatcher;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
-
-import java.io.Writer;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
@@ -27,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.PageContext;
+import java.io.Writer;
 
 
 /**

@@ -5,16 +5,14 @@
 package com.opensymphony.webwork;
 
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
-
 import com.opensymphony.xwork.ActionContext;
-
-import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
+import java.util.Map;
 
 
 /**

@@ -8,7 +8,6 @@ import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.config.ConfigurationManager;
 
@@ -162,7 +161,7 @@ public class FormTagTest extends AbstractUITagTest {
     /**
      * Testing that this: <p>
      * &lt;ww:form name=&quot;'myForm'&quot; namespace=&quot;'/testNamespace'&quot; action=&quot;'testNamespaceAction'&quot; method=&quot;'POST'&quot;&gt;
-     * <p>
+     * <p/>
      * doesn't create an action of &quot;/testNamespace/testNamespaceAction.action&quot; when the &quot;webwork.action.extension&quot;
      * config property is set to &quot;jspa&quot;.
      */
@@ -189,7 +188,7 @@ public class FormTagTest extends AbstractUITagTest {
     /**
      * Testing that this: <p>
      * &lt;ww:form name=&quot;'myForm'&quot; action=&quot;'/testNamespace/testNamespaceAction.jspa'&quot; method=&quot;'POST'&quot;&gt;
-     * <p>
+     * <p/>
      * doesn't create an action of &quot;/testNamespace/testNamespaceAction.action&quot;
      */
     public void testFormTagWithDifferentActionExtensionHardcoded() throws Exception {

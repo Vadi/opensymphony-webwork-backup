@@ -5,18 +5,17 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.mockobjects.servlet.MockHttpServletRequest;
-
 import junit.framework.AssertionFailedError;
 
-import java.util.*;
-
 import javax.servlet.http.HttpSession;
+import java.util.*;
 
 
 /**
  * WebWorkMockHttpServletRequest
+ *
  * @author Jason Carreira
- * Created Mar 28, 2003 10:28:50 PM
+ *         Created Mar 28, 2003 10:28:50 PM
  */
 public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
     //~ Instance fields ////////////////////////////////////////////////////////

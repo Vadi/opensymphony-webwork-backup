@@ -4,12 +4,12 @@
  */
 package com.opensymphony.webwork.util;
 
-import java.io.*;
-
+import javax.servlet.jsp.JspWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import javax.servlet.jsp.JspWriter;
 
 
 /**
@@ -193,9 +193,9 @@ public class FastByteArrayOutputStream extends OutputStream {
     }
 
     /**
-    * Create a new buffer and store the
-    * current one in linked list
-    */
+     * Create a new buffer and store the
+     * current one in linked list
+     */
     protected void addBuffer() {
         if (buffers == null) {
             buffers = new LinkedList();

@@ -11,7 +11,6 @@ package com.opensymphony.webwork.util;
 
 /**
  * @author CameronBraid
- *
  */
 public class ListEntry {
     //~ Instance fields ////////////////////////////////////////////////////////

@@ -6,13 +6,11 @@ package com.opensymphony.webwork.interceptor;
 
 import com.mockobjects.dynamic.C;
 import com.mockobjects.dynamic.Mock;
-
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionSupport;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
 
 import java.util.HashMap;
@@ -21,8 +19,9 @@ import java.util.Map;
 
 /**
  * WebWorkConversionErrorInterceptorTest
+ *
  * @author Jason Carreira
- * Date: Nov 27, 2003 10:11:42 PM
+ *         Date: Nov 27, 2003 10:11:42 PM
  */
 public class WebWorkConversionErrorInterceptorTest extends TestCase {
     //~ Instance fields ////////////////////////////////////////////////////////
@@ -39,7 +38,7 @@ public class WebWorkConversionErrorInterceptorTest extends TestCase {
     public void testEmptyValuesDoNotSetFieldErrors() throws Exception {
         conversionErrors.put("foo", new Long(123));
         conversionErrors.put("bar", "");
-        conversionErrors.put("baz", new String[] {""});
+        conversionErrors.put("baz", new String[]{""});
 
         ActionSupport action = new ActionSupport();
         stack.push(action);

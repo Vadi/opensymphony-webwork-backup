@@ -8,8 +8,8 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
- * @version $Id$
  * @author <a href="mailto:m.bogaert@intrasoft.be">Mathias Bogaert</a>
+ * @version $Id$
  */
 public class DoubleSelectTag extends AbstractDoubleListTag {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -17,7 +17,7 @@ public class DoubleSelectTag extends AbstractDoubleListTag {
     /**
      * The name of the default template for the DoubleSelectTag.
      */
-    final public static String TEMPLATE = "doubleselect.vm";
+    final public static String TEMPLATE = "doubleselect";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 

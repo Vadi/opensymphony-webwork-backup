@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.config;
 
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-
 import junit.framework.TestCase;
 
 import java.util.Iterator;
@@ -33,7 +32,7 @@ public class ConfigurationTest extends TestCase {
         assertEquals("de", locale.getLanguage());
 
         int count = getKeyCount();
-        assertEquals(16, count);
+        assertEquals(17, count);
     }
 
     public void testDefaultResourceBundlesLoaded() {

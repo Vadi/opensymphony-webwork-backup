@@ -11,7 +11,7 @@ import java.util.Map;
  * Actions that want to be aware of the application Map object should implement this interface.
  * This will give them access to a Map where they can put objects that should be available
  * to other parts of the application. <p>
- *
+ * <p/>
  * Typical uses are configuration objects and caches.
  *
  * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>

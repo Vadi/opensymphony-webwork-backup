@@ -17,7 +17,7 @@ public class PasswordTag extends TextFieldTag {
     /**
      * The name of the default template for the PasswordTag
      */
-    final public static String TEMPLATE = "password.vm";
+    final public static String TEMPLATE = "password";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 

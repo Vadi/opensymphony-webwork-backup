@@ -4,11 +4,10 @@
  */
 package com.opensymphony.webwork.views.jsp.ui.table;
 
-import java.util.Vector;
-
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.util.Vector;
 
 
 /**

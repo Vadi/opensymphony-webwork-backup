@@ -6,12 +6,12 @@
  */
 package com.opensymphony.webwork.example.i18n;
 
+import com.opensymphony.xwork.ActionSupport;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
-
-import com.opensymphony.xwork.ActionSupport;
 
 /**
  * This code is an adaptation of the I18N example from the JavaWorld article by Govind Seshadri.

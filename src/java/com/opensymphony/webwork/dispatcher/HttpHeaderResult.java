@@ -5,18 +5,16 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -88,7 +86,7 @@ public class HttpHeaderResult implements Result {
             OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
             for (Iterator iterator = headers.entrySet().iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext();) {
                 Map.Entry entry = (Map.Entry) iterator.next();
                 String value = (String) entry.getValue();
                 String finalValue = parse ? TextParseUtil.translateVariables(value, stack) : value;

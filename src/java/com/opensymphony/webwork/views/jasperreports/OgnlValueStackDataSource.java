@@ -5,13 +5,10 @@
 package com.opensymphony.webwork.views.jasperreports;
 
 import com.opensymphony.webwork.util.MakeIterator;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import dori.jasper.engine.JRDataSource;
 import dori.jasper.engine.JRException;
 import dori.jasper.engine.JRField;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

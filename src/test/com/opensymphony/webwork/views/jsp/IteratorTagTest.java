@@ -7,10 +7,9 @@ package com.opensymphony.webwork.views.jsp;
 import com.mockobjects.servlet.MockBodyContent;
 import com.mockobjects.servlet.MockJspWriter;
 
-import java.util.*;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
+import java.util.*;
 
 
 /**
@@ -26,7 +25,7 @@ public class IteratorTagTest extends AbstractUITagTest {
 
     public void testArrayIterator() {
         Foo foo = new Foo();
-        foo.setArray(new String[] {"test1", "test2", "test3"});
+        foo.setArray(new String[]{"test1", "test2", "test3"});
 
         stack.push(foo);
 
@@ -71,7 +70,7 @@ public class IteratorTagTest extends AbstractUITagTest {
     }
 
     public void testIteratorWithDefaultValue() {
-        stack.push(new String[] {"test1", "test2", "test3"});
+        stack.push(new String[]{"test1", "test2", "test3"});
         iterateThreeStrings();
     }
 
@@ -135,7 +134,7 @@ public class IteratorTagTest extends AbstractUITagTest {
 
     public void testStatus() {
         Foo foo = new Foo();
-        foo.setArray(new String[] {"test1", "test2", "test3"});
+        foo.setArray(new String[]{"test1", "test2", "test3"});
 
         stack.push(foo);
 

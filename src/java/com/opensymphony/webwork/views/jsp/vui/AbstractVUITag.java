@@ -9,18 +9,15 @@ import com.opensymphony.webwork.util.ContainUtil;
 import com.opensymphony.webwork.views.jsp.IncludeTag;
 import com.opensymphony.webwork.views.jsp.ParamTag;
 import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -191,8 +188,8 @@ public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements Pa
     protected abstract void initializeAttributes();
 
     /**
-    * get the template directory for a specific voice browser
-    */
+     * get the template directory for a specific voice browser
+     */
     protected String getTemplateDirectory() {
         String ua = getBrowserUserAgent();
 

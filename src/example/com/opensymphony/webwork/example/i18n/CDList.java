@@ -13,7 +13,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.Locale;
 
 /**
  * This code is an adaptation of the I18N example from the JavaWorld article by Govind Seshadri.

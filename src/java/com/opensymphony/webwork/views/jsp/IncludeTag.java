@@ -12,16 +12,7 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
-
 import org.apache.commons.logging.LogFactory;
-
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-
-import java.net.URLEncoder;
-
-import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,6 +24,11 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.PageContext;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.*;
 
 
 /**
@@ -135,11 +131,11 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParamTag.Parame
     // Public --------------------------------------------------------
 
     /**
-    * Name of page/servlet to include.
-    *
-    * @param   aPage
-    * @deprecated use value attribute instead
-    */
+     * Name of page/servlet to include.
+     *
+     * @param aPage
+     * @deprecated use value attribute instead
+     */
     public void setPage(String aPage) {
         pageAttr = aPage;
     }
@@ -152,10 +148,10 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParamTag.Parame
     }
 
     /**
-    * Name of property whose value is the name of the page/servlet to include.
-    *
-    * @param   aName
-    */
+     * Name of property whose value is the name of the page/servlet to include.
+     *
+     * @param aName
+     */
     public void setValue(String aName) {
         valueAttr = aName;
     }
@@ -163,11 +159,11 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParamTag.Parame
     // ParamTag.Parametric implementation ----------------------------
 
     /**
-    * Add a parameter to the URL of the included page/servlet.
-    *
-    * @param   name
-    * @param   value
-    */
+     * Add a parameter to the URL of the included page/servlet.
+     *
+     * @param name
+     * @param value
+     */
     public void addParameter(String name, Object value) {
         if (value != null) {
             List currentValues = (List) params.get(name);
@@ -249,21 +245,21 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParamTag.Parame
     }
 
     /**
-    * Get the encoding specified by the property 'webwork.i18n.encoding' in webwork.properties,
-    * or return the default platform encoding if not specified.
-    * <p>
-    * Note that if the property is not initially defined, this will return the system default,
-    * even if the property is later defined.  This is mainly for performance reasons.  Undefined
-    * properties throw exceptions, which are a costly operation.
-    * <p>
-    * If the property is initially defined, it is read every time, until is is undefined, and then
-    * the system default is used.
-    * <p>
-    * Why not cache it completely?  Some applications will wish to be able to dynamically set the
-    * encoding at runtime.
-    *
-    * @return  The encoding to be used.
-    */
+     * Get the encoding specified by the property 'webwork.i18n.encoding' in webwork.properties,
+     * or return the default platform encoding if not specified.
+     * <p/>
+     * Note that if the property is not initially defined, this will return the system default,
+     * even if the property is later defined.  This is mainly for performance reasons.  Undefined
+     * properties throw exceptions, which are a costly operation.
+     * <p/>
+     * If the property is initially defined, it is read every time, until is is undefined, and then
+     * the system default is used.
+     * <p/>
+     * Why not cache it completely?  Some applications will wish to be able to dynamically set the
+     * encoding at runtime.
+     *
+     * @return The encoding to be used.
+     */
     private static String getEncoding() {
         if (encodingDefined) {
             try {
@@ -299,7 +295,9 @@ final class PageOutputStream extends ServletOutputStream {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    /** Return all data that has been written to this OutputStream. */
+    /**
+     * Return all data that has been written to this OutputStream.
+     */
     public FastByteArrayOutputStream getBuffer() throws IOException {
         flush();
 
@@ -332,11 +330,11 @@ final class PageOutputStream extends ServletOutputStream {
  * Simple wrapper to HTTPServletResponse that will allow getWriter()
  * and getResponse() to be called as many times as needed without
  * causing conflicts.
- * <p>
+ * <p/>
  * The underlying outputStream is a wrapper around
  * {@link com.opensymphony.webwork.views.jsp.PageOutputStream} which will store
  * the written content to a buffer.
- * <p>
+ * <p/>
  * This buffer can later be retrieved by calling {@link #getContent}.
  *
  * @author <a href="mailto:joe@truemesh.com">Joe Walnes</a>
@@ -351,7 +349,9 @@ final class PageResponse extends HttpServletResponseWrapper {
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
-    /** Create PageResponse wrapped around an existing HttpServletResponse. */
+    /**
+     * Create PageResponse wrapped around an existing HttpServletResponse.
+     */
     public PageResponse(HttpServletResponse response) {
         super(response);
     }
@@ -359,10 +359,11 @@ final class PageResponse extends HttpServletResponseWrapper {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-    * Return the content buffered inside the {@link com.opensymphony.webwork.views.jsp.PageOutputStream}.
-    * @return
-    * @throws IOException
-    */
+     * Return the content buffered inside the {@link com.opensymphony.webwork.views.jsp.PageOutputStream}.
+     *
+     * @return
+     * @throws IOException
+     */
     public FastByteArrayOutputStream getContent() throws IOException {
         //if we are using a writer, we need to flush the
         //data to the underlying outputstream.
@@ -375,9 +376,9 @@ final class PageResponse extends HttpServletResponseWrapper {
     }
 
     /**
-    * Return instance of {@link com.opensymphony.webwork.views.jsp.PageOutputStream}
-    * allowing all data written to stream to be stored in temporary buffer.
-    */
+     * Return instance of {@link com.opensymphony.webwork.views.jsp.PageOutputStream}
+     * allowing all data written to stream to be stored in temporary buffer.
+     */
     public ServletOutputStream getOutputStream() throws IOException {
         if (pageOutputStream == null) {
             pageOutputStream = new PageOutputStream();
@@ -386,7 +387,9 @@ final class PageResponse extends HttpServletResponseWrapper {
         return pageOutputStream;
     }
 
-    /** Return PrintWriter wrapper around PageOutputStream. */
+    /**
+     * Return PrintWriter wrapper around PageOutputStream.
+     */
     public PrintWriter getWriter() throws IOException {
         if (pagePrintWriter == null) {
             pagePrintWriter = new PrintWriter(new OutputStreamWriter(getOutputStream(), getCharacterEncoding()));

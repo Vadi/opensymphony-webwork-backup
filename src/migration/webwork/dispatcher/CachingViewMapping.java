@@ -6,9 +6,9 @@
  */
 package webwork.dispatcher;
 
-import java.util.Map;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Caching view mapping. This mapping only delegates to other mapping implementations, and will cache

@@ -5,12 +5,10 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.util.TokenHelper;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 
 /**
@@ -22,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 public class TokenTag extends AbstractUITag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    final public static String TEMPLATE = "token.vm";
+    final public static String TEMPLATE = "token";
 
     //~ Methods ////////////////////////////////////////////////////////////////
 

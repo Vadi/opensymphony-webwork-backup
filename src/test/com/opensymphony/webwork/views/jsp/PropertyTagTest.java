@@ -7,10 +7,8 @@ package com.opensymphony.webwork.views.jsp;
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
 
 import javax.servlet.jsp.JspException;

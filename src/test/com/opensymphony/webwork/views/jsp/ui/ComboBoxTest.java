@@ -7,13 +7,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
-import junit.framework.Assert;
-
-import org.apache.velocity.Template;
-import org.apache.velocity.app.Velocity;
-
 import java.util.ArrayList;
-import java.util.Collection;
 
 
 /**

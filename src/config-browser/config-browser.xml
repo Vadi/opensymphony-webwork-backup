@@ -11,28 +11,28 @@
             </interceptor-stack>
         </interceptors>
         <default-interceptor-ref name="config-browser-default"/>
-        
-		<global-results>
-			<result name="error" type="velocity">/error.vm</result>
-			<result name="input" type="velocity">/error.vm</result>
-		</global-results>
 
-		<action name="actionNames" class="com.opensymphony.webwork.config_browser.ActionNamesAction">
-			<result type="velocity" name="success">/actionNames.vm</result>
-		</action>
+        <global-results>
+            <result name="error" type="velocity">/error.vm</result>
+            <result name="input" type="velocity">/error.vm</result>
+        </global-results>
 
-		<action name="showConfig" class="com.opensymphony.webwork.config_browser.ShowConfigAction">
-			<result type="velocity" name="success">/showConfig.vm</result>
-		</action>
+        <action name="actionNames" class="com.opensymphony.webwork.config_browser.ActionNamesAction">
+            <result type="velocity" name="success">/actionNames.vm</result>
+        </action>
+
+        <action name="showConfig" class="com.opensymphony.webwork.config_browser.ShowConfigAction">
+            <result type="velocity" name="success">/showConfig.vm</result>
+        </action>
 
         <action name="showValidators" class="com.opensymphony.webwork.config_browser.ListValidatorsAction">
             <result name="error" type="velocity">/simple-error.vm</result>
-			<result name="input" type="velocity">/simple-error.vm</result>
-			<result type="velocity" name="success">/showValidators.vm</result>
-		</action>
+            <result name="input" type="velocity">/simple-error.vm</result>
+            <result type="velocity" name="success">/showValidators.vm</result>
+        </action>
 
         <action name="validatorDetails" class="com.opensymphony.webwork.config_browser.ShowValidatorAction">
-			<result type="velocity" name="success">/validatorDetails.vm</result>
-		</action>
+            <result type="velocity" name="success">/validatorDetails.vm</result>
+        </action>
     </package>
 </xwork>

@@ -8,10 +8,9 @@ import com.opensymphony.xwork.config.Configuration;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.PackageConfig;
 
-import java.util.Iterator;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.util.Iterator;
 
 
 /**
@@ -36,7 +35,7 @@ public class ResolverSetupServletContextListener implements ServletContextListen
         PackageConfig packageConfig;
 
         for (Iterator iter = config.getPackageConfigNames().iterator();
-                iter.hasNext();) {
+             iter.hasNext();) {
             key = (String) iter.next();
             packageConfig = config.getPackageConfig(key);
 

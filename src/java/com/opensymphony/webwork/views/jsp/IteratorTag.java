@@ -5,13 +5,11 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.util.MakeIterator;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
-
-import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import java.util.Iterator;
 
 
 /**

@@ -9,14 +9,9 @@ package com.opensymphony.webwork.util;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 
 /**
@@ -36,20 +31,19 @@ public class FreemarkerWebWorkUtil extends WebWorkUtil {
     }
 
     /**
-     *
      * the selectedList objects are matched to the list.listValue
-     *
+     * <p/>
      * listKey and listValue are optional, and if not provided, the list item is used
      *
      * @param selectedList the name of the action property
-     *                         that contains the list of selected items
-     *                         or single item if its not an array or list
-     * @param list the name of the action property
-     *                         that contains the list of selectable items
-     * @param listKey an ognl expression that is exaluated relative to the list item
-     *                         to use as the key of the ListEntry
-     * @param listValue an ognl expression that is exaluated relative to the list item
-     *                         to use as the value of the ListEntry
+     *                     that contains the list of selected items
+     *                     or single item if its not an array or list
+     * @param list         the name of the action property
+     *                     that contains the list of selectable items
+     * @param listKey      an ognl expression that is exaluated relative to the list item
+     *                     to use as the key of the ListEntry
+     * @param listValue    an ognl expression that is exaluated relative to the list item
+     *                     to use as the value of the ListEntry
      * @return a List of ListEntry
      */
     public List makeSelectList(String selectedList, String list, String listKey, String listValue) {

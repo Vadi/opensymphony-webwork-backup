@@ -15,7 +15,7 @@ public class HiddenTag extends AbstractUITag {
     /**
      * The name of the default template for the LabelTag
      */
-    final public static String TEMPLATE = "hidden.vm";
+    final public static String TEMPLATE = "hidden";
 
     //~ Methods ////////////////////////////////////////////////////////////////
 

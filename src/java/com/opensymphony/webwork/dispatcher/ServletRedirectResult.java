@@ -5,9 +5,7 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
-
 import com.opensymphony.xwork.ActionInvocation;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -17,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Calls the {@link HttpServletResponse#sendRedirect(String) sendRedirect} method to the location specified. <p>
- *
+ * <p/>
  * This result follows the same rules from {@link WebWorkResultSupport}.
  *
  * @author Patrick Lightbody
@@ -37,7 +35,7 @@ public class ServletRedirectResult extends WebWorkResultSupport {
      * Sets whether or not to prepend the servlet context path to the redirected URL.
      *
      * @param prependServletContext <tt>true</tt> to prepend the location with the servlet context path,
-     *      <tt>false</tt> otherwise.
+     *                              <tt>false</tt> otherwise.
      */
     public void setPrependServletContext(boolean prependServletContext) {
         this.prependServletContext = prependServletContext;
@@ -47,7 +45,7 @@ public class ServletRedirectResult extends WebWorkResultSupport {
      * Redirects to the location specified by calling {@link HttpServletResponse#sendRedirect(String)}.
      *
      * @param finalLocation the location to redirect to.
-     * @param invocation an encapsulation of the action execution state.
+     * @param invocation    an encapsulation of the action execution state.
      * @throws Exception if an error occurs when redirecting.
      */
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {

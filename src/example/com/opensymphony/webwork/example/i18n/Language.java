@@ -6,9 +6,9 @@
  */
 package com.opensymphony.webwork.example.i18n;
 
-import java.util.Locale;
-
 import com.opensymphony.xwork.ActionContext;
+
+import java.util.Locale;
 
 /**
  * This code is an adaptation of the I18N example from the JavaWorld article by Govind Seshadri.

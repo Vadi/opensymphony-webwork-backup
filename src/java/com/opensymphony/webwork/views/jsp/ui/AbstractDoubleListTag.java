@@ -8,8 +8,6 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
- *
- *
  * @author <a href="mailto:m.bogaert@intrasoft.be">Mathias Bogaert</a>
  */
 public abstract class AbstractDoubleListTag extends AbstractListTag {
