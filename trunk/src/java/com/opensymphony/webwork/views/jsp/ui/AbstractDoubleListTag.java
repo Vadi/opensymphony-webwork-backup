@@ -18,6 +18,7 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
     protected String doubleListValueAttr;
     protected String doubleNameAttr;
     protected String doubleValueAttr;
+    protected String formNameAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -41,14 +42,17 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
         this.doubleValueAttr = doubleValue;
     }
 
+    public void setFormName(String formName) {
+        this.formNameAttr = formName;
+    }
+
     public void evaluateExtraParams(OgnlValueStack stack) {
         super.evaluateExtraParams(stack);
 
         Object doubleName = null;
 
         if (doubleNameAttr != null) {
-            doubleName = findString(doubleNameAttr);
-            addParameter("doubleName", doubleName);
+            addParameter("doubleName", findString(doubleNameAttr));
         }
 
         if (doubleListAttr != null) {
@@ -61,6 +65,10 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
 
         if (doubleListValueAttr != null) {
             addParameter("doubleListValue", doubleListValueAttr);
+        }
+
+        if (formNameAttr != null) {
+            addParameter("formName", findString(formNameAttr));
         }
 
         Class valueClazz = getValueClassType();

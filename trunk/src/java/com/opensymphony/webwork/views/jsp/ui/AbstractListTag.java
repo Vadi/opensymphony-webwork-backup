@@ -10,6 +10,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 import java.util.Collection;
 import java.util.Map;
+import java.lang.reflect.Array;
 
 
 /**
@@ -47,9 +48,16 @@ public abstract class AbstractListTag extends AbstractUITag {
         if (listAttr != null) {
             if (value instanceof Collection) {
                 addParameter("list", value);
-                addParameter("listSize", new Integer(((Collection) value).size()));
             } else {
                 addParameter("list", MakeIterator.convert(value));
+            }
+
+            if (value instanceof Collection) {
+                addParameter("listSize", new Integer(((Collection) value).size()));
+            } else if (value instanceof Map) {
+                addParameter("listSize", new Integer(((Map) value).size()));
+            } else if (value.getClass().isArray()) {
+                addParameter("listSize", new Integer(Array.getLength(value)));
             }
         }
 
