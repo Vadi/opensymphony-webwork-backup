@@ -17,15 +17,6 @@ import java.util.Map;
  *
  */
 public class CoolUriServletDispatcherTest extends AbstractServletDispatcherTestCase {
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    /**
-     *
-     */
-    public CoolUriServletDispatcherTest(String name) {
-        super(name);
-    }
-
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /* (non-Javadoc)

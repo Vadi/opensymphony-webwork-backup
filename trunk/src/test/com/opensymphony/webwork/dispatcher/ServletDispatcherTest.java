@@ -17,15 +17,6 @@ import java.util.Map;
  *
  */
 public class ServletDispatcherTest extends AbstractServletDispatcherTestCase {
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    /**
-     *
-     */
-    public ServletDispatcherTest(String name) {
-        super(name);
-    }
-
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /* (non-Javadoc)
