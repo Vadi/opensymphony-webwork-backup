@@ -65,14 +65,21 @@ public class DOTRenderer implements Renderer {
                     } else if (resultClassName.indexOf("Dispatcher") != -1
                             || resultClassName.indexOf("Velocity") != -1
                             || resultClassName.indexOf("Freemarker") != -1) {
-                        String location = (String) resultConfig.getParams().get("location");
-                        String view = getViewLocation(location, namespace);
-                        graph.add_node("view", view, null);
-                        graph.add_link(action, view, resultConfig.getName());
+                        if (resultConfig.getParams().get("location") == null) {
+                            continue;
+                        }
 
-                        View viewFile = XWorkConfigRetriever.getView(namespace, actionName, resultName);
-                        if (viewFile != null) {
-                            viewMap.put(view, viewFile);
+                        String location = getViewLocation((String) resultConfig.getParams().get("location"), namespace);
+                        if (location.endsWith((String) Configuration.get("webwork.action.extension"))) {
+                            addLink(action, location.substring(1), resultConfig.getName(), graph);
+                        } else {
+                            graph.add_node("view", location, null);
+                            graph.add_link(action, location, resultConfig.getName());
+
+                            View viewFile = XWorkConfigRetriever.getView(namespace, actionName, resultName);
+                            if (viewFile != null) {
+                                viewMap.put(location, viewFile);
+                            }
                         }
                     } else if (resultClassName.indexOf("Jasper") != -1) {
 
@@ -80,9 +87,9 @@ public class DOTRenderer implements Renderer {
 
                     } else if (resultClassName.indexOf("Redirect") != -1 ) {
                         // check if the redirect is to an action -- if so, link it
-                        String location = (String) resultConfig.getParams().get("location");
+                        String location = getViewLocation((String) resultConfig.getParams().get("location"), namespace);
                         if (location.endsWith((String) Configuration.get("webwork.action.extension"))) {
-                            addLink(action, location, resultConfig.getName(), graph);
+                            addLink(action, location.substring(1), resultConfig.getName(), graph);
                         }
                     }
                 }
@@ -96,7 +103,17 @@ public class DOTRenderer implements Renderer {
             Set targets = viewFile.getTargets();
             for (Iterator iterator1 = targets.iterator(); iterator1.hasNext();) {
                 String viewTarget = (String) iterator1.next();
-                addLink(view, viewTarget, "", graph);
+
+                try {
+                    // if the target isn't absolute, assume the same namespce as this
+                    if (!viewTarget.startsWith("/") && view.lastIndexOf('/') >= 1) {
+                        viewTarget = view.substring(1, view.lastIndexOf('/')) + "/" + viewTarget;
+                    }
+
+                    addLink(view, viewTarget, "", graph);
+                } catch (Throwable e) {
+                    System.out.println("Problem with view " + view + " and target " + viewTarget);
+                }
             }
         }
 
@@ -129,6 +146,11 @@ public class DOTRenderer implements Renderer {
         } else {
             view = location;
         }
+
+        if (view.indexOf('?') != -1) {
+            view = view.substring(0, view.indexOf('?'));
+        }
+
         return view;
     }
 
