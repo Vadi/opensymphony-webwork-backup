@@ -77,12 +77,12 @@ public class TokenInterceptorTest extends TestCase {
     }
 
     protected void setToken(String token) {
-        request.getParameterMap().put(TokenHelper.TOKEN_NAME_FIELD, new String[]{
-            TokenHelper.DEFAULT_TOKEN_NAME
-        });
-        request.getParameterMap().put(TokenHelper.DEFAULT_TOKEN_NAME, new String[]{
-            token
-        });
+        request.getParameterMap().put(TokenHelper.TOKEN_NAME_FIELD, new String[] {
+                TokenHelper.DEFAULT_TOKEN_NAME
+            });
+        request.getParameterMap().put(TokenHelper.DEFAULT_TOKEN_NAME, new String[] {
+                token
+            });
     }
 
     protected void setUp() throws Exception {

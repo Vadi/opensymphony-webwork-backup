@@ -193,9 +193,9 @@ public class FastByteArrayOutputStream extends OutputStream {
     }
 
     /**
- * Create a new buffer and store the
- * current one in linked list
- */
+    * Create a new buffer and store the
+    * current one in linked list
+    */
     protected void addBuffer() {
         if (buffers == null) {
             buffers = new LinkedList();

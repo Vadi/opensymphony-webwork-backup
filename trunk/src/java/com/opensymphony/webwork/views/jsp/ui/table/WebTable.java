@@ -7,9 +7,9 @@ package com.opensymphony.webwork.views.jsp.ui.table;
 import com.opensymphony.webwork.views.jsp.ui.ComponentTag;
 import com.opensymphony.webwork.views.jsp.ui.table.renderer.CellRenderer;
 
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.ActionContext;
 
 import org.apache.commons.logging.LogFactory;
 
@@ -34,10 +34,11 @@ public class WebTable extends ComponentTag {
      * The name of the default template for the CheckboxTag
      */
     final public static String TEMPLATE = "table.vm";
+
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    protected String modelNameAttr = null;
     protected String _sortOrder = SortableTableModel.NONE;
+    protected String modelNameAttr = null;
     protected TableModel model = null;
     protected WebTableColumn[] _columns = null;
     protected boolean sortableAttr = false;
@@ -55,11 +56,6 @@ public class WebTable extends ComponentTag {
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
-    }
-
 
     public WebTableColumn getColumn(int index) {
         try {
@@ -225,34 +221,6 @@ public class WebTable extends ComponentTag {
         super.addParam(name, value);
     }
 
-
-    protected void evaluateExtraParams(OgnlValueStack stack) {
-        if(modelNameAttr != null) {
-            modelNameAttr = (String) stack.findValue(modelNameAttr);
-
-            Object obj = stack.findValue(this.modelNameAttr);
-
-            if (obj instanceof TableModel) {
-                setModel((TableModel) obj);
-            }
-        }
-
-        // evaluate all the parameters for the webtable
-        Map params = getParams();
-        Set set = params.keySet();
-        for (Iterator iterator = set.iterator(); iterator.hasNext();) {
-            String key = (String) iterator.next();
-            Object value = params.get(key);
-            OgnlUtil.setProperty(key, value, this, ActionContext.getContext().getContextMap());
-        }
-
-        super.evaluateExtraParams(stack);    //To change body of overriden methods use Options | File Templates.
-    }
-
-
-
-
-
     public int doEndTag() throws JspException {
         if (sortableAttr && model instanceof SortableTableModel) {
             LogFactory.getLog(this.getClass()).debug("we are looking for " + getSortColumnLinkName());
@@ -302,6 +270,10 @@ public class WebTable extends ComponentTag {
         return super.doEndTag();
     }
 
+    protected String getDefaultTemplate() {
+        return TEMPLATE;
+    }
+
     protected int getNumberOfVisibleColumns() {
         int count = 0;
 
@@ -314,13 +286,37 @@ public class WebTable extends ComponentTag {
         return count;
     }
 
+    protected void evaluateExtraParams(OgnlValueStack stack) {
+        if (modelNameAttr != null) {
+            modelNameAttr = (String) stack.findValue(modelNameAttr);
+
+            Object obj = stack.findValue(this.modelNameAttr);
+
+            if (obj instanceof TableModel) {
+                setModel((TableModel) obj);
+            }
+        }
+
+        // evaluate all the parameters for the webtable
+        Map params = getParams();
+        Set set = params.keySet();
+
+        for (Iterator iterator = set.iterator(); iterator.hasNext();) {
+            String key = (String) iterator.next();
+            Object value = params.get(key);
+            OgnlUtil.setProperty(key, value, this, ActionContext.getContext().getContextMap());
+        }
+
+        super.evaluateExtraParams(stack); //To change body of overriden methods use Options | File Templates.
+    }
+
     //~ Inner Classes //////////////////////////////////////////////////////////
 
     /**
- * inner class to iteratoe over a row of the table.
- * It can return formatted data, using the columnRenderer
- * for the column or it can return the raw data.
- */
+    * inner class to iteratoe over a row of the table.
+    * It can return formatted data, using the columnRenderer
+    * for the column or it can return the raw data.
+    */
     public class WebTableRowIterator implements Iterator {
         public static final int FORMATTED_DATA = 0;
         public static final int RAW_DATA = 1;

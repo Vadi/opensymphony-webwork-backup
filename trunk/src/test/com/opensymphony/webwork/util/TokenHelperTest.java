@@ -49,8 +49,8 @@ public class TokenHelperTest extends TestCase {
 
         String token = TokenHelper.setToken(tokenName, request);
         assertEquals(token, session.getAttribute(tokenName));
-        params.put(TokenHelper.TOKEN_NAME_FIELD, new String[]{tokenName});
-        params.put(tokenName, new String[]{token});
+        params.put(TokenHelper.TOKEN_NAME_FIELD, new String[] {tokenName});
+        params.put(tokenName, new String[] {token});
         mockRequest.matchAndReturn("getParameterMap", params);
         assertTrue(TokenHelper.validToken(request));
     }

@@ -18,8 +18,8 @@ import org.apache.velocity.VelocityContext;
 public class WebWorkVelocityContext extends VelocityContext {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    VelocityContext[] chainedContexts;
     OgnlValueStack stack;
+    VelocityContext[] chainedContexts;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
@@ -73,6 +73,7 @@ public class WebWorkVelocityContext extends VelocityContext {
         // still no luck?  let's look against the value stack
         if (stack != null) {
             Object object = stack.findValue(key);
+
             if (object != null) {
                 return object;
             }

@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.util;
 
 import junit.framework.TestCase;
+
 
 /**
  * User: plightbo
@@ -8,7 +13,11 @@ import junit.framework.TestCase;
  * Time: 7:55:35 PM
  */
 public class CounterTest extends TestCase {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     Counter c = new Counter();
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testCurrentAfterNext() {
         long next = c.getNext();
@@ -25,6 +34,7 @@ public class CounterTest extends TestCase {
     public void testWrap() {
         c.setWrap(true);
         c.setLast(1);
+
         long a = c.getNext();
         long b = c.getNext();
         assertEquals(1, a);

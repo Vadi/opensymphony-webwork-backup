@@ -5,15 +5,15 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.TextProviderSupport;
 import com.opensymphony.xwork.LocaleProvider;
+import com.opensymphony.xwork.TextProviderSupport;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 import org.apache.commons.logging.*;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.List;
 
 import javax.servlet.jsp.JspException;
 
@@ -59,10 +59,10 @@ public class I18nTag extends WebWorkTagSupport {
             if (bundle != null) {
                 final Locale locale = (Locale) getStack().getContext().get(ActionContext.LOCALE);
                 getStack().push(new TextProviderSupport(bundle, new LocaleProvider() {
-                    public Locale getLocale() {
-                        return locale;
-                    }
-                }));
+                        public Locale getLocale() {
+                            return locale;
+                        }
+                    }));
             }
         } catch (Exception e) {
             LogFactory.getLog(getClass()).error("Could not find the bundle " + nameAttr, e);
