@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.config;
 
+import com.opensymphony.xwork.util.LocalizedTextUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,6 +17,7 @@ import java.util.StringTokenizer;
 /**
  * Default implementation of Configuration - creates and delegates to other configurations by using an internal
  * {@link DelegatingConfiguration}.
+ *
  *
  * @author Rickard Öberg
  * @author Jason Carreira
@@ -34,7 +37,7 @@ public class DefaultConfiguration extends Configuration {
      * in this class will call that configuration object.
      */
     public DefaultConfiguration() {
-        // Create default implementations
+        // Create default implementations 
         // Use default properties and webwork.properties
         ArrayList list = new ArrayList();
 
@@ -70,6 +73,20 @@ public class DefaultConfiguration extends Configuration {
             configList = new Configuration[list.size()];
             config = new DelegatingConfiguration((Configuration[]) list.toArray(configList));
         } catch (IllegalArgumentException e) {
+        }
+
+        // Add addtional list of i18n global resource bundles
+        StringTokenizer bundleFiles = new StringTokenizer((String) config.getImpl("webwork.custom.i18n.resources"), ",");
+
+        while (bundleFiles.hasMoreTokens()) {
+            String name = bundleFiles.nextToken();
+
+            try {
+                log.info("Loading global messages from " + name);
+                LocalizedTextUtil.addDefaultResourceBundle(name);
+            } catch (Exception e) {
+                log.error("Could not find " + name + ".properties. Skipping");
+            }
         }
     }
 
