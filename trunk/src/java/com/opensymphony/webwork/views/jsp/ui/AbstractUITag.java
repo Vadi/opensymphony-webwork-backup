@@ -305,6 +305,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     protected void evaluateParams(OgnlValueStack stack) {
+        // add the template directory and theme as parameters
+        addParameter("templateDir", getTemplateDir());
+        addParameter("theme", getTheme());
+
         Object name = null;
 
         if (nameAttr != null) {

@@ -1,2 +1,2 @@
-#parse("/${tag.templateDir}/xhtml/controlheader.vm")#parse("/${tag.templateDir}/simple/textarea.vm")#parse("/${tag.templateDir}/xhtml/controlfooter.vm")
+#parse("/$parameters.templateDir/xhtml/controlheader.vm")#parse("/$parameters.templateDir/simple/textarea.vm")#parse("/$parameters.templateDir/xhtml/controlfooter.vm")
 

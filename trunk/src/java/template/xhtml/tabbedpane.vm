@@ -1,1 +1,1 @@
-#parse("/${tag.templateDir}/simple/tabbedpane.vm")
+#parse("/$parameters.templateDir/simple/tabbedpane.vm")
