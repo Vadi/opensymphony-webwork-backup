@@ -1,10 +1,10 @@
 package com.opensymphony.webwork.validators;
 
-import com.opensymphony.xwork.validator.validators.RequiredStringValidator;
+import com.opensymphony.xwork.validator.validators.EmailValidator;
 
 import java.util.Map;
 
-public class JavaScriptRequiredStringValidator extends RequiredStringValidator implements ScriptValidationAware {
+public class JavaScriptEmailValidator extends EmailValidator implements ScriptValidationAware {
     public String validationScript(Map parameters) {
         String field = (String) parameters.get("name");
         StringBuffer js = new StringBuffer();
