@@ -57,11 +57,11 @@ function ValidationServlet(servletUrl) {
 		}
 
 		var sv = this;
-		
+
 	    xmlhttp.open("POST", this.servletUrl, true);
     	xmlhttp.onreadystatechange = function() {
 	        if (xmlhttp.readyState == 4) {
-	        	if (xmlhttp.responseXML) {
+	        	if (xmlhttp.responseXML) {        	
 		            sv.handleXmlResponse(input, xmlhttp.responseXML);
 				}
 	        }
@@ -72,17 +72,24 @@ function ValidationServlet(servletUrl) {
     }
     
 	extractErrorMessages = function(node) {
-        var actionErrorMessagesXml = node.getElementsByTagName("errorMessage");
+        var errorMessageXml = node.getElementsByTagName("errorMessage");
         var ary = new Array();
-        for (var i = 0; i < actionErrorMessagesXml.length; i++) {
-        	ary[i] = actionErrorMessagesXml[i].textContent;
+        for (var i = 0; i < errorMessageXml.length; i++) {
+
+			// why oh why do firefox and IE have different ways to access text content of xml nodes 
+        	if (errorMessageXml[i].text) {
+	        	ary[i] = errorMessageXml[i].text;
+	        }
+	        else {
+	        	ary[i] = errorMessageXml[i].textContent;
+	        }
         }
         return ary;
 	}
 	
 	this.handleXmlResponse = function(input, xml) {
 
-        var root = xml.childNodes[0];
+        var root = xml.getElementsByTagName("errors")[0];
 
         // build a javascript object to hold the errors
         var errors = new Object();
@@ -100,41 +107,14 @@ function ValidationServlet(servletUrl) {
             errors.fieldErrors[fieldName] = extractErrorMessages(fieldErrorsXml[i]);
 		}
 
-        
         // make the callback with the errors
         this.onErrors(input, errors);
     }
 
-	// default implementation delegates to individual on??Error handlers
-	// @param validateElement - the form element that triggered the validate(element) call
+	// @param formObject - the form object that triggered the validate call
 	// @param errors - a javascript object representing the action errors and field errors
-	this.onErrors = function(validateElement, errors) {
-		this.onActionErrors(validateElement, errors);
-		for (fe in errors.fieldErrors) {
-			this.onFieldError(validateElement, fe, errors.fieldErrors[fe]);
-		}
-	}
-
-	// default implementation calls onActionError for each error message
-	// @param validateElement - the form element that triggered the validate(element) call
-	// @param errorMessages - an array of string messages
-	this.onActionErrors = function(validateElement, errorMessages) {
-		for (i = 0; i < errorMessages.length; i++) {
-			this.onActionError(validateElement, errorMessages[i]);
-		}
-	}
-
-	// default implementation does nothing
-	// @param validateElement - the form element that triggered the validate(element) call
-	// @param errorMessages
-	this.onActionError = function(validateElement, errorMessage) {
-	}
-
-	// default implementation does nothing
-	// @param validateElement - the form element that triggered the validate(element) call
-	// @param fieldName - the name of the field that the errorMessage belongs to
-	// @errorMessages - an array of string error messages
-	this.onFieldError = function(validateElement, fieldName, errorMessages) {
+	// client should overwrite this handler to display the new error messages
+	this.onErrors = function(inputObject, errors) {
 	}
 	
 	return this;
