@@ -189,4 +189,58 @@
         </action>
 
     </package>
+
+    <package name="i18n" extends="default" namespace="/i18n">
+        <action name="i18n.Shop" class="com.opensymphony.webwork.example.i18n.Shop">
+            <result name="success" type="velocity">
+                <param name="location">shop.vm</param>
+            </result>
+        </action>
+        <action name="i18n.Add" class="com.opensymphony.webwork.example.i18n.Add">
+            <result name="success" type="velocity">
+                <param name="location">shop.vm</param>
+            </result>
+        </action>
+        <action name="i18n.Delete" class="com.opensymphony.webwork.example.i18n.Delete">
+            <result name="success" type="velocity">
+                <param name="location">shop.vm</param>
+            </result>
+        </action>
+        <action name="i18n.Checkout" class="com.opensymphony.webwork.example.i18n.Checkout">
+            <result name="success" type="velocity">
+                <param name="location">checkout.vm</param>
+            </result>
+        </action>
+        <action name="i18n.Language" class="com.opensymphony.webwork.example.i18n.Language">
+            <result name="success" type="velocity">
+                <param name="location">shop.vm</param>
+            </result>
+            <result name="error" type="dispatcher">
+                <param name="location">language.vm</param>
+            </result>
+        </action>
+        <action name="i18n.Restart" class="com.opensymphony.webwork.example.i18n.Restart">
+            <result name="success" type="velocity">
+                <param name="location">shop.vm</param>
+            </result>
+        </action>
+        <action name="i18n.Cart" class="com.opensymphony.webwork.example.i18n.Cart">
+            <result name="success" type="velocity">
+                <param name="location">cart.vm</param>
+            </result>
+        </action>
+        <action name="i18n.CDList" class="com.opensymphony.webwork.example.i18n.CDList">
+            <result name="success" type="velocity">
+                <param name="location">cdlist.vm</param>
+            </result>
+        </action>
+        <action name="i18n.LanguageList" class="com.opensymphony.webwork.example.i18n.LanguageList">
+        </action>
+        <action name="i18n.ComputePrice" class="com.opensymphony.webwork.example.i18n.ComputePrice">
+ 			<result name="success" type="velocity">
+                <param name="location">shop.vm</param>
+            </result>
+        </action>
+    </package>
+
 </xwork>
