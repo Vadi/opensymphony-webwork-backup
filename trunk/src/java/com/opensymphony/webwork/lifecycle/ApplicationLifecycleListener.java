@@ -44,6 +44,8 @@ public class ApplicationLifecycleListener implements ServletContextListener {
         if (container != null) {
             container.dispose();
         }
+
+        LogFactory.releaseAll();
     }
 
     /**
