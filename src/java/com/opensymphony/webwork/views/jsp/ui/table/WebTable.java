@@ -8,12 +8,12 @@ import com.opensymphony.webwork.views.jsp.ui.ComponentTag;
 import com.opensymphony.webwork.views.jsp.ui.table.renderer.CellRenderer;
 
 import com.opensymphony.xwork.util.OgnlUtil;
+import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.ActionContext;
 
 import org.apache.commons.logging.LogFactory;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -28,13 +28,19 @@ import javax.swing.table.TableModel;
  * @version $Revision$
  */
 public class WebTable extends ComponentTag {
+    //~ Static fields/initializers /////////////////////////////////////////////
+
+    /**
+     * The name of the default template for the CheckboxTag
+     */
+    final public static String TEMPLATE = "table.vm";
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    protected String _modelName = null;
+    protected String modelNameAttr = null;
     protected String _sortOrder = SortableTableModel.NONE;
-    protected TableModel _model = null;
+    protected TableModel model = null;
     protected WebTableColumn[] _columns = null;
-    protected boolean _sortable = false;
+    protected boolean sortableAttr = false;
     protected int _sortColumn = -1;
     int _curRow = 0;
 
@@ -42,7 +48,6 @@ public class WebTable extends ComponentTag {
 
     public WebTable() {
         super();
-        setTemplate("table.jsp");
     }
 
     public WebTable(TableModel model) {
@@ -50,6 +55,11 @@ public class WebTable extends ComponentTag {
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
+
+    protected String getDefaultTemplate() {
+        return TEMPLATE;
+    }
+
 
     public WebTableColumn getColumn(int index) {
         try {
@@ -98,7 +108,7 @@ public class WebTable extends ComponentTag {
 
         for (int i = 0; i < getColumnCount(); ++i) {
             if (_columns[i].isVisible()) {
-                data.add(_columns[i].getRenderer().renderCell(this, _model.getValueAt(row, i), row, i));
+                data.add(_columns[i].getRenderer().renderCell(this, model.getValueAt(row, i), row, i));
             }
         }
 
@@ -106,38 +116,32 @@ public class WebTable extends ComponentTag {
     }
 
     public void setModel(TableModel model) {
-        _model = model;
-        _columns = new WebTableColumn[_model.getColumnCount()];
+        this.model = model;
+        _columns = new WebTableColumn[this.model.getColumnCount()];
 
         for (int i = 0; i < _columns.length; ++i) {
-            _columns[i] = new WebTableColumn(_model.getColumnName(i), i);
+            _columns[i] = new WebTableColumn(this.model.getColumnName(i), i);
         }
 
-        if ((_sortable == true) && !(_model instanceof SortableTableModel)) {
-            _model = new SortFilterModel(_model);
+        if ((sortableAttr == true) && !(this.model instanceof SortableTableModel)) {
+            this.model = new SortFilterModel(this.model);
         }
     }
 
     public TableModel getModel() {
-        return (_model);
+        return (model);
     }
 
     public void setModelName(String modelName) {
-        _modelName = (String) findValue(modelName);
-
-        Object obj = findValue(_modelName);
-
-        if (obj instanceof TableModel) {
-            setModel((TableModel) obj);
-        }
+        this.modelNameAttr = modelName;
     }
 
     public String getModelName() {
-        return _modelName;
+        return modelNameAttr;
     }
 
     public Object getRawData(int row, int column) {
-        return _model.getValueAt(row, column);
+        return model.getValueAt(row, column);
     }
 
     public Iterator getRawDataRowIterator() {
@@ -149,7 +153,7 @@ public class WebTable extends ComponentTag {
 
         for (int i = 0; i < getColumnCount(); ++i) {
             if (_columns[i].isVisible()) {
-                data.add(_model.getValueAt(row, i));
+                data.add(model.getValueAt(row, i));
             }
         }
 
@@ -157,7 +161,7 @@ public class WebTable extends ComponentTag {
     }
 
     public int getRowCount() {
-        return _model.getRowCount();
+        return model.getRowCount();
     }
 
     public Iterator getRowIterator() {
@@ -169,15 +173,15 @@ public class WebTable extends ComponentTag {
     }
 
     public int getSortColumn() {
-        if (_model instanceof SortableTableModel) {
-            return ((SortableTableModel) _model).getSortedColumnNumber();
+        if (model instanceof SortableTableModel) {
+            return ((SortableTableModel) model).getSortedColumnNumber();
         }
 
         return -1;
     }
 
     public String getSortColumnLinkName() {
-        return "WEBTABLE_" + _modelName + "_SORT_COLUMN";
+        return "WEBTABLE_" + modelNameAttr + "_SORT_COLUMN";
     }
 
     public void setSortOrder(String sortOrder) {
@@ -193,27 +197,27 @@ public class WebTable extends ComponentTag {
     }
 
     public String getSortOrder() {
-        if ((_model instanceof SortableTableModel) && (getSortColumn() >= 0)) {
-            return ((SortableTableModel) _model).getSortedDirection(getSortColumn());
+        if ((model instanceof SortableTableModel) && (getSortColumn() >= 0)) {
+            return ((SortableTableModel) model).getSortedDirection(getSortColumn());
         }
 
         return SortableTableModel.NONE;
     }
 
     public String getSortOrderLinkName() {
-        return "WEBTABLE_" + _modelName + "_SORT_ORDER";
+        return "WEBTABLE_" + modelNameAttr + "_SORT_ORDER";
     }
 
     public void setSortable(boolean sortable) {
-        _sortable = sortable;
+        sortableAttr = sortable;
 
-        if ((_sortable == true) && (_model != null) && !(_model instanceof SortableTableModel)) {
-            _model = new SortFilterModel(_model);
+        if ((sortableAttr == true) && (model != null) && !(model instanceof SortableTableModel)) {
+            model = new SortFilterModel(model);
         }
     }
 
     public boolean isSortable() {
-        return _sortable;
+        return sortableAttr;
     }
 
     public void addParameter(String name, Object value) {
@@ -221,8 +225,36 @@ public class WebTable extends ComponentTag {
         super.addParam(name, value);
     }
 
+
+    protected void evaluateExtraParams(OgnlValueStack stack) {
+        if(modelNameAttr != null) {
+            modelNameAttr = (String) stack.findValue(modelNameAttr);
+
+            Object obj = stack.findValue(this.modelNameAttr);
+
+            if (obj instanceof TableModel) {
+                setModel((TableModel) obj);
+            }
+        }
+
+        // evaluate all the parameters for the webtable
+        Map params = getParams();
+        Set set = params.keySet();
+        for (Iterator iterator = set.iterator(); iterator.hasNext();) {
+            String key = (String) iterator.next();
+            Object value = params.get(key);
+            OgnlUtil.setProperty(key, value, this, ActionContext.getContext().getContextMap());
+        }
+
+        super.evaluateExtraParams(stack);    //To change body of overriden methods use Options | File Templates.
+    }
+
+
+
+
+
     public int doEndTag() throws JspException {
-        if (_sortable && _model instanceof SortableTableModel) {
+        if (sortableAttr && model instanceof SortableTableModel) {
             LogFactory.getLog(this.getClass()).debug("we are looking for " + getSortColumnLinkName());
 
             String sortColumn = pageContext.getRequest().getParameter(getSortColumnLinkName());
@@ -252,7 +284,7 @@ public class WebTable extends ComponentTag {
                     LogFactory.getLog(this.getClass()).debug("we have the sortOrder " + _sortOrder);
 
                     try {
-                        ((SortableTableModel) _model).sort(_sortColumn, _sortOrder);
+                        ((SortableTableModel) model).sort(_sortColumn, _sortOrder);
                     } catch (Exception ex) {
                         if (LogFactory.getLog(this.getClass()).isDebugEnabled()) {
                             LogFactory.getLog(this.getClass()).debug("couldn't sort the data");
