@@ -52,15 +52,15 @@ public class TextareaTag extends AbstractUITag {
         }
 
         if (onkeyupAttr != null) {
-            addParameter("onkeyup", findValue(onkeyupAttr, String.class));
+            addParameter("onkeyup", findString(onkeyupAttr));
         }
 
         if (colsAttr != null) {
-            addParameter("cols", findValue(colsAttr, String.class));
+            addParameter("cols", findString(colsAttr));
         }
 
         if (rowsAttr != null) {
-            addParameter("rows", findValue(rowsAttr, String.class));
+            addParameter("rows", findString(rowsAttr));
         }
     }
 

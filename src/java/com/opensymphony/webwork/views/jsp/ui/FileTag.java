@@ -47,11 +47,11 @@ public class FileTag extends AbstractUITag {
         super.evaluateParams(stack);
 
         if (acceptAttr != null) {
-            addParameter("accept", findValue(acceptAttr, String.class));
+            addParameter("accept", findString(acceptAttr));
         }
 
         if (sizeAttr != null) {
-            addParameter("size", findValue(sizeAttr, String.class));
+            addParameter("size", findString(sizeAttr));
         }
     }
 }

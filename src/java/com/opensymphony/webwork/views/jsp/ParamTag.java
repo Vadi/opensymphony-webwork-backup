@@ -59,14 +59,14 @@ public class ParamTag extends WebWorkBodyTagSupport {
                 if (parametricTag instanceof UnnamedParametric) {
                     ((UnnamedParametric) parametricTag).addParameter(findValue(valueAttr));
                 } else {
-                    Object name = findValue(nameAttr);
+                    String name = findString(nameAttr);
 
                     if (name == null) {
                         throw new JspException("No name found for following expression: " + nameAttr);
                     }
 
                     Object value = findValue(valueAttr);
-                    parametricTag.addParameter(name.toString(), value);
+                    parametricTag.addParameter(name, value);
                 }
             } else {
                 String content = null;

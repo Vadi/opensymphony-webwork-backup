@@ -49,7 +49,10 @@ public class PropertyTag extends WebWorkTagSupport {
                 value = "top";
             }
 
-            actualValue = findValue(value, String.class);
+            // exception: don't call findString(), since we don't want the
+            //            expression parsed in this one case. it really
+            //            doesn't make sense, in fact.
+            actualValue = getStack().findValue(value, String.class);
 
             if (actualValue != null) {
                 pageContext.getOut().print(prepare(actualValue));

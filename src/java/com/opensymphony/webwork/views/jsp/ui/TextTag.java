@@ -7,7 +7,6 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.views.jsp.ParamTag;
 import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 import com.opensymphony.xwork.TextProvider;
-import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -94,11 +93,8 @@ public class TextTag extends WebWorkBodyTagSupport implements ParamTag.UnnamedPa
         values.add(value);
     }
 
-    // BodyTag implementation ----------------------------------------
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = getStack();
-
-        actualName = (String) findValue(nameAttr, String.class);
+        actualName = (String) findString(nameAttr);
 
         // Add tag attribute values
         // These can be used to parameterize the i18n-ized message

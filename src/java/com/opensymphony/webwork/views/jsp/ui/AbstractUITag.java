@@ -32,11 +32,8 @@ import java.util.List;
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
 public abstract class AbstractUITag extends ParameterizedTagSupport {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log LOG = LogFactory.getLog(AbstractUITag.class);
-
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected String cssClassAttr;
     protected String cssStyleAttr;
@@ -216,16 +213,16 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         Object name = null;
 
         if (nameAttr != null) {
-            name = findValue(nameAttr, String.class);
+            name = findString(nameAttr);
             addParameter("name", name);
         }
 
         if (labelAttr != null) {
-            addParameter("label", findValue(labelAttr, String.class));
+            addParameter("label", findString(labelAttr));
         }
 
         if (labelPositionAttr != null) {
-            addParameter("labelposition", findValue(labelPositionAttr, String.class));
+            addParameter("labelposition", findString(labelPositionAttr));
         }
 
         if (requiredAttr != null) {
@@ -237,19 +234,19 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         if (tabindexAttr != null) {
-            addParameter("tabindex", findValue(tabindexAttr, String.class));
+            addParameter("tabindex", findString(tabindexAttr));
         }
 
         if (onchangeAttr != null) {
-            addParameter("onchange", findValue(onchangeAttr, String.class));
+            addParameter("onchange", findString(onchangeAttr));
         }
 
         if (cssClassAttr != null) {
-            addParameter("cssClass", findValue(cssClassAttr, String.class));
+            addParameter("cssClass", findString(cssClassAttr));
         }
 
         if (cssStyleAttr != null) {
-            addParameter("cssStyle", findValue(cssStyleAttr, String.class));
+            addParameter("cssStyle", findString(cssStyleAttr));
         }
 
         if (evaluateNameValue()) {
@@ -259,7 +256,12 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
                 if (valueAttr != null) {
                     addParameter("nameValue", findValue(valueAttr, valueClazz));
                 } else if (name != null) {
-                    addParameter("nameValue", findValue(name.toString(), valueClazz));
+                    String expr = name.toString();
+                    if (ALT_SYNTAX) {
+                        expr = "%{" + expr + "}";
+                    }
+
+                    addParameter("nameValue", findValue(expr, valueClazz));
                 }
             } else {
                 if (valueAttr != null) {

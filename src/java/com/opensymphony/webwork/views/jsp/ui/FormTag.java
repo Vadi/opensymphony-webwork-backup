@@ -100,7 +100,7 @@ public class FormTag extends AbstractClosingUITag {
                 response = ServletActionContext.getResponse();
             }
 
-            String action = (String) findValue(actionAttr, String.class);
+            String action = (String) findString(actionAttr);
             String namespace;
 
             if (namespaceAttr == null) {
@@ -133,11 +133,11 @@ public class FormTag extends AbstractClosingUITag {
         }
 
         if (enctypeAttr != null) {
-            addParameter("enctype", findValue(enctypeAttr, String.class));
+            addParameter("enctype", findString(enctypeAttr));
         }
 
         if (methodAttr != null) {
-            addParameter("method", findValue(methodAttr, String.class));
+            addParameter("method", findString(methodAttr));
         }
 
         if (validateAttr != null) {

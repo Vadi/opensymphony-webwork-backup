@@ -48,11 +48,11 @@ public class TextFieldTag extends AbstractUITag {
         super.evaluateExtraParams(stack);
 
         if (sizeAttr != null) {
-            addParameter("size", findValue(sizeAttr, String.class));
+            addParameter("size", findString(sizeAttr));
         }
 
         if (maxLengthAttr != null) {
-            addParameter("maxlength", findValue(maxLengthAttr, String.class));
+            addParameter("maxlength", findString(maxLengthAttr));
         }
 
         if (readonlyAttr != null) {
@@ -60,7 +60,7 @@ public class TextFieldTag extends AbstractUITag {
         }
 
         if (onkeyupAttr != null) {
-            addParameter("onkeyup", findValue(onkeyupAttr, String.class));
+            addParameter("onkeyup", findString(onkeyupAttr));
         }
     }
 

@@ -36,9 +36,13 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
     }
 
     protected Object findValue(String expr, Class toType) {
-        expr = CompatUtil.compat(expr);
+        if (WebWorkTagSupport.ALT_SYNTAX && toType == String.class) {
+            return WebWorkTagSupport.translateVariables(expr, getStack());
+        } else {
+            expr = CompatUtil.compat(expr);
 
-        return getStack().findValue(expr, toType);
+            return getStack().findValue(expr, toType);
+        }
     }
 
     protected String toString(Throwable t) {

@@ -44,6 +44,6 @@ public class SubmitTag extends AbstractUITag {
 
         super.evaluateParams(stack);
 
-        addParameter("align", findValue(alignAttr, String.class));
+        addParameter("align", findString(alignAttr));
     }
 }
