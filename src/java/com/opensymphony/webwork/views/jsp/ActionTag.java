@@ -47,7 +47,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
     ActionProxy proxy;
     String name;
-    String namespace;
+    String namespaceAttr;
     boolean executeResult;
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -70,10 +70,9 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
     /**
      * Sets the namespace for the action.  If null, this will default to "default"
-     * @param namespace
      */
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
+    public void setNamespace(String namespaceAttr) {
+        this.namespaceAttr = namespaceAttr;
     }
 
     public int doEndTag() throws JspException {
@@ -96,7 +95,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         return EVAL_BODY_INCLUDE;
     }
 
-   String buildNamespace() {
+    String buildNamespace() {
         String namespace = "";
         ActionInvocation invocation = null;
         ActionContext context = new ActionContext(getStack().getContext());
@@ -147,8 +146,11 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
      * @see #buildNamespace
      */
     private void executeAction() throws JspException {
-        if (namespace == null) {
+        String namespace = null;
+        if (namespaceAttr == null) {
             namespace = buildNamespace();
+        } else {
+            namespace = namespaceAttr;
         }
 
         OgnlValueStack stack = getStack();
