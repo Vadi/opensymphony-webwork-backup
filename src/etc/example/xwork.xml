@@ -3,7 +3,7 @@
 <xwork>
 
     <include file="webwork-default.xml"/>
-    <include file="config-browser.xml"/>
+    <include file="config-browser-oldSyntax.xml"/>
 
     <package name="default" extends="webwork-default">
 
