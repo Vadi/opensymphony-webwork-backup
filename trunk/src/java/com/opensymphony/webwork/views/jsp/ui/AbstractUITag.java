@@ -12,6 +12,7 @@ import com.opensymphony.webwork.views.velocity.VelocityManager;
 import com.opensymphony.xwork.ModelDriven;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.validator.*;
+import ognl.OgnlRuntime;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.Template;
@@ -21,6 +22,7 @@ import org.apache.velocity.context.Context;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
+import java.beans.PropertyDescriptor;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -361,10 +363,16 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
                         Class realFieldClass = visitorValidator.getValidatedClass();
 
                         if (realFieldClass == null) {
-                            Object fieldValue = findValue(visitorValidator.getFieldName());
-
-                            if (fieldValue != null) {
-                                realFieldClass = fieldValue.getClass();
+                            for (Iterator iterator1 = getStack().getRoot().iterator(); iterator1.hasNext();) {
+                                Object o = iterator1.next();
+                                try {
+                                    PropertyDescriptor pd =
+                                            OgnlRuntime.getPropertyDescriptor(o.getClass(), visitorValidator.getFieldName());
+                                    realFieldClass = pd.getPropertyType();
+                                    break;
+                                } catch (Throwable t) {
+                                    // just keep trying
+                                }
                             }
                         }
 
