@@ -84,7 +84,7 @@ public class IteratorTag extends WebWorkBodyTagSupport {
     }
 
     public int doAfterBody() throws JspException {
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
         stack.pop();
 
         if (iterator.hasNext()) {
@@ -134,7 +134,7 @@ public class IteratorTag extends WebWorkBodyTagSupport {
             status = new IteratorStatus(statusState);
         }
 
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
 
         if (value == null) {
             value = "top";

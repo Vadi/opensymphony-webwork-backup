@@ -41,7 +41,7 @@ public class SetTag extends WebWorkTagSupport {
     public int doStartTag() throws JspException {
         Object o;
 
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
 
         if (value == null) {
             value = "top";

@@ -1,0 +1,214 @@
+package com.opensymphony.webwork.views.jsp.vui;
+
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.util.ContainUtil;
+import com.opensymphony.webwork.views.jsp.IncludeTag;
+import com.opensymphony.webwork.views.jsp.ParameterizedTag;
+import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.JspWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Abstract VUI tag
+ *
+ * @author Jeff Haynie (jhaynie@vocalocity.net)
+ * @version $Revision$
+ */
+public abstract class AbstractVUITag
+        extends WebWorkBodyTagSupport
+        implements ParameterizedTag {
+    // Attributes ----------------------------------------------------
+    private static Log log = LogFactory.getLog(AbstractVUITag.class);
+    protected String themeAttr;
+    protected String theme;
+    protected String templateHeaderAttr;
+    protected String templateFooterAttr;
+    protected Map params = new HashMap();
+
+    // Public --------------------------------------------------------
+
+    public abstract String getHeaderTemplate();
+
+    public abstract String getFooterTemplate();
+
+    public String getTheme() {
+        // If theme set is not explicitly given,
+        // try to find attribute which states the theme set to use
+        if ((theme == null) || (theme == "")) {
+            theme = (String) pageContext.findAttribute("theme");
+        }
+
+        // Default template set
+        if ((theme == null) || (theme == "")) {
+            theme = Configuration.getString("webwork.ui.theme");
+        }
+
+        return theme;
+    }
+
+    public void setTheme(String aName) {
+        themeAttr = aName;
+    }
+
+    public void setTemplateHeader(String aName) {
+        templateHeaderAttr = aName;
+    }
+
+    public void setTemplateFooter(String aName) {
+        templateFooterAttr = aName;
+    }
+
+    public void addParam(String name, Object value) {
+        addParameterInternal(name, value);
+    }
+
+    private void addParameterInternal(String name, Object value) {
+        params.put(name, value);
+    }
+
+    public Map getParams() {
+        return params;
+    }
+
+    public boolean memberOf(Object obj1, Object obj2) {
+        return ContainUtil.contains(obj1, obj2);
+    }
+
+    protected void getSetParameter(String a, String n) {
+        if (a != null) {
+            Object value = findValue(a);
+            if (value != null) {
+                addParameterInternal(n, value);
+            }
+        }
+    }
+
+    protected abstract void initializeAttributes();
+
+
+    // FieldTag overrides ------------------------------------------
+    public int doStartTag() {
+        if (themeAttr != null)
+            theme = (String) findValue(themeAttr);
+
+        initializeAttributes();
+
+        getStack().push(this);
+        try {
+            // header
+            String template = templateHeaderAttr;
+            if (template == null)
+                template = getHeaderTemplate();
+            IncludeTag.include(getTemplateDirectory() + template, pageContext);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return SKIP_BODY;
+        } finally {
+            getStack().pop();
+        }
+
+        return EVAL_BODY_INCLUDE;
+    }
+
+    public int doAfterBody() throws JspException {
+        if (bodyContent != null) {
+            try {
+                JspWriter out = getPreviousOut();
+                out.print(bodyContent.getString());
+                bodyContent.clearBody();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                throw new JspTagException("Exception:: " + toString(ex));
+            }
+            return (EVAL_BODY_BUFFERED);
+        }
+        return (SKIP_BODY);
+    }
+
+    public int doEndTag()
+            throws JspException {
+        if (themeAttr != null)
+            theme = (String) findValue(themeAttr);
+
+        getStack().push(this);
+        try {
+            // footer
+            String template = templateFooterAttr;
+            if (template == null)
+                template = getFooterTemplate();
+
+            IncludeTag.include(getTemplateDirectory() + template, pageContext);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new JspTagException("Exception including footer: " + toString(ex));
+        } finally {
+            getStack().pop();
+            params = new HashMap();
+        }
+        return EVAL_PAGE;
+    }
+
+    public String getBrowserUserAgent() {
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        String ua = request.getHeader("User-Agent");
+        if (ua == null) {
+            ua = request.getHeader("user-agent");
+        }
+        return (ua == null ? "" : ua);
+    }
+
+    /**
+     * get the template directory for a specific voice browser
+     */
+    protected String getTemplateDirectory() {
+        String ua = getBrowserUserAgent();
+        return BrowserSupport.getBrowserTemplateDirectory(ua);
+    }
+
+    protected String constructURL(String value) {
+        // this was taken from URLTag
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
+        StringBuffer link = new StringBuffer();
+
+        if (value != null) {
+            // Check if context path needs to be added
+            // Add path to absolute links
+            if (value.startsWith("/")) {
+                link.append(request.getContextPath());
+            }
+
+            // Add page
+            link.append(value);
+        } else {
+            // Go to "same page"
+            String requestURI = (String) request.getAttribute("webwork.request_uri");
+//         String contextPath=(String)request.getAttribute("webwork.context_path");
+            if (requestURI == null) requestURI = request.getRequestURI();
+//         if(contextPath==null) contextPath=request.getContextPath();
+            link.append(requestURI);
+        }
+
+        String result;
+        try {
+            //Category.getInstance(this.getClass().getName()).debug(link.toString());
+            result = response.encodeURL(link.toString());
+        } catch (Exception e) {
+            // Could not encode URL for some reason
+            // Use it unchanged
+            result = link.toString();
+        }
+        return result;
+
+    }
+
+
+}

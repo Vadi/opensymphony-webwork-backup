@@ -73,11 +73,11 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
     }
 
     public void addParam(String key, Object value) {
-        OgnlUtil.setProperty(key, value, bean, getValueStack().getContext());
+        OgnlUtil.setProperty(key, value, bean, getStack().getContext());
     }
 
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
         stack.pop();
 
         return SKIP_BODY;
@@ -98,7 +98,7 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
             return SKIP_PAGE;
         }
 
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
 
         // push bean on stack
         stack.push(bean);
@@ -106,7 +106,7 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
         // Store as attribute in page context and in the ActionContext for use with the property tag.
         if (getId() != null) {
             pageContext.setAttribute(getId(), bean);
-            getValueStack().getContext().put(getId(), bean);
+            getStack().getContext().put(getId(), bean);
         }
 
         return EVAL_BODY_INCLUDE;

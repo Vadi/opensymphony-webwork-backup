@@ -52,25 +52,25 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
- * If set to true the result of an action will be executed.
- * @param executeResult
- */
+     * If set to true the result of an action will be executed.
+     * @param executeResult
+     */
     public void setExecuteResult(boolean executeResult) {
         this.executeResult = executeResult;
     }
 
     /**
- * Sets the name of the action to be invoked
- * @param name the name of the Action as defined in the xwork.xml file
- */
+     * Sets the name of the action to be invoked
+     * @param name the name of the Action as defined in the xwork.xml file
+     */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
- * Sets the namespace for the action.  If null, this will default to "default"
- * @param namespace
- */
+     * Sets the namespace for the action.  If null, this will default to "default"
+     * @param namespace
+     */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
@@ -88,17 +88,17 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
     public int doStartTag() throws JspException {
         /**
- * Migrated instantiation of the params HashMap to here from the constructor to facilitate implementation of the
- * release() method.
- */
+         * Migrated instantiation of the params HashMap to here from the constructor to facilitate implementation of the
+         * release() method.
+         */
         this.params = new HashMap();
 
         return EVAL_BODY_INCLUDE;
     }
 
     /**
- * Clears all the instance variables to allow this instance to be reused.
- */
+     * Clears all the instance variables to allow this instance to be reused.
+     */
     public void release() {
         super.release();
         this.proxy = null;
@@ -110,7 +110,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     String buildNamespace() {
         String namespace = "";
         ActionInvocation invocation = null;
-        ActionContext context = new ActionContext(getValueStack().getContext());
+        ActionContext context = new ActionContext(getStack().getContext());
 
         if (context != null) {
             invocation = context.getActionInvocation();
@@ -130,7 +130,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     }
 
     private Map createExtraContext() {
-        Map parentParams = new ActionContext(getValueStack().getContext()).getParameters();
+        Map parentParams = new ActionContext(getStack().getContext()).getParameters();
         Map newParams = (parentParams != null) ? new HashMap(parentParams) : new HashMap();
 
         if (params != null) {
@@ -152,17 +152,17 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     }
 
     /**
- * execute the requested action.  if no
- * namespace is provided, we'll attempt to derive a namespace using buildNamespace().  the ActionProxy and the
- * namespace will be saved into the instance variables proxy and namespace respectively.
- * @see #buildNamespace
- */
+     * execute the requested action.  if no
+     * namespace is provided, we'll attempt to derive a namespace using buildNamespace().  the ActionProxy and the
+     * namespace will be saved into the instance variables proxy and namespace respectively.
+     * @see #buildNamespace
+     */
     private void executeAction() throws JspException {
         if (namespace == null) {
             namespace = buildNamespace();
         }
 
-        OgnlValueStack stack = getValueStack();
+        OgnlValueStack stack = getStack();
         String actualName = (String) stack.findValue(name, String.class);
 
         if (actualName == null) {
@@ -196,7 +196,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         }
 
         if (getId() != null) {
-            getValueStack().getContext().put(getId(), proxy.getAction());
+            getStack().getContext().put(getId(), proxy.getAction());
         }
     }
 }

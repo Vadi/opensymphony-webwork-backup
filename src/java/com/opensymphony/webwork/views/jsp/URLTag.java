@@ -74,7 +74,7 @@ public class URLTag extends ParameterizedTagSupport {
     }
 
     public int doStartTag() throws JspException {
-        OgnlValueStack vs = getValueStack();
+        OgnlValueStack vs = getStack();
 
         if ((vs != null) && (value != null)) {
             Object o = vs.findValue(value);

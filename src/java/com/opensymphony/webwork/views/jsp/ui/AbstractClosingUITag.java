@@ -38,7 +38,7 @@ public abstract class AbstractClosingUITag extends AbstractUITag {
 
     public int doStartTag() throws JspException {
         try {
-            evaluateParams(getValueStack());
+            evaluateParams(getStack());
 
             String openTemplateName = buildTemplateName(getOpenTemplate(), getDefaultOpenTemplate());
             mergeTemplate(openTemplateName);

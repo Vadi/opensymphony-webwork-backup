@@ -40,7 +40,7 @@ public class TokenTag extends AbstractUITag {
         if (nameAttr == null) {
             tokenName = TokenHelper.DEFAULT_TOKEN_NAME;
         } else {
-            tokenName = (String) getValueStack().findValue(nameAttr, String.class);
+            tokenName = (String) getStack().findValue(nameAttr, String.class);
 
             if (tokenName == null) {
                 tokenName = nameAttr;
