@@ -9,31 +9,22 @@ import com.opensymphony.webwork.validators.JavaScriptVisitorFieldValidator;
 import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.webwork.views.jsp.ParameterizedTagSupport;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-
 import com.opensymphony.xwork.ModelDriven;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.validator.ActionValidatorManager;
-import com.opensymphony.xwork.validator.DelegatingValidatorContext;
-import com.opensymphony.xwork.validator.FieldValidator;
-import com.opensymphony.xwork.validator.Validator;
-import com.opensymphony.xwork.validator.ValidatorContext;
-
+import com.opensymphony.xwork.validator.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 
-import java.io.Writer;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -176,20 +167,20 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     /**
-    * A contract that requires each concrete UI Tag to specify which template should be used as a default.  For
-    * example, the CheckboxTab might return "checkbox.vm" while the RadioTag might return "radio.vm".  This value
-    * <strong>not</strong> begin with a '/' unless you intend to make the path absolute rather than relative to the
-    * current theme.
-    *
-    * @return The name of the template to be used as the default.
-    */
+     * A contract that requires each concrete UI Tag to specify which template should be used as a default.  For
+     * example, the CheckboxTab might return "checkbox.vm" while the RadioTag might return "radio.vm".  This value
+     * <strong>not</strong> begin with a '/' unless you intend to make the path absolute rather than relative to the
+     * current theme.
+     *
+     * @return The name of the template to be used as the default.
+     */
     protected abstract String getDefaultTemplate();
 
     /**
-    * Find the name of the Velocity template that we should use.
-    *
-    * @return The name of the Velocity template that we should use. This value should begin with a '/'
-    */
+     * Find the name of the Velocity template that we should use.
+     *
+     * @return The name of the Velocity template that we should use. This value should begin with a '/'
+     */
     protected String getTemplateName() {
         return buildTemplateName(templateAttr, getDefaultTemplate());
     }
@@ -199,9 +190,9 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     /**
-    * @param myTemplate
-    * @param myDefaultTemplate
-    */
+     * @param myTemplate
+     * @param myDefaultTemplate
+     */
     protected String buildTemplateName(String myTemplate, String myDefaultTemplate) {
         String template = myDefaultTemplate;
 
@@ -294,7 +285,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             // register ScriptValiationAware validators for this UI tag with the form
             Boolean validate = (Boolean) formTag.getParameters().get("validate");
 
-            if ((validate != null) && validate.booleanValue() && (formTag.getActionClass() != null) && (formTag.getActionName() != null)) {
+            if ((validate != null) && validate.booleanValue() && (formTag.getActionClass() != null) && (formTag.getActionName() != null) && name != null) {
                 findScriptingValidators(formTag, (String) name, formTag.getActionClass(), null);
             }
         }
@@ -321,9 +312,9 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     /**
      * Finds all ScriptValidationAware validators that apply to the field covered by this tag.
      *
-     * @param formTag the parent form tag this tag is in
-     * @param fieldName the name of the field to validate (used for error message key)
-     * @param fieldClass the Class of the object the field is for
+     * @param formTag      the parent form tag this tag is in
+     * @param fieldName    the name of the field to validate (used for error message key)
+     * @param fieldClass   the Class of the object the field is for
      * @param propertyName the actual property name to get validator for; if null, fieldName is used
      */
     private void findScriptingValidators(FormTag formTag, String fieldName, Class fieldClass, String propertyName) {

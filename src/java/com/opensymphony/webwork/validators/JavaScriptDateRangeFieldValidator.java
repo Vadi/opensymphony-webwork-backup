@@ -19,6 +19,6 @@ public class JavaScriptDateRangeFieldValidator extends DateRangeFieldValidator i
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public String validationScript(Map parameters) {
-        return "";
+        return "alert('foo')";
     }
 }

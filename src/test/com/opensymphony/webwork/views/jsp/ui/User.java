@@ -11,7 +11,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 public class User {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private String m_name;
+    private String name;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
@@ -21,10 +21,10 @@ public class User {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setName(String name) {
-        m_name = name;
+        this.name = name;
     }
 
     public String getName() {
-        return m_name;
+        return name;
     }
 }
