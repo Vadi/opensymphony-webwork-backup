@@ -80,7 +80,7 @@ public class BeanTag extends TagSupport implements ParameterizedTag {
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
         stack.pop();
 
-        return EVAL_PAGE;
+        return SKIP_BODY;
     }
 
     public int doStartTag() throws JspException {

@@ -59,7 +59,7 @@ public class ParamTag extends TagSupport {
             }
         }
 
-        return EVAL_PAGE;
+        return SKIP_BODY;
     }
 
     /**

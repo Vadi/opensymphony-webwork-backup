@@ -83,7 +83,7 @@ public class URLTag extends TagSupport implements ParameterizedTag {
             }
         }
 
-        return EVAL_PAGE;
+        return SKIP_BODY;
     }
 
     public int doStartTag() throws JspException {

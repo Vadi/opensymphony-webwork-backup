@@ -67,7 +67,7 @@ public class PropertyTag extends TagSupport {
             log.info("Could not print out value '" + value + "': " + e.getMessage());
         }
 
-        return EVAL_PAGE;
+        return SKIP_BODY;
     }
 
     /**

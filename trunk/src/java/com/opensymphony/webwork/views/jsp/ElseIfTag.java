@@ -39,7 +39,7 @@ public class ElseIfTag extends TagSupport {
             pageContext.setAttribute(IfTag.ANSWER, answer);
         }
 
-        return EVAL_PAGE;
+        return SKIP_BODY;
     }
 
     public int doStartTag() throws JspException {

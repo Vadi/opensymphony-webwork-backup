@@ -58,7 +58,7 @@ public class SetTag extends TagSupport {
             ActionContext.getContext().put(name, o);
         }
 
-        return EVAL_PAGE;
+        return SKIP_BODY;
     }
 
     /**
