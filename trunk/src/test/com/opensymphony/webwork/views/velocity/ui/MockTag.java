@@ -5,19 +5,13 @@
 package com.opensymphony.webwork.views.velocity.ui;
 
 import com.opensymphony.webwork.views.jsp.ParameterizedTag;
-import com.opensymphony.webwork.views.velocity.Renderer;
-import com.opensymphony.webwork.views.velocity.VelocityManager;
-
-import junit.framework.Assert;
-
-import org.apache.velocity.context.Context;
-
-import java.io.Writer;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.jsp.tagext.BodyTagSupport;
 
 
 /**
@@ -26,7 +20,7 @@ import java.util.Map;
  * Date: May 31, 2003
  * Time: 10:21:36 AM
  */
-public class MockTag implements Renderer, ParameterizedTag {
+public class MockTag extends BodyTagSupport implements ParameterizedTag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static String s;
@@ -107,11 +101,6 @@ public class MockTag implements Renderer, ParameterizedTag {
 
     public void addParam(String key, Object value) {
         this.params.put(key, value);
-    }
-
-    public void render(Context context, Writer writer) throws Exception {
-        Renderer me = (Renderer) context.get(VelocityManager.TAG);
-        Assert.assertNotNull(me);
     }
 
     /**

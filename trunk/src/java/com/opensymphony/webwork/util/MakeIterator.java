@@ -56,6 +56,10 @@ public class MakeIterator {
             value = ((Map) value).entrySet();
         }
 
+        if (value == null) {
+            return null;
+        }
+
         if (value instanceof Collection) {
             iterator = ((Collection) value).iterator();
         } else if (value.getClass().isArray()) {

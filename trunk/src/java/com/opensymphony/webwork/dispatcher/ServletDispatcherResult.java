@@ -41,6 +41,7 @@ public class ServletDispatcherResult extends WebWorkResultSupport {
             log.debug("Forwarding to location " + finalLocation);
         }
 
+        // todo check back on this as this the only reference to PageContext in this manner
         PageContext pageContext = (PageContext) ServletActionContext.getContext().get("javax.servlet.jsp.PageContext");
 
         if (pageContext != null) {
