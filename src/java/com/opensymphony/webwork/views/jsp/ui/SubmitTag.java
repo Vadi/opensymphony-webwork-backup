@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
+
 
 /**
  *
@@ -19,16 +21,26 @@ public class SubmitTag extends AbstractUITag {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private String align;
+    protected String alignAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAlign(String align) {
-        this.align = align;
+        this.alignAttr = align;
     }
 
-    public String getAlign() {
-        return align;
+    protected void evaluateParams(OgnlValueStack stack) {
+        if (alignAttr == null) {
+            alignAttr = "'right'";
+        }
+
+        if (valueAttr == null) {
+            valueAttr = "'Submit'";
+        }
+
+        super.evaluateParams(stack);
+
+        addParam("align", stack.findValue(alignAttr, String.class));
     }
 
     protected String getDefaultTemplate() {
