@@ -7,6 +7,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.ParameterizedTagSupport;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
+import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.validator.ActionValidatorManager;
 import com.opensymphony.xwork.validator.FieldValidator;
@@ -272,8 +273,8 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             List validators = ActionValidatorManager.getValidators(tag.getActionClass(), tag.getActionName());
             for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
                 Validator validator = (Validator) iterator.next();
-                if (validator instanceof FieldValidator) {
-                    FieldValidator fieldValidator = (FieldValidator) validator;
+                if (validator instanceof ScriptValidationAware) {
+                    ScriptValidationAware fieldValidator = (ScriptValidationAware) validator;
                     if (fieldValidator.getFieldName().equals(name)) {
                         tag.registerValidator(name, fieldValidator, new HashMap(getParameters()));
                     }

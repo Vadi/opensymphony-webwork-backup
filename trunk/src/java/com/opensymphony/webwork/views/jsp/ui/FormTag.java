@@ -21,9 +21,7 @@ import org.apache.velocity.context.Context;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,8 +45,8 @@ public class FormTag extends AbstractClosingUITag {
     String enctypeAttr;
     String methodAttr;
     String validateAttr;
-    Map fieldValidators;
-    Map fieldParameters;
+    List fieldValidators;
+    List fieldParameters;
     Class actionClass;
     String actionName;
 
@@ -131,17 +129,13 @@ public class FormTag extends AbstractClosingUITag {
 
         if (fieldValidators != null) {
             StringBuffer js = new StringBuffer();
-            js.append("form = document.forms['" + getParameters().get("name") + "'];\n");
-            for (Iterator iterator = fieldValidators.entrySet().iterator(); iterator.hasNext();) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                if (entry.getValue() instanceof ScriptValidationAware) {
-                    ScriptValidationAware jsa = (ScriptValidationAware) entry.getValue();
-                    Map params = (Map) fieldParameters.get(entry.getKey());
-                    js.append(jsa.validationScript(params));
-                    js.append('\n');
-                }
+            // loop backwards so that the first elements are validated first
+            for (int i = 0; i < fieldValidators.size(); i++) {
+                ScriptValidationAware sva = (ScriptValidationAware) fieldValidators.get(i);
+                Map params = (Map) fieldParameters.get(i);
+                js.append(sva.validationScript(params));
+                js.append('\n');
             }
-
             addParameter("javascriptValidation", js.toString());
         }
     }
@@ -150,25 +144,14 @@ public class FormTag extends AbstractClosingUITag {
         return TEMPLATE;
     }
 
-    public void registerValidator(Object name, FieldValidator fieldValidator, Map params) {
+    public void registerValidator(Object name, ScriptValidationAware sva, Map params) {
         if (fieldValidators == null) {
-            fieldValidators = new HashMap();
+            fieldValidators = new ArrayList();
+            fieldParameters = new ArrayList();
         }
 
-        if (fieldParameters == null) {
-            fieldParameters = new HashMap();
-        }
-
-        fieldValidators.put(name, fieldValidator);
-        fieldParameters.put(name, params);
-    }
-
-    public Map getFieldValidators() {
-        return fieldValidators;
-    }
-
-    public Map getFieldParameters() {
-        return fieldParameters;
+        fieldValidators.add(sva);
+        fieldParameters.add(params);
     }
 
     public Class getActionClass() {

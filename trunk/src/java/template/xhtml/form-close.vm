@@ -1,8 +1,20 @@
 #if ($parameters.validate)
     <script>
     function ${parameters.name}_validate() {
+        var form = document.forms['${parameters.name}'];
+        var focus = ${parameters.name}_validate_actual();
+        if (focus != null) {
+            form.elements[focus].focus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function ${parameters.name}_validate_actual() {
+        var form = document.forms['${parameters.name}'];
         $parameters.javascriptValidation
-        return true;
+        return null;
     }
     </script>
 #end
