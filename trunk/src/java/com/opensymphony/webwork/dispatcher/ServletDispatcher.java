@@ -168,11 +168,14 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
             request.setAttribute("webwork.valueStack", proxy.getValueStack());
             proxy.execute();
         } catch (ConfigurationException e) {
-            sendError(request, response, HttpServletResponse.SC_NOT_FOUND, e);
-            log.error("Could not find action", e);
+            try {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, e.getMessage());
+                log.error("Could not find action", e);
+            } catch (IOException e1) {
+            }
         } catch (Exception e) {
-            sendError(request, response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e);
             log.error("Could not execute action", e);
+            throw new ServletException("Could not execute action", e);
         }
     }
 
@@ -186,32 +189,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         int endIdx = name.lastIndexOf(".");
 
         return name.substring(((beginIdx == -1) ? 0 : (beginIdx + 1)), (endIdx == -1) ? name.length() : endIdx);
-    }
-
-    private void sendError(HttpServletRequest request, HttpServletResponse response, int code, Exception e) {
-        try {
-            // send a http 500 INTERNAL SERVER ERROR to use the servlet defined error handler
-            // make the exception availible to the web.xml defined error page
-            request.setAttribute("javax.servlet.error.exception", e);
-
-            // for compatibility 
-            request.setAttribute("javax.servlet.jsp.jspException", e);
-
-            // send the error response
-            response.sendError(code, e.getMessage());
-
-            /*
-                                            response.setContentType("text/html");
-                                            response.setLocale(Configuration.getLocale());
-
-                                            PrintWriter writer = response.getWriter();
-                                            writer.write("Error executing action: " + e.getMessage());
-                                            writer.println("<pre>\n");
-                                            e.printStackTrace(response.getWriter());
-                                            writer.print("</pre>\n");
-            */
-        } catch (IOException e1) {
-        }
     }
 
     /**
