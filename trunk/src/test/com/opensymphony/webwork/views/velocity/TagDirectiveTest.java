@@ -5,32 +5,20 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.mockobjects.dynamic.Mock;
-
 import com.mockobjects.servlet.MockBodyContent;
 import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
-
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.jsp.WebWorkMockServletContext;
 import com.opensymphony.webwork.views.velocity.ui.MockTag;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.Assert;
 import junit.framework.TestCase;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
-
-import java.io.File;
-import java.io.StringWriter;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletRequest;
@@ -39,6 +27,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyContent;
+import java.io.File;
+import java.io.StringWriter;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
 
 
 /**
@@ -59,6 +53,7 @@ public class TagDirectiveTest extends TestCase {
     OgnlValueStack stack;
     VelocityEngine velocityEngine;
     private ActionContext oldContext;
+    private Locale defaultLocale;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -121,6 +116,10 @@ public class TagDirectiveTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
+        // set up the locale to be US
+        defaultLocale = Locale.getDefault();
+        Locale.setDefault(Locale.US);
+
         ConfigurationManager.clearConfigurationProviders();
         ConfigurationManager.destroyConfiguration();
 
@@ -178,6 +177,10 @@ public class TagDirectiveTest extends TestCase {
     }
 
     protected void tearDown() throws Exception {
+        if (defaultLocale != null) {
+            Locale.setDefault(defaultLocale);
+        }
+
         pageContext.release();
         ActionContext.setContext(oldContext);
     }
