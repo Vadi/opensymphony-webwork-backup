@@ -70,6 +70,9 @@ public class ServletDispatcherResultTest extends TestCase implements WebWorkStat
         Mock requestMock = new Mock(HttpServletRequest.class);
         requestMock.expectAndReturn("getAttribute", "javax.servlet.include.servlet_path", null);
         requestMock.expectAndReturn("getRequestDispatcher", C.args(C.eq("foo.jsp")), dispatcherMock.proxy());
+        requestMock.expect("setAttribute", C.ANY_ARGS); // this is a bad mock, but it works
+        requestMock.expect("setAttribute", C.ANY_ARGS); // this is a bad mock, but it works
+        requestMock.matchAndReturn("getRequestURI", "foo.jsp");
 
         Mock responseMock = new Mock(HttpServletResponse.class);
         responseMock.expectAndReturn("isCommitted", Boolean.FALSE);
