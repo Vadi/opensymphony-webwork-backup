@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.config.Configuration;
 
 import com.opensymphony.xwork.ActionContext;
 
@@ -39,9 +40,6 @@ import javax.servlet.jsp.PageContext;
 public class WebWorkVelocityServlet extends VelocityServlet {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    /** The encoding to use when generating outputing. */
-    private static String encoding = null;
-
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private VelocityManager velocityManager;
@@ -56,9 +54,6 @@ public class WebWorkVelocityServlet extends VelocityServlet {
 
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
-
-        // todo look into converting this to using XWork/WebWork2 encoding rules
-        encoding = RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, DEFAULT_OUTPUT_ENCODING);
 
         // initialize our VelocityManager
         velocityManager.init(servletConfig.getServletContext());
@@ -76,7 +71,16 @@ public class WebWorkVelocityServlet extends VelocityServlet {
             servletPath = httpServletRequest.getServletPath();
         }
 
-        return getTemplate(servletPath);
+        return getTemplate(servletPath, getEncoding());
+    }
+
+    private String getEncoding()
+    {
+        // todo look into converting this to using XWork/WebWork2 encoding rules
+        if (Configuration.getString("webwork.i18n.encoding") != null)
+            return Configuration.getString("webwork.i18n.encoding");
+        else
+            return RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, DEFAULT_OUTPUT_ENCODING);
     }
 
     /**
