@@ -16,7 +16,7 @@ import com.opensymphony.xwork.config.entities.ActionConfig;
  */
 public class ActionNamesAction extends ActionSupport {
     private Set actionNames;
-    private String namespace;
+    private String namespace = "";
     private Set namespaces;
     private static Log log = LogFactory.getLog(ActionNamesAction.class);
 
@@ -40,25 +40,6 @@ public class ActionNamesAction extends ActionSupport {
         return namespaces;
     }
 
-    /**
-     * Extremely quick hack 
-     */
-/*	public boolean resultContains(String actionName, String location) {
-		if (location == null) return false;
-		try {
-			InputStream in = ServletActionContext.getServletContext().getResourceAsStream(location);
-			StringBuffer content = new StringBuffer();
-			byte[] buf = new byte[1024];
-			int read;
-			while ((read = in.read(buf)) > 0) {
-				content.append(new String(buf, 0, read));
-			}
-			return (content.toString().indexOf(actionName) > 0);
-		} catch (Exception e) {
-			log.error("Unable to get resouce " + location, e);
-			return false;
-		}
-	}*/
     public String execute() throws Exception {
         namespaces = ConfigurationHelper.getNamespaces();
         if (namespaces.size() == 0) {
@@ -66,7 +47,7 @@ public class ActionNamesAction extends ActionSupport {
             return ERROR;
         }
         if (namespace == null) {
-            namespace = (String) namespaces.iterator().next();
+            namespace = "";
         }
         actionNames =
                 new TreeSet(ConfigurationHelper.getActionNames(namespace));
