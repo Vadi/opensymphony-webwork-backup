@@ -6,6 +6,11 @@ package com.opensymphony.webwork.views.velocity;
 
 import com.mockobjects.dynamic.Mock;
 
+import com.mockobjects.servlet.MockBodyContent;
+import com.mockobjects.servlet.MockJspWriter;
+import com.mockobjects.servlet.MockPageContext;
+
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.jsp.WebWorkMockServletContext;
 import com.opensymphony.webwork.views.velocity.ui.MockTag;
 
@@ -32,6 +37,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.BodyContent;
 
 
 /**
@@ -47,6 +54,7 @@ public class TagDirectiveTest extends TestCase {
     Mock mockConfig;
     Mock mockRequest;
     Mock mockResponse;
+    MockPageContext pageContext;
     MockTag mockTag;
     OgnlValueStack stack;
     VelocityEngine velocityEngine;
@@ -56,7 +64,7 @@ public class TagDirectiveTest extends TestCase {
     public void testBodyTag() throws Exception {
         Template template = velocityEngine.getTemplate("/com/opensymphony/webwork/views/velocity/bodytag.vm");
         StringWriter writer = new StringWriter();
-        Context context = VelocityManager.createContext(stack, (ServletConfig) mockConfig.proxy(), (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
+        Context context = VelocityManager.createContext(stack, (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
         template.merge(context, writer);
 
         // verify that we got one param, hello=world
@@ -84,13 +92,14 @@ public class TagDirectiveTest extends TestCase {
     }
 
     /**
-* pretty much the same as the BodyTag test, but we're not passing in any parameters
-* @throws Exception
-*/
+ * pretty much the same as the BodyTag test, but we're not passing in any parameters
+ * 
+ * @throws Exception 
+ */
     public void testTag() throws Exception {
         Template template = velocityEngine.getTemplate("/com/opensymphony/webwork/views/velocity/tag.vm");
         StringWriter writer = new StringWriter();
-        Context context = VelocityManager.createContext(stack, (ServletConfig) mockConfig.proxy(), (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
+        Context context = VelocityManager.createContext(stack, (ServletRequest) mockRequest.proxy(), (ServletResponse) mockResponse.proxy());
         template.merge(context, writer);
 
         // verify that our date thingy was populated correctly
@@ -159,5 +168,41 @@ public class TagDirectiveTest extends TestCase {
         // initialize the MockTag for use
         mockTag = MockTag.getInstance();
         mockTag.reset();
+
+        // initialize the pageContext
+        pageContext = new TestPageContext();
+        pageContext.setJspWriter(new MockJspWriter());
+        ActionContext.getContext().put(ServletActionContext.PAGE_CONTEXT, pageContext);
+    }
+
+    protected void tearDown() throws Exception {
+        pageContext.release();
+    }
+
+    //~ Inner Classes //////////////////////////////////////////////////////////
+
+    /**
+ * our BodyContent that returns a non-null enclosingWriter
+ */
+    class TestBodyContent extends MockBodyContent {
+        JspWriter writer;
+
+        public TestBodyContent(JspWriter writer) {
+            this.writer = writer;
+        }
+
+        public JspWriter getEnclosingWriter() {
+            return this.writer;
+        }
+    }
+
+    /**
+ * the MockPageContext doesn't return a BodyContent that we can use.  We need one that returns a non-null
+ * getEnclosingWriter method
+ */
+    class TestPageContext extends MockPageContext {
+        public BodyContent pushBody() {
+            return new TestBodyContent(this.getOut());
+        }
     }
 }

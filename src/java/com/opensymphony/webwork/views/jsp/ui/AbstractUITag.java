@@ -57,10 +57,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String labelAttr;
     protected String labelPositionAttr;
     protected String nameAttr;
+    protected String requiredAttr;
     protected String templateAttr;
     protected String themeAttr;
     protected String valueAttr;
-    protected String requiredAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -76,6 +76,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         nameAttr = aName;
     }
 
+    public void setRequired(String required) {
+        this.requiredAttr = required;
+    }
+
     public void setTemplate(String aName) {
         templateAttr = aName;
     }
@@ -86,10 +90,6 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     public void setValue(String aValue) {
         valueAttr = aValue;
-    }
-
-    public void setRequired(String required) {
-        this.requiredAttr = required;
     }
 
     public int doEndTag() throws JspException {
@@ -207,7 +207,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     protected void mergeTemplate(String templateName) throws Exception {
         Template t = velocityEngine.getTemplate(templateName);
-        Context context = VelocityManager.createContext(getValueStack(), pageContext.getServletConfig(), pageContext.getRequest(), pageContext.getResponse());
+        Context context = VelocityManager.createContext(getValueStack(), pageContext.getRequest(), pageContext.getResponse());
 
         Writer outputWriter = pageContext.getOut();
 

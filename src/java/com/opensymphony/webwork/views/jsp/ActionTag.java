@@ -119,11 +119,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
         if (invocation == null) {
             // Path is always original path, even if it is included in page with another path
-            HttpServletRequest request = ServletActionContext.getRequest();
-
-            if ((request == null) && (pageContext != null)) {
-                request = (HttpServletRequest) pageContext.getRequest();
-            }
+            HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
             String actionPath = request.getServletPath();
             namespace = ServletDispatcher.getNamespaceFromServletPath(actionPath);
@@ -142,22 +138,10 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
             newParams.putAll(params);
         }
 
-        HttpServletRequest request = null;
-        HttpServletResponse response = null;
-        ServletConfig servletConfig = null;
-        ServletContext servletContext = null;
-
-        if (pageContext != null) {
-            request = (HttpServletRequest) pageContext.getRequest();
-            response = (HttpServletResponse) pageContext.getResponse();
-            servletConfig = pageContext.getServletConfig();
-            servletContext = pageContext.getServletContext();
-        } else {
-            request = ServletActionContext.getRequest();
-            response = ServletActionContext.getResponse();
-            servletConfig = ServletActionContext.getServletConfig();
-            servletContext = ServletActionContext.getServletContext();
-        }
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
+        ServletConfig servletConfig = pageContext.getServletConfig();
+        ServletContext servletContext = pageContext.getServletContext();
 
         Map extraContext = ServletDispatcher.createContextMap(newParams, new SessionMap(request.getSession()), new ApplicationMap(servletContext), request, response, servletConfig);
         extraContext.put(PAGE_CONTEXT, pageContext);

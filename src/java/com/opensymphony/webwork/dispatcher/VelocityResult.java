@@ -22,7 +22,12 @@ import org.apache.velocity.runtime.RuntimeSingleton;
 
 import java.io.Writer;
 
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.PageContext;
 
 
@@ -48,20 +53,19 @@ public class VelocityResult extends WebWorkResultSupport {
     public void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpServletResponse response = ServletActionContext.getResponse();
+        JspFactory jspFactory = JspFactory.getDefaultFactory();
+        ServletContext servletContext = ServletActionContext.getServletContext();
+        Servlet servlet = (Servlet) servletContext.getAttribute("servlet");
+        PageContext pageContext = jspFactory.getPageContext(servlet, request, response, null, true, 8192, true);
+        ActionContext.getContext().put(ServletActionContext.PAGE_CONTEXT, pageContext);
+
         try {
             Template t = getTemplate(stack, velocityEngine, invocation, finalLocation);
 
-            Context context = VelocityManager.createContext(stack, ServletActionContext.getServletConfig(), ServletActionContext.getRequest(), ServletActionContext.getResponse());
-            HttpServletResponse response = ServletActionContext.getResponse();
-            PageContext pageContext = ServletActionContext.getPageContext();
-
-            Writer writer;
-
-            if (pageContext != null) {
-                writer = pageContext.getOut();
-            } else {
-                writer = response.getWriter();
-            }
+            Context context = VelocityManager.createContext(stack, request, response);
+            Writer writer = pageContext.getOut();
 
             // @todo can t.getEncoding() ever return a null value?
             String encoding = RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, WebWorkVelocityServlet.DEFAULT_OUTPUT_ENCODING);
@@ -73,14 +77,13 @@ public class VelocityResult extends WebWorkResultSupport {
             }
 
             t.merge(context, writer);
-
-            // flush the buffer as resin fails to render in some cases without this
-            if (pageContext == null) {
-                writer.flush();
-            }
         } catch (Exception e) {
             log.error("Unable to render Velocity Template, '" + finalLocation + "'", e);
             throw e;
+        } finally {
+            if (pageContext != null) {
+                jspFactory.releasePageContext(pageContext);
+            }
         }
 
         return;
