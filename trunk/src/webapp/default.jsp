@@ -1,41 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
 <html>
-<head><title>WebWork2 Examples</title></head>
+<head>
+    <title>WebWork2 Examples</title>
+    <style type="text/css">
+    BODY { font-size : 100%; }
+    BODY, TD, TH, DIV, P {
+        font-family : verdana, arial, helvetica, sans-serif;
+        font-size : 9pt;
+    }
+    H1 {
+        font-size : 14pt;
+        border-bottom : 1px #ccc solid;
+    }
+    TABLE {
+        border : 1px #ccc solid;
+    }
+    TH {
+        text-align : left;
+        background-color : #ddd;
+    }
+    UL {
+        padding-bottom : 0.5em;
+    }
+    LI {
+        margin-bottom : 0.5em;
+    }
+    .title {
+        font-weight : bold;
+        font-size : 11pt;
+    }
+    .msg {
+        color : #f00;
+    }
+    </style>
+</head>
+
 <body>
-Click <a href="SimpleCounter.action">here</a> for a stupid little counter<br>
-Click <a href="VelocityCounter.action">here</a> for the same stupid little counter using a VelocityResult<br>
-Click <a href="action.jsp">here</a> for an example of the stupid little counter being called via the ww:action tag<br>
-Click <a href="action.jsp">here</a> for an example of the stupid little counter being called via the #tag( Action ) tag using <strong>Velocity as the view</strong><br>
-Click <a href="bean.jsp">here</a> for an example of the stupid little counter being called via the ww:bean tag<br>
-Click <a href="TagTest.action">here</a> to see sample usages of the UI tags<br>
-Click <a href="VelocityTagTest.action">here</a> to see sample usages of the UI tags using <strong>Velocity as the view</strong><br>
-Click <a href="tags.vm">here</a> to see sample usages of the UI tags using directly accessed Velocity templates<br>
-Click <a href="CountryTest.action">here</a> for a performance benchmark of a 200+ element array<br>
-Click <a href="IteratorTest.action">here</a> for an example of the Iterator Tag<br>
-Click <a href="showForm.action">here</a> for an example of the Form Tag and the Token Tag for hidden transaction tokens<br>
-Click <a href="showVelocityForm.action">here</a> for an example of the Form Tag and the Token Tag for hidden transaction tokens <strong>using Velocity as the view</strong><br>
-Click <a href="form2.jsp">here</a> for an example of the Form Tag and the Token Tag for hidden transaction tokens. This example shows you the original result rather than an error (TokenSessionInterceptor).<br>
-Click <a href="exception.action">here</a> for an example of what happens when exceptions are thrown<br>
-Click <a href="config-browser/actionNames.action">here</a> for the WebWork configuration browser.
-<blockquote>
-This is an example of a reusable set of Actions and views bundled as a Jar file. The config browser can be included with
-any WebWork2 application by dropping the Jar file in your classpath (usually under WEB-INF/lib) and adding
-&lt;include file=&quot;config-browser.xml&quot;/&gt; to your xwork.xml file
-</blockquote>
-Click <a href="basicValidation.action">here</a> for a basic validation example<br>
-Click <a href="visitorValidation.action">here</a> for a visitor validation example<br>
-Click <a href="expressionValidation.action">here</a> for a visitor validation example with expression validation<br>
-Click <a href="redirect.action">here</a> to be test the ServletRedirectResult using a location resolved via ognl<br>
-Click <a href="parseLocation.action">here</a> to view the FormTag example using a location resolved via ognl<br>
-Click <a href="jasperTest.action">here</a> for a jasper reports PDF example<br>
-Click <a href="jasperHTMLTest.action">here</a> for a jasper reports HTML example<br>
-Click <a href="jasperXMLTest.action">here</a> for a jasper reports XML example<br>
-Click <a href="jasperCSVTest.action">here</a> for a jasper reports CSV example<br>
-Click <a href="displaytag.vm">here</a> for example of using 3rd party JSP tags in Velocity<br>
-Click <a href="i18n/jsp/index.html">here</a> for a JSP example of i18n<br>
-Click <a href="i18n/velocity/index.html">here</a> for a Velocity example of i18n<br>
-Click <a href="include.vm">here</a> to see the include tag in use<br>
-Click <a href="TabbedPaneTest.action">here</a> to see a simple tabbed pane example<br>
-Click <a href="select.action">here</a> for a select tag test<br>
-Click <a href="indexedProperties.action">here</a> for an indexed property example<br>
+
+<h1>WebWork2 Demos</h1>
+
+<p class="msg">
+Note, some of the demos might be slow the first time they are run as resources
+are loaded and JSP pages are compiled.
+</p>
+
+<p class="title">
+Simple Demos
+</p>
+
+<ul>
+    <li><a href="SimpleCounter.action">Simple counter</a></li>
+    
+    <li><a href="VelocityCounter.action">Simple counter</a> using a
+        <tt>VelocityResult</tt>
+    </li>
+    
+    <li><a href="action.jsp">Simple counter</a> called via the 
+        <tt>ww:action</tt> tag
+    </li>
+    
+    <li><a href="action.jsp">Simple counter</a> being called via the
+        <tt>#tag(Action)</tt> tag using Velocity as the view
+    </li>
+    
+    <li><a href="bean.jsp">Simple counter</a> being called via the
+        <tt>ww:bean</tt> tag
+    </li>
+</ul>
+
+
+<p class="title">
+UI Tag Demos
+</p>
+
+<ul>
+    <li><a href="TagTest.action">Sample usages of the UI tags</a></li>
+    
+    <li><a href="VelocityTagTest.action">Sample usages of the UI tags</a> using
+        Velocity as the view
+    </li>
+    
+    <li><a href="tags.vm">Sample usages of the UI tags</a> using directly
+        accessed Velocity templates.
+    </li>
+</ul>
+
+
+<p class="title">
+Stress Tests
+</p>
+
+<ul>
+    <li><a href="CountryTest.action">Performance benchmark of a 200+ element
+        array</a>
+    </li>
+</ul>
+
+
+<p class="title">
+Iterator Demos
+</p>
+
+<ul>
+    <li><a href="IteratorTest.action">Iterator tag</a> example</li>
+</ul>
+
+
+<p class="title">
+Form Demos
+</p>
+
+<ul>
+    <li><a href="showForm.action">Form tag and Token tag example</a> for hidden
+        transaction tokens
+    </li>
+    
+    <li><a href="showVelocityForm.action">Form tag and Token tag example</a> for
+        hidden transaction tokens using Veloctity as the view
+    </li>
+    
+    <li><a href="form2.jsp">Form tag and Token tag example</a> for hidden
+        transaction tokens. This shows the original result rather than an error
+        (<tt>TokenSessionInterceptor</tt>).
+    </li>
+</ul>
+
+
+<p class="title">
+Exceptions
+</p>
+    
+<ul>
+    <li><a href="exception.action">Example of what happens when an exception is
+        thrown</a>
+    </li>
+</ul>
+
+
+<p class="title">
+Configuration Browser
+</p>
+
+<ul>
+    <li><a href="config-browser/actionNames.action">View the WebWork2
+        configuration browser</a>
+        <p>
+        This is an example of a reusable set of Actions and views bundled as a
+        Jar file. The config browser can be included with any WebWork2
+        application by dropping the Jar file in your classpath (usually under
+        <tt>WEB-INF/lib</tt>) and adding
+        <tt>&lt;include file=&quot;config-browser.xml&quot;/&gt;</tt> to your
+        <tt>xwork.xml</tt> file
+        </p>
+    </li>
+</ul>
+
+
+<p class="title">
+Validation Demos
+</p>
+
+<ul>
+    <li><a href="basicValidation.action">Basic validation example</a></li>
+    
+    <li><a href="visitorValidation.action">Visitor validation example</a></li>
+    
+    <li><a href="expressionValidation.action">Visitor validation example</a>
+        with expression validation
+    </li>
+</ul>
+
+
+<p class="title">
+Jasper Reports Demos
+</p>
+
+<ul>    
+    <li><a href="jasperTest.action">Jasper Reports PDF example</a></li>
+    
+    <li><a href="jasperHTMLTest.action">Jasper Reports HTML example</a></li>
+    
+    <li><a href="jasperXMLTest.action">Jasper Reports XML example</a></li>
+    
+    <li><a href="jasperCSVTest.action">Jasper Reports CSV example</a></li>
+</ul>
+
+
+<p class="title">
+I18n Demos
+</p>
+
+<ul>
+    <li><a href="i18n/jsp/index.html">JSP example of i18n</a></li>
+    
+    <li><a href="i18n/velocity/index.html">Velocity example of i18n</a></li>
+</ul>
+
+
+<p class="title">
+Misc Demos
+</p>
+
+<ul>    
+    <li><a href="redirect.action">Example redirect</a> using the
+        <tt>ServletRedirectResult</tt> where the location is resolved via OGNL.
+    </li>
+    
+    <li><a href="parseLocation.action">A FormTag example</a> using a location
+        resolved via OGNL.
+    </li>
+    
+    <li><a href="displaytag.vm">Example use of 3rd party JSP tags</a> in 
+        Velocity.
+    </li>
+    
+    <li><a href="include.vm">Example of the include tag in use</a></li>
+    
+    <li><a href="TabbedPaneTest.action">Tabbed pane example</a></li>
+    
+    <li><a href="select.action">Select tag example</a></li>
+    
+    <li><a href="indexedProperties.action">Indexed property example</a></li>
+</ul>
+
+<br><br>
+
 </body>
 </html>
