@@ -157,4 +157,34 @@ bugs in the WebWork CVS project, and many of the examples do not work.</i></b></
   </li>
 </ol>
 
-  <p align="left">&nbsp;</body></html>
+  <h2 align="left">FAQ</h2>
+
+  <h3 align="left">I still get the AbstractMethodError Exception when Weblogic 
+  Server starts up.&nbsp; What am I doing wrong?</h3>
+<ol>
+  <li>
+
+  <p align="left">Check to see if a <code>webwork-example.war</code> is still lingering in 
+  your <code>mydomain/applications</code> folder and delete it if it is there.</li>
+  <li>
+
+  <p align="left">See next FAQ question.</li>
+</ol>
+
+  <h3 align="left">The server behavior seems like it is from a previous source 
+  code base; I can't debug it.&nbsp; What's the clue?</h3>
+
+  <p align="left">Sometimes BEA Weblogic Server doesn't &quot;rebuild&quot; its temporary 
+  files.&nbsp; Do the following to force the temporary files to rebuild:<ol>
+  <li>
+
+  <p align="left">Stop the server.</li>
+  <li>
+
+  <p align="left">Delete the <code>.wlnotdelete</code> folder in <code>mydomain/applications</code>.</li>
+  <li>
+
+  <p align="left">Restart the server.</li>
+</ol>
+
+</body></html>
