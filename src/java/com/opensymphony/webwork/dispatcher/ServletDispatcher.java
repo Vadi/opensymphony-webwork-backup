@@ -117,22 +117,22 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-	* Service a request - get the namespace, actionName, paramMap, sessionMap, applicationMap from the providers
-	* and delegate to the service call
-	* 
-	* @param request
-	* @param response
-	* @exception javax.servlet.ServletException
-	*/
+ * Service a request - get the namespace, actionName, paramMap, sessionMap, applicationMap from the providers
+ * and delegate to the service call
+ *
+ * @param request
+ * @param response
+ * @exception javax.servlet.ServletException
+ */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         serviceAction(request, response, getNameSpace(request), getActionName(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
     }
 
     /**
-	* The request is first checked to see if it is a multi-part. If it is, then the request
-	* is wrapped so WW will be able to work with the multi-part as if it was a normal request.
-	* Then the request is handed to GenericDispatcher and executed.
-	*/
+ * The request is first checked to see if it is a multi-part. If it is, then the request
+ * is wrapped so WW will be able to work with the multi-part as if it was a normal request.
+ * Then the request is handed to GenericDispatcher and executed.
+ */
     public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace, String actionName, Map parameterMap, Map sessionMap, Map applicationMap) {
         //wrap request if needed
         try {
@@ -147,7 +147,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         extraContext.put(ActionContext.PARAMETERS, parameterMap);
         extraContext.put(ActionContext.SESSION, sessionMap);
         extraContext.put(ActionContext.APPLICATION, applicationMap);
-        
+
         extraContext.put(HTTP_REQUEST, request);
         extraContext.put(HTTP_RESPONSE, response);
         extraContext.put(SERVLET_CONFIG, getServletConfig());
@@ -162,7 +162,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
 
         try {
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, extraContext);
-            request.setAttribute("webwork.valueStack", proxy.getValueStack());
+            request.setAttribute("webwork.valueStack", proxy.getInvocation().getStack());
             proxy.execute();
         } catch (ConfigurationException e) {
             log.error("Could not find action", e);
@@ -226,30 +226,30 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
             // make the exception availible to the web.xml defined error page
             request.setAttribute("javax.servlet.error.exception", e);
 
-            // for compatibility 
+            // for compatibility
             request.setAttribute("javax.servlet.jsp.jspException", e);
 
             // send the error response
             response.sendError(code, e.getMessage());
 
             /*
-         response.setContentType("text/html");
-    response.setLocale(Configuration.getLocale());
+response.setContentType("text/html");
+response.setLocale(Configuration.getLocale());
 
-    PrintWriter writer = response.getWriter();
-    writer.write("Error executing action: " + e.getMessage());
-    writer.println("<pre>\n");
-    e.printStackTrace(response.getWriter());
-    writer.print("</pre>\n");
+PrintWriter writer = response.getWriter();
+writer.write("Error executing action: " + e.getMessage());
+writer.println("<pre>\n");
+e.printStackTrace(response.getWriter());
+writer.print("</pre>\n");
 */
         } catch (IOException e1) {
         }
     }
 
     /**
-* Determine action name by extracting last string and removing
-* extension. (/.../.../Foo.action -> Foo)
-*/
+ * Determine action name by extracting last string and removing
+ * extension. (/.../.../Foo.action -> Foo)
+ */
     String getActionName(String name) {
         // Get action name ("Foo.action" -> "Foo" action)
         int beginIdx = name.lastIndexOf("/");
@@ -259,12 +259,12 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-* Wrap servlet request with the appropriate request. It will check to
-* see if request is a multipart request and wrap in appropriately.
-*
-* @param request
-* @return wrapped request or original request
-*/
+ * Wrap servlet request with the appropriate request. It will check to
+ * see if request is a multipart request and wrap in appropriately.
+ *
+ * @param request
+ * @return wrapped request or original request
+ */
     private HttpServletRequest wrapRequest(HttpServletRequest request) throws IOException {
         // don't wrap more than once
         if (request instanceof MultiPartRequestWrapper) {
