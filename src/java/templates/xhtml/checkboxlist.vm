@@ -12,7 +12,7 @@
   #else
       #set( $itemValue = $item.toString() )
   #end
-  <div><input type="checkbox" name="${tag.Name}" id="${tag.Name}$!{itemValue}" value="$!{itemValue}" #if( $tag.ActualValue && $itemValue && $tag.ActualValue == $itemValue )checked="checked"#end/> <label class="label" for="${tag.Name}$!{itemValue}">$!{itemKey}</label></div>
+  <div><input type="checkbox" name="${tag.Name}" id="${tag.Name}$!{itemValue}" value="$!{itemValue}" #if( $tag.contains($tag.ActualValue,$itemValue) ) checked="checked"#end/> <label class="label" for="${tag.Name}$!{itemValue}">$!{itemKey}</label></div>
 #end
 
 #else
