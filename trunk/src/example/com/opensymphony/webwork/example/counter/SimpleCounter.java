@@ -13,7 +13,7 @@ import com.opensymphony.xwork.Action;
  * @author $Author$
  * @version $Revision$
  */
-public class SimpleCounter implements Action {
+public class SimpleCounter implements Action, CounterAware {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private Counter counter;
@@ -21,7 +21,10 @@ public class SimpleCounter implements Action {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public SimpleCounter(Counter counter) {
+    public SimpleCounter() {
+    }
+
+    public void setCounter(Counter counter) {
         this.counter = counter;
     }
 
