@@ -1,0 +1,193 @@
+<html>
+    <head>
+        <title>WebWork 2 : Result Types</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork 2 : Result Types
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Sep 10, 2004 by <font color="#0050B2">casey</font>.
+				    </div>
+
+				    <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a name="ResultTypes-Overview">  Overview</a></h2></p><b class="strong">Result Types</b> are classes that determine what happens after an Action executes and a Result is returned. Developers are free to create their own Result Types according to the needs of their application or environment. In WebWork 2 for example, Servlet and Velocity Result Types have been created to handle rendering views in web applications.<p class="paragraph"><ins class="inserted">Note:</ins> All built in webwork result types implement the <tt class="monospaced">com.opensymphony.xwork.Result</tt> interface, which represents a generic interface for all action execution results, whether that be displaying a webpage, generating an email, sending a JMS message, etc.</p>Result types define classes and map them to names to be referred in the action configuration results. This serves as a shorthand name-value pair for these classes. 
+<div class="code"><div class="codeContent">
+<pre>&lt;&#33;&#45;&#45; parts of xwork.xml  &#45;&#45;&gt;&#10;....&#10;&#10;&lt;result&#45;types&gt;&#10; &lt;result&#45;type name=<span class="java&#45;quote">&quot;dispatcher&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.webwork.dispatcher.ServletDispatcherResult&quot;</span>&#160;<span class="java&#45;keyword">default</span>=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span>/&gt;&#10; &lt;result&#45;type name=<span class="java&#45;quote">&quot;redirect&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.webwork.dispatcher.ServletRedirectResult&quot;</span>/&gt;&#10; &lt;result&#45;type name=<span class="java&#45;quote">&quot;velocity&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.webwork.dispatcher.VelocityResult&quot;</span>/&gt;&#10; &lt;result&#45;type name=<span class="java&#45;quote">&quot;chain&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.xwork.ActionChainResult&quot;</span>/&gt;&#10; &lt;result&#45;type name=<span class="java&#45;quote">&quot;xslt&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.webwork.views.xslt.XSLTResult&quot;</span>/&gt;&#10; &lt;result&#45;type name=<span class="java&#45;quote">&quot;jasper&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.webwork.views.jasperreports.JasperReportsResult&quot;</span>/&gt;&#10; &lt;result&#45;type name=<span class="java&#45;quote">&quot;freemarker&quot;</span> class=<span class="java&#45;quote">&quot;com.opensymphony.webwork.views.freemarker.FreemarkerResult&quot;</span>/&gt;&#10;&lt;/result&#45;types&gt;&#10;&#10;....&#10;&lt;&#33;&#45;&#45; <span class="java&#45;keyword">this</span> action uses the result type dispatcher which is defined above &#45;&#45;&gt;&#10;&#10;&lt;action name=<span class="java&#45;quote">&quot;bar&quot;</span> class=<span class="java&#45;quote">&quot;myPackage.barAction&quot;</span>&gt;&#10;  &lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;dispatcher&quot;</span>&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;location&quot;</span>&gt;foo.jsp&lt;/param&gt;&#10;  &lt;/result&gt;&#10;  &lt;result name=<span class="java&#45;quote">&quot;error&quot;</span> type=<span class="java&#45;quote">&quot;dispatcher&quot;</span>&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;location&quot;</span>&gt;error.jsp&lt;/param&gt;&#10;  &lt;/result&gt;&#10;&lt;/action&gt;&#10;&#10;....</pre>
+</div></div><p class="paragraph"><h2 class="heading2"><a name="ResultTypes-ResultTypes"> Result Types</a></h2></p>Webwork provides several implementations of the <tt class="monospaced">com.opensymphony.xwork.Result</tt> interface to make web-based interactions with your actions simple.  These result types include:<br/>
+
+<table class="wikitable">
+<tr>
+<th> Result Type </th><th> name </th><th> class </th>
+</tr><tr>
+<td> <a href="#ResultTypes-Dispatcher" title="Dispatcher on Result Types">#Dispatcher</a> </td><td> dispatcher </td><td> com.opensymphony.webwork.dispatcher.ServletDispatcherResult </td>
+</tr><tr>
+<td> <a href="#ResultTypes-Redirect" title="Redirect on Result Types">#Redirect</a> </td><td> redirect </td><td> com.opensymphony.webwork.dispatcher.ServletRedirectResult </td>
+</tr><tr>
+<td> <a href="#ResultTypes-ActionChaining" title="Action Chaining on Result Types">#Action Chaining</a> </td><td> chain </td><td> com.opensymphony.xwork.ActionChainResult </td>
+</tr><tr>
+<td> <a href="#ResultTypes-Velocity" title="Velocity on Result Types">#Velocity</a> </td><td> velocity </td><td> com.opensymphony.webwork.dispatcher.VelocityResult </td>
+</tr><tr>
+<td> <a href="#ResultTypes-FreeMarker" title="FreeMarker on Result Types">#FreeMarker</a> </td><td> freemarker </td><td> com.opensymphony.webwork.views.freemarker.FreemarkerResult </td>
+</tr><tr>
+<td> <a href="#ResultTypes-JasperReports" title="JasperReports on Result Types">#JasperReports</a> </td><td> jasper </td><td> com.opensymphony.webwork.views.jasperreports.JasperReportsResult </td>
+</tr><tr>
+<td> <a href="#ResultTypes-XML%2FXSL" title="XML/XSL on Result Types">#XML/XSL</a> </td><td> xslt </td><td> com.opensymphony.webwork.views.xslt.XSLTResult </td>
+</tr><tr>
+<td> <a href="#ResultTypes-HttpHeader" title="HttpHeader on Result Types">#HttpHeader</a> </td><td>  </td><td> com.opensymphony.webwork.dispatcher.HttpHeaderResult </td>
+</tr>
+</table><br/>
+Results are specified in a xwork xml config file(xwork.xml) nested inside &lt;action&gt;.  If the <tt class="monospaced">location</tt> param is the only param being specified in the result tag, you can simplify it as follows:<br/>
+
+<div class="code"><div class="codeContent">
+<pre>&lt;action name=<span class="java&#45;quote">&quot;bar&quot;</span> class=<span class="java&#45;quote">&quot;myPackage.barAction&quot;</span>&gt;&#10;  &lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;dispatcher&quot;</span>&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;location&quot;</span>&gt;foo.jsp&lt;/param&gt;&#10;  &lt;/result&gt;&#10;&lt;/action&gt;</pre>
+</div></div><br/>
+or simplified
+<div class="code"><div class="codeContent">
+<pre>&lt;action name=<span class="java&#45;quote">&quot;bar&quot;</span> class=<span class="java&#45;quote">&quot;myPackage.barAction&quot;</span>&gt;&#10;  &lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;dispatcher&quot;</span>&gt;foo.jsp&lt;/result&gt;&#10;&lt;/action&gt;</pre>
+</div></div><p class="paragraph"><ins class="inserted">NOTE:</ins> The Parse attribute enables the location element to be parsed for expressions.  An example of how this could be useful:
+<div class="code"><div class="codeContent">
+<pre>&lt;result name=&#148;success&#148; type=&#148;redirect&#148;&gt;/displayCart.action&#63;userId=$&#123;userId&#125;&lt;/result&gt;</pre>
+</div></div></p><ins class="inserted">NOTE:</ins> You can also specify global-results to use with multiple actions.  This can save time from having to add the same result to many different actions. For more information on result tags and global-results, see <a href="Results.html" title="Results">Results</a> section.<p class="paragraph"><h4 class="heading4"><a name="ResultTypes-Dispatcher%3Caname%3D%22ResultTypesDispatcher%22%3E%3C%2Fa%3E"> Dispatcher <a name="ResultTypes-Dispatcher"></a></a></h4></p>Includes or forwards to a view (usually a jsp). Behind the scenes WebWork will use a RequestDispatcher, where the target servlet/JSP receives the same request/response objects as the original servlet/JSP. Therefore, you can pass data between them using request.setAttribute() &#8211; the WebWork action is available.<br/>
+
+<table class="wikitable">
+<tr>
+<th>Parameters </th><th> Required </th><th> Description </th>
+</tr><tr>
+<td> location </td><td> <b class="strong">yes</b> </td><td>  the location to go to after execution (ex. jsp) </td>
+</tr><tr>
+<td> parse </td><td> no </td><td> true by default. If set to false, the location param will not be parsed for Ognl expressions </td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;dispatcher&quot;</span>&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;location&quot;</span>&gt;foo.jsp&lt;/param&gt;&#10;&lt;/result&gt;</pre>
+</div></div><p class="paragraph"><h4 class="heading4"><a name="ResultTypes-Redirect%3Caname%3D%22ResultTypesRedirect%22%3E%3C%2Fa%3E"> Redirect <a name="ResultTypes-Redirect"></a></a></h4></p>The response is told to redirect the browser to the specified location (a new request from the client).  The consequence of doing this means that the action (action instance, action errors, field errors, etc) that was just executed is lost and no longer available.  This is because actions are built on a single-thread model. The only way to pass data is through the session or with web parameters (url?name=value) which can be OGNL expressions. <br/>
+
+<table class="wikitable">
+<tr>
+<th>Parameters </th><th> Required </th><th> Description </th>
+</tr><tr>
+<td> location </td><td> <b class="strong">yes</b> </td><td>  the location to go to after execution </td>
+</tr><tr>
+<td> parse </td><td> no </td><td> true by default. If set to false, the location param will not be parsed for Ognl expressions </td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;redirect&quot;</span>&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;location&quot;</span>&gt;foo.jsp&lt;/param&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;parse&quot;</span>&gt;<span class="java&#45;keyword">false</span>&lt;/param&gt;&#10;&lt;/result&gt;</pre>
+</div></div><p class="paragraph"><h4 class="heading4"><a name="ResultTypes-ActionChaining%3Caname%3D%22ResultTypesActionChaining%22%3E%3C%2Fa%3E"> Action Chaining <a name="ResultTypes-ActionChaining"></a></a></h4></p>A special kind of view that invokes GenericDispatch (using the previously existing ActionContext) and executes another action.  This is useful if you need to execute one action immediately after another.<br/>
+
+<table class="wikitable">
+<tr>
+<th>Parameters </th><th> Required </th><th> Description </th>
+</tr><tr>
+<td> actionName </td><td> <b class="strong">yes</b> </td><td> the name of the action that will be chained to</td>
+</tr><tr>
+<td> namespace </td><td> no </td><td> sets the namespace of the Action that we&#039;re chaining to.  If namespace is null, this defaults to the current namespace. </td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;chain&quot;</span>&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;actionName&quot;</span>&gt;bar&lt;/param&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;namespace&quot;</span>&gt;/foo&lt;/param&gt;&#10;&lt;/result&gt;</pre>
+</div></div><br/>
+invokes this
+<div class="code"><div class="codeContent">
+<pre>&lt;action name=<span class="java&#45;quote">&quot;bar&quot;</span> class=<span class="java&#45;quote">&quot;myPackage.barAction&quot;</span>&gt;&#10;    ...&#10;&lt;/action&gt;</pre>
+</div></div><p class="paragraph"><h4 class="heading4"><a name="ResultTypes-Velocity%3Caname%3D%22ResultTypesVelocity%22%3E%3C%2Fa%3E"> Velocity <a name="ResultTypes-Velocity"></a></a></h4></p>This result mocks a JSP execution environment and then displays a Velocity template that will be streamed directly to the servlet output.<br/>
+
+<table class="wikitable">
+<tr>
+<th>Parameters </th><th> Required </th><th> Description </th>
+</tr><tr>
+<td> location </td><td> <b class="strong">yes</b> </td><td>  the location to go to after execution </td>
+</tr><tr>
+<td> parse </td><td> no </td><td> true by default. If set to false, the location param will not be parsed for Ognl expressions </td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;velocity&quot;</span>&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;location&quot;</span>&gt;foo.vm&lt;/param&gt;&#10;&lt;/result&gt;</pre>
+</div></div><p class="paragraph"><h4 class="heading4"><a name="ResultTypes-FreeMarker%3Caname%3D%22ResultTypesFreeMarker%22%3E%3C%2Fa%3E"> FreeMarker <a name="ResultTypes-FreeMarker"></a></a></h4></p><table class="wikitable">
+<tr>
+<th>Parameters </th><th> Required </th><th> Description </th>
+</tr><tr>
+<td> location </td><td> <b class="strong">yes</b></td><td>  the location to go to after execution </td>
+</tr><tr>
+<td> parse </td><td> no </td><td> true by default. If set to false, the location param will not be parsed for Ognl expressions </td>
+</tr><tr>
+<td> contentType </td><td> no </td><td> defaults to &quot;text/html&quot; unless specified </td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;freemarker&quot;</span>&gt;foo.ftl&lt;/result&gt;</pre>
+</div></div><p class="paragraph"><h4 class="heading4"><a name="ResultTypes-JasperReports%3Caname%3D%22ResultTypesJasperReports%22%3E%3C%2Fa%3E"> JasperReports <a name="ResultTypes-JasperReports"></a></a></h4></p>Generates a JasperReports report using the specified format or PDF if no format is specified.<br/>
+
+<table class="wikitable">
+<tr>
+<th>Parameters </th><th> Required </th><th> Description </th>
+</tr><tr>
+<td> location </td><td> <b class="strong">yes</b> </td><td>  the location to go to after execution </td>
+</tr><tr>
+<td> parse </td><td> no </td><td> true by default. If set to false, the location param will not be parsed for Ognl expressions </td>
+</tr><tr>
+<td> dataSource </td><td> <b class="strong">yes</b> </td><td> the Ognl expression used to retrieve the datasource from the value stack (usually a List) </td>
+</tr><tr>
+<td> format </td><td> no </td><td>the format in which the report should be generated, defaults to pdf </td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;jasper&quot;</span>&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;location&quot;</span>&gt;foo.jasper&lt;/param&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;dataSource&quot;</span>&gt;mySource&lt;/param&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;format&quot;</span>&gt;CSV&lt;/param&gt;&#10;&lt;/result&gt;</pre>
+</div></div><br/>
+or for pdf
+<div class="code"><div class="codeContent">
+<pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;jasper&quot;</span>&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;location&quot;</span>&gt;foo.jasper&lt;/param&gt;&#10;    &lt;param name=<span class="java&#45;quote">&quot;dataSource&quot;</span>&gt;mySource&lt;/param&gt;&#10;&lt;/result&gt;</pre>
+</div></div><p class="paragraph"><h4 class="heading4"><a name="ResultTypes-XML%2FXSL%3Caname%3D%22ResultTypesXML%252FXSL%22%3E%3C%2Fa%3E"> XML/XSL <a name="ResultTypes-XML%2FXSL"></a></a></h4></p>Interfaces with xml transformations.<br/>
+
+<table class="wikitable">
+<tr>
+<th>Parameters </th><th> Required </th><th> Description </th>
+</tr><tr>
+<td> location </td><td> <b class="strong">yes</b> </td><td>  the location to go to after execution </td>
+</tr><tr>
+<td> parse </td><td> no </td><td> Defaults to false. If set to true, the location will be parsed for Ognl expressions </td>
+</tr>
+</table>
+<div class="code"><div class="codeContent">
+<pre>&lt;result name=<span class="java&#45;quote">&quot;success&quot;</span> type=<span class="java&#45;quote">&quot;xslt&quot;</span>&gt;foo.xslt&lt;/result&gt;</pre>
+</div></div>
+<p class="paragraph"><h4 class="heading4"><a name="ResultTypes-HttpHeader%3Caname%3D%22ResultTypesHttpHeader%22%3E%3C%2Fa%3E"> HttpHeader <a name="ResultTypes-HttpHeader"></a></a></h4></p>A custom Result type for evaluating HTTP headers against the ValueStack.<br/>
+
+<table class="wikitable">
+<tr>
+<th>Parameters </th><th> Required </th><th> Description </th>
+</tr><tr>
+<td> status </td><td> no </td><td>  the http servlet response status code that should be set on a response </td>
+</tr><tr>
+<td> parse </td><td> no </td><td> true by default. If set to false, the <b class="strong">headers</b> param will not be parsed for Ognl expressions </td>
+</tr><tr>
+<td> headers</td><td> no </td><td> header values</td>
+</tr>
+</table><br/>
+Example:
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;result name=<span class="xml&#45;quote">&quot;success&quot;</span> type=<span class="xml&#45;quote">&quot;header&quot;</span>&gt;</span>&#10;    <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;status&quot;</span>&gt;</span>204<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;    <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;headers.a&quot;</span>&gt;</span>a custom header value<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;    <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;headers.b&quot;</span>&gt;</span>another custom header value<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;<span class="xml&#45;tag">&lt;/result&gt;</span></pre>
+</div></div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Nov 14, 2004 19:46</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

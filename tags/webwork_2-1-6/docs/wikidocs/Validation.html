@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>WebWork 2 : Validation</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork 2 : Validation
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Nov 11, 2004 by <font color="#0050B2">plightbo</font>.
+				    </div>
+
+				    <p class="paragraph">WebWork relies on <a href="http://wiki.opensymphony.com//display/XW/XWork" title="XWork">XWork's</a> validation framework to enable the application of input validation rules to your Actions before they are executed.  This section only provides the bare minimum to get you started and focuses on WebWork&#039;s extension of the XWork validators to support client-side validation.</p><em class="emphasis">Please consult XWork&#039;s <a href="http://wiki.opensymphony.com//display/XW/Validation+Framework" title="Validation Framework">validation framework documentation</a> for complete details.</em><p class="paragraph"><b class="strong">Reference pages</b>
+<ol>
+<li> <a href="Simple validators.html" title="Simple validators">Simple validators</a></li>
+<li> <a href="Visitor validation.html" title="Visitor validation">Visitor validation</a></li>
+<li> <a href="Client-Side Validation.html" title="Client-Side Validation">Client-Side Validation</a></li>
+<li> <a href="Validation Examples.html" title="Validation Examples">Validation Examples</a></li>
+</ol></p><h2 class="heading2"><a name="Validation-RegisteringValidators"> Registering Validators</a></h2><p class="paragraph">Validation rules are handled by validators, which must be registered with the ValidatorFactory.  The simplest way to do so is to add a file name <b class="strong">validators.xml</b> in the root of the classpath (/WEB-INF/classes) that declares all the validators you intend to use.  The syntax of the file is as follows:
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;validators&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;required&quot;</span> &#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.webwork.validators.JavaScriptRequiredFieldValidator&quot;</span>/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.webwork.validators.JavaScriptRequiredStringValidator&quot;</span>/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;stringlength&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.xwork.validator.validators.StringLengthFieldValidator&quot;</span>/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;int&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.webwork.validators.JavaScriptIntRangeFieldValidator&quot;</span>/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;date&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.webwork.validators.JavaScriptDateRangeFieldValidator&quot;</span>/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;expression&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.xwork.validator.validators.ExpressionValidator&quot;</span>/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;fieldexpression&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.xwork.validator.validators.FieldExpressionValidator&quot;</span>/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;email&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.webwork.validators.JavaScriptEmailValidator&quot;</span>/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;url&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.webwork.validators.JavaScriptURLValidator&quot;</span>/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;visitor&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.webwork.validators.VisitorFieldValidator&quot;</span>/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator name=<span class="xml&#45;quote">&quot;conversion&quot;</span>&#10;        class=<span class="xml&#45;quote">&quot;com.opensymphony.xwork.validator.validators.ConversionErrorFieldValidator&quot;</span>/&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div><br/>
+This list declares all the validators that comes with WebWork.</p><h2 class="heading2"><a name="Validation-TurningonValidation"> Turning on Validation</a></h2><p class="paragraph">All that is required to enable validation for an Action is to put the ValidationInterceptor in the interceptor refs of the action (see <a href="xwork.xml.html" title="xwork.xml">xwork.xml</a>) like so:
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;interceptor name=<span class="xml&#45;quote">&quot;validator&quot;</span> class=<span class="xml&#45;quote">&quot;com.opensymphony.xwork.validator.ValidationInterceptor&quot;</span>/&gt;</span></pre>
+</div></div></p>Note: The default <b class="strong">validationWorkflowStack</b> already includes this.
+<p class="paragraph"><h2 class="heading2"><a name="Validation-DefiningValidationRules"> Defining Validation Rules</a></h2></p>Validation rules can be specified:<br/>
+
+<ol>
+<li> Per Action class: in a file named ActionName-validation.xml</li>
+<li> Per Action alias: in a file named ActionName-alias-validation.xml</li>
+<li> Inheritance hierarchy and interfaces implemented by Action class: WebWork searches up the inheritance tree of the action to find default validations for parent classes of the Action and interfaces implemented</li>
+</ol><br/>
+Here is an example for SimpleAction-validation.xml:<br/>
+
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;&#33;DOCTYPE validators PUBLIC <span class="xml&#45;quote">&quot;&#45;//OpenSymphony Group//XWork Validator 1.0//EN&quot;</span>&#10;        <span class="xml&#45;quote">&quot;&#104;ttp://www.opensymphony.com/xwork/xwork&#45;validator&#45;1.0.dtd&quot;</span>&gt;</span>&#10;<span class="xml&#45;tag">&lt;validators&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;bar&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;required&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message&gt;</span>You must enter a value for bar.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;int&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;min&quot;</span>&gt;</span>6<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;max&quot;</span>&gt;</span>10<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message&gt;</span>bar must be between $&#123;min&#125; and $&#123;max&#125;, current value is $&#123;bar&#125;.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;date&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;date&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;min&quot;</span>&gt;</span>12/22/2002<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;max&quot;</span>&gt;</span>12/25/2002<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message&gt;</span>The date must be between 12&#45;22&#45;2002 and 12&#45;25&#45;2002.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;foo&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;int&quot;</span>&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;min&quot;</span>&gt;</span>0<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;max&quot;</span>&gt;</span>100<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;            <span class="xml&#45;tag">&lt;message key=<span class="xml&#45;quote">&quot;foo.range&quot;</span>&gt;</span>Could not find foo.range&#33;<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;    <span class="xml&#45;tag">&lt;validator type=<span class="xml&#45;quote">&quot;expression&quot;</span>&gt;</span>&#10;        <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;expression&quot;</span>&gt;</span>foo &gt; bar<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;        <span class="xml&#45;tag">&lt;message&gt;</span>Foo must be greater than Bar. Foo = $&#123;foo&#125;, Bar = $&#123;bar&#125;.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/validator&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div><p class="paragraph">Here we can see the configuration of validators for the SimpleAction class. Validators (and field-validators) must have a <b class="strong">type</b> attribute, which refers to a name of an Validator registered with the ValidatorFactory as above. Validator elements may also have &lt;param&gt; elements with name and value attributes to set arbitrary parameters into the Validator instance. See below for discussion of the message element.</p>Each Validator or Field-Validator element must define one message element inside the validator element body. The message element has 1 attributes, key which is not required. The body of the message tag is taken as the default message which should be added to the Action if the validator fails.<p class="paragraph">Key gives a message key to look up in the Action&#039;s ResourceBundles using getText() from LocaleAware if the Action implements that interface (as ActionSupport does). This provides for Localized messages based on the Locale of the user making the request (or whatever Locale you&#039;ve set into the LocaleAware Action).</p>After either retrieving the message from the ResourceBundle using the Key value, or using the Default message, the current Validator is pushed onto the ValueStack, then the message is parsed for $&#123;...&#125; sections which are replaced with the evaluated value of the string between the $&#123; and &#125;. This allows you to parameterize your messages with values from the Validator, the Action, or both. Here is an example of a parameterized message:<br/>
+
+<div class="code"><div class="codeContent">
+<pre>bar must be between $&#123;min&#125; and $&#123;max&#125;, current value is $&#123;bar&#125;.</pre>
+</div></div><p class="paragraph">This will pull the min and max parameters from the IntRangeFieldValidator and the value of bar from the Action.</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Nov 14, 2004 19:46</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>WebWork 2 : OGNL</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork 2 : OGNL
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jun 17, 2004 by <font color="#0050B2">casey</font>.
+				    </div>
+
+				    <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a name="OGNL-Overview"> Overview</a></h2></p>OGNL is the Object Graph Navigation Language - see <a href="http://www.ognl.org" title="Visit page outside Confluence">&#104;ttp://www.ognl.org</a> for the full documentation of OGNL. In this document we will only show a few examples of OGNL features that co-exist with Webwork. 
+<ul class="star">
+<li> To review basic concepts, refer to <a href="OGNL Basics.html" title="OGNL Basics">OGNL Basics</a></li>
+<li> <a href="#OGNL-Collections" title="Collections on OGNL">#Collections</a></li>
+<li> <a href="#OGNL-Lambda" title="Lambda on OGNL">Lambda Expressions</a></li>
+</ul>
+<h4 class="heading4"><a name="OGNL-Collections%28Maps%2CLists%2CSets%29%3Caname%3D%22OGNLCollections%22%3E%3C%2Fa%3E"> Collections (Maps, Lists, Sets) <a name="OGNL-Collections"></a></a></h4><p class="paragraph">Dealing with collections(maps, lists, and sets) in webwork comes often, so here are a few examples using the select tag:<br/>
+Syntax for list:  &#123;e1,e2&#125;. This creates a List containing the String &quot;name1&quot; and &quot;name2&quot;.
+<div class="code"><div class="codeContent">
+<pre>&lt;webwork:select label=<span class="java&#45;quote">&quot;&#039;lebal&#039;&quot;</span> name=<span class="java&#45;quote">&quot;&#039;nmae&#039;&quot;</span> list=<span class="java&#45;quote">&quot;&#123;&#039;name1&#039;,&#039;name2&#039;&#125;&quot;</span> /&gt;</pre>
+</div></div><br/>
+Syntax for map: #&#123;key1:value1,key2:value2&#125;. This creates a map that maps the string &quot;foo&quot; to the string &quot;foovalue&quot; and &quot;bar&quot; to the string &quot;barvalue&quot;:
+<div class="code"><div class="codeContent">
+<pre>&lt;webwork:select label=<span class="java&#45;quote">&quot;&#039;lebal&#039;&quot;</span> name=<span class="java&#45;quote">&quot;&#039;nmae&#039;&quot;</span> list=<span class="java&#45;quote">&quot;#&#123;&#039;foo&#039;:&#039;foovalue&#039;, &#039;bar&#039;:&#039;barvalue&#039;&#125;&quot;</span> /&gt;</pre>
+</div></div></p>You may need to determine if an element exists in a collection.  You can accomplish this with the operations <tt class="monospaced">in</tt> and <tt class="monospaced">not in</tt>
+<div class="code"><div class="codeContent">
+<pre>&lt;ui:<span class="java&#45;keyword">if</span> test=<span class="java&#45;quote">&quot;&#039;foo&#039; in &#123;&#039;foo&#039;,&#039;bar&#039;&#125;&quot;</span>&gt;&#10;   muhahaha&#10;&lt;/ui:<span class="java&#45;keyword">if</span>&gt;&#10;&lt;ui:<span class="java&#45;keyword">else</span>&gt;&#10;   boo&#10;&lt;/ui:<span class="java&#45;keyword">else</span>&gt;&#10;&#10;&lt;ui:<span class="java&#45;keyword">if</span> test=<span class="java&#45;quote">&quot;&#039;foo&#039; not in &#123;&#039;foo&#039;,&#039;bar&#039;&#125;&quot;</span>&gt;&#10;   muhahaha&#10;&lt;/ui:<span class="java&#45;keyword">if</span>&gt;&#10;&lt;ui:<span class="java&#45;keyword">else</span>&gt;&#10;   boo&#10;&lt;/ui:<span class="java&#45;keyword">else</span>&gt;</pre>
+</div></div>
+<p class="paragraph">To select a subset of a collection (called projection), you can use a wildcard within the collection.
+<ul type="square" class="minus">
+<li> ? - All elements matching the selection logic</li>
+<li> ^ - Only the first element matching the selection logic</li>
+<li> $ - Only the last element matching the selection logic</li>
+</ul><br/>
+To obtain a subset of just male relatives from the object person:
+<div class="code"><div class="codeContent">
+<pre>person.relatives.&#123;&#63; #<span class="java&#45;keyword">this</span>.gender == &#039;male&#039;&#125;</pre>
+</div></div></p><h4 class="heading4"><a name="OGNL-LambdaExpressions%3Caname%3D%22OGNLLambda%22%3E%3C%2Fa%3E"> Lambda Expressions <a name="OGNL-Lambda"></a></a></h4><p class="paragraph">OGNL supports basic lamba expression syntax enabling you to write simple functions.</p>For example:<p class="paragraph">For all you math majors who didn&#039;t think you would ever see this one again.<br/>
+Fibonacci: if n==0 return 0; elseif n==1 return 1; else return fib(n-2)+fib(n-1);<br/>
+fib(0) = 0<br/>
+fib(1) = 1<br/>
+fib(11) = 89</p>The lambda expression is everything inside the brackets. The #this variable holds the argument to the expression, which is initially starts at 11.<br/>
+
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:property value=<span class="java&#45;quote">&quot;#fib =:&#91;#<span class="java&#45;keyword">this</span>==0 &#63; 0 : #<span class="java&#45;keyword">this</span>==1 &#63; 1 : #fib(#<span class="java&#45;keyword">this</span>&#45;2)&#43;#fib(#<span class="java&#45;keyword">this</span>&#45;1)&#93;, #fib(11)&quot;</span> /&gt;</pre>
+</div></div>
+
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Nov 14, 2004 19:46</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>
