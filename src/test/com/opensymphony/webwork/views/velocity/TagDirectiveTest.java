@@ -5,27 +5,22 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.mockobjects.dynamic.Mock;
-
 import com.opensymphony.webwork.views.jsp.WebWorkMockServletContext;
 import com.opensymphony.webwork.views.velocity.ui.MockTag;
-
 import junit.framework.Assert;
 import junit.framework.TestCase;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 
-import java.io.File;
-import java.io.StringWriter;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.Properties;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import java.io.File;
+import java.io.StringWriter;
+import java.util.Calendar;
+import java.util.Map;
+import java.util.Properties;
 
 
 /**
