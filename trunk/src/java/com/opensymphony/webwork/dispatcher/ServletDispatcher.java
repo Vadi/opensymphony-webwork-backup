@@ -384,7 +384,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
 
         if (saveDir.equals("")) {
             File tempdir = (File) getServletConfig().getServletContext().getAttribute("javax.servlet.context.tempdir");
-            log.warn("Unable to find 'webwork.multipart.saveDir' property setting. Defaulting to javax.servlet.context.tempdir");
+            log.info("Unable to find 'webwork.multipart.saveDir' property setting. Defaulting to javax.servlet.context.tempdir");
 
             if (tempdir != null) {
                 saveDir = tempdir.toString();
