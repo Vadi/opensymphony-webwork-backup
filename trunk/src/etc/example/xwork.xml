@@ -207,6 +207,8 @@
 
     </package>
 
+    <include file="xslt.xml"/>
+
     <include file="month.xml"/>
 
     <include file="i18n.xml"/>
