@@ -12,18 +12,20 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
+ * A simple implementation of the {@link java.util.Map} interface to handle a collection of request attributes.
  *
- *
- * @author $Author$
- * @version $Revision$
+ * @author Patrick Lightbody
+ * @author Bill Lynch (docs)
  */
 public class RequestMap extends AbstractMap implements Serializable {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     HashSet entrySet = new HashSet();
 
-    //~ Constructors ///////////////////////////////////////////////////////////
-
+    /**
+     * Enumerates over all request attributes and creates a simple Map of attributes.
+     *
+     * @param request the http servlet request.
+     */
     public RequestMap(final HttpServletRequest request) {
         for (Enumeration attrNames = request.getAttributeNames();
                 attrNames.hasMoreElements();) {
@@ -60,8 +62,11 @@ public class RequestMap extends AbstractMap implements Serializable {
         }
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
+    /**
+     * Returns a Set of all request attributes.
+     *
+     * @return a Set of all request attributes.
+     */
     public Set entrySet() {
         return entrySet;
     }

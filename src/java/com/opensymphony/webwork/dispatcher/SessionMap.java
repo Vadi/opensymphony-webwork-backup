@@ -17,24 +17,31 @@ import javax.servlet.http.HttpSession;
 
 
 /**
+ * A simple implementation of the {@link java.util.Map} interface to handle a collection of HTTP session
+ * attributes. The {@link #entrySet()} method enumerates over all session attributes and creates a Set of entries.
+ * Note, this will occur lazily - only when the entry set is asked for.
  *
- * @author Rickard Öberg (rickard@middleware-company.com)
- * @version $Revision$
+ * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
+ * @author Bill Lynch (docs)
  */
 public class SessionMap extends AbstractMap implements Serializable {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     HttpServletRequest request;
     Set entries;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
-
+    /**
+     * Creates a new session map given a http servlet request. Note, ths enumeration of request
+     * attributes will occur when the map entries are asked for.
+     *
+     * @param request the http servlet request object.
+     */
     public SessionMap(HttpServletRequest request) {
         this.request = request;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
+    /**
+     * Removes all attributes from the session as well as clears entries in this map.
+     */
     public void clear() {
         HttpSession session = request.getSession();
 
@@ -44,6 +51,11 @@ public class SessionMap extends AbstractMap implements Serializable {
         }
     }
 
+    /**
+     * Returns a Set of attributes from the http session.
+     *
+     * @return a Set of attributes from the http session.
+     */
     public Set entrySet() {
         HttpSession session = request.getSession();
 
@@ -88,6 +100,12 @@ public class SessionMap extends AbstractMap implements Serializable {
         return entries;
     }
 
+    /**
+     * Returns the session attribute associated with the given key or <tt>null</tt> if it doesn't exist.
+     *
+     * @param key the name of the session attribute.
+     * @return the session attribute or <tt>null</tt> if it doesn't exist.
+     */
     public Object get(Object key) {
         HttpSession session = request.getSession();
 
@@ -96,6 +114,13 @@ public class SessionMap extends AbstractMap implements Serializable {
         }
     }
 
+    /**
+     * Saves an attribute in the session.
+     *
+     * @param key the name of the session attribute.
+     * @param value the value to set.
+     * @return the object that was just set.
+     */
     public Object put(Object key, Object value) {
         HttpSession session = request.getSession();
 
@@ -107,6 +132,11 @@ public class SessionMap extends AbstractMap implements Serializable {
         }
     }
 
+    /**
+     * Removes the specified session attribute.
+     * @param key the name of the attribute to remove.
+     * @return the value that was removed or <tt>null</tt> if the value was not found (and hence, not removed).
+     */
     public Object remove(Object key) {
         HttpSession session = request.getSession();
 

@@ -22,34 +22,45 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Servlet Dispatcher that maps servlet paths to actions.
- * The format is the following: <tt>http://HOST/ACTION_NAME/PARAM_NAME1/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt>.
- * You can have as many parameters you'd like to use. Alternatively the URL can be shorten to the following:
- * <tt>http://HOST/ACTION_NAME/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt> which will be the same as
- * <tt>http://HOST/ACTION_NAME/ACTION_NAME/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt>.<br />
+ * A custom servlet dispatcher that maps servlet paths to actions. The format is the following:
+ *
+ *
+ * <ul><tt>http://HOST/ACTION_NAME/PARAM_NAME1/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt></ul>
+ *
+ * You can have as many parameters you'd like to use. Alternatively the URL can be shortened to the following:
+ *
+ * <ul><tt>http://HOST/ACTION_NAME/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt></ul>
+ *
+ * This is the same as:
+ *
+ * <ul><tt>http://HOST/ACTION_NAME/ACTION_NAME/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt></ul>
+ *
  * Suppose for example we would like to display some articles by id at using the following URL sheme:
- * <tt>http://HOST/article/ID</tt>. All we would have to do is to map the <tt>/article/*</tt> to this servlet and
- * declare in WebWork an action named <tt>article</tt>. This action would its <tt>article</tt> parameter set to
- * <tt>ID</tt>.
  *
- * @author CameronBraid (cameron@datacodex.net)
- * @author Jerome Bernard (jerome.bernard@xtremejava.com)
+ * <ul><tt>http://HOST/article/ID</tt></ul>
  *
+ * All we would have to do is to map the <tt>/article/*</tt> to this servlet and declare in WebWork an
+ * action named <tt>article</tt>. This action would set its <tt>article</tt> parameter <tt>ID</tt>.
+ *
+ * @author <a href="mailto:cameron@datacodex.net">Cameron Braid</a>
+ * @author <a href="mailto:jerome.bernard@xtremejava.com">Jerome Bernard</a>
  */
 public class CoolUriServletDispatcher extends ServletDispatcher {
-    //~ Constructors ///////////////////////////////////////////////////////////
 
-    /**
-     *
-     */
     public CoolUriServletDispatcher() {
         super();
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
-    /* (non-Javadoc)
-     * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+    /**
+     * Parses the servlet path for the action name and parameters (see the class description for an
+     * explanation of the format). Once parsed this method passes off control to the
+     * {@link #serviceAction(HttpServletRequest, HttpServletResponse, String, String, Map, Map, Map, Map)}
+     * method for action execution.
+     *
+     * @param request the http servlet request.
+     * @param response the http servlet response.
+     * @throws ServletException if an error occurs parsing the action name or parameters or if
+     *      an action occurs whene executing the action.
      */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         String actionName = request.getServletPath().substring(1, request.getServletPath().indexOf('/', 1));

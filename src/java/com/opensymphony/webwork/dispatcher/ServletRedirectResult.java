@@ -16,28 +16,35 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Calls the {@link HttpServletResponse#sendRedirect(java.lang.String) sendRedirect} method to the location specified.
+ * Calls the {@link HttpServletResponse#sendRedirect(String) sendRedirect} method to the location specified. <p>
  *
  * This result follows the same rules from {@link WebWorkResultSupport}.
  *
- * @author $Author$
- * @version $Revision$
+ * @author Patrick Lightbody
  */
 public class ServletRedirectResult extends WebWorkResultSupport {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(ServletRedirectResult.class);
 
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     protected boolean prependServletContext = true;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
+    /**
+     * Sets whether or not to prepend the servlet context path to the redirected URL.
+     *
+     * @param prependServletContext <tt>true</tt> to prepend the location with the servlet context path,
+     *      <tt>false</tt> otherwise.
+     */
     public void setPrependServletContext(boolean prependServletContext) {
         this.prependServletContext = prependServletContext;
     }
 
+    /**
+     * Redirects to the location specified by calling {@link HttpServletResponse#sendRedirect(String)}.
+     *
+     * @param finalLocation the location to redirect to.
+     * @param invocation an encapsulation of the action execution state.
+     * @throws Exception if an error occurs when redirecting.
+     */
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpServletResponse response = ServletActionContext.getResponse();
