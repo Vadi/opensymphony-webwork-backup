@@ -50,30 +50,20 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    /**
-     * This method is required by Weblogic 6.1 SP4
-     * instead of {@link init(FilterConfig)} because
-     * they defined this as a required method just before
-     * the Servlet 2.3 specification was finalized.
-     *
-     * @param filterConfig the filter configuration for this filter
-     */
-    public final void setFilterConfig(FilterConfig filterConfig) throws ServletException {
-        init(filterConfig);
+    public void destroy() {
     }
-
+    
     /**
-     * This method is required by Weblogic 6.1 SP4 because
-     * they defined this as a required method just before
-     * the Servlet 2.3 specification was finalized.
-     *
-     * @return the filter's filter configuration
+     * getter for {@link #filterConfig}
+     * <p>
+     * Since {@link #filterConfig} is declared private, this getter is
+     * needed for subclasses to retrieve it.  Subclasses need this
+     * to make this filter work for Weblogic 6.1.
+     * 
+     * @return the filter configuration.
      */
     public FilterConfig getFilterConfig() {
         return filterConfig;
-    }
-
-    public void destroy() {
     }
 
     /**
