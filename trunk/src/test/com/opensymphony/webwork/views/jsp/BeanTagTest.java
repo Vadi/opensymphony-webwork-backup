@@ -29,11 +29,11 @@ public class BeanTagTest extends AbstractUITagTest {
     public void testSimple() {
         BeanTag tag = new BeanTag();
         tag.setPageContext(pageContext);
-        tag.setName("com.opensymphony.webwork.TestAction");
+        tag.setName("'com.opensymphony.webwork.TestAction'");
 
         try {
             tag.doStartTag();
-            tag.addParam("result", "success");
+            tag.addParam("'result'", "success");
 
             assertEquals("success", stack.findValue("result"));
             assertEquals(2, stack.size());

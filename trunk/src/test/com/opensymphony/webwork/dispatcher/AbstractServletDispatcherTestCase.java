@@ -89,9 +89,6 @@ public abstract class AbstractServletDispatcherTestCase extends TestCase {
         request.setupGetServletPath(getServletPath());
         request.setupGetPathInfo(getServletPath());
 
-        request.setAttribute("javax.servlet.include.servlet_path", null);
-        request.setAttribute("DefaultComponentManager", null);
-
         MockHttpServletResponse response = new MockHttpServletResponse();
         response.setupOutputStream(new MockServletOutputStream());
 

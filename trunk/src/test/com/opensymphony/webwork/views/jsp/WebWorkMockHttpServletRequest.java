@@ -8,9 +8,7 @@ import com.mockobjects.servlet.MockHttpServletRequest;
 
 import junit.framework.AssertionFailedError;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -56,6 +54,12 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
 
     public String getPathInfo() {
         return pathInfo;
+    }
+
+    public Enumeration getAttributeNames() {
+        Vector v = new Vector();
+        v.addAll(attributes.keySet());
+        return v.elements();
     }
 
     public HttpSession getSession() {
