@@ -49,13 +49,10 @@ public abstract class AbstractListTag extends AbstractUITag {
             Object value = findValue(listAttr);
             if (value instanceof Collection) {
                 addParam("list", value);
+                addParam("listSize", new Integer(((Collection) value).size()));
             }
             else {
                 addParam("list", MakeIterator.convert(value));
-            }
-
-            if (value instanceof Collection) {
-                addParam("listSize", new Integer(((Collection) value).size()));
             }
         }
 
