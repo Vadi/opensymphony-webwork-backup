@@ -6,6 +6,7 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.mockobjects.dynamic.Mock;
 
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -37,23 +38,28 @@ public class VelocityResultTest extends TestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testCanResolveLocationUsingOgnl() throws Exception {
+        TestResult result = new TestResult();
+
         String location = "/myaction.action";
         Bean bean = new Bean();
         bean.setLocation(location);
+
+        OgnlValueStack stack = ActionContext.getContext().getValueStack();
         stack.push(bean);
 
         assertEquals(location, stack.findValue("location"));
 
-        result.setParse(true);
-        result.getTemplate(stack, velocity, actionInvocation, "${location}");
-        assertEquals(location, velocity.templateName);
+        result.setLocation("${location}");
+        result.execute(actionInvocation);
+        assertEquals(location, result.finalLocation);
     }
 
     public void testCanResolveLocationUsingStaticExpression() throws Exception {
+        TestResult result = new TestResult();
         String location = "/any.action";
-        result.setParse(true);
-        result.getTemplate(stack, velocity, actionInvocation, "${'" + location + "'}");
-        assertEquals(location, velocity.templateName);
+        result.setLocation("${'" + location + "'}");
+        result.execute(actionInvocation);
+        assertEquals(location, result.finalLocation);
     }
 
     public void testResourcesFoundUsingAbsolutePath() throws Exception {
@@ -97,6 +103,14 @@ public class VelocityResultTest extends TestCase {
 
         public String getLocation() {
             return location;
+        }
+    }
+
+    class TestResult extends WebWorkResultSupport {
+        public String finalLocation;
+
+        protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
+            this.finalLocation = finalLocation;
         }
     }
 
