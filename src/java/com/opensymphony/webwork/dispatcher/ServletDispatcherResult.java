@@ -34,6 +34,7 @@ public class ServletDispatcherResult implements Result, WebWorkStatics {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(ServletDispatcherResult.class);
+    public static final String DEFAULT_PARAM = "location";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 

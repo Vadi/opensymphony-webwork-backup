@@ -43,6 +43,7 @@ public class VelocityResult implements Result, WebWorkStatics {
 
     private static final Log log = LogFactory.getLog(VelocityResult.class);
     private static VelocityEngine velocityEngine = VelocityManager.getVelocityEngine();
+    public static final String DEFAULT_PARAM = "location";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
