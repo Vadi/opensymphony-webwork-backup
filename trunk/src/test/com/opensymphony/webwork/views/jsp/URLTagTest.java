@@ -4,16 +4,7 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockJspWriter;
-import com.mockobjects.servlet.MockPageContext;
-
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.util.OgnlValueStack;
-
-import junit.framework.TestCase;
-
-import java.util.HashMap;
 
 import javax.servlet.jsp.JspException;
 
@@ -35,6 +26,23 @@ public class URLTagTest extends AbstractUITagTest {
     public void testActionURL() {
         jspWriter.setExpectedData("TestAction.action");
         tag.setValue("'TestAction.action'");
+
+        try {
+            tag.doStartTag();
+            tag.doEndTag();
+        } catch (JspException ex) {
+            ex.printStackTrace();
+            fail();
+        }
+    }
+
+    public void testHttps() {
+        request.setScheme("https");
+        request.setServerName("localhost");
+        request.setServerPort(443);
+
+        jspWriter.setExpectedData("list-members.action");
+        tag.setValue("'list-members.action'");
 
         try {
             tag.doStartTag();
