@@ -54,7 +54,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
     }
 
     /**
-     * execute this result, using the specified template location.
+     * Execute this result, using the specified template location.
      * <p/>
      * The template location has already been interoplated for any variable substitutions
      * <p/>
@@ -114,7 +114,10 @@ public class FreemarkerResult extends WebWorkResultSupport {
      * the default writer writes directly to the response output stream
      */
     protected Writer getWriter() throws IOException {
-        return new OutputStreamWriter(ServletActionContext.getResponse().getOutputStream());
+        return new OutputStreamWriter(
+                ServletActionContext.getResponse().getOutputStream(),
+                ServletActionContext.getResponse().getCharacterEncoding()
+        );
     }
 
     /**
