@@ -43,6 +43,13 @@ public class SelectTest extends AbstractUITagTest {
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
 
+        // header stuff
+        tag.setHeaderKey("'headerKey'");
+        tag.setHeaderValue("'headerValue'");
+
+        // empty option
+        tag.setEmptyOption("true");
+
         int result = tag.doEndTag();
 
         verify(SelectTag.class.getResource("Select-1.txt"));
@@ -65,7 +72,6 @@ public class SelectTest extends AbstractUITagTest {
 
         SelectTag tag = new SelectTag();
         tag.setPageContext(pageContext);
-        tag.setEmptyOption("true");
         tag.setLabel("'mylabel'");
         tag.setName("'collection'");
         tag.setList("list");

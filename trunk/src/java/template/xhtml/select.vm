@@ -33,6 +33,14 @@
     #if ($parameters.multiple)         multiple="multiple"                #end
 >
 
+#if ($parameters.headerKey && $parameters.headerValue)
+    <option name="$parameters.headerKey">$parameters.headerValue</option>
+#end
+
+#if ($parameters.emptyOption)
+    <option name=""></option>
+#end
+
 #set( $items = $parameters.list )
 #if( $items )
     #foreach( $item in $items )
