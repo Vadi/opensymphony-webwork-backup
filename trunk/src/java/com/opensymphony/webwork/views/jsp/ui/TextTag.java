@@ -47,6 +47,7 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
     protected String value2Attr;
     protected String value3Attr;
     List values;
+    String actualName;
     String nameAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -99,6 +100,8 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
     public int doEndTag() throws JspException {
         OgnlValueStack stack = getValueStack();
 
+        actualName = (String) stack.findValue(nameAttr, String.class);
+
         // Add tag attribute values
         // These can be used to parameterize the i18n-ized message
         if (value0Attr != null) {
@@ -122,10 +125,10 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
         if ((bodyContent != null) && (bodyContent.getString().trim().length() > 0)) {
             defaultMessage = bodyContent.getString().trim();
         } else {
-            defaultMessage = nameAttr;
+            defaultMessage = actualName;
         }
 
-        String expression = "getText('" + nameAttr + "', '" + defaultMessage + "'";
+        String expression = "getText('" + actualName + "', '" + defaultMessage + "'";
         boolean pushed = false;
 
         if (values != null) {
@@ -143,11 +146,12 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
             stack.pop();
         }
 
-        try {
-            pageContext.getOut().write(msg);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new JspException(e);
+        if (msg != null) {
+            try {
+                pageContext.getOut().write(msg);
+            } catch (IOException e) {
+                throw new JspException(e);
+            }
         }
 
         return EVAL_PAGE;

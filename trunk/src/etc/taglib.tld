@@ -103,6 +103,38 @@
         </attribute>
     </tag>
 
+     <tag>
+         <name>text</name>
+         <tagclass>com.opensymphony.webwork.views.jsp.ui.TextTag</tagclass>
+         <bodycontent>JSP</bodycontent>
+         <info>Print out an internationalized string</info>
+         <attribute>
+             <name>name</name>
+             <required>true</required>
+             <rtexprvalue>false</rtexprvalue>
+         </attribute>
+         <attribute>
+             <name>value0</name>
+             <required>false</required>
+             <rtexprvalue>false</rtexprvalue>
+         </attribute>
+         <attribute>
+             <name>value1</name>
+             <required>false</required>
+             <rtexprvalue>false</rtexprvalue>
+         </attribute>
+         <attribute>
+             <name>value2</name>
+             <required>false</required>
+             <rtexprvalue>false</rtexprvalue>
+         </attribute>
+         <attribute>
+             <name>value3</name>
+             <required>false</required>
+             <rtexprvalue>false</rtexprvalue>
+         </attribute>
+     </tag>
+
     <tag>
         <name>property</name>
         <tagclass>com.opensymphony.webwork.views.jsp.PropertyTag</tagclass>
@@ -203,6 +235,11 @@
         </attribute>
         <attribute>
             <name>status</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>id</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

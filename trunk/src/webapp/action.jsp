@@ -1,6 +1,6 @@
 <%@ taglib prefix="ww" uri="webwork" %>
 
-<ww:action name="VelocityCounter" id="vc">
+<ww:action name="'VelocityCounter'" id="vc">
  <ww:param name="foo" value="'BAR'"/>
 </ww:action>
 <ww:push value="#vc">

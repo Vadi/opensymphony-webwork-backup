@@ -1,4 +1,4 @@
-#tag( Action "name=i18n.ComputePrice" "id=pricer")
+#tag( Action "name='i18n.ComputePrice'" "id=pricer")
 #bodytag( Push "value=#pricer")
 #set($pricer = $stack.peek())
 <select name="album">

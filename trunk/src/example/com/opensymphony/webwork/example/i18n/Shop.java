@@ -40,8 +40,4 @@ public class Shop extends ActionSupport {
 		return (l == null) ? Locale.getDefault() : l;
 	}
 	
-	public String getText(String aTextName) {
-		return LocalizedTextUtil.findText(this.getClass(), aTextName, getLocale());
-	}
-
 }
