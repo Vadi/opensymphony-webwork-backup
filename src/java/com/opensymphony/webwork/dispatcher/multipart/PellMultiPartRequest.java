@@ -4,19 +4,16 @@
  */
 package com.opensymphony.webwork.dispatcher.multipart;
 
+import com.opensymphony.webwork.config.Configuration;
 import http.utils.multipartrequest.ServletMultipartRequest;
 
-import org.apache.commons.logging.LogFactory;
-
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -32,9 +29,9 @@ public class PellMultiPartRequest extends MultiPartRequest {
     /**
      * Creates a new request wrapper to handle multi-part data using methods adapted from Jason Pell's
      * multipart classes (see class description).
-     * 
-     * @param maxSize maximum size post allowed
-     * @param saveDir the directory to save off the file
+     *
+     * @param maxSize        maximum size post allowed
+     * @param saveDir        the directory to save off the file
      * @param servletRequest the request containing the multipart
      */
     public PellMultiPartRequest(HttpServletRequest servletRequest, String saveDir, int maxSize) throws IOException {
@@ -89,7 +86,7 @@ public class PellMultiPartRequest extends MultiPartRequest {
     /**
      * Sets the encoding for the uploaded params.  This needs to be set if you are using character sets other than
      * ASCII.
-     * <p>
+     * <p/>
      * The encoding is looked up from the configuration setting 'webwork.i18n.encoding'.  This is usually set in
      * default.properties & webwork.properties.
      */
@@ -97,7 +94,7 @@ public class PellMultiPartRequest extends MultiPartRequest {
         String encoding = null;
 
         try {
-            //encoding = Configuration.getString("webwork.i18n.encoding");
+            encoding = Configuration.getString("webwork.i18n.encoding");
             if (encoding != null) {
                 //NB: This should never be called at the same time as the constructor for
                 //ServletMultiPartRequest, as it can cause problems.
