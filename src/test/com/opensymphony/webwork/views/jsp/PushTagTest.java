@@ -21,11 +21,11 @@ public class PushTagTest extends AbstractUITagTest {
         tag.setValue("title");
 
         try {
-            assertEquals(1, stack.size());
-            tag.doStartTag();
             assertEquals(2, stack.size());
+            tag.doStartTag();
+            assertEquals(3, stack.size());
             tag.doEndTag();
-            assertEquals(1, stack.size());
+            assertEquals(2, stack.size());
         } catch (JspException e) {
             e.printStackTrace();
             fail();
