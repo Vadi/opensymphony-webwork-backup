@@ -22,10 +22,11 @@ import javax.servlet.http.HttpSessionListener;
 
 
 /**
+ * A filter to handle the lifecycle of an HTTP session-based XWork component manager.
  *
- *
- * @author joew@thoughtworks.com
- * @author cameronbraid
+ * @author <a href="mailto:joew@thoughtworks.com">Joe Walnes</a>
+ * @author Cameron Braid
+ * @author Bill Lynch (docs)
  */
 public class SessionLifecycleListener implements HttpSessionListener, Serializable {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -34,6 +35,11 @@ public class SessionLifecycleListener implements HttpSessionListener, Serializab
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+ * Initializes an XWork component manager for the lifetime of the user's session.
+ *
+ * @param event an HttpSessionEvent object.
+ */
     public void sessionCreated(HttpSessionEvent event) {
         if (log.isDebugEnabled()) {
             log.debug("Session DefaultComponentManager : init");
@@ -50,26 +56,34 @@ public class SessionLifecycleListener implements HttpSessionListener, Serializab
         session.setAttribute("DefaultComponentManager", container);
     }
 
-    protected DefaultComponentManager createComponentManager() {
-        return new SessionComponentManager();
-    }
-
+    /**
+ * Does nothing - when the session is destroyed the component manager reference will go away as well.
+ *
+ * @param event an HttpSessionEvent object.
+ */
     public void sessionDestroyed(HttpSessionEvent event) {
     }
 
     /**
-     * answers the servlet context.
-     * <p>
-     * Normally, Servlet 2.3 would get this from the session;
-     * however, Weblogic 6.1 doesn't provide the servlet context
-     * in the session.  Hence, this method allows subclasses to
-     * retrieve the servlet context from other resources.
-     *
-     * @param session the HTTP session
-     * @return the servlet context.
-     */
+ * Servlet 2.3 specifies that the servlet context can be retrieved from the session. Unfortunately, some
+ * versions of WebLogic can only retrieve the servlet context from the filter config. Hence, this method
+ * enables subclasses to retrieve the servlet context from other sources.
+ *
+ * @param session the HTTP session where, in Servlet 2.3, the servlet context can be retrieved
+ * @return the servlet context.
+ */
     protected ServletContext getServletContext(HttpSession session) {
         return session.getServletContext();
+    }
+
+    /**
+ * Returns a new <tt>DefaultComponentManager</tt> instance. This method is useful for developers
+ * wishing to subclass this class and provide a different implementation of <tt>DefaultComponentManager</tt>.
+ *
+ * @return a new <tt>DefaultComponentManager</tt> instance.
+ */
+    protected DefaultComponentManager createComponentManager() {
+        return new SessionComponentManager();
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////
