@@ -52,7 +52,7 @@ public class TextFieldTag extends AbstractUITag {
         }
 
         if (maxLengthAttr != null) {
-            addParam("maxLength", findValue(maxLengthAttr, String.class));
+            addParam("maxlength", findValue(maxLengthAttr, String.class));
         }
 
         if (readonlyAttr!= null) {
