@@ -10,8 +10,12 @@ package com.opensymphony.webwork.views.freemarker;
 
 import com.opensymphony.webwork.util.FreemarkerWebWorkUtil;
 import com.opensymphony.webwork.util.ListEntry;
+import com.opensymphony.webwork.views.freemarker.ScopesHashModel;
+import com.opensymphony.webwork.views.freemarker.TestAction;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
+import freemarker.ext.beans.CollectionModel;
 import freemarker.template.ObjectWrapper;
 import freemarker.template.SimpleHash;
 import freemarker.template.SimpleSequence;
@@ -54,11 +58,11 @@ public class FreemarkerTest extends TestCase {
     }
 
     public void testValueStackMode() throws Exception {
-        ValueStackModel model = new ValueStackModel(ActionContext.getContext().getValueStack(), new SimpleHash(), ObjectWrapper.DEFAULT_WRAPPER);
+        ScopesHashModel model = new ScopesHashModel(ObjectWrapper.BEANS_WRAPPER, null, null, ActionContext.getContext().getValueStack());
 
-        SimpleSequence stringList = null;
+		CollectionModel stringList = null;
 
-        stringList = (SimpleSequence) model.get("stringList");
+        stringList = (CollectionModel) model.get("stringList");
         assertEquals("one", stringList.get(0).toString());
 
         assertEquals("one", model.get("stringList[0]").toString());
