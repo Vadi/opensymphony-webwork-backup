@@ -26,7 +26,8 @@ import java.util.Set;
 public class XWorkConfigRetriever {
 
     private static final Log LOG = LogFactory.getLog(XWorkConfigRetriever.class);
-    private static String basePath = "";
+    private static String configDir;
+    private static String[] views;
     private static boolean isXWorkStarted = false;
     private static Map viewCache = new HashMap();
 
@@ -42,7 +43,7 @@ public class XWorkConfigRetriever {
     }
 
     private static void initXWork() {
-        String configFilePath = basePath + "WEB-INF/classes/xwork.xml";
+        String configFilePath = configDir + "/xwork.xml";
         File configFile = new File(configFilePath);
         try {
             ConfigurationProvider configProvider = new ArbitraryXMLConfigurationProvider(configFile.getCanonicalPath());
@@ -111,30 +112,39 @@ public class XWorkConfigRetriever {
     }
 
     public static File getViewFile(String namespace, String actionName, String resultName) {
-        File viewFile = null;
         ResultConfig result = getResultConfig(namespace, actionName, resultName);
-        if (result != null) {
-            String location = (String) result.getParams().get("location");
-            //TODO make sure to follow chaining and redirection to other
-            // actions
-            if (location != null && !location.matches(".*action.*")) {
-                StringBuffer filePath = new StringBuffer(basePath);
-                if (!location.startsWith("/"))
-                    filePath.append(namespace + "/");
-                filePath.append(location);
-                viewFile = new File(filePath.toString());
+        String location = (String) result.getParams().get("location");
+        for (int i = 0; i < views.length; i++) {
+            String viewRoot = views[i];
+            File viewFile = getViewFileInternal(viewRoot, location, namespace);
+            if (viewFile != null) {
+                return viewFile;
             }
         }
-        return viewFile;
+
+        return null;
+    }
+
+    private static File getViewFileInternal(String root, String location, String namespace) {
+        StringBuffer filePath = new StringBuffer(root);
+        if (!location.startsWith("/")) {
+            filePath.append(namespace + "/");
+        }
+        filePath.append(location);
+        File viewFile = new File(filePath.toString());
+        if (viewFile.exists()) {
+            return viewFile;
+        } else {
+            return null;
+        }
     }
 
     public static View getView(String namespace, String actionName, String resultName) {
         String viewId = namespace + "/" + actionName + "/" + resultName;
         View view = (View) viewCache.get(viewId);
         if (view == null) {
-            File viewFile = XWorkConfigRetriever.getViewFile(namespace, actionName,
-                    resultName);
-            if (viewFile != null && viewFile.exists()) {
+            File viewFile = XWorkConfigRetriever.getViewFile(namespace, actionName, resultName);
+            if (viewFile != null) {
                 view = new XworkView(viewFile);
                 viewCache.put(viewId, view);
             }
@@ -142,13 +152,10 @@ public class XWorkConfigRetriever {
         return view;
     }
 
-    public static void setBasePath(final String newBasePath) {
-        basePath = newBasePath;
+    public static void setConfiguration(String configDir, String[] views) {
+        XWorkConfigRetriever.configDir = configDir;
+        XWorkConfigRetriever.views = views;
         isXWorkStarted = false;
         viewCache = new HashMap();
-    }
-
-    public static String getBasePath() {
-        return basePath;
     }
 }

@@ -33,7 +33,7 @@ public class TextRenderer implements Renderer {
             if (namespace.length() > 0)
                 fileName = namespace.substring(1) + ".txt";
             LOG.info("fileName=" + fileName);
-            File namespaceFile = new File(XWorkConfigRetriever.getBasePath() + fileName);
+            File namespaceFile = new File(fileName);
             FileWriter out = null;
             try {
                 out = new FileWriter(namespaceFile);
