@@ -102,7 +102,8 @@ public class BeanAdapter extends DefaultElementAdapter {
             }
             return props;
         } catch (IntrospectionException e) {
-            throw new RuntimeException("Error getting property descriptors for " + bean, e);
+            e.printStackTrace();
+            throw new RuntimeException("Error getting property descriptors for " + bean + " : " + e.getMessage());
         }
     }
 
