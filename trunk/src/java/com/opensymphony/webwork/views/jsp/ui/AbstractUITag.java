@@ -314,7 +314,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
         this.theme = null;
         this.template = null;
         this.value = null;
-        this.actualValue=null;
+        this.actualValue = null;
     }
 
     public void render(Context context, Writer writer) throws Exception {
@@ -511,8 +511,9 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
         Template t = velocityEngine.getTemplate(templateName);
         Context context = VelocityManager.createContext(pageContext.getServletConfig(), pageContext.getRequest(), pageContext.getResponse());
 
-        if (writer == null) {
-            writer = pageContext.getOut();
+        Writer outputWriter = writer;
+        if( outputWriter == null ) {
+            outputWriter = pageContext.getOut();
         }
 
         /**
@@ -522,7 +523,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
          */
         context.put("tag", this);
 
-        t.merge(context, writer);
+        t.merge(context, outputWriter);
     }
 
     /**
