@@ -38,8 +38,6 @@ import javax.servlet.jsp.PageContext;
  * @version $Revision$
  */
 public class WebWorkVelocityServlet extends VelocityServlet {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private VelocityManager velocityManager;
@@ -72,16 +70,6 @@ public class WebWorkVelocityServlet extends VelocityServlet {
         }
 
         return getTemplate(servletPath, getEncoding());
-    }
-
-    private String getEncoding()
-    {
-        // todo look into converting this to using XWork/WebWork2 encoding rules
-        try {
-            return Configuration.getString("webwork.i18n.encoding");
-        } catch (IllegalArgumentException e) {
-            return RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, DEFAULT_OUTPUT_ENCODING);
-        }
     }
 
     /**
@@ -122,10 +110,20 @@ public class WebWorkVelocityServlet extends VelocityServlet {
         try {
             Writer writer = pageContext.getOut();
             template.merge(context, writer);
+            writer.flush();
         } finally {
             // perform cleanup
             jspFactory.releasePageContext(pageContext);
             actionContext.put(ServletActionContext.PAGE_CONTEXT, oldPageContext);
+        }
+    }
+
+    private String getEncoding() {
+        // todo look into converting this to using XWork/WebWork2 encoding rules
+        try {
+            return Configuration.getString("webwork.i18n.encoding");
+        } catch (IllegalArgumentException e) {
+            return RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, DEFAULT_OUTPUT_ENCODING);
         }
     }
 }
