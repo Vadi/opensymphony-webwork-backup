@@ -1620,6 +1620,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>formName</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>doubleName</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
