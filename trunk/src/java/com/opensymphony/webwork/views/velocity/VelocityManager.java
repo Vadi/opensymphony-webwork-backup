@@ -80,9 +80,7 @@ public class VelocityManager {
      *
      * @return a new WebWorkVelocityContext
      */
-    public static Context createContext(ServletConfig config, ServletRequest servletRequest, ServletResponse servletResponse) {
-        OgnlValueStack stack = ActionContext.getContext().getValueStack();
-
+    public static Context createContext(OgnlValueStack stack, ServletConfig config, ServletRequest servletRequest, ServletResponse servletResponse) {
         WebWorkVelocityContext context = new WebWorkVelocityContext(stack);
         context.put(REQUEST, servletRequest);
         context.put(RESPONSE, servletResponse);
@@ -90,7 +88,7 @@ public class VelocityManager {
         context.put(OGNL, ognlTool);
         context.put(UI, adapterFactory.createJSPTagAdapter(config, servletRequest, servletResponse));
 
-        ActionInvocation invocation = ActionContext.getContext().getActionInvocation();
+        ActionInvocation invocation = (ActionInvocation) stack.getContext().get(ActionContext.ACTION_INVOCATION);
 
         if (invocation != null) {
             context.put(ACTION, invocation.getAction());

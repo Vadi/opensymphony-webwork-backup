@@ -51,7 +51,7 @@ public class VelocityResult extends WebWorkResultSupport {
         try {
             Template t = getTemplate(stack, velocityEngine, invocation, finalLocation);
 
-            Context context = VelocityManager.createContext(ServletActionContext.getServletConfig(), ServletActionContext.getRequest(), ServletActionContext.getResponse());
+            Context context = VelocityManager.createContext(stack, ServletActionContext.getServletConfig(), ServletActionContext.getRequest(), ServletActionContext.getResponse());
             HttpServletResponse response = ServletActionContext.getResponse();
             PageContext pageContext = ServletActionContext.getPageContext();
 
