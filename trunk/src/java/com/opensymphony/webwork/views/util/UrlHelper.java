@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 public class UrlHelper {
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    private static final String AMP = "&";
+
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params) {
         StringBuffer link = new StringBuffer();
 
@@ -48,7 +50,7 @@ public class UrlHelper {
             if (link.toString().indexOf("?") == -1) {
                 link.append("?");
             } else {
-                link.append("&");
+                link.append(AMP);
             }
 
             // Set params
@@ -66,7 +68,7 @@ public class UrlHelper {
                 }
 
                 if (enum.hasNext()) {
-                    link.append("&");
+                    link.append(AMP);
                 }
             }
         }
