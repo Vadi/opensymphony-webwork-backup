@@ -18,8 +18,11 @@ import javax.servlet.http.HttpServletRequest;
  * @author Bill Lynch (docs)
  */
 public class RequestMap extends AbstractMap implements Serializable {
+    //~ Instance fields ////////////////////////////////////////////////////////
 
     HashSet entrySet = new HashSet();
+
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Enumerates over all request attributes and creates a simple Map of attributes.
@@ -60,8 +63,7 @@ public class RequestMap extends AbstractMap implements Serializable {
                                 return false;
                             }
 
-                            if (value == null)
-                            {
+                            if (value == null) {
                                 if (getValue() != null) {
                                     return false;
                                 } else {
@@ -77,6 +79,8 @@ public class RequestMap extends AbstractMap implements Serializable {
                 });
         }
     }
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Returns a Set of all request attributes.

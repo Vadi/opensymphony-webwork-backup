@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.xslt;
 
 import org.w3c.dom.Node;
+
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
@@ -8,13 +13,15 @@ import org.w3c.dom.Node;
  * Time: 19:41:49
  */
 public interface AdapterNode extends Node {
-    String getPropertyName();
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     Node getNextSibling(AdapterNode child);
 
-    DOMAdapter getRootAdapter();
-
     AdapterNode getParentAdapterNode();
+
+    String getPropertyName();
+
+    DOMAdapter getRootAdapter();
 
     Object getValue();
 }

@@ -37,8 +37,11 @@ import javax.servlet.jsp.PageContext;
  * @author Patrick Lightbody
  */
 public class ServletDispatcherResult extends WebWorkResultSupport {
+    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(ServletDispatcherResult.class);
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Dispatches to the given location. Does its forward via a RequestDispatcher. If the

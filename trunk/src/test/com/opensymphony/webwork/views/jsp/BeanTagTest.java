@@ -33,7 +33,7 @@ public class BeanTagTest extends AbstractUITagTest {
 
         try {
             tag.doStartTag();
-            tag.addParameter("'result'", "success");
+            tag.addParameter("result", "success");
 
             assertEquals("success", stack.findValue("result"));
             assertEquals(2, stack.size());

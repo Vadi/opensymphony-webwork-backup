@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
  */
 public interface ServletResponseAware {
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets the HTTP response object in implementing classes.

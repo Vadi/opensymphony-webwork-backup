@@ -21,12 +21,10 @@ import freemarker.template.TemplateModelException;
  * @author CameronBraid
  */
 public class ValueStackModel extends SimpleHash {
-
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private TemplateHashModel wrappedModel= null;
-    
     protected OgnlValueStack stack = null;
+    private TemplateHashModel wrappedModel = null;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
@@ -75,7 +73,7 @@ public class ValueStackModel extends SimpleHash {
             }
         }
 
-        if (wrappedModel ==  null) {
+        if (wrappedModel == null) {
             return wrap(null);
         } else {
             return wrappedModel.get(key);

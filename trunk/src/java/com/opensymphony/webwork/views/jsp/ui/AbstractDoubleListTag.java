@@ -10,6 +10,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 import java.util.Collection;
 
+
 /**
  *
  *
@@ -19,18 +20,14 @@ import java.util.Collection;
 public abstract class AbstractDoubleListTag extends AbstractListTag {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    protected String doubleNameAttr;
     protected String doubleListAttr;
     protected String doubleListKeyAttr;
     protected String doubleListValueAttr;
+    protected String doubleNameAttr;
     protected String doubleValueAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setDoubleName(String aName) {
-        doubleNameAttr = aName;
-    }
-    
     public void setDoubleList(String list) {
         this.doubleListAttr = list;
     }
@@ -42,21 +39,25 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
     public void setDoubleListValue(String listValue) {
         this.doubleListValueAttr = listValue;
     }
-    
+
+    public void setDoubleName(String aName) {
+        doubleNameAttr = aName;
+    }
+
     public void setDoubleValue(String doubleValue) {
         this.doubleValueAttr = doubleValue;
     }
-    
+
     public void evaluateExtraParams(OgnlValueStack stack) {
         super.evaluateExtraParams(stack);
-        
+
         Object doubleName = null;
-        
+
         if (doubleNameAttr != null) {
             doubleName = findValue(doubleNameAttr, String.class);
             addParameter("doubleName", doubleName);
         }
-        
+
         if (doubleListAttr != null) {
             addParameter("doubleList", doubleListAttr);
         }
@@ -68,7 +69,7 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
         if (doubleListValueAttr != null) {
             addParameter("doubleListValue", doubleListValueAttr);
         }
-        
+
         Class valueClazz = getValueClassType();
 
         if (valueClazz != null) {

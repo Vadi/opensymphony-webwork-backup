@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Jason Carreira
  */
 public class TokenSessionStoreInterceptor extends TokenInterceptor {
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      *
@@ -64,7 +65,7 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
      * @param invocation
      * @return
      * @throws Exception
-     */ 
+     */
     protected String handleValidToken(ActionInvocation invocation) throws Exception {
         // we know the token name and token must be there
         HttpServletRequest request = ServletActionContext.getRequest();

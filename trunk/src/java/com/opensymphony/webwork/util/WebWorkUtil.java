@@ -4,11 +4,23 @@
  */
 package com.opensymphony.webwork.util;
 
+import com.opensymphony.util.TextUtils;
+
+import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
+
+import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+
 import java.net.URLEncoder;
+
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -17,14 +29,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.opensymphony.util.TextUtils;
-import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
-import com.opensymphony.xwork.ObjectFactory;
-import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
@@ -41,12 +45,12 @@ public class WebWorkUtil {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    protected Map classes = new Hashtable();
-    protected OgnlValueStack stack;
     protected HttpServletRequest request;
     protected HttpServletResponse response;
+    protected Map classes = new Hashtable();
     protected OgnlTool ognl = OgnlTool.getInstance();
-    
+    protected OgnlValueStack stack;
+
     //~ Constructors ///////////////////////////////////////////////////////////
 
     public WebWorkUtil(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
@@ -76,7 +80,7 @@ public class WebWorkUtil {
     public String include(Object aName) throws Exception {
         return include(aName, request, response);
     }
-    
+
     /**
      * @deprecated the request and response are stored in this util class, please use include(string)
      */
@@ -147,5 +151,4 @@ public class WebWorkUtil {
             stream.write(aByte);
         }
     }
-    
 }

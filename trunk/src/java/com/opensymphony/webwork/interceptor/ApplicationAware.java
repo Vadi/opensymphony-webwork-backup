@@ -17,6 +17,7 @@ import java.util.Map;
  * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
  */
 public interface ApplicationAware {
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets the map of application properties in the implementing class.

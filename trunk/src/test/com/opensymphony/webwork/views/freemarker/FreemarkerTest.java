@@ -8,18 +8,19 @@
  */
 package com.opensymphony.webwork.views.freemarker;
 
-import java.util.List;
-
-import junit.framework.TestCase;
-
 import com.opensymphony.webwork.util.FreemarkerWebWorkUtil;
 import com.opensymphony.webwork.util.ListEntry;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import freemarker.template.ObjectWrapper;
 import freemarker.template.SimpleHash;
 import freemarker.template.SimpleSequence;
+
+import junit.framework.TestCase;
+
+import java.util.List;
 
 
 /**

@@ -26,6 +26,7 @@ import java.util.Map;
  * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
  */
 public interface ParameterAware {
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets the  map of input parameters in the implementing class.

@@ -26,19 +26,23 @@
 #set($detailsSelected = false)
 #set($interceptorsSelected = false)
 #set($propertiesSelected = false)
+#set($validatorsSelected = false)
 <!-- Set selected to true -->
 #if($detailView == "results")
 	#set($detailsSelected = true)
 #elseif($detailView == "interceptors")
 	#set($interceptorsSelected = true)
-#else
+#elseif($detailView == "properties")
 	#set($propertiesSelected = true)
+#else
+    #set($validatorsSelected = true)
 #end
 
 #startTabs()
 	#tab("Results" "${url}results" $detailsSelected)
 	#tab("Interceptors" "${url}interceptors" $interceptorsSelected)
 	#tab("Properties" "${url}properties" $propertiesSelected)
+	#tab("Validators" "${url}validators" $validatorsSelected)
 #endTabs()
 
 #if($detailsSelected)
@@ -48,7 +52,7 @@
     	#foreach ($r in $config.results)
     		#rows()
     			<td>$r.name</td>
-    			<td>$r.clazz.name</td>
+    			<td>$r.className</td>
     			<td>
     				#foreach ($name in $r.params.keySet())
     					$name = $r.params.get($name)<br>
@@ -68,7 +72,7 @@
     		</tr>
     	#end
     </table>
-#else
+#elseif ($propertiesSelected)
     <table width="100%">
         <tr><th>Name</th><th>Type</th></tr>
         #foreach ($prop in $properties)
@@ -78,7 +82,11 @@
     		</tr>
     	#end
     </table>
-
+#else
+    #bodytag (Action "name='showValidators'" "executeResult=true")
+        #param("clazz" "$config.className")
+        #param("context" "$actionName")
+    #end
 #end
 
 #endPage()

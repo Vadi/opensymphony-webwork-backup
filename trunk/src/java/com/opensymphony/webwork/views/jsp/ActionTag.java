@@ -110,6 +110,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
             // Path is always original path, even if it is included in page with another path
             HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
             String actionPath = request.getServletPath();
+
             return ServletDispatcher.getNamespaceFromServletPath(actionPath);
         } else {
             return invocation.getProxy().getNamespace();
@@ -118,9 +119,11 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
     private Map createExtraContext() {
         Map parentParams = null;
+
         if (!ignoreContextParams) {
             parentParams = new ActionContext(getStack().getContext()).getParameters();
         }
+
         Map newParams = (parentParams != null) ? new HashMap(parentParams) : new HashMap();
 
         if (params != null) {
@@ -149,13 +152,14 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
      * @see #buildNamespace
      */
     private void executeAction() throws JspException {
-
         String actualName = findString(name);
+
         if (actualName == null) {
             throw new JspException("Unable to find value for name " + name);
         }
 
         String namespace;
+
         if (namespaceAttr == null) {
             namespace = buildNamespace();
         } else {
@@ -168,6 +172,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
             OgnlValueStack stack = getStack();
 
             Object top = null;
+
             if ((stack != null) && (stack.size() > 0)) {
                 top = stack.peek();
             }

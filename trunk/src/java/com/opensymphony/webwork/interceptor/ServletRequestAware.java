@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
  */
 public interface ServletRequestAware {
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets the HTTP request object in implementing classes.

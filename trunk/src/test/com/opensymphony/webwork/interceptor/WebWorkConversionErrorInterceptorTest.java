@@ -4,8 +4,8 @@
  */
 package com.opensymphony.webwork.interceptor;
 
-import com.mockobjects.dynamic.Mock;
 import com.mockobjects.dynamic.C;
+import com.mockobjects.dynamic.Mock;
 
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;

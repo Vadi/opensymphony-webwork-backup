@@ -4,10 +4,10 @@
  */
 package com.opensymphony.webwork.interceptor;
 
-import com.opensymphony.xwork.interceptor.ConversionErrorInterceptor;
-import com.opensymphony.xwork.util.XWorkConverter;
-import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.interceptor.ConversionErrorInterceptor;
+import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.util.XWorkConverter;
 
 
 /**
@@ -19,17 +19,19 @@ import com.opensymphony.xwork.ActionInvocation;
  * @author Jason Carreira
  */
 public class WebWorkConversionErrorInterceptor extends ConversionErrorInterceptor {
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     protected Object getOverrideExpr(ActionInvocation invocation, Object value) {
         OgnlValueStack stack = invocation.getStack();
+
         try {
             stack.push(value);
+
             return "'" + stack.findValue("top", String.class) + "'";
         } finally {
             stack.pop();
         }
     }
-
 
     /**
      * Returns <tt>false</tt> if the value is null, "", or {""} (array of size 1 with

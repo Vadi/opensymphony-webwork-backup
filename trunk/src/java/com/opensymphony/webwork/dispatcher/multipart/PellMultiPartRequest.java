@@ -5,15 +5,18 @@
 package com.opensymphony.webwork.dispatcher.multipart;
 
 import com.opensymphony.webwork.config.Configuration;
+
 import http.utils.multipartrequest.ServletMultipartRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -23,8 +26,11 @@ import java.util.List;
  * @author <a href="scott@atlassian.com">Scott Farquhar</a> (added i18n handling (WW-109))
  */
 public class PellMultiPartRequest extends MultiPartRequest {
+    //~ Instance fields ////////////////////////////////////////////////////////
 
     private ServletMultipartRequest multi;
+
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Creates a new request wrapper to handle multi-part data using methods adapted from Jason Pell's
@@ -42,6 +48,8 @@ public class PellMultiPartRequest extends MultiPartRequest {
             multi = new ServletMultipartRequest(servletRequest, saveDir, maxSize);
         }
     }
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getContentType(String name) {
         return multi.getContentType(name);
@@ -95,6 +103,7 @@ public class PellMultiPartRequest extends MultiPartRequest {
 
         try {
             encoding = Configuration.getString("webwork.i18n.encoding");
+
             if (encoding != null) {
                 //NB: This should never be called at the same time as the constructor for
                 //ServletMultiPartRequest, as it can cause problems.
