@@ -50,7 +50,7 @@
 <tr>
     <td align="right">Empty Component:</td><td>&nbsp;</td><td>
 <benchmark:duration output="true">
-<ww:component label="'component test'" name="'componentField'" template="/template/xhtml/empty.vm" />
+<ww:component label="'component test'" name="'componentField'" template="'empty.vm'" />
 </benchmark:duration> ms</td></tr>
 
 <benchmark:duration output="true">

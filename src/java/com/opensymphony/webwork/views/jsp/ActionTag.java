@@ -159,7 +159,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         if (namespaceAttr == null) {
             namespace = buildNamespace();
         } else {
-            namespace = namespaceAttr;
+            namespace = findString(namespaceAttr);
         }
 
         // execute at this point, after params have been set

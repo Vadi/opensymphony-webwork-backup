@@ -300,7 +300,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/core/oscore-2.2.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/core/ognl-2.6.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -309,7 +309,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/core/ognl-2.6.5.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/core/oscore-2.2.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -585,18 +585,18 @@
       </pairs>
       <pairs>
         <key>
-          <option name="value" value="153" />
-        </key>
-        <value predicate="moduleLibrary">
-          <url>jar://$MODULE_DIR$/lib/core/oscore-2.2.3.jar!/</url>
-        </value>
-      </pairs>
-      <pairs>
-        <key>
           <option name="value" value="155" />
         </key>
         <value predicate="moduleLibrary">
           <url>jar://$MODULE_DIR$/lib/core/ognl-2.6.5.jar!/</url>
+        </value>
+      </pairs>
+      <pairs>
+        <key>
+          <option name="value" value="157" />
+        </key>
+        <value predicate="moduleLibrary">
+          <url>jar://$MODULE_DIR$/lib/core/oscore-2.2.4.jar!/</url>
         </value>
       </pairs>
     </orderEntriesWatcher>
@@ -891,7 +891,7 @@
       </info>
       <info>
         <key>
-          <option name="value" value="153" />
+          <option name="value" value="155" />
         </key>
         <value>
           <setting name="copy" value="false" />
@@ -900,7 +900,7 @@
       </info>
       <info>
         <key>
-          <option name="value" value="155" />
+          <option name="value" value="157" />
         </key>
         <value>
           <setting name="copy" value="false" />

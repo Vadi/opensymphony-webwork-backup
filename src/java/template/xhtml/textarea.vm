@@ -1,39 +1,4 @@
-#*
-  -- textarea.vm
-  --
-  -- Required Parameters:
-  --   * label  - The description that will be used to identfy the control.
-  --   * name   - The name of the attribute to put and pull the result from.
-  --              Equates to the NAME parameter of the HTML INPUT tag.
-  --   * cols   - Width of the textarea.  Equates to the COLS parameter of
-  --              HTML tag TEXTAREA.
-  --   * rows   - Height of the textarea.  Equates to the ROWS parameter of
-  --              HTML tag TEXTAREA.
-  --
-  -- Optional Parameters:
-  --   * labelposition   - determines were the label will be place in relation
-  --                       to the control.  Default is to the left of the control.
-  --   * disabled  - DISABLED parameter of the HTML TEXTAREA tag.
-  --   * readonly  - READONLY parameter of the HTML TEXTAREA tag.
-  --   * onkeyup   - onkeyup parameter of the HTML TEXTAREA tag.
-  --   * tabindex  - tabindex parameter of the HTML TEXTAREA tag.
-  --   * onchange  - onkeyup parameter of the HTML TEXTAREA tag.
-  --
-    *#
 #parse("/template/xhtml/controlheader.vm")
-
-<textarea name="$!webwork.htmlEncode($parameters.name)"
-          cols="$!webwork.htmlEncode($parameters.cols)"
-          rows="$!webwork.htmlEncode($parameters.rows)"
-#if ($parameters.nameValue)        value="$!webwork.htmlEncode($parameters.nameValue)"      #end
-#if ($parameters.disabled == true) disabled="disabled"                #end
-#if ($parameters.readonly)         readonly="readonly"                #end
-#if ($parameters.onkeyup)          onkeyup="$!webwork.htmlEncode($parameters.onkeyup)"      #end
-#if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)"    #end
-#if ($parameters.onchange)         onchange="$!webwork.htmlEncode($parameters.onchange)"    #end
-#if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
-#if ($parameters.get('class'))     class="$!webwork.htmlEncode($parameters.get('class'))"   #end
-#if ($parameters.style)            style="$!webwork.htmlEncode($parameters.style)"          #end
->$!webwork.htmlEncode($parameters.nameValue)</textarea>
-
+#parse("/template/simple/textarea.vm")
 #parse("/template/xhtml/controlfooter.vm")
+

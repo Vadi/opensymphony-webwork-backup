@@ -1,19 +1,3 @@
-#*
-  -- checkbox.vm
-  --
-  -- Required Parameters:
-  --   * label       - The description that will be used to identfy the control
-  --   * name        - The name of the attribute to put and pull the result from
-  --                   Equates to the NAME parameter of the HTML INPUT tag
-  --   * fieldValue  - The value displayed by the control.  Equates to the value
-  --                   of the HTML INPUT tag
-  --
-  -- Optional Parameters:
-  --   * disabled        - DISABLED parameter of the HTML INPUT tag
-  --   * tabindex        - tabindex parameter of the HTML INPUT tag
-  --   * onchange        - onkeyup parameter of the HTML INPUT tag
-    *#
-
 #if( $fieldErrors.get($parameters.name) )
   #set ($hasFieldErrors = $fieldErrors.get($parameters.name))
   #foreach ($error in $fieldErrors.get($parameters.name))
@@ -27,30 +11,6 @@
 
 <tr>
     <td  valign="top" colspan="2">
-        #* Use an extra table so that the checkbox doesn't align with the other columns. *#
-        <table width="100%" border="0" cellpadding="0" cellspacing="0">
-            <tr><td valign="top">
-                <input type="checkbox"
-                       name="$!webwork.htmlEncode($parameters.name)"
-                       value="$!webwork.htmlEncode($parameters.fieldValue)"
-                #if ($parameters.nameValue)        checked="checked" #end
-                #if ($parameters.disabled == true) disabled="disabled"                #end
-                #if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)"    #end
-                #if ($parameters.onchange)         onchange="$!webwork.htmlEncode($parameters.onchange)"    #end
-                #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
-                #if ($parameters.get('class'))     class="$!webwork.htmlEncode($parameters.get('class'))"   #end
-                #if ($parameters.style)            style="$!webwork.htmlEncode($parameters.style)"          #end
-                />
-            </td>
-            <td width="100%" valign="top">
-                #if ($hasFieldErrors)
-                    <span class="checkboxErrorLabel">
-                #else
-                    <span class="checkboxLabel">
-                #end
-                        $!webwork.htmlEncode($parameters.label)
-                    </span>
-            </td>
-            </tr>
-        </table>
+#parse("/template/simple/checkbox.vm")
+
 #parse("/template/xhtml/controlfooter.vm")

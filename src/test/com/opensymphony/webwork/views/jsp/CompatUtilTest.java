@@ -58,4 +58,8 @@ public class CompatUtilTest extends TestCase {
     protected void setUp() throws Exception {
         CompatUtil.compatMode = true;
     }
+
+    protected void tearDown() throws Exception {
+        CompatUtil.compatMode = false;
+    }
 }

@@ -22,9 +22,6 @@ public class SubmitTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testDefaultValues() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + SubmitTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 
@@ -39,9 +36,6 @@ public class SubmitTest extends AbstractUITagTest {
     }
 
     public void testSimple() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + SubmitTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 

@@ -48,8 +48,8 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
                 THEME += "/";
             }
         } catch (IllegalArgumentException e) {
-            LOG.warn("Unable to find 'webwork.ui.theme' property setting. Defaulting to /template/xhtml/", e);
-            THEME = "/template/xhtml/";
+            LOG.warn("Unable to find 'webwork.ui.theme' property setting. Defaulting to xhtml", e);
+            THEME = "xhtml";
         }
     }
 
@@ -64,9 +64,11 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String tabindexAttr;
     protected String templateAttr;
     protected String themeAttr;
+    protected String theme;
+    protected String templateDir;
     protected String valueAttr;
-    protected String classAttr;
-    protected String styleAttr;
+    protected String cssClassAttr;
+    protected String cssStyleAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -110,12 +112,12 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         valueAttr = aValue;
     }
 
-    public void setClass(String aClass) {
-        classAttr = aClass;
+    public void setCssClass(String aCssClass) {
+        cssClassAttr = aCssClass;
     }
 
-    public void setStyle(String aStyle) {
-        this.styleAttr = aStyle;
+    public void setCssStyle(String aCssStyle) {
+        this.cssStyleAttr = aCssStyle;
     }
 
     public int doEndTag() throws JspException {
@@ -163,41 +165,57 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         return String.class;
     }
 
+    public String getTheme() {
+       // If theme set is not explicitly given,
+       // try to find attribute which states the theme set to use
+       if ((theme == null) || (theme == "")) {
+          theme = (String) pageContext.findAttribute("theme");
+       }
+
+       // Default template set
+       if ((theme == null) || (theme == "")) {
+          theme = Configuration.getString("webwork.ui.theme");
+       }
+
+       return theme;
+    }
+
+    public String getTemplateDir() {
+       // If templateDir is not explicitly given,
+       // try to find attribute which states the dir set to use
+       if ((templateDir == null) || (templateDir == "")) {
+         templateDir = (String) pageContext.findAttribute("templateDir");
+       }
+
+       // Default template set
+       if ((templateDir == null) || (templateDir == "")) {
+          templateDir = Configuration.getString("webwork.ui.templateDir");
+       }
+
+       if ((templateDir == null) || (templateDir == "")) {
+          templateDir = "template";
+       }
+
+       return templateDir;
+    }
+
     /**
      * @param myTemplate
      * @param myDefaultTemplate
      */
     protected String buildTemplateName(String myTemplate, String myDefaultTemplate) {
-        /**
-         * If no used defined template has been speccified, apply the appropriate theme to the default template
-         */
-        if (myTemplate == null) {
-            if (this.themeAttr == null) {
-                return THEME + myDefaultTemplate;
-            } else if (this.themeAttr.endsWith("/")) {
-                return this.themeAttr + myDefaultTemplate;
-            } else {
-                return this.themeAttr + "/" + myDefaultTemplate;
-            }
-
-            /**
-             * If a theme has been specified and it begins with a '/', allow this to override any theme value provided.
-             */
-        } else if (myTemplate.startsWith("/")) {
-            return myTemplate;
-
-            /**
-             * Otherwise, apply the appropriate theme to the user specified template
-             */
-        } else {
-            if (this.themeAttr == null) {
-                return THEME + myTemplate;
-            } else if (this.themeAttr.endsWith("/")) {
-                return this.themeAttr + myTemplate;
-            } else {
-                return this.themeAttr + "/" + myTemplate;
-            }
+        if (themeAttr != null)
+        {
+            theme = findString(themeAttr);
         }
+
+        String template = null;
+        if (myTemplate == null) {
+            template = myDefaultTemplate;
+        } else {
+            template = findString(myTemplate);
+        }
+        return "/" + getTemplateDir() + "/" + getTheme() + "/" + template;
     }
 
     protected void evaluateExtraParams(OgnlValueStack stack) {
@@ -235,12 +253,12 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             addParameter("onchange", findValue(onchangeAttr, String.class));
         }
 
-        if (classAttr != null) {
-            addParameter("class", findValue(classAttr, String.class));
+        if (cssClassAttr != null) {
+            addParameter("cssClass", findValue(cssClassAttr, String.class));
         }
 
-        if (classAttr != null) {
-            addParameter("style", findValue(styleAttr, String.class));
+        if (cssStyleAttr != null) {
+            addParameter("cssStyle", findValue(cssStyleAttr, String.class));
         }
 
         FormTag tag = (FormTag) findAncestorWithClass(this, FormTag.class);
@@ -248,19 +266,21 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             addParameter("form", tag.getParameters());
         }
 
-        Class valueClazz = getValueClassType();
+        if (evaluateNameValue()) {
+            Class valueClazz = getValueClassType();
 
-        if (valueClazz != null) {
-            if (valueAttr != null) {
-                addParameter("nameValue", findValue(valueAttr, valueClazz));
-            } else if (name != null) {
-                addParameter("nameValue", findValue(name.toString(), valueClazz));
-            }
-        } else {
-            if (valueAttr != null) {
-                addParameter("nameValue", findValue(valueAttr));
-            } else if (name != null) {
-                addParameter("nameValue", findValue(name.toString()));
+            if (valueClazz != null) {
+                if (valueAttr != null) {
+                    addParameter("nameValue", findValue(valueAttr, valueClazz));
+                } else if (name != null) {
+                    addParameter("nameValue", findValue(name.toString(), valueClazz));
+                }
+            } else {
+                if (valueAttr != null) {
+                    addParameter("nameValue", findValue(valueAttr));
+                } else if (name != null) {
+                    addParameter("nameValue", findValue(name.toString()));
+                }
             }
         }
 
@@ -283,6 +303,10 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         evaluateExtraParams(stack);
+    }
+
+    protected boolean evaluateNameValue() {
+        return true;
     }
 
     protected void mergeTemplate(String templateName) throws Exception {

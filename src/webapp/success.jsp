@@ -72,14 +72,14 @@ aka:
 <hr>
 Here is an action inside an action. This should make the counter increase twice as fast:<br/>
 <ww:action name="'VelocityCounter'" id="vc">
- <ww:param name="foo" value="'BAR'"/>
+ <ww:param name="'foo'" value="'BAR'"/>
 </ww:action>
 
 <ww:push value="#vc">
 <pre>
  counter.count (old) == <ww:property value="[1].counter.count" />
  counter.count (new) == <ww:property value="counter.count" />
- foo is also: <ww:property value="foo"/>
+ foo is also: <ww:property value="'foo'"/>
 </pre>
 </ww:push>
 
