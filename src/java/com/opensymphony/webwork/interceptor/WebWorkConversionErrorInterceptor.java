@@ -8,17 +8,23 @@ import com.opensymphony.xwork.interceptor.ConversionErrorInterceptor;
 
 
 /**
- * WebWorkConversionErrorInterceptor adds the conversion errors from the ActionContext to the field errors of the Action
- * if the field value is not null, "", or {""} (A size 1 String array with only an empty String).
+ * This interceptor adds the conversion errors from the ActionContext to the field errors of the Action
+ * if the field value is not null, "", or {""} (a size 1 String array with only an empty String).
  *
  * @see com.opensymphony.xwork.ActionContext#getConversionErrors()
  * @see ConversionErrorInterceptor
  * @author Jason Carreira
- * Date: Nov 27, 2003 4:17:24 PM
  */
 public class WebWorkConversionErrorInterceptor extends ConversionErrorInterceptor {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+     * Returns <tt>false</tt> if the value is null, "", or {""} (array of size 1 with
+     * a blank element). Returns <tt>true</tt> otherwise.
+     *
+     * @param propertyName the name of the property to check.
+     * @param value the value to error check.
+     * @return <tt>false</tt>  if the value is null, "", or {""}, <tt>true</tt> otherwise.
+     */
     protected boolean shouldAddError(String propertyName, Object value) {
         if (value == null) {
             return false;

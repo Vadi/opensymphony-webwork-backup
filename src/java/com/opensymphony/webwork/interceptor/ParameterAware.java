@@ -14,21 +14,23 @@ import java.util.Map;
 
 
 /**
- *        This interface gives actions an alternative way of receiving
- * input parameters. The map will contain all input parameters as
- * name/value entries. Actions that need this should simply implement it.
+ * This interface gives actions an alternative way of receiving input parameters. The map will
+ * contain all input parameters as name/value entries. Actions that need this should simply implement it. <p>
  *
- * One common use for this is to have the action propagate parameters
- * to internally instantiated data objects.
+ * One common use for this is to have the action propagate parameters to internally instantiated data
+ * objects. <p>
  *
- * Note that all parameter values for a given name will be returned,
- * so the type of the objects in the map is java.lang.String[]
+ * Note that all parameter values for a given name will be returned, so the type of the objects in
+ * the map is <tt>java.lang.String[]</tt>.
  *
- *        @author Rickard Öberg (rickard@middleware-company.com)
- *        @version $Revision$
+ * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
  */
 public interface ParameterAware {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+     * Sets the  map of input parameters in the implementing class.
+     *
+     * @param parameters a Map of parameters (name/value Strings).
+     */
     public void setParameters(Map parameters);
 }

@@ -8,13 +8,21 @@ import java.util.Map;
 
 
 /**
- *        Actions that want access to the users session should implement this interface.
+ * Actions that want access to the user's HTTP session should implement this interface.<p>
  *
- *        @author Rickard Öberg (rickard@middleware-company.com)
- *        @version $Revision$
+ * This interface is only relevant if the Action is used in a servlet environment.<p>
+ *
+ * Note that using this interface makes the Action tied to a servlet environment, so it should be
+ * avoided if possible since things like unit testing will become more difficult.
+ *
+ * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
  */
 public interface SessionAware {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+     * Sets the Map of session attributes in the implementing class.
+     *
+     * @param session a Map of HTTP session attribute name/value pairs.
+     */
     public void setSession(Map session);
 }

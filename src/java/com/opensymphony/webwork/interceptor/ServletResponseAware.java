@@ -8,20 +8,21 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * All Actions that want to have access to the servlet response
- * objects must implement this interface.
+ * All Actions that want to have access to the servlet response object must implement this interface.<p>
  *
- * This interface is only relevant if the Action is used in a servlet
- * environment.
+ * This interface is only relevant if the Action is used in a servlet environment.<p>
  *
- * Note that using this interface makes the Action tied to a servlet
- * environment, so it should be avoided if possible.
+ * Note that using this interface makes the Action tied to a servlet environment, so it should be
+ * avoided if possible since things like unit testing will become more difficult.
  *
- *        @author Rickard Öberg (rickard@middleware-company.com)
- *        @version $Revision$
+ * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
  */
 public interface ServletResponseAware {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+     * Sets the HTTP response object in implementing classes.
+     *
+     * @param response the HTTP response.
+     */
     public void setServletResponse(HttpServletResponse response);
 }
