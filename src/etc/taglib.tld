@@ -95,6 +95,11 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>default</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -212,7 +217,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-    
+
     <tag>
         <name>checkboxlist</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.CheckboxListTag</tagclass>
