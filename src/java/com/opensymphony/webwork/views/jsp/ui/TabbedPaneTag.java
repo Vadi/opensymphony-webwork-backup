@@ -112,6 +112,10 @@ public class TabbedPaneTag extends ComponentTag {
         return super.doStartTag();
     }
 
+    public boolean compareNumbers(Number n1, Number n2) {
+        return n1.longValue() == n2.longValue();
+    }
+
     // IncludeTag overrides ------------------------------------------
     public void release() {
         this.setSelectedIndex(0);
