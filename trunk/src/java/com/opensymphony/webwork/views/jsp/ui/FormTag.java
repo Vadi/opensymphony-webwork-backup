@@ -21,7 +21,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
 
 
 /**
@@ -47,7 +46,6 @@ public class FormTag extends AbstractClosingUITag {
     String methodAttr;
     String namespaceAttr;
     String validateAttr;
-    private boolean m_isValidatorRegistrationOpen = true;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -81,16 +79,6 @@ public class FormTag extends AbstractClosingUITag {
 
     public void setValidate(String validate) {
         this.validateAttr = validate;
-    }
-
-    public boolean isValidatorRegsitrationOpen() {
-        return m_isValidatorRegistrationOpen;
-    }
-
-    public int doEndTag() throws JspException {
-        m_isValidatorRegistrationOpen = false;
-
-        return super.doEndTag();
     }
 
     public void evaluateExtraParams(OgnlValueStack stack) {
@@ -183,10 +171,6 @@ public class FormTag extends AbstractClosingUITag {
      * there will be duplicate validators if the tag is cached.
      */
     public void registerValidator(ScriptValidationAware sva, Map params) {
-        if (!m_isValidatorRegistrationOpen) {
-            return;
-        }
-
         if (fieldValidators == null) {
             fieldValidators = new ArrayList();
             fieldParameters = new ArrayList();
@@ -202,5 +186,21 @@ public class FormTag extends AbstractClosingUITag {
 
     protected boolean evaluateNameValue() {
         return false;
+    }
+
+    /**
+     * Resets the attributes of this tag so that the tag may be reused.  As a general rule, only
+     * properties that are not specified as an attribute or properties that are derived need to be
+     * reset.  Examples of this would include the parameters Map in ParameterizedTag and the
+     * namespace in the ActionTag (which can be a derived value). <p /> This should be the last
+     * thing called as part of the doEndTag
+     */
+    protected void reset() {
+        super.reset();
+
+        if (fieldValidators != null) {
+            fieldValidators.clear();
+            fieldParameters.clear();
+        }
     }
 }
