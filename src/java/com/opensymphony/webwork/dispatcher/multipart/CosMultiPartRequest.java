@@ -13,6 +13,7 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 /**
  * Multipart form data request adapter for Jason Hunter's
  * <a href="http://www.servlets.com/cos/index.html" target="_blank">multipart utils</a>
@@ -22,8 +23,11 @@ import javax.servlet.http.HttpServletRequest;
  * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a> (added i18n handling (WW-109))
  */
 public class CosMultiPartRequest extends MultiPartRequest {
+    //~ Instance fields ////////////////////////////////////////////////////////
 
     private MultipartRequest multi;
+
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Creates a new request wrapper to handle multi-part data using methods adapted from the COS
@@ -42,6 +46,8 @@ public class CosMultiPartRequest extends MultiPartRequest {
             multi = new MultipartRequest(servletRequest, saveDir, maxSize);
         }
     }
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getContentType(String name) {
         return multi.getContentType(name);

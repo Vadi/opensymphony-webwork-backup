@@ -84,6 +84,30 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
         return requestURI;
     }
 
+    public void setScheme(String scheme) {
+        this.scheme = scheme;
+    }
+
+    public String getScheme() {
+        return scheme;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerPort(int serverPort) {
+        this.serverPort = serverPort;
+    }
+
+    public int getServerPort() {
+        return serverPort;
+    }
+
     public HttpSession getSession() {
         HttpSession session = null;
 
@@ -103,29 +127,5 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
 
     public void setupGetPathInfo(String pathInfo) {
         this.pathInfo = pathInfo;
-    }
-
-    public String getScheme() {
-        return scheme;
-    }
-
-    public void setScheme(String scheme) {
-        this.scheme = scheme;
-    }
-
-    public String getServerName() {
-        return serverName;
-    }
-
-    public void setServerName(String serverName) {
-        this.serverName = serverName;
-    }
-
-    public int getServerPort() {
-        return serverPort;
-    }
-
-    public void setServerPort(int serverPort) {
-        this.serverPort = serverPort;
     }
 }

@@ -6,16 +6,21 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.runtime.RuntimeSingleton;
 import org.apache.velocity.servlet.VelocityServlet;
+
+import java.io.Writer;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
@@ -23,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.PageContext;
-import java.io.Writer;
 
 
 /**
@@ -35,8 +39,11 @@ import java.io.Writer;
  * @author <a href="mailto:matt@indigoegg.com">Matt Ho</a>
  */
 public class VelocityResult extends WebWorkResultSupport {
+    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(VelocityResult.class);
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Creates a Velocity context from the action, loads a Velocity template and executes the

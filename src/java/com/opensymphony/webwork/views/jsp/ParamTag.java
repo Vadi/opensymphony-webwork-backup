@@ -1,7 +1,13 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp;
 
-import javax.servlet.jsp.JspException;
 import java.util.Map;
+
+import javax.servlet.jsp.JspException;
+
 
 /**
  * This tag can be used to parameterize other tags, who implement
@@ -29,9 +35,13 @@ import java.util.Map;
  * @see com.opensymphony.webwork.views.jsp.BeanTag
  */
 public class ParamTag extends WebWorkBodyTagSupport {
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     // Attributes ----------------------------------------------------
     protected String nameAttr;
     protected String valueAttr;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setName(String aName) {
         nameAttr = aName;
@@ -44,6 +54,7 @@ public class ParamTag extends WebWorkBodyTagSupport {
     // BodyTag implementation ----------------------------------------
     public int doEndTag() throws JspException {
         Parametric parametricTag = (Parametric) findAncestorWithClass(this, Parametric.class);
+
         if (parametricTag != null) {
             if (valueAttr != null) {
                 if (parametricTag instanceof UnnamedParametric) {
@@ -60,7 +71,8 @@ public class ParamTag extends WebWorkBodyTagSupport {
                 }
             } else {
                 String content = null;
-                if (!(bodyContent != null && (content = bodyContent.getString()).length() != 0)) {
+
+                if (!((bodyContent != null) && ((content = bodyContent.getString()).length() != 0))) {
                     content = null; // No value
                 }
 
@@ -71,8 +83,11 @@ public class ParamTag extends WebWorkBodyTagSupport {
                 }
             }
         }
+
         return EVAL_PAGE;
     }
+
+    //~ Inner Interfaces ///////////////////////////////////////////////////////
 
     // Inner classes -------------------------------------------------
     public interface Parametric {
@@ -85,5 +100,3 @@ public class ParamTag extends WebWorkBodyTagSupport {
         public void addParameter(Object value);
     }
 }
-
-

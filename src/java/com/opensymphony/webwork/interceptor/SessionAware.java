@@ -18,6 +18,7 @@ import java.util.Map;
  * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
  */
 public interface SessionAware {
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets the Map of session attributes in the implementing class.

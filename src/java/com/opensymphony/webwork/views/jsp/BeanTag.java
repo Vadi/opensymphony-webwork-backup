@@ -81,9 +81,6 @@ public class BeanTag extends WebWorkTagSupport implements ParamTag.Parametric {
     }
 
     public int doStartTag() throws JspException {
-        // Instantiate bean
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-
         if (name == null) {
             throw new JspException("Bean name must be specified.");
         }

@@ -1,15 +1,30 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jasperreports;
 
 import com.opensymphony.util.TextUtils;
+
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
+
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
+
 import dori.jasper.engine.*;
 import dori.jasper.engine.export.*;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -17,11 +32,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * Genreates a JasperReports report using the specified format or PDF if no format is specified.
@@ -44,12 +55,25 @@ import java.util.Map;
  * @author <a href="mailto:hermanns@aixcept.de">Rainer Hermanns</a>
  */
 public class JasperReportsResult extends WebWorkResultSupport implements JasperReportConstants {
+    //~ Static fields/initializers /////////////////////////////////////////////
+
     private final static Log LOG = LogFactory.getLog(JasperReportsResult.class);
 
+    //~ Instance fields ////////////////////////////////////////////////////////
+
+    protected String IMAGES_URI = "/images/";
     private String dataSource;
     private String format;
 
-    protected String IMAGES_URI = "/images/";
+    //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setDataSource(String dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
 
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
         if (this.format == null) {
@@ -86,9 +110,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
         if (!"contype".equals(request.getHeader("User-Agent"))) {
             // Determine the directory that the report file is in and set the reportDirectory parameter
-            ServletContext servletContext
-                    = ((ServletConfig) invocation.getInvocationContext().
-                    get(ServletActionContext.SERVLET_CONFIG)).getServletContext();
+            ServletContext servletContext = ((ServletConfig) invocation.getInvocationContext().get(ServletActionContext.SERVLET_CONFIG)).getServletContext();
             String systemId = servletContext.getRealPath(finalLocation);
             Map parameters = new OgnlValueStackShadowMap(stack);
             File directory = new File(systemId.substring(0, systemId.lastIndexOf(File.separator)));
@@ -195,13 +217,4 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
         return output;
     }
-
-    public void setDataSource(String dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
 }
-

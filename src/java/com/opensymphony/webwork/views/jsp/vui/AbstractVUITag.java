@@ -7,8 +7,8 @@ package com.opensymphony.webwork.views.jsp.vui;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.ContainUtil;
 import com.opensymphony.webwork.views.jsp.IncludeTag;
-import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 import com.opensymphony.webwork.views.jsp.ParamTag;
+import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -87,6 +87,7 @@ public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements Pa
         // Default template set
         if ((theme == null) || (theme == "")) {
             theme = Configuration.getString("webwork.ui.theme");
+
             if (!theme.endsWith("/")) {
                 theme += "/";
             }
@@ -190,8 +191,8 @@ public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements Pa
     protected abstract void initializeAttributes();
 
     /**
- * get the template directory for a specific voice browser
- */
+    * get the template directory for a specific voice browser
+    */
     protected String getTemplateDirectory() {
         String ua = getBrowserUserAgent();
 

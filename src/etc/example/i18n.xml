@@ -40,11 +40,11 @@
                 <param name="location">shop.vm</param>
             </result>
         </action>
-        <action name="i18n.Cart" class="com.opensymphony.webwork.example.i18n.Cart">
-            <result name="success" type="velocity">
-                <param name="location">cart.vm</param>
-            </result>
-        </action>
+<!--        <action name="i18n.Cart" class="com.opensymphony.webwork.example.i18n.Cart">-->
+<!--            <result name="success" type="velocity">-->
+<!--                <param name="location">cart.vm</param>-->
+<!--            </result>-->
+<!--        </action>-->
         <action name="i18n.CDList" class="com.opensymphony.webwork.example.i18n.CDList">
             <result name="success" type="velocity">
                 <param name="location">cdlist.vm</param>
@@ -90,11 +90,11 @@
                 <param name="location">shop.jsp</param>
             </result>
         </action>
-        <action name="i18n.Cart" class="com.opensymphony.webwork.example.i18n.Cart">
-            <result name="success" type="dispatcher">
-                <param name="location">cart.jsp</param>
-            </result>
-        </action>
+<!--        <action name="i18n.Cart" class="com.opensymphony.webwork.example.i18n.Cart">-->
+<!--            <result name="success" type="dispatcher">-->
+<!--                <param name="location">cart.jsp</param>-->
+<!--            </result>-->
+<!--        </action>-->
         <action name="i18n.CDList" class="com.opensymphony.webwork.example.i18n.CDList">
             <result name="success" type="dispatcher">
                 <param name="location">cdlist.jsp</param>

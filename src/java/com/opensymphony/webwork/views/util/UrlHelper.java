@@ -24,22 +24,23 @@ import javax.servlet.http.HttpServletResponse;
  * Created Apr 19, 2003 9:32:19 PM
  */
 public class UrlHelper {
-    //~ Methods ////////////////////////////////////////////////////////////////
+    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final String AMP = "&";
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params) {
         return buildUrl(action, request, response, params, null, true, true);
     }
 
-    public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response,
-                                  Map params, String scheme, boolean includeContext, boolean encodeResult) {
+    public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params, String scheme, boolean includeContext, boolean encodeResult) {
         StringBuffer link = new StringBuffer();
 
-         boolean changedScheme = false;
+        boolean changedScheme = false;
 
         // only append scheme if it is different to the current scheme
-        if (scheme != null && !scheme.equals(request.getScheme())) {
+        if ((scheme != null) && !scheme.equals(request.getScheme())) {
             changedScheme = true;
             link.append(scheme);
             link.append("://");
@@ -47,7 +48,8 @@ public class UrlHelper {
 
             // do not append port for default ports
             int port = request.getServerPort();
-            if (!(scheme.equals("http") && port == 80) && !(scheme.equals("https") && port == 443)) {
+
+            if (!(scheme.equals("http") && (port == 80)) && !(scheme.equals("https") && (port == 443))) {
                 link.append(":");
                 link.append(port);
             }
@@ -58,8 +60,7 @@ public class UrlHelper {
             // Add path to absolute links
             if (action.startsWith("/") && includeContext) {
                 link.append(request.getContextPath());
-            }
-            else if (changedScheme) {
+            } else if (changedScheme) {
                 String uri = request.getRequestURI();
                 link.append(uri.substring(0, uri.lastIndexOf('/')));
             }
@@ -69,6 +70,7 @@ public class UrlHelper {
         } else {
             // Go to "same page"
             String requestURI = (String) request.getAttribute("webwork.request_uri");
+
             if (requestURI == null) {
                 requestURI = request.getRequestURI();
             }
@@ -88,12 +90,14 @@ public class UrlHelper {
             Iterator enum = params.entrySet().iterator();
 
             String[] valueHolder = new String[1];
+
             while (enum.hasNext()) {
                 Map.Entry entry = (Map.Entry) enum.next();
                 String name = (String) entry.getKey();
                 Object value = entry.getValue();
 
                 String[] values;
+
                 if (value instanceof String[]) {
                     values = (String[]) value;
                 } else {
@@ -108,7 +112,7 @@ public class UrlHelper {
                         link.append(translateAndEncode(values[i]));
                     }
 
-                    if (i < values.length - 1) {
+                    if (i < (values.length - 1)) {
                         link.append("&");
                     }
                 }

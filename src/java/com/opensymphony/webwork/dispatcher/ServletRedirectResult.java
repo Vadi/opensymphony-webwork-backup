@@ -23,10 +23,15 @@ import javax.servlet.http.HttpServletResponse;
  * @author Patrick Lightbody
  */
 public class ServletRedirectResult extends WebWorkResultSupport {
+    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(ServletRedirectResult.class);
 
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     protected boolean prependServletContext = true;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets whether or not to prepend the servlet context path to the redirected URL.

@@ -44,11 +44,16 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * @author Matt Baldree
  */
 public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
+    //~ Static fields/initializers /////////////////////////////////////////////
 
     protected static final Log log = LogFactory.getLog(MultiPartRequestWrapper.class);
 
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     Collection errors;
     MultiPartRequest multi;
+
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Instantiates the appropriate MultiPartRequest parser implementation and processes the data.
@@ -120,6 +125,8 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
         }
     }
 
+    //~ Methods ////////////////////////////////////////////////////////////////
+
     /**
      * Get the content encoding type for the given file name. Name is the name field on the input tag.
      *
@@ -186,19 +193,6 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * Returns <tt>true</tt> if any errors occured when parsing the HTTP multipart request, <tt>false</tt> otherwise.
-     *
-     * @return <tt>true</tt> if any errors occured when parsing the HTTP multipart request, <tt>false</tt> otherwise.
-     */
-    public boolean hasErrors() {
-        if ((errors == null) || errors.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
      * @see javax.servlet.http.HttpServletRequest#getParameter(String)
      */
     public String getParameter(String name) {
@@ -236,6 +230,19 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
      */
     public String[] getParameterValues(String name) {
         return ((multi == null) || (multi.getParameterValues(name) == null)) ? super.getParameterValues(name) : multi.getParameterValues(name);
+    }
+
+    /**
+     * Returns <tt>true</tt> if any errors occured when parsing the HTTP multipart request, <tt>false</tt> otherwise.
+     *
+     * @return <tt>true</tt> if any errors occured when parsing the HTTP multipart request, <tt>false</tt> otherwise.
+     */
+    public boolean hasErrors() {
+        if ((errors == null) || errors.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**

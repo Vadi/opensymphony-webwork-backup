@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Bill Lynch (docs)
  */
 public class ServletConfigInterceptor extends AroundInterceptor implements WebWorkStatics {
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Does nothing.

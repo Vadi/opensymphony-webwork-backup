@@ -46,10 +46,13 @@ import javax.servlet.http.HttpServletResponse;
  * @author <a href="mailto:jerome.bernard@xtremejava.com">Jerome Bernard</a>
  */
 public class CoolUriServletDispatcher extends ServletDispatcher {
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     public CoolUriServletDispatcher() {
         super();
     }
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Parses the servlet path for the action name and parameters (see the class description for an

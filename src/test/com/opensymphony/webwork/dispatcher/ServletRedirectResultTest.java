@@ -30,9 +30,9 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
     //~ Instance fields ////////////////////////////////////////////////////////
 
     protected ServletRedirectResult view;
+    private ActionContext oldContext;
     private Mock requestMock;
     private Mock responseMock;
-    private ActionContext oldContext;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -80,6 +80,7 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
         requestMock = new Mock(HttpServletRequest.class);
         requestMock.matchAndReturn("getContextPath", "/context");
         oldContext = ActionContext.getContext();
+
         ActionContext ac = new ActionContext(Ognl.createDefaultContext(null));
         ActionContext.setContext(ac);
         ServletActionContext.setResponse((HttpServletResponse) responseMock.proxy());
