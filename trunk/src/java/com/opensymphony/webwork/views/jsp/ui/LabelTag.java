@@ -19,6 +19,12 @@ public class LabelTag extends AbstractUITag {
      */
     final public static String TEMPLATE = "label";
 
+    protected String forAttr;
+
+    public void setFor(String aFor) {
+        this.forAttr = aFor;
+    }
+
     //~ Methods ////////////////////////////////////////////////////////////////
 
     protected String getDefaultTemplate() {
@@ -27,6 +33,10 @@ public class LabelTag extends AbstractUITag {
 
     protected void evaluateExtraParams(OgnlValueStack stack) {
         super.evaluateExtraParams(stack);
+
+        if (forAttr != null) {
+            addParameter("for", findString(forAttr));
+        }
 
         // try value first, then name (this overrides the default behavior in the superclass)
         if (valueAttr != null) {
