@@ -2,6 +2,7 @@
 #if( !$labelValue )
 #set( $labelValue = $tag.Label )
 #end
+<tr>
 <td colspan="2">
 <table width="100%" >
 <tr>
@@ -15,4 +16,4 @@
     <td><label for="$parameters.name">$!parameters.label</label></td>
 </tr>
 </table>
-</td>
+#parse( "/templates/xhtml/controlfooter.vm" )
