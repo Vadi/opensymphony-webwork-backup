@@ -107,6 +107,8 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
 
     // Path to save uploaded files to (this is configurable).
     String saveDir;
+    
+    boolean paramsWorkaroundEnabled = false;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -232,6 +234,15 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
 
         // store a reference to ourself into the SessionContext so that we can generate a PageContext
         config.getServletContext().setAttribute("webwork.servlet", this);
+        
+        // test wether param-access workaround needs to be enabled
+        if(config.getServletContext().getServerInfo().indexOf("WebLogic") >= 0) {
+            log.info("WebLogic server detected. Enabling parameter access work-around.");
+            paramsWorkaroundEnabled = true;
+        }
+        else {
+            log.debug("Parameter access work-around disabled.");
+        }
     }
 
     /**
@@ -246,6 +257,9 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
+            if(paramsWorkaroundEnabled)
+                request.getParameter("foo"); // simply read any parameter (existing or not) to "prime" the request
+	   
             request = wrapRequest(request);
             serviceAction(request, response, getNameSpace(request), getActionName(request), getRequestMap(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
         } catch (IOException e) {
