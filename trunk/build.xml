@@ -295,11 +295,6 @@
             <fileset dir="${lib.core}"/>
         </copy>
 
-        <mkdir dir="${build.dist}/lib/example"/>
-        <copy todir="${build.dist}/lib/example">
-            <fileset dir="${lib.example}"/>
-        </copy>
-
         <mkdir dir="${build.dist}/lib/migration"/>
         <copy todir="${build.dist}/lib/migration">
             <fileset dir="${lib.migration}"/>
