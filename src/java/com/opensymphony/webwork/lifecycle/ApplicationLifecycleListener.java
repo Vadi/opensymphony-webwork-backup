@@ -67,10 +67,10 @@ public class ApplicationLifecycleListener implements ServletContextListener {
             config.loadFromXml(configXml);
         } catch (IOException ioe) {
             log.error(ioe);
-            throw new RuntimeException(ioe);
+            throw new RuntimeException("Unable to load component configuration");
         } catch (SAXException sae) {
             log.error(sae);
-            throw new RuntimeException(sae);
+            throw new RuntimeException("Unable to load component configuration");
         }
 
         return config;
