@@ -64,6 +64,7 @@ public class URLTag extends ParametereizedBodyTagSupport {
 
     // Attributes ----------------------------------------------------
     protected String valueAttr;
+    protected String scheme = "http";
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -75,10 +76,14 @@ public class URLTag extends ParametereizedBodyTagSupport {
         valueAttr = aName;
     }
 
+    public void setScheme(String aScheme) {
+        scheme = aScheme;
+    }
+
     public int doEndTag() throws JspException {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
-        String result = UrlHelper.buildUrl(value, request, response, params);
+        String result = UrlHelper.buildUrl(value, request, response, params, scheme);
 
         String id = getId();
 
