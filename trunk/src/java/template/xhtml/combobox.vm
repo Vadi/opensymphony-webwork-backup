@@ -26,7 +26,7 @@
        name="$!parameters.name"
 #if ($parameters.size)             size="$parameters.size"            #end
 #if ($parameters.maxlength)        maxlength="$parameters.maxlength"  #end
-#if ($parameters.nameValue)        value="$parameters.nameValue"      #end
+#if ($parameters.nameValue)        value="$webwork.htmlEncode($parameters.nameValue)"      #end
 #if ($parameters.disabled == true) disabled="disabled"                #end
 #if ($parameters.onkeyup)          onkeyup="$parameters.onkeyup"      #end
 #if ($parameters.tabindex)         tabindex="$parameters.tabindex"    #end
@@ -39,7 +39,7 @@
          #if ($parameters.disabled == true) disabled="disabled" #end
       >
             #foreach ($param in $parameters.list)
-                <option value="$!param" #if ($parameters.name == $param) selected="selected" #end >$!param</option>
+                <option value="$webwork.htmlEncode($param)" #if ($parameters.name == $param) selected="selected" #end >$!param</option>
             #end
       </select>
 #end

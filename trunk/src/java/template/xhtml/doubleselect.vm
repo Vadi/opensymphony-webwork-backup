@@ -14,7 +14,7 @@
   #else
       #set( $itemValue = $item.toString() )
   #end
-  <option value="$!{itemValue}"#if( $tag.contains($tag.ActualValue, $itemValue) ) selected#end>$!{itemKey}</option>
+  <option value="$!webwork.htmlEncode($itemValue)"#if( $tag.contains($tag.ActualValue, $itemValue) ) selected#end>$!{itemKey}</option>
 #end
 </select>
 

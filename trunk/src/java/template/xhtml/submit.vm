@@ -4,6 +4,6 @@
         ><input
             type="submit"
             #if ($parameters.name)       name="$parameters.name"           #end
-            #if ($parameters.nameValue)  value="$parameters.nameValue"     #end
+            #if ($parameters.nameValue)  value="$webwork.htmlEncode($parameters.nameValue)"     #end
         /></div>
 #parse( "/template/xhtml/controlfooter.vm" )
