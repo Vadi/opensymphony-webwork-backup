@@ -272,7 +272,7 @@ public class VelocityManager {
                 String classname = st.nextToken();
 
                 try {
-                    VelocityContext velocityContext = (VelocityContext) ObjectFactory.getObjectFactory().buildBean(Class.forName(classname));
+                    VelocityContext velocityContext = (VelocityContext) ObjectFactory.getObjectFactory().buildBean(classname);
                     contextList.add(velocityContext);
                 } catch (Exception e) {
                     log.warn("Warning.  " + e.getClass().getName() + " caught while attempting to instantiate a chained VelocityContext, " + classname + " -- skipping");
