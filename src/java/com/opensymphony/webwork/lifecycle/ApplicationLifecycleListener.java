@@ -11,6 +11,9 @@ import com.opensymphony.xwork.interceptor.component.DefaultComponentManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.ServletContext;
@@ -51,17 +54,25 @@ public class ApplicationLifecycleListener implements ServletContextListener {
     }
 
     private ComponentConfiguration loadConfiguration() {
-        try {
-            ComponentConfiguration config = new ComponentConfiguration();
-            InputStream configXml = Thread.currentThread().getContextClassLoader().getResourceAsStream("components.xml");
+        ComponentConfiguration config = new ComponentConfiguration();
+        InputStream configXml = Thread.currentThread().getContextClassLoader().getResourceAsStream("components.xml");
 
-            config.loadFromXml(configXml);
-
-            return config;
-        } catch (Exception e) {
-            String message = "Cannot load components.xml configuration: " + e.getMessage();
-            log.error(message, e);
+        if (configXml == null) {
+            final String message = "Unable to find the file components.xml in the classpath.";
+            log.error(message);
             throw new RuntimeException(message);
         }
+
+        try {
+            config.loadFromXml(configXml);
+        } catch (IOException ioe) {
+            log.error(ioe);
+            throw new RuntimeException(ioe);
+        } catch (SAXException sae) {
+            log.error(sae);
+            throw new RuntimeException(sae);
+        }
+
+        return config;
     }
 }
