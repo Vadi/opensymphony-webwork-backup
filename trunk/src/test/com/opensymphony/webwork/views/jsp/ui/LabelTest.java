@@ -30,6 +30,22 @@ public class LabelTest extends AbstractUITagTest {
         verify(LabelTest.class.getResource("Label-1.txt"));
     }
 
+    public void testSimpleWithLabelposition() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        LabelTag tag = new LabelTag();
+        tag.setPageContext(pageContext);
+        tag.setLabel("'mylabel'");
+        tag.setName("'myname'");
+        tag.setValue("foo");
+        tag.setLabelposition("'top'");
+
+        int result = tag.doEndTag();
+
+        verify(LabelTest.class.getResource("Label-3.txt"));
+    }
+
     public void testWithNoValue() throws Exception {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("baz");

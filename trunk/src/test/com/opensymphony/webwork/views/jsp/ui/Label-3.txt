@@ -1,0 +1,10 @@
+<tr>
+    <td align="left" valign="top" colspan="2">
+        <span class="label"> mylabel: </span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label > bar </label>
+    </td>
+</tr>

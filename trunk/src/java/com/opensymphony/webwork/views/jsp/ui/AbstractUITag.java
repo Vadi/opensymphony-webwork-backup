@@ -174,20 +174,20 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     /**
- * A contract that requires each concrete UI Tag to specify which template should be used as a default.  For
- * example, the CheckboxTab might return "checkbox.vm" while the RadioTag might return "radio.vm".  This value
- * <strong>not</strong> begin with a '/' unless you intend to make the path absolute rather than relative to the
- * current theme.
- *
- * @return The name of the template to be used as the default.
- */
+* A contract that requires each concrete UI Tag to specify which template should be used as a default.  For
+* example, the CheckboxTab might return "checkbox.vm" while the RadioTag might return "radio.vm".  This value
+* <strong>not</strong> begin with a '/' unless you intend to make the path absolute rather than relative to the
+* current theme.
+*
+* @return The name of the template to be used as the default.
+*/
     protected abstract String getDefaultTemplate();
 
     /**
- * Find the name of the Velocity template that we should use.
- *
- * @return The name of the Velocity template that we should use. This value should begin with a '/'
- */
+* Find the name of the Velocity template that we should use.
+*
+* @return The name of the Velocity template that we should use. This value should begin with a '/'
+*/
     protected String getTemplateName() {
         return buildTemplateName(templateAttr, getDefaultTemplate());
     }
@@ -197,9 +197,9 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     /**
- * @param myTemplate
- * @param myDefaultTemplate
- */
+* @param myTemplate
+* @param myDefaultTemplate
+*/
     protected String buildTemplateName(String myTemplate, String myDefaultTemplate) {
         String template = myDefaultTemplate;
 
@@ -235,7 +235,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         if (labelPositionAttr != null) {
-            addParameter("labelPosition", findValue(labelPositionAttr, String.class));
+            addParameter("labelposition", findValue(labelPositionAttr, String.class));
         }
 
         if (requiredAttr != null) {
@@ -317,13 +317,13 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     }
 
     /**
- * Finds all ScriptValidationAware validators that apply to the field covered by this tag.
- *
- * @param formTag the parent form tag this tag is in
- * @param fieldName the name of the field to validate (used for error message key)
- * @param fieldClass the Class of the object the field is for
- * @param propertyName the actual property name to get validator for; if null, fieldName is used
- */
+* Finds all ScriptValidationAware validators that apply to the field covered by this tag.
+*
+* @param formTag the parent form tag this tag is in
+* @param fieldName the name of the field to validate (used for error message key)
+* @param fieldClass the Class of the object the field is for
+* @param propertyName the actual property name to get validator for; if null, fieldName is used
+*/
     private void findScriptingValidators(FormTag formTag, String fieldName, Class fieldClass, String propertyName) {
         List validators = ActionValidatorManager.getValidators(fieldClass, formTag.getActionName());
 
