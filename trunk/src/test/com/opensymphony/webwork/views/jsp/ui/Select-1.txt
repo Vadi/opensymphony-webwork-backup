@@ -2,8 +2,9 @@
   <td align="right" valign="top"><label class="label">mylabel:</label></td>
   <td>
 <select name="myname"   >
-          <option value="world">hello</option>
-          <option value="bar" selected>foo</option>
+          <option></option>
+          <option value="hello" >world</option>
+          <option value="foo" selected >bar</option>
 
 </select>
   </td>

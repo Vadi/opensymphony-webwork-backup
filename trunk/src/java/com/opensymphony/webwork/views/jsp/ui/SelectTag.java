@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
+
 
 /**
  * @version $Id$
@@ -19,64 +21,38 @@ public class SelectTag extends AbstractListTag {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private String defaultKey = null;
-    private String defaultValue = null;
-    private boolean emptyOption;
-    private boolean multiple;
-    private int size;
+    protected String emptyOptionAttr;
+    protected String multipleAttr;
+    protected String sizeAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setDefaultKey(String defaultKey) {
-        this.defaultKey = defaultKey;
+    public void setEmptyOption(String emptyOption) {
+        this.emptyOptionAttr = emptyOption;
     }
 
-    public String getDefaultKey() {
-        return defaultKey;
+    public void setMultiple(String multiple) {
+        this.multipleAttr = multiple;
     }
 
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
+    public void setSize(String size) {
+        this.sizeAttr = size;
     }
 
-    public String getDefaultValue() {
-        return defaultValue;
-    }
+    public void evaluateExtraParams(OgnlValueStack stack) {
+        super.evaluateExtraParams(stack);
 
-    public void setEmptyOption(boolean emptyOption) {
-        this.emptyOption = emptyOption;
-    }
+        if (emptyOptionAttr != null) {
+            addParam("emptyOption", stack.findValue(emptyOptionAttr, String.class));
+        }
 
-    public boolean isEmptyOption() {
-        return emptyOption;
-    }
+        if (multipleAttr != null) {
+            addParam("defaultKey", stack.findValue(multipleAttr, String.class));
+        }
 
-    public void setMultiple(boolean multiple) {
-        this.multiple = multiple;
-    }
-
-    public boolean isMultiple() {
-        return multiple;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.emptyOption = false;
-        this.multiple = false;
-        this.size = 0;
-        this.defaultKey = null;
-        this.defaultValue = null;
+        if (sizeAttr != null) {
+            addParam("size", stack.findValue(sizeAttr, String.class));
+        }
     }
 
     protected String getDefaultTemplate() {
