@@ -24,7 +24,7 @@
    <webwork:text name="'cd.label'"/>:<webwork:include page="i18n.CDList.action"  />
 
 
-   <ui:textfield label="text('main.qtyLabel')" name="'quantity'" value="1" size="3"/>
+   <ui:textfield label="getText('main.qtyLabel')" name="'quantity'" value="1" size="3"/>
    <input type=submit name=Submit value="<webwork:text name="'main.addLabel'"/>">
    </form>
    </center>

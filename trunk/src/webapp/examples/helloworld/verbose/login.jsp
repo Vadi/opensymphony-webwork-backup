@@ -11,9 +11,9 @@
 <TABLE BORDER="1" BGCOLOR=lightyellow>
 <TR><TH COLSPAN=2><webwork:text name="'login'"/></TH></TR>
 
-   <ui:textfield label="text('name')" name="'name'"/>
+   <ui:textfield label="getText('name')" name="'name'"/>
 
-   <ui:password label="text('password')" name="'password'" size="10" maxlength="15"/>
+   <ui:password label="getText('password')" name="'password'" size="10" maxlength="15"/>
 
 <TR><TH COLSPAN=2><INPUT TYPE=submit VALUE="<webwork:text name="'login'"/>" ></TH></TR>
 </TABLE>
