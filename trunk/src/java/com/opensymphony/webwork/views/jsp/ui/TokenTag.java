@@ -6,8 +6,11 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.util.TokenHelper;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
 
 
 /**
@@ -27,37 +30,41 @@ public class TokenTag extends AbstractUITag {
         return TokenHelper.TOKEN_NAME_FIELD;
     }
 
+    protected String getDefaultTemplate() {
+        return TEMPLATE;
+    }
+
     /**
-     * First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
-     * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
-     * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
-     * the name.
-     *
-     * @throws JspException
-     */
-    public int doEndTag() throws JspException {
+ * First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
+ * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
+ * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
+ * the name.
+ *
+ */
+    protected void evaluateExtraParams(OgnlValueStack stack) {
+        super.evaluateExtraParams(stack);
+
         String tokenName = null;
+        Map parameters = getParameters();
 
-        if (nameAttr == null) {
-            tokenName = TokenHelper.DEFAULT_TOKEN_NAME;
+        if (parameters.containsKey("name")) {
+            tokenName = (String) parameters.get("name");
         } else {
-            tokenName = (String) findValue(nameAttr, String.class);
+            if (nameAttr == null) {
+                tokenName = TokenHelper.DEFAULT_TOKEN_NAME;
+            } else {
+                tokenName = (String) findValue(nameAttr, String.class);
 
-            if (tokenName == null) {
-                tokenName = nameAttr;
+                if (tokenName == null) {
+                    tokenName = nameAttr;
+                }
             }
-        }
 
-        addParameter("name", tokenName);
+            addParameter("name", tokenName);
+        }
 
         String token = buildToken(tokenName);
         addParameter("token", token);
-
-        return super.doEndTag();
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
     }
 
     private String buildToken(String name) {
