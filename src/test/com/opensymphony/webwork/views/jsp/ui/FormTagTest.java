@@ -9,6 +9,7 @@ import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.config.ConfigurationManager;
 
 
@@ -237,5 +238,6 @@ public class FormTagTest extends AbstractUITagTest {
         super.setUp();
         ConfigurationManager.clearConfigurationProviders();
         ConfigurationManager.addConfigurationProvider(new TestConfigurationProvider());
+        ActionContext.getContext().setValueStack(stack);
     }
 }

@@ -1,13 +1,15 @@
-<table>
 <form name="myForm" action="/testAction.action" method="POST" enctype="myEncType" onsubmit="return(myForm_validate())" >
+<table class="wwFormTable">
 <tr>
- <td align="right" valign="top"> <span class="label"> </span> </td>
+ <td align="right" valign="top"> </td>
  <td> <input type="text" name="foo" value="bar" /> </td>
 </tr>
 <tr>
- <td align="right" valign="top"> <span class="label"> </span> </td>
+ <td align="right" valign="top"> </td>
  <td> <input type="text" name="user.name" value="Bobby" /> </td>
 </tr>
+</table>
+</form>
 <script type="text/javascript">
 function myForm_validate() {
   var form = document.forms['myForm'];
@@ -36,5 +38,3 @@ function myForm_validate_actual() {
   return null;
 }
 </script>
-</form>
-</table>

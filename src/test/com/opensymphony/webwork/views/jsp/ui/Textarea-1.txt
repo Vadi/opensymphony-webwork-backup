@@ -1,6 +1,6 @@
 <tr>
     <td align="right" valign="top">
-        <span class="label"> mylabel: </span>
+        <label for="the_id" class="label"> mylabel: </label>
     </td>
     <td>
         <textarea name="myname"
