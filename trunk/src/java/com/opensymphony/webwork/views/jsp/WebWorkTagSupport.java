@@ -11,12 +11,13 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import java.io.PrintWriter;
 
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TagSupport;
 
 
 /**
  * WebWork base class for defining new tag handlers.
  */
-public abstract class WebWorkTagSupport extends BodyTagSupport {
+public abstract class WebWorkTagSupport extends TagSupport {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     protected OgnlValueStack getStack() {
