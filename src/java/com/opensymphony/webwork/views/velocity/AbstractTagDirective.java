@@ -5,9 +5,13 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.views.jsp.ParameterizedTag;
 import com.opensymphony.webwork.config.Configuration;
 
 import com.opensymphony.xwork.util.OgnlUtil;
+import com.opensymphony.xwork.util.XWorkConverter;
+import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.ActionContext;
 
 import org.apache.velocity.app.event.EventCartridge;
 import org.apache.velocity.context.Context;
@@ -19,18 +23,13 @@ import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
 import org.apache.velocity.runtime.resource.Resource;
 import org.apache.velocity.util.introspection.IntrospectionCacheData;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.io.Writer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -38,6 +37,10 @@ import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTag;
 import javax.servlet.jsp.tagext.IterationTag;
 import javax.servlet.jsp.tagext.Tag;
+
+import ognl.Ognl;
+import ognl.OgnlException;
+import ognl.OgnlContext;
 
 
 /**
@@ -48,6 +51,7 @@ import javax.servlet.jsp.tagext.Tag;
  */
 public abstract class AbstractTagDirective extends Directive {
     //~ Static fields/initializers /////////////////////////////////////////////
+    protected static Log log = LogFactory.getLog(AbstractTagDirective.class);
 
     /**
      * a params of tagname to tagclass that provides faster lookup that searching through the tagpath.  for example,
@@ -72,12 +76,6 @@ public abstract class AbstractTagDirective extends Directive {
 
         // instantiate our tag
         Object object = this.createObject(node.jjtGetChild(0));
-
-        // create a Map of the properties that the user has passed in
-        Map propertyMap = this.createPropertyMap(contextAdapter, node);
-
-        // assigned the properties to our tag
-        OgnlUtil.setProperties(propertyMap, object);
 
         /**
          * if this directive allows for a body, the last child Node will be the body.  we'll want to grab a handle to
@@ -107,9 +105,11 @@ public abstract class AbstractTagDirective extends Directive {
 
             if (object instanceof Tag) {
                 PageContext pageContext = ServletActionContext.getPageContext();
-                ((Tag) object).setParent((Tag) currentTag);
+                if (currentTag instanceof Tag) {
+                    ((Tag) object).setParent((Tag) currentTag);
+                }
 
-                return this.processTag(pageContext, (Tag) object, subContextAdapter, writer, bodyNode);
+                return this.processTag(pageContext, (Tag) object, subContextAdapter, writer, node, bodyNode);
             } else {
                 return true;
             }
@@ -265,12 +265,15 @@ public abstract class AbstractTagDirective extends Directive {
     /**
      *
      */
-    protected boolean processTag(PageContext pageContext, Tag tag, InternalContextAdapter context, Writer writer, Node bodyNode) throws ParseErrorException, IOException, MethodInvocationException, ResourceNotFoundException {
+    protected boolean processTag(PageContext pageContext, Tag tag, InternalContextAdapter context, Writer writer, Node node, Node bodyNode) throws ParseErrorException, IOException, MethodInvocationException, ResourceNotFoundException {
         tag.setPageContext(pageContext);
         writer = pageContext.getOut();
 
         try {
             int result = tag.doStartTag();
+
+            // populate our tag with all the user specified properties
+            applyAttributes(context, node, tag);
 
             if (result != Tag.SKIP_BODY) {
                 if (tag instanceof BodyTag) {
@@ -316,6 +319,35 @@ public abstract class AbstractTagDirective extends Directive {
         return true;
 
         //        throw new UnsupportedOperationException("processing JSP Tags is not currently supported");
+    }
+
+    /**
+     * apply the attributes requested to the specified object
+     * @param context
+     * @param node
+     * @param object the object the tags should be applied to
+     * @throws ParseErrorException
+     * @throws MethodInvocationException
+     */
+    private void applyAttributes(InternalContextAdapter context, Node node, Object object) throws ParseErrorException, MethodInvocationException {
+        Map propertyMap = this.createPropertyMap(context, node);
+
+        // if there's nothing to do, don't bother creating an OgnlContext and the Iterator
+        if (propertyMap == null || propertyMap.size() == 0) {
+            return;
+        }
+
+        OgnlValueStack stack = ActionContext.getContext().getValueStack();
+        Map ognlContext = Ognl.createDefaultContext(object);
+        for (Iterator iterator = propertyMap.entrySet().iterator(); iterator.hasNext();) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            String key = entry.getKey().toString();
+            Object value = entry.getValue();
+            if (object instanceof ParameterizedTag && key.startsWith("params.")) {
+                value = stack.findValue(value.toString());
+            }
+            OgnlUtil.setProperty(key, value, object, ognlContext);
+        }
     }
 
     /**
