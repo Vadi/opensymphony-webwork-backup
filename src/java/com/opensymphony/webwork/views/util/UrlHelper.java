@@ -42,7 +42,12 @@ public class UrlHelper {
             link.append(action);
         } else {
             // Go to "same page"
-            link.append(request.getRequestURI());
+            String requestURI = (String) request.getAttribute("webwork.request_uri");
+            if (requestURI == null) {
+                requestURI = request.getRequestURI();
+            }
+
+            link.append(requestURI);
         }
 
         //if the action was not explicitly set grab the params from the request
