@@ -7,14 +7,21 @@ package com.opensymphony.webwork.views.jsp;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.util.TextUtils;
+import com.opensymphony.webwork.dispatcher.ServletDispatcher;
+import com.opensymphony.webwork.dispatcher.SessionMap;
+import com.opensymphony.webwork.dispatcher.ApplicationMap;
+import com.opensymphony.webwork.ServletActionContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -53,20 +60,31 @@ public class PropertyTag extends TagSupport {
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
         try {
-            if ((stack != null) && (stack.size() > 0)) {
-                Object actualValue = null;
+            if (stack == null)
+            {
+                stack = new OgnlValueStack();
+                HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+                HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
+                Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(),
+                        new SessionMap(req.getSession()),
+                        new ApplicationMap(pageContext.getServletContext()),
+                        req,
+                        res,
+                        pageContext.getServletConfig());
+                extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
+                stack.getContext().putAll(extraContext);
+            }
 
-                if (value == null) {
-                    value = "that";
-                }
+            Object actualValue = null;
 
-                actualValue = stack.findValue(value, String.class);
+            if (value == null) {
+                value = "that";
+            }
 
-                if (actualValue != null) {
-                    pageContext.getOut().print(prepare(actualValue));
-                } else if (defaultValue != null) {
-                    pageContext.getOut().print(prepare(defaultValue));
-                }
+            actualValue = stack.findValue(value, String.class);
+
+            if (actualValue != null) {
+                pageContext.getOut().print(prepare(actualValue));
             } else if (defaultValue != null) {
                 pageContext.getOut().print(prepare(defaultValue));
             }
