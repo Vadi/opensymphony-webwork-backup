@@ -114,7 +114,7 @@ public class TokenHelper {
         String tokenName = getTokenName();
 
         if (tokenName == null) {
-            return false;
+            return true;
         }
 
         String token = getToken(tokenName);
