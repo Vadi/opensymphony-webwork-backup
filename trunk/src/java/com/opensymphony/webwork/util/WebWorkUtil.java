@@ -5,8 +5,7 @@
 package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.TextUtils;
-
-import com.opensymphony.xwork.util.XWorkBasicConverter;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,12 +43,13 @@ public final class WebWorkUtil {
 
     Map classes = new Hashtable();
     private Context ctx;
-    private XWorkBasicConverter converter = new XWorkBasicConverter();
+    private OgnlValueStack stack;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
-    public WebWorkUtil(Context ctx) {
+    public WebWorkUtil(Context ctx, OgnlValueStack stack) {
         this.ctx = ctx;
+        this.stack = stack;
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -73,13 +73,12 @@ public final class WebWorkUtil {
         return writer.toString();
     }
 
-    //    public String htmlEncode(String s) {
-    //        return TextUtils.htmlEncode(s);
-    //    }
     public String htmlEncode(Object obj) {
-        String str = (String) converter.convertValue(null, null, null, null, obj, String.class);
+        return TextUtils.htmlEncode(obj.toString());
+    }
 
-        return TextUtils.htmlEncode(str);
+    public Object findString(String name) {
+        return stack.findValue(name, String.class);
     }
 
     public String include(Object aName, ServletRequest aRequest, ServletResponse aResponse) throws Exception {
