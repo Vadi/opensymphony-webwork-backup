@@ -20,7 +20,7 @@ public class XworkView implements View {
     private static final Log LOG = LogFactory.getLog(XworkView.class);
     private File file = null;
     private Set targets = null;
-    private static String actionRegex = "([A-Za-z0-9\\._\\-]+\\." + Configuration.get("webwork.action.extension") + ")";
+    private static String actionRegex = "([A-Za-z0-9\\._\\-\\!]+\\." + Configuration.get("webwork.action.extension") + ")";
     private static Pattern actionPattern = Pattern.compile(actionRegex);
 
     public XworkView() {

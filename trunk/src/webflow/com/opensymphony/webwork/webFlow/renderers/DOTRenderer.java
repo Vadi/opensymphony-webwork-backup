@@ -4,12 +4,6 @@
 package com.opensymphony.webwork.webFlow.renderers;
 
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.dispatcher.ServletDispatcherResult;
-import com.opensymphony.webwork.dispatcher.ServletRedirectResult;
-import com.opensymphony.webwork.dispatcher.VelocityResult;
-import com.opensymphony.webwork.views.freemarker.FreemarkerResult;
-import com.opensymphony.webwork.views.jasperreports.JasperReportsResult;
-import com.opensymphony.webwork.views.xslt.XSLTResult;
 import com.opensymphony.webwork.webFlow.XWorkConfigRetriever;
 import com.opensymphony.webwork.webFlow.entities.View;
 import com.opensymphony.xwork.ActionChainResult;
@@ -31,6 +25,7 @@ import java.util.Set;
 public class DOTRenderer implements Renderer {
 
     private static final Log LOG = LogFactory.getLog(DOTRenderer.class);
+
     private String output;
 
     public DOTRenderer(String output) {
@@ -67,9 +62,9 @@ public class DOTRenderer implements Renderer {
 
                     if (resultClassName.equals(ActionChainResult.class.getName())) {
 
-                    } else if (resultClassName.equals(ServletDispatcherResult.class.getName())
-                            || resultClassName.equals(VelocityResult.class.getName())
-                            || resultClassName.equals(FreemarkerResult.class.getName())) {
+                    } else if (resultClassName.indexOf("Dispatcher") != -1
+                            || resultClassName.indexOf("Velocity") != -1
+                            || resultClassName.indexOf("Freemarker") != -1) {
                         String location = (String) resultConfig.getParams().get("location");
                         String view = getViewLocation(location, namespace);
                         graph.add_node("view", view, null);
@@ -79,12 +74,17 @@ public class DOTRenderer implements Renderer {
                         if (viewFile != null) {
                             viewMap.put(view, viewFile);
                         }
-                    } else if (resultClassName.equals(JasperReportsResult.class.getName())) {
+                    } else if (resultClassName.indexOf("Jasper") != -1) {
 
-                    } else if (resultClassName.equals(XSLTResult.class.getName())) {
+                    } else if (resultClassName.indexOf("XSLT") != -1) {
 
-                    } else if (resultClassName.equals(ServletRedirectResult.class.getName())) {
-
+                    } else if (resultClassName.indexOf("Redirect") != -1 ) {
+                        // check if the redirect is to an action -- if so, link it
+                        String location = (String) resultConfig.getParams().get("location");
+                        System.out.println(location);
+                        if (location.endsWith((String) Configuration.get("webwork.action.extension"))) {
+                            addLink(action, location, resultConfig.getName(), graph);
+                        }
                     }
                 }
             }
@@ -97,7 +97,7 @@ public class DOTRenderer implements Renderer {
             Set targets = viewFile.getTargets();
             for (Iterator iterator1 = targets.iterator(); iterator1.hasNext();) {
                 String viewTarget = (String) iterator1.next();
-                graph.add_link(view, "/" + viewTarget, null);
+                addLink(view, viewTarget, "", graph);
             }
         }
 
@@ -108,6 +108,18 @@ public class DOTRenderer implements Renderer {
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void addLink(String view, String target, String label, DotGraph graph) {
+        int bang = target.indexOf('!');
+        if (bang != -1) {
+            // map the link back to the action using the command as the label
+            String command = target.substring(bang + 1, target.lastIndexOf('.'));
+            String action = target.substring(0, bang) + target.substring(target.lastIndexOf('.'));
+            graph.add_link(view, "/" + action, label + "\\n(!" + command + ")");
+        } else {
+            graph.add_link(view, "/" + target, label);
         }
     }
 

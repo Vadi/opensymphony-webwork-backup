@@ -130,7 +130,11 @@
             </fileset>
         </copy>
 
-        <jar basedir="${build.webflow}" jarfile="${build}/webflow-${version}.jar"/>
+        <jar basedir="${build.webflow}" jarfile="${build}/webflow-${version}.jar">
+            <manifest>
+                <attribute name="Main-Class" value="com.opensymphony.webwork.webFlow.WebFlow"/>
+            </manifest>
+        </jar>
     </target>
 
     <target name="jar" depends="java">
