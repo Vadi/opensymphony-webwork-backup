@@ -74,6 +74,10 @@ public final class WebWorkUtil {
     }
 
     public String htmlEncode(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+
         return TextUtils.htmlEncode(obj.toString());
     }
 
