@@ -1,0 +1,13 @@
+#macro(bean $bean_name $name)
+   #set ($name = $webwork.bean($bean_name))
+#end
+
+#macro(includeservlet $name)
+  $webwork.include($name,$req,$res)
+#end
+
+#macro(url $name)
+   #set ($name = $webwork.bean("webwork.view.velocity.URLBean"))
+   $name.setRequest($req)
+   $name.setResponse($res)
+#end
