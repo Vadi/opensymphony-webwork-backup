@@ -63,6 +63,82 @@ public class FormTagTest extends AbstractUITagTest {
         verify(FormTag.class.getResource("Formtag-2.txt"));
     }
 
+    /**
+     * Test for WW-584.
+     */
+    public void testClientSideValidationNoRepeat() throws Exception {
+        request.setupGetServletPath("/testAction");
+
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        User user = new User();
+        user.setName("Bobby");
+        testAction.setUser(user);
+
+        FormTag fTag = new FormTag();
+        fTag.setPageContext(pageContext);
+        fTag.setName("'myForm'");
+        fTag.setMethod("'POST'");
+        fTag.setAction("'testAction'");
+        fTag.setEnctype("'myEncType'");
+        fTag.setValidate("true");
+        fTag.evaluateExtraParams(stack);
+
+        fTag.doStartTag();
+
+        // foo, VisitorFieldValidator
+        TextFieldTag tfTag = new TextFieldTag();
+        tfTag.setParent(fTag);
+        tfTag.setPageContext(pageContext);
+        tfTag.setName("'foo'");
+        tfTag.doStartTag();
+        tfTag.doEndTag();
+
+        // user.name, VisitorFieldValidator
+        tfTag = new TextFieldTag();
+        tfTag.setParent(fTag);
+        tfTag.setPageContext(pageContext);
+        tfTag.setName("'user.name'");
+        tfTag.doStartTag();
+        tfTag.doEndTag();
+
+        fTag.doEndTag();
+
+        verify(FormTag.class.getResource("Formtag-2.txt"));
+
+        // now do it one more time, using the same tag
+        fTag.setPageContext(pageContext);
+        fTag.setName("'myForm'");
+        fTag.setMethod("'POST'");
+        fTag.setAction("'testAction'");
+        fTag.setEnctype("'myEncType'");
+        fTag.setValidate("true");
+        fTag.evaluateExtraParams(stack);
+
+        fTag.doStartTag();
+
+        // foo, VisitorFieldValidator
+        tfTag = new TextFieldTag();
+        tfTag.setParent(fTag);
+        tfTag.setPageContext(pageContext);
+        tfTag.setName("'foo'");
+        tfTag.doStartTag();
+        tfTag.doEndTag();
+
+        // user.name, VisitorFieldValidator
+        tfTag = new TextFieldTag();
+        tfTag.setParent(fTag);
+        tfTag.setPageContext(pageContext);
+        tfTag.setName("'user.name'");
+        tfTag.doStartTag();
+        tfTag.doEndTag();
+
+        fTag.doEndTag();
+
+        verify(FormTag.class.getResource("Formtag-2b.txt"));
+    }
+
     public void testForm() throws Exception {
         request.setupGetServletPath("/testAction");
 
