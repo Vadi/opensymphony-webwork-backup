@@ -163,7 +163,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         }
 
         OgnlValueStack stack = getStack();
-        String actualName = (String) stack.findValue(name, String.class);
+        String actualName = findString(name);
 
         if (actualName == null) {
             throw new JspException("Unable to find value for name " + name);

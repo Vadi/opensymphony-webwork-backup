@@ -48,19 +48,19 @@ public class TextFieldTag extends AbstractUITag {
 
     public void evaluateExtraParams(OgnlValueStack stack) {
         if (sizeAttr != null) {
-            addParam("size", stack.findValue(sizeAttr, String.class));
+            addParam("size", findValue(sizeAttr, String.class));
         }
 
         if (maxLengthAttr != null) {
-            addParam("maxLength", stack.findValue(maxLengthAttr, String.class));
+            addParam("maxLength", findValue(maxLengthAttr, String.class));
         }
 
         if (readonlyAttr!= null) {
-            addParam("readonly", stack.findValue(readonlyAttr, Boolean.class));
+            addParam("readonly", findValue(readonlyAttr, Boolean.class));
         }
 
         if (onkeyupAttr!= null) {
-            addParam("onkeyup", stack.findValue(onkeyupAttr, String.class));
+            addParam("onkeyup", findValue(onkeyupAttr, String.class));
         }
     }
 

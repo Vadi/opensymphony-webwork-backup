@@ -42,8 +42,6 @@ public class ElseIfTag extends WebWorkTagSupport {
     }
 
     public int doStartTag() throws JspException {
-        OgnlValueStack stack = getStack();
-
         Boolean ifResult = (Boolean) pageContext.getAttribute(IfTag.ANSWER);
 
         if ((ifResult == null) || (ifResult.booleanValue() == true)) {
@@ -51,11 +49,7 @@ public class ElseIfTag extends WebWorkTagSupport {
         }
 
         //make the comparision
-        Object o = null;
-
-        if (stack != null) {
-            o = stack.findValue(test);
-        }
+        Object o = findValue(test);
 
         if ((o != null) && o instanceof Boolean) {
             answer = (Boolean) o;

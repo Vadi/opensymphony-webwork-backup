@@ -100,24 +100,24 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
     public int doEndTag() throws JspException {
         OgnlValueStack stack = getStack();
 
-        actualName = (String) stack.findValue(nameAttr, String.class);
+        actualName = (String) findValue(nameAttr, String.class);
 
         // Add tag attribute values
         // These can be used to parameterize the i18n-ized message
         if (value0Attr != null) {
-            addParam(stack.findValue(value0Attr));
+            addParam(findValue(value0Attr));
         }
 
         if (value1Attr != null) {
-            addParam(stack.findValue(value1Attr));
+            addParam(findValue(value1Attr));
         }
 
         if (value2Attr != null) {
-            addParam(stack.findValue(value2Attr));
+            addParam(findValue(value2Attr));
         }
 
         if (value3Attr != null) {
-            addParam(stack.findValue(value3Attr));
+            addParam(findValue(value3Attr));
         }
 
         String defaultMessage;
@@ -140,7 +140,7 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
 
         expression = expression + ")";
 
-        String msg = (String) stack.findValue(expression, String.class);
+        String msg = (String) findValue(expression, String.class);
 
         if (pushed) {
             stack.pop();

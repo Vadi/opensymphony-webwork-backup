@@ -9,7 +9,7 @@ import junit.framework.Assert;
 import java.util.Collection;
 import java.util.ArrayList;
 
-public class ChecboxListTest extends AbstractUITagTest {
+public class CheckboxListTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
   public void testSimple() throws Exception {

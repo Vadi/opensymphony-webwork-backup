@@ -42,13 +42,7 @@ public class IfTag extends WebWorkTagSupport {
     }
 
     public int doStartTag() throws JspException {
-        OgnlValueStack stack = getStack();
-
-        Object o = null;
-
-        if (stack != null) {
-            o = stack.findValue(test);
-        }
+        Object o = findValue(test);
 
         if ((o != null) && o instanceof Boolean) {
             answer = (Boolean) o;

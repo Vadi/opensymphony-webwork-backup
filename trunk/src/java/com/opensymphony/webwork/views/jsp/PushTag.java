@@ -50,7 +50,7 @@ public class PushTag extends WebWorkBodyTagSupport {
         OgnlValueStack stack = getStack();
 
         if (stack != null) {
-            stack.push(stack.findValue(value));
+            stack.push(findValue(value));
             pushed = true;
         }
 
