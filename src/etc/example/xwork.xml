@@ -96,11 +96,11 @@
             <result name="success" type="dispatcher">/select.jsp</result>
         </action>
 
-        <action name="formTest" class="com.opensymphony.webwork.example.FormAction" method="processForm" >
+        <action name="formTest" class="com.opensymphony.webwork.example.FormAction" method="processForm">
             <result name="success" type="dispatcher">
                 <param name="location">/form.jsp</param>
             </result>
-             <result name="invalid.token" type="dispatcher">
+            <result name="invalid.token" type="dispatcher">
                 <param name="location">/form.jsp</param>
             </result>
 
@@ -108,7 +108,7 @@
             <interceptor-ref name="token"/>
         </action>
 
-        <action name="formTest2" class="com.opensymphony.webwork.example.FormAction" method="processForm" >
+        <action name="formTest2" class="com.opensymphony.webwork.example.FormAction" method="processForm">
             <result name="success" type="dispatcher">
                 <param name="location">/form2-success.jsp</param>
             </result>
@@ -151,7 +151,7 @@
             <result name="input">javascript-input.jsp</result>
         </action>
 
-		 <!-- JasperReport Basic Test Actions -->
+        <!-- JasperReport Basic Test Actions -->
         <action name="jasperTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
             <result name="success" type="jasper">
                 <param name="location">orderList.jasper</param>
@@ -220,5 +220,7 @@
     <include file="month.xml"/>
 
     <include file="i18n.xml"/>
+
+    <include file="file-upload.xml"/>
 
 </xwork>
