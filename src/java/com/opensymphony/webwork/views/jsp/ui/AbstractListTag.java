@@ -83,7 +83,7 @@ public abstract class AbstractListTag extends AbstractUITag {
                 Object value = null;
                 value = Array.get(obj1, i);
 
-                if (value.equals(obj2)) {
+                if (value.toString().equals(obj2.toString())) {
                     return true;
                 }
             }
@@ -97,8 +97,8 @@ public abstract class AbstractListTag extends AbstractUITag {
     }
 
     /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
+* Clears all the instance variables to allow this instance to be reused.
+*/
     public void release() {
         super.release();
         this.list = null;
