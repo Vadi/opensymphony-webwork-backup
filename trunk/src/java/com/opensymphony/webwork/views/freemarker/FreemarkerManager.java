@@ -21,6 +21,7 @@ import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.cache.WebappTemplateLoader;
+import freemarker.core.Configurable;
 
 import freemarker.ext.beans.BeansWrapper;
 
@@ -41,6 +42,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
@@ -217,6 +219,35 @@ public class FreemarkerManager {
     }
 
     /**
+     * create the instance of the freemarker Configuration object
+     *
+     * this implementation
+     * <ul>
+     *         <li>obtains the default configuration from Configuration.getDefaultConfiguration()
+     *  <li>sets up template loading from a ClassTemplateLoader and a WebappTemplateLoader
+     *         <li>sets up the object wrapper to be the BeansWrapper
+     *         <li>loads settings from the classpath file /freemarker.properties
+     * </ul>
+     *
+     * @param servletContext
+     * @return
+     */
+    protected freemarker.template.Configuration createConfiguration(ServletContext servletContext) throws TemplateException {
+        freemarker.template.Configuration configuration = freemarker.template.Configuration.getDefaultConfiguration();
+
+        configuration.setTemplateLoader(getTemplateLoader(servletContext));
+
+        configuration.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
+        
+        configuration.setObjectWrapper(getObjectWrapper());
+
+        loadSettings(servletContext, configuration);
+
+        return configuration;
+    }
+
+
+    /**
      * the default template loader is a MultiTemplateLoader which includes
      * a ClassTemplateLoader and a WebappTemplateLoader
      *
@@ -237,44 +268,17 @@ public class FreemarkerManager {
     }
 
     /**
-     * create the instance of the freemarker Configuration object
-     *
-     * this implementation
-     * <ul>
-     *         <li>obtains the default configuration from Configuration.getDefaultConfiguration()
-     *  <li>sets up template loading from a ClassTemplateLoader and a WebappTemplateLoader
-     *         <li>sets up the object wrapper to be the BeansWrapper
-     *         <li>loads settings from the classpath file /freemarker.properties
-     * </ul>
-     *
-     * @param servletContext
-     * @return
-     */
-    protected freemarker.template.Configuration createConfiguration(ServletContext servletContext) throws TemplateException {
-        freemarker.template.Configuration configuration = freemarker.template.Configuration.getDefaultConfiguration();
-
-        configuration.setTemplateLoader(getTemplateLoader(servletContext));
-
-        // do this before loading the settings, because the settings may override this
-        configuration.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
-        configuration.setObjectWrapper(getObjectWrapper());
-
-        loadSettings(servletContext, configuration);
-
-        return configuration;
-    }
-
-    /**
      * Load the settings from the /freemarker.properties file on the classpath
      *
      * @see freemarker.template.Configurable#setSetting for the definition of valid settings
      */
     protected void loadSettings(ServletContext servletContext, freemarker.template.Configuration configuration) {
         try {
-            InputStream in = FileManager.loadFile("/freemarker.properties", FreemarkerManager.class);
-
+            InputStream in = FileManager.loadFile("freemarker.properties", FreemarkerManager.class);
             if (in != null) {
-                configuration.setSettings(in);
+                Properties p = new Properties();
+                p.load(in);
+                configuration.setSettings(p);
             }
         } catch (IOException e) {
             log.error("Error while loading freemarker settings from /freemarker.properties", e);
