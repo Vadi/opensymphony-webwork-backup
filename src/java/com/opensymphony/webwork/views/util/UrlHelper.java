@@ -48,7 +48,7 @@ public class UrlHelper {
             if (link.toString().indexOf("?") == -1) {
                 link.append("?");
             } else {
-                link.append("&amp;");
+                link.append("&");
             }
 
             // Set params
@@ -66,7 +66,7 @@ public class UrlHelper {
                 }
 
                 if (enum.hasNext()) {
-                    link.append("&amp;");
+                    link.append("&");
                 }
             }
         }
