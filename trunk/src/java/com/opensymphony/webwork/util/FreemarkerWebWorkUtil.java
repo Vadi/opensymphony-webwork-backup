@@ -8,6 +8,7 @@
 package com.opensymphony.webwork.util;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.views.util.UrlHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,10 @@ public class FreemarkerWebWorkUtil extends WebWorkUtil {
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
+
+    public String buildUrl(String url) {
+        return UrlHelper.buildUrl(url, request, response, null);
+    }
 
     public Object findValue(String expression, String className) throws ClassNotFoundException {
         return stack.findValue(expression, Class.forName(className));
