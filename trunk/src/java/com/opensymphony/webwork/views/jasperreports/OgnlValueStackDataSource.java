@@ -6,17 +6,16 @@ package com.opensymphony.webwork.views.jasperreports;
 
 import com.opensymphony.webwork.util.MakeIterator;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import dori.jasper.engine.JRDataSource;
-import dori.jasper.engine.JRException;
-import dori.jasper.engine.JRField;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRField;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.Iterator;
 
-
 /**
- * Ported to WebWork2:
+ * Ported to WebWork2.
  *
  * @author &lt;a href="hermanns@aixcept.de"&gt;Rainer Hermanns&lt;/a&gt;
  * @version $Id$
