@@ -2,7 +2,7 @@
     <td align="right" valign="top"><label class="label">mylabel:</label></td>
     <td>
         <div>
-            <input type="checkbox" name="foo" value="hello" id="foo-1" checked="true" />
+            <input type="checkbox" name="foo" value="hello" id="foo-1" checked="checked" />
             <label for="foo-1" class="checkboxLabel">world</label>
         </div>
         <div>

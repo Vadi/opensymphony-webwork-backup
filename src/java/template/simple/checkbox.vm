@@ -1,5 +1,5 @@
 <input type="checkbox" name="$!webwork.htmlEncode($parameters.name)" value="$!webwork.htmlEncode($parameters.fieldValue)"
-#if ($parameters.nameValue)        checked="true"                                           #end
+#if ($parameters.nameValue)        checked="checked"                                        #end
 #if ($parameters.disabled == true) disabled="disabled"                                      #end
 #if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)"    #end
 #if ($parameters.onchange)         onchange="$!webwork.htmlEncode($parameters.onchange)"    #end

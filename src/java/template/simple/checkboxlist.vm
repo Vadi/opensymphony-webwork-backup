@@ -15,7 +15,7 @@
             #set( $itemValue = $item )
         #end
         <input type="checkbox" name="$!webwork.htmlEncode($parameters.name)" value="$!webwork.htmlEncode($itemKey)"
-        id="$!webwork.htmlEncode($parameters.name)-$itemCount" #if( $tag.contains($parameters.nameValue, $itemKey) ) checked="true" #end/>
+        id="$!webwork.htmlEncode($parameters.name)-$itemCount" #if( $tag.contains($parameters.nameValue, $itemKey) ) checked="checked" #end/>
         <label for="$!webwork.htmlEncode($parameters.name)-$itemCount" class="checkboxLabel">$!webwork.htmlEncode($itemValue)</label><br />
         #set ($trash = $stack.pop())
     #end
