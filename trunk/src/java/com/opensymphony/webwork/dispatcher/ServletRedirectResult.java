@@ -16,12 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Pulls the HttpServletResponse object from the action context,
- * and calls sendRedirect() using the location specified as the
- * parameter "location". The following params are required:
- * <ul>
- *  <li>location - the URL to use when calling sendRedirect()</li>
- * </ul>
+ * Calls the {@link HttpServletResponse#sendRedirect(java.lang.String) sendRedirect} method to the location specified.
+ *
+ * This result follows the same rules from {@link WebWorkResultSupport}.
  *
  * @author $Author$
  * @version $Revision$

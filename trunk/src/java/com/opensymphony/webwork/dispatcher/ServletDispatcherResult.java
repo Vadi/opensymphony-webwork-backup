@@ -15,11 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
 /**
- * Pulls the HttpServletRequest and HttpServletResponse objects from the action context and creates a
- * RequestDispatcher to the location specified as the parameter "location" and then forwards it. The
- * following parameter is required:
- *
- * <ul><li>location - the page or resource to dispatch to</li></ul>
+ * Includes or forwards a view. There are three possible ways the result can be executed:
+ * <ul>
+ *  <li>If we are in the scope of a JSP (a PageContext is available), PageContext's
+ *      {@link PageContext#include(java.lang.String) include} method is called.</li>
+ *  <li>If there is no PageContext and we're not in any sort of include (there is no
+ *      "javax.servlet.include.servlet_path" in the request attributes), then a call to
+ *      {@link RequestDispatcher#forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse) forward}
+ *      is made</li>
+ *  <li>Otherwise, {@link RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse) include}
+ *      is called.</li>
+ * </ul>
  *
  * @see javax.servlet.RequestDispatcher
  * @author Patrick Lightbody

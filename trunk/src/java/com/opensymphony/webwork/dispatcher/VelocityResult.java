@@ -32,14 +32,11 @@ import javax.servlet.jsp.PageContext;
 
 
 /**
- * Pulls the HttpServletResponse object from the action context,
- * and calls sendRedirect() using the location specified as the
- * parameter "location". The following params are required:
- * <ul>
- *  <li>location - the URL to use when calling sendRedirect()</li>
- * </ul>
+ * Using the Servlet container's {@link JspFactory}, this result mocks a JSP execution environment
+ * and then displays a Velocity template that will be streamed directly to the servlet output.
  *
- * @version $Id$
+ * This result follows the same rules from {@link WebWorkResultSupport}.
+ *
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
  */
 public class VelocityResult extends WebWorkResultSupport {
