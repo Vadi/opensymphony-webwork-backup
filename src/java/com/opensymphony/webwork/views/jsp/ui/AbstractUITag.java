@@ -158,7 +158,6 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
      *
      * @param myTemplate
      * @param myDefaultTemplate
-     * @return
      */
     protected String buildTemplateName(String myTemplate, String myDefaultTemplate) {
         /**

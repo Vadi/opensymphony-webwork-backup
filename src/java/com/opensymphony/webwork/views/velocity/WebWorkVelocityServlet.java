@@ -81,7 +81,6 @@ public class WebWorkVelocityServlet extends VelocityServlet {
      * </ul>
      *
      * @param servletConfig
-     * @return
      * @throws IOException
      * @throws FileNotFoundException
      * @see org.apache.velocity.servlet.VelocityServlet#loadConfiguration

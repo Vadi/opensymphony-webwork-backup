@@ -259,7 +259,6 @@ public abstract class AbstractTagDirective extends Directive {
      * </ul>
      *
      * @param tagname
-     * @return
      * @see #getTagPath
      */
     protected Class findTagInPath(String tagname) throws ResourceNotFoundException {

@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author scottnelsonsmith@yahoo.com added {@link getServletContext(HttpSession)}.
+ * @author scottnelsonsmith@yahoo.com
  * @author joew@thoughtworks.com
  * @author $Author$
  * @version $Revision$

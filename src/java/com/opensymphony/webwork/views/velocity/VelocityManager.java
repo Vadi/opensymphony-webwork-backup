@@ -69,8 +69,6 @@ public class VelocityManager {
 
     /**
      * retrieve an instance to the current VelocityManager
-     *
-     * @return
      */
     public synchronized static VelocityManager getInstance() {
         if (instance == null) {
@@ -93,10 +91,8 @@ public class VelocityManager {
     }
 
     /**
-     * return  a reference to the VelocityEngine used by <b>all</b> webwork velocity thingies with the exception of
+     * @return a reference to the VelocityEngine used by <b>all</b> webwork velocity thingies with the exception of
      * directly accessed *.vm pages
-     *
-     * @return
      */
     public VelocityEngine getVelocityEngine() {
         return velocityEngine;
@@ -105,7 +101,7 @@ public class VelocityManager {
     /**
      * This method is responsible for creating the standard VelocityContext used by all WW2 velocity views.  The
      * following context parameters are defined:
-     * <p/>
+     * <p>
      * <ul>
      * <li><strong>req</strong> - the current HttpServletRequest</li>
      * <li><strong>res</strong> - the current HttpServletResponse</li>
@@ -289,11 +285,11 @@ public class VelocityManager {
     }
 
     /**
-     * <p/>
-     * instantiate a new VelocityEngine
+     * <p>
+     * Instantiates a new VelocityEngine.
      * </p>
-     * <p/>
-     * the following is the default Velocity configuration
+     * <p>
+     * The following is the default Velocity configuration
      * </p>
      * <pre>
      *  resource.loader = file, class
@@ -301,7 +297,7 @@ public class VelocityManager {
      *  class.resource.loader.description = Velocity Classpath Resource Loader
      *  class.resource.loader.class = com.opensymphony.webwork.views.velocity.WebWorkResourceLoader
      * </pre>
-     * <p/>
+     * <p>
      * this default configuration can be overridden by specifying a webwork.velocity.configfile property in the
      * webwork.properties file.  the specified config file will be searched for in the following order:
      * </p>

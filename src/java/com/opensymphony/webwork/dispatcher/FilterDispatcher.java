@@ -51,15 +51,6 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    /**
-     * getter for {@link #filterConfig}
-     * <p>
-     * Since {@link #filterConfig} is declared private, this getter is
-     * needed for subclasses to retrieve it.  Subclasses need this
-     * to make this filter work for Weblogic 6.1.
-     *
-     * @return the filter configuration.
-     */
     public FilterConfig getFilterConfig() {
         return filterConfig;
     }

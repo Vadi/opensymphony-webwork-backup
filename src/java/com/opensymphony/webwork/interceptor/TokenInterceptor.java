@@ -51,7 +51,6 @@ public class TokenInterceptor implements Interceptor {
      * request by the DefaultActionInvocation or to short-circuit the processing and just return a String return code.
      *
      * @param invocation
-     * @return
      * @throws Exception
      */
     public String intercept(ActionInvocation invocation) throws Exception {
@@ -73,7 +72,6 @@ public class TokenInterceptor implements Interceptor {
     /**
      * Handles the case of an invalid token
      * @param invocation
-     * @return
      */
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
         Action action = invocation.getAction();
@@ -91,7 +89,6 @@ public class TokenInterceptor implements Interceptor {
     /**
      * Handle the case of a valid token
      * @param invocation
-     * @return
      * @throws Exception
      */
     protected String handleValidToken(ActionInvocation invocation) throws Exception {

@@ -54,7 +54,6 @@ public class ParamDirective extends Directive {
      * @param contextAdapter
      * @param writer
      * @param node
-     * @return
      * @throws java.io.IOException
      * @throws org.apache.velocity.exception.ResourceNotFoundException
      * @throws org.apache.velocity.exception.ParseErrorException
