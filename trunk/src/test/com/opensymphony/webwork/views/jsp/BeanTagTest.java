@@ -26,9 +26,10 @@ public class BeanTagTest extends AbstractUITagTest {
             tag.addParameter("result", "success");
 
             assertEquals("success", stack.findValue("result"));
-            assertEquals(2, stack.size());
+            // TestAction from bean tag, Action from execution and DefaultTextProvider 
+            assertEquals(3, stack.size());
             tag.doEndTag();
-            assertEquals(1, stack.size());
+            assertEquals(2, stack.size());
         } catch (JspException ex) {
             ex.printStackTrace();
             fail();

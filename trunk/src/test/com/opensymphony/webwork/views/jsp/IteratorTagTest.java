@@ -96,7 +96,7 @@ public class IteratorTagTest extends AbstractUITagTest {
         }
 
         assertEquals(TagSupport.EVAL_BODY_AGAIN, result);
-        assertEquals(3, stack.size());
+        assertEquals(4, stack.size());
         assertTrue(stack.getRoot().peek() instanceof Map.Entry);
 
         try {
@@ -107,7 +107,7 @@ public class IteratorTagTest extends AbstractUITagTest {
         }
 
         assertEquals(TagSupport.EVAL_BODY_AGAIN, result);
-        assertEquals(3, stack.size());
+        assertEquals(4, stack.size());
         assertTrue(stack.getRoot().peek() instanceof Map.Entry);
 
         try {
@@ -118,7 +118,7 @@ public class IteratorTagTest extends AbstractUITagTest {
         }
 
         assertEquals(TagSupport.EVAL_BODY_AGAIN, result);
-        assertEquals(3, stack.size());
+        assertEquals(4, stack.size());
         assertTrue(stack.getRoot().peek() instanceof Map.Entry);
 
         try {
@@ -129,7 +129,7 @@ public class IteratorTagTest extends AbstractUITagTest {
         }
 
         assertEquals(TagSupport.SKIP_BODY, result);
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
     }
 
     public void testStatus() {
@@ -152,7 +152,7 @@ public class IteratorTagTest extends AbstractUITagTest {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test1", stack.getRoot().peek());
-        assertEquals(3, stack.size());
+        assertEquals(4, stack.size());
 
         IteratorStatus status = (IteratorStatus) context.get("fooStatus");
         assertNotNull(status);
@@ -172,7 +172,7 @@ public class IteratorTagTest extends AbstractUITagTest {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test2", stack.getRoot().peek());
-        assertEquals(3, stack.size());
+        assertEquals(4, stack.size());
 
         status = (IteratorStatus) context.get("fooStatus");
         assertNotNull(status);
@@ -192,7 +192,7 @@ public class IteratorTagTest extends AbstractUITagTest {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test3", stack.getRoot().peek());
-        assertEquals(3, stack.size());
+        assertEquals(4, stack.size());
 
         status = (IteratorStatus) context.get("fooStatus");
         assertNotNull(status);
@@ -230,7 +230,7 @@ public class IteratorTagTest extends AbstractUITagTest {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test1", stack.getRoot().peek());
-        assertEquals(3, stack.size());
+        assertEquals(4, stack.size());
 
         try {
             result = tag.doAfterBody();
@@ -241,7 +241,7 @@ public class IteratorTagTest extends AbstractUITagTest {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test2", stack.getRoot().peek());
-        assertEquals(3, stack.size());
+        assertEquals(4, stack.size());
 
         try {
             result = tag.doAfterBody();
@@ -252,7 +252,7 @@ public class IteratorTagTest extends AbstractUITagTest {
 
         assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
         assertEquals("test3", stack.getRoot().peek());
-        assertEquals(3, stack.size());
+        assertEquals(4, stack.size());
 
         try {
             result = tag.doAfterBody();
@@ -262,7 +262,7 @@ public class IteratorTagTest extends AbstractUITagTest {
         }
 
         assertEquals(result, TagSupport.SKIP_BODY);
-        assertEquals(2, stack.size());
+        assertEquals(3, stack.size());
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////
