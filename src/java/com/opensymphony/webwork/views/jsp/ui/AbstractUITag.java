@@ -389,7 +389,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         if (id != null) {
             addParameter("id", id);
         } else if (formTag != null) {
-            addParameter("id", formTag.id + "_" + name);
+            addParameter("id", formTag.getParameters().get("id") + "_" + name);
         }
 
 
