@@ -5,10 +5,13 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.webwork.views.util.UrlHelper;
 
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.config.ConfigurationManager;
+import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.validator.FieldValidator;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -40,16 +43,23 @@ public class FormTag extends AbstractClosingUITag {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     String actionAttr;
+    String namespaceAttr;
     String enctypeAttr;
     String methodAttr;
     String validateAttr;
     Map fieldValidators;
     Map fieldParameters;
+    Class actionClass;
+    String actionName;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAction(String action) {
         this.actionAttr = action;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespaceAttr = namespace;
     }
 
     public String getDefaultOpenTemplate() {
@@ -89,10 +99,20 @@ public class FormTag extends AbstractClosingUITag {
                 response = ServletActionContext.getResponse();
             }
 
-            Object actionObj = findValue(actionAttr, String.class);
+            String action = (String) findValue(actionAttr, String.class);
+            String namespace = (String) findValue(namespaceAttr, String.class);
+            if (namespace == null) {
+                namespace = "";
+            }
 
-            if (actionObj != null) {
-                String result = UrlHelper.buildUrl(actionObj.toString(), request, response, null);
+            ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
+            if (actionConfig != null) {
+                actionClass = actionConfig.getClazz();
+                actionName = action;
+                String result = UrlHelper.buildUrl(namespace + "/" + action + "." + Configuration.get("webwork.action.extension"), request, response, null);
+                addParameter("action", result);
+            } else if (action != null) {
+                String result = UrlHelper.buildUrl(action, request, response, null);
                 addParameter("action", result);
             }
         }
@@ -149,5 +169,13 @@ public class FormTag extends AbstractClosingUITag {
 
     public Map getFieldParameters() {
         return fieldParameters;
+    }
+
+    public Class getActionClass() {
+        return actionClass;
+    }
+
+    public String getActionName() {
+        return actionName;
     }
 }

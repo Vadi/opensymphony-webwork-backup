@@ -269,10 +269,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
         // now let's do some JavaScript stuff. or something
         if (tag != null) {
-            ActionInvocation ai = (ActionInvocation) stack.getContext().get(ActionContext.ACTION_INVOCATION);
-            Action action = ai.getAction();
-            String actionName = ai.getProxy().getActionName();
-            List validators = ActionValidatorManager.getValidators(action.getClass(), actionName);
+            List validators = ActionValidatorManager.getValidators(tag.getActionClass(), tag.getActionName());
             for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
                 Validator validator = (Validator) iterator.next();
                 if (validator instanceof FieldValidator)

@@ -10,6 +10,10 @@ public class JavascriptValidationAction extends ActionSupport {
         return SUCCESS;
     }
 
+    public String doDefault() {
+        return INPUT;
+    }
+
     public String getTest() {
         return test;
     }

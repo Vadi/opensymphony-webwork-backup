@@ -170,7 +170,7 @@ Validation Demos
         with expression validation
     </li>
 
-    <li><a href="javascriptValidation.action">Validation that uses JavaScript to do client side support</a></li>
+    <li><a href="javascriptValidation!default.action">Validation that uses JavaScript to do client side support</a></li>
 </ul>
 
 
