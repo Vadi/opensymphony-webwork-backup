@@ -143,6 +143,12 @@
             <result name="error">validationForm.vm</result>
         </action>
 
+        <action name="javascriptValidation" class="com.opensymphony.webwork.example.JavascriptValidationAction">
+            <interceptor-ref name="validationWorkflowStack"/>
+            <result name="success" type="redirect">http://www.opensymphony.com</result>
+            <result name="input">javascript-input.jsp</result>
+        </action>
+
 		 <!-- JasperReport Basic Test Actions -->
         <action name="jasperTest" class="com.opensymphony.webwork.example.jasperreports.OrderListAction">
             <param name="dataSource">orders</param>
