@@ -14,6 +14,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/migration-test" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/plugin" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/webflow" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
     </content>
     <orderEntry type="inheritedJdk" />
