@@ -201,7 +201,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
 
         // test wether param-access workaround needs to be enabled
         if (servletConfig.getServletContext().getServerInfo().indexOf("WebLogic") >= 0) {
-            log.info("WebLogic server detected. Enabling parameter access work-around.");
+            log.info("WebLogic server detected. Enabling WebWork parameter access work-around.");
             paramsWorkaroundEnabled = true;
         } else {
             log.debug("Parameter access work-around disabled.");
