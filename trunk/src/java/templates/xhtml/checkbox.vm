@@ -5,8 +5,14 @@
 <td colspan="2">
 <table width="100%" >
 <tr>
-  <td valign="top" align="right"><input type="checkbox" name="${tag.Name}" id="${tag.Name}" #if( ${tag.Value} )value="${tag.Value}" #end#if( ${tag.ActualValue.toString()} == "true" )checked="checked"#end/></td>
-  <td><label for="${tag.Name}">$!{labelValue}</label></td>
+    <td valign="top" align="right"><input
+        type="checkbox"
+        #if ($parameters.name)      name="$parameters.name"     #end
+        #if ($parameters.name)      id="$parameters.name"       #end
+        #if ($parameters.value)     value="$parameters.value"   #end
+        #if ($parameters.value == "true")   checked="checked"   #end
+    /></td>
+    <td><label for="$parameters.name">$!parameters.label</label></td>
 </tr>
 </table>
 </td>

@@ -2,7 +2,7 @@
 <table width="100%" >
 <tr>
   <td valign="top" align="right"><input type="checkbox" name="myname" id="myname" /></td>
-  <td><label for="myname">{mylabel}</label></td>
+  <td><label for="myname">mylabel</label></td>
 </tr>
 </table>
 </td>
