@@ -3,37 +3,7 @@
 <html>
 <head>
     <title>WebWork2 Examples</title>
-    <style type="text/css">
-    BODY { font-size : 100%; }
-    BODY, TD, TH, DIV, P {
-        font-family : verdana, arial, helvetica, sans-serif;
-        font-size : 9pt;
-    }
-    H1 {
-        font-size : 14pt;
-        border-bottom : 1px #ccc solid;
-    }
-    TABLE {
-        border : 1px #ccc solid;
-    }
-    TH {
-        text-align : left;
-        background-color : #ddd;
-    }
-    UL {
-        padding-bottom : 0.5em;
-    }
-    LI {
-        margin-bottom : 0.5em;
-    }
-    .title {
-        font-weight : bold;
-        font-size : 11pt;
-    }
-    .msg {
-        color : #f00;
-    }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -224,6 +194,14 @@ Misc Demos
     <li><a href="select.action">Select tag example</a></li>
     
     <li><a href="indexedProperties.action">Indexed property example</a></li>
+</ul>
+    
+<p class="title">
+Freemarker Demos
+</p>
+<ul>
+    <li><a href="FreemarkerTest.action">FreeMarker Example</a></li>
+    <li><a href="FreemarkerTest_Servlet.action">FreeMarker Example (using servlet)</a></li>
 </ul>
 
 <br><br>

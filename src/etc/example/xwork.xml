@@ -52,9 +52,11 @@
         </action>
 
         <action name="FreemarkerTest" class="com.opensymphony.webwork.example.ui.SimpleCountry">
-            <result name="success" type="dispatcher">
-                <param name="location">/country.ftl</param>
-            </result>
+            <result name="success" type="freemarker">/country.ftl</result>
+        </action>
+
+        <action name="FreemarkerTest_Servlet" class="com.opensymphony.webwork.example.ui.SimpleCountry">
+            <result name="success" type="dispatcher">/country.ftl</result>
         </action>
 
         <action name="IteratorTest" class="com.opensymphony.webwork.example.IteratorExample">

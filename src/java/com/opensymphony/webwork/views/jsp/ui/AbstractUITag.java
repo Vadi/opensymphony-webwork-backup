@@ -18,6 +18,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import java.io.Writer;
 import java.util.HashMap;
@@ -311,7 +313,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     protected void mergeTemplate(String templateName) throws Exception {
         Template t = velocityEngine.getTemplate(templateName);
-        Context context = velocityManager.createContext(getStack(), pageContext.getRequest(), pageContext.getResponse());
+        Context context = velocityManager.createContext(getStack(), (HttpServletRequest)pageContext.getRequest(), (HttpServletResponse)pageContext.getResponse());
 
         Writer outputWriter = pageContext.getOut();
 

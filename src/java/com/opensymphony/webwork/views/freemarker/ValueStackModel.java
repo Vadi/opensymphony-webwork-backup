@@ -8,9 +8,9 @@
  */
 package com.opensymphony.webwork.views.freemarker;
 
-import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
+import freemarker.template.ObjectWrapper;
 import freemarker.template.SimpleHash;
 import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
@@ -20,24 +20,24 @@ import freemarker.template.TemplateModelException;
 /**
  * @author CameronBraid
  */
-public class ValueStackModel extends SimpleHash implements TemplateHashModel {
+public class ValueStackModel extends SimpleHash {
+
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    private TemplateHashModel wrappedModel= null;
+    
     protected OgnlValueStack stack = null;
-    protected TemplateHashModel wrappedModel = null;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      *
      */
-    public ValueStackModel(TemplateHashModel wrappedModel) {
+    public ValueStackModel(OgnlValueStack stack, TemplateHashModel wrappedModel, ObjectWrapper wrapper) {
         super();
+        this.stack = stack;
         this.wrappedModel = wrappedModel;
-
-        if (ActionContext.getContext() != null) {
-            this.stack = ActionContext.getContext().getValueStack();
-        }
+        this.setObjectWrapper(wrapper);
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ public class ValueStackModel extends SimpleHash implements TemplateHashModel {
     /* (non-Javadoc)
     * @see freemarker.template.TemplateHashModel#isEmpty()
     */
-    public boolean isEmpty() throws TemplateModelException {
+    public boolean isEmpty() {
         // not quite sure what to return here.
         // should we check if anything exists in the stack ? - though won't something always exist ?
         return false;
@@ -75,6 +75,10 @@ public class ValueStackModel extends SimpleHash implements TemplateHashModel {
             }
         }
 
-        return wrappedModel.get(key);
+        if (wrappedModel ==  null) {
+            return wrap(null);
+        } else {
+            return wrappedModel.get(key);
+        }
     }
 }
