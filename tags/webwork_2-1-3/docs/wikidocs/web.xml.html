@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>WebWork 2 : web.xml</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork 2 : web.xml
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on May 23, 2004 by <font color="#0050B2">ctran</font>.
+				    </div>
+
+				    <p class="paragraph"><a name="web.xml-top"></a></p>Configuring the web.xml file is for the most part a pretty straight forward exercise. <p class="paragraph"><h2 class="heading2"><a name="web.xml-ConfiguringtheServletDispatcher"> Configuring the ServletDispatcher</a></h2></p>The most common entry point for calling actions in your application will be calling an URL directly or having the user submit a form to an action. The following is an example of how to configure the ServletDispatcher to process actions.<br/>
+
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; This entry is required to have the framework process calls to WebWork actions &#45;&#45;&gt;</span></span>&#10;<span class="xml&#45;tag">&lt;servlet&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;name&gt;</span>webworkDispatcher<span class="xml&#45;tag">&lt;/servlet&#45;name&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;class&gt;</span>com.opensymphony.webwork.dispatcher.ServletDispatcher<span class="xml&#45;tag">&lt;/servlet&#45;class&gt;</span>&#10;  <span class="xml&#45;tag">&lt;load&#45;on&#45;startup&gt;</span>1<span class="xml&#45;tag">&lt;/load&#45;on&#45;startup&gt;</span> &#10;<span class="xml&#45;tag">&lt;/servlet&gt;</span>&#10;<span class="xml&#45;tag">&lt;servlet&#45;mapping&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;name&gt;</span>webworkDispatcher<span class="xml&#45;tag">&lt;/servlet&#45;name&gt;</span>&#10;  <span class="xml&#45;tag">&lt;url&#45;pattern&gt;</span>&#42;.action<span class="xml&#45;tag">&lt;/url&#45;pattern&gt;</span>&#10;<span class="xml&#45;tag">&lt;/servlet&#45;mapping&gt;</span></pre>
+</div></div><p class="paragraph">NOTE: The above configuration assumes that actions will use the &quot;.action&quot; extension. If you want your actions to use a different extension, change the url-pattern element to the desired extension and update your calling code to specify that extension.</p><h2 class="heading2"><a name="web.xml-ConfiguringCoolUriServletDispatcher%28optional%29">  Configuring CoolUriServletDispatcher (optional)</a></h2><p class="paragraph">A custom servlet dispatcher that maps servlet paths to actions. This can be used instead of the above ServletDispatcher.  The format is the following:
+<div class="preformatted"><div class="preformattedContent">
+<pre>&#104;ttp://HOST/ACTION&#95;NAME/PARAM&#95;NAME1/PARAM&#95;VALUE1/PARAM&#95;NAME2/PARAM&#95;VALUE2</pre>
+</div></div><br/>
+You can have as many parameters you&#039;d like to use. Alternatively the URL can be shortened to the following:
+<div class="preformatted"><div class="preformattedContent">
+<pre>&#104;ttp://HOST/ACTION&#95;NAME/PARAM&#95;VALUE1/PARAM&#95;NAME2/PARAM&#95;VALUE2</pre>
+</div></div><br/>
+This is the same as:
+<div class="preformatted"><div class="preformattedContent">
+<pre>&#104;ttp://HOST/ACTION&#95;NAME/ACTION&#95;NAME/PARAM&#95;VALUE1/PARAM&#95;NAME2/PARAM&#95;VALUE2</pre>
+</div></div><br/>
+Suppose for example we would like to display some articles by id at using the following URL sheme:
+<div class="preformatted"><div class="preformattedContent">
+<pre>&#104;ttp://HOST/article/ID</pre>
+</div></div><br/>
+All we would have to do is to map the /article/* to this servlet and declare in WebWork an action named article. This action would set its article parameter ID:
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;servlet&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;name&gt;</span>coolDispatcher<span class="xml&#45;tag">&lt;/servlet&#45;name&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;class&gt;</span>com.opensymphony.webwork.dispatcher.CoolUriServletDispatcher<span class="xml&#45;tag">&lt;/servlet&#45;class&gt;</span>&#10;<span class="xml&#45;tag">&lt;/servlet&gt;</span>&#10;<span class="xml&#45;tag">&lt;servlet&#45;mapping&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;name&gt;</span>coolDispatcher<span class="xml&#45;tag">&lt;/servlet&#45;name&gt;</span>&#10;  <span class="xml&#45;tag">&lt;url&#45;pattern&gt;</span>/article/&#42;<span class="xml&#45;tag">&lt;/url&#45;pattern&gt;</span>&#10;<span class="xml&#45;tag">&lt;/servlet&#45;mapping&gt;</span></pre>
+</div></div></p><h2 class="heading2"><a name="web.xml-ConfiguringVelocitySupport%28optional%29"> Configuring Velocity Support (optional)</a></h2><p class="paragraph">WebWork uses Velocity as the underlying template system for the custom JSP tag libraries.   However,  it does not require the WebWorkVelocityServlet to be configured.  You only need to do that if you want to invoke velocity templates directly or from &quot;dispatcher&quot; result type.  If so, you need to add the following:</p><div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;servlet&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;name&gt;</span>velocity<span class="xml&#45;tag">&lt;/servlet&#45;name&gt;</span> &#10;  <span class="xml&#45;tag">&lt;servlet&#45;class&gt;</span>com.opensymphony.webwork.views.velocity.WebWorkVelocityServlet<span class="xml&#45;tag">&lt;/servlet&#45;class&gt;</span> &#10;  <span class="xml&#45;tag">&lt;load&#45;on&#45;startup&gt;</span>10<span class="xml&#45;tag">&lt;/load&#45;on&#45;startup&gt;</span> &#10;<span class="xml&#45;tag">&lt;/servlet&gt;</span>&#10;<span class="xml&#45;tag">&lt;servlet&#45;mapping&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;name&gt;</span>velocity<span class="xml&#45;tag">&lt;/servlet&#45;name&gt;</span> &#10;  <span class="xml&#45;tag">&lt;url&#45;pattern&gt;</span>&#42;.vm<span class="xml&#45;tag">&lt;/url&#45;pattern&gt;</span> &#10;<span class="xml&#45;tag">&lt;/servlet&#45;mapping&gt;</span></pre>
+</div></div><p class="paragraph"><h2 class="heading2"><a name="web.xml-Configuringtaglibraries%28optional%29"> Configuring tag libraries (optional)</a></h2></p>The tag libraries are an optional part of the framework that provides a number of benefits when working with forms and actions.  See the <a href="JSP Tags.html" title="JSP Tags">JSP Tags</a> reference for more information.  To use them, you need to specify the location of the tld (Tag Library Descriptor):<br/>
+
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;taglib&gt;</span>&#10;  <span class="xml&#45;tag">&lt;taglib&#45;uri&gt;</span>webwork<span class="xml&#45;tag">&lt;/taglib&#45;uri&gt;</span> &#10;  <span class="xml&#45;tag">&lt;taglib&#45;location&gt;</span>/WEB&#45;INF/lib/webwork&#45;2.1.jar<span class="xml&#45;tag">&lt;/taglib&#45;location&gt;</span> &#10;<span class="xml&#45;tag">&lt;/taglib&gt;</span></pre>
+</div></div><p class="paragraph">If your application server doesn&#039;t support taglib inside a jar, you will need to extract the webwork.tld, copy it to /WEB-INF and change the above to:</p><div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;taglib&gt;</span>&#10;  <span class="xml&#45;tag">&lt;taglib&#45;uri&gt;</span>webwork<span class="xml&#45;tag">&lt;/taglib&#45;uri&gt;</span> &#10;  <span class="xml&#45;tag">&lt;taglib&#45;location&gt;</span>/WEB&#45;INF/webwork.tld<span class="xml&#45;tag">&lt;/taglib&#45;location&gt;</span> &#10;<span class="xml&#45;tag">&lt;/taglib&gt;</span></pre>
+</div></div><p class="paragraph">NOTE: webwork.tld can be placed anywhere inside your webapp directory.</p><h2 class="heading2"><a name="web.xml-ConfiguringFreemarkersupport%28optional%29"> Configuring Freemarker support (optional)</a></h2><p class="paragraph">Add the following:
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;servlet&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;name&gt;</span>freemarker<span class="xml&#45;tag">&lt;/servlet&#45;name&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;class&gt;</span>com.opensymphony.webwork.views.freemarker.FreemarkerServlet<span class="xml&#45;tag">&lt;/servlet&#45;class&gt;</span>&#10;  <span class="xml&#45;tag">&lt;load&#45;on&#45;startup&gt;</span>10<span class="xml&#45;tag">&lt;/load&#45;on&#45;startup&gt;</span>&#10;<span class="xml&#45;tag">&lt;/servlet&gt;</span></pre>
+</div></div></p>and<br/>
+
+<div class="code"><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;servlet&#45;mapping&gt;</span>&#10;  <span class="xml&#45;tag">&lt;servlet&#45;name&gt;</span>freemarker<span class="xml&#45;tag">&lt;/servlet&#45;name&gt;</span>&#10;  <span class="xml&#45;tag">&lt;url&#45;pattern&gt;</span>&#42;.ftl<span class="xml&#45;tag">&lt;/url&#45;pattern&gt;</span>&#10;<span class="xml&#45;tag">&lt;/servlet&#45;mapping&gt;</span></pre>
+</div></div><p class="paragraph"><h2 class="heading2"><a name="web.xml-ConfiguringIoC%2FLifeCycle%28optional%29">  Configuring IoC / LifeCycle (optional)</a></h2></p>See <a href="IoC Configuration.html" title="IoC Configuration">IoC Configuration</a>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Oct 15, 2004 20:55</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

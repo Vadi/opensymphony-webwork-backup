@@ -1,0 +1,25 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+
+<xwork>
+
+    <include file="webwork-default.xml"/>
+    <package name="clientDispatcher" extends="webwork-default" namespace="/clientDispatcher">
+        <result-types>
+            <result-type name="object" class="com.opensymphony.xwork.dispatcher.ObjectResult"/>
+        </result-types>
+        <interceptors>
+            <interceptor-stack name="clientStack">
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="clientStack"/>
+        <action name="DemoAction" class="com.opensymphony.webwork.example.client.DemoAction">
+            <result name="success" type="object">
+                    <param name="mappingName">demo-mappings</param>
+                    <param name="viewName">noName</param>
+            </result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+    </package>
+
+</xwork>
