@@ -17,4 +17,11 @@
 </tr>
 <tr>
 #end
+#if ($parameters.form.validate && $parameters.form.validate == true)
+    #if ($parameters.onblur)
+        #set ($parameters.onblur = "validate(this);${parameters.onblur}")
+    #else
+        #set ($parameters.onblur = "validate(this)")
+    #end
+#end
     <td>

@@ -132,6 +132,7 @@ public class FormTag extends AbstractClosingUITag {
 
                 String result = UrlHelper.buildUrl(namespace + "/" + action + "." + Configuration.get("webwork.action.extension"), request, response, null);
                 addParameter("action", result);
+                addParameter("namespace", namespace);
 
                 // if the name isn't specified, use the action name
                 if (nameAttr == null) {

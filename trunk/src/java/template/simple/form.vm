@@ -1,4 +1,5 @@
 <form
+#if ($parameters.namespace) namespace="$!parameters.namespace"                  #end
 #if ($parameters.id)        id="$!webwork.htmlEncode($parameters.id)"           #end
 #if ($parameters.name)      name="$!webwork.htmlEncode($parameters.name)"       #end
 #if ($parameters.action)    action="$!webwork.htmlEncode($parameters.action)"   #end
