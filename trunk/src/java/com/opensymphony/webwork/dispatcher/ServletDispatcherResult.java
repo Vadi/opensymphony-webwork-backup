@@ -39,7 +39,7 @@ public class ServletDispatcherResult extends WebWorkResultSupport {
             log.debug("Forwarding to location " + finalLocation);
         }
 
-        PageContext pageContext = (PageContext) invocation.getInvocationContext().get(PAGE_CONTEXT);
+        PageContext pageContext = ServletActionContext.getPageContext();
 
         if (pageContext != null) {
             pageContext.include(finalLocation);
