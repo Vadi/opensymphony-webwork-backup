@@ -13,8 +13,6 @@
 
     <property file="build.properties"/>
 
-    <property name="config-browser" value="${basedir}/config-browser"/>
-
     <property name="lib" value="lib"/>
     <property name="lib.core" value="${lib}/core"/>
     <property name="lib.build" value="${lib}/build"/>
@@ -27,7 +25,7 @@
     <property name="src.example" value="${src}/example"/>
     <property name="src.webapp" value="${src}/webapp"/>
     <property name="src.etc" value="${src}/etc"/>
-    <property name="src.config-browser" value="${config-browser}/src"/>
+    <property name="src.config-browser" value="${src}/config-browser"/>
     <property name="src.migration" value="${src}/migration"/>
     <property name="src.migration-test" value="${src}/migration-test"/>
 
