@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Client-Side Validation</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+
+				    <p class="paragraph">Validators can implement the <b class="strong">com.opensymphony.webwork.validators.ScriptValidationAware</b> interface to provide support for client-side validation:</p><div class="code"><pre><span class="java&#45;keyword">public</span> <span class="java&#45;keyword">interface</span> ScriptValidationAware <span class="java&#45;keyword">extends</span> FieldValidator &#123;&#10;    <span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> validationScript(Map parameters);&#10;&#125;</pre></div><p class="paragraph">The value returned by <b class="strong">validationScript</b> will be executed on the client-side before the form is submitted if client-side validation is enabled.  For example,  the <b class="strong">requiredstring</b> validator has the following code:</p><div class="code"><pre><span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> validationScript(Map parameters) &#123;&#10;        <span class="java&#45;object">String</span> field = (<span class="java&#45;object">String</span>) parameters.get(&quot;name&quot;);&#10;        <span class="java&#45;object">StringBuffer</span> js = <span class="java&#45;keyword">new</span> <span class="java&#45;object">StringBuffer</span>();&#10;&#10;        js.append(&quot;value = form.elements&#91;&#039;&quot; &#43; field &#43; &quot;&#039;&#93;.value;&#92;n&quot;);&#10;        js.append(&quot;<span class="java&#45;keyword">if</span> (value == &#92;&quot;&#92;&quot;) &#123;&#92;n&quot;);&#10;        js.append(&quot;&#92;talert(&#039;&quot; &#43; getMessage(<span class="java&#45;keyword">null</span>) &#43; &quot;&#039;);&#92;n&quot;);&#10;        js.append(&quot;&#92;treturn &#039;&quot; &#43; field &#43; &quot;&#039;;&#92;n&quot;);&#10;        js.append(&quot;&#125;&#92;n&quot;);&#10;        js.append(&quot;&#92;n&quot;);&#10;&#10;        <span class="java&#45;keyword">return</span> js.toString();&#10;&#125;</pre></div><p class="paragraph">To enable client-side validation,  use the &lt;<a href="UI Tags.html#UI+Tags-form">ww:form</a>&gt; tag:</p><div class="code"><pre>&lt;ww&#58;form name=&quot;&#039;test&#039;&quot; action=&quot;&#039;javascriptValidation&#039;&quot; validate=&quot;<span class="java&#45;keyword">true</span>&quot; &gt;&#10;&#10;  ...&#10;&lt;/ww&#58;form&gt;</pre></div><p class="paragraph">Currently only JavaScript is supported.</p>
+
+				    
+			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>Interceptors</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+
+				    <p class="paragraph"><h2 class="heading2"> Overview</h2>
+<br clear="all" />Interceptors are objects that dynamically intercept Action invocations. They provide the developer with the opportunity to define code that can be executed before and/or after the execution of an action. They also have the ability to prevent an action from executing. Interceptors provide developers a way to encapulate common functionality in a re-usable form that can be applied to one or more Actions. See <a href="http://wiki.opensymphony.com//display/XW/Interceptors">XW:Interceptors</a> for further details.  Below describes built in Webwork interceptors.<br/>
+<br clear="all" /><h3 class="heading3"> Webwork &amp; XWork Interceptors</h3>
+<br clear="all" />Interceptor classes are also defined using a key-value pair specified in the xwork configuration file.  The names specified below come specified in <a href="webwork-default.xml.html">webwork-default.xml</a>.  If you extend the webwork-default package, then you can use the names below.  Otherwise they must be defined in your package with a name-class pair specified in the &lt;interceptors&gt; tag.<br/>
+<br clear="all" /></p><table class="wikitable">
+<tr>
+<th>Name</th><th>Description</th>
+</tr><tr>
+<td>timer</td><td>Outputs how long the action (including nested interceptors and view) takes to execute</td>
+</tr><tr>
+<td>logger</td><td>Outputs the name of the action</td>
+</tr><tr>
+<td>chain</td><td>Makes the previous action&#039;s properties available to the current action. Commonly used together with &lt;result type=&quot;chain&quot;&gt; (in the previous action.)</td>
+</tr><tr>
+<td>static-params</td><td>Sets the xwork.xml defined parameters onto the action.  These are the &lt;param&gt; tags that are direct children of the &lt;action&gt; tag.</td>
+</tr><tr>
+<td>params</td><td>Sets the request parameters onto the action.</td>
+</tr><tr>
+<td>model-driven</td><td>If the action implements ModelDriven, pushes the getModel() result onto the valuestack.</td>
+</tr><tr>
+<td>component</td><td>Enables and makes the components available to the Actions. Refer to components.xml</td>
+</tr><tr>
+<td>token</td><td>Checks for valid token presence in action, prevents duplicate form submission </td>
+</tr><tr>
+<td>token-session</td><td>Same as above, but storing the submitted data in session when handed an invalid token</td>
+</tr><tr>
+<td>validation</td><td>Performs validation using the validators defined in &#123;Action&#125;-validation.xml</td>
+</tr><tr>
+<td>workflow</td><td>Calls the validate method in your action class.  If action errors created then it returns the INPUT view.</td>
+</tr><tr>
+<td>servlet-config</td><td>Give access to HttpServletRequest and HttpServletResponse (think twice before using this since this ties you to the Servlet api)</td>
+</tr><tr>
+<td>prepare</td><td>If the action implements Preparable, calls its prepare() method.</td>
+</tr><tr>
+<td>conversionError </td><td> adds conversion errors from the ActionContext to the Action&#039;s field errors </td>
+</tr>
+</table><br/>
+For more information about the chain interceptor, see <a href="Chaining Interceptor.html">WW:Chaining Interceptor</a>.
+
+				    
+			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
