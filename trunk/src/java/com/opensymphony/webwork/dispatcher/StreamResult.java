@@ -42,7 +42,7 @@ import java.io.OutputStream;
  *
  * <ul>
  * <li>contentType - the stream mime-type as sent to the web browser</li>
- * <li>contentDispostion - (optional) the content disposition header value (for sending files)</li>
+ * <li>contentDispostion - the content disposition header value for specifing the file name. (default = "inline", values are typically <i>filename="document.pdf"</i></li>
  * <li>inputName - the name of the InputStream property from the chained action (default = "inputStream")</li>
  * <li>bufferSize - the size of the buffer to copy from input to output (defaul = 1024)</li>
  * </ul>
@@ -51,7 +51,7 @@ import java.io.OutputStream;
  */
 public class StreamResult extends WebWorkResultSupport {
     protected String contentType = "text/plain";
-    protected String contentDisposition;
+    protected String contentDisposition = "inline";
     protected String inputName = "inputStream";
     protected int bufferSize = 1024;
 
@@ -84,14 +84,14 @@ public class StreamResult extends WebWorkResultSupport {
     }
 
     /**
-     * @return Returns the Content-Disposition header value.
+     * @return Returns the Content-disposition header value.
      */
     public String getContentDisposition() {
         return contentDisposition;
     }
 
     /**
-     * @param contentDisposition the Content-Disposition header value to use.
+     * @param contentDisposition the Content-disposition header value to use.
      */
     public void setContentDisposition(String contentDisposition) {
         this.contentDisposition = contentDisposition;
@@ -126,7 +126,7 @@ public class StreamResult extends WebWorkResultSupport {
 
         // Set the content-disposition
         if (contentDisposition != null) {
-            oResponse.addHeader("Content-Disposition", conditionalParse(contentDisposition, invocation));
+            oResponse.addHeader("Content-disposition", conditionalParse(contentDisposition, invocation));
         }
 
         // Get the outputstream

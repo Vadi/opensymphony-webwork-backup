@@ -39,7 +39,7 @@ import java.util.Map;
  * <ul>
  * <li>format - the format in which the report should be generated. Valid values can be found
  * in {@link JasperReportConstants}. If no format is specified, PDF will be used.</li>
- * <li>contentDisposition : disposition (no default, value is typically <i>filename="document.pdf"</i>)</li>
+ * <li>contentDisposition : disposition (defaults to "inline", values are typically <i>filename="document.pdf"</i>)</li>
  * <li>documentName : name of the document (will generate the http header Content-disposition = X; filename=X.[format])</li>
  * </ul>
  * <p/>
