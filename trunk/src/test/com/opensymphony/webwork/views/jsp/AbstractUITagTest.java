@@ -75,7 +75,7 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
 
     protected void setUp() throws Exception {
         Properties props = new Properties();
-        props.setProperty("resource.loader", "file1,file2");
+        props.setProperty("resource.loader", "file1,file2,class");
 
         // adding src/java to the Velocity load path
         props.setProperty("file1.resource.loader.description", "Velocity File Resource Loader");
