@@ -27,7 +27,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 public class VelocityResultTest extends TestCase {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    Mock mockActionInvocation;
+    ActionInvocation actionInvocation;
     Mock mockActionProxy;
     OgnlValueStack stack;
     String namespace;
@@ -41,7 +41,7 @@ public class VelocityResultTest extends TestCase {
 
         result.setLocation(location);
 
-        Template template = result.getTemplate(stack, velocity, (ActionInvocation) mockActionInvocation.proxy());
+        Template template = result.getTemplate(stack, velocity, actionInvocation);
         assertNotNull(template);
         assertEquals("expect absolute locations to be handled as is", location, velocity.templateName);
     }
@@ -52,9 +52,31 @@ public class VelocityResultTest extends TestCase {
 
         result.setLocation(location);
 
-        Template template = result.getTemplate(stack, velocity, (ActionInvocation) mockActionInvocation.proxy());
+        Template template = result.getTemplate(stack, velocity, actionInvocation);
         assertNotNull(template);
         assertEquals("expect the prefix to be appended to the path when the location is not absolute", expectedTemplateName, velocity.templateName);
+    }
+
+    public void testCanResolveLocationUsingOgnl() throws Exception {
+        String location = "/myaction.action";
+        Bean bean = new Bean();
+        bean.setLocation(location);
+        stack.push(bean);
+
+        assertEquals(location, stack.findValue("location"));
+
+        result.setLocation("${location}");
+        result.setParse(true);
+        result.getTemplate(stack, velocity, actionInvocation);
+        assertEquals(location, velocity.templateName);
+    }
+
+    public void testCanResolveLocationUsingStaticExpression() throws Exception {
+        String location = "/any.action";
+        result.setLocation("${'" + location + "'}");
+        result.setParse(true);
+        result.getTemplate(stack, velocity, actionInvocation);
+        assertEquals(location, velocity.templateName);
     }
 
     protected void setUp() throws Exception {
@@ -64,8 +86,10 @@ public class VelocityResultTest extends TestCase {
         velocity = new TestVelocityEngine();
         mockActionProxy = new Mock(ActionProxy.class);
         mockActionProxy.expectAndReturn("getNamespace", "/html");
-        mockActionInvocation = new Mock(ActionInvocation.class);
+
+        Mock mockActionInvocation = new Mock(ActionInvocation.class);
         mockActionInvocation.expectAndReturn("getProxy", mockActionProxy.proxy());
+        actionInvocation = (ActionInvocation) mockActionInvocation.proxy();
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////
@@ -77,6 +101,18 @@ public class VelocityResultTest extends TestCase {
             this.templateName = templateName;
 
             return new Template();
+        }
+    }
+
+    class Bean {
+        private String location;
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
         }
     }
 }
