@@ -57,13 +57,13 @@ public class PropertyTag extends TagSupport {
     }
 
     public int doStartTag() throws JspException {
-        OgnlValueStack stack = ActionContext.getContext().getValueStack();
+        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+        OgnlValueStack stack = (OgnlValueStack) req.getAttribute("webwork.valueStack");
 
         try {
             if (stack == null)
             {
                 stack = new OgnlValueStack();
-                HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
                 HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
                 Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(),
                         new SessionMap(req.getSession()),
