@@ -1,6 +1,6 @@
 package com.opensymphony.webwork.example;
 
-import webwork.action.ActionSupport;
+import com.opensymphony.xwork.ActionSupport;
 
 import java.util.Date;
 
