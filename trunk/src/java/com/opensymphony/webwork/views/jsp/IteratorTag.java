@@ -7,13 +7,9 @@ package com.opensymphony.webwork.views.jsp;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import java.util.*;
 
 
 /**
@@ -146,8 +142,8 @@ public class IteratorTag extends BodyTagSupport {
     }
 
     /**
-    * Clears all the instance variables to allow this instance to be reused.
-    */
+     * Clears all the instance variables to allow this instance to be reused.
+     */
     public void release() {
         super.release();
         this.iterator = null;
@@ -176,8 +172,13 @@ public class IteratorTag extends BodyTagSupport {
             return Arrays.asList((Object[]) o).iterator();
         } else if (o instanceof Map) {
             return ((Map) o).entrySet().iterator();
+        } else if (o instanceof Iterator) {
+            return (Iterator) o;
+        } else if (o instanceof Enumeration) {
+            return new EnumeratorIterator((Enumeration) o);
         }
 
         return null;
     }
+
 }

@@ -8,19 +8,13 @@ import com.mockobjects.servlet.MockBodyContent;
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
+import java.util.*;
 
 
 /**
@@ -39,13 +33,33 @@ public class IteratorTagTest extends TestCase {
 
     public void testArrayIterator() {
         Foo foo = new Foo();
-        foo.setArray(new String[] {"test1", "test2", "test3"});
+        foo.setArray(new String[]{"test1", "test2", "test3"});
 
         stack.push(foo);
 
         tag.setValue("array");
 
         iterateThreeStrings();
+    }
+
+    public void testEnumerationWrapper() {
+        Vector v = new Vector();
+        v.add("foo");
+        v.add("bar");
+
+        Iterator ei = new EnumeratorIterator(v.elements());
+        assertTrue(ei.hasNext());
+        assertEquals("foo", ei.next());
+        assertTrue(ei.hasNext());
+        assertEquals("bar", ei.next());
+        assertFalse(ei.hasNext());
+
+        try {
+            ei.remove();
+            fail("Remove method not supported, expected an exception");
+        } catch (Exception e) {
+            // this is expected
+        }
     }
 
     public void testCollectionIterator() {
@@ -123,7 +137,7 @@ public class IteratorTagTest extends TestCase {
 
     public void testStatus() {
         Foo foo = new Foo();
-        foo.setArray(new String[] {"test1", "test2", "test3"});
+        foo.setArray(new String[]{"test1", "test2", "test3"});
 
         stack.push(foo);
 
