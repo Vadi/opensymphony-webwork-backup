@@ -68,7 +68,7 @@ public class ServletRedirectResult implements Result, WebWorkStatics {
         if (location.startsWith("/")) {
             response.sendRedirect(location);
         } else {
-            response.sendRedirect(request.getContextPath() + location);
+            response.sendRedirect(request.getContextPath()+ "/" + location);
         }
     }
 }

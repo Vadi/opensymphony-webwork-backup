@@ -1,0 +1,2 @@
+After Beta 1
+- ServletRedirectResult was not adding the '/' between the context and the redirect location, now it does
