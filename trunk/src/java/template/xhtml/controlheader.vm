@@ -31,7 +31,10 @@
         #else
             <span class="label">
         #end
-                $!parameters.label:
+
+        #if ($parameters.label)
+            $parameters.label:
+        #end
             </span>
         </td>
 
