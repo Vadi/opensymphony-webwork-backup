@@ -1,0 +1,15 @@
+*.ipr
+*.iws
+*.iml
+*.log
+build
+dist
+bin
+test*
+cache
+logs
+velocity.log
+webapps
+.classpath
+.project
+build-*

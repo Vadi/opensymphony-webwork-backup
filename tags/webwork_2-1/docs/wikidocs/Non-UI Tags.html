@@ -1,0 +1,326 @@
+<html>
+    <head>
+        <title>Non-UI Tags</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+
+				    <p class="paragraph"><a name="Non-UI+Tags-top" ></a><br/>
+These are tags that interact with the value stack, and control the logic of the page.</p><table class="wikitable">
+<tr>
+<th>	Tag Name					</th><th>	Description	</th>
+</tr><tr>
+<td>	<b class="strong"><a href="#Non-UI+Tags-Common">Common Tags</a></b></td><td> </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-param">&lt;ww:param /&gt;</a>					</td><td>	Add parameters to tags that support it </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-property">&lt;ww:property /&gt;</a>					</td><td>	Fetches a value and prints it </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-push">&lt;ww:push /&gt;</a>					</td><td>	Add an object of your choice to the top of the value stack </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-set">&lt;ww:set /&gt;</a>						</td><td>	Create your own named variables </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-url">&lt;ww:url /&gt;</a>						</td><td>	Builds an encoded URL </td>
+</tr><tr>
+<td>	<b class="strong"><a href="#Non-UI+Tags-Componentisation">Componentisation Tags</a></b>	</td><td> </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-action">&lt;ww:action /&gt;</a>					</td><td>	Provides another method to call Actions </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-bean">&lt;ww:bean /&gt;</a>					</td><td>	Instantiate a bean that can be used to access functionality  </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-include">&lt;ww:include /&gt;</a>					</td><td>	Used to include another page or action </td>
+</tr><tr>
+<td>	<b class="strong"><a href="#Non-UI+Tags-Flow-Control">Flow-Control Tags</a></b></td><td> </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-if">&lt;ww:if /&gt;</a>						</td><td>	Used to determine if a statement is true or false  </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-elseif">&lt;ww:elseif /&gt;</a>					</td><td>	Used to determine if a statement is true or false after a previous test.  </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-else">&lt;ww:else /&gt;</a>					</td><td>	Used to determine if the preceding statement was false  </td>
+</tr><tr>
+<td>	<b class="strong"><a href="#Non-UI+Tags-Iteration">Iteration Tags</a></b>	</td><td> </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-iterator">&lt;ww:iterator /&gt;</a>				</td><td>	Iterate over a value  </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-generator">&lt;ww:generator /&gt;</a>				</td><td>	Create Iterator  </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-append">&lt;ww:append /&gt;</a>					</td><td>	Append a list of iterators  </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-subset">&lt;ww:subset /&gt;</a>					</td><td>	Iterate over a portion of an iterable object </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-merge">&lt;ww:merge /&gt;</a>					</td><td>	Merge several iterators into one  </td>
+</tr><tr>
+<td>	<a href="#Non-UI+Tags-sort">&lt;ww:sort /&gt;</a>					</td><td>	Sort an iterator   </td>
+</tr>
+</table><br/>
+<a name="Non-UI+Tags-Common" ></a>
+<h2 class="heading2"> Common Tags</h2><p class="paragraph"><a name="Non-UI+Tags-param" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:param /&gt;</b></font></h3></p>Allows you to add parameters to tags that support adding parametric tags. 
+
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>value</td><td>no</td><td>This attribute is used to pass data to the tag.</td>
+</tr><tr>
+<td>name</td><td>no</td><td>The name of the action to invoke. </td>
+</tr>
+</table><br/>
+You can place param tags within the body of parametric supporting tags and param will add its parameter to its parent. It evaluates the body as the value if no value is given.<p class="paragraph">In this example, each param will add its parameter to Counter. This means param will call Counter&#039;s appropriate setter method.</p><div class="code"><pre>&lt;ww&#58;bean name=&quot;&#039;webwork.util.Counter&#039;&quot; id=&quot;year&quot;&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;first&#039;&quot; value=&quot;text(&#039;firstBirthYear&#039;)&quot;/&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;last&#039;&quot; value=&quot;2000&quot;/&gt;&#10;&#10;  &lt;ui&#58;combobox label=&quot;&#039;Birth year&#039;&quot; size=&quot;6&quot; maxlength=&quot;4&quot; name=&quot;&#039;birthYear&#039;&quot; list=&quot;#year&quot;/&gt;&#10;&lt;/ww&#58;bean&gt;</pre></div>
+<p class="paragraph"><a name="Non-UI+Tags-property" ></a><br/>
+<a href="#Non-UI+Tags-top">return to top</a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:property /&gt;</b></font></h3></p>The property tag fetches a value and prints it
+
+<table class="wikitable">
+<tr>
+<th>attribute</th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr><tr>
+<td>value</td><td>no</td><td>This attribute is used to pass data to the tag.</td>
+</tr><tr>
+<td>escape</td><td>no</td><td>Determines if the contents should be escaped appropriately for valid HTML characters </td>
+</tr>
+</table><br/>
+Some examples will illustrate these different uses:
+
+<div class="code"><pre>Print getX().getY() &#10;&lt;ww&#58;property value=&quot;x.y&quot;/&gt;</pre></div><p class="paragraph">HTML characters will be escaped by default, whereas the contents of property tags with bodies will not be escaped.  This behavior can be overridden by explicitly setting the escape attribute. Quoted text that is escaped will have its outer quotes stripped.</p>Note also that if the property tag has an empty body, it behaves the same as having no body and prints the value, though both spaces and carriage returns constitute nonempty content.
+<p class="paragraph"><a name="Non-UI+Tags-push" ></a><br/>
+<a href="#Non-UI+Tags-top">return to top</a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:push /&gt;</b></font></h3></p>Using ww:push, you can add an object of your choice to the top of the value stack. 
+
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>value</td><td><b class="strong">yes</b></td><td>This attribute is used to pass data to the tag.</td>
+</tr>
+</table><p class="paragraph">This is similar to what you can do with ww:set (see below), so read both before deciding which to use.</p><div class="code"><pre>&lt;ww&#58;push value=&quot;counter&quot;&gt;&#10;  &lt;ww&#58;property value=&quot;count&quot;/&gt;&#10;&lt;/ww&#58;push&gt;</pre></div><p class="paragraph">To make an action available on the stack:</p><div class="code"><pre>&lt;ww&#58;action name=&quot;&#039;SomeAction&#039;&quot; id=&quot;sa&quot;/&gt;&#10;&lt;ww&#58;push value=&quot;#sa&quot;&gt;&#10; foo = &lt;ww&#58;property value=&quot;foo&quot;/&gt;&#10;&lt;/ww&#58;push&gt;</pre></div>
+
+<p class="paragraph"><a name="Non-UI+Tags-set" ></a><br/>
+<a href="#Non-UI+Tags-top">return to top</a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:set /&gt;</b></font></h3></p>You can create your own named variables from within a JSP using the ww:set tag. Reference your variable later using the # variableName notation. 
+   
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>name </td><td><b class="strong">yes</b></td><td>Unique name for the variable, accessed as &quot;#name&quot;.</td>
+</tr><tr>
+<td>value</td><td>no</td><td>This attribute is used to pass data to the tag.</td>
+</tr><tr>
+<td>scope</td><td>no</td><td>Scope of the variable: page, stack, application, session</td>
+</tr>
+</table><br/>
+Sets the value of an object in the VS to a scope (page, stack, application, session). If the value is not given, the top of the stack is used. If the scope is not given, the default scope of &quot;webwork&quot; is used. <p class="paragraph"><a name="Non-UI+Tags-url" ></a><br/>
+<a href="#Non-UI+Tags-top">return to top</a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:url /&gt;</b></font></h3></p>Url builds an encoded URL. If you do not include a value, then the tag will point to the current page.
+
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>value</td><td>no</td><td>This attribute is used to pass data to the tag.</td>
+</tr><tr>
+<td> includeContext </td><td>no</td><td>Determines whether the context path should be prepended to absolute urls or not. Default is true </td>
+</tr><tr>
+<td> encode </td><td>no</td><td>Determines if the contents should be escaped appropriately for valid HTML characters </td>
+</tr><tr>
+<td> includeParams </td><td>no</td><td>The includeParams attribute may have the value &#039;none&#039; (no params), &#039;get&#039;(only GET params) or &#039;all&#039;(GET and POST params). It is used when the url tag is used without a value or page attribute. Its value is looked up on the ValueStack. If no includeParams is specified then &#039;get&#039; is used.</td>
+</tr>
+</table><br/>
+In this example, the form action value will be an url hiturl.action that is encoded. 
+
+<div class="code"><pre>&lt;form action=&quot;&lt;ww&#58;url value=&quot;&#039;hiturl.action&#039;&quot;/&gt;&quot; method=&quot;POST&quot;&gt;&#10;    ...&#10;  &lt;/form&gt;</pre></div><p class="paragraph">In this example, we are adding name/value pairs to the URL. The URL tag will build up the URL appropriately. You can also place them in the normal way with &quot;?&quot;; i.e., - &#039;hiturl.action?user=john&#039;.</p><div class="code"><pre>&lt;form action=&quot;&lt;ww&#58;url value=&quot;&#039;hiturl.action&#039;&quot;&gt;&#10;      &lt;ww&#58;param name=&quot;&#039;user&#039;&quot; value=&quot;&#039;john&#039;&quot;/&gt;&#10;   &lt;/ww&#58;url&gt;&quot; method=&quot;POST&quot;&gt;&#10;...&#10;&lt;/form&gt;</pre></div><p class="paragraph"><a name="Non-UI+Tags-Componentisation" ></a>
+<h2 class="heading2"> Componentisation Tags</h2></p><a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-action" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:action /&gt;</b></font></h3><p class="paragraph">Action tag provides another method to call Actions. This is an alternative way to invoke an action besides calling an url; i.e. - *.action that would be sent to the ServletDispatcher.</p><table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr><tr>
+<td>name</td><td><b class="strong">yes</b></td><td>The name of the action to invoke. </td>
+</tr><tr>
+<td>namespace		</td><td>		no		</td><td>	Namespace of this action</td>
+</tr><tr>
+<td>executeResult	</td><td>		no		</td><td>	Whether to execute result </td>
+</tr>
+</table><p class="paragraph">If the <b class="strong">id</b> attribute is given, the executed action is assigned a name reference that can be later retrieved from the context &quot;<b class="strong">#id</b>&quot;.</p>In this example, the ClientInfo action will be executed and its methods will be used to retrieve information and perform a conditional test.
+
+<div class="code"><pre>&lt;ww&#58;action name=&quot;&#039;ClientInfo&#039;&quot; id=&quot;cinfo&quot;&gt;&#10;  &lt;ww&#58;param name=&quot;detailedMode&quot; value=&quot;false&quot;/&gt;&#10;&lt;/ww&#58;action&gt;&#10;Browser&#58;&lt;ww&#58;property value=&quot;#cinfo.browser&quot;/&gt;&lt;br&gt;&#10;Version&#58;&lt;ww&#58;property value=&quot;#cinfo.version&quot;/&gt;&lt;br&gt;&#10;Supports GIF&#58;&lt;ww&#58;if test=&quot;#cinfo.supportsType(&#039;image/gif&#039;) == true&quot;&gt;Yes&lt;/ww&#58;if&gt;&#10;&lt;ww&#58;else&gt;No&lt;/ww&#58;else&gt;&lt;br&gt;</pre></div> <p class="paragraph"><a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-bean" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:bean /&gt;</b></font></h3></p>Create a JavaBean and instantiate its properties. It is then placed in the ActionContext for later use.
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr><tr>
+<td>name</td><td><b class="strong">yes</b></td><td>The name of the action to invoke. </td>
+</tr>
+</table><br/>
+In this example, Counter is used as a bean. We can now call the methods we desire. In this case, we setFirst() to first birth year which is 1975 and we setLast() to 2000. We then display a combo box using Counter as an Iterator. 
+
+<div class="code"><pre>&lt;ww&#58;bean name=&quot;&#039;webwork.util.Counter&#039;&quot; id=&quot;year&quot;&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;first&#039;&quot; value=&quot;text(&#039;firstBirthYear&#039;)&quot;/&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;last&#039;&quot; value=&quot;2000&quot;/&gt;&#10;&#10;  &lt;ui&#58;combobox label=&quot;&#039;Birth year&#039;&quot; size=&quot;6&quot; maxlength=&quot;4&quot; name=&quot;&#039;birthYear&#039;&quot; list=&quot;#year&quot;/&gt;&#10;&lt;/ww&#58;bean&gt;</pre></div>
+<p class="paragraph"><a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-include" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:include /&gt;</b></font></h3></p>Used to include another page or action. 
+
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>page </td><td>no</td><td>Name of page or action.</td>
+</tr><tr>
+<td>value</td><td>no</td><td>This attribute is used to pass data to the tag.</td>
+</tr>
+</table><p class="paragraph">In this example, beaninfo.jsp will introspec on people[0] which is a Person. Take a look at beaninfo.jsp example and notice how it retrieves the parent value off the ValueStack with &quot;..&quot;.
+<div class="code"><pre>&lt;ww&#58;property value=&quot;people&#91;0&#93;&quot;&gt;&#10;  &lt;ww&#58;include value=&quot;&#039;beaninfo.jsp&#039;&quot;/&gt;&#10;&lt;/ww&#58;property&gt;</pre></div></p>In this example, an Action is invoked.
+<div class="code"><pre>&lt;h1&gt;RSS viewer&lt;/h1&gt;&#10;&lt;ww&#58;include value=&quot;&#039;rss.viewer.action&#039;&quot;/&gt;</pre></div>
+<p class="paragraph"><a name="Non-UI+Tags-Flow-Control" ></a>
+<h2 class="heading2"> Flow Control Tags</h2></p>   <a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-if" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:if /&gt;</b></font></h3>
+Used to determine if a statement is true or false. 
+
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr><tr>
+<td>test</td><td><b class="strong">yes</b></td><td>This attribute is the conditional expression evaluated by WW&#039;s parser. It returns boolean true or false. </td>
+</tr>
+</table><br/>
+In this example, if will evaluate its body since the test condition is true. elseIf and else will not evaluate. 
+
+<div class="code"><pre>&lt;ww&#58;<span class="java&#45;keyword">if</span> test=&quot;<span class="java&#45;keyword">true</span> == <span class="java&#45;keyword">true</span>&quot;&gt;&#10;   &lt;b&gt;<span class="java&#45;keyword">if</span>&#58; Success&lt;/b&gt;&#10;&lt;/ww&#58;<span class="java&#45;keyword">if</span>&gt;&#10;&#10;&lt;ww&#58;elseIf test=&quot;<span class="java&#45;keyword">true</span> == <span class="java&#45;keyword">true</span>&quot;&gt;&#10;   &lt;b&gt;elseIf&#58; Failure&lt;/b&gt;&#10;&lt;/ww&#58;elseIf&gt;&#10;&#10;&lt;ww&#58;<span class="java&#45;keyword">else</span>&gt;&#10;   &lt;b&gt;<span class="java&#45;keyword">else</span>&#58; Failure&lt;/b&gt;&#10;&lt;/ww&#58;<span class="java&#45;keyword">else</span>&gt;</pre></div><p class="paragraph"><a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-elseif" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:elseif /&gt;</b></font></h3></p>Used to determine if a statement is true or false after a previous test. 
+
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr><tr>
+<td>test</td><td><b class="strong">yes</b></td><td>This attribute is the conditional expression evaluated by WW&#039;s parser. It returns boolean true or false. </td>
+</tr>
+</table><p class="paragraph">In this example, elseIf will evaluate its body since its test condition is true and if is false.</p><div class="code"><pre>&lt;ww&#58;<span class="java&#45;keyword">if</span> test=&quot;<span class="java&#45;keyword">true</span> == <span class="java&#45;keyword">false</span>&quot;&gt;&#10;   &lt;b&gt;<span class="java&#45;keyword">if</span>&#58; Failures&lt;/b&gt;&#10;&lt;/ww&#58;<span class="java&#45;keyword">if</span>&gt;&#10;&#10;&lt;ww&#58;elseIf test=&quot;<span class="java&#45;keyword">true</span> == <span class="java&#45;keyword">true</span>&quot;&gt;&#10;   &lt;b&gt;elseIf&#58; Success&lt;/b&gt;&#10;&lt;/ww&#58;elseIf&gt;&#10;&#10;&lt;ww&#58;<span class="java&#45;keyword">else</span>&gt;&#10;   &lt;b&gt;<span class="java&#45;keyword">else</span>&#58; Failure&lt;/b&gt;&#10;&lt;/ww&#58;<span class="java&#45;keyword">else</span>&gt;</pre></div><p class="paragraph"><a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-else" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:else /&gt;</b></font></h3></p>Used to determine if the preceding statement was false. 
+
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr>
+</table><br/>
+In this exmaple, else will evaluate its body since both if and elseIf conditions are false. 
+
+<div class="code"><pre>&lt;ww&#58;<span class="java&#45;keyword">if</span> test=&quot;<span class="java&#45;keyword">true</span> == <span class="java&#45;keyword">false</span>&quot;&gt;&#10;   &lt;b&gt;<span class="java&#45;keyword">if</span>&#58; Failures&lt;/b&gt;&#10;&lt;/ww&#58;<span class="java&#45;keyword">if</span>&gt;&#10;&#10;&lt;ww&#58;elseIf test=&quot;<span class="java&#45;keyword">true</span> == <span class="java&#45;keyword">false</span>&quot;&gt;&#10;   &lt;b&gt;elseIf&#58; Failure&lt;/b&gt;&#10;&lt;/ww&#58;elseIf&gt;&#10;&#10;&lt;ww&#58;<span class="java&#45;keyword">else</span>&gt;&#10;   &lt;b&gt;<span class="java&#45;keyword">else</span>&#58; Success&lt;/b&gt;&#10;&lt;/ww&#58;<span class="java&#45;keyword">else</span>&gt;</pre></div><p class="paragraph"><a name="Non-UI+Tags-Iteration" ></a>
+<h2 class="heading2">Iteration Tags</h2></p>   <a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-iterator" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:iterator /&gt;</b></font></h3>
+<p class="paragraph">Iterator will iterate over a value. An iterable value can be either of: java.util.Collection, java.util.Iterator, java.util.Enumeration, java.util.Map, array, XML Node, or XML NodeList.</p><table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr><tr>
+<td>status</td><td>no</td><td>This attribute indicates the name of the IteratorStatus object         to be exposed. An IteratorStatus allows one to get information about the status of the iteration, such         as the size, current index, and whether any more items are available. </td>
+</tr><tr>
+<td>value</td><td>no</td><td>This attribute is used to pass data to the tag.</td>
+</tr>
+</table><br/>
+In this example, iterator will iterate over Counter. property will output the current value which is 1 through 10. 
+
+<div class="code"><pre>&lt;ww&#58;bean name=&quot;&#039;webwork.util.Counter&#039;&quot;&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;last&#039;&quot; value=&quot;10&quot;/&gt;&#10;&#10;  &lt;ww&#58;iterator&gt;&#10;    &lt;ww&#58;property/&gt;&lt;br /&gt;&#10;  &lt;/ww&#58;iterator&gt;&#10;&lt;/ww&#58;bean&gt;</pre></div><p class="paragraph">In this example, we use a couple of IteratorStatus to see where we are within iterations.</p><div class="code"><pre>&lt;h1&gt;Testing iterator status&lt;/h1&gt;&#10;&#10;&lt;ww&#58;bean name=&quot;&#039;webwork.util.Counter&#039;&quot; id=&quot;rowcounter&quot;&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;first&#039;&quot; value=&quot;0&quot;/&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;last&#039;&quot; value=&quot;5&quot;/&gt;&#10;&lt;/ww&#58;bean&gt;&#10;&#10;&lt;table border=&quot;1&quot;&gt;&#10;  &lt;ww&#58;iterator value=&quot;#rowcounter&quot; status=&quot;rowstatus&quot;&gt;&#10;  &lt;tr&gt;&#10;    &lt;ww&#58;bean name=&quot;&#039;webwork.util.Counter&#039;&quot; id=&quot;colcounter&quot;&gt;&#10;    	&lt;ww&#58;param name=&quot;&#039;first&#039;&quot; value=&quot;0&quot;/&gt;&#10;    	&lt;ww&#58;param name=&quot;&#039;last&#039;&quot; value=&quot;5&quot;/&gt;&#10;    &lt;/ww&#58;bean&gt;&#10;    &#10;    &lt;ww&#58;iterator value=&quot;#colcounter&quot; status=&quot;colstatus&quot;&gt;&#10;     &lt;&#33;&#45;&#45;&#10;        <span class="java&#45;keyword">if</span> it is (first row) or (first column) or (last row) then&#10;        output the column number.&#10;      &#45;&#45;&gt;&#10;      &lt;ww&#58;<span class="java&#45;keyword">if</span> test=&quot;#rowstatus.first==<span class="java&#45;keyword">true</span> || #colstatus.first==<span class="java&#45;keyword">true</span> || #rowstatus.last==<span class="java&#45;keyword">true</span>&quot;&gt;&#10;        &lt;th&gt;&lt;ww&#58;property value=&quot;#colstatus.count&quot;/&gt;&lt;/th&gt;&#10;      &lt;/ww&#58;<span class="java&#45;keyword">if</span>&gt;&#10;      &#10;      &lt;ww&#58;<span class="java&#45;keyword">else</span>&gt;&#10;        &lt;td&gt;&lt;ww&#58;property/&gt;&lt;/td&gt;&#10;      &lt;/ww&#58;<span class="java&#45;keyword">else</span>&gt;&#10;      &#10;    &lt;/ww&#58;iterator&gt;&#10;&#10;  &lt;/tr&gt;&#10;  &lt;/ww&#58;iterator&gt;&#10;&lt;/table&gt;</pre></div><p class="paragraph">Here we use the IteratorStatus determine every other row to insert an extra line break. This is very useful for shading alternate rows in an HTML table. Both even and odd attributes are available.</p><div class="code"><pre>&lt;ww&#58;iterator status=&quot;&#039;status&#039;&quot;&gt;&#10;   &lt;ww&#58;<span class="java&#45;keyword">if</span> test=&quot;#status.odd == <span class="java&#45;keyword">true</span>&quot;&gt; &lt;br /&gt; &lt;/ww&#58;<span class="java&#45;keyword">if</span>&gt;&#10;   &lt;br /&gt;&#10;&lt;/ww&#58;iterator&gt; &#10;&#10;Here we use the IteratorStatus determine every fourth row to insert an extra line <span class="java&#45;keyword">break</span>. &#10;&lt;ww&#58;iterator status=&quot;&#039;status&#039;&quot;&gt;&#10;  &lt;ww&#58;<span class="java&#45;keyword">if</span> test=&quot;#status.modulus(4) == 0&quot;&gt; &lt;br /&gt; &lt;/ww&#58;<span class="java&#45;keyword">if</span>&gt;&#10;  &lt;br /&gt;&#10;&lt;/ww&#58;iterator&gt;</pre></div><p class="paragraph">Following are the list of operations available on the status object:<ul class="star">
+<li> even : boolean - returns true if the current iteration is even</li>
+<li> odd : boolean - returns true if the current iteration is odd</li>
+<li> count : int - returns the count (1 based) of the current iteration</li>
+<li> index : int - returns the index (0 based) of the current iteration</li>
+<li> first : boolean - returns true if the iterator is on the first iteration</li>
+<li> last : boolean - returns true if the iteration is on the last iteration</li>
+<li> modulus(operand : int) : int - returns the current count (1 based) modulo the given operand</li>
+</ul></p>   <a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-generator" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:generator /&gt;</b></font></h3><p class="paragraph">Generate will create Iterators from val.</p><table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr><tr>
+<td>count</td><td>no</td><td>This attribute indicates how many items there are.</td>
+</tr><tr>
+<td>separator</td><td>no</td><td>This attribute is the character the StringTokenizer will use to create tokens.</td>
+</tr><tr>
+<td>val</td><td><b class="strong">yes</b></td><td>This attribute is the list of values the generator should use to create tokens.</td>
+</tr>
+</table><p class="paragraph">In this example, two Iterators are created. One for val=&quot;&#039;foo,bar,xyzzy&#039;&quot; and the other for val=&quot;&#039; &#039;&quot;.</p><div class="code"><pre>&lt;h1&gt;Testing append, subset, and value generators&lt;/h1&gt;&#10;&#10;&lt;table border=&quot;1&quot;&gt;&#10;  &lt;ww&#58;bean name=&quot;&#039;webwork.util.Counter&#039;&quot;&gt;&#10;    &lt;ww&#58;param name=&quot;&#039;last&#039;&quot; value=&quot;5&quot;/&gt;&#10;    &lt;ww&#58;iterator id=&quot;colcount&quot;&gt;&#10;      &lt;tr&gt;&#10;&#10;        &lt;&#33;&#45;&#45;&#10;           Generator will create an Iterator that has 5 items.&#10;           The first 3 are &quot;foo,bar,xyzzy&quot;. Item 4 and 5 will be&#10;           foo and bar respectively. If the count is more than&#10;           the items, you start over.&#10;        &#45;&#45;&gt;&#10;        &#10;        &lt;ww&#58;generator val=&quot;&#039;foo,bar,xyzzy&#039;&quot; separator=&quot;&#039;,&#039;&quot; count=&quot;#colcount&quot; id=&quot;values&quot;/&gt;&#10;&#10;       &lt;&#33;&#45;&#45;&#10;           Generator will create an Iterator that has infinite&#10;            . Count=&#45;1 means indefinite.&#10;        &#45;&#45;&gt;&#10;        &lt;ww&#58;generator val=&quot;&#039; &#039;&quot; count=&quot;&#45;1&quot; id=&quot;space&quot;/&gt;&#10;        &lt;ww&#58;append&gt;&#10;          &lt;ww&#58;param name=&quot;&#039;source&#039;&quot; value=&quot;#values&quot;/&gt;&#10;          &lt;ww&#58;param name=&quot;&#039;source&#039;&quot; value=&quot;#space&quot;/&gt;&#10;&#10;          &lt;ww&#58;subset count=&quot;6&quot;&gt;&#10;            &lt;ww&#58;iterator&gt;&#10;              &lt;td width=&quot;40&quot;&gt;&lt;ww&#58;property/&gt;&lt;/td&gt;&#10;            &lt;/ww&#58;iterator&gt;&#10;          &lt;/iterator&#58;subset&gt;&#10;        &lt;/iterator&#58;append&gt;&#10;      &lt;/tr&gt;&#10;    &lt;/ww&#58;iterator&gt;&#10;  &lt;/ww&#58;bean&gt;&#10;&lt;/table&gt;</pre></div><p class="paragraph"><img src="./icons/emoticons/warning.png" height="16" width="16" align="absmiddle" alt="" border="0"/> This tag is mostly superfluous, now that we can do this in OGNL:
+<div class="code"><pre>&lt;ww&#58;iterator value=&quot;&#123;1, 2, 3, 4&#125;&quot;&gt;&#10;&lt;/ww&#58;iterator&gt;</pre></div></p>   <a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-append" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:append /&gt;</b></font></h3><p class="paragraph">Append will append a list of iterators. The values of the iterators will be appended and treated as one iterator. The outputs from the iterator will be in the sequence the sources were added.</p><table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr>
+</table><p class="paragraph">In this example, the two iterators #values and #spaces are appended. This means #spaces values are after #values.</p><div class="code"><pre>&lt;h1&gt;Testing append, subset, and value generators&lt;/h1&gt;&#10;&#10;&lt;table border=&quot;1&quot;&gt;&#10;  &lt;ww&#58;bean name=&quot;&#039;webwork.util.Counter&#039;&quot;&gt;&#10;    &lt;ww&#58;param name=&quot;&#039;last&#039;&quot; value=&quot;5&quot;/&gt;&#10;    &lt;ww&#58;iterator id=&quot;colcount&quot;&gt;&#10;      &lt;tr&gt;&#10;        &lt;ww&#58;generator val=&quot;&#039;foo,bar,xyzzy&#039;&quot; separator=&quot;&#039;,&#039;&quot; count=&quot;#colcount&quot; id=&quot;values&quot;/&gt;&#10;        &lt;ww&#58;generator val=&quot;&#039; &#039;&quot; count=&quot;&#45;1&quot; id=&quot;space&quot;/&gt;&#10;        &lt;ww&#58;append&gt;&#10;          &lt;ww&#58;param name=&quot;&#039;source&#039;&quot; value=&quot;#values&quot;/&gt;&#10;          &lt;ww&#58;param name=&quot;&#039;source&#039;&quot; value=&quot;#space&quot;/&gt;&#10;&#10;          &lt;ww&#58;subset count=&quot;6&quot;&gt;&#10;            &lt;ww&#58;iterator&gt;&#10;              &lt;td width=&quot;40&quot;&gt;&lt;ww&#58;property/&gt;&lt;/td&gt;&#10;            &lt;/ww&#58;iterator&gt;&#10;          &lt;/iterator&#58;subset&gt;&#10;        &lt;/iterator&#58;append&gt;&#10;      &lt;/tr&gt;&#10;    &lt;/ww&#58;iterator&gt;&#10;  &lt;/ww&#58;bean&gt;&#10;&lt;/table&gt;</pre></div><p class="paragraph"><a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-subset" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:subset /&gt;</b></font></h3></p>Subset will iterate over a portion of its source. It will start at start and continue for count. You can set count to &#45;1 if you want to iterate until the end of source. If you do not supply a source, the current object on the ValueStack- &quot;.&quot; will be used. 
+
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr><tr>
+<td>count</td><td>no</td><td>This attribute indicates how many items there are.</td>
+</tr><tr>
+<td>source</td><td>no</td><td>This attribute is the source the tag will use to perform work on.         It may be Enumeration, Iterator, or a Collection. </td>
+</tr><tr>
+<td>start</td><td>no</td><td>This attribute indicates the index to start reading. </td>
+</tr>
+</table><p class="paragraph">In this example, subset will iterate over 6 items for the current object in the ValueStack.</p><div class="code"><pre>&lt;h1&gt;Testing append, subset, and value generators&lt;/h1&gt;&#10;&#10;&lt;table border=&quot;1&quot;&gt;&#10;  &lt;ww&#58;bean name=&quot;&#039;webwork.util.Counter&#039;&quot;&gt;&#10;    &lt;ww&#58;param name=&quot;&#039;last&#039;&quot; value=&quot;5&quot;/&gt;&#10;    &lt;ww&#58;iterator id=&quot;colcount&quot;&gt;&#10;    &lt;tr&gt;&#10;      &lt;ww&#58;generator val=&quot;&#039;foo,bar,xyzzy&#039;&quot; separator=&quot;&#039;,&#039;&quot; count=&quot;#colcount&quot; id=&quot;values&quot;/&gt;&#10;      &lt;ww&#58;generator val=&quot;&#039; &#039;&quot; count=&quot;&#45;1&quot; id=&quot;space&quot;/&gt;&#10;      &lt;ww&#58;append&gt;&#10;        &lt;ww&#58;param name=&quot;&#039;source&#039;&quot; value=&quot;#values&quot;/&gt;&#10;        &lt;ww&#58;param name=&quot;&#039;source&#039;&quot; value=&quot;#space&quot;/&gt;&#10;&#10;        &lt;ww&#58;subset count=&quot;6&quot;&gt;&#10;          &lt;ww&#58;iterator&gt;&#10;            &lt;td width=&quot;40&quot;&gt;&lt;ww&#58;property/&gt;&lt;/td&gt;&#10;          &lt;/ww&#58;iterator&gt;&#10;        &lt;/iterator&#58;subset&gt;&#10;      &lt;/iterator&#58;append&gt;&#10;      &lt;/tr&gt;&#10;    &lt;/ww&#58;iterator&gt;&#10;  &lt;/ww&#58;bean&gt;&#10;&lt;/table&gt;</pre></div><p class="paragraph"><a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-merge" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:merge /&gt;</b></font></h3></p>Merge several iterators into one. It weaves them together. If one iterator runs out, it will drop off and the others will continue weaving until there are no more values. 
+
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr>
+</table><p class="paragraph">In this example, #foo, #bar, and #xyzzy iterators are merged together. So, the output will be foo, bar, xyzzy until #foo and #xyzzy iterators run out in which case #bar will finish.</p><div class="code"><pre>Three value generators with merge and subset limits&#58;&lt;br&gt;&#10;&lt;ww&#58;generator val=&quot;&#039;foo&#039;&quot; count=&quot;5&quot; id=&quot;foo&quot;/&gt;&#10;&lt;ww&#58;generator val=&quot;&#039;bar&#039;&quot; count=&quot;10&quot; id=&quot;bar&quot;/&gt;&#10;&lt;ww&#58;generator val=&quot;&#039;xyzzy&#039;&quot; count=&quot;5&quot; id=&quot;xyzzy&quot;/&gt;&#10;&lt;ww&#58;merge&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;source&#039;&quot; value=&quot;#foo&quot;/&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;source&#039;&quot; value=&quot;#bar&quot;/&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;source&#039;&quot; value=&quot;#xyzzy&quot;/&gt;&#10;&#10;  &lt;ww&#58;subset count=&quot;30&quot;&gt;&#10;    &lt;ww&#58;iterator status=&quot;&#039;status&#039;&quot;&gt;&#10;      &lt;ww&#58;property value=&quot;#status.count&quot;/&gt;&#58;&lt;ww&#58;property/&gt;&lt;br&gt;&#10;    &lt;/ww&#58;iterator&gt;&#10;  &lt;/iterator&#58;subset&gt;&#10;&lt;/iterator&#58;merge&gt;</pre></div><p class="paragraph"><a href="#Non-UI+Tags-top">return to top</a><br/>
+<a name="Non-UI+Tags-sort" ></a>
+<h3 class="heading3"><font color="blue"><b class="strong">&lt;ww:sort /&gt;</b></font></h3></p>Sort allows you to sort an iterator. It uses Collections.sort() given the comparator you supply. 
+
+<table class="wikitable">
+<tr>
+<th>attribute </th><th>required</th><th>description</th>
+</tr><tr>
+<td>id</td><td>no</td><td>This attribute assigns a unique name to an element (<a href="#Non-UI+Tags-Notes-Id">note</a>).</td>
+</tr><tr>
+<td>comparator</td><td><b class="strong">yes</b></td><td>This attribute will be the Comparator used to sort the Collection. </td>
+</tr><tr>
+<td>source</td><td>no</td><td>This attribute is the source the tag will use to perform work on.         It may be Enumeration, Iterator, or a Collection. </td>
+</tr>
+</table><p class="paragraph">In this example, we sort ascending.</p><div class="code"><pre>&lt;ww&#58;bean name=&quot;&#039;webwork.util.Counter&#039;&quot; id=&quot;counter&quot;&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;first&#039;&quot; value=&quot;0&quot;/&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;last&#039;&quot; value=&quot;5&quot;/&gt;&#10;&lt;/ww&#58;bean&gt;&#10;&#10;&lt;ww&#58;bean name=&quot;&#039;webwork.util.Sorter&#039;&quot; id=&quot;sorter&quot;/&gt;&#10;&#10;Ascending&#58;&lt;br /&gt;&#10;&lt;ww&#58;sort source=&quot;#counter&quot; comparator=&quot;#sorter.ascending&quot;&gt;&#10;  &lt;ww&#58;iterator&gt;&#10;    &lt;ww&#58;property/&gt;&lt;br /&gt;&#10;  &lt;/ww&#58;iterator&gt;&#10;&lt;/iterator&#58;sort&gt;</pre></div><p class="paragraph">In this example, we sort descending.</p><div class="code"><pre>&lt;ww&#58;bean name=&quot;&#039;webwork.util.Sorter&#039;&quot; id=&quot;sorter&quot;/&gt;&#10;&#10;&lt;ww&#58;bean name=&quot;&#039;webwork.util.Counter&#039;&quot; id=&quot;counter&quot;&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;first&#039;&quot; value=&quot;0&quot;/&gt;&#10;  &lt;ww&#58;param name=&quot;&#039;last&#039;&quot; value=&quot;5&quot;/&gt;&#10;&lt;/ww&#58;bean&gt;&#10;&#10;Descending&#58;&lt;br&gt;&#10;&lt;ww&#58;sort source=&quot;#counter&quot; comparator=&quot;#sorter.descending&quot;&gt;&#10;  &lt;ww&#58;iterator&gt;&#10;    &lt;ww&#58;property/&gt;&lt;br&gt;&#10;  &lt;/ww&#58;iterator&gt;&#10;&lt;/iterator&#58;sort&gt;</pre></div><p class="paragraph">In this example, we sort ascending over strings.</p><div class="code"><pre>&lt;ww&#58;bean name=&quot;&#039;webwork.util.Sorter&#039;&quot; id=&quot;sorter&quot;/&gt;&#10;&#10;Sorting strings&#58;&lt;br&gt;&#10;&lt;ww&#58;generator val=&quot;&#039;Rickard,Maurice,Hristo&#039;&quot; separator=&quot;&#039;,&#039;&quot; id=&quot;names&quot;/&gt;&#10;&lt;ww&#58;sort source=&quot;#names&quot; comparator=&quot;#sorter.ascending&quot;&gt;&#10;  &lt;ww&#58;iterator&gt;&#10;    &lt;ww&#58;property/&gt;&lt;br&gt;&#10;  &lt;/ww&#58;iterator&gt;&#10;&lt;/iterator&#58;sort&gt;</pre></div><p class="paragraph"><h2 class="heading2">Notes</h2>
+<a name="Non-UI+Tags-Notes-Id" ></a><br/>
+<img src="./icons/emoticons/information.png" height="16" width="16" align="absmiddle" alt="" border="0"/> <b class="strong">Id</b> The &quot;id&quot; attribute assigns a name to an element. This name must be unique in a document. This attribute is the standard id supported by JSP TagSupport and is therefore always a string.         You do not need to indicate a string literal as you would for the rest of WW attributes; i.e. - id=&quot;&#039;age&#039;&quot;.         Instead you should use id=&quot;age&quot;.</p><a name="Non-UI+Tags-Notes-Scope" ></a><br/>
+<img src="./icons/emoticons/information.png" height="16" width="16" align="absmiddle" alt="" border="0"/> It&#039;s very important to note that all tags that insert something into the valuestack (like i18n or bean tags) will remove those objects from the stack on its end tag.<br/>
+So, if you instantiate a bean with the bean tag (&lt;ww:bean name=&quot;&#039;br.univap.fcc.sgpw.util.FormattersHelper&#039;&quot;&gt;) that bean will be avaliable on the valuestack only until the &lt;/ww:bean&gt; tag.
+
+				    
+			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

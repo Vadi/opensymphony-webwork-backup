@@ -1,0 +1,16 @@
+#if( $fieldErrors.get($parameters.name) )
+  #set ($hasFieldErrors = $fieldErrors.get($parameters.name))
+  #foreach ($error in $fieldErrors.get($parameters.name))
+    <tr>
+        <td align="left" valign="top" colspan="2">
+            <span class="errorMessage">$!error</span>
+        </td>
+    </tr>
+  #end
+#end
+
+<tr>
+    <td  valign="top" colspan="2">
+#parse("/template/simple/checkbox.vm")
+
+#parse("/template/xhtml/controlfooter.vm")

@@ -1,0 +1,4 @@
+<tr>
+    <td colspan="2">
+#parse("/template/simple/submit.vm")
+#parse( "/template/xhtml/controlfooter.vm" )

@@ -1,0 +1,15 @@
+<tr>
+    <td align="right" valign="top">
+        <span class="label"> mylabel: </span>
+    </td>
+    <td>
+        <div>
+            <input type="checkbox" name="foo" value="hello" checked />
+            <label class="label">world</label>
+        </div>
+        <div>
+            <input type="checkbox" name="foo" value="foo" />
+            <label class="label">bar</label>
+        </div>
+    </td>
+</tr>

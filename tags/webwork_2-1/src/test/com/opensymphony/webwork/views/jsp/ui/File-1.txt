@@ -1,0 +1,13 @@
+<tr>
+    <td align="right" valign="top">
+        <span class="label"> mylabel: </span>
+    </td>
+    <td>
+        <input type="file"
+               name="myname"
+               size="10"
+               value="bar"
+               accept="*.txt"
+        />
+    </td>
+</tr>

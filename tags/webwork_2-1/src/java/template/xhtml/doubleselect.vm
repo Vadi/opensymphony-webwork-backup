@@ -1,0 +1,3 @@
+#parse( "/template/xhtml/controlheader.vm" )
+#parse( "/template/simple/doubleselect.vm" )
+#parse( "/template/xhtml/controlfooter.vm" )

@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Results</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+
+				    <p class="paragraph"><h2 class="heading2"> Overview</h2></p>Results are string constants that Actions return to indicate the status of an Action execution. A standard set of Results are defined by default: error, input, login, none and success. Developers are, of course, free to create their own Results to indicate more application specific cases.  Results are mapped to defined <a href="Result Types.html">Result Types</a> using a name-value pair structure.<ul class="star">
+<li> <a href="Global results.html">Global results</a></li>
+<li> <a href="Default results.html">Default results</a></li>
+</ul>
+<h3 class="heading3"> Result tags</h3><p class="paragraph">Result tags tell WebWork what to do next after the action has been called. There are a standard set of result codes built-in to WebWork, (in the Action interface) they include:
+<div class="code"><pre><span class="java&#45;object">String</span> SUCCESS = &quot;success&quot;;&#10;<span class="java&#45;object">String</span> NONE    = &quot;none&quot;;&#10;<span class="java&#45;object">String</span> ERROR   = &quot;error&quot;;&#10;<span class="java&#45;object">String</span> INPUT   = &quot;input&quot;;&#10;<span class="java&#45;object">String</span> LOGIN   = &quot;login&quot;;</pre></div></p>You can extend these as you see fit. Most of the time you will have either <b class="strong">SUCCESS</b> or <b class="strong">ERROR</b>, with <b class="strong">SUCCESS</b> moving on to the next page in your application;
+<div class="code"><pre>&lt;result name=&quot;success&quot; type=&quot;dispatcher&quot;&gt;&#10;    &lt;param name=&quot;location&quot;&gt;/thank&#95;you.jsp&lt;/param&gt;&#10;&lt;/result&gt;</pre></div><p class="paragraph">…and <b class="strong">ERROR</b> moving on to an error page, or the preceding page;
+<div class="code"><pre>&lt;result name=&quot;error&quot; type=&quot;dispatcher&quot;&gt;&#10;    &lt;param name=&quot;location&quot;&gt;/error.jsp&lt;/param&gt;&#10;&lt;/result&gt;</pre></div></p>Results are specified in a xwork xml config file(xwork.xml) nested inside &lt;action&gt;.  If the <tt class="monospaced">location</tt> param is the only param being specified in the result tag, you can simplify it as follows:
+
+<div class="code"><pre>&lt;action name=&quot;bar&quot; class=&quot;myPackage.barAction&quot;&gt;&#10;  &lt;result name=&quot;success&quot; type=&quot;dispatcher&quot;&gt;&#10;    &lt;param name=&quot;location&quot;&gt;foo.jsp&lt;/param&gt;&#10;  &lt;/result&gt;&#10;&lt;/action&gt;</pre></div><br/>
+or simplified
+<div class="code"><pre>&lt;action name=&quot;bar&quot; class=&quot;myPackage.barAction&quot;&gt;&#10;  &lt;result name=&quot;success&quot; type=&quot;dispatcher&quot;&gt;foo.jsp&lt;/result&gt;&#10;&lt;/action&gt;</pre></div>
+
+
+
+				    
+			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Default results</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+
+				    <p class="paragraph">Webwork has the ability to define a default result type for your actions.  Thus, you don&#039;t have to specify the result-type for results using the default.  If a package extends another  package and you don&#039;t specify a new default result type for the child package, then the parent package default type will be used when the type attribute is not specified in the result tag.</p><div class="code"><pre>&lt;&#33;&#45;&#45; parts of xwork.xml  &#45;&#45;&gt;&#10;....&#10;&#10;&lt;result&#45;types&gt;&#10; &lt;result&#45;type name=&quot;dispatcher&quot; class=&quot;com.opensymphony.webwork.dispatcher.ServletDispatcherResult&quot; <span class="java&#45;keyword">default</span>=&quot;<span class="java&#45;keyword">true</span>&quot;/&gt;&#10; &lt;result&#45;type name=&quot;redirect&quot; class=&quot;com.opensymphony.webwork.dispatcher.ServletRedirectResult&quot;/&gt;&#10; &lt;result&#45;type name=&quot;velocity&quot; class=&quot;com.opensymphony.webwork.dispatcher.VelocityResult&quot;/&gt;&#10;&lt;/result&#45;types&gt;&#10;&#10;....&#10;&#10;&lt;action name=&quot;bar&quot; class=&quot;myPackage.barAction&quot;&gt;&#10;&#10;&lt;&#33;&#45;&#45; <span class="java&#45;keyword">this</span> result uses dispatcher, so you can omit the type=&quot;dispatcher&quot; <span class="java&#45;keyword">if</span> you want &#45;&#45;&gt;&#10;  &lt;result name=&quot;success&quot;&gt;foo.jsp&lt;/result&gt;&#10;&#10;&lt;&#33;&#45;&#45; <span class="java&#45;keyword">this</span> result uses velocity result, so the type needs to be specified &#45;&#45;&gt;&#10;  &lt;result name=&quot;error&quot; type=&quot;velocity&quot;&gt;error.vm&lt;/result&gt;&#10;&#10;&lt;/action&gt;&#10;&#10;....</pre></div>
+
+				    
+			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
