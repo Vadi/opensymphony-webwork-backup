@@ -15,12 +15,13 @@
 
 #foreach($item in $cart.items)
 	<tr>
-      
+
+        #set ($price = $pricer.computePrice($item.cd.price)))
 		<td><b>$item.cd.album<webwork:property value="album"/></b></td>
 		<td><b>$item.cd.artist</b></td>
 		<td><b>$item.cd.country</b></td>
-		<td><b>$pricer.computePrice($item.cd.price)</b></td>
-	
+		<td><b>$stack.findValue("getText('price', { $price } )")</b></td>
+
 
 		<td><b>$item.quantity</b></td>
 		<td>

@@ -4,7 +4,7 @@
 <select name="album">
 #foreach($cd in $cDList)
 	#set($price = $pricer.computePrice($cd.price))
-	<option value="$cd.album">$cd.album, $cd.artist, $cd.country, $price</option>
+	<option value="$cd.album">$cd.album, $cd.artist, $cd.country, $stack.findValue("getText('price', {$price})")</option>
 #end
 </select>
 #end
