@@ -8,7 +8,7 @@
  <td align="right" valign="top"> <span class="label"> </span> </td>
  <td> <input type="text" name="user.name" value="Bobby" /> </td>
 </tr>
-<script>
+<script type="text/javascript">
 function myForm_validate() {
   var form = document.forms['myForm'];
   var focus = myForm_validate_actual();

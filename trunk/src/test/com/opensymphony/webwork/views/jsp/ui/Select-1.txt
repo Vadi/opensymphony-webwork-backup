@@ -7,7 +7,7 @@
         >
             <option value="headerKey">headerValue</option>
             <option value=""></option>
-            <option value="hello" selected >world</option>
+            <option value="hello" selected="true" >world</option>
             <option value="foo" >bar</option>
         </select>
     </td>

@@ -1,5 +1,5 @@
 #if ($parameters.validate)
-    <script>
+    <script type="text/javascript">
     function ${parameters.name}_validate() {
         var form = document.forms['${parameters.name}'];
         var focus = ${parameters.name}_validate_actual();
