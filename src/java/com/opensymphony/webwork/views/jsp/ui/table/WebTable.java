@@ -6,15 +6,19 @@ package com.opensymphony.webwork.views.jsp.ui.table;
 
 import com.opensymphony.webwork.views.jsp.ui.ComponentTag;
 import com.opensymphony.webwork.views.jsp.ui.table.renderer.CellRenderer;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 import org.apache.commons.logging.LogFactory;
+
+import java.util.*;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
+
 import javax.swing.table.TableModel;
-import java.util.*;
 
 
 /**

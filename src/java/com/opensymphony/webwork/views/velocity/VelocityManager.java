@@ -8,25 +8,30 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.util.WebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.*;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -239,7 +244,7 @@ public class VelocityManager {
             log.debug("Initializing Velocity with the following properties ...");
 
             for (Iterator iter = properties.keySet().iterator();
-                 iter.hasNext();) {
+                    iter.hasNext();) {
                 String key = (String) iter.next();
                 String value = properties.getProperty(key);
 

@@ -6,18 +6,25 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.mockobjects.dynamic.C;
 import com.mockobjects.dynamic.Mock;
+
 import com.mockobjects.servlet.MockServletConfig;
+
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
+
 import com.opensymphony.xwork.ActionContext;
+
 import org.apache.velocity.app.Velocity;
 
-import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.InputStream;
+
 import java.net.URL;
+
 import java.util.Properties;
 import java.util.StringTokenizer;
+
+import javax.servlet.ServletContext;
 
 
 /**

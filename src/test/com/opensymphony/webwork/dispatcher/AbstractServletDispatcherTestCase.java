@@ -10,22 +10,28 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.mockobjects.dynamic.C;
 import com.mockobjects.dynamic.Mock;
+
 import com.mockobjects.servlet.MockHttpServletResponse;
 import com.mockobjects.servlet.MockHttpSession;
 import com.mockobjects.servlet.MockServletConfig;
 import com.mockobjects.servlet.MockServletOutputStream;
+
 import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletRequest;
+
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.providers.XmlConfigurationProvider;
+
 import junit.framework.TestCase;
+
+import java.io.IOException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**

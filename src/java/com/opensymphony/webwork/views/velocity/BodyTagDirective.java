@@ -46,7 +46,7 @@ public class BodyTagDirective extends AbstractTagDirective {
         Map propertyMap = new HashMap();
 
         for (int index = 1, length = node.jjtGetNumChildren() - 1;
-             index < length; index++) {
+                index < length; index++) {
             this.putProperty(propertyMap, contextAdapter, node.jjtGetChild(index));
         }
 

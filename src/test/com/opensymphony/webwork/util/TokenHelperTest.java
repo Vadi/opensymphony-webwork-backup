@@ -6,13 +6,16 @@ package com.opensymphony.webwork.util;
 
 import com.mockobjects.dynamic.C;
 import com.mockobjects.dynamic.Mock;
+
 import com.opensymphony.webwork.views.jsp.WebWorkMockHttpSession;
+
 import junit.framework.TestCase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -47,8 +50,8 @@ public class TokenHelperTest extends TestCase {
 
         String token = TokenHelper.setToken(tokenName, request);
         assertEquals(token, session.getAttribute(tokenName));
-        params.put(TokenHelper.TOKEN_NAME_FIELD, new String[]{tokenName});
-        params.put(tokenName, new String[]{token});
+        params.put(TokenHelper.TOKEN_NAME_FIELD, new String[] {tokenName});
+        params.put(tokenName, new String[] {token});
         mockRequest.matchAndReturn("getParameterMap", params);
         assertTrue(TokenHelper.validToken(request));
     }

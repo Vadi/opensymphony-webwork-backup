@@ -5,13 +5,16 @@
 package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.GUID;
+
 import com.opensymphony.xwork.util.LocalizedTextUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 
 /**
@@ -132,9 +135,9 @@ public class TokenHelper {
         String sessionToken = (String) session.getAttribute(tokenName);
 
         if (!token.equals(sessionToken)) {
-            LOG.warn(LocalizedTextUtil.findText(TokenHelper.class, "webwork.invalid.token", request.getLocale(), "Form token {0} does not match the session token {1}.", new Object[]{
-                token, sessionToken
-            }));
+            LOG.warn(LocalizedTextUtil.findText(TokenHelper.class, "webwork.invalid.token", request.getLocale(), "Form token {0} does not match the session token {1}.", new Object[] {
+                        token, sessionToken
+                    }));
 
             return false;
         }

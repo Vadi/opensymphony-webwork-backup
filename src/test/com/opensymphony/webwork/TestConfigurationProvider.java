@@ -7,6 +7,7 @@ package com.opensymphony.webwork;
 import com.opensymphony.webwork.dispatcher.ServletDispatcherResult;
 import com.opensymphony.webwork.interceptor.TokenInterceptor;
 import com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor;
+
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionChainResult;
 import com.opensymphony.xwork.config.Configuration;

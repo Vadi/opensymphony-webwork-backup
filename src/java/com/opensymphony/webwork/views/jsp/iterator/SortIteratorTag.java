@@ -7,9 +7,10 @@ package com.opensymphony.webwork.views.jsp.iterator;
 import com.opensymphony.webwork.util.SortIteratorFilter;
 import com.opensymphony.webwork.views.jsp.ActionTag;
 
+import java.util.Comparator;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
-import java.util.Comparator;
 
 
 /**

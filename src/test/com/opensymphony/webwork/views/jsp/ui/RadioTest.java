@@ -43,10 +43,10 @@ public class RadioTest extends AbstractUITagTest {
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
-        testAction.setList(new String[][]{
-            {"hello", "world"},
-            {"foo", "bar"}
-        });
+        testAction.setList(new String[][] {
+                {"hello", "world"},
+                {"foo", "bar"}
+            });
 
         RadioTag tag = new RadioTag();
         tag.setPageContext(pageContext);
