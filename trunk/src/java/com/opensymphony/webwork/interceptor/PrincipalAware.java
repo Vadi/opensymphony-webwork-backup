@@ -7,8 +7,6 @@ package com.opensymphony.webwork.interceptor;
  * <p>This interface is only relevant if the Action is used in a servlet environment.
  * By using this interface you will not become tied to servlet environment.</p>
  *
- * @see PrincipalInterceptor
- *
  * @author Remigijus Bauzys
  * @version $Revision$
  */
