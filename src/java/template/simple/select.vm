@@ -59,7 +59,7 @@
         #end
 
         <option value="$!webwork.htmlEncode($itemKey)"
-            #if( $tag.contains($parameters.nameValue, $itemKey) )selected#end
+            #if( $tag.contains($parameters.nameValue, $itemKey) )selected="true"#end
         >$!webwork.htmlEncode($itemValue)</option>
 
         #set ($trash = $stack.pop())
