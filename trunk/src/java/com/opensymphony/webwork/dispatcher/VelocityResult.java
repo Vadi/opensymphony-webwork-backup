@@ -46,8 +46,6 @@ public class VelocityResult extends WebWorkResultSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(VelocityResult.class);
-    private static VelocityManager velocityManager = VelocityManager.getInstance();
-    private static VelocityEngine velocityEngine = velocityManager.getVelocityEngine();
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -70,7 +68,8 @@ public class VelocityResult extends WebWorkResultSupport {
         }
 
         try {
-            Template t = getTemplate(stack, velocityEngine, invocation, finalLocation);
+            VelocityManager velocityManager = VelocityManager.getInstance();
+            Template t = getTemplate(stack, velocityManager.getVelocityEngine(), invocation, finalLocation);
 
             Context context = velocityManager.createContext(stack, request, response);
             Writer writer = pageContext.getOut();
@@ -118,6 +117,7 @@ public class VelocityResult extends WebWorkResultSupport {
             location = invocation.getProxy().getNamespace() + "/" + location;
         }
 
+        System.out.println("velocity = " + velocity);
         Template template = velocity.getTemplate(location);
 
         return template;
