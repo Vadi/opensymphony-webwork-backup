@@ -3,7 +3,8 @@
 <%@ taglib uri="webwork" prefix="ww" %>
 <%@ taglib uri="c" prefix="c" %>
 
-This url is: <ww:url/>
+This url is: <ww:url/> <br/>
+A package-level i18n key is: <ww:text name="'packageLevelKey'"/>
 
 <hr>
 
