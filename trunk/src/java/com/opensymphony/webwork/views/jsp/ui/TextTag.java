@@ -127,12 +127,12 @@ public class TextTag extends WebWorkBodyTagSupport implements ParamTag.UnnamedPa
         OgnlValueStack stack = getStack();
 
         for (Iterator iterator = getStack().getRoot().iterator();
-             iterator.hasNext();) {
+            iterator.hasNext();) {
             Object o = iterator.next();
 
             if (o instanceof TextProvider) {
                 TextProvider tp = (TextProvider) o;
-                msg = tp.getText(actualName, defaultMessage, values,stack);
+                msg = tp.getText(actualName, defaultMessage, values, stack);
 
                 break;
             }
@@ -140,7 +140,11 @@ public class TextTag extends WebWorkBodyTagSupport implements ParamTag.UnnamedPa
 
         if (msg != null) {
             try {
-                pageContext.getOut().write(msg);
+                if (getId() == null) {
+                    pageContext.getOut().write(msg);
+                } else {
+                    stack.getContext().put(getId(), msg);
+                }
             } catch (IOException e) {
                 throw new JspException(e);
             }

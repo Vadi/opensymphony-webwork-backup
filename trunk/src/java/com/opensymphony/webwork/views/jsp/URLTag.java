@@ -99,6 +99,9 @@ public class URLTag extends ParametereizedBodyTagSupport {
         String id = getId();
 
         if (id != null) {
+            getStack().getContext().put(id, result);
+
+            // add to the request and page scopes as well
             pageContext.setAttribute(id, result);
             pageContext.setAttribute(id, result, PageContext.REQUEST_SCOPE);
         } else {
