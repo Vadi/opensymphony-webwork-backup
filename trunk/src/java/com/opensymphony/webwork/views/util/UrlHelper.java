@@ -87,12 +87,12 @@ public class UrlHelper {
             }
 
             // Set params
-            Iterator enum = params.entrySet().iterator();
+            Iterator iter = params.entrySet().iterator();
 
             String[] valueHolder = new String[1];
 
-            while (enum.hasNext()) {
-                Map.Entry entry = (Map.Entry) enum.next();
+            while (iter.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter.next();
                 String name = (String) entry.getKey();
                 Object value = entry.getValue();
 
@@ -117,7 +117,7 @@ public class UrlHelper {
                     }
                 }
 
-                if (enum.hasNext()) {
+                if (iter.hasNext()) {
                     link.append("&");
                 }
             }

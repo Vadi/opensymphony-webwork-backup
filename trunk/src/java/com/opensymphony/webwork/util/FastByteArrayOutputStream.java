@@ -69,10 +69,10 @@ public class FastByteArrayOutputStream extends OutputStream {
         int pos = 0;
 
         if (buffers != null) {
-            Iterator enum = buffers.iterator();
+            Iterator iter = buffers.iterator();
 
-            while (enum.hasNext()) {
-                byte[] bytes = (byte[]) enum.next();
+            while (iter.hasNext()) {
+                byte[] bytes = (byte[]) iter.next();
                 System.arraycopy(bytes, 0, data, pos, blockSize);
                 pos += blockSize;
             }
@@ -141,10 +141,10 @@ public class FastByteArrayOutputStream extends OutputStream {
     public void writeTo(OutputStream out) throws IOException {
         // Check if we have a list of buffers
         if (buffers != null) {
-            Iterator enum = buffers.iterator();
+            Iterator iter = buffers.iterator();
 
-            while (enum.hasNext()) {
-                byte[] bytes = (byte[]) enum.next();
+            while (iter.hasNext()) {
+                byte[] bytes = (byte[]) iter.next();
                 out.write(bytes, 0, blockSize);
             }
         }
@@ -156,10 +156,10 @@ public class FastByteArrayOutputStream extends OutputStream {
     public void writeTo(RandomAccessFile out) throws IOException {
         // Check if we have a list of buffers
         if (buffers != null) {
-            Iterator enum = buffers.iterator();
+            Iterator iter = buffers.iterator();
 
-            while (enum.hasNext()) {
-                byte[] bytes = (byte[]) enum.next();
+            while (iter.hasNext()) {
+                byte[] bytes = (byte[]) iter.next();
                 out.write(bytes, 0, blockSize);
             }
         }
@@ -171,10 +171,10 @@ public class FastByteArrayOutputStream extends OutputStream {
     public void writeTo(JspWriter out, String encoding) throws IOException {
         // Check if we have a list of buffers
         if (buffers != null) {
-            Iterator enum = buffers.iterator();
+            Iterator iter = buffers.iterator();
 
-            while (enum.hasNext()) {
-                byte[] bytes = (byte[]) enum.next();
+            while (iter.hasNext()) {
+                byte[] bytes = (byte[]) iter.next();
 
                 if (encoding != null) {
                     out.write(new String(bytes, encoding));

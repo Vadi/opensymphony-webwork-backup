@@ -76,16 +76,16 @@ public class PellMultiPartRequest extends MultiPartRequest {
     }
 
     public String[] getParameterValues(String name) {
-        Enumeration enum = multi.getURLParameters(name);
+        Enumeration enumeration = multi.getURLParameters(name);
 
-        if (!enum.hasMoreElements()) {
+        if (!enumeration.hasMoreElements()) {
             return null;
         }
 
         List values = new ArrayList();
 
-        while (enum.hasMoreElements()) {
-            values.add(enum.nextElement());
+        while (enumeration.hasMoreElements()) {
+            values.add(enumeration.nextElement());
         }
 
         return (String[]) values.toArray(new String[values.size()]);

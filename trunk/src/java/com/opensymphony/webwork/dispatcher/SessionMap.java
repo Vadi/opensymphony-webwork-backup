@@ -68,10 +68,10 @@ public class SessionMap extends AbstractMap implements Serializable {
             if (entries == null) {
                 entries = new HashSet();
 
-                Enumeration enum = session.getAttributeNames();
+                Enumeration enumeration = session.getAttributeNames();
 
-                while (enum.hasMoreElements()) {
-                    final String key = enum.nextElement().toString();
+                while (enumeration.hasMoreElements()) {
+                    final String key = enumeration.nextElement().toString();
                     final Object value = session.getAttribute(key);
                     entries.add(new Map.Entry() {
                             public boolean equals(Object obj) {

@@ -70,11 +70,11 @@ public class MakeIterator {
 
             iterator = list.iterator();
         } else if (value instanceof Enumeration) {
-            Enumeration enum = (Enumeration) value;
+            Enumeration enumeration = (Enumeration) value;
             ArrayList list = new ArrayList();
 
-            while (enum.hasMoreElements()) {
-                list.add(enum.nextElement());
+            while (enumeration.hasMoreElements()) {
+                list.add(enumeration.nextElement());
             }
 
             iterator = list.iterator();

@@ -26,18 +26,18 @@ public abstract class IteratorFilterSupport {
 
     // Wrapper for enumerations
     public class EnumerationIterator implements Iterator {
-        Enumeration enum;
+        Enumeration enumeration;
 
         public EnumerationIterator(Enumeration aEnum) {
-            enum = aEnum;
+            enumeration = aEnum;
         }
 
         public boolean hasNext() {
-            return enum.hasMoreElements();
+            return enumeration.hasMoreElements();
         }
 
         public Object next() {
-            return enum.nextElement();
+            return enumeration.nextElement();
         }
 
         public void remove() {
