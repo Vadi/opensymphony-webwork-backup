@@ -7,8 +7,6 @@ package com.opensymphony.webwork.views.jsp;
 import com.opensymphony.webwork.config.Configuration;
 
 import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**

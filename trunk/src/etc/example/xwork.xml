@@ -133,6 +133,7 @@
         <action name="expressionValidation" class="com.opensymphony.webwork.example.ValidatedAction">
             <interceptor-ref name="validationWorkflowStack"/>
             <param name="validationAction">expressionValidation.action</param>
+            <param name="bean.number2">15</param>
             <result name="success">valid.vm</result>
             <result name="input">validationForm.vm</result>
             <result name="error">validationForm.vm</result>
