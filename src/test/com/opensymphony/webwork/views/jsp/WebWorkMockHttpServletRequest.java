@@ -24,7 +24,8 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
     Locale locale = Locale.US;
     private Map attributes = new HashMap();
     private Map parameterMap = new HashMap();
-    private String pathInfo;
+    private String m_context = "";
+    private String pathInfo = "";
     private String queryString;
     private String requestURI;
     private String scheme;
@@ -35,6 +36,10 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
 
     public void setAttribute(String s, Object o) {
         attributes.put(s, o);
+    }
+
+    public String getContextPath() {
+        return m_context;
     }
 
     public Object getAttribute(String s) {
@@ -127,5 +132,9 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
 
     public void setupGetPathInfo(String pathInfo) {
         this.pathInfo = pathInfo;
+    }
+
+    public void setupGetContext(String context) {
+        m_context = context;
     }
 }
