@@ -57,7 +57,7 @@ public class SelectTag extends AbstractListTag {
         }
 
         if (multipleAttr != null) {
-            addParam("defaultKey", stack.findValue(multipleAttr, Boolean.class));
+            addParam("multiple", stack.findValue(multipleAttr, Boolean.class));
         }
 
         if (sizeAttr != null) {
