@@ -38,6 +38,13 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
         return attributes.get(s);
     }
 
+    public Enumeration getAttributeNames() {
+        Vector v = new Vector();
+        v.addAll(attributes.keySet());
+
+        return v.elements();
+    }
+
     public void setLocale(Locale locale) {
         this.locale = locale;
     }
@@ -58,10 +65,20 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
         return pathInfo;
     }
 
-    public Enumeration getAttributeNames() {
-        Vector v = new Vector();
-        v.addAll(attributes.keySet());
-        return v.elements();
+    public void setQueryString(String queryString) {
+        this.queryString = queryString;
+    }
+
+    public String getQueryString() {
+        return queryString;
+    }
+
+    public void setRequestURI(String requestURI) {
+        this.requestURI = requestURI;
+    }
+
+    public String getRequestURI() {
+        return requestURI;
     }
 
     public HttpSession getSession() {
@@ -83,21 +100,5 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
 
     public void setupGetPathInfo(String pathInfo) {
         this.pathInfo = pathInfo;
-    }
-
-    public void setQueryString(String queryString) {
-        this.queryString = queryString;
-    }
-
-    public String getQueryString() {
-        return queryString;
-    }
-
-    public void setRequestURI(String requestURI) {
-        this.requestURI = requestURI;
-    }
-
-    public String getRequestURI() {
-        return requestURI;
     }
 }

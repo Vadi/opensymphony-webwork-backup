@@ -1,10 +1,15 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.jsp;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * User: plightbo
@@ -12,8 +17,11 @@ import java.util.HashMap;
  * Time: 3:25:09 PM
  */
 public class ParametereizedBodyTagSupport extends WebWorkBodyTagSupport implements ParameterizedTag {
-    //~ Instance fields ////////////////////////////////////////////////////////
+    //~ Static fields/initializers /////////////////////////////////////////////
+
     final protected static Log log = LogFactory.getLog(ParameterizedTagSupport.class);
+
+    //~ Instance fields ////////////////////////////////////////////////////////
 
     Map params;
 

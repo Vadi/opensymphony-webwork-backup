@@ -187,8 +187,8 @@ public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements Pa
     protected abstract void initializeAttributes();
 
     /**
-     * get the template directory for a specific voice browser
-     */
+ * get the template directory for a specific voice browser
+ */
     protected String getTemplateDirectory() {
         String ua = getBrowserUserAgent();
 

@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
+/*
  * Created on Sep 20, 2003
  *
  * To change the template for this generated file go to
@@ -6,16 +10,18 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
-import java.io.OutputStream;
+import com.opensymphony.webwork.ServletActionContext;
 
-import javax.servlet.http.HttpServletResponse;
+import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.Result;
 
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.xwork.ActionInvocation;
-import com.opensymphony.xwork.Result;
+import java.io.OutputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * @author bchoi
@@ -24,14 +30,31 @@ import com.opensymphony.xwork.Result;
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class ChartResult implements Result {
+    //~ Instance fields ////////////////////////////////////////////////////////
 
-    private int width;
-    private int height;
-    boolean chartSet = false;
     JFreeChart chart;
+    boolean chartSet = false;
+    private int height;
+    private int width;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setChart(JFreeChart chart) {
+        this.chart = chart;
+        chartSet = true;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
     public void execute(ActionInvocation invocation) throws Exception {
         JFreeChart chart = null;
+
         if (chartSet) {
             chart = this.chart;
         } else {
@@ -46,18 +69,5 @@ public class ChartResult implements Result {
         OutputStream os = response.getOutputStream();
         ChartUtilities.writeChartAsPNG(os, chart, width, height);
         os.flush();
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setChart(JFreeChart chart) {
-        this.chart = chart;
-        chartSet = true;
     }
 }
