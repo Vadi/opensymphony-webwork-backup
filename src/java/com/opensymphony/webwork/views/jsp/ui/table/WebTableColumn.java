@@ -9,8 +9,6 @@ import com.opensymphony.webwork.views.jsp.ui.table.renderer.DefaultCellRenderer;
 
 
 /**
- * DOCUMENT ME!
- *
  * @author $author$
  * @version $Revision$
  */

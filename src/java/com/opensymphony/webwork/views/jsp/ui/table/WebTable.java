@@ -22,8 +22,6 @@ import javax.swing.table.TableModel;
 
 
 /**
- * DOCUMENT ME!
- *
  * @author $author$
  * @version $Revision$
  */

@@ -8,8 +8,6 @@ import com.opensymphony.webwork.views.jsp.ui.table.WebTable;
 
 
 /**
- * DOCUMENT ME!
- *
  * @author $author$
  * @version $Revision$
  */
