@@ -5,17 +5,17 @@
     <td>
         <input type="radio"
                name="myname"
-               id="12"
+               id="myname2"
                value="2"
         />
-        <label for="12">Two</label>
+        <label for="myname2">Two</label>
 
         <input type="radio"
                checked="checked"
                name="myname"
-               id="11"
+               id="myname1"
                value="1"
         />
-        <label for="11">One</label>
+        <label for="myname1">One</label>
     </td>
 </tr>
