@@ -13,44 +13,58 @@ import java.util.Properties;
 
 
 /**
+ * A class to handle configuration via a properties file.
+ *
  * @author Rickard Öberg
  * @author Jason Carreira
- * Created Apr 9, 2003 9:50:03 PM
+ * @author Bill Lynch (docs)
  */
 public class PropertiesConfiguration extends Configuration {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    // Attributes ----------------------------------------------------
     Properties settings;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
-    // Constructors --------------------------------------------------
-    public PropertiesConfiguration(String aName) {
+    /**
+     * Creates a new properties config given the name of a properties file. The name is expected to NOT have
+     * the ".properties" file extension.  So when <tt>new PropertiesConfiguration("foo")</tt> is called
+     * this class will look in the classpath for the <tt>foo.properties</tt> file.
+     *
+     * @param name the name of the properties file, excluding the ".properties" extension.
+     */
+    public PropertiesConfiguration(String name) {
         settings = new Properties();
 
-        URL settingsUrl = Thread.currentThread().getContextClassLoader().getResource(aName + ".properties");
+        URL settingsUrl = Thread.currentThread().getContextClassLoader().getResource(name + ".properties");
 
         if (settingsUrl == null) {
-            throw new IllegalStateException(aName + ".properties missing");
+            throw new IllegalStateException(name + ".properties missing");
         }
 
         // Load settings
         try {
             settings.load(settingsUrl.openStream());
         } catch (IOException e) {
-            throw new RuntimeException("Could not load " + aName + ".properties:" + e);
+            throw new RuntimeException("Could not load " + name + ".properties:" + e);
         }
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+     * Sets a property in the properties file.
+     *
+     * @see #set(String, Object)
+     */
     public void setImpl(String aName, Object aValue) {
         settings.put(aName, aValue);
     }
 
     /**
-     * Get a named setting.
+     * Gets a property from the properties file.
+     *
+     * @see #get(String)
      */
     public Object getImpl(String aName) throws IllegalArgumentException {
         Object setting = settings.get(aName);
@@ -62,6 +76,11 @@ public class PropertiesConfiguration extends Configuration {
         return setting;
     }
 
+    /**
+     * Tests to see if a property exists in the properties file.
+     *
+     * @see #isSet(String)
+     */
     public boolean isSetImpl(String aName) {
         if (settings.get(aName) != null) {
             return true;
@@ -70,6 +89,11 @@ public class PropertiesConfiguration extends Configuration {
         }
     }
 
+    /**
+     * Lists all keys in the properties file.
+     *
+     * @see #list()
+     */
     public Iterator listImpl() {
         return settings.keySet().iterator();
     }

@@ -13,21 +13,27 @@ import java.util.StringTokenizer;
 
 
 /**
+ * Default implementation of Configuration - creates and delegates to other configurations by using an internal
+ * {@link DelegatingConfiguration}.
+ *
+ *
  * @author Rickard Öberg
  * @author Jason Carreira
- * Created Apr 9, 2003 9:48:55 PM
+ * @author Bill Lynch (docs)
  */
 public class DefaultConfiguration extends Configuration {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     protected Log log = LogFactory.getLog(this.getClass());
-
-    // Attributes ----------------------------------------------------
     Configuration config;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
-    // Constructors --------------------------------------------------
+    /**
+     * Creates a new DefaultConfiguration object by loading all property files
+     * and creating an internal {@link DelegatingConfiguration} object. All calls to get and set
+     * in this class will call that configuration object.
+     */
     public DefaultConfiguration() {
         // Create default implementations
         // Use default properties and webwork.properties
@@ -71,14 +77,18 @@ public class DefaultConfiguration extends Configuration {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-     * Set a named setting
+     * Sets the given property - delegates to the internal config implementation.
+     *
+     * @see #set(String, Object)
      */
     public void setImpl(String aName, Object aValue) throws IllegalArgumentException, UnsupportedOperationException {
         config.setImpl(aName, aValue);
     }
 
     /**
-     * Get a named setting.
+     * Gets the specified property - delegates to the internal config implementation.
+     *
+     * @see #get(String)
      */
     public Object getImpl(String aName) throws IllegalArgumentException {
         // Delegate
@@ -86,16 +96,18 @@ public class DefaultConfiguration extends Configuration {
     }
 
     /**
-     * determines whether or not a value has been set.  useful for testing for the existance of parameter without
-     * throwing an IllegalArgumentException
-     * @return true if this setting is defined
+     * Determines whether or not a value has been set - delegates to the internal config implementation.
+     *
+     * @see #isSet(String)
      */
     public boolean isSetImpl(String aName) {
         return config.isSetImpl(aName);
     }
 
     /**
-     * List setting names
+     * Returns a list of all property names - delegates to the internal config implementation.
+     *
+     * @see #list()
      */
     public Iterator listImpl() {
         return config.listImpl();

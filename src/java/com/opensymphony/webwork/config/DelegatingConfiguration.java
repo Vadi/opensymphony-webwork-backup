@@ -10,19 +10,26 @@ import java.util.Set;
 
 
 /**
+ * A Configuration implementation which stores an internal list of configuration objects. Each time
+ * a config method is called (get, set, list, etc..) this class will go through the list of configurations
+ * and call the method until successful.
+ *
  * @author Rickard Öberg
  * @author Jason Carreira
- * Created Apr 9, 2003 9:52:30 PM
+ * @author Bill Lynch (docs)
  */
 public class DelegatingConfiguration extends Configuration {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    // Attributes ----------------------------------------------------
     Configuration[] configList;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
-    // Constructors --------------------------------------------------
+    /**
+     * Creates a new DelegatingConfiguration object given a list of {@link Configuration} implementations.
+     *
+     * @param aConfigList a list of Configuration implementations.
+     */
     public DelegatingConfiguration(Configuration[] aConfigList) {
         configList = aConfigList;
     }
@@ -30,19 +37,22 @@ public class DelegatingConfiguration extends Configuration {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-     * Set a named setting
+     * Sets the given property - calls setImpl(String, Object) method on config objects in the config
+     * list until successful.
+     *
+     * @see #set(String, Object)
      */
-    public void setImpl(String aName, Object aValue) throws IllegalArgumentException, UnsupportedOperationException {
+    public void setImpl(String name, Object value) throws IllegalArgumentException, UnsupportedOperationException {
         // Determine which config to use by using get
         // Delegate to the other configurations
         IllegalArgumentException e = null;
 
         for (int i = 0; i < configList.length; i++) {
             try {
-                configList[i].getImpl(aName);
+                configList[i].getImpl(name);
 
                 // Found it, now try setting
-                configList[i].setImpl(aName, aValue);
+                configList[i].setImpl(name, value);
 
                 // Worked, now return
                 return;
@@ -57,15 +67,18 @@ public class DelegatingConfiguration extends Configuration {
     }
 
     /**
-     * Get a named setting.
+     * Gets the specified property - calls getImpl(String) method on config objects in config list
+     * until successful.
+     *
+     * @see #get(String)
      */
-    public Object getImpl(String aName) throws IllegalArgumentException {
+    public Object getImpl(String name) throws IllegalArgumentException {
         // Delegate to the other configurations
         IllegalArgumentException e = null;
 
         for (int i = 0; i < configList.length; i++) {
             try {
-                return configList[i].getImpl(aName);
+                return configList[i].getImpl(name);
             } catch (IllegalArgumentException ex) {
                 e = ex;
 
@@ -77,8 +90,11 @@ public class DelegatingConfiguration extends Configuration {
     }
 
     /**
-     * determines whether or not a value has been set.  useful for testing for the existance of parameter without
-     * throwing an IllegalArgumentException
+     * Determines if a paramter has been set - calls the isSetImpl(String) method on each config object
+     * in config list. Returns <tt>true</tt> when one of the config implementations returns true. Returns
+     * <tt>false</tt> otherwise.
+     *
+     * @see #isSet(String)
      */
     public boolean isSetImpl(String aName) {
         for (int i = 0; i < configList.length; i++) {
@@ -91,7 +107,10 @@ public class DelegatingConfiguration extends Configuration {
     }
 
     /**
-     * List setting names
+     * Returns a list of all property names - returns a list of all property names in all config
+     * objects in config list.
+     *
+     * @see #list()
      */
     public Iterator listImpl() {
         boolean workedAtAll = false;
