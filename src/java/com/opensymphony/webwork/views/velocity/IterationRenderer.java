@@ -24,6 +24,11 @@ public interface IterationRenderer extends Renderer {
      */
     int RENDER_AGAIN = 2;
 
+    /**
+     * value to be returned by doAfterRender if we're done rendering
+     */
+    int RENDER_DONE = 0;
+
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**

@@ -43,8 +43,8 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     private static final Log LOG = LogFactory.getLog(AbstractUITag.class);
 
     /**
-    * The name of the default theme used by WW2.
-    */
+     * The name of the default theme used by WW2.
+     */
     public static String THEME;
     protected static VelocityEngine velocityEngine = VelocityManager.getVelocityEngine();
 
@@ -114,10 +114,10 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * com.opensymphony.webwork.views.jsp.ParameterizedTag implementation
-    * @return a Map of user specified Map parameters
-    * @see ParameterizedTag
-    */
+     * com.opensymphony.webwork.views.jsp.ParameterizedTag implementation
+     * @return a Map of user specified Map parameters
+     * @see ParameterizedTag
+     */
     public Map getParams() {
         if (params == null) {
             params = new HashMap();
@@ -135,10 +135,10 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * for Velocity
-    * @return
-    * @throws JspException
-    */
+     * for Velocity
+     * @return
+     * @throws JspException
+     */
     public String getShow() throws JspException {
         int result = doStartTag();
         doEndTag();
@@ -171,9 +171,9 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * simple setter method for Velocity
-    * @param id
-    */
+     * simple setter method for Velocity
+     * @param id
+     */
     public Object Id(String id) {
         setId(id);
 
@@ -181,9 +181,9 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * simple setter method for Velocity
-    * @param label
-    */
+     * simple setter method for Velocity
+     * @param label
+     */
     public Object Label(String label) {
         setLabel(label);
 
@@ -191,9 +191,9 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * simple setter method for Velocity
-    * @param name
-    */
+     * simple setter method for Velocity
+     * @param name
+     */
     public Object Name(Object name) {
         setName(name);
 
@@ -201,9 +201,9 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * simple setter method for Velocity
-    * @param onchange
-    */
+     * simple setter method for Velocity
+     * @param onchange
+     */
     public Object Onchange(String onchange) {
         setOnchange(onchange);
 
@@ -217,9 +217,9 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * simple setter method for Velocity
-    * @param label
-    */
+     * simple setter method for Velocity
+     * @param label
+     */
     public Object Required(boolean required) {
         setRequired(required);
 
@@ -227,9 +227,9 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * simple setter method for Velocity
-    * @param template
-    */
+     * simple setter method for Velocity
+     * @param template
+     */
     public Object Template(String template) {
         setTemplate(template);
 
@@ -237,9 +237,9 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * simple setter method for Velocity
-    * @param theme
-    */
+     * simple setter method for Velocity
+     * @param theme
+     */
     public Object Theme(String theme) {
         setTheme(theme);
 
@@ -247,9 +247,9 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * simple setter method for Velocity
-    * @param value
-    */
+     * simple setter method for Velocity
+     * @param value
+     */
     public Object Value(Object value) {
         setValue(value);
 
@@ -257,25 +257,17 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * com.opensymphony.webwork.views.jsp.ParameterizedTag implementation
-    * @param key the String name of a parameter to add
-    * @param value the value associated with that parameter
-    * @see ParameterizedTag
-    */
+     * com.opensymphony.webwork.views.jsp.ParameterizedTag implementation
+     * @param key the String name of a parameter to add
+     * @param value the value associated with that parameter
+     * @see ParameterizedTag
+     */
     public void addParam(String key, Object value) {
         this.getParams().put(key, value);
     }
 
     public int doEndTag() throws JspException {
-        OgnlValueStack stack = ActionContext.getContext().getValueStack();
-
-        if (stack != null) {
-            if (value != null) {
-                actualValue = stack.findValue(value.toString());
-            } else if (name != null) {
-                actualValue = stack.findValue(name.toString());
-            }
-        }
+        evaluateActualValue();
 
         try {
             mergeTemplate(this.getTemplateName());
@@ -299,17 +291,17 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
 
     public int doStartTag() throws JspException {
         /**
-        * Migrated instantiation of the params HashMap to here from the constructor to facilitate implementation of the
-        * release() method.
-        */
+         * Migrated instantiation of the params HashMap to here from the constructor to facilitate implementation of the
+         * release() method.
+         */
         this.params = new HashMap();
 
         return EVAL_BODY_INCLUDE;
     }
 
     /**
-    * Clears all the instance variables to allow this instance to be reused.
-    */
+     * Clears all the instance variables to allow this instance to be reused.
+     */
     public void release() {
         super.release();
         this.params = null;
@@ -339,92 +331,92 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * For Velocity
-    * @param label
-    * @return
-    * @throws JspException
-    */
+     * For Velocity
+     * @param label
+     * @return
+     * @throws JspException
+     */
     public Object set(String label) throws JspException {
         return this.set(label, null, null, null, null, null, null);
     }
 
     /**
-    * For Velocity
-    * @param label
-    * @param name
-    * @return
-    * @throws JspException
-    */
+     * For Velocity
+     * @param label
+     * @param name
+     * @return
+     * @throws JspException
+     */
     public Object set(String label, Object name) throws JspException {
         return this.set(label, name, null, null, null, null, null);
     }
 
     /**
-    * For Velocity
-    * @param label
-    * @param name
-    * @param value
-    * @return
-    * @throws JspException
-    */
+     * For Velocity
+     * @param label
+     * @param name
+     * @param value
+     * @return
+     * @throws JspException
+     */
     public Object set(String label, Object name, Object value) throws JspException {
         return this.set(label, name, value, null, null, null, null);
     }
 
     /**
-    * For Velocity
-    * @param label
-    * @param name
-    * @param value
-    * @param id
-    * @return
-    * @throws JspException
-    */
+     * For Velocity
+     * @param label
+     * @param name
+     * @param value
+     * @param id
+     * @return
+     * @throws JspException
+     */
     public Object set(String label, Object name, Object value, String id) throws JspException {
         return this.set(label, name, value, id, null, null, null);
     }
 
     /**
-    * For Velocity
-    * @param label
-    * @param name
-    * @param value
-    * @param id
-    * @param onchange
-    * @return
-    * @throws JspException
-    */
+     * For Velocity
+     * @param label
+     * @param name
+     * @param value
+     * @param id
+     * @param onchange
+     * @return
+     * @throws JspException
+     */
     public Object set(String label, Object name, Object value, String id, String onchange) throws JspException {
         return this.set(label, name, value, id, onchange, null, null);
     }
 
     /**
-    * For Velocity
-    * @param label
-    * @param name
-    * @param value
-    * @param id
-    * @param onchange
-    * @param template
-    * @return
-    * @throws JspException
-    */
+     * For Velocity
+     * @param label
+     * @param name
+     * @param value
+     * @param id
+     * @param onchange
+     * @param template
+     * @return
+     * @throws JspException
+     */
     public Object set(String label, Object name, Object value, String id, String onchange, String template) throws JspException {
         return this.set(label, name, value, id, onchange, template, null);
     }
 
     /**
-    * For Velocity
-    * @param label
-    * @param name
-    * @param value
-    * @param id
-    * @param onchange
-    * @param template
-    * @param theme
-    * @return
-    * @throws JspException
-    */
+     * For Velocity
+     * @param label
+     * @param name
+     * @param value
+     * @param id
+     * @param onchange
+     * @param template
+     * @param theme
+     * @return
+     * @throws JspException
+     */
     public Object set(String label, Object name, Object value, String id, String onchange, String template, String theme) throws JspException {
         this.setLabel(label);
         this.setName(name);
@@ -438,32 +430,32 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     /**
-    * A contract that requires each concrete UI Tag to specify which template should be used as a default.  For
-    * example, the CheckboxTab might return "checkbox.vm" while the RadioTag might return "radio.vm".  This value
-    * <strong>not</strong> begin with a '/' unless you intend to make the path absolute rather than relative to the
-    * current theme.
-    * @return The name of the template to be used as the default.
-    */
+     * A contract that requires each concrete UI Tag to specify which template should be used as a default.  For
+     * example, the CheckboxTab might return "checkbox.vm" while the RadioTag might return "radio.vm".  This value
+     * <strong>not</strong> begin with a '/' unless you intend to make the path absolute rather than relative to the
+     * current theme.
+     * @return The name of the template to be used as the default.
+     */
     protected abstract String getDefaultTemplate();
 
     /**
-    * Find the name of the Velocity template that we should use.
-    * @return The name of the Velocity template that we should use. This value should begin with a '/'
-    */
+     * Find the name of the Velocity template that we should use.
+     * @return The name of the Velocity template that we should use. This value should begin with a '/'
+     */
     protected String getTemplateName() {
         return buildTemplateName(getTemplate(), getDefaultTemplate());
     }
 
     /**
-    *
-    * @param myTemplate
-    * @param myDefaultTemplate
-    * @return
-    */
+     *
+     * @param myTemplate
+     * @param myDefaultTemplate
+     * @return
+     */
     protected String buildTemplateName(String myTemplate, String myDefaultTemplate) {
         /**
-        * If no used defined template has been speccified, apply the appropriate theme to the default template
-        */
+         * If no used defined template has been speccified, apply the appropriate theme to the default template
+         */
         if (myTemplate == null) {
             if (this.theme == null) {
                 return THEME + myDefaultTemplate;
@@ -474,14 +466,14 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
             }
 
             /**
-            * If a theme has been specified and it begins with a '/', allow this to override any theme value provided.
-            */
+             * If a theme has been specified and it begins with a '/', allow this to override any theme value provided.
+             */
         } else if (myTemplate.startsWith("/")) {
             return myTemplate;
 
             /**
-            * Otherwise, apply the appropriate theme to the user specified template
-            */
+             * Otherwise, apply the appropriate theme to the user specified template
+             */
         } else {
             if (this.theme == null) {
                 return THEME + myTemplate;
@@ -489,6 +481,26 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
                 return this.theme + myTemplate;
             } else {
                 return this.theme + "/" + myTemplate;
+            }
+        }
+    }
+
+    /**
+     * this method derives the value of this.actualValue from the value stack if this.actualValue has not
+     * already been set
+     */
+    protected void evaluateActualValue() {
+        if (this.actualValue != null) {
+            return;
+        }
+
+        OgnlValueStack stack = ActionContext.getContext().getValueStack();
+
+        if (stack != null) {
+            if (value != null) {
+                actualValue = stack.findValue(value.toString());
+            } else if (name != null) {
+                actualValue = stack.findValue(name.toString());
             }
         }
     }
@@ -502,19 +514,19 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
         }
 
         /**
-        * Make the OGNL stack available to the velocityEngine templates.
-        * @todo Consider putting all the VelocityServlet Context values in - after all, if we're already sending
-        * the request, it might also make sense for consistency to send the page and res and any others.
-        */
+         * Make the OGNL stack available to the velocityEngine templates.
+         * @todo Consider putting all the VelocityServlet Context values in - after all, if we're already sending
+         * the request, it might also make sense for consistency to send the page and res and any others.
+         */
         context.put("tag", this);
 
         t.merge(context, writer);
     }
 
     /**
-    * initialize the
-    * @throws JspException
-    */
+     * initialize the
+     * @throws JspException
+     */
     protected VelocityEngine newVelocityEngine() throws Exception {
         Properties p = new Properties();
 
@@ -543,11 +555,11 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
             }
 
             /**
-            * Refactored the Velocity templates for the WebWork taglib into the classpath from the web path.  This will
-            * enable WebWork projects to have access to the templates by simply including the WebWork jar file.
-            * Unfortunately, there does not appear to be a macro for the class loader keywords
-            * Matt Ho - Mon Mar 17 00:21:46 PST 2003
-            */
+             * Refactored the Velocity templates for the WebWork taglib into the classpath from the web path.  This will
+             * enable WebWork projects to have access to the templates by simply including the WebWork jar file.
+             * Unfortunately, there does not appear to be a macro for the class loader keywords
+             * Matt Ho - Mon Mar 17 00:21:46 PST 2003
+             */
             p.setProperty("class.resource.loader.description", "Velocity Classpath Resource Loader");
             p.setProperty("class.resource.loader.class", "com.opensymphony.webwork.views.velocity.WebWorkResourceLoader");
         }
