@@ -32,7 +32,7 @@ public class ConfigurationTest extends TestCase {
         assertEquals("de", locale.getLanguage());
 
         int count = getKeyCount();
-        assertEquals(17, count);
+        assertEquals(18, count);
     }
 
     public void testDefaultResourceBundlesLoaded() {

@@ -30,7 +30,7 @@ public class IfTagTest extends TestCase {
     public void testNonBooleanTest() {
         // set up the stack
         Foo foo = new Foo();
-        foo.setNum(2);
+        foo.setNum(1);
         stack.push(foo);
 
         // set up the test
@@ -45,7 +45,7 @@ public class IfTagTest extends TestCase {
             fail();
         }
 
-        assertEquals(TagSupport.SKIP_BODY, result);
+        assertEquals(TagSupport.EVAL_BODY_INCLUDE, result);
 
         try {
             result = tag.doEndTag();
