@@ -42,7 +42,7 @@ public abstract class WebWorkResultSupport implements Result, WebWorkStatics {
         this.parse = parse;
     }
 
-    public final void execute(ActionInvocation invocation) throws Exception {
+    public void execute(ActionInvocation invocation) throws Exception {
         String finalLocation = location;
 
         if (parse) {
