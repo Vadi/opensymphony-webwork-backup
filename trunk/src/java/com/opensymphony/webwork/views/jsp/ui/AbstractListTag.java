@@ -45,8 +45,8 @@ public abstract class AbstractListTag extends AbstractUITag {
     }
 
     public void evaluateExtraParams(OgnlValueStack stack) {
+        Object value = findValue(listAttr);
         if (listAttr != null) {
-            Object value = findValue(listAttr);
             if (value instanceof Collection) {
                 addParam("list", value);
                 addParam("listSize", new Integer(((Collection) value).size()));
@@ -58,10 +58,14 @@ public abstract class AbstractListTag extends AbstractUITag {
 
         if (listKeyAttr != null) {
             addParam("listKey", listKeyAttr);
+        } else if (value instanceof Map) {
+            addParam("listKey", "key");
         }
 
         if (listValueAttr != null) {
             addParam("listValue", listValueAttr);
+        } else if (value instanceof Map) {
+            addParam("listValue", "value");
         }
     }
 

@@ -31,6 +31,8 @@
     #if ($parameters.onchange)         onchange="$parameters.onchange"    #end
     #if ($parameters.id)               id="$parameters.id"                #end
     #if ($parameters.multiple)         multiple="multiple"                #end
+    #if ($parameters.get('class'))     class="$!webwork.htmlEncode($parameters.get('class'))"   #end
+    #if ($parameters.style)            style="$!webwork.htmlEncode($parameters.style)"          #end
 >
 
 #if ($parameters.headerKey && $parameters.headerValue)

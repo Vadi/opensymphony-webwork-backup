@@ -432,6 +432,16 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -499,6 +509,16 @@
             <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -559,6 +579,16 @@
             <name>id</name>
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>theme</name>
@@ -672,6 +702,16 @@
             <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -717,6 +757,16 @@
             <name>id</name>
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>theme</name>
@@ -806,6 +856,16 @@
             <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -836,6 +896,16 @@
             <name>id</name>
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>label</name>
@@ -883,6 +953,16 @@
             <name>id</name>
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>theme</name>
@@ -962,6 +1042,16 @@
             <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>size</name>
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>
@@ -1032,6 +1122,16 @@
             <name>id</name>
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>theme</name>
@@ -1218,6 +1318,21 @@
         <bodycontent>JSP</bodycontent>
         <info>An HTML Textarea UI widget</info>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -1295,6 +1410,21 @@
         <bodycontent>JSP</bodycontent>
         <info>An HTML TextField UI widget</info>
         <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -1371,6 +1501,21 @@
         <tagclass>com.opensymphony.webwork.views.jsp.ui.FileTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>An HTML File UI widget</info>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>class</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
         <attribute>
             <name>theme</name>
             <required>false</required>
@@ -1467,11 +1612,6 @@
         </attribute>
         <attribute>
             <name>theme</name>
-            <required>false</required>
-            <rtexprvalue>false</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>id</name>
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>
         </attribute>

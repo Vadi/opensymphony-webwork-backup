@@ -9,5 +9,9 @@
   --                       to the control.  Default is to the left of the control.
   *#
 #parse("/template/xhtml/controlheader.vm")
-<label> $!webwork.htmlEncode($parameters.nameValue) </label>
+<label
+#if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
+#if ($parameters.get('class'))     class="$!webwork.htmlEncode($parameters.get('class'))"   #end
+#if ($parameters.style)            style="$!webwork.htmlEncode($parameters.style)"          #end
+> $!webwork.htmlEncode($parameters.nameValue) </label>
 #parse("/template/xhtml/controlfooter.vm")

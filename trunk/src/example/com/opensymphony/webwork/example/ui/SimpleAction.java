@@ -9,6 +9,7 @@ import com.opensymphony.xwork.Action;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 
 /**
@@ -110,6 +111,10 @@ public class SimpleAction implements Action {
         this.multiValues = new String[2];
         this.multiValues[0] = "bar";
         this.multiValues[1] = "biz";
+
+        this.map = new HashMap();
+        this.map.put("ABC", "123");
+        this.map.put("XYZ", "789");
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////
