@@ -34,8 +34,8 @@ public class CheckboxTest extends AbstractJspTest {
 
         CheckboxTag tag = new CheckboxTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("mylabel");
-        tag.setName("myname");
+        tag.setLabel("'mylabel'");
+        tag.setName("'myname'");
         tag.setValue("foo");
 
         int result = tag.doEndTag();
@@ -52,8 +52,8 @@ public class CheckboxTest extends AbstractJspTest {
 
         CheckboxTag tag = new CheckboxTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("mylabel");
-        tag.setName("myname");
+        tag.setLabel("'mylabel'");
+        tag.setName("'myname'");
 
         int result = tag.doEndTag();
 
