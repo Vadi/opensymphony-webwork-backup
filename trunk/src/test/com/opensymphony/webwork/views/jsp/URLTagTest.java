@@ -34,7 +34,7 @@ public class URLTagTest extends AbstractUITagTest {
 
     public void testActionURL() {
         jspWriter.setExpectedData("TestAction.action");
-        tag.setValue("TestAction.action");
+        tag.setValue("'TestAction.action'");
 
         try {
             tag.doStartTag();
@@ -47,7 +47,9 @@ public class URLTagTest extends AbstractUITagTest {
 
     public void testAddParameters() {
         jspWriter.setExpectedData("TestAction.action?param2=value2&param1=value1");
-        tag.setValue("TestAction.action");
+        request.setAttribute("webwork.request_uri", "/TestAction.action");
+        request.setQueryString("TestAction.action");
+        request.setRequestURI("TestAction.action");
 
         try {
             tag.doStartTag();
@@ -66,67 +68,6 @@ public class URLTagTest extends AbstractUITagTest {
         stack.push(foo);
         jspWriter.setExpectedData("test");
         tag.setValue("title");
-
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
-    }
-
-    public void testEvaluateValueNotFound() {
-        Foo foo = new Foo();
-        foo.setTitle("test");
-        stack.push(foo);
-        jspWriter.setExpectedData("email");
-        tag.setValue("email");
-
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
-    }
-
-    public void testSamePageUrl() {
-        request.setupGetRequestURI("testSamePageUrl.action?foo=bar");
-
-        // Unfortunately, the MockHttpServletRequest returns null for getParameterMap()
-        //        request.setupAddParameter("requestParam1", "requestValue1");
-        //        request.setupAddParameter("requestParam2", "requestValue2");
-        request.setupGetParameterMap(new HashMap());
-        jspWriter.setExpectedData("testSamePageUrl.action?foo=bar");
-
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
-    }
-
-    public void testSetPageAndValueAttribute() {
-        jspWriter.setExpectedData("bar.jsp");
-        tag.setPage("foo.jsp");
-        tag.setValue("'bar.jsp'");
-
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
-    }
-
-    public void testSetPageAttribute() {
-        jspWriter.setExpectedData("foo.jsp");
-        tag.setPage("foo.jsp");
 
         try {
             tag.doStartTag();
