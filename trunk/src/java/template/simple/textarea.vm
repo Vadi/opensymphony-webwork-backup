@@ -2,6 +2,7 @@
           cols="$!webwork.htmlEncode($parameters.cols)"
           rows="$!webwork.htmlEncode($parameters.rows)"
 #if ($parameters.nameValue)        value="$!webwork.htmlEncode($parameters.nameValue)"      #end
+#if ($parameters.wrap)             value="$!webwork.htmlEncode($parameters.wrap)"           #end
 #if ($parameters.disabled == true) disabled="disabled"                                      #end
 #if ($parameters.readonly)         readonly="readonly"                                      #end
 #if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)"    #end
