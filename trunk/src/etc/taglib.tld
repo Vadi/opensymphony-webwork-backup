@@ -164,7 +164,7 @@
     <tag>
         <name>param</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ParamTag</tagclass>
-        <bodycontent>empty</bodycontent>
+        <bodycontent>JSP</bodycontent>
         <info>
             Sets a parent tag's parameter.
         </info>
@@ -414,7 +414,7 @@
     <tag>
         <name>checkbox</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.CheckboxTag</tagclass>
-        <bodycontent>empty</bodycontent>
+        <bodycontent>JSP</bodycontent>
         <info>An HTML Checkbox UI widget</info>
         <attribute>
             <name>id</name>
@@ -481,7 +481,7 @@
     <tag>
         <name>checkboxlist</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.CheckboxListTag</tagclass>
-        <bodycontent>empty</bodycontent>
+        <bodycontent>JSP</bodycontent>
         <info>An HTML Checkbox List UI widget</info>
         <attribute>
             <name>id</name>
@@ -654,7 +654,7 @@
     <tag>
         <name>label</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.LabelTag</tagclass>
-        <bodycontent>empty</bodycontent>
+        <bodycontent>JSP</bodycontent>
         <info>An HTML Label UI widget</info>
         <attribute>
             <name>id</name>
@@ -701,7 +701,7 @@
     <tag>
         <name>password</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.PasswordTag</tagclass>
-        <bodycontent>empty</bodycontent>
+        <bodycontent>JSP</bodycontent>
         <info>An HTML Password UI widget</info>
         <attribute>
             <name>id</name>
@@ -788,7 +788,7 @@
     <tag>
         <name>hidden</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.HiddenTag</tagclass>
-        <bodycontent>empty</bodycontent>
+        <bodycontent>JSP</bodycontent>
         <info>An HTML Hidden UI widget</info>
         <attribute>
             <name>id</name>
@@ -820,7 +820,7 @@
     <tag>
         <name>submit</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.SubmitTag</tagclass>
-        <bodycontent>empty</bodycontent>
+        <bodycontent>JSP</bodycontent>
         <info>An HTML Hidden UI widget</info>
         <attribute>
             <name>id</name>
@@ -867,7 +867,7 @@
     <tag>
         <name>radio</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.RadioTag</tagclass>
-        <bodycontent>empty</bodycontent>
+        <bodycontent>JSP</bodycontent>
         <info>An HTML Radiobox UI widget</info>
         <attribute>
             <name>id</name>
@@ -1282,7 +1282,7 @@
     <tag>
         <name>textfield</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.TextFieldTag</tagclass>
-        <bodycontent>empty</bodycontent>
+        <bodycontent>JSP</bodycontent>
         <info>An HTML TextField UI widget</info>
         <attribute>
             <name>theme</name>
@@ -1359,7 +1359,7 @@
     <tag>
         <name>file</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.FileTag</tagclass>
-        <bodycontent>empty</bodycontent>
+        <bodycontent>JSP</bodycontent>
         <info>An HTML File UI widget</info>
         <attribute>
             <name>theme</name>
