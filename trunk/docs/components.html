@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <title>WebWork Documentation</title>
   <link type="text/css" href="main.css" rel="STYLESHEET"/>
 </head>
 <body>
   <div id="page-logo">
-    <a href="index.html">WebWork2 Documentation</a>
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
   </div>
     <div class="snip-title">
 	  <h1 class="snip-name">WebWork 2 Components
@@ -30,7 +30,10 @@
 </h3><p class="paragraph"/>To configure WebWork's component management, the following lines must be added in the appropriate places to web.xml:<p class="paragraph"/><div class="code"><pre>&#60;filter&#62;
     &#60;filter&#45;name&#62;container&#60;/filter&#45;name&#62;
     &#60;filter&#45;class&#62;com.opensymphony.webwork.lifecycle.RequestLifecycleFilter&#60;/filter&#45;class&#62;
-&#60;/filter&#62;<p class="paragraph"/>&#60;listener&#62;
+&#60;/filter&#62;<p class="paragraph"/>&#60;filter&#45;mapping&#62;
+   &#60;filter&#45;name&#62;container&#60;/filter&#45;name&#62;
+   &#60;url&#45;pattern&#62;&#42;.action&#60;/url&#45;pattern&#62; &#60;!&#45;&#45; modify appropriately &#45;&#45;&#62;
+&#60;/filter&#45;mapping&#62;<p class="paragraph"/>&#60;listener&#62;
     &#60;listener&#45;class&#62;com.opensymphony.webwork.lifecycle.SessionLifecycleListener&#60;/listener&#45;class&#62;
 &#60;/listener&#62;<p class="paragraph"/>&#60;listener&#62;
     &#60;listener&#45;class&#62;com.opensymphony.webwork.lifecycle.ApplicationLifecycleListener&#60;/listener&#45;class&#62;

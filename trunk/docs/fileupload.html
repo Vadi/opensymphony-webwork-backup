@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <title>WebWork Documentation</title>
   <link type="text/css" href="main.css" rel="STYLESHEET"/>
 </head>
 <body>
   <div id="page-logo">
-    <a href="index.html">WebWork2 Documentation</a>
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
   </div>
     <div class="snip-title">
 	  <h1 class="snip-name">Webwork 2 file upload handling
@@ -26,7 +26,7 @@
 <ol>
 <li>webwork.multipart.parser - This should be set to a class that extends MultiPartRequest. Currently WebWork ships with two implementations. "com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest" and "com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest" If the property is not found the Pell parser is used.</li>
 <li>webwork.multipart.saveDir - The directory where the uploaded files will be placed. If this property is not set it defaults to javax.servlet.context.tempdir.</li>
-<li>webwork.multipart.maxSize - The maximum file size to allow for upload. This helps prevent system abuse by someone uploading lots of large files. The default value is 2 Megabytes and can be set as high as 2 Gigabytes (higher if you want to edit the Pell multipart source but you really need to rethink things if you need to upload files larger then 2 Gigabytes!) If you are uploading more than one file on a form the maxSize applies to the combined total, not the individual file sizes.</li>
+<li>webwork.multipart.maxSize - The maximum file size in bytes to allow for upload. This helps prevent system abuse by someone uploading lots of large files. The default value is 2 Megabytes and can be set as high as 2 Gigabytes (higher if you want to edit the Pell multipart source but you really need to rethink things if you need to upload files larger then 2 Gigabytes!) If you are uploading more than one file on a form the maxSize applies to the combined total, not the individual file sizes.</li>
 </ol><p class="paragraph"/>If you're happy with the defaults there is no need to put any of the properties in webwork.properties. Here is my current webwork.properties
 <div class="code"><pre># don't really need to set <span class="java&#45;keyword">this</span> but I put it here <span class="java&#45;keyword">for</span> testing
 # various values
@@ -75,6 +75,8 @@ Now get the input tag name for the uploaded file and use that to get information
       addActionError(<span class="java&#45;quote">"Error uploading: "</span> + multiWrapper.getFilesystemName(inputValue));
    &#125;<p class="paragraph"/>   // Do additional processing/logging...
 &#125;</pre></div>
+<h3 class="heading-1-1">Further improvements.
+</h3><p class="paragraph"/>Code above may be packed into one nice reusable component (Interceptor) that handles 90% of all typical file upload tasks. And Action does not know anything about web-app and just gets its files. Neat. See <a href="http://wiki.opensymphony.com/space/File+Upload+Interceptor">File Upload Interceptor</a>
   </div>
 </body>
 </html>

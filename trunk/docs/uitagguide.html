@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <title>WebWork Documentation</title>
   <link type="text/css" href="main.css" rel="STYLESHEET"/>
 </head>
 <body>
   <div id="page-logo">
-    <a href="index.html">WebWork2 Documentation</a>
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
   </div>
     <div class="snip-title">
 	  <h1 class="snip-name">WebWork 2 UI Tag Guide
@@ -22,7 +22,7 @@
  <h3 class="heading-1">Overview
 </h3><p class="paragraph"/>In WebWork 2, the UI tags wrap generic HTML controls while providing tight integration with the core framework. The tags have been designed to minimize the amount of logic in compiled code and delegate the actual rendering of HTML to a template system. The UI tags attempt to cover the most common scenarios, while providing a Component Tag for creating custom components. The UI tags also provide built-in support for displaying inline error messages.
 <h3 class="heading-1">Template System
-</h3><p class="paragraph"/>WebWork 2 uses the Velocity template system to render the actual HTML output for all UI tags. A default implementation of all templates has been included with the core distribution allowing users to use WebWork's UI tags "out of the box". Templates can be edited individually or replaced entirely allowing for complete customization of the resulting HTML output. In addition, the default template can be overridden on a per tag basis allowing for a very fine level of control. The default templates are located in the webwork-2.0.jar file under /decorators/xhtml.<p class="paragraph"/>Update: it is now found in /templates/xhtml<p class="paragraph"/>Note: (this is going to change with the theme support that was added)
+</h3><p class="paragraph"/>WebWork 2 uses the Velocity template system to render the actual HTML output for all UI tags. A default implementation of all templates has been included with the core distribution allowing users to use WebWork's UI tags "out of the box". Templates can be edited individually or replaced entirely allowing for complete customization of the resulting HTML output. In addition, the default template can be overridden on a per tag basis allowing for a very fine level of control. The default templates are located in the webwork-2.0.jar file under /decorators/xhtml.<p class="paragraph"/>Update: it is now found in /templates/xhtml<p class="paragraph"/>Update (2003-11-13): it is now found in /template/xhtml<p class="paragraph"/>Note: (this is going to change with the theme support that was added)
 The AbstractUI class is the base class that other UI tags extend. It provides a set of attributes that are common across UI components. The AbstractUI class defines an abstract method:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">protected</span> <span class="java&#45;keyword">abstract</span> <span class="java&#45;object">String</span> getTemplateName();</pre></div><p class="paragraph"/>The AbstractUI class will load the template specified by the subclass or optionally, a template specified by the user. As part of the doStartTag() method, a VelocityContext object is created with the following items:
 <ul class="star">
 <li>tag - a reference to the tag object</li>

@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <title>WebWork Documentation</title>
   <link type="text/css" href="main.css" rel="STYLESHEET"/>
 </head>
 <body>
   <div id="page-logo">
-    <a href="index.html">WebWork2 Documentation</a>
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
   </div>
     <div class="snip-title">
 	  <h1 class="snip-name">Application, Session, Request objects in jsp
@@ -20,6 +20,8 @@
  <div class="snip-attachments"></div>
  
  The appliation, session and request objects are available from within ww tags in jsp wherever ognl can be evaluated. Use the #session syntax to get the object and access values by their keys using &#91;'key'].<div class="code"><pre>&#60;ww:property value=<span class="java&#45;quote">"#application&#91;'foo'&#93;"</span>/&#62;<p class="paragraph"/>&#60;ww:property value=<span class="java&#45;quote">"#session&#91;'baz'&#93;"</span>/&#62;</pre></div>
+Conversely, if you would like to make webwork objects availible to say the jsp/jstl request scope.  The property tag can be used like this.<p class="paragraph"/><div class="code"><pre>&#60;ww:set name=<span class="java&#45;quote">"jobz"</span> value=<span class="java&#45;quote">"jobs"</span> scope=<span class="java&#45;quote">"request"</span> /&#62;</pre></div><p class="paragraph"/>A full example below shows a webwork variable "jobs" being exposed as "jobz" and being used with jstl and the display tag.<p class="paragraph"/><a href="http://wiki.opensymphony.com/space/Example%2C+exposing+webwork+objects+to+JSTL%2C+with+a+JSTL+and+DisplayTag+Example">Example, exposing webwork objects to JSTL, with a JSTL and DisplayTag Example</a>
+
   </div>
 </body>
 </html>

@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <title>WebWork Documentation</title>
   <link type="text/css" href="main.css" rel="STYLESHEET"/>
 </head>
 <body>
   <div id="page-logo">
-    <a href="index.html">WebWork2 Documentation</a>
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
   </div>
     <div class="snip-title">
 	  <h1 class="snip-name">WebWork2 QuickStart Guide
@@ -32,6 +32,7 @@ To use WebWork as your framework for writing Java-based web applications, you ne
 <li>commons-logging.jar</li>
 <li>oscore-2.2.1.jar</li>
 <li>jstl.jar (needed for Standard Tag Libraries)</li>
+<li>velocity-dep-1.3.1.jar</li>
 </ul>
 <h3 class="heading-1-1">Optional JAR files
 </h3>
@@ -40,7 +41,6 @@ To use WebWork as your framework for writing Java-based web applications, you ne
 <li>pell-multipart.jar</li>
 <li>standard.jar</li>
 <li>mail.jar</li>
-<li>velocity-dep-1.3.1.jar</li>
 </ul>
 <h3 class="heading-1">CONFIGURATION
 </h3>
@@ -53,15 +53,24 @@ WebWork is built upon the Xwork framework. Xwork handles the translation of comm
           <span class="xml&#45;quote">"&#45;//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"</class> 
           <span class="xml&#45;quote">"http://java.sun.com/dtd/web&#45;app_2_3.dtd"</class>&#62;
 &#60;web&#45;app&#62;
-    &#60;display&#45;name&#62;WebWork 2.0 Quick Start&#60;/display&#45;name&#62;<p class="paragraph"/>    &#60;servlet&#62;
+    &#60;display&#45;name&#62;WebWork 2.0 Quick Start&#60;/display&#45;name&#62;
+    &#60;servlet&#62;
         &#60;servlet&#45;name&#62;webwork&#60;/servlet&#45;name&#62;
-        &#60;servlet&#45;class&#62;
-             com.opensymphony.webwork.dispatcher.ServletDispatcher
-        &#60;/servlet&#45;class&#62;
+          &#60;servlet&#45;class&#62;com.opensymphony.webwork.dispatcher.ServletDispatcher&#60;/servlet&#45;class&#62;                                            
+    &#60;/servlet&#62;
+    &#60;servlet&#62;
+        &#60;servlet&#45;name&#62;velocity&#60;/servlet&#45;name&#62;
+          &#60;servlet&#45;class&#62;com.opensymphony.webwork.views.velocity.WebWorkVelocityServlet&#60;/servlet&#45;class&#62;
+        &#60;load&#45;on&#45;startup&#62;1&#60;/load&#45;on&#45;startup&#62;
     &#60;/servlet&#62;<p class="paragraph"/>    &#60;servlet&#45;mapping&#62;
         &#60;servlet&#45;name&#62;webwork&#60;/servlet&#45;name&#62;
-        &#60;url&#45;pattern&#62;&#42;.action&#60;/url&#45;pattern&#62;
-    &#60;/servlet&#45;mapping&#62;<p class="paragraph"/>    &#60;welcome&#45;file&#45;list&#62;
+	&#60;url&#45;pattern&#62;&#42;.action&#60;/url&#45;pattern&#62;
+    &#60;/servlet&#45;mapping&#62;
+    &#60;servlet&#45;mapping&#62;
+	 &#60;servlet&#45;name&#62;velocity&#60;/servlet&#45;name&#62;
+	 &#60;url&#45;pattern&#62;&#42;.vm&#60;/url&#45;pattern&#62;
+    &#60;/servlet&#45;mapping&#62;<p class="paragraph"/>
+    &#60;welcome&#45;file&#45;list&#62;
         &#60;welcome&#45;file&#62;index.jsp&#60;/welcome&#45;file&#62;
         &#60;welcome&#45;file&#62;index.html&#60;/welcome&#45;file&#62;
     &#60;/welcome&#45;file&#45;list&#62;<p class="paragraph"/>    &#60;taglib&#62; 
@@ -74,7 +83,11 @@ WebWork is built upon the Xwork framework. Xwork handles the translation of comm
     &#60;servlet&#45;name&#62;webwork&#60;/servlet&#45;name&#62;
     &#60;url&#45;pattern&#62;&#42;.action&#60;/url&#45;pattern&#62;
 &#60;/servlet&#45;mapping&#62;</pre></div>
-The above section will map ANY servlet called with an extension of <b class="bold">.action</b> to the WebWork base servlet, and assume it is a WebWork action class.
+The above section will map ANY servlet called with an extension of <b class="bold">.action</b> to the WebWork base servlet, and assume it is a WebWork action class.<p class="paragraph"/><div class="code"><pre>&#60;servlet&#45;name&#62;velocity&#60;/servlet&#45;name&#62;
+&#60;servlet&#45;class&#62;com.opensymphony.webwork.views.velocity.WebWorkVelocityServlet&#60;/servlet&#45;class&#62;
+&#60;load&#45;on&#45;startup&#62;1&#60;/load&#45;on&#45;startup&#62;
+&#60;/servlet&#62;</pre></div>
+The above section will startup the WebWorkVelocityServlet which is used to render Velocity pages. It also initializes the underlying Velocity templating subsystem which is required for using the WebWork UI tag libraries ( see below ).
 <h3 class="heading-1-1">Taglibs
 </h3>
 <div class="code"><pre>&#60;taglib&#62; 

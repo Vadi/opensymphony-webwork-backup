@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <title>WebWork Documentation</title>
   <link type="text/css" href="main.css" rel="STYLESHEET"/>
 </head>
 <body>
   <div id="page-logo">
-    <a href="index.html">WebWork2 Documentation</a>
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
   </div>
     <div class="snip-title">
 	  <h1 class="snip-name">Value Stack Internals
@@ -43,6 +43,16 @@
         add(0, o);
     &#125;
 &#125;</pre></div>
+<h3 class="heading-1-1">What's on the stack?
+</h3>
+WebWork2 contains the following items by default in the ValueStack:
+<ul class="star">
+<li>req - the current HttpServletRequest</li>
+<li>res - the current HttpServletResponse</li>
+<li>stack - the current OgnlValueStack</li>
+<li>ognl - an instance of OgnlTool</li>
+<li>ui - a (now deprecated) instance of a ui tag renderer</li>
+</ul>
   </div>
 </body>
 </html>
