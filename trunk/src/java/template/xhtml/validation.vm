@@ -1,25 +1,23 @@
 <script src="validationServlet.js"></script>
-
-<script>
-
-// TODO is this the best way to subclass in javascript ?
+<script language='JavaScript'>
 
 var validationServlet = new ValidationServlet("$parameters.url");
-var oldOnErrors = validationServlet.onErrors;
-
-validationServlet.onErrors = function(validateElement, errors) {
-	clearErrorRows(validateElement.parentNode.parentNode.parentNode);
-	clearErrorLabels(validateElement.form);
-	oldOnErrors.call(this, validateElement, errors);
-}
-validationServlet.onFieldError = function(validateElement, fieldName, errorMessages) {
-	if (validateElement.form.elements[fieldName].touched) {
-		for (var i = 0; i < errorMessages.length; i++) {
-			addError(validateElement.form.elements[fieldName], errorMessages[i]);
+validationServlet.onErrors = function(input, errors) {
+	alert(1)
+	var table = input.parentNode.parentNode.parentNode;
+	var form = input.form;
+		
+	clearErrorRows(table);
+	clearErrorLabels(form);
+	
+	for (var fieldName in errors.fieldErrors) {
+		if (form.elements[fieldName].touched) {
+			for (var i = 0; i < errors.fieldErrors[fieldName].length; i++) {
+				addError(form.elements[fieldName], errors.fieldErrors[fieldName][i]);
+			}
 		}
 	}
 }
-
 
 function validate(element) {
     // mark the element as touch
