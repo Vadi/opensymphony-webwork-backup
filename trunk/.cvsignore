@@ -1,6 +1,7 @@
 *.ipr
 *.iws
 *.iml
+*.log
 build
 dist
 bin
@@ -9,3 +10,5 @@ cache
 logs
 velocity.log
 webapps
+.classpath
+.project
