@@ -42,9 +42,10 @@ public class SelectTest extends AbstractJspTest {
 
         SelectTag tag = new SelectTag();
         tag.setPageContext(pageContext);
+        tag.setEmptyOption(false);
         tag.setLabel("mylabel");
         tag.setName("myname");
-        tag.setValue("peek().list[1][1]");
+        tag.setValue("that.list[1][1]");
         tag.setList("list");
         tag.setListKey("[0]");
         tag.setListValue("[1]");
