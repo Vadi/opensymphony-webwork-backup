@@ -26,10 +26,8 @@
     </buildFile>
   </component>
   <component name="CodeStyleSettingsManager">
-    <option name="PER_PROJECT_SETTINGS">
-      <value />
-    </option>
-    <option name="USE_PER_PROJECT_SETTINGS" value="true" />
+    <option name="PER_PROJECT_SETTINGS" />
+    <option name="USE_PER_PROJECT_SETTINGS" value="false" />
   </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
@@ -106,6 +104,29 @@
     <option name="GENERATE_NO_WARNINGS" value="false" />
     <option name="IS_EMACS_ERRORS_MODE" value="true" />
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+  </component>
+  <component name="PEExternalization">
+    <option name="IGNORE_METHOD_NAMES" value="" />
+    <option name="IGNORE_METHOD_NAMES_ENABLED" value="false" />
+    <option name="IGNORE_CLASS_CONSTRUCTORS">
+      <value>
+        <option class="Exception" includeInheritors="true" />
+      </value>
+    </option>
+    <option name="IGNORE_CLASS_CONSTRUCTOR_NAMES_ENABLED" value="true" />
+    <option name="IGNORE_CLASS_METHODS_ENABLED" value="true" />
+    <option name="IGNORE_STRINGS_CONTAINS_ONLY_ENABLED" value="true" />
+    <option name="IGNORE_STRINGS_CONTAINS_ONLY_WHITESPACES" value="true" />
+    <option name="IGNORE_STRINGS_CONTAINS_ONLY_PUNCTUATIONS" value="true" />
+    <option name="IGNORE_STRINGS_CONTAINS_ONLY_SPECIFIED_ENABLED" value="true" />
+    <option name="IGNORE_STRINGS_CONTAINS_ONLY_SPECIFIED" value="" />
+    <option name="IGNORE_CLASS_METHODS">
+      <value>
+        <option class="Exception" includeInheritors="false" />
+        <option class="java.util.ResourceBundle" includeInheritors="true" />
+      </value>
+    </option>
+    <option name="IGNORE_CONSTANTS_DECLARATIONS" value="true" />
   </component>
   <component name="Palette2">
     <group name="Swing">
@@ -217,7 +238,7 @@
       <module fileurl="file://$PROJECT_DIR$/../xwork/XWork.iml" filepath="$PROJECT_DIR$/../xwork/XWork.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="false" jdk-15="false" project-jdk-name="java version &quot;1.4.2&quot;" />
+  <component name="ProjectRootManager" version="2" assert-keyword="false" jdk-15="false" project-jdk-name="JDK 1.4.2" />
   <component name="Regex">
     <option name="pos1" value="218" />
     <option name="pos2" value="218" />
