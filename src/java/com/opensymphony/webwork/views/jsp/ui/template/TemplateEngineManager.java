@@ -20,6 +20,7 @@ public class TemplateEngineManager {
     Map templateEngines = new HashMap();
 
     private TemplateEngineManager() {
+        templateEngines.put("ftl", new FreemarkerTemplateEngine());
         templateEngines.put("vm", new VelocityTemplateEngine());
         templateEngines.put("jsp", new JspTemplateEngine());
     }

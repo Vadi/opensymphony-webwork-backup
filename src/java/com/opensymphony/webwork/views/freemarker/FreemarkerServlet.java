@@ -79,19 +79,14 @@ public class FreemarkerServlet extends HttpServlet {
     }
 
     protected TemplateModel createModel(ObjectWrapper wrapper, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) throws TemplateModelException {
-        ScopesHashModel model = FreemarkerManager.getInstance().buildScopesHashModel(servletContext, request, response, getObjectWrapper());
-
+    	
+        OgnlValueStack stack = ServletActionContext.getContext().getValueStack();
         Action action = null;
-
         if (ServletActionContext.getContext().getActionInvocation() != null) {
             action = ServletActionContext.getContext().getActionInvocation().getAction();
         }
-
-        OgnlValueStack stack = ServletActionContext.getContext().getValueStack();
-
-        FreemarkerManager.getInstance().populateContext(model, stack, action, request, response);
-
-        return new ValueStackModel(stack, model, wrapper);
+        TemplateModel model = FreemarkerManager.getInstance().buildTemplateModel(stack, action, servletContext, request, response, wrapper);
+        return model;
     }
 
     /**

@@ -7,32 +7,45 @@
  */
 package com.opensymphony.webwork.views.freemarker;
 
-import com.opensymphony.util.FileManager;
-import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.util.FreemarkerWebWorkUtil;
-import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
-import com.opensymphony.xwork.Action;
-import com.opensymphony.xwork.ObjectFactory;
-import com.opensymphony.xwork.util.OgnlValueStack;
-import freemarker.cache.*;
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.jsp.TaglibFactory;
-import freemarker.ext.servlet.HttpRequestHashModel;
-import freemarker.ext.servlet.HttpSessionHashModel;
-import freemarker.ext.servlet.ServletContextHashModel;
-import freemarker.template.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.opensymphony.util.FileManager;
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.util.FreemarkerWebWorkUtil;
+import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
+import com.opensymphony.xwork.Action;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import freemarker.cache.ClassTemplateLoader;
+import freemarker.cache.FileTemplateLoader;
+import freemarker.cache.MultiTemplateLoader;
+import freemarker.cache.TemplateLoader;
+import freemarker.cache.WebappTemplateLoader;
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.jsp.TaglibFactory;
+import freemarker.ext.servlet.HttpRequestHashModel;
+import freemarker.ext.servlet.HttpSessionHashModel;
+import freemarker.ext.servlet.ServletContextHashModel;
+import freemarker.template.ObjectWrapper;
+import freemarker.template.SimpleHash;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateHashModel;
+import freemarker.template.TemplateModel;
 
 
 /**
@@ -115,8 +128,8 @@ public class FreemarkerManager {
         return config;
     }
 
-    public ScopesHashModel buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper) {
-        ScopesHashModel model = new ScopesHashModel(wrapper, servletContext, request);
+    public ScopesHashModel buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper, OgnlValueStack stack) {
+        ScopesHashModel model = new ScopesHashModel(wrapper, servletContext, request, stack);
 
         // Create hash model wrapper for servlet context (the application)
         // only need one thread to do this once, per servlet context
@@ -140,17 +153,7 @@ public class FreemarkerManager {
 
         if (request.getSession(false) != null) {
             HttpSession session = request.getSession();
-
-            synchronized (session) {
-                sessionModel = (HttpSessionHashModel) session.getAttribute(ATTR_SESSION_MODEL);
-
-                if (sessionModel == null) {
-                    sessionModel = new HttpSessionHashModel(session, wrapper);
-                    session.setAttribute(ATTR_SESSION_MODEL, sessionModel);
-                }
-            }
-
-            model.put(KEY_SESSION_MODEL, sessionModel);
+            model.put(KEY_SESSION_MODEL, new HttpSessionHashModel(session, wrapper));
         }
         else {
             // no session means no attributes ???
@@ -170,6 +173,13 @@ public class FreemarkerManager {
         return model;
     }
 
+    /**
+     * @deprecated please use buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper, OgnlValueStack stack) 
+     */
+    public ScopesHashModel buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper) {
+		return buildScopesHashModel(servletContext, request, response, wrapper, ActionContext.getContext().getValueStack());
+	}
+	
     public void populateContext(ScopesHashModel model, OgnlValueStack stack, Action action, HttpServletRequest request, HttpServletResponse response) {
         // put the same objects into the context that the velocity result uses
         model.put(KEY_REQUEST, request);
@@ -292,4 +302,11 @@ public class FreemarkerManager {
             log.error("Error while loading freemarker settings from /freemarker.properties", e);
         }
     }
+
+    public SimpleHash buildTemplateModel(OgnlValueStack stack, Action action, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper) {
+        ScopesHashModel model = buildScopesHashModel(servletContext, request, response, wrapper);
+        populateContext(model, stack, action, request, response);
+        return model;
+    }
+    
 }
