@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.jsp.iterator;
 
 import com.opensymphony.webwork.views.jsp.ActionTag;
-import webwork.util.AppendIteratorFilter;
+import com.opensymphony.webwork.util.AppendIteratorFilter;
 
 import javax.servlet.jsp.tagext.Tag;
 
