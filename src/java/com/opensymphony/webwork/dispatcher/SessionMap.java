@@ -12,8 +12,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -37,6 +37,7 @@ public class SessionMap extends AbstractMap implements Serializable {
 
     public void clear() {
         HttpSession session = request.getSession();
+
         synchronized (session) {
             entries = null;
             session.invalidate();
@@ -45,6 +46,7 @@ public class SessionMap extends AbstractMap implements Serializable {
 
     public Set entrySet() {
         HttpSession session = request.getSession();
+
         synchronized (session) {
             if (entries == null) {
                 entries = new HashSet();
@@ -55,30 +57,30 @@ public class SessionMap extends AbstractMap implements Serializable {
                     final String key = enum.nextElement().toString();
                     final Object value = session.getAttribute(key);
                     entries.add(new Map.Entry() {
-                        public boolean equals(Object obj) {
-                            Map.Entry entry = (Map.Entry) obj;
+                            public boolean equals(Object obj) {
+                                Map.Entry entry = (Map.Entry) obj;
 
-                            return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey())) && ((value == null) ? (entry.getValue() == null) : value.equals(entry.getValue()));
-                        }
+                                return ((key == null) ? (entry.getKey() == null) : key.equals(entry.getKey())) && ((value == null) ? (entry.getValue() == null) : value.equals(entry.getValue()));
+                            }
 
-                        public int hashCode() {
-                            return ((key == null) ? 0 : key.hashCode()) ^ ((value == null) ? 0 : value.hashCode());
-                        }
+                            public int hashCode() {
+                                return ((key == null) ? 0 : key.hashCode()) ^ ((value == null) ? 0 : value.hashCode());
+                            }
 
-                        public Object getKey() {
-                            return key;
-                        }
+                            public Object getKey() {
+                                return key;
+                            }
 
-                        public Object getValue() {
-                            return value;
-                        }
+                            public Object getValue() {
+                                return value;
+                            }
 
-                        public Object setValue(Object obj) {
-                            request.getSession().setAttribute(key.toString(), obj);
+                            public Object setValue(Object obj) {
+                                request.getSession().setAttribute(key.toString(), obj);
 
-                            return value;
-                        }
-                    });
+                                return value;
+                            }
+                        });
                 }
             }
         }
@@ -88,6 +90,7 @@ public class SessionMap extends AbstractMap implements Serializable {
 
     public Object get(Object key) {
         HttpSession session = request.getSession();
+
         synchronized (session) {
             return session.getAttribute(key.toString());
         }
@@ -95,6 +98,7 @@ public class SessionMap extends AbstractMap implements Serializable {
 
     public Object put(Object key, Object value) {
         HttpSession session = request.getSession();
+
         synchronized (session) {
             entries = null;
             session.setAttribute(key.toString(), value);
@@ -105,6 +109,7 @@ public class SessionMap extends AbstractMap implements Serializable {
 
     public Object remove(Object key) {
         HttpSession session = request.getSession();
+
         synchronized (session) {
             entries = null;
 

@@ -34,11 +34,11 @@ public class CheckboxListTest extends AbstractUITagTest {
         collection.add("hello");
         collection.add("foo");
         testAction.setCollection(collection);
-        testAction.setList(new String[][]{
-            {"hello", "world"},
-            {"foo", "bar"},
-            {"cat", "dog"}
-        });
+        testAction.setList(new String[][] {
+                {"hello", "world"},
+                {"foo", "bar"},
+                {"cat", "dog"}
+            });
 
         CheckboxListTag tag = new CheckboxListTag();
         tag.setPageContext(pageContext);
@@ -59,10 +59,10 @@ public class CheckboxListTest extends AbstractUITagTest {
 
         TestAction testAction = (TestAction) action;
         testAction.setFoo("hello");
-        testAction.setList(new String[][]{
-            {"hello", "world"},
-            {"foo", "bar"}
-        });
+        testAction.setList(new String[][] {
+                {"hello", "world"},
+                {"foo", "bar"}
+            });
 
         CheckboxListTag tag = new CheckboxListTag();
         tag.setPageContext(pageContext);

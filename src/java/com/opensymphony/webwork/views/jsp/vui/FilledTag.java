@@ -4,9 +4,10 @@
  */
 package com.opensymphony.webwork.views.jsp.vui;
 
+import com.opensymphony.webwork.views.util.UrlHelper;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import com.opensymphony.webwork.views.util.UrlHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -103,13 +103,13 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
                 }
 
                 // get the constructor
-                Constructor ctor = clazz.getDeclaredConstructor(new Class[]{
-                    Class.forName("javax.servlet.http.HttpServletRequest"),
-                    java.lang.String.class, int.class
-                });
+                Constructor ctor = clazz.getDeclaredConstructor(new Class[] {
+                        Class.forName("javax.servlet.http.HttpServletRequest"),
+                        java.lang.String.class, int.class
+                    });
 
                 // build the parameter list
-                Object[] parms = new Object[]{
+                Object[] parms = new Object[] {
                     request, saveDir, new Integer(maxSize)
                 };
 

@@ -135,27 +135,27 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParameterizedTa
     // Public --------------------------------------------------------
 
     /**
- * Name of page/servlet to include.
- *
- * @param   aPage
- * @deprecated use value attribute instead
- */
+    * Name of page/servlet to include.
+    *
+    * @param   aPage
+    * @deprecated use value attribute instead
+    */
     public void setPage(String aPage) {
         pageAttr = aPage;
     }
 
     /* (non-Javadoc)
- * @see com.opensymphony.webwork.views.jsp.ParameterizedTag#getParams()
- */
+    * @see com.opensymphony.webwork.views.jsp.ParameterizedTag#getParams()
+    */
     public Map getParams() {
         return params;
     }
 
     /**
- * Name of property whose value is the name of the page/servlet to include.
- *
- * @param   aName
- */
+    * Name of property whose value is the name of the page/servlet to include.
+    *
+    * @param   aName
+    */
     public void setValue(String aName) {
         valueAttr = aName;
     }
@@ -163,11 +163,11 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParameterizedTa
     // ParamTag.Parametric implementation ----------------------------
 
     /**
- * Add a parameter to the URL of the included page/servlet.
- *
- * @param   name
- * @param   value
- */
+    * Add a parameter to the URL of the included page/servlet.
+    *
+    * @param   name
+    * @param   value
+    */
     public void addParam(String name, Object value) {
         if (value != null) {
             List currentValues = (List) params.get(name);
@@ -249,21 +249,21 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParameterizedTa
     }
 
     /**
- * Get the encoding specified by the property 'webwork.i18n.encoding' in webwork.properties,
- * or return the default platform encoding if not specified.
- * <p>
- * Note that if the property is not initially defined, this will return the system default,
- * even if the property is later defined.  This is mainly for performance reasons.  Undefined
- * properties throw exceptions, which are a costly operation.
- * <p>
- * If the property is initially defined, it is read every time, until is is undefined, and then
- * the system default is used.
- * <p>
- * Why not cache it completely?  Some applications will wish to be able to dynamically set the
- * encoding at runtime.
- *
- * @return  The encoding to be used.
- */
+    * Get the encoding specified by the property 'webwork.i18n.encoding' in webwork.properties,
+    * or return the default platform encoding if not specified.
+    * <p>
+    * Note that if the property is not initially defined, this will return the system default,
+    * even if the property is later defined.  This is mainly for performance reasons.  Undefined
+    * properties throw exceptions, which are a costly operation.
+    * <p>
+    * If the property is initially defined, it is read every time, until is is undefined, and then
+    * the system default is used.
+    * <p>
+    * Why not cache it completely?  Some applications will wish to be able to dynamically set the
+    * encoding at runtime.
+    *
+    * @return  The encoding to be used.
+    */
     private static String getEncoding() {
         if (encodingDefined) {
             try {
@@ -359,10 +359,10 @@ final class PageResponse extends HttpServletResponseWrapper {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
- * Return the content buffered inside the {@link com.opensymphony.webwork.views.jsp.PageOutputStream}.
- * @return
- * @throws IOException
- */
+    * Return the content buffered inside the {@link com.opensymphony.webwork.views.jsp.PageOutputStream}.
+    * @return
+    * @throws IOException
+    */
     public FastByteArrayOutputStream getContent() throws IOException {
         //if we are using a writer, we need to flush the
         //data to the underlying outputstream.
@@ -375,9 +375,9 @@ final class PageResponse extends HttpServletResponseWrapper {
     }
 
     /**
- * Return instance of {@link com.opensymphony.webwork.views.jsp.PageOutputStream}
- * allowing all data written to stream to be stored in temporary buffer.
- */
+    * Return instance of {@link com.opensymphony.webwork.views.jsp.PageOutputStream}
+    * allowing all data written to stream to be stored in temporary buffer.
+    */
     public ServletOutputStream getOutputStream() throws IOException {
         if (pageOutputStream == null) {
             pageOutputStream = new PageOutputStream();

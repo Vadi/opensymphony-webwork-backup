@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.TextUtils;
+
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
@@ -73,16 +74,16 @@ public final class WebWorkUtil {
         return writer.toString();
     }
 
+    public Object findString(String name) {
+        return stack.findValue(name, String.class);
+    }
+
     public String htmlEncode(Object obj) {
         if (obj == null) {
             return null;
         }
 
         return TextUtils.htmlEncode(obj.toString());
-    }
-
-    public Object findString(String name) {
-        return stack.findValue(name, String.class);
     }
 
     public String include(Object aName, ServletRequest aRequest, ServletResponse aResponse) throws Exception {

@@ -131,13 +131,13 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         HashMap newConfig = new HashMap();
 
         for (Iterator iterator = namespaceActionConfigs.entrySet().iterator();
-             iterator.hasNext();) {
+                iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
             String namespace = (String) entry.getKey();
             Map actionConfigs = (Map) entry.getValue();
 
             for (Iterator configIterator = actionConfigs.entrySet().iterator();
-                 configIterator.hasNext();) {
+                    configIterator.hasNext();) {
                 Map.Entry entry2 = (Map.Entry) configIterator.next();
                 String actionName = (String) entry2.getKey();
                 ActionConfig actionConfig = (ActionConfig) entry2.getValue();

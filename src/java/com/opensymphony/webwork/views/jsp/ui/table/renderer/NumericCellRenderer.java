@@ -21,19 +21,19 @@ public class NumericCellRenderer extends AbstractCellRenderer {
     DecimalFormat _formater = new DecimalFormat();
 
     /**
- * this is the format string that DecimalFormat would use.
- * @see DecimalFormat
- */
+    * this is the format string that DecimalFormat would use.
+    * @see DecimalFormat
+    */
     String _formatString = null;
 
     /**
- * if set the is the color to use if Number is negative.
- */
+    * if set the is the color to use if Number is negative.
+    */
     String _negativeColor = null;
 
     /**
- * if set this is the color to render if number is positive
- */
+    * if set this is the color to render if number is positive
+    */
     String _positiveColor = null;
 
     //~ Constructors ///////////////////////////////////////////////////////////

@@ -6,6 +6,8 @@ package com.opensymphony.webwork.dispatcher.multipart;
 
 import http.utils.multipartrequest.ServletMultipartRequest;
 
+import org.apache.commons.logging.LogFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,8 +17,6 @@ import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.logging.LogFactory;
 
 
 /* ------------------------------------------------------------ */
@@ -102,6 +102,7 @@ public class PellMultiPartRequest extends MultiPartRequest {
      */
     private static void setEncoding() {
         String encoding = null;
+
         try {
             //encoding = Configuration.getString("webwork.i18n.encoding");
             if (encoding != null) {
@@ -109,8 +110,7 @@ public class PellMultiPartRequest extends MultiPartRequest {
                 //ServletMultiPartRequest, as it can cause problems.
                 //See javadoc for MultipartRequest.setEncoding()
                 http.utils.multipartrequest.MultipartRequest.setEncoding(encoding);
-            }
-            else {
+            } else {
                 http.utils.multipartrequest.MultipartRequest.setEncoding("UTF-8");
             }
         } catch (IllegalArgumentException e) {

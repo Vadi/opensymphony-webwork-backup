@@ -130,9 +130,9 @@ public class TokenHelper {
         String sessionToken = (String) session.getAttribute(tokenName);
 
         if (!token.equals(sessionToken)) {
-            LOG.warn(LocalizedTextUtil.findText(TokenHelper.class, "webwork.invalid.token", request.getLocale(), "Form token {0} does not match the session token {1}.", new Object[]{
-                token, sessionToken
-            }));
+            LOG.warn(LocalizedTextUtil.findText(TokenHelper.class, "webwork.invalid.token", request.getLocale(), "Form token {0} does not match the session token {1}.", new Object[] {
+                        token, sessionToken
+                    }));
 
             return false;
         }
