@@ -6,6 +6,7 @@
       <additionalClassPath>
         <entry path="file://$PROJECT_DIR$/lib/build/clover.jar" />
         <entry path="file://$PROJECT_DIR$/lib/build/junit.jar" />
+        <entry path="file://$PROJECT_DIR$/lib/build/jsch.jar" />
       </additionalClassPath>
       <antReference projectDefault="true" />
       <customJdkName value="" />

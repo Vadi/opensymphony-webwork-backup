@@ -7,6 +7,7 @@
     </path>
 
     <property file="build.properties"/>
+    <property file="release.properties"/>
 
     <property name="lib" value="lib"/>
     <property name="lib.core" value="${lib}/core"/>
@@ -389,6 +390,29 @@
             <exclude name="docs/clover/**/*"/>
             <exclude name="docs/junit/**/*"/>
         </zip>
+    </target>
+
+    <target name="release">
+        <!-- update the navpanel.jsp to include the download link -->
+        <filter token="DOWNLOAD" value="${latest.download}"/>
+        <copy tofile="${docs}/navpanel.jsp" file="${docs}/navpanel-source.jsp" filtering="yes"/>
+
+        <cvs command="commit ${docs}/navpanel.jsp"/>
+        <cvs command="tag -F ${cvs.tag}"/>
+
+        <!-- update the website -->
+        <sshexec host="www.opensymphony.com"
+            username="${website.username}"
+            password="${website.password}"
+            trust="yes"
+            command="cd /opt/j2ee/opensymphony/webwork;export JAVA_HOME='/usr/java/jdk';cvs update -P -d;/usr/java/ant-1.5.4/bin/ant docs;"/>
+
+
+        <!-- update the ibiblio repository -->
+        <scp password="${ibiblio.password}"
+            trust="yes"
+            todir="${ibiblio.username}@opensymphony.formicary.net:/home/rsync/repository/opensymphony/jars"
+            file="${build}/${name}-${version}.jar"/>
     </target>
 </project>
 

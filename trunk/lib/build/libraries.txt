@@ -6,4 +6,5 @@ mockobjects-core.jar - Mock objects library (0.09dev)
 mockobjects-jdk1.3-j2ee1.3.jar - Mock objects library (0.09dev)
 mockobjects-jdk1.3.jar - Mock objects library (0.09dev)
 servlet.jar - Servlet API version 2.3
+jsch.jar - JCraft 0.1.17
 
