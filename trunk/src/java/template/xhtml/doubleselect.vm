@@ -102,4 +102,4 @@ function $!{tag.Name}Redirect(x) {
 #else
   &nbsp;
 #end
-#parse( "/templates/xhtml/controlfooter.vm" )
+#parse( "/template/xhtml/controlfooter.vm" )
