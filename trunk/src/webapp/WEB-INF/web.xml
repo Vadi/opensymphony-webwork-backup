@@ -56,6 +56,23 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>webworkStaticResources</servlet-name>
+        <servlet-class>com.opensymphony.webwork.servlet.StaticResourceServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>packages</param-name>
+			<param-value>
+				com.opensymphony.webwork.static
+			</param-value>
+		</init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>webworkStaticResources</servlet-name>
+        <url-pattern>/webwork/*</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>freemarker</servlet-name>
         <url-pattern>*.ftl</url-pattern>
