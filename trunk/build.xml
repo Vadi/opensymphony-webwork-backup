@@ -6,6 +6,8 @@
         </fileset>
     </path>
 
+    <property name="idea" value="C:\Program Files\IntelliJ-IDEA-4.5"/>
+
     <property file="build.properties"/>
     <property file="release.properties"/>
 
@@ -15,6 +17,7 @@
     <property name="lib.optional" value="${lib}/optional"/>
     <property name="lib.migration" value="${lib}/migration"/>
     <property name="lib.example" value="${lib}/example"/>
+    <property name="lib.plugin" value="${lib}/plugin"/>
 
     <property name="src" value="src"/>
     <property name="src.java" value="${src}/java"/>
@@ -148,13 +151,25 @@
 
     </target>
 
-    <target name="plugin">
-        <javac srcdir="src/plugin" destdir="C:\IntelliJ-IDEA-4.0\test\plugins\webwork\classes" classpathref="cp" debug="on">
-            <classpath location="C:\IntelliJ-IDEA-4.0\lib\idea.jar"/>
-            <classpath location="C:\IntelliJ-IDEA-4.0\lib\jdom.jar"/>
+    <target name="plugin" depends="jar">
+        <mkdir dir="${idea}/sandbox/plugins/webwork/classes"/>
+        <javac srcdir="src/plugin" destdir="${idea}/sandbox/plugins/webwork/classes" classpathref="cp" debug="on">
+            <classpath location="${idea}/lib/idea_rt.jar"/>
+            <classpath location="${idea}/lib/openapi.jar"/>
+            <classpath location="${idea}/lib/jdom.jar"/>
         </javac>
 
-        <copy file="src/plugin/META-INF/plugin.xml" todir="C:\IntelliJ-IDEA-4.0\test\plugins\webwork\META-INF"/>
+        <mkdir dir="${idea}/sandbox/plugins/webwork/META-INF"/>
+        <copy file="src/plugin/META-INF/plugin.xml" todir="${idea}/sandbox/plugins/webwork/META-INF"/>
+
+        <mkdir dir="${idea}/sandbox/plugins/webwork/lib"/>
+        <copy todir="${idea}/sandbox/plugins/webwork/lib">
+            <fileset file="${build}/${name}-${version}.jar"/>
+            <fileset dir="${lib.core}">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset file="${lib.build}/servlet.jar"/>
+        </copy>
     </target>
 
     <target name="config-browser" depends="java">
