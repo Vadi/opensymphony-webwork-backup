@@ -7,7 +7,7 @@
    <option value="<webwork:property value="album"/>">
       <webwork:property value="album"/>,
       <webwork:property value="artist"/>, <webwork:property value="country"/>,
-      <webwork:text name="'price'" value0="@pricer/computePrice(price)"/>
+      <webwork:text name="'price'" value0="#pricer.computePrice(price)"/>
    </option>
    </webwork:iterator>
 </select>

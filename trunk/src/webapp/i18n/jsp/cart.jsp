@@ -1,7 +1,7 @@
 <%@ taglib uri="webwork" prefix="webwork" %>
 
-<webwork:push value="cart/items">
-<webwork:if test=".">
+<webwork:push value="cart.items">
+<webwork:if test="top != null">
 
 	 <center>
  	 <table border="0" cellpadding="0" width="100%" bgcolor='<webwork:text name="'cart.bgcolor'"/>'>
@@ -21,14 +21,14 @@
 		<td><b><webwork:property value="album"/></b></td>
 		<td><b><webwork:property value="artist"/></b></td>
 		<td><b><webwork:property value="country"/></b></td>
-		<td><b><webwork:text name="'price'" value0="@pricer/computePrice(price)"/></b></td>
+		<td><b><webwork:text name="'price'" value0="#pricer.computePrice(price)"/></b></td>
 	  </webwork:push>
 
 		<td><b><webwork:property value="quantity"/></b></td>
 		<td>
 			<form action="i18n.Delete.action" method="post">
 			  <input type=submit value='<webwork:text name="'cart.delLabel'"/>'>
-			  <input type=hidden name="album" value='<webwork:property value="cd/album"/>'>
+			  <input type=hidden name="album" value='<webwork:property value="cd.album"/>'>
 			</form>
 		</td>
 	</tr>
@@ -43,4 +43,4 @@
   </center>
 
 </webwork:if>
-</webwork:push>>
+</webwork:push>
