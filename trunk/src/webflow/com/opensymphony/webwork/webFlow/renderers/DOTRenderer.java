@@ -81,7 +81,6 @@ public class DOTRenderer implements Renderer {
                     } else if (resultClassName.indexOf("Redirect") != -1 ) {
                         // check if the redirect is to an action -- if so, link it
                         String location = (String) resultConfig.getParams().get("location");
-                        System.out.println(location);
                         if (location.endsWith((String) Configuration.get("webwork.action.extension"))) {
                             addLink(action, location, resultConfig.getName(), graph);
                         }
