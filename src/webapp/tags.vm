@@ -6,7 +6,7 @@
 #tag( Password "label='password test'" "name=passwordField" "value=scalar" "size=50" )
 #tag( Checkbox "label='checkbox test'" "name=checkboxField" )
 #tag( CheckboxList "label='checkboxlist test'" "name=radioField" "value=list[1].value" "list=list" "listKey=key" "listValue=value" )
-#tag( Component "label='component test'" "name=componentField" "template=/template/xhtml/empty.vm" )
+#tag( Component "label='component test'" "name=componentField" "template='empty.vm'" )
 #tag( Radio "label='radio test'" "name=radioField" "value=list[1].value" "list=list" "listKey=key" "listValue=value" )
 #tag( Select "label='multiple select test'" "name=select1" "value=multiValues" "list=multiList" "multiple=true" "size=5" )
 #tag( Select "label='select test'" "name=select2" "value=list[1].value" "list=list" "listKey=key" "listValue=value" "size=5" )

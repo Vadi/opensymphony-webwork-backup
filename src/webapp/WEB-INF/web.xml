@@ -40,18 +40,6 @@
     </servlet>
 
     <servlet>
-        <servlet-name>velocity</servlet-name>
-        <servlet-class>com.opensymphony.webwork.views.velocity.WebWorkVelocityServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>jasperreports</servlet-name>
-        <servlet-class>com.opensymphony.webwork.views.jasperreports.JasperReportViewServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    
-    <servlet>
         <servlet-name>freemarker</servlet-name>
         <servlet-class>com.opensymphony.webwork.views.freemarker.FreemarkerServlet</servlet-class>
 
@@ -89,16 +77,6 @@
    <servlet-mapping>
         <servlet-name>freemarker</servlet-name>
         <url-pattern>*.ftl</url-pattern>
-    </servlet-mapping>
-
-   <servlet-mapping>
-        <servlet-name>jasperreports</servlet-name>
-        <url-pattern>*.jasper</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>velocity</servlet-name>
-        <url-pattern>*.vm</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

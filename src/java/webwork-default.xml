@@ -8,6 +8,7 @@
             <result-type name="velocity" class="com.opensymphony.webwork.dispatcher.VelocityResult"/>
             <result-type name="chain" class="com.opensymphony.xwork.ActionChainResult"/>
             <result-type name="xslt" class="com.opensymphony.webwork.views.xslt.XSLTResult"/>
+            <result-type name="jasper" class="com.opensymphony.webwork.views.jasperreports.JasperReportsResult"/>
         </result-types>
 
         <interceptors>
