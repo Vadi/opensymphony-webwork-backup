@@ -46,7 +46,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a>
  * @version $Revision$
  */
-public class IncludeTag extends WebWorkTagSupport implements ParameterizedTag {
+public class IncludeTag extends WebWorkBodyTagSupport implements ParameterizedTag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static String encoding;
