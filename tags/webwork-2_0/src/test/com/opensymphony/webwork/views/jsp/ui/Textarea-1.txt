@@ -1,0 +1,18 @@
+<tr>
+    <td align="right" valign="top">
+        <span class="label"> mylabel: </span>
+    </td>
+    <td>
+        <textarea name="myname"
+                  cols="20"
+                  rows="30"
+                  value="bar"
+                  disabled="disabled"
+                  readonly="readonly"
+                  onkeyup="alert('hello');"
+                  tabindex="5"
+                  onchange="alert('goodbye');"
+                  id="the_id"
+        >bar</textarea>
+    </td>
+</tr>

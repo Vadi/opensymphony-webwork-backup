@@ -1,0 +1,20 @@
+<project name="webwork" repository="webwork" href="http://wiki.opensymphony.com">
+
+  <title>WebWork2</title>
+
+  <body>
+    <links>
+      <item name="XWork" href="../xwork"/>
+    </links>
+
+    <menu name="XWork">
+      <item name="Wiki"                  href="http://wiki.opensymphony.com/space/WebWork2"/>
+      <item name="Issue Tracker"         href="http://jira.opensymphony.com/secure/BrowseProject.jspa?id=10030"/>
+      <item name="Clover Reports"        href="/clover/"/>
+    </menu>
+
+    <!-- Google Search -->
+    <search/>
+  </body>
+
+</project>

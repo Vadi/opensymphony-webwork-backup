@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>WebWork Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">JFreeChartResult
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ <h3 class="heading-1">Intro
+</h3>
+I am rendering a chart to the output stream. Instead of streaming it directly to the response.out, I create a ChartResult, and let webwork do the chaining for me.<p class="paragraph"/>I generate the chart in one class, and I render it out in another class, effectively decoupling the view from the actions. You can easily render it out to a file or some view other than a web response.out if you wish.
+<h3 class="heading-1">Configuration
+</h3>
+xwork.xml - result-types definitions
+<div class="code"><pre>&#60;result&#45;types&#62;
+   &#60;result&#45;type name=<span class="java&#45;quote">"chart"</span> class=<span class="java&#45;quote">"myapp.webwork.extensions.ChartResult"</span>/&#62;
+&#60;/result&#45;types&#62;</pre></div>
+xwork.xml - action definitions
+<div class="code"><pre>&#60;action name=<span class="java&#45;quote">"viewModerationChart"</span> class=<span class="java&#45;quote">"myapp.webwork.actions.ViewModerationChartAction"</span>&#62; 
+  &#60;result name=<span class="java&#45;quote">"success"</span> type=<span class="java&#45;quote">"chart"</span>&#62; 
+    &#60;param name=<span class="java&#45;quote">"width"</span>&#62;400&#60;/param&#62;
+    &#60;param name=<span class="java&#45;quote">"height"</span>&#62;300&#60;/param&#62; &#60;/result&#62;
+&#60;/action&#62;</pre></div>
+<h3 class="heading-1">Source Codes
+</h3>
+My result class searches for a "chart" in the ValueStack and renders it out...
+<div class="code"><pre><span class="java&#45;keyword">public</span> class ChartResult <span class="java&#45;keyword">implements</span> Result &#123;<p class="paragraph"/>	<span class="java&#45;keyword">private</span> <span class="java&#45;object">int</span> width;
+	<span class="java&#45;keyword">private</span> <span class="java&#45;object">int</span> height;<p class="paragraph"/>	<span class="java&#45;keyword">public</span> void execute(ActionInvocation invocation) <span class="java&#45;keyword">throws</span> Exception &#123;
+		JFreeChart chart =
+			(JFreeChart) invocation.getStack().findValue(<span class="java&#45;quote">"chart"</span>);
+		HttpServletResponse response = ServletActionContext.getResponse();
+		OutputStream os = response.getOutputStream();
+		ChartUtilities.writeChartAsPNG(os, chart, width, height);
+		os.flush();
+	&#125;<p class="paragraph"/>	<span class="java&#45;keyword">public</span> void setHeight(<span class="java&#45;object">int</span> height) &#123;
+		<span class="java&#45;keyword">this</span>.height = height;
+	&#125;<p class="paragraph"/>	<span class="java&#45;keyword">public</span> void setWidth(<span class="java&#45;object">int</span> width) &#123;
+		<span class="java&#45;keyword">this</span>.width = width;
+	&#125;<p class="paragraph"/>&#125;</pre></div><p class="paragraph"/>My action class creates the JFreeChart to render...
+<div class="code"><pre><span class="java&#45;keyword">public</span> class ViewModerationChartAction <span class="java&#45;keyword">extends</span> ActionSupport &#123;<p class="paragraph"/>	<span class="java&#45;keyword">private</span> JFreeChart chart;<p class="paragraph"/>	<span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> execute() <span class="java&#45;keyword">throws</span> Exception &#123;
+		// chart creation logic...
+		XYSeries dataSeries = <span class="java&#45;keyword">new</span> XYSeries(<span class="java&#45;keyword">null</span>);
+		<span class="java&#45;keyword">for</span> (<span class="java&#45;object">int</span> i = 0; i &#60;= 100; i++) &#123;
+			dataSeries.add(i, RandomUtils.nextInt());
+		&#125;
+		XYSeriesCollection xyDataset = <span class="java&#45;keyword">new</span> XYSeriesCollection(dataSeries);<p class="paragraph"/>		ValueAxis xAxis = <span class="java&#45;keyword">new</span> NumberAxis(<span class="java&#45;quote">"Raw Marks"</span>);
+		ValueAxis yAxis = <span class="java&#45;keyword">new</span> NumberAxis(<span class="java&#45;quote">"Moderated Marks"</span>);<p class="paragraph"/>		// set my chart variable
+		chart =
+			<span class="java&#45;keyword">new</span> JFreeChart(
+				<span class="java&#45;quote">"Moderation Function"</span>,
+				JFreeChart.DEFAULT_TITLE_FONT,
+				<span class="java&#45;keyword">new</span> XYPlot(
+					xyDataset,
+					xAxis,
+					yAxis,
+					<span class="java&#45;keyword">new</span> StandardXYItemRenderer(StandardXYItemRenderer.LINES)),
+				<span class="java&#45;keyword">false</span>);
+		chart.setBackgroundPaint(java.awt.Color.white);<p class="paragraph"/>		<span class="java&#45;keyword">return</span> <span class="java&#45;keyword">super</span>.SUCCESS;
+	&#125;<p class="paragraph"/>	<span class="java&#45;keyword">public</span> JFreeChart getChart() &#123;
+		<span class="java&#45;keyword">return</span> chart;
+	&#125;<p class="paragraph"/>&#125;</pre></div>
+<h3 class="heading-1">Explaination
+</h3>
+<div class="code"><pre><span class="java&#45;keyword">public</span> JFreeChart getChart() &#123;
+	<span class="java&#45;keyword">return</span> chart;
+&#125;</pre></div>
+makes the chart available on the ValueStack, which the result gets via 
+<div class="code"><pre>JFreeChart chart = (JFreeChart) invocation.getStack().findValue(<span class="java&#45;quote">"chart"</span>);</pre></div><p class="paragraph"/>From what I can deduce, the webwork pulls in the height and width variables from the xwork.xml definitions for that particular action...
+<div class="code"><pre>&#60;param name=<span class="java&#45;quote">"width"</span>&#62;400&#60;/param&#62;
+&#60;param name=<span class="java&#45;quote">"height"</span>&#62;300&#60;/param&#62;</pre></div>
+<h3 class="heading-1">Suggestions for the next developer...
+</h3>
+Currently the "chart" property is hardcoded. There should be a better way of transferring data from the Action to the Result, via some externally defined variable or something.<p class="paragraph"/>As mentioned by John Patterson (mailing list), the Action is still dependant on a JFreeChart Chart class. This can be improved. The seperation between Action and View can be made cleaner. A chart-agonistic List or Array can be used as the data, and the configuration of the chart details (font, axis, etc...) be done via the result properties in the xwork.xml.<p class="paragraph"/>But hey, the above works for now. Any suggestions are welcome.
+<h3 class="heading-1">Creating charts via CeWolf directly in Velocity templates
+</h3>
+See <a href="http://wiki.opensymphony.com/space/CeWolf+charts+using+Velocity+templates">CeWolf charts using Velocity templates</a>.
+<h3 class="heading-1">Conclusion
+</h3>
+That's about it for now. As noted in the above section, there are areas that can be improved. But for now, this might suffice to give some guidelines to how the Result works. I'll put up something about PdfResult later when I get to it on my project. Hope this helps.<p class="paragraph"/>Cheers,
+bchoi x
+  </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>WebWork Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Value Stack Internals
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+  As Matt Ho explained on the mailing list:<p class="paragraph"/> A value stack is essentially a List.  Calling &#91;1] on the stack, 
+ returns a substack beginning with the element at index 1.  It's only 
+ when you call methods on the stack that your actual objects will be 
+ called.<p class="paragraph"/> Said another way, let's say I have a value stack that consists of a 
+ model and an action as follows:<p class="paragraph"/> &#91; model, action ]<p class="paragraph"/> here's how the following ognl would resolve:<p class="paragraph"/> &#91;0] - a CompoundRoot object that contains our stack, &#91;model, action]<p class="paragraph"/> &#91;1] - another CompoundRoot that contains only &#91;action]<p class="paragraph"/> &#91;0].toString() - calls toString() on the first object in the value 
+ stack (excluding the CompoundRoot) that supports the toString() method<p class="paragraph"/> &#91;1].foo - call getFoo() on the first object in the value stack 
+ starting from &#91;action] and excluding the CompoundRoot that supports a 
+ getFoo() method<p class="paragraph"/> I hope this doesn't sound too confusing :&#13;<p class="paragraph"/> If you're using Velocity, this can most easily be written as:<p class="paragraph"/> $stack.findValue("&#91;0]").peek()<p class="paragraph"/> Unfortunately, &#60;ww:property value="0.peek()"/&#62; won't work as this 
+ would translate into "starting at the top of the value stack (and 
+ excluding the CompoundRoot), find the first object that has a method 
+ called peek()"<p class="paragraph"/><hr class="line"/>thanks Matt!<p class="paragraph"/>here is the com.opensymphony.xwork.util.CompoundRoot class which Matt mentions:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">public</span> class CompoundRoot <span class="java&#45;keyword">extends</span> ArrayList &#123;
+    //~ Constructors ///////////////////////////////////////////////////////////<p class="paragraph"/>    <span class="java&#45;keyword">public</span> CompoundRoot() &#123;
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> CompoundRoot(List list) &#123;
+        <span class="java&#45;keyword">super</span>(list);
+    &#125;<p class="paragraph"/>    //~ Methods ////////////////////////////////////////////////////////////////<p class="paragraph"/>    <span class="java&#45;keyword">public</span> CompoundRoot cutStack(<span class="java&#45;object">int</span> index) &#123;
+        <span class="java&#45;keyword">return</span> <span class="java&#45;keyword">new</span> CompoundRoot(subList(index, size()));
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> <span class="java&#45;object">Object</span> peek() &#123;
+        <span class="java&#45;keyword">return</span> get(0);
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> <span class="java&#45;object">Object</span> pop() &#123;
+        <span class="java&#45;keyword">return</span> remove(0);
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> void push(<span class="java&#45;object">Object</span> o) &#123;
+        add(0, o);
+    &#125;
+&#125;</pre></div>
+<h3 class="heading-1-1">What's on the stack?
+</h3>
+WebWork2 contains the following items by default in the ValueStack:
+<ul class="star">
+<li>req - the current HttpServletRequest</li>
+<li>res - the current HttpServletResponse</li>
+<li>stack - the current OgnlValueStack</li>
+<li>ognl - an instance of OgnlTool</li>
+<li>ui - a (now deprecated) instance of a ui tag renderer</li>
+</ul>
+  </div>
+</body>
+</html>

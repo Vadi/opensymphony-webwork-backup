@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>WebWork Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Migrating from Struts 1.0 to WebWork 2
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ <h3 class="heading-1">Overview
+</h3><p class="paragraph"/>insert content here
+<h3 class="heading-1">Conceptual differences 
+</h3>
+<h3 class="heading-1">Tasks
+</h3><p class="paragraph"/><i class="italic">These are intended just as notes for now</i>
+<ol>
+<li>Run struts-config.xml through the XSLT to generate xwork.xml</li>
+<li>Translate struts tags to webwork tags</li>
+<li>Translate the resource bundles</li>
+<li>Modify your Actions</li>
+</ol>
+<h3 class="heading-1">Translating struts-config.xml to xwork.xml
+</h3>
+<h3 class="heading-1">Translating struts tags to webwork tags
+</h3>
+<h3 class="heading-1">Translating the resource bundles
+</h3>
+<h3 class="heading-1">Changes to web.xml
+</h3>
+<h3 class="heading-1">Modifying your Actions
+</h3>
+<h3 class="heading-1">The Struts to WebWork 2 bridge
+</h3><p class="paragraph"/><i class="italic">Here's a thought.  WebWork 2 could run a Struts application with only a little modification.  If there's interest, I'll write this tool.  My thought is the simple path migration would look like this: </i>
+<ol>
+<li>download the struts 2 webwork 2 bridge jar that comes with replacement struts-*.tld files</li>
+<li>provide instructions on configuring web.xml</li>
+<li>provide instructions on automatically converting struts-config.xml to xwork.xml</li>
+<li>drop the bridge jar file into WEB/lib</li>
+<li>you're done!</li>
+</ol><p class="paragraph"/>The bridge jar file should contain our implementation of the Struts Action, ActionForm, and ActionError classes as well as an implementation for some of the key Struts html tags.<p class="paragraph"/>This would give developers familiar with Struts a way to ease themselves into WebWork 2 using an application they already know.
+
+  </div>
+</body>
+</html>

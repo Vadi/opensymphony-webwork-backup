@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>WebWork Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">WebWork 2 Architecture
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"><a href="../space/WebWork+2+Architecture/overview.png">overview.png</a> (17554)</div>
+ 
+ <h3 class="heading-1">Overview
+</h3><p class="paragraph"/>The following diagram provides a high level illustration of how WebWork 2 processes web requests.<p class="paragraph"/><img src="http://wiki.opensymphony.com/space/WebWork+2+Architecture/overview.png" alt="overview" border="0"/>
+<ol>
+<li>All incoming requests to WebWork are handled by <span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="http://opensymphony.indigoegg.com/webwork/xref/com/opensymphony/webwork/dispatcher/ServletDispatcher.html">ServletDispatcher</a></span></li>
+<li>The ServletDispatcher looks up a reference to a new <span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="http://opensymphony.indigoegg.com/xwork/xref/com/opensymphony/xwork/ActionProxy.html">ActionProxy</a></span> instance</li>
+<li>The ActionProxy wraps calls to the Action using the defined Interceptors.</li>
+<li>Once all the Interceptors and the Action have been executed the Action call the Result to render the document.</li>
+</ol><p class="paragraph"/>
+
+  </div>
+</body>
+</html>

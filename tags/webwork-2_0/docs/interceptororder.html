@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>WebWork Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Interceptor Order
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ Order of interceptors...<p class="paragraph"/><div class="code"><pre>&#60;interceptor&#45;stack name=<span class="java&#45;quote">"xaStack"</span>&#62; 
+  &#60;interceptor&#45;ref name=<span class="java&#45;quote">"thisWillRunFirstInterceptor"</span>/&#62;
+  &#60;interceptor&#45;ref name=<span class="java&#45;quote">"thisWillRunNextInterceptor"</span>/&#62;
+  &#60;interceptor&#45;ref name=<span class="java&#45;quote">"followedByThisInterceptor"</span>/&#62;
+  &#60;interceptor&#45;ref name=<span class="java&#45;quote">"thisWillRunLastInterceptor"</span>/&#62;
+&#60;/interceptor&#45;stack&#62;</pre></div><p class="paragraph"/>Note that some interceptors will interrupt the stack/chain/flow&#8230; so the order is very important.<p class="paragraph"/><div class="code"><pre>thisWillRunFirstInterceptor
+  thisWillRunNextInterceptor
+    followedByThisInterceptor
+      thisWillRunLastInterceptor
+        MyAction1
+        MyAction2 (chain)
+        MyResult (result)
+      thisWillRunLastInterceptor
+    followedByThisInterceptor
+  thisWillRunNextInterceptor
+thisWillRunFirstInterceptor</pre></div>
+  </div>
+</body>
+</html>

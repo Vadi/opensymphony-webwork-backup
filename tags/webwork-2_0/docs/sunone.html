@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>WebWork Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Running WebWork on Sun ONE Application Server 7
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ You need to grant permissions to webwork<p class="paragraph"/>
+<div class="code"><pre>grant &#123;
+	permission java.security.AllPermission;
+&#125;;</pre></div><p class="paragraph"/>or more specifically, 
+<ul class="minus">
+<li>Give Write Permissions to java.util.PropertyPermission.</li>
+<li>Add java.lang.reflect.ReflectPermission "suppressAccessChecks"</li>
+<li>OgnlInvoke Permission</li>
+</ul><p class="paragraph"/><div class="code"><pre>grant &#123;
+	permission java.util.PropertyPermission <span class="java&#45;quote">"&#42;"</span>, <span class="java&#45;quote">"read, write"</span>;
+	permission java.lang.reflect.ReflectPermission <span class="java&#45;quote">"suppressAccessChecks"</span>;
+	permission ognl.OgnlInvokePermission <span class="java&#45;quote">"&#42;"</span>;
+&#125;;</pre></div><p class="paragraph"/>
+  </div>
+</body>
+</html>

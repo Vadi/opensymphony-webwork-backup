@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>WebWork Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html"><img src="logo-small.png" border="0"/></a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Using webwork-default.xml
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ A base configuration file named webwork-default.xml is included in the webwork jar file. This file may be included at the top of your xwork.xml file to include the standard configuration settings without having to copy them, like so:<p class="paragraph"/><div class="code"><pre>&#60;!DOCTYPE xwork PUBLIC <span class="xml&#45;quote">"&#45;//OpenSymphony Group//XWork 1.0//EN"</class> <span class="xml&#45;quote">"http://www.opensymphony.com/xwork/xwork&#45;1.0.dtd"</class>&#62;<p class="paragraph"/>&#60;xwork&#62;
+    &#60;include file=<span class="xml&#45;quote">"webwork&#45;default.xml"</class>/&#62;<p class="paragraph"/>    &#60;package name=<span class="xml&#45;quote">"default"</class> extends=<span class="xml&#45;quote">"webwork&#45;default"</class>&#62;
+    ...
+    &#60;/package&#62;
+&#60;/xwork&#62;</pre></div><p class="paragraph"/>The contents of webwork-default.xml are here:<p class="paragraph"/><div class="code"><pre>&#60;!DOCTYPE xwork PUBLIC <span class="xml&#45;quote">"&#45;//OpenSymphony Group//XWork 1.0//EN"</class> <span class="xml&#45;quote">"http://www.opensymphony.com/xwork/xwork&#45;1.0.dtd"</class>&#62;<p class="paragraph"/>&#60;xwork&#62;
+    &#60;package name=<span class="xml&#45;quote">"webwork&#45;default"</class>&#62;
+        &#60;result&#45;types&#62;
+            &#60;result&#45;type name=<span class="xml&#45;quote">"dispatcher"</class> class=<span class="xml&#45;quote">"com.opensymphony.webwork.dispatcher.ServletDispatcherResult"</class> default=<span class="xml&#45;quote">"true"</class>/&#62;
+            &#60;result&#45;type name=<span class="xml&#45;quote">"redirect"</class> class=<span class="xml&#45;quote">"com.opensymphony.webwork.dispatcher.ServletRedirectResult"</class>/&#62;
+            &#60;result&#45;type name=<span class="xml&#45;quote">"velocity"</class> class=<span class="xml&#45;quote">"com.opensymphony.webwork.dispatcher.VelocityResult"</class>/&#62;
+            &#60;result&#45;type name=<span class="xml&#45;quote">"chain"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.ActionChainResult"</class>/&#62;
+        &#60;/result&#45;types&#62;<p class="paragraph"/>        &#60;interceptors&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"timer"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.interceptor.TimerInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"logger"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.interceptor.LoggingInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"chain"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.interceptor.ChainingInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"static&#45;params"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.interceptor.StaticParametersInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"params"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.interceptor.ParametersInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"model&#45;driven"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.interceptor.ModelDrivenInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"component"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.interceptor.component.ComponentInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"token"</class> class=<span class="xml&#45;quote">"com.opensymphony.webwork.interceptor.TokenInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"token&#45;session"</class> class=<span class="xml&#45;quote">"com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"validation"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.validator.ValidationInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"workflow"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.interceptor.DefaultWorkflowInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"servlet&#45;config"</class> class=<span class="xml&#45;quote">"com.opensymphony.webwork.interceptor.ServletConfigInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"prepare"</class> class=<span class="xml&#45;quote">"com.opensymphony.xwork.interceptor.PrepareInterceptor"</class>/&#62;
+            &#60;interceptor name=<span class="xml&#45;quote">"conversionError"</class> class=<span class="xml&#45;quote">"com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"</class>/&#62;
+            &#60;interceptor&#45;stack name=<span class="xml&#45;quote">"defaultStack"</class>&#62;
+                &#60;interceptor&#45;ref name=<span class="xml&#45;quote">"timer"</class>/&#62;
+                &#60;interceptor&#45;ref name=<span class="xml&#45;quote">"logger"</class>/&#62;
+                &#60;interceptor&#45;ref name=<span class="xml&#45;quote">"static&#45;params"</class>/&#62;
+                &#60;interceptor&#45;ref name=<span class="xml&#45;quote">"params"</class>/&#62;
+                &#60;interceptor&#45;ref name=<span class="xml&#45;quote">"conversionError"</class>/&#62;
+            &#60;/interceptor&#45;stack&#62;
+            &#60;interceptor&#45;stack name=<span class="xml&#45;quote">"validationWorkflowStack"</class>&#62;
+                &#60;interceptor&#45;ref name=<span class="xml&#45;quote">"defaultStack"</class>/&#62;
+                &#60;interceptor&#45;ref name=<span class="xml&#45;quote">"validation"</class>/&#62;
+                &#60;interceptor&#45;ref name=<span class="xml&#45;quote">"workflow"</class>/&#62;
+            &#60;/interceptor&#45;stack&#62;
+        &#60;/interceptors&#62;
+    &#60;/package&#62;
+&#60;/xwork&#62;</pre></div><p class="paragraph"/>This file defines all of the default bundled results and interceptors and two interceptor stacks, defaultStack and validationWorkflowStack, which you can use either as-is or as a basis for your own application-specific interceptor stacks. 
+  </div>
+</body>
+</html>
