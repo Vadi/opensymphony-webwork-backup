@@ -33,7 +33,7 @@
         #end
 
         #if ($parameters.label)
-            $!webwork.htmlEncode($parameters.label):
+            #if ($parameters.required) <span class="required">*</span> #end $!webwork.htmlEncode($parameters.label):
         #end
             </span>
         </td>
