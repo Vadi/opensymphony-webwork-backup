@@ -34,7 +34,7 @@
 >
 
 #if ($parameters.headerKey && $parameters.headerValue)
-    <option value="$webwork.htmlEncode($parameters.headerKey)">$parameters.headerValue</option>
+    <option value="$!webwork.htmlEncode($parameters.headerKey)">$!webwork.htmlEncode($parameters.headerValue)</option>
 #end
 
 #if ($parameters.emptyOption)
@@ -60,7 +60,7 @@
 
         <option value="$!webwork.htmlEncode($itemKey)"
             #if( $tag.contains($parameters.nameValue, $itemKey) )selected#end
-        >$!itemValue</option>
+        >$!webwork.htmlEncode($itemValue)</option>
 
         #set ($trash = $stack.pop())
     #end

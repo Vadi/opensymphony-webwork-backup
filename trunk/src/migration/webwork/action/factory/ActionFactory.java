@@ -9,6 +9,7 @@ package webwork.action.factory;
 import org.apache.commons.logging.*;
 import webwork.action.Action;
 import webwork.util.ClassLoaderUtils;
+import com.opensymphony.webwork.config.Configuration;
 
 /**
  * Base action factory implementation that initializes the action factory
@@ -32,7 +33,7 @@ public abstract class ActionFactory
       // Create default implementation
       try
       {
-         String className = com.opensymphony.webwork.config.Configuration.getString("webwork.action.factory");
+         String className = Configuration.getString("webwork.action.factory");
          try
          {
             defaultActionFactory = (ActionFactory)ClassLoaderUtils.loadClass(className, ActionFactory.class).newInstance();

@@ -31,13 +31,13 @@
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
             <tr><td valign="top">
                 <input type="checkbox"
-                       name="$!parameters.name"
+                       name="$!webwork.htmlEncode($parameters.name)"
                        value="$!webwork.htmlEncode($parameters.fieldValue)"
                 #if ($parameters.nameValue)        checked="checked" #end
                 #if ($parameters.disabled == true) disabled="disabled"                #end
-                #if ($parameters.tabindex)         tabindex="$parameters.tabindex"    #end
-                #if ($parameters.onchange)         onchange="$parameters.onchange"    #end
-                #if ($parameters.id)               id="$parameters.id"                #end
+                #if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)"    #end
+                #if ($parameters.onchange)         onchange="$!webwork.htmlEncode($parameters.onchange)"    #end
+                #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
                 />
             </td>
             <td width="100%" valign="top">
@@ -46,7 +46,7 @@
                 #else
                     <span class="checkboxLabel">
                 #end
-                        $!parameters.label
+                        $!webwork.htmlEncode($parameters.label)
                     </span>
             </td>
             </tr>

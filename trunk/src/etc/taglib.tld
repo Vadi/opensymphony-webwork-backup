@@ -136,7 +136,7 @@
     </tag>
 
     <tag>
-        <name>property</name>
+        <name>com.opensymphony.webwork.example.counter</name>
         <tagclass>com.opensymphony.webwork.views.jsp.PropertyTag</tagclass>
         <bodycontent>empty</bodycontent>
         <info>
@@ -224,6 +224,24 @@
         </attribute>
     </tag>
 
+    <tag>
+        <name>elseIf</name>
+        <tagclass>com.opensymphony.webwork.views.jsp.ElseIfTag</tagclass>
+        <bodycontent>JSP</bodycontent>
+        <info>Evaluates a boolean expression</info>
+        <attribute>
+            <name>test</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <!-- 2.0 version of elseif -->
     <tag>
         <name>elseif</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ElseIfTag</tagclass>

@@ -1,7 +1,7 @@
 <table>
 <form
-    #if ($parameters.name)      name="$parameters.name"       #end
-    #if ($parameters.action)    action="$parameters.action"   #end
-    #if ($parameters.method)    method="$parameters.method"   #end
-    #if ($parameters.enctype)   enctype="$parameters.enctype" #end
+    #if ($parameters.name)      name="$!webwork.htmlEncode($parameters.name)"       #end
+    #if ($parameters.action)    action="$!webwork.htmlEncode($parameters.action)"   #end
+    #if ($parameters.method)    method="$!webwork.htmlEncode($parameters.method)"   #end
+    #if ($parameters.enctype)   enctype="$!webwork.htmlEncode($parameters.enctype)" #end
 >
