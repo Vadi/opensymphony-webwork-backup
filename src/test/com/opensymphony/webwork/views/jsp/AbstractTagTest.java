@@ -6,7 +6,9 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.views.velocity.AbstractTagDirective;
 import com.opensymphony.xwork.Action;
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import junit.framework.TestCase;
 
@@ -79,6 +81,7 @@ public abstract class AbstractTagTest extends TestCase {
         writer = new StringWriter();
 
         JspWriter jspWriter = new WebWorkMockJspWriter(writer);
+        context.put(AbstractTagDirective.VELOCITY_WRITER, writer);
 
         pageContext = new WebWorkMockPageContext();
         pageContext.setRequest(request);
@@ -86,6 +89,8 @@ public abstract class AbstractTagTest extends TestCase {
         pageContext.setJspWriter(jspWriter);
 
         session = new HashMap();
+
+        ActionContext.setContext(new ActionContext(context));
 
         Configuration.setConfiguration(null);
     }

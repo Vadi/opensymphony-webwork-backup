@@ -17,18 +17,22 @@ public class WebFlow {
 
     public static void main(String[] args) {
         LOG.info("WebFlow starting...");
-        String configFilePath = null;//"/Users/mgreer/Sandbox/martin2/"
-        if (args.length > 0) {
-            configFilePath = (String) args[0];
-            LOG.info("configFilePath=" + configFilePath);
-        }/*else{
-            File file = new File("xwork.xml");
-            configFilePath = file.getParent();
-        }*/
-        if (configFilePath != null) {
-            XWorkConfigRetriever.setBasePath(configFilePath);
-            Renderer renderer = new DOTRenderer();
-            renderer.render();
+
+        String configDir = getArg(args, "config");
+        String views = getArg(args, "views");
+
+        XWorkConfigRetriever.setConfiguration(configDir, views.split("[, ]+"));
+        Renderer renderer = new DOTRenderer("temp");
+        renderer.render();
+    }
+
+    private static String getArg(String[] args, String arg) {
+        for (int i = 0; i < args.length; i++) {
+            if (("-" + arg).equals(args[i]) && ((i + 1) < args.length)) {
+                return args[i + 1];
+            }
         }
+
+        return "";
     }
 }

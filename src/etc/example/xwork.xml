@@ -16,6 +16,10 @@
 
         <default-interceptor-ref name="defaultStack"/>
 
+    </package>
+
+    <package name="examples" extends="default">
+
         <action name="SimpleCounter" class="com.opensymphony.webwork.example.counter.SimpleCounter">
             <result name="success" type="dispatcher">
                 <param name="location">/success.jsp</param>

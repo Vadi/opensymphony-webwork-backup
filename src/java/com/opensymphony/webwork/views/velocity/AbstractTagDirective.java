@@ -46,6 +46,8 @@ public abstract class AbstractTagDirective extends Directive {
 
     protected static Log log = LogFactory.getLog(AbstractTagDirective.class);
 
+    public static final String VELOCITY_WRITER = "com.opensymphony.webwork.views.velocity.AbstractTagDirective.VELOCITY_WRITER";
+
     /**
      * a params of tagname to tagclass that provides faster lookup that searching through the tagpath.  for example,
      * <pre>#tag( TextField )</pre>
@@ -116,6 +118,7 @@ public abstract class AbstractTagDirective extends Directive {
                 }
 
                 try {
+                    ActionContext.getContext().put(VELOCITY_WRITER, writer);
                     return this.processTag(pageContext, (Tag) object, subContextAdapter, writer, node, bodyNode);
                 } catch (Exception e) {
                     log.error("Error processing tag: " + e, e);

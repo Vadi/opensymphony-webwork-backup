@@ -1,11 +1,13 @@
 package com.opensymphony.webwork.views.jsp.ui.template;
 
+import com.opensymphony.webwork.views.velocity.AbstractTagDirective;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
+import com.opensymphony.xwork.ActionContext;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +48,7 @@ public class VelocityTemplateEngine extends BaseTemplateEngine {
                 (HttpServletRequest) pageContext.getRequest(),
                 (HttpServletResponse) pageContext.getResponse());
 
-        Writer outputWriter = pageContext.getOut();
+        Writer outputWriter = (Writer) ActionContext.getContext().get(AbstractTagDirective.VELOCITY_WRITER);
 
         // Make the OGNL stack available to the velocityEngine templates.
         // todo Consider putting all the VelocityServlet Context values in

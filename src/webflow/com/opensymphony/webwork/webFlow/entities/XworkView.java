@@ -3,6 +3,7 @@
  */
 package com.opensymphony.webwork.webFlow.entities;
 
+import com.opensymphony.webwork.config.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -19,7 +20,7 @@ public class XworkView implements View {
     private static final Log LOG = LogFactory.getLog(XworkView.class);
     private File file = null;
     private Set targets = null;
-    private static String actionRegex = "([a-zA-Z]+)\\.action";
+    private static String actionRegex = "([A-Za-z0-9\\._\\-]+\\." + Configuration.get("webwork.action.extension") + ")";
     private static Pattern actionPattern = Pattern.compile(actionRegex);
 
     public XworkView() {
@@ -57,7 +58,7 @@ public class XworkView implements View {
             this.targets = new HashSet();
             try {
                 BufferedReader input = new BufferedReader(new FileReader(getFile()));
-                String line = null; //not declared within while loop
+                String line = null;
                 while ((line = input.readLine()) != null) {
                     List actionNameList = findActionLinks(line);
                     if (actionNameList.size() > 0) {

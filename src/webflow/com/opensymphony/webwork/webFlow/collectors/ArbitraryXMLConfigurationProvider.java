@@ -3,6 +3,7 @@
  */
 package com.opensymphony.webwork.webFlow.collectors;
 
+import com.opensymphony.util.FileManager;
 import com.opensymphony.xwork.config.providers.XmlConfigurationProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,9 +42,10 @@ public class ArbitraryXMLConfigurationProvider extends XmlConfigurationProvider 
         try {
             is = new FileInputStream(this.basePathString + fileName);
         } catch (FileNotFoundException e) {
-            LOG.error("FileNotFoundException", e);
+            // ok, try to check the ClassLoader
+            is = FileManager.loadFile(fileName, this.getClass());
         }
-        //InputStream is = FileManager.loadFile(fileName, this.getClass());
+
         return is;
     }
 }
