@@ -58,7 +58,9 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         return servletPath;
     }
 
-    public static HashMap createContextMap(Map parameterMap, Map sessionMap, Map applicationMap, HttpServletRequest request, HttpServletResponse response, ServletConfig servletConfig) {
+    public static HashMap createContextMap(Map parameterMap, Map sessionMap, Map applicationMap,
+                                           HttpServletRequest request, HttpServletResponse response,
+                                           ServletConfig servletConfig) {
         HashMap extraContext = new HashMap();
         extraContext.put(ActionContext.PARAMETERS, parameterMap);
         extraContext.put(ActionContext.SESSION, sessionMap);
@@ -167,7 +169,8 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * is wrapped so WW will be able to work with the multi-part as if it was a normal request.
      * Then the request is handed to GenericDispatcher and executed.
      */
-    public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace, String actionName, Map parameterMap, Map sessionMap, Map applicationMap) {
+    public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace,
+                              String actionName, Map parameterMap, Map sessionMap, Map applicationMap) {
         HashMap extraContext = createContextMap(parameterMap, sessionMap, applicationMap, request, response, getServletConfig());
         extraContext.put(SERLVET_DISPATCHER, this);
 

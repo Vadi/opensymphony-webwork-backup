@@ -33,14 +33,17 @@ public class WebWorkTagSupport extends TagSupport {
     }
 
     protected Object findValue(String expr) {
+        expr = CompatUtil.compat(expr);
         return getStack().findValue(expr);
     }
 
     protected Object findValue(String expr, Class toType) {
+        expr = CompatUtil.compat(expr);
         return getStack().findValue(expr, toType);
     }
 
     protected String findString(String expr) {
+        expr = CompatUtil.compat(expr);
         return (String) findValue(expr, String.class);
     }
 

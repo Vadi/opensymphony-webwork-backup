@@ -21,8 +21,8 @@ public class CompatUtilTest extends TestCase {
     }
 
     public void testAtSign() {
-        assertEquals("#request.get(foo)", CompatUtil.compat("@foo"));
-        assertEquals("#request.get(foo).bar", CompatUtil.compat("@foo/bar"));
+        assertEquals("#attr.get(foo)", CompatUtil.compat("@foo"));
+        assertEquals("#attr.get(foo).bar", CompatUtil.compat("@foo/bar"));
     }
 
     public void testMath() {
@@ -36,5 +36,11 @@ public class CompatUtilTest extends TestCase {
         assertEquals("top", CompatUtil.compat("."));
         assertEquals("top + 5", CompatUtil.compat(". + 5"));
         assertEquals("[1].top", CompatUtil.compat("../."));
+    }
+
+    public void testDollarSign() {
+        assertEquals("#parameters.get(foo)", CompatUtil.compat("$foo"));
+        assertEquals("#parameters.get(foo).bar", CompatUtil.compat("$foo/bar"));
+        assertEquals("#parameters.get(foo).bar.baz", CompatUtil.compat("$foo/bar/baz"));
     }
 }
