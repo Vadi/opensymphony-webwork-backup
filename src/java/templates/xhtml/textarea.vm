@@ -1,0 +1,3 @@
+#parse( "/templates/xhtml/controlheader.vm" )
+<textarea name="${tag.Name}" #if( ${tag.Rows} )rows="${tag.Rows}"#end #if( ${tag.Cols} )cols="${tag.Cols}"#end>$!{tag.ActualValue}</textarea>
+#parse( "/templates/xhtml/controlfooter.vm" )

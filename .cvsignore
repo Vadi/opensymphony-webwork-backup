@@ -1,0 +1,10 @@
+*.ipr
+*.iws
+*.iml
+build
+dist
+test*
+cache
+logs
+velocity.log
+webapps

@@ -1,0 +1,10 @@
+<tr>
+  <td align="right" valign="top"><label class="label">{mylabel}:</label></td>
+  <td>
+<select name="myname"   >
+          <option value="world">hello</option>
+          <option value="bar">foo</option>
+
+</select>
+  </td>
+</tr>

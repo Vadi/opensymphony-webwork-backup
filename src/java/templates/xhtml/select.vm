@@ -1,0 +1,24 @@
+#parse( "/templates/xhtml/controlheader.vm" )
+<select name="$!{tag.Name}" #if( $tag.Size > 0 )size="${tag.Size}" #end #if( $tag.Multiple ) multiple#end >
+#if( $tag.EmptyOption)<option></option>#end
+#set( $items = ${stack.findValue($tag.list)} )
+#if( $items )
+#foreach( $item in $items )
+  #if( $tag.ListKey )
+      #set( $itemKey = $ognl.findValue($tag.ListKey, $item) )
+  #else
+      #set( $itemKey = $item.toString() )
+  #end
+  #if( $tag.ListValue )
+      #set( $itemValue = $ognl.findValue($tag.ListValue, $item) )
+  #else
+      #set( $itemValue = $item.toString() )
+  #end
+  <option value="$!{itemValue}"#if( $tag.contains($tag.ActualValue, $itemValue) ) selected#end>$!{itemKey}</option>
+#end
+
+#else
+  &nbsp;
+#end
+</select>
+#parse( "/templates/xhtml/controlfooter.vm" )

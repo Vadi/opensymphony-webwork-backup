@@ -1,0 +1,10 @@
+
+param hello     = $tag.Params.hello
+param argle     = $tag.Params.argle
+param glip      = $tag.Params.glip
+param obj.Class = $tag.Params.obj.Class
+
+#foreach( $element in $tag.Params.array )
+#set( $index = $velocityCount - 1)
+param array[$index] = $element
+#end
