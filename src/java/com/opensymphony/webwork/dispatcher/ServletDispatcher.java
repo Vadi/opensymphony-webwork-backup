@@ -5,32 +5,26 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.util.FileManager;
-
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.ConfigurationException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import java.util.HashMap;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 
 
 /**
@@ -118,15 +112,15 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * Service a request.
-    * The request is first checked to see if it is a multi-part. If it is, then the request
-    * is wrapped so WW will be able to work with the multi-part as if it was a normal request.
-    * Then the request is handed to GenericDispatcher and executed.
-    *
-    * @param request
-    * @param response
-    * @exception javax.servlet.ServletException
-    */
+     * Service a request.
+     * The request is first checked to see if it is a multi-part. If it is, then the request
+     * is wrapped so WW will be able to work with the multi-part as if it was a normal request.
+     * Then the request is handed to GenericDispatcher and executed.
+     *
+     * @param request
+     * @param response
+     * @exception javax.servlet.ServletException
+     */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         //wrap request if needed
         try {
@@ -151,14 +145,23 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         String actionName = getActionName(servletPath);
 
         HashMap extraContext = new HashMap();
+        SessionMap sessionMap = new SessionMap(request.getSession());
+        ApplicationMap applicationMap = new ApplicationMap(getServletContext());
+        RequestMap requestMap = new RequestMap(request);
+
         extraContext.put(ActionContext.PARAMETERS, request.getParameterMap());
-        extraContext.put(ActionContext.SESSION, new SessionMap(request.getSession()));
-        extraContext.put(ActionContext.APPLICATION, new ApplicationMap(getServletContext()));
+        extraContext.put(ActionContext.SESSION, sessionMap);
+        extraContext.put(ActionContext.APPLICATION, applicationMap);
         extraContext.put(HTTP_REQUEST, request);
         extraContext.put(HTTP_RESPONSE, response);
         extraContext.put(SERVLET_CONFIG, getServletConfig());
         extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
         extraContext.put(SERLVET_DISPATCHER, this);
+
+        // helpers to get access to request/session/application scope
+        extraContext.put("request", requestMap);
+        extraContext.put("session", sessionMap);
+        extraContext.put("application", applicationMap);
 
         try {
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(actionPath, actionName, extraContext);
@@ -174,9 +177,9 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * Determine action name by extracting last string and removing
-    * extension. (/.../.../Foo.action -> Foo)
-    */
+     * Determine action name by extracting last string and removing
+     * extension. (/.../.../Foo.action -> Foo)
+     */
     String getActionName(String name) {
         // Get action name ("Foo.action" -> "Foo" action)
         int beginIdx = name.lastIndexOf("/");
@@ -212,12 +215,12 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * Wrap servlet request with the appropriate request. It will check to
-    * see if request is a multipart request and wrap in appropriately.
-    *
-    * @param request
-    * @return wrapped request or original request
-    */
+     * Wrap servlet request with the appropriate request. It will check to
+     * see if request is a multipart request and wrap in appropriately.
+     *
+     * @param request
+     * @return wrapped request or original request
+     */
     private HttpServletRequest wrapRequest(HttpServletRequest request) throws IOException {
         // don't wrap more than once
         if (request instanceof MultiPartRequestWrapper) {
