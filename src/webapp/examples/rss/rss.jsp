@@ -1,7 +1,7 @@
 <%@ taglib uri="webwork" prefix="webwork" %>
 
 
-<webwork:property value="channel">
+<webwork:push value="channel">
    <%-- channel title --%>
    <div align="left"><big><webwork:property value="childText('title')"/></big></div>
    <table cellspacing="0" cellpadding="0" width="100%" border="0">
@@ -9,7 +9,7 @@
    </table>
    <p>
    <%-- channel image --%>
-   <webwork:property value="child('image')">
+   <webwork:push value="child('image')">
       <webwork:if test=".">
           <img alt="<webwork:property value="childText('title')"/>" 
                src="<webwork:property value="childText('url')"/>" 
@@ -19,25 +19,25 @@
                </webwork:if>
                border="0"></img><br>
       </webwork:if>
-   </webwork:property>
+   </webwork:push>
 
    <%-- channel description --%>
    <i><webwork:property value="childText('description')"/></i><br>
-</webwork:property>
+</webwork:push>
 
 <webwork:if test="$bullet == 'true'">
    <ul>
    <webwork:iterator value="items">
      <webwork:if test="childText('title') != 'Feed listing'">
      <li>
-      <webwork:property value="childText('link')">
+      <webwork:push value="childText('link')">
          <webwork:if test=".">
              <a href="<webwork:property/>"><webwork:property value="childText('title')"/></a>
          </webwork:if>
          <webwork:else>
             <b><webwork:property value="childText('title')"/></b>
          </webwork:else>
-      </webwork:property>
+      </webwork:push>
      </li>
      </webwork:if>
    </webwork:iterator>
@@ -47,14 +47,14 @@
    <webwork:iterator value="items">
       <webwork:if test="childText('title') != 'Feed listing'">
       <p>
-      <webwork:property value="childText('link')">
+      <webwork:push value="childText('link')">
          <webwork:if test=".">
              <a target="rssview" href="<webwork:property/>"><webwork:property value="childText('title')"/></a>
          </webwork:if>
          <webwork:else>
             <b><webwork:property value="childText('title')"/></b>
          </webwork:else>
-      </webwork:property>
+      </webwork:push>
       <br>
       <webwork:property value="childText('description')"/>
       </p>

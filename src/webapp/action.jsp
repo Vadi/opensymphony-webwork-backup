@@ -6,5 +6,8 @@
 <ww:push value="#vc">
  counter.count == <ww:property value="counter.count" />
  foo is also: <ww:property value="foo"/>
+ <p/>
+ <ww:debug theme="'simple'" />
+
 </ww:push>
 
