@@ -54,34 +54,34 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
         
         if (doubleNameAttr != null) {
             doubleName = findValue(doubleNameAttr, String.class);
-            addParam("doubleName", doubleName);
+            addParameter("doubleName", doubleName);
         }
         
         if (doubleListAttr != null) {
-            addParam("doubleList", doubleListAttr);
+            addParameter("doubleList", doubleListAttr);
         }
 
         if (doubleListKeyAttr != null) {
-            addParam("doubleListKey", doubleListKeyAttr);
+            addParameter("doubleListKey", doubleListKeyAttr);
         }
 
         if (doubleListValueAttr != null) {
-            addParam("doubleListValue", doubleListValueAttr);
+            addParameter("doubleListValue", doubleListValueAttr);
         }
         
         Class valueClazz = getValueClassType();
 
         if (valueClazz != null) {
             if (doubleValueAttr != null) {
-                addParam("doubleNameValue", findValue(doubleValueAttr, valueClazz));
+                addParameter("doubleNameValue", findValue(doubleValueAttr, valueClazz));
             } else if (doubleName != null) {
-                addParam("doubleNameValue", findValue(doubleName.toString(), valueClazz));
+                addParameter("doubleNameValue", findValue(doubleName.toString(), valueClazz));
             }
         } else {
             if (doubleValueAttr != null) {
-                addParam("doubleNameValue", findValue(doubleValueAttr));
+                addParameter("doubleNameValue", findValue(doubleValueAttr));
             } else if (doubleName != null) {
-                addParam("doubleNameValue", findValue(doubleName.toString()));
+                addParameter("doubleNameValue", findValue(doubleName.toString()));
             }
         }
     }

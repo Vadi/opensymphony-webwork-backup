@@ -49,11 +49,11 @@ public class ComponentTest extends AbstractUITagTest {
         tag.setTemplate("/com/opensymphony/webwork/views/jsp/ui/Component.vm");
 
         tag.doStartTag();
-        tag.addParam("hello", "world");
-        tag.addParam("argle", "bargle");
-        tag.addParam("glip", "glop");
-        tag.addParam("array", new String[] {"a", "b", "c"});
-        tag.addParam("obj", tag);
+        tag.addParameter("hello", "world");
+        tag.addParameter("argle", "bargle");
+        tag.addParameter("glip", "glop");
+        tag.addParameter("array", new String[] {"a", "b", "c"});
+        tag.addParameter("obj", tag);
 
         int result = tag.doEndTag();
 

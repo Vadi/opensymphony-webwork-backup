@@ -205,61 +205,61 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
         if (nameAttr != null) {
             name = findValue(nameAttr, String.class);
-            addParam("name", name);
+            addParameter("name", name);
         }
 
         if (labelAttr != null) {
-            addParam("label", findValue(labelAttr, String.class));
+            addParameter("label", findValue(labelAttr, String.class));
         }
 
         if (labelPositionAttr != null) {
-            addParam("labelPosition", findValue(labelPositionAttr, String.class));
+            addParameter("labelPosition", findValue(labelPositionAttr, String.class));
         }
 
         if (requiredAttr != null) {
-            addParam("required", findValue(requiredAttr, Boolean.class));
+            addParameter("required", findValue(requiredAttr, Boolean.class));
         }
 
         if (disabledAttr != null) {
-            addParam("disabled", findValue(disabledAttr, Boolean.class));
+            addParameter("disabled", findValue(disabledAttr, Boolean.class));
         }
 
         if (tabindexAttr != null) {
-            addParam("tabindex", findValue(tabindexAttr, String.class));
+            addParameter("tabindex", findValue(tabindexAttr, String.class));
         }
 
         if (onchangeAttr != null) {
-            addParam("onchange", findValue(onchangeAttr, String.class));
+            addParameter("onchange", findValue(onchangeAttr, String.class));
         }
 
         if (classAttr != null) {
-            addParam("class", findValue(classAttr, String.class));
+            addParameter("class", findValue(classAttr, String.class));
         }
 
         FormTag tag = (FormTag) findAncestorWithClass(this, FormTag.class);
         if (tag != null)
         {
-            addParam("form", tag.getParams());
+            addParameter("form", tag.getParameters());
         }
 
         Class valueClazz = getValueClassType();
 
         if (valueClazz != null) {
             if (valueAttr != null) {
-                addParam("nameValue", findValue(valueAttr, valueClazz));
+                addParameter("nameValue", findValue(valueAttr, valueClazz));
             } else if (name != null) {
-                addParam("nameValue", findValue(name.toString(), valueClazz));
+                addParameter("nameValue", findValue(name.toString(), valueClazz));
             }
         } else {
             if (valueAttr != null) {
-                addParam("nameValue", findValue(valueAttr));
+                addParameter("nameValue", findValue(valueAttr));
             } else if (name != null) {
-                addParam("nameValue", findValue(name.toString()));
+                addParameter("nameValue", findValue(name.toString()));
             }
         }
 
         if (id != null) {
-            addParam("id", getId());
+            addParameter("id", getId());
         }
 
         evaluateExtraParams(stack);
@@ -277,7 +277,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
          * the request, it might also make sense for consistency to send the page and res and any others.
          */
         context.put("tag", this);
-        context.put("parameters", getParams());
+        context.put("parameters", getParameters());
 
         t.merge(context, outputWriter);
     }

@@ -49,7 +49,7 @@ import javax.servlet.jsp.JspException;
  * @author Brock Bulger
  * @version $Revision$
  */
-public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
+public class BeanTag extends WebWorkTagSupport implements ParamTag.Parametric {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     protected static Log log = LogFactory.getLog(BeanTag.class);
@@ -65,11 +65,11 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
         this.name = name;
     }
 
-    public Map getParams() {
+    public Map getParameters() {
         return null;
     }
 
-    public void addParam(String key, Object value) {
+    public void addParameter(String key, Object value) {
         OgnlUtil.setProperty(findString(key), value, bean, getStack().getContext());
     }
 

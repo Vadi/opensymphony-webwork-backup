@@ -82,11 +82,11 @@ public class FilledTag extends AbstractVUITag {
         String url = ((actionAttr != null) ? UrlHelper.buildUrl((String) findValue(actionAttr), request, response, null) : null);
 
         if (url != null) {
-            addParam("action", url);
+            addParameter("action", url);
             url = ((actionaudioAttr != null) ? UrlHelper.buildUrl((String) findValue(actionaudioAttr), request, response, null) : null);
 
             if (url != null) {
-                addParam("actionaudio", url);
+                addParameter("actionaudio", url);
             }
         }
 

@@ -53,20 +53,20 @@ public class SelectTag extends AbstractListTag {
         super.evaluateExtraParams(stack);
 
         if (emptyOptionAttr != null) {
-            addParam("emptyOption", findValue(emptyOptionAttr, Boolean.class));
+            addParameter("emptyOption", findValue(emptyOptionAttr, Boolean.class));
         }
 
         if (multipleAttr != null) {
-            addParam("multiple", findValue(multipleAttr, Boolean.class));
+            addParameter("multiple", findValue(multipleAttr, Boolean.class));
         }
 
         if (sizeAttr != null) {
-            addParam("size", findValue(sizeAttr, String.class));
+            addParameter("size", findValue(sizeAttr, String.class));
         }
 
         if ((headerKeyAttr != null) && (headerValueAttr != null)) {
-            addParam("headerKey", findValue(headerKeyAttr, String.class));
-            addParam("headerValue", findValue(headerValueAttr, String.class));
+            addParameter("headerKey", findValue(headerKeyAttr, String.class));
+            addParameter("headerValue", findValue(headerValueAttr, String.class));
         }
     }
 

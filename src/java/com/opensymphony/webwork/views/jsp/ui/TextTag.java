@@ -4,8 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.views.jsp.ParameterizedTag;
 import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
+import com.opensymphony.webwork.views.jsp.ParamTag;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.TextProvider;
@@ -37,7 +37,7 @@ import javax.servlet.jsp.JspException;
  *
  * @author Jason Carreira
  */
-public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
+public class TextTag extends WebWorkBodyTagSupport implements ParamTag.Parametric {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log LOG = LogFactory.getLog(TextTag.class);
@@ -58,7 +58,7 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
         this.nameAttr = name;
     }
 
-    public Map getParams() {
+    public Map getParameters() {
         return null;
     }
 
@@ -82,7 +82,7 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
         value3Attr = aName;
     }
 
-    public void addParam(String key, Object value) {
+    public void addParameter(String key, Object value) {
         addParam(value);
     }
 

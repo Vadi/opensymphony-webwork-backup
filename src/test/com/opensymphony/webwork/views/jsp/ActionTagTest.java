@@ -58,7 +58,7 @@ public class ActionTagTest extends AbstractTagTest {
 
         try {
             tag.doStartTag();
-            tag.addParam("foo", "myFoo");
+            tag.addParameter("foo", "myFoo");
             tag.doEndTag();
 
             assertEquals("myFoo", stack.findValue("#testAction.foo"));

@@ -4,7 +4,7 @@
  */
 package com.opensymphony.webwork.views.velocity.ui;
 
-import com.opensymphony.webwork.views.jsp.ParameterizedTag;
+import com.opensymphony.webwork.views.jsp.ParamTag;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +20,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Date: May 31, 2003
  * Time: 10:21:36 AM
  */
-public class MockTag extends BodyTagSupport implements ParameterizedTag {
+public class MockTag extends BodyTagSupport implements ParamTag.Parametric {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static String s;
@@ -87,7 +87,7 @@ public class MockTag extends BodyTagSupport implements ParameterizedTag {
         return l;
     }
 
-    public Map getParams() {
+    public Map getParameters() {
         return this.params;
     }
 
@@ -99,7 +99,7 @@ public class MockTag extends BodyTagSupport implements ParameterizedTag {
         return s;
     }
 
-    public void addParam(String key, Object value) {
+    public void addParameter(String key, Object value) {
         this.params.put(key, value);
     }
 

@@ -193,10 +193,10 @@ public class DynamicViewMapping implements ViewMapping {
             }
             return params;
         } catch (NoSuchElementException nse) {
-            log.warn("getParams: " + parameterString + ", caught NoSuchElementException: ", nse);
+            log.warn("getParameters: " + parameterString + ", caught NoSuchElementException: ", nse);
             return Collections.EMPTY_MAP;
         } catch (Exception e) {
-            log.warn("getParams: " + parameterString + ", caught Exception: ", e);
+            log.warn("getParameters: " + parameterString + ", caught Exception: ", e);
             return Collections.EMPTY_MAP;
         }
     }

@@ -6,16 +6,13 @@ package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.views.jsp.ParameterizedTag;
+import com.opensymphony.webwork.views.jsp.ParamTag;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.util.XWorkConverter;
 
 import ognl.Ognl;
-import ognl.OgnlContext;
-import ognl.OgnlException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -107,8 +104,8 @@ public abstract class AbstractTagDirective extends Directive {
             InternalContextAdapter subContextAdapter = new WrappedInternalContextAdapter(contextAdapter);
 
             // populate our tag with all the user specified properties
-            if (object instanceof ParameterizedTag) {
-                Map params = ((ParameterizedTag) object).getParams();
+            if (object instanceof ParamTag.Parametric) {
+                Map params = ((ParamTag.Parametric) object).getParameters();
                 if (params != null) {
                     params.clear();
                 }
@@ -293,17 +290,17 @@ public abstract class AbstractTagDirective extends Directive {
 
         try {
             Map paramMap = null;
-            ParameterizedTag parameterizedTag = null;
+            ParamTag.Parametric parameterizedTag = null;
 
-            if (tag instanceof ParameterizedTag) {
-                parameterizedTag = (ParameterizedTag) tag;
-                paramMap = parameterizedTag.getParams();
+            if (tag instanceof ParamTag.Parametric) {
+                parameterizedTag = (ParamTag.Parametric) tag;
+                paramMap = parameterizedTag.getParameters();
             }
 
             int result = tag.doStartTag();
 
             if (paramMap != null) {
-                parameterizedTag.getParams().putAll(paramMap);
+                parameterizedTag.getParameters().putAll(paramMap);
             }
 
             if (result != Tag.SKIP_BODY) {
@@ -402,7 +399,7 @@ public abstract class AbstractTagDirective extends Directive {
             String key = entry.getKey().toString();
             Object value = entry.getValue();
 
-            if (object instanceof ParameterizedTag && key.startsWith("params.")) {
+            if (object instanceof ParamTag.Parametric && key.startsWith("params.")) {
                 value = stack.findValue(value.toString());
             }
 

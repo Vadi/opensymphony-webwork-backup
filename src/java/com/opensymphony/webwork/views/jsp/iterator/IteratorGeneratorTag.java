@@ -50,14 +50,14 @@ public class IteratorGeneratorTag extends ActionTag {
     public int doStartTag() throws JspException {
         super.doStartTag();
 
-        addParam("values", findValue(valueAttr));
+        addParameter("values", findValue(valueAttr));
 
         if (countAttr != null) {
-            addParam("count", findValue(countAttr));
+            addParameter("count", findValue(countAttr));
         }
 
         if (separatorAttr != null) {
-            addParam("separator", findValue(separatorAttr));
+            addParameter("separator", findValue(separatorAttr));
         }
 
         return EVAL_BODY_INCLUDE;

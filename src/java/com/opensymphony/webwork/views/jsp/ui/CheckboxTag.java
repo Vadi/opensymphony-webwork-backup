@@ -39,7 +39,7 @@ public class CheckboxTag extends AbstractUITag {
 
     protected void evaluateExtraParams(OgnlValueStack stack) {
         if (fieldValueAttr != null) {
-            addParam("fieldValue", findValue(fieldValueAttr, String.class));
+            addParameter("fieldValue", findValue(fieldValueAttr, String.class));
         }
     }
 }

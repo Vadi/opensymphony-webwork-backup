@@ -55,17 +55,17 @@ public class SubsetIteratorTag extends ActionTag {
         int returnVal = super.doStartTag();
 
         if (sourceAttr == null) {
-            addParam("source", findValue("top"));
+            addParameter("source", findValue("top"));
         } else {
-            addParam("source", findValue(sourceAttr));
+            addParameter("source", findValue(sourceAttr));
         }
 
         if (countAttr != null) {
-            addParam("count", findValue(countAttr));
+            addParameter("count", findValue(countAttr));
         }
 
         if (startAttr != null) {
-            addParam("start", findValue(startAttr));
+            addParameter("start", findValue(startAttr));
         }
 
         return returnVal;

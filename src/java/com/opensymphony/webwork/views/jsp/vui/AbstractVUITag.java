@@ -7,8 +7,8 @@ package com.opensymphony.webwork.views.jsp.vui;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.ContainUtil;
 import com.opensymphony.webwork.views.jsp.IncludeTag;
-import com.opensymphony.webwork.views.jsp.ParameterizedTag;
 import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
+import com.opensymphony.webwork.views.jsp.ParamTag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,7 +29,7 @@ import javax.servlet.jsp.JspWriter;
  * @author Jeff Haynie (jhaynie@vocalocity.net)
  * @version $Revision$
  */
-public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements ParameterizedTag {
+public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements ParamTag.Parametric {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     // Attributes ----------------------------------------------------
@@ -61,7 +61,7 @@ public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements Pa
         return ((ua == null) ? "" : ua);
     }
 
-    public Map getParams() {
+    public Map getParameters() {
         return params;
     }
 
@@ -95,7 +95,7 @@ public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements Pa
         return theme;
     }
 
-    public void addParam(String name, Object value) {
+    public void addParameter(String name, Object value) {
         addParameterInternal(name, value);
     }
 
