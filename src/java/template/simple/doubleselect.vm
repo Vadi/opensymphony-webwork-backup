@@ -63,9 +63,9 @@
 </select>
 <script type="text/javascript">
 #set( $itemCount = $startCount )
-var $!{parameters.name}Group = new Array($!{parameters.listSize} + $startCount);
+var $!webwork.htmlEncode($parameters.name)Group = new Array($!{parameters.listSize} + $startCount);
 for (i = 0; i < ($!{parameters.listSize} + $startCount); i++)
-$!{parameters.name}Group[i] = new Array();
+$!webwork.htmlEncode($parameters.name)Group[i] = new Array();
 #foreach( $item in $items )
     $stack.push($item)
     #if( $parameters.listKey )
@@ -93,7 +93,7 @@ $!{parameters.name}Group[i] = new Array();
             #else
                 #set( $doubleItemValue = $doubleItem )
             #end
-            $!{parameters.name}Group[$itemCount][$doubleItemCount] = new Option("$doubleItemKey", "$doubleItemValue");
+            $!webwork.htmlEncode($parameters.name)Group[$itemCount][$doubleItemCount] = new Option("$doubleItemKey", "$doubleItemValue");
             #set( $doubleItemCount = $doubleItemCount + 1 )
             #set ($trash = $stack.pop())
         #end
@@ -101,7 +101,7 @@ $!{parameters.name}Group[i] = new Array();
     #end
     #set ($trash = $stack.pop())
 #end
-var $!{parameters.name}Temp = document.$!{parameters.formName}.$!{parameters.doubleName};
+var $!webwork.htmlEncode($parameters.name)Temp = document.$!webwork.htmlEncode(${parameters.formName}).$!webwork.htmlEncode(${parameters.doubleName});
 #set( $itemCount = $startCount )
 #set( $redirectTo = 0 )
 #foreach( $item in $items )
@@ -117,16 +117,16 @@ var $!{parameters.name}Temp = document.$!{parameters.formName}.$!{parameters.dou
     #set( $itemCount = $itemCount + 1 )
     #set ($trash = $stack.pop())
 #end
-$!{parameters.name}Redirect($redirectTo);
-function $!{parameters.name}Redirect(x) {
-    for (m = $!{parameters.name}Temp.options.length - 1; m >= 0; m--)
-        $!{parameters.name}Temp.options[m] = null;
+$!{webwork.htmlEncode($parameters.name)}Redirect($redirectTo);
+function $!{webwork.htmlEncode($parameters.name)}Redirect(x) {
+    for (m = $!{webwork.htmlEncode($parameters.name)}Temp.options.length - 1; m >= 0; m--)
+        $!{webwork.htmlEncode($parameters.name)}Temp.options[m] = null;
 
     for (i = 0; i < $!{parameters.name}Group[x].length; i++) {
-        $!{parameters.name}Temp.options[i] = new Option($!{parameters.name}Group[x][i].text, $!{parameters.name}Group[x][i].value);
+        $!{webwork.htmlEncode($parameters.name)}Temp.options[i] = new Option($!{webwork.htmlEncode($parameters.name)}Group[x][i].text, $!{webwork.htmlEncode($parameters.name)}Group[x][i].value);
     }
 
     if ($!{parameters.name}Temp.options.length > 0)
-        $!{parameters.name}Temp.options[0].selected = true;
+        $!{webwork.htmlEncode($parameters.name)}Temp.options[0].selected = true;
 }
 </script>
