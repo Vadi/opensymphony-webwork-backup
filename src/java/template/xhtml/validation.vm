@@ -22,7 +22,7 @@ if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
 function validate(e) {
     // mark the element as touch
     e.touched = true;
-    xmlhttp.open("POST", "/validation", true);
+    xmlhttp.open("POST", "$parameters.validation", true);
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4) {
             var xml = xmlhttp.responseXML;
