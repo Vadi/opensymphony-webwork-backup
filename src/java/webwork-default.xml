@@ -7,6 +7,7 @@
             <result-type name="redirect" class="com.opensymphony.webwork.dispatcher.ServletRedirectResult"/>
             <result-type name="velocity" class="com.opensymphony.webwork.dispatcher.VelocityResult"/>
             <result-type name="chain" class="com.opensymphony.xwork.ActionChainResult"/>
+            <result-type name="xslt" class="com.opensymphony.webwork.views.xslt.XSLTResult"/>
         </result-types>
 
         <interceptors>
