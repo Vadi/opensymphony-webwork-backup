@@ -110,8 +110,10 @@ public class VelocityManager {
  * <ul>
  *   <li><strong>req</strong> - the current HttpServletRequest</li>
  *   <li><strong>res</strong> - the current HttpServletResponse</li>
- *   <li><strong>stack</strong> - the current OgnlValueStack</li>
- *   <li><strong>ui</strong> - a singleton JSPTagAdapter that provides access to the WW2 UI Tags</li>
+ *   <li><strong>stack</strong> - the current {@link OgnlValueStack}</li>
+ *   <li><strong>ognl</strong> - an {@link OgnlTool}</li>
+ *   <li><strong>webwork</strong> - an instance of {@link WebWorkUtil}</li>
+ *   <li><strong>action</strong> - the current WebWork action</li>
  * </ul>
  *
  * @return a new WebWorkVelocityContext
