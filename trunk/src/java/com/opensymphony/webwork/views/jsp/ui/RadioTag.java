@@ -15,7 +15,7 @@ public class RadioTag extends AbstractListTag {
     /**
      * The name of the default template for the RadioTag
      */
-    final public static String TEMPLATE = "radio.vm";
+    final public static String TEMPLATE = "radiomap.vm";
 
     //~ Methods ////////////////////////////////////////////////////////////////
 

@@ -24,6 +24,8 @@ public class SelectTag extends AbstractListTag {
     protected String emptyOptionAttr;
     protected String multipleAttr;
     protected String sizeAttr;
+    protected String headerKeyAttr;
+    protected String headerValueAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -39,19 +41,32 @@ public class SelectTag extends AbstractListTag {
         this.sizeAttr = size;
     }
 
+    public void setHeaderKey(String headerKey) {
+        this.headerKeyAttr = headerKey;
+    }
+
+    public void setHeaderValue(String headerValue) {
+        this.headerValueAttr = headerValue;
+    }
+
     public void evaluateExtraParams(OgnlValueStack stack) {
         super.evaluateExtraParams(stack);
 
         if (emptyOptionAttr != null) {
-            addParam("emptyOption", stack.findValue(emptyOptionAttr, String.class));
+            addParam("emptyOption", stack.findValue(emptyOptionAttr, Boolean.class));
         }
 
         if (multipleAttr != null) {
-            addParam("defaultKey", stack.findValue(multipleAttr, String.class));
+            addParam("defaultKey", stack.findValue(multipleAttr, Boolean.class));
         }
 
         if (sizeAttr != null) {
             addParam("size", stack.findValue(sizeAttr, String.class));
+        }
+
+        if (headerKeyAttr != null && headerValueAttr != null) {
+            addParam("headerKey", stack.findValue(headerKeyAttr, String.class));
+            addParam("headerValue", stack.findValue(headerValueAttr, String.class));
         }
     }
 

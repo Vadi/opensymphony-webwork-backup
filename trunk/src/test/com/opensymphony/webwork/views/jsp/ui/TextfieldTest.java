@@ -33,7 +33,7 @@ public class TextfieldTest extends AbstractUITagTest {
         tag.setPageContext(pageContext);
         tag.setLabel("'mylabel'");
         tag.setName("'foo'");
-        tag.setValue("bar");
+        tag.setValue("'bar'");
 
         testAction.addFieldError("foo", "bar error message");
         tag.doEndTag();

@@ -47,8 +47,8 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         try {
             THEME = Configuration.getString("webwork.ui.theme");
         } catch (IllegalArgumentException e) {
-            LOG.warn("Unable to find 'webwork.ui.theme' property setting. Defaulting to /templates/xhtml/", e);
-            THEME = "/templates/xhtml/";
+            LOG.warn("Unable to find 'webwork.ui.theme' property setting. Defaulting to /template/xhtml/", e);
+            THEME = "/template/xhtml/";
         }
     }
 
@@ -61,6 +61,9 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String templateAttr;
     protected String themeAttr;
     protected String valueAttr;
+    protected String disabledAttr;
+    protected String tabindexAttr;
+    protected String onchangeAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -90,6 +93,18 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     public void setValue(String aValue) {
         valueAttr = aValue;
+    }
+
+    public void setDisabled(String disabled) {
+        this.disabledAttr = disabled;
+    }
+
+    public void setTabindex(String tabindex) {
+        this.tabindexAttr = tabindex;
+    }
+
+    public void setOnchange(String onchange) {
+        this.onchangeAttr = onchange;
     }
 
     public int doEndTag() throws JspException {
@@ -193,13 +208,29 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         if (requiredAttr != null) {
-            addParam("required", stack.findValue(requiredAttr, String.class));
+            addParam("required", stack.findValue(requiredAttr, Boolean.class));
+        }
+
+        if (disabledAttr != null) {
+            addParam("disabled", stack.findValue(disabledAttr, Boolean.class));
+        }
+
+        if (tabindexAttr != null) {
+            addParam("tabindex", stack.findValue(tabindexAttr, String.class));
+        }
+
+        if (onchangeAttr != null) {
+            addParam("onchange", stack.findValue(onchangeAttr, String.class));
         }
 
         if (valueAttr != null) {
-            addParam("value", stack.findValue(valueAttr, String.class));
+            addParam("nameValue", stack.findValue(valueAttr, String.class));
         } else if (name != null) {
-            addParam("value", stack.findValue(name.toString(), String.class));
+            addParam("nameValue", stack.findValue(name.toString(), String.class));
+        }
+
+        if (id != null) {
+            addParam("id", getId());
         }
 
         evaluateExtraParams(stack);

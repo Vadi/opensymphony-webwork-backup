@@ -1,0 +1,5 @@
+<input
+    type="hidden"
+    #if ($parameters.name)      name="$parameters.name"     #end
+    #if ($parameters.value)     value="$parameters.value"   #end
+/>

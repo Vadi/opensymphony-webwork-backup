@@ -1,7 +1,19 @@
 <tr>
-  <td align="right" valign="top"><label class="label">mylabel:</label></td>
-  <td>
-        <label class="label" for="myname2">Two</label> <input type="radio" name="myname" value="2" />
-        <label class="label" for="myname1">One</label> <input type="radio" name="myname" value="1" checked="checked"/>
-  </td>
+    <td align="right" valign="top">
+        <span class="label"> mylabel: </span>
+    </td>
+    <td>
+        <label>Two</label>
+        <input type="radio"
+               name="myname"
+               value="2"
+        />
+
+        <label>One</label>
+        <input type="radio"
+               checked="checked"
+               name="myname"
+               value="1"
+        />
+    </td>
 </tr>
