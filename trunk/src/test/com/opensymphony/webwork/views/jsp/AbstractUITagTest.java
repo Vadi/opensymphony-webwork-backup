@@ -46,13 +46,10 @@ import javax.servlet.jsp.JspWriter;
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
  */
 public abstract class AbstractUITagTest extends AbstractTagTest {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
-    /**
-    * Initialize Velocity for file based access.  This should be close enough to what's going on in the web based
-    * environment.
-    */
-    static {
+    //~ Methods ////////////////////////////////////////////////////////////////
+
+    protected void setUp() throws Exception {
         Properties props = new Properties();
         props.setProperty("resource.loader", "file1,file2");
 
@@ -110,18 +107,9 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
         config.setInitParameter("class.resource.loader.class", "com.opensymphony.webwork.views.velocity.WebWorkResourceLoader");
 
         ServletActionContext.setServletConfig(config);
+
+        super.setUp();
     }
-
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    public AbstractUITagTest() {
-    }
-
-    public AbstractUITagTest(String s) {
-        super(s);
-    }
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
     * Attempt to verify the contents of this.writer against the contents of the URL specified.  verify() performs a

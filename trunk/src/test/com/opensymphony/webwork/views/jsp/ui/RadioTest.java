@@ -20,15 +20,6 @@ import java.util.HashMap;
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
 public class RadioTest extends AbstractUITagTest {
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    public RadioTest() {
-    }
-
-    public RadioTest(String s) {
-        super(s);
-    }
-
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testMapChecked() throws Exception {
