@@ -204,6 +204,7 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
         extraContext.put(HTTP_RESPONSE, response);
         extraContext.put(SERVLET_CONFIG, servletConfig);
         extraContext.put(COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
+        extraContext.put(PAGE_CONTEXT, pageContext);
 
         return extraContext;
     }
