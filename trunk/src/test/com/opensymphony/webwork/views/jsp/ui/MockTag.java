@@ -2,7 +2,7 @@
  * Copyright (c) 2002-2003 by OpenSymphony
  * All rights reserved.
  */
-package com.opensymphony.webwork.views.velocity.ui;
+package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.ParamTag;
 
@@ -104,8 +104,8 @@ public class MockTag extends BodyTagSupport implements ParamTag.Parametric {
     }
 
     /**
-     * resets all the static variables to their initial state.  this must be called before each test!
-     */
+ * resets all the static variables to their initial state.  this must be called before each test!
+ */
     public void reset() {
         s = null;
         i = null;
