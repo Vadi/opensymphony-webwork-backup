@@ -125,6 +125,16 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
  * @exception javax.servlet.ServletException
  */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+
+		//wrap request if needed
+		try {
+			request = wrapRequest(request);
+		} catch (IOException e) {
+			String message = "Could not wrap servlet request with MultipartRequestWrapper!";
+			log.error(message, e);
+			sendError(request, response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new ServletException(message, e));
+		}
+
         serviceAction(request, response, getNameSpace(request), getActionName(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
     }
 
@@ -134,14 +144,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
  * Then the request is handed to GenericDispatcher and executed.
  */
     public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace, String actionName, Map parameterMap, Map sessionMap, Map applicationMap) {
-        //wrap request if needed
-        try {
-            request = wrapRequest(request);
-        } catch (IOException e) {
-            String message = "Could not wrap servlet request with MultipartRequestWrapper!";
-            log.error(message, e);
-            sendError(request, response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new ServletException(message, e));
-        }
 
         HashMap extraContext = new HashMap();
         extraContext.put(ActionContext.PARAMETERS, parameterMap);
