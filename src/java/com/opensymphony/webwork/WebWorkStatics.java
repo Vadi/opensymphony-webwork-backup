@@ -37,7 +37,12 @@ public interface WebWorkStatics {
     /**
      * Constant for an HTTP {@link javax.servlet.RequestDispatcher request dispatcher}.
      */
-    public static final String SERLVET_DISPATCHER = "com.opensymphony.xwork.dispatcher.ServletDispatcher";
+    public static final String SERVLET_DISPATCHER = "com.opensymphony.xwork.dispatcher.ServletDispatcher";
+
+    /**
+     * @deprecated spelling error, use {@link SERVLET_DISPATCHER}
+     */
+    public static final String SERLVET_DISPATCHER = SERVLET_DISPATCHER;
 
     /**
      * Constant for the {@link javax.servlet.ServletConfig servlet config} object.
