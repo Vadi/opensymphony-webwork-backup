@@ -27,9 +27,6 @@ public class FileTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + FileTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 

@@ -21,9 +21,6 @@ public class LabelTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + LabelTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 
@@ -39,9 +36,6 @@ public class LabelTest extends AbstractUITagTest {
     }
 
     public void testWithNoValue() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + LabelTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("baz");
 

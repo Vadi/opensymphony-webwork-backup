@@ -26,9 +26,6 @@ public class CheckboxListTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testMultiple() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + CheckboxListTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         Collection collection = new ArrayList(2);
         collection.add("hello");
@@ -54,9 +51,6 @@ public class CheckboxListTest extends AbstractUITagTest {
     }
 
     public void testSimple() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + CheckboxListTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("hello");
         testAction.setList(new String[][] {

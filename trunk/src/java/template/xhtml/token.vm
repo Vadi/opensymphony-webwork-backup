@@ -1,2 +1,1 @@
-<input type="hidden" name="$!{tag.tokenNameField}" value="$webwork.htmlEncode($!parameters.name)"/>
-<input type="hidden" name="$!parameters.name" value="$webwork.htmlEncode($!parameters.token)"/>
+#parse("/template/simple/token.vm")

@@ -26,9 +26,6 @@ public class CheckboxTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testChecked() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + CheckboxTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("true");
 
@@ -44,9 +41,6 @@ public class CheckboxTest extends AbstractUITagTest {
     }
 
     public void testCheckedWithError() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + CheckboxTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("true");
         testAction.addFieldError("foo", "Some Foo Error");
@@ -64,9 +58,6 @@ public class CheckboxTest extends AbstractUITagTest {
     }
 
     public void testUnchecked() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + CheckboxTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("false");
 

@@ -140,6 +140,10 @@ public class FormTag extends AbstractClosingUITag {
         }
     }
 
+    protected boolean evaluateNameValue() {
+        return false;
+    }
+
     protected String getDefaultTemplate() {
         return TEMPLATE;
     }

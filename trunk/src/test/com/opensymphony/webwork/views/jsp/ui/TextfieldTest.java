@@ -23,9 +23,6 @@ public class TextfieldTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testErrors() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + TextFieldTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 
@@ -42,9 +39,6 @@ public class TextfieldTest extends AbstractUITagTest {
     }
 
     public void testNoLabel() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + TextFieldTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 
@@ -60,9 +54,6 @@ public class TextfieldTest extends AbstractUITagTest {
     }
 
     public void testSimple() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + TextFieldTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 

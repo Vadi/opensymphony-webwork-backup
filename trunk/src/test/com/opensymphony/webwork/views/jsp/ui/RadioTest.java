@@ -23,9 +23,6 @@ public class RadioTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testMapChecked() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + RadioTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 
@@ -49,9 +46,6 @@ public class RadioTest extends AbstractUITagTest {
     }
 
     public void testSimple() throws Exception {
-        Template template = Velocity.getTemplate(AbstractUITag.THEME + RadioTag.TEMPLATE);
-        Assert.assertNotNull(template); // ensure this is a valid decorators
-
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
         testAction.setList(new String[][] {

@@ -46,7 +46,8 @@ public class ComponentTest extends AbstractUITagTest {
         tag.setLabel("mylabel");
         tag.setName("myname");
         tag.setValue("foo");
-        tag.setTemplate("/com/opensymphony/webwork/views/jsp/ui/Component.vm");
+        tag.setTheme("'test'");
+        tag.setTemplate("'Component.vm'");
 
         tag.doStartTag();
         tag.addParameter("hello", "world");
