@@ -1,10 +1,5 @@
-/*
- * Copyright (c) 2002-2003 by OpenSymphony
+/* * Copyright (c) 2002-2003 by OpenSymphony
  * All rights reserved.
- */
-/*
- * Created on 1/10/2003
- *
  */
 package com.opensymphony.webwork.views.freemarker;
 
