@@ -10,7 +10,8 @@ public class JavaScriptEmailValidator extends EmailValidator implements ScriptVa
         StringBuffer js = new StringBuffer();
 
         js.append("value = form.elements['" + field + "'].value;\n");
-        js.append("if (value == \"\") {\n");
+        //
+        js.append("if (!value.match(/\\b(^(\\S+@).+((\\.com)|(\\.net)|(\\.org)|(\\.info)|(\\.edu)|(\\.mil)|(\\.gov)|(\\.biz)|(\\.ws)|(\\.us)|(\\.tv)|(\\.cc)|(\\..{2,2}))$)\\b/gi)) {\n");
         js.append("\talert('" + getMessage(null) + "');\n");
         js.append("\treturn '" + field + "';\n");
         js.append("}\n");
