@@ -1,6 +1,7 @@
 <!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
 
 <xwork>
+
     <include file="webwork-default.xml"/>
     <include file="config-browser.xml"/>
 
@@ -47,6 +48,12 @@
         <action name="CountryTest" class="com.opensymphony.webwork.example.ui.SimpleCountry">
             <result name="success" type="dispatcher">
                 <param name="location">/country.jsp</param>
+            </result>
+        </action>
+
+        <action name="FreemarkerTest" class="com.opensymphony.webwork.example.ui.SimpleCountry">
+            <result name="success" type="dispatcher">
+                <param name="location">/country.ftl</param>
             </result>
         </action>
 
