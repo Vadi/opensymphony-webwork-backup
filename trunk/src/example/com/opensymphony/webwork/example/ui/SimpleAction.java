@@ -88,7 +88,7 @@ public class SimpleAction implements Action {
     }
 
     private void init() {
-        this.scalar = "a scalar value with <&> magic characters";
+        this.scalar = "a scalar value with <&>\"' magic characters";
 
         this.list = new ArrayList();
         this.list.add(new Node("hello", "world"));
@@ -134,10 +134,10 @@ public class SimpleAction implements Action {
         public String getValue() {
             return value;
         }
-        
+
         public List getChildren() {
             return children;
-        }            
+        }
 
         public String toString() {
             return key + "/" + value;

@@ -5,8 +5,8 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.webwork.util.WebWorkUtil;
+import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
@@ -17,6 +17,8 @@ import org.apache.commons.logging.LogFactory;
 
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.app.event.EventCartridge;
+import org.apache.velocity.app.event.EventHandler;
 import org.apache.velocity.context.Context;
 
 import java.io.File;
@@ -39,6 +41,7 @@ public class VelocityManager {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(VelocityManager.class);
+    private static EventCartridge cartridge;
     private static VelocityEngine velocityEngine;
     private static OgnlTool ognlTool = OgnlTool.getInstance();
     public static final String REQUEST = "req";
@@ -54,6 +57,11 @@ public class VelocityManager {
 
     // the current JSP tag
     public static final String TAG = "tag";
+
+    static {
+        cartridge = new EventCartridge();
+        cartridge.addEventHandler(new EscapingInsertionEventHandler());
+    }
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -86,6 +94,9 @@ public class VelocityManager {
         context.put(STACK, stack);
         context.put(OGNL, ognlTool);
         context.put(WEBWORK, new WebWorkUtil(context));
+
+        // this cartridge will escape magic characters from Strings using the EscapingInsertionEventHandler
+        cartridge.attachToContext(context);
 
         ActionInvocation invocation = (ActionInvocation) stack.getContext().get(ActionContext.ACTION_INVOCATION);
 
@@ -199,7 +210,7 @@ public class VelocityManager {
             log.debug("Initializing Velocity with the following properties ...");
 
             for (Iterator iter = properties.keySet().iterator();
-                 iter.hasNext();) {
+                    iter.hasNext();) {
                 String key = (String) iter.next();
                 String value = properties.getProperty(key);
 
