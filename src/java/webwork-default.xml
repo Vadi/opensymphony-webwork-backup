@@ -23,11 +23,13 @@
             <interceptor name="workflow" class="com.opensymphony.xwork.interceptor.DefaultWorkflowInterceptor"/>
             <interceptor name="servlet-config" class="com.opensymphony.webwork.interceptor.ServletConfigInterceptor"/>
             <interceptor name="prepare" class="com.opensymphony.xwork.interceptor.PrepareInterceptor"/>
+            <interceptor name="conversionError" class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
             <interceptor-stack name="defaultStack">
                 <interceptor-ref name="timer"/>
                 <interceptor-ref name="logger"/>
                 <interceptor-ref name="static-params"/>
                 <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
             </interceptor-stack>
             <interceptor-stack name="validationWorkflowStack">
                 <interceptor-ref name="defaultStack"/>
