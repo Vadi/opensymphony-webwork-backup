@@ -155,7 +155,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         extraContext.put(SERLVET_DISPATCHER, this);
 
         // helpers to get access to request/session/application scope
-        extraContext.put("request", requestMap);
+        extraContext.put("request", parameterMap);
         extraContext.put("session", sessionMap);
         extraContext.put("application", applicationMap);
 
