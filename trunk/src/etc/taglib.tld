@@ -2542,4 +2542,32 @@
             <rtexprvalue>false</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>debug</name>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.DebugTag</tagclass>
+        <info>
+            Prints out the contents of the ActionContext and value stack.
+        </info>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>theme</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>template</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>label</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>
