@@ -1,21 +1,22 @@
 package com.opensymphony.webwork.config_browser;
 
+import com.opensymphony.xwork.config.entities.ActionConfig;
+import ognl.OgnlRuntime;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.beans.PropertyDescriptor;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.opensymphony.xwork.config.entities.ActionConfig;
-import ognl.OgnlRuntime;
-
 /**
  * ShowConfigAction
- * 
+ *
  * @author Jason Carreira Created Aug 11, 2003 9:42:12 PM
  */
 public class ShowConfigAction extends ActionNamesAction {
+    private static final PropertyDescriptor[] PDSAT = new PropertyDescriptor[0];
+
     private String namespace;
     private String actionName;
     private ActionConfig config;
@@ -64,19 +65,17 @@ public class ShowConfigAction extends ActionNamesAction {
         return properties;
     }
 
-
     public String execute() throws Exception {
         super.execute();
         config = ConfigurationHelper.getActionConfig(namespace, actionName);
         actionNames =
                 new TreeSet(ConfigurationHelper.getActionNames(namespace));
         try {
-            properties =
-                    OgnlRuntime.getPropertyDescriptorsArray(getConfig().getClazz());
+            java.util.Collection pds = OgnlRuntime.getPropertyDescriptors(getConfig().getClazz()).values();
+            properties = (PropertyDescriptor[]) pds.toArray(PDSAT);
         } catch (Exception e) {
             log.error("Unable to get properties for action " + actionName, e);
-            addActionError(
-                    "Unable to retrieve action properties: " + e.toString());
+            addActionError("Unable to retrieve action properties: " + e.toString());
         }
 
         if (hasErrors()) //super might have set some :)
@@ -85,3 +84,4 @@ public class ShowConfigAction extends ActionNamesAction {
             return SUCCESS;
     }
 }
+
