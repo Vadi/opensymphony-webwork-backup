@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import webwork.action.ActionSupport;
 import com.opensymphony.webwork.interceptor.ParameterAware;
+import com.opensymphony.xwork.ActionSupport;
 
 /**
  *	Simple test action.
