@@ -53,16 +53,6 @@ public class SessionLifecycleListener implements HttpSessionListener {
     }
 
     public void sessionDestroyed(HttpSessionEvent event) {
-        if (log.isDebugEnabled()) {
-            log.debug("Session DefaultComponentManager : destroy");
-        }
-
-        HttpSession session = event.getSession();
-        ComponentManager container = (ComponentManager) session.getAttribute("DefaultComponentManager");
-
-        if (container != null) {
-            container.dispose();
-        }
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////
