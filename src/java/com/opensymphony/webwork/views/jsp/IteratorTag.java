@@ -6,9 +6,15 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.dispatcher.ServletDispatcher;
+import com.opensymphony.webwork.dispatcher.SessionMap;
+import com.opensymphony.webwork.dispatcher.ApplicationMap;
+import com.opensymphony.webwork.ServletActionContext;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 
@@ -121,7 +127,24 @@ public class IteratorTag extends BodyTagSupport {
             status = new IteratorStatus(statusState);
         }
 
-        stack = ActionContext.getContext().getValueStack();
+        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+        stack = (OgnlValueStack) req.getAttribute("webwork.valueStack");
+        if (stack == null)
+        {
+            stack = new OgnlValueStack();
+            HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
+            Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(),
+                    new SessionMap(req.getSession()),
+                    new ApplicationMap(pageContext.getServletContext()),
+                    req,
+                    res,
+                    pageContext.getServletConfig());
+            extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
+            stack.getContext().putAll(extraContext);
+            pageContext.setAttribute("webwork.valueStack", stack);
+        }
+
+
         iterator = getIterator();
 
         // get the first

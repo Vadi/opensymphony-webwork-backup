@@ -73,6 +73,7 @@ public class PropertyTag extends TagSupport {
                         pageContext.getServletConfig());
                 extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
                 stack.getContext().putAll(extraContext);
+                req.setAttribute("webwork.valueStack", stack);
             }
 
             Object actualValue = null;
