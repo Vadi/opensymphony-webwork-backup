@@ -78,7 +78,7 @@
         #foreach ($prop in $properties)
     		#rows()
     			<td>$prop.name</td>
-    			<td>$prop.propertyType</td>
+    			<td>$prop.propertyType.name</td>
     		</tr>
     	#end
     </table>
