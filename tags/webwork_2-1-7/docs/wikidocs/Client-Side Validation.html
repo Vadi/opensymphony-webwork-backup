@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>WebWork 2 : Client-Side Validation</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork 2 : Client-Side Validation
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Jul 22, 2004 by <font color="#0050B2">unkyaku</font>.
+				    </div>
+
+				    <p class="paragraph">WebWork adds support for client-side validation on top of XWork&#039;s standard validation framework.  You can enable it on a per-form basis by specifying <b class="strong">validate=&quot;true&quot;</b> in the &lt;<a href="UI Tags.html#UITags-form" title="form on UI Tags">ww:form</a>&gt; tag:</p><div class="code"><div class="codeContent">
+<pre>&lt;ww:form name=<span class="java&#45;quote">&quot;&#039;test&#039;&quot;</span> action=<span class="java&#45;quote">&quot;&#039;javascriptValidation&#039;&quot;</span> validate=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span>&gt;&#10;  ...&#10;&lt;/ww:form&gt;</pre>
+</div></div><p class="paragraph">You must specify a <em class="emphasis">name</em> for the form in order for client-side validation.</p>You should also make sure you provide the correct <em class="emphasis">action</em> and <em class="emphasis">namespace</em> attributes to the &lt;ww:form&gt; tag.  For example, if you have an Action named &quot;submitProfile&quot; in the &quot;/user&quot; namespace, you must use
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:form namespace=<span class="java&#45;quote">&quot;&#039;/user&#039;&quot;</span> action=<span class="java&#45;quote">&quot;&#039;submitProfile&#039;&quot;</span> validate=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span>&gt;&#10;  ...&#10;&lt;/ww:form&gt;</pre>
+</div></div><p class="paragraph">While the following will &quot;work&quot; in the sense that the form will function correctly, client-side validation will not:
+<div class="code"><div class="codeContent">
+<pre>&lt;ww:form action=<span class="java&#45;quote">&quot;&#039;/user/submitProfile.action&#039;&quot;</span> validate=<span class="java&#45;quote">&quot;<span class="java&#45;keyword">true</span>&quot;</span>&gt;&#10;  ...&#10;&lt;/ww:form&gt;</pre>
+</div></div></p>Of course, all the standard <a href="Validation.html" title="Validation">validation configuration</a> steps still apply.  Client-side validation uses the same validation rules as server-side validation.  If server-side validation doesn&#039;t work, then client-side validation won&#039;t work either.<br/>
+
+<div class="panel"><div class="panelContent" style="background-color: #ffffce; ">
+<p class="paragraph"><img class="rendericon" src="./icons/emoticons/information.png" height="16" width="16" align="absmiddle" alt="" border="0"/> Not all validators support client-side validation. Only validators that implement ScriptValidationAware  support this feature.  Refer to the list of WebWork validators to see which ones do so.</p><img class="rendericon" src="./icons/emoticons/information.png" height="16" width="16" align="absmiddle" alt="" border="0"/> Note that the <em class="emphasis">required</em> attribute on many WebWork <a href="UI Tags.html" title="UI Tags">UI tags</a> has nothing to do with client-side validation.
+</div></div><p class="paragraph"><br clear="all" />
+<img class="rendericon" src="./icons/emoticons/warning.png" height="16" width="16" align="absmiddle" alt="" border="0"/>  <b class="strong">Upgrade Alert</b>:  This feature was introduced in WebWork 2.1.  If upgrading from a previous version, make sure you are using the correct validators in <a href="Validation.html" title="Validation">validators.xml</a>.  You <em class="emphasis">must</em> be using the <b class="strong">com.opensymphony.webwork.validators.JavaScriptRequired&#42;Validator</b> version of the standard XWork validators. 
+<br clear="all" /></p><h2 class="heading2"><a name="Client-SideValidation-BuildingaValidatorthatsupportsclientsidevalidation"> Building a Validator that supports client-side validation</a></h2><p class="paragraph">Any validator can be extended to support client-side validation by implementing the <b class="strong">com.opensymphony.webwork.validators.ScriptValidationAware</b> interface:</p><div class="code"><div class="codeContent">
+<pre><span class="java&#45;keyword">public</span>&#160;<span class="java&#45;keyword">interface</span> ScriptValidationAware <span class="java&#45;keyword">extends</span> FieldValidator &#123;&#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> validationScript(Map parameters);&#10;&#125;</pre>
+</div></div><p class="paragraph">The value returned by <b class="strong">validationScript</b> will be executed on the client-side before the form is submitted if client-side validation is enabled.  For example,  the <b class="strong">requiredstring</b> validator has the following code:</p><div class="code"><div class="codeContent">
+<pre><span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> validationScript(Map parameters) &#123;&#10;        <span class="java&#45;object">String</span> field = (<span class="java&#45;object">String</span>) parameters.get(<span class="java&#45;quote">&quot;name&quot;</span>);&#10;        <span class="java&#45;object">StringBuffer</span> js = <span class="java&#45;keyword">new</span>&#160;<span class="java&#45;object">StringBuffer</span>();&#10;&#10;        js.append(<span class="java&#45;quote">&quot;value = form.elements&#91;&#039;&quot;</span> &#43; field &#43; <span class="java&#45;quote">&quot;&#039;&#93;.value;&#92;n&quot;</span>);&#10;        js.append(<span class="java&#45;quote">&quot;<span class="java&#45;keyword">if</span> (value == &#92;&quot;</span>&#92;<span class="java&#45;quote">&quot;) &#123;&#92;n&quot;</span>);&#10;        js.append(<span class="java&#45;quote">&quot;&#92;talert(&#039;&quot;</span> &#43; getMessage(<span class="java&#45;keyword">null</span>) &#43; <span class="java&#45;quote">&quot;&#039;);&#92;n&quot;</span>);&#10;        js.append(<span class="java&#45;quote">&quot;&#92;treturn &#039;&quot;</span> &#43; field &#43; <span class="java&#45;quote">&quot;&#039;;&#92;n&quot;</span>);&#10;        js.append(<span class="java&#45;quote">&quot;&#125;&#92;n&quot;</span>);&#10;        js.append(<span class="java&#45;quote">&quot;&#92;n&quot;</span>);&#10;&#10;        <span class="java&#45;keyword">return</span> js.toString();&#10;&#125;</pre>
+</div></div><p class="paragraph">Only JavaScript is supported at this time.</p>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on Dec 14, 2004 16:36</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,10 @@
+<tr>
+    <td valign="top" colspan="2">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td valign="middle"><input type="checkbox" name="foo" value="baz" /></td>
+                <td width="100%" valign="middle"><label class="checkboxLabel">mylabel</label></td>
+            </tr>
+        </table>
+    </td>
+</tr>

@@ -1,0 +1,4 @@
+<form namespace="/testNamespace" id="testNamespaceAction" name="myForm" action="/testNamespace/testNamespaceAction.action" method="POST" >
+<table class="wwFormTable">
+</table>
+</form>

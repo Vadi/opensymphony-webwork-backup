@@ -1,0 +1,4 @@
+<form namespace="" id="myAction" name="myForm" action="myAction" method="POST" enctype="myEncType" >
+<table class="wwFormTable">
+</table>
+</form>
