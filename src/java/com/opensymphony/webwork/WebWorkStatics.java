@@ -19,4 +19,5 @@ public interface WebWorkStatics {
     public static final String SERLVET_DISPATCHER = "com.opensymphony.xwork.dispatcher.ServletDispatcher";
     public static final String SERVLET_CONFIG = "com.opensymphony.xwork.dispatcher.ServletConfig";
     public static final String COMPONENT_MANAGER = "com.opensymphony.xwork.interceptor.component.ComponentManager";
+    public static final String PAGE_CONTEXT = "com.opensymphony.xwork.dispatcher.PageContext";
 }

@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -58,5 +59,9 @@ public class ServletActionContext extends ActionContext implements WebWorkStatic
 
     public static ServletDispatcher getServletDispatcher() {
         return (ServletDispatcher) ActionContext.getContext().get(SERLVET_DISPATCHER);
+    }
+
+    public static PageContext getPageContext() {
+        return (PageContext) ActionContext.getContext().get(PAGE_CONTEXT);
     }
 }

@@ -25,6 +25,7 @@ import org.apache.velocity.context.Context;
 import java.io.Writer;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
 
 
 /**
@@ -72,8 +73,14 @@ public class VelocityResult implements Result, WebWorkStatics {
             Template t = velocityEngine.getTemplate(this.location);
             Context context = VelocityManager.createContext(ServletActionContext.getServletConfig(), ServletActionContext.getRequest(), ServletActionContext.getResponse());
             HttpServletResponse response = ServletActionContext.getResponse();
+            PageContext pageContext = ServletActionContext.getPageContext();
 
-            Writer writer = response.getWriter();
+            Writer writer;
+            if (pageContext != null) {
+                writer = pageContext.getOut();
+            } else {
+                writer = response.getWriter();
+            }
 
             // @todo can t.getEncoding() ever return a null value?
             if (t.getEncoding() != null) {
@@ -82,10 +89,12 @@ public class VelocityResult implements Result, WebWorkStatics {
                 response.setContentType("text/html");
             }
 
-            t.merge(context, response.getWriter());
+            t.merge(context, writer);
 
             // flush the buffer as resin fails to render in some cases without this
-            writer.flush();
+            if (pageContext == null) {
+                writer.flush();
+            }
         } catch (Exception e) {
             log.error("Unable to render Velocity Template, '" + location + "'", e);
             throw e;
