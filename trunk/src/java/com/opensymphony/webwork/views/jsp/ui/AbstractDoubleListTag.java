@@ -4,18 +4,13 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.util.MakeIterator;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
-
-import java.util.Collection;
 
 
 /**
  *
  *
  * @author <a href="mailto:m.bogaert@intrasoft.be">Mathias Bogaert</a>
- * @version $Revision$
  */
 public abstract class AbstractDoubleListTag extends AbstractListTag {
     //~ Instance fields ////////////////////////////////////////////////////////
