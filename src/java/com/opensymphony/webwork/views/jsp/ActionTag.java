@@ -103,25 +103,17 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     }
 
     String buildNamespace() {
-        String namespace = "";
-        ActionInvocation invocation = null;
         ActionContext context = new ActionContext(getStack().getContext());
-
-        if (context != null) {
-            invocation = context.getActionInvocation();
-        }
+        ActionInvocation invocation = context.getActionInvocation();
 
         if (invocation == null) {
             // Path is always original path, even if it is included in page with another path
             HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-
             String actionPath = request.getServletPath();
-            namespace = ServletDispatcher.getNamespaceFromServletPath(actionPath);
+            return ServletDispatcher.getNamespaceFromServletPath(actionPath);
         } else {
-            namespace = invocation.getProxy().getNamespace();
+            return invocation.getProxy().getNamespace();
         }
-
-        return namespace;
     }
 
     private Map createExtraContext() {
@@ -150,31 +142,32 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     }
 
     /**
-     * execute the requested action.  if no
-     * namespace is provided, we'll attempt to derive a namespace using buildNamespace().  the ActionProxy and the
-     * namespace will be saved into the instance variables proxy and namespace respectively.
+     * Execute the requested action.  If no namespace is provided, we'll
+     * attempt to derive a namespace using buildNamespace().  The ActionProxy
+     * and the namespace will be saved into the instance variables proxy and
+     * namespace respectively.
      * @see #buildNamespace
      */
     private void executeAction() throws JspException {
-        String namespace = null;
+
+        String actualName = findString(name);
+        if (actualName == null) {
+            throw new JspException("Unable to find value for name " + name);
+        }
+
+        String namespace;
         if (namespaceAttr == null) {
             namespace = buildNamespace();
         } else {
             namespace = namespaceAttr;
         }
 
-        OgnlValueStack stack = getStack();
-        String actualName = findString(name);
-
-        if (actualName == null) {
-            throw new JspException("Unable to find value for name " + name);
-        }
-
         // execute at this point, after params have been set
         try {
-            Object top = null;
             ActionContext actionContext = ActionContext.getContext();
+            OgnlValueStack stack = getStack();
 
+            Object top = null;
             if ((stack != null) && (stack.size() > 0)) {
                 top = stack.peek();
             }
@@ -186,9 +179,14 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
                 if ((stack != null) && (stack.size() > 1)) {
                     Object newTop = stack.peek();
 
-                    while (!(newTop == null) && !newTop.equals(top)) {
+                    while ((newTop != null) && !newTop.equals(top)) {
                         stack.pop();
-                        newTop = stack.peek();
+
+                        if (stack.size() == 0) {
+                            newTop = null;
+                        } else {
+                            newTop = stack.peek();
+                        }
                     }
                 }
             }
