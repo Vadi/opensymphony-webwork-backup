@@ -218,7 +218,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
 
     /**
      * simple setter method for Velocity
-     * @param label
+     * @param required whether or not this tag is required
      */
     public Object Required(boolean required) {
         setRequired(required);
@@ -286,6 +286,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
             this.theme = null;
             this.template = null;
             this.value = null;
+            this.actualValue = null;
         }
     }
 
@@ -313,6 +314,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
         this.theme = null;
         this.template = null;
         this.value = null;
+        this.actualValue=null;
     }
 
     public void render(Context context, Writer writer) throws Exception {
@@ -515,7 +517,7 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
 
         /**
          * Make the OGNL stack available to the velocityEngine templates.
-         * @todo Consider putting all the VelocityServlet Context values in - after all, if we're already sending
+         * todo Consider putting all the VelocityServlet Context values in - after all, if we're already sending
          * the request, it might also make sense for consistency to send the page and res and any others.
          */
         context.put("tag", this);
