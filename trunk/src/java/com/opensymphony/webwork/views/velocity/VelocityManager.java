@@ -167,6 +167,9 @@ public class VelocityManager {
 
         Properties properties = new Properties();
 
+        // now apply our systemic defaults, then allow user to override
+        applyDefaultConfiguration(context, properties);
+
         /**
          * if the user has specified an external velocity configuration file, we'll want to search for it in the
          * following order
@@ -230,9 +233,6 @@ public class VelocityManager {
                 }
             }
         }
-
-        // now apply our systemic defaults
-        applyDefaultConfiguration(context, properties);
 
         // for debugging purposes, allows users to dump out the properties that have been configured
         if (log.isDebugEnabled()) {
