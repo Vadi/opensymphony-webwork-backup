@@ -8,6 +8,10 @@ import junit.framework.TestCase;
  * Time: 7:34:05 AM
  */
 public class CompatUtilTest extends TestCase {
+    protected void setUp() throws Exception {
+        CompatUtil.compatMode = true;
+    }
+
     public void testPathConversion() {
         assertEquals("foo", CompatUtil.compat("foo"));
         assertEquals("foo.bar", CompatUtil.compat("foo/bar"));
