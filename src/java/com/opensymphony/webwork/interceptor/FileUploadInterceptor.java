@@ -28,7 +28,7 @@ import java.util.Iterator;
  * <li>[File Name]FileName : String - the actual name of the file uploaded (not the HTML name)</li>
  * </ul>
  * <p/>
- * You can get access to these files by merely providing setters in your action that coorespond to any
+ * You can get access to these files by merely providing setters in your action that correspond to any
  * of the three patterns above, such as setDocument(File document), setDocumentContentType(String contentType), etc.
  */
 public class FileUploadInterceptor implements Interceptor {
@@ -71,8 +71,8 @@ public class FileUploadInterceptor implements Interceptor {
             return invocation.invoke();
         }
 
+        final Action action = invocation.getAction();
         ValidationAware validation = null;
-        Action action = invocation.getAction();
 
         if (action instanceof ValidationAware) {
             validation = (ValidationAware) action;
@@ -98,7 +98,7 @@ public class FileUploadInterceptor implements Interceptor {
         Enumeration e = multiWrapper.getFileParameterNames();
 
         // Bind allowed Files
-        while (e.hasMoreElements()) {
+        while (e != null && e.hasMoreElements()) {
             // get the value of this input tag
             String inputName = (String) e.nextElement();
 
@@ -137,7 +137,7 @@ public class FileUploadInterceptor implements Interceptor {
         // cleanup
         e = multiWrapper.getFileParameterNames();
 
-        while (e.hasMoreElements()) {
+        while (e != null && e.hasMoreElements()) {
             String inputValue = (String) e.nextElement();
             File[] file = multiWrapper.getFiles(inputValue);
             for (int i = 0; i < file.length; i++) {
