@@ -66,14 +66,14 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
             // If it's not set, use Pell
             if (parser.equals("")) {
                 log.warn("Property webwork.multipart.parser not set." + " Using com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest");
-                parser = com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest.class.getName();
+                parser = "com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest";
             }
 
             // legacy support for old style property values
             if (parser.equals("pell")) {
-                parser = com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest.class.getName();
+                parser = "com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest";
             } else if (parser.equals("cos")) {
-                parser = com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest.class.getName();
+                parser = "com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest";
             }
 
             try {
