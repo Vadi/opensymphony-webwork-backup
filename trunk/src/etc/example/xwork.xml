@@ -49,6 +49,10 @@
             </result>
         </action>
 
+        <action name="FreemarkerTagTest" class="com.opensymphony.webwork.example.ui.SimpleAction">
+            <result name="success" type="freemarker">/tags.ftl</result>
+        </action>
+
         <action name="CountryTest" class="com.opensymphony.webwork.example.ui.SimpleCountry">
             <result name="success" type="dispatcher">
                 <param name="location">/country.jsp</param>
@@ -62,6 +66,11 @@
         <action name="FreemarkerTest_Servlet" class="com.opensymphony.webwork.example.ui.SimpleCountry">
             <result name="success" type="dispatcher">/country.ftl</result>
         </action>
+
+        <action name="freemarkerTemplates" class="com.opensymphony.webwork.example.ui.FreemarkerTemplates">
+            <result name="success" type="freemarker">/freemarkerTemplates.ftl</result>
+        </action>
+
 
         <action name="IteratorTest" class="com.opensymphony.webwork.example.IteratorExample">
 

@@ -45,7 +45,17 @@ UI Tag Examples
 </p>
 
 <ul>
-    <li><a href="TagTest.action">Sample usages of the UI tags</a></li>
+    <li><a href="TagTest.action">Sample usages of the UI tags</a> using
+        JSP as the view
+       </li>
+
+    <li><a href="FreemarkerTagTest.action">Sample usages of the UI tags</a> using
+        Freemarker as the view
+    </li>
+
+    <li><a href="tags.ftl">Sample usages of the UI tags</a> using directly
+        accessed Freemarker templates.
+    </li>
 
     <li><a href="VelocityTagTest.action">Sample usages of the UI tags</a> using
         Velocity as the view
@@ -201,6 +211,9 @@ Freemarker Examples
 <ul>
     <li><a href="FreemarkerTest.action">FreeMarker Example</a></li>
     <li><a href="FreemarkerTest_Servlet.action">FreeMarker Example (using servlet)</a></li>
+    <li><a href="freemarkerTemplates.ftl">using JSP tags in freemarker without an action</a></li>
+    <li><a href="freemarkerTemplates.action">using JSP tags in freemarker with an action</a></li>
+    
 </ul>
 
 <p class="msg">

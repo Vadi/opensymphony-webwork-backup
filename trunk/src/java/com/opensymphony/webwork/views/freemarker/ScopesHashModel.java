@@ -13,6 +13,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
+
 
 /**
  * Simple Hash model that also searches other scopes.
@@ -27,14 +29,15 @@ public class ScopesHashModel extends SimpleHash {
     private HttpServletRequest request;
     private ObjectWrapper objectWraper;
     private ServletContext servletContext;
-
+    private OgnlValueStack stack;
+    
     //~ Constructors ///////////////////////////////////////////////////////////
 
-    public ScopesHashModel(ObjectWrapper objectWrapper, ServletContext context, HttpServletRequest request) {
-        super();
-        this.objectWraper = objectWrapper;
+    public ScopesHashModel(ObjectWrapper objectWrapper, ServletContext context, HttpServletRequest request, OgnlValueStack stack) {
+        super(objectWrapper);
         this.servletContext = context;
         this.request = request;
+        this.stack = stack;
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -47,12 +50,21 @@ public class ScopesHashModel extends SimpleHash {
             return model;
         }
 
+        
+        if (stack != null) {
+        	Object obj = stack.findValue(key);
+
+            if (obj != null) {
+                return wrap(obj);
+            }
+        }
+
         if (request != null) {
             // Lookup in request scope
             Object obj = request.getAttribute(key);
 
             if (obj != null) {
-                return objectWraper.wrap(obj);
+                return wrap(obj);
             }
 
             // Lookup in session scope
@@ -62,7 +74,7 @@ public class ScopesHashModel extends SimpleHash {
                 obj = session.getAttribute(key);
 
                 if (obj != null) {
-                    return objectWraper.wrap(obj);
+                    return wrap(obj);
                 }
             }
         }
@@ -72,7 +84,7 @@ public class ScopesHashModel extends SimpleHash {
             Object obj = servletContext.getAttribute(key);
 
             if (obj != null) {
-                return objectWraper.wrap(obj);
+                return wrap(obj);
             }
         }
 

@@ -10,6 +10,8 @@ package com.opensymphony.webwork.views.freemarker;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.util.OgnlValueStack;
+
 import freemarker.template.*;
 
 import javax.servlet.ServletContext;
@@ -139,11 +141,8 @@ public class FreemarkerResult extends WebWorkResultSupport {
         ServletContext servletContext = ServletActionContext.getServletContext();
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpServletResponse response = ServletActionContext.getResponse();
-        ScopesHashModel model = FreemarkerManager.getInstance().buildScopesHashModel(servletContext, request, response, wrapper);
-
-        FreemarkerManager.getInstance().populateContext(model, invocation.getStack(), invocation.getAction(), request, response);
-
-        return new ValueStackModel(ServletActionContext.getContext().getValueStack(), model, wrapper);
+        OgnlValueStack stack = ServletActionContext.getContext().getValueStack();
+        return FreemarkerManager.getInstance().buildTemplateModel(stack, invocation.getAction(), servletContext, request, response, wrapper);
     }
 
     /**
