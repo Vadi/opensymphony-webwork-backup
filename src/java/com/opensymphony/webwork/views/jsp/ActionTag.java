@@ -49,15 +49,22 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     String name;
     String namespaceAttr;
     boolean executeResult;
+    boolean ignoreContextParams;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * If set to true the result of an action will be executed.
-     * @param executeResult
      */
     public void setExecuteResult(boolean executeResult) {
         this.executeResult = executeResult;
+    }
+
+    /**
+     * If set to true, the PARAMETERS map from the original context will be ignored
+     */
+    public void setIgnoreContextParams(boolean ignoreContextParams) {
+        this.ignoreContextParams = ignoreContextParams;
     }
 
     /**
@@ -118,7 +125,10 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     }
 
     private Map createExtraContext() {
-        Map parentParams = new ActionContext(getStack().getContext()).getParameters();
+        Map parentParams = null;
+        if (!ignoreContextParams) {
+            parentParams = new ActionContext(getStack().getContext()).getParameters();
+        }
         Map newParams = (parentParams != null) ? new HashMap(parentParams) : new HashMap();
 
         if (params != null) {
