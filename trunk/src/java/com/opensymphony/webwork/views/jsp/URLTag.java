@@ -125,23 +125,22 @@ public class URLTag extends ParametereizedBodyTagSupport {
         if (params != null) {
             params.clear();
         }
+        else {
+            params = new HashMap();
+        }
 
-        //no explicit url set so attach params from current url, do
-        //this at start so body params can override any of these they wish.
+        // no explicit url set so attach params from current url, do
+        // this at start so body params can override any of these they wish.
         try {
-            if (params == null) {
-                params = new HashMap();
-            }
-
-            String includeParams = null;
+            String includeParams = GET;
 
             if (includeParamsAttr != null) {
                 includeParams = findString(includeParamsAttr);
             }
 
-            if ((includeParams == null && value == null) || GET.equals(includeParams)) {
+            if ((includeParams == null && value == null) || GET.equalsIgnoreCase(includeParams)) {
                 // Parse the query string to make sure that the parameters come from the query, and not some posted data
-                HttpServletRequest req = ((HttpServletRequest) pageContext.getRequest());
+                HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
                 String query = req.getQueryString();
 
                 if (query != null) {
@@ -154,9 +153,9 @@ public class URLTag extends ParametereizedBodyTagSupport {
 
                     params.putAll(HttpUtils.parseQueryString(query));
                 }
-            } else if (ALL.equals(includeParams)) {
+            } else if (ALL.equalsIgnoreCase(includeParams)) {
                 params.putAll(pageContext.getRequest().getParameterMap());
-            } else if (!NONE.equals(includeParams)) {
+            } else if (!NONE.equalsIgnoreCase(includeParams)) {
                 LOG.warn("Unknown value for includeParams parameter to URL tag: " + includeParams);
             }
         } catch (Exception e) {
