@@ -149,13 +149,13 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * Service a request - get the namespace, actionName, paramMap, sessionMap, applicationMap from the providers
-    * and delegate to the service call
-    *
-    * @param request
-    * @param response
-    * @exception javax.servlet.ServletException
-    */
+* Service a request - get the namespace, actionName, paramMap, sessionMap, applicationMap from the providers
+* and delegate to the service call
+*
+* @param request
+* @param response
+* @exception javax.servlet.ServletException
+*/
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
             request = wrapRequest(request);
@@ -168,10 +168,10 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * The request is first checked to see if it is a multi-part. If it is, then the request
-    * is wrapped so WW will be able to work with the multi-part as if it was a normal request.
-    * Then the request is handed to GenericDispatcher and executed.
-    */
+* The request is first checked to see if it is a multi-part. If it is, then the request
+* is wrapped so WW will be able to work with the multi-part as if it was a normal request.
+* Then the request is handed to GenericDispatcher and executed.
+*/
     public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace, String actionName, Map requestMap, Map parameterMap, Map sessionMap, Map applicationMap) {
         HashMap extraContext = createContextMap(requestMap, parameterMap, sessionMap, applicationMap, request, response, getServletConfig());
         extraContext.put(SERLVET_DISPATCHER, this);
@@ -190,10 +190,10 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * build the name of the action from the request
-    *
-    * override this method to customize a ULR -> action name mapping
-    */
+* build the name of the action from the request
+*
+* override this method to customize a ULR -> action name mapping
+*/
     protected String getActionName(HttpServletRequest request) {
         String servletPath = (String) request.getAttribute("javax.servlet.include.servlet_path");
 
@@ -209,10 +209,10 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * get the namespace of the action from the request
-    *
-    * override this method to customize a ULR -> action namespace mapping
-    */
+* get the namespace of the action from the request
+*
+* override this method to customize a ULR -> action namespace mapping
+*/
     protected String getNameSpace(HttpServletRequest request) {
         // Path is always original path, even if it is included in page with another path
         String servletPath = request.getServletPath();
@@ -221,20 +221,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     protected Map getParameterMap(HttpServletRequest request) throws IOException {
-        Map paramMap = new HashMap();
-
-        for (Iterator iterator = request.getParameterMap().entrySet().iterator();
-                iterator.hasNext();) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            Object key = entry.getKey();
-            Object value = entry.getValue();
-
-            if (shouldSet(key, value)) {
-                paramMap.put(key, value);
-            }
-        }
-
-        return paramMap;
+        return request.getParameterMap();
     }
 
     protected Map getRequestMap(HttpServletRequest request) {
@@ -246,13 +233,13 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * send a http error response
-    *
-    * @param request
-    * @param response
-    * @param code the HttpServletResponse error code
-    * @param e the exception that needs to be reported on
-    */
+* send a http error response
+*
+* @param request
+* @param response
+* @param code the HttpServletResponse error code
+* @param e the exception that needs to be reported on
+*/
     protected void sendError(HttpServletRequest request, HttpServletResponse response, int code, Exception e) {
         try {
             // send a http error response to use the servlet defined error handler
@@ -299,12 +286,12 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * Wrap servlet request with the appropriate request. It will check to
-    * see if request is a multipart request and wrap in appropriately.
-    *
-    * @param request
-    * @return wrapped request or original request
-    */
+* Wrap servlet request with the appropriate request. It will check to
+* see if request is a multipart request and wrap in appropriately.
+*
+* @param request
+* @return wrapped request or original request
+*/
     protected HttpServletRequest wrapRequest(HttpServletRequest request) throws IOException {
         // don't wrap more than once
         if (request instanceof MultiPartRequestWrapper) {
@@ -319,9 +306,9 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * Determine action name by extracting last string and removing
-    * extension. (/.../.../Foo.action -> Foo)
-    */
+* Determine action name by extracting last string and removing
+* extension. (/.../.../Foo.action -> Foo)
+*/
     String getActionName(String name) {
         // Get action name ("Foo.action" -> "Foo" action)
         int beginIdx = name.lastIndexOf("/");
