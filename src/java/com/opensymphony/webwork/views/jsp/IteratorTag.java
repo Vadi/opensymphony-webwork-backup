@@ -6,12 +6,12 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.util.MakeIterator;
 
-import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 
 
 /**
@@ -65,10 +65,15 @@ public class IteratorTag extends WebWorkBodyTagSupport {
     protected IteratorStatus status;
     protected Object oldStatus;
     protected IteratorStatus.StatusState statusState;
+    protected String id;
     protected String statusAttr;
     protected String value;
 
     //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void setStatus(String name) {
         this.statusAttr = name;
@@ -83,7 +88,13 @@ public class IteratorTag extends WebWorkBodyTagSupport {
         stack.pop();
 
         if (iterator.hasNext()) {
-            stack.push(iterator.next());
+            Object currentValue = iterator.next();
+            stack.push(currentValue);
+
+            if ((id != null) && (currentValue != null)) {
+                pageContext.setAttribute(id, currentValue);
+                pageContext.setAttribute(id, currentValue, PageContext.REQUEST_SCOPE);
+            }
 
             // Update status
             if (status != null) {

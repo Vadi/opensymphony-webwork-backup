@@ -22,7 +22,7 @@ $action.getText('checkout.title')
       <td><b>$action.getText('cd.quantityLabel')</b></td>
 	</tr>
 
-#tag( Action "name=i18n.ComputePrice" "id=pricer")
+#tag( Action "name='i18n.ComputePrice'" "id=pricer")
 #bodytag( Push "value=#pricer")
 #set($pricer = $stack.peek())
 #foreach($item in $cart.items)

@@ -42,7 +42,7 @@ public class TextTagTest extends AbstractTagTest {
     }
 
     public void testExpressionsEvaluated() throws Exception {
-        String key = "expressionKey";
+        String key = "'expressionKey'";
         String value = "Foo is " + fooValue;
         tag.setName(key);
         assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
@@ -50,7 +50,7 @@ public class TextTagTest extends AbstractTagTest {
     }
 
     public void testMessageFormatWorks() throws Exception {
-        String key = "messageFormatKey";
+        String key = "'messageFormatKey'";
         String pattern = "Params are {0} {1} {2}";
         Object param1 = new Integer(12);
         Object param2 = new Date();
@@ -70,7 +70,7 @@ public class TextTagTest extends AbstractTagTest {
     }
 
     public void testSimpleKeyValueWorks() throws JspException {
-        String key = "simpleKey";
+        String key = "'simpleKey'";
         String value = "Simple Message";
         tag.setName(key);
         assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
@@ -78,7 +78,7 @@ public class TextTagTest extends AbstractTagTest {
     }
 
     public void testWithNoMessageAndBodyIsNotEmptyBodyIsReturned() throws Exception {
-        final String key = "key.does.not.exist";
+        final String key = "'key.does.not.exist'";
         final String bodyText = "body text";
         tag.setName(key);
 
@@ -91,15 +91,15 @@ public class TextTagTest extends AbstractTagTest {
 
     public void testWithNoMessageAndNoDefaultKeyReturned() throws JspException {
         final String key = "key.does.not.exist";
-        tag.setName(key);
+        tag.setName("'" + key + "'");
         assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
         assertEquals(key, writer.toString());
     }
 
     /**
- * todo remove ActionContext set after LocalizedTextUtil is fixed to not use ThreadLocal
- * @throws Exception
- */
+    * todo remove ActionContext set after LocalizedTextUtil is fixed to not use ThreadLocal
+    * @throws Exception
+    */
     protected void setUp() throws Exception {
         super.setUp();
         tag = new TextTag();

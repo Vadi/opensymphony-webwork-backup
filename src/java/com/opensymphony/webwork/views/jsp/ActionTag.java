@@ -4,7 +4,6 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
@@ -53,25 +52,25 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-     * If set to true the result of an action will be executed.
-     * @param executeResult
-     */
+ * If set to true the result of an action will be executed.
+ * @param executeResult
+ */
     public void setExecuteResult(boolean executeResult) {
         this.executeResult = executeResult;
     }
 
     /**
-     * Sets the name of the action to be invoked
-     * @param name the name of the Action as defined in the xwork.xml file
-     */
+ * Sets the name of the action to be invoked
+ * @param name the name of the Action as defined in the xwork.xml file
+ */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Sets the namespace for the action.  If null, this will default to "default"
-     * @param namespace
-     */
+ * Sets the namespace for the action.  If null, this will default to "default"
+ * @param namespace
+ */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
@@ -89,17 +88,17 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
     public int doStartTag() throws JspException {
         /**
-         * Migrated instantiation of the params HashMap to here from the constructor to facilitate implementation of the
-         * release() method.
-         */
+ * Migrated instantiation of the params HashMap to here from the constructor to facilitate implementation of the
+ * release() method.
+ */
         this.params = new HashMap();
 
         return EVAL_BODY_INCLUDE;
     }
 
     /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
+ * Clears all the instance variables to allow this instance to be reused.
+ */
     public void release() {
         super.release();
         this.proxy = null;
@@ -153,14 +152,21 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     }
 
     /**
-     * execute the requested action.  if no
-     * namespace is provided, we'll attempt to derive a namespace using buildNamespace().  the ActionProxy and the
-     * namespace will be saved into the instance variables proxy and namespace respectively.
-     * @see #buildNamespace
-     */
-    private void executeAction() {
+ * execute the requested action.  if no
+ * namespace is provided, we'll attempt to derive a namespace using buildNamespace().  the ActionProxy and the
+ * namespace will be saved into the instance variables proxy and namespace respectively.
+ * @see #buildNamespace
+ */
+    private void executeAction() throws JspException {
         if (namespace == null) {
             namespace = buildNamespace();
+        }
+
+        OgnlValueStack stack = getValueStack();
+        String actualName = (String) stack.findValue(name, String.class);
+
+        if (actualName == null) {
+            throw new JspException("Unable to find value for name " + name);
         }
 
         // execute at this point, after params have been set
@@ -168,20 +174,14 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
             Object top = null;
             ActionContext actionContext = ActionContext.getContext();
 
-            if (actionContext != null) {
-                OgnlValueStack stack = actionContext.getValueStack();
-
-                if ((stack != null) && (stack.size() > 0)) {
-                    top = stack.peek();
-                }
+            if ((stack != null) && (stack.size() > 0)) {
+                top = stack.peek();
             }
 
-            proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, createExtraContext(), executeResult);
+            proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actualName, createExtraContext(), executeResult);
             proxy.execute();
 
             if (actionContext != null) {
-                OgnlValueStack stack = actionContext.getValueStack();
-
                 if ((stack != null) && (stack.size() > 1)) {
                     Object newTop = stack.peek();
 
@@ -192,7 +192,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
                 }
             }
         } catch (Exception e) {
-            log.error("Could not execute action: " + namespace + "/" + name, e);
+            log.error("Could not execute action: " + namespace + "/" + actualName, e);
         }
 
         if (getId() != null) {

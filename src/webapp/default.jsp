@@ -23,4 +23,5 @@ Click <a href="jasperHTMLTest.action">here</a> for a jasper reports HTML example
 Click <a href="jasperXMLTest.action">here</a> for a jasper reports XML example<br>
 Click <a href="jasperCSVTest.action">here</a> for a jasper reports CSV example<br>
 Click <a href="displaytag.vm">here</a> for example of using 3rd party JSP tags in Velocity<br>
-Click <a href="i18n/index.html">here</a> for an example of i18n<br>
+Click <a href="i18n/jsp/index.html">here</a> for a JSP example of i18n<br>
+Click <a href="i18n/velocity/index.html">here</a> for a Velocity example of i18n<br>
