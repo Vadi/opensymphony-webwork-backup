@@ -10,8 +10,6 @@ import java.text.DecimalFormat;
 
 
 /**
- * DOCUMENT ME!
- *
  * @author $author$
  * @version $Revision$
  */

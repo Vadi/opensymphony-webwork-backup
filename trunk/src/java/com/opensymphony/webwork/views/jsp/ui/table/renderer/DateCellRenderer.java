@@ -10,8 +10,6 @@ import java.text.SimpleDateFormat;
 
 
 /**
- * DOCUMENT ME!
- *
  * @author $author$
  * @version $Revision$
  */

@@ -25,9 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author bchoi
- *
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class ChartResult implements Result {
     //~ Instance fields ////////////////////////////////////////////////////////
