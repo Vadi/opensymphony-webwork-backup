@@ -348,6 +348,9 @@ public class VelocityManager {
      * @param p
      */
     private void applyDefaultConfiguration(ServletContext context, Properties p) {
+        // ensure that caching isn't overly aggressive
+
+
         /**
          * Load a default resource loader definition if there isn't one present.
          * Ben Hall (22/08/2003)
@@ -366,6 +369,8 @@ public class VelocityManager {
             p.setProperty("wwfile.resource.loader.description", "Velocity File Resource Loader");
             p.setProperty("wwfile.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
             p.setProperty("wwfile.resource.loader.path", context.getRealPath(""));
+            p.setProperty("wwfile.resource.loader.modificationCheckInterval", "2");
+            p.setProperty("wwfile.resource.loader.cache", "true");
         } else if (p.getProperty(Velocity.RESOURCE_LOADER) == null) {
             p.setProperty(Velocity.RESOURCE_LOADER, "wwclass");
         }
@@ -378,6 +383,8 @@ public class VelocityManager {
          */
         p.setProperty("wwclass.resource.loader.description", "Velocity Classpath Resource Loader");
         p.setProperty("wwclass.resource.loader.class", "com.opensymphony.webwork.views.velocity.WebWorkResourceLoader");
+        p.setProperty("wwclass.resource.loader.modificationCheckInterval", "2");
+        p.setProperty("wwclass.resource.loader.cache", "true");
 
         /**
          * the TagDirective and BodyTagDirective must be added to the userdirective

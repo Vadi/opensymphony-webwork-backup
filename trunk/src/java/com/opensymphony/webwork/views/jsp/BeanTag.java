@@ -90,7 +90,7 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
         }
 
         try {
-            bean = Beans.instantiate(cl, findString(name));
+            bean = Class.forName(findString(name)).newInstance();
         } catch (Exception e) {
             log.error("Could not instantiate bean", e);
 

@@ -8,6 +8,7 @@ import com.opensymphony.webwork.views.jsp.ParameterizedTag;
 import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.TextProvider;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
 
@@ -128,22 +130,14 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
             defaultMessage = actualName;
         }
 
-        String expression = "getText('" + actualName + "', '" + defaultMessage + "'";
-        boolean pushed = false;
-
-        if (values != null) {
-            ListValueHolder listValueHolder = new ListValueHolder(values);
-            stack.push(listValueHolder);
-            pushed = true;
-            expression = expression + ", textTagListValueHolderList";
-        }
-
-        expression = expression + ")";
-
-        String msg = (String) findValue(expression, String.class);
-
-        if (pushed) {
-            stack.pop();
+        String msg = null;
+        for (Iterator iterator = getStack().getRoot().iterator(); iterator.hasNext();) {
+            Object o = iterator.next();
+            if (o instanceof TextProvider) {
+                TextProvider tp = (TextProvider) o;
+                msg = tp.getText(actualName, defaultMessage, values);
+                break;
+            }
         }
 
         if (msg != null) {
@@ -152,8 +146,6 @@ public class TextTag extends WebWorkBodyTagSupport implements ParameterizedTag {
             } catch (IOException e) {
                 throw new JspException(e);
             }
-        } else {
-            LOG.warn("No message found for expression: " + expression);
         }
 
         return EVAL_PAGE;

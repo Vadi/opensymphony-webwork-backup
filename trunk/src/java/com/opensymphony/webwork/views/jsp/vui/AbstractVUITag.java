@@ -87,6 +87,9 @@ public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements Pa
         // Default template set
         if ((theme == null) || (theme == "")) {
             theme = Configuration.getString("webwork.ui.theme");
+            if (!theme.endsWith("/")) {
+                theme += "/";
+            }
         }
 
         return theme;
