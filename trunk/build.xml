@@ -159,6 +159,8 @@
             </fileset>
         </copy>
 
+        <copy file="${src.etc}/taglib.tld" tofile="${build}/webwork.tld"/>
+
         <war destfile="${build}/${name}-example.war" basedir="${src.webapp}" webxml="${src.webapp}/WEB-INF/web.xml">
             <lib dir="${lib.core}"/>
             <lib dir="${lib.example}"/>
