@@ -28,7 +28,6 @@ import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 /**
@@ -94,14 +93,13 @@ public class FreemarkerResult extends WebWorkResultSupport {
     }
 
     /**
-     * This method is called from {@link #doExecute()} to obtain the
-     * FreeMarker configuration object that this result will use
-     * for template loading. This is a hook that allows you
-     * to custom-configure the configuration object in a subclass,
-     * or to fetch it from an IoC container.
+     * This method is called from {@link #doExecute(String, ActionInvocation)} to obtain the
+     * FreeMarker configuration object that this result will use for template loading. This is a
+     * hook that allows you to custom-configure the configuration object in a subclass, or to fetch
+     * it from an IoC container.
      *
      * <b>
-     *         The default implementation obtains the configuration from the ConfigurationManager instance.</b>
+     * The default implementation obtains the configuration from the ConfigurationManager instance.
      * </b>
      */
     protected Configuration getConfiguration() throws TemplateException {
@@ -109,14 +107,12 @@ public class FreemarkerResult extends WebWorkResultSupport {
     }
 
     /**
-     * This method is called from {@link #doExecute()} to obtain the
-     * FreeMarker object wrapper object that this result will use
-     * for adapting objects into
-     * template models.. This is a hook that allows you
-     * to custom-configure the wrapper object in a subclass.
+     * This method is called from {@link #doExecute(String, ActionInvocation)}  to obtain the
+     * FreeMarker object wrapper object that this result will use for adapting objects into template
+     * models. This is a hook that allows you to custom-configure the wrapper object in a subclass.
      *
      * <b>
-     * The default implementation returns @see Configuration#getObjectWrapper()
+     * The default implementation returns {@link Configuration#getObjectWrapper()}
      * </b>
      */
     protected ObjectWrapper getObjectWrapper() {
@@ -153,8 +149,6 @@ public class FreemarkerResult extends WebWorkResultSupport {
         ServletContext servletContext = ServletActionContext.getServletContext();
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpServletResponse response = ServletActionContext.getResponse();
-        HttpSession session = ServletActionContext.getRequest().getSession(false);
-
         ScopesHashModel model = FreemarkerManager.getInstance().buildScopesHashModel(servletContext, request, response, wrapper);
 
         FreemarkerManager.getInstance().populateContext(model, invocation.getStack(), invocation.getAction(), request, response);
