@@ -186,11 +186,6 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
         return EVAL_BODY_INCLUDE;
     }
 
-    public void render(Context context, Writer writer) throws Exception {
-        Template template = velocityEngine.getTemplate(this.getTemplateName());
-        template.merge(context, writer);
-    }
-
     /**
      * A contract that requires each concrete UI Tag to specify which template should be used as a default.  For
      * example, the CheckboxTab might return "checkbox.vm" while the RadioTag might return "radio.vm".  This value
