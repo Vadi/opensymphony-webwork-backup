@@ -3,6 +3,6 @@
         <span class="label"> mylabel: </span>
     </td>
     <td>
-        <label> bar </label>
+        <label > bar </label>
     </td>
 </tr>
