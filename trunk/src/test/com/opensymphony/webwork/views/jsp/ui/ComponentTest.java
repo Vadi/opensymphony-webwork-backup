@@ -25,8 +25,7 @@ public class ComponentTest extends AbstractJspTest {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-     * @todo this is a stub test that doesn't do anything yet.
-     * @throws Exception
+     * Note -- this test uses empty.vm, so it's basically clear
      */
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;
@@ -34,8 +33,8 @@ public class ComponentTest extends AbstractJspTest {
 
         ComponentTag tag = new ComponentTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("mylabel");
-        tag.setName("myname");
+        tag.setLabel("'mylabel'");
+        tag.setName("'myname'");
         tag.setValue("foo");
 
         int result = tag.doEndTag();
@@ -46,7 +45,6 @@ public class ComponentTest extends AbstractJspTest {
     /**
      * executes a component test passing in a custom parameter. it also executes calling a custom template using an
      * absolute reference.
-     * @throws Exception
      */
     public void testWithParam() throws Exception {
         TestAction testAction = (TestAction) action;
