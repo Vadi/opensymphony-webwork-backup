@@ -85,7 +85,7 @@ public abstract class AbstractTagTest extends TestCase {
 
         writer = new StringWriter();
 
-        JspWriter jspWriter = new TestJspWriter(writer);
+        JspWriter jspWriter = new WebWorkMockJspWriter(writer);
 
         pageContext = new WebWorkMockPageContext();
         pageContext.setRequest(request);
@@ -100,38 +100,5 @@ public abstract class AbstractTagTest extends TestCase {
     protected void tearDown() throws Exception {
         pageContext.verify();
         request.verify();
-    }
-
-    //~ Inner Classes //////////////////////////////////////////////////////////
-
-    /**
-     * Unforunately, the MockJspWriter throws a NotImplementedException when any of the Writer methods are invoked and
-     * as you might guess, Velocity uses the Writer methods.  I'velocityEngine subclassed the MockJspWriter for the time being so
-     * that we can do testing on the results until MockJspWriter gets fully implemented.
-     *
-     * todo replace this once MockJspWriter implements Writer correctly (i.e. doesn't throw NotImplementException)
-     */
-    public class TestJspWriter extends MockJspWriter {
-        StringWriter writer;
-
-        public TestJspWriter(StringWriter writer) {
-            this.writer = writer;
-        }
-
-        public void write(String str) throws IOException {
-            writer.write(str);
-        }
-
-        public void write(int c) throws IOException {
-            writer.write(c);
-        }
-
-        public void write(char[] cbuf) throws IOException {
-            writer.write(cbuf);
-        }
-
-        public void write(String str, int off, int len) throws IOException {
-            writer.write(str, off, len);
-        }
     }
 }
