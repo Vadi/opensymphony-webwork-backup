@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.example.counter;
 
 import com.opensymphony.xwork.Action;
+import com.opensymphony.xwork.ActionSupport;
 
 
 /**
@@ -13,7 +14,7 @@ import com.opensymphony.xwork.Action;
  * @author $Author$
  * @version $Revision$
  */
-public class SimpleCounter implements Action, CounterAware {
+public class SimpleCounter extends ActionSupport implements CounterAware {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private Counter counter;
