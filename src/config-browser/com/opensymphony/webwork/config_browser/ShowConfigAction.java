@@ -71,7 +71,7 @@ public class ShowConfigAction extends ActionNamesAction {
         actionNames =
                 new TreeSet(ConfigurationHelper.getActionNames(namespace));
         try {
-            java.util.Collection pds = OgnlRuntime.getPropertyDescriptors(Class.forName(getConfig().getClassName())).values();
+            java.util.Collection pds = OgnlRuntime.getPropertyDescriptors(getConfig().getClazz()).values();
             properties = (PropertyDescriptor[]) pds.toArray(PDSAT);
         } catch (Exception e) {
             log.error("Unable to get properties for action " + actionName, e);
