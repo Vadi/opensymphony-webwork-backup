@@ -55,7 +55,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    protected String IMAGES_URI = "/images/";
+    protected String IMAGES_DIR = "/images/";
     private String dataSource;
     private String format;
 
@@ -143,7 +143,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
                         request.getSession().setAttribute("IMAGES_MAP", imagesMap);
                         exporter = new JRHtmlExporter();
                         exporter.setParameter(JRHtmlExporterParameter.IMAGES_MAP, imagesMap);
-                        exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, IMAGES_URI);
+                        exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + IMAGES_DIR);
                     } else if (format.equals(FORMAT_XLS)) {
                         response.setContentType("application/vnd.ms-excel");
                         exporter = new JRXlsExporter();
