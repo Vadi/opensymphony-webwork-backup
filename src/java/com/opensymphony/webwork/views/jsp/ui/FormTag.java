@@ -88,8 +88,8 @@ public class FormTag extends AbstractClosingUITag {
              *
              * todo - determine if there's any reason we can't just always use ServletActionContext
              */
-            HttpServletResponse response = null;
-            HttpServletRequest request = null;
+            HttpServletResponse response;
+            HttpServletRequest request;
 
             if (pageContext != null) {
                 response = (HttpServletResponse) pageContext.getResponse();
@@ -149,6 +149,8 @@ public class FormTag extends AbstractClosingUITag {
             }
 
             addParameter("javascriptValidation", js.toString());
+        } else {
+            addParameter("javascriptValidation", "// cannot find any applicable validators");
         }
     }
 
