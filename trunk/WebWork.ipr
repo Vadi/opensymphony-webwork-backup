@@ -232,7 +232,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/plugin/Plugin.iml" filepath="$PROJECT_DIR$/plugin/Plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/plugin/Plugin.iml" filepath="$PROJECT_DIR$/src/plugin/Plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebWork.iml" filepath="$PROJECT_DIR$/WebWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/../xwork/XWork.iml" filepath="$PROJECT_DIR$/../xwork/XWork.iml" />
     </modules>
