@@ -33,6 +33,8 @@ public class ComboBoxTag extends TextFieldTag {
     }
 
     public void evaluateExtraParams(OgnlValueStack stack) {
+        super.evaluateExtraParams(stack);
+
         if (list != null) {
             addParameter("list", findValue(list));
         }
