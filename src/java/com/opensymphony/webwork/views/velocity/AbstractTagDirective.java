@@ -179,6 +179,7 @@ public abstract class AbstractTagDirective extends Directive {
 
         if (clazz == null) {
             clazz = this.findTagInPath(tagname);
+            tagclassMap.put(tagname, clazz);
         }
 
         if (clazz == null) {
@@ -258,6 +259,8 @@ public abstract class AbstractTagDirective extends Directive {
                 }
             }
         }
+
+
 
         return clazz;
     }
