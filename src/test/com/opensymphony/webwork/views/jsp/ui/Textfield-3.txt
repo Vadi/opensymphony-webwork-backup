@@ -4,5 +4,6 @@
                name="myname"
                size="10"
                value="bar"
+               onblur="blahescape('somevalue');"
         /></td>
 </tr>

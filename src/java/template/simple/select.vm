@@ -2,12 +2,11 @@
     #if ($parameters.size)             size="$!webwork.htmlEncode($parameters.size)"         #end
     #if ($parameters.disabled)         disabled="disabled"                                   #end
     #if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)" #end
-    #if ($parameters.onchange)         onchange="$!webwork.htmlEncode($parameters.onchange)" #end
-    #if ($parameters.onclick)          onclick="$!webwork.htmlEncode($parameters.onclick)"   #end
     #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"             #end
     #if ($parameters.multiple)         multiple="multiple"                                   #end
     #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"    #end
     #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"    #end
+    #parse("/template/simple/scripting-events.vm")
 >
 
 #if ($parameters.headerKey && $parameters.headerValue)

@@ -2,9 +2,8 @@
 #if ($parameters.nameValue)        checked="checked"                                        #end
 #if ($parameters.disabled == true) disabled="disabled"                                      #end
 #if ($parameters.tabindex)         tabindex="$!webwork.htmlEncode($parameters.tabindex)"    #end
-#if ($parameters.onchange)         onchange="$!webwork.htmlEncode($parameters.onchange)"    #end
-#if ($parameters.onclick)          onclick="$!webwork.htmlEncode($parameters.onclick)"      #end
 #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
 #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"       #end
 #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"       #end
+#parse("/template/simple/scripting-events.vm")
 />

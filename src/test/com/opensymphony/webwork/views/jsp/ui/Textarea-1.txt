@@ -6,10 +6,10 @@
                   value="bar"
                   disabled="disabled"
                   readonly="readonly"
-                  onkeyup="alert('hello');"
                   tabindex="5"
-                  onchange="alert('goodbye');"
-                  onclick="alert('onclick');"
                   id="the_id"
+                  onclick="alert('onclick');"
+                  onkeyup="alert('hello');"
+                  onchange="alert('goodbye');"
         >bar</textarea></td>
 </tr>

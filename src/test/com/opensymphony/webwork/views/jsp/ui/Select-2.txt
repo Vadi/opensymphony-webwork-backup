@@ -1,6 +1,6 @@
 <tr>
     <td align="right" valign="top"><label class="label">mylabel:</label></td>
-    <td><select name="collection" multiple="multiple" >
+    <td><select name="collection" multiple="multiple" onmousedown="alert('onmousedown');" onmouseup="alert('onmouseup');" onmouseover="alert('onmouseover');" onmousemove="alert('onmousemove');" onmouseout="alert('onmouseout');" >
             <option value="hello" selected="selected">world</option>
             <option value="foo" selected="selected">bar</option>
             <option value="cat" >dog</option>

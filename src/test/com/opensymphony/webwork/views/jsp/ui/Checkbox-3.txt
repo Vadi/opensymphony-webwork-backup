@@ -8,7 +8,7 @@
     <td valign="top" colspan="2">
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td valign="top"><input type="checkbox" name="foo" value="baz" checked="checked" /></td>
+                <td valign="top"><input type="checkbox" name="foo" value="baz" checked="checked" onclick="test();" ondblclick="test();" /></td>
                 <td width="100%" valign="top"><label class="checkboxErrorLabel">mylabel</label></td>
             </tr>
         </table>
