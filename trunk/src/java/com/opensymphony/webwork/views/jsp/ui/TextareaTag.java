@@ -34,7 +34,7 @@ public class TextareaTag extends AbstractUITag {
         this.rowsAttr = rows;
     }
 
-    void evaluateParams(OgnlValueStack stack) {
+    public void evaluateExtraParams(OgnlValueStack stack) {
         if (colsAttr != null) {
             addParam("cols", stack.findValue(colsAttr, String.class));
         }

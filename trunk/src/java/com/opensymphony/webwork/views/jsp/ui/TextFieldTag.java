@@ -29,7 +29,7 @@ public class TextFieldTag extends AbstractUITag {
         this.sizeAttr = size;
     }
 
-    void evaluateParams(OgnlValueStack stack) {
+    public void evaluateExtraParams(OgnlValueStack stack) {
         if (sizeAttr != null) {
             addParam("size", stack.findValue(sizeAttr, String.class));
         }

@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Jason Carreira
  * Created Apr 1, 2003 8:19:47 PM
  */
-public class FormTag extends AbstractClosingUITag implements IterationRenderer {
+public class FormTag extends AbstractClosingUITag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     final public static String OPEN_TEMPLATE = "form.vm";
@@ -35,36 +35,14 @@ public class FormTag extends AbstractClosingUITag implements IterationRenderer {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    String action;
-    String enctype;
-    String method;
+    String actionAttr;
+    String enctypeAttr;
+    String methodAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAction(String action) {
-        /**
-         * If called from a JSP, pageContext will not be null.  otherwise, we'll get request and response from the
-         * ServletActionContext.
-         *
-         * todo - determine if there's any reason we can't just always use ServletActionContext
-         */
-        HttpServletResponse response = null;
-        HttpServletRequest request = null;
-
-        if (pageContext != null) {
-            response = (HttpServletResponse) pageContext.getResponse();
-            request = (HttpServletRequest) pageContext.getRequest();
-        } else {
-            request = ServletActionContext.getRequest();
-            response = ServletActionContext.getResponse();
-        }
-
-        String result = UrlHelper.buildUrl(action, request, response, null);
-        this.action = result;
-    }
-
-    public String getAction() {
-        return action;
+        this.actionAttr = action;
     }
 
     public String getDefaultOpenTemplate() {
@@ -72,58 +50,48 @@ public class FormTag extends AbstractClosingUITag implements IterationRenderer {
     }
 
     public void setEnctype(String enctype) {
-        this.enctype = enctype;
-    }
-
-    public String getEnctype() {
-        return enctype;
+        this.enctypeAttr = enctype;
     }
 
     public void setMethod(String method) {
-        this.method = method;
+        this.methodAttr = method;
     }
 
-    public String getMethod() {
-        return method;
-    }
+    public void evaluateExtraParams(OgnlValueStack stack) {
+        super.evaluateExtraParams(stack);
 
-    public int doAfterRender(Context context, Writer writer) {
-        return IterationRenderer.RENDER_DONE;
-    }
+        if (actionAttr != null) {
+            /**
+             * If called from a JSP, pageContext will not be null.  otherwise, we'll get request and response from the
+             * ServletActionContext.
+             *
+             * todo - determine if there's any reason we can't just always use ServletActionContext
+             */
+            HttpServletResponse response = null;
+            HttpServletRequest request = null;
 
-    public void doBeforeRender(Context context, Writer writer) {
-        //this.evaluateActualValue();
-
-        try {
-            String openTemplate = this.getOpenTemplate();
-
-            if (openTemplate == null) {
-                openTemplate = OPEN_TEMPLATE;
+            if (pageContext != null) {
+                response = (HttpServletResponse) pageContext.getResponse();
+                request = (HttpServletRequest) pageContext.getRequest();
+            } else {
+                request = ServletActionContext.getRequest();
+                response = ServletActionContext.getResponse();
             }
 
-            String templateName = buildTemplateName(templateAttr, openTemplate);
-
-            Template template = velocityEngine.getTemplate(templateName);
-            template.merge(context, writer);
-        } catch (Exception e) {
-            try {
-                writer.write("<pre>");
-                e.printStackTrace(new PrintWriter(writer));
-                writer.write("</pre>");
-            } catch (IOException e1) {
-                // ok
+            Object actionObj = stack.findValue(actionAttr, String.class);
+            if (actionObj != null) {
+                String result = UrlHelper.buildUrl(actionObj.toString(), request, response, null);
+                addParam("action", result);
             }
         }
-    }
 
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        method = null;
-        enctype = null;
-        action = null;
+        if (enctypeAttr != null) {
+            addParam("enctype", stack.findValue(enctypeAttr, String.class));
+        }
+
+        if (methodAttr != null) {
+            addParam("method", stack.findValue(methodAttr, String.class));
+        }
     }
 
     protected String getDefaultTemplate() {

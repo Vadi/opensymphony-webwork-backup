@@ -116,22 +116,21 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
     }
 
     public int doEndTag() throws JspException {
-        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
-        OgnlValueStack stack = (OgnlValueStack) req.getAttribute("webwork.valueStack");
-        if (stack == null) {
-                stack = new OgnlValueStack();
-                HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
-                Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(),
-                        new SessionMap(req.getSession()),
-                        new ApplicationMap(pageContext.getServletContext()),
-                        req,
-                        res,
-                        pageContext.getServletConfig());
-                extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
-                stack.getContext().putAll(extraContext);
-                req.setAttribute("webwork.valueStack", stack);
-            }
+        OgnlValueStack stack = getValueStack();
+        evaluateParams(stack);
 
+        try {
+            mergeTemplate(this.getTemplateName());
+
+            return EVAL_BODY_INCLUDE;
+        } catch (Exception e) {
+            LOG.error("Could not generate UI template", e);
+
+            return SKIP_BODY;
+        }
+    }
+
+    protected void evaluateParams(OgnlValueStack stack) {
         Object name = null;
         if (nameAttr != null) {
             name = stack.findValue(nameAttr, String.class);
@@ -148,24 +147,33 @@ public abstract class AbstractUITag extends TagSupport implements ParameterizedT
 
         if (valueAttr != null) {
             addParam("value", stack.findValue(valueAttr, String.class));
-        } else {
+        } else if (name != null) {
             addParam("value", stack.findValue(name.toString(), String.class));
         }
 
-        evaluateParams(stack);
+        evaluateExtraParams(stack);
+   }
 
-        try {
-            mergeTemplate(this.getTemplateName());
-
-            return EVAL_BODY_INCLUDE;
-        } catch (Exception e) {
-            LOG.error("Could npt generate UI template", e);
-
-            return SKIP_BODY;
-        }
+    protected void evaluateExtraParams(OgnlValueStack stack) {
     }
 
-    void evaluateParams(OgnlValueStack stack) {
+    protected OgnlValueStack getValueStack() {
+        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+        OgnlValueStack stack = (OgnlValueStack) req.getAttribute("webwork.valueStack");
+        if (stack == null) {
+            stack = new OgnlValueStack();
+            HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
+            Map extraContext = ServletDispatcher.createContextMap(req.getParameterMap(),
+                    new SessionMap(req.getSession()),
+                    new ApplicationMap(pageContext.getServletContext()),
+                    req,
+                    res,
+                    pageContext.getServletConfig());
+            extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
+            stack.getContext().putAll(extraContext);
+            req.setAttribute("webwork.valueStack", stack);
+        }
+        return stack;
     }
 
     public int doStartTag() throws JspException {

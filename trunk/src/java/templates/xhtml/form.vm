@@ -1,2 +1,7 @@
 <table>
-<form #if ( ${tag.name})name="${tag.name}"#end action="${tag.action}" #if ( ${tag.method})method="${tag.method}"#end #if ( ${tag.enctype})enctype="${tag.enctype}"#end>
+<form
+    #if ($parameters.name)      name="$parameters.name"       #end
+    #if ($parameters.action)    action="$parameters.action"   #end
+    #if ($parameters.method)    method="$parameters.method"   #end
+    #if ($parameters.enctype)   enctype="$parameters.enctype" #end
+>

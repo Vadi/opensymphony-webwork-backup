@@ -30,10 +30,10 @@ public class FormTagTest extends AbstractJspTest {
 
         FormTag tag = new FormTag();
         tag.setPageContext(pageContext);
-        tag.setName("myForm");
-        tag.setMethod("POST");
-        tag.setAction("myAction");
-        tag.setEnctype("myEncType");
+        tag.setName("'myForm'");
+        tag.setMethod("'POST'");
+        tag.setAction("'myAction'");
+        tag.setEnctype("'myEncType'");
 
         tag.doStartTag();
         tag.doEndTag();
