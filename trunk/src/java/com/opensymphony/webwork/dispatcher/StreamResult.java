@@ -26,17 +26,16 @@ import java.io.OutputStream;
  * </result>
  * <p/>
  * contentType = the stream mime-type as sent to the web browser
+ * contentDispostion = (optional) the content disposition header value (for sending files)
  * inputName = the name of the InputStream property from the chained action (default = "inputStream")
  * bufferSize = the size of the buffer to copy from input to output (defaul = 1024)
  *
  * @author mcrawford
  */
 public class StreamResult extends WebWorkResultSupport {
-
     protected String contentType = "text/plain";
-
+    protected String contentDisposition;
     protected String inputName = "inputStream";
-
     protected int bufferSize = 1024;
 
     /**
@@ -68,6 +67,20 @@ public class StreamResult extends WebWorkResultSupport {
     }
 
     /**
+     * @return Returns the Content-Disposition header value.
+     */
+    public String getContentDisposition() {
+        return contentDisposition;
+    }
+
+    /**
+     * @param contentDisposition the Content-Disposition header value to use.
+     */
+    public void setContentDisposition(String contentDisposition) {
+        this.contentDisposition = contentDisposition;
+    }
+
+    /**
      * @return Returns the inputName.
      */
     public String getInputName() {
@@ -94,6 +107,11 @@ public class StreamResult extends WebWorkResultSupport {
 
         // Set the content type
         oResponse.setContentType(contentType);
+
+        // Set the content-disposition
+        if (contentDisposition != null) {
+            oResponse.addHeader("Content-Disposition", contentDisposition);
+        }
 
         // Get the outputstream
         OutputStream oOutput = oResponse.getOutputStream();
