@@ -193,6 +193,10 @@
         <action name="Test" class="com.opensymphony.webwork.example.Test">
         </action>
 
+        <action name="TabbedPaneTest" class="com.opensymphony.webwork.example.TabbedPaneTest">
+            <result name="success">tabbedpanetest.jsp</result>
+        </action>
+
     </package>
 
     <include file="month.xml"/>

@@ -52,4 +52,8 @@ public class URLBean {
 
         return UrlHelper.buildUrl(page, request, response, params);
     }
+
+    public String toString() {
+        return getURL();
+    }
 }
