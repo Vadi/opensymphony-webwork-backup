@@ -1,5 +1,7 @@
 package com.opensymphony.webwork.interceptor;
 
+import java.io.Serializable;
+
 /**
  * Actions that want access to the Principal information from HttpServletRequest object
  * should implement this interface.
@@ -12,6 +14,6 @@ package com.opensymphony.webwork.interceptor;
  * @author Remigijus Bauzys
  * @version $Revision$
  */
-public interface PrincipalAware {
+public interface PrincipalAware extends Serializable {
     void setPrincipalProxy(PrincipalProxy principalProxy);
 }
