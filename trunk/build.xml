@@ -149,7 +149,7 @@
         <jar basedir="${build.config-browser}" jarfile="${build.config-browser.jar}"/>
     </target>
 
-    <target name="example-war" depends="clean, jar, config-browser">
+    <target name="example-war" depends="java, jar, config-browser">
         <mkdir dir="${build.example}"/>
         <javac srcdir="${src.example}" destdir="${build.example}" classpath="${build.java}" classpathref="cp" debug="on"/>
         <copy filtering="no" todir="${build.example}">
@@ -219,7 +219,7 @@
         </copy>
     </target>
 
-    <target name="dist" depends="jar, docs, example-war">
+    <target name="dist" depends="jar, example-war, docs">
         <copy file="${build}/${name}-${version}.jar" todir="${build.dist}"/>
         <copy file="${build}/${name}-example.war" todir="${build.dist}"/>
         <copy todir="${build.dist}/src">
