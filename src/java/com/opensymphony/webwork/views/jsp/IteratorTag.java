@@ -125,6 +125,10 @@ public class IteratorTag extends WebWorkBodyTagSupport {
 
         OgnlValueStack stack = getValueStack();
 
+        if (value == null) {
+            value = "top";
+        }
+
         iterator = MakeIterator.convert(stack.findValue(value));
 
         // get the first
