@@ -45,6 +45,8 @@ public class TextareaTag extends AbstractUITag {
     }
 
     public void evaluateExtraParams(OgnlValueStack stack) {
+        super.evaluateExtraParams(stack);
+        
         if (readonlyAttr != null) {
             addParam("readonly", findValue(readonlyAttr, Boolean.class));
         }
