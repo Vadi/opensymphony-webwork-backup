@@ -16,6 +16,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.LogFactory;
+
 
 /* ------------------------------------------------------------ */
 
@@ -99,15 +101,6 @@ public class PellMultiPartRequest extends MultiPartRequest {
      * default.properties & webwork.properties.
      */
     private static void setEncoding() {
-        //todo: configuration in xwork needs to support non-action level config
-        try {
-            http.utils.multipartrequest.MultipartRequest.setEncoding("utf-8");
-        } catch (UnsupportedEncodingException e) {
-            String message = "Unknown encoding";
-            log.error(message, e);
-        }
-
-        /*
         String encoding = null;
         try {
             //encoding = Configuration.getString("webwork.i18n.encoding");
@@ -117,11 +110,13 @@ public class PellMultiPartRequest extends MultiPartRequest {
                 //See javadoc for MultipartRequest.setEncoding()
                 http.utils.multipartrequest.MultipartRequest.setEncoding(encoding);
             }
+            else {
+                http.utils.multipartrequest.MultipartRequest.setEncoding("UTF-8");
+            }
         } catch (IllegalArgumentException e) {
-            LogFactory.getLog(PellMultiPartRequest.class).info("Could not get encoding property 'webwork.i18n.encoding' for file upload.  Using system default");
+            log.info("Could not get encoding property 'webwork.i18n.encoding' for file upload.  Using system default");
         } catch (UnsupportedEncodingException e) {
-            LogFactory.getLog(PellMultiPartRequest.class).info("Encoding " + encoding + " is not a valid encoding.  Please check your webwork.properties file.");
+            log.error("Encoding " + encoding + " is not a valid encoding.  Please check your webwork.properties file.");
         }
-        */
     }
 }
