@@ -7,11 +7,9 @@ package com.opensymphony.webwork.dispatcher.multipart;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.File;
-
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.Enumeration;
 
 
 /**
@@ -41,37 +39,48 @@ public abstract class MultiPartRequest {
     }
 
     /**
-     * Returns the content type of the specified file (as supplied by the client browser), or
-     * <tt>null</tt> if the file was not included.
+     * Returns an enumeration of the parameter names for uploaded files
      *
-     * @param name the name of the file to check
-     * @return the file's content type or <tt>null</tt> if no content type was specified.
+     * @return an enumeration of the parameter names for uploaded files
      */
-    public abstract String getContentType(String name);
+    public abstract Enumeration getFileParameterNames();
 
     /**
-     * Returns a {@link java.io.File} object for the filename specified or <tt>null</tt> if the
-     * file was not found.
+     * Returns the content type(s) of the file(s) associated with the specified field name
+     * (as supplied by the client browser), or <tt>null</tt> if no files are associated with the
+     * given field name.
      *
-     * @param name the name of the file
-     * @return the File object associated with the given name or <tt>null</tt> if it doesn't exist.
+     * @param fieldName input field name
+     * @return an array of content encoding for the specified input field name or <tt>null</tt> if
+     *         no content type was specified.
      */
-    public abstract File getFile(String name);
+    public abstract String[] getContentType(String fieldName);
 
     /**
-     * Returns a String name list of all uploaded files.
+     * Returns a {@link java.io.File} object for the filename specified or <tt>null</tt> if no files
+     * are associated with the given field name.
      *
-     * @return an enumeration of filenames (Strings).
+     * @param fieldName input field name
+     * @return a File[] object for files associated with the specified input field name
      */
-    public abstract Enumeration getFileNames();
+    public abstract File[] getFile(String fieldName);
 
     /**
-     * Returns the file system name of the given file name.
+     * Returns a String[] of file names for files associated with the specified input field name
      *
-     * @param name the name of the file uploaded.
-     * @return the file system name of the given file name.
+     * @param fieldName input field name
+     * @return a String[] of file names for files associated with the specified input field name
      */
-    public abstract String getFilesystemName(String name);
+    public abstract String[] getFileNames(String fieldName);
+
+    /**
+     * Returns the file system name(s) of files associated with the given field name or
+     * <tt>null</tt> if no files are associated with the given field name.
+     *
+     * @param fieldName input field name
+     * @return the file system name(s) of files associated with the given field name
+     */
+    public abstract String[] getFilesystemName(String fieldName);
 
     /**
      * Returns the specified request parameter.

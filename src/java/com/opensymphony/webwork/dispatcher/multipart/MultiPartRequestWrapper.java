@@ -5,20 +5,16 @@
 package com.opensymphony.webwork.dispatcher.multipart;
 
 import com.opensymphony.webwork.config.Configuration;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.File;
-import java.io.IOException;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import java.util.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 
 /**
@@ -26,9 +22,10 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * depends on the <tt>webwork.multipart.parser</tt> setting. It should be set to a class which
  * extends {@link com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest}. <p>
  * <p/>
- * Webwork ships with two implementations,
- * {@link com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest} and
- * {@link com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest}. The Pell implementation
+ * Webwork ships with three implementations,
+ * {@link com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest}, and
+ * {@link com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest} and
+ * {@link com.opensymphony.webwork.dispatcher.multipart.JakartaMultiPartRequest}. The Pell implementation
  * is the default. The <tt>webwork.multipart.parser</tt> property should be set to <tt>pell</tt> for
  * the Pell implementation and <tt>cos</tt> for the Jason Hunter implementation. <p>
  * <p/>
@@ -69,15 +66,17 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
 
             // If it's not set, use Pell
             if (parser.equals("")) {
-                log.warn("Property webwork.multipart.parser not set." + " Using com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest");
+                log.warn("Property webwork.multipart.parser not set." +
+                        " Using com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest");
                 parser = "com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest";
             }
-
             // legacy support for old style property values
-            if (parser.equals("pell")) {
+            else if (parser.equals("pell")) {
                 parser = "com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest";
             } else if (parser.equals("cos")) {
                 parser = "com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest";
+            } else if (parser.equals("jakarta")) {
+                parser = "com.opensymphony.webwork.dispatcher.multipart.JakartaMultiPartRequest";
             }
 
             try {
@@ -93,13 +92,13 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
                 }
 
                 // get the constructor
-                Constructor ctor = clazz.getDeclaredConstructor(new Class[] {
-                        Class.forName("javax.servlet.http.HttpServletRequest"),
-                        java.lang.String.class, int.class
-                    });
+                Constructor ctor = clazz.getDeclaredConstructor(new Class[]{
+                    Class.forName("javax.servlet.http.HttpServletRequest"),
+                    java.lang.String.class, int.class
+                });
 
                 // build the parameter list
-                Object[] parms = new Object[] {
+                Object[] parms = new Object[]{
                     request, saveDir, new Integer(maxSize)
                 };
 
@@ -123,12 +122,46 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-     * Get the content encoding type for the given file name. Name is the name field on the input tag.
-     *
-     * @param name uploaded filename.
-     * @return content encoding for file name
+     * @deprecated use {@link #getFileParameterNames()} instead
      */
-    public String getContentType(String name) {
+    public Enumeration getFileNames() {
+        return getFileParameterNames();
+    }
+
+    /**
+     * Get an enumeration of the parameter names for uploaded files
+     *
+     * @return enumeration of parameter names for uploaded files
+     */
+    public Enumeration getFileParameterNames() {
+        if (multi == null) {
+            return null;
+        }
+
+        return multi.getFileParameterNames();
+    }
+
+    /**
+     * @deprecated use {@link #getContentTypes(String)} instead
+     */
+    public String getContentType(String fieldName) {
+        String[] contentTypes = getContentTypes(fieldName);
+        if (contentTypes != null && contentTypes.length > 0) {
+            return contentTypes[0];
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Get an array of content encoding for the specified input field name or <tt>null</tt> if
+     * no content type was specified.
+     *
+     * @param name input field name
+     * @return an array of content encoding for the specified input field name
+     */
+    public String[] getContentTypes(String name) {
         if (multi == null) {
             return null;
         }
@@ -137,54 +170,70 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * Returns a collection of any errors generated when parsing the multipart request.
-     *
-     * @return the error Collection.
+     * @deprecated use {@link #getFiles(String)} instead
      */
-    public Collection getErrors() {
-        return errors;
+    public File getFile(String fieldName) {
+        File[] files = getFiles(fieldName);
+        if (files != null && files.length > 0) {
+            return files[0];
+        }
+
+        return null;
     }
 
     /**
-     * Get a {@link java.io.File} for the give file name. Name is the name field on the input tag.
+     * Get a {@link java.io.File[]} for the given input field name.
      *
-     * @param name uploaded filename
-     * @return File object for file name
+     * @param fieldName input field name
+     * @return a File[] object for files associated with the specified input field name
      */
-    public File getFile(String name) {
+    public File[] getFiles(String fieldName) {
         if (multi == null) {
             return null;
         }
 
-        return multi.getFile(name);
+        return multi.getFile(fieldName);
     }
 
     /**
-     * Get an enumeration of the filenames uploaded
+     * Get a String array of the file names for uploaded files
      *
-     * @return enumeration of filenames
+     * @return a String[] of file names for uploaded files
      */
-    public Enumeration getFileNames() {
+    public String[] getFileNames(String fieldName) {
         if (multi == null) {
             return null;
         }
 
-        return multi.getFileNames();
+        return multi.getFileNames(fieldName);
     }
 
     /**
-     * Get the filename of the file uploaded for the given input field name. Returns <tt>null</tt> if the
-     * file is not found.
-     *
-     * @param name uploaded filename
-     * @return the file system name of the given file or <tt>null</tt> if name not found.
+     * @deprecated use {@link #getFileSystemNames(String)} instead
      */
-    public String getFilesystemName(String name) {
+    public String getFilesystemName(String fieldName) {
+        String[] names = getFileSystemNames(fieldName);
+        if (names != null && names.length > 0) {
+            return names[0];
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the filename(s) of the file(s) uploaded for the given input field name.
+     * Returns <tt>null</tt> if the file is not found.
+     *
+     * @param fieldName input field name
+     * @return the filename(s) of the file(s) uploaded for the given input field name or
+     *         <tt>null</tt> if name not found.
+     */
+    public String[] getFileSystemNames(String fieldName) {
         if (multi == null) {
             return null;
         }
 
-        return multi.getFilesystemName(name);
+        return multi.getFilesystemName(fieldName);
     }
 
     /**
@@ -238,6 +287,15 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
         } else {
             return true;
         }
+    }
+
+    /**
+     * Returns a collection of any errors generated when parsing the multipart request.
+     *
+     * @return the error Collection.
+     */
+    public Collection getErrors() {
+        return errors;
     }
 
     /**

@@ -6,12 +6,10 @@ package com.opensymphony.webwork.dispatcher.multipart;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-
 import java.util.Enumeration;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -33,8 +31,8 @@ public class CosMultiPartRequest extends MultiPartRequest {
      * Creates a new request wrapper to handle multi-part data using methods adapted from the COS
      * multipart classes (see class description).
      *
-     * @param maxSize maximum size post allowed
-     * @param saveDir the directory to save off the file
+     * @param maxSize        maximum size post allowed
+     * @param saveDir        the directory to save off the file
      * @param servletRequest the request containing the multipart
      */
     public CosMultiPartRequest(HttpServletRequest servletRequest, String saveDir, int maxSize) throws IOException {
@@ -49,20 +47,24 @@ public class CosMultiPartRequest extends MultiPartRequest {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public String getContentType(String name) {
-        return multi.getContentType(name);
-    }
-
-    public File getFile(String name) {
-        return multi.getFile(name);
-    }
-
-    public Enumeration getFileNames() {
+    public Enumeration getFileParameterNames() {
         return multi.getFileNames();
     }
 
-    public String getFilesystemName(String name) {
-        return multi.getFilesystemName(name);
+    public String[] getContentType(String fieldName) {
+        return new String[]{multi.getContentType(fieldName)};
+    }
+
+    public File[] getFile(String fieldName) {
+        return new File[]{multi.getFile(fieldName)};
+    }
+
+    public String[] getFileNames(String fieldName) {
+        return new String[]{multi.getFile(fieldName).getName()};
+    }
+
+    public String[] getFilesystemName(String name) {
+        return new String[]{multi.getFilesystemName(name)};
     }
 
     public String getParameter(String name) {
@@ -80,7 +82,7 @@ public class CosMultiPartRequest extends MultiPartRequest {
     /**
      * Set the encoding for the uploaded parameters. This needs to be set if you are using character sets
      * other than ASCII.<p>
-     *
+     * <p/>
      * The encoding is looked up from the configuration setting 'webwork.i18n.encoding'.  This is usually set in
      * default.properties and webwork.properties.
      */
