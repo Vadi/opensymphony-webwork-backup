@@ -77,10 +77,11 @@ public class WebWorkVelocityServlet extends VelocityServlet {
     private String getEncoding()
     {
         // todo look into converting this to using XWork/WebWork2 encoding rules
-        if (Configuration.getString("webwork.i18n.encoding") != null)
+        try {
             return Configuration.getString("webwork.i18n.encoding");
-        else
+        } catch (IllegalArgumentException e) {
             return RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, DEFAULT_OUTPUT_ENCODING);
+        }
     }
 
     /**
