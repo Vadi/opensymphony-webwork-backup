@@ -295,22 +295,18 @@
         <copy file="${build.migration.jar}" todir="${build.dist}"/>
         <copy file="${build}/${name}-example.war" todir="${build.dist}"/>
         <copy todir="${build.dist}/src">
-            <fileset dir="${src.java}"/>
+            <fileset dir="${src}"/>
         </copy>
 
-        <mkdir dir="${build.dist}/lib/core"/>
-        <copy todir="${build.dist}/lib/core">
-            <fileset dir="${lib.core}"/>
+        <mkdir dir="${build.dist}/lib"/>
+        <copy todir="${build.dist}/lib">
+            <fileset dir="${lib}"/>
         </copy>
 
-        <mkdir dir="${build.dist}/lib/migration"/>
-        <copy todir="${build.dist}/lib/migration">
-            <fileset dir="${lib.migration}"/>
-        </copy>
-
-        <mkdir dir="${build.dist}/lib/optional"/>
-        <copy todir="${build.dist}/lib/optional">
-            <fileset dir="${lib.optional}"/>
+        <copy todir="${build.dist}">
+           <fileset dir="${basedir}">
+              <include name="build.*"/>
+           </fileset>
         </copy>
 
         <zip zipfile="${build}/${name}-${version}.zip" basedir="${build.dist}"/>
