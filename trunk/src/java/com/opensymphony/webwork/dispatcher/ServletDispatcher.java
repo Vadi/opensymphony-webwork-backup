@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.ServletConfig;
@@ -36,30 +35,105 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/*
+ * TODO: QUESTIONS:
+ *
+ * 1) What unit is maxSize of attachments in? (assuming bytes for now)
+ * 2) Isn't error message wrong in catch of try/catch in  service() method?
+ * 3) Why is getActionName(String) not declared public? (The fix would not be an API addition so this could be
+ *      done for pre 2.1)
+ * 4) Why does createContextMap(...) return a HashMap and not a Map? (2.1 api change)
+ * 5) Why doesn't getNameSpace(request) get the servlet path in the same way that getActionName(request) does?
+ * 6) Why does getParameterMap throw an IOException? Can't see a reason for that. (2.1 api change)
+ */
+
 /**
- * @author Rickard Öberg (rickard@middleware-company.com)
- * @author Matt Baldree (matt@smallleap.com)
- * @author jcarreira
- * @author Cameron Braid (cameron@datacodex.net)
+ * Main dispatcher servlet in WebWork2 which acts as the controller in the MVC paradigm. <p>
+ *
+ * When a request enters the servlet the following things will happen: <ol>
+ *
+ *  <li>The action name is parsed from the servlet path (i.e., /foo/bar/MyAction.action -> MyAction).</li>
+ *  <li>A context consisting of the request, response, parameters, session and application
+ *      properties is created.</li>
+ *  <li>An XWork <tt>ActionProxy</tt> object is instantiated (wraps an <tt>Action</tt>) using the action name, path,
+ *      and context then executed.</li>
+ *  <li>Action output will channel back through the response to the user.</li></ol>
+ *
+ * Any errors occurring during the action execution will result in a
+ * {@link javax.servlet.http.HttpServletResponse#SC_INTERNAL_SERVER_ERROR} error and any resource errors
+ * (i.e., invalid action name or missing JSP page) will result in a
+ * {@link javax.servlet.http.HttpServletResponse#SC_NOT_FOUND} error. <p>
+ *
+ * Instead of traditional servlet init params this servlet will initialize itself using WebWork2 properties.
+ * The following properties are used upon initialization: <ul>
+ *
+ *  <li><tt>webwork.configuration.xml.reload</tt>: if and only if set to <tt>true</tt> then the xml configuration
+ *      files (action definitions, interceptor definitions, etc) will be reloaded for each request. This is
+ *      useful for development but should be disabled for production deployment.</li>
+ *  <li><tt>webwork.multipart.saveDir</tt>: The path used for temporarily uploaded files. Defaults to the
+ *      temp path specified by the app server.</li>
+ *  <li><tt>webwork.multipart.maxSize</tt>: sets the maximum allowable multipart request size
+ *      in bytes. If the size was not specified then {@link java.lang.Integer#MAX_VALUE} will be used
+ *      (essentially unlimited so be careful).</li></ul>
+ *
+ * Developers who want to subclass this servlet may be interested in the following protected methods: <ul>
+ *
+ *  <li>{@link #getParameterMap(HttpServletRequest)}</li>
+ *  <li>{@link #getRequestMap(HttpServletRequest)}</li>
+ *  <li>{@link #getSessionMap(HttpServletRequest)}</li>
+ *  <li>{@link #getNameSpace(HttpServletRequest)}</li></ul>
+ *
+ * @see ServletDispatcherResult
+ * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
+ * @author <a href="mailto:matt@smallleap.com">Matt Baldree</a>
+ * @author Jason Carreira
+ * @author <a href="mailto:cameron@datacodex.net">Cameron Braid</a>
+ * @author Bill Lynch
  */
 public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     //~ Static fields/initializers /////////////////////////////////////////////
 
+    /**
+     * Logger for this class.
+     */
     protected static final Log log = LogFactory.getLog(ServletDispatcher.class);
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    // Max upload size allowed for multipart request (this is configurable).
     Integer maxSize;
+
+    // Path to save uploaded files to (this is configurable).
     String saveDir;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
+    /**
+     * Returns the namespace (the context path) of the action. I.e., "/foo/bar/MyAction.action" -&gt;
+     * "/foo/bar" and "MyAction.action" -&gt; "".
+     *
+     * @param servletPath the servlet URL path.
+     * @return the namespace (context path) of the action.
+     */
     public static String getNamespaceFromServletPath(String servletPath) {
         servletPath = servletPath.substring(0, servletPath.lastIndexOf("/"));
 
         return servletPath;
     }
 
+    /**
+     * Merges all application and servlet attributes into a single <tt>HashMap</tt> to represent the entire
+     * <tt>Action</tt> context.
+     *
+     * @param requestMap a Map of all request attributes.
+     * @param parameterMap a Map of all request parameters.
+     * @param sessionMap a Map of all session attributes.
+     * @param applicationMap a Map of all servlet context attributes.
+     * @param request the HttpServletRequest object.
+     * @param response the HttpServletResponse object.
+     * @param servletConfig the ServletConfig object.
+     * @return a HashMap representing the <tt>Action</tt> context.
+     */
     public static HashMap createContextMap(Map requestMap, Map parameterMap, Map sessionMap, Map applicationMap, HttpServletRequest request, HttpServletResponse response, ServletConfig servletConfig) {
         HashMap extraContext = new HashMap();
         extraContext.put(ActionContext.PARAMETERS, parameterMap);
@@ -84,6 +158,16 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         return extraContext;
     }
 
+    /**
+     * Initalizes the servlet. Please read the {@link ServletDispatcher class documentation} for more
+     * detail. <p>
+     *
+     * Note, the <a href="http://jakarta.apache.org/velocity/" target="_blank">Velocity</a> compontent is also
+     * initialized in this method - it is used in many of the WebWork2 JSP tags.
+     *
+     * @param config the ServletConfig object.
+     * @throws ServletException if an error occurs during initialization.
+     */
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
@@ -149,13 +233,15 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * Service a request - get the namespace, actionName, paramMap, sessionMap, applicationMap from the providers
-    * and delegate to the service call
-    *
-    * @param request
-    * @param response
-    * @exception javax.servlet.ServletException
-    */
+     * Services the request by determining the desired action to load, building the action context and
+     * then executing the action. This handles all servlet requests including GETs and POSTs. <p>
+     *
+     * This method also transparently handles multipart requests.
+     *
+     * @param request the HttpServletRequest object.
+     * @param response the HttpServletResponse object.
+     * @exception ServletException if an error occurs while loading or executing the action.
+     */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
             request = wrapRequest(request);
@@ -168,10 +254,20 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * The request is first checked to see if it is a multi-part. If it is, then the request
-    * is wrapped so WW will be able to work with the multi-part as if it was a normal request.
-    * Then the request is handed to GenericDispatcher and executed.
-    */
+     * Loads the action and executes it. This method first creates the action context from the given
+     * parameters then loads an <tt>ActionProxy</tt> from the given action name and namespace. After that,
+     * the action is executed and output channels throught the response object. Errors are also
+     * sent back to the user via the {@link #sendError(HttpServletRequest,HttpServletResponse,int,Exception)} method.
+     *
+     * @param request the HttpServletRequest object.
+     * @param response the HttpServletResponse object.
+     * @param namespace the namespace or context of the action.
+     * @param actionName the name of the action to execute.
+     * @param requestMap a Map of request attributes.
+     * @param parameterMap a Map of request parameters.
+     * @param sessionMap a Map of all session attributes.
+     * @param applicationMap a Map of all application attributes.
+     */
     public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace, String actionName, Map requestMap, Map parameterMap, Map sessionMap, Map applicationMap) {
         HashMap extraContext = createContextMap(requestMap, parameterMap, sessionMap, applicationMap, request, response, getServletConfig());
         extraContext.put(SERLVET_DISPATCHER, this);
@@ -190,10 +286,13 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * build the name of the action from the request
-    *
-    * override this method to customize a ULR -> action name mapping
-    */
+     * Build the name of the action from the request. Override this method to customize the request to action
+     * name mapping. Default implementation is to call the getActionName(String) method with the
+     * servlet path as the parameter.
+     *
+     * @param request the HttpServletRequest object.
+     * @return the name or alias of the action to execute.
+     */
     protected String getActionName(HttpServletRequest request) {
         String servletPath = (String) request.getAttribute("javax.servlet.include.servlet_path");
 
@@ -204,15 +303,24 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         return getActionName(servletPath);
     }
 
+    /**
+     * Returns a Map of all application attributes. The default implementation is to wrap the ServletContext
+     * in an {@link ApplicationMap}. Override this method to customize how application attributes are mapped.
+     *
+     * @return a Map of all application attributes.
+     */
     protected Map getApplicationMap() {
         return new ApplicationMap(getServletContext());
     }
 
     /**
-    * get the namespace of the action from the request
-    *
-    * override this method to customize a ULR -> action namespace mapping
-    */
+     * Gets the namespace of the action from the request. Override this method to customize the request to action
+     * namespace mapping. Default implementation is to call {@link #getNamespaceFromServletPath(String)} method
+     * with the servlet path as the parameter.
+     *
+     * @param request the HttpServletRequest object.
+     * @return the namespace (context path) of the action.
+     */
     protected String getNameSpace(HttpServletRequest request) {
         // Path is always original path, even if it is included in page with another path
         String servletPath = request.getServletPath();
@@ -220,25 +328,48 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         return getNamespaceFromServletPath(servletPath);
     }
 
+    /**
+     * Returns a Map of all request parameters. The default implementation just calls
+     * {@link HttpServletRequest#getParameterMap()}. Override this method to customize how application parameters
+     * are mapped.
+     *
+     * @param request the HttpServletRequest object.
+     * @return a Map of all request parameters.
+     * @throws IOException if an exception occurs while retrieving the parameter map.
+     */
     protected Map getParameterMap(HttpServletRequest request) throws IOException {
         return request.getParameterMap();
     }
 
+    /**
+     * Returns a Map of all request attributes. The default implementation is to wrap the request in a
+     * {@link RequestMap}. Override this method to customize how request attributes are mapped.
+     *
+     * @param request the HttpServletRequest object.
+     * @return a Map of all request attributes.
+     */
     protected Map getRequestMap(HttpServletRequest request) {
         return new RequestMap(request);
     }
 
+    /**
+     * Returns a Map of all session attributes. The default implementation is to wrap the reqeust
+     * in a {@link SessionMap}. Override this method to customize how session attributes are mapped.
+     *
+     * @param request the HttpServletRequest object.
+     * @return a Map of all session attributes.
+     */
     protected Map getSessionMap(HttpServletRequest request) {
         return new SessionMap(request);
     }
 
     /**
-    * send a http error response
-    *
-    * @param request
-    * @param response
-    * @param code the HttpServletResponse error code
-    * @param e the exception that needs to be reported on
+     * Sends an HTTP error response code.
+     *
+     * @param request the HttpServletRequest object.
+     * @param response the HttpServletResponse object.
+     * @param code the HttpServletResponse error code (see {@link HttpServletResponse} for possible error codes).
+     * @param e the Exception that is reported.
     */
     protected void sendError(HttpServletRequest request, HttpServletResponse response, int code, Exception e) {
         try {
@@ -256,12 +387,15 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * Wrap servlet request with the appropriate request. It will check to
-    * see if request is a multipart request and wrap in appropriately.
-    *
-    * @param request
-    * @return wrapped request or original request
-    */
+     * Wraps and returns the given response or returns the original response object. This is used to transparently
+     * handle multipart data as a wrapped class around the given request. Override this method to handle multipart
+     * requests in a special way or to handle other types of requests. Note, {@link MultiPartRequestWrapper} is
+     * flexible - you should look to that first before overriding this method to handle multipart data.
+     *
+     * @see MultiPartRequestWrapper
+     * @param request the HttpServletRequest object.
+     * @return a wrapped request or original request.
+     */
     protected HttpServletRequest wrapRequest(HttpServletRequest request) throws IOException {
         // don't wrap more than once
         if (request instanceof MultiPartRequestWrapper) {
@@ -276,9 +410,11 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     /**
-    * Determine action name by extracting last string and removing
-    * extension. (/.../.../Foo.action -> Foo)
-    */
+     * Determine action name by extracting last string and removing extension (i.e., /.../.../Foo.action -> Foo).
+     *
+     * @param name the full action path.
+     * @return the action name stripped of path/context info.
+     */
     String getActionName(String name) {
         // Get action name ("Foo.action" -> "Foo" action)
         int beginIdx = name.lastIndexOf("/");
