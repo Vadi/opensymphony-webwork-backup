@@ -5,16 +5,16 @@
     <td>
         <input type="radio"
                name="myname"
-               id="hello"
+               id="mynamehello"
                value="hello"
         />
-        <label for="hello">world</label>
+        <label for="mynamehello">world</label>
 
         <input type="radio"
                name="myname"
-               id="foo"
+               id="mynamefoo"
                value="foo"
         />
-        <label for="foo">bar</label>
+        <label for="mynamefoo">bar</label>
     </td>
 </tr>
