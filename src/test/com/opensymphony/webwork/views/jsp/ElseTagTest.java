@@ -49,7 +49,6 @@ public class ElseTagTest extends TestCase {
     }
 
     public void testTestNull() {
-        pageContext.setAttribute(IfTag.ANSWER, null);
         elseTag.setPageContext(pageContext);
 
         int result = 0;
