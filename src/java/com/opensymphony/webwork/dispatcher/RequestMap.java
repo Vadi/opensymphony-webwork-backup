@@ -53,7 +53,23 @@ public class RequestMap extends AbstractMap implements Serializable {
                         if ((obj != null) && obj instanceof Entry) {
                             Entry me = (Entry) obj;
 
-                            return me.getKey().equals(getKey()) && me.getValue().equals(getValue());
+                            Object key = me.getKey();
+                            Object value = me.getValue();
+
+                            if (key == null) {
+                                return false;
+                            }
+
+                            if (value == null)
+                            {
+                                if (getValue() != null) {
+                                    return false;
+                                } else {
+                                    return key.equals(getKey());
+                                }
+                            }
+
+                            return key.equals(getKey()) && value.equals(getValue());
                         }
 
                         return false;

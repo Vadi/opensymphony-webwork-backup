@@ -3,3 +3,4 @@
 .errorMessage {font-weight:bold; text-align: center; color:red; }
 .checkboxLabel {}
 .checkboxErrorLabel {color:red; }
+.required {color:red;}
