@@ -15,7 +15,7 @@
                                                     </span>
 				    </div>
 				    <div class="pagesubheading">
-					    This page last changed on Oct 31, 2004 by <font color="#0050B2">gaffonso</font>.
+					    This page last changed on Dec 10, 2004 by <font color="#0050B2">sutter2k</font>.
 				    </div>
 
 				    <p class="paragraph"><h3 style="margin: 4px 0px 4px 0px;" class="heading3"><a name="ResourcesAvailabletoVelocityViews-Summary"> Summary</a></h3>
@@ -50,7 +50,8 @@ The current HttpServletResponse created and managed by your Servlet environment 
 <b class="strong">$stack</b><br/>
 The OGNL value stack. (<a href="http://www.opensymphony.com/xwork/api/com/opensymphony/xwork/util/OgnlValueStack.html" title="Visit page outside Confluence">API Docs</a>)</p><em class="emphasis">TODO:</em> Talk about what&#039;s actually <b class="strong">on</b> the stack.  Doesn&#039;t do a whole lot of good to know it&#039;s there without knowing what&#039;s on it.<p class="paragraph"><br clear="all" />
 <b class="strong">$ognl</b><br/>
-A reference to an OGNL tool. (<a href="http://www.opensymphony.com/webwork/api/com/opensymphony/webwork/views/jsp/ui/OgnlTool.html" title="Visit page outside Confluence">API Docs</a>)</p>At the time of this writing, there are no docs for that object, so if you really want to know how it works, be a <a href="http://en.wikipedia.org/wiki/Jedi" title="Visit page outside Confluence">Jedi</a> and &quot;use the source&quot;.  (The CVS repository is browsable here: <a href="https://webwork.dev.java.net/source/browse/webwork/src/java" title="Visit page outside Confluence">&#104;ttps://webwork.dev.java.net/source/browse/webwork/src/java</a>)<p class="paragraph"><br clear="all" />
+A reference to an OGNL tool. (<a href="http://www.opensymphony.com/webwork/api/com/opensymphony/webwork/views/jsp/ui/OgnlTool.html" title="Visit page outside Confluence">API Docs</a>)<br/>
+(<a href="http://wiki.opensymphony.com/display/XW/Ognl" title="Visit page outside Confluence">See OGNL Basics</a>)</p>At the time of this writing, there are no docs for that object, so if you really want to know how it works, be a <a href="http://en.wikipedia.org/wiki/Jedi" title="Visit page outside Confluence">Jedi</a> and &quot;use the source&quot;.  (The CVS repository is browsable here: <a href="https://webwork.dev.java.net/source/browse/webwork/src/java" title="Visit page outside Confluence">&#104;ttps://webwork.dev.java.net/source/browse/webwork/src/java</a>)<p class="paragraph"><br clear="all" />
 <em class="emphasis">Tip:</em><br/>
 Jason/Patrick note that one nifty thing you can do with this tool is to call static class methods. That&#039;s rather handy since Velocity doesn&#039;t offer access to class variables or methods, but only to instantiate objects that have been placed in the Velocity Context.  So you can&#039;t normally do things like Math.random().</p>To call a class method, from within Velocity template, using the OGNL tool, you do this:<br/>
 
@@ -65,8 +66,20 @@ Mathew notes that the VelocityWebWorkUtil class can instantiate other objects fo
 </div></div><p class="paragraph">This technique can be particularly handy for grabbing a reference to one of the <a href="http://jakarta.apache.org/velocity/tools/" title="Visit page outside Confluence">VelocityTools</a> objects. (The VelocityTools are not included with WebWork, you&#039;ll need to go grab the lib and put it in your classpath if you want to use $webwork.bean() to grab references to the tool objects.)</p>(Note: If you&#039;re rumaging through the source, the source-code for the $webwork.bean() method above is really in VelocityWebWorkUtil&#039;s parent class WebWorkUtil.)<p class="paragraph"><br clear="all" />
 <b class="strong">$action</b><br/>
 A reference to the action context that called this template.  <em class="emphasis">TODO:</em> Not really sure what&#039;s in there or what it&#039;s good for.  Should probably note that.</p><br clear="all" />
-<b class="strong">$taglib</b><br/>
-<em class="emphasis">TODO:</em> I&#039;m also under the impression the entire JSP taglib is available in Velocity templates, exposed as Velocity functions.  Nifty!  Need to add details and samples about how that works.
+<b class="strong">#tag</b> and <b class="strong">#bodytag</b>#<p class="paragraph">Provides a way of using a JSP taglib from velocity.<br/>
+Many, but not all taglibs can be used.</p>ex:
+<div class="code"><div class="codeContent">
+<pre>#tag( Text <span class="java&#45;quote">&quot;name=&#039;title.edit&#039;&quot;</span> )</pre>
+</div></div><br/>
+provides a way to uses the &lt;ww:text name=&quot;title.edit&quot; /&gt; tag from velocity.<p class="paragraph">Note the &lt;ww:text /&gt; is probably not that useful from velocity since 
+<div class="code"><div class="codeContent">
+<pre>$action.getText(&#039;title.edit&#039;)</pre>
+</div></div> would perform the same thing.</p>see <a href="UI tags.html#UITags-WW%2FUI%2BTags" title="WW/UI+Tags on UI Tags">UI tags#WW/UI+Tags</a> for more information about webworks tags.  Many provide equivalent velocity examples.  Usage with other tags could be infered based on examples given. <br/>
+
+
+
+
+
 
 				    
                     			    </td>
@@ -77,7 +90,7 @@ A reference to the action context that called this template.  <em class="emphasi
 				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
 			</tr>
 		    <tr>
-			    <td align="center"><font color="grey">Document generated by Confluence on Nov 14, 2004 19:46</font></td>
+			    <td align="center"><font color="grey">Document generated by Confluence on Dec 14, 2004 16:36</font></td>
 		    </tr>
 	    </table>
     </body>

@@ -15,7 +15,7 @@
                                                     </span>
 				    </div>
 				    <div class="pagesubheading">
-					    This page last changed on Sep 27, 2004 by <font color="#0050B2">jcarreira</font>.
+					    This page last changed on Dec 14, 2004 by <font color="#0050B2">plightbo</font>.
 				    </div>
 
 				    <p class="paragraph"><a name="Non-UITags-top"></a><br/>
@@ -33,7 +33,7 @@ These are tags that interact with the value stack, and control the logic of the 
 </tr><tr>
 <td>	<a href="#Non-UITags-set" title="set on Non-UI Tags">&lt;ww:set /&gt;</a>						</td><td>	Create your own named variables </td>
 </tr><tr>
-<td>	<a href="#Non-UITags-url" title="url on Non-UI Tags">&lt;ww:url /&gt;</a>						</td><td>	Builds an encoded URL </td>
+<td>	<a href="URL tag.html" title="URL tag">URL tag</a> (&lt;ww:url /&gt;)						</td><td>	Builds an encoded URL </td>
 </tr><tr>
 <td>	<b class="strong"><a href="#Non-UITags-Componentisation" title="Componentisation on Non-UI Tags">Componentisation Tags</a></b>	</td><td> </td>
 </tr><tr>
@@ -133,37 +133,7 @@ Some examples will illustrate these different uses:<br/>
 <td>scope</td><td>no</td><td>Scope of the variable: page, request, session, application</td>
 </tr>
 </table><br/>
-Sets the value of an object in the VS to a scope. If the value is not given, the top of the stack is used. If the scope is not given, the default scope is the action context which is only available in the PageContext if no action has been executed on the same request.<p class="paragraph"><a name="Non-UITags-url"></a><br/>
-<a href="#Non-UITags-top" title="top on Non-UI Tags">return to top</a>
-<h3 class="heading3"><a name="Non-UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Aurl%2F%26gt%3B%3C%2Ffont%3E"><font color="blue"><b class="strong">&lt;ww:url /&gt;</b></font></a></h3></p>Url builds an encoded URL. If you do not include a value, then the tag will point to the current page.<br/>
-
-<table class="wikitable">
-<tr>
-<th>attribute </th><th>required</th><th>description</th>
-</tr><tr>
-<td>value</td><td>no</td><td>This attribute is used to pass data to the tag.</td>
-</tr><tr>
-<td>scheme</td><td>no</td><td>can be &quot;http&quot; or &quot;https&quot;</td>
-</tr><tr>
-<td> includeContext </td><td>no</td><td>Determines whether the context path should be prepended to absolute urls or not. Default is true </td>
-</tr><tr>
-<td> encode </td><td>no</td><td>Determines if the contents should be escaped appropriately for valid HTML characters </td>
-</tr><tr>
-<td> includeParams </td><td>no</td><td>The includeParams attribute may have the value &#039;none&#039; (no params), &#039;get&#039;(only GET params) or &#039;all&#039;(GET and POST params). It is used when the url tag is used without a value or page attribute. Its value is looked up on the ValueStack. If no includeParams is specified then &#039;get&#039; is used.</td>
-</tr>
-</table><br/>
-In this example, the form action value will be an url hiturl.action that is encoded. <br/>
-
-<div class="code"><div class="codeContent">
-<pre>&lt;form action=<span class="java&#45;quote">&quot;&lt;ww:url value=&quot;</span>&#039;hiturl.action&#039;<span class="java&#45;quote">&quot;/&gt;&quot;</span> method=<span class="java&#45;quote">&quot;POST&quot;</span>&gt;&#10;    ...&#10;  &lt;/form&gt;</pre>
-</div></div><p class="paragraph">In this example, we are adding name/value pairs to the URL. The URL tag will build up the URL appropriately. You can also place them in the normal way with &quot;?&quot;; i.e., - &#039;hiturl.action?user=john&#039;.</p><div class="code"><div class="codeContent">
-<pre>&lt;form action=<span class="java&#45;quote">&quot;&lt;ww:url value=&quot;</span>&#039;hiturl.action&#039;<span class="java&#45;quote">&quot;&gt;&#10;      &lt;ww:param name=&quot;</span>&#039;user&#039;<span class="java&#45;quote">&quot; value=&quot;</span>&#039;john&#039;<span class="java&#45;quote">&quot;/&gt;&#10;   &lt;/ww:url&gt;&quot;</span> method=<span class="java&#45;quote">&quot;POST&quot;</span>&gt;&#10;...&#10;&lt;/form&gt;</pre>
-</div></div><p class="paragraph">By default, port 80 is assumed to be the &quot;http&quot; port and port 443 is assumed to be the &quot;https&quot; port. However, some servers, such as Tomcat, use different default ports, such as 8080 and 8443. You can change these values by setting the configuration elements in webwork.properties:
-<ul class="star">
-<li> webwork.url.http.port</li>
-<li> webwork.url.https.port</li>
-</ul><br/>
-<a name="Non-UITags-Componentisation"></a>
+Sets the value of an object in the VS to a scope. If the value is not given, the top of the stack is used. If the scope is not given, the default scope is the action context which is only available in the PageContext if no action has been executed on the same request.<p class="paragraph"><a name="Non-UITags-Componentisation"></a>
 <h2 class="heading2"><a name="Non-UITags-ComponentisationTags"> Componentisation Tags</a></h2></p><a href="#Non-UITags-top" title="top on Non-UI Tags">return to top</a><br/>
 <a name="Non-UITags-action"></a>
 <h3 class="heading3"><a name="Non-UITags-%3Cfontcolor%3D%22blue%22%3E%26lt%3Bww%3Aaction%2F%26gt%3B%3C%2Ffont%3E"><font color="blue"><b class="strong">&lt;ww:action /&gt;</b></font></a></h3><p class="paragraph">Action tag provides another method to call Actions. This is an alternative way to invoke an action besides calling an url; i.e. - *.action that would be sent to the ServletDispatcher.</p><table class="wikitable">
@@ -392,7 +362,7 @@ So, if you instantiate a bean with the bean tag (&lt;ww:bean name=&quot;&#039;br
 				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
 			</tr>
 		    <tr>
-			    <td align="center"><font color="grey">Document generated by Confluence on Nov 14, 2004 19:46</font></td>
+			    <td align="center"><font color="grey">Document generated by Confluence on Dec 14, 2004 16:36</font></td>
 		    </tr>
 	    </table>
     </body>

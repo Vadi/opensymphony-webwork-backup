@@ -15,17 +15,13 @@
                                                     </span>
 				    </div>
 				    <div class="pagesubheading">
-					    This page last changed on Oct 23, 2004 by <font color="#0050B2">plightbo</font>.
+					    This page last changed on Dec 14, 2004 by <font color="#0050B2">casey</font>.
 				    </div>
 
-				    <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a name="Interceptors-Overview"> Overview</a></h2>
-<br clear="all" />
-Interceptors are objects that dynamically intercept Action invocations. They provide the developer with the opportunity to define code that can be executed before and/or after the execution of an action. They also have the ability to prevent an action from executing. Interceptors provide developers a way to encapulate common functionality in a re-usable form that can be applied to one or more Actions. See <a href="http://wiki.opensymphony.com//display/XW/Interceptors" title="Interceptors">XW:Interceptors</a> for further details.  Below describes built in Webwork interceptors.
-<br clear="all" />
-<h3 class="heading3"><a name="Interceptors-Webwork%26amp%3BXWorkInterceptors"> Webwork &amp; XWork Interceptors</a></h3>
-<br clear="all" />
-Interceptor classes are also defined using a key-value pair specified in the xwork configuration file.  The names specified below come specified in <a href="webwork-default.xml.html" title="webwork-default.xml">webwork-default.xml</a>.  If you extend the webwork-default package, then you can use the names below.  Otherwise they must be defined in your package with a name-class pair specified in the &lt;interceptors&gt; tag.
-<br clear="all" /></p><table class="wikitable">
+				    <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a name="Interceptors-Overview"> Overview</a></h2></p>Interceptors are objects that dynamically intercept Action invocations. They provide the developer with the opportunity to define code that can be executed before and/or after the execution of an action. They also have the ability to prevent an action from executing. Interceptors provide developers a way to encapulate common functionality in a re-usable form that can be applied to one or more Actions. See <a href="http://wiki.opensymphony.com//display/XW/Interceptors" title="Interceptors">XW:Interceptors</a> for further details.  Below describes built in Webwork interceptors.<p class="paragraph"><h3 class="heading3"><a name="Interceptors-Webwork%26amp%3BXWorkInterceptors"> Webwork &amp; XWork Interceptors</a></h3></p>Interceptor classes are also defined using a key-value pair specified in the xwork configuration file.  The names specified below come specified in <a href="webwork-default.xml.html" title="webwork-default.xml">webwork-default.xml</a>.  If you extend the webwork-default package, then you can use the names below.  Otherwise they must be defined in your package with a name-class pair specified in the &lt;interceptors&gt; tag.<br/>
+
+
+<table class="wikitable">
 <tr>
 <th>Name</th><th>Description</th>
 </tr><tr>
@@ -33,7 +29,7 @@ Interceptor classes are also defined using a key-value pair specified in the xwo
 </tr><tr>
 <td>logger</td><td>Outputs the name of the action</td>
 </tr><tr>
-<td>chain</td><td>Makes the previous action&#039;s properties available to the current action. Commonly used together with &lt;result type=&quot;chain&quot;&gt; (in the previous action.)</td>
+<td>chain</td><td>Makes the previous action&#039;s properties available to the current action. Commonly used together with &lt;result type=&quot;chain&quot;&gt; (in the previous action).  See <a href="Chaining Interceptor.html" title="Chaining Interceptor">Chaining Interceptor</a> for more info</td>
 </tr><tr>
 <td>static-params</td><td>Sets the xwork.xml defined parameters onto the action.  These are the &lt;param&gt; tags that are direct children of the &lt;action&gt; tag.</td>
 </tr><tr>
@@ -57,12 +53,20 @@ Interceptor classes are also defined using a key-value pair specified in the xwo
 </tr><tr>
 <td>conversionError </td><td> adds conversion errors from the ActionContext to the Action&#039;s field errors </td>
 </tr><tr>
-<td>fileUpload</td><td>an interceptor that adds easy access to file upload support; read the javadocs for more info</td>
+<td>fileUpload</td><td>an interceptor that adds easy access to file upload support.  See the javadoc for more info</td>
 </tr><tr>
-<td>execAndWait</td><td>an interceptor that executes the action in the background and then sends the user off to an intermediate waiting page; See: <a href="ExecuteAndWaitInterceptor.html" title="ExecuteAndWaitInterceptor">ExecuteAndWaitInterceptor</a></td>
+<td>execAndWait</td><td>an interceptor that executes the action in the background and then sends the user off to an intermediate waiting page. See: <a href="ExecuteAndWaitInterceptor.html" title="ExecuteAndWaitInterceptor">ExecuteAndWaitInterceptor</a> for more info</td>
 </tr>
-</table><br/>
-For more information about the chain interceptor, see <a href="Chaining Interceptor.html" title="Chaining Interceptor">WW:Chaining Interceptor</a>.
+</table><p class="paragraph"><h4 class="heading4"><a name="Interceptors-OrderofInterceptorExecution"> Order of Interceptor Execution</a></h4></p>Interceptors provide an excellent means to wrap before/after processing.  The concept reduces code duplication (think AOP).<br/>
+
+<div class="code"><div class="codeContent">
+<pre>&lt;interceptor&#45;stack name=<span class="java&#45;quote">&quot;xaStack&quot;</span>&gt; &#10;  &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;thisWillRunFirstInterceptor&quot;</span>/&gt;&#10;  &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;thisWillRunNextInterceptor&quot;</span>/&gt;&#10;  &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;followedByThisInterceptor&quot;</span>/&gt;&#10;  &lt;interceptor&#45;ref name=<span class="java&#45;quote">&quot;thisWillRunLastInterceptor&quot;</span>/&gt;&#10;&lt;/interceptor&#45;stack&gt;</pre>
+</div></div>
+<p class="paragraph">Note that some interceptors will interrupt the stack/chain/flow&#8230; so the order is very important.</p>Iterceptors implementing com.opensymphony.xwork.interceptor.PreResultListener will run after the Action executes its action method but before the Result executes<br/>
+
+<div class="code"><div class="codeContent">
+<pre>thisWillRunFirstInterceptor&#10;  thisWillRunNextInterceptor&#10;    followedByThisInterceptor&#10;      thisWillRunLastInterceptor&#10;        MyAction1&#10;        MyAction2 (chain)&#10;        MyPreResultListener  &#10;        MyResult (result)&#10;      thisWillRunLastInterceptor&#10;    followedByThisInterceptor&#10;  thisWillRunNextInterceptor&#10;thisWillRunFirstInterceptor</pre>
+</div></div>
 
 				    
                     			    </td>
@@ -73,7 +77,7 @@ For more information about the chain interceptor, see <a href="Chaining Intercep
 				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
 			</tr>
 		    <tr>
-			    <td align="center"><font color="grey">Document generated by Confluence on Nov 14, 2004 19:46</font></td>
+			    <td align="center"><font color="grey">Document generated by Confluence on Dec 14, 2004 16:36</font></td>
 		    </tr>
 	    </table>
     </body>
