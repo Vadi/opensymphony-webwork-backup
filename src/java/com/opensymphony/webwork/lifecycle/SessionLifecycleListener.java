@@ -11,6 +11,8 @@ import com.opensymphony.xwork.interceptor.component.DefaultComponentManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.Serializable;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingEvent;
@@ -25,7 +27,7 @@ import javax.servlet.http.HttpSessionListener;
  * @author joew@thoughtworks.com
  * @author cameronbraid
  */
-public class SessionLifecycleListener implements HttpSessionListener {
+public class SessionLifecycleListener implements HttpSessionListener, Serializable {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(SessionLifecycleListener.class);
