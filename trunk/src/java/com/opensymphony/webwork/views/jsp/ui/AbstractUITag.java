@@ -118,7 +118,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
                 return EVAL_PAGE;
             } catch (Exception e) {
-                throw new JspException("Fatal exception caught in " + this.getClass().getName() + " tag class, doEndTag", e);
+                throw new JspException("Fatal exception caught in " + this.getClass().getName() + " tag class, doEndTag: " + e.getMessage(), e);
             }
         } finally {
             // clean up after ourselves to allow this tag to be reused
