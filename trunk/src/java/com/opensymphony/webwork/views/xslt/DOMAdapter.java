@@ -49,14 +49,18 @@ public class DOMAdapter {
 
             return adapter;
         } catch (IllegalAccessException e) {
-            throw new RuntimeException("Cannot adapt " + value + " (" + propertyName + ")", e);
+            e.printStackTrace();
+            throw new RuntimeException("Cannot adapt " + value + " (" + propertyName + ") :" + e.getMessage());
         } catch (InstantiationException e) {
-            throw new RuntimeException("Cannot adapt " + value + " (" + propertyName + ")", e);
+            e.printStackTrace();
+            throw new RuntimeException("Cannot adapt " + value + " (" + propertyName + ") :" + e.getMessage());
         } catch (NoSuchMethodException e) {
+            e.printStackTrace();
             throw new RuntimeException(
-                    "Adapter Class " + adapterClass.getName() + " must define the right constructor.", e);
+                    "Adapter Class " + adapterClass.getName() + " must define the right constructor. :" + e.getMessage());
         } catch (InvocationTargetException e) {
-            throw new RuntimeException("Cannot adapt " + value + " (" + propertyName + ")", e);
+            e.printStackTrace();
+            throw new RuntimeException("Cannot adapt " + value + " (" + propertyName + ") :" + e.getMessage());
         }
     }
 
