@@ -4,8 +4,14 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import com.opensymphony.webwork.views.velocity.Renderer;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
+import org.apache.velocity.context.Context;
+
+import java.io.Writer;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -17,7 +23,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @author $Author$
  * @version $Revision$
  */
-public class ParamTag extends TagSupport {
+public class ParamTag extends TagSupport implements Renderer {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     String name;
@@ -69,5 +75,9 @@ public class ParamTag extends TagSupport {
         super.release();
         this.name = null;
         this.value = null;
+    }
+
+    public void render(Context context, Writer writer) throws Exception {
+        doStartTag();
     }
 }
