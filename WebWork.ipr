@@ -20,6 +20,10 @@
       <useJavaw value="false" />
       <includeProjectClasspath value="false" />
       <includeParser value="true" />
+      <additionalClassPath>
+        <entry path="file://$PROJECT_DIR$/../xwork/lib/build/clover-1.2.3.jar" />
+        <entry path="file://$PROJECT_DIR$/../xwork/lib/build/junit-3.8.1.jar" />
+      </additionalClassPath>
     </buildFile>
   </component>
   <component name="CodeStyleSettingsManager">
@@ -76,7 +80,7 @@
     <option name="OPEN_IN_BROWSER" value="true" />
   </component>
   <component name="JikesSettings">
-    <option name="JIKES_PATH" value="$PROJECT_DIR$/../../spoke/bin/jikes.exe" />
+    <option name="JIKES_PATH" value="C:/spoke/bin/jikes.exe" />
     <option name="DEBUGGING_INFO" value="true" />
     <option name="DEPRECATION" value="true" />
     <option name="GENERATE_NO_WARNINGS" value="false" />
