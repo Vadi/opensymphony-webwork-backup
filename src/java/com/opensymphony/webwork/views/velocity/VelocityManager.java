@@ -39,6 +39,8 @@ public class VelocityManager {
     private static VelocityManager instance;
     public static final String REQUEST = "req";
     public static final String RESPONSE = "res";
+	public static final String SESSION = "session";
+    public static final String BASE = "base";
     public static final String STACK = "stack";
     public static final String OGNL = "ognl";
     public static final String WEBWORK = "webwork";
@@ -123,9 +125,15 @@ public class VelocityManager {
         context.put(REQUEST, servletRequest);
         context.put(RESPONSE, servletResponse);
         context.put(STACK, stack);
-        context.put(OGNL, ognlTool);
+		context.put(OGNL, ognlTool);
         context.put(WEBWORK, new VelocityWebWorkUtil(context, stack, servletRequest, servletResponse));
-
+		
+		/* added the following for consistency with sitemesh keys */
+		context.put(BASE, servletRequest.getContextPath());
+        context.put("request", servletRequest);
+        context.put("response", servletResponse);
+		context.put(SESSION, servletRequest.getSession());
+	    
         ActionInvocation invocation = (ActionInvocation) stack.getContext().get(ActionContext.ACTION_INVOCATION);
 
         if (invocation != null) {
