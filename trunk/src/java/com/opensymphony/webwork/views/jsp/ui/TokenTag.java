@@ -43,13 +43,13 @@ public class TokenTag extends AbstractUITag {
     }
 
     /**
- * First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
- * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
- * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
- * the name.
- * @return
- * @throws JspException
- */
+* First looks for the token in the PageContext using the supplied name (or {@link TokenHelper#DEFAULT_TOKEN_NAME}
+* if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
+* the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
+* the name.
+* @return
+* @throws JspException
+*/
     public int doEndTag() throws JspException {
         if (name == null) {
             name = TokenHelper.DEFAULT_TOKEN_NAME;
@@ -61,8 +61,8 @@ public class TokenTag extends AbstractUITag {
     }
 
     /**
- * Clears all the instance variables to allow this instance to be reused.
- */
+* Clears all the instance variables to allow this instance to be reused.
+*/
     public void release() {
         super.release();
         token = null;
@@ -70,11 +70,11 @@ public class TokenTag extends AbstractUITag {
     }
 
     public void render(Context context, Writer writer) throws Exception {
-        /**
- * todo - look for a better way of implementing this.  this smells bad.
- */
-        verifySession();
-        this.token = TokenHelper.setToken(name.toString());
+        if (name == null) {
+            name = TokenHelper.DEFAULT_TOKEN_NAME;
+        }
+
+        token = buildTokenForVelocity(context, name.toString());
 
         super.render(context, writer);
     }
@@ -96,10 +96,23 @@ public class TokenTag extends AbstractUITag {
         return myToken.toString();
     }
 
+    private String buildTokenForVelocity(Context context, String name) {
+        Object myToken = context.get(name);
+
+        if (myToken == null) {
+            verifySession();
+            ;
+            myToken = TokenHelper.setToken(name.toString());
+            context.put(name, myToken);
+        }
+
+        return myToken.toString();
+    }
+
     /**
- * This method checks to see if a HttpSession object exists in the context. If a session
- * doesn't exist, it creates a new one and adds it to the context.
- */
+* This method checks to see if a HttpSession object exists in the context. If a session
+* doesn't exist, it creates a new one and adds it to the context.
+*/
     private void verifySession() {
         Map session = ServletActionContext.getContext().getSession();
 
