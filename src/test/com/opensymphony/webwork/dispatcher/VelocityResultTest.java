@@ -85,6 +85,7 @@ public class VelocityResultTest extends TestCase {
 
         Mock mockActionInvocation = new Mock(ActionInvocation.class);
         mockActionInvocation.expectAndReturn("getProxy", mockActionProxy.proxy());
+        mockActionInvocation.expectAndReturn("getStack", stack);
         actionInvocation = (ActionInvocation) mockActionInvocation.proxy();
     }
 
