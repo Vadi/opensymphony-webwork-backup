@@ -26,7 +26,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
     private static final Log LOG = LogFactory.getLog(AbstractUITag.class);
 
-    private static final String FILE_SEPARATOR = System.getProperty("file.separator");
+    private static final String FILE_SEPARATOR = "/";
 
     protected String cssClassAttr;
     protected String cssStyleAttr;
