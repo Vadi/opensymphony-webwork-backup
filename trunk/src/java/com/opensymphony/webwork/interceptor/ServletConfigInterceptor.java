@@ -43,8 +43,8 @@ public class ServletConfigInterceptor extends AroundInterceptor implements WebWo
      * @throws Exception if an error occurs when setting action properties.
      */
     protected void before(ActionInvocation invocation) throws Exception {
-        Action action = invocation.getAction();
-        ActionContext context = ActionContext.getContext();
+        final Action action = invocation.getAction();
+        final ActionContext context = ActionContext.getContext();
 
         if (action instanceof ServletRequestAware) {
             HttpServletRequest request = (HttpServletRequest) context.get(HTTP_REQUEST);
@@ -66,6 +66,11 @@ public class ServletConfigInterceptor extends AroundInterceptor implements WebWo
 
         if (action instanceof ApplicationAware) {
             ((ApplicationAware) action).setApplication(context.getApplication());
+        }
+
+        if (action instanceof PrincipalAware) {
+            HttpServletRequest request = (HttpServletRequest) context.get(HTTP_REQUEST);
+            ((PrincipalAware) action).setPrincipalProxy(new PrincipalProxy(request));
         }
     }
 }
