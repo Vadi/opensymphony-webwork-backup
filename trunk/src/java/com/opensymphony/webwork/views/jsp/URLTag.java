@@ -109,6 +109,9 @@ public class URLTag extends ParametereizedBodyTagSupport {
             }
         }
 
+        value = null;
+        includeParamsAttr = null;
+
         return EVAL_PAGE;
     }
 
