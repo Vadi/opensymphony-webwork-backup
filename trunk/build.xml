@@ -358,10 +358,13 @@
         </junitreport>
     </target>
 
-    <target name="docs" depends="javadocs, clover.report, junit.report">
+    <target name="docs.impl">
         <copy todir="${build.dist}/docs">
             <fileset dir="${docs}"/>
         </copy>
+    </target>
+
+    <target name="docs" depends="javadocs, clover.report, junit.report, docs.impl">
     </target>
 
     <target name="dist" depends="jar, migration, webflow, example-war, docs">
@@ -425,5 +428,7 @@
             todir="${ibiblio.username}@opensymphony.formicary.net:/home/rsync/repository/opensymphony/jars"
             file="${build}/${name}-${version}.jar"/>
     </target>
-</project>
 
+    <target name="website" depends="javadocs, docs.impl">
+    </target>
+</project>
