@@ -90,6 +90,10 @@
             </result>
         </action>
 
+        <action name="select" class="com.opensymphony.webwork.example.SelectExampleAction">
+            <result name="success" type="dispatcher">/select.jsp</result>
+        </action>
+
         <action name="formTest" class="com.opensymphony.webwork.example.FormAction" method="processForm" >
             <result name="success" type="dispatcher">
                 <param name="location">/form.jsp</param>
