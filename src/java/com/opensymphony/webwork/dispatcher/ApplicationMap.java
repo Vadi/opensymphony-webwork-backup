@@ -48,10 +48,10 @@ public class ApplicationMap extends AbstractMap implements Serializable {
     public void clear() {
         entries = null;
 
-        Enumeration enum = context.getAttributeNames();
+        Enumeration e = context.getAttributeNames();
 
-        while (enum.hasMoreElements()) {
-            context.removeAttribute(enum.nextElement().toString());
+        while (e.hasMoreElements()) {
+            context.removeAttribute(e.nextElement().toString());
         }
     }
 
@@ -65,10 +65,10 @@ public class ApplicationMap extends AbstractMap implements Serializable {
             entries = new HashSet();
 
             // Add servlet context attributes
-            Enumeration enum = context.getAttributeNames();
+            Enumeration enumeration = context.getAttributeNames();
 
-            while (enum.hasMoreElements()) {
-                final String key = enum.nextElement().toString();
+            while (enumeration.hasMoreElements()) {
+                final String key = enumeration.nextElement().toString();
                 final Object value = context.getAttribute(key);
                 entries.add(new Map.Entry() {
                         public boolean equals(Object obj) {
@@ -98,10 +98,10 @@ public class ApplicationMap extends AbstractMap implements Serializable {
             }
 
             // Add servlet context init params
-            enum = context.getInitParameterNames();
+            enumeration = context.getInitParameterNames();
 
-            while (enum.hasMoreElements()) {
-                final String key = enum.nextElement().toString();
+            while (enumeration.hasMoreElements()) {
+                final String key = enumeration.nextElement().toString();
                 final Object value = context.getInitParameter(key);
                 entries.add(new Map.Entry() {
                         public boolean equals(Object obj) {

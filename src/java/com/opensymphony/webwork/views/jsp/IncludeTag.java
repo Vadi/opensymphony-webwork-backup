@@ -203,10 +203,10 @@ public class IncludeTag extends WebWorkBodyTagSupport implements ParamTag.Parame
             String concat = "";
 
             // Set parameters
-            Iterator enum = params.entrySet().iterator();
+            Iterator iter = params.entrySet().iterator();
 
-            while (enum.hasNext()) {
-                Map.Entry entry = (Map.Entry) enum.next();
+            while (iter.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter.next();
                 Object name = entry.getKey();
                 List values = (List) entry.getValue();
 

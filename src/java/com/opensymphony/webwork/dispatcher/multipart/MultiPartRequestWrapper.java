@@ -204,10 +204,10 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
      */
     public Map getParameterMap() {
         Map map = new HashMap();
-        Enumeration enum = getParameterNames();
+        Enumeration enumeration = getParameterNames();
 
-        while (enum.hasMoreElements()) {
-            String name = (String) enum.nextElement();
+        while (enumeration.hasMoreElements()) {
+            String name = (String) enumeration.nextElement();
             map.put(name, this.getParameterValues(name));
         }
 
