@@ -47,7 +47,12 @@ public abstract class AbstractListTag extends AbstractUITag {
     public void evaluateExtraParams(OgnlValueStack stack) {
         if (listAttr != null) {
             Object value = findValue(listAttr);
-            addParam("list", MakeIterator.convert(value));
+            if (value instanceof Collection) {
+                addParam("list", value);
+            }
+            else {
+                addParam("list", MakeIterator.convert(value));
+            }
 
             if (value instanceof Collection) {
                 addParam("listSize", new Integer(((Collection) value).size()));
