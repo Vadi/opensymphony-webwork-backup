@@ -17,53 +17,57 @@
   *#
 
 #bean ("com.opensymphony.webwork.util.Counter" $tabIndex)
-$tabIndex.setFirst(0)
-$tabIndex.setLast($content.size())
+#set ($tabIndex.first = 0)
+#set ($tabIndex.last = $tag.content.size())
 
-<table border="1" cellspacing="0" cellpadding="5" id="$webwork.encodeHtml($id)">
+<table border="1" cellspacing="0" cellpadding="5" id="$!webwork.htmlEncode($tag.id)">
 
-	<tr valign="bottom" align="$webwork.encodeHtml($tabAlign)">
+	<tr valign="bottom" align="$!webwork.htmlEncode($tag.tabAlign)">
 
 	#if ($tabAlign == 'CENTER' || $tabAlign == 'RIGHT')
         <th colspan ="1" width="*"></th>
     #end
 
-    #foreach ($c in $content)
-        $stack.pushValue($c)
+    #foreach ($c in $tag.content)
+        $stack.push($c)
 
         <th width="10%"
-            #if ($selectedIndex == #attr.tabIndex.current)
+            #if ($tag.selectedIndex == $tabIndex.current)
                 #set ($isCur = 'true')
                 bgcolor="#A0B3FC"
             #else
+                #set ($isCur = 'false')
                 bgcolor="#C0C0C0"
             #end
         >
 
-        <a href="#bodytag( URL "includeParams='all'" )
-            #param ("indexLink" #attr.tabIndex.next)
-        #end">
+        #url ($url)
+        <a href="$url.addParameter("indexLink", $tabIndex.next)">
 
-        #if ($isCur)
+        #if ($isCur == 'true')
             <em>
         #end
-        $webwork.encodeHtml($key)
-        #if ($isCur)
+        $!webwork.htmlEncode($key)
+        #if ($isCur == 'true')
             </em>
         #end
 
         </a>
+
         </th>
 
-        #set ($trash = $stack.popValue())
+        #set ($trash = $stack.pop())
     #end
 
-		<webwork:if test="tabAlign == 'CENTER' || tabAlign == 'LEFT'"><th colspan ="1" width="*"></th></webwork:if>
+    #if ($tabAlign == 'CENTER' || $tabAlign == 'LEFT')
+        <th colspan ="1" width="*"></th>
+    #end
 
-	</tr>
+    </tr>
 	<tr>
-		<td bgcolor="#E1EAE8" colspan="<webwork:property value="colSpanLength"/>" width="100%">
-			<webwork:include value="selectedUrl"/>
+		<td bgcolor="#E1EAE8" colspan="$tag.colSpanLength" width="100%">
+			#includeservlet ($tag.selectedUrl)
 		</td>
 	</tr>
+
 </table>
