@@ -227,6 +227,4 @@
 
     <include file="file-upload.xml"/>
 
-    <include file="client-dispatcher.xml"/>
-
 </xwork>

@@ -1,5 +1,4 @@
 bsh.jar - BeanShell version 1.2 b6
-cglib-full.jar = CGLib 2.0.2
 commons-beanutils.jar - Apache Commons BeanUtils version 1.5
 commons-collections.jar - Apache Commons Collections version 2.1
 commons-digester.jar - Apache Commons Digester version 1.3

@@ -1,6 +1,6 @@
 <%@ taglib uri="webwork" prefix="webwork" %>
 
-<webwork:property value="cart/items">
+<webwork:push value="cart/items">
 <webwork:if test=".">
 
 	 <center>
@@ -43,4 +43,4 @@
   </center>
 
 </webwork:if>
-</webwork:property>
+</webwork:push>

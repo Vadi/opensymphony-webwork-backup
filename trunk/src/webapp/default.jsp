@@ -169,16 +169,6 @@ I18n Demos
     <li><a href="i18n/velocity/index.html">Velocity example of i18n</a></li>
 </ul>
 
-
-<p class="title">
-Client Server Demo
-</p>
-
-<ul>
-    <li><a href="examples/client/client.jnlp">Launch the Demonstration Client</a></li>
-</ul>
-
-
 <p class="title">
 Misc Demos
 </p>

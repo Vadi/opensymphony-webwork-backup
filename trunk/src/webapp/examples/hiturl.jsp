@@ -16,7 +16,7 @@ This is a good way to determine the performance of a particular page. Note that 
 you will see that the it takes a while for the JVM to "warm up", so make a few runs until the timings become stable.
 
 <center>
-<form action="<webwork:url page="hiturl.action"/>" method="GET">
+<form action="<webwork:url value="hiturl.action"/>" method="GET">
 
 <table width="350" border="0" cellpadding="3" cellspacing="0">
 
