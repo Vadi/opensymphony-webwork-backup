@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.example.counter;
 
+import java.io.Serializable;
+
 
 /**
  *
@@ -11,7 +13,7 @@ package com.opensymphony.webwork.example.counter;
  * @author $Author$
  * @version $Revision$
  */
-public class Counter {
+public class Counter implements Serializable {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     private int count;

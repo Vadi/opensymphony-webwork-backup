@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.util;
 
+import java.io.Serializable;
+
 
 /**
  *        A bean that can be used to keep track of a counter.
@@ -14,7 +16,7 @@ package com.opensymphony.webwork.util;
  *        @author Rickard Öberg (rickard@middleware-company.com)
  *        @version $Revision$
  */
-public class Counter implements java.util.Iterator {
+public class Counter implements java.util.Iterator, Serializable {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     boolean wrap = false;

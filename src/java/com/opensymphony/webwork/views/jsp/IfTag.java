@@ -54,13 +54,4 @@ public class IfTag extends WebWorkTagSupport {
 
         return SKIP_BODY;
     }
-
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.answer = null;
-        this.test = null;
-    }
 }

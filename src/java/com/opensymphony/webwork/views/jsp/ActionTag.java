@@ -77,35 +77,35 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     }
 
     public int doEndTag() throws JspException {
-        // execute the action and save the proxy (and the namespace) as instance variables
-        executeAction();
+        try {
+            // execute the action and save the proxy (and the namespace) as instance variables
+            executeAction();
 
-        if (getId() != null) {
-            pageContext.setAttribute(getId(), proxy.getAction());
+            if (getId() != null) {
+                pageContext.setAttribute(getId(), proxy.getAction());
+            }
+
+            return SKIP_BODY;
+        } finally {
+            // clean up after ourselves to allow this tag to be reused
+            this.reset();
         }
-
-        return SKIP_BODY;
     }
 
     public int doStartTag() throws JspException {
-        /**
-         * Migrated instantiation of the params HashMap to here from the constructor to facilitate implementation of the
-         * release() method.
-         */
-        this.params = new HashMap();
-
         return EVAL_BODY_INCLUDE;
     }
 
     /**
-     * Clears all the instance variables to allow this instance to be reused.
+     * @see ParameterizedTagSupport#reset for documentation
      */
-    public void release() {
-        super.release();
-        this.proxy = null;
-        this.params = null;
-        this.name = null;
+    protected void reset() {
+        super.reset();
+
+        // because namespace may be a derived value, we need to make sure we explicitly clear it out
         this.namespace = null;
+        this.name = null;
+        this.executeResult = false;
     }
 
     String buildNamespace() {

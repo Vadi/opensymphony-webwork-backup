@@ -39,15 +39,13 @@ public class SetTag extends WebWorkTagSupport {
     }
 
     public int doStartTag() throws JspException {
-        Object o;
-
         OgnlValueStack stack = getStack();
 
         if (value == null) {
             value = "top";
         }
 
-        o = findValue(value);
+        Object o = findValue(value);
 
         if ("application".equals(scope)) {
             super.pageContext.getServletContext().setAttribute(name, o);
@@ -62,15 +60,5 @@ public class SetTag extends WebWorkTagSupport {
         }
 
         return SKIP_BODY;
-    }
-
-    /**
-     * Clears all the instance variables to allow this instance to be reused.
-     */
-    public void release() {
-        super.release();
-        this.name = null;
-        this.scope = null;
-        this.value = null;
     }
 }

@@ -5,13 +5,20 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.views.jsp.ParameterizedTag;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.views.jsp.ParameterizedTag;
 
-import com.opensymphony.xwork.util.OgnlUtil;
-import com.opensymphony.xwork.util.XWorkConverter;
-import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlUtil;
+import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.util.XWorkConverter;
+
+import ognl.Ognl;
+import ognl.OgnlContext;
+import ognl.OgnlException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.apache.velocity.app.event.EventCartridge;
 import org.apache.velocity.context.Context;
@@ -23,8 +30,6 @@ import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
 import org.apache.velocity.runtime.resource.Resource;
 import org.apache.velocity.util.introspection.IntrospectionCacheData;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -38,10 +43,6 @@ import javax.servlet.jsp.tagext.BodyTag;
 import javax.servlet.jsp.tagext.IterationTag;
 import javax.servlet.jsp.tagext.Tag;
 
-import ognl.Ognl;
-import ognl.OgnlException;
-import ognl.OgnlContext;
-
 
 /**
  * Custom user Directive that enables the WebWork2 UI tags to be easily accessed from Velocity pages
@@ -51,6 +52,7 @@ import ognl.OgnlContext;
  */
 public abstract class AbstractTagDirective extends Directive {
     //~ Static fields/initializers /////////////////////////////////////////////
+
     protected static Log log = LogFactory.getLog(AbstractTagDirective.class);
 
     /**
@@ -101,10 +103,19 @@ public abstract class AbstractTagDirective extends Directive {
             // if we're already inside a tag, then make this tag the new parent
             contextAdapter.put(VelocityManager.PARENT, currentTag);
             contextAdapter.put(VelocityManager.TAG, object);
+
             InternalContextAdapter subContextAdapter = new WrappedInternalContextAdapter(contextAdapter);
+
+            // populate our tag with all the user specified properties
+            if (object instanceof ParameterizedTag) {
+                ((ParameterizedTag) object).getParams().clear();
+            }
+
+            applyAttributes(contextAdapter, node, object);
 
             if (object instanceof Tag) {
                 PageContext pageContext = ServletActionContext.getPageContext();
+
                 if (currentTag instanceof Tag) {
                     ((Tag) object).setParent((Tag) currentTag);
                 }
@@ -210,7 +221,7 @@ public abstract class AbstractTagDirective extends Directive {
         Map propertyMap = new HashMap();
 
         for (int index = 1, length = node.jjtGetNumChildren(); index < length;
-             index++) {
+                index++) {
             this.putProperty(propertyMap, contextAdapter, node.jjtGetChild(index));
         }
 
@@ -246,7 +257,7 @@ public abstract class AbstractTagDirective extends Directive {
         Class clazz = null;
 
         for (int index = 0; (clazz == null) && (index < tagpath.length);
-             index++) {
+                index++) {
             try {
                 clazz = Class.forName(tagpath[index] + "." + tagname + "Tag");
             } catch (ClassNotFoundException e) {
@@ -260,8 +271,6 @@ public abstract class AbstractTagDirective extends Directive {
             }
         }
 
-
-
         return clazz;
     }
 
@@ -273,10 +282,19 @@ public abstract class AbstractTagDirective extends Directive {
         writer = pageContext.getOut();
 
         try {
+            Map paramMap = null;
+            ParameterizedTag parameterizedTag = null;
+
+            if (tag instanceof ParameterizedTag) {
+                parameterizedTag = (ParameterizedTag) tag;
+                paramMap = parameterizedTag.getParams();
+            }
+
             int result = tag.doStartTag();
 
-            // populate our tag with all the user specified properties
-            applyAttributes(context, node, tag);
+            if (paramMap != null) {
+                parameterizedTag.getParams().putAll(paramMap);
+            }
 
             if (result != Tag.SKIP_BODY) {
                 if (tag instanceof BodyTag) {
@@ -316,41 +334,14 @@ public abstract class AbstractTagDirective extends Directive {
 
             tag.doEndTag();
         } catch (JspException e) {
-            e.printStackTrace(); //To change body of catch statement use Options | File Templates.
+            String gripe = "Fatal exception caught while processing tag,  " + tag.getClass().getName();
+            log.warn(gripe, e);
+
+            String methodName = "-";
+            throw new MethodInvocationException(gripe, e, methodName);
         }
 
         return true;
-
-        //        throw new UnsupportedOperationException("processing JSP Tags is not currently supported");
-    }
-
-    /**
-     * apply the attributes requested to the specified object
-     * @param context
-     * @param node
-     * @param object the object the tags should be applied to
-     * @throws ParseErrorException
-     * @throws MethodInvocationException
-     */
-    private void applyAttributes(InternalContextAdapter context, Node node, Object object) throws ParseErrorException, MethodInvocationException {
-        Map propertyMap = this.createPropertyMap(context, node);
-
-        // if there's nothing to do, don't bother creating an OgnlContext and the Iterator
-        if (propertyMap == null || propertyMap.size() == 0) {
-            return;
-        }
-
-        OgnlValueStack stack = ActionContext.getContext().getValueStack();
-        Map ognlContext = Ognl.createDefaultContext(object);
-        for (Iterator iterator = propertyMap.entrySet().iterator(); iterator.hasNext();) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            String key = entry.getKey().toString();
-            Object value = entry.getValue();
-            if (object instanceof ParameterizedTag && key.startsWith("params.")) {
-                value = stack.findValue(value.toString());
-            }
-            OgnlUtil.setProperty(key, value, object, ognlContext);
-        }
     }
 
     /**
@@ -373,6 +364,39 @@ public abstract class AbstractTagDirective extends Directive {
             propertyMap.put(property, value);
         } else {
             throw new ParseErrorException("#" + this.getName() + " arguments must include an assignment operator!  For example #tag( Component \"template=mytemplate\" ).  #tag( TextField \"mytemplate\" ) is illegal!");
+        }
+    }
+
+    /**
+     * apply the attributes requested to the specified object
+     * @param context
+     * @param node
+     * @param object the object the tags should be applied to
+     * @throws ParseErrorException
+     * @throws MethodInvocationException
+     */
+    private void applyAttributes(InternalContextAdapter context, Node node, Object object) throws ParseErrorException, MethodInvocationException {
+        Map propertyMap = this.createPropertyMap(context, node);
+
+        // if there's nothing to do, don't bother creating an OgnlContext and the Iterator
+        if ((propertyMap == null) || (propertyMap.size() == 0)) {
+            return;
+        }
+
+        OgnlValueStack stack = ActionContext.getContext().getValueStack();
+        Map ognlContext = Ognl.createDefaultContext(object);
+
+        for (Iterator iterator = propertyMap.entrySet().iterator();
+                iterator.hasNext();) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            String key = entry.getKey().toString();
+            Object value = entry.getValue();
+
+            if (object instanceof ParameterizedTag && key.startsWith("params.")) {
+                value = stack.findValue(value.toString());
+            }
+
+            OgnlUtil.setProperty(key, value, object, ognlContext);
         }
     }
 

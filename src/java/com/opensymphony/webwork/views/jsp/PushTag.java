@@ -52,17 +52,10 @@ public class PushTag extends WebWorkBodyTagSupport {
         if (stack != null) {
             stack.push(findValue(value));
             pushed = true;
+        } else {
+            pushed = false; // need to ensure push is assigned, otherwise we may have a leftover value
         }
 
         return EVAL_BODY_INCLUDE;
-    }
-
-    /**
-    * Clears all the instance variables to allow this instance to be reused.
-    */
-    public void release() {
-        super.release();
-        this.value = null;
-        this.pushed = false;
     }
 }
