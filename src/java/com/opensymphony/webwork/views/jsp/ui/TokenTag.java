@@ -44,11 +44,16 @@ public class TokenTag extends AbstractUITag {
      * @throws JspException
      */
     public int doEndTag() throws JspException {
+        String tokenName = null;
         if (nameAttr == null) {
-            nameAttr = TokenHelper.DEFAULT_TOKEN_NAME;
+            tokenName = TokenHelper.DEFAULT_TOKEN_NAME;
+        } else {
+            tokenName = (String) getValueStack().findValue(nameAttr, String.class);
         }
+        addParam("name", tokenName);
 
-        String token = buildToken(nameAttr.toString());
+
+        String token = buildToken(tokenName);
         addParam("token", token);
 
         return super.doEndTag();
@@ -62,7 +67,8 @@ public class TokenTag extends AbstractUITag {
         Object myToken = pageContext.getAttribute(name);
 
         if (myToken == null) {
-            myToken = TokenHelper.setToken(name.toString());
+            Map session = (Map) getValueStack().getContext().get(ActionContext.SESSION);
+            myToken = TokenHelper.setToken(session, name.toString());
             pageContext.setAttribute(name, myToken);
         }
 

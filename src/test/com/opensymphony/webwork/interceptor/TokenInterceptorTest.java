@@ -33,12 +33,12 @@ import javax.servlet.http.HttpSession;
 public class TokenInterceptorTest extends TestCase {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private ActionContext oldContext;
-    private HttpSession httpSession;
-    private Map extraContext;
-    private Map params;
-    private Map session;
-    private WebWorkMockHttpServletRequest request;
+    ActionContext oldContext;
+    HttpSession httpSession;
+    Map extraContext;
+    Map params;
+    Map session;
+    WebWorkMockHttpServletRequest request;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -56,14 +56,14 @@ public class TokenInterceptorTest extends TestCase {
         assertEquals(oldContext, ActionContext.getContext());
 
         ActionProxy proxy = buildProxy(getActionName());
-        setToken();
+        setToken(session);
         ActionContext.getContext().getSession().clear();
         assertEquals(TokenInterceptor.INVALID_TOKEN_CODE, proxy.execute());
     }
 
     public void testTokenInterceptorSuccess() throws Exception {
         ActionProxy proxy = buildProxy(getActionName());
-        setToken();
+        setToken(session);
         assertEquals(Action.SUCCESS, proxy.execute());
     }
 
@@ -71,8 +71,8 @@ public class TokenInterceptorTest extends TestCase {
         return TestConfigurationProvider.TOKEN_ACTION_NAME;
     }
 
-    protected String setToken() {
-        String token = TokenHelper.setToken();
+    protected String setToken(Map session) {
+        String token = TokenHelper.setToken(session);
         setToken(token);
 
         return token;

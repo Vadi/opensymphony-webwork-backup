@@ -6,9 +6,11 @@ package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.webwork.util.InvocationSessionStore;
 import com.opensymphony.webwork.util.TokenHelper;
+import com.opensymphony.webwork.ServletActionContext;
 
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
@@ -32,6 +34,10 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
             ActionInvocation savedInvocation = InvocationSessionStore.loadInvocation(tokenName, token);
 
             if (savedInvocation != null) {
+                // set the valuestack to the request scope
+                OgnlValueStack stack = savedInvocation.getStack();
+                ServletActionContext.getRequest().setAttribute("webwork.valueStack", stack);
+
                 Result result = savedInvocation.getResult();
 
                 if ((result != null) && (savedInvocation.getProxy().getExecuteResult())) {

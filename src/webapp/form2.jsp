@@ -24,13 +24,10 @@
     That is because the action isn't being executed again.</li>
 </ol>
 
-<ww:form name="myForm" action="formTest2.action" method="POST">
-    <ww:token name="myToken"/><br>
-    <table>
-        <ww:textfield label="Foo" name="foo"/><br>
-    </table>
-
-    <input type="submit" value="Test With Token"/>
+<ww:form name="'myForm'" action="'formTest2.action'" method="'POST'">
+    <ww:token name="'myToken'"/><br>
+    <ww:textfield label="'Foo'" name="'foo'"/><br>
+    <ww:submit value="'Test With Token'" />
 </ww:form>
 
 </body>

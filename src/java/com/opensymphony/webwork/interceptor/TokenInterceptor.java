@@ -10,12 +10,14 @@ import com.opensymphony.webwork.util.TokenHelper;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ValidationAware;
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.interceptor.Interceptor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 
 /**
@@ -57,10 +59,10 @@ public class TokenInterceptor implements Interceptor {
             LOG.debug("Intercepting invocation to check for valid transaction token.");
         }
 
-        HttpSession session = ServletActionContext.getRequest().getSession();
+        Map session = ActionContext.getContext().getSession();
 
         synchronized (session) {
-            if (!TokenHelper.validToken()) {
+            if (!TokenHelper.validToken(session)) {
                 return handleInvalidToken(invocation);
             }
 

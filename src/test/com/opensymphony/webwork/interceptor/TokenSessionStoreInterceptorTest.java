@@ -24,7 +24,7 @@ public class TokenSessionStoreInterceptorTest extends TokenInterceptorTest {
     public void testDuplicateToken() {
         try {
             ActionProxy proxy = buildProxy(getActionName());
-            String token = setToken();
+            String token = setToken(session);
             assertEquals(Action.SUCCESS, proxy.execute());
             proxy = buildProxy(getActionName());
             setToken(token);
