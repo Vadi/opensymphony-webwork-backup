@@ -13,15 +13,6 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
 public class ComponentTest extends AbstractUITagTest {
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    public ComponentTest() {
-    }
-
-    public ComponentTest(String s) {
-        super(s);
-    }
-
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**

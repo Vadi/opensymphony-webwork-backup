@@ -21,15 +21,6 @@ import org.apache.velocity.app.Velocity;
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
 public class LabelTest extends AbstractUITagTest {
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    public LabelTest() {
-    }
-
-    public LabelTest(String s) {
-        super(s);
-    }
-
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() throws Exception {

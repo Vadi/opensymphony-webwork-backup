@@ -69,7 +69,7 @@ public class ActionTagTest extends AbstractTagTest {
             tag.doEndTag();
 
             assertEquals("myFoo", stack.findValue("#testAction.foo"));
-            assertEquals(0, ActionContext.getContext().getValueStack().size());
+            assertEquals(0, stack.size());
 
             Object o = pageContext.findAttribute("testAction");
             assertTrue(o instanceof TestAction);
@@ -94,5 +94,7 @@ public class ActionTagTest extends AbstractTagTest {
         ConfigurationManager.clearConfigurationProviders();
         ConfigurationManager.addConfigurationProvider(new TestConfigurationProvider());
         ConfigurationManager.getConfiguration().reload();
+
+        ActionContext.setContext(new ActionContext(context));
     }
 }
