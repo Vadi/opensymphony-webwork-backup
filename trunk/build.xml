@@ -99,6 +99,7 @@
 
         <mkdir dir="${build.dist}/docs/junit"/>
         <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
+            <jvmarg value="-Djava.awt.headless=true"/>
             <classpath>
                 <pathelement location="${build.test}"/>
                 <pathelement location="${build.java-test}"/>
