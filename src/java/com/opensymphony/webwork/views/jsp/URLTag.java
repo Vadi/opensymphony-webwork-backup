@@ -11,19 +11,16 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.views.util.UrlHelper;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.IOException;
-
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpUtils;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import java.io.IOException;
+import java.util.HashMap;
 
 
 /**
@@ -80,7 +77,7 @@ public class URLTag extends ParametereizedBodyTagSupport {
         includeParamsAttr = aName;
     }
 
-    public void setSchemeAttr(String aScheme) {
+    public void setScheme(String aScheme) {
         schemeAttr = aScheme;
     }
 
