@@ -12,15 +12,15 @@
 </tr>
 
 <benchmark:duration output="true">
-<ww:label label="'textfield test'" value="scalar"/>
-</benchmark:duration> ms</td></tr>
-
-<benchmark:duration output="true">
-<ww:label label="'required textfield test'" required="'true'" value="scalar"/>
+<ww:label label="'label test'" name="scalar"/>
 </benchmark:duration> ms</td></tr>
 
 <benchmark:duration output="true">
 <ww:textfield label="'textfield test'" name="'textfieldName'" value="scalar" size="50"/>
+</benchmark:duration> ms</td></tr>
+
+<benchmark:duration output="true">
+<ww:textfield label="'required textfield test'" name="'textfieldName'" value="scalar" size="50" required="true"/>
 </benchmark:duration> ms</td></tr>
 
 <benchmark:duration output="true">
