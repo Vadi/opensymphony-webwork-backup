@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.config;
 
+import com.opensymphony.xwork.ObjectFactory;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -154,7 +156,7 @@ public class Configuration {
 
                 if (!className.equals(defaultImpl.getClass().getName())) {
                     try {
-                        defaultImpl = (Configuration) Thread.currentThread().getContextClassLoader().loadClass(className).newInstance();
+                        defaultImpl = (Configuration) ObjectFactory.getObjectFactory().buildBean(Thread.currentThread().getContextClassLoader().loadClass(className));
                     } catch (Exception e) {
                         LOG.error("Could not instantiate configuration", e);
                     }

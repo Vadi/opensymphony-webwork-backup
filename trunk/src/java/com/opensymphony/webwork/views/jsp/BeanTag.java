@@ -4,13 +4,12 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.beans.Beans;
 
 import java.util.Map;
 
@@ -90,7 +89,7 @@ public class BeanTag extends WebWorkTagSupport implements ParameterizedTag {
         }
 
         try {
-            bean = Class.forName(findString(name)).newInstance();
+            bean = ObjectFactory.getObjectFactory().buildBean(Class.forName(findString(name)));
         } catch (Exception e) {
             log.error("Could not instantiate bean", e);
 

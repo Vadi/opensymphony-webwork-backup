@@ -10,6 +10,7 @@ import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
@@ -80,7 +81,7 @@ public class VelocityManager {
 
             try {
                 log.info("Instantiating VelocityManager!, " + classname);
-                instance = (VelocityManager) Class.forName(classname).newInstance();
+                instance = (VelocityManager) ObjectFactory.getObjectFactory().buildBean(Class.forName(classname));
             } catch (Exception e) {
                 log.fatal("Fatal exception occurred while trying to instantiate a VelocityManager instance, " + classname);
                 instance = new VelocityManager();
@@ -234,7 +235,7 @@ public class VelocityManager {
             log.debug("Initializing Velocity with the following properties ...");
 
             for (Iterator iter = properties.keySet().iterator();
-                 iter.hasNext();) {
+                    iter.hasNext();) {
                 String key = (String) iter.next();
                 String value = properties.getProperty(key);
 
@@ -267,7 +268,7 @@ public class VelocityManager {
                 String classname = st.nextToken();
 
                 try {
-                    VelocityContext velocityContext = (VelocityContext) Class.forName(classname).newInstance();
+                    VelocityContext velocityContext = (VelocityContext) ObjectFactory.getObjectFactory().buildBean(Class.forName(classname));
                     contextList.add(velocityContext);
                 } catch (Exception e) {
                     log.warn("Warning.  " + e.getClass().getName() + " caught while attempting to instantiate a chained VelocityContext, " + classname + " -- skipping");
@@ -344,7 +345,6 @@ public class VelocityManager {
      */
     private void applyDefaultConfiguration(ServletContext context, Properties p) {
         // ensure that caching isn't overly aggressive
-
 
         /**
          * Load a default resource loader definition if there isn't one present.
