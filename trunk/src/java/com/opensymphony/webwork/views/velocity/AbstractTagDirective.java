@@ -108,7 +108,10 @@ public abstract class AbstractTagDirective extends Directive {
 
             // populate our tag with all the user specified properties
             if (object instanceof ParameterizedTag) {
-                ((ParameterizedTag) object).getParams().clear();
+                Map params = ((ParameterizedTag)object).getParams();
+                if( params != null ) {
+                    params.clear();
+                }
             }
 
             applyAttributes(contextAdapter, node, object);
