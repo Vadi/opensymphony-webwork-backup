@@ -12,6 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/migration" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/migration-test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/plugin" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
     </content>
@@ -315,6 +316,24 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/idea.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/jdom.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
   <component name="WebModuleBuildComponent">
     <setting name="EXPLODED_URL" value="file://" />
@@ -597,6 +616,22 @@
         </key>
         <value predicate="moduleLibrary">
           <url>jar://$MODULE_DIR$/lib/optional/freemarker-2.3rc3.jar!/</url>
+        </value>
+      </pairs>
+      <pairs>
+        <key>
+          <option name="value" value="260" />
+        </key>
+        <value predicate="moduleLibrary">
+          <url>jar://$APPLICATION_HOME_DIR$/lib/idea.jar!/</url>
+        </value>
+      </pairs>
+      <pairs>
+        <key>
+          <option name="value" value="262" />
+        </key>
+        <value predicate="moduleLibrary">
+          <url>jar://$APPLICATION_HOME_DIR$/lib/jdom.jar!/</url>
         </value>
       </pairs>
     </orderEntriesWatcher>
@@ -901,6 +936,24 @@
       <info>
         <key>
           <option name="value" value="258" />
+        </key>
+        <value>
+          <setting name="copy" value="false" />
+          <setting name="URI" value="" />
+        </value>
+      </info>
+      <info>
+        <key>
+          <option name="value" value="260" />
+        </key>
+        <value>
+          <setting name="copy" value="false" />
+          <setting name="URI" value="" />
+        </value>
+      </info>
+      <info>
+        <key>
+          <option name="value" value="262" />
         </key>
         <value>
           <setting name="copy" value="false" />
