@@ -4,26 +4,16 @@
  */
 package com.opensymphony.webwork.util;
 
-import com.opensymphony.webwork.TestAction;
+import com.mockobjects.dynamic.Mock;
 
-import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
-import com.opensymphony.xwork.ActionProxyFactory;
-import com.opensymphony.xwork.config.Configuration;
-import com.opensymphony.xwork.config.ConfigurationManager;
-import com.opensymphony.xwork.config.ConfigurationProvider;
-import com.opensymphony.xwork.config.entities.ActionConfig;
-import com.opensymphony.xwork.config.entities.PackageConfig;
-import com.opensymphony.xwork.interceptor.Interceptor;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -35,87 +25,51 @@ import java.util.Map;
 public class InvocationSessionStoreTest extends TestCase {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    private static final String ACTION_NAME = "com.opensymphony.webwork.util.InvocationSessionStoreTest.action";
     private static final String INVOCATION_KEY = "com.opensymphony.webwork.util.InvocationSessionStoreTest.invocation";
     private static final String TOKEN_VALUE = "com.opensymphony.webwork.util.InvocationSessionStoreTest.token";
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private Map extraContext;
+    private ActionInvocation invocation;
     private Map session;
+    private Mock invocationMock;
+    private OgnlValueStack stack;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testStore() {
-        try {
-            ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy("", ACTION_NAME, extraContext);
-            assertEquals(Action.SUCCESS, proxy.execute());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        assertNull(InvocationSessionStore.loadInvocation(INVOCATION_KEY, TOKEN_VALUE));
+        InvocationSessionStore.storeInvocation(INVOCATION_KEY, TOKEN_VALUE, invocation);
+        assertNotNull(InvocationSessionStore.loadInvocation(INVOCATION_KEY, TOKEN_VALUE));
+        assertEquals(invocation, InvocationSessionStore.loadInvocation(INVOCATION_KEY, TOKEN_VALUE));
+    }
+
+    public void testValueStackReset() {
+        ActionContext actionContext = ActionContext.getContext();
+        assertEquals(stack, actionContext.getValueStack());
+        InvocationSessionStore.storeInvocation(INVOCATION_KEY, TOKEN_VALUE, invocation);
+        actionContext.setValueStack(null);
+        assertNull(actionContext.getValueStack());
+        InvocationSessionStore.loadInvocation(INVOCATION_KEY, TOKEN_VALUE);
+        assertEquals(stack, actionContext.getValueStack());
     }
 
     protected void setUp() throws Exception {
-        ConfigurationManager.clearConfigurationProviders();
-        ConfigurationManager.addConfigurationProvider(new InvocationSessionStoreTestConfigurationProvider());
-        ConfigurationManager.getConfiguration().reload();
-
+        ActionContext actionContext = ActionContext.getContext();
         session = new HashMap();
-        extraContext = new HashMap();
-        extraContext.put(ActionContext.SESSION, session);
-    }
+        actionContext.setSession(session);
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
+        invocationMock = new Mock(ActionInvocation.class);
+        invocation = (ActionInvocation) invocationMock.proxy();
 
-    class InvocationSessionStoreTestConfigurationProvider implements ConfigurationProvider {
-        public void destroy() {
-        }
+        stack = new OgnlValueStack();
+        actionContext.setValueStack(stack);
 
-        /**
-        * Initializes the configuration object.
-        */
-        public void init(Configuration configuration) {
-            PackageConfig defaultPackageConfig = new PackageConfig();
+        Mock proxyMock = new Mock(ActionProxy.class);
+        proxyMock.matchAndReturn("getValueStack", stack);
 
-            List interceptors = new ArrayList();
-            interceptors.add(new InvocationSessionStoreTestInterceptor());
+        ActionProxy proxy = (ActionProxy) proxyMock.proxy();
 
-            ActionConfig testActionConfig = new ActionConfig(null, TestAction.class, null, null, interceptors);
-            defaultPackageConfig.addActionConfig(ACTION_NAME, testActionConfig);
-
-            configuration.addPackageConfig("defaultPackage", defaultPackageConfig);
-        }
-
-        /**
-         * Tells whether the ConfigurationProvider should reload its configuration
-         * @return
-         */
-        public boolean needsReload() {
-            return false;
-        }
-    }
-
-    class InvocationSessionStoreTestInterceptor implements Interceptor {
-        public void destroy() {
-        }
-
-        public void init() {
-        }
-
-        public String intercept(ActionInvocation invocation) throws Exception {
-            assertNull(InvocationSessionStore.loadInvocation(INVOCATION_KEY, TOKEN_VALUE));
-
-            ActionContext context = ActionContext.getContext();
-            InvocationSessionStore.storeInvocation(INVOCATION_KEY, TOKEN_VALUE, invocation);
-
-            ActionContext newContext = new ActionContext(extraContext);
-            ActionContext.setContext(newContext);
-            Assert.assertEquals(newContext, ActionContext.getContext());
-            Assert.assertEquals(invocation, InvocationSessionStore.loadInvocation(INVOCATION_KEY, TOKEN_VALUE));
-            Assert.assertEquals(context, ActionContext.getContext());
-
-            return Action.SUCCESS;
-        }
+        invocationMock.matchAndReturn("getProxy", proxy);
     }
 }
