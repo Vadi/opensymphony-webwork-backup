@@ -5,19 +5,16 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -26,12 +23,17 @@ import javax.servlet.http.HttpServletResponse;
  * @author Jason Carreira
  */
 public class HttpHeaderResult implements Result {
+    //~ Static fields/initializers /////////////////////////////////////////////
 
     public static final String DEFAULT_PARAM = "status";
+
+    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected boolean parse = true;
     private Map headers;
     private int status = -1;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Returns a Map of all HTTP headers.
@@ -50,7 +52,7 @@ public class HttpHeaderResult implements Result {
      * Sets whether or not the HTTP header values should be evaluated against the ValueStack (by default they are).
      *
      * @param parse <tt>true</tt> if HTTP header values should be evaluated agains the ValueStack, <tt>false</tt>
-     *      otherwise.
+     *              otherwise.
      */
     public void setParse(boolean parse) {
         this.parse = parse;
@@ -59,8 +61,8 @@ public class HttpHeaderResult implements Result {
     /**
      * Sets the http servlet response status code that should be set on a response.
      *
-     * @see javax.servlet.http.HttpServletResponse#setStatus(int)
      * @param status the Http status code
+     * @see javax.servlet.http.HttpServletResponse#setStatus(int)
      */
     public void setStatus(int status) {
         this.status = status;
@@ -84,7 +86,7 @@ public class HttpHeaderResult implements Result {
             OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
             for (Iterator iterator = headers.entrySet().iterator();
-                    iterator.hasNext();) {
+                 iterator.hasNext();) {
                 Map.Entry entry = (Map.Entry) iterator.next();
                 String value = (String) entry.getValue();
                 String finalValue = parse ? TextParseUtil.translateVariables(value, stack) : value;

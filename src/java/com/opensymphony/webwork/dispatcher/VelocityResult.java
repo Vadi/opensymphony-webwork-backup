@@ -7,19 +7,14 @@ package com.opensymphony.webwork.dispatcher;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
-
-import java.io.Writer;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
@@ -27,12 +22,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.PageContext;
+import java.io.Writer;
 
 
 /**
  * Using the Servlet container's {@link JspFactory}, this result mocks a JSP execution environment
  * and then displays a Velocity template that will be streamed directly to the servlet output. <p>
- *
+ * <p/>
  * This result follows the same rules from {@link WebWorkResultSupport}.
  *
  * @author <a href="mailto:matt@indigoegg.com">Matt Ho</a>
@@ -49,9 +45,9 @@ public class VelocityResult extends WebWorkResultSupport {
      * template. Output is written to the servlet output stream.
      *
      * @param finalLocation the location of the Velocity template
-     * @param invocation an encapsulation of the action execution state.
+     * @param invocation    an encapsulation of the action execution state.
      * @throws Exception if an error occurs when creating the Velocity context, loading or executing
-     *      the template or writing output to the servlet response stream.
+     *                   the template or writing output to the servlet response stream.
      */
     public void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
@@ -78,7 +74,6 @@ public class VelocityResult extends WebWorkResultSupport {
 
             Context context = createContext(velocityManager, stack, request, response, finalLocation);
             Writer writer = pageContext.getOut();
-
 
             if (usedJspFactory) {
                 String encoding = getEncoding(finalLocation);
@@ -109,37 +104,35 @@ public class VelocityResult extends WebWorkResultSupport {
     }
 
     /**
-     * Retrieve the encoding for this template.
-     * <p>
-     * People can override this method if they want to provide specific encodings for specific templates.
-     *
-     * @return The encoding associated with this template (defaults to the value of 'webwork.i18n.encoding' property)
-     */
-    protected String getEncoding(String templateLocation)
-    {
-        return (String) Configuration.get("webwork.i18n.encoding");
-    }
-
-    /**
      * Retrieve the content type for this template.
-     * <p>
+     * <p/>
      * People can override this method if they want to provide specific content types for specific templates (eg text/xml).
      *
      * @return The content type associated with this template (default "text/html")
      */
-    protected String getContentType(String templateLocation)
-    {
+    protected String getContentType(String templateLocation) {
         return "text/html";
+    }
+
+    /**
+     * Retrieve the encoding for this template.
+     * <p/>
+     * People can override this method if they want to provide specific encodings for specific templates.
+     *
+     * @return The encoding associated with this template (defaults to the value of 'webwork.i18n.encoding' property)
+     */
+    protected String getEncoding(String templateLocation) {
+        return (String) Configuration.get("webwork.i18n.encoding");
     }
 
     /**
      * Given a value stack, a Velocity engine, and an action invocation, this method returns the appropriate
      * Velocity template to render.
      *
-     * @param stack the value stack to resolve the location again (when parse equals true)
-     * @param velocity the velocity engine to process the request against
+     * @param stack      the value stack to resolve the location again (when parse equals true)
+     * @param velocity   the velocity engine to process the request against
      * @param invocation an encapsulation of the action execution state.
-     * @param location the location of the template
+     * @param location   the location of the template
      * @return the template to render
      * @throws Exception when the requested template could not be found
      */
@@ -157,8 +150,8 @@ public class VelocityResult extends WebWorkResultSupport {
      * Creates the VelocityContext that we'll use to render this page.
      *
      * @param velocityManager a reference to the velocityManager to use
-     * @param stack the value stack to resolve the location against (when parse equals true)
-     * @param location the name of the template that is being used
+     * @param stack           the value stack to resolve the location against (when parse equals true)
+     * @param location        the name of the template that is being used
      * @return the a minted Velocity context.
      */
     protected Context createContext(VelocityManager velocityManager, OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response, String location) {

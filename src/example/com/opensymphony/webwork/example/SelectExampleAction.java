@@ -2,13 +2,14 @@ package com.opensymphony.webwork.example;
 
 import com.opensymphony.xwork.ActionSupport;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * SelectExampleAction
+ *
  * @author Jason Carreira
- * Date: Nov 23, 2003 12:20:02 AM
+ *         Date: Nov 23, 2003 12:20:02 AM
  */
 public class SelectExampleAction extends ActionSupport {
     private Map selectMap;

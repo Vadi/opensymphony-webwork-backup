@@ -179,8 +179,8 @@
                 </generate>
                 <parseComments>false</parseComments>
                 <tags>
-                    <in-line />
-                    <standard />
+                    <in-line/>
+                    <standard/>
                 </tags>
                 <templates>
                     <method>
@@ -212,9 +212,9 @@
                 </text>
             </separator>
         </comments>
-        <environment />
+        <environment/>
         <footer>
-            <keys />
+            <keys/>
             <smartMode>0</smartMode>
             <use>false</use>
         </footer>

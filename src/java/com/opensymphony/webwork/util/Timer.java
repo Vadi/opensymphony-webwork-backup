@@ -6,10 +6,10 @@ package com.opensymphony.webwork.util;
 
 
 /**
- *        A bean that can be used to time execution of pages
+ * A bean that can be used to time execution of pages
  *
- *        @author Rickard Öberg (rickard@middleware-company.com)
- *        @version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
  */
 public class Timer {
     //~ Instance fields ////////////////////////////////////////////////////////

@@ -11,33 +11,25 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.mockobjects.dynamic.Mock;
-
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.dispatcher.ChartResult;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
-
 import junit.framework.TestCase;
-
 import ognl.Ognl;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-
 import org.jfree.data.DefaultPieDataset;
-
-import java.io.IOException;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 
 /**
  * @author bchoi
- *
- * To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Generation - Code and Comments
+ *         <p/>
+ *         To change the template for this generated type comment go to Window -
+ *         Preferences - Java - Code Generation - Code and Comments
  */
 public class ChartResultTest extends TestCase {
     //~ Instance fields ////////////////////////////////////////////////////////

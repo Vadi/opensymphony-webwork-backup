@@ -11,8 +11,9 @@ import java.util.List;
 
 /**
  * TestConfiguration
+ *
  * @author Jason Carreira
- * Created Apr 9, 2003 11:12:54 PM
+ *         Created Apr 9, 2003 11:12:54 PM
  */
 public class TestConfiguration extends Configuration {
     //~ Methods ////////////////////////////////////////////////////////////////

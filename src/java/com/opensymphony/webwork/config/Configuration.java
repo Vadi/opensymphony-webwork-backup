@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.config;
 
 import com.opensymphony.xwork.ObjectFactory;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -19,20 +18,20 @@ import java.util.StringTokenizer;
  * default implementation is {@link DefaultConfiguration}). This gives developers to ability to customize how
  * WebWork2 properties are set and retrieved. As an example, a developer may wish to check a separate property
  * store before delegating to the WebWork one. <p>
- *
+ * <p/>
  * Key methods: <ul>
- *
- *      <li>{@link #getLocale()}</li>
- *      <li>{@link #getString(String)}</li>
- *      <li>{@link #set(String, Object)}</li>
- *      <li>{@link #list()}</li></ul>
- *
+ * <p/>
+ * <li>{@link #getLocale()}</li>
+ * <li>{@link #getString(String)}</li>
+ * <li>{@link #set(String, Object)}</li>
+ * <li>{@link #list()}</li></ul>
+ * <p/>
  * Key methods for subclassers: <ul>
- *
- *      <li>{@link #getImpl(String)}</li>
- *      <li>{@link #setImpl(String, Object)}</li>
- *      <li>{@link #listImpl()}</li>
- *      <li>{@link #isSetImpl(String)}</li></ul>
+ * <p/>
+ * <li>{@link #getImpl(String)}</li>
+ * <li>{@link #setImpl(String, Object)}</li>
+ * <li>{@link #listImpl()}</li>
+ * <li>{@link #isSetImpl(String)}</li></ul>
  *
  * @author Rickard Öberg
  * @author Jason Carreira
@@ -72,7 +71,7 @@ public class Configuration {
      * Returns the WebWork2 locale. Keys off the property <tt>webwork.locale</tt> which should be set
      * as the Java {@link java.util.Locale#toString() toString()} representation of a Locale object (i.e.,
      * "en", "de_DE", "_GB", "en_US_WIN", "de__POSIX", "fr_MAC", etc). <p>
-     *
+     * <p/>
      * If no locale is specified then the default VM locale is used ({@link java.util.Locale#getDefault()}).
      *
      * @return the WebWork2 locale if specified or the VM default locale.
@@ -166,9 +165,9 @@ public class Configuration {
      * Sets a property. Throws an exception if an error occurs when setting the property or if the
      * Configuration implementation does not support setting properties.
      *
-     * @param name the name of the property to set.
+     * @param name  the name of the property to set.
      * @param value the property to set.
-     * @throws IllegalArgumentException if an error occurs when setting the property.
+     * @throws IllegalArgumentException      if an error occurs when setting the property.
      * @throws UnsupportedOperationException if the config implementation does not support setting properties.
      */
     public static void set(String name, Object value) throws IllegalArgumentException, UnsupportedOperationException {

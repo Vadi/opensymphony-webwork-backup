@@ -1,21 +1,20 @@
 package com.opensymphony.webwork.example;
 
-import org.apache.commons.logging.*;
+import com.opensymphony.webwork.interceptor.ParameterAware;
+import com.opensymphony.xwork.ActionSupport;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import com.opensymphony.webwork.interceptor.ParameterAware;
-import com.opensymphony.xwork.ActionSupport;
-
 /**
- *	Simple test action.
+ * Simple test action.
  *
- *	@see <related>
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
+ * @see <related>
  */
 public class Test extends ActionSupport implements ParameterAware {
     // Constants -----------------------------------------------------

@@ -6,13 +6,12 @@
  */
 package webwork.action.factory;
 
+import com.opensymphony.webwork.config.Configuration;
+import org.apache.commons.logging.LogFactory;
 import webwork.action.Action;
 
 import java.util.Hashtable;
 import java.util.Map;
-
-import org.apache.commons.logging.*;
-import com.opensymphony.webwork.config.Configuration;
 
 /**
  * Aliasing action factory proxy. This will convert the given name
@@ -20,12 +19,12 @@ import com.opensymphony.webwork.config.Configuration;
  * can give meaningful and easy-to-remember names to your action classes.
  * Using aliases also allow you to use the same action class with
  * many result view mappings.
- * <p>
+ * <p/>
  * If the configuration flag <code>"webwork.only.aliasing"</code> is set to "true",
  * then the given name *must* be an alias. Otherwise a security exception
  * will be thrown. This is to ensure that only actions that you explicitly
  * want exposed for invocation can be accessed.
- * <p>
+ * <p/>
  * However, actions can always access any other action through the ActionFactory
  * regardless of this setting.
  *
@@ -56,10 +55,9 @@ public class AliasingActionFactoryProxy
      * action from the action factory proxy chain.  For the alias to match, it
      * must be specified with an <code>".action"</code> suffix.
      *
-     * @param   aName
+     * @param aName
      * @return the action corresponding to the given alias
-     * @exception Exception
-     *
+     * @throws Exception
      */
     public Action getActionImpl(String aName)
             throws Exception {

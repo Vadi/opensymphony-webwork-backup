@@ -6,9 +6,9 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 
 /**
- *
+ * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
  * @version $Id$
- * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a> */
+ */
 public class HiddenTag extends AbstractUITag {
     //~ Static fields/initializers /////////////////////////////////////////////
 

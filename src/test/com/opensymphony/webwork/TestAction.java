@@ -8,13 +8,12 @@ import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionSupport;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 
 /**
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @version $Id$
  */
 public class TestAction extends ActionSupport {
     //~ Instance fields ////////////////////////////////////////////////////////

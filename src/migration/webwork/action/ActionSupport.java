@@ -4,8 +4,8 @@ import com.opensymphony.webwork.ServletActionContext;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Backwards compatible class for WebWork 1.x migration
@@ -62,7 +62,6 @@ public class ActionSupport extends com.opensymphony.xwork.ActionSupport implemen
      * Invokes an alternate execution path for the action. The name of the action
      * is derived by prepending a "do" and capitalizing the first letter of the
      * action.
-     *
      */
     protected String invokeCommand() throws Exception {
         StringBuffer sb = new StringBuffer("do");

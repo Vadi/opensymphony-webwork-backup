@@ -5,12 +5,10 @@
 package com.opensymphony.webwork.util;
 
 import com.mockobjects.dynamic.Mock;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
 
 import java.util.HashMap;
@@ -19,8 +17,9 @@ import java.util.Map;
 
 /**
  * InvocationSessionStoreTest
+ *
  * @author Jason Carreira
- * Created Apr 12, 2003 10:34:53 PM
+ *         Created Apr 12, 2003 10:34:53 PM
  */
 public class InvocationSessionStoreTest extends TestCase {
     //~ Static fields/initializers /////////////////////////////////////////////

@@ -6,8 +6,6 @@ package com.opensymphony.webwork.example.counter;
 
 
 /**
- *
- *
  * @author $Author$
  * @version $Revision$
  */

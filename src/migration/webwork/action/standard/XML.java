@@ -6,7 +6,7 @@
  */
 package webwork.action.standard;
 
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import webwork.action.ActionSupport;
@@ -18,11 +18,11 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- *	XML "execution" wrapper.
+ * XML "execution" wrapper.
  *
- *	@see <related>
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
+ * @see <related>
  */
 public class XML
         extends ActionSupport {

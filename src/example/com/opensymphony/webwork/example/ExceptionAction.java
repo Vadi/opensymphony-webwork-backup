@@ -3,8 +3,6 @@ package com.opensymphony.webwork.example;
 import com.opensymphony.xwork.Action;
 
 /**
- *
- * 
  * @author $Author$
  * @version $Revision$
  */

@@ -10,18 +10,17 @@ import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.ActionConfig;
-
 import junit.framework.TestCase;
+import ognl.Ognl;
 
 import java.util.HashMap;
-
-import ognl.Ognl;
 
 
 /**
  * MigrationConfigurationTest
+ *
  * @author Jason Carreira
- * Date: Nov 6, 2003 1:05:37 AM
+ *         Date: Nov 6, 2003 1:05:37 AM
  */
 public class MigrationConfigurationTest extends TestCase {
     //~ Instance fields ////////////////////////////////////////////////////////
@@ -32,7 +31,7 @@ public class MigrationConfigurationTest extends TestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testCommandMethodIsExecutedForCommandParam() throws Exception {
-        parameters.put("command", new String[] {"testCommand"});
+        parameters.put("command", new String[]{"testCommand"});
 
         ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy("", "migration", ActionContext.getContext().getContextMap(), false);
         assertEquals(Action.SUCCESS, proxy.execute());

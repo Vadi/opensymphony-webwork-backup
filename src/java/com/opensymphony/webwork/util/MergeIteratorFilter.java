@@ -12,10 +12,10 @@ import java.util.List;
 
 
 /**
- *        A bean that takes several iterators and outputs the merge of them.
+ * A bean that takes several iterators and outputs the merge of them.
  *
- *        @author Rickard Öberg (rickard@middleware-company.com)
- *        @version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
  */
 public class MergeIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
     //~ Instance fields ////////////////////////////////////////////////////////

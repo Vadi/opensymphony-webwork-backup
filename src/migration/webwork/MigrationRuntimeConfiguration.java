@@ -1,11 +1,11 @@
 package webwork;
 
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.config.RuntimeConfiguration;
 import com.opensymphony.xwork.config.entities.ActionConfig;
-import com.opensymphony.xwork.config.entities.PackageConfig;
 import com.opensymphony.xwork.config.entities.InterceptorStackConfig;
-import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.xwork.config.entities.PackageConfig;
 import ognl.Ognl;
 import ognl.OgnlContext;
 import ognl.OgnlRuntime;
@@ -20,8 +20,9 @@ import java.util.*;
 
 /**
  * MigrationRuntimeConfiguration
+ *
  * @author Jason Carreira
- * Date: Nov 6, 2003 1:11:58 AM
+ *         Date: Nov 6, 2003 1:11:58 AM
  */
 class MigrationRuntimeConfiguration implements RuntimeConfiguration {
     private static final String MIGRATION_PACKAGE = "webwork-migration";

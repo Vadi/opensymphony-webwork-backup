@@ -6,15 +6,14 @@
  */
 package webwork.action.factory;
 
-import org.apache.commons.logging.*;
+import com.opensymphony.webwork.config.Configuration;
+import org.apache.commons.logging.LogFactory;
 import webwork.action.Action;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.StringTokenizer;
-
-import com.opensymphony.webwork.config.Configuration;
 
 /**
  * Locate an action based on the configured list of package prefixes.
@@ -61,9 +60,9 @@ public class PrefixActionFactoryProxy
      * package prefixes from the configuration properties.  If no action
      * was found, get the action from the action factory proxy chain.
      *
-     * @param   aName
-     * @return   action whose name may be prefixed by this factory
-     * @exception   Exception
+     * @param aName
+     * @return action whose name may be prefixed by this factory
+     * @throws Exception
      */
     public Action getActionImpl(String aName)
             throws Exception {

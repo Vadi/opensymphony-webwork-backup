@@ -9,8 +9,9 @@ import java.util.Map;
 
 /**
  * IndexedPropertyAction
+ *
  * @author Jason Carreira
- * Date: Nov 23, 2003 2:36:58 PM
+ *         Date: Nov 23, 2003 2:36:58 PM
  */
 public class IndexedPropertyAction extends ActionSupport {
     private Map emails;

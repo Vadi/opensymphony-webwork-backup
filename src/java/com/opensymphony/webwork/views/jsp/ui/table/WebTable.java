@@ -6,19 +6,15 @@ package com.opensymphony.webwork.views.jsp.ui.table;
 
 import com.opensymphony.webwork.views.jsp.ui.ComponentTag;
 import com.opensymphony.webwork.views.jsp.ui.table.renderer.CellRenderer;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.commons.logging.LogFactory;
-
-import java.util.*;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
-
 import javax.swing.table.TableModel;
+import java.util.*;
 
 
 /**
@@ -311,10 +307,10 @@ public class WebTable extends ComponentTag {
     //~ Inner Classes //////////////////////////////////////////////////////////
 
     /**
-    * inner class to iteratoe over a row of the table.
-    * It can return formatted data, using the columnRenderer
-    * for the column or it can return the raw data.
-    */
+     * inner class to iteratoe over a row of the table.
+     * It can return formatted data, using the columnRenderer
+     * for the column or it can return the raw data.
+     */
     public class WebTableRowIterator implements Iterator {
         public static final int FORMATTED_DATA = 0;
         public static final int RAW_DATA = 1;

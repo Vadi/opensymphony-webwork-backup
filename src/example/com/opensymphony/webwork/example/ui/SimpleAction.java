@@ -7,15 +7,14 @@ package com.opensymphony.webwork.example.ui;
 import com.opensymphony.xwork.Action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 
 /**
- *
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
+ * @version $Id$
  */
 public class SimpleAction implements Action {
     //~ Instance fields ////////////////////////////////////////////////////////

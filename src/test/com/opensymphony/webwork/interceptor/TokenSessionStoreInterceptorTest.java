@@ -5,15 +5,15 @@
 package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.webwork.TestConfigurationProvider;
-
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionProxy;
 
 
 /**
  * TokenSessionStoreInterceptorTest
+ *
  * @author Jason Carreira
- * Created Apr 18, 2003 7:14:25 AM
+ *         Created Apr 18, 2003 7:14:25 AM
  */
 public class TokenSessionStoreInterceptorTest extends TokenInterceptorTest {
     //~ Methods ////////////////////////////////////////////////////////////////

@@ -6,7 +6,7 @@
  */
 package webwork.action.factory;
 
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.LogFactory;
 import webwork.action.Action;
 import webwork.action.standard.XML;
 
@@ -28,11 +28,11 @@ public class XMLActionFactoryProxy extends ActionFactoryProxy {
     /**
      * If the suffix of the action is <code>".xml"</code>, get the XML action.
      *
-     * @param       name
-     * @param       aName
-     * @return      the XML-action or action corresponding to the given name
-     * @exception   ServletException
-     * @exception   Exception
+     * @param name
+     * @param aName
+     * @return the XML-action or action corresponding to the given name
+     * @throws ServletException
+     * @throws Exception
      */
     public Action getActionImpl(String aName) throws Exception {
         // Check for xml extension

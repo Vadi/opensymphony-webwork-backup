@@ -14,18 +14,28 @@ package com.opensymphony.webwork.views.jasperreports;
 public interface JasperReportConstants {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    /** PDF format constant */
+    /**
+     * PDF format constant
+     */
     public static final String FORMAT_PDF = "PDF";
 
-    /** XML format constant */
+    /**
+     * XML format constant
+     */
     public static final String FORMAT_XML = "XML";
 
-    /** HTML format constant */
+    /**
+     * HTML format constant
+     */
     public static final String FORMAT_HTML = "HTML";
 
-    /** XLS format constant */
+    /**
+     * XLS format constant
+     */
     public static final String FORMAT_XLS = "XLS";
 
-    /** CSV format constant */
+    /**
+     * CSV format constant
+     */
     public static final String FORMAT_CSV = "CSV";
 }

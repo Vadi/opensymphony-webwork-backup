@@ -6,42 +6,36 @@
  */
 package webwork.config;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Text;
-import org.w3c.dom.DOMException;
-import org.apache.commons.logging.*;
+import com.opensymphony.webwork.config.Configuration;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
+import webwork.util.ClassLoaderUtils;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.io.File;
-import java.net.URL;
+import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Iterator;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
-
-import webwork.util.ClassLoaderUtils;
-import com.opensymphony.webwork.config.Configuration;
 
 /**
  * Access view configuration from an XML file.
  *
- *	@author Rickard Ã–berg (rickard@middleware-company.com)
- *	@author Scott Farquhar (scott@atlassian.com)
- *	@version $Revision$
- *
+ * @author Rickard Ã–berg (rickard@middleware-company.com)
+ * @author Scott Farquhar (scott@atlassian.com)
+ * @version $Revision$
  */
 public class XMLActionConfiguration extends Configuration {
     // Attributes ----------------------------------------------------
     /**
      * This stores the mapping from URL -> action.  It looks through the (xml) configuration file and
      * adds all the commands, aliases, and views.
-     * <p>
+     * <p/>
      * One caveat - if you are using an extension aside from '.action', the views will be added with
      * '.action' here, and then replaced on retrieval.  This is to warn off a recursive dependency that
      * I haven't had a chance to look at yet.
@@ -225,12 +219,13 @@ public class XMLActionConfiguration extends Configuration {
     /**
      * As the actions are stored in the action mapping with a '.action' extension, we need to map the current
      * request to that '.action' mapping.
-     * <p>
+     * <p/>
      * So an action 'ABC.jspa' would be lookup up in the map at 'ABC.action'.
-     * <p>
+     * <p/>
      * The extension used is retrieved from the configuration using key 'webwork.action.extension'
-     * @param   actionName  The original action (url) to be mapped, including an extension (if any).
-     * @return  The action name used in actionMappings - ie with a '.action' extension.
+     *
+     * @param actionName The original action (url) to be mapped, including an extension (if any).
+     * @return The action name used in actionMappings - ie with a '.action' extension.
      */
     private String replaceExtension(String actionName) {
         String ext = "." + Configuration.getString("webwork.action.extension");

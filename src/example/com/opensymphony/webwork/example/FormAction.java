@@ -9,8 +9,9 @@ import com.opensymphony.xwork.ActionSupport;
 
 /**
  * FormAction
+ *
  * @author Jason Carreira
- * Created Apr 2, 2003 10:22:36 PM
+ *         Created Apr 2, 2003 10:22:36 PM
  */
 public class FormAction extends ActionSupport {
     //~ Instance fields ////////////////////////////////////////////////////////

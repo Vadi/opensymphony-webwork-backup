@@ -6,9 +6,9 @@
  */
 package webwork.dispatcher;
 
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.webwork.config.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -24,9 +24,9 @@ import java.util.*;
  * in that case.
  * If the view did not contain dynamic data then it is cached, otherwise it is not.
  *
- *	@see webwork.dispatcher.ViewMapping
- *	@author Dick Zetterberg (dick@transitor.se)
- *	@version $Revision$
+ * @author Dick Zetterberg (dick@transitor.se)
+ * @version $Revision$
+ * @see webwork.dispatcher.ViewMapping
  */
 public class DynamicViewMapping implements ViewMapping {
     protected static Log log = LogFactory.getLog(DynamicViewMapping.class);

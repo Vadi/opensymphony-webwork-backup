@@ -8,13 +8,9 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 /**
  * @author CameronBraid
- *
  */
 public class CoolUriServletDispatcherTest extends AbstractServletDispatcherTestCase {
     //~ Methods ////////////////////////////////////////////////////////////////

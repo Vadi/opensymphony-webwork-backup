@@ -34,9 +34,11 @@ public class BodyTagDirective extends AbstractTagDirective {
     /**
      * for BLOCK directives, the last element in the Node is the body, so we want to make sure not to include this in
      * the propertyMap that we're generating.
+     *
      * @param node the node passed in to the render method
      * @return a map of the user specified properties
-     * @throws org.apache.velocity.exception.ParseErrorException if a property was improperly formatted
+     * @throws org.apache.velocity.exception.ParseErrorException
+     *          if a property was improperly formatted
      * @see #render
      * @see com.opensymphony.webwork.views.velocity.AbstractTagDirective#createPropertyMap
      */
@@ -44,7 +46,7 @@ public class BodyTagDirective extends AbstractTagDirective {
         Map propertyMap = new HashMap();
 
         for (int index = 1, length = node.jjtGetNumChildren() - 1;
-                index < length; index++) {
+             index < length; index++) {
             this.putProperty(propertyMap, contextAdapter, node.jjtGetChild(index));
         }
 

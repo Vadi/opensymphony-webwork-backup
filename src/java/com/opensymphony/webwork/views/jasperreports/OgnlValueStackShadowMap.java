@@ -19,10 +19,14 @@ import java.util.Set;
 public class OgnlValueStackShadowMap extends HashMap {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    /** valueStack reference */
+    /**
+     * valueStack reference
+     */
     OgnlValueStack valueStack;
 
-    /** entries reference */
+    /**
+     * entries reference
+     */
     Set entries;
 
     //~ Constructors ///////////////////////////////////////////////////////////

@@ -12,8 +12,9 @@ import java.util.Locale;
 
 /**
  * ConfigurationTest
+ *
  * @author Jason Carreira
- * Created Apr 9, 2003 10:42:30 PM
+ *         Created Apr 9, 2003 10:42:30 PM
  */
 public class ConfigurationTest extends TestCase {
     //~ Methods ////////////////////////////////////////////////////////////////

@@ -34,9 +34,9 @@ public class JavaActionFactory
      * Returns a loaded and instantiated action class instance using a fully
      * qualified classname.
      *
-     * @param   name classname of the action to be created
-     * @return   get the action corresponding to the given Java class name
-     * @exception   Exception
+     * @param name classname of the action to be created
+     * @return get the action corresponding to the given Java class name
+     * @throws Exception
      */
     public Action getActionImpl(String name)
             throws Exception {

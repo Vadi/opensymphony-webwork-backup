@@ -11,7 +11,6 @@ package com.opensymphony.webwork.views.freemarker;
 
 /**
  * @author CameronBraid
- *
  */
 public class TestBean {
     //~ Instance fields ////////////////////////////////////////////////////////
@@ -37,9 +36,7 @@ public class TestBean {
     }
 
     /**
-     *
      * Bean Property String Name
-     *
      */
     public String getName() {
         return pName;
@@ -50,9 +47,7 @@ public class TestBean {
     }
 
     /**
-     *
      * Bean Property String Value
-     *
      */
     public String getValue() {
         return pValue;

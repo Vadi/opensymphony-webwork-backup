@@ -7,18 +7,15 @@ package com.opensymphony.webwork.lifecycle;
 import com.opensymphony.xwork.interceptor.component.ComponentConfiguration;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.interceptor.component.DefaultComponentManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.SAXException;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
@@ -36,10 +33,10 @@ public class ApplicationLifecycleListener implements ServletContextListener {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
- * Destroys the XWork component manager because the server is shutting down.
- *
- * @param event the servlet context event.
- */
+     * Destroys the XWork component manager because the server is shutting down.
+     *
+     * @param event the servlet context event.
+     */
     public void contextDestroyed(ServletContextEvent event) {
         ServletContext application = event.getServletContext();
         ComponentManager container = (ComponentManager) application.getAttribute("DefaultComponentManager");
@@ -50,11 +47,11 @@ public class ApplicationLifecycleListener implements ServletContextListener {
     }
 
     /**
- * Initializes the XWork compontent manager. Loads component config from the  <tt>components.xml</tt> file
- * in the classpath. Adds the component manager and compontent config as attributes of the servlet context.
- *
- * @param event the servlet context event.
- */
+     * Initializes the XWork compontent manager. Loads component config from the  <tt>components.xml</tt> file
+     * in the classpath. Adds the component manager and compontent config as attributes of the servlet context.
+     *
+     * @param event the servlet context event.
+     */
     public void contextInitialized(ServletContextEvent event) {
         ServletContext application = event.getServletContext();
         ComponentManager container = createComponentManager();
@@ -67,11 +64,11 @@ public class ApplicationLifecycleListener implements ServletContextListener {
     }
 
     /**
- * Returns a new <tt>DefaultComponentManager</tt> instance. This method is useful for developers
- * wishing to subclass this class and provide a different implementation of <tt>DefaultComponentManager</tt>.
- *
- * @return a new <tt>DefaultComponentManager</tt> instance.
- */
+     * Returns a new <tt>DefaultComponentManager</tt> instance. This method is useful for developers
+     * wishing to subclass this class and provide a different implementation of <tt>DefaultComponentManager</tt>.
+     *
+     * @return a new <tt>DefaultComponentManager</tt> instance.
+     */
     protected DefaultComponentManager createComponentManager() {
         return new DefaultComponentManager();
     }

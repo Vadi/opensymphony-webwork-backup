@@ -5,10 +5,8 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.views.jsp.ParamTag;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.velocity.context.InternalContextAdapter;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
@@ -21,12 +19,12 @@ import java.io.Writer;
 
 
 /**
- * <p>
+ * <p/>
  * The ParamDirective allows for additional parameters to be passed in to a given tag before the tag is rendered.  By
  * default these parameters are not evaluated through the value stack.  However, the user can specify using a third
  * parameter that they are evaluated.
  * </p>
- * <p>
+ * <p/>
  * For example:
  * </p>
  * <pre>
@@ -35,8 +33,8 @@ import java.io.Writer;
  *      #param( hello world false) - adds the string world to the tag
  * </pre>
  *
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @version $Id$
  */
 public class ParamDirective extends Directive {
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -50,14 +48,16 @@ public class ParamDirective extends Directive {
     }
 
     /**
-     *
      * @param contextAdapter
      * @param writer
      * @param node
      * @throws java.io.IOException
      * @throws org.apache.velocity.exception.ResourceNotFoundException
+     *
      * @throws org.apache.velocity.exception.ParseErrorException
+     *
      * @throws org.apache.velocity.exception.MethodInvocationException
+     *
      */
     public boolean render(InternalContextAdapter contextAdapter, Writer writer, Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
         Object object = contextAdapter.get(VelocityManager.TAG);

@@ -105,6 +105,7 @@ public abstract class AbstractTagDirective extends Directive {
             // populate our tag with all the user specified properties
             if (object instanceof ParamTag.Parametric) {
                 Map params = ((ParamTag.Parametric) object).getParameters();
+
                 if (params != null) {
                     params.clear();
                 }
@@ -119,13 +120,11 @@ public abstract class AbstractTagDirective extends Directive {
                     ((Tag) object).setParent((Tag) currentTag);
                 }
 
-                try
-                {
+                try {
                     return this.processTag(pageContext, (Tag) object, subContextAdapter, writer, node, bodyNode);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     log.error("Error processing tag: " + e, e);
+
                     return false;
                 }
             } else {
@@ -285,6 +284,7 @@ public abstract class AbstractTagDirective extends Directive {
      */
     protected boolean processTag(WrappedPageContext pageContext, Tag tag, InternalContextAdapter context, Writer velocityWriter, Node node, Node bodyNode) throws ParseErrorException, IOException, MethodInvocationException, ResourceNotFoundException {
         tag.setPageContext(pageContext);
+
         Writer writer = pageContext.getOut();
 
         try {
@@ -376,9 +376,10 @@ public abstract class AbstractTagDirective extends Directive {
 
     /**
      * apply the attributes requested to the specified object
+     *
      * @param context
      * @param node
-     * @param object the object the tags should be applied to
+     * @param object  the object the tags should be applied to
      * @throws ParseErrorException
      * @throws MethodInvocationException
      */
@@ -515,276 +516,224 @@ public abstract class AbstractTagDirective extends Directive {
         }
     }
 
-    class WrappedPageContext extends PageContext
-    {
-        PageContext delegatedContext;
+    class WrappedPageContext extends PageContext {
         JspWriter jspWriter;
+        PageContext delegatedContext;
         StringWriter contentWriter;
 
-        public WrappedPageContext(PageContext delegatedContext)
-        {
+        public WrappedPageContext(PageContext delegatedContext) {
             this.delegatedContext = delegatedContext;
             contentWriter = new StringWriter();
             jspWriter = new JspWriter(1024, false) {
-                public void clear()
-                {
+                public void clear() {
                     throw new UnsupportedOperationException();
                 }
 
-                public void clearBuffer()
-                {
+                public void clearBuffer() {
                     throw new UnsupportedOperationException();
                 }
 
-                public void close()
-                {
+                public void close() {
                     throw new UnsupportedOperationException();
                 }
 
-                public void flush()
-                {
+                public void flush() {
                     throw new UnsupportedOperationException();
                 }
 
-                public int getRemaining()
-                {
+                public int getRemaining() {
                     throw new UnsupportedOperationException();
                 }
 
-                public void newLine()
-                {
+                public void newLine() {
                     println();
                 }
 
-                public void print(boolean b)
-                {
+                public void print(boolean b) {
                     contentWriter.write(Boolean.toString(b));
                 }
 
-                public void print(char c)
-                {
+                public void print(char c) {
                     contentWriter.write(c);
                 }
 
-                public void print(char[] chars) throws IOException
-                {
+                public void print(char[] chars) throws IOException {
                     contentWriter.write(chars);
                 }
 
-                public void print(double v)
-                {
+                public void print(double v) {
                     contentWriter.write(Double.toString(v));
                 }
 
-                public void print(float v)
-                {
+                public void print(float v) {
                     contentWriter.write(Float.toString(v));
                 }
 
-                public void print(int i)
-                {
+                public void print(int i) {
                     contentWriter.write(Integer.toString(i));
                 }
 
-                public void print(long l)
-                {
+                public void print(long l) {
                     contentWriter.write(Long.toString(l));
                 }
 
-                public void print(Object o)
-                {
+                public void print(Object o) {
                     contentWriter.write(o.toString());
                 }
 
-                public void print(String s)
-                {
+                public void print(String s) {
                     contentWriter.write(s);
                 }
 
-                public void println()
-                {
+                public void println() {
                     contentWriter.write(LINE_SEPARATOR);
                 }
 
-                public void println(boolean b)
-                {
+                public void println(boolean b) {
                     print(b);
                     println();
                 }
 
-                public void println(char c)
-                {
+                public void println(char c) {
                     print(c);
                     println();
                 }
 
-                public void println(char[] chars) throws IOException
-                {
+                public void println(char[] chars) throws IOException {
                     print(chars);
                     println();
                 }
 
-                public void println(double v)
-                {
+                public void println(double v) {
                     print(v);
                     println();
                 }
 
-                public void println(float v)
-                {
+                public void println(float v) {
                     print(v);
                     println();
                 }
 
-                public void println(int i)
-                {
+                public void println(int i) {
                     print(i);
                     println();
                 }
 
-                public void println(long l)
-                {
+                public void println(long l) {
                     print(l);
                     println();
                 }
 
-                public void println(Object o)
-                {
+                public void println(Object o) {
                     print(o);
                     println();
                 }
 
-                public void println(String s)
-                {
+                public void println(String s) {
                     print(s);
                     println();
                 }
 
-                public void write(char cbuf[], int off, int len)
-                {
+                public void write(char[] cbuf, int off, int len) {
                     contentWriter.write(cbuf, off, len);
                 }
             };
         }
 
-        public String getContent()
-        {
-            return contentWriter.toString();
-        }
-
-        public JspWriter getOut()
-        {
-            return jspWriter;
-        }
-
-        public void initialize(Servlet servlet, ServletRequest servletRequest, ServletResponse servletResponse, String s, boolean b, int i, boolean b1) throws IOException, IllegalStateException, IllegalArgumentException
-        {
-            throw new UnsupportedOperationException();
-        }
-
-        public void release()
-        {
-            delegatedContext.release();
-        }
-
-        public void setAttribute(String s, Object o)
-        {
+        public void setAttribute(String s, Object o) {
             delegatedContext.setAttribute(s, o);
         }
 
-        public void setAttribute(String s, Object o, int i)
-        {
+        public void setAttribute(String s, Object o, int i) {
             delegatedContext.setAttribute(s, o, i);
         }
 
-        public Object getAttribute(String s)
-        {
+        public Object getAttribute(String s) {
             return delegatedContext.getAttribute(s);
         }
 
-        public Object getAttribute(String s, int i)
-        {
+        public Object getAttribute(String s, int i) {
             return delegatedContext.getAttribute(s, i);
         }
 
-        public Object findAttribute(String s)
-        {
-            return delegatedContext.findAttribute(s);
-        }
-
-        public void removeAttribute(String s)
-        {
-            delegatedContext.removeAttribute(s);
-        }
-
-        public void removeAttribute(String s, int i)
-        {
-            delegatedContext.removeAttribute(s, i);
-        }
-
-        public int getAttributesScope(String s)
-        {
-            return delegatedContext.getAttributesScope(s);
-        }
-
-        public Enumeration getAttributeNamesInScope(int i)
-        {
+        public Enumeration getAttributeNamesInScope(int i) {
             return delegatedContext.getAttributeNamesInScope(i);
         }
 
-        public HttpSession getSession()
-        {
-            return delegatedContext.getSession();
+        public int getAttributesScope(String s) {
+            return delegatedContext.getAttributesScope(s);
         }
 
-        public Object getPage()
-        {
-            return delegatedContext.getPage();
+        public String getContent() {
+            return contentWriter.toString();
         }
 
-        public ServletRequest getRequest()
-        {
-            return delegatedContext.getRequest();
-        }
-
-        public ServletResponse getResponse()
-        {
-            return null;
-        }
-
-        public Exception getException()
-        {
+        public Exception getException() {
             return delegatedContext.getException();
         }
 
-        public ServletConfig getServletConfig()
-        {
+        public JspWriter getOut() {
+            return jspWriter;
+        }
+
+        public Object getPage() {
+            return delegatedContext.getPage();
+        }
+
+        public ServletRequest getRequest() {
+            return delegatedContext.getRequest();
+        }
+
+        public ServletResponse getResponse() {
+            return null;
+        }
+
+        public ServletConfig getServletConfig() {
             return delegatedContext.getServletConfig();
         }
 
-        public ServletContext getServletContext()
-        {
+        public ServletContext getServletContext() {
             return delegatedContext.getServletContext();
         }
 
-        public void forward(String s) throws ServletException, IOException
-        {
+        public HttpSession getSession() {
+            return delegatedContext.getSession();
+        }
+
+        public Object findAttribute(String s) {
+            return delegatedContext.findAttribute(s);
+        }
+
+        public void forward(String s) throws ServletException, IOException {
             throw new UnsupportedOperationException();
         }
 
-        public void include(String s) throws ServletException, IOException
-        {
+        public void handlePageException(Exception e) throws ServletException, IOException {
             throw new UnsupportedOperationException();
         }
 
-        public void handlePageException(Exception e) throws ServletException, IOException
-        {
+        public void handlePageException(Throwable throwable) throws ServletException, IOException {
             throw new UnsupportedOperationException();
         }
 
-        public void handlePageException(Throwable throwable) throws ServletException, IOException
-        {
+        public void include(String s) throws ServletException, IOException {
             throw new UnsupportedOperationException();
+        }
+
+        public void initialize(Servlet servlet, ServletRequest servletRequest, ServletResponse servletResponse, String s, boolean b, int i, boolean b1) throws IOException, IllegalStateException, IllegalArgumentException {
+            throw new UnsupportedOperationException();
+        }
+
+        public void release() {
+            delegatedContext.release();
+        }
+
+        public void removeAttribute(String s) {
+            delegatedContext.removeAttribute(s);
+        }
+
+        public void removeAttribute(String s, int i) {
+            delegatedContext.removeAttribute(s, i);
         }
     }
 }

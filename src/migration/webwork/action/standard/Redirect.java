@@ -12,11 +12,11 @@ import webwork.action.ServletResponseAware;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *	Redirect to a given URL. Do not map any view to this action.
+ * Redirect to a given URL. Do not map any view to this action.
  *
- *	@see <related>
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
+ * @see <related>
  */
 public class Redirect
         extends ActionSupport

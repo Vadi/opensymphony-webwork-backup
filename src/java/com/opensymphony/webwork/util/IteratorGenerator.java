@@ -13,10 +13,10 @@ import java.util.StringTokenizer;
 
 
 /**
- *        A bean that generates an iterator filled with a given object
+ * A bean that generates an iterator filled with a given object
  *
- *        @author Rickard Öberg (rickard@middleware-company.com)
- *        @version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
  */
 public class IteratorGenerator implements Iterator, Action {
     //~ Instance fields ////////////////////////////////////////////////////////

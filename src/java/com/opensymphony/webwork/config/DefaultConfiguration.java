@@ -16,7 +16,6 @@ import java.util.StringTokenizer;
  * Default implementation of Configuration - creates and delegates to other configurations by using an internal
  * {@link DelegatingConfiguration}.
  *
- *
  * @author Rickard Öberg
  * @author Jason Carreira
  * @author Bill Lynch (docs)

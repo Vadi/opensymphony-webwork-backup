@@ -8,9 +8,9 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
- *
+ * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
  * @version $Id$
- * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a> */
+ */
 public class SubmitTag extends AbstractUITag {
     //~ Static fields/initializers /////////////////////////////////////////////
 

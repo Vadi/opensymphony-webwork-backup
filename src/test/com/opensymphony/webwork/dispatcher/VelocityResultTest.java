@@ -5,14 +5,11 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.mockobjects.dynamic.Mock;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.ParseErrorException;
@@ -20,10 +17,8 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 
 
 /**
- *
- *
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @version $Id$
  */
 public class VelocityResultTest extends TestCase {
     //~ Instance fields ////////////////////////////////////////////////////////

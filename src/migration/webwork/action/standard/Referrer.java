@@ -6,23 +6,18 @@
  */
 package webwork.action.standard;
 
-import webwork.action.ActionSupport;
-import webwork.action.ServletResponseAware;
-import webwork.action.CommandDriven;
 import webwork.action.ServletRequestAware;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 
 /**
- *	Redirect to the page that referred this action invocation.
- *
+ * Redirect to the page that referred this action invocation.
+ * <p/>
  * This action is useful to set as result of an action which
  * perform some update of state on a page (such as removing or updating data).
  *
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
  */
 public class Referrer
         extends Redirect

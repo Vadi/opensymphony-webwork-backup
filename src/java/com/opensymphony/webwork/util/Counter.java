@@ -8,13 +8,13 @@ import java.io.Serializable;
 
 
 /**
- *        A bean that can be used to keep track of a counter.
- *
+ * A bean that can be used to keep track of a counter.
+ * <p/>
  * Since it is an Iterator it can be used by the iterator tag
  *
- *        @see <related>
- *        @author Rickard Öberg (rickard@middleware-company.com)
- *        @version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
+ * @see <related>
  */
 public class Counter implements java.util.Iterator, Serializable {
     //~ Instance fields ////////////////////////////////////////////////////////

@@ -11,8 +11,9 @@ import webwork.action.PrepareAction;
 
 /**
  * MigrationTestAction
+ *
  * @author Jason Carreira
- * Date: Nov 6, 2003 9:05:13 PM
+ *         Date: Nov 6, 2003 9:05:13 PM
  */
 public class MigrationTestAction extends ActionSupport implements PrepareAction, CommandDriven {
     //~ Instance fields ////////////////////////////////////////////////////////
