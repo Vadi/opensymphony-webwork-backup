@@ -63,6 +63,20 @@
             </result>
         </action>
 
+        <action name="redirect" class="com.opensymphony.webwork.example.FormAction">
+            <param name="foo">http://www.opensymphony.com</param>
+            <result name="success" type="redirect">
+                <param name="location">${foo}</param>
+            </result>
+        </action>
+
+        <action name="parseLocation" class="com.opensymphony.webwork.example.FormAction">
+            <param name="foo">/form.vm</param>
+            <result name="success" type="velocity">
+                <param name="location">${foo}</param>
+            </result>
+        </action>
+
         <action name="showVelocityForm" class="com.opensymphony.webwork.example.FormAction">
             <result name="success" type="velocity">
                 <param name="location">/form.vm</param>

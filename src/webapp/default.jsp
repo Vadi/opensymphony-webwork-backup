@@ -15,3 +15,5 @@ Click <a href="config-browser/namespace.action">here</a> for the WebWork configu
 Click <a href="basicValidation.action">here</a> for a basic validation example<br>
 Click <a href="visitorValidation.action">here</a> for a visitor validation example<br>
 Click <a href="expressionValidation.action">here</a> for a visitor validation example with expression validation<br>
+Click <a href="redirect.action">here</a> to be test the ServletRedirectResult using a location resolved via ognl<br>
+Click <a href="parseLocation.action">here</a> to view the FormTag example using a location resolved via ognl<br>
