@@ -45,7 +45,7 @@
             #set( $itemValue = $item )
         #end
 
-        <label>$itemValue</label>
+        <label>$!itemValue</label>
         <input
             type="radio"
             #if( $tag.contains($parameters.nameValue, $itemKey) )checked="checked"#end

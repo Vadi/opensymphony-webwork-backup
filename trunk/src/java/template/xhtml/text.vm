@@ -21,7 +21,7 @@
 #parse("/template/xhtml/controlheader.vm")
 
 <input type="text"
-                                   name="$parameters.name"
+                                   name="$!parameters.name"
 #if ($parameters.size)             size="$parameters.size"            #end
 #if ($parameters.maxlength)        maxlength="$parameters.maxlength"  #end
 #if ($parameters.nameValue)        value="$parameters.nameValue"      #end

@@ -24,7 +24,7 @@
     *#
 #parse("/template/xhtml/controlheader.vm")
 
-<select name="$parameters.name"
+<select name="$!parameters.name"
     #if ($parameters.size)             size="$parameters.size"            #end
     #if ($parameters.disabled)         disabled="disabled"                #end
     #if ($parameters.tabindex)         tabindex="$parameters.tabindex"    #end
@@ -50,9 +50,9 @@
             #set( $itemValue = $item )
         #end
 
-        <option value="$itemKey"
+        <option value="$!itemKey"
             #if( $tag.contains($parameters.nameValue, $itemKey) )selected#end
-        >$itemValue</option>
+        >$!itemValue</option>
 
         #set ($trash = $stack.pop())
     #end
