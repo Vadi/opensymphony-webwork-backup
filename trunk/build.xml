@@ -18,6 +18,7 @@
 
     <property name="src" value="src"/>
     <property name="src.java" value="${src}/java"/>
+    <property name="src.webflow" value="${src}/webflow"/>
     <property name="src.test" value="${src}/test"/>
     <property name="src.example" value="${src}/example"/>
     <property name="src.webapp" value="${src}/webapp"/>
@@ -31,6 +32,7 @@
     <property name="build.test" value="${build}/test"/>
     <property name="build.java-test" value="${build}/java-test"/>
     <property name="build.java" value="${build}/java"/>
+    <property name="build.webflow" value="${build}/webflow"/>
     <property name="build.example" value="${build}/example"/>
     <property name="build.example.jars" value="${build}/example-jars"/>
     <property name="build.example-war" value="${build}/example-war"/>
@@ -116,6 +118,19 @@
                 </fileset>
             </batchtest>
         </junit>
+    </target>
+
+    <target name="webflow" depends="java">
+        <mkdir dir="${build.webflow}"/>
+        <javac srcdir="${src.webflow}" destdir="${build.webflow}" classpath="${build.java}" classpathref="cp" debug="on"/>
+        <copy filtering="no" todir="${build.webflow}">
+            <fileset dir="${src.webflow}">
+                <exclude name="**/*.java"/>
+                <exclude name="**/package.html"/>
+            </fileset>
+        </copy>
+
+        <jar basedir="${build.webflow}" jarfile="${build}/webflow-${version}.jar"/>
     </target>
 
     <target name="jar" depends="java">
@@ -355,8 +370,9 @@
         </copy>
     </target>
 
-    <target name="dist" depends="jar, migration, example-war, docs">
+    <target name="dist" depends="jar, migration, webflow, example-war, docs">
         <copy file="${build}/${name}-${version}.jar" todir="${build.dist}"/>
+        <copy file="${build}/webflow-${version}.jar" todir="${build.dist}"/>
         <copy file="${build.migration.jar}" todir="${build.dist}"/>
         <copy file="${build}/${name}-example.war" todir="${build.dist}"/>
         <copy todir="${build.dist}/src">
