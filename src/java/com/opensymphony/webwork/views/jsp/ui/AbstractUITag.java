@@ -9,6 +9,12 @@ import com.opensymphony.webwork.views.jsp.ParameterizedTagSupport;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.validator.ActionValidatorManager;
+import com.opensymphony.xwork.validator.Validator;
+import com.opensymphony.xwork.validator.FieldValidator;
+import com.opensymphony.xwork.Action;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ActionInvocation;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,8 +26,7 @@ import org.apache.velocity.context.Context;
 
 import java.io.Writer;
 
-import java.util.Enumeration;
-import java.util.Properties;
+import java.util.*;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -260,6 +265,24 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
 
         if (id != null) {
             addParameter("id", getId());
+        }
+
+        // now let's do some JavaScript stuff. or something
+        if (tag != null) {
+            ActionInvocation ai = (ActionInvocation) stack.getContext().get(ActionContext.ACTION_INVOCATION);
+            Action action = ai.getAction();
+            String actionName = ai.getProxy().getActionName();
+            List validators = ActionValidatorManager.getValidators(action.getClass(), actionName);
+            for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
+                Validator validator = (Validator) iterator.next();
+                if (validator instanceof FieldValidator)
+                {
+                    FieldValidator fieldValidator = (FieldValidator) validator;
+                    if (fieldValidator.getFieldName().equals(name)) {
+                        tag.registerValidator(name, fieldValidator, new HashMap(getParameters()));
+                    }
+                }
+            }
         }
 
         evaluateExtraParams(stack);

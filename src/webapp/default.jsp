@@ -169,6 +169,8 @@ Validation Demos
     <li><a href="expressionValidation.action">Visitor validation example</a>
         with expression validation
     </li>
+
+    <li><a href="javascriptValidation.action">Validation that uses JavaScript to do client side support</a></li>
 </ul>
 
 

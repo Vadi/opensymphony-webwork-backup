@@ -1,6 +1,6 @@
 <validators>
     <validator name="required" class="com.opensymphony.xwork.validator.validators.RequiredFieldValidator"/>
-    <validator name="requiredstring" class="com.opensymphony.xwork.validator.validators.RequiredStringValidator"/>
+    <validator name="requiredstring" class="com.opensymphony.webwork.validators.JavaScriptRequiredStringValidator"/>
     <validator name="int" class="com.opensymphony.xwork.validator.validators.IntRangeFieldValidator"/>
     <validator name="date" class="com.opensymphony.xwork.validator.validators.DateRangeFieldValidator"/>
     <validator name="expression" class="com.opensymphony.xwork.validator.validators.ExpressionValidator"/>

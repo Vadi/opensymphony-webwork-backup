@@ -1,2 +1,10 @@
+#if ($parameters.validate)
+    <script>
+    function ${parameters.name}_validate() {
+        $parameters.javascriptValidation
+        return true;
+    }
+    </script>
+#end
 </form>
 </table>
