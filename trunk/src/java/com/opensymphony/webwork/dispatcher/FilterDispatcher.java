@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.WebWorkStatics;
+
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
@@ -12,16 +13,19 @@ import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.ResultConfig;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.io.IOException;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 
 /**
@@ -118,13 +122,13 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         HashMap newConfig = new HashMap();
 
         for (Iterator iterator = namespaceActionConfigs.entrySet().iterator();
-             iterator.hasNext();) {
+                iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
             String namespace = (String) entry.getKey();
             Map actionConfigs = (Map) entry.getValue();
 
             for (Iterator configIterator = actionConfigs.entrySet().iterator();
-                 configIterator.hasNext();) {
+                    configIterator.hasNext();) {
                 Map.Entry entry2 = (Map.Entry) configIterator.next();
                 String actionName = (String) entry2.getKey();
                 ActionConfig actionConfig = (ActionConfig) entry2.getValue();

@@ -5,11 +5,13 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.util.TextUtils;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.jsp.JspException;
 import java.io.IOException;
+
+import javax.servlet.jsp.JspException;
 
 
 /**

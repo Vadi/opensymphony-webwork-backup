@@ -6,15 +6,19 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.config.Configuration;
+
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 import junit.framework.TestCase;
+
+import java.io.StringWriter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**

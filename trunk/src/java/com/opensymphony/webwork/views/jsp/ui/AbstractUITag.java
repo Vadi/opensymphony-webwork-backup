@@ -11,8 +11,8 @@ import com.opensymphony.webwork.views.velocity.VelocityManager;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.validator.ActionValidatorManager;
-import com.opensymphony.xwork.validator.Validator;
 import com.opensymphony.xwork.validator.FieldValidator;
+import com.opensymphony.xwork.validator.Validator;
 import com.opensymphony.xwork.validator.validators.VisitorFieldValidator;
 
 import org.apache.commons.logging.Log;
@@ -283,57 +283,18 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         FormTag formTag = (FormTag) findAncestorWithClass(this, FormTag.class);
+
         if (formTag != null) {
             addParameter("form", formTag.getParameters());
 
             // register ScriptValiationAware validators with the form
             if ((formTag.getActionClass() != null) && (formTag.getActionName() != null)) {
-                findScriptingValidators(formTag, (String)name, formTag.getActionClass());
+                findScriptingValidators(formTag, (String) name, formTag.getActionClass());
             }
         }
 
         evaluateExtraParams(stack);
     }
-
-
-    /**
-     * Finds all ScriptValidationAware validators that apply to the field covered by this tag.
-     *
-     * @param formTag the parent form tag this tag is in
-     * @param fieldName the name of the field to validate
-     * @param fieldClass the Class of the object the field is for
-     */
-    private void findScriptingValidators(FormTag formTag, String fieldName, Class fieldClass) {
-
-        List validators = ActionValidatorManager.getValidators(fieldClass, formTag.getActionName());
-        for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
-            Validator validator = (Validator) iterator.next();
-
-            // VisitorFieldValidators must validate model, not action
-            if (validator instanceof VisitorFieldValidator) {
-                VisitorFieldValidator visitorValidator = (VisitorFieldValidator)validator;
-                Object fieldValue = findValue(visitorValidator.getFieldName());
-                if (fieldValue != null) {
-                    fieldClass = fieldValue.getClass();
-                    if (visitorValidator.isAppendPrefix()) {
-                        findScriptingValidators(formTag, visitorValidator.getFieldName() + "." + fieldName, fieldClass);
-                    } else {
-                        findScriptingValidators(formTag, fieldName, fieldClass);
-                    }
-                } else {
-                    LOG.warn("Cannot figure out class of visited object");
-                }
-                continue;
-            }
-            if (validator instanceof ScriptValidationAware) {
-                FieldValidator fieldValidator = (FieldValidator)validator;
-                if (fieldValidator.getFieldName().equals(fieldName)) {
-                    formTag.registerValidator(fieldName, (ScriptValidationAware)fieldValidator, new HashMap(getParameters()));
-                }
-            }
-        }
-    }
-
 
     protected void mergeTemplate(String templateName) throws Exception {
         Template t = velocityEngine.getTemplate(templateName);
@@ -350,6 +311,49 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         context.put("parameters", getParameters());
 
         t.merge(context, outputWriter);
+    }
+
+    /**
+     * Finds all ScriptValidationAware validators that apply to the field covered by this tag.
+     *
+     * @param formTag the parent form tag this tag is in
+     * @param fieldName the name of the field to validate
+     * @param fieldClass the Class of the object the field is for
+     */
+    private void findScriptingValidators(FormTag formTag, String fieldName, Class fieldClass) {
+        List validators = ActionValidatorManager.getValidators(fieldClass, formTag.getActionName());
+
+        for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
+            Validator validator = (Validator) iterator.next();
+
+            // VisitorFieldValidators must validate model, not action
+            if (validator instanceof VisitorFieldValidator) {
+                VisitorFieldValidator visitorValidator = (VisitorFieldValidator) validator;
+                Object fieldValue = findValue(visitorValidator.getFieldName());
+
+                if (fieldValue != null) {
+                    fieldClass = fieldValue.getClass();
+
+                    if (visitorValidator.isAppendPrefix()) {
+                        findScriptingValidators(formTag, visitorValidator.getFieldName() + "." + fieldName, fieldClass);
+                    } else {
+                        findScriptingValidators(formTag, fieldName, fieldClass);
+                    }
+                } else {
+                    LOG.warn("Cannot figure out class of visited object");
+                }
+
+                continue;
+            }
+
+            if (validator instanceof ScriptValidationAware) {
+                FieldValidator fieldValidator = (FieldValidator) validator;
+
+                if (fieldValidator.getFieldName().equals(fieldName)) {
+                    formTag.registerValidator(fieldName, (ScriptValidationAware) fieldValidator, new HashMap(getParameters()));
+                }
+            }
+        }
     }
 
     private String setupPath(String path, boolean prefix) {

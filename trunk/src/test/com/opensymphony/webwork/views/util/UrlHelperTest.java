@@ -5,11 +5,13 @@
 package com.opensymphony.webwork.views.util;
 
 import com.mockobjects.dynamic.Mock;
+
 import junit.framework.TestCase;
+
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.TreeMap;
 
 
 /**
@@ -45,7 +47,7 @@ public class UrlHelperTest extends TestCase {
 
         String actionName = "my.actionName";
         TreeMap params = new TreeMap();
-        params.put("hello", new String[]{"earth", "mars"});
+        params.put("hello", new String[] {"earth", "mars"});
         params.put("foo", "bar");
 
         String urlString = UrlHelper.buildUrl(actionName, (HttpServletRequest) mockHttpServletRequest.proxy(), (HttpServletResponse) mockHttpServletResponse.proxy(), params);

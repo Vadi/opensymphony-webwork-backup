@@ -6,11 +6,12 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.util.TabbedPane;
 
+import java.util.Map;
+import java.util.Vector;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.PageContext;
-import java.util.Map;
-import java.util.Vector;
 
 
 /**

@@ -8,33 +8,43 @@
 package com.opensymphony.webwork.views.freemarker;
 
 import com.opensymphony.util.FileManager;
+
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FreemarkerWebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
+
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.cache.WebappTemplateLoader;
+
 import freemarker.ext.beans.BeansWrapper;
+
 import freemarker.ext.jsp.TaglibFactory;
+
 import freemarker.ext.servlet.HttpRequestHashModel;
 import freemarker.ext.servlet.HttpSessionHashModel;
 import freemarker.ext.servlet.ServletContextHashModel;
+
 import freemarker.template.*;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import java.util.Properties;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 
 /**
@@ -213,10 +223,10 @@ public class FreemarkerManager {
     protected TemplateLoader getTemplateLoader(ServletContext servletContext) {
         // presume that most apps will require the class and webapp template loader
         // if people wish to 
-        TemplateLoader multiLoader = new MultiTemplateLoader(new TemplateLoader[]{
-            new WebappTemplateLoader(servletContext),
-            new ClassTemplateLoader(FreemarkerResult.class, "/")
-        });
+        TemplateLoader multiLoader = new MultiTemplateLoader(new TemplateLoader[] {
+                new WebappTemplateLoader(servletContext),
+                new ClassTemplateLoader(FreemarkerResult.class, "/")
+            });
 
         return multiLoader;
     }
