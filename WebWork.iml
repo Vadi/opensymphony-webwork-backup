@@ -353,6 +353,24 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/optional/object-dispatcher.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/optional/cglib-full.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
   <component name="WebModuleBuildComponent">
@@ -369,6 +387,16 @@
       <url>jar://$MODULE_DIR$/lib/core/commons-fileupload.jar!/</url>
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-fileupload.jar" />
+    </containerElement>
+    <containerElement type="library" level="module">
+      <url>jar://$MODULE_DIR$/lib/optional/cglib-full.jar!/</url>
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/cglib-full.jar" />
+    </containerElement>
+    <containerElement type="library" level="module">
+      <url>jar://$MODULE_DIR$/lib/optional/object-dispatcher.jar!/</url>
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/object-dispatcher.jar" />
     </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/webapp/WEB-INF/web.xml" version="2.3" />
     <webroots>
