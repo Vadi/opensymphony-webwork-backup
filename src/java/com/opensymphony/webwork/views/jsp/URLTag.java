@@ -128,41 +128,39 @@ public class URLTag extends ParametereizedBodyTagSupport {
 
         //no explicit url set so attach params from current url, do
         //this at start so body params can override any of these they wish.
-        if (value == null) {
-            try {
-                if (params == null) {
-                    params = new HashMap();
-                }
-
-                String includeParams = null;
-
-                if (includeParamsAttr != null) {
-                    includeParams = findString(includeParamsAttr);
-                }
-
-                if ((includeParams == null) || includeParams.equals(GET)) {
-                    // Parse the query string to make sure that the parameters come from the query, and not some posted data
-                    HttpServletRequest req = ((HttpServletRequest) pageContext.getRequest());
-                    String query = req.getQueryString();
-
-                    if (query != null) {
-                        // Remove possible #foobar suffix
-                        int idx = query.lastIndexOf('#');
-
-                        if (idx != -1) {
-                            query = query.substring(0, idx - 1);
-                        }
-
-                        params.putAll(HttpUtils.parseQueryString(query));
-                    }
-                } else if (includeParams.equals(ALL)) {
-                    params.putAll(pageContext.getRequest().getParameterMap());
-                } else if (!includeParams.equals(NONE)) {
-                    LOG.warn("Unknown value for includeParams parameter to URL tag: " + includeParams);
-                }
-            } catch (Exception e) {
-                LOG.warn("Unable to put request parameters (" + ((HttpServletRequest) pageContext.getRequest()).getQueryString() + ") into parameter map.", e);
+        try {
+            if (params == null) {
+                params = new HashMap();
             }
+
+            String includeParams = null;
+
+            if (includeParamsAttr != null) {
+                includeParams = findString(includeParamsAttr);
+            }
+
+            if ((includeParams == null && value == null) || GET.equals(includeParams)) {
+                // Parse the query string to make sure that the parameters come from the query, and not some posted data
+                HttpServletRequest req = ((HttpServletRequest) pageContext.getRequest());
+                String query = req.getQueryString();
+
+                if (query != null) {
+                    // Remove possible #foobar suffix
+                    int idx = query.lastIndexOf('#');
+
+                    if (idx != -1) {
+                        query = query.substring(0, idx - 1);
+                    }
+
+                    params.putAll(HttpUtils.parseQueryString(query));
+                }
+            } else if (ALL.equals(includeParams)) {
+                params.putAll(pageContext.getRequest().getParameterMap());
+            } else if (!NONE.equals(includeParams)) {
+                LOG.warn("Unknown value for includeParams parameter to URL tag: " + includeParams);
+            }
+        } catch (Exception e) {
+            LOG.warn("Unable to put request parameters (" + ((HttpServletRequest) pageContext.getRequest()).getQueryString() + ") into parameter map.", e);
         }
 
         return EVAL_BODY_BUFFERED;
