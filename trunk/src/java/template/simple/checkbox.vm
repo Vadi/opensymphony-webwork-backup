@@ -1,18 +1,3 @@
-#*
-  -- checkbox.vm
-  --
-  -- Required Parameters:
-  --   * label       - The description that will be used to identfy the control
-  --   * name        - The name of the attribute to put and pull the result from
-  --                   Equates to the NAME parameter of the HTML INPUT tag
-  --   * fieldValue  - The value displayed by the control.  Equates to the value
-  --                   of the HTML INPUT tag
-  --
-  -- Optional Parameters:
-  --   * disabled        - DISABLED parameter of the HTML INPUT tag
-  --   * tabindex        - tabindex parameter of the HTML INPUT tag
-  --   * onchange        - onkeyup parameter of the HTML INPUT tag
-*#
 <input type="checkbox" name="$!webwork.htmlEncode($parameters.name)" value="$!webwork.htmlEncode($parameters.fieldValue)"
 #if ($parameters.nameValue)        checked="true"                                           #end
 #if ($parameters.disabled == true) disabled="disabled"                                      #end

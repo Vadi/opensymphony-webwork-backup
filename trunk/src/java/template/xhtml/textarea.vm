@@ -1,4 +1,2 @@
-#parse("/template/xhtml/controlheader.vm")
-#parse("/template/simple/textarea.vm")
-#parse("/template/xhtml/controlfooter.vm")
+#parse("/template/xhtml/controlheader.vm")#parse("/template/simple/textarea.vm")#parse("/template/xhtml/controlfooter.vm")
 

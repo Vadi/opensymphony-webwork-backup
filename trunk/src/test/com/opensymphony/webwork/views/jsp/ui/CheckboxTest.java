@@ -26,6 +26,7 @@ public class CheckboxTest extends AbstractUITagTest {
 
         CheckboxTag tag = new CheckboxTag();
         tag.setPageContext(pageContext);
+        tag.setId("someId");
         tag.setLabel("'mylabel'");
         tag.setName("'foo'");
         tag.setFieldValue("'baz'");

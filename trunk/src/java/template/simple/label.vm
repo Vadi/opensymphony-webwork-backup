@@ -1,15 +1,5 @@
-#*
-  -- label.vm
-  --
-  -- Required Parameters:
-  --   * label      - The description that will be used to identfy this text label
-  --
-  -- Optional Parameters:
-  --   * labelposition   - determines were the label will be place in relation
-  --                       to the control.  Default is to the left of the control.
-  *#
 <label
 #if ($parameters.id)               id="$!webwork.htmlEncode($parameters.id)"                #end
 #if ($parameters.cssClass)         class="$!webwork.htmlEncode($parameters.cssClass)"       #end
 #if ($parameters.cssStyle)         style="$!webwork.htmlEncode($parameters.cssStyle)"       #end
-> $!webwork.htmlEncode($parameters.nameValue) </label>
+>$!webwork.htmlEncode($parameters.nameValue)</label>
