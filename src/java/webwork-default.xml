@@ -31,13 +31,71 @@
             <interceptor name="conversionError" class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
             <interceptor name="fileUpload" class="com.opensymphony.webwork.interceptor.FileUploadInterceptor"/>
             <interceptor name="execAndWait" class="com.opensymphony.webwork.interceptor.ExecuteAndWaitInterceptor"/>
+
+            <!-- Basic stack -->
             <interceptor-stack name="defaultStack">
+                <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="prepare"/>
                 <interceptor-ref name="static-params"/>
                 <interceptor-ref name="params"/>
                 <interceptor-ref name="conversionError"/>
             </interceptor-stack>
+
+            <!-- Sample validation and workflow stack -->
             <interceptor-stack name="validationWorkflowStack">
                 <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="validation"/>
+                <interceptor-ref name="workflow"/>
+            </interceptor-stack>
+
+            <!-- Sample file upload stack -->
+            <interceptor-stack name="fileUploadStack">
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+
+            <!-- Sample Inversion of Control stack -->
+            <interceptor-stack name="componentStack">
+                <interceptor-ref name="component"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+
+            <!-- Sample model-driven stack  -->
+            <interceptor-stack name="modelDrivenStack">
+                <interceptor-ref name="model-driven"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+
+            <!-- Sample action chaining stack -->
+            <interceptor-stack name="chainStack">
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+
+            <!-- Sample execute and wait stack.
+                 Note: execAndWait should always be the *last* interceptor. -->
+            <interceptor-stack name="executeAndWaitStack">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="execAndWait"/>
+            </interceptor-stack>
+
+            <!-- A complete stack with all the common interceptors in place.
+                 Generally, this stack should be the one you use, though it
+                 may process additional stuff you don't need, which could
+                 lead to some performance problems. Also, the ordering can be
+                 switched around (ex: if you wish to have your components
+                 before prepare() is called, you'd need to move the component
+                 interceptor up -->
+            <interceptor-stack name="completeStack">
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="model-driven"/>
+                <interceptor-ref name="component"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="static-params"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
                 <interceptor-ref name="validation"/>
                 <interceptor-ref name="workflow"/>
             </interceptor-stack>
