@@ -36,10 +36,11 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
 
     public static final String KEY = "__execWait";
 
-    //~ Methods ////////////////////////////////////////////////////////////////
+    //~ Instance fields ////////////////////////////////////////////////////////
 
-    public void destroy() {
-    }
+    private int threadPriority = Thread.NORM_PRIORITY;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void init() {
     }
@@ -52,7 +53,7 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
             BackgroundProcess bp = (BackgroundProcess) session.get(KEY + name);
 
             if (bp == null) {
-                bp = new BackgroundProcess(actionInvocation);
+                bp = new BackgroundProcess(name + "BackgroundThread", actionInvocation, threadPriority);
                 session.put(KEY + name, bp);
             }
 
@@ -68,6 +69,14 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
         }
     }
 
+
+    public void destroy() {
+    }
+
+    public void setThreadPriority(int threadPriority) {
+        this.threadPriority = threadPriority;
+    }
+
     //~ Inner Classes //////////////////////////////////////////////////////////
 
     static class BackgroundProcess implements Serializable {
@@ -76,7 +85,7 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
         private String result;
         private boolean done;
 
-        public BackgroundProcess(final ActionInvocation invocation) {
+        public BackgroundProcess(final String threadName, final ActionInvocation invocation, final int threadPriority) {
             this.invocation = invocation;
             this.action = invocation.getAction();
 
@@ -91,11 +100,17 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
                     done = true;
                 }
             });
+            t.setName(threadName);
+            t.setPriority(threadPriority);
             t.start();
         }
 
         public Action getAction() {
             return action;
+        }
+
+        public ActionInvocation getInvocation() {
+            return invocation;
         }
 
         public String getResult() {
