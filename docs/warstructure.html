@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html">WebWork2 Documentation</a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">WebWork 2 WAR Structure
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ <h3 class="heading-1">Example Directory Structure
+</h3><p class="paragraph"/>The following is one example of a web application directory structure that can be used to configure WebWork 2 in your application. 
+<ul class="star">
+<li>/webapp/WEB-INF</li>
+<li>/webapp/WEB-INF/web.xml</li>
+<li>/webapp/WEB-INF/webwork.tld</li>
+<li>/webapp/WEB-INF/classes</li>
+<li>/webapp/WEB-INF/classes/xwork.xml</li>
+<li>/webapp/WEB-INF/lib</li>
+</ul><p class="paragraph"/>For more information about the web.xml file, see <a href="webconfig.html">Configuring web.xml</a>.<p class="paragraph"/>WebWork 2 has a number of required and optional libraries that must be included in the WEB-INF/lib folder for certain features of the framework to work correctly.<p class="paragraph"/>Required libraries:
+<ul class="star">
+<li>commons-logging.jar (this is the logging library used in webwork2)</li>
+<li>ognl-2.5.1.jar (this is the OGNL library used for webwork2's expression language)</li>
+<li>oscore-2.2.1.jar (contains core functionality that is reused in webwork2)</li>
+<li>xwork-1.0-beta.jar</li>
+<li>webwork-2.0-beta.jar</li>
+</ul><p class="paragraph"/>Optional libraries:
+<ul class="star">
+<li>cos-multipart.jar (only required if you need cos multipart support)</li>
+<li>pell-multipart.jar (only required if you need pell multipart support)</li>
+<li>velocity-dep-1.3.jar (only required if you use the webwork2 tag libraries)</li>
+</ul><p class="paragraph"/>Note that commons-logging will pick a specific log implementation only if it finds the correspondent classes on the classpath. So, if you want commons-logging to use <span class="nobr"><img src="http://wiki.opensymphony.com/images/external-link.png" alt="&gt;&gt;" border="0"/><a href="http://jakarta.apache.org/log4j">Log4J</a></span> as the actual log implementation, you need to put the log4j.jar file in the WEB-INF/lib folder as well.
+  </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>OpenSymphony Wiki (Offline Version) :: WebWork2 Documentation</title>
+  <link type="text/css" href="main.css" rel="STYLESHEET"/>
+</head>
+<body>
+  <div id="page-logo">
+    <a href="index.html">WebWork2 Documentation</a>
+  </div>
+    <div class="snip-title">
+	  <h1 class="snip-name">Webwork 2 HTML form buttons Howto
+  
+  </h1>
+  </div>
+<div id="snip-content" class="snip-content">
+
+ <div class="snip-attachments"></div>
+ 
+ <h3 class="heading-1">Note to the reader
+</h3><p class="paragraph"/>I fixed some bugs in the HTML code examples.<p class="paragraph"/><a href="http://wiki.opensymphony.com/space/Llucifer">Llucifer</a> 2003-07-09
+<h3 class="heading-1">HTML Form Buttons and <a href="http://wiki.opensymphony.com/space/Webwork2">Webwork2</a>
+</h3><p class="paragraph"/>This Howto will describe the usage of HTML form buttons to invoke different behavior in actions.
+<h3 class="heading-1-1">Determine which button was pressed
+</h3><p class="paragraph"/>The trick is that the type conversion of <a href="http://wiki.opensymphony.com/space/XWork">XWork</a> can be used to test which button was pressed in a simple way. When a button is pressed, a parameter is set in webwork with the name and value that are specified as the <i class="italic">name</i> and <i class="italic">value</i> attributes of your HTML button. <a href="http://wiki.opensymphony.com/space/XWork">XWork</a> converts this automatically to boolean value if an appropriate property of the Action is found.
+These boolean Properties can be tested to determine which button was pressed:<p class="paragraph"/><div class="code"><pre>&#60;form action=<span class="java&#45;quote">"MyAction.action"</span>&#62;
+&#60;input type=<span class="java&#45;quote">"submit"</span> name=<span class="java&#45;quote">"buttonOnePressed"</span> value=<span class="java&#45;quote">"First option"</span>&#62; 
+&#60;input type=<span class="java&#45;quote">"submit"</span> name=<span class="java&#45;quote">"buttonTwoPressed"</span> value=<span class="java&#45;quote">"Alternative Option"</span>&#62;
+&#60;/form&#62;</pre></div><p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">public</span> class MyAction <span class="java&#45;keyword">extends</span> Action &#123;<p class="paragraph"/>    /&#42;&#42;
+     &#42; Action implementation
+     &#42;
+     &#42; Sets the message according to which button was pressed.
+     &#42;&#42;/
+    <span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> execute() &#123;
+        <span class="java&#45;keyword">if</span> (buttonOnePressed) &#123;
+            message=<span class="java&#45;quote">"You pressed the first button"</span>;
+        &#125; <span class="java&#45;keyword">else</span> <span class="java&#45;keyword">if</span> (buttonTwoPressed) &#123;
+            message=<span class="java&#45;quote">"You pressed the second button"</span>;
+        &#125; <span class="java&#45;keyword">else</span> &#123;
+            <span class="java&#45;keyword">return</span> ERROR;
+        &#125;
+        <span class="java&#45;keyword">return</span> SUCCES;
+    &#125;<p class="paragraph"/>    // Input parameters
+    <span class="java&#45;keyword">private</span> <span class="java&#45;object">boolean</span> buttonOnePressed=<span class="java&#45;keyword">false</span>;
+    <span class="java&#45;keyword">private</span> <span class="java&#45;object">boolean</span> buttonTwoPressed=<span class="java&#45;keyword">false</span>;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> void setButtonOnePressed(<span class="java&#45;object">boolean</span> value) &#123;
+        <span class="java&#45;keyword">this</span>.buttonOnePressed = value;
+    &#125;<p class="paragraph"/>
+    <span class="java&#45;keyword">public</span> void setButtonTwoPressed(<span class="java&#45;object">boolean</span> value) &#123;
+        <span class="java&#45;keyword">this</span>.buttonTwoPressed = value;
+    &#125;<p class="paragraph"/>    // Output parameters<p class="paragraph"/>    <span class="java&#45;keyword">private</span> <span class="java&#45;object">String</span> message;
+    <span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> getMessage() &#123;
+        <span class="java&#45;keyword">return</span> message;
+    &#125;
+&#125;</pre></div><p class="paragraph"/><b class="bold">Note</b>: Do not use String properties with buttons and test for the value that's set. This will break as soon as the <i class="italic">value</i> attribute of the HTML button changes! This is likely because the <i class="italic">value</i> attribute used as the text shown to the user.
+<h3 class="heading-1-1">Dynamic set of buttons
+</h3><p class="paragraph"/>Consider a web page showing a shopping cart or similiar tabular data. Often there is a button belonging to each row, in case of the shopping cart a delete button to remove the item from the cart. The number of buttons is dynamic and the id that couples the button to an item cannot go to the <i class="italic">value</i> attribute because all buttons should read "delete".<p class="paragraph"/>The solution is to <b class="bold">name</b> the buttons like delete&#91;123&#93;, delete&#91;594&#93;, delete&#91;494&#93; where 123, 594 and 494 are e.g. the items' ids:<p class="paragraph"/><div class="code"><pre>&#60;form action=<span class="java&#45;quote">"UpdateCart.action"</span>&#62;
+  &#60;ww:iterate value=<span class="java&#45;quote">"items"</span>&#62;
+    &#60;ww:property value=<span class="java&#45;quote">"name"</span>&#62; 
+    &#60;input type=<span class="java&#45;quote">"submit"</span> name=<span class="java&#45;quote">"delete&#91;&#60;ww:property value='id'&#62;&#93;"</span> value=<span class="java&#45;quote">"delete"</span> /&#62; &#60;br/&#62;
+  &#60;/ww:iterate&#62;
+&#60;/form&#62;</pre></div><p class="paragraph"/>When e.g. the button for the item with the property id == "27" is pressed, a parameter named <i class="italic">delete27</i> and value "delete" is set in your action. The trick is to us declare your action's property "delete" as <i class="italic">java.util.Map</i>. Then, a key will exist for the button that was pressed:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">public</span> void class UpdateCart <span class="java&#45;keyword">implements</span> Action &#123;
+    // must be initialized to be usable as a webwork input parameter
+    <span class="java&#45;keyword">private</span> Map delete = <span class="java&#45;keyword">new</span> HashMap();<p class="paragraph"/>    /&#42;&#42; This is somewhat counter intuitive. But a property like <span class="java&#45;quote">"delete&#91;27&#93;"</span>
+     &#42;  that is set to <span class="java&#45;quote">"delete"</span> by webwork will be interpreted by the underlying    
+     &#42;  OGNL expression engine as <span class="java&#45;quote">"set the property 27 of the action's property
+     &#42;  "</span>delete<span class="java&#45;quote">" to the value "</span>delete". So we must provide a getter <span class="java&#45;keyword">for</span> <span class="java&#45;keyword">this</span>
+     &#42;/ action. A setter is not needed.
+    <span class="java&#45;keyword">public</span> Map getDelete() &#123;
+        <span class="java&#45;keyword">return</span> delete;
+    &#125;<p class="paragraph"/>    <span class="java&#45;keyword">public</span> <span class="java&#45;object">String</span> execute() &#123;
+        <span class="java&#45;keyword">for</span>(Iterator i = delete.keySet().iterator(); i.hasNext(); ) &#123;
+            <span class="java&#45;object">String</span> id = (<span class="java&#45;object">String</span>) i.next();
+            ...
+            // <span class="java&#45;keyword">do</span> what ever you want
+            ...
+         &#125;
+         ...
+    &#125;
+&#125;</pre></div><p class="paragraph"/>In this case it would not be necessary to iterate the whole keySet because it contains only one key but the same code can be use to handle sets of checkboxes if this is prefered later:<p class="paragraph"/><div class="code"><pre>&#60;form action=<span class="java&#45;quote">"UpdateCart.action"</span>&#62;
+  &#60;ww:iterate value=<span class="java&#45;quote">"items"</span>&#62;
+    &#60;ww:property value=<span class="java&#45;quote">"name"</span>&#62; 
+    &#60;input type=<span class="java&#45;quote">"checkbox"</span> name=<span class="java&#45;quote">"delete&#91;&#60;ww:property value='item'/&#62;&#93;"</span> value=<span class="java&#45;quote">"delete"</span>&#62; &#60;br/&#62;
+  &#60;/ww:iterate&#62;
+  &#60;input type=<span class="java&#45;quote">"submit"</span> name=<span class="java&#45;quote">"updateCart"</span> value=<span class="java&#45;quote">"Update the cart"</span>/&#62;
+&#60;/form&#62;</pre></div><p class="paragraph"/>
+The two implementations can even be combined two provide a quick "delete this item" button and a set of checkboxes for "mass updates". All with the above code, cool eh?
+  </div>
+</body>
+</html>
