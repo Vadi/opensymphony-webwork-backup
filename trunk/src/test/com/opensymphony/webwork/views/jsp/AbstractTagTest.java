@@ -82,7 +82,6 @@ public abstract class AbstractTagTest extends TestCase {
         request.setAttribute("webwork.valueStack", stack);
         response = new WebWorkMockHttpServletResponse();
         request.setSession(new WebWorkMockHttpSession());
-        ActionContext.getContext().setValueStack(stack);
 
         writer = new StringWriter();
 
@@ -94,7 +93,6 @@ public abstract class AbstractTagTest extends TestCase {
         pageContext.setJspWriter(jspWriter);
 
         session = new HashMap();
-        ActionContext.getContext().setSession(session);
 
         Configuration.setConfiguration(null);
     }

@@ -5,5 +5,5 @@
             type="submit"
             #if ($parameters.name)   name="$parameters.name"       #end
             #if ($parameters.value)  value="$parameters.value"     #end
-        /></div></td>
-</tr>
+        /></div>
+#parse( "/templates/xhtml/controlfooter.vm" )
