@@ -1,4 +1,4 @@
-<project name="webwork2" default="jar" basedir=".">
+<project name="webwork" default="jar" basedir=".">
 
     <path id="cp">
         <fileset dir="lib">
@@ -321,6 +321,10 @@
                 <include name="build.*"/>
             </fileset>
         </copy>
+
+        <!-- don't ship with clover and junit docs -->
+        <delete dir="${build.dist}/docs/clover"/>
+        <delete dir="${build.dist}/docs/junit"/>
 
         <!-- copy README -->
         <tstamp/>
