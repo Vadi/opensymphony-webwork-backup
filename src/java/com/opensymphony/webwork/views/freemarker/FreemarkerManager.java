@@ -14,10 +14,7 @@ import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import freemarker.cache.ClassTemplateLoader;
-import freemarker.cache.MultiTemplateLoader;
-import freemarker.cache.TemplateLoader;
-import freemarker.cache.WebappTemplateLoader;
+import freemarker.cache.*;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.jsp.TaglibFactory;
 import freemarker.ext.servlet.HttpRequestHashModel;
@@ -32,6 +29,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -90,7 +88,8 @@ public class FreemarkerManager {
             try {
                 log.info("Instantiating Freemarker ConfigManager!, " + classname);
                 instance = (FreemarkerManager) ObjectFactory.getObjectFactory().buildBean(Class.forName(classname));
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 log.fatal("Fatal exception occurred while trying to instantiate a Freemarker ConfigManager instance, " + classname, e);
             }
         }
@@ -152,7 +151,8 @@ public class FreemarkerManager {
             }
 
             model.put(KEY_SESSION_MODEL, sessionModel);
-        } else {
+        }
+        else {
             // no session means no attributes ???
             //            model.put(KEY_SESSION_MODEL, new SimpleHash());
         }
@@ -202,8 +202,9 @@ public class FreemarkerManager {
     }
 
     /**
-     * the default template loader is a MultiTemplateLoader which includes
-     * a ClassTemplateLoader and a WebappTemplateLoader
+     * The default template loader is a MultiTemplateLoader which includes
+     * a ClassTemplateLoader and a WebappTemplateLoader (and a FileTemplateLoader depending on
+     * the init-parameter 'TemplatePath').
      * <p/>
      * The ClassTemplateLoader will resolve fully qualified template includes
      * that begin with a slash. for example /com/company/template/common.ftl
@@ -211,18 +212,38 @@ public class FreemarkerManager {
      * The WebappTemplateLoader attempts to resolve templates relative to the web root folder
      */
     protected TemplateLoader getTemplateLoader(ServletContext servletContext) {
+        // construct a FileTemplateLoader for the init-param 'TemplatePath'
+        FileTemplateLoader templatePathLoader = null;
+
+        String templatePath = servletContext.getInitParameter("TemplatePath");
+        if (templatePath == null) templatePath = servletContext.getInitParameter("templatePath");
+        if (templatePath == null) templatePath = servletContext.getInitParameter("templatepath");
+
+        if (templatePath != null) {
+            try {
+                templatePathLoader = new FileTemplateLoader(new File(templatePath));
+            }
+            catch (IOException e) {
+                log.error("Invalid template path specified: " + e.getMessage(), e);
+            }
+        }
+
         // presume that most apps will require the class and webapp template loader
         // if people wish to
-        TemplateLoader multiLoader = new MultiTemplateLoader(new TemplateLoader[]{
-            new WebappTemplateLoader(servletContext),
-            new ClassTemplateLoader(FreemarkerResult.class, "/")
-        });
-
-        return multiLoader;
+        return templatePathLoader != null ?
+                new MultiTemplateLoader(new TemplateLoader[]{
+                    templatePathLoader,
+                    new WebappTemplateLoader(servletContext),
+                    new ClassTemplateLoader(FreemarkerResult.class, "/")
+                })
+                : new MultiTemplateLoader(new TemplateLoader[]{
+                    new WebappTemplateLoader(servletContext),
+                    new ClassTemplateLoader(FreemarkerResult.class, "/")
+                });
     }
 
     /**
-     * create the instance of the freemarker Configuration object
+     * Create the instance of the freemarker Configuration object.
      * <p/>
      * this implementation
      * <ul>
@@ -263,9 +284,11 @@ public class FreemarkerManager {
                 p.load(in);
                 configuration.setSettings(p);
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             log.error("Error while loading freemarker settings from /freemarker.properties", e);
-        } catch (TemplateException e) {
+        }
+        catch (TemplateException e) {
             log.error("Error while loading freemarker settings from /freemarker.properties", e);
         }
     }
