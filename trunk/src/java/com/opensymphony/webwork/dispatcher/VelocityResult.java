@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
 
 import com.opensymphony.xwork.ActionContext;
@@ -17,8 +18,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
-import org.apache.velocity.runtime.RuntimeSingleton;
-import org.apache.velocity.servlet.VelocityServlet;
 
 import java.io.Writer;
 
@@ -80,14 +79,16 @@ public class VelocityResult extends WebWorkResultSupport {
             Context context = createContext(velocityManager, stack, request, response, finalLocation);
             Writer writer = pageContext.getOut();
 
-            String encoding = RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, VelocityServlet.DEFAULT_OUTPUT_ENCODING);
 
             if (usedJspFactory) {
+                String encoding = getEncoding(finalLocation);
+                String contentType = getContentType(finalLocation);
+
                 if (encoding != null) {
-                    response.setContentType("text/html; charset=" + encoding);
-                } else {
-                    response.setContentType("text/html");
+                    contentType = contentType + ";charset=" + encoding;
                 }
+
+                response.setContentType(contentType);
             }
 
             t.merge(context, writer);
@@ -105,6 +106,30 @@ public class VelocityResult extends WebWorkResultSupport {
         }
 
         return;
+    }
+
+    /**
+     * Retrieve the encoding for this template.
+     * <p>
+     * People can override this method if they want to provide specific encodings for specific templates.
+     *
+     * @return The encoding associated with this template (defaults to the value of 'webwork.i18n.encoding' property)
+     */
+    protected String getEncoding(String templateLocation)
+    {
+        return (String) Configuration.get("webwork.i18n.encoding");
+    }
+
+    /**
+     * Retrieve the content type for this template.
+     * <p>
+     * People can override this method if they want to provide specific content types for specific templates (eg text/xml).
+     *
+     * @return The content type associated with this template (default "text/html")
+     */
+    protected String getContentType(String templateLocation)
+    {
+        return "text/html";
     }
 
     /**
