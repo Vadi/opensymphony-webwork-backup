@@ -126,16 +126,13 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
  */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
-		//wrap request if needed
 		try {
-			request = wrapRequest(request);
+	        serviceAction(request, response, getNameSpace(request), getActionName(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
 		} catch (IOException e) {
 			String message = "Could not wrap servlet request with MultipartRequestWrapper!";
 			log.error(message, e);
 			sendError(request, response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new ServletException(message, e));
 		}
-
-        serviceAction(request, response, getNameSpace(request), getActionName(request), getParameterMap(request), getSessionMap(request), getApplicationMap());
     }
 
     /**
@@ -206,7 +203,8 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         return getNamespaceFromServletPath(servletPath);
     }
 
-    protected Map getParameterMap(HttpServletRequest request) {
+    protected Map getParameterMap(HttpServletRequest request) throws IOException {
+		request = wrapRequest(request);
         return request.getParameterMap();
     }
 
