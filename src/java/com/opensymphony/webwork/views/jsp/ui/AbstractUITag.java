@@ -5,26 +5,29 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.webwork.views.jsp.ParameterizedTagSupport;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-import com.opensymphony.webwork.validators.ScriptValidationAware;
+
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.validator.ActionValidatorManager;
-import com.opensymphony.xwork.validator.FieldValidator;
 import com.opensymphony.xwork.validator.Validator;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.Writer;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 
 /**
@@ -34,29 +37,14 @@ import java.util.List;
 public abstract class AbstractUITag extends ParameterizedTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    private static final Log LOG = LogFactory.getLog(AbstractUITag.class);
-
-    /**
-     * The name of the default theme used by WW2.
-     */
-    public static String THEME;
     protected static VelocityManager velocityManager = VelocityManager.getInstance();
     protected static VelocityEngine velocityEngine = velocityManager.getVelocityEngine();
-
-    static {
-        try {
-            THEME = Configuration.getString("webwork.ui.theme");
-            if (!THEME.endsWith("/")) {
-                THEME += "/";
-            }
-        } catch (IllegalArgumentException e) {
-            LOG.warn("Unable to find 'webwork.ui.theme' property setting. Defaulting to xhtml", e);
-            THEME = "xhtml";
-        }
-    }
+    private static final Log LOG = LogFactory.getLog(AbstractClosingUITag.class);
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    protected String cssClassAttr;
+    protected String cssStyleAttr;
     protected String disabledAttr;
     protected String labelAttr;
     protected String labelPositionAttr;
@@ -65,14 +53,20 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String requiredAttr;
     protected String tabindexAttr;
     protected String templateAttr;
-    protected String themeAttr;
-    protected String theme;
     protected String templateDir;
+    protected String theme;
+    protected String themeAttr;
     protected String valueAttr;
-    protected String cssClassAttr;
-    protected String cssStyleAttr;
 
     //~ Methods ////////////////////////////////////////////////////////////////
+
+    public void setCssClass(String aCssClass) {
+        cssClassAttr = aCssClass;
+    }
+
+    public void setCssStyle(String aCssStyle) {
+        this.cssStyleAttr = aCssStyle;
+    }
 
     public void setDisabled(String disabled) {
         this.disabledAttr = disabled;
@@ -106,20 +100,46 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         templateAttr = aName;
     }
 
+    public String getTemplateDir() {
+        // If templateDir is not explicitly given,
+        // try to find attribute which states the dir set to use
+        if ((templateDir == null) || (templateDir == "")) {
+            templateDir = setupPath((String) pageContext.findAttribute("templateDir"), true);
+        }
+
+        // Default template set
+        if ((templateDir == null) || (templateDir == "")) {
+            templateDir = setupPath(Configuration.getString("webwork.ui.templateDir"), true);
+        }
+
+        if ((templateDir == null) || (templateDir == "")) {
+            templateDir = "/template/";
+        }
+
+        return templateDir;
+    }
+
     public void setTheme(String aName) {
         themeAttr = aName;
     }
 
+    public String getTheme() {
+        // If theme set is not explicitly given,
+        // try to find attribute which states the theme set to use
+        if ((theme == null) || (theme == "")) {
+            theme = setupPath((String) pageContext.findAttribute("theme"), false);
+        }
+
+        // Default template set
+        if ((theme == null) || (theme == "")) {
+            theme = setupPath(Configuration.getString("webwork.ui.theme"), false);
+        }
+
+        return theme;
+    }
+
     public void setValue(String aValue) {
         valueAttr = aValue;
-    }
-
-    public void setCssClass(String aCssClass) {
-        cssClassAttr = aCssClass;
-    }
-
-    public void setCssStyle(String aCssStyle) {
-        this.cssStyleAttr = aCssStyle;
     }
 
     public int doEndTag() throws JspException {
@@ -167,60 +187,32 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         return String.class;
     }
 
-    public String getTheme() {
-       // If theme set is not explicitly given,
-       // try to find attribute which states the theme set to use
-       if ((theme == null) || (theme == "")) {
-          theme = (String) pageContext.findAttribute("theme");
-       }
-
-       // Default template set
-       if ((theme == null) || (theme == "")) {
-          theme = Configuration.getString("webwork.ui.theme");
-       }
-
-       return theme;
-    }
-
-    public String getTemplateDir() {
-       // If templateDir is not explicitly given,
-       // try to find attribute which states the dir set to use
-       if ((templateDir == null) || (templateDir == "")) {
-         templateDir = (String) pageContext.findAttribute("templateDir");
-       }
-
-       // Default template set
-       if ((templateDir == null) || (templateDir == "")) {
-          templateDir = Configuration.getString("webwork.ui.templateDir");
-       }
-
-       if ((templateDir == null) || (templateDir == "")) {
-          templateDir = "template";
-       }
-
-       return templateDir;
-    }
-
     /**
      * @param myTemplate
      * @param myDefaultTemplate
      */
     protected String buildTemplateName(String myTemplate, String myDefaultTemplate) {
-        if (themeAttr != null)
-        {
+        if (themeAttr != null) {
             theme = findString(themeAttr);
         }
 
-        String template = null;
-        if (myTemplate == null) {
-            template = myDefaultTemplate;
-        } else {
+        String template = myDefaultTemplate;
+        if (myTemplate != null) {
             template = findString(myTemplate);
+            if (template == null) {
+                LOG.warn("template attribute evaluated to null; using value as-is for backwards compatibility");
+                template = myTemplate;
+            }
         }
-        return "/" + getTemplateDir() + "/" + getTheme() + "/" + template;
+
+        return getTemplateDir() + getTheme() + template;
     }
 
     protected void evaluateExtraParams(OgnlValueStack stack) {
+    }
+
+    protected boolean evaluateNameValue() {
+        return true;
     }
 
     protected void evaluateParams(OgnlValueStack stack) {
@@ -264,6 +256,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         FormTag tag = (FormTag) findAncestorWithClass(this, FormTag.class);
+
         if (tag != null) {
             addParameter("form", tag.getParameters());
         }
@@ -291,12 +284,15 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         }
 
         // now let's do some JavaScript stuff. or something
-        if (tag != null && tag.getActionClass() != null && tag.getActionName() != null) {
+        if ((tag != null) && (tag.getActionClass() != null) && (tag.getActionName() != null)) {
             List validators = ActionValidatorManager.getValidators(tag.getActionClass(), tag.getActionName());
+
             for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
                 Validator validator = (Validator) iterator.next();
+
                 if (validator instanceof ScriptValidationAware) {
                     ScriptValidationAware fieldValidator = (ScriptValidationAware) validator;
+
                     if (fieldValidator.getFieldName().equals(name)) {
                         tag.registerValidator(name, fieldValidator, new HashMap(getParameters()));
                     }
@@ -307,13 +303,9 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         evaluateExtraParams(stack);
     }
 
-    protected boolean evaluateNameValue() {
-        return true;
-    }
-
     protected void mergeTemplate(String templateName) throws Exception {
         Template t = velocityEngine.getTemplate(templateName);
-        Context context = velocityManager.createContext(getStack(), (HttpServletRequest)pageContext.getRequest(), (HttpServletResponse)pageContext.getResponse());
+        Context context = velocityManager.createContext(getStack(), (HttpServletRequest) pageContext.getRequest(), (HttpServletResponse) pageContext.getResponse());
 
         Writer outputWriter = pageContext.getOut();
 
@@ -326,5 +318,21 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
         context.put("parameters", getParameters());
 
         t.merge(context, outputWriter);
+    }
+
+    private String setupPath(String path, boolean prefix) {
+        if (path != null) {
+            if (prefix) {
+                if (!path.startsWith("/")) {
+                    path = "/" + path;
+                }
+            }
+
+            if (!path.endsWith("/")) {
+                path += "/";
+            }
+        }
+
+        return path;
     }
 }
