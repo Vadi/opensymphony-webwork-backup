@@ -1,6 +1,7 @@
 Click <a href="SimpleCounter.action">here</a> for a stupid little counter<br>
 Click <a href="VelocityCounter.action">here</a> for the same stupid little counter using a VelocityResult<br>
 Click <a href="action.jsp">here</a> for an example of the stupid little counter being called via the ww:action tag<br>
+Click <a href="action.jsp">here</a> for an example of the stupid little counter being called via the #tag( Action ) tag using <strong>Velocity as the view</strong><br>
 Click <a href="bean.jsp">here</a> for an example of the stupid little counter being called via the ww:bean tag<br>
 Click <a href="TagTest.action">here</a> to see sample usages of the UI tags<br>
 Click <a href="VelocityTagTest.action">here</a> to see sample usages of the UI tags using <strong>Velocity as the view</strong><br>
