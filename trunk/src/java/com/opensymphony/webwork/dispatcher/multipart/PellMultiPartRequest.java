@@ -19,24 +19,20 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 
-/* ------------------------------------------------------------ */
-
 /**
- * Multipart Form Data request adapter for Jason Pell's multipart utils
+ * Multipart form data request adapter for Jason Pell's multipart utils package.
  *
- * @version $Id$
- * @author  Matt Baldree (matt@smallleap.com) modified for WW's use
- * @author  Scott Farquhar (scott@atlassian.com) added i18n handling (WW-109)
+ * @author <a href="matt@smallleap.com">Matt Baldree</a> (modified for WW's use)
+ * @author <a href="scott@atlassian.com">Scott Farquhar</a> (added i18n handling (WW-109))
  */
 public class PellMultiPartRequest extends MultiPartRequest {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
-    /* ------------------------------------------------------------ */
     private ServletMultipartRequest multi;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
-
     /**
+     * Creates a new request wrapper to handle multi-part data using methods adapted from Jason Pell's
+     * multipart classes (see class description).
+     * 
      * @param maxSize maximum size post allowed
      * @param saveDir the directory to save off the file
      * @param servletRequest the request containing the multipart
@@ -50,8 +46,6 @@ public class PellMultiPartRequest extends MultiPartRequest {
         }
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
     public String getContentType(String name) {
         return multi.getContentType(name);
     }
@@ -60,7 +54,6 @@ public class PellMultiPartRequest extends MultiPartRequest {
         return multi.getFile(name);
     }
 
-    // Methods only in MultipartRequest
     public Enumeration getFileNames() {
         return multi.getFileParameterNames();
     }
@@ -94,7 +87,7 @@ public class PellMultiPartRequest extends MultiPartRequest {
     }
 
     /**
-     * Set the encoding for the uploaded params.  This needs to be set if you are using character sets other than
+     * Sets the encoding for the uploaded params.  This needs to be set if you are using character sets other than
      * ASCII.
      * <p>
      * The encoding is looked up from the configuration setting 'webwork.i18n.encoding'.  This is usually set in
