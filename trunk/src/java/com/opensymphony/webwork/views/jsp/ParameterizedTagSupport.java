@@ -4,6 +4,9 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +22,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public abstract class ParameterizedTagSupport extends WebWorkTagSupport implements ParameterizedTag {
     //~ Instance fields ////////////////////////////////////////////////////////
+    final protected static Log log = LogFactory.getLog(ParameterizedTagSupport.class);
 
     Map params;
 
