@@ -7,13 +7,10 @@ package com.opensymphony.webwork.views.velocity.ui;
 import com.opensymphony.webwork.views.jsp.ParameterizedTag;
 import com.opensymphony.webwork.views.velocity.Renderer;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-
 import junit.framework.Assert;
-
 import org.apache.velocity.context.Context;
 
 import java.io.Writer;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,7 +22,6 @@ import java.util.Map;
  * User: matt
  * Date: May 31, 2003
  * Time: 10:21:36 AM
- * To change this template use Options | File Templates.
  */
 public class MockTag implements Renderer, ParameterizedTag {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -116,8 +112,8 @@ public class MockTag implements Renderer, ParameterizedTag {
     }
 
     /**
-    * resets all the static variables to their initial state.  this must be called before each test!
-    */
+     * resets all the static variables to their initial state.  this must be called before each test!
+     */
     public void reset() {
         s = null;
         i = null;

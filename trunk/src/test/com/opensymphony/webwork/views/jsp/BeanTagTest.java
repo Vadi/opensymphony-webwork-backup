@@ -6,11 +6,10 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockPageContext;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
+import ognl.Ognl;
 
 import javax.servlet.jsp.JspException;
 
@@ -49,5 +48,14 @@ public class BeanTagTest extends TestCase {
 
         request.verify();
         pageContext.verify();
+    }
+
+    protected void setUp() throws Exception {
+        super.setUp();
+        ActionContext.setContext(new ActionContext(Ognl.createDefaultContext(null)));
+    }
+
+    protected void tearDown() throws Exception {
+        super.tearDown();
     }
 }
