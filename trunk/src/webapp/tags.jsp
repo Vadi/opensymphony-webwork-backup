@@ -16,7 +16,8 @@
 <ww:select label="multiple select test" name="select1" value="multiValues" list="multiList" multiple="true" size="5"/>
 <ww:select label="select test" name="select2" value="list[1].value" list="list" listKey="key" listValue="value" size="5"/>
 <ww:select label="pulldown test" name="select3" value="list[1].value" list="list" listKey="key" listValue="value"/>
-<ww:select label="pulldown test (empty option)" name="select4" value="list[1].value" list="list" listKey="key" listValue="value" emptyOption="true"/>
+<%-- todo what is emptyOption ? --%>
+<ww:select label="pulldown test (empty option)" name="select4" value="list[1].value" list="list" listKey="key" listValue="value" />
 <ww:doubleselect label="double select test" name="dselect1" doubleName="dselect2" value="list[1].value" 
                  list="list" listKey="key" listValue="value" doubleList="children"/>
 <ww:textarea rows="10" cols="30" label="textarea test" name="textareaField" value="scalar" />
@@ -78,7 +79,8 @@ pulldown:
 
 pulldown (empty option):
 <benchmark:duration >
-<ww:select label="pulldown test (empty option)" name="select4" value="list[1].value" list="list" listKey="key" listValue="value" emptyOption="true"/>
+<%-- todo what is emptyOption ? --%>
+<ww:select label="pulldown test (empty option)" name="select4" value="list[1].value" list="list" listKey="key" listValue="value"/>
 </benchmark:duration> ms<br>
 
 double select:
