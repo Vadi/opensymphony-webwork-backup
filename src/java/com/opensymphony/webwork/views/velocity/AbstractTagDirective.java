@@ -129,7 +129,7 @@ public abstract class AbstractTagDirective extends Directive {
     }
 
     /**
-     * @todo it would be nice for the Configuration object to allow listeners to be registered so that they can be
+     * todo it would be nice for the Configuration object to allow listeners to be registered so that they can be
      * notified of changes to the Configuration files
      * @return an array of paths to search for our tag library
      */
@@ -246,7 +246,7 @@ public abstract class AbstractTagDirective extends Directive {
 
             if (clazz == null) {
                 try {
-                    clazz = Class.forName(tagpath[index] + "." + tagname + "Tag");
+                    clazz = Class.forName(tagpath[index] + "." + tagname);
                 } catch (ClassNotFoundException e) {
                 }
             }
@@ -336,7 +336,7 @@ public abstract class AbstractTagDirective extends Directive {
     }
 
     /**
-     * @todo this is a placeholder for future code.
+     * todo this is a placeholder for future code.
      */
     protected boolean processTag(Tag tag, InternalContextAdapter contextAdapter, Writer writer, Node bodyNode) throws ParseErrorException, IOException, MethodInvocationException, ResourceNotFoundException {
         throw new UnsupportedOperationException("processing JSP Tags is not currently supported");
