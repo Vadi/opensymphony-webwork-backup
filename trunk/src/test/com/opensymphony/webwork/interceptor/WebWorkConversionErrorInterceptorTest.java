@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.interceptor;
 
 import com.mockobjects.dynamic.Mock;
+import com.mockobjects.dynamic.C;
 
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
@@ -74,5 +75,7 @@ public class WebWorkConversionErrorInterceptorTest extends TestCase {
         context.setConversionErrors(conversionErrors);
         mockInvocation.matchAndReturn("getInvocationContext", context);
         mockInvocation.expectAndReturn("invoke", Action.SUCCESS);
+        mockInvocation.expectAndReturn("getStack", stack);
+        mockInvocation.expect("addPreResultListener", C.ANY_ARGS);
     }
 }
