@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.jsp.AbstractTagTest;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
@@ -16,6 +17,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -72,6 +74,46 @@ public class TextTagTest extends AbstractTagTest {
         tag.setName(key);
         assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
         assertEquals(value, writer.toString());
+    }
+
+    public void testTextTagUsesValueStackInRequestNotActionContext() throws JspException {
+        String key = "'simpleKey'";
+        String value1 = "Simple Message";
+        String value2="This is TestBean1";
+        tag.setName(key);
+        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        assertEquals(value1, writer.toString());
+        final StringBuffer buffer = writer.getBuffer();
+        buffer.delete(0,buffer.length());
+        OgnlValueStack newStack = new OgnlValueStack();
+        newStack.getContext().put(ActionContext.LOCALE,Locale.US);
+        newStack.push(new TestAction1());
+        request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, newStack);
+        assertNotSame(ActionContext.getContext().getValueStack().peek(),newStack.peek());
+
+        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        assertEquals(value2, writer.toString());
+    }
+
+    public void testTextTagUsesLocaleFromValueStack() throws JspException {
+        stack.pop();
+        stack.push(new TestAction1());
+        ActionContext.getContext().setLocale(Locale.US);
+        String key = "'simpleKey'";
+        String value_en="This is TestBean1";
+        tag.setName(key);
+        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        assertEquals(value_en, writer.toString());
+        final StringBuffer buffer = writer.getBuffer();
+        buffer.delete(0,buffer.length());
+        String value_de="This is TestBean1 in German";
+        OgnlValueStack newStack = new OgnlValueStack(stack);
+        newStack.getContext().put(ActionContext.LOCALE,Locale.GERMANY);
+        assertNotSame(newStack.getContext().get(ActionContext.LOCALE),ActionContext.getContext().getLocale());
+        request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, newStack);
+        assertEquals(ActionContext.getContext().getValueStack().peek(),newStack.peek());
+        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        assertEquals(value_de, writer.toString());
     }
 
     public void testWithNoMessageAndBodyIsNotEmptyBodyIsReturned() throws Exception {
