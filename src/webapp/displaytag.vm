@@ -321,9 +321,16 @@ span.pagelinks {
 }</style>
 </head>
 <body>
-#set( $list = ["a", "b", "c"] )
-$req.setAttribute("list", $list)
+#set( $action = $stack.findValue("new com.opensymphony.webwork.example.ui.SimpleAction()") )
+$req.setAttribute("list", $action.list)
 
 #tag( Table "name=list" )
+
+#bodytag( Table "name=list" )
+  #tag( Column "property=key" )
+  #tag( Column "property=value" )
+  #tag( Column "title=static value" "value=static" )
+#end
+
 </body>
 </html>
