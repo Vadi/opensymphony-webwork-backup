@@ -4,8 +4,9 @@ import com.opensymphony.xwork.ActionSupport;
 
 /**
  * ValidatedAction
+ *
  * @author Jason Carreira
- * Created Sep 12, 2003 9:23:38 PM
+ *         Created Sep 12, 2003 9:23:38 PM
  */
 public class ValidatedAction extends ActionSupport {
     private ValidatedBean bean = new ValidatedBean();

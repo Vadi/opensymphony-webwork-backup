@@ -6,8 +6,8 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 
 /**
- * @version $Id$
  * @author <a href="mailto:pathos@pandora.be">Mathias Bogaert</a>
+ * @version $Id$
  */
 public class CheckboxListTag extends AbstractListTag {
     //~ Static fields/initializers /////////////////////////////////////////////

@@ -8,15 +8,15 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @version $Id$
  */
 public class CheckboxTag extends AbstractUITag {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
-    * The name of the default template for the CheckboxTag
-    */
+     * The name of the default template for the CheckboxTag
+     */
     final public static String TEMPLATE = "checkbox.vm";
 
     //~ Instance fields ////////////////////////////////////////////////////////

@@ -8,9 +8,7 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.Assert;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,8 +18,9 @@ import java.util.List;
 
 /**
  * TestResult
+ *
  * @author Jason Carreira
- * Created Apr 12, 2003 9:49:35 PM
+ *         Created Apr 12, 2003 9:49:35 PM
  */
 public class TestResult implements Result {
     //~ Static fields/initializers /////////////////////////////////////////////

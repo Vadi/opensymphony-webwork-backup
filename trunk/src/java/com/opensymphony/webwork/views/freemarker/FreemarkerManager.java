@@ -8,53 +8,37 @@
 package com.opensymphony.webwork.views.freemarker;
 
 import com.opensymphony.util.FileManager;
-
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FreemarkerWebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
-
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.cache.WebappTemplateLoader;
-import freemarker.core.Configurable;
-
 import freemarker.ext.beans.BeansWrapper;
-
 import freemarker.ext.jsp.TaglibFactory;
-
 import freemarker.ext.servlet.HttpRequestHashModel;
 import freemarker.ext.servlet.HttpSessionHashModel;
 import freemarker.ext.servlet.ServletContextHashModel;
-
-import freemarker.template.ObjectWrapper;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
-import freemarker.template.TemplateHashModel;
-import freemarker.template.TemplateModel;
-
+import freemarker.template.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 
 /**
- *
  * Static Configuration Manager for the FreemarkerResult's configuration
- *
  *
  * @author CameronBraid
  */
@@ -91,10 +75,9 @@ public class FreemarkerManager {
      * To allow for custom configuration of freemarker, sublcass this class "ConfigManager" and
      * set the webwork configuration property
      * <b>webwork.freemarker.configmanager.classname</b> to the fully qualified classname.
-     *
+     * <p/>
      * This allows you to override the protected methods in the ConfigMangaer
      * to programatically create your own Configuration instance
-     *
      */
     public final static synchronized FreemarkerManager getInstance() {
         if (instance == null) {
@@ -219,14 +202,34 @@ public class FreemarkerManager {
     }
 
     /**
+     * the default template loader is a MultiTemplateLoader which includes
+     * a ClassTemplateLoader and a WebappTemplateLoader
+     * <p/>
+     * The ClassTemplateLoader will resolve fully qualified template includes
+     * that begin with a slash. for example /com/company/template/common.ftl
+     * <p/>
+     * The WebappTemplateLoader attempts to resolve templates relative to the web root folder
+     */
+    protected TemplateLoader getTemplateLoader(ServletContext servletContext) {
+        // presume that most apps will require the class and webapp template loader
+        // if people wish to 
+        TemplateLoader multiLoader = new MultiTemplateLoader(new TemplateLoader[]{
+            new WebappTemplateLoader(servletContext),
+            new ClassTemplateLoader(FreemarkerResult.class, "/")
+        });
+
+        return multiLoader;
+    }
+
+    /**
      * create the instance of the freemarker Configuration object
-     *
+     * <p/>
      * this implementation
      * <ul>
-     *         <li>obtains the default configuration from Configuration.getDefaultConfiguration()
-     *  <li>sets up template loading from a ClassTemplateLoader and a WebappTemplateLoader
-     *         <li>sets up the object wrapper to be the BeansWrapper
-     *         <li>loads settings from the classpath file /freemarker.properties
+     * <li>obtains the default configuration from Configuration.getDefaultConfiguration()
+     * <li>sets up template loading from a ClassTemplateLoader and a WebappTemplateLoader
+     * <li>sets up the object wrapper to be the BeansWrapper
+     * <li>loads settings from the classpath file /freemarker.properties
      * </ul>
      *
      * @param servletContext
@@ -238,33 +241,12 @@ public class FreemarkerManager {
         configuration.setTemplateLoader(getTemplateLoader(servletContext));
 
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
-        
+
         configuration.setObjectWrapper(getObjectWrapper());
 
         loadSettings(servletContext, configuration);
 
         return configuration;
-    }
-
-
-    /**
-     * the default template loader is a MultiTemplateLoader which includes
-     * a ClassTemplateLoader and a WebappTemplateLoader
-     *
-     * The ClassTemplateLoader will resolve fully qualified template includes
-     * that begin with a slash. for example /com/company/template/common.ftl
-     *
-     * The WebappTemplateLoader attempts to resolve templates relative to the web root folder
-     */
-    protected TemplateLoader getTemplateLoader(ServletContext servletContext) {
-        // presume that most apps will require the class and webapp template loader
-        // if people wish to 
-        TemplateLoader multiLoader = new MultiTemplateLoader(new TemplateLoader[] {
-                new WebappTemplateLoader(servletContext),
-                new ClassTemplateLoader(FreemarkerResult.class, "/")
-            });
-
-        return multiLoader;
     }
 
     /**
@@ -275,6 +257,7 @@ public class FreemarkerManager {
     protected void loadSettings(ServletContext servletContext, freemarker.template.Configuration configuration) {
         try {
             InputStream in = FileManager.loadFile("freemarker.properties", FreemarkerManager.class);
+
             if (in != null) {
                 Properties p = new Properties();
                 p.load(in);

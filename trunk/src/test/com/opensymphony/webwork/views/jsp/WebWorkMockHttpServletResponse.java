@@ -13,8 +13,9 @@ import java.io.PrintWriter;
 
 /**
  * WebWorkMockHttpServletResponse
+ *
  * @author Jason Carreira
- * Created May 21, 2003 10:46:53 AM
+ *         Created May 21, 2003 10:46:53 AM
  */
 public class WebWorkMockHttpServletResponse extends MockHttpServletResponse {
     //~ Methods ////////////////////////////////////////////////////////////////

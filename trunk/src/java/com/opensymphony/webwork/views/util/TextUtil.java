@@ -46,7 +46,7 @@ public class TextUtil {
     /**
      * Escape HTML.
      *
-     * @param s string to be escaped
+     * @param s           string to be escaped
      * @param escapeEmpty if true, then empty string will be escaped.
      */
     public static final String escapeHTML(String s, boolean escapeEmpty) {

@@ -5,13 +5,10 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import org.apache.velocity.VelocityContext;
 
 
 /**
- *
- *
  * @author $Author$
  * @version $Revision$
  */

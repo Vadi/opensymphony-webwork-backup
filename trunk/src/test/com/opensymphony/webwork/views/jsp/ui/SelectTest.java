@@ -7,18 +7,13 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
-import junit.framework.Assert;
-
-import org.apache.velocity.Template;
-import org.apache.velocity.app.Velocity;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
 
 /**
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @version $Id$
  */
 public class SelectTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -29,11 +24,11 @@ public class SelectTest extends AbstractUITagTest {
         collection.add("hello");
         collection.add("foo");
         testAction.setCollection(collection);
-        testAction.setList(new String[][] {
-                {"hello", "world"},
-                {"foo", "bar"},
-                {"cat", "dog"}
-            });
+        testAction.setList(new String[][]{
+            {"hello", "world"},
+            {"foo", "bar"},
+            {"cat", "dog"}
+        });
 
         SelectTag tag = new SelectTag();
         tag.setPageContext(pageContext);
@@ -52,10 +47,10 @@ public class SelectTest extends AbstractUITagTest {
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("hello");
-        testAction.setList(new String[][] {
-                {"hello", "world"},
-                {"foo", "bar"}
-            });
+        testAction.setList(new String[][]{
+            {"hello", "world"},
+            {"foo", "bar"}
+        });
 
         SelectTag tag = new SelectTag();
         tag.setPageContext(pageContext);

@@ -6,11 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *	List of days in month
- *      
- *	@see <related>
- *	@author Rickard Öberg (<email>)
- *	@version $Revision$
+ * List of days in month
+ *
+ * @author Rickard Öberg (<email>)
+ * @version $Revision$
+ * @see <related>
  */
 public class MonthList
         extends MonthSelector {

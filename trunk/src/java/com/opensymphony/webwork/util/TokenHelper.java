@@ -5,22 +5,20 @@
 package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.GUID;
-
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 
 /**
  * TokenHelper
+ *
  * @author Jason Carreira
- * Created Apr 3, 2003 9:21:53 AM
+ *         Created Apr 3, 2003 9:21:53 AM
  */
 public class TokenHelper {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -40,6 +38,7 @@ public class TokenHelper {
 
     /**
      * Sets a transaction token into the session using the default token name.
+     *
      * @return the token string
      */
     public static String setToken(HttpServletRequest request) {
@@ -48,6 +47,7 @@ public class TokenHelper {
 
     /**
      * Sets a transaction token into the session using the provided token name.
+     *
      * @param tokenName the name to store into the session with the token as the value
      * @return the token string
      */
@@ -61,6 +61,7 @@ public class TokenHelper {
 
     /**
      * Gets the Token value from the params in the ServletActionContext using the given name
+     *
      * @param tokenName the name of the parameter which holds the token value
      * @return the token String or null, if the token could not be found
      */
@@ -82,6 +83,7 @@ public class TokenHelper {
 
     /**
      * Gets the token name from the Parameters in the ServletActionContext
+     *
      * @return the token name found in the params, or null if it could not be found
      */
     public static String getTokenName(HttpServletRequest request) {
@@ -110,8 +112,8 @@ public class TokenHelper {
     /**
      * Checks for a valid transaction token in the current request params. If a valid token is found, it is
      * removed so the it is not valid again.
-     * @return false if there was no token set into the params (check by looking for {@link #TOKEN_NAME_FIELD}), true if a valid token is found
      *
+     * @return false if there was no token set into the params (check by looking for {@link #TOKEN_NAME_FIELD}), true if a valid token is found
      */
     public static boolean validToken(HttpServletRequest request) {
         String tokenName = getTokenName(request);
@@ -130,9 +132,9 @@ public class TokenHelper {
         String sessionToken = (String) session.getAttribute(tokenName);
 
         if (!token.equals(sessionToken)) {
-            LOG.warn(LocalizedTextUtil.findText(TokenHelper.class, "webwork.invalid.token", request.getLocale(), "Form token {0} does not match the session token {1}.", new Object[] {
-                        token, sessionToken
-                    }));
+            LOG.warn(LocalizedTextUtil.findText(TokenHelper.class, "webwork.invalid.token", request.getLocale(), "Form token {0} does not match the session token {1}.", new Object[]{
+                token, sessionToken
+            }));
 
             return false;
         }

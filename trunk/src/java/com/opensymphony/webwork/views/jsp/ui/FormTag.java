@@ -34,15 +34,15 @@ public class FormTag extends AbstractClosingUITag {
 
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    Class actionClass;
+    List fieldParameters;
+    List fieldValidators;
     String actionAttr;
-    String namespaceAttr;
+    String actionName;
     String enctypeAttr;
     String methodAttr;
+    String namespaceAttr;
     String validateAttr;
-    List fieldValidators;
-    List fieldParameters;
-    Class actionClass;
-    String actionName;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -50,8 +50,12 @@ public class FormTag extends AbstractClosingUITag {
         this.actionAttr = action;
     }
 
-    public void setNamespace(String namespace) {
-        this.namespaceAttr = namespace;
+    public Class getActionClass() {
+        return actionClass;
+    }
+
+    public String getActionName() {
+        return actionName;
     }
 
     public String getDefaultOpenTemplate() {
@@ -64,6 +68,10 @@ public class FormTag extends AbstractClosingUITag {
 
     public void setMethod(String method) {
         this.methodAttr = method;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespaceAttr = namespace;
     }
 
     public void setValidate(String validate) {
@@ -93,18 +101,22 @@ public class FormTag extends AbstractClosingUITag {
 
             String action = (String) findValue(actionAttr, String.class);
             String namespace = (String) findValue(namespaceAttr, String.class);
+
             if (namespace == null) {
                 namespace = "";
             }
 
             ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
+
             if (actionConfig != null) {
                 try {
                     actionClass = ObjectFactory.getObjectFactory().getClassInstance(actionConfig.getClassName());
                 } catch (ClassNotFoundException e) {
                     // this is ok
                 }
+
                 actionName = action;
+
                 String result = UrlHelper.buildUrl(namespace + "/" + action + "." + Configuration.get("webwork.action.extension"), request, response, null);
                 addParameter("action", result);
             } else if (action != null) {
@@ -127,6 +139,7 @@ public class FormTag extends AbstractClosingUITag {
 
         if (fieldValidators != null) {
             StringBuffer js = new StringBuffer();
+
             // loop backwards so that the first elements are validated first
             for (int i = 0; i < fieldValidators.size(); i++) {
                 ScriptValidationAware sva = (ScriptValidationAware) fieldValidators.get(i);
@@ -134,16 +147,9 @@ public class FormTag extends AbstractClosingUITag {
                 js.append(sva.validationScript(params));
                 js.append('\n');
             }
+
             addParameter("javascriptValidation", js.toString());
         }
-    }
-
-    protected boolean evaluateNameValue() {
-        return false;
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
     }
 
     public void registerValidator(Object name, ScriptValidationAware sva, Map params) {
@@ -156,11 +162,11 @@ public class FormTag extends AbstractClosingUITag {
         fieldParameters.add(params);
     }
 
-    public Class getActionClass() {
-        return actionClass;
+    protected String getDefaultTemplate() {
+        return TEMPLATE;
     }
 
-    public String getActionName() {
-        return actionName;
+    protected boolean evaluateNameValue() {
+        return false;
     }
 }

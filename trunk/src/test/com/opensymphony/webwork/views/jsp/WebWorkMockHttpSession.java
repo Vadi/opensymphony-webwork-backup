@@ -12,8 +12,9 @@ import java.util.Hashtable;
 
 /**
  * WebWorkMockHttpSession
+ *
  * @author Jason Carreira
- * Created Jun 5, 2003 9:26:31 PM
+ *         Created Jun 5, 2003 9:26:31 PM
  */
 public class WebWorkMockHttpSession extends MockHttpSession {
     //~ Instance fields ////////////////////////////////////////////////////////

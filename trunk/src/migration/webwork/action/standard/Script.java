@@ -23,11 +23,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *	Script execution wrapper.
+ * Script execution wrapper.
  *
- *	@see <related>
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
+ * @see <related>
  */
 public class Script
         extends ActionSupport

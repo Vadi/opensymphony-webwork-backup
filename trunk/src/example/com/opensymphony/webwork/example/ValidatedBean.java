@@ -4,8 +4,9 @@ import java.util.Date;
 
 /**
  * ValidatedBean
+ *
  * @author Jason Carreira
- * Created Sep 12, 2003 9:24:18 PM
+ *         Created Sep 12, 2003 9:24:18 PM
  */
 public class ValidatedBean {
     private String text;

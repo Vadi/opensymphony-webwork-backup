@@ -6,9 +6,9 @@
  */
 package webwork.action.factory;
 
+import com.opensymphony.xwork.ActionContext;
 import webwork.action.Action;
 import webwork.action.CommandDriven;
-import com.opensymphony.xwork.ActionContext;
 
 /**
  * Executes a "command" within an action specified either as part of the
@@ -35,9 +35,9 @@ public class CommandActionFactoryProxy
      * first parameter named
      * <code>"command."</code>
      *
-     * @param  aName
+     * @param aName
      * @return action from the next action factory proxy
-     * @exception  Exception
+     * @throws Exception
      */
     public Action getActionImpl(String aName)
             throws Exception {

@@ -36,23 +36,6 @@ public class URLTagTest extends AbstractUITagTest {
         }
     }
 
-    public void testHttps() {
-        request.setScheme("https");
-        request.setServerName("localhost");
-        request.setServerPort(443);
-
-        jspWriter.setExpectedData("list-members.action");
-        tag.setValue("'list-members.action'");
-
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
-    }
-
     public void testAddParameters() {
         request.setAttribute("webwork.request_uri", "/Test.action");
 
@@ -77,6 +60,23 @@ public class URLTagTest extends AbstractUITagTest {
         stack.push(foo);
         jspWriter.setExpectedData("test");
         tag.setValue("title");
+
+        try {
+            tag.doStartTag();
+            tag.doEndTag();
+        } catch (JspException ex) {
+            ex.printStackTrace();
+            fail();
+        }
+    }
+
+    public void testHttps() {
+        request.setScheme("https");
+        request.setServerName("localhost");
+        request.setServerPort(443);
+
+        jspWriter.setExpectedData("list-members.action");
+        tag.setValue("'list-members.action'");
 
         try {
             tag.doStartTag();

@@ -12,8 +12,9 @@ import javax.servlet.jsp.JspException;
 
 /**
  * AbstractClosingUITag
+ *
  * @author Jason Carreira
- * Created Apr 1, 2003 10:03:50 PM
+ *         Created Apr 1, 2003 10:03:50 PM
  */
 public abstract class AbstractClosingUITag extends AbstractUITag {
     //~ Static fields/initializers /////////////////////////////////////////////

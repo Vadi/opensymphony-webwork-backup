@@ -4,25 +4,17 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.mockobjects.servlet.MockJspWriter;
-
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.config.Configuration;
-
 import com.opensymphony.xwork.Action;
-import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
-
-import java.io.IOException;
-import java.io.StringWriter;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -61,6 +53,7 @@ public abstract class AbstractTagTest extends TestCase {
     /**
      * Constructs the action that we're going to test against.  For most UI tests, this default action should be enough.
      * However, simply override getAction to return a custom Action if you need something more sophisticated.
+     *
      * @return the Action to be added to the OgnlValueStack as part of the unit test
      */
     public Action getAction() {

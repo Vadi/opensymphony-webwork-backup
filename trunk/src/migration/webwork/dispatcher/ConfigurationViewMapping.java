@@ -6,12 +6,12 @@
  */
 package webwork.dispatcher;
 
-import webwork.action.Action;
 import com.opensymphony.webwork.config.Configuration;
+import webwork.action.Action;
 
 /**
  * View mapping that uses the Configuration. This maps {action name, view name} tuples to views, e.g. JSP files.
- *
+ * <p/>
  * The algorithm first queries the configuration for the actionName.viewName entry. If found, then that is used.
  * If not found, then parts of the action name is removed until a match is found. For example, if there is a
  * configuration entry for "foo.success", and the action name is "foo.bar" and the view is "success", then

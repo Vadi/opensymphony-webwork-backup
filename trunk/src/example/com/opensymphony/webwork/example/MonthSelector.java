@@ -3,11 +3,11 @@ package com.opensymphony.webwork.example;
 import com.opensymphony.xwork.ActionSupport;
 
 /**
- *	Month selector
- *      
- *	@see <related>
- *	@author Rickard Öberg (<email>)
- *	@version $Revision$
+ * Month selector
+ *
+ * @author Rickard Öberg (<email>)
+ * @version $Revision$
+ * @see <related>
  */
 public class MonthSelector
         extends ActionSupport {

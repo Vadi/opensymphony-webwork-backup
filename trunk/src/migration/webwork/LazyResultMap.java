@@ -1,9 +1,9 @@
 package webwork;
 
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.dispatcher.ServletDispatcherResult;
 import com.opensymphony.xwork.ActionChainResult;
 import com.opensymphony.xwork.config.entities.ResultConfig;
-import com.opensymphony.webwork.dispatcher.ServletDispatcherResult;
-import com.opensymphony.webwork.config.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import webwork.dispatcher.ViewMapping;
@@ -13,8 +13,9 @@ import java.util.Map;
 
 /**
  * LazyResultMap
+ *
  * @author Jason Carreira
- * Date: Nov 6, 2003 8:40:40 PM
+ *         Date: Nov 6, 2003 8:40:40 PM
  */
 class LazyResultMap extends HashMap {
     private static String actionSuffix;

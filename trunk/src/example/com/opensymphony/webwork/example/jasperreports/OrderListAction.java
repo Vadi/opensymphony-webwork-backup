@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 
 /**
  * A list of orders each with a list of line items
- *
+ * <p/>
  * Ported to WebWork2:
  *
  * @author Peter Kelley (peterk@moveit.com.au)

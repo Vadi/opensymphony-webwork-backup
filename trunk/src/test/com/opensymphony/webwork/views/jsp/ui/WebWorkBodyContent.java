@@ -4,13 +4,12 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.BodyContent;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
-
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.BodyContent;
 
 
 /**
@@ -147,11 +146,10 @@ public class WebWorkBodyContent extends BodyContent {
     /**
      * Write a portion of an array of characters.
      *
-     * @param  cbuf  Array of characters
-     * @param  off   Offset from which to start writing characters
-     * @param  len   Number of characters to write
-     *
-     * @exception  IOException  If an I/O error occurs
+     * @param cbuf Array of characters
+     * @param off  Offset from which to start writing characters
+     * @param len  Number of characters to write
+     * @throws IOException If an I/O error occurs
      */
     public void write(char[] cbuf, int off, int len) throws IOException {
         buffer.append(cbuf, off, len);

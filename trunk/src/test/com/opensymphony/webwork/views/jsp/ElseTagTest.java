@@ -6,10 +6,8 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockPageContext;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
 
 import javax.servlet.jsp.JspException;
@@ -17,8 +15,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 
 /**
- *
- *
  * @author $Author$
  * @version $Revision$
  */

@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.StringTokenizer;
 
 /**
- *  A utility class for extracting browser information from the client.
+ * A utility class for extracting browser information from the client.
  *
- *  @author Henrik Mattsson (henrik.mattsson@sublime.se)
- *  @author Rickard Öberg (rickard@middleware-company.com)
- *  @version $Revision$
+ * @author Henrik Mattsson (henrik.mattsson@sublime.se)
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
  */
 public class ClientInfo
         extends ActionSupport
@@ -49,8 +49,8 @@ public class ClientInfo
     }
 
     /**
-     *  Check whether or not the browser supports a certain type
-     *  of data. (jpeg/wbmp/etc)
+     * Check whether or not the browser supports a certain type
+     * of data. (jpeg/wbmp/etc)
      */
     public boolean supportsType(String key) {
         return httpAccept.indexOf(key) != -1 || httpAccept.indexOf("*/*") != -1;
@@ -65,13 +65,13 @@ public class ClientInfo
     }
 
     /**
-     *  Set up properties
-     *
-     *  Currently supports the version format of the following browsers:
-     *      - Microsoft Internet Explorer
-     *      - Netscape
-     *      - Opera
-     *      - Lynx
+     * Set up properties
+     * <p/>
+     * Currently supports the version format of the following browsers:
+     * - Microsoft Internet Explorer
+     * - Netscape
+     * - Opera
+     * - Lynx
      */
     protected String doExecute() throws Exception {
         StringTokenizer st = new StringTokenizer(httpUserAgent.toLowerCase());

@@ -9,8 +9,8 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
 
 /**
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @version $Id$
  */
 public class ComponentTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ public class ComponentTest extends AbstractUITagTest {
         tag.addParameter("hello", "world");
         tag.addParameter("argle", "bargle");
         tag.addParameter("glip", "glop");
-        tag.addParameter("array", new String[] {"a", "b", "c"});
+        tag.addParameter("array", new String[]{"a", "b", "c"});
         tag.addParameter("obj", tag);
 
         int result = tag.doEndTag();

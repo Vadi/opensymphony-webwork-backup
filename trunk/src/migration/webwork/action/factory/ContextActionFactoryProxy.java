@@ -6,12 +6,11 @@
  */
 package webwork.action.factory;
 
+import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.xwork.ActionContext;
 import webwork.action.*;
 
 import java.util.Map;
-
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.webwork.ServletActionContext;
 
 /**
  * Initializes an action for each implemented <code>*Aware</code> interface
@@ -49,12 +48,12 @@ public class ContextActionFactoryProxy
      * interface it implements.  The following interfaces are supported and
      * initialized in the this order:
      * <ul>
-     *   <li>{@link ServletRequestAware}</li>
-     *   <li>{@link ServletResponseAware}</li>
-     *   <li>{@link SessionAware}</li>
-     *   <li>{@link ApplicationAware}</li>
-     *   <li>{@link ParameterAware}</li>
-     *   <li>{@link com.opensymphony.xwork.LocaleAware}</li>
+     * <li>{@link ServletRequestAware}</li>
+     * <li>{@link ServletResponseAware}</li>
+     * <li>{@link SessionAware}</li>
+     * <li>{@link ApplicationAware}</li>
+     * <li>{@link ParameterAware}</li>
+     * <li>{@link com.opensymphony.xwork.LocaleAware}</li>
      * </ul>
      */
     protected void setActionContext(Object anAction) {

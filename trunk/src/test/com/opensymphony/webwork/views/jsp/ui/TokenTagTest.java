@@ -12,8 +12,9 @@ import javax.servlet.jsp.JspException;
 
 /**
  * TokenTagTest
+ *
  * @author Jason Carreira
- * Created Apr 10, 2003 7:12:12 PM
+ *         Created Apr 10, 2003 7:12:12 PM
  */
 public class TokenTagTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////

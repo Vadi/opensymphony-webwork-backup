@@ -12,11 +12,11 @@ import java.util.*;
 /**
  * A Map that can be used to wrap a map whose values are object arrays.
  * This wrapper will then allow one to access only the first object of those arrays.
- *
+ * <p/>
  * A common usage is to use this wrap the Map received through the ParameterAware interface.
  *
- * @see ParameterAware
  * @author Rickard Öberg (rickard@middleware-company.com)
+ * @see ParameterAware
  */
 public class SingleValueMap implements Map, Serializable {
     private Map m;	        // Backing Map

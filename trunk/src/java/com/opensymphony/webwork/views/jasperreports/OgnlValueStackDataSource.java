@@ -5,14 +5,12 @@
 package com.opensymphony.webwork.views.jasperreports;
 
 import com.opensymphony.webwork.util.MakeIterator;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import dori.jasper.engine.JRDataSource;
 import dori.jasper.engine.JRException;
 import dori.jasper.engine.JRField;
-
-import org.apache.commons.logging.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.Iterator;
 
@@ -26,7 +24,9 @@ import java.util.Iterator;
 public class OgnlValueStackDataSource implements JRDataSource {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    /** Logger for this class */
+    /**
+     * Logger for this class
+     */
     private static Log log = LogFactory.getLog(OgnlValueStackDataSource.class);
 
     //~ Instance fields ////////////////////////////////////////////////////////
@@ -65,12 +65,13 @@ public class OgnlValueStackDataSource implements JRDataSource {
 
     /**
      * Get the value of a given field
+     *
      * @param field The field to get the value for. The expression language to get the value
-     * of the field is either taken from the description property or from the name of the field
-     * if the description is <code>null</code>.
+     *              of the field is either taken from the description property or from the name of the field
+     *              if the description is <code>null</code>.
      * @return an <code>Object</code> containing the field value or a new
-     * <code>OgnlValueStackDataSource</code> object if the field value evaluates to
-     * an object that can be iterated over.
+     *         <code>OgnlValueStackDataSource</code> object if the field value evaluates to
+     *         an object that can be iterated over.
      * @throws JRException if there is a problem obtaining the value
      */
     public Object getFieldValue(JRField field) throws JRException {
@@ -100,10 +101,11 @@ public class OgnlValueStackDataSource implements JRDataSource {
 
     /**
      * Is there any more data
+     *
      * @return <code>true</code> if there are more elements to iterate over and
-     * <code>false</code> otherwise
+     *         <code>false</code> otherwise
      * @throws JRException if there is a problem determining whether there
-     * is more data
+     *                     is more data
      */
     public boolean next() throws JRException {
         if (firstTimeThrough) {

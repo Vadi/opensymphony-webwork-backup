@@ -12,10 +12,10 @@ import javax.servlet.jsp.tagext.Tag;
 
 
 /**
- *        Generate an iterator
+ * Generate an iterator
  *
- *        @author Rickard Öberg (rickard@dreambean.com)
- *        @version $Revision$
+ * @author Rickard Öberg (rickard@dreambean.com)
+ * @version $Revision$
  */
 public class IteratorGeneratorTag extends ActionTag {
     //~ Instance fields ////////////////////////////////////////////////////////

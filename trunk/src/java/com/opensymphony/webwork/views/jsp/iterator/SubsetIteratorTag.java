@@ -12,14 +12,14 @@ import javax.servlet.jsp.tagext.Tag;
 
 
 /**
- *        Instantiate a JavaBean.
- *
+ * Instantiate a JavaBean.
+ * <p/>
  * The bean may be an action, in which it is executed before used.
  * It is lazily executed, which means that you can set parameters
  * by using the "param" tag.
  *
- *        @author Rickard Öberg (rickard@dreambean.com)
- *        @version $Revision$
+ * @author Rickard Öberg (rickard@dreambean.com)
+ * @version $Revision$
  */
 public class SubsetIteratorTag extends ActionTag {
     //~ Instance fields ////////////////////////////////////////////////////////

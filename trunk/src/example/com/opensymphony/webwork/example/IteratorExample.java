@@ -11,8 +11,6 @@ import java.util.Collection;
 
 
 /**
- *
- *
  * @author $author$
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @version $Revision$

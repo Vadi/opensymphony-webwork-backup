@@ -8,8 +8,8 @@ import com.opensymphony.xwork.Action;
 
 
 /**
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @version $Id$
  */
 public class SimpleCountry implements Action {
     //~ Instance fields ////////////////////////////////////////////////////////

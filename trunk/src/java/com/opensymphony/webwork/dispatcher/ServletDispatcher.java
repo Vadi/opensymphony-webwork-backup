@@ -5,34 +5,29 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.util.FileManager;
-
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
 import com.opensymphony.webwork.util.AttributeMap;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.File;
-import java.io.IOException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /*
@@ -49,46 +44,46 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Main dispatcher servlet in WebWork2 which acts as the controller in the MVC paradigm. <p>
- *
+ * <p/>
  * When a request enters the servlet the following things will happen: <ol>
- *
- *  <li>The action name is parsed from the servlet path (i.e., /foo/bar/MyAction.action -> MyAction).</li>
- *  <li>A context consisting of the request, response, parameters, session and application
- *      properties is created.</li>
- *  <li>An XWork <tt>ActionProxy</tt> object is instantiated (wraps an <tt>Action</tt>) using the action name, path,
- *      and context then executed.</li>
- *  <li>Action output will channel back through the response to the user.</li></ol>
- *
+ * <p/>
+ * <li>The action name is parsed from the servlet path (i.e., /foo/bar/MyAction.action -> MyAction).</li>
+ * <li>A context consisting of the request, response, parameters, session and application
+ * properties is created.</li>
+ * <li>An XWork <tt>ActionProxy</tt> object is instantiated (wraps an <tt>Action</tt>) using the action name, path,
+ * and context then executed.</li>
+ * <li>Action output will channel back through the response to the user.</li></ol>
+ * <p/>
  * Any errors occurring during the action execution will result in a
  * {@link javax.servlet.http.HttpServletResponse#SC_INTERNAL_SERVER_ERROR} error and any resource errors
  * (i.e., invalid action name or missing JSP page) will result in a
  * {@link javax.servlet.http.HttpServletResponse#SC_NOT_FOUND} error. <p>
- *
+ * <p/>
  * Instead of traditional servlet init params this servlet will initialize itself using WebWork2 properties.
  * The following properties are used upon initialization: <ul>
- *
- *  <li><tt>webwork.configuration.xml.reload</tt>: if and only if set to <tt>true</tt> then the xml configuration
- *      files (action definitions, interceptor definitions, etc) will be reloaded for each request. This is
- *      useful for development but should be disabled for production deployment.</li>
- *  <li><tt>webwork.multipart.saveDir</tt>: The path used for temporarily uploaded files. Defaults to the
- *      temp path specified by the app server.</li>
- *  <li><tt>webwork.multipart.maxSize</tt>: sets the maximum allowable multipart request size
- *      in bytes. If the size was not specified then {@link java.lang.Integer#MAX_VALUE} will be used
- *      (essentially unlimited so be careful).</li></ul>
- *
+ * <p/>
+ * <li><tt>webwork.configuration.xml.reload</tt>: if and only if set to <tt>true</tt> then the xml configuration
+ * files (action definitions, interceptor definitions, etc) will be reloaded for each request. This is
+ * useful for development but should be disabled for production deployment.</li>
+ * <li><tt>webwork.multipart.saveDir</tt>: The path used for temporarily uploaded files. Defaults to the
+ * temp path specified by the app server.</li>
+ * <li><tt>webwork.multipart.maxSize</tt>: sets the maximum allowable multipart request size
+ * in bytes. If the size was not specified then {@link java.lang.Integer#MAX_VALUE} will be used
+ * (essentially unlimited so be careful).</li></ul>
+ * <p/>
  * Developers who want to subclass this servlet may be interested in the following protected methods: <ul>
+ * <p/>
+ * <li>{@link #getParameterMap(HttpServletRequest)}</li>
+ * <li>{@link #getRequestMap(HttpServletRequest)}</li>
+ * <li>{@link #getSessionMap(HttpServletRequest)}</li>
+ * <li>{@link #getNameSpace(HttpServletRequest)}</li></ul>
  *
- *  <li>{@link #getParameterMap(HttpServletRequest)}</li>
- *  <li>{@link #getRequestMap(HttpServletRequest)}</li>
- *  <li>{@link #getSessionMap(HttpServletRequest)}</li>
- *  <li>{@link #getNameSpace(HttpServletRequest)}</li></ul>
- *
- * @see ServletDispatcherResult
  * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
  * @author <a href="mailto:matt@smallleap.com">Matt Baldree</a>
  * @author Jason Carreira
  * @author <a href="mailto:cameron@datacodex.net">Cameron Braid</a>
  * @author Bill Lynch
+ * @see ServletDispatcherResult
  */
 public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -125,13 +120,13 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * Merges all application and servlet attributes into a single <tt>HashMap</tt> to represent the entire
      * <tt>Action</tt> context.
      *
-     * @param requestMap a Map of all request attributes.
-     * @param parameterMap a Map of all request parameters.
-     * @param sessionMap a Map of all session attributes.
+     * @param requestMap     a Map of all request attributes.
+     * @param parameterMap   a Map of all request parameters.
+     * @param sessionMap     a Map of all session attributes.
      * @param applicationMap a Map of all servlet context attributes.
-     * @param request the HttpServletRequest object.
-     * @param response the HttpServletResponse object.
-     * @param servletConfig the ServletConfig object.
+     * @param request        the HttpServletRequest object.
+     * @param response       the HttpServletResponse object.
+     * @param servletConfig  the ServletConfig object.
      * @return a HashMap representing the <tt>Action</tt> context.
      */
     public static HashMap createContextMap(Map requestMap, Map parameterMap, Map sessionMap, Map applicationMap, HttpServletRequest request, HttpServletResponse response, ServletConfig servletConfig) {
@@ -161,7 +156,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     /**
      * Initalizes the servlet. Please read the {@link ServletDispatcher class documentation} for more
      * detail. <p>
-     *
+     * <p/>
      * Note, the <a href="http://jakarta.apache.org/velocity/" target="_blank">Velocity</a> compontent is also
      * initialized in this method - it is used in many of the WebWork2 JSP tags.
      *
@@ -235,12 +230,12 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     /**
      * Services the request by determining the desired action to load, building the action context and
      * then executing the action. This handles all servlet requests including GETs and POSTs. <p>
-     *
+     * <p/>
      * This method also transparently handles multipart requests.
      *
-     * @param request the HttpServletRequest object.
+     * @param request  the HttpServletRequest object.
      * @param response the HttpServletResponse object.
-     * @exception ServletException if an error occurs while loading or executing the action.
+     * @throws ServletException if an error occurs while loading or executing the action.
      */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
@@ -259,13 +254,13 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * the action is executed and output channels throught the response object. Errors are also
      * sent back to the user via the {@link #sendError(HttpServletRequest,HttpServletResponse,int,Exception)} method.
      *
-     * @param request the HttpServletRequest object.
-     * @param response the HttpServletResponse object.
-     * @param namespace the namespace or context of the action.
-     * @param actionName the name of the action to execute.
-     * @param requestMap a Map of request attributes.
-     * @param parameterMap a Map of request parameters.
-     * @param sessionMap a Map of all session attributes.
+     * @param request        the HttpServletRequest object.
+     * @param response       the HttpServletResponse object.
+     * @param namespace      the namespace or context of the action.
+     * @param actionName     the name of the action to execute.
+     * @param requestMap     a Map of request attributes.
+     * @param parameterMap   a Map of request parameters.
+     * @param sessionMap     a Map of all session attributes.
      * @param applicationMap a Map of all application attributes.
      */
     public void serviceAction(HttpServletRequest request, HttpServletResponse response, String namespace, String actionName, Map requestMap, Map parameterMap, Map sessionMap, Map applicationMap) {
@@ -366,11 +361,11 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     /**
      * Sends an HTTP error response code.
      *
-     * @param request the HttpServletRequest object.
+     * @param request  the HttpServletRequest object.
      * @param response the HttpServletResponse object.
-     * @param code the HttpServletResponse error code (see {@link HttpServletResponse} for possible error codes).
-     * @param e the Exception that is reported.
-    */
+     * @param code     the HttpServletResponse error code (see {@link HttpServletResponse} for possible error codes).
+     * @param e        the Exception that is reported.
+     */
     protected void sendError(HttpServletRequest request, HttpServletResponse response, int code, Exception e) {
         try {
             // send a http error response to use the servlet defined error handler
@@ -392,9 +387,9 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * requests in a special way or to handle other types of requests. Note, {@link MultiPartRequestWrapper} is
      * flexible - you should look to that first before overriding this method to handle multipart data.
      *
-     * @see MultiPartRequestWrapper
      * @param request the HttpServletRequest object.
      * @return a wrapped request or original request.
+     * @see MultiPartRequestWrapper
      */
     protected HttpServletRequest wrapRequest(HttpServletRequest request) throws IOException {
         // don't wrap more than once

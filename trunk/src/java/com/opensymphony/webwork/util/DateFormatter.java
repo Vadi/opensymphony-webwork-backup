@@ -7,15 +7,14 @@ package com.opensymphony.webwork.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 
 
 /**
- *        A bean that can be used to format dates
+ * A bean that can be used to format dates
  *
- *        @author Rickard Öberg (rickard@middleware-company.com)
- *        @version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
  */
 public class DateFormatter {
     //~ Instance fields ////////////////////////////////////////////////////////

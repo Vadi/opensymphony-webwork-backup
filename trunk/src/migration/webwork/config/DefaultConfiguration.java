@@ -6,22 +6,20 @@
  */
 package webwork.config;
 
-import org.apache.commons.logging.*;
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.config.DelegatingConfiguration;
+import com.opensymphony.webwork.config.PropertiesConfiguration;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
-import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.config.PropertiesConfiguration;
-import com.opensymphony.webwork.config.DelegatingConfiguration;
-
 /**
  * Default implementation of configuration. Creates and delegates to other configurations.
  *
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
- *
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
  */
 public class DefaultConfiguration
         extends Configuration {

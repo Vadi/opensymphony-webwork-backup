@@ -5,18 +5,16 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
+import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
-
-import junit.framework.Assert;
-
-import org.apache.velocity.Template;
-import org.apache.velocity.app.Velocity;
+import com.opensymphony.xwork.config.ConfigurationManager;
 
 
 /**
  * FormTagTest
+ *
  * @author Jason Carreira
- * Created Apr 3, 2003 10:28:58 AM
+ *         Created Apr 3, 2003 10:28:58 AM
  */
 public class FormTagTest extends AbstractUITagTest {
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -36,5 +34,11 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doEndTag();
 
         verify(FormTag.class.getResource("Formtag-1.txt"));
+    }
+
+    protected void setUp() throws Exception {
+        super.setUp();
+        ConfigurationManager.clearConfigurationProviders();
+        ConfigurationManager.addConfigurationProvider(new TestConfigurationProvider());
     }
 }

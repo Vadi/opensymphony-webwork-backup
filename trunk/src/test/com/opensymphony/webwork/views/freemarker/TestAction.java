@@ -16,7 +16,6 @@ import java.util.List;
 
 /**
  * @author CameronBraid
- *
  */
 public class TestAction extends ActionSupport {
     //~ Constructors ///////////////////////////////////////////////////////////

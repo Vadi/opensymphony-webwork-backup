@@ -9,24 +9,25 @@ import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.util.TokenHelper;
 import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletRequest;
 import com.opensymphony.webwork.views.jsp.WebWorkMockHttpSession;
-
-import com.opensymphony.xwork.*;
+import com.opensymphony.xwork.Action;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ActionProxy;
+import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import junit.framework.TestCase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
  * TokenInterceptorTest
+ *
  * @author Jason Carreira
- * Created Apr 9, 2003 11:42:01 PM
+ *         Created Apr 9, 2003 11:42:01 PM
  */
 public class TokenInterceptorTest extends TestCase {
     //~ Instance fields ////////////////////////////////////////////////////////
@@ -77,12 +78,12 @@ public class TokenInterceptorTest extends TestCase {
     }
 
     protected void setToken(String token) {
-        request.getParameterMap().put(TokenHelper.TOKEN_NAME_FIELD, new String[] {
-                TokenHelper.DEFAULT_TOKEN_NAME
-            });
-        request.getParameterMap().put(TokenHelper.DEFAULT_TOKEN_NAME, new String[] {
-                token
-            });
+        request.getParameterMap().put(TokenHelper.TOKEN_NAME_FIELD, new String[]{
+            TokenHelper.DEFAULT_TOKEN_NAME
+        });
+        request.getParameterMap().put(TokenHelper.DEFAULT_TOKEN_NAME, new String[]{
+            token
+        });
     }
 
     protected void setUp() throws Exception {

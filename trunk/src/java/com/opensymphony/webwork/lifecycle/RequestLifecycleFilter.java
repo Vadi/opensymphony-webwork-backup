@@ -7,21 +7,13 @@ package com.opensymphony.webwork.lifecycle;
 import com.opensymphony.xwork.interceptor.component.ComponentConfiguration;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.interceptor.component.DefaultComponentManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 
 /**
@@ -48,10 +40,10 @@ public class RequestLifecycleFilter implements Filter {
      * Initializes an XWork component manager for the lifetime of the request. Once the manager is initialized,
      * control is passed down the filter chain and when it returns the container is destroyed.
      *
-     * @param request the ServletRequest object
+     * @param request  the ServletRequest object
      * @param response the ServletResponse object
-     * @param chain the FilterChain object
-     * @throws IOException if an error occurs while executing the filter
+     * @param chain    the FilterChain object
+     * @throws IOException      if an error occurs while executing the filter
      * @throws ServletException if an error occurs while executing the filter
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

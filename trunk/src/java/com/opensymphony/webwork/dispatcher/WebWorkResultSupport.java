@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2004 by OpenSymphony
+ * Copyright (c) 2002-2003 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.dispatcher;
@@ -10,6 +10,7 @@ import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
+
 
 /**
  * A base class for all WebWork action execution results.
@@ -89,7 +90,7 @@ public abstract class WebWorkResultSupport implements Result, WebWorkStatics {
     /**
      * Set parse to <tt>true</tt> to indicate that the location should be parsed as an OGNL expression. This
      * is set to <tt>true</tt> by default.
-     * 
+     *
      * @param parse <tt>true</tt> if the location parameter is an OGNL expression, <tt>false</tt> otherwise.
      */
     public void setParse(boolean parse) {

@@ -5,19 +5,17 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.util.MakeIterator;
-
 import com.opensymphony.xwork.util.OgnlValueStack;
-
-import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import java.util.Iterator;
 
 
 /**
  * <p>Iterator will iterate over a value. An iterable value can be either of: java.util.Collection,
  * java.util.Iterator, java.util.Enumeration, java.util.Map, array.</p>
- *
+ * <p/>
  * <p>Example:</p>
  * <pre>
  * &lt;ww:iterator value="days"&gt;
@@ -35,12 +33,12 @@ import javax.servlet.jsp.PageContext;
  *   &lt;ww:param name="'day'" value="'foo'"/&gt;
  *   &lt;ww:param name="'day'" value="'bar'"/&gt;
  * &lt;/ww:bean&gt;
-
+ * <p/>
  * &lt;table border="0" cellspacing="0" cellpadding="1"&gt;
  * &lt;tr&gt;
  *   &lt;th&gt;Days of the week&lt;/th&gt;
  * &lt;/tr&gt;
- *
+ * <p/>
  * &lt;ww:iterator value="#it.days" status="rowstatus"&gt;
  *   &lt;tr&gt;
  *     &lt;ww:if test="#rowstatus.odd == true"&gt;

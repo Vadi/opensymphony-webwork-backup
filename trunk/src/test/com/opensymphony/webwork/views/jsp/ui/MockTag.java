@@ -6,12 +6,11 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.ParamTag;
 
+import javax.servlet.jsp.tagext.BodyTagSupport;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 
 /**
@@ -104,8 +103,8 @@ public class MockTag extends BodyTagSupport implements ParamTag.Parametric {
     }
 
     /**
- * resets all the static variables to their initial state.  this must be called before each test!
- */
+     * resets all the static variables to their initial state.  this must be called before each test!
+     */
     public void reset() {
         s = null;
         i = null;

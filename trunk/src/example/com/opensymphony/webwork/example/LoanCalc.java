@@ -2,13 +2,13 @@ package com.opensymphony.webwork.example;
 
 import com.opensymphony.xwork.ActionSupport;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- * Date: 15.10.2003
- * Time: 18:27:34
+ *         Date: 15.10.2003
+ *         Time: 18:27:34
  */
 public class LoanCalc extends ActionSupport {
     private float presentValue = 1000;

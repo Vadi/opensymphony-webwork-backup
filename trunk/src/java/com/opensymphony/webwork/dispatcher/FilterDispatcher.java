@@ -28,11 +28,16 @@ import java.util.Map;
  * @author Jason Carreira
  */
 public class FilterDispatcher implements Filter, WebWorkStatics {
+    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(FilterDispatcher.class);
 
+    //~ Instance fields ////////////////////////////////////////////////////////
+
     private FilterConfig filterConfig;
     private Map config;
+
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Returns the filter config object.

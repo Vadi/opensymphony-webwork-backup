@@ -8,8 +8,6 @@ import java.io.Serializable;
 
 
 /**
- *
- *
  * @author $Author$
  * @version $Revision$
  */

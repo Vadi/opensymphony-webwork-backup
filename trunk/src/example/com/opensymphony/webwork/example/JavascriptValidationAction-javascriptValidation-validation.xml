@@ -22,7 +22,7 @@
 
     <field name="url">
         <field-validator type="url">
-            <message>You must enter a valid URL.</message>            
+            <message>You must enter a valid URL.</message>
         </field-validator>
     </field>
 

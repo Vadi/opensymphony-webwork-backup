@@ -30,9 +30,9 @@ public class ScriptActionFactoryProxy
      * action and then load the script.  Currently, <code>".js"</code>
      * is the only suffix supported.
      *
-     * @param   aName
-     * @return   the script action or an action corresponding to the given name
-     * @exception   Exception
+     * @param aName
+     * @return the script action or an action corresponding to the given name
+     * @throws Exception
      */
     public Action getActionImpl(String aName)
             throws Exception {

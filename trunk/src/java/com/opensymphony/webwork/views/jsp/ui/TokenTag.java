@@ -12,8 +12,9 @@ import javax.servlet.jsp.JspException;
 
 /**
  * TokenTag
+ *
  * @author Jason Carreira
- * Created Apr 2, 2003 10:44:58 PM
+ *         Created Apr 2, 2003 10:44:58 PM
  */
 public class TokenTag extends AbstractUITag {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -31,6 +32,7 @@ public class TokenTag extends AbstractUITag {
      * if no name is provided) so that the same token can be re-used for the scope of a request for the same name. If
      * the token is not in the PageContext, a new Token is created and set into the Session and the PageContext with
      * the name.
+     *
      * @throws JspException
      */
     public int doEndTag() throws JspException {

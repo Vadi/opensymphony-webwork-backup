@@ -5,12 +5,9 @@
 package com.opensymphony.webwork.views.jsp;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
 
 
 /**
- *
- *
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @version $Revision$
  */

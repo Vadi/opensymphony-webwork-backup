@@ -28,9 +28,9 @@ public class JspActionFactoryProxy
     /**
      * If the suffix of the action is <code>".jsp"</code>, return the JSP action.
      *
-     * @param   aName
-     * @return   the JSP-action or action corresponding to the given name
-     * @exception   Exception
+     * @param aName
+     * @return the JSP-action or action corresponding to the given name
+     * @throws Exception
      */
     public Action getActionImpl(String aName)
             throws Exception {

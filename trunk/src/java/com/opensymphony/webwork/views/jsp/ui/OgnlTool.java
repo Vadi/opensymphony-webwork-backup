@@ -5,14 +5,13 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlUtil;
-
 import ognl.Ognl;
 import ognl.OgnlException;
 
 
 /**
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @version $Id$
  */
 public class OgnlTool {
     //~ Static fields/initializers /////////////////////////////////////////////

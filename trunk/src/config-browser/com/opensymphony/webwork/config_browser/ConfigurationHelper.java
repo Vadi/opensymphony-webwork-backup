@@ -1,16 +1,17 @@
 package com.opensymphony.webwork.config_browser;
 
+import com.opensymphony.xwork.config.ConfigurationManager;
+import com.opensymphony.xwork.config.entities.ActionConfig;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import com.opensymphony.xwork.config.ConfigurationManager;
-import com.opensymphony.xwork.config.entities.ActionConfig;
-
 /**
  * ConfigurationHelper
+ *
  * @author Jason Carreira
- * Created Aug 11, 2003 8:41:17 PM
+ *         Created Aug 11, 2003 8:41:17 PM
  */
 public class ConfigurationHelper {
 

@@ -20,6 +20,7 @@ public class DateCellRenderer extends AbstractCellRenderer {
 
     /**
      * this is the string that  SimpleDateFormat needs to display the date
+     *
      * @see SimpleDateFormat
      */
     String _formatString = null;

@@ -13,10 +13,10 @@ import webwork.action.SingleValueMap;
 import java.util.Map;
 
 /**
- *	Implement functionality similar to how java.awt.CardLayout works for templating web pages.
+ * Implement functionality similar to how java.awt.CardLayout works for templating web pages.
  *
- *	@author Rickard Öberg (rickard@middleware-company.com)
- *	@version $Revision$
+ * @author Rickard Öberg (rickard@middleware-company.com)
+ * @version $Revision$
  */
 public class CardPane
         extends ActionSupport

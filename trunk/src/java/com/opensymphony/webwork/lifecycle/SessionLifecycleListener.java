@@ -7,18 +7,12 @@ package com.opensymphony.webwork.lifecycle;
 import com.opensymphony.xwork.interceptor.component.ComponentConfiguration;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.interceptor.component.DefaultComponentManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.Serializable;
-
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import javax.servlet.http.*;
+import java.io.Serializable;
 
 
 /**
@@ -36,10 +30,10 @@ public class SessionLifecycleListener implements HttpSessionListener, Serializab
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
- * Initializes an XWork component manager for the lifetime of the user's session.
- *
- * @param event an HttpSessionEvent object.
- */
+     * Initializes an XWork component manager for the lifetime of the user's session.
+     *
+     * @param event an HttpSessionEvent object.
+     */
     public void sessionCreated(HttpSessionEvent event) {
         if (log.isDebugEnabled()) {
             log.debug("Session DefaultComponentManager : init");
@@ -57,31 +51,31 @@ public class SessionLifecycleListener implements HttpSessionListener, Serializab
     }
 
     /**
- * Does nothing - when the session is destroyed the component manager reference will go away as well.
- *
- * @param event an HttpSessionEvent object.
- */
+     * Does nothing - when the session is destroyed the component manager reference will go away as well.
+     *
+     * @param event an HttpSessionEvent object.
+     */
     public void sessionDestroyed(HttpSessionEvent event) {
     }
 
     /**
- * Servlet 2.3 specifies that the servlet context can be retrieved from the session. Unfortunately, some
- * versions of WebLogic can only retrieve the servlet context from the filter config. Hence, this method
- * enables subclasses to retrieve the servlet context from other sources.
- *
- * @param session the HTTP session where, in Servlet 2.3, the servlet context can be retrieved
- * @return the servlet context.
- */
+     * Servlet 2.3 specifies that the servlet context can be retrieved from the session. Unfortunately, some
+     * versions of WebLogic can only retrieve the servlet context from the filter config. Hence, this method
+     * enables subclasses to retrieve the servlet context from other sources.
+     *
+     * @param session the HTTP session where, in Servlet 2.3, the servlet context can be retrieved
+     * @return the servlet context.
+     */
     protected ServletContext getServletContext(HttpSession session) {
         return session.getServletContext();
     }
 
     /**
- * Returns a new <tt>DefaultComponentManager</tt> instance. This method is useful for developers
- * wishing to subclass this class and provide a different implementation of <tt>DefaultComponentManager</tt>.
- *
- * @return a new <tt>DefaultComponentManager</tt> instance.
- */
+     * Returns a new <tt>DefaultComponentManager</tt> instance. This method is useful for developers
+     * wishing to subclass this class and provide a different implementation of <tt>DefaultComponentManager</tt>.
+     *
+     * @return a new <tt>DefaultComponentManager</tt> instance.
+     */
     protected DefaultComponentManager createComponentManager() {
         return new SessionComponentManager();
     }

@@ -4,21 +4,20 @@
  */
 package com.opensymphony.webwork.views.jsp.ui.table;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import java.util.ArrayList;
-import java.util.Collections;
-
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
  * @author Onyeje Bose
- * @version 1.1*/
+ * @version 1.1
+ */
 public class SortFilterModel extends AbstractFilterModel implements TableModelListener, SortableTableModel {
     //~ Instance fields ////////////////////////////////////////////////////////
 
@@ -88,20 +87,20 @@ public class SortFilterModel extends AbstractFilterModel implements TableModelLi
 
     public void addMouseListener(final JTable table) {
         table.getTableHeader().addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent event) {
-                    // check for double click
-                    if (event.getClickCount() < 2) {
-                        return;
-                    }
-
-                    // find column of click and
-                    int tableColumn = table.columnAtPoint(event.getPoint());
-
-                    // translate to table model index and sort
-                    int modelColumn = table.convertColumnIndexToModel(tableColumn);
-                    sort(modelColumn);
+            public void mouseClicked(MouseEvent event) {
+                // check for double click
+                if (event.getClickCount() < 2) {
+                    return;
                 }
-            });
+
+                // find column of click and
+                int tableColumn = table.columnAtPoint(event.getPoint());
+
+                // translate to table model index and sort
+                int modelColumn = table.convertColumnIndexToModel(tableColumn);
+                sort(modelColumn);
+            }
+        });
     }
 
     public void removeRow(int rowNum) throws ArrayIndexOutOfBoundsException, IllegalStateException {
@@ -122,8 +121,9 @@ public class SortFilterModel extends AbstractFilterModel implements TableModelLi
 
     /**
      * Implements the TableModelListener interface to receive
-     notifications of * changes to the table model. SortFilterModel needs
-     to receive events for adding and removing rows. */
+     * notifications of * changes to the table model. SortFilterModel needs
+     * to receive events for adding and removing rows.
+     */
     public void tableChanged(TableModelEvent e) {
         dirty = true;
         refresh();

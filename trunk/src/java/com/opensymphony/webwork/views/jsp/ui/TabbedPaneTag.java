@@ -5,20 +5,19 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.util.TabbedPane;
-import com.opensymphony.webwork.views.jsp.ui.ComponentTag;
-
-import java.util.Map;
-import java.util.Vector;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.PageContext;
+import java.util.Map;
+import java.util.Vector;
 
 
 /**
- *        TabbedPane tag.
- *        @author Onyeje Bose (digi9ten@yahoo.com)
- *        @version $Revision$
+ * TabbedPane tag.
+ *
+ * @author Onyeje Bose (digi9ten@yahoo.com)
+ * @version $Revision$
  */
 public class TabbedPaneTag extends ComponentTag {
     //~ Static fields/initializers /////////////////////////////////////////////

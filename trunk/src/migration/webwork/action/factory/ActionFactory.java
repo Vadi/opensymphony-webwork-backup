@@ -6,10 +6,10 @@
  */
 package webwork.action.factory;
 
-import org.apache.commons.logging.*;
+import com.opensymphony.webwork.config.Configuration;
+import org.apache.commons.logging.LogFactory;
 import webwork.action.Action;
 import webwork.util.ClassLoaderUtils;
-import com.opensymphony.webwork.config.Configuration;
 
 /**
  * Base action factory implementation that initializes the action factory
@@ -20,8 +20,8 @@ import com.opensymphony.webwork.config.Configuration;
  * or the specified class cannot be instantiated, the
  * {@link MigrationActionFactory} class will be instantiated.
  *
- *	@author Rickard Ã–berg (rickard@middleware-company.com)
- *	@version $Revision$
+ * @author Rickard Ã–berg (rickard@middleware-company.com)
+ * @version $Revision$
  */
 public abstract class ActionFactory {
     static ActionFactory defaultActionFactory;

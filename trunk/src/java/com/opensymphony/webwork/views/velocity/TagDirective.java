@@ -6,8 +6,8 @@ package com.opensymphony.webwork.views.velocity;
 
 
 /**
- * @version $Id$
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
+ * @version $Id$
  */
 public class TagDirective extends AbstractTagDirective {
     //~ Methods ////////////////////////////////////////////////////////////////
