@@ -66,7 +66,7 @@ public class DoubleSelectTest extends AbstractUITagTest {
 
         int result = tag.doEndTag();
 
-        verify(SelectTag.class.getResource("DoubleSelect-1.html"));
+        verify(SelectTag.class.getResource("DoubleSelect-1.txt"));
     }
 
     public class Country {

@@ -1,0 +1,45 @@
+<tr>
+<td align="right" valign="top"><label  class="label">mylabel:</label></td>
+    <td><select name="foo"
+                                              onmousedown="window.status='onmousedown';"             onmouseup="window.status='onmouseup';"               onmouseover="window.status='onmouseover';"           onmousemove="window.status='onmousemove';"            onmouseout="window.status='onmouseout';"                               onchange="fooRedirect(this.options.selectedIndex)">
+
+                                        <option value="BE">Belgium</option>
+                                        <option value="FR">France</option>
+            </select>
+<br/>
+<select name="region"
+                        >
+</select>
+<script type="text/javascript">
+var fooGroup = new Array(2 + 0);
+for (i = 0; i < (2 + 0); i++)
+fooGroup[i] = new Array();
+
+
+                                                            fooGroup[0][0] = new Option("AN", "Antwerp");
+
+                                                            fooGroup[0][1] = new Option("GN", "Gent");
+
+                                                            fooGroup[0][2] = new Option("BRG", "Brugge");
+
+
+                                                            fooGroup[1][0] = new Option("PA", "Paris");
+
+                                                            fooGroup[1][1] = new Option("BOR", "Bordeaux");
+                        var fooTemp = document.inputForm.region;
+
+
+            fooRedirect(0);
+function fooRedirect(x) {
+    for (m = fooTemp.options.length - 1; m >= 0; m--)
+        fooTemp.options[m] = null;
+
+    for (i = 0; i < fooGroup[x].length; i++) {
+        fooTemp.options[i] = new Option(fooGroup[x][i].text, fooGroup[x][i].value);
+    }
+
+    if (fooTemp.options.length > 0)
+        fooTemp.options[0].selected = true;
+}
+</script></td>
+</tr>
