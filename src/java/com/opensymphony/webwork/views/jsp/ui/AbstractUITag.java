@@ -294,7 +294,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             // register ScriptValiationAware validators for this UI tag with the form
             Boolean validate = (Boolean) formTag.getParameters().get("validate");
 
-            if ((validate != null) && validate.booleanValue() && (formTag.getActionClass() != null) && (formTag.getActionName() != null) && formTag.isValidatorRegsitrationOpen()) {
+            if ((validate != null) && validate.booleanValue() && (formTag.getActionClass() != null) && (formTag.getActionName() != null)) {
                 findScriptingValidators(formTag, (String) name, formTag.getActionClass(), null);
             }
         }
