@@ -110,6 +110,7 @@ public class TagDirectiveTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
+        ConfigurationManager.clearConfigurationProviders();
         ConfigurationManager.destroyConfiguration();
 
         OgnlValueStack stack = new OgnlValueStack();
