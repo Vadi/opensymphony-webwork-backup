@@ -125,6 +125,21 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
         return (File[]) fileList.toArray(new File[fileList.size()]);
     }
 
+    /**
+     * Returns the canonical name of the given file
+     */
+    private String getCanonicalName(String filename) {
+        int forwardSlash = filename.lastIndexOf("/");
+        int backwardSlash = filename.lastIndexOf("\\");
+        if (forwardSlash != -1 && forwardSlash > backwardSlash) {
+            filename = filename.substring(forwardSlash + 1, filename.length());
+        } else if (backwardSlash != -1 && backwardSlash >= forwardSlash) {
+            filename = filename.substring(backwardSlash + 1, filename.length());
+        }
+
+        return filename;
+    }
+
     public String[] getFileNames(String fieldName) {
         List items = (List) files.get(fieldName);
 
@@ -135,7 +150,7 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
         List fileNames = new ArrayList(items.size());
         for (int i = 0; i < items.size(); i++) {
             DefaultFileItem fileItem = (DefaultFileItem) items.get(i);
-            fileNames.add(fileItem.getName());
+            fileNames.add(getCanonicalName(fileItem.getName()));
         }
 
         return (String[]) fileNames.toArray(new String[fileNames.size()]);
