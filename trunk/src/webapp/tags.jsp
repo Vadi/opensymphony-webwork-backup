@@ -32,7 +32,7 @@
 </benchmark:duration> ms</td></tr>
 
 <benchmark:duration output="true">
-<ww:checkbox label="'checkbox test'" value="blah" name="'checkboxField1'"/>
+<ww:checkbox label="'checkbox test'" value="blah" name="'checkboxField1'" fieldValue="'foo'"/>
 </benchmark:duration> ms</td></tr>
 
 <benchmark:duration output="true">
