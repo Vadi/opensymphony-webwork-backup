@@ -18,11 +18,17 @@ import org.apache.velocity.VelocityContext;
 public class WebWorkVelocityContext extends VelocityContext {
     //~ Instance fields ////////////////////////////////////////////////////////
 
+    VelocityContext[] chainedContexts;
     OgnlValueStack stack;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
     public WebWorkVelocityContext(OgnlValueStack stack) {
+        this(null, stack);
+    }
+
+    public WebWorkVelocityContext(VelocityContext[] chainedContexts, OgnlValueStack stack) {
+        this.chainedContexts = chainedContexts;
         this.stack = stack;
     }
 
@@ -31,36 +37,57 @@ public class WebWorkVelocityContext extends VelocityContext {
     public boolean internalContainsKey(Object key) {
         boolean contains = super.internalContainsKey(key);
 
+        // first let's check to see if we contain the requested key
         if (contains) {
             return true;
-        } else {
-            if (stack == null) {
-                return false;
-            }
+        }
 
+        // if not, let's search for the key in the ognl value stack
+        if (stack != null) {
             Object o = stack.findValue(key.toString());
 
             if (o != null) {
                 return true;
-            } else {
-                return false;
             }
         }
+
+        // if we still haven't found it, le's search through our chained contexts
+        if (chainedContexts != null) {
+            for (int index = 0; index < chainedContexts.length; index++) {
+                if (chainedContexts[index].containsKey(key)) {
+                    return true;
+                }
+            }
+        }
+
+        // nope, i guess it's really not here
+        return false;
     }
 
     public Object internalGet(String key) {
+        // first, let's check to see if have the requested value
         if (super.internalContainsKey(key)) {
             return super.internalGet(key);
-        } else {
-            if (stack != null) {
-                return stack.findValue(key);
-            } else {
-                return null;
+        }
+
+        // still no luck?  let's look against the value stack
+        if (stack != null) {
+            Object object = stack.findValue(key);
+            if( object != null ) {
+                return object;
             }
         }
-    }
 
-    public Object internalPut(String string, Object object) {
-        return super.internalPut(string, object);
+        // finally, if we're chained to other contexts, let's look in them
+        if( chainedContexts != null ) {
+            for (int index = 0; index < chainedContexts.length; index++) {
+                if (chainedContexts[index].containsKey(key)) {
+                    return chainedContexts[index].internalGet(key);
+                }
+            }
+        }
+
+        // nope, i guess it's really not here
+        return null;
     }
 }
