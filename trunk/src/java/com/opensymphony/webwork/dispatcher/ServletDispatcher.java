@@ -165,27 +165,26 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
             proxy.execute();
         } catch (Exception e) {
             try {
-				// send a http 500 INTERNAL SERVER ERROR to use the servlet defined error handler
+                // send a http 500 INTERNAL SERVER ERROR to use the servlet defined error handler
+                // make the exception availible to the web.xml defined error page
+                request.setAttribute("javax.servlet.error.exception", e);
 
-				// make the exception availible to the web.xml defined error page
-				request.setAttribute ("javax.servlet.error.exception", e);
-				
-				// for compatibility 
-				request.setAttribute ("javax.servlet.jsp.jspException", e);
+                // for compatibility 
+                request.setAttribute("javax.servlet.jsp.jspException", e);
 
-				// send the error response
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+                // send the error response
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 
-/*
-                response.setContentType("text/html");
-                response.setLocale(Configuration.getLocale());
+                /*
+                                response.setContentType("text/html");
+                                response.setLocale(Configuration.getLocale());
 
-                PrintWriter writer = response.getWriter();
-                writer.write("Error executing action: " + e.getMessage());
-                writer.println("<pre>\n");
-                e.printStackTrace(response.getWriter());
-                writer.print("</pre>\n");
-*/
+                                PrintWriter writer = response.getWriter();
+                                writer.write("Error executing action: " + e.getMessage());
+                                writer.println("<pre>\n");
+                                e.printStackTrace(response.getWriter());
+                                writer.print("</pre>\n");
+                */
                 log.error("Could not execute action", e);
             } catch (IOException e1) {
             }
