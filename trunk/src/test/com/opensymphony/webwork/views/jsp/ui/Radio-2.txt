@@ -3,17 +3,19 @@
         <span class="label"> mylabel: </span>
     </td>
     <td>
-        <label>Two</label>
         <input type="radio"
                name="myname"
+               id="12"
                value="2"
         />
+        <label for="12">Two</label>
 
-        <label>One</label>
         <input type="radio"
                checked="checked"
                name="myname"
+               id="11"
                value="1"
         />
+        <label for="11">One</label>
     </td>
 </tr>
