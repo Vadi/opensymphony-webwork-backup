@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
 
+import com.opensymphony.xwork.Action;
 
 /**
  *        A bean that takes an iterator and outputs a subset of it.
@@ -16,7 +17,7 @@ import java.util.*;
  *        @author Rickard Öberg (rickard@middleware-company.com)
  *        @version $Revision$
  */
-public class SortIteratorFilter extends IteratorFilterSupport implements Iterator, webwork.action.Action {
+public class SortIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     Comparator comparator;

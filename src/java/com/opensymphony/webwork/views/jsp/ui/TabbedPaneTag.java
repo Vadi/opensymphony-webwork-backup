@@ -4,8 +4,6 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import webwork.util.TabbedPane;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.PageContext;
@@ -14,6 +12,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import com.opensymphony.webwork.views.jsp.ui.ComponentTag;
+import com.opensymphony.webwork.util.TabbedPane;
 
 /**
  *	TabbedPane tag.
