@@ -54,7 +54,7 @@ public class PropertyTag extends WebWorkTagSupport {
             Object actualValue = null;
 
             if (value == null) {
-                value = "that";
+                value = "top";
             }
 
             actualValue = stack.findValue(value, String.class);

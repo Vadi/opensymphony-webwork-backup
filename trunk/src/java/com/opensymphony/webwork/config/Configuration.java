@@ -110,7 +110,7 @@ public class Configuration {
      * throwing an IllegalArgumentException.
      */
     public boolean isSetImpl(String aName) {
-        throw new UnsupportedOperationException("This configuration does not support updating a setting");
+        return false;
     }
 
     /**
