@@ -229,7 +229,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
     }
 
     protected Map getSessionMap(HttpServletRequest request) {
-        return new SessionMap(request.getSession());
+        return new SessionMap(request);
     }
 
     /**

@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -23,18 +24,19 @@ import javax.servlet.http.HttpSession;
 public class SessionMap extends AbstractMap implements Serializable {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    HttpSession session;
+    HttpServletRequest request;
     Set entries;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
-    public SessionMap(HttpSession s) {
-        this.session = s;
+    public SessionMap(HttpServletRequest request) {
+        this.request = request;
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void clear() {
+        HttpSession session = request.getSession();
         synchronized (session) {
             entries = null;
             session.invalidate();
@@ -42,6 +44,7 @@ public class SessionMap extends AbstractMap implements Serializable {
     }
 
     public Set entrySet() {
+        HttpSession session = request.getSession();
         synchronized (session) {
             if (entries == null) {
                 entries = new HashSet();
@@ -71,7 +74,7 @@ public class SessionMap extends AbstractMap implements Serializable {
                         }
 
                         public Object setValue(Object obj) {
-                            session.setAttribute(key.toString(), obj);
+                            request.getSession().setAttribute(key.toString(), obj);
 
                             return value;
                         }
@@ -84,12 +87,14 @@ public class SessionMap extends AbstractMap implements Serializable {
     }
 
     public Object get(Object key) {
+        HttpSession session = request.getSession();
         synchronized (session) {
             return session.getAttribute(key.toString());
         }
     }
 
     public Object put(Object key, Object value) {
+        HttpSession session = request.getSession();
         synchronized (session) {
             entries = null;
             session.setAttribute(key.toString(), value);
@@ -99,6 +104,7 @@ public class SessionMap extends AbstractMap implements Serializable {
     }
 
     public Object remove(Object key) {
+        HttpSession session = request.getSession();
         synchronized (session) {
             entries = null;
 
