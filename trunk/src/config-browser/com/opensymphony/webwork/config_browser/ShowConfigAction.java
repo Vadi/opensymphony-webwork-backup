@@ -4,11 +4,11 @@ import java.beans.PropertyDescriptor;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.opensymphony.xwork.config.entities.ActionConfig;
+import ognl.OgnlRuntime;
 
 /**
  * ShowConfigAction
@@ -72,7 +72,7 @@ public class ShowConfigAction extends ActionNamesAction {
                 new TreeSet(ConfigurationHelper.getActionNames(namespace));
         try {
             properties =
-                    PropertyUtils.getPropertyDescriptors(getConfig().getClazz());
+                    OgnlRuntime.getPropertyDescriptorsArray(getConfig().getClazz());
         } catch (Exception e) {
             log.error("Unable to get properties for action " + actionName, e);
             addActionError(
