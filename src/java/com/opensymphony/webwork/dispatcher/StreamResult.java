@@ -42,7 +42,8 @@ import java.io.OutputStream;
  *
  * <ul>
  * <li>contentType - the stream mime-type as sent to the web browser</li>
- * <li>contentDispostion - the content disposition header value for specifing the file name. (default = "inline", values are typically <i>filename="document.pdf"</i></li>
+ * <li>contentLength - the stream length in bytes (the browser displays a progress bar)</li>
+ * <li>contentDispostion - the content disposition header value for specifing the file name (default = "inline", values are typically <i>filename="document.pdf"</i></li>
  * <li>inputName - the name of the InputStream property from the chained action (default = "inputStream")</li>
  * <li>bufferSize - the size of the buffer to copy from input to output (defaul = 1024)</li>
  * </ul>
