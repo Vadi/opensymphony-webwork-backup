@@ -92,6 +92,6 @@ public class HttpHeaderResultTest extends TestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
         ServletActionContext.setResponse(null);
-        ActionContext.getContext().setValueStack(new OgnlValueStack());
+        ActionContext.setContext(null);
     }
 }
