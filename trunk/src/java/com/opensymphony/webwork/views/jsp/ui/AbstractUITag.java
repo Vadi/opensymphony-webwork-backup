@@ -5,27 +5,16 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.validators.JavaScriptVisitorFieldValidator;
-import com.opensymphony.webwork.validators.ScriptValidationAware;
 import com.opensymphony.webwork.views.jsp.ParameterizedTagSupport;
 import com.opensymphony.webwork.views.jsp.ui.template.TemplateEngine;
 import com.opensymphony.webwork.views.jsp.ui.template.TemplateEngineManager;
 import com.opensymphony.webwork.views.jsp.ui.template.TemplateRenderingContext;
-import com.opensymphony.webwork.views.util.JavaScriptValidationHolder;
-import com.opensymphony.xwork.ModelDriven;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.validator.*;
-import ognl.OgnlRuntime;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.jsp.JspException;
-import java.beans.PropertyDescriptor;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -395,11 +384,14 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
             }
         }
 
+        FormTag formTag = (FormTag) findAncestorWithClass(this, FormTag.class);
+
         if (id != null) {
-            addParameter("id", getId());
+            addParameter("id", id);
+        } else if (formTag != null) {
+            addParameter("id", formTag.id + "_" + name);
         }
 
-        FormTag formTag = (FormTag) findAncestorWithClass(this, FormTag.class);
 
         if (formTag != null) {
             addParameter("form", formTag.getParameters());
