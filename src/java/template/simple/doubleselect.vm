@@ -19,7 +19,7 @@
     #if ($parameters.onkeydown)        onkeydown="$!webwork.htmlEncode($parameters.onkeydown)"     #end
     #if ($parameters.onkeyup)          onkeyup="$!webwork.htmlEncode($parameters.onkeyup)"         #end
     #if ($parameters.onselect)         onselect="$!webwork.htmlEncode($parameters.onselect)"       #end
-    onchange="$!{parameters.name}Redirect(this.options.selectedIndex)">
+    onchange="$!{webwork.htmlEncode($parameters.name)}Redirect(this.options.selectedIndex)">
 
 #set ( $startCount = 0)
 #if ($parameters.headerKey && $parameters.headerValue)
