@@ -10,23 +10,14 @@ import com.opensymphony.webwork.dispatcher.ApplicationMap;
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.webwork.views.velocity.Renderer;
-
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
-
 import ognl.Ognl;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.velocity.context.Context;
-
-import java.io.Writer;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -34,6 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -227,6 +221,8 @@ public class ActionTag extends TagSupport implements WebWorkStatics, Parameteriz
             log.error("Could not execute action: " + namespace + "/" + name, e);
         }
 
-        ActionContext.getContext().put(getId(), proxy.getAction());
+        if (getId() != null) {
+            ActionContext.getContext().put(getId(), proxy.getAction());
+        }
     }
 }
