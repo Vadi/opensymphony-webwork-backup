@@ -6,6 +6,9 @@ package com.opensymphony.webwork.util;
 
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,12 +32,13 @@ public class InvocationSessionStore {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
-    * Checks the Map in the Session for the key and the token. If the DefaultActionInvocation is saved in the Session, it
-    * gets the DefaultActionInvocation and ActionContext saved in the Session and sets the ActionContext into the
-    * ActionContext ThreadLocal and returns the DefaultActionInvocation.
-    * @param key the name the DefaultActionInvocation and ActionContext were saved as
-    * @return the DefaultActionInvocation saved using the key, or null if none was found
-    */
+     * Checks the Map in the Session for the key and the token. If the
+     * ActionInvocation is saved in the Session, the ValueStack from the
+     * ActionProxy associated with the ActionInvocation is set into the
+     * ActionContext and the ActionInvocation is returned.
+     * @param key the name the DefaultActionInvocation and ActionContext were saved as
+     * @return the DefaultActionInvocation saved using the key, or null if none was found
+     */
     public static ActionInvocation loadInvocation(String key, String token) {
         InvocationContext invocationContext = (InvocationContext) getInvocationMap().get(key);
 
@@ -42,7 +46,8 @@ public class InvocationSessionStore {
             return null;
         }
 
-        ActionContext.setContext(invocationContext.context);
+        OgnlValueStack stack = invocationContext.invocation.getProxy().getValueStack();
+        ActionContext.getContext().setValueStack(stack);
 
         return invocationContext.invocation;
     }
@@ -54,8 +59,7 @@ public class InvocationSessionStore {
     * @param invocation
     */
     public static void storeInvocation(String key, String token, ActionInvocation invocation) {
-        ActionContext context = ActionContext.getContext();
-        InvocationContext invocationContext = new InvocationContext(invocation, context, token);
+        InvocationContext invocationContext = new InvocationContext(invocation, token);
         Map invocationMap = getInvocationMap();
         invocationMap.put(key, invocationContext);
         setInvocationMap(invocationMap);
@@ -90,14 +94,12 @@ public class InvocationSessionStore {
 
     //~ Inner Classes //////////////////////////////////////////////////////////
 
-    private static class InvocationContext {
-        ActionContext context;
+    private static class InvocationContext implements Serializable {
         ActionInvocation invocation;
         String token;
 
-        public InvocationContext(ActionInvocation invocation, ActionContext context, String token) {
+        public InvocationContext(ActionInvocation invocation, String token) {
             this.invocation = invocation;
-            this.context = context;
             this.token = token;
         }
     }

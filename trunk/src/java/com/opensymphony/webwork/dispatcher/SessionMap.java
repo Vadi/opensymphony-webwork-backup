@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
+import java.io.Serializable;
+
 import java.util.AbstractMap;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpSession;
  * @author Rickard Öberg (rickard@middleware-company.com)
  * @version $Revision$
  */
-public class SessionMap extends AbstractMap {
+public class SessionMap extends AbstractMap implements Serializable {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     HttpSession session;
