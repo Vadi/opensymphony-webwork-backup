@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspException;
 
 
 /**
@@ -45,6 +46,7 @@ public class FormTag extends AbstractClosingUITag {
     String methodAttr;
     String namespaceAttr;
     String validateAttr;
+    private boolean m_isValidatorRegistrationOpen = true;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -78,6 +80,16 @@ public class FormTag extends AbstractClosingUITag {
 
     public void setValidate(String validate) {
         this.validateAttr = validate;
+    }
+
+    public boolean isValidatorRegsitrationOpen() {
+        return m_isValidatorRegistrationOpen;
+    }
+
+    public int doEndTag() throws JspException {
+        m_isValidatorRegistrationOpen = false;
+
+        return super.doEndTag();
     }
 
     public void evaluateExtraParams(OgnlValueStack stack) {
@@ -156,7 +168,18 @@ public class FormTag extends AbstractClosingUITag {
         }
     }
 
-    public void registerValidator(Object name, ScriptValidationAware sva, Map params) {
+    /**
+     * Registers ScriptAware validators that should be called when the form is closed to output
+     * necessary script.
+     * <p />
+     * Registration of validators is open until the first time the end of the tag is reached or
+     * there will be duplicate validators if the tag is cached.
+     */
+    public void registerValidator(ScriptValidationAware sva, Map params) {
+        if (!m_isValidatorRegistrationOpen) {
+            return;
+        }
+
         if (fieldValidators == null) {
             fieldValidators = new ArrayList();
             fieldParameters = new ArrayList();
