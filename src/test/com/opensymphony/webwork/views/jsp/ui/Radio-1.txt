@@ -3,16 +3,18 @@
         <span class="label"> mylabel: </span>
     </td>
     <td>
-        <label>world</label>
         <input type="radio"
                name="myname"
+               id="hello"
                value="hello"
         />
+        <label for="hello">world</label>
 
-        <label>bar</label>
         <input type="radio"
                name="myname"
+               id="foo"
                value="foo"
         />
+        <label for="foo">bar</label>
     </td>
 </tr>
