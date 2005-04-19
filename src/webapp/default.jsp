@@ -30,7 +30,7 @@ Simple Examples
         <tt>ww:action</tt> tag
     </li>
 
-    <li><a href="action.jsp">Simple counter</a> being called via the
+    <li><a href="action.vm">Simple counter</a> being called via the
         <tt>#tag(Action)</tt> tag using Velocity as the view
     </li>
 
