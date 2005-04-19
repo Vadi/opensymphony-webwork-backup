@@ -190,6 +190,18 @@ public abstract class AbstractTagDirective extends Directive {
      */
     protected Object createObject(Node node) throws ResourceNotFoundException {
         String tagname = node.getFirstToken().toString();
+
+        /*
+         * velocity 1.3 support of directives in 1.4.  remove quotes around tagname.
+         * directives have to be quoted to in 1.4 e.g. 
+         * #tag( "Label" "label='label test'" "name='label name'" "value=scalar" )
+         *  vs. #tag( Label "label='label test'" "name='label name'" "value=scalar" )  in 1.3
+         */ 
+        if (tagname.startsWith("\"") && tagname.endsWith("\"")) {
+            tagname = tagname.substring(1, tagname.length() - 1);
+        } 
+        
+        
         Class clazz = (Class) tagclassMap.get(tagname);
 
         if (clazz == null) {
