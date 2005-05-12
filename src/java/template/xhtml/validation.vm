@@ -1,7 +1,6 @@
-<script language="JavaScript" type="text/javascript">djConfig = { baseRelativePath: "/webwork/dojo" };</script>
-<!-- we include our rolled-up version of the Dojo core here -->
-<script language="JavaScript" type="text/javascript" src="/webwork/dojo/__package__.js"></script>
 <script src="/webwork/validationClient.js"></script>
+<script src="/dwr/interface/validator.js"></script>
+<script src="/dwr/engine.js"></script>
 <script language='JavaScript'>
 var webworkValidator = new ValidationClient("/validation");
 webworkValidator.onErrors = function(input, errors) {
