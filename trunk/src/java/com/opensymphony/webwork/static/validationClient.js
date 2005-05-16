@@ -11,13 +11,10 @@ function ValidationClient(servletUrl) {
 	this.validate = function(input, namespace, actionName) {
 		var vc = this;
 		var form = input.form;
-		var params = "";
+		var params = new Object();
 	    for (var i = 0; i < form.elements.length; i++) {
 	        var e = form.elements[i];
-	        params = params + e.name + "=" + e.value;
-	        if ((i + 1) < form.elements.length) {
-	            params = params + ";";
-	        }
+	        params[e.name] = e.value;
         }
 
 		validator.doPost(function(action) {

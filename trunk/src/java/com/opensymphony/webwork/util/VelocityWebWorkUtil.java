@@ -46,36 +46,4 @@ public class VelocityWebWorkUtil extends WebWorkUtil {
 
         return writer.toString();
     }
-
-    public String htmlEncode(Object obj) {
-        if (obj == null) {
-            return null;
-        }
-
-        return TextUtils.htmlEncode(obj.toString());
-    }
-
-    public int toInt(long aLong) {
-        return (int) aLong;
-    }
-
-    public long toLong(int anInt) {
-        return (long) anInt;
-    }
-
-    public long toLong(String aLong) {
-        if (aLong == null) {
-            return 0;
-        }
-
-        return Long.parseLong(aLong);
-    }
-
-    public String toString(long aLong) {
-        return Long.toString(aLong);
-    }
-
-    public String toString(int anInt) {
-        return Integer.toString(anInt);
-    }
 }

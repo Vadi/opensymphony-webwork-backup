@@ -8,8 +8,8 @@
  */
 package com.opensymphony.webwork.views.freemarker;
 
-import com.opensymphony.webwork.util.FreemarkerWebWorkUtil;
 import com.opensymphony.webwork.util.ListEntry;
+import com.opensymphony.webwork.util.WebWorkUtil;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import freemarker.ext.beans.CollectionModel;
@@ -39,7 +39,7 @@ public class FreemarkerTest extends TestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSelectHelper() {
-        FreemarkerWebWorkUtil wwUtil = new FreemarkerWebWorkUtil(ActionContext.getContext().getValueStack(), null, null);
+        WebWorkUtil wwUtil = new WebWorkUtil(ActionContext.getContext().getValueStack(), null, null);
 
         List selectList = null;
 

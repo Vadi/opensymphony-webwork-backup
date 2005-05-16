@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.Map;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
@@ -23,8 +24,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.util.FreemarkerWebWorkUtil;
-import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
+import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ObjectFactory;
@@ -58,14 +58,7 @@ public class FreemarkerManager {
 
     private static final Log log = LogFactory.getLog(FreemarkerManager.class);
     public static final String CONFIG_SERVLET_CONTEXT_KEY = "freemarker.Configuration";
-    public static final String KEY_REQUEST = "req";
-    public static final String KEY_RESPONSE = "res";
-    public static final String KEY_STACK = "stack";
-    public static final String KEY_OGNL = "ognl";
-    public static final String KEY_UTIL = "wwUtil";
-    public static final String KEY_WEBWORK = "webwork";
     public static final String KEY_EXCEPTION = "exception";
-    public static final String KEY_ACTION = "action";
 
     // coppied from freemarker servlet - since they are private
     private static final String ATTR_APPLICATION_MODEL = ".freemarker.Application";
@@ -182,12 +175,8 @@ public class FreemarkerManager {
 	
     public void populateContext(ScopesHashModel model, OgnlValueStack stack, Action action, HttpServletRequest request, HttpServletResponse response) {
         // put the same objects into the context that the velocity result uses
-        model.put(KEY_REQUEST, request);
-        model.put(KEY_RESPONSE, response);
-        model.put(KEY_STACK, stack);
-        model.put(KEY_OGNL, OgnlTool.getInstance());
-        model.put(KEY_WEBWORK, new FreemarkerWebWorkUtil(stack, request, response));
-        model.put(KEY_ACTION, action);
+        Map standard = ContextUtil.getStandardContext(stack, request, response);
+        model.putAll(standard);
 
         // support for JSP exception pages, exposing the servlet or JSP exception
         Throwable exception = (Throwable) request.getAttribute("javax.servlet.error.exception");

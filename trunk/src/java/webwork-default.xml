@@ -100,5 +100,7 @@
                 <interceptor-ref name="workflow"/>
             </interceptor-stack>
         </interceptors>
+
+        <default-interceptor-ref name="completeStack"/>
     </package>
 </xwork>
