@@ -8,8 +8,7 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.util.WebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
@@ -37,14 +36,7 @@ public class VelocityManager {
 
     private static final Log log = LogFactory.getLog(VelocityManager.class);
     private static VelocityManager instance;
-    public static final String REQUEST = "req";
-    public static final String RESPONSE = "res";
-	public static final String SESSION = "session";
-    public static final String BASE = "base";
-    public static final String STACK = "stack";
-    public static final String OGNL = "ognl";
     public static final String WEBWORK = "webwork";
-    public static final String ACTION = "action";
 
     /**
      * the parent JSP tag
@@ -120,25 +112,14 @@ public class VelocityManager {
      *
      * @return a new WebWorkVelocityContext
      */
-    public Context createContext(OgnlValueStack stack, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+    public Context createContext(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         WebWorkVelocityContext context = new WebWorkVelocityContext(chainedContexts, stack);
-        context.put(REQUEST, servletRequest);
-        context.put(RESPONSE, servletResponse);
-        context.put(STACK, stack);
-		context.put(OGNL, ognlTool);
-        context.put(WEBWORK, new VelocityWebWorkUtil(context, stack, servletRequest, servletResponse));
-		
-		/* added the following for consistency with sitemesh keys */
-		context.put(BASE, servletRequest.getContextPath());
-        context.put("request", servletRequest);
-        context.put("response", servletResponse);
-		context.put(SESSION, servletRequest.getSession());
-	    
-        ActionInvocation invocation = (ActionInvocation) stack.getContext().get(ActionContext.ACTION_INVOCATION);
-
-        if (invocation != null) {
-            context.put(ACTION, invocation.getAction());
+        Map standardMap = ContextUtil.getStandardContext(stack, req, res);
+        for (Iterator iterator = standardMap.entrySet().iterator(); iterator.hasNext();) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            context.put((String) entry.getKey(), entry.getValue());
         }
+        context.put(WEBWORK, new VelocityWebWorkUtil(context, stack, req, res));
 
         return context;
     }

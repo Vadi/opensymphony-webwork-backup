@@ -8,8 +8,10 @@
 package com.opensymphony.webwork.views.freemarker;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.views.util.ResourceUtil;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import freemarker.template.*;
@@ -68,6 +70,13 @@ public class FreemarkerResult extends WebWorkResultSupport {
         this.invocation = invocation;
         this.configuration = getConfiguration();
         this.wrapper = getObjectWrapper();
+
+        if (!location.startsWith("/")) {
+            ActionContext ctx = invocation.getInvocationContext();
+            HttpServletRequest req = (HttpServletRequest) ctx.get(ServletActionContext.HTTP_REQUEST);
+            String base = ResourceUtil.getResourceBase(req);
+            location = base + "/" + location;
+        }
 
         Template template = configuration.getTemplate(location, deduceLocale());
         TemplateModel model = createModel();

@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.ActionContext;
 import org.apache.velocity.Template;
@@ -31,6 +32,8 @@ import java.util.Properties;
 /**
  * @author $Author$
  * @version $Revision$
+ *
+ * @deprecated please use {@link com.opensymphony.webwork.dispatcher.VelocityResult} instead of direct access
  */
 public class WebWorkVelocityServlet extends VelocityServlet {
     //~ Instance fields ////////////////////////////////////////////////////////
@@ -95,7 +98,7 @@ public class WebWorkVelocityServlet extends VelocityServlet {
 
         // create a new PageContext
         JspFactory jspFactory = JspFactory.getDefaultFactory();
-        HttpServletRequest request = (HttpServletRequest) context.get(VelocityManager.REQUEST);
+        HttpServletRequest request = (HttpServletRequest) context.get(ContextUtil.REQUEST);
         PageContext pageContext = jspFactory.getPageContext(this, request, response, null, true, 8192, true);
 
         // put the new PageContext into ActionContext

@@ -8,7 +8,6 @@ import uk.ltd.getahead.dwr.ExecutionContext;
 import javax.servlet.ServletConfig;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Iterator;
 
 /**
  * User: plightbo
@@ -16,23 +15,11 @@ import java.util.Iterator;
  * Time: 6:17:58 PM
  */
 public class DWRValidator {
-    public ValidationAwareSupport doPost(String namespace, String action, String params) throws Exception {
+    public ValidationAwareSupport doPost(String namespace, String action, Map params) throws Exception {
         ServletConfig sc = ExecutionContext.get().getServletConfig();
         HashMap ctx = new HashMap();
 
-        HashMap paramMap = new HashMap();
-        String[] split = params.split(";");
-        for (int i = 0; i < split.length; i++) {
-            String s = split[i];
-            String[] strings = s.split("=");
-            if (strings.length == 2) {
-                paramMap.put(strings[0], strings[1]);
-            } else {
-                paramMap.put(strings[0], "");
-            }
-        }
-
-        ctx.put(ActionContext.PARAMETERS, paramMap);
+        ctx.put(ActionContext.PARAMETERS, params);
         ctx.put(ServletDispatcher.SERVLET_CONFIG, sc);
 
         ValidatorActionProxy proxy = new ValidatorActionProxy(namespace, action, ctx);
