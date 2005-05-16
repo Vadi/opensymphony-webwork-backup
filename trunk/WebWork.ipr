@@ -51,6 +51,7 @@
       <entry name="?*.jpeg" />
       <entry name="?*.jpg" />
       <entry name="?*.js" />
+      <entry name="*.ftl" />
     </wildcardResourcePatterns>
   </component>
   <component name="DataSourceManager" />
