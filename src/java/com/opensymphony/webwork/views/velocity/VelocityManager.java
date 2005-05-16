@@ -28,7 +28,6 @@ import org.apache.velocity.context.Context;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
-import com.opensymphony.webwork.util.WebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.ObjectFactory;
@@ -45,14 +44,7 @@ public class VelocityManager {
 
     private static final Log log = LogFactory.getLog(VelocityManager.class);
     private static VelocityManager instance;
-    public static final String REQUEST = "req";
-    public static final String RESPONSE = "res";
-	public static final String SESSION = "session";
-    public static final String BASE = "base";
-    public static final String STACK = "stack";
-    public static final String OGNL = "ognl";
     public static final String WEBWORK = "webwork";
-    public static final String ACTION = "action";
 
     /**
      * the parent JSP tag
