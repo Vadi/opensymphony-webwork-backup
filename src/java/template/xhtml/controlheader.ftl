@@ -6,7 +6,7 @@
 <#if hasFieldErrors>
 	<#list fieldErrors[parameters.name] as error>
 		<tr errorFor="${parameters.id}">
-			<#if parameters.labelposition == 'top'><td align="left" valign="top" colspan="2"><#else><td align="center" valign="top" colspan="2"></#if><span class="errorMessage">${error?html}</span></td>
+			<#if parameters.labelposition?default("") == 'top'><td align="left" valign="top" colspan="2"><#else><td align="center" valign="top" colspan="2"></#if><span class="errorMessage">${error?html}</span></td>
 		</tr>
 	</#list>
 </#if>
