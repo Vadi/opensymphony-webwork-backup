@@ -1,0 +1,7 @@
+<div id="$tag.id">$!tag.loadingText</div>
+<script language="JavaScript" type="text/javascript">
+    <!--
+        var remotediv_${tag.id} = new RemoteUpdateComponent( '$!webwork.htmlEncode($tag.url)', '$tag.id', '$!tag.reloadingText', '$!tag.errorText', '$!tag.showErrorTransportText' );
+        remotediv_${tag.id}.intervalRefresh($!{tag.updateFreq});
+    -->
+</script>

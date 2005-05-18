@@ -124,10 +124,7 @@ public class StaticResourceServlet extends HttpServlet {
 			return null;
 		}
 
-		String relativePath = request.getPathInfo();
-        if (relativePath.startsWith("/")) {
-            relativePath = relativePath.substring(1);
-        }
+		String relativePath = request.getRequestURI().substring(request.getServletPath().length()+1);
 		String resourcePath = packagePrefix + relativePath;
 		
 		String rawResourcePath = resourcePath; 
