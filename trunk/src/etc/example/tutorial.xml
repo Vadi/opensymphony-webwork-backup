@@ -10,4 +10,11 @@
             <result>form.ftl</result>
         </action>
     </package>
+
+    <package name="ajax" namespace="/tutorial/ajax" extends="webwork-default">
+        <action name="hello" class="com.opensymphony.webwork.example.tutorial.ajax.HelloWorld">
+            <result name="input">hello-input.jsp</result>
+            <result name="success">hello.jsp</result>
+        </action>
+    </package>
 </xwork>
