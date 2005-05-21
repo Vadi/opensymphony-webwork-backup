@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2005 Opensymphony. All Rights Reserved.
+ */
 package com.opensymphony.webwork.validators;
 
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;

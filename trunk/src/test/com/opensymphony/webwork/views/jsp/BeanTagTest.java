@@ -19,7 +19,7 @@ public class BeanTagTest extends AbstractUITagTest {
     public void testSimple() {
         BeanTag tag = new BeanTag();
         tag.setPageContext(pageContext);
-        tag.setName("'com.opensymphony.webwork.TestAction'");
+        tag.setName("com.opensymphony.webwork.TestAction");
 
         try {
             tag.doStartTag();

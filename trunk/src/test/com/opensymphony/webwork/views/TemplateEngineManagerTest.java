@@ -35,7 +35,8 @@ public class TemplateEngineManagerTest extends TestCase {
 
     public void testTemplateTypeUsesDefaultWhenNotSetInConfiguration() {
         TemplateEngine engine = TemplateEngineManager.getTemplateEngine("foo");
-        assertTrue(engine instanceof VelocityTemplateEngine);
+        TemplateEngine defaultTemplateEngine = TemplateEngineManager.getTemplateEngine(TemplateEngineManager.DEFAULT_TEMPLATE_TYPE);
+        assertTrue(engine.getClass().equals(defaultTemplateEngine.getClass()));
     }
 
     protected void tearDown() throws Exception {

@@ -15,7 +15,7 @@ public class TemplateEngineManager {
     public static final String DEFAULT_TEMPLATE_TYPE_CONFIG_KEY = "webwork.ui.templateSuffix";
 
     private static final TemplateEngineManager MANAGER = new TemplateEngineManager();
-    private static final String DEFAULT_TEMPLATE_TYPE = "ftl";
+    public static final String DEFAULT_TEMPLATE_TYPE = "ftl";
 
     Map templateEngines = new HashMap();
 
