@@ -20,7 +20,7 @@ import java.util.Map;
 public class ParamTagTest extends AbstractTagTest {
     //~ Static fields/initializers /////////////////////////////////////////////
 
-    private static final String NAME_EXP = "'name'";
+    private static final String NAME_EXP = "name";
     private static final String NAME_VAL = "name";
     private static final String VAL_EXP = "'value'";
     private static final String VAL_VAL = "value";

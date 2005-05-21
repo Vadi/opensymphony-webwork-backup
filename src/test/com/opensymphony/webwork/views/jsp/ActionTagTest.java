@@ -29,7 +29,7 @@ public class ActionTagTest extends AbstractTagTest {
 
         ActionTag tag = new ActionTag();
         tag.setPageContext(pageContext);
-        tag.setName("'" + TestConfigurationProvider.TEST_NAMESPACE_ACTION + "'");
+        tag.setName(TestConfigurationProvider.TEST_NAMESPACE_ACTION);
         tag.setId(TestConfigurationProvider.TEST_NAMESPACE_ACTION);
 
         try {
@@ -51,7 +51,7 @@ public class ActionTagTest extends AbstractTagTest {
 
         ActionTag tag = new ActionTag();
         tag.setPageContext(pageContext);
-        tag.setName("'testAction'");
+        tag.setName("testAction");
         tag.setId("testAction");
 
         int stackSize = stack.size();

@@ -25,7 +25,7 @@ public class URLTagTest extends AbstractUITagTest {
 
     public void testActionURL() {
         jspWriter.setExpectedData("TestAction.action");
-        tag.setValue("'TestAction.action'");
+        tag.setValue("TestAction.action");
 
         try {
             tag.doStartTag();
@@ -59,7 +59,7 @@ public class URLTagTest extends AbstractUITagTest {
         foo.setTitle("test");
         stack.push(foo);
         jspWriter.setExpectedData("test");
-        tag.setValue("title");
+        tag.setValue("%{title}");
 
         try {
             tag.doStartTag();
@@ -76,7 +76,7 @@ public class URLTagTest extends AbstractUITagTest {
         request.setServerPort(443);
 
         jspWriter.setExpectedData("list-members.action");
-        tag.setValue("'list-members.action'");
+        tag.setValue("list-members.action");
 
         try {
             tag.doStartTag();
