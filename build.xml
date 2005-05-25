@@ -310,7 +310,6 @@
             <lib file="${build.config-browser.jar}"/>
             <webinf file="${build}/webwork.tld"/>
             <classes dir="${build.example}"/>
-            <classes dir="${src.etc}/example"/>
         </war>
     </target>
 
