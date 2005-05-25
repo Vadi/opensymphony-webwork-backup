@@ -12,11 +12,11 @@
 
                     <div class="code">
                         <pre>
-                            &lt;ww:remotediv id="once" url="%{'/tutorial/ajax/AjaxTest.action'}" /&gt;
+                            &lt;ww:remotediv id="once" url="/tutorial/ajax/AjaxTest.action" /&gt;
                         </pre>
                     </div>
 
-                    <ww:remotediv id="once" url="%{'/tutorial/ajax/AjaxTest.action'}" />
+                    <ww:remotediv id="once" url="/tutorial/ajax/AjaxTest.action" />
 
 
   </body>
