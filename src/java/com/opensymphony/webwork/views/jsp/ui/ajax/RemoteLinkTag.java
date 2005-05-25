@@ -116,10 +116,7 @@ public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmi
      * @param showErrorTransportText whether to show the error message from dojo
      */
     public void setShowErrorTransportText(String showErrorTransportText) {
-        if( null==showErrorTransportText || "".equals(showErrorTransportText) )
-            this.showErrorTransportText = false;
-        else
-            this.showErrorTransportText = ((Boolean)findValue(showErrorTransportText,Boolean.class)).booleanValue();
+        this.showErrorTransportText = "true".equals(findValue(showErrorTransportText,String.class)) ? true : false;
     }
 
     /**
