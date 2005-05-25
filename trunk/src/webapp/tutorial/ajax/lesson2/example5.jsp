@@ -10,7 +10,7 @@
 
                     A simple DIV's that cannot contact the server:<br/>
 
-                    <div class="code">
+                    <div class="source">
                         <pre>
                             &lt;ww:remotediv id="error1" url="/tutorial/ajax/AjaxNoUrl.jsp" errorText="Could not contact server" /&gt;
                         </pre>

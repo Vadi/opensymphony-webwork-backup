@@ -10,7 +10,7 @@
 
                     A simple DIV that refreshes only once:<br/>
 
-                    <div class="code">
+                    <div class="source">
                         <pre>
                             &lt;ww:remotediv id="once" url="/tutorial/ajax/AjaxTest.action" /&gt;
                         </pre>

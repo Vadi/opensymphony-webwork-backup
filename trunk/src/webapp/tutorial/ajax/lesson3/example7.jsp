@@ -10,7 +10,7 @@
 
                     A simple DIV's that cannot contact the server and displays the transport error message:<br/>
 
-                    <div class="code">
+                    <div class="source">
                         <pre>
     &lt;ww:topicScope&gt;
 

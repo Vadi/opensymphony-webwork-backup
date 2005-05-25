@@ -11,7 +11,7 @@
                     A simple DIV that updates every 5 seconds with loading text and reloading text
                     (because the action executes very quickly, the text will be difficult to see):<br/>
 
-                    <div class="code">
+                    <div class="source">
                         <pre>
                             &lt;ww:remotediv id="fiveseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="5" loadingText="loading now" reloadingText="reloading page" /&gt;
                         </pre>
