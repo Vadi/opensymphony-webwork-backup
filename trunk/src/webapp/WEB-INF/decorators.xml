@@ -1,0 +1,5 @@
+<decorators defaultdir="/decorators">
+    <decorator name="tutorial" page="tutorial.jsp">
+          <pattern>/*</pattern>
+    </decorator>
+</decorators>

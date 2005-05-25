@@ -42,15 +42,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/example/displaytag.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/build/servlet.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -70,15 +61,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/build/mockobjects-jdk1.3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/example/taglibs-benchmark.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -115,15 +97,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/core/commons-fileupload.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/example/jstl.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -213,15 +186,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/example/commons-lang.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/optional/commons-collections.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -276,15 +240,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/example/commons-beanutils.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/core/commons-logging.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -294,25 +249,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/example/commons-collections.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/build/mockobjects-alt-jdk1.3-j2ee1.3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/example/standard.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -373,6 +310,15 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Resin 3.x" level="application_server_libraries" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/example/sitemesh-2.2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
   <component name="WebModuleBuildComponent">
@@ -477,38 +423,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-beanutils.jar" />
-      <url>jar://$MODULE_DIR$/lib/example/commons-beanutils.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-collections.jar" />
-      <url>jar://$MODULE_DIR$/lib/example/commons-collections.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-lang.jar" />
-      <url>jar://$MODULE_DIR$/lib/example/commons-lang.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/displaytag.jar" />
-      <url>jar://$MODULE_DIR$/lib/example/displaytag.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/jstl.jar" />
-      <url>jar://$MODULE_DIR$/lib/example/jstl.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/standard.jar" />
-      <url>jar://$MODULE_DIR$/lib/example/standard.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/taglibs-benchmark.jar" />
-      <url>jar://$MODULE_DIR$/lib/example/taglibs-benchmark.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/sitemesh-2.2.1.jar" />
+      <url>jar://$MODULE_DIR$/lib/example/sitemesh-2.2.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
