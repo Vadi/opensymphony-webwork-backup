@@ -34,7 +34,7 @@ function RemoteUpdateComponent( url, nodeId, reloadingText, errorText, showTrans
                 replaceNode.innerHTML = data;
             },
             error: function(type, error){
-                if( self.showTransportErrorText )
+                if( "true"==self.showTransportErrorText )
                     displayMsg += ": " + error.message;
                 replaceNode.innerHTML = displayMsg;
             },
@@ -95,7 +95,7 @@ function evalAfterRemoteCall( url, errorText, showTransportErrorText, topic ) {
             }
         },
         error: function(type, error){
-            if( showTransportErrorText )
+            if( "true"==showTransportErrorText )
                 displayMsg += ": " + error.message;
             alert( displayMsg );
         },
