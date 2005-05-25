@@ -1,14 +1,11 @@
 <%@ taglib prefix="ww" uri="webwork" %>
 <html>
     <head>
-        <title>Lesson 3: AJAX-based remote link tag</title>
-        <jsp:include page="commonInclude.jsp" />
+        <title>AJAX-based remote link tag</title>
+        <%@ include file="../commonInclude.jsp" %>
     </head>
 
     <body>
-
-        <h1>Lesson 3: AJAX-based remote link tag</h1>
-
         <p>
         The remote link tag is one of the simpler AJAX components.  It works in the same way as
         a normal HTML &lt;a href="..." /&gt; tag would, but when the user clicks on the link an
@@ -19,15 +16,15 @@
         <h2>Usage</h2>
         <p>
         The tag takes the basic form of:
-        <div class="code">
-            <pre>
-                &lt;ww:remotelink
-                    id="link1"
-                    url="/AjaxRemoteLink.action"
-                    showErrorTransportText="true"
-                    errorText="An Error ocurred"
-                    topicName="testTopic" &gt;My remote Link&lt;/ww:remotelink&gt;
-            </pre>
+        <div class="source">
+<pre>
+&lt;ww:remotelink
+    id="link1"
+    url="/AjaxRemoteLink.action"
+    showErrorTransportText="true"
+    errorText="An Error ocurred"
+    topicName="testTopic" &gt;My remote Link&lt;/ww:remotelink&gt;
+</pre>
         </div>
         The attributes are:
         <ul>
@@ -55,25 +52,27 @@
         <p>
         There is common javascript configuration that needs to be present for the AJAX component to work.  It is
         suggested that this is placed in a common page decorator to avoid duplication.
-        <div class="code">
-            <pre>
-                &lt;script language="JavaScript" type="text/javascript"&gt;
-                    // Dojo configuration
-                    djConfig = {
-                        baseRelativePath: "&lt;ww:url value="%{'webwork/dojo/'}"/&gt;",
-                        parseWidgets: false,
-                        isDebug: false
-                    };
-                &lt;/script&gt;
+        <div class="source">
+<pre>
+&lt;script language="JavaScript" type="text/javascript"&gt;
+    // Dojo configuration
+    djConfig = {
+        baseRelativePath: "&lt;ww:url value="%{'webwork/dojo/'}"/&gt;",
+        parseWidgets: false,
+        isDebug: false
+    };
+&lt;/script&gt;
 
-                &lt;script language="JavaScript" type="text/javascript" src="&lt;ww:url value="%{'/webwork/dojo/__package__.js'}" /&gt;"&gt;&lt;/script&gt;
-                &lt;script language="JavaScript" type="text/javascript" src="&lt;ww:url value="%{'/webwork/AjaxComponents.js'}" /&gt;"&gt;&lt;/script&gt;
+&lt;script language="JavaScript" type="text/javascript"
+        src="&lt;ww:url value="%{'/webwork/dojo/__package__.js'}" /&gt;"&gt;&lt;/script&gt;
+&lt;script language="JavaScript" type="text/javascript"
+        src="&lt;ww:url value="%{'/webwork/AjaxComponents.js'}" /&gt;"&gt;&lt;/script&gt;
 
-                &lt;script language="JavaScript" type="text/javascript"&gt;
-                    dojo.hostenv.loadModule("dojo.io.BrowserIO");
-                    dojo.hostenv.loadModule("dojo.event.topic");
-                &lt;/script&gt;
-            </pre>
+&lt;script language="JavaScript" type="text/javascript"&gt;
+    dojo.hostenv.loadModule("dojo.io.BrowserIO");
+    dojo.hostenv.loadModule("dojo.event.topic");
+&lt;/script&gt;
+</pre>
         </div>
 
         </p>

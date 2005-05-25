@@ -2,6 +2,7 @@
 <html>
     <head>
         <title></title>
+        <%@ include file="../commonInclude.jsp" %>
     </head>
 
     <body>
