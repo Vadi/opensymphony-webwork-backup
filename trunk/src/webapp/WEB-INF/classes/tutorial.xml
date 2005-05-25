@@ -16,5 +16,15 @@
             <result name="input">hello-input.jsp</result>
             <result name="success">hello.jsp</result>
         </action>
+
+        <!-- Ajax Component examples -->
+        <action name="AjaxTest" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
+            <result name="success">AjaxResult.jsp</result>
+        </action>
+        <action name="AjaxRemoteLink" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
+            <result name="success">AjaxResult2.jsp</result>
+        </action>
+
+
     </package>
 </xwork>

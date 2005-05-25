@@ -12,11 +12,11 @@
 
                     <div class="code">
                         <pre>
-                            &lt;ww:remotediv id="twoseconds" url="%{'/AjaxTest.action'}" updateFreq="2" /&gt;
+                            &lt;ww:remotediv id="twoseconds" url="%{'/tutorial/ajax/AjaxTest.action'}" updateFreq="2" /&gt;
                         </pre>
                     </div>
 
-                    <ww:remotediv id="twoseconds" url="%{'/AjaxTest.action'}" updateFreq="2" />
+                    <ww:remotediv id="twoseconds" url="%{'/tutorial/ajax/AjaxTest.action'}" updateFreq="2" />
 
 
   </body>
