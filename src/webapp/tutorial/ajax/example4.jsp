@@ -13,11 +13,11 @@
 
                     <div class="code">
                         <pre>
-                            &lt;ww:remotediv id="fiveseconds" url="%{'/AjaxTest.action'}" updateFreq="5" loadingText="%{'loading now'}" reloadingText="%{'reloading page'}" /&gt;
+                            &lt;ww:remotediv id="fiveseconds" url="%{'/tutorial/ajax/AjaxTest.action'}" updateFreq="5" loadingText="%{'loading now'}" reloadingText="%{'reloading page'}" /&gt;
                         </pre>
                     </div>
 
-                    <ww:remotediv id="fiveseconds" url="%{'/AjaxTest.action'}" updateFreq="5" loadingText="%{'loading now'}" reloadingText="%{'reloading page'}" />
+                    <ww:remotediv id="fiveseconds" url="%{'/tutorial/ajax/AjaxTest.action'}" updateFreq="5" loadingText="%{'loading now'}" reloadingText="%{'reloading page'}" />
 
 
   </body>
