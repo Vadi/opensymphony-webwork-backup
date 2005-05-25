@@ -155,6 +155,15 @@ Validation Examples
 
 
 <p class="title">
+Ajax Examples
+</p>
+
+<ul>
+    <li><a href="ajax/remotelink.jsp">Remote Link</a></li>
+    <li><a href="ajax/tabbed.jsp">Tabbed Panel</a></li>
+</ul>
+
+<p class="title">
 Jasper Reports Examples
 </p>
 
