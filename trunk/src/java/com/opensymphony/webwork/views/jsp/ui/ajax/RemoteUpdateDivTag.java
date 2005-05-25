@@ -36,7 +36,7 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
     private String loadingText;
     private String reloadingText;
     private String errorText;
-    private boolean showErrorTransportText;
+    private boolean showErrorTransportText = false;
     protected String topicName;
 
     private static final Log LOG = LogFactory.getLog(RemoteUpdateDivTag.class);
@@ -86,7 +86,15 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
      * @return the frequence which the component will be updated in seconds
      */
     public String getUpdateFreq() {
-        return (null==updateFreq || "".equals(updateFreq) ? "0" : updateFreq );
+        int freq = 0;
+        if( null!=updateFreq && !"".equals(updateFreq) ) {
+            try {
+                freq = Integer.parseInt( updateFreq );
+            } catch (NumberFormatException e) {
+                freq = Integer.parseInt( ((String)findValue( updateFreq, String.class )) );
+            }
+        }
+        return String.valueOf(freq);
     }
 
     /**
@@ -150,10 +158,7 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
      *              with the errorText, if true the transport error is displayed
      */
     public void setShowErrorTransportText(String showErrorTransportText) {
-        if( null==showErrorTransportText || "".equals(showErrorTransportText) )
-            this.showErrorTransportText = false;
-        else
-            this.showErrorTransportText = ((Boolean)findValue(showErrorTransportText,Boolean.class)).booleanValue();
+            this.showErrorTransportText = "true".equals(findValue(showErrorTransportText,String.class)) ? true : false;
     }
 
     /**
