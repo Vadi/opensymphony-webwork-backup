@@ -16,6 +16,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.IOException;
 import java.io.InputStream;
+import java.beans.Introspector;
 
 
 /**
@@ -44,6 +45,14 @@ public class ApplicationLifecycleListener implements ServletContextListener {
         if (container != null) {
             container.dispose();
         }
+
+        // do some cleanup
+
+        // If the JavaBeans Introspector has been used to analyze application classes,
+        // the Introspector cache will hold a hard reference to those classes.
+        // Consequently, those classes and the web app class loader will not be
+        // garbage collected on web app shutdown!
+        Introspector.flushCaches(); // WW-758
 
         LogFactory.releaseAll();
     }
