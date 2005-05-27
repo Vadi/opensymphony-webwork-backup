@@ -14,7 +14,7 @@
 
         <h2>Usage</h2>
         <p>
-        The tag takes the basic form of:
+        The tag has the following structure and attributes:
         <div class="source">
 <pre>
 &lt;ww:topicScope&gt;
@@ -47,14 +47,14 @@
 &lt;script language="JavaScript" type="text/javascript"&gt;
     // Dojo configuration
     djConfig = {
-        baseRelativePath: "&lt;ww:url value="%{'webwork/dojo/'}"/&gt;",
+        baseRelativePath: "&lt;ww:url value="webwork/dojo/"/&gt;",
         parseWidgets: false,
         isDebug: false
     };
 &lt;/script&gt;
 
-&lt;script language="JavaScript" type="text/javascript" src="&lt;ww:url value="%{'/webwork/dojo/__package__.js'}" /&gt;"&gt;&lt;/script&gt;
-&lt;script language="JavaScript" type="text/javascript" src="&lt;ww:url value="%{'/webwork/AjaxComponents.js'}" /&gt;"&gt;&lt;/script&gt;
+&lt;script language="JavaScript" type="text/javascript" src="&lt;ww:url value="/webwork/dojo/__package__.js" /&gt;"&gt;&lt;/script&gt;
+&lt;script language="JavaScript" type="text/javascript" src="&lt;ww:url value="/webwork/AjaxComponents.js" /&gt;"&gt;&lt;/script&gt;
 
 &lt;script language="JavaScript" type="text/javascript"&gt;
     dojo.hostenv.loadModule("dojo.io.BrowserIO");

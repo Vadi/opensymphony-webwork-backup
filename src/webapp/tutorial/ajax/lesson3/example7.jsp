@@ -27,11 +27,11 @@
         &lt;br/&gt;&lt;br/&gt;
 
         Remote link 1 updating "One Component" and "Two Component"&lt;br/&gt;
-        &lt;ww:remotelink id="link1" url="%{'/tutorial/ajax/AjaxRemoteLink.action'}" topicName="mylink1_click" showErrorTransportText="true" errorText="%{'An Error ocurred'}" &gt;Update&lt;/ww:remotelink&gt;
+        &lt;ww:remotelink id="link1" url="/tutorial/ajax/AjaxRemoteLink.action" topicName="mylink1_click" showErrorTransportText="true" errorText="An Error ocurred" &gt;Update&lt;/ww:remotelink&gt;
         &lt;br/&gt;&lt;br/&gt;
 
         Remote link 2 updating "Two Component" and "Three Component"&lt;br/&gt;
-        &lt;ww:remotelink id="link2" url="%{'/tutorial/ajax/AjaxRemoteLink.action'}" topicName="mylink2_click" showErrorTransportText="true" errorText="%{'An Error ocurred'}" &gt;Update&lt;/ww:remotelink&gt;
+        &lt;ww:remotelink id="link2" url="/tutorial/ajax/AjaxRemoteLink.action" topicName="mylink2_click" showErrorTransportText="true" errorText="An Error ocurred" &gt;Update&lt;/ww:remotelink&gt;
         &lt;br/&gt;&lt;br/&gt;
 
         Remote DIV that is not connected to any remote links:
@@ -62,11 +62,11 @@
         <br/><br/>
 
         Remote link 1 updating "One Component" and "Two Component"<br/>
-        <ww:remotelink id="link1" url="%{'/tutorial/ajax/AjaxRemoteLink.action'}" topicName="mylink1_click" showErrorTransportText="true" errorText="%{'An Error ocurred'}" >Update</ww:remotelink>
+        <ww:remotelink id="link1" url="/tutorial/ajax/AjaxRemoteLink.action" topicName="mylink1_click" showErrorTransportText="true" errorText="An Error ocurred" >Update</ww:remotelink>
         <br/><br/>
 
         Remote link 2 updating "Two Component" and "Three Component"<br/>
-        <ww:remotelink id="link2" url="%{'/tutorial/ajax/AjaxRemoteLink.action'}" topicName="mylink2_click" showErrorTransportText="true" errorText="%{'An Error ocurred'}" >Update</ww:remotelink>
+        <ww:remotelink id="link2" url="/tutorial/ajax/AjaxRemoteLink.action" topicName="mylink2_click" showErrorTransportText="true" errorText="An Error ocurred" >Update</ww:remotelink>
         <br/><br/>
 
         Remote DIV that is not connected to any remote links:
