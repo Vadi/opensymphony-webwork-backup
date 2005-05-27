@@ -20,13 +20,13 @@
 <pre>
 &lt;ww:remotediv
     id="remotediv1"
-    url="%{'/MyAction.action'}"
+    url="/MyAction.action"
     updateFreq="5"
-    loadingText="%{'loading now'}"
-    reloadingText="%{'reloading page'}"
-    errorText="%{'There was a problem contacting the server!'}"
+    loadingText="loading now"
+    reloadingText="reloading page"
+    errorText="There was a problem contacting the server!"
     showErrorTransportText="true"
-    topicName="%{'topic1, topic2'}" /&gt;
+    topicName="topic1, topic2" /&gt;
 </pre>
         </div>
 
@@ -64,16 +64,16 @@
 &lt;script language="JavaScript" type="text/javascript"&gt;
     // Dojo configuration
     djConfig = {
-        baseRelativePath: "&lt;ww:url value="%{'webwork/dojo/'}"/&gt;",
+        baseRelativePath: "&lt;ww:url value="webwork/dojo/"/&gt;",
         parseWidgets: false,
         isDebug: false
     };
 &lt;/script&gt;
 
 &lt;script language="JavaScript" type="text/javascript"
-        src="&lt;ww:url value="%{'/webwork/dojo/__package__.js'}" /&gt;"&gt;&lt;/script&gt;
+        src="&lt;ww:url value="/webwork/dojo/__package__.js" /&gt;"&gt;&lt;/script&gt;
 &lt;script language="JavaScript" type="text/javascript"
-        src="&lt;ww:url value="%{'/webwork/AjaxComponents.js'}" /&gt;"&gt;&lt;/script&gt;
+        src="&lt;ww:url value="/webwork/AjaxComponents.js" /&gt;"&gt;&lt;/script&gt;
 
 &lt;script language="JavaScript" type="text/javascript"&gt;
     dojo.hostenv.loadModule("dojo.io.BrowserIO");
