@@ -86,15 +86,10 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
      * @return the frequence which the component will be updated in seconds
      */
     public String getUpdateFreq() {
-        int freq = 0;
         if( null!=updateFreq && !"".equals(updateFreq) ) {
-            try {
-                freq = Integer.parseInt( updateFreq );
-            } catch (NumberFormatException e) {
-                freq = Integer.parseInt( ((String)findValue( updateFreq, String.class )) );
-            }
+            return findString(updateFreq);
         }
-        return String.valueOf(freq);
+        return "0";
     }
 
     /**
@@ -158,7 +153,7 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
      *              with the errorText, if true the transport error is displayed
      */
     public void setShowErrorTransportText(String showErrorTransportText) {
-            this.showErrorTransportText = "true".equals(findValue(showErrorTransportText,String.class)) ? true : false;
+            this.showErrorTransportText = "true".equals(findString(showErrorTransportText)) ? true : false;
     }
 
     /**
@@ -172,7 +167,7 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
      * @param topicName the topic name to subscribe to
      */
     public void setTopicName(String topicName) {
-        this.topicName = topicName;
+        this.topicName = findString(topicName);
     }
 
     /**
