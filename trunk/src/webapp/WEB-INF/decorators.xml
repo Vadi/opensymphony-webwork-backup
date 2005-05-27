@@ -2,4 +2,7 @@
     <decorator name="tutorial" page="tutorial.jsp">
           <pattern>/*</pattern>
     </decorator>
+    <decorator name="none">
+		<url-pattern>/tutorial/ajax/AjaxTest.action</url-pattern>
+	</decorator>
 </decorators>
