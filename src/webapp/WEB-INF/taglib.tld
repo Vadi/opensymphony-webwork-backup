@@ -2748,7 +2748,7 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-                <attribute>
+        <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -2756,11 +2756,6 @@
         <attribute>
             <name>url</name>
             <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>updateFreq</name>
-            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
