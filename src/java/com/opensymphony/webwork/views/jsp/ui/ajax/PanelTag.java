@@ -42,7 +42,7 @@ public class PanelTag extends AbstractClosingUITag implements JavascriptEmitter,
      * @param tabName the displayable name for the tab
      */
     public void setTabName(String tabName) {
-        this.tabName = (String)findValue(tabName);
+        this.tabName = findString(tabName);
     }
 
     /**

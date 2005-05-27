@@ -30,7 +30,7 @@ public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane,Ja
      * @param tabName the name of the tab to display to the user
      */
     public void setTabName(String tabName) {
-        this.tabName = (String)findValue(tabName);;
+        this.tabName = findString(tabName);;
     }
 
     /**
