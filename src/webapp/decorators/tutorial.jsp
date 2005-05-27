@@ -15,6 +15,7 @@
         <style type="text/css" media="screen">
             @import url("<ww:url value="/shared/css/tutorial.css"/>");
         </style>
+        <decorator:head />
     </head>
 
     <body>
