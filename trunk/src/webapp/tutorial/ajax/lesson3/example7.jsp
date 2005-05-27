@@ -11,7 +11,7 @@
                     A simple DIV's that cannot contact the server and displays the transport error message:<br/>
 
                     <div class="source">
-                        <pre>
+<pre>
     &lt;ww:topicScope&gt;
 
         One Component:
@@ -44,7 +44,7 @@
 
     &lt;/ww:topicScope&gt;
 
-                        </pre>
+</pre>
                     </div>
 
     <ww:topicScope>

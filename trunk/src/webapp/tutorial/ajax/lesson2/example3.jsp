@@ -10,13 +10,13 @@
 
                     A simple DIV that obtains the update freq (3 secs) from the value stack/action:<br/>
 
-                    <div class="source">
-                        <pre>
-                            &lt;ww:remotediv id="twoseconds" url="%{'/tutorial/ajax/AjaxTest.action'}" updateFreq="%{'period'}" /&gt;
-                        </pre>
+                    <div class="code">
+<pre>
+    &lt;ww:remotediv id="twoseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="%{#parameters.period}" /&gt;
+</pre>
                     </div>
 
-                    <ww:remotediv id="twoseconds" url="%{'/tutorial/ajax/AjaxTest.action'}" updateFreq="2" />
+                    <ww:remotediv id="twoseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="%{#parameters.period}" />
 
   </body>
 </html>

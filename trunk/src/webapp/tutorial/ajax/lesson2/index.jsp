@@ -97,7 +97,7 @@
                 </li>
 
                 <li>
-                    <a href="example3.jsp">A simple DIV that obtains the update freq (3 secs) from the value stack/action</a>
+                    <a href="example3.jsp?period=3">A simple DIV that obtains the update freq (3 secs) from the value stack/action</a>
                 </li>
 
                 <li>

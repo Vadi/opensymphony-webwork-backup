@@ -10,10 +10,10 @@
 
                    A simple DIV that updates every 2 seconds:<br/>
 
-                    <div class="source">
-                        <pre>
-                            &lt;ww:remotediv id="twoseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="2" /&gt;
-                        </pre>
+                    <div class="code">
+<pre>
+    &lt;ww:remotediv id="twoseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="2" /&gt;
+</pre>
                     </div>
 
                     <ww:remotediv id="twoseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="2" />
