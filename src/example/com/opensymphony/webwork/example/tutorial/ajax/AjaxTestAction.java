@@ -19,10 +19,6 @@ public class AjaxTestAction implements Action {
         return ++counter;
     }
 
-    public int getPeriod() {
-        return 3;
-    }
-
     public String execute() throws Exception {
         return SUCCESS;
     }
