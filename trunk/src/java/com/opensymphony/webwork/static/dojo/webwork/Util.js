@@ -13,3 +13,16 @@ webwork.Util.passThroughArgs = function(args, target){
 		}
 	}
 }
+
+
+webwork.Util.globalCallbackCount = 0;
+
+webwork.Util.makeGlobalCallback = function(target) {
+	var name = 'callback_hack_' + webwork.Util.globalCallbackCount++;
+	window[name] = target;
+	return name;
+}
+
+webwork.Util.setTimeout = function(callback, method, millis) {
+	window.setTimeout(callback + "." + method + "()", millis);
+}
