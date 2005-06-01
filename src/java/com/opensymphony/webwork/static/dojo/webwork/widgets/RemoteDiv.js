@@ -69,6 +69,7 @@ webwork.widgets.HTMLRemoteDiv = function() {
 			}
 		}
 
+		// fill in the contentDiv with the contents of the widget tag
 		var widgetTag = frag["dojo:"+this.widgetType.toLowerCase()]["nodeRef"];
 		if(widgetTag) {
 			_this.contentDiv.innerHTML = widgetTag.innerHTML;
