@@ -4,3 +4,16 @@ Currently, we use a patched version of WidgetManager
 to support widgets in packages other than dojo.webui.widgets
 see dojo-widget-multiplePackages.patch
 
+To re-build the __package__.js file here, you need to checkout dojo to parent of the webwork project folder
+
+i.e.
+
+projects/webwork
+projects/dojo
+
+Then run ant - unfortunately it seems to only work from the command line because of the BSF classes
+
+ant djoj-profile
+
+this calls the dojo buildscripts/build.xml release target passing some properties to specify our profile file, 
+and to not compress the file - there seems to be errors when compressing.

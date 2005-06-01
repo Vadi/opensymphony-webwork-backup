@@ -3725,6 +3725,11 @@ dojo.lang.extend(dojo.webui.Widget, {
 					}
 				}
 			}
+			else {
+				// collect any extra 'non mixed in' args
+				if (!this.extraArgs) this.extraArgs = {};
+				this.extraArgs[x] = args[x];
+			}
 		}
 	},
 
