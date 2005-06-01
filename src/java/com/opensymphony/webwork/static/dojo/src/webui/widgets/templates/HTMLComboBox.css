@@ -1,0 +1,18 @@
+input.comboBoxInput {
+}
+
+td.comboBoxOptions {
+	position: relative; 
+	overflow: visible; 
+	height: 1px;
+}
+
+div.comboBoxOptions {
+	font-family: Verdana, Helvetica, Garamond, sans-serif;
+	font-size: 0.8em;
+	background-color: white;
+	border: 1px solid black;
+	padding: 2px;
+	position: absolute;
+	overflow: auto;
+}
