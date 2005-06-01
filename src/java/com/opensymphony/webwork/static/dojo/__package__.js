@@ -2505,6 +2505,7 @@ dojo.io.XMLHTTPTransport = new function(){
 				}
 			}
 		}
+		
 
 		if(kwArgs.method.toLowerCase() == "post"){
 			// FIXME: need to hack in more flexible Content-Type setting here!
