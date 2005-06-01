@@ -1,1 +1,6 @@
-Dojo Build Profile = ???
+Custom Dojo Build profile : see /dojo.profile.js (in this project)
+
+Currently, we use a patched version of WidgetManager 
+to support widgets in packages other than dojo.webui.widgets
+see dojo-widget-multiplePackages.patch
+
