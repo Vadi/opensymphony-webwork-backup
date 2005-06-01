@@ -19,8 +19,7 @@ webwork.widgets.HTMLRemoteDiv = function() {
 	
 	// is this needed as well as the dj_inherits calls below
 	// this coppied from slideshow
-	dojo.webui.Widget.call(this);
-	dojo.webui.DomWidget.call(this, true);
+	dojo.webui.DomWidget.call(this);
 	dojo.webui.HTMLWidget.call(this);
 
 	// closure trickery
@@ -56,10 +55,31 @@ webwork.widgets.HTMLRemoteDiv = function() {
 	// dom node in the template that will contain the remote content
 	this.contentDiv = null;
 	
-	this.fillInTemplate = function() {
+	this.fillInTemplate = function(args, frag) {
 		
-		_this.contentDiv.innerHTML = _this.initialContent;
-		
+		// pass through the extra args
+		for (x in _this.extraArgs) {
+			var v = _this.extraArgs[x];
+			if (x == "style") {
+				_this.contentDiv.style.cssText = v;
+			}else if (x == "class") {
+				_this.contentDiv.className = v;
+			}else{
+				_this.contentDiv[x] = v;
+			}
+		}
+
+		var widgetTag = frag["dojo:"+this.widgetType.toLowerCase()]["nodeRef"];
+		if(widgetTag) {
+			_this.contentDiv.innerHTML = widgetTag.innerHTML;
+//			for (var i = 0; i < widgetTag.childNodes.length; i++) {
+//				try {
+//					_this.contentDiv.appendChild(widgetTag.childNodes[i]);
+//				} catch (e) {}
+//			}
+		}
+
+				
 		if (_this.delay > 0) {
 			setTimeout(function(){_this.refresh()}, _this.delay);
 		}
