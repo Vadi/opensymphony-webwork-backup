@@ -8,39 +8,50 @@
 				isDebug: true
 			};
 		</script>
+
 		<script src="${dojoBase}/__package__.js" language="JavaScript" type="text/javascript" ></script>
 
 		<script language="JavaScript" type="text/javascript">
-			// pull in all the stuff we need to make the widget go
 			dojo.hostenv.loadModule("webwork.widgets.RemoteDiv");
+			dojo.hostenv.loadModule("webwork.widgets.RemoteSubmitButton");
 		</script>
 		
-	</script>
 	</head>
 	
 	<body>
 	
-		<@example heading='XHTML Widget Tag'>
+		<@example heading='RemoteDiv : XHTML Widget Tag'>
 <dojo:remotediv 
-	href="date.jsp?sleep=500" 
+	href="data/date.jsp?sleep=1000" 
 	loadingHtml='Loading...'
-	delay='500'
-	updateFreq='1000' 
-	style='border:1px solid red; width:200px; height:50px'
+	delay='1000'
+	updateFreq='2000' 
+	style='border:1px solid red; width:200px; height:50px;'
 	>
 		<b>initial content</b>
 </dojo:remotediv>
 </@>
 		
-<@example heading='HTML DIV Tag'>
+<@example heading='RemoteDiv : Standard HTML DIV Tag'>
 <div 
 	dojoType="RemoteDiv" 
-	href="date.jsp" 
+	href="data/date.jsp" 
 	delay='1000'
-	style='border:1px solid orange; width:200px;'
+	style='border:1px solid orange; width:200px; height=50px;'
 	>
 		<b>initial content</b>
 </div>
+</@>
+
+<@example heading='RemoteSubmitButton'>
+<form id='theForm' action='data/form.ftl' oncubmit='return false;'>
+	<input type='text' name='name' value='WebWork User'>
+</form>
+
+<dojo:RemoteSubmitButton
+	formId="theForm" 
+	onLoad="alert(data)"
+/>
 </@>
 
 	</body>
