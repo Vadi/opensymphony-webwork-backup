@@ -43,11 +43,13 @@ public class FreemarkerServlet extends HttpServlet {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    final public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("webwork.freemarker.servlet", this);
         process(request, response);
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    final public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("webwork.freemarker.servlet", this);
         process(request, response);
     }
 
@@ -215,7 +217,7 @@ public class FreemarkerServlet extends HttpServlet {
         ServletContext servletContext = getServletContext();
 
         try {
-            TemplateModel model = createModel(getObjectWrapper(), servletContext, request, response);
+        	TemplateModel model = createModel(getObjectWrapper(), servletContext, request, response);
 
             // Give subclasses a chance to hook into preprocessing
             if (preTemplateProcess(request, response, template, model)) {
