@@ -45,14 +45,15 @@ webwork.widgets.HTMLRemoteSubmitButton = function() {
     
     this.submitForm = function() {
 		dojo.io.bind({
-		    load: function(type, evaldObj){ 
-				_this.load(type, evaldObj);
-		    },
+		    load: _this.load,
 	    	formNode: document.getElementById(_this.formId)
 		});
     }
     
+    // allow this to be overriden by subclasses - say one that renders the response into a div
     this.load = function(type, data) {
+    
+    	// by default, eval the onLoad handler
 		if (_this.onLoad != "") {
 		 	eval(_this.onLoad);
 		}
