@@ -4,9 +4,16 @@
 <decorator:useHtmlPage id="p"/>
 <%
     String path = request.getServletPath();
-    int lessonIdx = path.indexOf("/lesson") + 7;
-    int lesson = Integer.parseInt(path.substring(lessonIdx, path.indexOf('/', lessonIdx)));
-    int lessonCount = Integer.parseInt(p.getProperty("meta.lessonCount"));
+    int lessonIdx = path.indexOf("/lesson");
+    int lesson = 0;
+    int lessonCount = 0;
+    if (lessonIdx != -1) {
+        lessonIdx +=  7;
+        lesson = Integer.parseInt(path.substring(lessonIdx, path.indexOf('/', lessonIdx)));
+    }
+	if (p.getProperty("meta.lessonCount") != null) {
+	    lessonCount = Integer.parseInt(p.getProperty("meta.lessonCount"));
+	}
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -26,11 +33,13 @@
         </div>
 
         <div id="content">
-            <h1>Lesson <%=lesson%>: <decorator:title/></h1>
+
+            <h1>        <%if (lesson>0){%>Lesson <%=lesson%>: <%}%><decorator:title/></h1>
 <decorator:body/>
         </div>
 
         <div id="menu">
+        	<%if (lesson > 0){%>
             <div class="menuGroup">
                 <h1>Lessons</h1>
                 <ul>
@@ -42,19 +51,19 @@
                 <%
                         } else {
                 %>
-                    <li><a href="../lesson<%= i %>">Lesson <%= i %></a></li>
+                    <li><a href="<%if (lesson > 0){%>.<%}%>./lesson<%= i %>">Lesson <%= i %></a></li>
                 <%
                         }
                     }
                 %>
                 </ul>
             </div>
-
+			<%}%>
             <div class="menuGroup">
                 <h1>Tutorials</h1>
                 <ul>
                     <li>Getting started</li>
-                    <li>Ajax</li>
+                    <li><a href="<ww:url value='/tutorial/ajax'/>">Ajax</a></li>
                     <li>XSLT</li>
                 </ul>
             </div>
