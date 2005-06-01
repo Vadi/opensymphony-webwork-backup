@@ -129,12 +129,19 @@ public class FreemarkerManager {
         synchronized (servletContext) {
             ServletContextHashModel servletContextModel = (ServletContextHashModel) servletContext.getAttribute(ATTR_APPLICATION_MODEL);
 
-            if ((servletContextModel == null) && (servletContext.getAttribute("webwork.servlet") != null)) {
-                servletContextModel = new ServletContextHashModel((GenericServlet) servletContext.getAttribute("webwork.servlet"), wrapper);
-                servletContext.setAttribute(ATTR_APPLICATION_MODEL, servletContextModel);
+            if (servletContextModel == null) {
+            	
+            	GenericServlet servlet = (GenericServlet) servletContext.getAttribute("webwork.servlet");
+            	if (servlet == null) {
+            		servlet =(GenericServlet) request.getAttribute("webwork.freemarker.servlet"); 
+            	}
+            	if (servlet != null) {
+            		servletContextModel = new ServletContextHashModel(servlet, wrapper);
+                    servletContext.setAttribute(ATTR_APPLICATION_MODEL, servletContextModel);
+                    TaglibFactory taglibs = new TaglibFactory(servletContext);
+                    servletContext.setAttribute(ATTR_JSP_TAGLIBS_MODEL, taglibs);
+            	}
 
-                TaglibFactory taglibs = new TaglibFactory(servletContext);
-                servletContext.setAttribute(ATTR_JSP_TAGLIBS_MODEL, taglibs);
             }
 
             model.put(KEY_APPLICATION, servletContextModel);
