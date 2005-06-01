@@ -38,6 +38,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>freemarker</servlet-name>
+        <servlet-class>com.opensymphony.webwork.views.freemarker.FreemarkerServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>dwr</servlet-name>
         <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
         <init-param>
@@ -73,8 +78,14 @@
         <url-pattern>*.action</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>freemarker</servlet-name>
+        <url-pattern>*.ftl</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.ftl</welcome-file>
         <welcome-file>default.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

@@ -4,5 +4,6 @@
     </decorator>
     <decorator name="none">
 		<url-pattern>/tutorial/ajax/AjaxTest.action</url-pattern>
+		<url-pattern>/sandbox/date.jsp</url-pattern>
 	</decorator>
 </decorators>
