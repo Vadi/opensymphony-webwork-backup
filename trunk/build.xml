@@ -433,4 +433,21 @@
 
     <target name="website" depends="javadocs, docs.impl">
     </target>
+	
+	<target name='dojo-profile'>
+
+		<ant dir="../dojo/buildscripts" target="release" inheritall="false">
+			<property name="docless" value="true"/>
+			<property name="nostrip" value="true"/>
+			<property name="profileFile" value="../../webwork/dojo.profile.js"/>
+		</ant>
+
+		<copy todir="${src.java}/com/opensymphony/webwork/static/dojo" includeemptydirs="no">
+			<fileset dir="../dojo/release/dojo">
+				<exclude name="src/**/*.js"/>
+				<exclude name="src/Makefile"/>
+				<exclude name="src/README.TXT"/>
+			</fileset>
+		</copy>
+	</target>
 </project>
