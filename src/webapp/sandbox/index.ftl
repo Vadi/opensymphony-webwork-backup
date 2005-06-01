@@ -16,6 +16,14 @@
 			dojo.hostenv.loadModule("webwork.widgets.RemoteSubmitButton");
 		</script>
 		
+		<style>
+			.sampleBox {
+				text-align : center;
+				vertical-align: middle;
+				border : 1px solid;
+				width:250px;
+			}
+		</style>
 	</head>
 	
 	<body>
@@ -26,7 +34,8 @@
 	loadingHtml='Loading...'
 	delay='1000'
 	updateFreq='2000' 
-	style='border:1px solid red; width:200px; height:50px;'
+	class='sampleBox'
+	style='border-color:red;'
 	>
 		<b>initial content</b>
 </dojo:remotediv>
@@ -37,7 +46,8 @@
 	dojoType="RemoteDiv" 
 	href="data/date.jsp" 
 	delay='1000'
-	style='border:1px solid orange; width:200px; height=50px;'
+	class='sampleBox'
+	style='border-color:orange;'
 	>
 		<b>initial content</b>
 </div>
