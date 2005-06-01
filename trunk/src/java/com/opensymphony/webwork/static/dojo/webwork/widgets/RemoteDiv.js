@@ -11,11 +11,15 @@ dojo.hostenv.loadModule("dojo.webui.Widget");
 dojo.hostenv.loadModule("dojo.webui.DomWidget");
 dojo.hostenv.loadModule("dojo.webui.WidgetManager");
 
+dojo.hostenv.loadModule("webwork.Util");
+
 /*
  * Component to do remote updating of a DOM tree.
  */
 
 webwork.widgets.HTMLRemoteDiv = function() {
+
+	this.callback = webwork.Util.makeGlobalCallback(this);
 	
 	// is this needed as well as the dj_inherits calls below
 	// this coppied from slideshow
@@ -50,42 +54,34 @@ webwork.widgets.HTMLRemoteDiv = function() {
 	this.delay = 0;
 	
 	// how often to update the content from the server, after the initial delay
-	this.updateFreq = 0;
+	this.refresh = 0;
 		
 	// dom node in the template that will contain the remote content
 	this.contentDiv = null;
 	
+	// the name of the global javascript variable to associate with this widget instance
+	this.id = "";
+	
 	this.fillInTemplate = function(args, frag) {
 		
-		// pass through the extra args
-		for (x in _this.extraArgs) {
-			var v = _this.extraArgs[x];
-			if (x == "style") {
-				_this.contentDiv.style.cssText = v;
-			}else if (x == "class") {
-				_this.contentDiv.className = v;
-			}else{
-				_this.contentDiv[x] = v;
-			}
-		}
+		webwork.Util.passThroughArgs(_this.extraArgs, _this.contentDiv);
 
 		// fill in the contentDiv with the contents of the widget tag
 		var widgetTag = frag["dojo:"+this.widgetType.toLowerCase()]["nodeRef"];
 		if(widgetTag) {
 			_this.contentDiv.innerHTML = widgetTag.innerHTML;
-//			for (var i = 0; i < widgetTag.childNodes.length; i++) {
-//				try {
-//					_this.contentDiv.appendChild(widgetTag.childNodes[i]);
-//				} catch (e) {}
-//			}
+
+		}
+		
+		if (_this.id != "") {
+			window[_this.id] = this;
 		}
 
-				
 		if (_this.delay > 0) {
-			setTimeout(function(){_this.refresh()}, _this.delay);
+			_this.setTimeoutCallback(_this.delay);
 		}
 		else {
-			_this.refresh();
+			_this.refreshContentFromServer();
 		}
 	}
 	
@@ -93,7 +89,7 @@ webwork.widgets.HTMLRemoteDiv = function() {
      * Replaces the contents of the node with new data retrieved from the url.
      */
 
-    this.refresh = function() {
+    this.refreshContentFromServer = function() {
 
         if( _this.loadingHtml != "" ) _this.contentDiv.innerHTML = _this.loadingHtml;
 
@@ -117,17 +113,20 @@ webwork.widgets.HTMLRemoteDiv = function() {
 	                    displayMsg += ": " + error.message;
 	                _this.contentDiv.innerHTML = displayMsg;
 	            },
-	            mimetype: "text/plain"
+	            mimetype: "text/plain",
+	            useCache: false // TODO make this configurable
 	        });
 
-			if (_this.updateFreq > 0) {
-				setTimeout(function(){_this.refresh()}, _this.updateFreq);
+			if (_this.refresh > 0) {
+				_this.setTimeoutCallback(_this.refresh);
 			}
 			
 		}
     }
 
-	
+	this.setTimeoutCallback = function(millis) {
+		webwork.Util.setTimeout(this.callback, "refreshContentFromServer", millis);
+	}
 
 }
 
