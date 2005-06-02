@@ -67,6 +67,13 @@
                     <li>XSLT</li>
                 </ul>
             </div>
+            <div class='menuGroup'>
+            	<h1>Sandbox</h1>
+            	<ul>
+            		<li><a href='index.ftl'>Calendar</a></li>
+            		<li><a href='remoteDivsAndButtons.ftl'>Remote Divs and Buttons</a></li>
+            	</ul>
+            </div>
         </div>
 
         <div id="footer">
