@@ -4,7 +4,7 @@
 <script language="JavaScript" type="text/javascript">
     // Dojo configuration
     djConfig = {
-        baseRelativePath: "<ww:url value="webwork/dojo/"/>",
+        baseRelativePath: "<ww:url value="/webwork/dojo/"/>",
         parseWidgets: false,
         isDebug: true
     };

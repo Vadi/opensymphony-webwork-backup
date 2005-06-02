@@ -29,6 +29,7 @@ import java.util.StringTokenizer;
 public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitter, Cloneable {
 
     private static final String TEMPLATE = "remotediv";
+    private static final String TEMPLATE_CLOSE = "remotediv-close";
     final private static String COMPONENT_NAME = RemoteUpdateDivTag.class.getName();
 
     private String url;

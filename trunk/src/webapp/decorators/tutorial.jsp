@@ -71,7 +71,7 @@
             	<h1>Sandbox</h1>
             	<ul>
             		<li><a href='index.ftl'>Calendar</a></li>
-            		<li><a href='remoteDivsAndButtons.ftl'>Remote Divs and Buttons</a></li>
+            		<li><a href='remoteWidgets.ftl'>Remote Widgets</a></li>
             	</ul>
             </div>
         </div>
