@@ -132,9 +132,8 @@ public class FreemarkerManager {
             if (servletContextModel == null) {
             	
             	GenericServlet servlet = (GenericServlet) servletContext.getAttribute("webwork.servlet");
-            	if (servlet == null) {
-            		servlet =(GenericServlet) request.getAttribute("webwork.freemarker.servlet"); 
-            	}
+            	// TODO if the webwork servlet isn't load-on-startup then it won't exist
+            	// if it hasn't been accessed, and a JSP page is accessed
             	if (servlet != null) {
             		servletContextModel = new ServletContextHashModel(servlet, wrapper);
                     servletContext.setAttribute(ATTR_APPLICATION_MODEL, servletContextModel);
