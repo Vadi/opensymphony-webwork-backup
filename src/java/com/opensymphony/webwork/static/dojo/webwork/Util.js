@@ -14,6 +14,11 @@ webwork.Util.passThroughArgs = function(args, target){
 	}
 }
 
+webwork.Util.copyProperties = function(source, target){
+	// pass through the extra args, catering for special cases of style and class for html elements
+	for (key in source) target[key] = source[key];
+}
+
 
 webwork.Util.globalCallbackCount = 0;
 
@@ -25,4 +30,14 @@ webwork.Util.makeGlobalCallback = function(target) {
 
 webwork.Util.setTimeout = function(callback, method, millis) {
 	window.setTimeout(callback + "." + method + "()", millis);
+}
+webwork.Util.clearTimeout = function(callback) {
+	window.clearTimeout(callback);
+}
+
+
+webwork.Util.nextIdValue = 0;
+
+webwork.Util.nextId = function(scope) {
+	return (scope==null?"id":scope) + webwork.Util.nextIdValue++;
 }
