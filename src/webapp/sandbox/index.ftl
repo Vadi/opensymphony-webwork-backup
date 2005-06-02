@@ -35,7 +35,7 @@
 	
 	<body>
 
-		<@example heading='Calendar'>
+		<@example heading='DynArch Popup Calendar'>
 			<label for='calendar'>Date Select</label>
 			<dojo:dynarchcalendar 
 				id='myCal' 
@@ -43,6 +43,16 @@
 				inputFieldStyle='width:200px'
 			/>
 			<input type='button' onclick='myCal.show()' value='Show Calendar'>
+		</@>
+		
+		<@example heading='DynArch Flat Calendar'>
+			<label for='calendar'>Date Select</label>
+			<dojo:dynarchcalendar 
+				id='flatCal' 
+				ifFormat='%A, %B %e, %Y'
+				flat='true'
+				onUpdate="alert('you chose ' + arguments[0].date)"
+			/>
 		</@>
 		
 	</body>
