@@ -11,7 +11,11 @@ dojo.hostenv.loadModule("dojo.webui.Widget");
 dojo.hostenv.loadModule("dojo.webui.DomWidget");
 dojo.hostenv.loadModule("dojo.webui.WidgetManager");
 
+dojo.hostenv.loadModule("dojo.animation.*");
+dojo.hostenv.loadModule("dojo.math.*");
+
 dojo.hostenv.loadModule("webwork.Util");
+dojo.hostenv.loadModule("webwork.widgets.BindWidget");
 
 /*
  * Component to do remote updating of a DOM tree.
@@ -19,12 +23,14 @@ dojo.hostenv.loadModule("webwork.Util");
 
 webwork.widgets.HTMLRemoteDiv = function() {
 
-	this.callback = webwork.Util.makeGlobalCallback(this);
-	
 	// is this needed as well as the dj_inherits calls below
 	// this coppied from slideshow
 	dojo.webui.DomWidget.call(this);
 	dojo.webui.HTMLWidget.call(this);
+	webwork.widgets.BindWidget.call(this);
+
+	this.callback = webwork.Util.makeGlobalCallback(this);
+
 
 	// closure trickery
 	var _this = this;
@@ -36,13 +42,8 @@ webwork.widgets.HTMLRemoteDiv = function() {
 	
 	// default properties
 
-	 // the location to obtain the remote content from
-    this.href = "";
-
 	// html to display while loading remote content
     this.loadingHtml = "";
-    
-    this.initialContent = "";
     
     // html to display when there is an error loading content
     this.errorHtml = "<i>Failed to load remote content</i>";
@@ -59,82 +60,83 @@ webwork.widgets.HTMLRemoteDiv = function() {
 	// dom node in the template that will contain the remote content
 	this.contentDiv = null;
 	
-	// the name of the global javascript variable to associate with this widget instance
-	this.id = "";
-	
+	this.delayedBind = function(millis) {
+		if (!millis) millis = this.refreshPeriod;
+		webwork.Util.setTimeout(this.callback, "doDelayedBind", millis);
+	}
+
 	this.fillInTemplate = function(args, frag) {
+
+		_this.contentDiv.id = webwork.Util.nextId();
+		this.targetDiv = _this.contentDiv.id;
+
+		_this.init();
 		
 		webwork.Util.passThroughArgs(_this.extraArgs, _this.contentDiv);
 
 		// fill in the contentDiv with the contents of the widget tag
-		var widgetTag = frag["dojo:"+this.widgetType.toLowerCase()]["nodeRef"];
-		if(widgetTag) {
-			_this.contentDiv.innerHTML = widgetTag.innerHTML;
+		var widgetTag = frag["dojo:remotediv"].nodeRef;
+		if(widgetTag) _this.contentDiv.innerHTML = widgetTag.innerHTML;
 
-		}
-		
-		if (_this.id != "") {
-			window[_this.id] = this;
-		}
+		// hook into before the bind operation to display the loading message
+		// do this always - to allow for on the fuy changes to the loadingHtml
+		dojo.event.kwConnect({
+			srcObj: this,
+			srcFunc: "bind",
+			adviceObj: this,
+			adviceFunc: "loading"
+		});
 
-		if (_this.delay > 0) {
-			_this.setTimeoutCallback(_this.delay);
-		}
-		else {
-			_this.refreshContentFromServer();
-		}
+		this.start();
+
+	}
+
+    this.loading = function() {
+        if( _this.loadingHtml != "" ) _this.contentDiv.innerHTML = _this.loadingHtml;
+	}
+
+	var connected = false;
+	this.refreshPeriod = 0;
+	
+	this.setRefresh = function(refresh) {
+		_this.refreshPeriod = refresh;
 	}
 	
-    /*
-     * Replaces the contents of the node with new data retrieved from the url.
-     */
-
-    this.refreshContentFromServer = function() {
-
-        if( _this.loadingHtml != "" ) _this.contentDiv.innerHTML = _this.loadingHtml;
-
-        var displayMsg = _this.errorHtml;
-
-		if (_this.href == null || _this.href == "") {
-			if( _this.showTransportError ) {
-				displayMsg += ": no href specified";
-	            _this.contentDiv.innerHTML = displayMsg;
-	        }
-		}
-		else {
+	this.doDelayedBind = function() {
+		if (_this.refreshPeriod > 0)
+			this.delayedBind();
+		this.bind();
+	}
+	
+	
+	var running = false;
+	var lastRefresh = 0;
+	this.stop = function() {
+		if (!running) return;
+		running = false;
 		
-	        dojo.io.bind({
-	            url: _this.href,
-	            load: function(type, data, event) {
-	                _this.contentDiv.innerHTML = data;
-	            },
-	            error: function(type, error){
-	                if( _this.showTransportError )
-	                    displayMsg += ": " + error.message;
-	                _this.contentDiv.innerHTML = displayMsg;
-	            },
-	            mimetype: "text/plain",
-	            useCache: false // TODO make this configurable
-	        });
+		lastRefresh = this.refreshPeriod;
+		this.setRefresh(0);
 
-			if (_this.refresh > 0) {
-				_this.setTimeoutCallback(_this.refresh);
-			}
-			
-		}
-    }
+		webwork.Util.clearTimeout(this.callback);
+		
+	}
 
-	this.setTimeoutCallback = function(millis) {
-		webwork.Util.setTimeout(this.callback, "refreshContentFromServer", millis);
+	this.start = function() {
+		if (running) return;
+		running = true;
+		
+		var refresh = lastRefresh;
+		if (refresh == 0) refresh = this.refresh;
+		this.setRefresh(refresh);
+		
+		_this.delayedBind(_this.delay);
+
 	}
 
 }
-
-// is this needed as well as dojo.webui.Widget.call(this);
-dj_inherits(webwork.widgets.HTMLRemoteDiv, dojo.webui.DomWidget);
-
-// allow the markup parser to construct these widgets
+dj_inherits(webwork.widgets.HTMLRemoteDiv, webwork.widgets.BindWidget);
 dojo.webui.widgets.tags.addParseTreeHandler("dojo:remotediv");
 
-// register this widget constructor with the widget manager
+// TODO move this into a package include
 dojo.webui.widgetManager.registerWidgetPackage('webwork.widgets');
