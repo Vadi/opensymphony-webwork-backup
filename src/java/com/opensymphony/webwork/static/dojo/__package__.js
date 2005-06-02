@@ -853,15 +853,12 @@ dojo.hostenv.println = function(s){
 		document.body.appendChild(ti);
 		ti.innerHTML = s;
 	}catch(e){
-		/*
 		try{
-			document.write(s);
 			// safari needs the output wrapped in an element for some reason
-			// document.write("<div>"+s+"</div>");
+			document.write("<div>"+s+"</div>");
 		}catch(e2){
-			window.alert(s);
+			window.status = s;
 		}
-		*/
 	}
 }
 
@@ -905,7 +902,7 @@ dojo.hostenv.modulesLoadedListeners.push(function(){
 
 // we assume that we haven't hit onload yet. Lord help us.
 // document.write("<iframe style='border: 0px; width: 1px; height: 1px; position: absolute; bottom: 0px; right: 0px; visibility: visible;' name='djhistory' id='djhistory' src='"+((dojo.render.html.moz) ? 'about:blank' : (dojo.hostenv.base_relative_path_+'/blank.html'))+"'></iframe>");
-if((!window["djConfig"])&&(!window["djConfig"]["preventBackButtonFix"])){
+if((!window["djConfig"])||(!window["djConfig"]["preventBackButtonFix"])){
 	document.write("<iframe style='border: 0px; width: 1px; height: 1px; position: absolute; bottom: 0px; right: 0px; visibility: visible;' name='djhistory' id='djhistory' src='"+(dojo.hostenv.getBaseScriptUri()+'/blank.html')+"'></iframe>");
 }
 
@@ -2124,7 +2121,9 @@ dojo.io.setIFrameSrc = function(iframe, src, replace){
 			idoc.location.replace(src);
 			dj_debug(iframe.contentWindow.location);
 		}
-	}catch(e){ alert(e); }
+	}catch(e){ 
+		dj_debug("setIFrameSrc: "+e); 
+	}
 }
 
 dojo.io.createIFrame = function(fname){
@@ -2235,7 +2234,7 @@ dojo.io.XMLHTTPTransport = new function(){
 			} else if(kwArgs.mimetype == "text/xml") {
 				ret = http.responseXML;
 				if(!ret || typeof ret == "string") {
-					ret = dojo.xml.domUtil.parseXmlString(http.responseText);
+					ret = dojo.xml.domUtil.createDocumentFromText(http.responseText);
 				}
 			} else {
 				ret = http.responseText;
@@ -2505,7 +2504,6 @@ dojo.io.XMLHTTPTransport = new function(){
 				}
 			}
 		}
-		
 
 		if(kwArgs.method.toLowerCase() == "post"){
 			// FIXME: need to hack in more flexible Content-Type setting here!
@@ -2579,6 +2577,36 @@ dojo.xml.domUtil = new function(){
 		return tagName.toLowerCase();
 	}
 
+	this.getFirstChildTag = function(parentNode) {
+		var node = parentNode.firstChild;
+		while(node && node.nodeType != 1) {
+			node = node.nextSibling;
+		}
+		return node;
+	}
+
+	this.getLastChildTag = function(parentNode) {
+		var node = parentNode.lastChild;
+		while(node && node.nodeType != 1) {
+			node = node.previousSibling;
+		}
+		return node;
+	}
+
+	this.getNextSiblingTag = function(node) {
+		do {
+			node = node.nextSibling;
+		} while(node && node.nodeType != 1);
+		return node;
+	}
+
+	this.getPreviousSiblingTag = function(node) {
+		do {
+			node = node.previousSibling;
+		} while(node && node.nodeType != 1);
+		return node;
+	}
+
 	this.getStyle = function(node, cssSelector) {
 		var value = undefined, camelCased = _this.toCamelCase(cssSelector);
 		value = node.style[camelCased]; // dom-ish
@@ -2626,7 +2654,7 @@ dojo.xml.domUtil = new function(){
 	}
 
 	// FIXME: this won't work in Safari
-	this.parseXmlString = function(str, mimetype) {
+	this.createDocumentFromText = function(str, mimetype) {
 		if(!mimetype) { mimetype = "text/xml"; }
 		if(typeof DOMParser != "undefined") {
 			var parser = new DOMParser();
@@ -2659,7 +2687,51 @@ dojo.xml.domUtil = new function(){
 		}
 		return null;
 	}
-	this.parseXMLString = this.parseXmlString; // to avoid confusion
+
+	// FIXME: how do we account for mixed environments?
+	if(dojo.render.html.capable) {
+		this.createNodesFromText = function(txt, wrap){
+			var tn = document.createElement("span");
+			// tn.style.display = "none";
+			tn.style.visibility= "hidden";
+			document.body.appendChild(tn);
+			tn.innerHTML = txt;
+			tn.normalize();
+			if(wrap){ 
+				// start hack
+				if(tn.firstChild.nodeValue == " " || tn.firstChild.nodeValue == "\t") {
+					var ret = [tn.firstChild.nextSibling.cloneNode(true)];
+				} else {
+					var ret = [tn.firstChild.cloneNode(true)];
+				}
+				// end hack
+				tn.style.display = "none";
+				return ret;
+			}
+			var nodes = [];
+			for(var x=0; x<tn.childNodes.length; x++){
+				nodes.push(tn.childNodes[x].cloneNode(true));
+			}
+			tn.style.display = "none";
+			return nodes;
+		}
+	} else if(dojo.render.svg.capable) {
+		this.createNodesFromText = function(txt, wrap){
+			// from http://wiki.svg.org/index.php/ParseXml
+			var docFrag = parseXML(txt, window.document);
+			docFrag.normalize();
+			if(wrap){ 
+				var ret = [docFrag.firstChild.cloneNode(true)];
+				return ret;
+			}
+			var nodes = [];
+			for(var x=0; x<docFrag.childNodes.length; x++){
+				nodes.push(docFrag.childNodes.item(x).cloneNode(true));
+			}
+			// tn.style.display = "none";
+			return nodes;
+		}
+	}
 
 	// get RGB array from css-style color declarations
 	this.extractRGB = function(color) {
@@ -2707,6 +2779,7 @@ dojo.xml.domUtil = new function(){
 		var hexNum = "0123456789ABCDEF";
 		var rgb = new Array(3);
 		if( hex.indexOf("#") == 0 ) { hex = hex.substring(1); }
+		hex = hex.toUpperCase();
 		if( hex.length == 3 ) {
 			rgb[0] = hex.charAt(0) + hex.charAt(0)
 			rgb[1] = hex.charAt(1) + hex.charAt(1)
@@ -2975,19 +3048,16 @@ dojo.webui.widgetManager = new function(){
 	}
 
 	this.getImplementation = function(widgetName, ctorObject, mixins){
-
-			// try and find a name for the widget
+		// try and find a name for the widget
 		var impl = this.getImplementationName(widgetName);
 				
 		if(impl){
-			
 			var item = new impl(ctorObject);
 			//alert(impl+": "+item);
 			return item;
 		}
-
-
 	}
+
 	this.getImplementationName = function(widgetName){
 		/*
 		 * This is the overly-simplistic implemention of getImplementation (har
@@ -3015,7 +3085,7 @@ dojo.webui.widgetManager = new function(){
 		// ...oh fuck it, for now we' hard-code in an "HTML" prefix and see if
 		// it dies, at which point we'll drop the prefix and just try to find
 		// the base class.
-		for (var i = 0; i < widgetPackages.length; i++) {
+		for(var i = 0; i < widgetPackages.length; i++){
 			var pn = widgetPackages[i];
 			var pkg = dj_eval_object_path(pn);
 
@@ -3055,7 +3125,7 @@ dojo.hostenv.startPackage("dojo.text.Text");
 
 dojo.text = new function(){
 	this.trim = function(iString){
-		if(!iString){ // allow String.prototyp-ing
+		if(arguments.length == 0){ // allow String.prototyp-ing
 			iString = this; 
 		}
 		if(typeof iString != "string"){ return iString; }
@@ -3551,6 +3621,13 @@ dojo.hostenv.loadModule("dojo.event.*");
 dojo.hostenv.loadModule("dojo.text.*");
 
 dojo.webui.Widget = function(){
+	// these properties aren't primitives and need to be created on a per-item
+	// basis.
+	this.children = [];
+	this.selection = new dojo.webui.Selection();
+	// FIXME: need to replace this with context menu stuff
+	this.rightClickItems = [];
+	this.extraArgs = {};
 }
 // FIXME: need to be able to disambiguate what our rendering context is
 //        here!
@@ -3558,9 +3635,9 @@ dojo.webui.Widget = function(){
 // needs to be a string with the end classname. Every subclass MUST
 // over-ride.
 dojo.lang.extend(dojo.webui.Widget, {
+	// base widget properties
 	widgetType: "Widget",
 	parent: null,
-	children: [],
 	// obviously, top-level and modal widgets should set these appropriately
 	isTopLevel:  false,
 	isModal: false,
@@ -3568,11 +3645,8 @@ dojo.lang.extend(dojo.webui.Widget, {
 	isEnabled: true,
 	isHidden: false,
 	isContainer: false, // can we contain other widgets?
-	// FIXME: need to replace this with context menu stuff
-	rightClickItems: [],
 	widgetId: "",
-	selection: new dojo.webui.Selection(),
-	
+
 	enable: function(){
 		// should be over-ridden
 		this.isEnabled = true;
@@ -3725,10 +3799,8 @@ dojo.lang.extend(dojo.webui.Widget, {
 						this[x] = args[x];
 					}
 				}
-			}
-			else {
+			}else{
 				// collect any extra 'non mixed in' args
-				if (!this.extraArgs) this.extraArgs = {};
 				this.extraArgs[x] = args[x];
 			}
 		}
@@ -3977,6 +4049,14 @@ dojo.xml.htmlUtil = new function(){
 		}else if((evt)&&(evt.target)){
 			return evt.target;
 		}
+	}
+
+	this.getScrollTop = function() {
+		return document.documentElement.scrollTop || document.body.scrollTop || 0;
+	}
+
+	this.getScrollLeft = function() {
+		return document.documentElement.scrollLeft || document.body.scrollLeft || 0;
 	}
 
 	this.evtTgt = this.getEventTarget;
@@ -4370,6 +4450,157 @@ dojo.hostenv.loadModule("dojo.webui.DragAndDrop");
 dojo.hostenv.loadModule("dojo.xml.domUtil");
 dojo.hostenv.loadModule("dojo.xml.htmlUtil");
 
+// static method to build from a template w/ or w/o a real widget in place
+dojo.webui.buildFromTemplate = function(obj, templatePath, templateCSSPath, templateString) {
+	var tpath = templatePath || obj.templatePath;
+	var cpath = templateCSSPath || obj.templateCSSPath;
+
+	var tmplts = dojo.webui.DomWidget.templates;
+	if(!obj.widgetType) { // don't have a real template here
+		do {
+			var dummyName = "__dummyTemplate__" + dojo.webui.buildFromTemplate.dummyCount++;
+		} while(tmplts[dummyName]);
+		obj.widgetType = dummyName;
+	}
+
+	if(cpath){
+		// FIXME: extra / being inserted in URL?
+		dojo.xml.htmlUtil.insertCSSFile(dojo.hostenv.getBaseScriptUri()+"/"+cpath);
+		obj.templateCSSPath = null;
+	}
+
+	var ts = tmplts[obj.widgetType];
+	if(!ts){
+		tmplts[obj.widgetType] = {};
+		ts = tmplts[obj.widgetType];
+	}
+	if(!obj.templateString){
+		obj.templateString = templateString || ts["string"];
+	}
+	if(!obj.templateNode){
+		obj.templateNode = ts["node"];
+	}
+	if((!obj.templateNode)&&(!obj.templateString)&&(tpath)){
+		// fetch a text fragment and assign it to templateString
+		// NOTE: we rely on blocking IO here!
+		// FIXME: extra / being inserted in URL?
+		var tmplts = dojo.webui.DomWidget.templates;
+		var ts = tmplts[obj.widgetType];
+		if(!ts){
+			tmplts[obj.widgetType] = {};
+			ts = tmplts[obj.widgetType];
+		}
+		var tp = dojo.hostenv.getBaseScriptUri()+""+tpath;
+		obj.templateString = dojo.hostenv.getText(tp);
+		ts.string = obj.templateString;
+	}
+}
+dojo.webui.buildFromTemplate.dummyCount = 0;
+
+dojo.webui.attachProperty = "dojoAttachPoint";
+dojo.webui.eventAttachProperty = "dojoAttachEvent";
+dojo.webui.subTemplateProperty = "dojoSubTemplate";
+dojo.webui.onBuildProperty = "dojoOnBuild";
+
+dojo.webui.attachTemplateNodes = function(baseNode, targetObj, subTemplateParent){
+	var elementNodeType = dojo.xml.domUtil.nodeTypes.ELEMENT_NODE;
+
+	if(!baseNode){ 
+		baseNode = targetObj.domNode;
+	}
+
+	if(baseNode.nodeType != elementNodeType){
+		return;
+	}
+
+	// FIXME: is this going to have capitalization problems?
+	var attachPoint = baseNode.getAttribute(this.attachProperty);
+	if(attachPoint){
+		targetObj[attachPoint]=baseNode;
+	}
+
+	/*
+	// FIXME: we need to put this into some kind of lookup structure
+	// instead of direct assignment
+	var tmpltPoint = baseNode.getAttribute(this.templateProperty);
+	if(tmpltPoint){
+		targetObj[tmpltPoint]=baseNode;
+	}
+	*/
+
+	// subtemplates are always collected "flatly" by the widget class
+	var tmpltPoint = baseNode.getAttribute(this.subTemplateProperty);
+	if(tmpltPoint){
+		// we assign by removal in this case, mainly because we assume that
+		// this will get proccessed later when the sub-template is filled
+		// in (usually by this method, and usually repetitively)
+		subTemplateParent.subTemplates[tmpltPoint]=baseNode.parentNode.removeChild(baseNode);
+		// make sure we don't get stopped here the next time we try to process
+		subTemplateParent.subTemplates[tmpltPoint].removeAttribute(this.subTemplateProperty);
+		return;
+	}
+
+	var attachEvent = baseNode.getAttribute(this.eventAttachProperty);
+	if(attachEvent){
+		// NOTE: we want to support attributes that have the form
+		// "domEvent: nativeEvent; ..."
+		var evts = attachEvent.split(";");
+		for(var x=0; x<evts.length; x++){
+			var tevt = null;
+			var thisFunc = null;
+			if(!evts[x]){ continue; }
+			if(!evts[x].length){ continue; }
+			tevt = dojo.text.trim(evts[x]);
+			if(tevt.indexOf(":") >= 0){
+				// oh, if only JS had tuple assignment
+				var funcNameArr = tevt.split(":");
+				tevt = dojo.text.trim(funcNameArr[0]);
+				thisFunc = dojo.text.trim(funcNameArr[1]);
+			}
+			if(!thisFunc){
+				thisFunc = tevt;
+			}
+			//if(dojo.hostenv.name_ == "browser"){
+			var _this = targetObj;
+			var tf = function(){ 
+				var ntf = new String(thisFunc);
+				return function(evt){
+					if(_this[ntf]){
+						_this[ntf](evt);
+					}
+				}
+			}();
+			dojo.event.connect(baseNode, tevt.toLowerCase(), tf);
+			/*
+			}else{
+				var en = tevt.toLowerCase().substr(2);
+				baseNode.addEventListener(en, targetObj[thisFunc||tevt], false);
+			}
+			*/
+		}
+	}
+
+	var onBuild = baseNode.getAttribute(this.onBuildProperty);
+	if(onBuild){
+		eval("var node = baseNode; var widget = targetObj; "+onBuild);
+	}
+
+	// FIXME: temporarily commenting this out as it is breaking things
+	for(var x=0; x<baseNode.childNodes.length; x++){
+		if(baseNode.childNodes.item(x).nodeType == elementNodeType){
+			this.attachTemplateNodes(baseNode.childNodes.item(x), targetObj, subTemplateParent);
+		}
+	}
+}
+
+dojo.webui.buildAndAttachTemplate = function(obj, templatePath, templateCSSPath, templateString, targetObj) {
+	this.buildFromTemplate(obj, templatePath, templateCSSPath, templateString);
+	var node = dojo.xml.domUtil.createNodesFromText(obj.templateString, true)[0];
+	this.attachTemplateNodes(node, targetObj||obj, obj);
+	return node;
+}
+
+
 dojo.webui.DomWidget = function(preventSuperclassMixin){
 
 	// FIXME: this is sort of a hack, but it seems necessaray in the case where
@@ -4381,10 +4612,6 @@ dojo.webui.DomWidget = function(preventSuperclassMixin){
 		dojo.webui.Widget.call(this);
 	}
 
-	this.attachProperty = "dojoAttachPoint";
-	this.eventAttachProperty = "dojoAttachEvent";
-	this.subTemplateProperty = "dojoSubTemplate";
-	this.onBuildProperty = "dojoOnBuild";
 	this.subTemplates = {};
 
 	this.domNode = null; // this is our visible representation of the widget!
@@ -4438,7 +4665,9 @@ dojo.webui.DomWidget = function(preventSuperclassMixin){
 
 			this.parent = dojo.webui.widgetManager.root;
 			// insert our domNode into the DOM in place of where we started
-			var oldNode = sourceNodeRef.parentNode.replaceChild(this.domNode, sourceNodeRef);
+			if(this.domNode) {
+				var oldNode = sourceNodeRef.parentNode.replaceChild(this.domNode, sourceNodeRef);
+			}
 		}
 
 		if(this.isContainer){
@@ -4515,126 +4744,8 @@ dojo.webui.DomWidget = function(preventSuperclassMixin){
 
 	this.attachTemplateNodes = function(baseNode, targetObj){
 		if(!targetObj){ targetObj = this; }
-		var elementNodeType = dojo.xml.domUtil.nodeTypes.ELEMENT_NODE;
-
-		if(!baseNode){ 
-			baseNode = targetObj.domNode;
-		}
-
-		if(baseNode.nodeType != elementNodeType){
-			return;
-		}
-
-		// FIXME: is this going to have capitalization problems?
-		var attachPoint = baseNode.getAttribute(this.attachProperty);
-		if(attachPoint){
-			targetObj[attachPoint]=baseNode;
-		}
-
-		/*
-		// FIXME: we need to put this into some kind of lookup structure
-		// instead of direct assignment
-		var tmpltPoint = baseNode.getAttribute(this.templateProperty);
-		if(tmpltPoint){
-			targetObj[tmpltPoint]=baseNode;
-		}
-		*/
-
-		// subtemplates are always collected "flatly" by the widget class
-		var tmpltPoint = baseNode.getAttribute(this.subTemplateProperty);
-		if(tmpltPoint){
-			// we assign by removal in this case, mainly because we assume that
-			// this will get proccessed later when the sub-template is filled
-			// in (usually by this method, and usually repetitively)
-			this.subTemplates[tmpltPoint]=baseNode.parentNode.removeChild(baseNode);
-			// make sure we don't get stopped here the next time we try to process
-			this.subTemplates[tmpltPoint].removeAttribute(this.subTemplateProperty);
-			return;
-		}
-
-		var attachEvent = baseNode.getAttribute(this.eventAttachProperty);
-		if(attachEvent){
-			// NOTE: we want to support attributes that have the form
-			// "domEvent: nativeEvent; ..."
-			var evts = attachEvent.split(";");
-			for(var x=0; x<evts.length; x++){
-				var tevt = null;
-				var thisFunc = null;
-				if(!evts[x]){ continue; }
-				if(!evts[x].length){ continue; }
-				tevt = dojo.text.trim(evts[x]);
-				if(tevt.indexOf(":") >= 0){
-					// oh, if only JS had tuple assignment
-					var funcNameArr = tevt.split(":");
-					tevt = dojo.text.trim(funcNameArr[0]);
-					thisFunc = dojo.text.trim(funcNameArr[1]);
-				}
-				if(!thisFunc){
-					thisFunc = tevt;
-				}
-				if(dojo.hostenv.name_ == "browser"){
-					var _this = targetObj;
-					// dojo.event.browser.addListener(baseNode, tevt.toLowerCase(), function(ea){ _this[thisFunc||tevt](ea); });
-					// baseNode[tevt.toLowerCase()] 
-					var tf = function(){ 
-						var ntf = new String(thisFunc);
-						return function(evt){
-							if(_this[ntf]){
-								_this[ntf](evt);
-							}
-						}
-					}();
-					dojo.event.browser.addListener(baseNode, tevt.toLowerCase(), tf);
-				}else{
-					var en = tevt.toLowerCase().substr(2);
-					baseNode.addEventListener(en, targetObj[thisFunc||tevt], false);
-				}
-			}
-		}
-
-		var onBuild = baseNode.getAttribute(this.onBuildProperty);
-		if(onBuild){
-			eval("var node = baseNode; var widget = targetObj; "+onBuild);
-		}
-
-		// FIXME: temporarily commenting this out as it is breaking things
-		for(var x=0; x<baseNode.childNodes.length; x++){
-			if(baseNode.childNodes.item(x).nodeType == elementNodeType){
-				this.attachTemplateNodes(baseNode.childNodes.item(x), targetObj);
-			}
-		}
-
-		/*
-		for(var x=0; x<baseNode.childNodes.length; x++){
-			var tn = baseNode.childNodes[x];
-			if(tn.nodeType!=1){ continue; }
-			var aa = dojo.xml.htmlUtil.getAttr(tn, this.attachProperty);
-			if(aa){
-				// __log__.debug(aa);
-				var thisFunc = null;
-				if(aa.indexOf(":") >= 0){
-					// oh, if only JS had tuple assignment
-					var funcNameArr = aa.split(":");
-					aa = funcNameArr[0];
-					thisFunc = funcNameArr[1];
-				}
-				alert(aa);
-				if((this[aa])&&((thisFunc)||(typeof this[aa] == "function"))){
-					var _this = this;
-					baseNode[thisFunc||aa] = function(evt){ 
-						_this[aa](evt);
-					}
-				}else{
-					this[aa]=tn;
-				}
-			}
-			if(tn.childNodes.length>0){
-				this.attachTemplateNodes(tn);
-			}
-		}
-		*/
+		return dojo.webui.attachTemplateNodes(baseNode, targetObj, this);
 	}
-
 	this.fillInTemplate = function(){
 		// dj_unimplemented("dojo.webui.DomWidget.fillInTemplate");
 	}
@@ -4698,19 +4809,7 @@ dojo.webui.SVGWidget = function(args){
 	}
 
 	this.createNodesFromText = function(txt, wrap){
-		// from http://wiki.svg.org/index.php/ParseXml
-		var docFrag = parseXML(txt, window.document);
-		docFrag.normalize();
-		if(wrap){ 
-			var ret = [docFrag.firstChild.cloneNode(true)];
-			return ret;
-		}
-		var nodes = [];
-		for(var x=0; x<docFrag.childNodes.length; x++){
-			nodes.push(docFrag.childNodes.item(x).cloneNode(true));
-		}
-		// tn.style.display = "none";
-		return nodes;
+		return dojo.xml.domUtil.createNodesFromText(txt, wrap);
 	}
 }
 
@@ -4786,68 +4885,13 @@ dojo.webui.HTMLWidget = function(args){
 
 
 	this.createNodesFromText = function(txt, wrap){
-		// alert("HTMLWidget.createNodesFromText");
-		var tn = document.createElement("span");
-		// tn.style.display = "none";
-		tn.style.visibility= "hidden";
-		document.body.appendChild(tn);
-		tn.innerHTML = txt;
-		tn.normalize();
-		if(wrap){ 
-			// start hack
-			if(tn.firstChild.nodeValue == " " || tn.firstChild.nodeValue == "\t") {
-				var ret = [tn.firstChild.nextSibling.cloneNode(true)];
-			} else {
-				var ret = [tn.firstChild.cloneNode(true)];
-			}
-			// end hack
-			tn.style.display = "none";
-			return ret;
-		}
-		var nodes = [];
-		for(var x=0; x<tn.childNodes.length; x++){
-			nodes.push(tn.childNodes[x].cloneNode(true));
-		}
-		tn.style.display = "none";
-		return nodes;
+		return dojo.xml.domUtil.createNodesFromText(txt, wrap);
 	}
 
 	this._old_buildFromTemplate = this.buildFromTemplate;
 
 	this.buildFromTemplate = function(){
-		// copy template properties if they're already set in the templates object
-		var tmplts = dojo.webui.DomWidget.templates;
-		var ts = tmplts[this.widgetType];
-		if(!ts){
-			tmplts[this.widgetType] = {};
-			ts = tmplts[this.widgetType];
-		}
-		if(!this.templateString){
-			this.templateString = ts["string"];
-		}
-		if(!this.templateNode){
-			this.templateNode = ts["node"];
-		}
-		if((!this.templateNode)&&(!this.templateString)&&(this.templatePath)){
-			// fetch a text fragment and assign it to templateString
-			// NOTE: we rely on blocking IO here!
-			// FIXME: extra / being inserted in URL?
-			var tmplts = dojo.webui.DomWidget.templates;
-			var ts = tmplts[this.widgetType];
-			if(!ts){
-				tmplts[this.widgetType] = {};
-				ts = tmplts[this.widgetType];
-			}
-			var tp = dojo.hostenv.getBaseScriptUri()+""+this.templatePath;
-			this.templateString = dojo.hostenv.getText(tp);
-			ts.string = this.templateString;
-		}
-
-		if(this.templateCSSPath){
-			// FIXME: extra / being inserted in URL?
-			dojo.xml.htmlUtil.insertCSSFile(dojo.hostenv.getBaseScriptUri()+"/"+this.templateCSSPath);
-			this.templateCSSPath = null;
-		}
+		dojo.webui.buildFromTemplate(this);
 		this._old_buildFromTemplate();
 	}
 }
@@ -5110,4 +5154,541 @@ try{
 	dojo.event.connect(dojo.hostenv, "loaded", tf);
 })();
 }catch(e){ alert(e); }
+
+dojo.hostenv.startPackage("dojo.math.points");
+
+dojo.hostenv.loadModule("dojo.math");
+
+// TODO: add a Point class?
+dojo.math.points = {
+	translate: function(a, b) {
+		if( a.length != b.length ) {
+			dj_throw("dojo.math.translate: points not same size (a:[" + a + "], b:[" + b + "])");
+		}
+		var c = new Array(a.length);
+		for(var i = 0; i < a.length; i++) {
+			c[i] = a[i] + b[i];
+		}
+		return c;
+	},
+
+	midpoint: function(a, b) {
+		if( a.length != b.length ) {
+			dj_throw("dojo.math.midpoint: points not same size (a:[" + a + "], b:[" + b + "])");
+		}
+		var c = new Array(a.length);
+		for(var i = 0; i < a.length; i++) {
+			c[i] = (a[i] + b[i]) / 2;
+		}
+		return c;
+	},
+
+	invert: function(a) {
+		var b = new Array(a.length);
+		for(var i = 0; i < a.length; i++) { b[i] = -a[i]; }
+		return b;
+	},
+
+	distance: function(a, b) {
+		return Math.sqrt(Math.pow(b[0]-a[0], 2) + Math.pow(b[1]-a[1], 2));
+	}
+};
+
+dojo.hostenv.startPackage("dojo.math.curves");
+
+dojo.hostenv.loadModule("dojo.math");
+dojo.hostenv.loadModule("dojo.math.points");
+
+/* Curves from Dan's 13th lib stuff.
+ * See: http://pupius.co.uk/js/Toolkit.Drawing.js
+ *      http://pupius.co.uk/dump/dojo/Dojo.Math.js
+ */
+
+dojo.math.curves = {
+	//Creates a straight line object
+	Line: function(start, end) {
+		this.start = start;
+		this.end = end;
+		this.dimensions = start.length;
+
+		for(var i = 0; i < start.length; i++) {
+			start[i] = Number(start[i]);
+		}
+
+		for(var i = 0; i < end.length; i++) {
+			end[i] = Number(end[i]);
+		}
+
+		//simple function to find point on an n-dimensional, straight line
+		this.getValue = function(n) {
+			var retVal = new Array(this.dimensions);
+			for(var i=0;i<this.dimensions;i++)
+				retVal[i] = ((this.end[i] - this.start[i]) * n) + this.start[i];
+			return retVal;
+		}
+
+		return this;
+	},
+
+
+	//Takes an array of points, the first is the start point, the last is end point and the ones in
+	//between are the Bezier control points.
+	Bezier: function(pnts) {
+		this.getValue = function(step) {
+			var retVal = new Array(this.p[0].length);
+			for(var k=0;j<this.p[0].length;k++) retVal[k]=0;
+			for(var j=0;j<this.p[0].length;j++) {
+				var C=0; var D=0;
+				for(var i=0;i<this.p.length;i++) C += this.p[i][j] * this.p[this.p.length-1][0] * Toolkit.Math.bernstein(step,this.p.length,i);
+				for(var l=0;l<this.p.length;l++) D += this.p[this.p.length-1][0] * Toolkit.Math.bernstein(step,this.p.length,l);
+				retVal[j] = C/D;
+			}
+			return retVal;
+		}
+		this.p = pnts;
+		return this;
+	},
+
+
+	//Catmull-Rom Spline - allows you to interpolate a smooth curve through a set of points in n-dimensional space
+	CatmullRom : function(pnts,c) {
+		this.getValue = function(step) {
+			var percent = step * (this.p.length-1);
+			var node = Math.floor(percent);
+			var progress = percent - node;
+
+			var i0 = node-1; if(i0 < 0) i0 = 0;
+			var i = node;
+			var i1 = node+1; if(i1 >= this.p.length) i1 = this.p.length-1;
+			var i2 = node+2; if(i2 >= this.p.length) i2 = this.p.length-1;
+
+			var u = progress;
+			var u2 = progress*progress;
+			var u3 = progress*progress*progress;
+
+			var retVal = new Array(this.p[0].length);
+			for(var k=0;k<this.p[0].length;k++) {
+				var x1 = ( -this.c * this.p[i0][k] ) + ( (2 - this.c) * this.p[i][k] ) + ( (this.c-2) * this.p[i1][k] ) + ( this.c * this.p[i2][k] );
+				var x2 = ( 2 * this.c * this.p[i0][k] ) + ( (this.c-3) * this.p[i][k] ) + ( (3 - 2 * this.c) * this.p[i1][k] ) + ( -this.c * this.p[i2][k] );
+				var x3 = ( -this.c * this.p[i0][k] ) + ( this.c * this.p[i1][k] );
+				var x4 = this.p[i][k];
+
+				retVal[k] = x1*u3 + x2*u2 + x3*u + x4;
+			}
+			return retVal;
+
+		}
+
+
+		if(!c) this.c = 0.7;
+		else this.c = c;
+		this.p = pnts;
+
+		return this;
+	},
+
+	// FIXME: This is the bad way to do a partial-arc with 2 points. We need to have the user
+	// supply the radius, otherwise we always get a half-circle between the two points.
+	Arc : function(start, end, ccw) {
+		var center = dojo.math.points.midpoint(start, end);
+		var sides = dojo.math.points.translate(dojo.math.points.invert(center), start);
+		var rad = Math.sqrt(Math.pow(sides[0], 2) + Math.pow(sides[1], 2));
+		var theta = dojo.math.radToDeg(Math.atan(sides[1]/sides[0]));
+		if( sides[0] < 0 ) {
+			theta -= 90;
+		} else {
+			theta += 90;
+		}
+		dojo.math.curves.CenteredArc.call(this, center, rad, theta, theta+(ccw?-180:180));
+	},
+
+	// Creates an arc object, with center and radius (Top of arc = 0 degrees, increments clockwise)
+	//  center => 2D point for center of arc
+	//  radius => scalar quantity for radius of arc
+	//  start  => to define an arc specify start angle (default: 0)
+	//  end    => to define an arc specify start angle
+	CenteredArc : function(center, radius, start, end) {
+		this.center = center;
+		this.radius = radius;
+		this.start = start || 0;
+		this.end = end;
+
+		this.getValue = function(n) {
+			var retVal = new Array(2);
+			var theta = dojo.math.degToRad(this.start+((this.end-this.start)*n));
+
+			retVal[0] = this.center[0] + this.radius*Math.sin(theta);
+			retVal[1] = this.center[1] - this.radius*Math.cos(theta);
+
+			return retVal;
+		}
+
+		return this;
+	},
+
+	// Special case of Arc (start = 0, end = 360)
+	Circle : function(center, radius) {
+		dojo.math.curves.CenteredArc.call(this, center, radius, 0, 360);
+		return this;
+	},
+
+	Path : function() {
+		var curves = [];
+		var weights = [];
+		var ranges = [];
+		var totalWeight = 0;
+
+		this.add = function(curve, weight) {
+			if( weight < 0 ) { dj_throw("dojo.math.curves.Path.add: weight cannot be less than 0"); }
+			curves.push(curve);
+			weights.push(weight);
+			totalWeight += weight;
+			computeRanges();
+		}
+
+		this.remove = function(curve) {
+			for(var i = 0; i < curves.length; i++) {
+				if( curves[i] == curve ) {
+					curves.splice(i, 1);
+					totalWeight -= weights.splice(i, 1)[0];
+					break;
+				}
+			}
+			computeRanges();
+		}
+
+		this.removeAll = function() {
+			curves = [];
+			weights = [];
+			totalWeight = 0;
+		}
+
+		this.getValue = function(n) {
+			var found = false, value = 0;
+			for(var i = 0; i < ranges.length; i++) {
+				var r = ranges[i];
+				//w(r.join(" ... "));
+				if( n >= r[0] && n < r[1] ) {
+					var subN = (n - r[0]) / r[2];
+					value = curves[i].getValue(subN);
+					found = true;
+					break;
+				}
+			}
+
+			// FIXME: Do we want to assume we're at the end?
+			if( !found ) {
+				value = curves[curves.length-1].getValue(1);
+			}
+
+			for(j = 0; j < i; j++) {
+				value = dojo.math.points.translate(value, curves[j].getValue(1));
+			}
+			return value;
+		}
+
+		function computeRanges() {
+			var start = 0;
+			for(var i = 0; i < weights.length; i++) {
+				var end = start + weights[i] / totalWeight;
+				var len = end - start;
+				ranges[i] = [start, end, len];
+				start = end;
+			}
+		}
+
+		return this;
+	}
+};
+
+dojo.hostenv.startPackage("dojo.animation");
+dojo.hostenv.startPackage("dojo.animation.Animation");
+
+dojo.hostenv.loadModule("dojo.math.curves");
+
+/*
+Animation package based off of Dan Pupius' work on Animations:
+http://pupius.co.uk/js/Toolkit.Drawing.js
+
+TODO:
+- Implement accelleration
+*/
+
+dojo.animation = {};
+
+dojo.animation.Animation = function(curve, duration, accel) {
+	var _this = this;
+
+	// public properties
+	this.curve = curve;
+	this.duration = duration;
+	this.accel = accel;
+	this.animSequence_ = null;
+
+	// public events
+	this.onBegin = function(){};
+	this.onAnimate = function(){};
+	this.onEnd = function(){};
+	this.onPlay = function(){};
+	this.onPause = function(){};
+	this.onStop = function(){};
+	this.handler = function() {}; // catch-all handler
+
+	// private properties
+	var startTime = null,
+		endTime = null,
+		lastFrame = null,
+		timer = null,
+		percent = 0,
+		active = false,
+		paused = false;
+
+	// public methods
+	this.play = function(gotoStart) {
+		if( gotoStart ) {
+			clearTimeout(timer);
+			active = false;
+			paused = false;
+			percent = 0;
+		} else if( active && !paused ) {
+			return;
+		}
+
+		startTime = new Date().valueOf();
+		if( paused ) {
+			startTime -= (_this.duration * percent / 100);
+		}
+		endTime = startTime + _this.duration;
+		lastFrame = startTime;
+
+		var e = new dojo.animation.AnimationEvent(_this, null, _this.curve.getValue(percent),
+			startTime, startTime, endTime, _this.duration, percent, 0);
+
+		active = true;
+		paused = false;
+
+		if( percent == 0 ) {
+			e.type = "begin";
+			_this.handler(e);
+			_this.onBegin(e);
+		}
+
+		e.type = "play";
+		_this.handler(e);
+		_this.onPlay(e);
+
+		cycle();
+	}
+
+	this.pause = function() {
+		clearTimeout(timer);
+		if( !active ) { return; }
+		paused = true;
+		var e = new dojo.animation.AnimationEvent(_this, "pause", _this.curve.getValue(percent),
+			startTime, new Date().valueOf(), endTime, _this.duration, percent, 0);
+		_this.handler(e);
+		_this.onPause(e);
+	}
+
+	this.playPause = function() {
+		if( !active || paused ) {
+			_this.play();
+		} else {
+			_this.pause();
+		}
+	}
+
+	this.gotoPercent = function(pct, andPlay) {
+		clearTimeout(timer);
+		active = true;
+		paused = true;
+		percent = pct;
+		if( andPlay ) { this.play(); }
+	}
+
+	this.stop = function(gotoEnd) {
+		clearTimeout(timer);
+		var step = percent / 100;
+		if( gotoEnd ) {
+			step = 1;
+		}
+		var e = new dojo.animation.AnimationEvent(_this, "stop", _this.curve.getValue(step),
+			startTime, new Date().valueOf(), endTime, _this.duration, percent, Math.round(fps));
+		_this.handler(e);
+		_this.onStop(e);
+		active = false;
+		paused = false;
+	}
+
+	this.status = function() {
+		if( active ) {
+			return paused ? "paused" : "playing";
+		} else {
+			return "stopped";
+		}
+	}
+
+	// private methods
+	function cycle() {
+		clearTimeout(timer);
+		if( active ) {
+			var curr = new Date().valueOf();
+			var step = (curr - startTime) / (endTime - startTime);
+			fps = 1000 / (curr - lastFrame);
+			lastFrame = curr;
+
+			if( step >= 1 ) {
+				step = 1;
+				percent = 100;
+			} else {
+				percent = step * 100;
+			}
+
+			var e = new dojo.animation.AnimationEvent(_this, "animate", _this.curve.getValue(step),
+				startTime, curr, endTime, _this.duration, percent, Math.round(fps));
+
+			_this.handler(e);
+			_this.onAnimate(e);
+
+			if( step < 1 ) {
+				timer = setTimeout(cycle, 10);
+			} else {
+				e.type = "end";
+				active = false;
+				_this.handler(e);
+				_this.onEnd(e);
+				if( _this.animSequence_ ) {
+					_this.animSequence_.playNext();
+				}
+			}
+		}
+	}
+};
+
+dojo.animation.AnimationEvent = function(anim, type, coords, sTime, cTime, eTime, dur, pct, fps) {
+	this.type = type; // "animate", "begin", "end", "play", "pause", "stop"
+	this.animation = anim;
+
+	this.coords = coords;
+	this.x = coords[0];
+	this.y = coords[1];
+	this.z = coords[2];
+
+	this.startTime = sTime;
+	this.currentTime = cTime;
+	this.endTime = eTime;
+
+	this.duration = dur;
+	this.percent = pct;
+	this.fps = fps;
+
+	this.coordsAsInts = function() {
+		var cints = new Array(this.coords.length);
+		for(var i = 0; i < this.coords.length; i++) {
+			cints[i] = Math.round(this.coords[i]);
+		}
+		return cints;
+	}
+
+	return this;
+};
+
+dojo.animation.AnimationSequence = function() {
+	var anims = [];
+	var currAnim = -1;
+
+	// event handlers
+	this.onBegin = function(){};
+	this.onEnd = function(){};
+	this.onNext = function(){};
+	this.handler = function(){};
+
+	this.add = function() {
+		for(var i = 0; i < arguments.length; i++) {
+			anims.push(arguments[i]);
+			arguments[i].animSequence_ = this;
+		}
+	}
+
+	this.remove = function(anim) {
+		for(var i = 0; i < anims.length; i++) {
+			if( anims[i] == anim ) {
+				anims[i].animSequence_ = null;
+				anims.splice(i, 1);
+				break;
+			}
+		}
+	}
+
+	this.removeAll = function() {
+		for(var i = 0; i < anims.length; i++) {
+			anims[i].animSequence_ = null;
+		}
+		anims = [];
+		currAnim = -1;
+	}
+
+	this.play = function(gotoStart) {
+		if( anims.length == 0 ) { return; }
+		if( gotoStart || !anims[currAnim] ) {
+			currAnim = 0;
+		}
+		if( anims[currAnim] ) {
+			if( currAnim == 0 ) {
+				var e = {type: "begin", animation: anims[currAnim]};
+				this.handler(e);
+				this.onBegin(e);
+			}
+			anims[currAnim].play(gotoStart);
+		}
+	}
+
+	this.pause = function() {
+		if( anims[currAnim] ) {
+			anims[currAnim].pause();
+		}
+	}
+
+	this.playPause = function() {
+		if( anims.length == 0 ) { return; }
+		if( currAnim == -1 ) { currAnim = 0; }
+		if( anims[currAnim] ) {
+			anims[currAnim].playPause();
+		}
+	}
+
+	this.stop = function() {
+		if( anims[currAnim] ) {
+			anims[currAnim].stop();
+		}
+	}
+
+	this.status = function() {
+		if( anims[currAnim] ) {
+			return anims[currAnim].status();
+		} else {
+			return "stopped";
+		}
+	}
+
+	this.playNext = function() {
+		if( currAnim == -1 || anims.length == 0 ) { return; }
+		currAnim++;
+		if( anims[currAnim] ) {
+			var e = {type: "next", animation: anims[currAnim]};
+			this.handler(e);
+			this.onNext(e);
+			anims[currAnim].play(true);
+		} else {
+			var e = {type: "end", animation: anims[anims.length-1]};
+			this.handler(e);
+			this.onEnd(e);
+			currAnim = -1;
+		}
+	}
+};
+
+dojo.hostenv.conditionalLoadModule({
+	common: ["dojo.animation.Animation", false, false]
+});
 
