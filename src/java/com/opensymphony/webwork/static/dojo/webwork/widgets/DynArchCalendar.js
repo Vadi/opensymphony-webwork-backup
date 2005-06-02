@@ -19,14 +19,10 @@ dojo.hostenv.loadModule("webwork.Util");
 
 webwork.widgets.HTMLDynArchCalendar = function() {
 
-	
-	// is this needed as well as the dj_inherits calls below
-	// this coppied from slideshow
 	dojo.webui.DomWidget.call(this);
 	dojo.webui.HTMLWidget.call(this);
 
-	// closure trickery
-	var _this = this;
+	var self = this;
 
 	this.templatePath = "webwork/widgets/DynArchCalendar.html";
 
@@ -88,36 +84,36 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 		}
 
 		// expost this widget instance globally
-		if (_this.id != "") window[_this.id] = _this;
+		if (self.id != "") window[self.id] = self;
 	
-		_this.controlsDiv.id = webwork.Util.nextId();
+		self.controlsDiv.id = webwork.Util.nextId();
 	
 		var params = {};
 
-		if (_this.flat) {
-			params.flat = _this.controlsDiv;
+		if (self.flat) {
+			params.flat = self.controlsDiv;
 		}else{
-			_this.inputField = document.createElement("input");
-			_this.inputField.type = 'text';
-			_this.inputField.id = webwork.Util.nextId();
+			self.inputField = document.createElement("input");
+			self.inputField.type = 'text';
+			self.inputField.id = webwork.Util.nextId();
 			
-			_this.button = document.createElement("input");
-			_this.button.id = webwork.Util.nextId();
-			_this.button.type = 'button';
-			_this.button.value = ' ... ';
+			self.button = document.createElement("input");
+			self.button.id = webwork.Util.nextId();
+			self.button.type = 'button';
+			self.button.value = ' ... ';
 
-			_this.controlsDiv.appendChild(_this.inputField);
-			_this.controlsDiv.appendChild(_this.button);
+			self.controlsDiv.appendChild(self.inputField);
+			self.controlsDiv.appendChild(self.button);
 
-			if (_this.inputFieldStyle != "")
-				_this.inputField.style.cssText = _this.inputFieldStyle;
+			if (self.inputFieldStyle != "")
+				self.inputField.style.cssText = self.inputFieldStyle;
 	
-			if (_this.inputFieldClass != "")
-				_this.inputField.className = _this.inputFieldClass;
+			if (self.inputFieldClass != "")
+				self.inputField.className = self.inputFieldClass;
 		}
 		
 
-		webwork.Util.copyProperties(_this.extraArgs, params);
+		webwork.Util.copyProperties(self.extraArgs, params);
 	
 		// fix the case of args - since they are all made lowercase by the fragment parser
 		for (var i=0; i<argNames.length; i++) {
@@ -129,14 +125,14 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 		// build functions for the function args
 		for (var i=0; i<functionArgs.length; i++) {
 			var name = functionArgs[i];
-			var txt = _this.extraArgs[name.toLowerCase()];
+			var txt = self.extraArgs[name.toLowerCase()];
 			if (txt) {
 				params[name] = new Function(txt);
 			}
 		}
 
-		params.inputField = _this.inputField;
-		params.button = _this.button;
+		params.inputField = self.inputField;
+		params.button = self.button;
 		
 		Calendar.setup(params);
 
@@ -144,7 +140,7 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 	
 	
 	this.show = function() {
-		this.button.onclick();
+		self.button.onclick();
 	}
 	
 }

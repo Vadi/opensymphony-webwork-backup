@@ -19,7 +19,7 @@ dojo.hostenv.loadModule("webwork.Util");
 
 webwork.widgets.Bind = function() {
 
-	var _this = this;
+	var self = this;
 
 	// the name of the global javascript variable to associate with this widget instance
 	this.id = "";
@@ -66,13 +66,13 @@ webwork.widgets.Bind = function() {
 	this.fillInTemplate = function() {
 		// subscribe to out triggerTopics
 	
-    	for (var i=0; i < _this.triggerTopics.length; i++) {
-			dojo.event.topic.subscribe( _this.triggerTopics[i], _this, "bind" );
+    	for (var i=0; i < self.triggerTopics.length; i++) {
+			dojo.event.topic.subscribe( self.triggerTopics[i], self, "bind" );
 		}
 	       
 		// associate the global instance for this widget
-		if (_this.id != "") {
-			window[_this.id] = _this;
+		if (self.id != "") {
+			window[self.id] = self;
 		}
 
 
@@ -80,22 +80,22 @@ webwork.widgets.Bind = function() {
     
     this.bind = function() {
 		var args = {
-			load:_this.load,
+			load:self.load,
 			useCache: false
 		};
 
-		if (_this.formId != "")
-			args.formNode = document.getElementById(_this.formId);
+		if (self.formId != "")
+			args.formNode = document.getElementById(self.formId);
 		
-		if (_this.href != "")
+		if (self.href != "")
 			args.url = this.href;
 
 		// havn't tested this yet
-		if (_this.getUrl != "")
+		if (self.getUrl != "")
 			args.url = eval(this.getUrl);
 
 		// todo replace with isTrue helper
-		if (_this.evalOnLoad == "true") {
+		if (self.evalOnLoad == "true") {
 			args.mimetype = "text/javascript";
 		}
 
@@ -106,16 +106,16 @@ webwork.widgets.Bind = function() {
     this.load = function(type, data) {
     
 		// notify our listeners
-		for (var i=0; i < _this.notifyTopics.length; i++)
-			dojo.event.topic.publish( _this.notifyTopics[i], "notify" );
+		for (var i=0; i < self.notifyTopics.length; i++)
+			dojo.event.topic.publish( self.notifyTopics[i], "notify" );
     
-    	if (_this.targetDiv != "") {
-			var div = document.getElementById(_this.targetDiv);
+    	if (self.targetDiv != "") {
+			var div = document.getElementById(self.targetDiv);
 			if (div) div.innerHTML = data;
     	}
     	
-    	if (_this.onLoad != "") {
-    		eval(_this.onLoad);
+    	if (self.onLoad != "") {
+    		eval(self.onLoad);
     	}
 
     }
@@ -127,7 +127,7 @@ webwork.widgets.HTMLBind = function() {
 	dojo.webui.HTMLWidget.call(this);
 	webwork.widgets.Bind.call(this);
 
-	var _this = this;
+	var self = this;
 	this.isContainer = false;
 	this.widgetType = "bind";
 	this.templatePath = "webwork/widgets/Bind.html";

@@ -3,9 +3,10 @@
 	<head>
 		<@dojoRuntime 
 			includes=[
+				"webwork.widgets.Bind",
 				"webwork.widgets.BindDiv",
 				"webwork.widgets.BindButton",
-				"webwork.widgets.Bind"
+				"webwork.widgets.BindAnchor"
 			]
 			isDebug=true
 		/>
@@ -68,7 +69,7 @@
 			<div id='theFormOutput'></div>
 		</@><b>Note : BindButton has issues with IE .. some strange SystemError with http.responseText </b>
 
-		<@example heading='BindButton rendering the results into a targetDiv'>
+		<@example heading='bindbutton rendering the results into a targetDiv'>
 			<form id='theForm2' action='data/form.ftl' onSubmit='return false;' method='post'>
 				<input type='text' name='name' value='WebWork User'>
 			</form>
@@ -82,7 +83,7 @@
 			<div id='theForm2Output'>form 2 will render to here</div>
 		</@><b>Note : BindButtonAndDiv has issues with IE .. some strange SystemError with http.responseText </b>
 
-		<@example heading='binddiv executing the results as javascript'>
+		<@example heading='bind executing the results as javascript'>
 			<dojo:bind
 				id='jsAlert'
 				href='data/alert.js'
@@ -90,8 +91,16 @@
 				evalOnLoad='true'
 			>
 			</dojo:bind>
-			
 			<a href='javascript:jsAlert.bind()'>go</a>
+		</@>
+
+		<@example heading='bind executing the results as javascript'>
+			<dojo:bindanchor
+				id='bindAnchor'
+				href='data/alert.js'
+				triggerTopics='allWidgets'
+				evalOnLoad='true'
+			>click here to get an alert</dojo:bindanchor>
 		</@>
 
 

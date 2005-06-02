@@ -1,4 +1,5 @@
-dojo.hostenv.startPackage("webwork.widgets.BindButton");
+dojo.hostenv.startPackage("webwork.widgets.BindAnchor");
+dojo.hostenv.startPackage("webwork.widgets.HTMLBindAnchor");
 
 dojo.hostenv.loadModule("dojo.io.*");
 
@@ -17,39 +18,43 @@ dojo.hostenv.loadModule("webwork.widgets.HTMLBind");
  * Component to do remote updating of a DOM tree.
  */
 
-webwork.widgets.HTMLBindButton = function() {
+webwork.widgets.HTMLBindAnchor = function() {
 	
-	// is this needed as well as the dj_inherits calls below
-	// this coppied from slideshow
 	dojo.webui.DomWidget.call(this);
 	dojo.webui.HTMLWidget.call(this);
 	webwork.widgets.Bind.call(this);
 
 	var self = this;
 
-	this.templatePath = "webwork/widgets/BindButton.html";
+	this.templatePath = "webwork/widgets/BindAnchor.html";
 
 	this.isContainer = false;
-	this.widgetType = "BindButton";
-	
-	// the type of the input button - can be image
-	this.type = "submit";
+	this.widgetType = "BindAnchor";
 
-	// the template button instance
-	this.button = null;
+	// the template anchor instance
+	this.anthor = null;
 
 	var super_fillInTemplate = this.fillInTemplate;
-	this.fillInTemplate = function() {
-		super_fillInTemplate();
-		webwork.Util.passThroughArgs(self.extraArgs, self.button);
-		self.button.type = self.type;
+	this.fillInTemplate = function(args, frag) {
+		webwork.Util.passThroughArgs(self.extraArgs, self.anchor);
+		self.anchor.href = "javascript:";
+
+		dojo.event.kwConnect({
+			srcObj: self.anchor,
+			srcFunc: "onclick",
+			adviceObj: self,
+			adviceFunc: "bind"
+		});
+		
+		webwork.Util.passThroughWidgetTagContent(self, frag, self.anchor);
+		
     }
 
 }
 
 // is this needed as well as dojo.webui.Widget.call(this);
-dj_inherits(webwork.widgets.HTMLBindButton, webwork.widgets.HTMLBind);
-dojo.webui.widgets.tags.addParseTreeHandler("dojo:BindButton");
+dj_inherits(webwork.widgets.HTMLBindAnchor, webwork.widgets.HTMLBind);
+dojo.webui.widgets.tags.addParseTreeHandler("dojo:BindAnchor");
 
 // TODO move this into a package include
 dojo.webui.widgetManager.registerWidgetPackage('webwork.widgets');

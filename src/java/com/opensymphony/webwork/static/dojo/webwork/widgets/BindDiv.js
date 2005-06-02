@@ -23,17 +23,13 @@ dojo.hostenv.loadModule("webwork.widgets.Bind");
 
 webwork.widgets.HTMLBindDiv = function() {
 
-	// is this needed as well as the dj_inherits calls below
-	// this coppied from slideshow
 	dojo.webui.DomWidget.call(this);
 	dojo.webui.HTMLWidget.call(this);
 	webwork.widgets.HTMLBind.call(this);
 
 	this.callback = webwork.Util.makeGlobalCallback(this);
 
-
-	// closure trickery
-	var _this = this;
+	var self = this;
 
 	this.templatePath = "webwork/widgets/BindDiv.html";
 
@@ -61,52 +57,49 @@ webwork.widgets.HTMLBindDiv = function() {
 	this.contentDiv = null;
 	
 	this.delayedBind = function(millis) {
-		if (!millis) millis = this.refreshPeriod;
-		webwork.Util.setTimeout(this.callback, "doDelayedBind", millis);
+		if (!millis) millis = self.refreshPeriod;
+		webwork.Util.setTimeout(self.callback, "doDelayedBind", millis);
 	}
 
 	var super_fillInTemplate = this.fillInTemplate;
 	this.fillInTemplate = function(args, frag) {
 		
-		_this.contentDiv.id = webwork.Util.nextId();
-		this.targetDiv = _this.contentDiv.id;
+		self.contentDiv.id = webwork.Util.nextId();
+		self.targetDiv = self.contentDiv.id;
 
 		super_fillInTemplate();
 		
-		webwork.Util.passThroughArgs(_this.extraArgs, _this.contentDiv);
-
-		// fill in the contentDiv with the contents of the widget tag
-		var widgetTag = frag["dojo:binddiv"].nodeRef;
-		if(widgetTag) _this.contentDiv.innerHTML = widgetTag.innerHTML;
+		webwork.Util.passThroughArgs(self.extraArgs, self.contentDiv);
+		webwork.Util.passThroughWidgetTagContent(self, frag, self.contentDiv);
 
 		// hook into before the bind operation to display the loading message
 		// do this always - to allow for on the fuy changes to the loadingHtml
 		dojo.event.kwConnect({
-			srcObj: this,
+			srcObj: self,
 			srcFunc: "bind",
-			adviceObj: this,
+			adviceObj: self,
 			adviceFunc: "loading"
 		});
 
-		this.start();
+		self.start();
 
 	}
 
     this.loading = function() {
-        if( _this.loadingHtml != "" ) _this.contentDiv.innerHTML = _this.loadingHtml;
+        if( self.loadingHtml != "" ) self.contentDiv.innerHTML = self.loadingHtml;
 	}
 
 	var connected = false;
 	this.refreshPeriod = 0;
 	
 	this.setRefresh = function(refresh) {
-		_this.refreshPeriod = refresh;
+		self.refreshPeriod = refresh;
 	}
 	
 	this.doDelayedBind = function() {
-		if (_this.refreshPeriod > 0)
-			this.delayedBind();
-		this.bind();
+		if (self.refreshPeriod > 0)
+			self.delayedBind();
+		self.bind();
 	}
 	
 	
@@ -116,10 +109,10 @@ webwork.widgets.HTMLBindDiv = function() {
 		if (!running) return;
 		running = false;
 		
-		lastRefresh = this.refreshPeriod;
-		this.setRefresh(0);
+		lastRefresh = self.refreshPeriod;
+		self.setRefresh(0);
 
-		webwork.Util.clearTimeout(this.callback);
+		webwork.Util.clearTimeout(self.callback);
 		
 	}
 
@@ -128,10 +121,10 @@ webwork.widgets.HTMLBindDiv = function() {
 		running = true;
 		
 		var refresh = lastRefresh;
-		if (refresh == 0) refresh = this.refresh;
-		this.setRefresh(refresh);
+		if (refresh == 0) refresh = self.refresh;
+		self.setRefresh(refresh);
 		
-		_this.delayedBind(_this.delay);
+		self.delayedBind(self.delay);
 
 	}
 

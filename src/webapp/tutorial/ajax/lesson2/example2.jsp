@@ -8,16 +8,16 @@
     </head>
   <body>
 
-                   A simple DIV that updates every 2 seconds:<br/>
+	A simple DIV that updates every 2 seconds:<br/>
 
-                    <div class="code">
+    <div class="code">
 <pre>
     &lt;ww:remotediv id="twoseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="2" /&gt;
 </pre>
-                    </div>
+    </div>
 
-                    <ww:remotediv id="twoseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="2" />
-
+	<ww:url id='url' value="/tutorial/ajax/AjaxTest.action"/>
+    <ww:remotediv id="twoseconds" url="%{#url}" updateFreq="2" />
 
   </body>
 </html>
