@@ -1,5 +1,5 @@
-dojo.hostenv.startPackage("webwork.widgets.RemoteDiv");
-dojo.hostenv.startPackage("webwork.widgets.HTMLRemoteDiv");
+dojo.hostenv.startPackage("webwork.widgets.BindDiv");
+dojo.hostenv.startPackage("webwork.widgets.HTMLBindDiv");
 
 dojo.hostenv.loadModule("dojo.io.*");
 
@@ -15,19 +15,19 @@ dojo.hostenv.loadModule("dojo.animation.*");
 dojo.hostenv.loadModule("dojo.math.*");
 
 dojo.hostenv.loadModule("webwork.Util");
-dojo.hostenv.loadModule("webwork.widgets.BindWidget");
+dojo.hostenv.loadModule("webwork.widgets.Bind");
 
 /*
  * Component to do remote updating of a DOM tree.
  */
 
-webwork.widgets.HTMLRemoteDiv = function() {
+webwork.widgets.HTMLBindDiv = function() {
 
 	// is this needed as well as the dj_inherits calls below
 	// this coppied from slideshow
 	dojo.webui.DomWidget.call(this);
 	dojo.webui.HTMLWidget.call(this);
-	webwork.widgets.BindWidget.call(this);
+	webwork.widgets.HTMLBind.call(this);
 
 	this.callback = webwork.Util.makeGlobalCallback(this);
 
@@ -35,10 +35,10 @@ webwork.widgets.HTMLRemoteDiv = function() {
 	// closure trickery
 	var _this = this;
 
-	this.templatePath = "webwork/widgets/RemoteDiv.html";
+	this.templatePath = "webwork/widgets/BindDiv.html";
 
 	this.isContainer = false;
-	this.widgetType = "RemoteDiv";
+	this.widgetType = "BindDiv";
 	
 	// default properties
 
@@ -65,17 +65,18 @@ webwork.widgets.HTMLRemoteDiv = function() {
 		webwork.Util.setTimeout(this.callback, "doDelayedBind", millis);
 	}
 
+	var super_fillInTemplate = this.fillInTemplate;
 	this.fillInTemplate = function(args, frag) {
-
+		
 		_this.contentDiv.id = webwork.Util.nextId();
 		this.targetDiv = _this.contentDiv.id;
 
-		_this.init();
+		super_fillInTemplate();
 		
 		webwork.Util.passThroughArgs(_this.extraArgs, _this.contentDiv);
 
 		// fill in the contentDiv with the contents of the widget tag
-		var widgetTag = frag["dojo:remotediv"].nodeRef;
+		var widgetTag = frag["dojo:binddiv"].nodeRef;
 		if(widgetTag) _this.contentDiv.innerHTML = widgetTag.innerHTML;
 
 		// hook into before the bind operation to display the loading message
@@ -135,8 +136,8 @@ webwork.widgets.HTMLRemoteDiv = function() {
 	}
 
 }
-dj_inherits(webwork.widgets.HTMLRemoteDiv, webwork.widgets.BindWidget);
-dojo.webui.widgets.tags.addParseTreeHandler("dojo:remotediv");
+dj_inherits(webwork.widgets.HTMLBindDiv, webwork.widgets.HTMLBind);
+dojo.webui.widgets.tags.addParseTreeHandler("dojo:BindDiv");
 
 // TODO move this into a package include
 dojo.webui.widgetManager.registerWidgetPackage('webwork.widgets');
