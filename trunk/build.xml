@@ -442,12 +442,19 @@
 			<property name="profileFile" value="../../webwork/dojo.profile.js"/>
 		</ant>
 
-		<copy todir="${src.java}/com/opensymphony/webwork/static/dojo" includeemptydirs="no">
+		<sync todir="${src.java}/com/opensymphony/webwork/static/dojo/src" includeEmptyDirs="no" verbose="yes">
+			<fileset dir="../dojo/release/dojo/src">
+				<exclude name="**/*.js"/>
+				<exclude name="Makefile"/>
+				<exclude name="README.TXT"/>
+			</fileset>
+		</sync>
+
+		<copy todir="${src.java}/com/opensymphony/webwork/static/dojo" preservelastmodified="true">
 			<fileset dir="../dojo/release/dojo">
-				<exclude name="src/**/*.js"/>
-				<exclude name="src/Makefile"/>
-				<exclude name="src/README.TXT"/>
+				<exclude name="src/**"/>
 			</fileset>
 		</copy>
+
 	</target>
 </project>

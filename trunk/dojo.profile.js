@@ -4,7 +4,8 @@ var dependencies = [
 	"dojo.io.BrowserIO",
 	"dojo.xml.Parse",
 	"dojo.webui.widgets.*",
-	"dojo.webui.DomWidget"
+	"dojo.webui.DomWidget",
+	"dojo.animation.*"
 ];
 
 load("getDependencyList.js");
