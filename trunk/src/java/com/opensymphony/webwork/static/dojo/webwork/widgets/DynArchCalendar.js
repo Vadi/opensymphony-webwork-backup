@@ -42,10 +42,13 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 	this.inputField = null;
 	this.inputFieldStyle = "";
 	
+	this.controlsDiv = null;
+	
 	// the trigger button
 	this.button = null;
 	
-	
+	// display the calendar as a flat control, or a popup control
+	this.flat = false;	
 	
 	var argNames = [
 		'inputField',
@@ -60,11 +63,6 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 		'range',
 		'weekNumbers',
 		'flat',
-		'flatCallback',
-		'disableFunc',
-		'onSelect',
-		'onClose',
-		'onUpdate',
 		'date',
 		'showsTime',
 		'timeFormat',
@@ -74,6 +72,13 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 		'cache',
 		'showOthers'
 	];
+	var functionArgs = [
+		'flatCallback',
+		'disableFunc',
+		'onSelect',
+		'onClose',
+		'onUpdate',
+	]
 	
 	this.fillInTemplate = function(args, frag) {
 
@@ -84,14 +89,33 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 
 		// expost this widget instance globally
 		if (_this.id != "") window[_this.id] = _this;
-
-		if (_this.inputFieldStyle != "")
-			_this.inputField.style.cssText = _this.inputFieldStyle;
-
-		if (_this.inputFieldClass != "")
-			_this.inputField.className = _this.inputFieldClass;
-
+	
+		_this.controlsDiv.id = webwork.Util.nextId();
+	
 		var params = {};
+
+		if (_this.flat) {
+			params.flat = _this.controlsDiv;
+		}else{
+			_this.inputField = document.createElement("input");
+			_this.inputField.type = 'text';
+			_this.inputField.id = webwork.Util.nextId();
+			
+			_this.button = document.createElement("input");
+			_this.button.id = webwork.Util.nextId();
+			_this.button.type = 'button';
+			_this.button.value = ' ... ';
+
+			_this.controlsDiv.appendChild(_this.inputField);
+			_this.controlsDiv.appendChild(_this.button);
+
+			if (_this.inputFieldStyle != "")
+				_this.inputField.style.cssText = _this.inputFieldStyle;
+	
+			if (_this.inputFieldClass != "")
+				_this.inputField.className = _this.inputFieldClass;
+		}
+		
 
 		webwork.Util.copyProperties(_this.extraArgs, params);
 	
@@ -100,6 +124,15 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 			var n = argNames[i];
 			if (params[n.toLowerCase()])
 				params[n] = params[n.toLowerCase()];
+		}
+		
+		// build functions for the function args
+		for (var i=0; i<functionArgs.length; i++) {
+			var name = functionArgs[i];
+			var txt = _this.extraArgs[name.toLowerCase()];
+			if (txt) {
+				params[name] = new Function(txt);
+			}
 		}
 
 		params.inputField = _this.inputField;
