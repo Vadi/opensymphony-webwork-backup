@@ -25,7 +25,11 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
+import org.apache.velocity.tools.view.ToolboxManager;
+import org.apache.velocity.tools.view.context.ChainedContext;
+import org.apache.velocity.tools.view.servlet.ServletToolboxManager;
 
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
@@ -61,6 +65,11 @@ public class VelocityManager {
     private OgnlTool ognlTool = OgnlTool.getInstance();
     private VelocityEngine velocityEngine;
 	
+    /** A reference to the toolbox manager. */
+    protected ToolboxManager toolboxManager = null;
+    private String toolBoxLocation;
+    
+    
 	/**
 	 * Names of contexts that will be chained on every request
 	 */
@@ -134,7 +143,23 @@ public class VelocityManager {
         }
         context.put(WEBWORK, new VelocityWebWorkUtil(context, stack, req, res));
 
-        return context;
+        
+        ServletContext ctx = null;
+        try {
+        	 ctx = ServletActionContext.getServletContext();
+        } catch (NullPointerException npe) {
+        	// in case this was used outside the lifecycle of webwork servlet
+        	log.debug("internal toolbox context ignored");
+        }
+        
+        if (toolboxManager != null && ctx != null) {
+        	ChainedContext chained = new ChainedContext(context, req, res, ctx);
+        	chained.setToolbox(toolboxManager.getToolboxContext(null));
+        	return chained; 
+        } else {
+        	return context;
+        }
+      
     }
 
     /**
@@ -179,6 +204,7 @@ public class VelocityManager {
         if (velocityEngine == null) {
             velocityEngine = newVelocityEngine(context);
         }
+        this.initToolbox(context);
     }
 
     /**
@@ -293,7 +319,35 @@ public class VelocityManager {
         
 		// read in the names of contexts to add to each request
 		initChainedContexts();
+		
+  
+        if (Configuration.isSet("webwork.velocity.toolboxlocation")) {
+        	toolBoxLocation = Configuration.get("webwork.velocity.toolboxlocation").toString();
+        }
+		
     }
+    
+    
+  /**
+     * Initializes the ServletToolboxManager for this servlet's
+     * toolbox (if any).
+     *
+     * @param config servlet configuation
+     */
+    protected void initToolbox(ServletContext context)  {
+        //ServletContext servletContext = config.getServletContext();
+    	
+        String file = toolBoxLocation; 
+
+        /* if we have a toolbox, get a manager for it */
+        if (toolBoxLocation != null){
+            toolboxManager = ServletToolboxManager.getInstance(context, toolBoxLocation);
+        } else {
+            Velocity.info("VelocityViewServlet: No toolbox entry in configuration.");
+        }
+    }
+
+    
 
 	
     /**    
