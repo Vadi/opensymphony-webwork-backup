@@ -35,6 +35,7 @@
     <servlet>
         <servlet-name>webwork</servlet-name>
         <servlet-class>com.opensymphony.webwork.dispatcher.ServletDispatcher</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet>
