@@ -3,8 +3,9 @@
 	<head>
 		<@dojoRuntime 
 			includes=[
-				"webwork.widgets.RemoteDiv",
-				"webwork.widgets.RemoteButton"
+				"webwork.widgets.BindDiv",
+				"webwork.widgets.BindButton",
+				"webwork.widgets.Bind"
 			]
 			isDebug=true
 		/>
@@ -20,8 +21,8 @@
 	
 	<body>
 
-		<@example heading='RemoteDiv : XHTML Widget Tag'>
-			<dojo:remotediv 
+		<@example heading='binddiv : XHTML Widget Tag'>
+			<dojo:binddiv 
 				id='rd1'
 				href="data/date.jsp?sleep=1000" 
 				loadingHtml='Loading...'
@@ -32,15 +33,15 @@
 				triggerTopics='allWidgets'
 				>
 				<b>initial content</b>
-			</dojo:remotediv>
+			</dojo:binddiv>
 			<a href='javascript:rd1.start()'>start</a>
 			<a href='javascript:rd1.stop()'>stop</a>
 		</@>
 		
-		<@example heading='RemoteDiv : Standard HTML DIV Tag'>
+		<@example heading='binddiv : Standard HTML DIV Tag'>
 			<div 
 				id='rd2'
-				dojoType="RemoteDiv" 
+				dojoType="binddiv" 
 				href="data/date.jsp" 
 				delay='1000'
 				class='sampleBox'
@@ -52,33 +53,46 @@
 			<a href='javascript:rd2.bind()'>bind</a>
 		</@>
 
-		<@example heading='RemoteButton - using javascript to handle the results'>
+		<@example heading='BindButton - using javascript to handle the results'>
 			<form id='theForm' action='data/form.ftl' onSubmit='return false;' method='post'>
 				<input type='text' name='name' value='WebWork User'>
 			</form>
 			
-			<dojo:RemoteButton
+			<dojo:bindbutton
 				formId="theForm" 
 				onLoad="document.getElementById('theFormOutput').innerHTML = 'received data :' + data;"
 				value='Post'
-				triggerTopics='allWidgets'
-			/>
-			<div id='theFormOutput'></div>
-		</@><b>Note : RemoteButton has issues with IE .. some strange SystemError with http.responseText </b>
+				triggerTopics='allWidgets'>
+			</dojo:bindbutton>
 
-		<@example heading='RemoteButton rendering the results into a targetDiv'>
+			<div id='theFormOutput'></div>
+		</@><b>Note : BindButton has issues with IE .. some strange SystemError with http.responseText </b>
+
+		<@example heading='BindButton rendering the results into a targetDiv'>
 			<form id='theForm2' action='data/form.ftl' onSubmit='return false;' method='post'>
 				<input type='text' name='name' value='WebWork User'>
 			</form>
 			
-			<dojo:RemoteButton
+			<dojo:bindbutton
 				formId='theForm2'
 				targetDiv='theForm2Output'
 				value='Post'
-				triggerTopics='allWidgets'
-			/>
+				triggerTopics='allWidgets'>
+			</dojo:bindbutton>
 			<div id='theForm2Output'>form 2 will render to here</div>
-		</@><b>Note : RemoteButtonAndDiv has issues with IE .. some strange SystemError with http.responseText </b>
+		</@><b>Note : BindButtonAndDiv has issues with IE .. some strange SystemError with http.responseText </b>
+
+		<@example heading='binddiv executing the results as javascript'>
+			<dojo:bind
+				id='jsAlert'
+				href='data/alert.js'
+				triggerTopics='allWidgets'
+				evalOnLoad='true'
+			>
+			</dojo:bind>
+			
+			<a href='javascript:jsAlert.bind()'>go</a>
+		</@>
 
 
 		<hr>

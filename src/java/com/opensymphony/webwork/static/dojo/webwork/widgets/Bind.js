@@ -1,4 +1,5 @@
-dojo.hostenv.startPackage("webwork.widgets.BindWidget");
+dojo.hostenv.startPackage("webwork.widgets.Bind");
+dojo.hostenv.startPackage("webwork.widgets.HTMLBind");
 
 dojo.hostenv.loadModule("dojo.io.*");
 
@@ -16,14 +17,9 @@ dojo.hostenv.loadModule("webwork.Util");
  * 
  */
 
-webwork.widgets.BindWidget = function() {
+webwork.widgets.Bind = function() {
 
 	var _this = this;
-
-	// is this needed as well as the dj_inherits calls below
-	// this coppied from slideshow
-	dojo.webui.DomWidget.call(this);
-	dojo.webui.HTMLWidget.call(this);
 
 	// the name of the global javascript variable to associate with this widget instance
 	this.id = "";
@@ -64,15 +60,10 @@ webwork.widgets.BindWidget = function() {
 	// javascript code to be evaled when data arrives - arguments are (eventType, data)
 	this.onLoad = "";
 	
-	// if true, we set the bind content type to text/javascript to cause bind to eval the result
-	this.eval = "";
-
-	this.test = function() {
-		alert('test');
-	}
+	// if true, we set the bind mimetype to text/javascript to cause dojo to eval the result
+	this.evalOnLoad = "";
 	
-	this.init = function() {
-
+	this.fillInTemplate = function() {
 		// subscribe to out triggerTopics
 	
     	for (var i=0; i < _this.triggerTopics.length; i++) {
@@ -87,10 +78,6 @@ webwork.widgets.BindWidget = function() {
 
     }
     
-    this.onEvent = function() {
-    	alert('on event');
-    }
-    
     this.bind = function() {
 		var args = {
 			load:_this.load,
@@ -103,12 +90,14 @@ webwork.widgets.BindWidget = function() {
 		if (_this.href != "")
 			args.url = this.href;
 
+		// havn't tested this yet
 		if (_this.getUrl != "")
 			args.url = eval(this.getUrl);
 
 		// todo replace with isTrue helper
-		if (_this.eval == "true" || _this.eval == "1" || _this.eval == "yes" || _this.eval == "on") 
-			args.contentType = "text/javascript";
+		if (_this.evalOnLoad == "true") {
+			args.mimetype = "text/javascript";
+		}
 
 		dojo.io.bind(args);
     }
@@ -128,7 +117,23 @@ webwork.widgets.BindWidget = function() {
     	if (_this.onLoad != "") {
     		eval(_this.onLoad);
     	}
+
     }
 
 }
-dj_inherits(webwork.widgets.BindWidget, dojo.webui.DomWidget);
+
+webwork.widgets.HTMLBind = function() {
+	dojo.webui.DomWidget.call(this);
+	dojo.webui.HTMLWidget.call(this);
+	webwork.widgets.Bind.call(this);
+
+	var _this = this;
+	this.isContainer = false;
+	this.widgetType = "bind";
+	this.templatePath = "webwork/widgets/Bind.html";
+
+}
+
+dj_inherits(webwork.widgets.Bind, dojo.webui.DomWidget);
+dj_inherits(webwork.widgets.HTMLBind, webwork.widgets.Bind);
+dojo.webui.widgets.tags.addParseTreeHandler("dojo:bind");
