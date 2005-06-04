@@ -66,7 +66,6 @@
                 <exclude name="**/package.html"/>
             </fileset>
         </copy>
-        <copy file="${src.taglib.tld}" tofile="${build.webwork.tld}"/>
     </target>
 
     <target name="test" depends="java">
