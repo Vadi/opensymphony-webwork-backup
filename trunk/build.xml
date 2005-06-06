@@ -292,18 +292,6 @@
             </fileset>
         </copy>
 
-        <!-- copy README -->
-        <tstamp/>
-        <copy filtering="on" todir="${build.dist}">
-            <fileset dir=".">
-                <include name="*.html"/>
-            </fileset>
-            <filterset>
-                <filter token="version" value="${version}"/>
-                <filter token="builddate" value="${TODAY}"/>
-            </filterset>
-        </copy>
-
         <zip zipfile="${build}/${name}-${version}.zip" basedir="${build.dist}">
             <exclude name="docs/clover/**/*"/>
             <exclude name="docs/junit/**/*"/>
