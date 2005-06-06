@@ -23,7 +23,6 @@
     <property name="src.example" value="${src}/example"/>
     <property name="src.webapp" value="${src}/webapp"/>
     <property name="src.etc" value="${src}/etc"/>
-    <property name="src.config-browser" value="${src}/config-browser"/>
     <property name="src.taglib.tld" value="${src.etc}/taglib.tld"/>
 
     <property name="build" value="build"/>
@@ -33,8 +32,6 @@
     <property name="build.example" value="${build}/example"/>
     <property name="build.example.jars" value="${build}/example-jars"/>
     <property name="build.example-war" value="${build}/example-war"/>
-    <property name="build.config-browser" value="${build}/config-browser"/>
-    <property name="build.config-browser.jar" value="${build}/webwork-config-browser.jar"/>
     <property name="build.clover" value="${build}/clover"/>
     <property name="build.dist" value="${build}/dist"/>
     <property name="build.webwork.tld" value="${src.webapp}/WEB-INF/webwork.tld"/>
@@ -135,22 +132,7 @@
         
     </target>
 
-    <target name="config-browser" depends="java">
-        <mkdir dir="${build.config-browser}"/>
-
-        <javac srcdir="${src.config-browser}" destdir="${build.config-browser}" classpath="${build.java}" classpathref="cp" debug="on"/>
-
-        <copy filtering="no" todir="${build.config-browser}">
-            <fileset dir="${src.config-browser}">
-                <exclude name="**/*.java"/>
-                <exclude name="**/package.html"/>
-            </fileset>
-        </copy>
-
-        <jar basedir="${build.config-browser}" jarfile="${build.config-browser.jar}"/>
-    </target>
-
-    <target name="example-jar" depends="java, jar, config-browser">
+    <target name="example-jar" depends="java, jar">
         <mkdir dir="${build.example}"/>
         <javac srcdir="${src.example}" destdir="${build.example}" classpath="${build.java}" classpathref="cp" debug="on"/>
         <copy filtering="no" todir="${build.example}">
@@ -231,7 +213,6 @@
             <lib dir="${lib.optional}"/>
             <lib dir="${lib.example}"/>
             <lib file="${build}/${name}-${version}.jar"/>
-            <lib file="${build.config-browser.jar}"/>
             <webinf file="${build}/webwork.tld"/>
             <classes dir="${build.example}"/>
         </war>
