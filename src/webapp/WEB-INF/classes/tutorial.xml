@@ -24,7 +24,11 @@
         <action name="AjaxRemoteLink" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
             <result name="success">AjaxResult2.jsp</result>
         </action>
+    </package>
 
-
+    <package name="forms" namespace="/tutorial/forms" extends="webwork-default">
+        <action name="newPerson" class="com.opensymphony.webwork.example.tutorial.forms.NewPerson">
+            <result name="success">newPerson.jsp</result>
+        </action>
     </package>
 </xwork>

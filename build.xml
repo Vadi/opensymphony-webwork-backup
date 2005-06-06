@@ -15,34 +15,26 @@
     <property name="lib.core" value="${lib}/core"/>
     <property name="lib.build" value="${lib}/build"/>
     <property name="lib.optional" value="${lib}/optional"/>
-    <property name="lib.migration" value="${lib}/migration"/>
     <property name="lib.example" value="${lib}/example"/>
 
     <property name="src" value="src"/>
     <property name="src.java" value="${src}/java"/>
-    <property name="src.webflow" value="${src}/webflow"/>
     <property name="src.test" value="${src}/test"/>
     <property name="src.example" value="${src}/example"/>
     <property name="src.webapp" value="${src}/webapp"/>
     <property name="src.etc" value="${src}/etc"/>
     <property name="src.config-browser" value="${src}/config-browser"/>
-    <property name="src.migration" value="${src}/migration"/>
-    <property name="src.migration-test" value="${src}/migration-test"/>
     <property name="src.taglib.tld" value="${src.etc}/taglib.tld"/>
 
     <property name="build" value="build"/>
     <property name="build.test" value="${build}/test"/>
     <property name="build.java-test" value="${build}/java-test"/>
     <property name="build.java" value="${build}/java"/>
-    <property name="build.webflow" value="${build}/webflow"/>
     <property name="build.example" value="${build}/example"/>
     <property name="build.example.jars" value="${build}/example-jars"/>
     <property name="build.example-war" value="${build}/example-war"/>
     <property name="build.config-browser" value="${build}/config-browser"/>
     <property name="build.config-browser.jar" value="${build}/webwork-config-browser.jar"/>
-    <property name="build.migration" value="${build}/migration"/>
-    <property name="build.migration-test" value="${build}/migration-test"/>
-    <property name="build.migration.jar" value="${build}/webwork-migration.jar"/>
     <property name="build.clover" value="${build}/clover"/>
     <property name="build.dist" value="${build}/dist"/>
     <property name="build.webwork.tld" value="${src.webapp}/WEB-INF/webwork.tld"/>
@@ -121,23 +113,6 @@
         </junit>
     </target>
 
-    <target name="webflow" depends="java">
-        <mkdir dir="${build.webflow}"/>
-        <javac srcdir="${src.webflow}" destdir="${build.webflow}" classpath="${build.java}" classpathref="cp" debug="on"/>
-        <copy filtering="no" todir="${build.webflow}">
-            <fileset dir="${src.webflow}">
-                <exclude name="**/*.java"/>
-                <exclude name="**/package.html"/>
-            </fileset>
-        </copy>
-
-        <jar basedir="${build.webflow}" jarfile="${build}/webflow-${version}.jar">
-            <manifest>
-                <attribute name="Main-Class" value="com.opensymphony.webwork.webFlow.WebFlow"/>
-            </manifest>
-        </jar>
-    </target>
-
     <target name="jar" depends="java">
         <mkdir dir="${build}"/>
 
@@ -146,6 +121,7 @@
 
         <jar basedir="${build.java}" jarfile="${build}/${name}-${version}.jar">
             <manifest>
+                <attribute name="Main-Class" value="com.opensymphony.webwork.webFlow.WebFlow"/>
                 <attribute name="Implementation-Title" value="${fullname}" />
                 <attribute name="Implementation-Version" value="${version}" />
             </manifest>
@@ -172,57 +148,6 @@
         </copy>
 
         <jar basedir="${build.config-browser}" jarfile="${build.config-browser.jar}"/>
-    </target>
-
-    <target name="migration" depends="java">
-        <mkdir dir="${build.migration}"/>
-        <mkdir dir="${build.migration-test}"/>
-
-        <javac srcdir="${src.migration}" destdir="${build.migration}" classpath="${build.java}" classpathref="cp" debug="on"/>
-
-        <copy filtering="no" todir="${build.migration}">
-            <fileset dir="${src.migration}">
-                <exclude name="**/*.java"/>
-                <exclude name="**/package.html"/>
-            </fileset>
-        </copy>
-
-        <javac srcdir="${src.migration-test}" destdir="${build.migration-test}" classpath="${build.java}" classpathref="cp" debug="on">
-            <classpath>
-                <pathelement location="${build.java}"/>
-                <pathelement location="${build.migration}"/>
-                <path refid="cp"/>
-            </classpath>
-        </javac>
-
-        <copy filtering="no" todir="${build.migration-test}">
-            <fileset dir="${src.migration-test}">
-                <exclude name="**/*.java"/>
-                <exclude name="**/package.html"/>
-            </fileset>
-        </copy>
-
-        <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"/>
-
-        <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" fork="yes">
-            <classpath>
-                <pathelement location="${build.java}"/>
-                <pathelement location="${build.migration}"/>
-                <pathelement location="${build.migration-test}"/>
-                <path refid="cp"/>
-            </classpath>
-
-            <formatter type="brief" usefile="false"/>
-
-            <batchtest>
-                <fileset dir="${src.migration-test}">
-                    <exclude name="**/Abstract*.java"/>
-                    <include name="**/*Test.java"/>
-                </fileset>
-            </batchtest>
-        </junit>
-
-        <jar basedir="${build.migration}" jarfile="${build.migration.jar}"/>
     </target>
 
     <target name="example-jar" depends="java, jar, config-browser">
@@ -368,10 +293,8 @@
     <target name="docs" depends="javadocs, clover.report, junit.report, docs.impl">
     </target>
 
-    <target name="dist" depends="jar, migration, webflow, example-war, docs">
+    <target name="dist" depends="jar, example-war, docs">
         <copy file="${build}/${name}-${version}.jar" todir="${build.dist}"/>
-        <copy file="${build}/webflow-${version}.jar" todir="${build.dist}"/>
-        <copy file="${build.migration.jar}" todir="${build.dist}"/>
         <copy file="${build}/${name}-example.war" todir="${build.dist}"/>
         <copy todir="${build.dist}/src">
             <fileset dir="${src}"/>
