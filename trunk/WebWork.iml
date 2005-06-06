@@ -10,10 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/config-browser" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/example" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/migration" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/migration-test" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/webflow" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/docs/chinese" />
       <excludeFolder url="file://$MODULE_DIR$/docs/wikidocs" />
@@ -309,7 +306,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Resin 3.x" level="application_server_libraries" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -319,6 +315,16 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/core/velocity-tools-view-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Resin 3.x" level="application_server_libraries" />
     <orderEntryProperties />
   </component>
   <component name="WebModuleBuildComponent">
@@ -420,6 +426,11 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/velocity-dep-1.4.jar" />
       <url>jar://$MODULE_DIR$/lib/core/velocity-dep-1.4.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/velocity-tools-view-1.1.jar" />
+      <url>jar://$MODULE_DIR$/lib/core/velocity-tools-view-1.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
