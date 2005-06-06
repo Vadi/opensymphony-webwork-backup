@@ -6,8 +6,6 @@
         </fileset>
     </path>
 
-    <property name="idea" value="C:\Program Files\IntelliJ-IDEA-4.5"/>
-
     <property file="build.properties"/>
     <property file="release.properties"/>
 
