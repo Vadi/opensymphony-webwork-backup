@@ -1,1 +1,0 @@
-bsf.jar - Bean Scripting Framework version ???
