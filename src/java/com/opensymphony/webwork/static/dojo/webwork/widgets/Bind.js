@@ -44,6 +44,12 @@ webwork.widgets.Bind = function() {
 	// topics that will be notified with a "notify" message when the bind operation is complete
 	this.notifyTopics = [];
 
+    // html to display when there is an error loading content
+    this.errorHtml = "Failed to load remote content";
+
+	// do we show transport errors
+    this.showTransportError = false;
+
 	/**
 	 * Bind Operation Outputs
 	 *
@@ -122,7 +128,11 @@ webwork.widgets.Bind = function() {
     }
     
     this.error = function(type, error) {
-		// by default these are ignored - its up to the subclass to define how to handle this
+		if (self.showTransportError) {
+			alert(error.message);
+		}else{
+			alert(self.errorHtml);
+		}
     }
 
 }
