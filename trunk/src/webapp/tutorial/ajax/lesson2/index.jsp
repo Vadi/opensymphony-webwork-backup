@@ -56,8 +56,12 @@
         </p>
 
         <p>
-        There are also javascript functions to stop and start the refreshing of the
-        component.  To start refreshing use the javascript:
+        There are also javascript functions to refresh the content, stop and start the refreshing of the
+        component.  For the remote div with the component id "remotediv1":
+        </p>
+
+        <p>
+        To start refreshing use the javascript:
 <pre>
     remotediv1.start();
 </pre>
@@ -66,6 +70,10 @@
     remotediv1.stop();
 </pre>
 
+        To refresh the content use the javascript:
+<pre>
+    remotediv1.bind();
+</pre>
         </p>
 
         <h2>Configuration</h2>
