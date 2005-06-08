@@ -40,12 +40,6 @@ webwork.widgets.HTMLBindDiv = function() {
 
 	// html to display while loading remote content
     this.loadingHtml = "";
-    
-    // html to display when there is an error loading content
-    this.errorHtml = "<i>Failed to load remote content</i>";
-
-	// do we show transport errors
-    this.showTransportError = false;
 
 	// initial dealy before fetching content
 	this.delay = 0;
