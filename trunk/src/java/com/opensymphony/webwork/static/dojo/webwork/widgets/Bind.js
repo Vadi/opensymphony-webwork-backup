@@ -80,7 +80,8 @@ webwork.widgets.Bind = function() {
     
     this.bind = function() {
 		var args = {
-			load:self.load,
+			load: self.load,
+			error: self.error,
 			useCache: false
 		};
 
@@ -119,6 +120,10 @@ webwork.widgets.Bind = function() {
     	}
 
     }
+    
+    this.error = function(type, error) {
+		// by default these are ignored - its up to the subclass to define how to handle this
+    }
 
 }
 
@@ -129,7 +134,7 @@ webwork.widgets.HTMLBind = function() {
 
 	var self = this;
 	this.isContainer = false;
-	this.widgetType = "bind";
+	this.widgetType = "Bind";
 	this.templatePath = "webwork/widgets/Bind.html";
 
 }
