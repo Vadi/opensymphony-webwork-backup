@@ -78,7 +78,7 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
     public void setHref(String href) {
         String stackUrl = findString(href);
         String contextPath = ((HttpServletRequest)pageContext.getRequest()).getContextPath();
-        if( stackUrl.startsWith("/") && !stackUrl.startsWith(contextPath) )
+        if( stackUrl.startsWith("/") && stackUrl.startsWith(contextPath) )
             contextPath = "";
         this.href = contextPath + stackUrl;
     }
