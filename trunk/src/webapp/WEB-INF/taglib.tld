@@ -2573,7 +2573,7 @@
 
     <!-- ******************** WebWork Ajax Tags *************************** -->
     <tag>
-        <name>remotediv</name>
+        <name>div</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.RemoteUpdateDivTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>An HTML widget that obtains it's contents via a Ajax call</info>
@@ -2603,8 +2603,13 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>url</name>
+            <name>href</name>
             <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>delay</name>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
@@ -2614,11 +2619,6 @@
         </attribute>
         <attribute>
             <name>loadingText</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>reloadingText</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -2633,7 +2633,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>topicName</name>
+            <name>triggerTopics</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
