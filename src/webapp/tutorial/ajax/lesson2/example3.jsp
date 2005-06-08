@@ -19,8 +19,7 @@
         theme="ajax"
         delay="2000"
         updateFreq="%{#parameters.period}"
-        errorText="There was an error"
-        loadingText="loading..." &gt;Initial Content&lt;/ww:div&gt;
+        errorText="There was an error" &gt;Initial Content&lt;/ww:div&gt;
 </pre>
                     </div>
 
@@ -31,8 +30,7 @@
         theme="ajax"
         delay="2000"
         updateFreq="%{#parameters.period}"
-        errorText="There was an error"
-        loadingText="loading..." >Initial Content</ww:div>
+        errorText="There was an error" >Initial Content</ww:div>
 
   </body>
 </html>
