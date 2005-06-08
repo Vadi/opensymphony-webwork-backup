@@ -20,26 +20,26 @@
 <pre>
 &lt;ww:remotediv
     id="remotediv1"
-    url="/MyAction.action"
-    updateFreq="5"
-    loadingText="loading now"
-    reloadingText="reloading page"
+    href="/MyAction.action"
+    updateFreq="5000"
+    delay="2000"
+    loadingText="reloading..."
     errorText="There was a problem contacting the server!"
     showErrorTransportText="true"
-    topicName="topic1, topic2" /&gt;
+    triggerTopics="topic1, topic2" /&gt; Initial Content &lt;/ww:remotediv&gt;
 </pre>
         </div>
 
         The attributes are:
         <ul>
             <li>id - the unique id for the html element</li>
-            <li>url - the url to obtain the contents of the DIV from</li>
+            <li>href - the url to obtain the contents of the DIV from</li>
             <li>updateFreq (can use altSyntax) - how often to update the contents.  A value of 0 only updates the contents once.</li>
-            <li>loadingText - the text to display to the user while the contents are loading the very first time</li>
-            <li>reloadingText - the text to display to the user while the contents are reloading (every time after the very first time)</li>
+            <li>delay (can use altSyntax) - how long to wait before the first remote call.  A value of 0 only updates the contents once.</li>
+            <li>loadingText - the text to display to the user while the contents are being reloaded.</li>
             <li>errorText - the text to display to the user if there is an error (i.e. error contacting the url specified)</li>
-            <li>showErrorTransportText (true/false, can use altSyntax) - whether you want to display the transports error text to the user</li>
-            <li>topicName - a comma delimited list of topic names to listen to.
+            <li>showErrorTransportText (true/false, can use altSyntax) - true if you want to display the dojo transports error,  or the text to the user</li>
+            <li>triggerTopics - a comma delimited list of topic names to listen to.
                     If a message is recieved the DIV tag contents will be refreshed.
                     Please see the <a href="">Topics</a> lesson for more details on additional configuration.</li>
         </ul>
@@ -55,6 +55,19 @@
         </ul>
         </p>
 
+        <p>
+        There are also javascript functions to stop and start the refreshing of the
+        component.  To start refreshing use the javascript:
+<pre>
+    remotediv1.start();
+</pre>
+        To stop refreshing use the javascript:
+<pre>
+    remotediv1.stop();
+</pre>
+
+        </p>
+
         <h2>Configuration</h2>
         <p>
         There is common javascript configuration that needs to be present for the AJAX component to work.  It is
@@ -65,19 +78,18 @@
     // Dojo configuration
     djConfig = {
         baseRelativePath: "&lt;ww:url value="webwork/dojo/"/&gt;",
-        parseWidgets: false,
         isDebug: false
     };
 &lt;/script&gt;
 
 &lt;script language="JavaScript" type="text/javascript"
         src="&lt;ww:url value="/webwork/dojo/__package__.js" /&gt;"&gt;&lt;/script&gt;
-&lt;script language="JavaScript" type="text/javascript"
-        src="&lt;ww:url value="/webwork/AjaxComponents.js" /&gt;"&gt;&lt;/script&gt;
 
 &lt;script language="JavaScript" type="text/javascript"&gt;
     dojo.hostenv.loadModule("dojo.io.BrowserIO");
     dojo.hostenv.loadModule("dojo.event.topic");
+    dojo.hostenv.loadModule("webwork.widgets.Bind");
+    dojo.hostenv.loadModule("webwork.widgets.BindDiv");
 &lt;/script&gt;
 </pre>
         </div>
@@ -97,7 +109,7 @@
                 </li>
 
                 <li>
-                    <a href="example3.jsp?period=3">A simple DIV that obtains the update freq (3 secs) from the value stack/action</a>
+                    <a href="example3.jsp?period=3000">A simple DIV that obtains the update freq (3 secs) from the value stack/action</a>
                 </li>
 
                 <li>

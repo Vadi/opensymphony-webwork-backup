@@ -12,12 +12,28 @@
 
     <div class="code">
 <pre>
-    &lt;ww:remotediv id="twoseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="2" /&gt;
+    &lt;ww:div
+        id="twoseconds"
+        cssStyle="border: 1px solid yellow;"
+        href="%{#url}"
+        theme="ajax"
+        delay="2000"
+        updateFreq="2000"
+        errorText="There was an error"
+        loadingText="loading..." &gt;Initial Content&lt;/ww:div&gt;
 </pre>
     </div>
 
 	<ww:url id='url' value="/tutorial/ajax/AjaxTest.action"/>
-    <ww:remotediv id="twoseconds" url="%{#url}" updateFreq="2" />
+    <ww:div
+        id="twoseconds"
+        cssStyle="border: 1px solid yellow;"
+        href="%{#url}"
+        theme="ajax"
+        delay="2000"
+        updateFreq="2000"
+        errorText="There was an error"
+        loadingText="loading..." >Initial Content</ww:div>
 
   </body>
 </html>

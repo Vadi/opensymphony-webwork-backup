@@ -8,16 +8,27 @@
     </head>
   <body>
 
-                    A simple DIV that refreshes only once:<br/>
+                    A simple DIV that refreshes only once after 5 seconds:<br/>
 
                     <div class="code">
 <pre>
-    &lt;ww:remotediv id="once" url="/tutorial/ajax/AjaxTest.action" /&gt;
+    &lt;ww:div
+        id="once"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        delay="5000"
+        loadingText="loading..." &gt;Initial Content&lt;/ww:div&gt;
 </pre>
                     </div>
 
-                    <ww:remotediv id="once" url="/tutorial/ajax/AjaxTest.action" />
-
+                    <ww:div
+                        id="once"
+                        cssStyle="border: 1px solid yellow;"
+                        href="/tutorial/ajax/AjaxTest.action"
+                        theme="ajax"
+                        delay="5000"
+                        loadingText="loading..." >Initial Content</ww:div>
 
   </body>
 </html>
