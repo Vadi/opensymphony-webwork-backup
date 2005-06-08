@@ -41,7 +41,7 @@ webwork.widgets.Bind = function() {
 	// javascript code to provide the url
 	this.getUrl = ""
 	
-	// topics that will be notified with a "notify" message when the bind operation is complete
+	// topics that will be notified with a "notify" message when the bind operation has completed successfully
 	this.notifyTopics = [];
 
     // html to display when there is an error loading content
@@ -57,8 +57,8 @@ webwork.widgets.Bind = function() {
 	 * otherwise targetDiv and onLoad may both be specified, targetDiv will be filled first
 	 */
 
-	// topics that will trigger a bind operation when any message is sent to it
-	this.triggerTopics = [];
+	// topics that this widget will listen to. Any message received on these topics will trigger a bind operation
+	this.listenTopics = [];
 	
 	// the dom id of a target div to fill with the response
 	this.targetDiv = "";	
@@ -70,10 +70,10 @@ webwork.widgets.Bind = function() {
 	this.evalOnLoad = "";
 	
 	this.fillInTemplate = function() {
-		// subscribe to out triggerTopics
+		// subscribe to out listenTopics
 	
-    	for (var i=0; i < self.triggerTopics.length; i++) {
-			dojo.event.topic.subscribe( self.triggerTopics[i], self, "bind" );
+    	for (var i=0; i < self.listenTopics.length; i++) {
+			dojo.event.topic.subscribe( self.listenTopics[i], self, "bind" );
 		}
 	       
 		// associate the global instance for this widget
