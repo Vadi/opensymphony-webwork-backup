@@ -45,7 +45,7 @@ webwork.widgets.HTMLBindDiv = function() {
     this.errorHtml = "<i>Failed to load remote content</i>";
 
 	// do we show transport errors
-    this.showTransportError = true;
+    this.showTransportError = false;
 
 	// initial dealy before fetching content
 	this.delay = 0;
@@ -84,7 +84,16 @@ webwork.widgets.HTMLBindDiv = function() {
 		self.start();
 
 	}
-
+	
+	this.error = function(type, error) {
+		//for (a in error) dj_debug("error." + a + ":" + error[a]);
+		if (self.showTransportError) {
+			self.contentDiv.innerHTML = error.message;
+		}else{
+			self.contentDiv.innerHTML = self.errorHtml;
+		}
+	}
+	
     this.loading = function() {
         if( self.loadingHtml != "" ) self.contentDiv.innerHTML = self.loadingHtml;
 	}
@@ -101,7 +110,7 @@ webwork.widgets.HTMLBindDiv = function() {
 			self.delayedBind();
 		self.bind();
 	}
-	
+
 	
 	var running = false;
 	var lastRefresh = 0;

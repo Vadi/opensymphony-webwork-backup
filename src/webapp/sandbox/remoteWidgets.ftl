@@ -103,6 +103,19 @@
 			>click here to get an alert</dojo:bindanchor>
 		</@>
 
+		<@example heading='binding to a 404 page'>
+			<dojo:binddiv 
+				href="data/nonExistant.jsp" 
+				loadingHtml='Loading...'
+				showTransportError=true
+				class='sampleBox'
+				style='border: 1px solid red;'
+				triggerTopics='allWidgets'
+				>
+				<b>initial content</b>
+			</dojo:binddiv>
+		</@>
+
 
 		<hr>
 			<a href='javascript:dojo.event.topic.publish("allWidgets", "trigger");'>send trigger event to 'allWidgets'</a>
