@@ -12,6 +12,7 @@
     </package>
 
     <package name="ajax" namespace="/tutorial/ajax" extends="webwork-default">
+
         <action name="hello" class="com.opensymphony.webwork.example.tutorial.ajax.HelloWorld">
             <result name="input">hello-input.jsp</result>
             <result name="success">hello.jsp</result>
@@ -21,9 +22,15 @@
         <action name="AjaxTest" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
             <result name="success">AjaxResult.jsp</result>
         </action>
+        
         <action name="AjaxRemoteLink" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
             <result name="success">AjaxResult2.jsp</result>
         </action>
+
+        <action name="AjaxRemoteForm" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
+            <result name="success">AjaxResult3.jsp</result>
+        </action>
+
     </package>
 
     <package name="forms" namespace="/tutorial/forms" extends="webwork-default">
