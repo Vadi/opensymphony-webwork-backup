@@ -1,23 +1,16 @@
 package com.opensymphony.webwork.views.jsp.ui.ajax;
 
-import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
+import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import java.io.IOException;
-import java.util.StringTokenizer;
 
 /**
  * A tag that creates a HTML &gt;DIV /&lt; that obtains it's content via a remote XMLHttpRequest call
  * via the dojo framework.
  * <p/>
- * If a "topicName" is supplied, it will listen to that topic and refresh it's content when any message
+ * If a "triggerTopics" is supplied, it will listen to that topic and refresh it's content when any message
  * is received.  If utilizing the topic/event elements, then this tag needs to be contained within
  * a &gt;ww:topicScope /&lt; tag.
  *
@@ -26,27 +19,32 @@ import java.util.StringTokenizer;
  * @author		Ian Roughley
  * @version		$Id$
  */
-public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitter, Cloneable {
+public class RemoteUpdateDivTag extends AbstractClosingUITag implements JavascriptEmitter, Cloneable {
 
-    private static final String TEMPLATE = "remotediv";
-    private static final String TEMPLATE_CLOSE = "remotediv-close";
+    private static final String TEMPLATE = "div";
+    private static final String TEMPLATE_CLOSE = "div-close";
     final private static String COMPONENT_NAME = RemoteUpdateDivTag.class.getName();
 
-    private String url;
+    private String href;
     private String updateFreq;
+    private String delay;
     private String loadingText;
-    private String reloadingText;
     private String errorText;
     private boolean showErrorTransportText = false;
-    protected String topicName;
-
-    private static final Log LOG = LogFactory.getLog(RemoteUpdateDivTag.class);
+    protected String triggerTopics;
 
 
     /**
-     * @see com.opensymphony.webwork.views.jsp.ui.AbstractUITag#getDefaultTemplate()
+     * @see com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag#getDefaultTemplate()
      */
     public String getDefaultTemplate() {
+        return TEMPLATE_CLOSE;
+    }
+
+    /**
+     * @see com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag#getDefaultOpenTemplate()
+     */
+    public String getDefaultOpenTemplate() {
         return TEMPLATE;
     }
 
@@ -68,19 +66,21 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
     }
 
     /**
-     * @return the url being called.  If the url starts with "/" the context path is appended
+     * @return the href being called.  If the href starts with "/" the context path is appended
      */
-    public String getUrl() {
-        return url;
+    public String getHref() {
+        return href;
     }
 
     /**
-     * @param url the url being called.  If the url starts with "/" the context path is appended
+     * @param href the href being called.  If the href starts with "/" the context path is appended
      */
-    public void setUrl(String url) {
-        String stackUrl = findString(url);
-        if( stackUrl.startsWith("/") )
-            this.url = ((HttpServletRequest)pageContext.getRequest()).getContextPath() + stackUrl;
+    public void setHref(String href) {
+        String stackUrl = findString(href);
+        String contextPath = ((HttpServletRequest)pageContext.getRequest()).getContextPath();
+        if( stackUrl.startsWith("/") && !stackUrl.startsWith(contextPath) )
+            contextPath = "";
+        this.href = contextPath + stackUrl;
     }
 
     /**
@@ -101,6 +101,23 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
     }
 
     /**
+     * @return the delay before loading the content
+     */
+    public String getDelay() {
+        if( null!=delay && !"".equals(delay) ) {
+            return findString(delay);
+        }
+        return "0";
+    }
+
+    /**
+     * @param delay the delay before loading the content
+     */
+    public void setDelay(String delay) {
+        this.delay = delay;
+    }
+
+    /**
      * @return the text to display while the component is being loaded
      */
     public String getLoadingText() {
@@ -112,20 +129,6 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
      */
     public void setLoadingText(String loadingText) {
         this.loadingText = findString(loadingText);
-    }
-
-    /**
-     * @return the text to display while the component is being reloaded
-     */
-    public String getReloadingText() {
-        return reloadingText;
-    }
-
-    /**
-     * @param reloadingText the text to display while the component is being reloaded
-     */
-    public void setReloadingText(String reloadingText) {
-        this.reloadingText = findString(reloadingText);
     }
 
     /**
@@ -160,15 +163,15 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
     /**
      * @return the topic name to subscribe to
      */
-    public String getTopicName() {
-        return topicName;
+    public String getTriggerTopics() {
+        return triggerTopics;
     }
 
     /**
-     * @param topicName the topic name to subscribe to
+     * @param triggerTopics the topic name to subscribe to
      */
-    public void setTopicName(String topicName) {
-        this.topicName = findString(topicName);
+    public void setTriggerTopics(String triggerTopics) {
+        this.triggerTopics = findString(triggerTopics);
     }
 
     /**
@@ -190,24 +193,7 @@ public class RemoteUpdateDivTag extends AbstractUITag implements JavascriptEmitt
      *
      * @see JavascriptEmitter#emittInstanceConfigurationJavascript(javax.servlet.jsp.PageContext)
      */
-    public void emittInstanceConfigurationJavascript( PageContext page ) {
-
-        if( null==topicName || "".equals(topicName) )
-            return;
-
-        JspWriter out = page.getOut();
-        try {
-            StringBuffer sb = new StringBuffer();
-            StringTokenizer st = new StringTokenizer( topicName, "," );
-            while( st.hasMoreElements() ) {
-                sb.append("dojo.event.topic.subscribe( " ).append("\"topic_").append(st.nextElement()).append("\"");
-                sb.append( ", remotediv_" ).append(id).append( ", " );
-                sb.append("\"refresh\"").append(" );");
-                sb.append("\n");
-            }
-            out.println(sb.toString());
-        } catch (IOException e) {
-            LOG.error( "Error writting JS to pageContext.out", e );
-        }
+    public void emittInstanceConfigurationJavascript( PageContext page ) throws JspException {
+        // nothing to emitt
     }
 }

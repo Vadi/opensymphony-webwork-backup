@@ -12,11 +12,25 @@
 
                     <div class="code">
 <pre>
-    &lt;ww:remotediv id="error1" url="/tutorial/ajax/AjaxNoUrl.jsp" errorText="Could not contact server" /&gt;
+    &lt;ww:div
+        id="error"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxNoUrl.jsp"
+        theme="ajax"
+        delay="1000"
+        errorText="Could not contact server"
+        loadingText="reloading" &gt;loading now&lt;/ww:div&gt;
 </pre>
                     </div>
 
-                    <ww:remotediv id="error1" url="/tutorial/ajax/AjaxNoUrl.jsp" errorText="Could not contact server" />
+    <ww:div
+        id="error"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxNoUrl.jsp"
+        theme="ajax"
+        delay="1000"
+        errorText="Could not contact server"
+        loadingText="reloading" >loading now</ww:div>
 
 
   </body>

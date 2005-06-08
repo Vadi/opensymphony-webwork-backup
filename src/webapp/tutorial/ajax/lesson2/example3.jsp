@@ -12,11 +12,27 @@
 
                     <div class="code">
 <pre>
-    &lt;ww:remotediv id="twoseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="%{#parameters.period}" /&gt;
+    &lt;ww:div
+        id="twoseconds"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        delay="2000"
+        updateFreq="%{#parameters.period}"
+        errorText="There was an error"
+        loadingText="loading..." &gt;Initial Content&lt;/ww:div&gt;
 </pre>
                     </div>
 
-                    <ww:remotediv id="twoseconds" url="/tutorial/ajax/AjaxTest.action" updateFreq="%{#parameters.period}" />
+    <ww:div
+        id="twoseconds"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        delay="2000"
+        updateFreq="%{#parameters.period}"
+        errorText="There was an error"
+        loadingText="loading..." >Initial Content</ww:div>
 
   </body>
 </html>

@@ -99,12 +99,12 @@ public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane,Ja
 
     /**
      * Create JS to subscribe this instance to the topics requested.
-     *
+     *       todo:  fix this for new remoteupdatedivtag
      * @see JavascriptEmitter#emittInstanceConfigurationJavascript(javax.servlet.jsp.PageContext)
      */
     public void emittInstanceConfigurationJavascript( PageContext page ) {
 
-        super.emittInstanceConfigurationJavascript( pageContext );
+//        super.emittInstanceConfigurationJavascript( pageContext );
 
         JspWriter out = page.getOut();
         StringBuffer sb = new StringBuffer();
@@ -112,8 +112,8 @@ public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane,Ja
         // create the remote div object
         sb.append("var remotediv_").append(id);
         sb.append(" = new RemoteUpdateComponent( '");
-        sb.append(getUrl()).append("', 'tab_contents_update_").append(id).append("', '");
-        sb.append(getReloadingText()).append("', '");
+        sb.append(getHref()).append("', 'tab_contents_update_").append(id).append("', '");
+//        sb.append(getReloadingText()).append("', '");
         sb.append(getErrorText()).append("', '").append(getShowErrorTransportText()).append("' );\n");
 
         // subscribe to the tab selection topics
