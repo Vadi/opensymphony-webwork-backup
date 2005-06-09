@@ -10,7 +10,7 @@ import javax.servlet.jsp.PageContext;
  * A tag that creates a HTML &gt;a href='' /&lt; that when clicked calls a URL remote XMLHttpRequest call
  * via the dojo framework.  The result from the URL is executed as JavaScript.
  * <p/>
- * If a "topicName" is supplied, it will publish a 'click' message to that topic when the result is
+ * If a "listenTopics" is supplied, it will publish a 'click' message to that topic when the result is
  * returned.  If utilizing the topic/event elements, then this tag needs to be contained within
  * a &gt;ww:topicScope /&lt; tag.
  *
@@ -21,15 +21,15 @@ import javax.servlet.jsp.PageContext;
  */
 public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmitter, Cloneable {
 
-    final public static String OPEN_TEMPLATE = "remotelink";
-    final public static String TEMPLATE = "remotelink-close";
+    final public static String OPEN_TEMPLATE = "a";
+    final public static String TEMPLATE = "a-close";
 
     final private static String COMPONENT_NAME = RemoteLinkTag.class.getName();
 
-    private String url;
+    private String href;
     private String errorText;
     private boolean showErrorTransportText;
-    private String topicName;
+    private String notifyTopic;
 
 
     /**
@@ -76,19 +76,21 @@ public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmi
     }
 
     /**
-     * @return the url being called
+     * @return the href being called
      */
-    public String getUrl() {
-        return url;
+    public String getHref() {
+        return href;
     }
 
     /**
-     * @param url the url being called.  If the url starts with "/" the context path is appended
+     * @param href the href being called.  If the href starts with "/" the context path is appended
      */
-    public void setUrl(String url) {
-        String stackUrl = findString(url);
-        if( stackUrl.startsWith("/") )
-            this.url = ((HttpServletRequest)pageContext.getRequest()).getContextPath() + stackUrl;
+    public void setHref(String href) {
+        String stackUrl = findString(href);
+        String contextPath = ((HttpServletRequest)pageContext.getRequest()).getContextPath();
+        if( stackUrl.startsWith("/") && stackUrl.startsWith(contextPath) )
+            contextPath = "";
+        this.href = contextPath + stackUrl;
     }
 
     /**
@@ -122,15 +124,15 @@ public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmi
     /**
      * @return the topic name to subscribe to
      */
-    public String getTopicName() {
-        return topicName;
+    public String getNotifyTopic() {
+        return findString(notifyTopic);
     }
 
     /**
-     * @param topicName the topic name to subscribe to
+     * @param notifyTopic the topic name to subscribe to
      */
-    public void setTopicName(String topicName) {
-        this.topicName = topicName;
+    public void setNotifyTopic(String notifyTopic) {
+        this.notifyTopic = notifyTopic;
     }
 
     /**
@@ -141,7 +143,9 @@ public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmi
      */
     public int doEndTag() throws JspException {
         try {
-            ((TopicScopeTag)findAncestorWithClass( this, TopicScopeTag.class )).addEmitter((JavascriptEmitter)this.clone());
+            TopicScopeTag topicScope = (TopicScopeTag)findAncestorWithClass( this, TopicScopeTag.class );
+            if( null!=topicScope )
+                topicScope.addEmitter((JavascriptEmitter)this.clone());
         } catch (CloneNotSupportedException e) {
             throw new JspException(e);
         }

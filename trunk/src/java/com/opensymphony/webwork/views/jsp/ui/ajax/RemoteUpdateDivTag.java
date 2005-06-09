@@ -10,7 +10,7 @@ import javax.servlet.jsp.JspException;
  * A tag that creates a HTML &gt;DIV /&lt; that obtains it's content via a remote XMLHttpRequest call
  * via the dojo framework.
  * <p/>
- * If a "triggerTopics" is supplied, it will listen to that topic and refresh it's content when any message
+ * If a "listenTopics" is supplied, it will listen to that topic and refresh it's content when any message
  * is received.  If utilizing the topic/event elements, then this tag needs to be contained within
  * a &gt;ww:topicScope /&lt; tag.
  *
@@ -31,7 +31,7 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
     private String loadingText;
     private String errorText;
     private boolean showErrorTransportText = false;
-    protected String triggerTopics;
+    protected String listenTopics;
 
 
     /**
@@ -163,15 +163,15 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
     /**
      * @return the topic name to subscribe to
      */
-    public String getTriggerTopics() {
-        return triggerTopics;
+    public String getListenTopics() {
+        return listenTopics;
     }
 
     /**
-     * @param triggerTopics the topic name to subscribe to
+     * @param listenTopics the topic name to subscribe to
      */
-    public void setTriggerTopics(String triggerTopics) {
-        this.triggerTopics = findString(triggerTopics);
+    public void setListenTopics(String listenTopics) {
+        this.listenTopics = findString(listenTopics);
     }
 
     /**
