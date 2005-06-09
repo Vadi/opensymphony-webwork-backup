@@ -20,20 +20,20 @@
 <pre>
 &lt;ww:remotelink
     id="link1"
-    url="/AjaxRemoteLink.action"
+    href="/AjaxRemoteLink.action"
     showErrorTransportText="true"
     errorText="An Error ocurred"
-    topicName="testTopic" &gt;My remote Link&lt;/ww:remotelink&gt;
+    notifyTopics="testTopic" &gt;My remote Link&lt;/ww:remotelink&gt;
 </pre>
         </div>
         The attributes are:
         <ul>
             <li>id - the unique id for the html element</li>
-            <li>url - the url to submit when the link is clicked.  This can contain %{} elements in order
+            <li>href - the url to submit when the link is clicked.  This can contain %{} elements in order
                         to provide id's or other server-side procession information for this specific link.</li>
             <li>errorText - the text to display to the user if there is an error (i.e. error contacting the url specified)</li>
             <li>showErrorTransportText (true/false, can use altSyntax) - whether you want to display the transports error text to the user</li>
-            <li>topicName - the topic to publish a message to after a javascript result is returned and evaluated.
+            <li>notifyTopics - the topics to publish a message to after a javascript result is returned and evaluated.
                             Please see the <a href="lesson4.jsp">Topics</a> lesson for more details on additional configuration.</li>
         </ul>
         </p>
@@ -58,7 +58,6 @@
     // Dojo configuration
     djConfig = {
         baseRelativePath: "&lt;ww:url value="webwork/dojo/"/&gt;",
-        parseWidgets: false,
         isDebug: false
     };
 &lt;/script&gt;
@@ -71,6 +70,8 @@
 &lt;script language="JavaScript" type="text/javascript"&gt;
     dojo.hostenv.loadModule("dojo.io.BrowserIO");
     dojo.hostenv.loadModule("dojo.event.topic");
+    dojo.hostenv.loadModule("webwork.widgets.Bind");
+    dojo.hostenv.loadModule("webwork.widgets.BindAnchor");
 &lt;/script&gt;
 </pre>
         </div>
