@@ -6,7 +6,7 @@
 	<#if tag.showErrorTransportText>showTransportError='true'</#if>
 	<#if tag.delay?exists>delay='${tag.delay}'</#if>
 	<#if tag.updateFreq?exists>refresh='${tag.updateFreq}'</#if>
-	<#if tag.triggerTopics?exists>triggerTopics='${tag.triggerTopics}'</#if>
+	<#if tag.listenTopics?exists>listenTopics='${tag.listenTopics}'</#if>
     <#if parameters.name?exists>             name="${parameters.name?html}"         </#if>
     <#if parameters.cssClass?exists>         class="${parameters.cssClass?html}"    </#if>
     <#if parameters.cssStyle?exists>         style="${parameters.cssStyle?html}"    </#if>
