@@ -10,7 +10,7 @@
         The remote link tag is one of the simpler AJAX components.  It works in the same way as
         a normal HTML &lt;a href="..." /&gt; tag would, but when the user clicks on the link an
         AJAX call is made to the server.  Any response coming back is evaluated as a JavaScript
-        expression.
+        expression, and the result must have a .js extension.
         </p>
 
         <h2>Usage</h2>
@@ -64,8 +64,6 @@
 
 &lt;script language="JavaScript" type="text/javascript"
         src="&lt;ww:url value="/webwork/dojo/__package__.js" /&gt;"&gt;&lt;/script&gt;
-&lt;script language="JavaScript" type="text/javascript"
-        src="&lt;ww:url value="/webwork/AjaxComponents.js" /&gt;"&gt;&lt;/script&gt;
 
 &lt;script language="JavaScript" type="text/javascript"&gt;
     dojo.hostenv.loadModule("dojo.io.BrowserIO");
