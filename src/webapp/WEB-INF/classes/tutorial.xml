@@ -24,7 +24,7 @@
         </action>
         
         <action name="AjaxRemoteLink" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
-            <result name="success">AjaxResult2.jsp</result>
+            <result name="success">AjaxResult2.js</result>
         </action>
 
         <action name="AjaxRemoteForm" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
