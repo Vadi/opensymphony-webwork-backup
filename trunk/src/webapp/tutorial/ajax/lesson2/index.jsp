@@ -39,7 +39,7 @@
             <li>loadingText - the text to display to the user while the contents are being reloaded.</li>
             <li>errorText - the text to display to the user if there is an error (i.e. error contacting the url specified)</li>
             <li>showErrorTransportText (true/false, can use altSyntax) - true if you want to display the dojo transports error,  or the text to the user</li>
-            <li>triggerTopics - a comma delimited list of topic names to listen to.
+            <li>listenTopics - a comma delimited list of topic names to listen to.
                     If a message is recieved the DIV tag contents will be refreshed.
                     Please see the <a href="">Topics</a> lesson for more details on additional configuration.</li>
         </ul>
