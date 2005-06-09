@@ -1,5 +1,0 @@
-#if( $tag.topicName )
-<a href="#" onClick="javascript:evalAfterRemoteCall( '$!tag.url', '$!tag.errorText', '$!tag.showTransportErrorText', 'topic_${tag.topicName}' ); return false;" >
-#else
-<a href="#" onClick="javascript:evalAfterRemoteCall( '$!tag.url', '$!tag.errorText', '$!tag.showTransportErrorText', '' ); return false;" >
-#end
