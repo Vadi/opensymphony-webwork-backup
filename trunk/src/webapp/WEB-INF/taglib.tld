@@ -777,6 +777,31 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>useAjax</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+         <attribute>
+             <name>resultDivId</name>
+             <required>false</required>
+             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>errorText</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>showErrorTransportText</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>topicName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -2576,7 +2601,7 @@
         <name>div</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.RemoteUpdateDivTag</tagclass>
         <bodycontent>JSP</bodycontent>
-        <info>An HTML widget that obtains it's contents via a Ajax call</info>
+        <info>An HTML widget that can obtain it's contents via a Ajax call</info>
         <attribute>
             <name>id</name>
             <required>true</required>
@@ -2633,7 +2658,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>triggerTopics</name>
+            <name>listenTopics</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -2647,10 +2672,10 @@
     </tag>
 
     <tag>
-        <name>remotelink</name>
+        <name>a</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.RemoteLinkTag</tagclass>
         <bodycontent>JSP</bodycontent>
-        <info>An Ajax replacement for &lt;a href='' /&gt; - makes an ajax call when the link is clicked and evaluated the result</info>
+        <info>A HTML widget that can be an Ajax replacement for &lt;a href='' /&gt; - makes an ajax call when the link is clicked and evaluated the result</info>
         <attribute>
             <name>id</name>
             <required>true</required>
@@ -2677,7 +2702,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>url</name>
+            <name>href</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -2692,7 +2717,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>topicName</name>
+            <name>notifyTopic</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
