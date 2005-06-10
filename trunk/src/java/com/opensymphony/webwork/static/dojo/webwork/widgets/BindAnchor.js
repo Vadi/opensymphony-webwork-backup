@@ -56,5 +56,5 @@ webwork.widgets.HTMLBindAnchor = function() {
 dj_inherits(webwork.widgets.HTMLBindAnchor, webwork.widgets.HTMLBind);
 dojo.webui.widgets.tags.addParseTreeHandler("dojo:BindAnchor");
 
-// TODO move this into a package include
+// TODO needs to be placed into a package include
 dojo.webui.widgetManager.registerWidgetPackage('webwork.widgets');

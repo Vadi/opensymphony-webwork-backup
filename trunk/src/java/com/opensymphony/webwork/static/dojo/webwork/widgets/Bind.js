@@ -63,11 +63,14 @@ webwork.widgets.Bind = function() {
 	// the dom id of a target div to fill with the response
 	this.targetDiv = "";	
 
-	// javascript code to be evaled when data arrives - arguments are (eventType, data)
+	// javascript code to be executed when data arrives - arguments are (eventType, data)
 	this.onLoad = "";
 	
 	// if true, we set the bind mimetype to text/javascript to cause dojo to eval the result
-	this.evalOnLoad = "";
+	this.evalResult = false;
+	
+	// does the bind call use the client side cache
+	this.useCache = false;
 	
 	this.fillInTemplate = function() {
 		// subscribe to out listenTopics
@@ -88,7 +91,7 @@ webwork.widgets.Bind = function() {
 		var args = {
 			load: self.load,
 			error: self.error,
-			useCache: false
+			useCache: self.useCache
 		};
 
 		if (self.formId != "")
@@ -101,8 +104,7 @@ webwork.widgets.Bind = function() {
 		if (self.getUrl != "")
 			args.url = eval(this.getUrl);
 
-		// todo replace with isTrue helper
-		if (self.evalOnLoad == "true") {
+		if (self.evalResult) {
 			args.mimetype = "text/javascript";
 		}
 
@@ -152,3 +154,6 @@ webwork.widgets.HTMLBind = function() {
 dj_inherits(webwork.widgets.Bind, dojo.webui.DomWidget);
 dj_inherits(webwork.widgets.HTMLBind, webwork.widgets.Bind);
 dojo.webui.widgets.tags.addParseTreeHandler("dojo:bind");
+
+// TODO needs to be placed into a package include
+dojo.webui.widgetManager.registerWidgetPackage('webwork.widgets');

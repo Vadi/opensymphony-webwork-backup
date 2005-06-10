@@ -31,7 +31,7 @@
 				refresh='2000' 
 				class='sampleBox'
 				style='border: 1px solid red;'
-				triggerTopics='allWidgets'
+				listenTopics='allWidgets'
 				>
 				<b>initial content</b>
 			</dojo:binddiv>
@@ -47,7 +47,7 @@
 				delay='1000'
 				class='sampleBox'
 				style='border: 1px solid orange;'
-				triggerTopics='allWidgets'
+				listenTopics='allWidgets'
 				>
 					<b>initial content</b>
 			</div>
@@ -63,7 +63,7 @@
 				formId="theForm" 
 				onLoad="document.getElementById('theFormOutput').innerHTML = 'received data :' + data;"
 				value='Post'
-				triggerTopics='allWidgets'>
+				listenTopics='allWidgets'>
 			</dojo:bindbutton>
 
 			<div id='theFormOutput'></div>
@@ -78,7 +78,7 @@
 				formId='theForm2'
 				targetDiv='theForm2Output'
 				value='Post'
-				triggerTopics='allWidgets'>
+				listenTopics='allWidgets'>
 			</dojo:bindbutton>
 			<div id='theForm2Output'>form 2 will render to here</div>
 		</@><b>Note : BindButtonAndDiv has issues with IE .. some strange SystemError with http.responseText </b>
@@ -87,8 +87,8 @@
 			<dojo:bind
 				id='jsAlert'
 				href='data/alert.js'
-				triggerTopics='allWidgets'
-				evalOnLoad='true'
+				listenTopics='allWidgets'
+				evalResult='true'
 			>
 			</dojo:bind>
 			<a href='javascript:jsAlert.bind()'>go</a>
@@ -98,8 +98,8 @@
 			<dojo:bindanchor
 				id='bindAnchor'
 				href='data/alert.js'
-				triggerTopics='allWidgets'
-				evalOnLoad='true'
+				listenTopics='allWidgets'
+				evalResult='true'
 			>click here to get an alert</dojo:bindanchor>
 		</@>
 
@@ -110,7 +110,7 @@
 				showTransportError=true
 				class='sampleBox'
 				style='border: 1px solid red;'
-				triggerTopics='allWidgets'
+				listenTopics='allWidgets'
 				>
 				<b>initial content</b>
 			</dojo:binddiv>

@@ -51,5 +51,5 @@ webwork.widgets.HTMLBindButton = function() {
 dj_inherits(webwork.widgets.HTMLBindButton, webwork.widgets.HTMLBind);
 dojo.webui.widgets.tags.addParseTreeHandler("dojo:BindButton");
 
-// TODO move this into a package include
+// TODO needs to be placed into a package include
 dojo.webui.widgetManager.registerWidgetPackage('webwork.widgets');

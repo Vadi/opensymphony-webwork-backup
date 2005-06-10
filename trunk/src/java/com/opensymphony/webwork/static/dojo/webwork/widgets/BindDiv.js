@@ -135,5 +135,5 @@ webwork.widgets.HTMLBindDiv = function() {
 dj_inherits(webwork.widgets.HTMLBindDiv, webwork.widgets.HTMLBind);
 dojo.webui.widgets.tags.addParseTreeHandler("dojo:BindDiv");
 
-// TODO move this into a package include
+// TODO needs to be placed into a package include
 dojo.webui.widgetManager.registerWidgetPackage('webwork.widgets');
