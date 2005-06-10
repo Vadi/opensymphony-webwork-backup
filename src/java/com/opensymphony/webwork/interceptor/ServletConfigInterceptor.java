@@ -5,6 +5,8 @@
 package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.webwork.WebWorkStatics;
+import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.util.ServletContextAware;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
@@ -24,6 +26,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Patrick Lightbody
  * @author Bill Lynch (docs)
+ *
+ * @see ServletContextAware
+ * @see ServletRequestAware
+ * @see ServletResponseAware
+ * @see ParameterAware
+ * @see SessionAware
+ * @see ApplicationAware
+ * @see PrincipalAware
  */
 public class ServletConfigInterceptor extends AroundInterceptor implements WebWorkStatics {
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -71,6 +81,9 @@ public class ServletConfigInterceptor extends AroundInterceptor implements WebWo
         if (action instanceof PrincipalAware) {
             HttpServletRequest request = (HttpServletRequest) context.get(HTTP_REQUEST);
             ((PrincipalAware) action).setPrincipalProxy(new PrincipalProxy(request));
+        }
+        if (action instanceof ServletContextAware) {
+            ((ServletContextAware)action).setServletContext(ServletActionContext.getServletContext());
         }
     }
 }
