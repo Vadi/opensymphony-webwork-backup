@@ -29,7 +29,7 @@ public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmi
     private String href;
     private String errorText;
     private boolean showErrorTransportText;
-    private String notifyTopic;
+    private String notifyTopics;
 
 
     /**
@@ -124,15 +124,17 @@ public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmi
     /**
      * @return the topic name to subscribe to
      */
-    public String getNotifyTopic() {
-        return findString(notifyTopic);
+    public String getNotifyTopics() {
+        if( null==notifyTopics )
+            return "";
+        return findString(notifyTopics);
     }
 
     /**
-     * @param notifyTopic the topic name to subscribe to
+     * @param notifyTopics the topic name to subscribe to
      */
-    public void setNotifyTopic(String notifyTopic) {
-        this.notifyTopic = notifyTopic;
+    public void setNotifyTopics(String notifyTopics) {
+        this.notifyTopics = notifyTopics;
     }
 
     /**

@@ -48,7 +48,7 @@
             id="link1"
             theme="ajax"
             href="/tutorial/ajax/AjaxRemoteLink.action"
-            notifyTopic="mylink1_click"
+            notifyTopics="mylink1_click"
             showErrorTransportText="true"
             errorText="An Error ocurred" &gt;Update&lt;/ww:a&gt;
         &lt;br/&gt;&lt;br/&gt;
@@ -58,7 +58,7 @@
              id="link2"
              theme="ajax"
              href="/tutorial/ajax/AjaxRemoteLink.action"
-             notifyTopic="mylink2_click"
+             notifyTopics="mylink2_click"
              showErrorTransportText="true"
              errorText="An Error ocurred" &gt;Update&lt;/ww:a&gt;
         &lt;br/&gt;&lt;br/&gt;
@@ -119,7 +119,7 @@
             id="link1"
             theme="ajax"
             href="/tutorial/ajax/AjaxRemoteLink.action"
-            notifyTopic="mylink1_click"
+            notifyTopics="mylink1_click"
             showErrorTransportText="true"
             errorText="An Error ocurred" >Update</ww:a>
         <br/><br/>
@@ -129,7 +129,7 @@
              id="link2"
              theme="ajax"
              href="/tutorial/ajax/AjaxRemoteLink.action"
-             notifyTopic="mylink2_click"
+             notifyTopics="mylink2_click"
              showErrorTransportText="true"
              errorText="An Error ocurred" >Update</ww:a>
         <br/><br/>
