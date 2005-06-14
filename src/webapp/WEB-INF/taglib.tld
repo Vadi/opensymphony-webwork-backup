@@ -798,7 +798,17 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>topicName</name>
+            <name>notifyTopics</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+             <name>listenTopics</name>
+             <required>false</required>
+             <rtexprvalue>true</rtexprvalue>
+         </attribute>
+        <attribute>
+            <name>onLoadJS</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -2717,7 +2727,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>notifyTopic</name>
+            <name>notifyTopics</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

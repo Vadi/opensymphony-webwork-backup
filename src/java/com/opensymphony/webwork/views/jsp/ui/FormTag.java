@@ -45,6 +45,13 @@ public class FormTag extends AbstractClosingUITag {
     String methodAttr;
     String namespaceAttr;
     String validateAttr;
+    private String errorText;
+    private boolean showErrorTransportText;
+    private String notifyTopics;
+    private String useAjax;
+    private String resultDivId;
+    private String onLoadJS;
+    private String listenTopics;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -82,6 +89,104 @@ public class FormTag extends AbstractClosingUITag {
 
     public void setValidate(String validate) {
         this.validateAttr = validate;
+    }
+
+    /**
+     * @return whether to use ajax remote form submital
+     */
+    public String getUseAjax() {
+        return (null==useAjax || "".equals(useAjax) ) ? "no" : useAjax;
+    }
+
+    /**
+     * @param useAjax whether to use ajax remote form submital
+     */
+    public void setUseAjax(String useAjax) {
+        this.useAjax = useAjax;
+    }
+
+    /**
+     * @return the text to display if there is an error
+     */
+    public String getErrorText() {
+        return errorText;
+    }
+
+    /**
+     * @param errorText the text to display if there is an error
+     */
+    public void setErrorText(String errorText) {
+        this.errorText = findString(errorText);
+    }
+
+    /**
+     * @return whether to show the error message from dojo
+     */
+    public boolean getShowErrorTransportText() {
+        return showErrorTransportText;
+    }
+
+    /**
+     * @param showErrorTransportText whether to show the error message from dojo
+     */
+    public void setShowErrorTransportText(String showErrorTransportText) {
+        this.showErrorTransportText = "true".equals(findValue(showErrorTransportText,String.class)) ? true : false;
+    }
+
+    /**
+     * @return the topic name to subscribe to
+     */
+    public String getNotifyTopics() {
+        return notifyTopics;
+    }
+
+    /**
+     * @param notifyTopics the topic name to subscribe to
+     */
+    public void setNotifyTopics(String notifyTopics) {
+        this.notifyTopics = notifyTopics;
+    }
+
+    /**
+     * @return the html id of the DIV that the results will be placed into
+     */
+    public String getResultDivId() {
+        return resultDivId;
+    }
+
+    /**
+     * @param resultDivId the html id of the DIV that the results will be placed into
+     */
+    public void setResultDivId(String resultDivId) {
+        this.resultDivId = findString(resultDivId);
+    }
+
+    /**
+     * @return the JS to execute after the form has been submitted
+     */
+    public String getOnLoadJS() {
+        return onLoadJS;
+    }
+
+    /**
+     * @param onLoadJS the JS to execute after the form has been submitted
+     */
+    public void setOnLoadJS(String onLoadJS) {
+        this.onLoadJS = onLoadJS;
+    }
+
+    /**
+     * @return the topic name to subscribe to and submit the form when a message is recieved
+     */
+    public String getListenTopics() {
+        return listenTopics;
+    }
+
+    /**
+     * @param listenTopics the topic name to subscribe to and submit the form when a message is recieved
+     */
+    public void setListenTopics(String listenTopics) {
+        this.listenTopics = findString(listenTopics);
     }
 
     public void evaluateExtraParams(OgnlValueStack stack) {

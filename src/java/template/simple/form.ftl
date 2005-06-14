@@ -8,4 +8,5 @@
 <#if parameters.enctype?exists>   enctype="${parameters.enctype?html}"      </#if>
 <#if parameters.cssClass?exists>  class="${parameters.cssClass?html}"       </#if>
 <#if parameters.cssStyle?exists>  style="${parameters.cssStyle?html}"       </#if>
+<#if tag.useAjax?upper_case == "YES" || tag.useAjax?upper_case == "TRUE" > onSubmit="return false;" </#if>
 >
