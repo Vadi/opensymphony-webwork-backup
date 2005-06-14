@@ -11,8 +11,8 @@
 
 
 
-<div id='two' style="border: 1px solid yellow;"><b>initial content</b></div>
 Remote form replacing another div:<br/>
+<div id='two' style="border: 1px solid yellow;"><b>initial content</b></div>
 <ww:form
     id='theForm2'
     cssStyle="border: 1px solid green;"
@@ -45,6 +45,21 @@ Remote form replacing the forms content:<br/>
 
 </ww:form>
 
+Remote form evaluating suplied JS on completion:<br/>
+<ww:form
+    id='theForm4'
+    cssStyle="border: 1px solid green;"
+    action='/tutorial/ajax/AjaxRemoteForm.action'
+    useAjax="true"
+    method='post'
+    onLoadJS="alert('form submitted');"
+    theme="simple" >
+
+    <input type='text' name='data' value='WebWork User'>
+
+    <ww:submit value="GO4" theme="ajax" />
+
+</ww:form>
 
   </body>
 </html>
