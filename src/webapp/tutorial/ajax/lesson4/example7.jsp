@@ -10,73 +10,147 @@
 
                     A simple DIV's that cannot contact the server and displays the transport error message:<br/>
 
-                    <div class="code">
+                    <div class="source">
 <pre>
-    &lt;ww:topicScope&gt;
-
         One Component:
-        &lt;ww:remotediv id="one" url="/tutorial/ajax/AjaxTest.action" topicName="mylink1_click" /&gt;
+    &lt;ww:div
+        id="one"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        listenTopics="mylink1_click"
+        delay="1000" &gt;Initial Content&lt;/ww:div&gt;
+
         &lt;br/&gt;&lt;br/&gt;
 
         Two Component:
-        &lt;ww:remotediv id="two" url="/tutorial/ajax/AjaxTest.action" topicName="mylink1_click,mylink2_click" /&gt;
+    &lt;ww:div
+        id="two"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        listenTopics="mylink1_click,mylink2_click"
+        delay="1000" &gt;Initial Content&lt;/ww:div&gt;
         &lt;br/&gt;&lt;br/&gt;
 
         Three Component:
-        &lt;ww:remotediv id="three" url="/tutorial/ajax/AjaxTest.action" topicName="mylink2_click" /&gt;
+    &lt;ww:div
+        id="three"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        listenTopics="mylink2_click"
+        delay="1000" &gt;Initial Content&lt;/ww:div&gt;
         &lt;br/&gt;&lt;br/&gt;
 
         Remote link 1 updating "One Component" and "Two Component"&lt;br/&gt;
-        &lt;ww:remotelink id="link1" url="/tutorial/ajax/AjaxRemoteLink.action" topicName="mylink1_click" showErrorTransportText="true" errorText="An Error ocurred" &gt;Update&lt;/ww:remotelink&gt;
+        &lt;ww:a
+            id="link1"
+            theme="ajax"
+            href="/tutorial/ajax/AjaxRemoteLink.action"
+            notifyTopics="mylink1_click"
+            showErrorTransportText="true"
+            errorText="An Error ocurred" &gt;Update&lt;/ww:a&gt;
         &lt;br/&gt;&lt;br/&gt;
 
         Remote link 2 updating "Two Component" and "Three Component"&lt;br/&gt;
-        &lt;ww:remotelink id="link2" url="/tutorial/ajax/AjaxRemoteLink.action" topicName="mylink2_click" showErrorTransportText="true" errorText="An Error ocurred" &gt;Update&lt;/ww:remotelink&gt;
+        &lt;ww:a
+             id="link2"
+             theme="ajax"
+             href="/tutorial/ajax/AjaxRemoteLink.action"
+             notifyTopics="mylink2_click"
+             showErrorTransportText="true"
+             errorText="An Error ocurred" &gt;Update&lt;/ww:a&gt;
         &lt;br/&gt;&lt;br/&gt;
 
         Remote DIV that is not connected to any remote links:
-        &lt;ww:remotediv id="four" url="/tutorial/ajax/AjaxTest.action" /&gt;
+    &lt;ww:div
+        id="four"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        delay="1000" &gt;Initial Content&lt;/ww:div&gt;
         &lt;br/&gt;&lt;br/&gt;
 
-        A Remote link that doesn't trigger any remote DIV updates &lt;br/&gt;
-        &lt;ww:remotelink id="link1" url="/tutorial/ajax/AjaxRemoteLink.action" showErrorTransportText="true" errorText="An Error ocurred" &gt;Update&lt;/ww:remotelink&gt;
+        A Remote link that doesn't trigger any remote DIV updates&lt;br/&gt;
+        &lt;ww:a
+             id="link1"
+             theme="ajax"
+             href="/tutorial/ajax/AjaxRemoteLink.action"
+             showErrorTransportText="true"
+             errorText="An Error ocurred" &gt;Update&lt;/ww:a&gt;
         &lt;br/&gt;&lt;br/&gt;
-
-    &lt;/ww:topicScope&gt;
-
 </pre>
                     </div>
 
-    <ww:topicScope>
-
         One Component:
-        <ww:remotediv id="one" url="/tutorial/ajax/AjaxTest.action" topicName="mylink1_click" />
+    <ww:div
+        id="one"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        listenTopics="mylink1_click"
+        delay="1000" >Initial Content</ww:div>
+
         <br/><br/>
 
         Two Component:
-        <ww:remotediv id="two" url="/tutorial/ajax/AjaxTest.action" topicName="mylink1_click,mylink2_click" />
+    <ww:div
+        id="two"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        listenTopics="mylink1_click,mylink2_click"
+        delay="1000" >Initial Content</ww:div>
         <br/><br/>
 
         Three Component:
-        <ww:remotediv id="three" url="/tutorial/ajax/AjaxTest.action" topicName="mylink2_click" />
+    <ww:div
+        id="three"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        listenTopics="mylink2_click"
+        delay="1000" >Initial Content</ww:div>
         <br/><br/>
 
         Remote link 1 updating "One Component" and "Two Component"<br/>
-        <ww:remotelink id="link1" url="/tutorial/ajax/AjaxRemoteLink.action" topicName="mylink1_click" showErrorTransportText="true" errorText="An Error ocurred" >Update</ww:remotelink>
+        <ww:a
+            id="link1"
+            theme="ajax"
+            href="/tutorial/ajax/AjaxRemoteLink.action"
+            notifyTopics="mylink1_click"
+            showErrorTransportText="true"
+            errorText="An Error ocurred" >Update</ww:a>
         <br/><br/>
 
         Remote link 2 updating "Two Component" and "Three Component"<br/>
-        <ww:remotelink id="link2" url="/tutorial/ajax/AjaxRemoteLink.action" topicName="mylink2_click" showErrorTransportText="true" errorText="An Error ocurred" >Update</ww:remotelink>
+        <ww:a
+             id="link2"
+             theme="ajax"
+             href="/tutorial/ajax/AjaxRemoteLink.action"
+             notifyTopics="mylink2_click"
+             showErrorTransportText="true"
+             errorText="An Error ocurred" >Update</ww:a>
         <br/><br/>
 
         Remote DIV that is not connected to any remote links:
-        <ww:remotediv id="four" url="/tutorial/ajax/AjaxTest.action" />
+    <ww:div
+        id="four"
+        cssStyle="border: 1px solid yellow;"
+        href="/tutorial/ajax/AjaxTest.action"
+        theme="ajax"
+        delay="1000" >Initial Content</ww:div>
         <br/><br/>
 
         A Remote link that doesn't trigger any remote DIV updates<br/>
-        <ww:remotelink id="link1" url="/tutorial/ajax/AjaxRemoteLink.action" showErrorTransportText="true" errorText="An Error ocurred" >Update</ww:remotelink>
+        <ww:a
+             id="link1"
+             theme="ajax"
+             href="/tutorial/ajax/AjaxRemoteLink.action"
+             showErrorTransportText="true"
+             errorText="An Error ocurred" >Update</ww:a>
         <br/><br/>
 
-    </ww:topicScope>
   </body>
 </html>
