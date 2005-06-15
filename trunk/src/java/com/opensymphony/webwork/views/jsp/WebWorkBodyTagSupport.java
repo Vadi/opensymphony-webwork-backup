@@ -39,6 +39,13 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
         if (WebWorkTagSupport.ALT_SYNTAX && toType == String.class) {
             return WebWorkTagSupport.translateVariables(expr, getStack());
         } else {
+            if (WebWorkTagSupport.ALT_SYNTAX) {
+                // does the expression start with %{ and end with }? if so, just cut it off!
+                if (expr.startsWith("%{") && expr.endsWith("}")) {
+                    expr = expr.substring(2, expr.length() - 1);
+                }
+            }
+
             expr = CompatUtil.compat(expr);
 
             return getStack().findValue(expr, toType);

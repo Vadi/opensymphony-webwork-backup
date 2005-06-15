@@ -27,10 +27,10 @@ public class CheckboxTest extends AbstractUITagTest {
         CheckboxTag tag = new CheckboxTag();
         tag.setPageContext(pageContext);
         tag.setId("someId");
-        tag.setLabel("'mylabel'");
-        tag.setName("'foo'");
-        tag.setFieldValue("'baz'");
-        tag.setOnfocus("'test();'");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
+        tag.setFieldValue("baz");
+        tag.setOnfocus("test();");
 
         int result = tag.doEndTag();
 
@@ -45,11 +45,11 @@ public class CheckboxTest extends AbstractUITagTest {
 
         CheckboxTag tag = new CheckboxTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'foo'");
-        tag.setFieldValue("'baz'");
-        tag.setOndblclick("'test();'");
-        tag.setOnclick("'test();'");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
+        tag.setFieldValue("baz");
+        tag.setOndblclick("test();");
+        tag.setOnclick("test();");
 
         int result = tag.doEndTag();
 
@@ -62,9 +62,9 @@ public class CheckboxTest extends AbstractUITagTest {
 
         CheckboxTag tag = new CheckboxTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'foo'");
-        tag.setFieldValue("'baz'");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
+        tag.setFieldValue("baz");
 
         int result = tag.doEndTag();
 
