@@ -22,8 +22,8 @@ public class SubmitTest extends AbstractUITagTest {
 
         SubmitTag tag = new SubmitTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
 
         tag.doEndTag();
 
@@ -36,10 +36,10 @@ public class SubmitTest extends AbstractUITagTest {
 
         SubmitTag tag = new SubmitTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setAlign("'left'");
-        tag.setName("'myname'");
-        tag.setValue("foo");
+        tag.setLabel("mylabel");
+        tag.setAlign("left");
+        tag.setName("myname");
+        tag.setValue("%{foo}");
 
         tag.doEndTag();
 

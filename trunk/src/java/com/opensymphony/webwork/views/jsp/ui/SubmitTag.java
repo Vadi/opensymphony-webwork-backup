@@ -37,11 +37,11 @@ public class SubmitTag extends AbstractUITag {
 
     protected void evaluateParams(OgnlValueStack stack) {
         if (alignAttr == null) {
-            alignAttr = "'right'";
+            alignAttr = "right";
         }
 
         if (valueAttr == null) {
-            valueAttr = "'Submit'";
+            valueAttr = "Submit";
         }
 
         super.evaluateParams(stack);
