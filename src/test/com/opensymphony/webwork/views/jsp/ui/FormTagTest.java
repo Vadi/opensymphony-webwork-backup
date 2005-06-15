@@ -29,10 +29,10 @@ public class FormTagTest extends AbstractUITagTest {
 
         FormTag tag = new FormTag();
         tag.setPageContext(pageContext);
-        tag.setName("'myForm'");
-        tag.setMethod("'POST'");
-        tag.setAction("'myAction'");
-        tag.setEnctype("'myEncType'");
+        tag.setName("myForm");
+        tag.setMethod("POST");
+        tag.setAction("myAction");
+        tag.setEnctype("myEncType");
 
         tag.doStartTag();
         tag.doEndTag();
@@ -54,10 +54,10 @@ public class FormTagTest extends AbstractUITagTest {
 
         FormTag tag = new FormTag();
         tag.setPageContext(pageContext);
-        tag.setNamespace("'/testNamespace'");
-        tag.setAction("'testNamespaceAction'");
-        tag.setMethod("'POST'");
-        tag.setName("'myForm'");
+        tag.setNamespace("/testNamespace");
+        tag.setAction("testNamespaceAction");
+        tag.setMethod("POST");
+        tag.setName("myForm");
 
         tag.doStartTag();
         tag.doEndTag();
@@ -81,9 +81,9 @@ public class FormTagTest extends AbstractUITagTest {
 
         FormTag tag = new FormTag();
         tag.setPageContext(pageContext);
-        tag.setAction("'/testNamespace/testNamespaceAction.jspa'");
-        tag.setMethod("'POST'");
-        tag.setName("'myForm'");
+        tag.setAction("/testNamespace/testNamespaceAction.jspa");
+        tag.setMethod("POST");
+        tag.setName("myForm");
 
         tag.doStartTag();
         tag.doEndTag();
@@ -99,9 +99,9 @@ public class FormTagTest extends AbstractUITagTest {
 
         FormTag tag = new FormTag();
         tag.setPageContext(pageContext);
-        tag.setName("'myForm'");
-        tag.setMethod("'POST'");
-        tag.setAction("'testNamespaceAction'");
+        tag.setName("myForm");
+        tag.setMethod("POST");
+        tag.setAction("testNamespaceAction");
 
         tag.doStartTag();
         tag.doEndTag();
