@@ -1,9 +1,9 @@
 <tr>
     <td align="right" valign="top"></td>
     <td><input type="text"
-               name="myname"
-               size="10"
-               value="bar"
-               onblur="blahescape('somevalue');"
-        /></td>
+    name="myname"
+    size="10"
+    value="bar"
+    onblur="blahescape('somevalue');"
+/></td>
 </tr>

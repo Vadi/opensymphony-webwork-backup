@@ -1,10 +1,8 @@
 <tr>
     <td align="right" valign="top"><label class="label">mylabel:</label></td>
-    <td>
-<input type="text"
+    <td><input type="text"
     name="myname"
     size="10"
     value="bar"
-/>
-    </td>
+/></td>
 </tr>
