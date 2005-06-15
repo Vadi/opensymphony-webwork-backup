@@ -27,11 +27,11 @@ public class FileTest extends AbstractUITagTest {
 
         FileTag tag = new FileTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
-        tag.setAccept("'*.txt'");
-        tag.setValue("foo");
-        tag.setSize("'10'");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
+        tag.setAccept("*.txt");
+        tag.setValue("%{foo}");
+        tag.setSize("10");
 
         tag.doEndTag();
 

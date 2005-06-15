@@ -1,10 +1,7 @@
-<input type="text"<#rt/>
+<input type="file"<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>
 <#if parameters.size?exists>
  size="${parameters.size?html}"<#rt/>
-</#if>
-<#if parameters.maxlength?exists>
- maxlength="${parameters.maxlength?html}"<#rt/>
 </#if>
 <#if parameters.nameValue?exists>
  value="${parameters.nameValue?html}"<#rt/>
@@ -12,8 +9,8 @@
 <#if parameters.disabled?default(false)>
  disabled="disabled"<#rt/>
 </#if>
-<#if parameters.readonly?exists>
- readonly="readonly"<#rt/>
+<#if parameters.accept?exists>
+ accept="${parameters.accept?html}"<#rt/>
 </#if>
 <#if parameters.tabindex?exists>
  tabindex="${parameters.tabindex?html}"<#rt/>
