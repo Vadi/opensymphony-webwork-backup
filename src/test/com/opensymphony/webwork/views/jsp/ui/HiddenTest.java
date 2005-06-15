@@ -22,9 +22,9 @@ public class HiddenTest extends AbstractUITagTest {
 
         HiddenTag tag = new HiddenTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
-        tag.setValue("foo");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
+        tag.setValue("%{foo}");
 
         tag.doEndTag();
 
