@@ -21,8 +21,8 @@ public class PasswordTest extends AbstractUITagTest {
 
         PasswordTag tag = new PasswordTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
 
         int result = tag.doEndTag();
 
