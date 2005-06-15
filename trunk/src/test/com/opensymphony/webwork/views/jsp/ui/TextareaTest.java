@@ -21,17 +21,17 @@ public class TextareaTest extends AbstractUITagTest {
 
         TextareaTag tag = new TextareaTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
-        tag.setValue("foo");
-        tag.setRows("'30'");
-        tag.setCols("'20'");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
+        tag.setValue("%{foo}");
+        tag.setRows("30");
+        tag.setCols("20");
         tag.setDisabled("true");
-        tag.setTabindex("'5'");
-        tag.setOnchange("'alert(\\'goodbye\\');'");
-        tag.setOnclick("'alert(\\'onclick\\');'");
+        tag.setTabindex("5");
+        tag.setOnchange("alert('goodbye');");
+        tag.setOnclick("alert('onclick');");
         tag.setId("the_id");
-        tag.setOnkeyup("'alert(\\'hello\\');'");
+        tag.setOnkeyup("alert('hello');");
         tag.setReadonly("true");
 
         int result = tag.doEndTag();
