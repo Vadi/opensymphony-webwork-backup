@@ -8,14 +8,19 @@ import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.velocity.AbstractTagDirective;
+import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.mockobjects.dynamic.Mock;
+import com.mockobjects.dynamic.C;
 import junit.framework.TestCase;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.ServletContext;
 import java.io.StringWriter;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,10 +89,14 @@ public abstract class AbstractTagTest extends TestCase {
         JspWriter jspWriter = new WebWorkMockJspWriter(writer);
         context.put(AbstractTagDirective.VELOCITY_WRITER, writer);
 
+        WebWorkMockServletContext servletContext = new WebWorkMockServletContext();
+        servletContext.setRealPath(new File("nosuchfile.properties").getAbsolutePath());
+
         pageContext = new WebWorkMockPageContext();
         pageContext.setRequest(request);
         pageContext.setResponse(response);
         pageContext.setJspWriter(jspWriter);
+        pageContext.setServletContext(servletContext);
 
         session = new HashMap();
 

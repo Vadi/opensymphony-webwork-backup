@@ -118,6 +118,8 @@ public class FreemarkerManager {
             servletContext.setAttribute(CONFIG_SERVLET_CONTEXT_KEY, config);
         }
 
+        config.setWhitespaceStripping(true);
+
         return config;
     }
 
@@ -221,8 +223,9 @@ public class FreemarkerManager {
         FileTemplateLoader templatePathLoader = null;
 
         String templatePath = servletContext.getInitParameter("TemplatePath");
-        if (templatePath == null) templatePath = servletContext.getInitParameter("templatePath");
-        if (templatePath == null) templatePath = servletContext.getInitParameter("templatepath");
+        if (templatePath == null) {
+            templatePath = servletContext.getInitParameter("templatePath");
+        }
 
         if (templatePath != null) {
             try {

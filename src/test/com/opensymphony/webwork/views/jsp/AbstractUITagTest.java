@@ -9,6 +9,7 @@ import com.mockobjects.dynamic.Mock;
 import com.mockobjects.servlet.MockServletConfig;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
+import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
 import com.opensymphony.xwork.ActionContext;
 import org.apache.velocity.app.Velocity;
 
@@ -56,78 +57,22 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
          * compare the trimmed values of each buffer and make sure they're equivalent.  however, let's make sure to
          * normalize the strings first to account for line termination differences between platforms.
          */
-        String writerString = normalize(writer.getBuffer());
-        String bufferString = normalize(buffer);
+        String writerString = writer.toString();
+        String bufferString = buffer.toString();
 
-        if (!writerString.equals(bufferString)) {
-            StringBuffer gripe = new StringBuffer((writerString.length() * 2) + 64);
-            gripe.append("\r\n");
-            gripe.append("expected: ").append(bufferString).append("\r\n");
-            gripe.append("actual:   ").append(writerString).append("\r\n");
-            gripe.append("file:     ").append(url.toExternalForm()).append("\r\n");
-            fail(gripe.toString());
-        }
+        assertEquals(bufferString, writerString);
     }
 
     protected void setUp() throws Exception {
-        Properties props = new Properties();
-        props.setProperty("resource.loader", "file1,file2,class");
-
-        // adding src/java to the Velocity load path
-        props.setProperty("file1.resource.loader.description", "Velocity File Resource Loader");
-        props.setProperty("file1.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
-        props.setProperty("file1.resource.loader.path", System.getProperty("webwork.webapp.path", new File("src/java").getAbsolutePath()));
-        props.setProperty("file1.resource.loader.cache", "false");
-        props.setProperty("file1.resource.loader.modificationCheckInterval", "2");
-
-        // adding src/test to the Velocity load path
-        props.setProperty("file2.resource.loader.description", "Velocity File Resource Loader");
-        props.setProperty("file2.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
-        props.setProperty("file2.resource.loader.path", System.getProperty("webwork.webapp.path", new File("src/test").getAbsolutePath()));
-        props.setProperty("file2.resource.loader.cache", "false");
-        props.setProperty("file2.resource.loader.modificationCheckInterval", "2");
-
-        props.setProperty("class.resource.loader.description", "Velocity Classpath Resource Loader");
-        props.setProperty("class.resource.loader.class", "com.opensymphony.webwork.views.velocity.WebWorkResourceLoader");
-
-        try {
-            Velocity.init(props);
-        } catch (Exception e) {
-            e.printStackTrace(); //To change body of catch statement use Options | File Templates.
-        }
-
-        Mock mockServletContext = new Mock(ServletContext.class);
-        mockServletContext.matchAndReturn("getRealPath", C.ANY_ARGS, new File("nosuchfile.properties").getAbsolutePath());
-
-        ServletContext servletContext = (ServletContext) mockServletContext.proxy();
-
-        // ensure that the VelocityManager has been initialized prior to any work going on!
-        VelocityManager.getInstance().init(servletContext);
+        super.setUp();
 
         MockServletConfig config = new MockServletConfig();
 
+        ServletContext servletContext = pageContext.getServletContext();
         config.setServletContext(servletContext);
         config.setInitParameter("resource.loader", "file1,file2");
 
-        // adding src/java to the Velocity load path
-        config.setInitParameter("file1.resource.loader.description", "Velocity File Resource Loader");
-        config.setInitParameter("file1.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
-        config.setInitParameter("file1.resource.loader.path", System.getProperty("webwork.webapp.path", new File("src/java").getAbsolutePath()));
-        config.setInitParameter("file1.resource.loader.cache", "false");
-        config.setInitParameter("file1.resource.loader.modificationCheckInterval", "2");
-
-        // adding src/test to the Velocity load path
-        config.setInitParameter("file2.resource.loader.description", "Velocity File Resource Loader");
-        config.setInitParameter("file2.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
-        config.setInitParameter("file2.resource.loader.path", System.getProperty("webwork.webapp.path", new File("src/test").getAbsolutePath()));
-        config.setInitParameter("file2.resource.loader.cache", "false");
-        config.setInitParameter("file2.resource.loader.modificationCheckInterval", "2");
-
-        config.setInitParameter("class.resource.loader.description", "Velocity Classpath Resource Loader");
-        config.setInitParameter("class.resource.loader.class", "com.opensymphony.webwork.views.velocity.WebWorkResourceLoader");
         ServletActionContext.setServletConfig(config);
-
-        super.setUp();
     }
 
     protected void tearDown() throws Exception {
