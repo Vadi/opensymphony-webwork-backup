@@ -1,4 +1,4 @@
-<input type="text"<#rt/>
+<input type="password"<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>
 <#if parameters.size?exists>
  size="${parameters.size?html}"<#rt/>
@@ -6,7 +6,7 @@
 <#if parameters.maxlength?exists>
  maxlength="${parameters.maxlength?html}"<#rt/>
 </#if>
-<#if parameters.nameValue?exists>
+<#if parameters.nameValue?exists && parameters.showPassword?default(false)>
  value="${parameters.nameValue?html}"<#rt/>
 </#if>
 <#if parameters.disabled?default(false)>
@@ -28,4 +28,4 @@
  style="${parameters.cssStyle?html}"<#rt/>
 </#if>
 <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
-/><#lt/>
+/>
