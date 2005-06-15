@@ -1,31 +1,31 @@
-<input type="text"
-    name="${parameters.name?default("")?html}"
+<input type="text"<#rt/>
+ name="${parameters.name?default("")?html}"<#rt/>
     <#if parameters.size?exists>
-    size="${parameters.size?html}"
+ size="${parameters.size?html}"<#rt/>
     </#if>
     <#if parameters.maxlength?exists>
-    maxlength="${parameters.maxlength?html}"
+ maxlength="${parameters.maxlength?html}"<#rt/>
     </#if>
     <#if parameters.nameValue?exists>
-    value="${parameters.nameValue?html}"
+ value="${parameters.nameValue?html}"<#rt/>
     </#if>
     <#if parameters.disabled?default(false)>
-    disabled="disabled"
+ disabled="disabled"<#rt/>
     </#if>
     <#if parameters.readonly?exists>
-    readonly="readonly"
+ readonly="readonly"<#rt/>
     </#if>
     <#if parameters.tabindex?exists>
-    tabindex="${parameters.tabindex?html}"
+ tabindex="${parameters.tabindex?html}"<#rt/>
     </#if>
     <#if parameters.id?exists>
-    id="${parameters.id?html}"
+ id="${parameters.id?html}"<#rt/>
     </#if>
     <#if parameters.cssClass?exists>
-    class="${parameters.cssClass?html}"
+ class="${parameters.cssClass?html}"<#rt/>
     </#if>
     <#if parameters.cssStyle?exists>
-    style="${parameters.cssStyle?html}"
+ style="${parameters.cssStyle?html}"<#rt/>
     </#if>
     <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
-/>
+    /><#lt/>

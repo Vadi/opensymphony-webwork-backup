@@ -3,9 +3,5 @@
 </tr>
 <tr>
     <td align="right" valign="top"><label for="myId" class="errorLabel">mylabel:</label></td>
-    <td><input type="text"
-    name="foo"
-    value="bar"
-    id="myId"
-/></td>
+    <td><input type="text" name="foo" value="bar" id="myId"/></td>
 </tr>
