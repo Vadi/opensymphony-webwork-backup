@@ -41,7 +41,7 @@ public class TextTagTest extends AbstractTagTest {
     }
 
     public void testExpressionsEvaluated() throws Exception {
-        String key = "'expressionKey'";
+        String key = "expressionKey";
         String value = "Foo is " + fooValue;
         tag.setName(key);
         assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
@@ -49,7 +49,7 @@ public class TextTagTest extends AbstractTagTest {
     }
 
     public void testMessageFormatWorks() throws Exception {
-        String key = "'messageFormatKey'";
+        String key = "messageFormatKey";
         String pattern = "Params are {0} {1} {2}";
         Object param1 = new Integer(12);
         Object param2 = new Date();
@@ -69,7 +69,7 @@ public class TextTagTest extends AbstractTagTest {
     }
 
     public void testSimpleKeyValueWorks() throws JspException {
-        String key = "'simpleKey'";
+        String key = "simpleKey";
         String value = "Simple Message";
         tag.setName(key);
         assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
@@ -77,7 +77,7 @@ public class TextTagTest extends AbstractTagTest {
     }
 
     public void testTextTagUsesValueStackInRequestNotActionContext() throws JspException {
-        String key = "'simpleKey'";
+        String key = "simpleKey";
         String value1 = "Simple Message";
         String value2="This is TestBean1";
         tag.setName(key);
@@ -99,7 +99,7 @@ public class TextTagTest extends AbstractTagTest {
         stack.pop();
         stack.push(new TestAction1());
         ActionContext.getContext().setLocale(Locale.US);
-        String key = "'simpleKey'";
+        String key = "simpleKey";
         String value_en="This is TestBean1";
         tag.setName(key);
         assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
@@ -117,7 +117,7 @@ public class TextTagTest extends AbstractTagTest {
     }
 
     public void testWithNoMessageAndBodyIsNotEmptyBodyIsReturned() throws Exception {
-        final String key = "'key.does.not.exist'";
+        final String key = "key.does.not.exist";
         final String bodyText = "body text";
         tag.setName(key);
 
