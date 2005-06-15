@@ -28,8 +28,8 @@ public class RadioTest extends AbstractUITagTest {
 
         RadioTag tag = new RadioTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
         tag.setValue("\"1\"");
         tag.setList("map");
         tag.setListKey("key");
@@ -50,8 +50,8 @@ public class RadioTest extends AbstractUITagTest {
 
         RadioTag tag = new RadioTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
         tag.setValue("");
         tag.setList("list");
         tag.setListKey("top[0]");
