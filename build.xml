@@ -327,13 +327,19 @@
         </tstamp>
 
         <!-- delete the old timestamped builds and commit -->
+        <fileset dir="${ivyrep.path}/opensymphony/${name}" id="filesref">
+            <include name="${name}-${version}-*"/>
+        </fileset>
+        <pathconvert property="files" refid="filesref" pathsep=" "/>
+        <echo>svn delete: ${files}</echo>
         <exec executable="svn">
             <arg value="delete"/>
-            <arg value="${ivyrep.path}/opensymphony/${name}/${name}-${version}-*.jar"/>
+            <arg line="${files}"/>
         </exec>
 
         <!-- copy over the new build and check it in -->
         <copy file="${build}/${name}-${version}.jar" tofile="${ivyrep.path}/opensymphony/${name}/${name}-${version}-${TIME}.jar"/>
+        <echo>svn add &amp; commit</echo>
         <exec executable="svn">
             <arg value="add"/>
             <arg value="${ivyrep.path}/opensymphony/${name}/${name}-${version}-${TIME}.jar"/>
