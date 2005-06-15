@@ -326,6 +326,13 @@
           <format property="TIME" pattern="yyyyddMMHHmmss"/>
         </tstamp>
 
+        <!-- make sure we have the latest -->
+        <echo>svn update</echo>
+        <exec executable="svn">
+            <arg value="update"/>
+            <arg line="${ivyrep.path}/opensymphony/${name}"/>
+        </exec>
+
         <!-- delete the old timestamped builds and commit -->
         <fileset dir="${ivyrep.path}/opensymphony/${name}" id="filesref">
             <include name="${name}-${version}-*"/>
