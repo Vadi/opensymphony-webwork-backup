@@ -41,17 +41,17 @@ public class SelectTest extends AbstractUITagTest {
 
         SelectTag tag = new SelectTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'collection'");
+        tag.setLabel("mylabel");
+        tag.setName("collection");
         tag.setList("list2");
         tag.setListKey("name");
         tag.setListValue("bigDecimal");
         tag.setMultiple("true");
-        tag.setOnmousedown("'alert(\\'onmousedown\\');'");
-        tag.setOnmousemove("'alert(\\'onmousemove\\');'");
-        tag.setOnmouseout("'alert(\\'onmouseout\\');'");
-        tag.setOnmouseover("'alert(\\'onmouseover\\');'");
-        tag.setOnmouseup("'alert(\\'onmouseup\\');'");
+        tag.setOnmousedown("alert('onmousedown');");
+        tag.setOnmousemove("alert('onmousemove');");
+        tag.setOnmouseout("alert('onmouseout');");
+        tag.setOnmouseover("alert('onmouseover');");
+        tag.setOnmouseup("alert('onmouseup');");
 
         int result = tag.doEndTag();
 
@@ -90,17 +90,17 @@ public class SelectTest extends AbstractUITagTest {
 
         SelectTag tag = new SelectTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'collection'");
+        tag.setLabel("mylabel");
+        tag.setName("collection");
         tag.setList("list");
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
         tag.setMultiple("true");
-        tag.setOnmousedown("'alert(\\'onmousedown\\');'");
-        tag.setOnmousemove("'alert(\\'onmousemove\\');'");
-        tag.setOnmouseout("'alert(\\'onmouseout\\');'");
-        tag.setOnmouseover("'alert(\\'onmouseover\\');'");
-        tag.setOnmouseup("'alert(\\'onmouseup\\');'");
+        tag.setOnmousedown("alert('onmousedown');");
+        tag.setOnmousemove("alert('onmousemove');");
+        tag.setOnmouseout("alert('onmouseout');");
+        tag.setOnmouseover("alert('onmouseover');");
+        tag.setOnmouseup("alert('onmouseup');");
 
         int result = tag.doEndTag();
 
@@ -118,15 +118,15 @@ public class SelectTest extends AbstractUITagTest {
         SelectTag tag = new SelectTag();
         tag.setPageContext(pageContext);
         tag.setEmptyOption("true");
-        tag.setLabel("'mylabel'");
-        tag.setName("'foo'");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
         tag.setList("list");
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
 
         // header stuff
-        tag.setHeaderKey("'headerKey'");
-        tag.setHeaderValue("'headerValue'");
+        tag.setHeaderKey("headerKey");
+        tag.setHeaderValue("headerValue");
 
         // empty option
         tag.setEmptyOption("true");
