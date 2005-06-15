@@ -24,8 +24,8 @@ public class ComponentTest extends AbstractUITagTest {
 
         ComponentTag tag = new ComponentTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
         tag.setValue("foo");
 
         int result = tag.doEndTag();
@@ -46,8 +46,8 @@ public class ComponentTest extends AbstractUITagTest {
         tag.setLabel("mylabel");
         tag.setName("myname");
         tag.setValue("foo");
-        tag.setTheme("'test'");
-        tag.setTemplate("'Component.vm'");
+        tag.setTheme("test");
+        tag.setTemplate("Component");
 
         tag.doStartTag();
         tag.addParameter("hello", "world");
