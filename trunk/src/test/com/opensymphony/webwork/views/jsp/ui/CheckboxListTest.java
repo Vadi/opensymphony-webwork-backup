@@ -34,8 +34,8 @@ public class CheckboxListTest extends AbstractUITagTest {
 
         CheckboxListTag tag = new CheckboxListTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'collection'");
+        tag.setLabel("mylabel");
+        tag.setName("collection");
         tag.setList("list");
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
@@ -55,8 +55,8 @@ public class CheckboxListTest extends AbstractUITagTest {
 
         CheckboxListTag tag = new CheckboxListTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'foo'");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
         tag.setList("list");
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
