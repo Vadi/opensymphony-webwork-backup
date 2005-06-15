@@ -21,9 +21,9 @@ public class LabelTest extends AbstractUITagTest {
 
         LabelTag tag = new LabelTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
-        tag.setValue("foo");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
+        tag.setValue("%{foo}");
 
         int result = tag.doEndTag();
 
@@ -36,10 +36,10 @@ public class LabelTest extends AbstractUITagTest {
 
         LabelTag tag = new LabelTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
-        tag.setValue("foo");
-        tag.setLabelposition("'top'");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
+        tag.setValue("%{foo}");
+        tag.setLabelposition("top");
 
         int result = tag.doEndTag();
 
@@ -52,9 +52,9 @@ public class LabelTest extends AbstractUITagTest {
 
         LabelTag tag = new LabelTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'foo'");
-        tag.setFor("'for'");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
+        tag.setFor("for");
 
         int result = tag.doEndTag();
 
