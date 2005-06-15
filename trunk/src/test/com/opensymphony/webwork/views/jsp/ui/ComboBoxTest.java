@@ -31,8 +31,8 @@ public class ComboBoxTest extends AbstractUITagTest {
 
         ComboBoxTag tag = new ComboBoxTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'foo'");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
         tag.setList("collection");
 
         int result = tag.doEndTag();
