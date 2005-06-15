@@ -8,6 +8,7 @@
 
     <property file="build.properties"/>
     <property file="release.properties"/>
+    <property file="ivyrep.properties"/>
 
     <property name="lib" value="lib"/>
     <property name="lib.core" value="${lib}/core"/>
@@ -21,7 +22,6 @@
     <property name="src.example" value="${src}/example"/>
     <property name="src.webapp" value="${src}/webapp"/>
     <property name="src.etc" value="${src}/etc"/>
-    <property name="src.taglib.tld" value="${src.etc}/taglib.tld"/>
 
     <property name="build" value="build"/>
     <property name="build.test" value="${build}/test"/>
@@ -112,7 +112,7 @@
         <mkdir dir="${build}"/>
 
         <mkdir dir="${build.java}/META-INF"/>
-        <copy file="${src.etc}/taglib.tld" todir="${build.java}/META-INF"/>
+        <copy file="${src.webapp}/WEB-INF/taglib.tld" todir="${build.java}/META-INF"/>
 
         <jar basedir="${build.java}" jarfile="${build}/${name}-${version}.jar">
             <manifest>
@@ -139,8 +139,6 @@
                 <exclude name="**/package.html"/>
             </fileset>
         </copy>
-
-        <copy file="${src.etc}/taglib.tld" tofile="${build}/webwork.tld"/>
     </target>
 
     <target name="signjar" depends="example-jar">
@@ -322,7 +320,37 @@
 
     <target name="website" depends="javadocs, docs.impl">
     </target>
-	
+
+    <target name="ivyrep" depends="jar">
+        <tstamp>
+          <format property="TIME" pattern="yyyyddMMHHmmss"/>
+        </tstamp>
+
+        <!-- delete the old timestamped builds and commit -->
+        <exec executable="svn">
+            <arg value="delete"/>
+            <arg value="${ivyrep.path}/opensymphony/${name}/${name}-${version}-*.jar"/>
+        </exec>
+
+        <!-- copy over the new build and check it in -->
+        <copy file="${build}/${name}-${version}.jar" tofile="${ivyrep.path}/opensymphony/${name}/${name}-${version}-${TIME}.jar"/>
+        <exec executable="svn">
+            <arg value="add"/>
+            <arg value="${ivyrep.path}/opensymphony/${name}/${name}-${version}-${TIME}.jar"/>
+        </exec>
+        <exec executable="svn">
+            <arg value="commit"/>
+            <arg value="--username"/>
+            <arg value="${ivyrep.username}"/>
+            <arg value="--password"/>
+            <arg value="${ivyrep.password}"/>
+            <arg value="--non-interactive"/>
+            <arg value="-m"/>
+            <arg value="automatic commit"/>
+            <arg value="${ivyrep.path}/opensymphony/${name}"/>
+        </exec>
+    </target>
+
 	<target name='dojo-profile'>
 
 		<ant dir="../dojo/buildscripts" target="release" inheritall="false">
@@ -344,6 +372,5 @@
 				<exclude name="src/**"/>
 			</fileset>
 		</copy>
-
 	</target>
 </project>
