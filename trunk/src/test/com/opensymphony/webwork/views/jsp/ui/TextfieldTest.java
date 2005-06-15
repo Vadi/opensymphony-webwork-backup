@@ -22,9 +22,9 @@ public class TextfieldTest extends AbstractUITagTest {
         TextFieldTag tag = new TextFieldTag();
         tag.setPageContext(pageContext);
         tag.setId("myId");
-        tag.setLabel("'mylabel'");
-        tag.setName("'foo'");
-        tag.setValue("'bar'");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
+        tag.setValue("bar");
 
         testAction.addFieldError("foo", "bar error message");
         tag.doEndTag();
@@ -38,10 +38,10 @@ public class TextfieldTest extends AbstractUITagTest {
 
         TextFieldTag tag = new TextFieldTag();
         tag.setPageContext(pageContext);
-        tag.setName("'myname'");
-        tag.setValue("foo");
-        tag.setSize("'10'");
-        tag.setOnblur("'blahescape(\\'somevalue\\');'");
+        tag.setName("myname");
+        tag.setValue("%{foo}");
+        tag.setSize("10");
+        tag.setOnblur("blahescape('somevalue');");
 
         tag.doEndTag();
 
@@ -54,10 +54,10 @@ public class TextfieldTest extends AbstractUITagTest {
 
         TextFieldTag tag = new TextFieldTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'myname'");
-        tag.setValue("foo");
-        tag.setSize("'10'");
+        tag.setLabel("mylabel");
+        tag.setName("myname");
+        tag.setValue("%{foo}");
+        tag.setSize("10");
 
         tag.doEndTag();
 
