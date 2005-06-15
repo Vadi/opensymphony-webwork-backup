@@ -68,6 +68,9 @@ public class DoubleSelectTag extends AbstractDoubleListTag {
             addParameter("headerKey", findString(headerKeyAttr));
             addParameter("headerValue", findString(headerValueAttr));
         }
+
+        // force the onchange parameter
+        addParameter("onchange", getParameters().get("name") + "Redirect(this.options.selectedIndex)");
     }
 
     protected String getDefaultTemplate() {

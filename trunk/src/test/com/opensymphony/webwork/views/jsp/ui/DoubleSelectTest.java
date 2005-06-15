@@ -44,9 +44,9 @@ public class DoubleSelectTest extends AbstractUITagTest {
 
         DoubleSelectTag tag = new DoubleSelectTag();
         tag.setPageContext(pageContext);
-        tag.setLabel("'mylabel'");
-        tag.setName("'foo'");
-        tag.setDoubleName("'region'");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
+        tag.setDoubleName("region");
 
         tag.setList("list2");
         tag.setDoubleList("regions");
@@ -56,13 +56,13 @@ public class DoubleSelectTest extends AbstractUITagTest {
         tag.setListValue("name");
         tag.setDoubleListValue("name");
 
-        tag.setFormName("'inputForm'");
+        tag.setFormName("inputForm");
 
-        tag.setOnmousedown("'window.status=\\'onmousedown\\';'");
-        tag.setOnmousemove("'window.status=\\'onmousemove\\';'");
-        tag.setOnmouseout("'window.status=\\'onmouseout\\';'");
-        tag.setOnmouseover("'window.status=\\'onmouseover\\';'");
-        tag.setOnmouseup("'window.status=\\'onmouseup\\';'");
+        tag.setOnmousedown("window.status='onmousedown';");
+        tag.setOnmousemove("window.status='onmousemove';");
+        tag.setOnmouseout("window.status='onmouseout';");
+        tag.setOnmouseover("window.status='onmouseover';");
+        tag.setOnmouseup("window.status='onmouseup';");
 
         int result = tag.doEndTag();
 
