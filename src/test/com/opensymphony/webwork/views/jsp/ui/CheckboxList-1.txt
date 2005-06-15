@@ -1,13 +1,9 @@
 <tr>
     <td align="right" valign="top"><label class="label">mylabel:</label></td>
     <td>
-        <div>
-            <input type="checkbox" name="foo" value="hello" id="foo-1" checked="checked" />
-            <label for="foo-1" class="checkboxLabel">world</label>
-        </div>
-        <div>
-            <input type="checkbox" name="foo" value="foo" id="foo-2" />
-            <label for="foo-2" class="checkboxLabel">bar</label>
-        </div>
+<input type="checkbox" name="foo" value="hello" id="foo-1" checked="checked"/>
+<label for="foo-1" class="checkboxLabel">world</label>
+<input type="checkbox" name="foo" value="foo" id="foo-2"/>
+<label for="foo-2" class="checkboxLabel">bar</label>
     </td>
 </tr>
