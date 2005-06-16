@@ -777,41 +777,6 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-        <attribute>
-            <name>useAjax</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-         <attribute>
-             <name>resultDivId</name>
-             <required>false</required>
-             <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>errorText</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>showErrorTransportText</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>notifyTopics</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-             <name>listenTopics</name>
-             <required>false</required>
-             <rtexprvalue>true</rtexprvalue>
-         </attribute>
-        <attribute>
-            <name>onLoadJS</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
 
     <tag>
