@@ -1,0 +1,47 @@
+<!--
+To use this Resin configuration, you need to start Java with the VM param:
+-Dwebwork=c:\path\to\webwork
+
+You can use IDEA's Resin plugin and provide this VM param as well
+as the path to this configuration file.
+-->
+<resin xmlns="http://caucho.com/ns/resin" xmlns:resin="http://caucho.com/ns/resin/core">
+    <javac compiler="internal" args="-g"/>
+
+    <system-property xwork="${webwork}/../xwork"/>
+    <system-property example="${webwork}/webwork-example"/>
+
+    <log name="" path="stdout:" timestamp="[%Y-%m-%d %H:%M:%S.%s]"/>
+    <log name="com.caucho.java" level="config" path="stdout:" timestamp="[%H:%M:%S.%s] "/>
+    <log name="com.caucho.loader" level="config" path="stdout:" timestamp="[%H:%M:%S.%s] "/>
+
+    <server>
+        <http port="8080"/>
+        <resin:import path="conf/app-default.xml"/>
+        <host id="" dependency-check-interval="-1">
+
+            <class-loader>
+                <!-- forums -->
+                <compiling-loader path="${xwork}/build/java"/>
+                <compiling-loader path="${webwork}/build/java"/>
+                <compiling-loader path="${example}/build/java"/>
+                <library-loader path="${webwork}/lib/core"/>
+                <library-loader path="${webwork}/lib/optional"/>
+                <library-loader path="${example}/lib/core"/>
+            </class-loader>
+
+            <resin:log>Starting up /webwork...</resin:log>
+            <resin:log> - webwork: ${webwork}</resin:log>
+            <resin:log> - xwork:   ${xwork}</resin:log>
+            <resin:log> - example: ${example}</resin:log>            
+
+            <web-app id="/webwork"
+                document-directory="${example}/src/webapp"
+                work-dir="${example}/build/work"
+                temp-dir="${example}/build/temp"
+                >
+                <jsp dependency-check-interval="2s"/>
+            </web-app>
+        </host>
+    </server>
+</resin>
