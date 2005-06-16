@@ -42,11 +42,11 @@ public class ServletDispatcherTest extends AbstractServletDispatcherTestCase {
         return "/Test.action";
     }
 
-    public void testEncodingAndLocaleSetFromWebWorkProperties() throws IOException, ServletException {
-        testServletDispatcher();
-        assertEquals("ISO-8859-1",ServletDispatcher.getEncoding());
-        assertEquals(Locale.GERMANY,ServletDispatcher.getLocale());
-    }
+//    public void testEncodingAndLocaleSetFromWebWorkProperties() throws IOException, ServletException {
+//        testServletDispatcher();
+//        assertEquals("ISO-8859-1",ServletDispatcher.getEncoding());
+//        assertEquals(Locale.GERMANY,ServletDispatcher.getLocale());
+//    }
 
     public void testGetActionName() {
         ServletDispatcher dispatcher = new ServletDispatcher();
