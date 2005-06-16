@@ -9,6 +9,7 @@ import com.mockobjects.dynamic.Mock;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.XWorkTestCase;
 import com.opensymphony.xwork.util.OgnlUtil;
 import junit.framework.TestCase;
 
@@ -23,7 +24,7 @@ import java.util.Map;
  * @author Jason Carreira
  *         Date: Nov 16, 2003 1:08:20 AM
  */
-public class HttpHeaderResultTest extends TestCase {
+public class HttpHeaderResultTest extends XWorkTestCase {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     ActionInvocation invocation;

@@ -18,6 +18,7 @@ import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletRequest;
 import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletResponse;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.providers.XmlConfigurationProvider;
+import com.opensymphony.xwork.XWorkTestCase;
 import junit.framework.TestCase;
 
 import javax.servlet.RequestDispatcher;
@@ -32,7 +33,7 @@ import java.util.Map;
 /**
  * @author CameronBraid
  */
-public abstract class AbstractServletDispatcherTestCase extends TestCase {
+public abstract class AbstractServletDispatcherTestCase extends XWorkTestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getConfigFilename() {
