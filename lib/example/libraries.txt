@@ -1,7 +1,0 @@
-commons-beanutils.jar - Apache Commons BeanUtils version 1.6
-commons-collections.jar - Apache Commons Collections version 2.1
-commons-lang.jar - Apache Commons Lang version 2.0
-displaytag.jar - DisplayTag version 1.0 b1
-jstl.jar - JSTL version ???
-standard.jar - ???
-taglibs-benchmark.jar - ???
