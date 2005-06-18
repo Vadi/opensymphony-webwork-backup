@@ -25,7 +25,6 @@
     </orderEntry>
     <orderEntry type="module" module-name="WebWork" />
     <orderEntry type="module" module-name="XWork" />
-    <orderEntry type="library" name="Resin 3.x" level="application_server_libraries" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -53,6 +52,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Resin 3.x" level="application_server_libraries" />
     <orderEntryProperties />
   </component>
   <component name="WebModuleBuildComponent">
