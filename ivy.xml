@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="http://www.jayasoft.fr/org/ivyrep/ivy-doc.xsl"?>
+<ivy-module version="1.0">
+    <info organisation="opensymphony" module="webwork"
+          revision="@VERSION@"
+          status="@STATUS@"
+          publication="@PUBLICATION@">
+        <license name="Apache" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
+        <ivyauthor name="opensymphony" url="http://www.opensymphony.com/"/>
+
+        <description homepage="http://www.opensymphony.com/webwork/">
+            WebWork is a Java web-application development framework. It is built specifically with developer
+            productivity and code simplicity in mind. WebWork is built on
+            top of XWork, which provides a generic command pattern framework as well as an Inversion of Control
+            container. In addition to these features, WebWork provides
+            robust support for building reusable UI templates, such as form controls, UI themes, internationalization,
+            dynamic form parameter mapping to JavaBeans, robust
+            client and server side validation, and much more.
+        </description>
+    </info>
+    <configurations>
+        <conf name="default" description="The webwork jar file" visibility="public"/>
+        <conf name="config-browser" description="The webwork config-browser utility jar file" visibility="public"/>
+        <conf name="fileupload" description="The webwork jar file plus commons-fileupload" extends="default" visibility="public"/>
+        <conf name="fileupload-cos" description="The webwork jar file plus com.oreilly.servlet" extends="default" visibility="public"/>
+        <conf name="fileupload-pell" description="The webwork jar file plus Pell multi-part upload" extends="default" visibility="public"/>
+    </configurations>
+    <publications>
+        <artifact name="webwork" type="jar" conf="default"/>
+        <artifact name="webwork-config-browser" type="jar" conf="config-browser"/>
+    </publications>
+    <dependencies>
+        <dependency org="opensymphony" name="xwork" rev="latest.integration"/>
+        <dependency org="ognl" name="ognl" rev="2.6.7"/>
+        <dependency org="apache" name="commons-logging" rev="1.0.4"/>
+        <dependency org="apache" name="velocity" rev="1.3.1" conf="default->velocity-dep"/>
+        <dependency org="apache" name="commons-fileupload" rev="1.0" conf="fileupload->default"/>
+        <dependency org="cos" name="cos-multipart" rev="20021105" conf="fileupload-cos->default"/>
+        <dependency org="pell" name="multipartrequest" rev="1.19" conf="fileupload-pell->default"/>
+    </dependencies>
+</ivy-module>
