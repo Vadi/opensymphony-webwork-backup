@@ -335,10 +335,6 @@ public class VelocityManager {
      * @param config servlet configuation
      */
     protected void initToolbox(ServletContext context)  {
-        //ServletContext servletContext = config.getServletContext();
-    	
-        String file = toolBoxLocation; 
-
         /* if we have a toolbox, get a manager for it */
         if (toolBoxLocation != null){
             toolboxManager = ServletToolboxManager.getInstance(context, toolBoxLocation);
@@ -346,8 +342,6 @@ public class VelocityManager {
             Velocity.info("VelocityViewServlet: No toolbox entry in configuration.");
         }
     }
-
-    
 
 	
     /**    
