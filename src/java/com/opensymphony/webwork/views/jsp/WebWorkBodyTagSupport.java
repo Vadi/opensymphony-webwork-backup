@@ -32,6 +32,13 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
     protected Object findValue(String expr) {
         expr = CompatUtil.compat(expr);
 
+        if (WebWorkTagSupport.ALT_SYNTAX) {
+            // does the expression start with %{ and end with }? if so, just cut it off!
+            if (expr.startsWith("%{") && expr.endsWith("}")) {
+                expr = expr.substring(2, expr.length() - 1);
+            }
+        }
+
         return getStack().findValue(expr);
     }
 
