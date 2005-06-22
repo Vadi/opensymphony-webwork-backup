@@ -1,5 +1,6 @@
 <!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
 
+<!-- // START SNIPPET: webwork-default -->
 <xwork>
     <package name="webwork-default">
         <result-types>
@@ -104,3 +105,4 @@
         <default-interceptor-ref name="completeStack"/>
     </package>
 </xwork>
+<!-- // END SNIPPET: webwork-default -->
