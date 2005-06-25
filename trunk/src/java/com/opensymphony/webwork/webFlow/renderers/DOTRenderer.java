@@ -32,7 +32,7 @@ public class DOTRenderer implements Renderer {
         this.output = output;
     }
 
-    public void render() {
+    public void render(String ns) {
         DotGraph graph = new DotGraph();
         graph.attribute("action", "color", "coral1");
         graph.attribute("view", "color", "darkseagreen2");
@@ -44,6 +44,10 @@ public class DOTRenderer implements Renderer {
         Set namespaces = XWorkConfigRetriever.getNamespaces();
         for (Iterator iter = namespaces.iterator(); iter.hasNext();) {
             String namespace = (String) iter.next();
+
+            if (!namespace.startsWith(ns)) {
+                continue;
+            }
 
             Set actionNames = XWorkConfigRetriever.getActionNames(namespace);
             for (Iterator iterator = actionNames.iterator(); iterator.hasNext();) {
@@ -85,11 +89,19 @@ public class DOTRenderer implements Renderer {
 
                     } else if (resultClassName.indexOf("XSLT") != -1) {
 
-                    } else if (resultClassName.indexOf("Redirect") != -1 ) {
+                    } else if (resultClassName.indexOf("Redirect") != -1) {
                         // check if the redirect is to an action -- if so, link it
                         String location = getViewLocation((String) resultConfig.getParams().get("location"), namespace);
                         if (location.endsWith((String) Configuration.get("webwork.action.extension"))) {
                             addLink(action, location.substring(1), resultConfig.getName(), graph);
+                        } else {
+                            graph.add_node("view", location, null);
+                            graph.add_link(action, location, resultConfig.getName());
+
+                            View viewFile = XWorkConfigRetriever.getView(namespace, actionName, resultName);
+                            if (viewFile != null) {
+                                viewMap.put(location, viewFile);
+                            }
                         }
                     }
                 }
