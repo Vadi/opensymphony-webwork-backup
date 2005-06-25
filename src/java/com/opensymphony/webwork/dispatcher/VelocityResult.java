@@ -6,6 +6,7 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.views.JspSupportServlet;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
@@ -56,14 +57,14 @@ public class VelocityResult extends WebWorkResultSupport {
         HttpServletResponse response = ServletActionContext.getResponse();
         JspFactory jspFactory = null;
         ServletContext servletContext = ServletActionContext.getServletContext();
-        Servlet servlet = (Servlet) servletContext.getAttribute("webwork.servlet");
+        Servlet servlet = JspSupportServlet.jspSupportServlet;
 
         VelocityManager.getInstance().init(servletContext);
 
         boolean usedJspFactory = false;
         PageContext pageContext = (PageContext) ActionContext.getContext().get(ServletActionContext.PAGE_CONTEXT);
 
-        if (pageContext == null) {
+        if (pageContext == null && servlet != null) {
             jspFactory = JspFactory.getDefaultFactory();
             pageContext = jspFactory.getPageContext(servlet, request, response, null, true, 8192, true);
             ActionContext.getContext().put(ServletActionContext.PAGE_CONTEXT, pageContext);

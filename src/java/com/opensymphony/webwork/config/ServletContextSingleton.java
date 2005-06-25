@@ -10,7 +10,7 @@ import javax.servlet.ServletContext;
  * from the web session object.
  * <p/>
  * This class is created to bet that this singleton can be set by
- * {@link com.opensymphony.webwork.lifecycle.RequestLifecycleFilterCompatWeblogic61}
+ * {@link com.opensymphony.webwork.dispatcher.FilterDispatcherCompatWeblogic61}
  * before the servlet context is needed by
  * {@link com.opensymphony.webwork.lifecycle.SessionLifecycleListener}
  * which will use this object to get it.
