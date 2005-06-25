@@ -4,20 +4,11 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.mockobjects.dynamic.C;
-import com.mockobjects.dynamic.Mock;
-import com.mockobjects.servlet.MockServletConfig;
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.views.velocity.VelocityManager;
-import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
 import com.opensymphony.xwork.ActionContext;
-import org.apache.velocity.app.Velocity;
 
-import javax.servlet.ServletContext;
-import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Properties;
 import java.util.StringTokenizer;
 
 
@@ -66,13 +57,7 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
     protected void setUp() throws Exception {
         super.setUp();
 
-        MockServletConfig config = new MockServletConfig();
-
-        ServletContext servletContext = pageContext.getServletContext();
-        config.setServletContext(servletContext);
-        config.setInitParameter("resource.loader", "file1,file2");
-
-        ServletActionContext.setServletConfig(config);
+        ServletActionContext.setServletContext(pageContext.getServletContext());
     }
 
     protected void tearDown() throws Exception {

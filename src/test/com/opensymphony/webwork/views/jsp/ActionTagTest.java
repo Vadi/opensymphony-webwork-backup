@@ -75,7 +75,6 @@ public class ActionTagTest extends AbstractTagTest {
     }
 
     public void testSimpleWithoutServletActionContext() {
-        ServletActionContext.setServletConfig(null);
         ServletActionContext.setRequest(null);
         ServletActionContext.setResponse(null);
         this.testSimple();

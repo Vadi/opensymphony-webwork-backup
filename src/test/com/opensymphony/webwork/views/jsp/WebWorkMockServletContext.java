@@ -23,6 +23,7 @@ import java.util.*;
 public class WebWorkMockServletContext implements ServletContext {
 
     String realPath;
+    String servletInfo;
     Map initParams = new HashMap();
     Map attributes = new HashMap();
 
@@ -96,7 +97,7 @@ public class WebWorkMockServletContext implements ServletContext {
     }
 
     public String getServerInfo() {
-        return null;
+        return servletInfo;
     }
 
     public String getInitParameter(String s) {
@@ -125,5 +126,9 @@ public class WebWorkMockServletContext implements ServletContext {
 
     public String getServletContextName() {
         return null;
+    }
+
+    public void setServletInfo(String servletInfo) {
+        this.servletInfo = servletInfo;
     }
 }

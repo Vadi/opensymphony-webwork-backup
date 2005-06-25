@@ -8,11 +8,8 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
-import javax.servlet.ServletException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Locale;
-import java.io.IOException;
 
 
 /**
@@ -47,22 +44,6 @@ public class ServletDispatcherTest extends AbstractServletDispatcherTestCase {
 //        assertEquals("ISO-8859-1",ServletDispatcher.getEncoding());
 //        assertEquals(Locale.GERMANY,ServletDispatcher.getLocale());
 //    }
-
-    public void testGetActionName() {
-        ServletDispatcher dispatcher = new ServletDispatcher();
-        String actionName = null;
-
-        actionName = dispatcher.getActionName("/foo/bar/Baz.action");
-        assertEquals("Baz", actionName);
-
-        actionName = dispatcher.getActionName("/foo/bar/Baz");
-        assertEquals("Baz", actionName);
-
-        // todo do we care if foo.bar.Baz.action returns foo.bar.Baz?
-        // We use aliases for everything now, so they had to set this up
-        actionName = dispatcher.getActionName("/foo/bar/foo.bar.Baz.action");
-        assertEquals("foo.bar.Baz", actionName);
-    }
 
     /* (non-Javadoc)
      * @see com.opensymphony.webwork.dispatcher.AbstractServletDispatcherTestCase#getParameterMap()

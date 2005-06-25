@@ -6,7 +6,6 @@ package com.opensymphony.webwork;
 
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockHttpServletResponse;
-import com.mockobjects.servlet.MockServletConfig;
 import com.mockobjects.servlet.MockServletContext;
 import com.opensymphony.xwork.ActionContext;
 import junit.framework.TestCase;
@@ -30,7 +29,6 @@ public class ServletActionContextTest extends TestCase implements WebWorkStatics
     ServletActionContext servletActionContext;
     private HttpServletRequest request;
     private HttpServletResponse response;
-    private MockServletConfig servletConfig;
     private MockServletContext servletContext;
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -40,14 +38,11 @@ public class ServletActionContextTest extends TestCase implements WebWorkStatics
 
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
-        servletConfig = new MockServletConfig();
         servletContext = new MockServletContext();
-
-        servletConfig.setServletContext(servletContext);
 
         extraContext.put(HTTP_REQUEST, request);
         extraContext.put(HTTP_RESPONSE, response);
-        extraContext.put(SERVLET_CONFIG, servletConfig);
+        extraContext.put(SERVLET_CONTEXT, servletContext);
 
         actionContext = new ActionContext(extraContext);
         ServletActionContext.setContext(actionContext);
@@ -56,7 +51,6 @@ public class ServletActionContextTest extends TestCase implements WebWorkStatics
     public void testContextParams() {
         assertEquals(ServletActionContext.getRequest(), request);
         assertEquals(ServletActionContext.getResponse(), response);
-        assertEquals(ServletActionContext.getServletConfig(), servletConfig);
         assertEquals(ServletActionContext.getServletContext(), servletContext);
     }
 

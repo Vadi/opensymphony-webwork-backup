@@ -4,10 +4,8 @@
  */
 package com.opensymphony.webwork;
 
-import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.xwork.ActionContext;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,38 +77,15 @@ public class ServletActionContext extends ActionContext implements WebWorkStatic
     }
 
     /**
-     * Set the servlet config object.
-     *
-     * @param config the servlet config object.
-     */
-    public static void setServletConfig(ServletConfig config) {
-        ActionContext.getContext().put(SERVLET_CONFIG, config);
-    }
-
-    /**
-     * Gets the servlet config object.
-     *
-     * @return the servlet config object.
-     */
-    public static ServletConfig getServletConfig() {
-        return (ServletConfig) ActionContext.getContext().get(SERVLET_CONFIG);
-    }
-
-    /**
      * Gets the servlet context.
      *
      * @return the servlet context.
      */
     public static ServletContext getServletContext() {
-        return getServletConfig().getServletContext();
+        return (ServletContext) ActionContext.getContext().get(SERVLET_CONTEXT);
     }
 
-    /**
-     * Gets the servlet dispatcher.
-     *
-     * @return the servlet dispatcher.
-     */
-    public static ServletDispatcher getServletDispatcher() {
-        return (ServletDispatcher) ActionContext.getContext().get(SERLVET_DISPATCHER);
+    public static void setServletContext(ServletContext servletContext) {
+        ActionContext.getContext().put(SERVLET_CONTEXT, servletContext);
     }
 }

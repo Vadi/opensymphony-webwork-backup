@@ -3,7 +3,7 @@
  */
 package com.opensymphony.webwork.validators;
 
-import com.opensymphony.webwork.dispatcher.ServletDispatcher;
+import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import uk.ltd.getahead.dwr.ExecutionContext;
@@ -23,7 +23,7 @@ public class DWRValidator {
         HashMap ctx = new HashMap();
 
         ctx.put(ActionContext.PARAMETERS, params);
-        ctx.put(ServletDispatcher.SERVLET_CONFIG, sc);
+        ctx.put(WebWorkStatics.SERVLET_CONTEXT, sc.getServletContext());
 
         ValidatorActionProxy proxy = new ValidatorActionProxy(namespace, action, ctx);
         proxy.execute();

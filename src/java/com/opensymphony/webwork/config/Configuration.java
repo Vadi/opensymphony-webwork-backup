@@ -224,4 +224,9 @@ public class Configuration {
 
         return defaultImpl;
     }
+
+    public static void reset() {
+        defaultImpl = null;
+        configurationImpl = null;
+    }
 }

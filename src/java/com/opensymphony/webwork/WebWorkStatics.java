@@ -40,14 +40,9 @@ public interface WebWorkStatics {
     public static final String SERVLET_DISPATCHER = "com.opensymphony.xwork.dispatcher.ServletDispatcher";
 
     /**
-     * @deprecated spelling error, use {@link SERVLET_DISPATCHER}
+     * Constant for the {@link javax.servlet.ServletContext servlet context} object.
      */
-    public static final String SERLVET_DISPATCHER = SERVLET_DISPATCHER;
-
-    /**
-     * Constant for the {@link javax.servlet.ServletConfig servlet config} object.
-     */
-    public static final String SERVLET_CONFIG = "com.opensymphony.xwork.dispatcher.ServletConfig";
+    public static final String SERVLET_CONTEXT = "com.opensymphony.xwork.dispatcher.ServletContext";
 
     /**
      * Constant for the JSP {@link javax.servlet.jsp.PageContext page context}.
