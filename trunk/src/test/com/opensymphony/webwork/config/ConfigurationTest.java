@@ -4,8 +4,8 @@
  */
 package com.opensymphony.webwork.config;
 
+import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-import junit.framework.TestCase;
 
 import java.util.Iterator;
 import java.util.Locale;
@@ -17,7 +17,7 @@ import java.util.Locale;
  * @author Jason Carreira
  *         Created Apr 9, 2003 10:42:30 PM
  */
-public class ConfigurationTest extends TestCase {
+public class ConfigurationTest extends WebWorkTestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testConfiguration() {
@@ -59,9 +59,5 @@ public class ConfigurationTest extends TestCase {
         }
 
         return count;
-    }
-
-    protected void setUp() throws Exception {
-        Configuration.reset();
     }
 }
