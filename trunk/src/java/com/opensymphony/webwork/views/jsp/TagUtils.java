@@ -6,9 +6,12 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
+import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.webwork.dispatcher.RequestMap;
-import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.util.AttributeMap;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
@@ -36,7 +39,15 @@ public class TagUtils {
             stack = new OgnlValueStack();
 
             HttpServletResponse res = (HttpServletResponse) pageContext.getResponse();
-            Map extraContext = ServletDispatcher.createContextMap(new RequestMap(req), req.getParameterMap(), new SessionMap(req), new ApplicationMap(pageContext.getServletContext()), req, res, pageContext.getServletConfig());
+            DispatcherUtils.initialize(pageContext.getServletContext());
+            DispatcherUtils du = DispatcherUtils.getInstance();
+            Map extraContext = du.createContextMap(new RequestMap(req),
+                    req.getParameterMap(),
+                    new SessionMap(req),
+                    new ApplicationMap(pageContext.getServletContext()),
+                    req,
+                    res,
+                    pageContext.getServletContext());
             extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
             stack.getContext().putAll(extraContext);
             req.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
@@ -60,10 +71,19 @@ public class TagUtils {
         ActionInvocation invocation = context.getActionInvocation();
 
         if (invocation == null) {
-            // Path is always original path, even if it is included in page with another path
-            String actionPath = request.getServletPath();
+            ActionMapper mapper = ActionMapperFactory.getMapper();
+            ActionMapping mapping = mapper.getMapping(request);
 
-            return ServletDispatcher.getNamespaceFromServletPath(actionPath);
+            if (mapping != null) {
+                return mapping.getNamespace();
+            } else {
+                // well, if the ActionMapper can't tell us, and there is no existing action invocation,
+                // let's just go with a default guess that the namespace is the last the path minus the
+                // last part (/foo/bar/baz.xyz -> /foo/bar)
+
+                String path = request.getServletPath();
+                return path.substring(0, path.lastIndexOf("/"));
+            }
         } else {
             return invocation.getProxy().getNamespace();
         }

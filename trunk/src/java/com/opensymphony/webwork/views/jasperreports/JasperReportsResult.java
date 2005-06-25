@@ -15,7 +15,6 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -120,7 +119,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
         if (!"contype".equals(request.getHeader("User-Agent"))) {
             // Determine the directory that the report file is in and set the reportDirectory parameter
-            ServletContext servletContext = ((ServletConfig) invocation.getInvocationContext().get(ServletActionContext.SERVLET_CONFIG)).getServletContext();
+            ServletContext servletContext = (ServletContext) invocation.getInvocationContext().get(ServletActionContext.SERVLET_CONTEXT);
             String systemId = servletContext.getRealPath(finalLocation);
             Map parameters = new OgnlValueStackShadowMap(stack);
             File directory = new File(systemId.substring(0, systemId.lastIndexOf(File.separator)));

@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
 import com.opensymphony.xwork.ActionInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,8 +55,7 @@ public class ServletRedirectResult extends WebWorkResultSupport {
 
         if (isPathUrl(finalLocation)) {
             if (!finalLocation.startsWith("/")) {
-                String actionPath = request.getServletPath();
-                String namespace = ServletDispatcher.getNamespaceFromServletPath(actionPath);
+                String namespace = ActionMapperFactory.getMapper().getMapping(request).getNamespace();
 
                 if ((namespace != null) && (namespace.length() > 0)) {
                     finalLocation = namespace + "/" + finalLocation;

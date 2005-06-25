@@ -4,11 +4,11 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
+import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.webwork.dispatcher.RequestMap;
-import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
@@ -17,7 +17,6 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -116,10 +115,17 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
 
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
-        ServletConfig servletConfig = pageContext.getServletConfig();
         ServletContext servletContext = pageContext.getServletContext();
 
-        Map extraContext = ServletDispatcher.createContextMap(new RequestMap(request), newParams, new SessionMap(request), new ApplicationMap(servletContext), request, response, servletConfig);
+        DispatcherUtils.initialize(servletContext);
+        DispatcherUtils du = DispatcherUtils.getInstance();
+        Map extraContext = du.createContextMap(new RequestMap(request),
+                newParams,
+                new SessionMap(request),
+                new ApplicationMap(servletContext),
+                request,
+                response,
+                servletContext);
         extraContext.put(PAGE_CONTEXT, pageContext);
 
         OgnlValueStack vs = getStack();
@@ -153,20 +159,20 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
             namespace = findString(namespaceAttr);
         }
 
-         // get the old value stack from the request
-         OgnlValueStack stack = getStack();
+        // get the old value stack from the request
+        OgnlValueStack stack = getStack();
         // execute at this point, after params have been set
         try {
             proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actualName, createExtraContext(), executeResult);
             // set the new stack into the request for the taglib to use
-            request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY,proxy.getInvocation().getStack());
+            request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, proxy.getInvocation().getStack());
             proxy.execute();
 
         } catch (Exception e) {
             log.error("Could not execute action: " + namespace + "/" + actualName, e);
         } finally {
             // set the old stack back on the request
-            request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY,stack);
+            request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
         }
 
         if (getId() != null) {
