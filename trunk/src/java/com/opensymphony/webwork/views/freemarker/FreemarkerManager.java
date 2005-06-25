@@ -7,45 +7,34 @@
  */
 package com.opensymphony.webwork.views.freemarker;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.Map;
+import com.opensymphony.util.FileManager;
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.views.JspSupportServlet;
+import com.opensymphony.webwork.views.util.ContextUtil;
+import com.opensymphony.xwork.Action;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.util.OgnlValueStack;
+import freemarker.cache.*;
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.jsp.TaglibFactory;
+import freemarker.ext.servlet.HttpRequestHashModel;
+import freemarker.ext.servlet.HttpSessionHashModel;
+import freemarker.ext.servlet.ServletContextHashModel;
+import freemarker.template.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.opensymphony.util.FileManager;
-import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.views.util.ContextUtil;
-import com.opensymphony.xwork.Action;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.ObjectFactory;
-import com.opensymphony.xwork.util.OgnlValueStack;
-
-import freemarker.cache.ClassTemplateLoader;
-import freemarker.cache.FileTemplateLoader;
-import freemarker.cache.MultiTemplateLoader;
-import freemarker.cache.TemplateLoader;
-import freemarker.cache.WebappTemplateLoader;
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.jsp.TaglibFactory;
-import freemarker.ext.servlet.HttpRequestHashModel;
-import freemarker.ext.servlet.HttpSessionHashModel;
-import freemarker.ext.servlet.ServletContextHashModel;
-import freemarker.template.ObjectWrapper;
-import freemarker.template.SimpleHash;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
-import freemarker.template.TemplateHashModel;
-import freemarker.template.TemplateModel;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+import java.util.Properties;
 
 
 /**
@@ -94,8 +83,7 @@ public class FreemarkerManager {
             try {
                 log.info("Instantiating Freemarker ConfigManager!, " + classname);
                 instance = (FreemarkerManager) ObjectFactory.getObjectFactory().buildBean(Class.forName(classname));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 log.fatal("Fatal exception occurred while trying to instantiate a Freemarker ConfigManager instance, " + classname, e);
             }
         }
@@ -132,16 +120,16 @@ public class FreemarkerManager {
             ServletContextHashModel servletContextModel = (ServletContextHashModel) servletContext.getAttribute(ATTR_APPLICATION_MODEL);
 
             if (servletContextModel == null) {
-            	
-            	GenericServlet servlet = (GenericServlet) servletContext.getAttribute("webwork.servlet");
-            	// TODO if the webwork servlet isn't load-on-startup then it won't exist
-            	// if it hasn't been accessed, and a JSP page is accessed
-            	if (servlet != null) {
-            		servletContextModel = new ServletContextHashModel(servlet, wrapper);
+
+                GenericServlet servlet = JspSupportServlet.jspSupportServlet;
+                // TODO if the jsp support  servlet isn't load-on-startup then it won't exist
+                // if it hasn't been accessed, and a JSP page is accessed
+                if (servlet != null) {
+                    servletContextModel = new ServletContextHashModel(servlet, wrapper);
                     servletContext.setAttribute(ATTR_APPLICATION_MODEL, servletContextModel);
                     TaglibFactory taglibs = new TaglibFactory(servletContext);
                     servletContext.setAttribute(ATTR_JSP_TAGLIBS_MODEL, taglibs);
-            	}
+                }
 
             }
 
@@ -155,8 +143,7 @@ public class FreemarkerManager {
         if (request.getSession(false) != null) {
             HttpSession session = request.getSession();
             model.put(KEY_SESSION_MODEL, new HttpSessionHashModel(session, wrapper));
-        }
-        else {
+        } else {
             // no session means no attributes ???
             //            model.put(KEY_SESSION_MODEL, new SimpleHash());
         }
@@ -175,12 +162,12 @@ public class FreemarkerManager {
     }
 
     /**
-     * @deprecated please use buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper, OgnlValueStack stack) 
+     * @deprecated please use buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper, OgnlValueStack stack)
      */
     public ScopesHashModel buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper) {
-		return buildScopesHashModel(servletContext, request, response, wrapper, ActionContext.getContext().getValueStack());
-	}
-	
+        return buildScopesHashModel(servletContext, request, response, wrapper, ActionContext.getContext().getValueStack());
+    }
+
     public void populateContext(ScopesHashModel model, OgnlValueStack stack, Action action, HttpServletRequest request, HttpServletResponse response) {
         // put the same objects into the context that the velocity result uses
         Map standard = ContextUtil.getStandardContext(stack, request, response);
@@ -230,8 +217,7 @@ public class FreemarkerManager {
         if (templatePath != null) {
             try {
                 templatePathLoader = new FileTemplateLoader(new File(templatePath));
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 log.error("Invalid template path specified: " + e.getMessage(), e);
             }
         }
@@ -292,11 +278,9 @@ public class FreemarkerManager {
                 p.load(in);
                 configuration.setSettings(p);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             log.error("Error while loading freemarker settings from /freemarker.properties", e);
-        }
-        catch (TemplateException e) {
+        } catch (TemplateException e) {
             log.error("Error while loading freemarker settings from /freemarker.properties", e);
         }
     }
@@ -306,5 +290,5 @@ public class FreemarkerManager {
         populateContext(model, stack, action, request, response);
         return model;
     }
-    
+
 }

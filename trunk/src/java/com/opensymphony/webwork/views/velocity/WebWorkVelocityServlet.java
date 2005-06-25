@@ -5,8 +5,8 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.ActionContext;
 import org.apache.velocity.Template;
 import org.apache.velocity.context.Context;
@@ -32,7 +32,6 @@ import java.util.Properties;
 /**
  * @author $Author$
  * @version $Revision$
- *
  * @deprecated please use {@link com.opensymphony.webwork.dispatcher.VelocityResult} instead of direct access
  */
 public class WebWorkVelocityServlet extends VelocityServlet {
@@ -53,7 +52,6 @@ public class WebWorkVelocityServlet extends VelocityServlet {
 
         // initialize our VelocityManager
         velocityManager.init(servletConfig.getServletContext());
-        servletConfig.getServletContext().setAttribute("webwork.servlet", this);
     }
 
     protected Context createContext(HttpServletRequest request, HttpServletResponse response) {

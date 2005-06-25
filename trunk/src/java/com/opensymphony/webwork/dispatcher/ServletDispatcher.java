@@ -72,10 +72,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      */
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
-
-        // store a reference to ourself into the SessionContext so that we can generate a PageContext
-        servletConfig.getServletContext().setAttribute("webwork.servlet", this);
-
         DispatcherUtils.initialize(getServletContext());
     }
 

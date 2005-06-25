@@ -1,11 +1,14 @@
 package com.opensymphony.webwork.dispatcher;
 
+import com.opensymphony.webwork.config.ServletContextSingleton;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -35,6 +38,47 @@ public class FilterDispatcherCompatWeblogic61
             LogFactory.getLog(FilterDispatcherCompatWeblogic61.class);
 
     /**
+     * dummy setter for {@link #filterConfig}; this method
+     * sets up the {@link com.opensymphony.webwork.config.ServletContextSingleton} with
+     * the servlet context from the filter configuration.
+     * <p/>
+     * This is needed by Weblogic Server 6.1 because it
+     * uses a slightly obsolete Servlet 2.3-minus spec
+     * whose {@link Filter} interface requires this method.
+     * <p/>
+     *
+     * @param filterConfig the filter configuration.
+     */
+    public void setFilterConfig(FilterConfig filterConfig) {
+        try {
+            init(filterConfig);
+        } catch (ServletException se) {
+            log.error("Couldn't set the filter configuration in this filter", se);
+        }
+
+        ServletContextSingleton singleton = ServletContextSingleton.getInstance();
+        singleton.setServletContext(filterConfig.getServletContext());
+    }
+
+    /**
+     * answers the servlet context.
+     * <p/>
+     * Servlet 2.3 specifies that this can be retrieved from
+     * the session.  Unfortunately, weblogic.jar can only retrieve
+     * the servlet context from the filter config.  Hence, this
+     * returns the servlet context from the singleton that was
+     * setup by {@link #setFilterConfig(FilterConfig)}.
+     *
+     * @param session the HTTP session.  Not used
+     * @return the servlet context.
+     */
+    protected ServletContext getServletContext(HttpSession session) {
+        ServletContextSingleton singleton =
+                ServletContextSingleton.getInstance();
+        return singleton.getServletContext();
+    }
+
+    /**
      * This method is required by Weblogic 6.1 SP4 because
      * they defined this as a required method just before
      * the Servlet 2.3 specification was finalized.
@@ -44,22 +88,4 @@ public class FilterDispatcherCompatWeblogic61
     public FilterConfig getFilterConfig() {
         return super.getFilterConfig();
     }
-
-    /**
-     * This method is required by Weblogic 6.1 SP4
-     * instead of {@link init(FilterConfig)} because
-     * they defined this as a required method just before
-     * the Servlet 2.3 specification was finalized.
-     *
-     * @param filterConfig the filter configuration for this filter
-     */
-    public final void setFilterConfig(FilterConfig filterConfig) {
-        try {
-            init(filterConfig);
-        } catch (ServletException se) {
-            log.error("Couldn't set the filter configuration in this filter",
-                    se);
-        }
-    }
-
 }

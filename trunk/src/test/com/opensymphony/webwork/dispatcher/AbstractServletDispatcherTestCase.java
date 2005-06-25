@@ -16,10 +16,9 @@ import com.mockobjects.servlet.MockServletConfig;
 import com.mockobjects.servlet.MockServletOutputStream;
 import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletRequest;
 import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletResponse;
+import com.opensymphony.xwork.XWorkTestCase;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.providers.XmlConfigurationProvider;
-import com.opensymphony.xwork.XWorkTestCase;
-import junit.framework.TestCase;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -93,7 +92,6 @@ public abstract class AbstractServletDispatcherTestCase extends XWorkTestCase {
         servletContextDMock.matchAndReturn("log", C.ANY_ARGS, null);
 
         ServletContext servletContextMock = (ServletContext) servletContextDMock.proxy();
-        servletContextDMock.expect("setAttribute", C.args(C.eq("webwork.servlet"), C.eq(servlet)));
         servletContextDMock.expectAndReturn("getServerInfo", "Resin");
 
         MockServletConfig servletConfigMock = new MockServletConfig();
