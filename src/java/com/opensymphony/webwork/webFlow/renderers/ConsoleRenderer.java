@@ -25,7 +25,7 @@ public class ConsoleRenderer implements Renderer {
     public ConsoleRenderer() {
     }
 
-    public void render() {
+    public void render(String ns) {
         Set namespaces = XWorkConfigRetriever.getNamespaces();
         for (Iterator iter = namespaces.iterator(); iter.hasNext();) {
             String namespace = (String) iter.next();

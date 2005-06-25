@@ -9,5 +9,5 @@ package com.opensymphony.webwork.webFlow.renderers;
  */
 public interface Renderer {
 
-    public void render();
+    public void render(String namespace);
 }

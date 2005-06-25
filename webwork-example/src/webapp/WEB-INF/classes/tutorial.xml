@@ -12,7 +12,6 @@
     </package>
 
     <package name="ajax" namespace="/tutorial/ajax" extends="webwork-default">
-
         <action name="hello" class="com.opensymphony.webwork.example.tutorial.ajax.HelloWorld">
             <result name="input">hello-input.jsp</result>
             <result name="success">hello.jsp</result>
@@ -22,7 +21,7 @@
         <action name="AjaxTest" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
             <result name="success">AjaxResult.jsp</result>
         </action>
-        
+
         <action name="AjaxRemoteLink" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
             <result name="success">AjaxResult2.js</result>
         </action>
@@ -30,12 +29,20 @@
         <action name="AjaxRemoteForm" class="com.opensymphony.webwork.example.tutorial.ajax.AjaxTestAction">
             <result name="success">AjaxResult3.jsp</result>
         </action>
+    </package>
 
+    <package name="webflow" namespace="/tutorial/webflow" extends="webwork-default">
+        <result-types>
+            <result-type name="freemarker" default="true" class="com.opensymphony.webwork.views.freemarker.FreemarkerResult"/>
+        </result-types>
+
+        <action name="guess" class="com.opensymphony.webwork.example.tutorial.webflow.Guess">
+            <result name="success" type="redirect">guess-success.jsp</result>
+            <result name="input">guess-input.ftl</result>
+            <result name="error">guess-error.ftl</result>
+        </action>
     </package>
 
     <package name="forms" namespace="/tutorial/forms" extends="webwork-default">
-        <action name="newPerson" class="com.opensymphony.webwork.example.tutorial.forms.NewPerson">
-            <result name="success">newPerson.jsp</result>
-        </action>
     </package>
 </xwork>
