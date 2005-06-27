@@ -7,6 +7,9 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.webFlow.XWorkConfigRetriever;
 import com.opensymphony.webwork.webFlow.entities.Target;
 import com.opensymphony.webwork.webFlow.entities.View;
+import com.opensymphony.webwork.webFlow.model.Graph;
+import com.opensymphony.webwork.webFlow.model.IndentWriter;
+import com.opensymphony.webwork.webFlow.model.SubGraph;
 import com.opensymphony.xwork.ActionChainResult;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.ResultConfig;
@@ -34,11 +37,7 @@ public class DOTRenderer {
     }
 
     public void render(String ns) {
-        DotGraph graph = new DotGraph();
-        graph.attribute("action", "color", "coral1");
-        graph.attribute("view", "color", "darkseagreen2");
-        graph.attribute("start", "color", "gold");
-        graph.attribute("start", "shape", "octagon");
+        Graph graph = new Graph();
 
         HashMap viewMap = new HashMap();
 
@@ -50,6 +49,8 @@ public class DOTRenderer {
                 continue;
             }
 
+            SubGraph subGraph = SubGraph.create(namespace, graph);
+
             Set actionNames = XWorkConfigRetriever.getActionNames(namespace);
             for (Iterator iterator = actionNames.iterator(); iterator.hasNext();) {
                 String actionName = (String) iterator.next();
@@ -57,7 +58,7 @@ public class DOTRenderer {
                         actionName);
                 String action = namespace + "/" + actionName + "." + Configuration.get("webwork.action.extension");
 
-                graph.add_node("action", action, actionName);
+                //graph.add_node("action", action, actionName);
 
                 Set resultNames = actionConfig.getResults().keySet();
                 for (Iterator iterator2 = resultNames.iterator(); iterator2.hasNext();) {
@@ -76,10 +77,10 @@ public class DOTRenderer {
 
                         String location = getViewLocation((String) resultConfig.getParams().get("location"), namespace);
                         if (location.endsWith((String) Configuration.get("webwork.action.extension"))) {
-                            addLink(action, location.substring(1), resultConfig.getName(), graph);
+                            //addLink(action, location.substring(1), resultConfig.getName(), graph);
                         } else {
-                            graph.add_node("view", location, null);
-                            graph.add_link(action, location, resultConfig.getName());
+                            //graph.add_node("view", location, null);
+                            //graph.add_link(action, location, resultConfig.getName());
 
                             View viewFile = getView(namespace, actionName, resultName);
                             if (viewFile != null) {
@@ -94,10 +95,10 @@ public class DOTRenderer {
                         // check if the redirect is to an action -- if so, link it
                         String location = getViewLocation((String) resultConfig.getParams().get("location"), namespace);
                         if (location.endsWith((String) Configuration.get("webwork.action.extension"))) {
-                            addLink(action, location.substring(1), resultConfig.getName(), graph);
+                            //addLink(action, location.substring(1), resultConfig.getName(), graph);
                         } else {
-                            graph.add_node("view", location, null);
-                            graph.add_link(action, location, resultConfig.getName());
+                            //graph.add_node("view", location, null);
+                            //graph.add_link(action, location, resultConfig.getName());
 
                             View viewFile = getView(namespace, actionName, resultName);
                             if (viewFile != null) {
@@ -124,7 +125,7 @@ public class DOTRenderer {
                         viewTarget = view.substring(1, view.lastIndexOf('/')) + "/" + viewTarget;
                     }
 
-                    addLink(view, viewTarget, "", graph);
+                    //addLink(view, viewTarget, "", graph);
                 } catch (Throwable e) {
                     System.out.println("Problem with view " + view + " and target " + viewTarget);
                 }
@@ -132,7 +133,8 @@ public class DOTRenderer {
         }
 
         try {
-            writer.write(graph.to_s(true));
+            //writer.write(graph.to_s(true));
+            graph.render(new IndentWriter(writer));
             writer.flush();
             writer.close();
         } catch (IOException e) {

@@ -9,4 +9,12 @@ public class ActionNode extends WebFlowNode {
     public ActionNode(String name) {
         super(name);
     }
+
+    public String getExt() {
+        return "action";
+    }
+
+    public String getColor() {
+        return "coral1";
+    }
 }

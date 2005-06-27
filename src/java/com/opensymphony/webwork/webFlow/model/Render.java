@@ -1,7 +1,6 @@
 package com.opensymphony.webwork.webFlow.model;
 
 import java.io.IOException;
-import java.io.Writer;
 
 /**
  * User: plightbo
@@ -9,5 +8,5 @@ import java.io.Writer;
  * Time: 5:06:03 PM
  */
 public interface Render {
-    public void render(Writer writer) throws IOException;
+    public void render(IndentWriter writer) throws IOException;
 }
