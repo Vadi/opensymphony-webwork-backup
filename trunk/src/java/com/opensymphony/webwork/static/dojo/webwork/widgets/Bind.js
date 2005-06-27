@@ -42,7 +42,7 @@ webwork.widgets.Bind = function() {
 	this.getUrl = ""
 	
 	// topics that will be notified with a "notify" message when the bind operation has completed successfully
-	this.notifyTopics = [];
+	this.notifyTopics = "";
 
     // html to display when there is an error loading content
     this.errorHtml = "Failed to load remote content";
@@ -58,7 +58,7 @@ webwork.widgets.Bind = function() {
 	 */
 
 	// topics that this widget will listen to. Any message received on these topics will trigger a bind operation
-	this.listenTopics = [];
+	this.listenTopics = "";
 	
 	// the dom id of a target div to fill with the response
 	this.targetDiv = "";	
@@ -72,11 +72,18 @@ webwork.widgets.Bind = function() {
 	// does the bind call use the client side cache
 	this.useCache = false;
 	
+	var trim = function(a) {
+		a = a.replace( /^\s+/g, "" );// strip leading
+		return a.replace( /\s+$/g, "" );// strip trailing
+	}
+	
 	this.fillInTemplate = function() {
 		// subscribe to out listenTopics
-	
-    	for (var i=0; i < self.listenTopics.length; i++) {
-			dojo.event.topic.subscribe( self.listenTopics[i], self, "bind" );
+		
+		var lt = self.listenTopics.split(",");
+    	for (var i=0; i < lt.length; i++) {
+    		var e = trim(lt[i]);
+			dojo.event.topic.subscribe( e, self, "bind" );
 		}
 	       
 		// associate the global instance for this widget
@@ -115,8 +122,11 @@ webwork.widgets.Bind = function() {
     this.load = function(type, data) {
     
 		// notify our listeners
-		for (var i=0; i < self.notifyTopics.length; i++)
-			dojo.event.topic.publish( self.notifyTopics[i], "notify" );
+		var nt = self.notifyTopics.split(",");
+		for (var i=0; i < nt.length; i++) {
+			var topic = trim(nt[i]);
+			dojo.event.topic.publish( topic, "notify" );
+		}
     
     	if (self.targetDiv != "") {
 			var div = document.getElementById(self.targetDiv);
