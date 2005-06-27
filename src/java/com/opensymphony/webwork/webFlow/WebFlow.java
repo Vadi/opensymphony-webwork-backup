@@ -4,11 +4,12 @@
 package com.opensymphony.webwork.webFlow;
 
 import com.opensymphony.webwork.webFlow.renderers.DOTRenderer;
-import com.opensymphony.webwork.webFlow.renderers.Renderer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 
 /**
  * TODO Describe WebFlow
@@ -16,6 +17,19 @@ import java.io.IOException;
 public class WebFlow {
 
     private static final Log LOG = LogFactory.getLog(WebFlow.class);
+
+    private String configDir;
+    private String views;
+    private String output;
+    private String namespace;
+    private Writer writer;
+
+    public WebFlow(String configDir, String views, String output, String namespace) {
+        this.configDir = configDir;
+        this.views = views;
+        this.output = output;
+        this.namespace = namespace;
+    }
 
     public static void main(String[] args) {
         LOG.info("WebFlow starting...");
@@ -34,15 +48,9 @@ public class WebFlow {
         String output = getArg(args, "output");
         String namespace = getArg(args, "ns");
 
-        XWorkConfigRetriever.setConfiguration(configDir, views.split("[, ]+"));
-        Renderer renderer = new DOTRenderer(output);
-        renderer.render(namespace);
-
-        try {
-            Runtime.getRuntime().exec("dot -o" + output + "/out.gif -Tgif " + output + "/out.dot");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        WebFlow webFlow = new WebFlow(configDir, views, output, namespace);
+        webFlow.prepare();
+        webFlow.render();
     }
 
     private static String getArg(String[] args, String arg) {
@@ -53,5 +61,31 @@ public class WebFlow {
         }
 
         return "";
+    }
+
+    public void prepare() {
+        if (writer == null) {
+            try {
+                writer = new FileWriter(output + "/out.dot");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        XWorkConfigRetriever.setConfiguration(configDir, views.split("[, ]+"));
+        DOTRenderer renderer = new DOTRenderer(writer);
+        renderer.render(namespace);
+    }
+
+    public void render() {
+        try {
+            Runtime.getRuntime().exec("dot -o" + output + "/out.gif -Tgif " + output + "/out.dot");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setWriter(Writer writer) {
+        this.writer = writer;
     }
 }

@@ -5,6 +5,7 @@ package com.opensymphony.webwork.webFlow.renderers;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.webFlow.XWorkConfigRetriever;
+import com.opensymphony.webwork.webFlow.entities.Target;
 import com.opensymphony.webwork.webFlow.entities.View;
 import com.opensymphony.xwork.ActionChainResult;
 import com.opensymphony.xwork.config.entities.ActionConfig;
@@ -12,8 +13,8 @@ import com.opensymphony.xwork.config.entities.ResultConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,14 +23,14 @@ import java.util.Set;
 /**
  * Renders flow diagram to the console at info level
  */
-public class DOTRenderer implements Renderer {
+public class DOTRenderer {
 
     private static final Log LOG = LogFactory.getLog(DOTRenderer.class);
 
-    private String output;
+    private Writer writer;
 
-    public DOTRenderer(String output) {
-        this.output = output;
+    public DOTRenderer(Writer writer) {
+        this.writer = writer;
     }
 
     public void render(String ns) {
@@ -80,7 +81,7 @@ public class DOTRenderer implements Renderer {
                             graph.add_node("view", location, null);
                             graph.add_link(action, location, resultConfig.getName());
 
-                            View viewFile = XWorkConfigRetriever.getView(namespace, actionName, resultName);
+                            View viewFile = getView(namespace, actionName, resultName);
                             if (viewFile != null) {
                                 viewMap.put(location, viewFile);
                             }
@@ -98,7 +99,7 @@ public class DOTRenderer implements Renderer {
                             graph.add_node("view", location, null);
                             graph.add_link(action, location, resultConfig.getName());
 
-                            View viewFile = XWorkConfigRetriever.getView(namespace, actionName, resultName);
+                            View viewFile = getView(namespace, actionName, resultName);
                             if (viewFile != null) {
                                 viewMap.put(location, viewFile);
                             }
@@ -114,7 +115,8 @@ public class DOTRenderer implements Renderer {
             View viewFile = (View) entry.getValue();
             Set targets = viewFile.getTargets();
             for (Iterator iterator1 = targets.iterator(); iterator1.hasNext();) {
-                String viewTarget = (String) iterator1.next();
+                Target target = (Target) iterator1.next();
+                String viewTarget = target.getTarget();
 
                 try {
                     // if the target isn't absolute, assume the same namespce as this
@@ -130,13 +132,22 @@ public class DOTRenderer implements Renderer {
         }
 
         try {
-            FileWriter out = new FileWriter(output + "/out.dot");
-            out.write(graph.to_s(true));
-            out.flush();
-            out.close();
+            writer.write(graph.to_s(true));
+            writer.flush();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private View getView(String namespace, String actionName, String resultName) {
+        int type = View.TYPE_JSP;
+        if (resultName.endsWith(".fm") || resultName.endsWith(".ftl")) {
+            type = View.TYPE_FTL;
+        } else if (resultName.endsWith(".vm")) {
+            type = View.TYPE_VM;
+        }
+        return XWorkConfigRetriever.getView(namespace, actionName, resultName, type);
     }
 
     private void addLink(String view, String target, String label, DotGraph graph) {
