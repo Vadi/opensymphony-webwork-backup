@@ -24,12 +24,22 @@ public class IndentWriter extends Writer {
     }
 
     public void write(String str) throws IOException {
-        writer.write("  ");
-        writer.write(str);
+        write(str, false);
+    }
+
+    public void write(String str, boolean noIndent) throws IOException {
+        if (!noIndent) {
+            str = "    " + str;
+        }
+
+        if (writer instanceof IndentWriter) {
+            ((IndentWriter) writer).write(str, false);
+        } else {
+            writer.write(str + "\n");
+        }
     }
 
     public void write(char cbuf[], int off, int len) throws IOException {
-        writer.write("  ");
         writer.write(cbuf, off, len);
     }
 }

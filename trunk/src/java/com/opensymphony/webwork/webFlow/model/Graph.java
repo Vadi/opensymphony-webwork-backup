@@ -1,7 +1,6 @@
 package com.opensymphony.webwork.webFlow.model;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -28,18 +27,20 @@ public class Graph implements Render {
         nodes.add(node);
     }
 
-    public void render(Writer writer) throws IOException {
+    public void render(IndentWriter writer) throws IOException {
         // write out the header
-        writer.write("digraph mygraph {\n" +
-                "  fontsize=10;\n" +
-                "  fontname=helvetica;\n" +
-                "  node [fontsize=10, fontname=helvetica, style=filled, shape=rectangle]\n" +
-                "  edge [fontsize=10, fontname=helvetica]\n");
+        writer.write("digraph mygraph {", true);
+        writer.write("fontsize=10;");
+        writer.write("fontname=helvetica;");
+        writer.write("node [fontsize=10, fontname=helvetica, style=filled, shape=rectangle]");
+        writer.write("edge [fontsize=10, fontname=helvetica]");
+
+        IndentWriter iw = new IndentWriter(writer);
 
         // render all the subgraphs
         for (Iterator iterator = subGraphs.iterator(); iterator.hasNext();) {
             SubGraph subGraph = (SubGraph) iterator.next();
-            subGraph.render(new IndentWriter(writer));
+            subGraph.render(iw);
         }
 
         // render all the nodes
@@ -52,6 +53,17 @@ public class Graph implements Render {
 
 
         // and now the footer
-        writer.write("}\n");
+        writer.write("}", true);
+    }
+
+    public SubGraph findSubGraph(String name) {
+        for (Iterator iterator = subGraphs.iterator(); iterator.hasNext();) {
+            SubGraph subGraph = (SubGraph) iterator.next();
+            if (subGraph.getName().equals(name)) {
+                return subGraph;
+            }
+        }
+
+        return null;
     }
 }
