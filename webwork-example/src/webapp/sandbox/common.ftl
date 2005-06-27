@@ -1,4 +1,7 @@
-<#assign ww = JspTaglibs["/WEB-INF/webwork.tld"] />
+<#--
+	TODO : remove the need to use jsp tags to resolve urls
+-->
+<#assign ww = JspTaglibs["/WEB-INF/taglib.tld"] />
 <#function url value>
 	<#local v><@ww.url value=value/></#local>
 	<#return v/>
@@ -21,23 +24,4 @@
 	<h2>Live Example</h2>
 	<#nested/>
 
-</#macro>
-<#assign dojoBase = url('/webwork/dojo')/>
-
-<#macro dojoRuntime includes=[] isDebug=false>
-	<script language="JavaScript" type="text/javascript">
-		djConfig = { 
-			baseRelativePath: "${dojoBase}/",
-			isDebug: ${isDebug?string}
-		};
-	</script>
-
-	<script src="${dojoBase}/__package__.js" language="JavaScript" type="text/javascript" ></script>
-
-	<script language="JavaScript" type="text/javascript">
-		<#list includes as include>
-			dojo.hostenv.loadModule("${include}");
-		</#list>
-	</script>
-	
 </#macro>

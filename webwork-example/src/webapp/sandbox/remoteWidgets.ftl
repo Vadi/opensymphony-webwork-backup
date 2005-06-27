@@ -1,15 +1,21 @@
 <#include "common.ftl"/>
 <html>
 	<head>
-		<@dojoRuntime 
-			includes=[
-				"webwork.widgets.Bind",
-				"webwork.widgets.BindDiv",
-				"webwork.widgets.BindButton",
-				"webwork.widgets.BindAnchor"
-			]
-			isDebug=true
-		/>
+		<script language="JavaScript" type="text/javascript">
+			djConfig = { 
+				isDebug: true,
+				baseRelativePath: "/webwork/webwork/dojo/",
+			};
+		</script>
+	
+		<script src="/webwork/webwork/dojo/__package__.js" language="JavaScript" type="text/javascript" ></script>
+	
+		<script language="JavaScript" type="text/javascript">
+			dojo.hostenv.loadModule("webwork.widgets.Bind");
+			dojo.hostenv.loadModule("webwork.widgets.BindDiv");
+			dojo.hostenv.loadModule("webwork.widgets.BindButton");
+			dojo.hostenv.loadModule("webwork.widgets.BindAnchor");
+		</script>
 		
 		<style>
 			.sampleBox {

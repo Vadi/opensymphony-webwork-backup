@@ -16,12 +16,18 @@
 		<link rel="alternate stylesheet" type="text/css" media="all" href="/webwork/shared/jscalendar-1.0/calendar-win2k-cold-2.css" title="win2k-cold-2" />
 		<link rel="alternate stylesheet" type="text/css" media="all" href="/webwork/shared/jscalendar-1.0/calendar-system.css" title="system" />
 
-		<@dojoRuntime 
-			includes=[
-				"webwork.widgets.DynArchCalendar"
-			]
-			isDebug=true
-		/>
+		<script language="JavaScript" type="text/javascript">
+			djConfig = { 
+				isDebug: true 
+				baseRelativePath: "/webwork/webwork/dojo/",
+			};
+		</script>
+	
+		<script src="/webwork/webwork/dojo/__package__.js" language="JavaScript" type="text/javascript" ></script>
+	
+		<script language="JavaScript" type="text/javascript">
+			dojo.hostenv.loadModule("webwork.widgets.DynArchCalendar");
+		</script>
 		
 		<style>
 			.sampleBox {
