@@ -3,16 +3,28 @@
  */
 package com.opensymphony.webwork.webFlow;
 
+import com.opensymphony.util.FileUtils;
 import com.opensymphony.webwork.webFlow.renderers.DOTRenderer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
- * TODO Describe WebFlow
+ * // START SNIPPET: javadocs-intro
+ * WebFlow is a tool that renders out GraphViz-generated images depicting your
+ * WebWork-powered web application's flow.
+ * // END SNIPPET: javadocs-intro
+ * <p/>
+ * // START SNIPPET: javadocs-api
+ * If you wish to use WebFlow through its API...
+ * // END SNIPPET: javadocs-api
  */
 public class WebFlow {
 
@@ -35,11 +47,15 @@ public class WebFlow {
         LOG.info("WebFlow starting...");
 
         if (args.length != 8 && args.length != 6) {
-            System.out.println("Usage: -config CONFIG_DIR -views VIEWS_DIRS -output OUTPUT [-ns NAMESPACE]");
-            System.out.println("       CONFIG_DIR => a directory containing xwork.xml");
-            System.out.println("       VIEWS_DIRS => comma seperated list of dirs containing JSPs, VMs, etc");
-            System.out.println("       OUPUT      => the directory where the output should go");
-            System.out.println("       NAMESPACE  => the namespace path restriction (/, /foo, etc)");
+            URL resource = WebFlow.class.getResource("webflow-usage.txt");
+            File file = null;
+            try {
+                file = new File(new URI(resource.toExternalForm()));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            String usage = FileUtils.readFile(file);
+            System.out.println(usage.replaceAll("//.*\n", ""));
             return;
         }
 
