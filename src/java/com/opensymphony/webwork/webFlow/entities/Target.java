@@ -1,19 +1,16 @@
 package com.opensymphony.webwork.webFlow.entities;
 
+
 /**
  * User: plightbo
  * Date: Jun 25, 2005
  * Time: 2:11:30 PM
  */
 public class Target {
-    public static final int TYPE_LINK = 0;
-    public static final int TYPE_ACTION = 1;
-    public static final int TYPE_FORM = 2;
-
     private String target;
     private int type;
 
-    private Target(String target, int type) {
+    public Target(String target, int type) {
         this.target = target;
         this.type = type;
     }
@@ -24,18 +21,6 @@ public class Target {
 
     public int getType() {
         return type;
-    }
-
-    public static Target link(String target) {
-        return new Target(target, TYPE_LINK);
-    }
-
-    public static Target action(String target) {
-        return new Target(target, TYPE_ACTION);
-    }
-
-    public static Target form(String target) {
-        return new Target(target, TYPE_FORM);
     }
 
     public boolean equals(Object o) {

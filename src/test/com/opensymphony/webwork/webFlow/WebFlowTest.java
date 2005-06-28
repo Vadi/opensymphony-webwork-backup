@@ -14,7 +14,7 @@ import java.io.StringWriter;
 public class WebFlowTest extends WebWorkTestCase {
     public void testWebFlow() {
         String dir = "src/test/com/opensymphony/webwork/webFlow";
-        WebFlow webFlow = new WebFlow(dir, dir, dir, "/");
+        WebFlow webFlow = new WebFlow(dir, dir, dir, "");
         StringWriter writer = new StringWriter();
         webFlow.setWriter(writer);
         webFlow.prepare();

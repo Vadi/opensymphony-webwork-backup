@@ -3,12 +3,29 @@
 <xwork>
     <include file="webwork-default.xml"/>
 
+    <package name="default" extends="webwork-default">
+        <action name="hello" class="com.opensymphony.xwork.ActionSupport">
+            <result name="success">hello.jsp</result>
+            <result name="tutorial" type="redirect">/tutorial/test.action</result>
+        </action>
+    </package>
+
+    <package name="tutorial" namespace="/tutorial" extends="webwork-default">
+        <result-types>
+            <result-type name="freemarker" default="true" class="com.opensymphony.webwork.views.freemarker.FreemarkerResult"/>
+        </result-types>
+
+        <action name="test" class="com.opensymphony.xwork.ActionSupport">
+            <result name="input">webflow/guess-input.ftl</result>
+        </action>
+    </package>
+
     <package name="webflow" namespace="/tutorial/webflow" extends="webwork-default">
         <result-types>
             <result-type name="freemarker" default="true" class="com.opensymphony.webwork.views.freemarker.FreemarkerResult"/>
         </result-types>
 
-        <action name="guess" class="com.opensymphony.webwork.webFlow.Guess">
+        <action name="guess" class="com.opensymphony.xwork.ActionSupport">
             <result name="success" type="redirect">guess-success.jsp</result>
             <result name="input">guess-input.ftl</result>
             <result name="error">guess-error.ftl</result>

@@ -7,30 +7,22 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.webFlow.XWorkConfigRetriever;
 import com.opensymphony.webwork.webFlow.entities.Target;
 import com.opensymphony.webwork.webFlow.entities.View;
-import com.opensymphony.webwork.webFlow.model.Graph;
-import com.opensymphony.webwork.webFlow.model.IndentWriter;
-import com.opensymphony.webwork.webFlow.model.SubGraph;
+import com.opensymphony.webwork.webFlow.model.*;
 import com.opensymphony.xwork.ActionChainResult;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.ResultConfig;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Renders flow diagram to the console at info level
  */
 public class DOTRenderer {
 
-    private static final Log LOG = LogFactory.getLog(DOTRenderer.class);
-
     private Writer writer;
+    private List links = new ArrayList();
 
     public DOTRenderer(Writer writer) {
         this.writer = writer;
@@ -49,16 +41,16 @@ public class DOTRenderer {
                 continue;
             }
 
-            SubGraph subGraph = SubGraph.create(namespace, graph);
+            SubGraph subGraph = graph.create(namespace);
 
             Set actionNames = XWorkConfigRetriever.getActionNames(namespace);
             for (Iterator iterator = actionNames.iterator(); iterator.hasNext();) {
                 String actionName = (String) iterator.next();
                 ActionConfig actionConfig = XWorkConfigRetriever.getActionConfig(namespace,
                         actionName);
-                String action = namespace + "/" + actionName + "." + Configuration.get("webwork.action.extension");
 
-                //graph.add_node("action", action, actionName);
+                ActionNode action = new ActionNode(actionName);
+                subGraph.addNode(action);
 
                 Set resultNames = actionConfig.getResults().keySet();
                 for (Iterator iterator2 = resultNames.iterator(); iterator2.hasNext();) {
@@ -77,14 +69,16 @@ public class DOTRenderer {
 
                         String location = getViewLocation((String) resultConfig.getParams().get("location"), namespace);
                         if (location.endsWith((String) Configuration.get("webwork.action.extension"))) {
-                            //addLink(action, location.substring(1), resultConfig.getName(), graph);
+                            addTempLink(action, location, Link.TYPE_RESULT, resultConfig.getName());
                         } else {
-                            //graph.add_node("view", location, null);
-                            //graph.add_link(action, location, resultConfig.getName());
+                            ViewNode view = new ViewNode(stripLocation(location));
+                            subGraph.addNode(view);
 
-                            View viewFile = getView(namespace, actionName, resultName);
+                            addTempLink(action, location, Link.TYPE_RESULT, resultConfig.getName());
+
+                            View viewFile = getView(namespace, actionName, resultName, location);
                             if (viewFile != null) {
-                                viewMap.put(location, viewFile);
+                                viewMap.put(view, viewFile);
                             }
                         }
                     } else if (resultClassName.indexOf("Jasper") != -1) {
@@ -95,14 +89,16 @@ public class DOTRenderer {
                         // check if the redirect is to an action -- if so, link it
                         String location = getViewLocation((String) resultConfig.getParams().get("location"), namespace);
                         if (location.endsWith((String) Configuration.get("webwork.action.extension"))) {
-                            //addLink(action, location.substring(1), resultConfig.getName(), graph);
+                            addTempLink(action, location, Link.TYPE_REDIRECT, resultConfig.getName());
                         } else {
-                            //graph.add_node("view", location, null);
-                            //graph.add_link(action, location, resultConfig.getName());
+                            ViewNode view = new ViewNode(stripLocation(location));
+                            subGraph.addNode(view);
 
-                            View viewFile = getView(namespace, actionName, resultName);
+                            addTempLink(action, location, Link.TYPE_REDIRECT, resultConfig.getName());
+
+                            View viewFile = getView(namespace, actionName, resultName, location);
                             if (viewFile != null) {
-                                viewMap.put(location, viewFile);
+                                viewMap.put(view, viewFile);
                             }
                         }
                     }
@@ -110,25 +106,34 @@ public class DOTRenderer {
             }
         }
 
+        // now look for links in the view
         for (Iterator iterator = viewMap.entrySet().iterator(); iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
-            String view = (String) entry.getKey();
+            ViewNode view = (ViewNode) entry.getKey();
             View viewFile = (View) entry.getValue();
             Set targets = viewFile.getTargets();
             for (Iterator iterator1 = targets.iterator(); iterator1.hasNext();) {
                 Target target = (Target) iterator1.next();
                 String viewTarget = target.getTarget();
+                addTempLink(view, viewTarget, target.getType(), "");
+            }
+        }
 
-                try {
-                    // if the target isn't absolute, assume the same namespce as this
-                    if (!viewTarget.startsWith("/") && view.lastIndexOf('/') >= 1) {
-                        viewTarget = view.substring(1, view.lastIndexOf('/')) + "/" + viewTarget;
-                    }
+        // finally, let's match up these links as real Link objects
+        for (Iterator iterator = links.iterator(); iterator.hasNext();) {
+            TempLink temp = (TempLink) iterator.next();
+            String location = temp.location;
+            if (location.endsWith((String) Configuration.get("webwork.action.extension"))) {
+                location = location.substring(0, location.indexOf((String) Configuration.get("webwork.action.extension")) - 1);
 
-                    //addLink(view, viewTarget, "", graph);
-                } catch (Throwable e) {
-                    System.out.println("Problem with view " + view + " and target " + viewTarget);
+                if (location.indexOf('!') != -1) {
+                    temp.label = temp.label + "\\n(" + location.substring(location.indexOf('!')) + ")";
+                    location = location.substring(0, location.indexOf('!'));
                 }
+            }
+            WebFlowNode to = graph.findNode(location, temp.node);
+            if (to != null) {
+                graph.addLink(new Link(temp.node, to, temp.typeResult, temp.label));
             }
         }
 
@@ -142,26 +147,22 @@ public class DOTRenderer {
         }
     }
 
-    private View getView(String namespace, String actionName, String resultName) {
+    private void addTempLink(WebFlowNode node, String location, int type, String label) {
+        links.add(new TempLink(node, location, type, label));
+    }
+
+    private String stripLocation(String location) {
+        return location.substring(location.lastIndexOf('/') + 1);
+    }
+
+    private View getView(String namespace, String actionName, String resultName, String location) {
         int type = View.TYPE_JSP;
-        if (resultName.endsWith(".fm") || resultName.endsWith(".ftl")) {
+        if (location.endsWith(".fm") || location.endsWith(".ftl")) {
             type = View.TYPE_FTL;
-        } else if (resultName.endsWith(".vm")) {
+        } else if (location.endsWith(".vm")) {
             type = View.TYPE_VM;
         }
         return XWorkConfigRetriever.getView(namespace, actionName, resultName, type);
-    }
-
-    private void addLink(String view, String target, String label, DotGraph graph) {
-        int bang = target.indexOf('!');
-        if (bang != -1) {
-            // map the link back to the action using the command as the label
-            String command = target.substring(bang + 1, target.lastIndexOf('.'));
-            String action = target.substring(0, bang) + target.substring(target.lastIndexOf('.'));
-            graph.add_link(view, "/" + action, label + "\\n(!" + command + ")");
-        } else {
-            graph.add_link(view, "/" + target, label);
-        }
     }
 
     private String getViewLocation(String location, String namespace) {
@@ -179,195 +180,40 @@ public class DOTRenderer {
         return view;
     }
 
-    /**
-     * @author Joe Walnes <joe@truemesh.com>
-     */
-    static class DotGraph {
-        Map clusters; // Map of String -> (Map of String -> Object[] { Map attrs, String type })
-        Map links; // Map of Link->Map of params
-        Map attributes;
+    class TempLink {
+        WebFlowNode node;
+        String location;
+        int typeResult;
+        String label;
 
-        public DotGraph() {
-            clusters = new HashMap();
-            clusters.put("default", new HashMap());
-            links = new HashMap();
-            attributes = new HashMap();
+        public TempLink(WebFlowNode node, String location, int typeResult, String label) {
+            this.node = node;
+            this.location = location;
+            this.typeResult = typeResult;
+            this.label = label;
         }
 
-        public void add_node(String type, String name, String label) {
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof TempLink)) return false;
 
-            String[] ret = split_cluster(name);
-            String cluster = ret[0];
-            name = ret[1];
+            final TempLink tempLink = (TempLink) o;
 
-            Map nodes = (Map) clusters.get(cluster);
-            if (nodes == null) {
-                nodes = new HashMap();
-                clusters.put(cluster, nodes);
-            }
+            if (typeResult != tempLink.typeResult) return false;
+            if (label != null ? !label.equals(tempLink.label) : tempLink.label != null) return false;
+            if (location != null ? !location.equals(tempLink.location) : tempLink.location != null) return false;
+            if (node != null ? !node.equals(tempLink.node) : tempLink.node != null) return false;
 
-            if (label == null) {
-                label = name;
-            }
-
-            Map nodeParams = new HashMap(1);
-            nodes.put(name, new Object[]{type, nodeParams});
-            nodeParams.put("label", label);
+            return true;
         }
 
-        public void add_link(String source, String dest, String label) {
-            Map attrs = new HashMap();
-            attrs.put("label", label);
-
-            links.put(new String[]{x(source), x(dest)}, new Object[]{"link", attrs});
-        }
-
-        public String x(String y) {
-            String[] cluster = split_cluster(y);
-            return cluster[0] + "/" + cluster[1];
-        }
-
-        public void attribute(String type, String name, String value) {
-            Map params = null;
-            if (attributes.get(type) == null) {
-                params = new HashMap();
-                attributes.put(type, params);
-            } else {
-                params = (Map) attributes.get(type);
-            }
-
-            params.put(name, value);
-        }
-
-        public String to_s(boolean include_attributes) {
-            StringBuffer result = new StringBuffer();
-
-            result.append("digraph mygraph {\n");
-            if (include_attributes) {
-                //result << "  rankdir=LR;\n"
-                result.append("  fontsize=10;\n");
-                result.append("  fontname=helvetica;\n");
-                result.append("  node [fontsize=10, fontname=helvetica, style=filled, shape=rectangle]\n");
-                result.append("  edge [fontsize=10, fontname=helvetica]\n");
-            }
-
-            Map defaultCluster = (Map) clusters.get("default");
-            for (Iterator iterator = defaultCluster.entrySet().iterator(); iterator.hasNext();) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                String name = (String) entry.getKey();
-                Object[] attributes = (Object[]) entry.getValue();
-
-                result.append("  default_" + c(name) + " ");
-                if (include_attributes) {
-                    result.append(write_attributes((Map) attributes[1], (String) attributes[0]));
-                }
-                result.append(";\n");
-            }
-
-            for (Iterator iterator = clusters.entrySet().iterator(); iterator.hasNext();) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                String cluster = (String) entry.getKey();
-                Map nodes = (Map) entry.getValue();
-
-                if (!"default".equals(cluster)) {
-                    result.append("  subgraph cluster_" + c(cluster) + " {\n");
-                    if (include_attributes) {
-                        result.append("    color=grey;\n");
-                        result.append("    fontcolor=grey;\n");
-                        result.append("    label=\"" + cluster + "\";\n");
-                    }
-
-                    for (Iterator iterator1 = nodes.entrySet().iterator(); iterator1.hasNext();) {
-                        Map.Entry entry1 = (Map.Entry) iterator1.next();
-                        String name = (String) entry1.getKey();
-                        Object[] attributes = (Object[]) entry1.getValue();
-
-                        result.append("    " + c(cluster) + "_" + c(name) + " ");
-                        if (include_attributes) {
-                            result.append(write_attributes((Map) attributes[1], (String) attributes[0]));
-                        }
-                        result.append(";\n");
-                    }
-
-                    result.append("  }\n");
-                }
-            }
-
-            for (Iterator iterator = links.entrySet().iterator(); iterator.hasNext();) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                String[] link = (String[]) entry.getKey();
-                Object[] attributes = (Object[]) entry.getValue();
-
-                result.append("  " + c(link[0]) + " -> " + c(link[1]) + " ");
-                if (include_attributes) {
-                    result.append(write_attributes((Map) attributes[1], (String) attributes[0]));
-                }
-                result.append(";\n");
-            }
-
-            result.append("}\n");
-
-            return result.toString();
-        }
-
-        String[] split_cluster(String name) {
-            String[] cluster = new String[2];
-
-            // name[/\//]
-            if (name.startsWith("/")) {
-                name = name.substring(1);
-            }
-
-            if (name.matches(".*\\/.*")) {
-                cluster = name.split("\\/", 2);
-            } else {
-                cluster[0] = "default";
-                cluster[1] = name;
-            }
-
-            return cluster;
-        }
-
-        String c(String str) { // replace dot unfriendly chars
-            return str.replaceAll("[\\.\\/\\-\\$\\{\\}]", "_");
-        }
-
-        String write_attributes(Map attributes, String type) {
-            StringBuffer result = new StringBuffer();
-            result.append('[');
-
-            for (Iterator iterator = attributes.entrySet().iterator(); iterator.hasNext();) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                String key = (String) entry.getKey();
-                String value = (String) entry.getValue();
-
-                if (value != null) {
-                    result.append(key + "=\"" + value + "\",");
-                }
-            }
-
-            Map extra_attributes = (Map) this.attributes.get(type);
-            if (extra_attributes != null) {
-                for (Iterator iterator = extra_attributes.entrySet().iterator(); iterator.hasNext();) {
-                    Map.Entry entry = (Map.Entry) iterator.next();
-                    String key = (String) entry.getKey();
-                    String value = (String) entry.getValue();
-
-                    if (value != null) {
-                        result.append(key + "=\"" + value + "\",");
-                    }
-                }
-            }
-
-            result.deleteCharAt(result.length() - 1);
-            result.append(']');
-            String toString = result.toString();
-
-            if (toString.equals("]")) {
-                toString = "";
-            }
-
-            return toString;
+        public int hashCode() {
+            int result;
+            result = (node != null ? node.hashCode() : 0);
+            result = 29 * result + (location != null ? location.hashCode() : 0);
+            result = 29 * result + typeResult;
+            result = 29 * result + (label != null ? label.hashCode() : 0);
+            return result;
         }
     }
 }

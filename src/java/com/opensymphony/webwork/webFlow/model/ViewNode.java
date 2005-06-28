@@ -10,10 +10,6 @@ public class ViewNode extends WebFlowNode {
         super(name);
     }
 
-    public String getExt() {
-        return "";
-    }
-
     public String getColor() {
         return "darkseagreen2";
     }

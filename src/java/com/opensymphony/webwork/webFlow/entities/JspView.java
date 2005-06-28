@@ -18,6 +18,6 @@ public class JspView extends FileBasedView {
     }
 
     protected Pattern getFormPattern() {
-        return Pattern.compile("<ww:form [^>]*name=\"([^\"]+)\"[^>]*>");
+        return Pattern.compile("<ww:form [^>]*action=\"([^\"]+)\"[^>]*>");
     }
 }

@@ -11,14 +11,14 @@ import java.util.List;
  * Time: 4:53:57 PM
  */
 public class SubGraph implements Render {
-    private String name;
-    private SubGraph parent;
-    private List childSubGraphs;
-    private List nodes;
+    protected String name;
+    protected SubGraph parent;
+    protected List subGraphs;
+    protected List nodes;
 
     public SubGraph(String name) {
         this.name = name;
-        this.childSubGraphs = new ArrayList();
+        this.subGraphs = new ArrayList();
         this.nodes = new ArrayList();
     }
 
@@ -26,13 +26,9 @@ public class SubGraph implements Render {
         return name;
     }
 
-    public void addChildSubGraph(SubGraph subGraph) {
+    public void addSubGraph(SubGraph subGraph) {
         subGraph.setParent(this);
-        childSubGraphs.add(subGraph);
-    }
-
-    public SubGraph getParent() {
-        return parent;
+        subGraphs.add(subGraph);
     }
 
     public void setParent(SubGraph parent) {
@@ -41,6 +37,7 @@ public class SubGraph implements Render {
 
     public void addNode(WebFlowNode node) {
         node.setParent(this);
+        Graph.nodeMap.put(node.getFullName(), node);
         nodes.add(node);
     }
 
@@ -51,18 +48,16 @@ public class SubGraph implements Render {
         writer.write("fontcolor=grey;");
         writer.write("label=\"" + name + "\";");
 
-        IndentWriter iw = new IndentWriter(writer);
-
         // write out the subgraphs
-        for (Iterator iterator = childSubGraphs.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = subGraphs.iterator(); iterator.hasNext();) {
             SubGraph subGraph = (SubGraph) iterator.next();
-            subGraph.render(iw);
+            subGraph.render(new IndentWriter(writer));
         }
 
         // write out the actions
         for (Iterator iterator = nodes.iterator(); iterator.hasNext();) {
             WebFlowNode webFlowNode = (WebFlowNode) iterator.next();
-            webFlowNode.render(iw);
+            webFlowNode.render(writer);
         }
 
         // .. footer
@@ -73,33 +68,48 @@ public class SubGraph implements Render {
         if (parent == null) {
             return name;
         } else {
-            return parent.getPrefix() + "_" + name;
+            String prefix = parent.getPrefix();
+            if (prefix.equals("")) {
+                return name;
+            } else {
+                return prefix + "_" + name;
+            }
         }
     }
 
-    public static SubGraph create(String namespace, Graph graph) {
+    public SubGraph create(String namespace) {
+        if (namespace.equals("")) {
+            return this;
+        }
+
         String[] parts = namespace.split("\\/");
-        SubGraph last = null;
+        SubGraph last = this;
         for (int i = 0; i < parts.length; i++) {
             String part = parts[i];
             if (part.equals("")) {
                 continue;
             }
 
-            SubGraph subGraph = graph.findSubGraph(part);
+            SubGraph subGraph = findSubGraph(part);
             if (subGraph == null) {
                 subGraph = new SubGraph(part);
-
-                if (i == 1) {
-                    graph.addSubGraph(subGraph);
-                } else {
-                    last.addChildSubGraph(subGraph);
-                }
+                last.addSubGraph(subGraph);
             }
 
             last = subGraph;
         }
 
         return last;
+    }
+
+    private SubGraph findSubGraph(String name) {
+        for (Iterator iterator = subGraphs.iterator(); iterator.hasNext();) {
+            SubGraph subGraph = (SubGraph) iterator.next();
+            if (subGraph.getName().equals(name)) {
+                return subGraph;
+            }
+        }
+
+        return null;
     }
 }
