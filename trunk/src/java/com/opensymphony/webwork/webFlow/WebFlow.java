@@ -34,8 +34,8 @@ public class WebFlow {
     public static void main(String[] args) {
         LOG.info("WebFlow starting...");
 
-        if (args.length != 8) {
-            System.out.println("Usage: -config CONFIG_DIR -views VIEWS_DIRS -output OUTPUT -ns NAMESPACE");
+        if (args.length != 8 && args.length != 6) {
+            System.out.println("Usage: -config CONFIG_DIR -views VIEWS_DIRS -output OUTPUT [-ns NAMESPACE]");
             System.out.println("       CONFIG_DIR => a directory containing xwork.xml");
             System.out.println("       VIEWS_DIRS => comma seperated list of dirs containing JSPs, VMs, etc");
             System.out.println("       OUPUT      => the directory where the output should go");
