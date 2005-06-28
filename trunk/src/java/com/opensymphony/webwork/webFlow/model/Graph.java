@@ -1,30 +1,24 @@
 package com.opensymphony.webwork.webFlow.model;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: plightbo
  * Date: Jun 26, 2005
  * Time: 4:58:30 PM
  */
-public class Graph implements Render {
-    private List subGraphs;
-    private List nodes;
+public class Graph extends SubGraph {
+    private Set links;
+    public static Map nodeMap = new HashMap();
 
     public Graph() {
-        this.subGraphs = new ArrayList();
-        this.nodes = new ArrayList();
+        super("");
+        this.links = new HashSet();
     }
 
-    public void addSubGraph(SubGraph subGraph) {
-        subGraphs.add(subGraph);
-    }
-
-    public void addNode(WebFlowNode node) {
-        nodes.add(node);
+    public void addLink(Link link) {
+        links.add(link);
     }
 
     public void render(IndentWriter writer) throws IOException {
@@ -35,12 +29,10 @@ public class Graph implements Render {
         writer.write("node [fontsize=10, fontname=helvetica, style=filled, shape=rectangle]");
         writer.write("edge [fontsize=10, fontname=helvetica]");
 
-        IndentWriter iw = new IndentWriter(writer);
-
         // render all the subgraphs
         for (Iterator iterator = subGraphs.iterator(); iterator.hasNext();) {
             SubGraph subGraph = (SubGraph) iterator.next();
-            subGraph.render(iw);
+            subGraph.render(new IndentWriter(writer));
         }
 
         // render all the nodes
@@ -50,20 +42,29 @@ public class Graph implements Render {
         }
 
         // finally, render the links
-
+        for (Iterator iterator = links.iterator(); iterator.hasNext();) {
+            Link link = (Link) iterator.next();
+            link.render(writer);
+        }
 
         // and now the footer
         writer.write("}", true);
     }
 
-    public SubGraph findSubGraph(String name) {
-        for (Iterator iterator = subGraphs.iterator(); iterator.hasNext();) {
-            SubGraph subGraph = (SubGraph) iterator.next();
-            if (subGraph.getName().equals(name)) {
-                return subGraph;
+    public WebFlowNode findNode(String location, WebFlowNode ref) {
+        if (location.startsWith("/")) {
+            location = location.substring(1);
+        } else {
+            // not absolute, so use the reference node
+            String prefix = null;
+            if (ref.getParent() != null) {
+                prefix = ref.getParent().getPrefix();
+                location = prefix + "_" + location;
             }
         }
 
-        return null;
+        location = location.replaceAll("[\\.\\/\\-\\$\\{\\}]", "_");
+
+        return (WebFlowNode) nodeMap.get(location);
     }
 }

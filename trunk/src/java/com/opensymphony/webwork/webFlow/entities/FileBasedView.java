@@ -2,6 +2,7 @@ package com.opensymphony.webwork.webFlow.entities;
 
 import com.opensymphony.util.FileUtils;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.webFlow.model.Link;
 
 import java.io.File;
 import java.util.HashSet;
@@ -32,13 +33,13 @@ public abstract class FileBasedView implements View {
         HashSet targets = new HashSet();
 
         // links
-        matchPatterns(getLinkPattern(), targets);
+        matchPatterns(getLinkPattern(), targets, Link.TYPE_HREF);
 
         // actions
-        matchPatterns(getActionPattern(), targets);
+        matchPatterns(getActionPattern(), targets, Link.TYPE_ACTION);
 
         // forms
-        matchPatterns(getFormPattern(), targets);
+        matchPatterns(getFormPattern(), targets, Link.TYPE_FORM);
 
         return targets;
     }
@@ -49,11 +50,11 @@ public abstract class FileBasedView implements View {
         return Pattern.compile(actionRegex);
     }
 
-    private void matchPatterns(Pattern pattern, Set targets) {
+    private void matchPatterns(Pattern pattern, Set targets, int type) {
         Matcher matcher = pattern.matcher(contents);
         while (matcher.find()) {
             String target = matcher.group(1);
-            targets.add(Target.link(target));
+            targets.add(new Target(target, type));
         }
     }
 

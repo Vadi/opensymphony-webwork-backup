@@ -1,10 +1,6 @@
 package com.opensymphony.webwork.webFlow.model;
 
 import java.io.IOException;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * User: plightbo
@@ -13,24 +9,10 @@ import java.util.List;
  */
 public abstract class WebFlowNode implements Render {
     private String name;
-    private List links;
     private SubGraph parent;
 
     public WebFlowNode(String name) {
         this.name = name;
-        this.links = new ArrayList();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List getLinks() {
-        return links;
-    }
-
-    public void addLink(Link link) {
-        links.add(link);
     }
 
     public SubGraph getParent() {
@@ -42,23 +24,23 @@ public abstract class WebFlowNode implements Render {
     }
 
     public void render(IndentWriter writer) throws IOException {
+        writer.write(getFullName() + " [label=\"" + name + "\",color=\"" + getColor() + "\"];");
+    }
+
+    public String getFullName() {
         String prefix = "";
         if (parent != null) {
-            prefix = parent.getPrefix() + "_";
+            String parentPrefix = parent.getPrefix();
+            if (!parentPrefix.equals("")) {
+                prefix = parentPrefix + "_";
+            }
         }
-
-        writer.write(prefix + name + getExt()
-                + " [label=\"" + name + "\",color=\"" + getColor() + "\"];");
+        return prefix + cleanName();
     }
 
-    public abstract String getExt();
+    private String cleanName() {
+        return name.replaceAll("[\\.\\/\\-\\$\\{\\}]", "_");
+    }
 
     public abstract String getColor();
-
-    public void renderLinks(Writer writer) {
-        for (Iterator iterator = links.iterator(); iterator.hasNext();) {
-            Link link = (Link) iterator.next();
-
-        }
-    }
 }
