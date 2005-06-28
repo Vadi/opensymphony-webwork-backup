@@ -9,6 +9,6 @@
 
 <#if parameters.resultDivId?exists>     targetDiv='${parameters.resultDivId}'       </#if>
 <#if parameters.onLoadJS?exists>        onLoad="${parameters.onLoadJS}"             </#if>
-<#if parameters.notifyTopics?exists>    notifyTopics='${parameters.notifyTopics}'>  </#if>
-<#if parameters.listenTopics?exists>    listenTopics='${parameters.listenTopics}'>  </#if>
+<#if parameters.notifyTopics?exists>    notifyTopics='${parameters.notifyTopics}'  </#if>
+<#if parameters.listenTopics?exists>    listenTopics='${parameters.listenTopics}'  </#if>
 />
