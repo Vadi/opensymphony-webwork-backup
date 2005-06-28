@@ -19,11 +19,16 @@ import java.net.URL;
 /**
  * // START SNIPPET: javadocs-intro
  * WebFlow is a tool that renders out GraphViz-generated images depicting your
- * WebWork-powered web application's flow.
+ * WebWork-powered web application's flow. WebFlow requires GraphViz be installed
+ * and that the "dot" executable be in your command path. You can find GraphViz
+ * at http://www.graphviz.org.
  * // END SNIPPET: javadocs-intro
  * <p/>
  * // START SNIPPET: javadocs-api
- * If you wish to use WebFlow through its API...
+ * If you wish to use WebFlow through its API rather than through the command line,
+ * you can do that as well. All you need to do is create a new WebFlow instance,
+ * optionally specify a {@link Writer} to output the dot content to, and then call
+ * {@link #prepare()}.
  * // END SNIPPET: javadocs-api
  */
 public class WebFlow {
@@ -64,9 +69,11 @@ public class WebFlow {
         String output = getArg(args, "output");
         String namespace = getArg(args, "ns");
 
+        // START SNIPPET: example-api
         WebFlow webFlow = new WebFlow(configDir, views, output, namespace);
         webFlow.prepare();
         webFlow.render();
+        // END SNIPPET: example-api
     }
 
     private static String getArg(String[] args, String arg) {
@@ -79,6 +86,11 @@ public class WebFlow {
         return "";
     }
 
+    /**
+     * Prepares the dot generated content and writes out to the provided writer
+     * object. If no writer has been given, that a {@link FileWriter} pointing to "out.dot"
+     * in the specified output directly shall be used.
+     */
     public void prepare() {
         if (writer == null) {
             try {
@@ -93,11 +105,16 @@ public class WebFlow {
         renderer.render(namespace);
     }
 
+    /**
+     * Invokes the dot command, cause GraphViz to render out.dot in the form of out.gif,
+     * located in the specified output directory. If an error occurs during this process,
+     * the error is logged and the method completes without throwing an exception.
+     */
     public void render() {
         try {
             Runtime.getRuntime().exec("dot -o" + output + "/out.gif -Tgif " + output + "/out.dot");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Could not invoke dot", e);
         }
     }
 
