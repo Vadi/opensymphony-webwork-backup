@@ -50,15 +50,19 @@ webwork.widgets.HTMLBindDiv = function() {
 	// dom node in the template that will contain the remote content
 	this.contentDiv = null;
 	
-	this.delayedBind = function(millis) {
-		if (!millis) millis = self.refreshPeriod;
-		webwork.Util.setTimeout(self.callback, "doDelayedBind", millis);
+	this.bindAfterTimeout = function(millis) {
+		webwork.Util.setTimeout(self.callback, "doBindAfterTimeout", millis);
 	}
 
 	var super_fillInTemplate = this.fillInTemplate;
 	this.fillInTemplate = function(args, frag) {
+
+		if (self.id == "") { 
+			self.contentDiv.id = webwork.Util.nextId();		
+		}else {
+			self.contentDiv.id = self.id;
+		}
 		
-		self.contentDiv.id = webwork.Util.nextId();
 		self.targetDiv = self.contentDiv.id;
 
 		super_fillInTemplate();
@@ -93,41 +97,30 @@ webwork.widgets.HTMLBindDiv = function() {
 	}
 
 	var connected = false;
-	this.refreshPeriod = 0;
 	
-	this.setRefresh = function(refresh) {
-		self.refreshPeriod = refresh;
-	}
-	
-	this.doDelayedBind = function() {
-		if (self.refreshPeriod > 0)
-			self.delayedBind();
-		self.bind();
+	this.doBindAfterTimeout = function() {
+		if (running) {
+			// setup the next timeout
+			if (self.refresh > 0) self.bindAfterTimeout(self.refresh);
+			// do the bind
+			self.bind();
+		}
 	}
 
 	
 	var running = false;
-	var lastRefresh = 0;
 	this.stop = function() {
 		if (!running) return;
 		running = false;
-		
-		lastRefresh = self.refreshPeriod;
-		self.setRefresh(0);
-
 		webwork.Util.clearTimeout(self.callback);
-		
 	}
 
 	this.start = function() {
 		if (running) return;
 		running = true;
 		
-		var refresh = lastRefresh;
-		if (refresh == 0) refresh = self.refresh;
-		self.setRefresh(refresh);
-		
-		self.delayedBind(self.delay);
+		if (self.delay > 0)
+			self.bindAfterTimeout(self.delay);
 
 	}
 
