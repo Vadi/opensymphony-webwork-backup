@@ -101,8 +101,14 @@ webwork.widgets.Bind = function() {
 			useCache: self.useCache
 		};
 
+		// the formId can either be a id or a form refrence
 		if (self.formId != "")
-			args.formNode = document.getElementById(self.formId);
+			if (typeof formId == "object") {
+				args.formNode = self.formId;
+			}else{
+				args.formNode = document.getElementById(self.formId);
+			}
+			
 		
 		if (self.href != "")
 			args.url = this.href;
@@ -122,15 +128,29 @@ webwork.widgets.Bind = function() {
     this.load = function(type, data) {
     
 		// notify our listeners
-		var nt = self.notifyTopics.split(",");
-		for (var i=0; i < nt.length; i++) {
-			var topic = trim(nt[i]);
-			dojo.event.topic.publish( topic, "notify" );
+		if (self.notifyTopics != "") {
+			var nt = self.notifyTopics.split(",");
+			for (var i=0; i < nt.length; i++) {
+				var topic = trim(nt[i]);
+				dj_debug('notifying [' + topic + ']');
+				dojo.event.topic.publish( topic, "notify" );
+			}
 		}
-    
+		    
     	if (self.targetDiv != "") {
 			var div = document.getElementById(self.targetDiv);
-			if (div) div.innerHTML = data;
+			if (div) {
+				div.innerHTML = data;
+				// create widget components from the received html
+				try{
+					var parser = new dojo.xml.Parse();
+					var frag  = parser.parseElement(div, null, true);
+					var fragParser = new dojo.webui.widgets.Parse(frag);
+					fragParser.createComponents(frag);
+				}catch(e){
+					dj_debug("auto-build-widgets error: "+e);
+				}
+			}
     	}
     	
     	if (self.onLoad != "") {
