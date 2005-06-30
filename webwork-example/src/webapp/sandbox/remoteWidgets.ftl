@@ -3,7 +3,7 @@
 	<head>
 		<script language="JavaScript" type="text/javascript">
 			djConfig = { 
-				isDebug: true,
+				isDebug: false,
 				baseRelativePath: "/webwork/webwork/dojo/",
 			};
 		</script>
@@ -117,6 +117,7 @@
 				class='sampleBox'
 				style='border: 1px solid red;'
 				listenTopics='allWidgets'
+				delay='1'
 				>
 				<b>initial content</b>
 			</dojo:binddiv>
