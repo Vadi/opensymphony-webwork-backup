@@ -141,7 +141,7 @@ webwork.widgets.Bind = function() {
 			var div = document.getElementById(self.targetDiv);
 			if (div) {
 				var d = webwork.Util.nextId();
-				dj_debug("received html <a onclick=\"var e = document.getElementById('" + d + "'); e.style.display = (e.style.display=='none')?'block':'none';return false;\" href='#'>showHide</a><textarea style='display:none; width:300px;height:200px' id='" + d + "'>" + data + "</textarea>");
+				dj_debug("received html <a onclick=\"var e = document.getElementById('" + d + "'); e.style.display = (e.style.display=='none')?'block':'none';return false;\" href='#'>showHide</a><textarea style='display:none; width:98%;height:200px' id='" + d + "'>" + data + "</textarea>");
 				div.innerHTML = data;
 				// create widget components from the received html
 				try{
