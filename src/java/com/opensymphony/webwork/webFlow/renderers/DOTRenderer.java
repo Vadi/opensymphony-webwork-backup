@@ -31,7 +31,14 @@ public class DOTRenderer {
     public void render(String ns) {
         Graph graph = new Graph();
 
-        HashMap viewMap = new HashMap();
+        TreeMap viewMap = new TreeMap(new Comparator() {
+            public int compare(Object o1, Object o2) {
+                ViewNode v1 = (ViewNode) o1;
+                ViewNode v2 = (ViewNode) o2;
+
+                return v1.getFullName().compareTo(v2.getFullName());
+            }
+        });
 
         Set namespaces = XWorkConfigRetriever.getNamespaces();
         for (Iterator iter = namespaces.iterator(); iter.hasNext();) {
