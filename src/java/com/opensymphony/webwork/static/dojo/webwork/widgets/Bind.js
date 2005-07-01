@@ -124,18 +124,7 @@ webwork.widgets.Bind = function() {
 		dojo.io.bind(args);
     }
     
-    // allow this to be overriden by subclasses - say one that renders the response into a div
     this.load = function(type, data) {
-    
-		// notify our listeners
-		if (self.notifyTopics != "") {
-			var nt = self.notifyTopics.split(",");
-			for (var i=0; i < nt.length; i++) {
-				var topic = trim(nt[i]);
-				dj_debug('notifying [' + topic + ']');
-				dojo.event.topic.publish( topic, "notify" );
-			}
-		}
 		    
     	if (self.targetDiv != "") {
 			var div = document.getElementById(self.targetDiv);
@@ -158,6 +147,16 @@ webwork.widgets.Bind = function() {
     	if (self.onLoad != "") {
     		eval(self.onLoad);
     	}
+
+		// notify our listeners
+		if (self.notifyTopics != "") {
+			var nt = self.notifyTopics.split(",");
+			for (var i=0; i < nt.length; i++) {
+				var topic = trim(nt[i]);
+				dj_debug('notifying [' + topic + ']');
+				dojo.event.topic.publish( topic, "notify" );
+			}
+		}
 
     }
     
