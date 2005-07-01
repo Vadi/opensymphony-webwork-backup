@@ -6,8 +6,9 @@
     <body>
     
     <ul>
-    	<li><a href="tutorial">tutorials</a>
-    	<li><a href="sandbox">sandbox</a>
+    	<li><a href="tutorial">tutorials</a></li>
+    	<li><a href="sandbox">sandbox</a></li>
+    </ul>
     	
     
     </body>
