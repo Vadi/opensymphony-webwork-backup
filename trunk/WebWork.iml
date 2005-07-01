@@ -182,15 +182,6 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/core/xwork.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/core/dwr.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -309,15 +300,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/optional/jfreechart.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/optional/freemarker-src.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
