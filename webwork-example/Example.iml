@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="4" relativePaths="true" type="J2EE_WEB_MODULE" j2ee-integration="Resin Server">
+<module version="4" relativePaths="true" type="J2EE_WEB_MODULE" j2ee-integration="Tomcat Server">
   <component name="ModuleRootManager" />
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/build/java" />
     <exclude-output />
+    <exploded url="file://$MODULE_DIR$/build/exploded" />
     <exclude-exploded />
     <output-test url="file://$MODULE_DIR$/build/test" />
     <content url="file://$MODULE_DIR$">
@@ -52,12 +53,12 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Resin 3.x" level="application_server_libraries" />
+    <orderEntry type="library" name="Tomcat" level="application_server_libraries" />
     <orderEntryProperties />
   </component>
   <component name="WebModuleBuildComponent">
-    <setting name="EXPLODED_URL" value="file://" />
-    <setting name="EXPLODED_ENABLED" value="false" />
+    <setting name="EXPLODED_URL" value="file://$MODULE_DIR$/build/exploded" />
+    <setting name="EXPLODED_ENABLED" value="true" />
     <setting name="JAR_URL" value="file://$MODULE_DIR$/Example.war" />
     <setting name="JAR_ENABLED" value="false" />
     <setting name="SYNC_EXPLODED_DIR" value="true" />
@@ -170,11 +171,6 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xwork.jar" />
-      <url>jar://$MODULE_DIR$/../lib/core/xwork.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/bsh.jar" />
       <url>jar://$MODULE_DIR$/../lib/optional/bsh.jar!/</url>
     </containerElement>
@@ -197,11 +193,6 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/dom.jar" />
       <url>jar://$MODULE_DIR$/../lib/optional/dom.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/freemarker-src.jar" />
-      <url>jar://$MODULE_DIR$/../lib/optional/freemarker-src.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -304,9 +295,9 @@
       <url>jar://$MODULE_DIR$/../../xwork/lib/core/oscore.jar!/</url>
     </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/webapp/WEB-INF/web.xml" version="2.3" />
+    <deploymentDescriptor name="context.xml" url="file://$MODULE_DIR$/src/webapp/WEB-INF/context.xml" version="5.x" />
     <webroots>
-      <root url="file://$MODULE_DIR$/src/webapp" relative="/webwork" />
-      <root url="file://$MODULE_DIR$/src/webapp/WEB-INF" relative="/WEB-INF" />
+      <root url="file://$MODULE_DIR$/src/webapp" relative="/" />
     </webroots>
   </component>
   <component name="WeblogicWebModuleProperties">
