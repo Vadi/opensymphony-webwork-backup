@@ -75,7 +75,7 @@ public class DefaultConfiguration extends Configuration {
 
         // Add addtional list of i18n global resource bundles
         try {
-            StringTokenizer bundleFiles = new StringTokenizer((String) config.getImpl("webwork.custom.i18n.resources"), ",");
+            StringTokenizer bundleFiles = new StringTokenizer((String) config.getImpl("webwork.custom.i18n.resources"), ", ");
 
             while (bundleFiles.hasMoreTokens()) {
                 String name = bundleFiles.nextToken();
