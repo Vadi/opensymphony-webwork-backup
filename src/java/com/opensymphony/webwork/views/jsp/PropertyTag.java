@@ -25,7 +25,7 @@ public class PropertyTag extends WebWorkTagSupport {
 
     private String defaultValue;
     private String value;
-    private boolean escape = false;
+    private boolean escape = true;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
