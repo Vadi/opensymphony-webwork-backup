@@ -28,9 +28,7 @@ public class IfTag extends WebWorkTagSupport {
     }
 
     public int doEndTag() throws JspException {
-        if (answer != null) {
-            pageContext.setAttribute(ANSWER, answer);
-        }
+        pageContext.setAttribute(ANSWER, answer);
 
         return SKIP_BODY;
     }
@@ -38,10 +36,14 @@ public class IfTag extends WebWorkTagSupport {
     public int doStartTag() throws JspException {
         answer = (Boolean) findValue(test, Boolean.class);
 
-        if (answer != null && answer.booleanValue()) {
-            return EVAL_BODY_INCLUDE;
+        if (answer == null) {
+            answer = Boolean.FALSE;
         }
 
-        return SKIP_BODY;
+        if (answer.booleanValue()) {
+            return EVAL_BODY_INCLUDE;
+        } else {
+            return SKIP_BODY;
+        }
     }
 }
