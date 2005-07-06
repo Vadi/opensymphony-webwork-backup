@@ -1,5 +1,5 @@
 commons-fileupload.jar - Apache Commons Fil Upload version 1.0
-commons-logging.jar - Apache Commons Logging version ???
+commons-logging.jar - Apache Commons Logging version 1.0.4
 cos-multipart.jar - Cos Multipart File Upload version ???
 mail.jar - Mail API version ???
 ognl.jar - OGNL version 2.6.7
