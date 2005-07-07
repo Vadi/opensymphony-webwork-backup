@@ -295,7 +295,6 @@
       <url>jar://$MODULE_DIR$/../../xwork/lib/core/oscore.jar!/</url>
     </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/webapp/WEB-INF/web.xml" version="2.3" />
-    <deploymentDescriptor name="context.xml" url="file://$MODULE_DIR$/src/webapp/WEB-INF/context.xml" version="5.x" />
     <webroots>
       <root url="file://$MODULE_DIR$/src/webapp" relative="/" />
     </webroots>
