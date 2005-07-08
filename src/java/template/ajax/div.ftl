@@ -1,12 +1,12 @@
 <div dojoType='binddiv'
-	<#if tag.id?if_exists != "">id="${tag.id?html}"</#if>
-	<#if tag.href?if_exists != "">href="${tag.href}"</#if>
-	<#if tag.loadingText?if_exists != "">loadingHtml="${tag.loadingText?html}"</#if>
-	<#if tag.errorText?if_exists != "">errorHtml="${tag.errorText?html}"</#if>
-	<#if tag.showErrorTransportText>showTransportError='true'</#if>
-	<#if tag.delay?exists>delay='${tag.delay}'</#if>
-	<#if tag.updateFreq?exists>refresh='${tag.updateFreq}'</#if>
-	<#if tag.listenTopics?exists>listenTopics='${tag.listenTopics}'</#if>
+	<#if parameters.id?if_exists != "">id="${parameters.id?html}"</#if>
+	<#if parameters.href?if_exists != "">href="${parameters.href}"</#if>
+	<#if parameters.loadingText?if_exists != "">loadingHtml="${parameters.loadingText?html}"</#if>
+	<#if parameters.errorText?if_exists != "">errorHtml="${parameters.errorText?html}"</#if>
+	<#if parameters.showErrorTransportText>showTransportError='true'</#if>
+	<#if parameters.delay?exists>delay='${parameters.delay}'</#if>
+	<#if parameters.updateFreq?exists>refresh='${parameters.updateFreq}'</#if>
+	<#if parameters.listenTopics?exists>listenTopics='${parameters.listenTopics}'</#if>
 	<#list parameters?keys as key>
 	    <#if parameters[key]?exists>${key}="${parameters[key]?html}"</#if>
 	</#list>
