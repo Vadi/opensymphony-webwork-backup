@@ -8,4 +8,4 @@ jasperreports.jar - JasperReports version 0.6.3
 jcommon.jar - JCommon version 0.8.8
 jfreechart.jar - JFreeChart version 0.9.13
 dom.jar - from JAXP DOM3 support needed for XSLT view running JDKs prior to JDK 1.5
-freemarker.jar - FreeMarker version 2.3.2
+freemarker.jar - FreeMarker version 2.3.3
