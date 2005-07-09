@@ -12,6 +12,8 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.ConfigurationException;
+import com.opensymphony.xwork.config.ConfigurationManager;
+import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Iterator;
 
 /**
  * User: patrick
@@ -127,7 +130,31 @@ public class DispatcherUtils {
             extraContext.put(ActionContext.VALUE_STACK, new OgnlValueStack(stack));
         }
         try {
-            ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(mapping.getNamespace(), mapping.getName(), extraContext);
+            String namespace = mapping.getNamespace();
+            String name = mapping.getName();
+            String method = null;
+
+            for (Iterator iterator = requestParams.entrySet().iterator(); iterator.hasNext();) {
+                Map.Entry entry = (Map.Entry) iterator.next();
+                String key = (String) entry.getKey();
+                if (key.startsWith("method:")) {
+                    method = (String) entry.getValue();
+                    iterator.remove();
+                } else if (key.startsWith("action:")) {
+                    String action = (String) entry.getValue();
+                    int index = action.lastIndexOf('/');
+                    if (index == -1) {
+                        namespace = "";
+                        name = action;
+                    } else {
+                        namespace = action.substring(0, index);
+                        name = action.substring(index + 1);
+                    }
+                }
+            }
+
+            ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, extraContext);
+            proxy.setMethod(method);
             request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, proxy.getInvocation().getStack());
             proxy.execute();
             // If there was a previous value stack then set it back onto the request
