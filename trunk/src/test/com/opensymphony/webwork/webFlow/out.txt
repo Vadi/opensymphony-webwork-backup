@@ -21,12 +21,12 @@ digraph mygraph {
     }
     hello [label="hello",color="coral1"];
     hello_jsp [label="hello.jsp",color="darkseagreen2"];
+    tutorial_webflow_guess_input_ftl -> tutorial_webflow_guess [label="form"];
+    tutorial_webflow_guess -> tutorial_webflow_guess_error_ftl [label="error",color="darkseagreen2"];
+    tutorial_test -> tutorial_webflow_guess_input_ftl [label="input",color="darkseagreen2"];
+    hello -> tutorial_test [label="redirect: tutorial"];
+    tutorial_webflow_guess_success_jsp -> tutorial_webflow_guess [label="href\n(!default)"];
+    tutorial_webflow_guess -> tutorial_webflow_guess_input_ftl [label="input",color="darkseagreen2"];
     hello -> hello_jsp [label="success",color="darkseagreen2"];
     tutorial_webflow_guess -> tutorial_webflow_guess_success_jsp [label="redirect: success"];
-    tutorial_webflow_guess_success_jsp -> tutorial_webflow_guess [label="href\n(!default)"];
-    tutorial_webflow_guess_input_ftl -> tutorial_webflow_guess [label="form"];
-    hello -> tutorial_test [label="redirect: tutorial"];
-    tutorial_webflow_guess -> tutorial_webflow_guess_error_ftl [label="error",color="darkseagreen2"];
-    tutorial_webflow_guess -> tutorial_webflow_guess_input_ftl [label="input",color="darkseagreen2"];
-    tutorial_test -> tutorial_webflow_guess_input_ftl [label="input",color="darkseagreen2"];
 }
