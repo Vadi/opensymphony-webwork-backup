@@ -6,5 +6,5 @@ ognl.jar - OGNL version 2.6.7
 oscore.jar - OSCore version 2.2.4
 pell-multipart.jar - Pell Multipart File Upload version ???
 velocity-dep.jar - Velocity (plus dependencies) version 1.4
-xwork.jar - XWork version built from CVS on 5/9/05
+xwork.jar - XWork version built from CVS on 7/11/05
 dwr.jar - DWR snapshot from CVS on 5/12/2005
