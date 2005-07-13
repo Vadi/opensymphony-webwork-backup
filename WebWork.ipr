@@ -25,13 +25,6 @@
       <maximumHeapSize value="128" />
       <properties />
     </buildFile>
-    <buildFile url="file://$PROJECT_DIR$/webwork-example/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <properties />
-    </buildFile>
   </component>
   <component name="CodeStyleSettingsManager">
     <option name="PER_PROJECT_SETTINGS" />
@@ -89,7 +82,6 @@
     <option name="DEPRECATION" value="true" />
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
     <option name="MAXIMUM_HEAP_SIZE" value="128" />
-    <option name="USE_GENERICS_COMPILER" value="false" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
@@ -244,7 +236,11 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/webapps/base/BaseWebApp.iml" filepath="$PROJECT_DIR$/webapps/base/BaseWebApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/webwork-example/Example.iml" filepath="$PROJECT_DIR$/webwork-example/Example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapps/sandbox/Sandbox.iml" filepath="$PROJECT_DIR$/webapps/sandbox/Sandbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapps/examples/shopping-cart/ShoppingCart.iml" filepath="$PROJECT_DIR$/webapps/examples/shopping-cart/ShoppingCart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapps/tutorials/ajax/TutorialAJAX.iml" filepath="$PROJECT_DIR$/webapps/tutorials/ajax/TutorialAJAX.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebWork.iml" filepath="$PROJECT_DIR$/WebWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/../xwork/XWork.iml" filepath="$PROJECT_DIR$/../xwork/XWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/../xwork/xwork-editor/XWorkEditor.iml" filepath="$PROJECT_DIR$/../xwork/xwork-editor/XWorkEditor.iml" />
@@ -278,5 +274,6 @@
     <option name="INSTRUMENT_CLASSES" value="true" />
     <option name="COPY_FORMS_RUNTIME_TO_OUTPUT" value="true" />
   </component>
+  <UsedPathMacros />
 </project>
 

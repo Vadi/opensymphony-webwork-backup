@@ -1,0 +1,23 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+
+<xwork>
+    <package name="ajax" namespace="/tutorial/ajax" extends="webwork-default">
+        <action name="hello" class="com.opensymphony.webwork.tutorial.ajax.HelloWorld">
+            <result name="input">hello-input.jsp</result>
+            <result name="success">hello.jsp</result>
+        </action>
+
+        <!-- Ajax Component examples -->
+        <action name="AjaxTest" class="com.opensymphony.webwork.tutorial.ajax.AjaxTestAction">
+            <result name="success">AjaxResult.jsp</result>
+        </action>
+
+        <action name="AjaxRemoteLink" class="com.opensymphony.webwork.tutorial.ajax.AjaxTestAction">
+            <result name="success">AjaxResult2.js</result>
+        </action>
+
+        <action name="AjaxRemoteForm" class="com.opensymphony.webwork.tutorial.ajax.AjaxTestAction">
+            <result name="success">AjaxResult3.jsp</result>
+        </action>
+    </package>
+</xwork>
