@@ -6,7 +6,7 @@ package com.opensymphony.webwork.views.util;
 
 import com.mockobjects.dynamic.Mock;
 import com.opensymphony.webwork.config.Configuration;
-import junit.framework.TestCase;
+import com.opensymphony.webwork.WebWorkTestCase;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +17,7 @@ import java.util.TreeMap;
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  * @version $Id$
  */
-public class UrlHelperTest extends TestCase {
+public class UrlHelperTest extends WebWorkTestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
