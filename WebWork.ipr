@@ -237,7 +237,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/webapps/base/BaseWebApp.iml" filepath="$PROJECT_DIR$/webapps/base/BaseWebApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/webwork-example/Example.iml" filepath="$PROJECT_DIR$/webwork-example/Example.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/sandbox/Sandbox.iml" filepath="$PROJECT_DIR$/webapps/sandbox/Sandbox.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/examples/shopping-cart/ShoppingCart.iml" filepath="$PROJECT_DIR$/webapps/examples/shopping-cart/ShoppingCart.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/tutorials/ajax/TutorialAJAX.iml" filepath="$PROJECT_DIR$/webapps/tutorials/ajax/TutorialAJAX.iml" />
