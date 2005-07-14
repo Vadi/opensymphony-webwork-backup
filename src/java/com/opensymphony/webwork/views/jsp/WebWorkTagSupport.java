@@ -51,8 +51,6 @@ public abstract class WebWorkTagSupport extends TagSupport {
     }
 
     protected Object findValue(String expr) {
-        expr = CompatUtil.compat(expr);
-
         if (ALT_SYNTAX) {
             // does the expression start with %{ and end with }? if so, just cut it off!
             if (expr.startsWith("%{") && expr.endsWith("}")) {
@@ -73,8 +71,6 @@ public abstract class WebWorkTagSupport extends TagSupport {
                     expr = expr.substring(2, expr.length() - 1);
                 }
             }
-
-            expr = CompatUtil.compat(expr);
 
             return getStack().findValue(expr, toType);
         }

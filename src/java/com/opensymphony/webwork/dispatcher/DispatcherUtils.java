@@ -12,8 +12,6 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
 import com.opensymphony.xwork.config.ConfigurationException;
-import com.opensymphony.xwork.config.ConfigurationManager;
-import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
@@ -27,9 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Iterator;
 
 /**
  * User: patrick
@@ -225,11 +223,11 @@ public class DispatcherUtils {
         }
         int index = localeStr.indexOf('_');
         if (index < 0) {
-            return new Locale(localeStr);
+            return new Locale(localeStr, "");
         }
         String language = localeStr.substring(0, index);
         if (index == localeStr.length()) {
-            return new Locale(language);
+            return new Locale(language, "");
         }
         localeStr = localeStr.substring(index + 1);
         index = localeStr.indexOf('_');
