@@ -24,14 +24,10 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
     }
 
     protected String findString(String expr) {
-        expr = CompatUtil.compat(expr);
-
         return (String) findValue(expr, String.class);
     }
 
     protected Object findValue(String expr) {
-        expr = CompatUtil.compat(expr);
-
         if (WebWorkTagSupport.ALT_SYNTAX) {
             // does the expression start with %{ and end with }? if so, just cut it off!
             if (expr.startsWith("%{") && expr.endsWith("}")) {
@@ -52,8 +48,6 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
                     expr = expr.substring(2, expr.length() - 1);
                 }
             }
-
-            expr = CompatUtil.compat(expr);
 
             return getStack().findValue(expr, toType);
         }
