@@ -125,8 +125,10 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
             container.setFallback(fallback);
         }
         ComponentConfiguration config = (ComponentConfiguration) getServletContext(session).getAttribute("ComponentConfiguration");
-        config.configure(container, "request");
-        request.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
+        if (config != null) {
+            config.configure(container, "request");
+            request.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
+        }
 
         return container;
     }
