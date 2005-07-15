@@ -2701,7 +2701,13 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>afterLoading</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
+
     <tag>
         <name>tabbedPanel</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.TabbedPanelTag</tagclass>

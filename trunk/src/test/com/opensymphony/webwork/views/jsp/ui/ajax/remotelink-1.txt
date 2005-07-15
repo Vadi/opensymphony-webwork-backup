@@ -1,0 +1,10 @@
+<a dojoType='bindanchor'
+	id="mylink"
+	href="a"
+	notifyTopics='g'
+	errorHtml="c"
+	showTransportError='true'
+	onLoad='h'
+
+    evalResult='true'
+></a>
