@@ -3,8 +3,8 @@ package com.opensymphony.webwork.views.jsp.ui.ajax;
 import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 
 /**
  * A tag that creates a HTML &gt;DIV /&lt; that obtains it's content via a remote XMLHttpRequest call
@@ -14,10 +14,9 @@ import javax.servlet.jsp.JspException;
  * is received.  If utilizing the topic/event elements, then this tag needs to be contained within
  * a &gt;ww:topicScope /&lt; tag.
  *
- * @see TopicScopeTag
- *
  * @author		Ian Roughley
  * @version		$Id$
+ * @see TopicScopeTag
  */
 public class RemoteUpdateDivTag extends AbstractClosingUITag implements JavascriptEmitter, Cloneable {
 
@@ -56,12 +55,13 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
      */
     public int doEndTag() throws JspException {
         try {
-            TopicScopeTag topicScope = (TopicScopeTag)findAncestorWithClass( this, TopicScopeTag.class );
-            if( null!=topicScope )
-                topicScope.addEmitter((JavascriptEmitter)this.clone());
+            TopicScopeTag topicScope = (TopicScopeTag) findAncestorWithClass(this, TopicScopeTag.class);
+            if (null != topicScope)
+                topicScope.addEmitter((JavascriptEmitter) this.clone());
         } catch (CloneNotSupportedException e) {
             throw new JspException(e);
         }
+        
         return super.doEndTag();
     }
 
@@ -77,9 +77,11 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
      */
     public void setHref(String href) {
         String stackUrl = findString(href);
-        String contextPath = ((HttpServletRequest)pageContext.getRequest()).getContextPath();
-        if( stackUrl.startsWith("/") && stackUrl.startsWith(contextPath) )
+        String contextPath = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
+        if (stackUrl.startsWith("/") && stackUrl.startsWith(contextPath)) {
             contextPath = "";
+        }
+
         this.href = contextPath + stackUrl;
     }
 
@@ -87,7 +89,7 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
      * @return the frequence which the component will be updated in seconds
      */
     public String getUpdateFreq() {
-        if( null!=updateFreq && !"".equals(updateFreq) ) {
+        if (null != updateFreq && !"".equals(updateFreq)) {
             return findString(updateFreq);
         }
         return "0";
@@ -104,7 +106,7 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
      * @return the delay before loading the content
      */
     public String getDelay() {
-        if( null!=delay && !"".equals(delay) ) {
+        if (null != delay && !"".equals(delay)) {
             return findString(delay);
         }
         return "0";
@@ -154,10 +156,10 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
 
     /**
      * @param showErrorTransportText whether to display the error from the transport is displayed along
-     *              with the errorText, if true the transport error is displayed
+     *                               with the errorText, if true the transport error is displayed
      */
     public void setShowErrorTransportText(String showErrorTransportText) {
-            this.showErrorTransportText = "true".equals(findString(showErrorTransportText)) ? true : false;
+        this.showErrorTransportText = "true".equals(findString(showErrorTransportText)) ? true : false;
     }
 
     /**
@@ -177,7 +179,7 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
     /**
      * @see JavascriptEmitter#emittJavascript(javax.servlet.jsp.PageContext)
      */
-    public void emittJavascript( PageContext page ) {
+    public void emittJavascript(PageContext page) {
         // nothing to emitt
     }
 
@@ -193,7 +195,7 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
      *
      * @see JavascriptEmitter#emittInstanceConfigurationJavascript(javax.servlet.jsp.PageContext)
      */
-    public void emittInstanceConfigurationJavascript( PageContext page ) throws JspException {
+    public void emittInstanceConfigurationJavascript(PageContext page) throws JspException {
         // nothing to emitt
     }
 }
