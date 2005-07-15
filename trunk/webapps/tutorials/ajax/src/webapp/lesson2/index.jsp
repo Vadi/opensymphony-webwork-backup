@@ -113,7 +113,7 @@
                 </li>
 
                 <li>
-                    <a href="example2.jsp">A simple DIV that updates every 2 seconds</a>
+                    <a href="example2.jsp?url=/AjaxTest.action">A simple DIV that updates every 2 seconds</a>
                 </li>
 
                 <li>

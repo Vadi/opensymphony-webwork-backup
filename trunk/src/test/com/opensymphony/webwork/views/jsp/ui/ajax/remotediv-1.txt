@@ -4,8 +4,8 @@
 	loadingHtml="b"
 	errorHtml="c"
 	showTransportError='true'
-	delay='e'
-	refresh='f'
+	delay='4000'
+	refresh='1000'
 	listenTopics='g'
 	onLoad='h'
 

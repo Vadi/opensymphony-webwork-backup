@@ -1,24 +1,21 @@
 package com.opensymphony.webwork.views.jsp.ui.ajax;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 
 /**
  * A tag that creates a HTML &gt;DIV /&lt; that obtains it's content via a remote XMLHttpRequest call
  * via the dojo framework.
  * <p/>
  * If a "listenTopics" is supplied, it will listen to that topic and refresh it's content when any message
- * is received.  If utilizing the topic/event elements, then this tag needs to be contained within
- * a &gt;ww:topicScope /&lt; tag.
+ * is received.
  *
  * @author		Ian Roughley
  * @version		$Id$
- * @see TopicScopeTag
  */
-public class RemoteUpdateDivTag extends AbstractClosingUITag implements JavascriptEmitter, Cloneable {
+public class RemoteUpdateDivTag extends AbstractClosingUITag {
 
     private static final String TEMPLATE = "div";
     private static final String TEMPLATE_CLOSE = "div-close";
@@ -29,8 +26,9 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
     private String delay;
     private String loadingText;
     private String errorText;
-    private boolean showErrorTransportText = false;
-    protected String listenTopics;
+    private String showErrorTransportText;
+    private String listenTopics;
+    private String afterLoading;
 
 
     /**
@@ -48,51 +46,10 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
     }
 
     /**
-     * Note: no idea why this.clone() needs to be used, but when it wasn't the same
-     * tag instance was re-used for each tag cause incorrect javascript to be generated.
-     *
-     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
-     */
-    public int doEndTag() throws JspException {
-        try {
-            TopicScopeTag topicScope = (TopicScopeTag) findAncestorWithClass(this, TopicScopeTag.class);
-            if (null != topicScope)
-                topicScope.addEmitter((JavascriptEmitter) this.clone());
-        } catch (CloneNotSupportedException e) {
-            throw new JspException(e);
-        }
-        
-        return super.doEndTag();
-    }
-
-    /**
-     * @return the href being called.  If the href starts with "/" the context path is appended
-     */
-    public String getHref() {
-        return href;
-    }
-
-    /**
      * @param href the href being called.  If the href starts with "/" the context path is appended
      */
     public void setHref(String href) {
-        String stackUrl = findString(href);
-        String contextPath = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
-        if (stackUrl.startsWith("/") && stackUrl.startsWith(contextPath)) {
-            contextPath = "";
-        }
-
-        this.href = contextPath + stackUrl;
-    }
-
-    /**
-     * @return the frequence which the component will be updated in seconds
-     */
-    public String getUpdateFreq() {
-        if (null != updateFreq && !"".equals(updateFreq)) {
-            return findString(updateFreq);
-        }
-        return "0";
+        this.href = href;
     }
 
     /**
@@ -102,17 +59,7 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
         this.updateFreq = updateFreq;
     }
 
-    /**
-     * @return the delay before loading the content
-     */
-    public String getDelay() {
-        if (null != delay && !"".equals(delay)) {
-            return findString(delay);
-        }
-        return "0";
-    }
-
-    /**
+   /**
      * @param delay the delay before loading the content
      */
     public void setDelay(String delay) {
@@ -120,38 +67,17 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
     }
 
     /**
-     * @return the text to display while the component is being loaded
-     */
-    public String getLoadingText() {
-        return loadingText;
-    }
-
-    /**
      * @param loadingText the text to display while the component is being loaded
      */
     public void setLoadingText(String loadingText) {
-        this.loadingText = findString(loadingText);
-    }
-
-    /**
-     * @return the text to display when an error ocurrs
-     */
-    public String getErrorText() {
-        return errorText;
+        this.loadingText = loadingText;
     }
 
     /**
      * @param errorText the text to display when an error ocurrs
      */
     public void setErrorText(String errorText) {
-        this.errorText = findString(errorText);
-    }
-
-    /**
-     * @return whether to display the error from the transport is displayed along with the errorText
-     */
-    public boolean getShowErrorTransportText() {
-        return showErrorTransportText;
+        this.errorText = errorText;
     }
 
     /**
@@ -159,28 +85,21 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
      *                               with the errorText, if true the transport error is displayed
      */
     public void setShowErrorTransportText(String showErrorTransportText) {
-        this.showErrorTransportText = "true".equals(findString(showErrorTransportText)) ? true : false;
-    }
-
-    /**
-     * @return the topic name to subscribe to
-     */
-    public String getListenTopics() {
-        return listenTopics;
+        this.showErrorTransportText = showErrorTransportText;
     }
 
     /**
      * @param listenTopics the topic name to subscribe to
      */
     public void setListenTopics(String listenTopics) {
-        this.listenTopics = findString(listenTopics);
+        this.listenTopics = listenTopics;
     }
 
     /**
-     * @see JavascriptEmitter#emittJavascript(javax.servlet.jsp.PageContext)
+     * @param afterLoading JS code to execute after loading the content of the div remotely
      */
-    public void emittJavascript(PageContext page) {
-        // nothing to emitt
+    public void setAfterLoading(String afterLoading) {
+        this.afterLoading = afterLoading;
     }
 
     /**
@@ -191,11 +110,52 @@ public class RemoteUpdateDivTag extends AbstractClosingUITag implements Javascri
     }
 
     /**
-     * Create JS to subscribe this instance to the topics requested.
-     *
-     * @see JavascriptEmitter#emittInstanceConfigurationJavascript(javax.servlet.jsp.PageContext)
+     * @see com.opensymphony.webwork.views.jsp.ui.AbstractUITag#evaluateExtraParams(com.opensymphony.xwork.util.OgnlValueStack)
      */
-    public void emittInstanceConfigurationJavascript(PageContext page) throws JspException {
-        // nothing to emitt
+    public void evaluateExtraParams(OgnlValueStack stack) {
+
+        super.evaluateExtraParams(stack);
+
+        if (href != null) {
+            String stackUrl = findString(href);
+            String contextPath = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
+            if (stackUrl.startsWith("/") && stackUrl.startsWith(contextPath)) {
+                contextPath = "";
+            }
+            addParameter("href", contextPath + stackUrl );
+        }
+
+        if (null != updateFreq && !"".equals(updateFreq)) {
+            addParameter("updateFreq", findString(updateFreq));
+        } else {
+            addParameter("updateFreq", "0");
+        }
+
+        if (showErrorTransportText != null) {
+            addParameter("showErrorTransportText", findValue(showErrorTransportText, Boolean.class));
+        }
+
+        if (null != delay && !"".equals(delay)) {
+            addParameter("delay", findString(delay));
+        } else {
+            addParameter("delay", "0");
+        }
+
+        if (loadingText != null) {
+            addParameter("loadingText", findString(loadingText));
+        }
+
+        if (errorText != null) {
+            addParameter("errorText", findString(errorText));
+        }
+
+        if (listenTopics != null) {
+            addParameter("listenTopics", findString(listenTopics));
+        }
+
+        if (afterLoading != null) {
+            addParameter("afterLoading", findString(afterLoading));
+        }
+
     }
 }

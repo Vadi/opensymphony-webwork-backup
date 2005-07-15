@@ -112,9 +112,9 @@ public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane,Ja
         // create the remote div object
         sb.append("var remotediv_").append(id);
         sb.append(" = new RemoteUpdateComponent( '");
-        sb.append(getHref()).append("', 'tab_contents_update_").append(id).append("', '");
+        sb.append( getParameters().get("href")).append("', 'tab_contents_update_").append(id).append("', '");
 //        sb.append(getReloadingText()).append("', '");
-        sb.append(getErrorText()).append("', '").append(getShowErrorTransportText()).append("' );\n");
+        sb.append(getParameters().get("errorText")).append("', '").append(getParameters().get("showErrorTransportText")).append("' );\n");
 
         // subscribe to the tab selection topics
         sb.append("var tabpanel_").append(id).append(" = new TabContent( \"").append(id).append("\" );\n");
