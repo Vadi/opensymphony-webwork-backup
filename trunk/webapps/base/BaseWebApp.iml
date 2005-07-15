@@ -9,8 +9,8 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Tomcat" level="application_server_libraries" />
     <orderEntry type="module" module-name="WebWork" exported="" />
+    <orderEntry type="library" name="Tomcat" level="application_server_libraries" />
     <orderEntryProperties />
   </component>
   <component name="WebModuleBuildComponent">
@@ -128,11 +128,6 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xwork.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/core/xwork.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/bsh.jar" />
       <url>jar://$MODULE_DIR$/../../lib/optional/bsh.jar!/</url>
     </containerElement>
@@ -247,7 +242,6 @@
       <url>jar://$MODULE_DIR$/../../../xwork/lib/core/oscore.jar!/</url>
     </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/webapp/WEB-INF/web.xml" version="2.3" />
-    <deploymentDescriptor name="context.xml" url="file://$MODULE_DIR$/META-INF/context.xml" version="5.x" />
     <webroots>
       <root url="file://$MODULE_DIR$/src/webapp" relative="/" />
     </webroots>

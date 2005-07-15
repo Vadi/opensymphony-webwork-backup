@@ -13,8 +13,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="BaseWebApp" />
     <orderEntry type="library" name="Tomcat" level="application_server_libraries" />
-    <orderEntry type="module" module-name="WebWork" />
     <orderEntryProperties />
   </component>
   <component name="WebModuleBuildComponent">
@@ -27,6 +27,10 @@
     <setting name="RUN_JASPER_VALIDATION" value="false" />
   </component>
   <component name="WebModuleProperties">
+    <containerElement type="module" name="BaseWebApp">
+      <attribute name="method" value="4" />
+      <attribute name="URI" value="&lt;N/A&gt;" />
+    </containerElement>
     <containerElement type="module" name="WebWork">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/classes" />
@@ -129,11 +133,6 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/velocity-tools-view-1.1.jar" />
       <url>jar://$MODULE_DIR$/../../lib/core/velocity-tools-view-1.1.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xwork.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/core/xwork.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -251,7 +250,6 @@
       <url>jar://$MODULE_DIR$/../../../xwork/lib/core/oscore.jar!/</url>
     </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/webapp/WEB-INF/web.xml" version="2.3" />
-    <deploymentDescriptor name="context.xml" url="file://$MODULE_DIR$/src/webapp/WEB-INF/context.xml" version="5.x" />
     <webroots>
       <root url="file://$MODULE_DIR$/src/webapp" relative="/" />
     </webroots>
