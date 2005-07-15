@@ -6,7 +6,6 @@ package com.opensymphony.webwork.views.jsp.ui.ajax;
 
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
-import com.opensymphony.webwork.views.jsp.ui.LabelTag;
 
 import javax.servlet.jsp.tagext.TagSupport;
 
