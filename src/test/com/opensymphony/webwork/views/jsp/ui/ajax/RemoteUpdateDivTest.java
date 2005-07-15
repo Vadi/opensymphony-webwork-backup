@@ -27,14 +27,14 @@ public class RemoteUpdateDivTest extends AbstractUITagTest {
 
         tag.setId("mylabel");
         tag.setTheme("ajax");
-        tag.addParameter( "href", "a" );
-        tag.addParameter( "loadingText", "b" );
-        tag.addParameter( "errorText", "c" );
-        tag.addParameter( "showErrorTransportText", "d" );
-        tag.addParameter( "delay", "e" );
-        tag.addParameter( "updateFreq", "f" );
-        tag.addParameter( "listenTopics", "g" );
-        tag.addParameter( "afterLoading", "h" );
+        tag.setHref( "a" );
+        tag.setLoadingText( "b" );
+        tag.setErrorText( "c" );
+        tag.setShowErrorTransportText( "true" );
+        tag.setDelay( "4000" );
+        tag.setUpdateFreq( "1000" );
+        tag.setListenTopics( "g" );
+        tag.setAfterLoading( "h" );
 
         assertEquals( tag.doStartTag(), TagSupport.EVAL_BODY_INCLUDE );
         assertEquals( tag.doEndTag(), TagSupport.EVAL_PAGE );

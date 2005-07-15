@@ -15,7 +15,7 @@
     &lt;ww:div
         id="error"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxNoUrl.jsp"
+        href="/AjaxNoUrl.jsp"
         theme="ajax"
         delay="1000"
         errorText="Could not contact server"
@@ -26,7 +26,7 @@
     <ww:div
         id="error"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxNoUrl.jsp"
+        href="/AjaxNoUrl.jsp"
         theme="ajax"
         delay="1000"
         errorText="Could not contact server"

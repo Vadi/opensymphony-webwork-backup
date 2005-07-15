@@ -15,7 +15,7 @@
     &lt;ww:div
         id="twoseconds"
         cssStyle="border: 1px solid yellow;"
-        href="%{#url}"
+        href="%{#parameters.url}"
         theme="ajax"
         delay="2000"
         updateFreq="2000"
@@ -28,7 +28,7 @@
     <ww:div
         id="twoseconds"
         cssStyle="border: 1px solid yellow;"
-        href="%{#url}"
+        href="%{#parameters.url}"
         theme="ajax"
         delay="2000"
         updateFreq="2000"

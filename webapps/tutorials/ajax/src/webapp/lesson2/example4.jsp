@@ -16,7 +16,7 @@
     &lt;ww:div
         id="fiveseconds"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         delay="1000"
         updateFreq="5000"
@@ -28,7 +28,7 @@
     <ww:div
         id="fiveseconds"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         delay="1000"
         updateFreq="5000"

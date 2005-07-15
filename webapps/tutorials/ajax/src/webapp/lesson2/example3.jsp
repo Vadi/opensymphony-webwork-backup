@@ -15,7 +15,7 @@
     &lt;ww:div
         id="twoseconds"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         delay="2000"
         updateFreq="%{#parameters.period}"
@@ -26,7 +26,7 @@
     <ww:div
         id="twoseconds"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         delay="2000"
         updateFreq="%{#parameters.period}"
