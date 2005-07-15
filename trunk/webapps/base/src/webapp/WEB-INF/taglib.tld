@@ -2602,6 +2602,46 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>href</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>delay</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>updateFreq</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>loadingText</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>errorText</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>showErrorTransportText</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>listenTopics</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>afterLoading</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
