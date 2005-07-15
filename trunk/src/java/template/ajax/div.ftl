@@ -7,7 +7,25 @@
 	<#if parameters.delay?exists>delay='${parameters.delay}'</#if>
 	<#if parameters.updateFreq?exists>refresh='${parameters.updateFreq}'</#if>
 	<#if parameters.listenTopics?exists>listenTopics='${parameters.listenTopics}'</#if>
-	<#list parameters?keys as key>
-	    <#if parameters[key]?exists>${key}="${parameters[key]?html}"</#if>
-	</#list>
+	<#if parameters.afterLoading?exists>onLoad='${parameters.afterLoading}'</#if>
+
+<#if parameters.disabled?default(false)>
+ disabled="disabled"<#rt/>
+</#if>
+<#if parameters.readonly?exists>
+ readonly="readonly"<#rt/>
+</#if>
+<#if parameters.tabindex?exists>
+ tabindex="${parameters.tabindex?html}"<#rt/>
+</#if>
+<#if parameters.tabindex?exists>
+ tabindex="${parameters.tabindex?html}"<#rt/>
+</#if>
+<#if parameters.cssClass?exists>
+ class="${parameters.cssClass?html}"<#rt/>
+</#if>
+<#if parameters.cssStyle?exists>
+ style="${parameters.cssStyle?html}"<#rt/>
+</#if>
+<#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
 >
