@@ -48,8 +48,10 @@ public class SessionLifecycleListener implements HttpSessionListener, Serializab
         }
 
         ComponentConfiguration config = (ComponentConfiguration) application.getAttribute("ComponentConfiguration");
-        config.configure(container, "session");
-        session.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
+        if (config != null) {
+            config.configure(container, "session");
+            session.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
+        }
     }
 
     /**

@@ -15,7 +15,7 @@
     &lt;ww:div
         id="once"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/ajax/AjaxTest.action"
         theme="ajax"
         delay="5000"
         loadingText="loading..." &gt;Initial Content&lt;/ww:div&gt;
@@ -25,7 +25,7 @@
                     <ww:div
                         id="once"
                         cssStyle="border: 1px solid yellow;"
-                        href="/tutorial/ajax/AjaxTest.action"
+                        href="/AjaxTest.action"
                         theme="ajax"
                         delay="5000"
                         loadingText="loading..." >Initial Content</ww:div>

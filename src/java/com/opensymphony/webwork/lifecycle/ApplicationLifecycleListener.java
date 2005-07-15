@@ -68,10 +68,11 @@ public class ApplicationLifecycleListener implements ServletContextListener {
         ComponentManager container = createComponentManager();
         ComponentConfiguration config = loadConfiguration();
 
-        config.configure(container, "application");
-
-        application.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
-        application.setAttribute("ComponentConfiguration", config);
+        if (config != null) {
+            config.configure(container, "application");
+            application.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
+            application.setAttribute("ComponentConfiguration", config);
+        }
     }
 
     /**
@@ -89,9 +90,9 @@ public class ApplicationLifecycleListener implements ServletContextListener {
         InputStream configXml = Thread.currentThread().getContextClassLoader().getResourceAsStream("components.xml");
 
         if (configXml == null) {
-            final String message = "Unable to find the file components.xml in the classpath.";
-            log.error(message);
-            throw new RuntimeException(message);
+            final String message = "Unable to find the file components.xml in the classpath, XWork IoC *not* initialized.";
+            log.warn(message);
+            return null;
         }
 
         try {

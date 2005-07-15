@@ -1,7 +1,9 @@
 <!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
 
 <xwork>
-    <package name="ajax" namespace="/tutorial/ajax" extends="webwork-default">
+    <include file="webwork-default.xml"/>
+
+    <package name="ajax" extends="webwork-default">
         <action name="hello" class="com.opensymphony.webwork.tutorial.ajax.HelloWorld">
             <result name="input">hello-input.jsp</result>
             <result name="success">hello.jsp</result>
