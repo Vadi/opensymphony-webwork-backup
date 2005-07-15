@@ -16,7 +16,7 @@
     &lt;ww:div
         id="one"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         listenTopics="mylink1_click"
         delay="1000" &gt;Initial Content&lt;/ww:div&gt;
@@ -27,7 +27,7 @@
     &lt;ww:div
         id="two"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         listenTopics="mylink1_click,mylink2_click"
         delay="1000" &gt;Initial Content&lt;/ww:div&gt;
@@ -37,7 +37,7 @@
     &lt;ww:div
         id="three"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         listenTopics="mylink2_click"
         delay="1000" &gt;Initial Content&lt;/ww:div&gt;
@@ -47,7 +47,7 @@
         &lt;ww:a
             id="link1"
             theme="ajax"
-            href="/tutorial/ajax/AjaxRemoteLink.action"
+            href="/AjaxRemoteLink.action"
             notifyTopics="mylink1_click"
             showErrorTransportText="true"
             errorText="An Error ocurred" &gt;Update&lt;/ww:a&gt;
@@ -57,7 +57,7 @@
         &lt;ww:a
              id="link2"
              theme="ajax"
-             href="/tutorial/ajax/AjaxRemoteLink.action"
+             href="/AjaxRemoteLink.action"
              notifyTopics="mylink2_click"
              showErrorTransportText="true"
              errorText="An Error ocurred" &gt;Update&lt;/ww:a&gt;
@@ -67,7 +67,7 @@
     &lt;ww:div
         id="four"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         delay="1000" &gt;Initial Content&lt;/ww:div&gt;
         &lt;br/&gt;&lt;br/&gt;
@@ -76,7 +76,7 @@
         &lt;ww:a
              id="link1"
              theme="ajax"
-             href="/tutorial/ajax/AjaxRemoteLink.action"
+             href="/AjaxRemoteLink.action"
              showErrorTransportText="true"
              errorText="An Error ocurred" &gt;Update&lt;/ww:a&gt;
         &lt;br/&gt;&lt;br/&gt;
@@ -87,7 +87,7 @@
     <ww:div
         id="one"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         listenTopics="mylink1_click"
         delay="1000" >Initial Content</ww:div>
@@ -98,7 +98,7 @@
     <ww:div
         id="two"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         listenTopics="mylink1_click,mylink2_click"
         delay="1000" >Initial Content</ww:div>
@@ -108,7 +108,7 @@
     <ww:div
         id="three"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         listenTopics="mylink2_click"
         delay="1000" >Initial Content</ww:div>
@@ -118,7 +118,7 @@
         <ww:a
             id="link1"
             theme="ajax"
-            href="/tutorial/ajax/AjaxRemoteLink.action"
+            href="/AjaxRemoteLink.action"
             notifyTopics="mylink1_click"
             showErrorTransportText="true"
             errorText="An Error ocurred" >Update</ww:a>
@@ -128,7 +128,7 @@
         <ww:a
              id="link2"
              theme="ajax"
-             href="/tutorial/ajax/AjaxRemoteLink.action"
+             href="/AjaxRemoteLink.action"
              notifyTopics="mylink2_click"
              showErrorTransportText="true"
              errorText="An Error ocurred" >Update</ww:a>
@@ -138,7 +138,7 @@
     <ww:div
         id="four"
         cssStyle="border: 1px solid yellow;"
-        href="/tutorial/ajax/AjaxTest.action"
+        href="/AjaxTest.action"
         theme="ajax"
         delay="1000" >Initial Content</ww:div>
         <br/><br/>
@@ -147,7 +147,7 @@
         <ww:a
              id="link1"
              theme="ajax"
-             href="/tutorial/ajax/AjaxRemoteLink.action"
+             href="/AjaxRemoteLink.action"
              showErrorTransportText="true"
              errorText="An Error ocurred" >Update</ww:a>
         <br/><br/>

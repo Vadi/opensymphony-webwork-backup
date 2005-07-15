@@ -1,10 +1,9 @@
 package com.opensymphony.webwork.views.jsp.ui.ajax;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 
 /**
  * A tag that creates a HTML &gt;a href='' /&lt; that when clicked calls a URL remote XMLHttpRequest call
@@ -19,7 +18,7 @@ import javax.servlet.jsp.PageContext;
  * @author		Ian Roughley
  * @version		$Id$
  */
-public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmitter, Cloneable {
+public class RemoteLinkTag extends AbstractClosingUITag {
 
     final public static String OPEN_TEMPLATE = "a";
     final public static String TEMPLATE = "a-close";
@@ -28,8 +27,9 @@ public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmi
 
     private String href;
     private String errorText;
-    private boolean showErrorTransportText;
+    private String showErrorTransportText;
     private String notifyTopics;
+    private String afterLoading;
 
 
     /**
@@ -47,13 +47,6 @@ public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmi
     }
 
     /**
-     * @see JavascriptEmitter#emittJavascript(javax.servlet.jsp.PageContext)
-     */
-    public void emittJavascript( PageContext page ) {
-        // nothing to emitt
-    }
-
-    /**
      * @see JavascriptEmitter#getComponentName()
      */
     public String getComponentName() {
@@ -61,73 +54,24 @@ public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmi
     }
 
     /**
-     * Do nothing here, the topic is published to in the Javascript function "evalAfterRemoteCall()"
-     * which is used in combination with this class.  It needs to be done this way, as there is no
-     * way to distinguish between a click on the &gt;a href='' /&lt; tag and any other browser onClick
-     * event.
-     * <p/>
-     * i.e. this code (the original idea) trapped any onClick event in the browser and published to the topic
-     *  <code>dojo.event.topic.getTopic("t").registerPublisher( document.getElementById("a"), "onclick" );</code>
-     *
-     * @see JavascriptEmitter#emittInstanceConfigurationJavascript(javax.servlet.jsp.PageContext)
-     */
-    public void emittInstanceConfigurationJavascript( PageContext page ) {
-        // nothing to emitt
-    }
-
-    /**
-     * @return the href being called
-     */
-    public String getHref() {
-        return href;
-    }
-
-    /**
      * @param href the href being called.  If the href starts with "/" the context path is appended
      */
     public void setHref(String href) {
-        String stackUrl = findString(href);
-        String contextPath = ((HttpServletRequest)pageContext.getRequest()).getContextPath();
-        if( stackUrl.startsWith("/") && stackUrl.startsWith(contextPath) )
-            contextPath = "";
-        this.href = contextPath + stackUrl;
-    }
-
-    /**
-     * @return the text to display if there is an error
-     */
-    public String getErrorText() {
-        return errorText;
+        this.href = href;
     }
 
     /**
      * @param errorText the text to display if there is an error
      */
     public void setErrorText(String errorText) {
-        this.errorText = findString(errorText);
-    }
-
-    /**
-     * @return whether to show the error message from dojo
-     */
-    public boolean getShowErrorTransportText() {
-        return showErrorTransportText;
+        this.errorText = errorText;
     }
 
     /**
      * @param showErrorTransportText whether to show the error message from dojo
      */
     public void setShowErrorTransportText(String showErrorTransportText) {
-        this.showErrorTransportText = "true".equals(findValue(showErrorTransportText,String.class)) ? true : false;
-    }
-
-    /**
-     * @return the topic name to subscribe to
-     */
-    public String getNotifyTopics() {
-        if( null==notifyTopics )
-            return "";
-        return findString(notifyTopics);
+        this.showErrorTransportText = showErrorTransportText;
     }
 
     /**
@@ -138,20 +82,43 @@ public class RemoteLinkTag extends AbstractClosingUITag implements JavascriptEmi
     }
 
     /**
-     * Note: no idea why this.clone() needs to be used, but when it wasn't the same
-     * tag instance was re-used for each tag cause incorrect javascript to be generated.
-     *
-     * @see javax.servlet.jsp.tagext.TagSupport#doEndTag()
+      * @param afterLoading JS code to execute after loading the content of the div remotely
+      */
+     public void setAfterLoading(String afterLoading) {
+         this.afterLoading = afterLoading;
+     }
+
+    /**
+     * @see com.opensymphony.webwork.views.jsp.ui.AbstractUITag#evaluateExtraParams(com.opensymphony.xwork.util.OgnlValueStack)
      */
-    public int doEndTag() throws JspException {
-        try {
-            TopicScopeTag topicScope = (TopicScopeTag)findAncestorWithClass( this, TopicScopeTag.class );
-            if( null!=topicScope )
-                topicScope.addEmitter((JavascriptEmitter)this.clone());
-        } catch (CloneNotSupportedException e) {
-            throw new JspException(e);
+    protected void evaluateExtraParams(OgnlValueStack stack) {
+
+        super.evaluateExtraParams(stack);
+
+        if (href != null) {
+            String stackUrl = findString(href);
+            String contextPath = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
+            if (stackUrl.startsWith("/") && stackUrl.startsWith(contextPath)) {
+                contextPath = "";
+            }
+            addParameter("href", contextPath + stackUrl );
         }
-        return super.doEndTag();
+
+        if (showErrorTransportText != null) {
+            addParameter("showErrorTransportText", findValue(showErrorTransportText, Boolean.class));
+        }
+
+        if (errorText != null) {
+            addParameter("errorText", findString(errorText));
+        }
+
+        if (notifyTopics != null) {
+            addParameter("notifyTopics", findString(notifyTopics));
+        }
+
+        if (afterLoading != null) {
+            addParameter("afterLoading", findString(afterLoading));
+        }
     }
 
 }
