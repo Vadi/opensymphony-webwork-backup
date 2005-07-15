@@ -24,11 +24,12 @@
 
                     <ww:div
                         id="once"
-                        cssStyle="border: 1px solid yellow;"
-                        href="/AjaxTest.action"
                         theme="ajax"
-                        delay="5000"
-                        loadingText="loading..." >Initial Content</ww:div>
+                        cssStyle="border: 1px solid yellow;" >
+                        <ww:param name="href" value="/AjaxTest.action" />
+                        <ww:param name="delay" value="5000" />
+                        <ww:param name="loadingText" value="loading..." />
+                    Initial Content</ww:div>
 
   </body>
 </html>
