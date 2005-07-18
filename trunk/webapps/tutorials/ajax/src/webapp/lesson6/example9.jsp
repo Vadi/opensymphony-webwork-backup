@@ -16,7 +16,7 @@ Remote form replacing another div:<br/>
 <ww:form
     id='theForm2'
     cssStyle="border: 1px solid green;"
-    action='/tutorial/ajax/AjaxRemoteForm.action'
+    action='/AjaxRemoteForm.action'
     method='post'
     theme="ajax" >
 
@@ -33,7 +33,7 @@ Remote form replacing the forms content:<br/>
 <ww:form
     id='theForm3'
     cssStyle="border: 1px solid green;"
-    action='/tutorial/ajax/AjaxRemoteForm.action'
+    action='/AjaxRemoteForm.action'
     method='post'
     theme="ajax" >
 
@@ -49,7 +49,7 @@ Remote form evaluating suplied JS on completion:<br/>
 <ww:form
     id='theForm4'
     cssStyle="border: 1px solid green;"
-    action='/tutorial/ajax/AjaxRemoteForm.action'
+    action='/AjaxRemoteForm.action'
     method='post'
     theme="ajax" >
 
