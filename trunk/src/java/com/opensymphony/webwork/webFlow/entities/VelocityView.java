@@ -18,6 +18,6 @@ public class VelocityView extends FileBasedView {
     }
 
     protected Pattern getFormPattern() {
-        return Pattern.compile("#tag Form [^)]*action=\"([^\"]+)\"[^)]*)");
+        return Pattern.compile("#tag \\(Form [^)]*action=\"([^\"]+)\"[^)]*\\)");
     }
 }
