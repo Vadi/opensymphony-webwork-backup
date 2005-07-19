@@ -9,3 +9,9 @@ jcommon.jar - JCommon version 0.8.8
 jfreechart.jar - JFreeChart version 0.9.13
 dom.jar - from JAXP DOM3 support needed for XSLT view running JDKs prior to JDK 1.5
 freemarker.jar - FreeMarker version 2.3.3
+cglib.jar - CGLIB 2.1_2 to support Spring
+ spring-aop.jar
+ spring-beans.jar
+ spring-context.jar
+ spring-core.jar
+ spring-web.jar -> Spring 1.2.2 jars 
