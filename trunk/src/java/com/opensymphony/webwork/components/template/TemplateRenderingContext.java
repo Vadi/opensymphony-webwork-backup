@@ -1,10 +1,11 @@
-package com.opensymphony.webwork.views.jsp.ui.template;
+package com.opensymphony.webwork.components.template;
 
-import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
+import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.jsp.PageContext;
 import java.util.Map;
+import java.io.Writer;
 
 /**
  * TemplateRenderingContext
@@ -17,10 +18,12 @@ public class TemplateRenderingContext {
     PageContext pageContext;
     OgnlValueStack stack;
     Map parameters;
-    AbstractUITag tag;
+    UIBean tag;
+    Writer writer;
 
-    public TemplateRenderingContext(String templateName, PageContext pageContext, OgnlValueStack stack, Map params, AbstractUITag tag) {
+    public TemplateRenderingContext(String templateName, Writer writer, PageContext pageContext, OgnlValueStack stack, Map params, UIBean tag) {
         this.templateName = templateName;
+        this.writer = writer;
         this.pageContext = pageContext;
         this.stack = stack;
         this.parameters = params;
@@ -43,7 +46,11 @@ public class TemplateRenderingContext {
         return parameters;
     }
 
-    public AbstractUITag getTag() {
+    public UIBean getTag() {
         return tag;
+    }
+
+    public Writer getWriter() {
+        return writer;
     }
 }

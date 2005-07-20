@@ -26,6 +26,7 @@ public class HiddenTest extends AbstractUITagTest {
         tag.setName("myname");
         tag.setValue("%{foo}");
 
+        tag.doStartTag();
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("Hidden-1.txt"));

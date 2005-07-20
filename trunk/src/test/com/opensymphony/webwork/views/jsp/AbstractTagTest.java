@@ -95,6 +95,10 @@ public abstract class AbstractTagTest extends TestCase {
         pageContext.setJspWriter(jspWriter);
         pageContext.setServletContext(servletContext);
 
+        context.put(ServletActionContext.HTTP_REQUEST, request);
+        context.put(ServletActionContext.HTTP_RESPONSE, response);
+        context.put(ServletActionContext.SERVLET_CONTEXT, servletContext);
+
         session = new HashMap();
 
         ActionContext.setContext(new ActionContext(context));

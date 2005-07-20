@@ -25,7 +25,8 @@ public class LabelTest extends AbstractUITagTest {
         tag.setName("myname");
         tag.setValue("%{foo}");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(LabelTest.class.getResource("Label-1.txt"));
     }
@@ -41,7 +42,8 @@ public class LabelTest extends AbstractUITagTest {
         tag.setValue("%{foo}");
         tag.setLabelposition("top");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(LabelTest.class.getResource("Label-3.txt"));
     }
@@ -56,7 +58,8 @@ public class LabelTest extends AbstractUITagTest {
         tag.setName("foo");
         tag.setFor("for");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(LabelTest.class.getResource("Label-2.txt"));
     }

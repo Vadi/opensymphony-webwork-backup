@@ -8,11 +8,14 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
 import java.io.IOException;
 
+import com.opensymphony.webwork.components.ajax.ContentPane;
+import com.opensymphony.webwork.components.ajax.JavascriptEmitter;
+
 /**
  * @author		Ian Roughley
  * @version		$Id$
  */
-public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane,JavascriptEmitter {
+public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane, JavascriptEmitter {
 
     public static final String TEMPLATE = "remotetab";
     public static final String TEMPLATE_CLOSE = "remotetab-close";
@@ -90,7 +93,7 @@ public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane,Ja
     }
 
     /**
-     * @see JavascriptEmitter#emittJavascript(javax.servlet.jsp.PageContext)
+     * @see com.opensymphony.webwork.components.ajax.JavascriptEmitter#emittJavascript(javax.servlet.jsp.PageContext)
      */
     public void emittJavascript( PageContext page ) {
         // nothing to emitt
@@ -100,7 +103,7 @@ public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane,Ja
     /**
      * Create JS to subscribe this instance to the topics requested.
      *       todo:  fix this for new remoteupdatedivtag
-     * @see JavascriptEmitter#emittInstanceConfigurationJavascript(javax.servlet.jsp.PageContext)
+     * @see com.opensymphony.webwork.components.ajax.JavascriptEmitter#emittInstanceConfigurationJavascript(javax.servlet.jsp.PageContext)
      */
     public void emittInstanceConfigurationJavascript( PageContext page ) {
 

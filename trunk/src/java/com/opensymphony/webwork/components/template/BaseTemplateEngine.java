@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.views.jsp.ui.template;
+package com.opensymphony.webwork.components.template;
 
 /**
  * BaseTemplateEngine

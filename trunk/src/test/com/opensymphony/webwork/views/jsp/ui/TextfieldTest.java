@@ -6,6 +6,11 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
+import com.opensymphony.webwork.views.freemarker.tags.TextFieldModel;
+
+import java.util.HashMap;
+
+import freemarker.template.TransformControl;
 
 
 /**
@@ -27,12 +32,13 @@ public class TextfieldTest extends AbstractUITagTest {
         tag.setValue("bar");
 
         testAction.addFieldError("foo", "bar error message");
+        tag.doStartTag();
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("Textfield-2.txt"));
     }
 
-    public void testNoLabel() throws Exception {
+    public void testNoLabelJsp() throws Exception {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 
@@ -43,7 +49,25 @@ public class TextfieldTest extends AbstractUITagTest {
         tag.setSize("10");
         tag.setOnblur("blahescape('somevalue');");
 
+        tag.doStartTag();
         tag.doEndTag();
+
+        verify(TextFieldTag.class.getResource("Textfield-3.txt"));
+    }
+
+    public void testNoLabelFtl() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        TextFieldModel model = new TextFieldModel(stack, request, response);
+        HashMap params = new HashMap();
+        params.put("name", "myname");
+        params.put("value", "%{foo}");
+        params.put("size", "10");
+        params.put("onblur", "blahescape('somevalue');");
+        TransformControl control = (TransformControl) model.getWriter(writer, params);
+        control.onStart();
+        control.afterBody();
 
         verify(TextFieldTag.class.getResource("Textfield-3.txt"));
     }
@@ -59,6 +83,7 @@ public class TextfieldTest extends AbstractUITagTest {
         tag.setValue("%{foo}");
         tag.setSize("10");
 
+        tag.doStartTag();
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("Textfield-1.txt"));

@@ -1,6 +1,8 @@
 package com.opensymphony.webwork.views.jsp.ui.ajax;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
+import com.opensymphony.webwork.components.ajax.ContentPane;
+import com.opensymphony.webwork.components.ajax.JavascriptEmitter;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -80,9 +82,9 @@ public class TabbedPanelTag extends AbstractClosingUITag implements BodyTag, Jav
     }
 
     /**
-     * Add a new {@link ContentPane} to be rendered.
+     * Add a new {@link com.opensymphony.webwork.components.ajax.ContentPane} to be rendered.
      *
-     * @param pane a new {@link ContentPane} to be rendered
+     * @param pane a new {@link com.opensymphony.webwork.components.ajax.ContentPane} to be rendered
      */
     public void addTab( ContentPane pane ) {
         tabs.add(pane);

@@ -5,6 +5,11 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.File;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -12,46 +17,27 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * @version $Revision$
  */
 public class FileTag extends AbstractUITag {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
-    /**
-     * The name of the default template for the FileTag
-     */
-    final public static String TEMPLATE = "file";
+    protected String accept;
+    protected String size;
 
-    //~ Instance fields ////////////////////////////////////////////////////////
+    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new File(stack, req, res);
+    }
 
-    /**
-     * Some browsers support the ability to restrict the kinds of files
-     * (that can be attached to the contents of a form) using an ACCEPT
-     * attribute.
-     */
-    protected String acceptAttr;
-    protected String sizeAttr;
+    protected void populateParams() {
+        super.populateParams();
 
-    //~ Methods ////////////////////////////////////////////////////////////////
+        File file = ((File) bean);
+        file.setAccept(accept);
+        file.setSize(size);
+    }
 
     public void setAccept(String accept) {
-        this.acceptAttr = accept;
+        this.accept = accept;
     }
 
     public void setSize(String size) {
-        this.sizeAttr = size;
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
-    }
-
-    protected void evaluateParams(OgnlValueStack stack) {
-        super.evaluateParams(stack);
-
-        if (acceptAttr != null) {
-            addParameter("accept", findString(acceptAttr));
-        }
-
-        if (sizeAttr != null) {
-            addParameter("size", findString(sizeAttr));
-        }
+        this.size = size;
     }
 }

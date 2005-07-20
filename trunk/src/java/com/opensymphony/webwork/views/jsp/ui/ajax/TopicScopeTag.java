@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.views.jsp.ui.ajax;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
+import com.opensymphony.webwork.components.ajax.JavascriptEmitter;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;

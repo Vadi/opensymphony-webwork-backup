@@ -33,6 +33,7 @@ public class FileTest extends AbstractUITagTest {
         tag.setValue("%{foo}");
         tag.setSize("10");
 
+        tag.doStartTag();
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("File-1.txt"));
