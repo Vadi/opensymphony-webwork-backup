@@ -5,6 +5,11 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Label;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -12,42 +17,19 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * @version $Id$
  */
 public class LabelTag extends AbstractUITag {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
-    /**
-     * The name of the default template for the LabelTag
-     */
-    final public static String TEMPLATE = "label";
-
     protected String forAttr;
+
+    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new Label(stack, req, res);
+    }
+
+    protected void populateParams() {
+        super.populateParams();
+
+        ((Label) bean).setFor(forAttr);
+    }
 
     public void setFor(String aFor) {
         this.forAttr = aFor;
-    }
-
-    //~ Methods ////////////////////////////////////////////////////////////////
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
-    }
-
-    protected void evaluateExtraParams(OgnlValueStack stack) {
-        super.evaluateExtraParams(stack);
-
-        if (forAttr != null) {
-            addParameter("for", findString(forAttr));
-        }
-
-        // try value first, then name (this overrides the default behavior in the superclass)
-        if (valueAttr != null) {
-            addParameter("nameValue", findString(valueAttr));
-        } else if (nameAttr != null) {
-            String expr = nameAttr;
-            if (ALT_SYNTAX) {
-                expr = "%{" + expr + "}";
-            }
-
-            addParameter("nameValue", findString(expr));
-        }
     }
 }

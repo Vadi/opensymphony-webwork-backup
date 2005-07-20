@@ -10,6 +10,7 @@ package com.opensymphony.webwork.views.freemarker;
 import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.JspSupportServlet;
+import com.opensymphony.webwork.views.freemarker.tags.FormModel;
 import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
@@ -288,6 +289,8 @@ public class FreemarkerManager {
     public SimpleHash buildTemplateModel(OgnlValueStack stack, Action action, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper) {
         ScopesHashModel model = buildScopesHashModel(servletContext, request, response, wrapper);
         populateContext(model, stack, action, request, response);
+        model.put("form", new FormModel(stack, request, response));
+        model.put("textfield", new TextFieldModel(stack, request, response));
         return model;
     }
 

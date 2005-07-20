@@ -28,7 +28,8 @@ public class ComponentTest extends AbstractUITagTest {
         tag.setName("myname");
         tag.setValue("foo");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(ComponentTag.class.getResource("Component-1.txt"));
     }
@@ -56,7 +57,8 @@ public class ComponentTest extends AbstractUITagTest {
         tag.addParameter("array", new String[]{"a", "b", "c"});
         tag.addParameter("obj", tag);
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         //        System.out.println(writer);
         verify(ComponentTag.class.getResource("Component-param.txt"));

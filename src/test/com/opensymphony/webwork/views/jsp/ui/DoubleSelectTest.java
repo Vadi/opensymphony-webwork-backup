@@ -64,7 +64,8 @@ public class DoubleSelectTest extends AbstractUITagTest {
         tag.setOnmouseover("window.status='onmouseover';");
         tag.setOnmouseup("window.status='onmouseup';");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(SelectTag.class.getResource("DoubleSelect-1.txt"));
     }

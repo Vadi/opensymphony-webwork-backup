@@ -35,7 +35,8 @@ public class ComboBoxTest extends AbstractUITagTest {
         tag.setName("foo");
         tag.setList("collection");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(ComboBoxTag.class.getResource("ComboBox-1.txt"));
     }

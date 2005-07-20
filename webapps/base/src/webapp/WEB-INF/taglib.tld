@@ -105,7 +105,7 @@
 
     <tag>
         <name>text</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.TextTag</tagclass>
+        <tagclass>com.opensymphony.webwork.views.jsp.TextTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>Print out or stores in the ActionContext an internationalized string</info>
         <attribute>

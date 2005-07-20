@@ -1,7 +1,8 @@
-package com.opensymphony.webwork.views.jsp.ui.ajax;
+package com.opensymphony.webwork.components.ajax;
 
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;
+import java.io.Writer;
 
 /**
  * @author		Ian Roughley
@@ -11,10 +12,8 @@ public interface JavascriptEmitter {
 
     /**
      * Emitts the component specific Javascript used for all instances of this class.
-     *
-     * @param page the page context to emitt the javascript to
      */
-    void emittJavascript( PageContext page ) throws JspException;
+    void emittJavascript( Writer writer );
 
     /**
      * @return the unique name of the component, to make it easy this should be the class name
@@ -23,9 +22,7 @@ public interface JavascriptEmitter {
 
     /**
      * Emitts the Javascript required to configure an instance of this class.
-     *
-     * @param page the page context to emitt the javascript to
      */
-    void emittInstanceConfigurationJavascript( PageContext page ) throws JspException;
+    void emittInstanceConfigurationJavascript( Writer writer );
 
 }

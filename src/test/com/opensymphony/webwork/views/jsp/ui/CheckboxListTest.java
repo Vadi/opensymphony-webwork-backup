@@ -40,7 +40,8 @@ public class CheckboxListTest extends AbstractUITagTest {
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(CheckboxListTag.class.getResource("CheckboxList-2.txt"));
     }
@@ -61,7 +62,8 @@ public class CheckboxListTest extends AbstractUITagTest {
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(CheckboxListTag.class.getResource("CheckboxList-1.txt"));
     }

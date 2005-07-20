@@ -24,7 +24,8 @@ public class PasswordTest extends AbstractUITagTest {
         tag.setLabel("mylabel");
         tag.setName("myname");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(PasswordTag.class.getResource("Password-1.txt"));
     }

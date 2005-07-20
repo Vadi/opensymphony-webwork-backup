@@ -2,11 +2,14 @@
  * Copyright (c) 2002-2003 by OpenSymphony
  * All rights reserved.
  */
-package com.opensymphony.webwork.views.jsp.ui;
+package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.jsp.AbstractTagTest;
+import com.opensymphony.webwork.views.jsp.TextTag;
+import com.opensymphony.webwork.views.jsp.ui.TestAction1;
+import com.opensymphony.webwork.views.jsp.ui.WebWorkBodyContent;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -28,7 +31,7 @@ import java.util.Locale;
 public class TextTagTest extends AbstractTagTest {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    private String fooValue = "com.opensymphony.webwork.views.jsp.ui.TextTagTest.fooValue";
+    private String fooValue = "com.opensymphony.webwork.views.jsp.TextTagTest.fooValue";
     private TextTag tag;
 
     //~ Methods ////////////////////////////////////////////////////////////////

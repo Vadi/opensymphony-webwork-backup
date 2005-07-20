@@ -1,10 +1,10 @@
 package com.opensymphony.webwork.views;
 
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.views.jsp.ui.template.JspTemplateEngine;
-import com.opensymphony.webwork.views.jsp.ui.template.TemplateEngine;
-import com.opensymphony.webwork.views.jsp.ui.template.TemplateEngineManager;
-import com.opensymphony.webwork.views.jsp.ui.template.VelocityTemplateEngine;
+import com.opensymphony.webwork.components.template.JspTemplateEngine;
+import com.opensymphony.webwork.components.template.TemplateEngine;
+import com.opensymphony.webwork.components.template.TemplateEngineManager;
+import com.opensymphony.webwork.components.template.VelocityTemplateEngine;
 import junit.framework.TestCase;
 
 /**

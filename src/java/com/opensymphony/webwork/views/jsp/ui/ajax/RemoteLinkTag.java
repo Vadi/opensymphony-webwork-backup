@@ -47,7 +47,7 @@ public class RemoteLinkTag extends AbstractClosingUITag {
     }
 
     /**
-     * @see JavascriptEmitter#getComponentName()
+     * @see com.opensymphony.webwork.components.ajax.JavascriptEmitter#getComponentName()
      */
     public String getComponentName() {
         return COMPONENT_NAME;

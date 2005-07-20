@@ -4,57 +4,45 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.webwork.components.TextField;
+import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author $Author$
  * @version $Revision$
  */
 public class TextFieldTag extends AbstractUITag {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
-    /**
-     * The name of the default template for the TextFieldTag
-     */
-    final public static String TEMPLATE = "text";
+    protected String maxLength;
+    protected String readonly;
+    protected String size;
 
-    //~ Instance fields ////////////////////////////////////////////////////////
+    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new TextField(stack, req, res);
+    }
 
-    protected String maxLengthAttr;
-    protected String readonlyAttr;
-    protected String sizeAttr;
+    protected void populateParams() {
+        super.populateParams();
 
-    //~ Methods ////////////////////////////////////////////////////////////////
+        TextField textField = ((TextField) bean);
+        textField.setMaxLength(maxLength);
+        textField.setReadonly(readonly);
+        textField.setSize(size);
+    }
 
-    public void setMaxlength(String aMaxLength) {
-        this.maxLengthAttr = aMaxLength;
+    public void setMaxLength(String maxLength) {
+        this.maxLength = maxLength;
     }
 
     public void setReadonly(String readonly) {
-        this.readonlyAttr = readonly;
+        this.readonly = readonly;
     }
 
     public void setSize(String size) {
-        this.sizeAttr = size;
-    }
-
-    public void evaluateExtraParams(OgnlValueStack stack) {
-        super.evaluateExtraParams(stack);
-
-        if (sizeAttr != null) {
-            addParameter("size", findString(sizeAttr));
-        }
-
-        if (maxLengthAttr != null) {
-            addParameter("maxlength", findString(maxLengthAttr));
-        }
-
-        if (readonlyAttr != null) {
-            addParameter("readonly", findValue(readonlyAttr, Boolean.class));
-        }
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
+        this.size = size;
     }
 }

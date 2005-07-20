@@ -4,7 +4,12 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.TextArea;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -12,59 +17,39 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * @version $Id$
  */
 public class TextareaTag extends AbstractUITag {
-    //~ Static fields/initializers /////////////////////////////////////////////
+    protected String cols;
+    protected String readonly;
+    protected String rows;
+    protected String wrap;
 
-    /**
-     * The name of the default template for the TextareaTag
-     */
-    final public static String TEMPLATE = "textarea";
+    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new TextArea(stack, req, res);
+    }
 
-    //~ Instance fields ////////////////////////////////////////////////////////
+    protected void populateParams() {
+        super.populateParams();
 
-    protected String colsAttr;
-    protected String readonlyAttr;
-    protected String rowsAttr;
-    protected String wrapAttr;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
+        TextArea textArea = ((TextArea) bean);
+        textArea.setCols(cols);
+        textArea.setReadonly(readonly);
+        textArea.setRows(rows);
+        textArea.setWrap(wrap);
+    }
 
     public void setCols(String cols) {
-        this.colsAttr = cols;
+        this.cols = cols;
     }
 
     public void setReadonly(String readonly) {
-        this.readonlyAttr = readonly;
+        this.readonly = readonly;
     }
 
     public void setRows(String rows) {
-        this.rowsAttr = rows;
+        this.rows = rows;
     }
 
     public void setWrap(String wrap) {
-        this.wrapAttr = wrap;
+        this.wrap = wrap;
     }
 
-    public void evaluateExtraParams(OgnlValueStack stack) {
-        super.evaluateExtraParams(stack);
-
-        if (readonlyAttr != null) {
-            addParameter("readonly", findValue(readonlyAttr, Boolean.class));
-        }
-
-        if (colsAttr != null) {
-            addParameter("cols", findString(colsAttr));
-        }
-
-        if (rowsAttr != null) {
-            addParameter("rows", findString(rowsAttr));
-        }
-
-        if (wrapAttr != null) {
-            addParameter("wrap", findString(wrapAttr));
-        }
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
-    }
 }

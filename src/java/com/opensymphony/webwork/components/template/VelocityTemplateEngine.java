@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.views.jsp.ui.template;
+package com.opensymphony.webwork.components.template;
 
 import com.opensymphony.webwork.views.velocity.AbstractTagDirective;
 import com.opensymphony.webwork.views.velocity.VelocityManager;

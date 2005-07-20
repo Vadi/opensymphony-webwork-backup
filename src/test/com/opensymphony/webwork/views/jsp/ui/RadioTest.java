@@ -35,7 +35,8 @@ public class RadioTest extends AbstractUITagTest {
         tag.setListKey("key");
         tag.setListValue("value");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(RadioTag.class.getResource("Radio-2.txt"));
     }
@@ -57,7 +58,8 @@ public class RadioTest extends AbstractUITagTest {
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(RadioTag.class.getResource("Radio-1.txt"));
     }

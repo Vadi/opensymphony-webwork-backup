@@ -25,6 +25,7 @@ public class SubmitTest extends AbstractUITagTest {
         tag.setLabel("mylabel");
         tag.setName("myname");
 
+        tag.doStartTag();
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("Submit-2.txt"));
@@ -41,6 +42,7 @@ public class SubmitTest extends AbstractUITagTest {
         tag.setName("myname");
         tag.setValue("%{foo}");
 
+        tag.doStartTag();
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("Submit-1.txt"));

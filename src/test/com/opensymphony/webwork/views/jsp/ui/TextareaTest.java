@@ -34,7 +34,8 @@ public class TextareaTest extends AbstractUITagTest {
         tag.setOnkeyup("alert('hello');");
         tag.setReadonly("true");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(TextareaTag.class.getResource("Textarea-1.txt"));
     }

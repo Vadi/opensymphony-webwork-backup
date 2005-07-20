@@ -53,7 +53,8 @@ public class SelectTest extends AbstractUITagTest {
         tag.setOnmouseover("alert('onmouseover');");
         tag.setOnmouseup("alert('onmouseup');");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(SelectTag.class.getResource("Select-3.txt"));
     }

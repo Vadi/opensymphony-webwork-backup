@@ -5,6 +5,12 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Password;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 
 /**
@@ -12,32 +18,28 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * @version $Id$
  */
 public class PasswordTag extends TextFieldTag {
-    //~ Static fields/initializers /////////////////////////////////////////////
+
+    protected String showPassword;
+
+    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new Password(stack, req, res);
+    }
+
+    protected void populateParams() {
+        super.populateParams();
+
+        ((Password) bean).setShowPassword(showPassword);
+    }
 
     /**
-     * The name of the default template for the PasswordTag
+     * @deprecated use showPassword()
+     * @param aShowPasswordAttr
      */
-    final public static String TEMPLATE = "password";
-
-    //~ Instance fields ////////////////////////////////////////////////////////
-
-    protected String showPasswordAttr;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
-
     public void setShow(String aShowPasswordAttr) {
-        this.showPasswordAttr = aShowPasswordAttr;
+        this.showPassword = aShowPasswordAttr;
     }
 
-    public void evaluateExtraParams(OgnlValueStack stack) {
-        super.evaluateExtraParams(stack);
-
-        if (showPasswordAttr != null) {
-            addParameter("showPassword", findValue(showPasswordAttr, Boolean.class));
-        }
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
+    public void setShowPassword(String showPassword) {
+        this.showPassword = showPassword;
     }
 }

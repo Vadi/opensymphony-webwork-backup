@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.views.jsp.ui.ajax;
+package com.opensymphony.webwork.components.ajax;
 
 /**
  * @author		Ian Roughley
