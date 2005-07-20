@@ -103,7 +103,8 @@ public class SelectTest extends AbstractUITagTest {
         tag.setOnmouseover("alert('onmouseover');");
         tag.setOnmouseup("alert('onmouseup');");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(SelectTag.class.getResource("Select-2.txt"));
     }
@@ -132,7 +133,8 @@ public class SelectTest extends AbstractUITagTest {
         // empty option
         tag.setEmptyOption("true");
 
-        int result = tag.doEndTag();
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(SelectTag.class.getResource("Select-1.txt"));
     }

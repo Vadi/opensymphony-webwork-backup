@@ -5,38 +5,30 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.ComboBox;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author $Author$
  * @version $Revision$
  */
 public class ComboBoxTag extends TextFieldTag {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
-    /**
-     * The name of the default template for the CheckboxTag
-     */
-    final public static String TEMPLATE = "combobox";
-
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     protected String list;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
+    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new ComboBox(stack, req, res);
+    }
+
+    protected void populateParams() {
+        super.populateParams();
+
+        ((ComboBox) bean).setList(list);
+    }
 
     public void setList(String list) {
         this.list = list;
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
-    }
-
-    public void evaluateExtraParams(OgnlValueStack stack) {
-        super.evaluateExtraParams(stack);
-
-        if (list != null) {
-            addParameter("list", findValue(list));
-        }
     }
 }
