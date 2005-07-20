@@ -13,78 +13,36 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 public abstract class AbstractDoubleListTag extends AbstractListTag {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    protected String doubleListAttr;
-    protected String doubleListKeyAttr;
-    protected String doubleListValueAttr;
-    protected String doubleNameAttr;
-    protected String doubleValueAttr;
-    protected String formNameAttr;
+    protected String doubleList;
+    protected String doubleListKey;
+    protected String doubleListValue;
+    protected String doubleName;
+    protected String doubleValue;
+    protected String formName;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setDoubleList(String list) {
-        this.doubleListAttr = list;
+        this.doubleList = list;
     }
 
     public void setDoubleListKey(String listKey) {
-        this.doubleListKeyAttr = listKey;
+        this.doubleListKey = listKey;
     }
 
     public void setDoubleListValue(String listValue) {
-        this.doubleListValueAttr = listValue;
+        this.doubleListValue = listValue;
     }
 
     public void setDoubleName(String aName) {
-        doubleNameAttr = aName;
+        doubleName = aName;
     }
 
     public void setDoubleValue(String doubleValue) {
-        this.doubleValueAttr = doubleValue;
+        this.doubleValue = doubleValue;
     }
 
     public void setFormName(String formName) {
-        this.formNameAttr = formName;
-    }
-
-    public void evaluateExtraParams(OgnlValueStack stack) {
-        super.evaluateExtraParams(stack);
-
-        Object doubleName = null;
-
-        if (doubleNameAttr != null) {
-            addParameter("doubleName", findString(doubleNameAttr));
-        }
-
-        if (doubleListAttr != null) {
-            addParameter("doubleList", doubleListAttr);
-        }
-
-        if (doubleListKeyAttr != null) {
-            addParameter("doubleListKey", doubleListKeyAttr);
-        }
-
-        if (doubleListValueAttr != null) {
-            addParameter("doubleListValue", doubleListValueAttr);
-        }
-
-        if (formNameAttr != null) {
-            addParameter("formName", findString(formNameAttr));
-        }
-
-        Class valueClazz = getValueClassType();
-
-        if (valueClazz != null) {
-            if (doubleValueAttr != null) {
-                addParameter("doubleNameValue", findValue(doubleValueAttr, valueClazz));
-            } else if (doubleName != null) {
-                addParameter("doubleNameValue", findValue(doubleName.toString(), valueClazz));
-            }
-        } else {
-            if (doubleValueAttr != null) {
-                addParameter("doubleNameValue", findValue(doubleValueAttr));
-            } else if (doubleName != null) {
-                addParameter("doubleNameValue", findValue(doubleName.toString()));
-            }
-        }
+        this.formName = formName;
     }
 }

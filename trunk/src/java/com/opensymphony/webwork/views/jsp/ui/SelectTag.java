@@ -5,6 +5,11 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Select;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -12,65 +17,45 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * @version $Id$
  */
 public class SelectTag extends AbstractListTag {
-    //~ Static fields/initializers /////////////////////////////////////////////
+    protected String emptyOption;
+    protected String headerKey;
+    protected String headerValue;
+    protected String multiple;
+    protected String size;
 
-    /**
-     * The name of the default template for the SelectTag
-     */
-    final public static String TEMPLATE = "select";
+    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new Select(stack, req, res);
+    }
 
-    //~ Instance fields ////////////////////////////////////////////////////////
+    protected void populateParams() {
+        super.populateParams();
 
-    protected String emptyOptionAttr;
-    protected String headerKeyAttr;
-    protected String headerValueAttr;
-    protected String multipleAttr;
-    protected String sizeAttr;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
+        Select select = ((Select) bean);
+        select.setEmptyOption(emptyOption);
+        select.setHeaderKey(headerKey);
+        select.setHeaderValue(headerValue);
+        select.setMultiple(multiple);
+        select.setSize(size);
+    }
 
     public void setEmptyOption(String emptyOption) {
-        this.emptyOptionAttr = emptyOption;
+        this.emptyOption = emptyOption;
     }
 
     public void setHeaderKey(String headerKey) {
-        this.headerKeyAttr = headerKey;
+        this.headerKey = headerKey;
     }
 
     public void setHeaderValue(String headerValue) {
-        this.headerValueAttr = headerValue;
+        this.headerValue = headerValue;
     }
 
     public void setMultiple(String multiple) {
-        this.multipleAttr = multiple;
+        this.multiple = multiple;
     }
 
     public void setSize(String size) {
-        this.sizeAttr = size;
+        this.size = size;
     }
 
-    public void evaluateExtraParams(OgnlValueStack stack) {
-        super.evaluateExtraParams(stack);
-
-        if (emptyOptionAttr != null) {
-            addParameter("emptyOption", findValue(emptyOptionAttr, Boolean.class));
-        }
-
-        if (multipleAttr != null) {
-            addParameter("multiple", findValue(multipleAttr, Boolean.class));
-        }
-
-        if (sizeAttr != null) {
-            addParameter("size", findString(sizeAttr));
-        }
-
-        if ((headerKeyAttr != null) && (headerValueAttr != null)) {
-            addParameter("headerKey", findString(headerKeyAttr));
-            addParameter("headerValue", findString(headerValueAttr));
-        }
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
-    }
 }

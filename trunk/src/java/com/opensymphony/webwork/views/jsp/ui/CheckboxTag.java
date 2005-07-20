@@ -5,6 +5,11 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Checkbox;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -12,34 +17,19 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * @version $Id$
  */
 public class CheckboxTag extends AbstractUITag {
-    //~ Static fields/initializers /////////////////////////////////////////////
+    protected String fieldValue;
 
-    /**
-     * The name of the default template for the CheckboxTag
-     */
-    final public static String TEMPLATE = "checkbox";
+    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new Checkbox(stack, req, res);
+    }
 
-    //~ Instance fields ////////////////////////////////////////////////////////
+    protected void populateParams() {
+        super.populateParams();
 
-    protected String fieldValueAttr;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
+        ((Checkbox) bean).setFieldValue(fieldValue);
+    }
 
     public void setFieldValue(String aValue) {
-        this.fieldValueAttr = aValue;
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
-    }
-
-    protected Class getValueClassType() {
-        return Boolean.class; // for checkboxes, everything needs to end up as a Boolean
-    }
-
-    protected void evaluateExtraParams(OgnlValueStack stack) {
-        if (fieldValueAttr != null) {
-            addParameter("fieldValue", findString(fieldValueAttr));
-        }
+        this.fieldValue = aValue;
     }
 }

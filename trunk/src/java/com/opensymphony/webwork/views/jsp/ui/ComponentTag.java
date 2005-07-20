@@ -5,26 +5,19 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.util.ContainUtil;
+import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.GenericUIBean;
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  * @version $Id$
  */
 public class ComponentTag extends AbstractUITag {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
-    /**
-     * The name of the default template for the ComponentTag
-     */
-    private final static String TEMPLATE = "empty";
-
-    //~ Methods ////////////////////////////////////////////////////////////////
-
-    public boolean contains(Object obj1, Object obj2) {
-        return ContainUtil.contains(obj1, obj2);
-    }
-
-    protected String getDefaultTemplate() {
-        return TEMPLATE;
+    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new GenericUIBean(stack, req, res);
     }
 }
