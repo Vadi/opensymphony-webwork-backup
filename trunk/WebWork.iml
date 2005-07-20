@@ -314,7 +314,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="spring" level="project" />
     <orderEntryProperties />
   </component>
   <component name="VcsManagerConfiguration">
