@@ -7,6 +7,7 @@ import com.opensymphony.webwork.webFlow.model.Link;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +31,7 @@ public abstract class FileBasedView implements View {
     }
 
     public Set getTargets() {
-        HashSet targets = new HashSet();
+        TreeSet targets = new TreeSet();
 
         // links
         matchPatterns(getLinkPattern(), targets, Link.TYPE_HREF);
