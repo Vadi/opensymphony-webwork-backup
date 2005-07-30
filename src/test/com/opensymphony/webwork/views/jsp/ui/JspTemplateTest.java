@@ -27,6 +27,7 @@ public class JspTemplateTest extends AbstractUITagTest {
         request.setupGetRequestDispatcher(dispatcher);
         tag.setPageContext(pageContext);
         tag.setTemplate("/test/checkbox.jsp");
+        tag.doStartTag();
         tag.doEndTag();
         rdMock.verify();
     }

@@ -146,7 +146,7 @@ public abstract class UIBean extends Component {
                     ((templateName.equals(finalTemplateName)) ? null : " final template name '" + finalTemplateName + "'"));
         }
 
-        final TemplateRenderingContext context = new TemplateRenderingContext(finalTemplateName, writer, null, getStack(), getParameters(), this);
+        final TemplateRenderingContext context = new TemplateRenderingContext(finalTemplateName, writer, getStack(), getParameters(), this);
         engine.renderTemplate(context);
     }
 

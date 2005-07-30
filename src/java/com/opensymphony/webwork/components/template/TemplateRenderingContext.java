@@ -15,16 +15,14 @@ import java.io.Writer;
  */
 public class TemplateRenderingContext {
     String templateName;
-    PageContext pageContext;
     OgnlValueStack stack;
     Map parameters;
     UIBean tag;
     Writer writer;
 
-    public TemplateRenderingContext(String templateName, Writer writer, PageContext pageContext, OgnlValueStack stack, Map params, UIBean tag) {
+    public TemplateRenderingContext(String templateName, Writer writer, OgnlValueStack stack, Map params, UIBean tag) {
         this.templateName = templateName;
         this.writer = writer;
-        this.pageContext = pageContext;
         this.stack = stack;
         this.parameters = params;
         this.tag = tag;
@@ -32,10 +30,6 @@ public class TemplateRenderingContext {
 
     public String getTemplateName() {
         return templateName;
-    }
-
-    public PageContext getPageContext() {
-        return pageContext;
     }
 
     public OgnlValueStack getStack() {
