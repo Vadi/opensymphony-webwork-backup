@@ -4,14 +4,14 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.components.DoubleSelect;
+import com.opensymphony.webwork.components.DoubleListUIBean;
 
 
 /**
  * @author <a href="mailto:m.bogaert@memenco.com">Mathias Bogaert</a>
  */
 public abstract class AbstractDoubleListTag extends AbstractListTag {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected String doubleList;
     protected String doubleListKey;
@@ -20,7 +20,17 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
     protected String doubleValue;
     protected String formName;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
+    protected void populateParams() {
+        super.populateParams();
+
+        DoubleListUIBean bean = ((DoubleSelect) this.bean);
+        bean.setDoubleList(doubleList);
+        bean.setDoubleListKey(doubleListKey);
+        bean.setDoubleListValue(doubleListValue);
+        bean.setDoubleName(doubleName);
+        bean.setDoubleValue(doubleValue);
+        bean.setFormName(formName);
+    }
 
     public void setDoubleList(String list) {
         this.doubleList = list;
