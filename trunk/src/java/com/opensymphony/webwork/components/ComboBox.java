@@ -19,6 +19,10 @@ public class ComboBox extends TextField {
         super(stack, request, response);
     }
 
+    protected String getDefaultTemplate() {
+        return TEMPLATE;
+    }
+
     public void evaluateExtraParams() {
         super.evaluateExtraParams();
 
