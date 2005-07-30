@@ -69,9 +69,10 @@ public class TokenTagTest extends AbstractUITagTest {
         String token = null;
 
         try {
+            tag.doStartTag();
             tag.doEndTag();
 
-            token = (String) pageContext.getAttribute(tokenName);
+            token = (String) context.get(tokenName);
             assertNotNull(token);
             assertEquals(token, pageContext.getSession().getAttribute(tokenName));
         } catch (JspException e) {
