@@ -10,11 +10,11 @@ import java.util.*;
  */
 public class Graph extends SubGraph {
     private Set links;
-    public static Map nodeMap = new HashMap();
+    public static Map nodeMap = new TreeMap();
 
     public Graph() {
         super("");
-        this.links = new HashSet();
+        this.links = new TreeSet();
     }
 
     public void addLink(Link link) {

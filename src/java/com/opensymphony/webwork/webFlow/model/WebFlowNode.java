@@ -7,7 +7,7 @@ import java.io.IOException;
  * Date: Jun 26, 2005
  * Time: 4:49:14 PM
  */
-public abstract class WebFlowNode implements Render {
+public abstract class WebFlowNode implements Render, Comparable {
     private String name;
     private SubGraph parent;
 
@@ -43,4 +43,8 @@ public abstract class WebFlowNode implements Render {
     }
 
     public abstract String getColor();
+
+    public int compareTo(Object o) {
+        return name.compareTo(((WebFlowNode) o).name);
+    }
 }

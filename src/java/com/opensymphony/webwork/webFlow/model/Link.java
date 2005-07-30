@@ -7,7 +7,7 @@ import java.io.IOException;
  * Date: Jun 26, 2005
  * Time: 4:50:33 PM
  */
-public class Link implements Render {
+public class Link implements Render, Comparable {
     public static final int TYPE_FORM = 0;
     public static final int TYPE_ACTION = 1;
     public static final int TYPE_HREF = 2;
@@ -53,5 +53,25 @@ public class Link implements Render {
         } else {
             return "";
         }
+    }
+
+    public int compareTo(Object o) {
+        Link other = (Link) o;
+        int result = from.compareTo(other.from);
+        if (result != 0) {
+            return result;
+        }
+
+        result = to.compareTo(other.to);
+        if (result != 0) {
+            return result;
+        }
+
+        result = label.compareTo(other.label);
+        if (result != 0) {
+            return result;
+        }
+
+        return new Integer(type).compareTo(new Integer(other.type));
     }
 }
