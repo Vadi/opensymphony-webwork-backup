@@ -51,40 +51,20 @@ public class DoubleSelect extends DoubleListUIBean {
         addParameter("onchange", getParameters().get("name") + "Redirect(this.options.selectedIndex)");
     }
 
-    public String getEmptyOption() {
-        return emptyOption;
-    }
-
     public void setEmptyOption(String emptyOption) {
         this.emptyOption = emptyOption;
-    }
-
-    public String getHeaderKey() {
-        return headerKey;
     }
 
     public void setHeaderKey(String headerKey) {
         this.headerKey = headerKey;
     }
 
-    public String getHeaderValue() {
-        return headerValue;
-    }
-
     public void setHeaderValue(String headerValue) {
         this.headerValue = headerValue;
     }
 
-    public String getMultiple() {
-        return multiple;
-    }
-
     public void setMultiple(String multiple) {
         this.multiple = multiple;
-    }
-
-    public String getSize() {
-        return size;
     }
 
     public void setSize(String size) {

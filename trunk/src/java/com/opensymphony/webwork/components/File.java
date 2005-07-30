@@ -36,16 +36,8 @@ public class File extends UIBean {
         }
     }
 
-    public String getAccept() {
-        return accept;
-    }
-
     public void setAccept(String accept) {
         this.accept = accept;
-    }
-
-    public String getSize() {
-        return size;
     }
 
     public void setSize(String size) {

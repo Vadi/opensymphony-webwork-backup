@@ -46,24 +46,12 @@ public class TextField extends UIBean {
         }
     }
 
-    public String getMaxLength() {
-        return maxLength;
-    }
-
     public void setMaxLength(String maxLength) {
         this.maxLength = maxLength;
     }
 
-    public String getReadonly() {
-        return readonly;
-    }
-
     public void setReadonly(String readonly) {
         this.readonly = readonly;
-    }
-
-    public String getSize() {
-        return size;
     }
 
     public void setSize(String size) {

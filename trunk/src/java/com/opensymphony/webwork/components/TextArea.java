@@ -46,32 +46,16 @@ public class TextArea extends UIBean {
         }
     }
 
-    public String getCols() {
-        return cols;
-    }
-
     public void setCols(String cols) {
         this.cols = cols;
-    }
-
-    public String getReadonly() {
-        return readonly;
     }
 
     public void setReadonly(String readonly) {
         this.readonly = readonly;
     }
 
-    public String getRows() {
-        return rows;
-    }
-
     public void setRows(String rows) {
         this.rows = rows;
-    }
-
-    public String getWrap() {
-        return wrap;
     }
 
     public void setWrap(String wrap) {

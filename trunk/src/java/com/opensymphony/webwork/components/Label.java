@@ -43,10 +43,6 @@ public class Label extends UIBean {
         }
     }
 
-    public String getFor() {
-        return forAttr;
-    }
-
     public void setFor(String forAttr) {
         this.forAttr = forAttr;
     }

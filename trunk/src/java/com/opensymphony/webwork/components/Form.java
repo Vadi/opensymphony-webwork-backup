@@ -19,12 +19,12 @@ public class Form extends ClosingUIBean {
     final public static String OPEN_TEMPLATE = "form";
     final public static String TEMPLATE = "form-close";
 
-    String action;
-    String target;
-    String enctype;
-    String method;
-    String namespace;
-    String validate;
+    protected String action;
+    protected String target;
+    protected String enctype;
+    protected String method;
+    protected String namespace;
+    protected String validate;
 
     public Form(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -118,48 +118,24 @@ public class Form extends ClosingUIBean {
         }
     }
 
-    public String getAction() {
-        return action;
-    }
-
     public void setAction(String action) {
         this.action = action;
-    }
-
-    public String getTarget() {
-        return target;
     }
 
     public void setTarget(String target) {
         this.target = target;
     }
 
-    public String getEnctype() {
-        return enctype;
-    }
-
     public void setEnctype(String enctype) {
         this.enctype = enctype;
-    }
-
-    public String getMethod() {
-        return method;
     }
 
     public void setMethod(String method) {
         this.method = method;
     }
 
-    public String getNamespace() {
-        return namespace;
-    }
-
     public void setNamespace(String namespace) {
         this.namespace = namespace;
-    }
-
-    public String getValidate() {
-        return validate;
     }
 
     public void setValidate(String validate) {
