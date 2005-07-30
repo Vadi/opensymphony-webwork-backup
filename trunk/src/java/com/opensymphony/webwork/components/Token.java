@@ -53,6 +53,15 @@ public class Token extends UIBean {
 
         String token = buildToken(tokenName);
         addParameter("token", token);
+        addParameter("tokenNameField", TokenHelper.TOKEN_NAME_FIELD);
+    }
+
+    /**
+     * @deprecated Templates should use $parameters from now on, not $tag.
+     * This will be removed in a future version of WebWork.
+     */
+    public String getTokenNameField() {
+        return TokenHelper.TOKEN_NAME_FIELD;
     }
 
     private String buildToken(String name) {
