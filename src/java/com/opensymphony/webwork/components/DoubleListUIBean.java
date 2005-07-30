@@ -64,48 +64,24 @@ public abstract class DoubleListUIBean extends ListUIBean {
         }
     }
 
-    public String getDoubleList() {
-        return doubleList;
-    }
-
     public void setDoubleList(String doubleList) {
         this.doubleList = doubleList;
-    }
-
-    public String getDoubleListKey() {
-        return doubleListKey;
     }
 
     public void setDoubleListKey(String doubleListKey) {
         this.doubleListKey = doubleListKey;
     }
 
-    public String getDoubleListValue() {
-        return doubleListValue;
-    }
-
     public void setDoubleListValue(String doubleListValue) {
         this.doubleListValue = doubleListValue;
-    }
-
-    public String getDoubleName() {
-        return doubleName;
     }
 
     public void setDoubleName(String doubleName) {
         this.doubleName = doubleName;
     }
 
-    public String getDoubleValue() {
-        return doubleValue;
-    }
-
     public void setDoubleValue(String doubleValue) {
         this.doubleValue = doubleValue;
-    }
-
-    public String getFormName() {
-        return formName;
     }
 
     public void setFormName(String formName) {

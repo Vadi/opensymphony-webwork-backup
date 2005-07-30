@@ -64,24 +64,12 @@ public abstract class ListUIBean extends UIBean {
         return null; // don't convert nameValue to anything, we need the raw value
     }
 
-    public String getList() {
-        return list;
-    }
-
     public void setList(String list) {
         this.list = list;
     }
 
-    public String getListKey() {
-        return listKey;
-    }
-
     public void setListKey(String listKey) {
         this.listKey = listKey;
-    }
-
-    public String getListValue() {
-        return listValue;
     }
 
     public void setListValue(String listValue) {

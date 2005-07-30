@@ -42,10 +42,6 @@ public class Submit extends UIBean {
         }
     }
 
-    public String getAlign() {
-        return align;
-    }
-
     public void setAlign(String align) {
         this.align = align;
     }

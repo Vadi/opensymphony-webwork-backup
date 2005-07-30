@@ -31,10 +31,6 @@ public class Password extends TextField {
         }
     }
 
-    public String getShowPassword() {
-        return showPassword;
-    }
-
     public void setShowPassword(String showPassword) {
         this.showPassword = showPassword;
     }

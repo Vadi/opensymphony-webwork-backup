@@ -27,10 +27,6 @@ public class ComboBox extends TextField {
         }
     }
 
-    public String getList() {
-        return list;
-    }
-
     public void setList(String list) {
         this.list = list;
     }

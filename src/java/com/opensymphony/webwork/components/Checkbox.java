@@ -33,10 +33,6 @@ public class Checkbox extends UIBean {
         return Boolean.class; // for checkboxes, everything needs to end up as a Boolean
     }
 
-    public String getFieldValue() {
-        return fieldValue;
-    }
-
     public void setFieldValue(String fieldValue) {
         this.fieldValue = fieldValue;
     }
