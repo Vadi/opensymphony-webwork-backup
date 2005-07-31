@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.views.jsp.ui.ajax;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
+import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
 import com.opensymphony.webwork.components.ajax.ContentPane;
 import com.opensymphony.webwork.components.ajax.JavascriptEmitter;
 
@@ -20,13 +21,12 @@ import java.io.IOException;
  * @author Jason Carreira <jcarreira@eplus.com>
  * @author <a href="ian@fdar.com">Ian Roughley</a>
  */
-public class TabbedPanelTag extends AbstractClosingUITag implements BodyTag, JavascriptEmitter, Cloneable {
+public class TabbedPanelTag extends AbstractUITag implements BodyTag {
 
     public static final String TEMPLATE_CLOSE = "tabbedpanel-close";
     public static final String COMPONENT_JS = "tabbedpanel-js.vm";
     final private static String COMPONENT_NAME = TabbedPanelTag.class.getName();
 
-    private List tabs = new ArrayList();
     private String innerBodyContent;
     private JspWriter innerBodyWriter;
     private BodyContent bodyContent;
@@ -144,42 +144,6 @@ public class TabbedPanelTag extends AbstractClosingUITag implements BodyTag, Jav
             tabs = new ArrayList();
             innerBodyContent = null;
             innerBodyWriter = null;
-        }
-    }
-
-    /**
-     * @see JavascriptEmitter#emittJavascript(javax.servlet.jsp.PageContext)
-     */
-    public void emittJavascript(PageContext page) throws JspException {
-        try {
-//            String template = buildTemplateName( null, COMPONENT_JS );
-            mergeTemplate( "/template/simple/tabbedpanel-js.vm" );
-        } catch (Exception e) {
-            throw new JspException(e);
-        }
-    }
-
-    /**
-     * @see JavascriptEmitter#getComponentName()
-     */
-    public String getComponentName() {
-        return COMPONENT_NAME;
-    }
-
-    /**
-     * @see JavascriptEmitter#emittInstanceConfigurationJavascript(javax.servlet.jsp.PageContext)
-     */
-    public void emittInstanceConfigurationJavascript(PageContext page) throws JspException {
-        if( tabs.size()==0 || null==(ContentPane)tabs.get(0) )
-            return;
-        ContentPane initialPane = (ContentPane)tabs.get(0);
-        JspWriter out = page.getOut();
-        try {
-            StringBuffer sb = new StringBuffer();
-            sb.append("dojo.event.topic.publish('").append(getTopicName()).append("', '").append(initialPane.getId()).append("');\n");
-            out.println(sb.toString());
-        } catch (IOException e) {
-            throw new JspException(e);
         }
     }
 

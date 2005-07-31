@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.views.jsp.ui.ajax;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
+import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author		Ian Roughley
  * @version		$Id$
  */
-public class RemoteLinkTag extends AbstractClosingUITag {
+public class RemoteLinkTag extends AbstractUITag {
 
     final public static String OPEN_TEMPLATE = "a";
     final public static String TEMPLATE = "a-close";

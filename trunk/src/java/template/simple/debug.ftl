@@ -13,14 +13,11 @@
     }
 -->
 </script>
-#set ($id = $parameters.id)
-#if ($id) #else #set ($id = 'debug') #end
 <p/>
-<a href="#" onclick="toggleDebug('$id')">[Debug]</a>
-<div style="display:none" id="$id">
+<a href="#" onclick="toggleDebug('${parameters.id?default("debug")}')">[Debug]</a>
+<div style="display:none" id="${parameters.id?default("debug")}">
 <h2>WebWork ValueStack Debug</h2>
 <p/>
-#set($contextMap = $stack.context)
 <h3>Stack Context</h3>
 <i>These items are available using the #key notation</i>
 <table border="0" cellpadding="5" cellspacing="0" width="100%" bgcolor="#DDDDDD">
@@ -28,9 +25,9 @@
 <th>Key</th><th>Value</th>
 </tr>
 #set ($index = 1)
-#foreach ($contextKey in $contextMap.keySet())
+#foreach ($contextKey in $stack.context.keySet())
 <tr bgcolor="#if (($index % 2) == 0)#BBBBBB#else#CCCCCC#end">
-<td>$contextKey</td><td>$contextMap.get($contextKey)</td>
+<td>$contextKey</td><td>$stack.context.get($contextKey)</td>
 </tr>
 #set ($index = $index + 1)
 #end
