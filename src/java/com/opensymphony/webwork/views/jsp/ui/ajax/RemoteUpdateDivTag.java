@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.views.jsp.ui.ajax;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
+import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author		Ian Roughley
  * @version		$Id$
  */
-public class RemoteUpdateDivTag extends AbstractClosingUITag {
+public class RemoteUpdateDivTag extends AbstractUITag {
 
     private static final String TEMPLATE = "div";
     private static final String TEMPLATE_CLOSE = "div-close";

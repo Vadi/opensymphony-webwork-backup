@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.views.jsp.ui.ajax;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
+import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
 import com.opensymphony.webwork.components.ajax.JavascriptEmitter;
 
 import javax.servlet.jsp.JspException;
@@ -19,7 +20,7 @@ import org.apache.commons.logging.Log;
  * @author		Ian Roughley
  * @version		$Id$
  */
-public class TopicScopeTag extends AbstractClosingUITag {
+public class TopicScopeTag extends AbstractUITag {
 
     final public static String OPEN_TEMPLATE = "topicscope";
     final public static String TEMPLATE = "topicscope-close";
