@@ -7,8 +7,6 @@ package com.opensymphony.webwork.views.jsp.ui.ajax;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
-import javax.servlet.jsp.tagext.TagSupport;
-
 
 /**
  * @author Ian Roughley<a href="mailto:ian@fdar.com">&lt;ian@fdar.com&gt;</a>
@@ -27,11 +25,11 @@ public class RemoteLinkTest extends AbstractUITagTest {
 
         tag.setId("mylink");
         tag.setTheme("ajax");
-        tag.setHref( "a" );
-        tag.setErrorText( "c" );
-        tag.setShowErrorTransportText( "true" );
-        tag.setNotifyTopics( "g" );
-        tag.setAfterLoading( "h" );
+        tag.setHref("a");
+        tag.setErrorText("c");
+        tag.setShowErrorTransportText("true");
+        tag.setNotifyTopics("g");
+        tag.setAfterLoading("h");
 
         tag.doStartTag();
         tag.doEndTag();
