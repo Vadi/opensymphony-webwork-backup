@@ -33,8 +33,8 @@ public class RemoteLinkTest extends AbstractUITagTest {
         tag.setNotifyTopics( "g" );
         tag.setAfterLoading( "h" );
 
-        assertEquals( tag.doStartTag(), TagSupport.EVAL_BODY_INCLUDE );
-        assertEquals( tag.doEndTag(), TagSupport.EVAL_PAGE );
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(RemoteLinkTest.class.getResource("remotelink-1.txt"));
     }

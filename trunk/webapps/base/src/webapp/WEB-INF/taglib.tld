@@ -2213,7 +2213,7 @@
 
     <tag>
         <name>table</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.table.WebTable</tagclass>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.table.WebTableTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>WebTable</info>
         <attribute>
