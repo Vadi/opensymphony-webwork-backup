@@ -30,11 +30,11 @@ public class RemoteUpdateDiv extends ClosingUIBean {
     }
 
     public String getDefaultOpenTemplate() {
-        return TEMPLATE_CLOSE;
+        return TEMPLATE;
     }
 
     protected String getDefaultTemplate() {
-        return TEMPLATE;
+        return TEMPLATE_CLOSE;
     }
 
     public void evaluateExtraParams() {
