@@ -2,11 +2,13 @@ package com.opensymphony.webwork.components;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.util.FastByteArrayOutputStream;
 
 import java.util.Stack;
 import java.util.Iterator;
 import java.util.Map;
 import java.io.Writer;
+import java.io.PrintWriter;
 
 /**
  * User: plightbo
@@ -118,6 +120,15 @@ public class Component {
             String key = (String) entry.getKey();
             stack.setValue(key, entry.getValue());
         }
+    }
+
+    protected String toString(Throwable t) {
+        FastByteArrayOutputStream bout = new FastByteArrayOutputStream();
+        PrintWriter wrt = new PrintWriter(bout);
+        t.printStackTrace(wrt);
+        wrt.close();
+
+        return bout.toString();
     }
 
 }

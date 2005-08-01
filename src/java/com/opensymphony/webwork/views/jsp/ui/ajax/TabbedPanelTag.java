@@ -1,6 +1,5 @@
 package com.opensymphony.webwork.views.jsp.ui.ajax;
 
-import com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag;
 import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
 import com.opensymphony.webwork.components.ajax.ContentPane;
 import com.opensymphony.webwork.components.ajax.JavascriptEmitter;
@@ -9,11 +8,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyTag;
 import javax.servlet.jsp.tagext.BodyContent;
-import java.io.IOException;
 
 /**
  * TabbedPanelTag

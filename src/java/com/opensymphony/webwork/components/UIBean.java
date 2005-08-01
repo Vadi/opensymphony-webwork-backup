@@ -179,8 +179,8 @@ public abstract class UIBean extends Component {
     public String getTheme() {
         String theme = null;
 
-        if (theme != null) {
-            theme = findString(theme);
+        if (this.theme != null) {
+            theme = findString(this.theme);
         }
 
         // If theme set is not explicitly given,

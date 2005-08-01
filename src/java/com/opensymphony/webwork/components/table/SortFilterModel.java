@@ -2,7 +2,9 @@
  * Copyright (c) 2002-2003 by OpenSymphony
  * All rights reserved.
  */
-package com.opensymphony.webwork.views.jsp.ui.table;
+package com.opensymphony.webwork.components.table;
+
+import com.opensymphony.webwork.components.table.SortableTableModel;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
