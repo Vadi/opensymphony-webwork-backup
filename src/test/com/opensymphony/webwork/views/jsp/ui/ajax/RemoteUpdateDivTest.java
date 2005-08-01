@@ -27,17 +27,17 @@ public class RemoteUpdateDivTest extends AbstractUITagTest {
 
         tag.setId("mylabel");
         tag.setTheme("ajax");
-        tag.setHref( "a" );
-        tag.setLoadingText( "b" );
-        tag.setErrorText( "c" );
-        tag.setShowErrorTransportText( "true" );
-        tag.setDelay( "4000" );
-        tag.setUpdateFreq( "1000" );
-        tag.setListenTopics( "g" );
-        tag.setAfterLoading( "h" );
+        tag.setHref("a");
+        tag.setLoadingText("b");
+        tag.setErrorText("c");
+        tag.setShowErrorTransportText("true");
+        tag.setDelay("4000");
+        tag.setUpdateFreq("1000");
+        tag.setListenTopics("g");
+        tag.setAfterLoading("h");
 
-        assertEquals( tag.doStartTag(), TagSupport.EVAL_BODY_INCLUDE );
-        assertEquals( tag.doEndTag(), TagSupport.EVAL_PAGE );
+        tag.doStartTag();
+        tag.doEndTag();
 
         verify(RemoteUpdateDivTest.class.getResource("remotediv-1.txt"));
     }
