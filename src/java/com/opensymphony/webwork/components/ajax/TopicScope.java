@@ -46,7 +46,6 @@ public class TopicScope extends ClosingUIBean {
     }
 
     public void end(Writer writer) {
-
         try {
             writer.write("<script language=\"JavaScript\" type=\"text/javascript\">\n");
             writer.write("<!--\n");
