@@ -45,9 +45,6 @@ public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane, J
         return tabName;
     }
 
-    /**
-     * @see com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag#getDefaultTemplate()
-     */
     public String getDefaultTemplate() {
         return TEMPLATE_CLOSE;
     }
@@ -92,9 +89,6 @@ public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane, J
         return COMPONENT_NAME;
     }
 
-    /**
-     * @see com.opensymphony.webwork.components.ajax.JavascriptEmitter#emittJavascript(javax.servlet.jsp.PageContext)
-     */
     public void emittJavascript( PageContext page ) {
         // nothing to emitt
     }
@@ -103,7 +97,6 @@ public class RemotePanelTag extends RemoteUpdateDivTag implements ContentPane, J
     /**
      * Create JS to subscribe this instance to the topics requested.
      *       todo:  fix this for new remoteupdatedivtag
-     * @see com.opensymphony.webwork.components.ajax.JavascriptEmitter#emittInstanceConfigurationJavascript(javax.servlet.jsp.PageContext)
      */
     public void emittInstanceConfigurationJavascript( PageContext page ) {
 
