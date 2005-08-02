@@ -35,37 +35,22 @@ public class TabbedPanelTag extends AbstractUITag implements BodyTag {
         tabs = new ArrayList();
     }
 
-    /**
-     * @see com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag#getDefaultOpenTemplate()
-     */
     public String getDefaultOpenTemplate() {
         return null;  // the opening tab is not used
     }
 
-    /**
-     * @see javax.servlet.jsp.tagext.BodyTag#setBodyContent(javax.servlet.jsp.tagext.BodyContent)
-     */
     public void setBodyContent(BodyContent bodyContent) {
         this.bodyContent = bodyContent;
     }
 
-    /**
-     * @see javax.servlet.jsp.tagext.BodyTag#doInitBody()
-     */
     public void doInitBody() throws JspException {
         // do nothing
     }
 
-    /**
-     * @see javax.servlet.jsp.tagext.BodyTag#doStartTag()
-     */
     public int doStartTag() throws JspException {
         return BodyTag.EVAL_BODY_BUFFERED;
     }
 
-    /**
-     * @see com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag#getDefaultTemplate()
-     */
     protected String getDefaultTemplate() {
         return TEMPLATE_CLOSE;
     }

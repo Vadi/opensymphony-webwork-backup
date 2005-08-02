@@ -186,9 +186,6 @@ public class FreemarkerManager {
         }
     }
 
-    /**
-     * @return
-     */
     protected BeansWrapper getObjectWrapper() {
         BeansWrapper beansWrapper = new BeansWrapper();
         beansWrapper.setSimpleMapWrapper(true);
@@ -249,7 +246,6 @@ public class FreemarkerManager {
      * </ul>
      *
      * @param servletContext
-     * @return
      */
     protected freemarker.template.Configuration createConfiguration(ServletContext servletContext) throws TemplateException {
         freemarker.template.Configuration configuration = freemarker.template.Configuration.getDefaultConfiguration();

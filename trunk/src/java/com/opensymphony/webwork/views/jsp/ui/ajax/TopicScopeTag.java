@@ -29,16 +29,10 @@ public class TopicScopeTag extends AbstractUITag {
 
     private static final Log LOG = LogFactory.getLog(TopicScopeTag.class);
 
-    /**
-     * @see com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag#getDefaultTemplate()
-     */
     protected String getDefaultTemplate() {
         return TEMPLATE;
     }
 
-    /**
-     * @see com.opensymphony.webwork.views.jsp.ui.AbstractClosingUITag#getDefaultOpenTemplate()
-     */
     public String getDefaultOpenTemplate() {
         return OPEN_TEMPLATE;
     }
@@ -51,9 +45,6 @@ public class TopicScopeTag extends AbstractUITag {
         jsInstances.add( emitter );
     }
 
-    /**
-     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
-     */
     public int doEndTag() throws JspException {
 
         JspWriter out = pageContext.getOut();
