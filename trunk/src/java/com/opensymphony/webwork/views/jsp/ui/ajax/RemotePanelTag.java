@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Id$
  */
 public class RemotePanelTag extends RemoteUpdateDivTag {
-    private String tabName;
+    protected String tabName;
+    protected String subscribeTopicName;
 
     public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new RemotePanel(stack, req, res);
@@ -23,9 +24,14 @@ public class RemotePanelTag extends RemoteUpdateDivTag {
 
         RemotePanel panel = ((RemotePanel) bean);
         panel.setTabName(tabName);
+        panel.setSubscribeTopicName(subscribeTopicName);
     }
 
     public void setTabName(String tabName) {
         this.tabName = tabName;
+    }
+
+    public void setSubscribeTopicName(String subscribeTopicName) {
+        this.subscribeTopicName = subscribeTopicName;
     }
 }
