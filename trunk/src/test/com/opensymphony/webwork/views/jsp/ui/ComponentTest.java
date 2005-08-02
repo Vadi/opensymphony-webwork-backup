@@ -50,7 +50,6 @@ public class ComponentTest extends AbstractUITagTest {
         tag.setTheme("test");
         tag.setTemplate("Component");
 
-        tag.doStartTag();
         tag.addParameter("hello", "world");
         tag.addParameter("argle", "bargle");
         tag.addParameter("glip", "glop");

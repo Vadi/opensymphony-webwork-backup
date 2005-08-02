@@ -60,6 +60,7 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     public int doStartTag() throws JspException {
         bean = getBean(getStack(), (HttpServletRequest) pageContext.getRequest(), (HttpServletResponse) pageContext.getResponse());
         populateParams();
+        bean.addAllParameters(getParameters());
         bean.start(pageContext.getOut());
 
         return EVAL_PAGE;

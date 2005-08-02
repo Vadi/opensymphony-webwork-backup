@@ -76,6 +76,10 @@ public abstract class UIBean extends Component {
         return parameters;
     }
 
+    public void addAllParameters(Map params) {
+        parameters.putAll(params);
+    }
+
     public void end(Writer writer) {
         evaluateParams();
         try {
