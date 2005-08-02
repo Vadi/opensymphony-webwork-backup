@@ -11,6 +11,7 @@ import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.JspSupportServlet;
 import com.opensymphony.webwork.views.freemarker.tags.FormModel;
+import com.opensymphony.webwork.views.freemarker.tags.TextFieldModel;
 import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
