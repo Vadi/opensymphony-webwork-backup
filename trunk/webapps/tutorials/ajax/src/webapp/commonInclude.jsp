@@ -8,7 +8,7 @@
 </script>
 
 <script language="JavaScript" type="text/javascript" src="<ww:url includeParams="none" value="/webwork/dojo/__package__.js" />"></script>
-<script language="JavaScript" type="text/javascript" src="<ww:url includeParams="none" value="/webwork/AjaxComponents.js" />"></script>
+<script language="JavaScript" type="text/javascript" src="<ww:url includeParams="none" value="/webwork/CommonFunctions.js" />"></script>
 
 <script language="JavaScript" type="text/javascript">
     dojo.hostenv.loadModule("dojo.io.BrowserIO");
