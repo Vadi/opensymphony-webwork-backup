@@ -93,8 +93,4 @@ public class RemotePanel extends ClosingUIBean implements ContentPane, Javascrip
     public void setTabName(String tabName) {
         this.tabName = tabName;
     }
-
-    public void setSubscribeTopicName(String subscribeTopicName) {
-        this.subscribeTopicName = subscribeTopicName;
-    }
 }
