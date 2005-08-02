@@ -1,7 +1,6 @@
 package com.opensymphony.webwork.components.ajax;
 
 import com.opensymphony.webwork.components.ClosingUIBean;
-import com.opensymphony.webwork.views.jsp.ui.ajax.TopicScopeTag;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +28,10 @@ public class TabbedPanel extends ClosingUIBean implements JavascriptEmitter {
 
     public void addTab(ContentPane pane) {
         tabs.add(pane);
+    }
+
+    public List getTabs() {
+        return tabs;
     }
 
     public String getTopicName() {
