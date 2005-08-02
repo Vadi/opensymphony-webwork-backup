@@ -2,7 +2,6 @@ package com.opensymphony.webwork.views.jsp.ui.ajax;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
 import com.opensymphony.webwork.components.ajax.ContentPane;
-import com.opensymphony.webwork.components.ajax.Panel;
 import com.opensymphony.webwork.components.ajax.TabbedPanel;
 import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TabbedPanelTag extends AbstractUITag {
 
     public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
-        return new Panel(stack, req, res);
+        return new TabbedPanel(stack, req, res);
     }
 
     /**
@@ -39,15 +38,6 @@ public class TabbedPanelTag extends AbstractUITag {
      */
     public void addTab( ContentPane pane ) {
         ((TabbedPanel) bean).addTab(pane);
-    }
-
-    /**
-     * Returns the name of the topic that selections of the tab will be made.
-     *
-     * @return the name of the topic that selections of the tab will be made
-     */
-    public String getTopicName() {
-        return "topic_tab_" + id + "_selected";
     }
 
 }
