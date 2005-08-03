@@ -31,7 +31,7 @@ import java.util.Map;
  * namespace.  The body content of the tag is used to render the results from the Action.  Any Result processor defined
  * for this Action in xwork.xml will be ignored.
  *
- * @author <a href="mailto:plightbo@hotmail.com">Pat Lightbody</a>
+ * @author <a href="mailto:plightbo@gmail.com">Pat Lightbody</a>
  * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
  * @version $Id$
  */

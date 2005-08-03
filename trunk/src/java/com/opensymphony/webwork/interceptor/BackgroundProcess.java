@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Background thread to be executed by the ExecuteAndWaitInterceptor.
  *
- * @author <a href="plightbo@yahoo.com">Pat Lightbody</a>
+ * @author <a href="plightbo@gmail.com">Pat Lightbody</a>
  */
 public class BackgroundProcess implements Serializable {
     protected Action action;
