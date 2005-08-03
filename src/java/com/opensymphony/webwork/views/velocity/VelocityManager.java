@@ -249,6 +249,7 @@ public class VelocityManager {
         configfile = configfile.trim();
 
         InputStream in = null;
+        String resourceLocation = null;
 
         try {
             if (context.getRealPath(configfile) != null) {
@@ -259,6 +260,7 @@ public class VelocityManager {
                     File file = new File(filename);
 
                     if (file.isFile()) {
+                        resourceLocation = file.getCanonicalPath() + " from file system";
                         in = new FileInputStream(file);
                     }
 
@@ -267,6 +269,7 @@ public class VelocityManager {
                         file = new File(context.getRealPath("/WEB-INF/" + configfile));
 
                         if (file.isFile()) {
+                            resourceLocation = file.getCanonicalPath() + " from file system";
                             in = new FileInputStream(file);
                         }
                     }
@@ -276,15 +279,18 @@ public class VelocityManager {
             // 3. finally, if there's no physical file, how about something in our classpath
             if (in == null) {
                 in = VelocityManager.class.getClassLoader().getResourceAsStream(configfile);
+                if (in != null) {
+                    resourceLocation = configfile + " from classloader";
+                }
             }
 
             // if we've got something, load 'er up
             if (in != null) {
-                log.info("Initializing velocity using '" + configfile + "'");
+                log.info("Initializing velocity using " + resourceLocation);
                 properties.load(in);
             }
         } catch (IOException e) {
-            log.warn("Unable to load velocity configuration file '" + configfile + "'", e);
+            log.warn("Unable to load velocity configuration " + resourceLocation, e);
         } finally {
             if (in != null) {
                 try {
