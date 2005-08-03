@@ -4,11 +4,9 @@
  */
 package com.opensymphony.webwork.interceptor;
 
-import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.interceptor.Interceptor;
 
-import java.io.Serializable;
 import java.util.Map;
 
 
@@ -45,6 +43,10 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
     public void init() {
     }
 
+    protected BackgroundProcess getNewBackgroundProcess(String name, ActionInvocation actionInvocation, int threadPriority) {
+        return new BackgroundProcess(name + "BackgroundThread", actionInvocation, threadPriority);
+    }
+
     public String intercept(ActionInvocation actionInvocation) throws Exception {
         String name = actionInvocation.getProxy().getActionName();
         Map session = actionInvocation.getInvocationContext().getSession();
@@ -53,7 +55,7 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
             BackgroundProcess bp = (BackgroundProcess) session.get(KEY + name);
 
             if (bp == null) {
-                bp = new BackgroundProcess(name + "BackgroundThread", actionInvocation, threadPriority);
+                bp = getNewBackgroundProcess(name, actionInvocation, threadPriority);
                 session.put(KEY + name, bp);
             }
 
@@ -65,7 +67,9 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
                 actionInvocation.getStack().push(bp.getAction());
 
                 // if an exception occured during action execution, throw it here
-                if (bp.getException() != null) throw bp.getException();
+                if (bp.getException() != null) {
+                    throw bp.getException();
+                }
 
                 return bp.getResult();
             }
@@ -80,55 +84,4 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
         this.threadPriority = threadPriority;
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
-
-    static class BackgroundProcess implements Serializable {
-        private Action action;
-        private ActionInvocation invocation;
-
-        private String result;
-        private Exception exception;
-
-        private boolean done;
-
-        public BackgroundProcess(final String threadName, final ActionInvocation invocation, final int threadPriority) {
-            this.invocation = invocation;
-            this.action = invocation.getAction();
-
-            final Thread t = new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        result = action.execute();
-                    } catch (Exception e) {
-                        exception = e;
-                    }
-
-                    done = true;
-                }
-            });
-            t.setName(threadName);
-            t.setPriority(threadPriority);
-            t.start();
-        }
-
-        public Action getAction() {
-            return action;
-        }
-
-        public ActionInvocation getInvocation() {
-            return invocation;
-        }
-
-        public String getResult() {
-            return result;
-        }
-
-        public Exception getException() {
-            return exception;
-        }
-
-        public boolean isDone() {
-            return done;
-        }
-    }
 }
