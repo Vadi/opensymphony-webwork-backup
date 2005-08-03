@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.util.TextParseUtil;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
 
@@ -91,27 +92,7 @@ public class Component {
     }
 
     public static String translateVariables(String expression, OgnlValueStack stack) {
-        while (true) {
-            int x = expression.indexOf("%{");
-            int y = expression.indexOf("}", x);
-
-            if ((x != -1) && (y != -1)) {
-                String var = expression.substring(x + 2, y);
-
-                Object o = stack.findValue(var, String.class);
-
-                if (o != null) {
-                    expression = expression.substring(0, x) + o + expression.substring(y + 1);
-                } else {
-                    // the variable doesn't exist, so don't display anything
-                    expression = expression.substring(0, x) + expression.substring(y + 1);
-                }
-            } else {
-                break;
-            }
-        }
-
-        return expression;
+        return TextParseUtil.translateVariables('%', expression, stack);
     }
 
     public void copyParams(Map params) {
