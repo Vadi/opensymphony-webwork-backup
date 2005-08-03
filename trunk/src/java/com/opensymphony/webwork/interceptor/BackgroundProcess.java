@@ -20,24 +20,27 @@ public class BackgroundProcess implements Serializable {
     public BackgroundProcess(String threadName, final ActionInvocation invocation, int threadPriority) {
         this.invocation = invocation;
         this.action = invocation.getAction();
+        try {
+            beforeInvocation();
+            final Thread t = new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        invocation.getResult();
+                        result = invocation.invoke();
+                        afterInvocation();
+                    } catch (Exception e) {
+                        exception = e;
+                    }
 
-        final Thread t = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    beforeInvocation();
-                    invocation.getResult();
-                    result = invocation.invoke();
-                    afterInvocation();
-                } catch (Exception e) {
-                    exception = e;
+                    done = true;
                 }
-
-                done = true;
-            }
-        });
-        t.setName(threadName);
-        t.setPriority(threadPriority);
-        t.start();
+            });
+            t.setName(threadName);
+            t.setPriority(threadPriority);
+            t.start();
+        } catch (Exception e) {
+            exception = e;
+        }
     }
 
     /**
