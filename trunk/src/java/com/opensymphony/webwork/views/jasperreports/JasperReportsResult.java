@@ -36,10 +36,11 @@ import java.util.Map;
  * <p/>
  * Three optional parameter can also be specified:
  * <ul>
- * <li>format - the format in which the report should be generated. Valid values can be found
+ * <li>format: the format in which the report should be generated. Valid values can be found
  * in {@link JasperReportConstants}. If no format is specified, PDF will be used.</li>
- * <li>contentDisposition : disposition (defaults to "inline", values are typically <i>filename="document.pdf"</i>)</li>
- * <li>documentName : name of the document (will generate the http header Content-disposition = X; filename=X.[format])</li>
+ * <li>contentDisposition: disposition (defaults to "inline", values are typically <i>filename="document.pdf"</i>)</li>
+ * <li>documentName: name of the document (will generate the http header Content-disposition = X; filename=X.[format])</li>
+ * <li>delimiter: the delimiter used when generating CSV reports. By default, the character used is ",".</li>
  * </ul>
  * <p/>
  * This result follows the same rules from {@link WebWorkResultSupport}.
@@ -49,19 +50,14 @@ import java.util.Map;
  * @author <a href="mailto:hermanns@aixcept.de">Rainer Hermanns</a>
  */
 public class JasperReportsResult extends WebWorkResultSupport implements JasperReportConstants {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
     private final static Log LOG = LogFactory.getLog(JasperReportsResult.class);
 
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     protected String IMAGES_DIR = "/images/";
-    private String dataSource;
-    private String format;
-    private String documentName;
-    private String contentDisposition;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
+    protected String dataSource;
+    protected String format;
+    protected String documentName;
+    protected String contentDisposition;
+    protected String delimiter;
 
     public void setDataSource(String dataSource) {
         this.dataSource = dataSource;
@@ -77,6 +73,10 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
     public void setContentDisposition(String contentDisposition) {
         this.contentDisposition = contentDisposition;
+    }
+
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
     }
 
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
@@ -125,8 +125,8 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
             File directory = new File(systemId.substring(0, systemId.lastIndexOf(File.separator)));
             parameters.put("reportDirectory", directory);
 
-            byte[] output = null;
-            JasperPrint jasperPrint = null;
+            byte[] output;
+            JasperPrint jasperPrint;
 
             // Fill the report and produce a print object
             try {
@@ -163,7 +163,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
                     // response.setHeader("Content-disposition", "inline; filename=report.pdf");
                     output = JasperExportManager.exportReportToPdf(jasperPrint);
                 } else {
-                    JRExporter exporter = null;
+                    JRExporter exporter;
 
                     if (format.equals(FORMAT_CSV)) {
                         response.setContentType("text/plain");
@@ -238,6 +238,9 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
+        if (delimiter != null) {
+            exporter.setParameter(JRCsvExporterParameter.FIELD_DELIMITER, delimiter);
+        }
 
         exporter.exportReport();
 
