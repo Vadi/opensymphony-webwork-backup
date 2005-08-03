@@ -27,7 +27,7 @@ import java.util.Map;
  * This will cause the request to be reloaded every 5 seconds. <b>You will need
  * to specify a result of "wait" in your action for this to work.</b>
  *
- * @author <a href="plightbo@yahoo.com">Pat Lightbody</a>
+ * @author <a href="plightbo@gmail.com">Pat Lightbody</a>
  */
 public class ExecuteAndWaitInterceptor implements Interceptor {
     //~ Static fields/initializers /////////////////////////////////////////////
