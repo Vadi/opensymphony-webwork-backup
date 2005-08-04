@@ -143,8 +143,8 @@ public class FreemarkerManager {
         // Create hash model wrapper for session
         TemplateHashModel sessionModel;
 
-        if (request.getSession(false) != null) {
-            HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
             model.put(KEY_SESSION_MODEL, new HttpSessionHashModel(session, wrapper));
         } else {
             // no session means no attributes ???
