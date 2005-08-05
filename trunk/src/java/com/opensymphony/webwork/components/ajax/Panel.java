@@ -52,7 +52,7 @@ public class Panel extends ClosingUIBean implements JavascriptEmitter, ContentPa
     public void emittInstanceConfigurationJavascript(Writer writer) {
         try {
             StringBuffer sb = new StringBuffer();
-            sb.append("var tabpanel_").append(id).append(" = new TabContent( \"").append(id).append("\" );\n");
+            sb.append("var tabpanel_").append(id).append(" = new TabContent( \"").append(id).append("\", false );\n");
             sb.append("dojo.event.topic.subscribe( \"").append(subscribeTopicName).append("\"");
             sb.append(", tabpanel_").append(id).append(", ");
             sb.append("\"updateVisibility\"").append(" );");

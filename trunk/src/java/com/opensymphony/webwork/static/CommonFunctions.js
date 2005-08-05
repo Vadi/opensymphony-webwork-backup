@@ -28,10 +28,12 @@ var selectedContentsClass = "tab_contents_header";
  * An object that represents a tabbed page.
  *
  * @param htmlId the id of the element that represents the tab page
+ * @param remote whether this is a remote element and needs refreshing
  */
-function TabContent( htmlId ) {
+function TabContent( htmlId, remote ) {
 
     this.elementId = htmlId;
+    this.isRemote = remote;
     var selected = false;
     var self = this;
 
@@ -53,6 +55,10 @@ function TabContent( htmlId ) {
             thElement.className = unselectedClass;
             tcElement.className = unselectedContentsClass;
             self.selected = false;
+        }
+        if (self.isRemote==true && visibleTabId==self.elementId) {
+            var rel = window['tab_contents_update_'+self.elementId];
+            rel.bind();
         }
     }
 
