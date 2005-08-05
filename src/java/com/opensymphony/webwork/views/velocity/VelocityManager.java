@@ -34,8 +34,7 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.webwork.views.util.ContextUtil;
-import com.opensymphony.webwork.views.velocity.components.FormDirective;
-import com.opensymphony.webwork.views.velocity.components.TextFieldDirective;
+import com.opensymphony.webwork.views.velocity.components.*;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -487,18 +486,35 @@ public class VelocityManager {
         p.setProperty("wwclass.resource.loader.modificationCheckInterval", "2");
         p.setProperty("wwclass.resource.loader.cache", "true");
 
-        /**
-         * the TagDirective and BodyTagDirective must be added to the userdirective
-         * TODO: there must be a better place for this... LIKE A CONFIG FILE IN THE JAR
-         * TODO: ... also, people must be allowed to define their own config that overrides this
-         */
-        String userdirective = p.getProperty("userdirective");
-        String directives = ParamDirective.class.getName() + ","
-                + TagDirective.class.getName() + ","
-                + BodyTagDirective.class.getName() + ","
-                + FormDirective.class.getName() + ","
-                + TextFieldDirective.class.getName();
+        // components
+        StringBuffer sb = new StringBuffer();
+        addDirective(sb, ComboBoxDirective.class);
+        addDirective(sb, CheckBoxListDirective.class);
+        addDirective(sb, ComboBoxDirective.class);
+        addDirective(sb, ComponentDirective.class);
+        addDirective(sb, DoubleSelectDirective.class);
+        addDirective(sb, FileDirective.class);
+        addDirective(sb, FormDirective.class);
+        addDirective(sb, HiddenDirective.class);
+        addDirective(sb, LabelDirective.class);
+        addDirective(sb, PasswordDirective.class);
+        addDirective(sb, RadioDirective.class);
+        addDirective(sb, SelectDirective.class);
+        addDirective(sb, SubmitDirective.class);
+        addDirective(sb, TextAreaDirective.class);
+        addDirective(sb, TextFieldDirective.class);
+        addDirective(sb, TokenDirective.class);
 
+        // deprecated elements
+        addDirective(sb, ParamDirective.class);
+        addDirective(sb, TagDirective.class);
+        addDirective(sb, BodyTagDirective.class);
+        addDirective(sb, TextFieldDirective.class);
+        addDirective(sb, TextFieldDirective.class);
+
+        String directives = sb.toString();
+
+        String userdirective = p.getProperty("userdirective");
         if ((userdirective == null) || userdirective.trim().equals("")) {
             userdirective = directives;
         } else {
@@ -506,6 +522,10 @@ public class VelocityManager {
         }
 
         p.setProperty("userdirective", userdirective);
+    }
+
+    private void addDirective(StringBuffer sb, Class clazz) {
+        sb.append(clazz.getName()).append(",");
     }
 
     private static final String replace(String string, String oldString, String newString) {
