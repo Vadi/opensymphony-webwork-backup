@@ -34,6 +34,8 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.webwork.views.util.ContextUtil;
+import com.opensymphony.webwork.views.velocity.components.FormDirective;
+import com.opensymphony.webwork.views.velocity.components.TextFieldDirective;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -491,7 +493,11 @@ public class VelocityManager {
          * TODO: ... also, people must be allowed to define their own config that overrides this
          */
         String userdirective = p.getProperty("userdirective");
-        String directives = "com.opensymphony.webwork.views.velocity.ParamDirective" + "," + "com.opensymphony.webwork.views.velocity.TagDirective" + "," + "com.opensymphony.webwork.views.velocity.BodyTagDirective";
+        String directives = ParamDirective.class.getName() + ","
+                + TagDirective.class.getName() + ","
+                + BodyTagDirective.class.getName() + ","
+                + FormDirective.class.getName() + ","
+                + TextFieldDirective.class.getName();
 
         if ((userdirective == null) || userdirective.trim().equals("")) {
             userdirective = directives;

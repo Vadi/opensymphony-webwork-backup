@@ -35,17 +35,11 @@ import java.util.Properties;
  * @deprecated please use {@link com.opensymphony.webwork.dispatcher.VelocityResult} instead of direct access
  */
 public class WebWorkVelocityServlet extends VelocityServlet {
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     private VelocityManager velocityManager;
-
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public WebWorkVelocityServlet() {
         velocityManager = VelocityManager.getInstance();
     }
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);

@@ -14,15 +14,14 @@ import java.util.Map;
 
 
 /**
- * Created by IntelliJ IDEA.
  * User: matt
  * Date: May 28, 2003
  * Time: 12:54:46 PM
- * To change this template use Options | File Templates.
+ *
+ * @deprecated Automatic JSP tag support doesn't work well and is likely to break. Please use the native Velocity
+ * tags introduced in WebWork 2.2
  */
 public class BodyTagDirective extends AbstractTagDirective {
-    //~ Methods ////////////////////////////////////////////////////////////////
-
     public String getName() {
         return "bodytag";
     }

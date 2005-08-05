@@ -38,12 +38,10 @@ import java.util.*;
 /**
  * Custom user Directive that enables the WebWork2 UI tags to be easily accessed from Velocity pages
  *
- * @author $author$
- * @version $id$
+ * @deprecated Automatic JSP tag support doesn't work well and is likely to break. Please use the native Velocity
+ * tags introduced in WebWork 2.2
  */
 public abstract class AbstractTagDirective extends Directive {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
     protected static Log log = LogFactory.getLog(AbstractTagDirective.class);
 
     public static final String VELOCITY_WRITER = "com.opensymphony.webwork.views.velocity.AbstractTagDirective.VELOCITY_WRITER";
@@ -56,8 +54,6 @@ public abstract class AbstractTagDirective extends Directive {
      * todo enable this params to be reloaded or reset
      */
     protected static Map tagclassMap = new HashMap();
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * the guts of this directive that indicates how this directive should be rendered.  Conceptually, this method is
@@ -415,8 +411,6 @@ public abstract class AbstractTagDirective extends Directive {
             OgnlUtil.setProperty(key, value, object, ognlContext);
         }
     }
-
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     /**
      * the WrappedInternalContextAdapter is a simple wrapper around the InternalContextAdapter that allows us to
