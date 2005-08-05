@@ -34,11 +34,10 @@ import java.io.Writer;
  * </pre>
  *
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
- * @version $Id$
+ * @deprecated Automatic JSP tag support doesn't work well and is likely to break. Please use the native Velocity
+ * tags introduced in WebWork 2.2
  */
 public class ParamDirective extends Directive {
-    //~ Methods ////////////////////////////////////////////////////////////////
-
     public String getName() {
         return "param";
     }

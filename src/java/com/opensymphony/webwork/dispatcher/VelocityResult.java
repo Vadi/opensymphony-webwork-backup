@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.PageContext;
 import java.io.Writer;
+import java.io.OutputStreamWriter;
 
 
 /**
@@ -76,18 +77,16 @@ public class VelocityResult extends WebWorkResultSupport {
             Template t = getTemplate(stack, velocityManager.getVelocityEngine(), invocation, finalLocation);
 
             Context context = createContext(velocityManager, stack, request, response, finalLocation);
-            Writer writer = pageContext.getOut();
+            Writer writer = new OutputStreamWriter(response.getOutputStream());
 
-            if (usedJspFactory) {
-                String encoding = getEncoding(finalLocation);
-                String contentType = getContentType(finalLocation);
+            String encoding = getEncoding(finalLocation);
+            String contentType = getContentType(finalLocation);
 
-                if (encoding != null) {
-                    contentType = contentType + ";charset=" + encoding;
-                }
-
-                response.setContentType(contentType);
+            if (encoding != null) {
+                contentType = contentType + ";charset=" + encoding;
             }
+
+            response.setContentType(contentType);
 
             t.merge(context, writer);
 
