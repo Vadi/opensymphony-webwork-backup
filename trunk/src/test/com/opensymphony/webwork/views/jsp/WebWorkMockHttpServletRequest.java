@@ -125,7 +125,7 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
         HttpSession session = null;
 
         try {
-            session = super.getSession(true);
+            session = super.getSession();
         } catch (AssertionFailedError e) {
             //ignore
         }
