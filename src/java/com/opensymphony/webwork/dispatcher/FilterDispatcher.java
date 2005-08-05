@@ -19,6 +19,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -115,16 +116,22 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
 
     protected ComponentManager setupContainer(HttpServletRequest request) {
         ComponentManager container = createComponentManager();
-        HttpSession session = ((HttpServletRequest) request).getSession(true);
-        ComponentManager fallback = (ComponentManager) session.getAttribute(ComponentManager.COMPONENT_MANAGER_KEY);
+        HttpSession session = request.getSession(false);
+        ComponentManager fallback = null;
+        if (session != null) {
+            fallback = (ComponentManager) session.getAttribute(ComponentManager.COMPONENT_MANAGER_KEY);
+        }
+
+        ServletContext servletContext = getServletContext(session);
         if (fallback == null) {
-            fallback = (ComponentManager) getServletContext(session).getAttribute(ComponentManager.COMPONENT_MANAGER_KEY);
+            fallback = (ComponentManager) servletContext.getAttribute(ComponentManager.COMPONENT_MANAGER_KEY);
         }
 
         if (fallback != null) {
             container.setFallback(fallback);
         }
-        ComponentConfiguration config = (ComponentConfiguration) getServletContext(session).getAttribute("ComponentConfiguration");
+
+        ComponentConfiguration config = (ComponentConfiguration) servletContext.getAttribute("ComponentConfiguration");
         if (config != null) {
             config.configure(container, "request");
             request.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
@@ -142,11 +149,10 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
      * @return the servlet context.
      */
     protected ServletContext getServletContext(HttpSession session) {
-        return session.getServletContext();
+        return filterConfig.getServletContext();
     }
 
     protected void tearDownContainer() {
-
     }
 
     protected void findStaticResource(String name, HttpServletResponse response) throws IOException {

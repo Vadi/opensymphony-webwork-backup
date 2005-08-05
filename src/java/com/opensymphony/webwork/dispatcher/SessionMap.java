@@ -21,8 +21,9 @@ import java.util.*;
 public class SessionMap extends AbstractMap implements Serializable {
     //~ Instance fields ////////////////////////////////////////////////////////
 
-    HttpSession session;
-    Set entries;
+    protected HttpSession session;
+    protected Set entries;
+    protected HttpServletRequest request;
 
     //~ Constructors ///////////////////////////////////////////////////////////
 
@@ -33,7 +34,11 @@ public class SessionMap extends AbstractMap implements Serializable {
      * @param request the http servlet request object.
      */
     public SessionMap(HttpServletRequest request) {
-        this.session = request.getSession();
+        // note, holding on to this request and relying on lazy session initalization will not work
+        // if you are running your action invocation in a background task, such as using the
+        // "exec-and-wait" interceptor
+        this.request = request;
+        this.session = request.getSession(false);
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
@@ -42,9 +47,12 @@ public class SessionMap extends AbstractMap implements Serializable {
      * Removes all attributes from the session as well as clears entries in this map.
      */
     public void clear() {
+        if (session == null) {
+            return;
+        }
+
         synchronized (session) {
             entries = null;
-            session.invalidate();
         }
     }
 
@@ -54,6 +62,10 @@ public class SessionMap extends AbstractMap implements Serializable {
      * @return a Set of attributes from the http session.
      */
     public Set entrySet() {
+        if (session == null) {
+            return Collections.EMPTY_SET;
+        }
+
         synchronized (session) {
             if (entries == null) {
                 entries = new HashSet();
@@ -102,6 +114,10 @@ public class SessionMap extends AbstractMap implements Serializable {
      * @return the session attribute or <tt>null</tt> if it doesn't exist.
      */
     public Object get(Object key) {
+        if (session == null) {
+            return null;
+        }
+
         synchronized (session) {
             return session.getAttribute(key.toString());
         }
@@ -115,6 +131,12 @@ public class SessionMap extends AbstractMap implements Serializable {
      * @return the object that was just set.
      */
     public Object put(Object key, Object value) {
+        synchronized(this) {
+            if (session == null) {
+                session = request.getSession(false);
+            }
+        }
+
         synchronized (session) {
             entries = null;
             session.setAttribute(key.toString(), value);
@@ -130,6 +152,10 @@ public class SessionMap extends AbstractMap implements Serializable {
      * @return the value that was removed or <tt>null</tt> if the value was not found (and hence, not removed).
      */
     public Object remove(Object key) {
+        if (session == null) {
+            return null;
+        }
+
         synchronized (session) {
             entries = null;
 

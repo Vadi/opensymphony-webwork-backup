@@ -56,7 +56,7 @@ public class WebWorkMockPageContext extends MockPageContext {
         HttpSession session = super.getSession();
 
         if (session == null) {
-            session = ((HttpServletRequest) getRequest()).getSession();
+            session = ((HttpServletRequest) getRequest()).getSession(true);
         }
 
         return session;

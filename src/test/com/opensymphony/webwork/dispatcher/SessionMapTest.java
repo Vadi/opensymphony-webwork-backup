@@ -28,8 +28,6 @@ public class SessionMapTest extends TestCase {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testClearInvalidatesTheSession() throws Exception {
-        sessionMock.expect("invalidate");
-
         MockSessionMap sessionMap = new MockSessionMap((HttpServletRequest) requestMock.proxy());
         sessionMap.clear();
         sessionMock.verify();
@@ -111,7 +109,7 @@ public class SessionMapTest extends TestCase {
     protected void setUp() throws Exception {
         sessionMock = new Mock(HttpSession.class);
         requestMock = new Mock(HttpServletRequest.class);
-        requestMock.matchAndReturn("getSession", sessionMock.proxy());
+        requestMock.matchAndReturn("getSession", new Constraint[] { new IsEqual(Boolean.FALSE)}, sessionMock.proxy());
     }
 
     //~ Inner Classes //////////////////////////////////////////////////////////

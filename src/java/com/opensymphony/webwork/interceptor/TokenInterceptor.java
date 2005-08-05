@@ -55,7 +55,7 @@ public class TokenInterceptor implements Interceptor {
 
         HttpServletRequest request = ServletActionContext.getRequest();
 
-        synchronized (request.getSession()) {
+        synchronized (request.getSession(true)) {
             if (!TokenHelper.validToken(request)) {
                 return handleInvalidToken(invocation);
             }
