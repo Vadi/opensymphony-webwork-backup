@@ -11,14 +11,14 @@
         <link rel="stylesheet" type="text/css" href="<ww:url value="/webwork/niftycorners/niftyPrint.css"/>" media="print">
         <script type="text/javascript" src="<ww:url value="/webwork/niftycorners/nifty.js"/>"></script>
         <script type="text/javascript">
-            window.onload=function(){
+            dojo.event.connect (window, "onload" , function() {
                 if(!NiftyCheck())
                     return;
                 Rounded("li.tab_selected","top","white","transparent","border #ffffffS");
                 Rounded("li.tab_unselected","top","white","transparent","border #ffffffS");
 //                Rounded("div#tab_header_main li","top","white","transparent","border #ffffffS");
                 // "white" needs to be replaced with the background color
-            }
+            });
         </script>
     </head>
 <body>
