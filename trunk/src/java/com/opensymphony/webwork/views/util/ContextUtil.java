@@ -34,7 +34,7 @@ public class ContextUtil {
         map.put(REQUEST2, req);
         map.put(RESPONSE, res);
         map.put(RESPONSE2, res);
-        map.put(SESSION, req.getSession());
+        map.put(SESSION, req.getSession(false));
         map.put(BASE, req.getContextPath());
         map.put(STACK, stack);
         map.put(OGNL, OgnlTool.getInstance());

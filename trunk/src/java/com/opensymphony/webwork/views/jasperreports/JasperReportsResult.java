@@ -173,7 +173,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
                         Map imagesMap = new HashMap();
 
-                        request.getSession().setAttribute("IMAGES_MAP", imagesMap);
+                        request.getSession(true).setAttribute("IMAGES_MAP", imagesMap);
                         exporter = new JRHtmlExporter();
                         exporter.setParameter(JRHtmlExporterParameter.IMAGES_MAP, imagesMap);
                         exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + IMAGES_DIR);
