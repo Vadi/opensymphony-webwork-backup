@@ -9,7 +9,9 @@ import com.oreilly.servlet.MultipartRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 
 
 /**
@@ -77,6 +79,10 @@ public class CosMultiPartRequest extends MultiPartRequest {
 
     public String[] getParameterValues(String name) {
         return multi.getParameterValues(name);
+    }
+
+    public List getErrors() {
+        return Collections.EMPTY_LIST;
     }
 
     /**

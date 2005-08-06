@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -94,6 +95,10 @@ public class PellMultiPartRequest extends MultiPartRequest {
         }
 
         return (String[]) values.toArray(new String[values.size()]);
+    }
+
+    public List getErrors() {
+        return Collections.EMPTY_LIST;
     }
 
     /**
