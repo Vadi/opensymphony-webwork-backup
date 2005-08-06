@@ -4,9 +4,12 @@ import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,17 +22,19 @@ import java.util.Map;
  *         Created Apr 19, 2003 9:32:19 PM
  */
 public class UrlHelper {
-    //~ Static fields/initializers /////////////////////////////////////////////
+    private static final Log LOG = LogFactory.getLog(UrlHelper.class);
 
-    /** Default HTTP port (80). */
+    /**
+     * Default HTTP port (80).
+     */
     private static final int DEFAULT_HTTP_PORT = 80;
 
-    /** Default HTTPS port (443). */
+    /**
+     * Default HTTPS port (443).
+     */
     private static final int DEFAULT_HTTPS_PORT = 443;
 
     private static final String AMP = "&";
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params) {
         return buildUrl(action, request, response, params, null, true, true);
@@ -150,7 +155,8 @@ public class UrlHelper {
 
     /**
      * Translates any script expressions using {@link com.opensymphony.xwork.util.TextParseUtil#translateVariables} and
-     * encodes the URL using {@link java.net.URLEncoder#encode}
+     * encodes the URL using {@link java.net.URLEncoder#encode} with the encoding of UTF-8 (as recommended by the
+     * w3c and pointed out in issue WW-747).
      *
      * @param input
      * @return the translated and encoded string
@@ -159,6 +165,11 @@ public class UrlHelper {
         OgnlValueStack valueStack = ServletActionContext.getContext().getValueStack();
         String output = TextParseUtil.translateVariables(input, valueStack);
 
-        return URLEncoder.encode(output);
+        try {
+            return URLEncoder.encode(output, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOG.warn("Could not encode URL parameter '" + input + "', returning value un-encoded");
+            return output;
+        }
     }
 }
