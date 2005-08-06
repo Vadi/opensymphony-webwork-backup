@@ -10,11 +10,8 @@ package com.opensymphony.webwork.views.freemarker;
 import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.JspSupportServlet;
-import com.opensymphony.webwork.views.freemarker.tags.FormModel;
-import com.opensymphony.webwork.views.freemarker.tags.TextFieldModel;
 import com.opensymphony.webwork.views.freemarker.tags.WebWorkModels;
 import com.opensymphony.webwork.views.util.ContextUtil;
-import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -171,7 +168,7 @@ public class FreemarkerManager {
         return buildScopesHashModel(servletContext, request, response, wrapper, ActionContext.getContext().getValueStack());
     }
 
-    public void populateContext(ScopesHashModel model, OgnlValueStack stack, Action action, HttpServletRequest request, HttpServletResponse response) {
+    public void populateContext(ScopesHashModel model, OgnlValueStack stack, Object action, HttpServletRequest request, HttpServletResponse response) {
         // put the same objects into the context that the velocity result uses
         Map standard = ContextUtil.getStandardContext(stack, request, response);
         model.putAll(standard);
@@ -226,14 +223,14 @@ public class FreemarkerManager {
         // if people wish to
         return templatePathLoader != null ?
                 new MultiTemplateLoader(new TemplateLoader[]{
-                    templatePathLoader,
-                    new WebappTemplateLoader(servletContext),
-                    new ClassTemplateLoader(FreemarkerResult.class, "/")
+                        templatePathLoader,
+                        new WebappTemplateLoader(servletContext),
+                        new ClassTemplateLoader(FreemarkerResult.class, "/")
                 })
                 : new MultiTemplateLoader(new TemplateLoader[]{
-                    new WebappTemplateLoader(servletContext),
-                    new ClassTemplateLoader(FreemarkerResult.class, "/")
-                });
+                new WebappTemplateLoader(servletContext),
+                new ClassTemplateLoader(FreemarkerResult.class, "/")
+        });
     }
 
     /**
@@ -284,7 +281,7 @@ public class FreemarkerManager {
         }
     }
 
-    public SimpleHash buildTemplateModel(OgnlValueStack stack, Action action, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper) {
+    public SimpleHash buildTemplateModel(OgnlValueStack stack, Object action, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper) {
         ScopesHashModel model = buildScopesHashModel(servletContext, request, response, wrapper);
         populateContext(model, stack, action, request, response);
         model.put("ww", new WebWorkModels(stack, request, response));

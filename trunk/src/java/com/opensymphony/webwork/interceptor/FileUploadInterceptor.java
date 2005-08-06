@@ -6,7 +6,6 @@ package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
-import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ValidationAware;
 import com.opensymphony.xwork.interceptor.Interceptor;
@@ -71,7 +70,7 @@ public class FileUploadInterceptor implements Interceptor {
             return invocation.invoke();
         }
 
-        final Action action = invocation.getAction();
+        final Object action = invocation.getAction();
         ValidationAware validation = null;
 
         if (action instanceof ValidationAware) {

@@ -1,6 +1,5 @@
 package com.opensymphony.webwork.interceptor;
 
-import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionInvocation;
 
 import java.io.Serializable;
@@ -11,7 +10,7 @@ import java.io.Serializable;
  * @author <a href="plightbo@gmail.com">Pat Lightbody</a>
  */
 public class BackgroundProcess implements Serializable {
-    protected Action action;
+    protected Object action;
     protected ActionInvocation invocation;
     protected String result;
     protected Exception exception;
@@ -62,7 +61,7 @@ public class BackgroundProcess implements Serializable {
     protected void afterInvocation() throws Exception {
     }
 
-    public Action getAction() {
+    public Object getAction() {
         return action;
     }
 
