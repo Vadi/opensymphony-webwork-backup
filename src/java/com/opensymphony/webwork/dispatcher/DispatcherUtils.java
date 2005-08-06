@@ -139,15 +139,8 @@ public class DispatcherUtils {
                     method = (String) entry.getValue();
                     iterator.remove();
                 } else if (key.startsWith("action:")) {
-                    String action = (String) entry.getValue();
-                    int index = action.lastIndexOf('/');
-                    if (index == -1) {
-                        namespace = "";
-                        name = action;
-                    } else {
-                        namespace = action.substring(0, index);
-                        name = action.substring(index + 1);
-                    }
+                    name = (String) entry.getValue();
+                    iterator.remove();
                 }
             }
 
