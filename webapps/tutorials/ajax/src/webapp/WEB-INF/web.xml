@@ -15,18 +15,8 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>com.opensymphony.webwork.lifecycle.ApplicationLifecycleListener</listener-class>
+        <listener-class>com.opensymphony.webwork.lifecycle.LifecycleListener</listener-class>
     </listener>
-
-    <listener>
-        <listener-class>com.opensymphony.webwork.lifecycle.SessionLifecycleListener</listener-class>
-    </listener>
-
-    <servlet>
-        <servlet-name>JspSupportServlet</servlet-name>
-        <servlet-class>com.opensymphony.webwork.views.JspSupportServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
