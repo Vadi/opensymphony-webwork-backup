@@ -129,4 +129,8 @@ public class DocumentAdapter extends DefaultAdapterNode implements Document {
     public Node importNode(Node node, boolean b) throws DOMException {
         return null;
     }
+
+    public boolean isWhitespaceInElementContent() {
+        return true;
+    }
 }
