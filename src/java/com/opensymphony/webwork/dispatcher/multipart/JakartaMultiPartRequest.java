@@ -42,6 +42,7 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
         // capabilities
         upload.setSizeThreshold(0);
         upload.setSizeMax(maxSize);
+        upload.setHeaderEncoding(servletRequest.getCharacterEncoding()); 
         if (saveDir != null) {
             upload.setRepositoryPath(saveDir);
         }
