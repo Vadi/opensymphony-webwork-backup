@@ -5,6 +5,8 @@
 package com.opensymphony.webwork.dispatcher.multipart;
 
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -93,13 +95,13 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
 
                 // get the constructor
                 Constructor ctor = clazz.getDeclaredConstructor(new Class[]{
-                    Class.forName("javax.servlet.http.HttpServletRequest"),
-                    java.lang.String.class, int.class
+                        Class.forName("javax.servlet.http.HttpServletRequest"),
+                        java.lang.String.class, int.class
                 });
 
                 // build the parameter list
                 Object[] parms = new Object[]{
-                    request, saveDir, new Integer(maxSize)
+                        request, saveDir, new Integer(maxSize)
                 };
 
                 // instantiate it
@@ -330,5 +332,20 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
         }
 
         return temp.elements();
+    }
+
+    public Object getAttribute(String s) {
+        Object attribute = super.getAttribute(s);
+
+        // note: we don't let # come through or else a request for
+        // #attr.foo or #request.foo could cause an endless loop
+        if (attribute == null && s.indexOf("#") == -1) {
+            // If not found, then try the ValueStack
+            OgnlValueStack stack = ActionContext.getContext().getValueStack();
+            if (stack != null) {
+                attribute = stack.findValue(s);
+            }
+        }
+        return attribute;
     }
 }
