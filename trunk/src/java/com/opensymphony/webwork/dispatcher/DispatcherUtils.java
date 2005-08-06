@@ -1,5 +1,6 @@
 package com.opensymphony.webwork.dispatcher;
 
+import com.opensymphony.util.ClassLoaderUtil;
 import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkStatics;
@@ -12,6 +13,7 @@ import com.opensymphony.webwork.util.AttributeMap;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
+import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
@@ -66,6 +68,17 @@ public class DispatcherUtils {
     protected boolean paramsWorkaroundEnabled = false;
 
     protected DispatcherUtils(ServletContext servletContext) {
+        if (Configuration.isSet("webwork.objectFactory")) {
+            String className = (String) Configuration.get("webwork.objectFactory");
+            try {
+                Class clazz = ClassLoaderUtil.loadClass(className, DispatcherUtils.class);
+                ObjectFactory objectFactory = (ObjectFactory) clazz.newInstance();
+                ObjectFactory.setObjectFactory(objectFactory);
+            } catch (Exception e) {
+                LOG.error("Could not load ObjectFactory named " + className + ". Using default ObjectFactory.", e);
+            }
+        }
+
         LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
 
         //check for configuration reloading
