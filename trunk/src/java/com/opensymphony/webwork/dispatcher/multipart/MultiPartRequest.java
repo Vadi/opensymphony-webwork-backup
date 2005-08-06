@@ -111,7 +111,8 @@ public abstract class MultiPartRequest {
      * Returns a list of error messages that may have occurred while processing the request.
      * If there are no errors, an empty list is returned. If the underlying implementation
      * (ie: pell, cos, jakarta, etc) cannot support providing these errors, an empty list is
-     * also returned.
+     * also returned. This list of errors is repoted back to the
+     * {@link MultiPartRequestWrapper#errors} field.
      *
      * @return a list of Strings that represent various errors during parsing
      */
