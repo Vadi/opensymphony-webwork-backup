@@ -6,6 +6,8 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.util.ClassLoaderUtil;
 import com.opensymphony.webwork.WebWorkStatics;
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.xwork.ActionContext;
@@ -19,7 +21,6 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -30,7 +31,73 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
+ * Master filter for WebWork that handles four distinct responsibilities:
+ * <ul>
+ * <li>Executing actions</li>
+ * <li>Cleaning up the {@link ActionContext} (see note)</li>
+ * <li>Serving static content</li>
+ * <li>Kicking off XWork's IoC for the request lifecycle</li>
+ * </ul>
+ * <p/>
+ * <p/>
+ * <b>IMPORTANT</b>: this filter must be mapped to all requests. Unless you know exactly
+ * what you are doing, always map to this URL pattern: /*
+ * <p/>
+ * <p/>
+ * <b>Executing actions</b>
+ * <p/>
+ * <p/>
+ * This filter executes actions by consulting the {@link ActionMapper} and determining
+ * if the requested URL should invoke an action. If the mapper indicates it should, <b>the
+ * rest of the filter chain is stopped</b> and the action is invoked. This is important, as
+ * it means that filters like the SiteMesh filter must be placed <b>before</b> this filter
+ * or they will not be able to decorate the output of actions.
+ * <p/>
+ * <p/>
+ * <b>Cleaning up the {@link ActionContext}</b>
+ * <p/>
+ * <p/>
+ * This filter will also automatically clean up the {@link ActionContext} for you, ensuring
+ * that no memory leaks take place. However, this can sometimes cause problems integrating
+ * with other products like SiteMesh. See {@link ActionContexCleanUp} for more information
+ * on how to deal with this.
+ * <p/>
+ * <p/>
+ * <b>Serving static content</b>
+ * <p/>
+ * <p/>
+ * This filter also serves common static content needed when using various parts of WebWork,
+ * such as JavaScript files, CSS files, etc. It works by looking for requests to /webwork/*,
+ * and then mapping the value after "/webwork/" to common packages in WebWork and, optionally,
+ * in your class path. By default, the following packages are automatically searched:
+ * <ul>
+ * <li>com.opensymphony.webwork.static</li>
+ * <li>template</li>
+ * </ul>
+ * <p/>
+ * <p/>
+ * This means that you can simply request /webwork/xhtml/styles.css and the XHTML UI theme's default
+ * stylesheet will be returned. Likewise, many of the AJAX UI components require various JavaScript files,
+ * which are found in the com.opensymphony.webwork.static package. If you wish to add additional packages
+ * to be searched, you can add a comma separated list in the filter init parameter named "packages".
+ * <b>Be careful</b>, however, to expose any packages that may have sensitive information, such as properties
+ * file with database access credentials.
+ * <p/>
+ * <p/>
+ * <b>Kicking off XWork's IoC for the request lifecycle</b>
+ * <p/>
+ * This filter also kicks off the XWork IoC request scope, provided that you are using XWork's IoC. All
+ * you have to do to get started with XWork's IoC is add a components.xml file to WEB-INF/classes and
+ * properly set up the {@link com.opensymphony.webwork.lifecycle.LifecycleListener} in web.xml. See the IoC
+ * docs for more information.
+ * <p/>
+ * <p/>
+ *
  * @author Patrick Lightbody
+ * @see com.opensymphony.webwork.lifecycle.LifecycleListener
+ * @see ActionMapper
+ * @see ActionContexCleanUp
+ * @since 2.2
  */
 public class FilterDispatcher implements Filter, WebWorkStatics {
     private static final Log LOG = LogFactory.getLog(FilterDispatcher.class);
@@ -73,11 +140,11 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-        ActionMapping mapping = ActionMapperFactory.getMapper().getMapping(request);
-        ComponentManager componentManager = null;
+        ActionMapper mapper = ActionMapperFactory.getMapper();
+        ActionMapping mapping = mapper.getMapping(request);
 
         try {
-            componentManager = setupContainer(request);
+            setupContainer(request);
 
             if (mapping == null) {
                 // there is no action in this request, should we look for a static resource?
@@ -104,18 +171,12 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
                 du.serviceAction(request, response, filterConfig.getServletContext(), mapping);
             }
         } finally {
-            // tear down the component manager if it was created
-            if (componentManager != null) {
-                componentManager.dispose();
-            }
-
-            // always clean up the thread request, even if an action hasn't been executed
-            ActionContext.setContext(null);
+            ActionContexCleanUp.cleanUp(req);
         }
     }
 
-    protected ComponentManager setupContainer(HttpServletRequest request) {
-        ComponentManager container = createComponentManager();
+    protected void setupContainer(HttpServletRequest request) {
+        ComponentManager container = null;
         HttpSession session = request.getSession(false);
         ComponentManager fallback = null;
         if (session != null) {
@@ -128,16 +189,19 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         }
 
         if (fallback != null) {
+            container = createComponentManager();
             container.setFallback(fallback);
         }
 
         ComponentConfiguration config = (ComponentConfiguration) servletContext.getAttribute("ComponentConfiguration");
         if (config != null) {
+            if (container == null) {
+                container = createComponentManager();
+            }
+
             config.configure(container, "request");
             request.setAttribute(ComponentManager.COMPONENT_MANAGER_KEY, container);
         }
-
-        return container;
     }
 
     /**
@@ -156,15 +220,17 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     protected void findStaticResource(String name, HttpServletResponse response) throws IOException {
-        for (int i = 0; i < pathPrefixes.length; i++) {
-            InputStream is = findInputStream(name, pathPrefixes[i]);
-            if (is != null) {
-                try {
-                    copy(is, response.getOutputStream());
-                } finally {
-                    is.close();
+        if (!name.endsWith(".class")) {
+            for (int i = 0; i < pathPrefixes.length; i++) {
+                InputStream is = findInputStream(name, pathPrefixes[i]);
+                if (is != null) {
+                    try {
+                        copy(is, response.getOutputStream());
+                    } finally {
+                        is.close();
+                    }
+                    return;
                 }
-                return;
             }
         }
 
@@ -173,7 +239,7 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
 
     protected void copy(InputStream input, OutputStream output) throws IOException {
         final byte[] buffer = new byte[4096];
-        int n = 0;
+        int n;
         while (-1 != (n = input.read(buffer))) {
             output.write(buffer, 0, n);
         }
@@ -182,8 +248,8 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     protected InputStream findInputStream(String name, String packagePrefix) throws IOException {
         String resourcePath = packagePrefix + name;
 
-        // TODO allow the enc type to be configured
-        resourcePath = URLDecoder.decode(resourcePath);
+        String enc = (String) Configuration.get("webwork.i18n.encoding");
+        resourcePath = URLDecoder.decode(resourcePath, enc);
 
         return ClassLoaderUtil.getResourceAsStream(resourcePath, getClass());
     }
