@@ -5,15 +5,11 @@
 package com.opensymphony.webwork.dispatcher.multipart;
 
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -37,17 +33,11 @@ import java.util.*;
  *
  * @author Matt Baldree
  */
-public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
+public class MultiPartRequestWrapper extends WebWorkRequestWrapper {
     protected static final Log log = LogFactory.getLog(MultiPartRequestWrapper.class);
-
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Collection errors;
     MultiPartRequest multi;
-
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Instantiates the appropriate MultiPartRequest parser implementation and processes the data.
@@ -56,15 +46,13 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
      * @param saveDir directory to save the file(s) to
      * @param maxSize maximum file size allowed
      */
-    public MultiPartRequestWrapper(HttpServletRequest request, String saveDir, int maxSize) throws IOException {
+    public MultiPartRequestWrapper(HttpServletRequest request, String saveDir, int maxSize) {
         super(request);
 
         if (request instanceof MultiPartRequest) {
             multi = (MultiPartRequest) request;
         } else {
-            String parser = "";
-
-            parser = Configuration.getString("webwork.multipart.parser");
+            String parser = Configuration.getString("webwork.multipart.parser");
 
             // If it's not set, use Pell
             if (parser.equals("")) {
@@ -106,6 +94,10 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
 
                 // instantiate it
                 multi = (MultiPartRequest) ctor.newInstance(parms);
+                for (Iterator iter = multi.getErrors().iterator(); iter.hasNext();) {
+                    String error = (String) iter.next();
+                    addError(error);
+                }
             } catch (ClassNotFoundException e) {
                 addError("Class: " + parser + " not found.");
             } catch (NoSuchMethodException e) {
@@ -120,8 +112,6 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
             }
         }
     }
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * @deprecated use {@link #getFileParameterNames()} instead
@@ -332,20 +322,5 @@ public class MultiPartRequestWrapper extends HttpServletRequestWrapper {
         }
 
         return temp.elements();
-    }
-
-    public Object getAttribute(String s) {
-        Object attribute = super.getAttribute(s);
-
-        // note: we don't let # come through or else a request for
-        // #attr.foo or #request.foo could cause an endless loop
-        if (attribute == null && s.indexOf("#") == -1) {
-            // If not found, then try the ValueStack
-            OgnlValueStack stack = ActionContext.getContext().getValueStack();
-            if (stack != null) {
-                attribute = stack.findValue(s);
-            }
-        }
-        return attribute;
     }
 }

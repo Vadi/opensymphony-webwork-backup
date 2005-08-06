@@ -20,14 +20,12 @@ import java.util.*;
  * @author Bruce Ritchie
  */
 public class JakartaMultiPartRequest extends MultiPartRequest {
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     // maps parameter name -> List of FileItem objects
     private Map files = new HashMap();
     // maps parameter name -> List of param values
     private Map params = new HashMap();
-
-    //~ Constructors ///////////////////////////////////////////////////////////
+    // any errors while processing this request
+    private List errors = new ArrayList();
 
     /**
      * Creates a new request wrapper to handle multi-part data using methods adapted from Jason Pell's
@@ -57,7 +55,7 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
                 log.debug("Found item " + item.getFieldName());
                 if (item.isFormField()) {
                     log.debug("Item is a normal form field");
-                    List values = null;
+                    List values;
                     if (params.get(item.getFieldName()) != null) {
                         values = (List) params.get(item.getFieldName());
                     } else {
@@ -80,7 +78,7 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
                 } else {
                     log.debug("Item is a file upload");
 
-                    List values = null;
+                    List values;
                     if (files.get(item.getFieldName()) != null) {
                         values = (List) files.get(item.getFieldName());
                     } else {
@@ -93,10 +91,9 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
             }
         } catch (FileUploadException e) {
             log.error(e);
+            errors.add(e.getMessage());
         }
     }
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public Enumeration getFileParameterNames() {
         return Collections.enumeration(files.keySet());
@@ -201,5 +198,9 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
         }
 
         return null;
+    }
+
+    public List getErrors() {
+        return errors;
     }
 }

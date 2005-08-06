@@ -7,6 +7,7 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
+import com.opensymphony.webwork.dispatcher.multipart.WebWorkRequestWrapper;
 import com.opensymphony.webwork.util.AttributeMap;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
@@ -325,12 +326,14 @@ public class DispatcherUtils {
      */
     public HttpServletRequest wrapRequest(HttpServletRequest request, ServletContext servletContext) throws IOException {
         // don't wrap more than once
-        if (request instanceof MultiPartRequestWrapper) {
+        if (request instanceof WebWorkRequestWrapper) {
             return request;
         }
 
         if (MultiPartRequest.isMultiPart(request)) {
             request = new MultiPartRequestWrapper(request, getSaveDir(servletContext), getMaxSize());
+        } else {
+            request = new WebWorkRequestWrapper(request);
         }
 
         return request;

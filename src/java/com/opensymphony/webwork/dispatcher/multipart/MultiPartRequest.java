@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.Enumeration;
+import java.util.List;
 
 
 /**
@@ -35,7 +36,7 @@ public abstract class MultiPartRequest {
     public static boolean isMultiPart(HttpServletRequest request) {
         String content_type = request.getHeader("Content-Type");
 
-        return ((content_type == null) || !content_type.startsWith("multipart/form-data")) ? false : true;
+        return !(content_type == null || !content_type.startsWith("multipart/form-data"));
     }
 
     /**
@@ -105,4 +106,14 @@ public abstract class MultiPartRequest {
      * @return an array of all values associated with the parameter name.
      */
     public abstract String[] getParameterValues(String name);
+
+    /**
+     * Returns a list of error messages that may have occurred while processing the request.
+     * If there are no errors, an empty list is returned. If the underlying implementation
+     * (ie: pell, cos, jakarta, etc) cannot support providing these errors, an empty list is
+     * also returned.
+     *
+     * @return a list of Strings that represent various errors during parsing
+     */
+    public abstract List getErrors();
 }
