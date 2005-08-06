@@ -6,7 +6,6 @@ package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.util.TokenHelper;
-import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ValidationAware;
@@ -70,7 +69,7 @@ public class TokenInterceptor implements Interceptor {
      * @throws Exception
      */
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
-        Action action = invocation.getAction();
+        Object action = invocation.getAction();
         String errorMessage = LocalizedTextUtil.findText(this.getClass(), "webwork.messages.invalid.token", ActionContext.getContext().getLocale(), "The form has already been processed or no token was supplied, please try again.", new Object[0]);
 
         if (action instanceof ValidationAware) {

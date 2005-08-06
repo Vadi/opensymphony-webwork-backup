@@ -16,14 +16,13 @@ import java.util.Map;
  * User: plightbo
  * Date: Dec 11, 2004
  * Time: 6:17:58 PM
- *
-<dwr>
-  <allow>
-      <create creator="new" javascript="validator" class="com.opensymphony.webwork.validators.DWRValidator"/>
-      <convert converter="bean" match="com.opensymphony.xwork.ValidationAwareSupport"/>
-  </allow>
-</dwr>
-
+ * <p/>
+ * <dwr>
+ * <allow>
+ * <create creator="new" javascript="validator" class="com.opensymphony.webwork.validators.DWRValidator"/>
+ * <convert converter="bean" match="com.opensymphony.xwork.ValidationAwareSupport"/>
+ * </allow>
+ * </dwr>
  */
 public class DWRValidator {
     public ValidationAwareSupport doPost(String namespace, String action, Map params) throws Exception {
@@ -35,7 +34,7 @@ public class DWRValidator {
 
         ValidatorActionProxy proxy = new ValidatorActionProxy(namespace, action, ctx);
         proxy.execute();
-        Action a = proxy.getAction();
+        Object a = proxy.getAction();
 
         if (a instanceof ValidationAware) {
             ValidationAware aware = (ValidationAware) a;

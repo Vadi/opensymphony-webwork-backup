@@ -6,7 +6,6 @@ package com.opensymphony.webwork.components.template;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
-import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -45,7 +44,7 @@ public class FreemarkerTemplateEngine extends BaseTemplateEngine {
 
         ActionInvocation ai = ActionContext.getContext().getActionInvocation();
 
-        Action action = (ai == null) ? null : ai.getAction();
+        Object action = (ai == null) ? null : ai.getAction();
         SimpleHash model = freemarkerManager.buildTemplateModel(stack, action, servletContext, req, res, config.getObjectWrapper());
 
         model.put("tag", templateContext.getTag());

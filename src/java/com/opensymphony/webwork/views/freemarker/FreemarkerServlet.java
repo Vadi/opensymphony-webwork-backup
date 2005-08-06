@@ -9,7 +9,6 @@
 package com.opensymphony.webwork.views.freemarker;
 
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import freemarker.template.*;
 
@@ -81,9 +80,9 @@ public class FreemarkerServlet extends HttpServlet {
     }
 
     protected TemplateModel createModel(ObjectWrapper wrapper, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) throws TemplateModelException {
-    	
+
         OgnlValueStack stack = ServletActionContext.getContext().getValueStack();
-        Action action = null;
+        Object action = null;
         if (ServletActionContext.getContext().getActionInvocation() != null) {
             action = ServletActionContext.getContext().getActionInvocation().getAction();
         }
@@ -217,7 +216,7 @@ public class FreemarkerServlet extends HttpServlet {
         ServletContext servletContext = getServletContext();
 
         try {
-        	TemplateModel model = createModel(getObjectWrapper(), servletContext, request, response);
+            TemplateModel model = createModel(getObjectWrapper(), servletContext, request, response);
 
             // Give subclasses a chance to hook into preprocessing
             if (preTemplateProcess(request, response, template, model)) {
