@@ -1,15 +1,16 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.util.TextParseUtil;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
+import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.util.TextParseUtil;
 
-import java.util.Stack;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.io.Writer;
-import java.io.PrintWriter;
+import java.util.Stack;
 
 /**
  * User: plightbo
@@ -21,9 +22,12 @@ public class Component {
     public static final String COMPONENT_STACK = "__component_stack";
 
     protected OgnlValueStack stack;
+    protected Map parameters;
+    protected String id;
 
     public Component(OgnlValueStack stack) {
         this.stack = stack;
+        this.parameters = new HashMap();
         stack.push(this);
         getComponentStack().push(this);
     }
@@ -112,4 +116,31 @@ public class Component {
         return bout.toString();
     }
 
+    public Map getParameters() {
+        return parameters;
+    }
+
+    public void addAllParameters(Map params) {
+        parameters.putAll(params);
+    }
+
+    public void addParameter(String key, Object value) {
+        if (key != null) {
+            Map params = getParameters();
+
+            if (value == null) {
+                params.remove(key);
+            } else {
+                params.put(key, value);
+            }
+        }
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

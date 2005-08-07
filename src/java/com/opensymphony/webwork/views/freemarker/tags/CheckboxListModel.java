@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.freemarker.tags;
 
-import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.webwork.components.CheckboxList;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ public class CheckboxListModel extends TagModel {
         super(stack, req, res);
     }
 
-    protected UIBean getBean() {
+    protected Component getBean() {
         return new CheckboxList(stack, req, res);
     }
 }

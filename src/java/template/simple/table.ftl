@@ -1,82 +1,48 @@
-#set($webTable=$tag)
-#set($tableModel=$webTable.Model)
+<#assign webTable = tag/>
+<#assign tableModel = webTable.model/>
 
-
-#if($tableModel)
-		<p align="center">
-			<table bgcolor="white" border="0" cellpadding="1" cellspacing="0" >
-				<tr>
-					<td>
-						<table  border="0" cellpadding="2" cellspacing="1">
-
-                            <tr bgcolor="yellow">
-
-                            #*
-                                Show the visible column names.  Use the display name that can
-                                be set in the jsp.
-                            *#
-                            #foreach($curColumn in $webTable.Columns)
-                                #if($curColumn.isVisible())
-                                        <th>
-
-                                            #if($webTable.isSortable())
-                                                <table border="0" cellspacing="0" cellpadding="0">
-												<tr>
-												    <td>
-												        $curColumn.DisplayName
-												    </td>
-												    <td>
-												        <table border="0" cellspacing="0" cellpadding="0">
-												            <tr>
-                                                                <td align="bottom">
-
-                                                                    #if(($curColumn.sortColumn == $curColumn.offset) && ($curColumn.sortOrder == 'ASC'))
-                                                                        <img src="images/sorted_asc.gif" border="0" align="bottom"/>
-                                                                    #else
-                                                                        <a href="#bodytag( URL )
-                                                                                    #param( "$webTable.sortColumnLinkName $curColumn.offset)
-                                                                                    #param( $webTable.sortOrderLinkName 'ASC')
-                                                                                 #end>
-                                                                       <img src="images/unsorted_asc.gif" border="0" align="bottom"/></a>
-                                                                    #end
-                                                                </td>
-												            </tr>
-												            <tr>
-
-                                                                <td align="top">
-                                                                    #if(($curColumn.sortColumn == $curColumn.offset) && ($curColumn.sortOrder == 'DESC'))
-                                                                        <img src="images/sorted_desc.gif" border="0" align="top"/>
-                                                                    #else
-                                                                        <a href="#bodytag( URL )
-                                                                                    #param( "$webTable.sortColumnLinkName $curColumn.offset)
-                                                                                    #param( $webTable.sortOrderLinkName 'DESC')
-                                                                                  #end><img src="images/sorted_desc.gif" border="0" align="top"/></a>
-                                                                    #end
-                                                                </td>
-                                                            </tr>
-												        </table>
-
-												    </td>
-												</tr>
-												</table>
-                                            #else
-                                                $curColumn.DisplayName
-                                            #end
-                                        </th>
-                                #end
-                            #end
+<#if tableModel?exists>
+<p align="center">
+<table bgcolor="white" border="0" cellpadding="1" cellspacing="0" >
+    <tr>
+        <td>
+            <table  border="0" cellpadding="2" cellspacing="1">
+                <tr bgcolor="yellow">
+<#list webTable.columns as curColumn>
+<#if curColumn.visible>
+                    <th>
+<#if webTable.sortable>
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td>${curColumn.displayName}</td>
+                                <td>
+                                    <table border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td align="bottom"></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="top"></td>
+                                        </tr>
+                                    </table>
+                                </td>
                             </tr>
-                             #foreach($curRow in $webTable.RowIterator)
-                                <tr #if($velocityCount % 2 == 1) bgcolor="EEEEFF" #else bgcolor="FFFFFF" #end/>
-                                #foreach($curColumn in $curRow)
-                                <td>$curColumn</td>
-
-                                #end
-                             #end
-						</table>
-					</td>
-				</tr>
-			</table>
-		</p>
-
-#end
+                        </table>
+<#else>
+                        ${curColumn.displayName}
+</#if>
+                    </th>
+</#if>
+</#list>
+                </tr>
+<#list webTable.rowIterator as curRow>
+                <tr>
+<#list curRow as curColumn>
+                    <td>${curColumn}</td>
+</#list>
+                </tr>
+</#list>
+            </table>
+        </td>
+    </tr>
+</table>
+</#if>

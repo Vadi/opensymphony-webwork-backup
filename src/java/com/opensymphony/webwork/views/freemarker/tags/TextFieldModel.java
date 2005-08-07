@@ -1,6 +1,6 @@
 package com.opensymphony.webwork.views.freemarker.tags;
 
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.TextField;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -17,7 +17,7 @@ public class TextFieldModel extends TagModel {
         super(stack, req, res);
     }
 
-    protected UIBean getBean() {
+    protected Component getBean() {
         return new TextField(stack, req, res);
     }
 }

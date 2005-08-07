@@ -1,20 +1,17 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.webwork.components.template.TemplateEngine;
 import com.opensymphony.webwork.components.template.TemplateEngineManager;
 import com.opensymphony.webwork.components.template.TemplateRenderingContext;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.xwork.config.ConfigurationException;
+import com.opensymphony.xwork.util.OgnlValueStack;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 import java.io.Writer;
-
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
 
 /**
  * User: plightbo
@@ -26,16 +23,13 @@ public abstract class UIBean extends Component {
 
     private static final Log LOG = LogFactory.getLog(UIBean.class);
 
-    protected Map parameters;
     protected HttpServletRequest request;
     protected HttpServletResponse response;
-
 
     public UIBean(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack);
         this.request = request;
         this.response = response;
-        this.parameters = new HashMap();
     }
 
     // The template to use, overrides the default one.
@@ -45,7 +39,6 @@ public abstract class UIBean extends Component {
     protected String templateDir;
     protected String theme;
 
-    protected String id;
     protected String cssClass;
     protected String cssStyle;
     protected String disabled;
@@ -71,14 +64,6 @@ public abstract class UIBean extends Component {
     protected String onkeyup;
     protected String onselect;
     protected String onchange;
-
-    public Map getParameters() {
-        return parameters;
-    }
-
-    public void addAllParameters(Map params) {
-        parameters.putAll(params);
-    }
 
     public void end(Writer writer) {
         evaluateParams();
@@ -126,13 +111,13 @@ public abstract class UIBean extends Component {
         templateName.append(templateDir);
 
         final String theme = getTheme();
-        if (theme != null && !templateDir.endsWith(FILE_SEPARATOR) && !theme.startsWith(FILE_SEPARATOR) ) {
+        if (theme != null && !templateDir.endsWith(FILE_SEPARATOR) && !theme.startsWith(FILE_SEPARATOR)) {
             templateName.append(FILE_SEPARATOR);
         }
         templateName.append(theme);
 
         if (template != null && !template.startsWith(FILE_SEPARATOR)) {
-           templateName.append(FILE_SEPARATOR);
+            templateName.append(FILE_SEPARATOR);
         }
         templateName.append(template);
         return templateName.toString();
@@ -346,18 +331,6 @@ public abstract class UIBean extends Component {
         return String.class;
     }
 
-    public void addParameter(String key, Object value) {
-        if (key != null) {
-            Map params = getParameters();
-
-            if (value == null) {
-                params.remove(key);
-            } else {
-                params.put(key, value);
-            }
-        }
-    }
-
     public void setTheme(String theme) {
         this.theme = theme;
     }
@@ -368,14 +341,6 @@ public abstract class UIBean extends Component {
 
     public void setTemplate(String template) {
         this.template = template;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public void setCssClass(String cssClass) {

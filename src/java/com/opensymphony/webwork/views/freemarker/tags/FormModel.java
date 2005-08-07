@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.freemarker.tags;
 
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.Form;
-import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ public class FormModel extends TagModel {
         super(stack, req, res);
     }
 
-    protected UIBean getBean() {
+    protected Component getBean() {
         return new Form(stack, req, res);
     }
 }

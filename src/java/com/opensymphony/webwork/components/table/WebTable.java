@@ -3,17 +3,16 @@ package com.opensymphony.webwork.components.table;
 import com.opensymphony.webwork.components.GenericUIBean;
 import com.opensymphony.webwork.components.table.renderer.CellRenderer;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.util.OgnlUtil;
-import com.opensymphony.xwork.ActionContext;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.table.TableModel;
-import java.util.*;
 import java.io.Writer;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * User: plightbo
@@ -102,23 +101,13 @@ public class WebTable extends GenericUIBean {
 
     protected void evaluateExtraParams() {
         if (modelName != null) {
-            modelName = (String) stack.findValue(modelName);
+            modelName = findString(modelName);
 
             Object obj = stack.findValue(this.modelName);
 
             if (obj instanceof TableModel) {
                 setModel((TableModel) obj);
             }
-        }
-
-        // evaluate all the parameters for the webtable
-        Map params = getParameters();
-        Set set = params.keySet();
-
-        for (Iterator iterator = set.iterator(); iterator.hasNext();) {
-            String key = (String) iterator.next();
-            Object value = params.get(key);
-            OgnlUtil.setProperty(key, value, this, ActionContext.getContext().getContextMap());
         }
 
         super.evaluateExtraParams();
@@ -283,11 +272,6 @@ public class WebTable extends GenericUIBean {
 
     public boolean isSortable() {
         return sortableAttr;
-    }
-
-    public void addParameter(String name, Object value) {
-        OgnlUtil.setProperty(name, value, this, getStack().getContext());
-        super.addParameter(name, value);
     }
 
     /**

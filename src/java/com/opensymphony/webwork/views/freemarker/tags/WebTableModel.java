@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.freemarker.tags;
 
 import com.opensymphony.webwork.components.Component;
-import com.opensymphony.webwork.components.Token;
+import com.opensymphony.webwork.components.table.WebTable;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * User: plightbo
- * Date: Aug 1, 2005
- * Time: 8:48:55 PM
+ * Date: Aug 6, 2005
+ * Time: 8:13:02 PM
  */
-public class TokenModel extends TagModel {
-    public TokenModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+public class WebTableModel extends TagModel {
+    public WebTableModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         super(stack, req, res);
     }
 
     protected Component getBean() {
-        return new Token(stack, req, res);
+        return new WebTable(stack, req, res);
     }
 }
