@@ -31,6 +31,9 @@ public class WebWorkModels {
     protected TextAreaModel textarea;
     protected TextFieldModel textfield;
     protected TokenModel token;
+    protected WebTableModel table;
+    protected URLModel url;
+    protected ParamModel param;
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         this.stack = stack;
@@ -164,5 +167,29 @@ public class WebWorkModels {
         }
 
         return token;
+    }
+
+    public WebTableModel getTable() {
+        if (table == null) {
+            table = new WebTableModel(stack, req, res);
+        }
+
+        return table;
+    }
+
+    public URLModel getUrl() {
+        if (url == null) {
+            url = new URLModel(stack, req, res);
+        }
+
+        return url;
+    }
+
+    public ParamModel getParam() {
+        if (param == null) {
+            param = new ParamModel();
+        }
+
+        return param;
     }
 }

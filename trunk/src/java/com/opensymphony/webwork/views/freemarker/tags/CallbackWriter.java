@@ -1,6 +1,6 @@
 package com.opensymphony.webwork.views.freemarker.tags;
 
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TransformControl;
 
@@ -13,16 +13,15 @@ import java.io.Writer;
  * Time: 8:00:24 PM
  */
 public class CallbackWriter extends Writer implements TransformControl {
-    private UIBean bean;
+    private Component bean;
     private Writer writer;
 
-    public CallbackWriter(UIBean bean, Writer writer) {
+    public CallbackWriter(Component bean, Writer writer) {
         this.bean = bean;
         this.writer = writer;
     }
 
     public void close() throws IOException {
-        writer.close();
     }
 
     public void flush() throws IOException {
@@ -44,7 +43,10 @@ public class CallbackWriter extends Writer implements TransformControl {
     }
 
     public void onError(Throwable throwable) throws Throwable {
-        throwable.printStackTrace();
+        throw throwable;
     }
 
+    public Component getBean() {
+        return bean;
+    }
 }

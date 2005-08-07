@@ -1,18 +1,17 @@
 package com.opensymphony.webwork.views.freemarker.tags;
 
-import freemarker.template.TemplateTransformModel;
-import freemarker.template.TemplateModelException;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.webwork.components.Form;
-import com.opensymphony.webwork.components.UIBean;
+import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateTransformModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.Writer;
 import java.io.IOException;
-import java.util.Map;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * User: plightbo
@@ -31,13 +30,13 @@ public abstract class TagModel implements TemplateTransformModel {
     }
 
     public Writer getWriter(Writer writer, Map params) throws TemplateModelException, IOException {
-        UIBean bean = getBean();
+        Component bean = getBean();
         bean.copyParams(convertParams(params));
         bean.start(writer);
         return new CallbackWriter(bean, writer);
     }
 
-    protected abstract UIBean getBean();
+    protected abstract Component getBean();
 
     private Map convertParams(Map params) {
         HashMap map = new HashMap(params.size());
