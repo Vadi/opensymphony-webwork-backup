@@ -18,6 +18,7 @@
         <#if tag.contains(parameters.nameValue, itemKey)>
  checked="checked"<#rt/>
         </#if>
+        <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
 />
 <label for="${parameters.name?html}-${itemCount}" class="checkboxLabel">${itemValue?html}</label>
         <#assign trash = stack.pop()/>

@@ -27,9 +27,9 @@ public class CheckboxListTest extends AbstractUITagTest {
         collection.add("foo");
         testAction.setCollection(collection);
         testAction.setList(new String[][]{
-            {"hello", "world"},
-            {"foo", "bar"},
-            {"cat", "dog"}
+                {"hello", "world"},
+                {"foo", "bar"},
+                {"cat", "dog"}
         });
 
         CheckboxListTag tag = new CheckboxListTag();
@@ -50,8 +50,8 @@ public class CheckboxListTest extends AbstractUITagTest {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("hello");
         testAction.setList(new String[][]{
-            {"hello", "world"},
-            {"foo", "bar"}
+                {"hello", "world"},
+                {"foo", "bar"}
         });
 
         CheckboxListTag tag = new CheckboxListTag();
@@ -61,6 +61,7 @@ public class CheckboxListTest extends AbstractUITagTest {
         tag.setList("list");
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
+        tag.setOnchange("alert('foo');");
 
         tag.doStartTag();
         tag.doEndTag();
