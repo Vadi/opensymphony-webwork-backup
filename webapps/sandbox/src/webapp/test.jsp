@@ -1,3 +1,4 @@
+<%@ page import="javax.servlet.http.HttpSession" %>
 <%@ taglib uri="webwork" prefix="ww" %>
 
 <ww:if test="1 == 1">
@@ -10,3 +11,7 @@
         out.print(".. but that doesn't mean create a session!");
     }
 %>
+
+<ww:url value="http://www.yahoo.com">
+    <ww:param name="foo" value="'bar'"/>
+</ww:url>
