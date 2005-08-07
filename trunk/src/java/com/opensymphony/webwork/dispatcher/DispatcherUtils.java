@@ -68,6 +68,9 @@ public class DispatcherUtils {
     protected boolean paramsWorkaroundEnabled = false;
 
     protected DispatcherUtils(ServletContext servletContext) {
+        boolean reloadi18n = new Boolean((String) Configuration.get("webwork.i18n.reload")).booleanValue();
+        LocalizedTextUtil.setReloadBundles(reloadi18n);
+
         if (Configuration.isSet("webwork.objectFactory")) {
             String className = (String) Configuration.get("webwork.objectFactory");
             try {
