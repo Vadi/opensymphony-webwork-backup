@@ -5,7 +5,11 @@
 
     <package name="default" extends="webwork-default">
         <action name="test">
-            <result type="velocity">test.vm</result>
+            <result type="freemarker">test.ftl</result>
+        </action>
+
+        <action name="tableTest" class="com.opensymphony.webwork.sandbox.TableTest">
+            <result type="freemarker">tableTest.ftl</result>
         </action>
     </package>
 </xwork>

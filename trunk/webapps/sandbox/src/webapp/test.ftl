@@ -1,7 +1,15 @@
 hello:
 <hr/>
 
+Hello!!!
+
 <@ww.form action="test">
-    <@ww.textfield label="test" name="foo"/>
+    <@ww.textfield name="foo">
+        <@ww.param name="label">
+            <@ww.url value="http://www.yahoo.com">
+                <@ww.param name="foo">bar</@ww.param>
+            </@ww.url>
+        </@ww.param>
+    </@ww.textfield>
 </@ww.form>
 
