@@ -4,9 +4,9 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.mockobjects.servlet.MockJspWriter;
-
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import java.io.StringWriter;
 
 
 /**
@@ -16,20 +16,16 @@ import javax.servlet.jsp.JspException;
  * @version $Revision$
  */
 public class URLTagTest extends AbstractUITagTest {
-    //~ Instance fields ////////////////////////////////////////////////////////
-
-    private MockJspWriter jspWriter;
+    private StringWriter writer = new StringWriter();
     private URLTag tag;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
     public void testActionURL() {
-        jspWriter.setExpectedData("TestAction.action");
         tag.setValue("TestAction.action");
 
         try {
             tag.doStartTag();
             tag.doEndTag();
+            assertEquals("TestAction.action", writer.toString());
         } catch (JspException ex) {
             ex.printStackTrace();
             fail();
@@ -39,7 +35,6 @@ public class URLTagTest extends AbstractUITagTest {
     public void testAddParameters() {
         request.setAttribute("webwork.request_uri", "/Test.action");
 
-        jspWriter.setExpectedData("/TestAction.action?param2=value2&param0=value0&param1=value1");
         request.setAttribute("webwork.request_uri", "/TestAction.action");
         request.setQueryString("param0=value0");
 
@@ -48,6 +43,7 @@ public class URLTagTest extends AbstractUITagTest {
             tag.addParameter("param1", "value1");
             tag.addParameter("param2", "value2");
             tag.doEndTag();
+            assertEquals("/TestAction.action?param2=value2&amp;param0=value0&amp;param1=value1", writer.toString());
         } catch (JspException ex) {
             ex.printStackTrace();
             fail();
@@ -58,12 +54,12 @@ public class URLTagTest extends AbstractUITagTest {
         Foo foo = new Foo();
         foo.setTitle("test");
         stack.push(foo);
-        jspWriter.setExpectedData("test");
         tag.setValue("%{title}");
 
         try {
             tag.doStartTag();
             tag.doEndTag();
+            assertEquals("test", writer.toString());
         } catch (JspException ex) {
             ex.printStackTrace();
             fail();
@@ -75,12 +71,12 @@ public class URLTagTest extends AbstractUITagTest {
         request.setServerName("localhost");
         request.setServerPort(443);
 
-        jspWriter.setExpectedData("list-members.action");
         tag.setValue("list-members.action");
 
         try {
             tag.doStartTag();
             tag.doEndTag();
+            assertEquals("list-members.action", writer.toString());
         } catch (JspException ex) {
             ex.printStackTrace();
             fail();
@@ -96,16 +92,9 @@ public class URLTagTest extends AbstractUITagTest {
 
         tag = new URLTag();
         tag.setPageContext(pageContext);
-        jspWriter = new MockJspWriter();
+        JspWriter jspWriter = new WebWorkMockJspWriter(writer);
         pageContext.setJspWriter(jspWriter);
     }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        jspWriter.verify();
-    }
-
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     public class Foo {
         private String title;
