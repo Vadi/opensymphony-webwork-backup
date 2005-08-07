@@ -18,13 +18,11 @@ import java.util.TreeMap;
  * @version $Id$
  */
 public class UrlHelperTest extends WebWorkTestCase {
-    //~ Methods ////////////////////////////////////////////////////////////////
-
     /**
      * just one &, not &amp;
      */
     public void testBuildUrlCorrectlyAddsAmp() {
-        String expectedString = "my.actionName?foo=bar&hello=world";
+        String expectedString = "my.actionName?foo=bar&amp;hello=world";
         Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
         Mock mockHttpServletResponse = new Mock(HttpServletResponse.class);
         mockHttpServletResponse.expectAndReturn("encodeURL", expectedString, expectedString);
@@ -39,7 +37,7 @@ public class UrlHelperTest extends WebWorkTestCase {
     }
 
     public void testBuildUrlWithStringArray() {
-        String expectedString = "my.actionName?foo=bar&hello=earth&hello=mars";
+        String expectedString = "my.actionName?foo=bar&amp;hello=earth&amp;hello=mars";
         Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
         Mock mockHttpServletResponse = new Mock(HttpServletResponse.class);
         mockHttpServletResponse.expectAndReturn("encodeURL", expectedString, expectedString);
@@ -58,7 +56,7 @@ public class UrlHelperTest extends WebWorkTestCase {
      * when the scheme of the current request is "http" and the port for the "https" scheme is 443.
      */
     public void testSwitchToHttpsScheme() {
-        String expectedString = "https://www.mydomain.com/mywebapp/MyAction.action?foo=bar&hello=earth&hello=mars";
+        String expectedString = "https://www.mydomain.com/mywebapp/MyAction.action?foo=bar&amp;hello=earth&amp;hello=mars";
 
         Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
         mockHttpServletRequest.expectAndReturn("getServerName", "www.mydomain.com");
@@ -83,7 +81,7 @@ public class UrlHelperTest extends WebWorkTestCase {
      * the scheme of the current request is "https" and the port for the "http" scheme is 80.
      */
     public void testSwitchToHttpScheme() {
-        String expectedString = "http://www.mydomain.com/mywebapp/MyAction.action?foo=bar&hello=earth&hello=mars";
+        String expectedString = "http://www.mydomain.com/mywebapp/MyAction.action?foo=bar&amp;hello=earth&amp;hello=mars";
 
         Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
         mockHttpServletRequest.expectAndReturn("getServerName", "www.mydomain.com");
@@ -109,7 +107,7 @@ public class UrlHelperTest extends WebWorkTestCase {
      */
     public void testSwitchToHttpsNonDefaultPort() {
 
-        String expectedString = "https://www.mydomain.com:7002/mywebapp/MyAction.action?foo=bar&hello=earth&hello=mars";
+        String expectedString = "https://www.mydomain.com:7002/mywebapp/MyAction.action?foo=bar&amp;hello=earth&amp;hello=mars";
 
         Configuration.set("webwork.url.http.port", "7001");
         Configuration.set("webwork.url.https.port", "7002");
@@ -138,7 +136,7 @@ public class UrlHelperTest extends WebWorkTestCase {
      */
     public void testSwitchToHttpNonDefaultPort() {
 
-        String expectedString = "http://www.mydomain.com:7001/mywebapp/MyAction.action?foo=bar&hello=earth&hello=mars";
+        String expectedString = "http://www.mydomain.com:7001/mywebapp/MyAction.action?foo=bar&amp;hello=earth&amp;hello=mars";
 
         Configuration.set("webwork.url.http.port", "7001");
         Configuration.set("webwork.url.https.port", "7002");
@@ -166,7 +164,7 @@ public class UrlHelperTest extends WebWorkTestCase {
      * scheme of the current request matches the scheme supplied when building the URL.
      */
     public void testBuildWithSameScheme() {
-        String expectedString = "/mywebapp/MyAction.action?foo=bar&hello=earth&hello=mars";
+        String expectedString = "/mywebapp/MyAction.action?foo=bar&amp;hello=earth&amp;hello=mars";
 
         Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
         mockHttpServletRequest.expectAndReturn("getServerName", "www.mydomain.com");
