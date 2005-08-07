@@ -130,12 +130,12 @@ public class UrlHelper {
                     }
 
                     if (i < (values.length - 1)) {
-                        link.append("&");
+                        link.append("&amp;");
                     }
                 }
 
                 if (iter.hasNext()) {
-                    link.append("&");
+                    link.append("&amp;");
                 }
             }
         }
