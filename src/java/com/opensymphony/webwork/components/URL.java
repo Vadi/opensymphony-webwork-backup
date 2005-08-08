@@ -55,7 +55,7 @@ public class URL extends Component {
         // no explicit url set so attach params from current url, do
         // this at start so body params can override any of these they wish.
         try {
-            String includeParams = GET;
+            String includeParams = null;
 
             if (this.includeParams != null) {
                 includeParams = findString(this.includeParams);
@@ -77,7 +77,7 @@ public class URL extends Component {
                 }
             } else if (ALL.equalsIgnoreCase(includeParams)) {
                 parameters.putAll(req.getParameterMap());
-            } else if (!NONE.equalsIgnoreCase(includeParams)) {
+            } else if (value == null && !NONE.equalsIgnoreCase(includeParams)) {
                 LOG.warn("Unknown value for includeParams parameter to URL tag: " + includeParams);
             }
         } catch (Exception e) {
