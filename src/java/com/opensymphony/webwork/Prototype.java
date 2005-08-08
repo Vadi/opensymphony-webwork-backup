@@ -2,13 +2,11 @@ package com.opensymphony.webwork;
 
 import org.apache.commons.jci.CompilingClassLoader;
 import org.apache.commons.jci.compilers.eclipse.EclipseJavaCompiler;
-import org.apache.commons.jci.monitor.FilesystemAlterationMonitor;
 import org.mortbay.http.SocketListener;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.WebApplicationContext;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -70,12 +68,12 @@ public class Prototype {
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
                 parent = new CompilingClassLoader(parent, file, new EclipseJavaCompiler());
-                Field famField = parent.getClass().getDeclaredField("fam");
-                famField.setAccessible(true);
-                FilesystemAlterationMonitor fam = (FilesystemAlterationMonitor) famField.get(parent);
-                fam.doRun();
-
-                Thread.sleep(1500);
+//                Field famField = parent.getClass().getDeclaredField("fam");
+//                famField.setAccessible(true);
+//                FilesystemAlterationMonitor fam = (FilesystemAlterationMonitor) famField.get(parent);
+//                fam.doRun();
+//
+//                Thread.sleep(1500);
             }
             URLClassLoader url = new MyURLClassLoader(urls, parent);
             ctx.setClassLoader(url);
