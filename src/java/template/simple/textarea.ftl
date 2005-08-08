@@ -2,11 +2,8 @@
  name="${parameters.name?default("")?html}"<#rt/>
  cols="${parameters.cols?default("")?html}"<#rt/>
  rows="${parameters.rows?default("")?html}"<#rt/>
-<#if parameters.nameValue?exists>
- value="${parameters.nameValue?html}"<#rt/>
-</#if>
 <#if parameters.wrap?exists>
- value="${parameters.wrap?html}"<#rt/>
+ wrap="${parameters.wrap?html}"<#rt/>
 </#if>
 <#if parameters.disabled?default(false)>
  disabled="disabled"<#rt/>

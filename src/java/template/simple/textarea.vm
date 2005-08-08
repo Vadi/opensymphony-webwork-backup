@@ -1,7 +1,6 @@
 <textarea name="$!webwork.htmlEncode($parameters.name)"
           cols="$!webwork.htmlEncode($parameters.cols)"
           rows="$!webwork.htmlEncode($parameters.rows)"
-#if ($parameters.nameValue)        value="$!webwork.htmlEncode($parameters.nameValue)"      #end
 #if ($parameters.wrap)             wrap="$!webwork.htmlEncode($parameters.wrap)"            #end
 #if ($parameters.disabled && $parameters.disabled== true)
                                    disabled="disabled"                                      #end
