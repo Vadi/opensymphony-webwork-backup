@@ -174,12 +174,12 @@ public abstract class UIBean extends Component {
 
         // If theme set is not explicitly given,
         // try to find attribute which states the theme set to use
-        if ((theme == null) || (theme == "")) {
+        if ((theme == null) || (theme.equals(""))) {
             theme = (String) stack.findValue("#attr.theme");
         }
 
         // Default theme set
-        if ((theme == null) || (theme == "")) {
+        if ((theme == null) || (theme.equals(""))) {
             theme = Configuration.getString("webwork.ui.theme");
         }
 
