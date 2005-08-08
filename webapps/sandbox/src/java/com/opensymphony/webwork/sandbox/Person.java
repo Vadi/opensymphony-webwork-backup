@@ -6,16 +6,16 @@ package com.opensymphony.webwork.sandbox;
  * Time: 7:12:36 PM
  */
 public class Person {
-    long ID;
+    long id;
     String name;
 
     public Person(long ID, String name) {
-        this.ID = ID;
+        this.id = ID;
         this.name = name;
     }
 
-    public long getID() {
-        return ID;
+    public long getId() {
+        return id;
     }
 
     public String getName() {

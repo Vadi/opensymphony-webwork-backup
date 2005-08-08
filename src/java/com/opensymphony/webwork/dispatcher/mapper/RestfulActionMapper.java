@@ -1,29 +1,93 @@
 package com.opensymphony.webwork.dispatcher.mapper;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 /**
- * An action mapper that follows a REST-ful approach (see the original article on REST
- * <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">here</a>). This
- * mapper is not truly REST-ful because it does does not actually take advantage of PUT,
- * POST, GET, DELETE; but rather uses nice URL namespacing and unique rules to create a
- * simple URL scheme for your application.
+ * A custom action mapper using the following format:
  * <p/>
- * The rules of this action mapper are:
- * - If only a namespace is provided, the action is assumed to be
- * "list". Ex: /people
- * - If only a parameter is provided, the action is assumed to be
- * "get". Ex: /people/1
- * - Ex. /people/1/address
+ * <p/>
+ * <ul><tt>http://HOST/ACTION_NAME/PARAM_NAME1/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt></ul>
+ * <p/>
+ * You can have as many parameters you'd like to use. Alternatively the URL can be shortened to the following:
+ * <p/>
+ * <ul><tt>http://HOST/ACTION_NAME/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt></ul>
+ * <p/>
+ * This is the same as:
+ * <p/>
+ * <ul><tt>http://HOST/ACTION_NAME/ACTION_NAME + "Id"/PARAM_VALUE1/PARAM_NAME2/PARAM_VALUE2</tt></ul>
+ * <p/>
+ * Suppose for example we would like to display some articles by id at using the following URL sheme:
+ * <p/>
+ * <ul><tt>http://HOST/article/Id</tt></ul>
+ * <p/>
+ * <p/>
+ * Your action just needs a setArticleId() method, and requests such as /article/1, /article/2, etc will all map
+ * to that URL pattern.
  *
+ * @author <a href="mailto:cameron@datacodex.net">Cameron Braid</a>
+ * @author <a href="mailto:jerome.bernard@xtremejava.com">Jerome Bernard</a>
  * @author Patrick Lightbody
  */
 public class RestfulActionMapper implements ActionMapper {
+    protected static final Log LOG = LogFactory.getLog(RestfulActionMapper.class);
+
     public ActionMapping getMapping(HttpServletRequest request) {
-        return null;
+        String uri = request.getServletPath();
+
+        String actionName = uri.substring(1, uri.indexOf('/', 1));
+        HashMap parameters = new HashMap();
+        try {
+            StringTokenizer st = new StringTokenizer(uri.substring(uri.indexOf('/', 1)), "/");
+            boolean isNameTok = true;
+            String paramName = null;
+            String paramValue = null;
+
+            // check if we have the first parameter name
+            if ((st.countTokens() % 2) != 0) {
+                isNameTok = false;
+                paramName = actionName + "Id";
+            }
+
+            while (st.hasMoreTokens()) {
+                if (isNameTok) {
+                    paramName = URLDecoder.decode(st.nextToken());
+                    isNameTok = false;
+                } else {
+                    paramValue = URLDecoder.decode(st.nextToken());
+
+                    if ((paramName != null) && (paramName.length() > 0)) {
+                        parameters.put(paramName, paramValue);
+                    }
+
+                    isNameTok = true;
+                }
+            }
+        } catch (Exception e) {
+            LOG.warn(e);
+        }
+
+        return new ActionMapping(actionName, "", parameters);
     }
 
     public String getUriFromActionMapping(ActionMapping mapping) {
-        return null;
+        String base = mapping.getNamespace() + mapping.getName();
+        for (Iterator iterator = mapping.getParams().entrySet().iterator(); iterator.hasNext();) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            String name = (String) entry.getKey();
+            if (name.equals(mapping.getName() + "Id")) {
+                base = base + "/" + entry.getValue();
+                break;
+            }
+        }
+
+        return base;
     }
 }

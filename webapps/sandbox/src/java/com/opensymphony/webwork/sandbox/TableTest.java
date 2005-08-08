@@ -62,7 +62,7 @@ public class TableTest {
             Person person = (Person) people.get(rowIndex);
             switch (columnIndex) {
                 case 0:
-                    return new Long(person.getID());
+                    return new Long(person.getId());
                 case 1:
                     return person.getName();
                 default:

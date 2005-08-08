@@ -48,6 +48,7 @@ public abstract class AbstractDirective extends Directive {
         // get the parameters
         Map params = createPropertyMap(ctx, node);
         bean.copyParams(params);
+        bean.addAllParameters(params);
         bean.start(writer);
 
         if (getType() == BLOCK) {

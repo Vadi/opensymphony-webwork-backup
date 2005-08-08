@@ -8,6 +8,10 @@
             <result type="freemarker">test.ftl</result>
         </action>
 
+        <action name="person" class="com.opensymphony.webwork.sandbox.GetPerson">
+            <result type="freemarker">/person.ftl</result>
+        </action>
+
         <action name="tableTest" class="com.opensymphony.webwork.sandbox.TableTest">
             <result type="freemarker">tableTest.ftl</result>
         </action>
