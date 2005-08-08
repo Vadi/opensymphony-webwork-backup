@@ -87,7 +87,6 @@ public class VelocityResult extends WebWorkResultSupport {
             Writer writer = new OutputStreamWriter(response.getOutputStream(), encoding);
 
 
-
             response.setContentType(contentType);
 
             t.merge(context, writer);
@@ -126,7 +125,14 @@ public class VelocityResult extends WebWorkResultSupport {
      * @return The encoding associated with this template (defaults to the value of 'webwork.i18n.encoding' property)
      */
     protected String getEncoding(String templateLocation) {
-        return (String) Configuration.get("webwork.i18n.encoding");
+        String encoding = (String) Configuration.get("webwork.i18n.encoding");
+        if (encoding == null) {
+            encoding = System.getProperty("file.encoding");
+        }
+        if (encoding == null) {
+            encoding = "UTF-8";
+        }
+        return encoding;
     }
 
     /**
