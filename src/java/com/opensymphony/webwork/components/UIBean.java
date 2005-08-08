@@ -142,23 +142,23 @@ public abstract class UIBean extends Component {
     public String getTemplateDir() {
         String templateDir = null;
 
-        if (templateDir != null) {
+        if (this.templateDir != null) {
             templateDir = findString(templateDir);
         }
 
         // If templateDir is not explicitly given,
         // try to find attribute which states the dir set to use
-        if ((templateDir == null) || (templateDir == "")) {
+        if ((templateDir == null) || (templateDir.equals(""))) {
             templateDir = (String) stack.findValue("#attr.templateDir");
         }
 
         // Default template set
-        if ((templateDir == null) || (templateDir == "")) {
+        if ((templateDir == null) || (templateDir.equals(""))) {
             templateDir = Configuration.getString("webwork.ui.templateDir");
         }
 
         // Defaults to 'template'
-        if ((templateDir == null) || (templateDir == "")) {
+        if ((templateDir == null) || (templateDir.equals(""))) {
             templateDir = "template";
         }
 
