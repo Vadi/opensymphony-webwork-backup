@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 public class DefaultActionMapper implements ActionMapper {
     public ActionMapping getMapping(HttpServletRequest request) {
         String uri = request.getServletPath();
+        String includeUri = (String) request.getAttribute("javax.servlet.include.servlet_path");
+        if (includeUri != null) {
+            uri = includeUri;
+        }
 
         if (!uri.endsWith("." + Configuration.get("webwork.action.extension"))) {
             return null;
