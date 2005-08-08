@@ -30,27 +30,26 @@
 												            <tr>
                                                                 <td align="bottom">
 
-                                                                    #if(($curColumn.sortColumn == $curColumn.offset) && ($curColumn.sortOrder == 'ASC'))
-                                                                        <img src="images/sorted_asc.gif" border="0" align="bottom"/>
-                                                                    #else
+                                                                    #if(($webTable.sortColumn == $curColumn.offset) && ($webTable.sortOrder == 'ASC'))
+                                                                        <img src="#tag( URL "value='/images/sorted_asc.gif'")" border="0" align="bottom"/>                                                                    #else
                                                                         <a href="#bodytag( URL )
-                                                                                    #param( "$webTable.sortColumnLinkName $curColumn.offset)
+                                                                                    #param( $webTable.sortColumnLinkName $curColumn.offset)
                                                                                     #param( $webTable.sortOrderLinkName 'ASC')
-                                                                                 #end>
-                                                                       <img src="images/unsorted_asc.gif" border="0" align="bottom"/></a>
+                                                                                 #end">
+                                                                       <img src="#tag( URL "value='/images/unsorted_asc.gif'")" border="0" align="bottom"/></a>
                                                                     #end
                                                                 </td>
 												            </tr>
 												            <tr>
 
                                                                 <td align="top">
-                                                                    #if(($curColumn.sortColumn == $curColumn.offset) && ($curColumn.sortOrder == 'DESC'))
-                                                                        <img src="images/sorted_desc.gif" border="0" align="top"/>
+                                                                    #if(($webTable.sortColumn == $curColumn.offset) && ($webTable.sortOrder == 'DESC'))
+                                                                        <img src="#tag( URL "value='/images/sorted_desc.gif'")" border="0" align="top"/>
                                                                     #else
                                                                         <a href="#bodytag( URL )
-                                                                                    #param( "$webTable.sortColumnLinkName $curColumn.offset)
+                                                                                    #param( $webTable.sortColumnLinkName $curColumn.offset)
                                                                                     #param( $webTable.sortOrderLinkName 'DESC')
-                                                                                  #end><img src="images/sorted_desc.gif" border="0" align="top"/></a>
+                                                                                  #end"><img src="#tag( URL "value='/images/unsorted_desc.gif'")" border="0" align="top"/></a>
                                                                     #end
                                                                 </td>
                                                             </tr>

@@ -18,7 +18,13 @@
                                 <td>
                                     <table border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="bottom"></td>
+                                            <td align="bottom">
+<#if false>
+                                                 <img src="images/sorted_asc.gif" border="0" align="bottom"/>
+<#else>
+                                                <a href="<@ww.url><@ww.param name="${webTable.sortColumnLinkName}" value="${curColumn.offset}"/><@ww.param name="${webTable.sortOrderLinkName}" value="ASC"/></@ww.url>"><img src="images/unsorted_asc.gif" border="0" align="bottom"/></a>
+</#if>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td align="top"></td>

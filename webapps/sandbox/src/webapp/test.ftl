@@ -3,6 +3,8 @@ hello:
 
 Hello!!!
 
+<@ww.href/>
+
 <@ww.form action="test">
     <@ww.textfield name="foo">
         <@ww.param name="label">
