@@ -143,7 +143,7 @@ public abstract class UIBean extends Component {
         String templateDir = null;
 
         if (this.templateDir != null) {
-            templateDir = findString(templateDir);
+            templateDir = findString(this.templateDir);
         }
 
         // If templateDir is not explicitly given,
