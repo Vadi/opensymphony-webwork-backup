@@ -18,8 +18,6 @@ public class TableTest {
     }
 
     public String execute() {
-        System.out.println("1");
-
         table = new PersonTableModel();
         table.addPerson(new Person(1, "Patrick"));
         table.addPerson(new Person(2, "Jason"));
