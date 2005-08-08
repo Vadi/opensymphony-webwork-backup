@@ -73,18 +73,20 @@ public class VelocityResult extends WebWorkResultSupport {
         }
 
         try {
-            VelocityManager velocityManager = VelocityManager.getInstance();
-            Template t = getTemplate(stack, velocityManager.getVelocityEngine(), invocation, finalLocation);
-
-            Context context = createContext(velocityManager, stack, request, response, finalLocation);
-            Writer writer = new OutputStreamWriter(response.getOutputStream());
-
             String encoding = getEncoding(finalLocation);
             String contentType = getContentType(finalLocation);
 
             if (encoding != null) {
                 contentType = contentType + ";charset=" + encoding;
             }
+
+            VelocityManager velocityManager = VelocityManager.getInstance();
+            Template t = getTemplate(stack, velocityManager.getVelocityEngine(), invocation, finalLocation, encoding);
+
+            Context context = createContext(velocityManager, stack, request, response, finalLocation);
+            Writer writer = new OutputStreamWriter(response.getOutputStream(), encoding);
+
+
 
             response.setContentType(contentType);
 
@@ -135,15 +137,16 @@ public class VelocityResult extends WebWorkResultSupport {
      * @param velocity   the velocity engine to process the request against
      * @param invocation an encapsulation of the action execution state.
      * @param location   the location of the template
+     * @param encoding   the charset encoding of the template
      * @return the template to render
      * @throws Exception when the requested template could not be found
      */
-    protected Template getTemplate(OgnlValueStack stack, VelocityEngine velocity, ActionInvocation invocation, String location) throws Exception {
+    protected Template getTemplate(OgnlValueStack stack, VelocityEngine velocity, ActionInvocation invocation, String location, String encoding) throws Exception {
         if (!location.startsWith("/")) {
             location = invocation.getProxy().getNamespace() + "/" + location;
         }
 
-        Template template = velocity.getTemplate(location);
+        Template template = velocity.getTemplate(location, encoding);
 
         return template;
     }
