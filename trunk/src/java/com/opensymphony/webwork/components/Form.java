@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.views.jsp.TagUtils;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.config.ConfigurationManager;
@@ -62,7 +63,8 @@ public class Form extends ClosingUIBean {
             final ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
 
             if (actionConfig != null) {
-                String result = UrlHelper.buildUrl(namespace + "/" + action + "." + Configuration.get("webwork.action.extension"), request, response, null);
+                ActionMapping mapping = new ActionMapping(action, namespace, parameters);
+                String result = UrlHelper.buildUrl(ActionMapperFactory.getMapper().getUriFromActionMapping(mapping), request, response, null);
                 addParameter("action", result);
                 addParameter("namespace", namespace);
 
