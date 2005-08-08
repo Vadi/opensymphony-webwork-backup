@@ -9,7 +9,7 @@ package com.opensymphony.webwork.util;
 
 import com.opensymphony.util.TextUtils;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import org.apache.velocity.app.Velocity;
+import com.opensymphony.webwork.views.velocity.VelocityManager;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
@@ -42,7 +42,8 @@ public class VelocityWebWorkUtil extends WebWorkUtil {
      */
     public String evaluate(String expression) throws IOException, ResourceNotFoundException, MethodInvocationException, ParseErrorException {
         CharArrayWriter writer = new CharArrayWriter();
-        Velocity.evaluate(ctx, writer, "Error parsing " + expression, expression);
+        VelocityManager.getInstance().getVelocityEngine().evaluate(ctx, writer, "Error parsing " + expression, expression);
+
 
         return writer.toString();
     }
