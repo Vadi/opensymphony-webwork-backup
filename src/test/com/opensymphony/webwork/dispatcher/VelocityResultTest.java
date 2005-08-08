@@ -60,7 +60,7 @@ public class VelocityResultTest extends TestCase {
     public void testResourcesFoundUsingAbsolutePath() throws Exception {
         String location = "/WEB-INF/views/registration.vm";
 
-        Template template = result.getTemplate(stack, velocity, actionInvocation, location);
+        Template template = result.getTemplate(stack, velocity, actionInvocation, location, "UTF-8");
         assertNotNull(template);
         assertEquals("expect absolute locations to be handled as is", location, velocity.templateName);
     }
@@ -69,7 +69,7 @@ public class VelocityResultTest extends TestCase {
         String location = "Registration.vm";
         String expectedTemplateName = namespace + "/" + location;
 
-        Template template = result.getTemplate(stack, velocity, actionInvocation, location);
+        Template template = result.getTemplate(stack, velocity, actionInvocation, location, "UTF-8");
         assertNotNull(template);
         assertEquals("expect the prefix to be appended to the path when the location is not absolute", expectedTemplateName, velocity.templateName);
     }
@@ -115,6 +115,12 @@ public class VelocityResultTest extends TestCase {
         public String templateName;
 
         public Template getTemplate(String templateName) throws ResourceNotFoundException, ParseErrorException, Exception {
+            this.templateName = templateName;
+
+            return new Template();
+        }
+
+        public Template getTemplate(String templateName, String charSet) throws ResourceNotFoundException, ParseErrorException, Exception {
             this.templateName = templateName;
 
             return new Template();
