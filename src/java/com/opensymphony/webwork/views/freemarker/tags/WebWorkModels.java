@@ -30,6 +30,7 @@ public class WebWorkModels {
     protected SubmitModel submit;
     protected TextAreaModel textarea;
     protected TextFieldModel textfield;
+    protected DatePickerModel datepicker;
     protected TokenModel token;
     protected WebTableModel table;
     protected URLModel url;
@@ -159,6 +160,14 @@ public class WebWorkModels {
         }
 
         return textfield;
+    }
+
+    public DatePickerModel getDatepicker() {
+        if (datepicker == null) {
+            datepicker = new DatePickerModel(stack, req, res);
+        }
+
+        return datepicker;
     }
 
     public TokenModel getToken() {

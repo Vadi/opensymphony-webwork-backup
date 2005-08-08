@@ -3,8 +3,6 @@ hello:
 
 Hello!!!
 
-<@ww.href/>
-
 <@ww.form action="test">
     <@ww.textfield name="foo">
         <@ww.param name="label">
@@ -13,5 +11,6 @@ Hello!!!
             </@ww.url>
         </@ww.param>
     </@ww.textfield>
+    <@ww.datepicker label="Birthday" name="birthday"/>
 </@ww.form>
 

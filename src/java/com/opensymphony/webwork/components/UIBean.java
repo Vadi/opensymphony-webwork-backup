@@ -304,7 +304,7 @@ public abstract class UIBean extends Component {
             }
         }
 
-        final Form form = (Form) null;
+        final Form form = (Form) findAncestor(Form.class);
 
         if (id != null) {
             addParameter("id", id);
