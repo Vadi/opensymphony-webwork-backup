@@ -42,13 +42,18 @@ public class RestfulActionMapper implements ActionMapper {
     public ActionMapping getMapping(HttpServletRequest request) {
         String uri = request.getServletPath();
 
-        String actionName = uri.substring(1, uri.indexOf('/', 1));
+        int nextSlash = uri.indexOf('/', 1);
+        if (nextSlash == -1) {
+            return null;
+        }
+
+        String actionName = uri.substring(1, nextSlash);
         HashMap parameters = new HashMap();
         try {
-            StringTokenizer st = new StringTokenizer(uri.substring(uri.indexOf('/', 1)), "/");
+            StringTokenizer st = new StringTokenizer(uri.substring(nextSlash), "/");
             boolean isNameTok = true;
             String paramName = null;
-            String paramValue = null;
+            String paramValue;
 
             // check if we have the first parameter name
             if ((st.countTokens() % 2) != 0) {
@@ -58,10 +63,10 @@ public class RestfulActionMapper implements ActionMapper {
 
             while (st.hasMoreTokens()) {
                 if (isNameTok) {
-                    paramName = URLDecoder.decode(st.nextToken());
+                    paramName = URLDecoder.decode(st.nextToken(), "UTF-8");
                     isNameTok = false;
                 } else {
-                    paramValue = URLDecoder.decode(st.nextToken());
+                    paramValue = URLDecoder.decode(st.nextToken(), "UTF-8");
 
                     if ((paramName != null) && (paramName.length() > 0)) {
                         parameters.put(paramName, paramValue);
