@@ -52,10 +52,9 @@ public class Component {
 
     public Component findAncestor(Class clazz) {
         Stack componentStack = getComponentStack();
-        List parents = componentStack.subList(1, componentStack.size());
-        for (Iterator iterator = parents.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = componentStack.iterator(); iterator.hasNext();) {
             Component component = (Component) iterator.next();
-            if (component.getClass().isAssignableFrom(clazz)) {
+            if (component.getClass().isAssignableFrom(clazz) && component != this) {
                 return component;
             }
         }
