@@ -74,6 +74,8 @@ public class Prototype {
                 famField.setAccessible(true);
                 FilesystemAlterationMonitor fam = (FilesystemAlterationMonitor) famField.get(parent);
                 fam.doRun();
+
+                Thread.sleep(1500);
             }
             URLClassLoader url = new MyURLClassLoader(urls, parent);
             ctx.setClassLoader(url);
