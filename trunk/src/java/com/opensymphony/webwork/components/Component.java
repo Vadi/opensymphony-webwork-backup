@@ -7,10 +7,7 @@ import com.opensymphony.xwork.util.TextParseUtil;
 
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * User: plightbo
@@ -55,7 +52,8 @@ public class Component {
 
     public Component findAncestor(Class clazz) {
         Stack componentStack = getComponentStack();
-        for (Iterator iterator = componentStack.iterator(); iterator.hasNext();) {
+        List parents = componentStack.subList(1, componentStack.size());
+        for (Iterator iterator = parents.iterator(); iterator.hasNext();) {
             Component component = (Component) iterator.next();
             if (component.getClass().isAssignableFrom(clazz)) {
                 return component;

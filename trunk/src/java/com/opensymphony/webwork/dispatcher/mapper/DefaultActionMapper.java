@@ -31,6 +31,6 @@ public class DefaultActionMapper implements ActionMapper {
     }
 
     public String getUriFromActionMapping(ActionMapping mapping) {
-        return mapping.getNamespace() + "/" + mapping.getName() + Configuration.get("webwork.action.extension");
+        return mapping.getNamespace() + "/" + mapping.getName() + "." + Configuration.get("webwork.action.extension");
     }
 }
