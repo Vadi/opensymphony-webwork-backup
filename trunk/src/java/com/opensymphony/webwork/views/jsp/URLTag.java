@@ -29,15 +29,13 @@ import javax.servlet.jsp.JspException;
  * @see com.opensymphony.webwork.views.jsp.ParamTag
  */
 public class URLTag extends ParametereizedBodyTagSupport {
-    private static final Log LOG = LogFactory.getLog(URLTag.class);
-
     protected URL url;
 
     protected String includeParams;
     protected String scheme;
     protected String value;
-    protected boolean encode = true;
-    protected boolean includeContext = true;
+    protected String encode;
+    protected String includeContext;
 
     public int doEndTag() throws JspException {
         url.addAllParameters(getParameters());
@@ -53,18 +51,22 @@ public class URLTag extends ParametereizedBodyTagSupport {
         url.setIncludeParams(includeParams);
         url.setScheme(scheme);
         url.setValue(value);
-        url.setEncode(encode);
-        url.setIncludeContext(includeContext);
+        if (encode != null) {
+            url.setEncode(Boolean.valueOf(encode).booleanValue());
+        }
+        if (includeContext != null) {
+            url.setIncludeContext(Boolean.valueOf(includeContext).booleanValue());
+        }
         url.start(pageContext.getOut());
 
         return EVAL_BODY_BUFFERED;
     }
 
-    public void setEncode(boolean encode) {
+    public void setEncode(String encode) {
         this.encode = encode;
     }
 
-    public void setIncludeContext(boolean includeContext) {
+    public void setIncludeContext(String includeContext) {
         this.includeContext = includeContext;
     }
 
