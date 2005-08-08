@@ -87,6 +87,15 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         ActionMapping mapping = ActionMapperFactory.getMapper().getMapping(request);
+        if (mapping == null) {
+            try {
+                response.sendError(404);
+            } catch (IOException e) {
+                LOG.error("Could not send 404 after not finding any ActionMapping", e);
+            }
+            return;
+        }
+
         DispatcherUtils du = DispatcherUtils.getInstance();
         du.prepare(request, response);
 
