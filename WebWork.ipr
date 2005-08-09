@@ -245,11 +245,12 @@
       <module fileurl="file://$PROJECT_DIR$/webapps/examples/shopping-cart/ShoppingCart.iml" filepath="$PROJECT_DIR$/webapps/examples/shopping-cart/ShoppingCart.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/tutorials/ajax/TutorialAJAX.iml" filepath="$PROJECT_DIR$/webapps/tutorials/ajax/TutorialAJAX.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebWork.iml" filepath="$PROJECT_DIR$/WebWork.iml" />
+      <module fileurl="file://$PROJECT_DIR$/launcher/WebWork Launcher.iml" filepath="$PROJECT_DIR$/launcher/WebWork Launcher.iml" />
       <module fileurl="file://$PROJECT_DIR$/../xwork/XWork.iml" filepath="$PROJECT_DIR$/../xwork/XWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/../xwork/xwork-editor/XWorkEditor.iml" filepath="$PROJECT_DIR$/../xwork/xwork-editor/XWorkEditor.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="false" jdk-15="false" project-jdk-name="JDK 1.4.2" />
+  <component name="ProjectRootManager" version="2" assert-keyword="false" jdk-15="false" project-jdk-name="JDK 1.5.0" />
   <component name="Regex">
     <option name="pos1" value="218" />
     <option name="pos2" value="218" />

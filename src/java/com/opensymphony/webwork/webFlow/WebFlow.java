@@ -3,18 +3,11 @@
  */
 package com.opensymphony.webwork.webFlow;
 
-import com.opensymphony.util.FileUtils;
 import com.opensymphony.webwork.webFlow.renderers.DOTRenderer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.*;
 
 /**
  * // START SNIPPET: javadocs-intro
@@ -48,18 +41,21 @@ public class WebFlow {
         this.namespace = namespace;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         LOG.info("WebFlow starting...");
 
         if (args.length != 8 && args.length != 6) {
-            URL resource = WebFlow.class.getResource("webflow-usage.txt");
-            File file = null;
-            try {
-                file = new File(new URI(resource.toExternalForm()));
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
+            InputStream is = WebFlow.class.getResourceAsStream("webflow-usage.txt");
+            byte[] buffer = new byte[2048];
+            int length = -1;
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            while ((length = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, length);
             }
-            String usage = FileUtils.readFile(file);
+            is.close();
+            baos.close();
+
+            String usage = baos.toString();
             System.out.println(usage.replaceAll("//.*\n", ""));
             return;
         }
