@@ -114,7 +114,12 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
 
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
-        this.pathPrefixes = parse(filterConfig.getInitParameter("packages") + " com.opensymphony.webwork.static template");
+        String param = filterConfig.getInitParameter("packages");
+        String packages = "com.opensymphony.webwork.static template";
+        if (param != null) {
+            packages = param + " " + packages;
+        }
+        this.pathPrefixes = parse(packages);
         DispatcherUtils.initialize(filterConfig.getServletContext());
     }
 
@@ -246,7 +251,12 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     protected InputStream findInputStream(String name, String packagePrefix) throws IOException {
-        String resourcePath = packagePrefix + name;
+        String resourcePath = null;
+        if (packagePrefix.endsWith("/") && name.startsWith("/")) {
+            resourcePath = packagePrefix + name.substring(1);
+        } else {
+            resourcePath = packagePrefix + name;
+        }
 
         String enc = (String) Configuration.get("webwork.i18n.encoding");
         resourcePath = URLDecoder.decode(resourcePath, enc);
