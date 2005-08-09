@@ -1,9 +1,44 @@
 <project name="webwork" default="jar" basedir=".">
+    <property file="dist.properties"/>
+
     <!-- overridden properties (must be before the import!) -->
     <property name="src.test" value="src/test"/>
 
     <property name="common.build" value="../opensymphony/common/osbuild.xml"/>
     <import file="${common.build}"/>
+
+    <macrodef name="webapp">
+        <attribute name="root"/>
+        <attribute name="name"/>
+        <sequential>
+            <mkdir dir="${dist}/webapps"/>
+            <mkdir dir="${dist}/@{root}/@{name}/src"/>
+            <compile srcdir="@{root}/@{name}/src/java" destdir="@{root}/@{name}/build/java"/>
+            <war file="${dist}/webapps/@{name}.war" basedir="@{root}/@{name}/src/webapp"
+                 webxml="@{root}/@{name}/src/webapp/WEB-INF/web.xml"/>
+            <copy todir="${dist}/@{root}/@{name}/src">
+                <fileset dir="@{root}/@{name}/src" includes="**/**"/>
+            </copy>
+        </sequential>
+    </macrodef>
+
+    <target name="predist">
+        <!-- get the osbuild.xml file in to the dist dir -->
+        <copy file="${common.build}" todir="${dist}"/>
+
+        <!-- grab dist.properties, which tells the dist where to find osbuild.xml -->
+        <copy file="${src}/etc/dist.properties" todir="${dist}"/>
+
+        <!-- prepare each tutorial/example -->
+        <webapp root="webapps" name="base"/>
+        <webapp root="webapps" name="sandbox"/>
+        <webapp root="webapps/tutorials" name="ajax"/>
+        <webapp root="webapps/examples" name="shopping-cart"/>
+
+        <!-- copy over elements required to build the final wars -->
+        <copy file="webapps/build.xml" todir="${dist}/webapps"/>
+        <copy file="webapps/README.txt" todir="${dist}/webapps"/>
+    </target>
 
     <!-- overridden targets -->
 
@@ -16,39 +51,39 @@
         <jar basedir="${build.java}" jarfile="${build}/${name}-${version}.jar">
             <manifest>
                 <attribute name="Main-Class" value="com.opensymphony.webwork.webFlow.WebFlow"/>
-                <attribute name="Implementation-Title" value="${fullname}" />
-                <attribute name="Implementation-Version" value="${version}" />
+                <attribute name="Implementation-Title" value="${fullname}"/>
+                <attribute name="Implementation-Version" value="${version}"/>
             </manifest>
         </jar>
         <jar basedir="${src.java}" jarfile="${build}/${name}-${version}-src.jar">
             <manifest>
-                <attribute name="Implementation-Title" value="${fullname}" />
-                <attribute name="Implementation-Version" value="${version}" />
+                <attribute name="Implementation-Title" value="${fullname}"/>
+                <attribute name="Implementation-Version" value="${version}"/>
             </manifest>
         </jar>
     </target>
 
     <!-- other targets -->
 
-	<target name='dojo-profile'>
-		<ant dir="../dojo/buildscripts" target="release" inheritall="false">
-			<property name="docless" value="true"/>
-			<property name="nostrip" value="true"/>
-			<property name="profileFile" value="../../webwork/dojo.profile.js"/>
-		</ant>
+    <target name='dojo-profile'>
+        <ant dir="../dojo/buildscripts" target="release" inheritall="false">
+            <property name="docless" value="true"/>
+            <property name="nostrip" value="true"/>
+            <property name="profileFile" value="../../webwork/dojo.profile.js"/>
+        </ant>
 
-		<sync todir="${src.java}/com/opensymphony/webwork/static/dojo/src" includeEmptyDirs="no" verbose="yes">
-			<fileset dir="../dojo/release/dojo/src">
-				<exclude name="**/*.js"/>
-				<exclude name="Makefile"/>
-				<exclude name="README.TXT"/>
-			</fileset>
-		</sync>
+        <sync todir="${src.java}/com/opensymphony/webwork/static/dojo/src" includeEmptyDirs="no" verbose="yes">
+            <fileset dir="../dojo/release/dojo/src">
+                <exclude name="**/*.js"/>
+                <exclude name="Makefile"/>
+                <exclude name="README.TXT"/>
+            </fileset>
+        </sync>
 
-		<copy todir="${src.java}/com/opensymphony/webwork/static/dojo" preservelastmodified="true">
-			<fileset dir="../dojo/release/dojo">
-				<exclude name="src/**"/>
-			</fileset>
-		</copy>
-	</target>
+        <copy todir="${src.java}/com/opensymphony/webwork/static/dojo" preservelastmodified="true">
+            <fileset dir="../dojo/release/dojo">
+                <exclude name="src/**"/>
+            </fileset>
+        </copy>
+    </target>
 </project>

@@ -6,7 +6,9 @@
     <exclude-output />
     <exploded url="file://$MODULE_DIR$/build/exploded" />
     <exclude-exploded />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/build" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="WebWork" exported="" />
