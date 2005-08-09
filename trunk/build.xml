@@ -13,7 +13,7 @@
         <sequential>
             <mkdir dir="${dist}/webapps"/>
             <mkdir dir="${dist}/@{root}/@{name}/src"/>
-            <compile srcdir="@{root}/@{name}/src/java" destdir="@{root}/@{name}/build/java"/>
+            <compile srcdir="@{root}/@{name}/src/java" destdir="@{root}/@{name}/build/java" classpath="${build.java}"/>
             <war file="${dist}/webapps/@{name}.war" basedir="@{root}/@{name}/src/webapp"
                  webxml="@{root}/@{name}/src/webapp/WEB-INF/web.xml"/>
             <copy todir="${dist}/@{root}/@{name}/src">
@@ -23,6 +23,15 @@
     </macrodef>
 
     <target name="predist">
+        <!-- build up the launcher jar -->
+        <compile srcdir="launcher/src/java" destdir="launcher/build/java"/>
+        <jar destfile="dist/webwork-launcher.jar">
+            <manifest>
+                <attribute name="Main-Class" value="Main"/>
+            </manifest>
+            <fileset dir="launcher/build/java"/>
+        </jar>
+
         <!-- get the osbuild.xml file in to the dist dir -->
         <copy file="${common.build}" todir="${dist}"/>
 
@@ -50,7 +59,7 @@
 
         <jar basedir="${build.java}" jarfile="${build}/${name}-${version}.jar">
             <manifest>
-                <attribute name="Main-Class" value="com.opensymphony.webwork.webFlow.WebFlow"/>
+                <attribute name="Main-Class" value="com.opensymphony.webwork.Main"/>
                 <attribute name="Implementation-Title" value="${fullname}"/>
                 <attribute name="Implementation-Version" value="${version}"/>
             </manifest>
@@ -61,6 +70,13 @@
                 <attribute name="Implementation-Version" value="${version}"/>
             </manifest>
         </jar>
+    </target>
+
+    <target name="clean" depends="common.clean">
+        <delete dir="webapps/base/build"/>
+        <delete dir="webapps/sandbox/build"/>
+        <delete dir="webapps/tutorials/ajax/build"/>
+        <delete dir="webapps/examples/shopping-cart/build"/>
     </target>
 
     <!-- other targets -->

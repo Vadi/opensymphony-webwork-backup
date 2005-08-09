@@ -19,15 +19,24 @@ import java.util.StringTokenizer;
  */
 public class Prototype {
     public static void main(String[] args) {
-        String contextPath = System.getProperty("contextPath", "/");
-        String webapp = System.getProperty("webapp");
-
-        if (webapp == null) {
-            System.out.println("-Dwebapp must be specified as an exploded war");
+        if (args.length != 3) {
+            System.err.println("prototype must be invoked with three argumenets:");
+            System.err.println("[contextPath] [webapp] [sources]");
+            System.err.println("");
+            System.err.println("Ex: java -jar webwork-launcher.jar \\");
+            System.err.println("    prototype /sandbox webapps/sandbox/src/webapp webapps/sandbox/src/java");
             return;
         }
 
-        String sources = System.getProperty("sources");
+        String contextPath = args[0];
+        String webapp = args[1];
+
+        if (webapp == null) {
+            System.out.println("webapp must be specified as an exploded war");
+            return;
+        }
+
+        String sources = args[2];
         if (sources == null) {
             System.out.println("-Dsources must be specified as a comma-separated list of Java source paths.");
             return;
