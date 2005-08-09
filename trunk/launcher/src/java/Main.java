@@ -18,15 +18,15 @@ public class Main {
             System.out.println("");
             System.out.println("Where [command] is one of the following:");
             System.out.println("  prototype");
-            System.out.println("  prototype:webapp");
+            System.out.println("  prototype:xxx");
             System.out.println("  webflow");
-            System.out.println("  webflow:webapp");
+            System.out.println("  webflow:xxx");
             System.out.println("");
             System.out.println("Execute the commands for additional usage instructions.");
-            System.out.println("Note: the *:webapp commands are just shortcuts for ");
+            System.out.println("Note: the *:xxx commands are just shortcuts for ");
             System.out.println("      running the command on a webapp in the webapps dir.");
-            System.out.println("      For example, 'prototype:webapp sandbox' will start");
-            System.out.println("      prototype automatically for the webapp 'sandbox'");
+            System.out.println("      For example, 'prototype:sandbox' will start prototype");
+            System.out.println("      automatically for the webapp 'sandbox'.");
             return;
         }
 
@@ -46,11 +46,9 @@ public class Main {
         String command = args[0];
         String[] programArgs = new String[args.length - 1];
         System.arraycopy(args, 1, programArgs, 0, programArgs.length);
-        if ("prototype:webapp".equals(command)) {
+        if (command.startsWith("prototype:")) {
             command = "prototype";
-            checkWebAppArgs(args);
-
-            String name = args[1];
+            String name = checkWebAppArgs(args);
             programArgs = new String[]{"/" + name,
                     "webapps/" + name + "/src/webapp",
                     "webapps/" + name + "/src/java"};
@@ -69,11 +67,9 @@ public class Main {
             return;
         }
 
-        if ("webflow:webapp".equals(command)) {
+        if (command.startsWith("webflow:")) {
             command = "webflow";
-            checkWebAppArgs(args);
-
-            String name = args[1];
+            String name = checkWebAppArgs(args);
             programArgs = new String[]{"-config", "webapps/" + name + "/src/webapp/WEB-INF/classes",
                     "-views", "webapps/" + name + "/src/webapp",
                     "-output", "."};
@@ -81,17 +77,26 @@ public class Main {
 
         if ("webflow".equals(command)) {
             launch("com.opensymphony.webwork.webFlow.WebFlow", programArgs, urls);
-            return;
         }
     }
 
-    private static void checkWebAppArgs(String[] args) {
-        if (args.length != 2) {
+    private static String checkWebAppArgs(String[] args) {
+        int colon = args[0].indexOf(':');
+        String name = null;
+        try {
+            name = args[0].substring(colon + 1);
+        } catch (Exception e) {
+        }
+        if (name == null || name.equals("")) {
             System.out.println("Error: you must specify the webapp you wish");
             System.out.println("       to deploy. The webapp name must be the");
             System.out.println("       name of the directory found in webapps/.");
+            System.out.println("");
+            System.out.println("Example: java -jar webwork-launcher.jar prototype:sandbox");
             System.exit(1);
         }
+
+        return name;
     }
 
     private static void launch(String program, String[] programArgs, ArrayList urls) {
