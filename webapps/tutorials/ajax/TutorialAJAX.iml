@@ -161,6 +161,21 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/commons-el.jar" />
+      <url>jar://$MODULE_DIR$/../../../lib/optional/commons-el.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/commons-io-1.0.jar" />
+      <url>jar://$MODULE_DIR$/../../../lib/optional/commons-io-1.0.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/commons-lang-2.1.jar" />
+      <url>jar://$MODULE_DIR$/../../../lib/optional/commons-lang-2.1.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/dom.jar" />
       <url>jar://$MODULE_DIR$/../../../lib/optional/dom.jar!/</url>
     </containerElement>
@@ -181,6 +196,16 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/jasper-compiler.jar" />
+      <url>jar://$MODULE_DIR$/../../../lib/optional/jasper-compiler.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/jasper-runtime.jar" />
+      <url>jar://$MODULE_DIR$/../../../lib/optional/jasper-runtime.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/jasperreports.jar" />
       <url>jar://$MODULE_DIR$/../../../lib/optional/jasperreports.jar!/</url>
     </containerElement>
@@ -188,6 +213,11 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/jcommon.jar" />
       <url>jar://$MODULE_DIR$/../../../lib/optional/jcommon.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/jdtcore-3.1.0.jar" />
+      <url>jar://$MODULE_DIR$/../../../lib/optional/jdtcore-3.1.0.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
