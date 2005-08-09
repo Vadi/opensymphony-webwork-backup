@@ -3051,12 +3051,17 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>theme</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>tabName</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>url</name>
+            <name>href</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
