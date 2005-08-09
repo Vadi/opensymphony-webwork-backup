@@ -251,7 +251,7 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     protected InputStream findInputStream(String name, String packagePrefix) throws IOException {
-        String resourcePath = null;
+        String resourcePath;
         if (packagePrefix.endsWith("/") && name.startsWith("/")) {
             resourcePath = packagePrefix + name.substring(1);
         } else {
