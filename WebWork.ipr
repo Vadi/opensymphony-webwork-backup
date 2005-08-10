@@ -240,9 +240,9 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/webapps/base/BaseWebApp.iml" filepath="$PROJECT_DIR$/webapps/base/BaseWebApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/sandbox/Sandbox.iml" filepath="$PROJECT_DIR$/webapps/sandbox/Sandbox.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/examples/shopping-cart/ShoppingCart.iml" filepath="$PROJECT_DIR$/webapps/examples/shopping-cart/ShoppingCart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapps/starter/Starter.iml" filepath="$PROJECT_DIR$/webapps/starter/Starter.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/tutorials/ajax/TutorialAJAX.iml" filepath="$PROJECT_DIR$/webapps/tutorials/ajax/TutorialAJAX.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebWork.iml" filepath="$PROJECT_DIR$/WebWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/launcher/WebWork Launcher.iml" filepath="$PROJECT_DIR$/launcher/WebWork Launcher.iml" />

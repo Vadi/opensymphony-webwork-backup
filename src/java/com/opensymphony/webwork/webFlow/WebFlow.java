@@ -56,7 +56,7 @@ public class WebFlow {
             baos.close();
 
             String usage = baos.toString();
-            System.out.println(usage.replaceAll("//.*\n", ""));
+            System.out.println(usage.replaceAll("//.*", ""));
             return;
         }
 

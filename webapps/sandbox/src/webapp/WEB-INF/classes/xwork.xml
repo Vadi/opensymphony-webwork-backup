@@ -8,8 +8,12 @@
             <result type="freemarker">test.ftl</result>
         </action>
 
-        <action name="person" class="com.opensymphony.webwork.sandbox.GetPerson">
+        <action name="person" class="com.acme.GetPerson">
             <result type="freemarker">/person.ftl</result>
+        </action>
+
+        <action name="newPerson" class="com.acme.CreatePerson">
+            <result type="redirect">/person.action?personId=${id}</result>
         </action>
 
         <action name="tableTest" class="com.opensymphony.webwork.sandbox.TableTest">

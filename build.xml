@@ -13,9 +13,6 @@
         <sequential>
             <mkdir dir="${dist}/webapps"/>
             <mkdir dir="${dist}/@{root}/@{name}/src"/>
-            <compile srcdir="@{root}/@{name}/src/java" destdir="@{root}/@{name}/build/java" classpath="${build.java}"/>
-            <war file="${dist}/webapps/@{name}.war" basedir="@{root}/@{name}/src/webapp"
-                 webxml="@{root}/@{name}/src/webapp/WEB-INF/web.xml"/>
             <copy todir="${dist}/@{root}/@{name}/src">
                 <fileset dir="@{root}/@{name}/src" includes="**/**"/>
             </copy>
@@ -39,14 +36,10 @@
         <copy file="${src}/etc/dist.properties" todir="${dist}"/>
 
         <!-- prepare each tutorial/example -->
-        <webapp root="webapps" name="base"/>
+        <webapp root="webapps" name="starter"/>
         <webapp root="webapps" name="sandbox"/>
         <webapp root="webapps/tutorials" name="ajax"/>
         <webapp root="webapps/examples" name="shopping-cart"/>
-
-        <!-- copy over elements required to build the final wars -->
-        <copy file="webapps/build.xml" todir="${dist}/webapps"/>
-        <copy file="webapps/README.txt" todir="${dist}/webapps"/>
     </target>
 
     <!-- overridden targets -->
