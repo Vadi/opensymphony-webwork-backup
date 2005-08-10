@@ -124,7 +124,7 @@ public class DispatcherUtils {
 
         // parameters map wrapping the http paraneters.
         Map params = mapping.getParams();
-        Map requestParams = request.getParameterMap();
+        Map requestParams = new HashMap(request.getParameterMap());
         if (params != null) {
             params.putAll(requestParams);
         } else {
@@ -153,10 +153,10 @@ public class DispatcherUtils {
                 Map.Entry entry = (Map.Entry) iterator.next();
                 String key = (String) entry.getKey();
                 if (key.startsWith("method:")) {
-                    method = (String) entry.getValue();
+                    method = key.substring("method:".length());
                     iterator.remove();
                 } else if (key.startsWith("action:")) {
-                    name = (String) entry.getValue();
+                    name = key.substring("action:".length());
                     iterator.remove();
                 }
             }

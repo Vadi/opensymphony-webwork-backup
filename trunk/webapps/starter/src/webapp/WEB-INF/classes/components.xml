@@ -1,0 +1,13 @@
+<components>
+    <component>
+        <scope>request</scope>
+        <class>com.opensymphony.webwork.hibernate.HibernateSessionImpl</class>
+        <enabler>com.opensymphony.webwork.hibernate.HibernateSessionAware</enabler>
+    </component>
+
+    <component>
+        <scope>application</scope>
+        <class>com.opensymphony.webwork.hibernate.HibernateConfigurationImpl</class>
+        <enabler>com.opensymphony.webwork.hibernate.HibernateConfigurationAware</enabler>
+    </component>
+</components>
