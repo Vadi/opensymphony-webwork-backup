@@ -1,0 +1,14 @@
+<input
+    type="submit"
+    dojoType='bindbutton'
+
+
+       value="submit"        
+
+
+
+targetDiv='formId'
+
+
+
+/>
