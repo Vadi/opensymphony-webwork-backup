@@ -34,10 +34,43 @@ public class Main {
         String version = System.getProperty("java.version");
         boolean jdk15 = version.indexOf("1.5") != -1;
 
+        String javaHome = (String) System.getenv().get("JAVA_HOME");
+        String altJavaHome = System.getProperty("java.home");
         ArrayList urls = new ArrayList();
         try {
             findJars(new File("lib"), urls);
             urls.add(new File("webwork-2.2.jar").toURL());
+
+            // load tools.jar from JAVA_HOME
+            File tools = new File(javaHome, "lib/tools.jar");
+            if (!tools.exists()) {
+                // hmm, not there, how about java.home?
+                tools = new File(altJavaHome, "../lib/tools.jar");
+            }
+            if (!tools.exists()) {
+                // try the OS X common path
+                tools = new File(javaHome, "../" + version + "/Classes/classes.jar");
+            }
+            if (!tools.exists()) {
+                // did the user specify it by hand?
+                String prop = System.getProperty("tools");
+                if (prop != null) {
+                    tools = new File(prop);
+                }
+            }
+            if (!tools.exists()) {
+                System.out.println("Error: Could not find tools.jar! Please do one of the following: ");
+                System.out.println("");
+                System.out.println("        - Use the JDK's JVM (ie: c:\\jdk1.5.0\\bin\\java)");
+                System.out.println("        - Specify JAVA_HOME to point to your JDK 1.5 home");
+                System.out.println("        - Specify a direct path to tools.jar via, as shown below:");
+                System.out.println("");
+                System.out.println("       java -Dtools=/path/to/tools.jar -jar webwork-launcher.jar ...");
+                return;
+            }
+
+            // finally, add the verified tools.jar
+            urls.add(tools.toURL());
         } catch (MalformedURLException e) {
             e.printStackTrace();
             System.out.println("Could not find URLs -- see stack trace.");
@@ -113,6 +146,10 @@ public class Main {
     }
 
     private static void findJars(File file, ArrayList urls) throws MalformedURLException {
+        if (file.isDirectory() && "build".equals(file.getName())) {
+            return;
+        }
+
         File[] files = file.listFiles();
         for (int i = 0; i < files.length; i++) {
             File f = files[i];

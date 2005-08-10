@@ -5,8 +5,12 @@ import org.apache.commons.jci.compilers.eclipse.EclipseJavaCompiler;
 import org.mortbay.http.SocketListener;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.WebApplicationContext;
+import org.mortbay.util.FileResource;
+import org.mortbay.util.JarResource;
+import org.mortbay.util.Resource;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -47,7 +51,9 @@ public class Prototype {
         socketListener.setPort(8080);
         server.addListener(socketListener);
         try {
-            WebApplicationContext ctx = server.addWebApplication("localhost", contextPath, webapp);
+            WebApplicationContext ctx = new PrototypeWebAppContext(webapp);
+            ctx.setContextPath(contextPath);
+            server.addContext("localhost", ctx);
 
             // set up files and urls
             StringTokenizer st = new StringTokenizer(sources, ",");
@@ -88,11 +94,49 @@ public class Prototype {
             ctx.setClassLoader(url);
             Thread.currentThread().setContextClassLoader(url);
 
+
             server.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    static class PrototypeWebAppContext extends WebApplicationContext {
+        public PrototypeWebAppContext() {
+        }
+
+        public PrototypeWebAppContext(String string) {
+            super(string);
+        }
+
+        public Resource getResource(String string) throws IOException {
+            if (string.startsWith("/WEB-INF/lib/")) {
+                String jar = string.substring("/WEB-INF/lib/".length());
+                ClassLoader parent = Thread.currentThread().getContextClassLoader();
+                while (parent != null) {
+                    if (parent instanceof URLClassLoader) {
+                        URL[] urls = ((URLClassLoader) parent).getURLs();
+                        for (int i = 0; i < urls.length; i++) {
+                            URL url = urls[i];
+                            if (url.toExternalForm().endsWith(jar)) {
+                                return JarResource.newResource(url);
+                            }
+                        }
+                    }
+
+                    parent = parent.getParent();
+                }
+            }
+
+            // still haven't found what we're looking for?
+            // Alright, let's just hack this to work in IDEA
+            if (string.equals("/webwork")) {
+                return FileResource.newResource("src/java/META-INF/taglib.tld");
+            }
+
+            return super.getResource(string);
+        }
     }
 
     static class MyURLClassLoader extends URLClassLoader {
