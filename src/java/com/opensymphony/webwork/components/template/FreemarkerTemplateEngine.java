@@ -17,6 +17,9 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,20 +30,42 @@ public class FreemarkerTemplateEngine extends BaseTemplateEngine {
     private static final Log LOG = LogFactory.getLog(FreemarkerTemplateEngine.class);
 
     public void renderTemplate(TemplateRenderingContext templateContext) throws Exception {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Rendering template '" + templateContext.getTemplateName() + "'");
-        }
-
+        // get the various items required from the stack
         OgnlValueStack stack = templateContext.getStack();
         Map context = stack.getContext();
         ServletContext servletContext = (ServletContext) context.get(ServletActionContext.SERVLET_CONTEXT);
         HttpServletRequest req = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
         HttpServletResponse res = (HttpServletResponse) context.get(ServletActionContext.HTTP_RESPONSE);
 
+        // prepare freemarker
         FreemarkerManager freemarkerManager = FreemarkerManager.getInstance();
         Configuration config = freemarkerManager.getConfigruation(servletContext);
 
-        freemarker.template.Template template = config.getTemplate(templateContext.getTemplateName());
+        // get the list of templates we can use
+        List templates = templateContext.getTemplate().getPossibleTemplates(this);
+
+        // find the right template
+        freemarker.template.Template template = null;
+        String templateName = null;
+        for (Iterator iterator = templates.iterator(); iterator.hasNext();) {
+            Template t = (Template) iterator.next();
+            templateName = getFinalTemplateName(t);
+            try {
+                // try to load, and if it works, stop at the first one
+                template = config.getTemplate(templateName);
+                break;
+            } catch (IOException e) {
+            }
+        }
+
+        if (template == null) {
+            LOG.error("Could not load template " + templateContext.getTemplate());
+            return;
+        }
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Rendering template " + templateName);
+        }
 
         ActionInvocation ai = ActionContext.getContext().getActionInvocation();
 

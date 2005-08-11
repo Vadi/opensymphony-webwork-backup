@@ -3,9 +3,8 @@ package com.opensymphony.webwork.components.template;
 import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
-import javax.servlet.jsp.PageContext;
-import java.util.Map;
 import java.io.Writer;
+import java.util.Map;
 
 /**
  * TemplateRenderingContext
@@ -14,22 +13,22 @@ import java.io.Writer;
  * @author jcarreira
  */
 public class TemplateRenderingContext {
-    String templateName;
+    Template template;
     OgnlValueStack stack;
     Map parameters;
     UIBean tag;
     Writer writer;
 
-    public TemplateRenderingContext(String templateName, Writer writer, OgnlValueStack stack, Map params, UIBean tag) {
-        this.templateName = templateName;
+    public TemplateRenderingContext(Template template, Writer writer, OgnlValueStack stack, Map params, UIBean tag) {
+        this.template = template;
         this.writer = writer;
         this.stack = stack;
         this.parameters = params;
         this.tag = tag;
     }
 
-    public String getTemplateName() {
-        return templateName;
+    public Template getTemplate() {
+        return template;
     }
 
     public OgnlValueStack getStack() {
