@@ -1,6 +1,8 @@
-package com.opensymphony.webwork.components.ajax;
+package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.components.ClosingUIBean;
+import com.opensymphony.webwork.components.ContentPane;
+import com.opensymphony.webwork.components.JavascriptEmitter;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;

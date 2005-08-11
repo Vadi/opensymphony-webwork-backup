@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.components.ajax;
+package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.components.ClosingUIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -9,36 +9,35 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * User: plightbo
  * Date: Jul 20, 2005
- * Time: 7:22:58 AM
+ * Time: 7:23:11 AM
  */
-public class RemoteLink extends ClosingUIBean {
-    final public static String OPEN_TEMPLATE = "a";
-    final public static String TEMPLATE = "a-close";
-    final public static String COMPONENT_NAME = RemoteLink.class.getName();
+public class RemoteUpdateDiv extends ClosingUIBean {
+    public static final String TEMPLATE = "div";
+    public static final String TEMPLATE_CLOSE = "div-close";
+    public static final String COMPONENT_NAME = RemoteUpdateDiv.class.getName();
 
     protected String href;
+    protected String updateFreq;
+    protected String delay;
+    protected String loadingText;
     protected String errorText;
     protected String showErrorTransportText;
-    protected String notifyTopics;
+    protected String listenTopics;
     protected String afterLoading;
 
-    public RemoteLink(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
+    public RemoteUpdateDiv(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
     }
 
     public String getDefaultOpenTemplate() {
-        return OPEN_TEMPLATE;
-    }
-
-    protected String getDefaultTemplate() {
         return TEMPLATE;
     }
 
-    public String getComponentName() {
-        return COMPONENT_NAME; // todo: is this needed? if not, remove it
+    protected String getDefaultTemplate() {
+        return TEMPLATE_CLOSE;
     }
 
-    protected void evaluateExtraParams() {
+    public void evaluateExtraParams() {
         super.evaluateExtraParams();
 
         if (href != null) {
@@ -50,16 +49,32 @@ public class RemoteLink extends ClosingUIBean {
             addParameter("href", contextPath + stackUrl );
         }
 
+        if (null != updateFreq && !"".equals(updateFreq)) {
+            addParameter("updateFreq", findString(updateFreq));
+        } else {
+            addParameter("updateFreq", "0");
+        }
+
         if (showErrorTransportText != null) {
             addParameter("showErrorTransportText", findValue(showErrorTransportText, Boolean.class));
+        }
+
+        if (null != delay && !"".equals(delay)) {
+            addParameter("delay", findString(delay));
+        } else {
+            addParameter("delay", "0");
+        }
+
+        if (loadingText != null) {
+            addParameter("loadingText", findString(loadingText));
         }
 
         if (errorText != null) {
             addParameter("errorText", findString(errorText));
         }
 
-        if (notifyTopics != null) {
-            addParameter("notifyTopics", findString(notifyTopics));
+        if (listenTopics != null) {
+            addParameter("listenTopics", findString(listenTopics));
         }
 
         if (afterLoading != null) {
@@ -71,6 +86,18 @@ public class RemoteLink extends ClosingUIBean {
         this.href = href;
     }
 
+    public void setUpdateFreq(String updateFreq) {
+        this.updateFreq = updateFreq;
+    }
+
+    public void setDelay(String delay) {
+        this.delay = delay;
+    }
+
+    public void setLoadingText(String loadingText) {
+        this.loadingText = loadingText;
+    }
+
     public void setErrorText(String errorText) {
         this.errorText = errorText;
     }
@@ -79,8 +106,8 @@ public class RemoteLink extends ClosingUIBean {
         this.showErrorTransportText = showErrorTransportText;
     }
 
-    public void setNotifyTopics(String notifyTopics) {
-        this.notifyTopics = notifyTopics;
+    public void setListenTopics(String listenTopics) {
+        this.listenTopics = listenTopics;
     }
 
     public void setAfterLoading(String afterLoading) {

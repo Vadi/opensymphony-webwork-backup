@@ -2,7 +2,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
 import com.opensymphony.webwork.components.UIBean;
-import com.opensymphony.webwork.components.ajax.RemoteUpdateDiv;
+import com.opensymphony.webwork.components.RemoteUpdateDiv;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
