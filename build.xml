@@ -8,13 +8,12 @@
     <import file="${common.build}"/>
 
     <macrodef name="webapp">
-        <attribute name="root"/>
         <attribute name="name"/>
         <sequential>
             <mkdir dir="${dist}/webapps"/>
-            <mkdir dir="${dist}/@{root}/@{name}/src"/>
-            <copy todir="${dist}/@{root}/@{name}/src">
-                <fileset dir="@{root}/@{name}/src" includes="**/**"/>
+            <mkdir dir="${dist}/webapps/@{name}/src"/>
+            <copy todir="${dist}/webapps/@{name}/src">
+                <fileset dir="webapps/@{name}/src" includes="**/**"/>
             </copy>
         </sequential>
     </macrodef>
@@ -36,10 +35,10 @@
         <copy file="${src}/etc/dist.properties" todir="${dist}"/>
 
         <!-- prepare each tutorial/example -->
-        <webapp root="webapps" name="starter"/>
-        <webapp root="webapps" name="sandbox"/>
-        <webapp root="webapps/tutorials" name="ajax"/>
-        <webapp root="webapps/examples" name="shopping-cart"/>
+        <webapp name="starter"/>
+        <webapp name="sandbox"/>
+        <webapp name="ajax"/>
+        <webapp name="shopping-cart"/>
     </target>
 
     <!-- overridden targets -->
@@ -65,8 +64,8 @@
     <target name="clean" depends="common.clean">
         <delete dir="webapps/base/build"/>
         <delete dir="webapps/sandbox/build"/>
-        <delete dir="webapps/tutorials/ajax/build"/>
-        <delete dir="webapps/examples/shopping-cart/build"/>
+        <delete dir="webapps/ajax/build"/>
+        <delete dir="webapps/shopping-cart/build"/>
     </target>
 
     <!-- other targets -->
