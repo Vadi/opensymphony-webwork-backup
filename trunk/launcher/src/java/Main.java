@@ -148,10 +148,6 @@ public class Main {
     }
 
     private static void findJars(File file, ArrayList urls) throws MalformedURLException {
-        if (file.isDirectory() && "build".equals(file.getName())) {
-            return;
-        }
-
         File[] files = file.listFiles();
         for (int i = 0; i < files.length; i++) {
             File f = files[i];
