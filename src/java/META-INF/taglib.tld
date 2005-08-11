@@ -2890,7 +2890,7 @@
     <!-- ******************** WebWork Ajax Tags *************************** -->
     <tag>
         <name>div</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.RemoteUpdateDivTag</tagclass>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.RemoteUpdateDivTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>An HTML widget that can obtain it's contents via a Ajax call</info>
         <attribute>
@@ -2962,14 +2962,14 @@
 
     <tag>
         <name>topicScope</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.TopicScopeTag</tagclass>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.TopicScopeTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>The container tag that generates the javascript for dojo</info>
     </tag>
 
     <tag>
         <name>a</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.HrefTag</tagclass>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.HrefTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>A HTML widget that can be an Ajax replacement for &lt;a href='' /&gt; - makes an ajax call when the link
             is clicked and evaluated the result</info>
@@ -3027,7 +3027,7 @@
 
     <tag>
         <name>tabbedPanel</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.TabbedPanelTag</tagclass>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.TabbedPanelTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <attribute>
             <name>id</name>
@@ -3048,7 +3048,7 @@
 
     <tag>
         <name>panel</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.PanelTag</tagclass>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.PanelTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <attribute>
             <name>id</name>
@@ -3064,7 +3064,7 @@
 
     <tag>
         <name>remotepanel</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.RemotePanelTag</tagclass>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.RemotePanelTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <attribute>
             <name>id</name>

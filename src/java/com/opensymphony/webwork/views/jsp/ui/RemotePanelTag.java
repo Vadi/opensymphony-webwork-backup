@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.views.jsp.ui.ajax;
+package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.webwork.components.ajax.RemotePanel;
