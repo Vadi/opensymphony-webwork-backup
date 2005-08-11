@@ -136,8 +136,7 @@ public class Main {
     }
 
     private static void launch(String program, String[] programArgs, ArrayList urls) {
-        URLClassLoader cl = new URLClassLoader((URL[]) urls.toArray(new URL[urls.size()]),
-                Main.class.getClassLoader());
+        URLClassLoader cl = new URLClassLoader((URL[]) urls.toArray(new URL[urls.size()]));
         Thread.currentThread().setContextClassLoader(cl);
         try {
             Class clazz = cl.loadClass(program);
