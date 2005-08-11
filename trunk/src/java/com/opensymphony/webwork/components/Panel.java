@@ -16,8 +16,8 @@ import java.io.Writer;
 public class Panel extends Div {
     private static final Log LOG = LogFactory.getLog(Panel.class);
 
-    public static final String TEMPLATE = "remotetab";
-    public static final String TEMPLATE_CLOSE = "remotetab-close";
+    public static final String TEMPLATE = "tab";
+    public static final String TEMPLATE_CLOSE = "tab-close";
     public static final String COMPONENT_NAME = Panel.class.getName();
 
     protected String tabName;
