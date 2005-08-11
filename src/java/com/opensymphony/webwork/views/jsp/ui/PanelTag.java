@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.components.UIBean;
-import com.opensymphony.webwork.components.RemotePanel;
+import com.opensymphony.webwork.components.Panel;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,20 +11,22 @@ import javax.servlet.http.HttpServletResponse;
  * @author Ian Roughley
  * @version $Id$
  */
-public class RemotePanelTag extends DivTag {
+public class PanelTag extends DivTag {
     protected String tabName;
     protected String subscribeTopicName;
+    protected String remote;
 
     public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
-        return new RemotePanel(stack, req, res);
+        return new Panel(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        RemotePanel panel = ((RemotePanel) bean);
+        Panel panel = ((Panel) bean);
         panel.setTabName(tabName);
         panel.setSubscribeTopicName(subscribeTopicName);
+        panel.setRemote(remote);
     }
 
     public void setTabName(String tabName) {
@@ -33,5 +35,9 @@ public class RemotePanelTag extends DivTag {
 
     public void setSubscribeTopicName(String subscribeTopicName) {
         this.subscribeTopicName = subscribeTopicName;
+    }
+
+    public void setRemote(String remote) {
+        this.remote = remote;
     }
 }

@@ -8,7 +8,5 @@
     </#list>
     content_${parameters.id} = content_${parameters.id} + "        </ul>\n";
     headerDiv_${parameters.id}.innerHTML = content_${parameters.id};
+    dojo.event.topic.publish('${parameters.topicName}', '${parameters.tabs[0].id}');
 </script>
-
-
-
