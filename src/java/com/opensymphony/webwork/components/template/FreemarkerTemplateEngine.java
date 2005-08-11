@@ -47,6 +47,7 @@ public class FreemarkerTemplateEngine extends BaseTemplateEngine {
         // find the right template
         freemarker.template.Template template = null;
         String templateName = null;
+        Exception exception = null;
         for (Iterator iterator = templates.iterator(); iterator.hasNext();) {
             Template t = (Template) iterator.next();
             templateName = getFinalTemplateName(t);
@@ -55,12 +56,19 @@ public class FreemarkerTemplateEngine extends BaseTemplateEngine {
                 template = config.getTemplate(templateName);
                 break;
             } catch (IOException e) {
+                if (exception == null) {
+                    exception = e;
+                }
             }
         }
 
         if (template == null) {
             LOG.error("Could not load template " + templateContext.getTemplate());
-            return;
+            if (exception != null) {
+                throw exception;
+            } else {
+                return;
+            }
         }
 
         if (LOG.isDebugEnabled()) {
