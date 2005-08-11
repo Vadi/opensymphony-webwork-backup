@@ -1,7 +1,3 @@
-/**
- * Copyright:	Copyright (c) From Down & Around, Inc.
- */
-
 package com.opensymphony.webwork.views.freemarker.tags;
 
 import com.opensymphony.xwork.util.OgnlValueStack;

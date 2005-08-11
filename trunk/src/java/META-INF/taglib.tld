@@ -3060,32 +3060,21 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-    </tag>
-
-    <tag>
-        <name>remotepanel</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.RemotePanelTag</tagclass>
-        <bodycontent>JSP</bodycontent>
-        <attribute>
-            <name>id</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
         <attribute>
             <name>theme</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>tabName</name>
-            <required>true</required>
+            <name>href</name>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>href</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
+             <name>remote</name>
+             <required>false</required>
+             <rtexprvalue>true</rtexprvalue>
+         </attribute>
         <attribute>
             <name>loadingText</name>
             <required>false</required>
