@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Ian Roughley
  * @version $Id$
  */
-public class RemotePanelTag extends RemoteUpdateDivTag {
+public class RemotePanelTag extends DivTag {
     protected String tabName;
     protected String subscribeTopicName;
 

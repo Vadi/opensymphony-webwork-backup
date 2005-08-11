@@ -6,7 +6,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 import com.opensymphony.webwork.views.jsp.ui.SubmitTag;
-import com.opensymphony.webwork.views.jsp.ui.RemoteLinkTest;
+import com.opensymphony.webwork.views.jsp.ui.HrefTest;
 
 /**
  * @author Ian Roughley
@@ -31,7 +31,7 @@ public class SubmitAjaxTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        verify(RemoteLinkTest.class.getResource("submit-1.txt"));
+        verify(HrefTest.class.getResource("submit-ajax-1.txt"));
     }
 
 }
