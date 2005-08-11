@@ -1,7 +1,15 @@
-<a dojoType='bindanchor'
-	<#if tag.id?if_exists != "">id="${tag.id?html}"     </#if>
-	<#if tag.href?if_exists != "">href="${tag.href}"    </#if>
-    <#if parameters.name?exists>             name="${parameters.name?html}"         </#if>
-    <#if parameters.cssClass?exists>         class="${parameters.cssClass?html}"    </#if>
-    <#if parameters.cssStyle?exists>         style="${parameters.cssStyle?html}"    </#if>
+<a
+	<#if parameters.id?if_exists != "">id="${parameters.id?html}"</#if>
+	<#if parameters.href?if_exists != "">href="${parameters.href}"</#if>
+
+<#if parameters.tabindex?exists>
+ tabindex="${parameters.tabindex?html}"<#rt/>
+</#if>
+<#if parameters.cssClass?exists>
+ class="${parameters.cssClass?html}"<#rt/>
+</#if>
+<#if parameters.cssStyle?exists>
+ style="${parameters.cssStyle?html}"<#rt/>
+</#if>
+<#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
 >
