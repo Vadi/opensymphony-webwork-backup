@@ -72,7 +72,7 @@ public class Prototype {
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
                 if (!file.exists()) {
-                    throw new RuntimeException("Dir does not exist!");
+                    throw new RuntimeException("Source dir does not exist: " + file.toString());
                 }
                 urls[i] = file.getCanonicalFile().toURL();
             }
