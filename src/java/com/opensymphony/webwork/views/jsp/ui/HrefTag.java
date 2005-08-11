@@ -2,7 +2,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
 import com.opensymphony.webwork.components.UIBean;
-import com.opensymphony.webwork.components.ajax.RemoteLink;
+import com.opensymphony.webwork.components.Href;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,13 +31,13 @@ public class HrefTag extends AbstractUITag {
     protected String afterLoading;
 
     public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
-        return new RemoteLink(stack, req, res);
+        return new Href(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        RemoteLink link = (RemoteLink) bean;
+        Href link = (Href) bean;
         link.setHref(href);
         link.setErrorText(errorText);
         link.setShowErrorTransportText(showErrorTransportText);

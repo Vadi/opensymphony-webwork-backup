@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.components.ajax;
+package com.opensymphony.webwork.components;
 
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspException;

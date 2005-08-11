@@ -1,8 +1,8 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
-import com.opensymphony.webwork.components.ajax.ContentPane;
-import com.opensymphony.webwork.components.ajax.TabbedPanel;
+import com.opensymphony.webwork.components.ContentPane;
+import com.opensymphony.webwork.components.TabbedPanel;
 import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -25,16 +25,16 @@ public class TabbedPanelTag extends AbstractUITag {
 
     /**
      * Get the list of {@link ContentPane} tabs for this tab panel.
-     * @return the list of {@link ContentPane} tabs for this tab panel
+     * @return the list of {@link com.opensymphony.webwork.components.ContentPane} tabs for this tab panel
      */
     public List getTabs() {
         return ((TabbedPanel) bean).getTabs();
     }
 
     /**
-     * Add a new {@link com.opensymphony.webwork.components.ajax.ContentPane} to be rendered.
+     * Add a new {@link com.opensymphony.webwork.components.ContentPane} to be rendered.
      *
-     * @param pane a new {@link com.opensymphony.webwork.components.ajax.ContentPane} to be rendered
+     * @param pane a new {@link com.opensymphony.webwork.components.ContentPane} to be rendered
      */
     public void addTab( ContentPane pane ) {
         ((TabbedPanel) bean).addTab(pane);

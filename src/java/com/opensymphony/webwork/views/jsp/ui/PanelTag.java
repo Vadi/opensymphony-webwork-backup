@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.components.UIBean;
-import com.opensymphony.webwork.components.ajax.Panel;
+import com.opensymphony.webwork.components.Panel;
 import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
 import com.opensymphony.xwork.util.OgnlValueStack;
 

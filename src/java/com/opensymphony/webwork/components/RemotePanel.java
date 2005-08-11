@@ -1,6 +1,8 @@
-package com.opensymphony.webwork.components.ajax;
+package com.opensymphony.webwork.components;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.components.ContentPane;
+import com.opensymphony.webwork.components.JavascriptEmitter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
