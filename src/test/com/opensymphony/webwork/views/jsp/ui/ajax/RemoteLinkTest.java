@@ -20,7 +20,7 @@ public class RemoteLinkTest extends AbstractUITagTest {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 
-        RemoteLinkTag tag = new RemoteLinkTag();
+        HrefTag tag = new HrefTag();
         tag.setPageContext(pageContext);
 
         tag.setId("mylink");

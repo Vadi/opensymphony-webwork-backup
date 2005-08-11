@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author		Ian Roughley
  * @version		$Id$
  */
-public class RemoteLinkTag extends AbstractUITag {
+public class HrefTag extends AbstractUITag {
 
 
     protected String href;
