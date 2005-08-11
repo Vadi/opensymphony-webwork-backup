@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
  * Date: Jul 20, 2005
  * Time: 7:23:11 AM
  */
-public class RemoteUpdateDiv extends ClosingUIBean {
+public class Div extends ClosingUIBean {
     public static final String TEMPLATE = "div";
     public static final String TEMPLATE_CLOSE = "div-close";
-    public static final String COMPONENT_NAME = RemoteUpdateDiv.class.getName();
+    public static final String COMPONENT_NAME = Div.class.getName();
 
     protected String href;
     protected String updateFreq;
@@ -25,7 +25,7 @@ public class RemoteUpdateDiv extends ClosingUIBean {
     protected String listenTopics;
     protected String afterLoading;
 
-    public RemoteUpdateDiv(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
+    public Div(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
     }
 

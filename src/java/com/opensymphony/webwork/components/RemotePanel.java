@@ -16,7 +16,7 @@ import java.io.Writer;
  * Date: Jul 20, 2005
  * Time: 7:22:54 AM
  */
-public class RemotePanel extends RemoteUpdateDiv implements ContentPane, JavascriptEmitter {
+public class RemotePanel extends Div implements ContentPane, JavascriptEmitter {
     private static final Log LOG = LogFactory.getLog(RemotePanel.class);
 
     public static final String TEMPLATE = "remotetab";

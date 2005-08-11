@@ -2,7 +2,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
 import com.opensymphony.webwork.components.UIBean;
-import com.opensymphony.webwork.components.RemoteUpdateDiv;
+import com.opensymphony.webwork.components.Div;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,13 +30,13 @@ public class DivTag extends AbstractUITag {
     protected String afterLoading;
 
     public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
-        return new RemoteUpdateDiv(stack, req, res);
+        return new Div(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        RemoteUpdateDiv div = (RemoteUpdateDiv) bean;
+        Div div = (Div) bean;
         div.setHref(href);
         div.setUpdateFreq(updateFreq);
         div.setDelay(delay);
