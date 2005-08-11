@@ -1,7 +1,5 @@
 <%@ taglib prefix="ww" uri="/webwork" %>
-<!--
-    // START SNIPPET: common-include
--->
+<!--// START SNIPPET: common-include-->
 <script language="JavaScript" type="text/javascript">
     // Dojo configuration
     djConfig = {
@@ -23,6 +21,4 @@
     dojo.hostenv.loadModule("webwork.widgets.BindButton");
     dojo.hostenv.loadModule("webwork.widgets.BindAnchor");
 </script>
-<!--
-    // END SNIPPET: common-include
--->
+<!--// END SNIPPET: common-include-->
