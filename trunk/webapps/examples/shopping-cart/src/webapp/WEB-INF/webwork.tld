@@ -2648,7 +2648,7 @@
 
     <tag>
         <name>a</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.RemoteLinkTag</tagclass>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.ajax.HrefTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>A HTML widget that can be an Ajax replacement for &lt;a href='' /&gt; - makes an ajax call when the link is clicked and evaluated the result</info>
         <attribute>
