@@ -46,15 +46,7 @@ public class Prototype {
             return;
         }
 
-        Server server = new Server();
-        SocketListener socketListener = new SocketListener();
-        socketListener.setPort(8080);
-        server.addListener(socketListener);
         try {
-            WebApplicationContext ctx = new PrototypeWebAppContext(webapp);
-            ctx.setContextPath(contextPath);
-            server.addContext("localhost", ctx);
-
             // set up files and urls
             StringTokenizer st = new StringTokenizer(sources, ",");
             ArrayList fileList = new ArrayList();
@@ -79,21 +71,23 @@ public class Prototype {
 
             // deal with classloader
             ClassLoader parent = Thread.currentThread().getContextClassLoader();
-
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
                 parent = new CompilingClassLoader(parent, file, new EclipseJavaCompiler());
-//                Field famField = parent.getClass().getDeclaredField("fam");
-//                famField.setAccessible(true);
-//                FilesystemAlterationMonitor fam = (FilesystemAlterationMonitor) famField.get(parent);
-//                fam.doRun();
-//
-//                Thread.sleep(1500);
             }
             URLClassLoader url = new MyURLClassLoader(urls, parent);
-            ctx.setClassLoader(url);
             Thread.currentThread().setContextClassLoader(url);
 
+            // finally, start the server!
+            Server server = new Server();
+            SocketListener socketListener = new SocketListener();
+            socketListener.setPort(8080);
+            server.addListener(socketListener);
+
+            WebApplicationContext ctx = new PrototypeWebAppContext(webapp);
+            ctx.setContextPath(contextPath);
+            ctx.setClassLoader(url);
+            server.addContext("localhost", ctx);
 
             server.start();
         } catch (Exception e) {
