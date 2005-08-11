@@ -4,6 +4,6 @@
 </head>
 
 <body>
-<@ww.table modelName="table" sortable="true"/>
+<@ww.table modelName="people" sortable="true"/>
 </body>
 </html>

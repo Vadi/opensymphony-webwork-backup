@@ -28,17 +28,12 @@ public abstract class ClosingUIBean extends UIBean {
         this.openTemplate = openTemplate;
     }
 
-    public String getOpenTemplate() {
-        return openTemplate;
-    }
-
     public void start(Writer writer) {
         super.start(writer);
         try {
             evaluateParams();
 
-            String openTemplateName = buildTemplateName(getOpenTemplate(), getDefaultOpenTemplate());
-            mergeTemplate(writer, openTemplateName);
+            mergeTemplate(writer, buildTemplateName(openTemplate, getDefaultOpenTemplate()));
         } catch (Exception e) {
             LOG.error("Could not open template", e);
             e.printStackTrace();

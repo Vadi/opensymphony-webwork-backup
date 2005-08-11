@@ -1,5 +1,6 @@
 package com.opensymphony.webwork.components;
 
+import com.opensymphony.webwork.components.template.Template;
 import com.opensymphony.webwork.components.template.TemplateEngine;
 import com.opensymphony.webwork.components.template.TemplateEngineManager;
 import com.opensymphony.webwork.components.template.TemplateRenderingContext;
@@ -68,16 +69,12 @@ public abstract class UIBean extends Component {
     public void end(Writer writer) {
         evaluateParams();
         try {
-            mergeTemplate(writer, getTemplateName());
+            mergeTemplate(writer, buildTemplateName(template, getDefaultTemplate()));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         super.end(writer);
-    }
-
-    protected String getTemplateName() {
-        return buildTemplateName(template, getDefaultTemplate());
     }
 
     /**
@@ -90,52 +87,31 @@ public abstract class UIBean extends Component {
      */
     protected abstract String getDefaultTemplate();
 
-    protected String buildTemplateName(String myTemplate, String myDefaultTemplate) {
+    protected Template buildTemplateName(String myTemplate, String myDefaultTemplate) {
         String template = myDefaultTemplate;
 
         if (myTemplate != null) {
             template = findString(myTemplate);
-
-            if (template == null) {
-                LOG.warn("template attribute evaluated to null; using value as-is for backwards compatibility");
-                template = myTemplate;
-            }
         }
 
-        final StringBuffer templateName = new StringBuffer(30);
+        String templateDir = getTemplateDir();
+        String theme = getTheme();
 
-        final String templateDir = getTemplateDir();
-        if (!templateDir.startsWith(FILE_SEPARATOR)) {
-            templateName.append(FILE_SEPARATOR);
-        }
-        templateName.append(templateDir);
+        return new Template(templateDir, theme, template);
 
-        final String theme = getTheme();
-        if (theme != null && !templateDir.endsWith(FILE_SEPARATOR) && !theme.startsWith(FILE_SEPARATOR)) {
-            templateName.append(FILE_SEPARATOR);
-        }
-        templateName.append(theme);
-
-        if (template != null && !template.startsWith(FILE_SEPARATOR)) {
-            templateName.append(FILE_SEPARATOR);
-        }
-        templateName.append(template);
-        return templateName.toString();
     }
 
-    protected void mergeTemplate(Writer writer, String templateName) throws Exception {
-        final TemplateEngine engine = TemplateEngineManager.getTemplateEngine(templateName);
+    protected void mergeTemplate(Writer writer, Template template) throws Exception {
+        final TemplateEngine engine = TemplateEngineManager.getTemplateEngine(template);
         if (engine == null) {
-            throw new ConfigurationException("Unable to find a TemplateEngine for template " + templateName);
+            throw new ConfigurationException("Unable to find a TemplateEngine for template " + template);
         }
 
-        String finalTemplateName = engine.getFinalTemplateName(templateName);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Got template engine " + engine.getClass().getName() + " for template '" + templateName + "'" +
-                    ((templateName.equals(finalTemplateName)) ? null : " final template name '" + finalTemplateName + "'"));
+            LOG.debug("Rendering template " + template);
         }
 
-        final TemplateRenderingContext context = new TemplateRenderingContext(finalTemplateName, writer, getStack(), getParameters(), this);
+        final TemplateRenderingContext context = new TemplateRenderingContext(template, writer, getStack(), getParameters(), this);
         engine.renderTemplate(context);
     }
 

@@ -1,5 +1,7 @@
 package com.opensymphony.webwork.components.template;
 
+import java.util.Map;
+
 
 /**
  * Any template language which wants to support UI tag templating needs to provide an implementation of this interface
@@ -11,5 +13,5 @@ package com.opensymphony.webwork.components.template;
 public interface TemplateEngine {
     void renderTemplate(TemplateRenderingContext templateContext) throws Exception;
 
-    String getFinalTemplateName(String templateName);
+    Map getThemeProps(Template template);
 }
