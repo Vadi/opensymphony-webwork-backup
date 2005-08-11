@@ -2959,14 +2959,6 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-
-    <tag>
-        <name>topicScope</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.TopicScopeTag</tagclass>
-        <bodycontent>JSP</bodycontent>
-        <info>The container tag that generates the javascript for dojo</info>
-    </tag>
-
     <tag>
         <name>a</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.HrefTag</tagclass>
