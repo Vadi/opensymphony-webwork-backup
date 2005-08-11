@@ -9,15 +9,6 @@
 	<#if parameters.listenTopics?exists>listenTopics='${parameters.listenTopics}'</#if>
 	<#if parameters.afterLoading?exists>onLoad='${parameters.afterLoading}'</#if>
 
-<#if parameters.disabled?default(false)>
- disabled="disabled"<#rt/>
-</#if>
-<#if parameters.readonly?exists>
- readonly="readonly"<#rt/>
-</#if>
-<#if parameters.tabindex?exists>
- tabindex="${parameters.tabindex?html}"<#rt/>
-</#if>
 <#if parameters.tabindex?exists>
  tabindex="${parameters.tabindex?html}"<#rt/>
 </#if>
