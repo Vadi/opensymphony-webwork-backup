@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author		Ian Roughley
  * @version		$Id$
  */
-public class RemoteUpdateDivTag extends AbstractUITag {
+public class DivTag extends AbstractUITag {
 
     protected String href;
     protected String updateFreq;

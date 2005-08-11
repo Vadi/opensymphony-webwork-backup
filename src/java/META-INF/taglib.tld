@@ -2890,7 +2890,7 @@
     <!-- ******************** WebWork Ajax Tags *************************** -->
     <tag>
         <name>div</name>
-        <tagclass>com.opensymphony.webwork.views.jsp.ui.RemoteUpdateDivTag</tagclass>
+        <tagclass>com.opensymphony.webwork.views.jsp.ui.DivTag</tagclass>
         <bodycontent>JSP</bodycontent>
         <info>An HTML widget that can obtain it's contents via a Ajax call</info>
         <attribute>
