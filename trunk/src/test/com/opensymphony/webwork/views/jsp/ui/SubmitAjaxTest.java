@@ -2,16 +2,17 @@
  * Copyright:	Copyright (c) From Down & Around, Inc.
  */
 
-package com.opensymphony.webwork.views.jsp.ui.ajax;
+package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 import com.opensymphony.webwork.views.jsp.ui.SubmitTag;
+import com.opensymphony.webwork.views.jsp.ui.RemoteLinkTest;
 
 /**
  * @author Ian Roughley
  * @version $Id$
  */
-public class SubmitTest extends AbstractUITagTest {
+public class SubmitAjaxTest extends AbstractUITagTest {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
