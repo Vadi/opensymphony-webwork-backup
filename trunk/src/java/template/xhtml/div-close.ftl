@@ -1,1 +1,0 @@
-<#include "/${parameters.templateDir}/simple/div-close.ftl" />
