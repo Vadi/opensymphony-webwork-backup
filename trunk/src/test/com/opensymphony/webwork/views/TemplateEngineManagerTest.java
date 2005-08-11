@@ -1,10 +1,7 @@
 package com.opensymphony.webwork.views;
 
+import com.opensymphony.webwork.components.template.*;
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.components.template.JspTemplateEngine;
-import com.opensymphony.webwork.components.template.TemplateEngine;
-import com.opensymphony.webwork.components.template.TemplateEngineManager;
-import com.opensymphony.webwork.components.template.VelocityTemplateEngine;
 import junit.framework.TestCase;
 
 /**
@@ -27,15 +24,16 @@ public class TemplateEngineManagerTest extends TestCase {
                 return null;
             }
         });
-        TemplateEngine engine = TemplateEngineManager.getTemplateEngine("foo");
+        TemplateEngine engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo"));
         assertTrue(engine instanceof JspTemplateEngine);
-        engine = TemplateEngineManager.getTemplateEngine("foo.vm");
+        engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo.vm"));
         assertTrue(engine instanceof VelocityTemplateEngine);
     }
 
     public void testTemplateTypeUsesDefaultWhenNotSetInConfiguration() {
-        TemplateEngine engine = TemplateEngineManager.getTemplateEngine("foo");
-        TemplateEngine defaultTemplateEngine = TemplateEngineManager.getTemplateEngine(TemplateEngineManager.DEFAULT_TEMPLATE_TYPE);
+        TemplateEngine engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo"));
+        Template template = new Template("/template", "simple", "foo." + TemplateEngineManager.DEFAULT_TEMPLATE_TYPE);
+        TemplateEngine defaultTemplateEngine = TemplateEngineManager.getTemplateEngine(template);
         assertTrue(engine.getClass().equals(defaultTemplateEngine.getClass()));
     }
 
