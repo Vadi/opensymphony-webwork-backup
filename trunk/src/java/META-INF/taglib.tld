@@ -1260,6 +1260,27 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <!-- AJAX attributes -->
+        <attribute>
+            <name>resultDivId</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onLoadJS</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>notifyTopics</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>listenTopics</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
         <!-- HTML scripting events attributes -->
         <attribute>
             <name>onclick</name>

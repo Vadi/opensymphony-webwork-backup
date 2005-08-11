@@ -22,9 +22,7 @@ Remote form replacing another div:<br/>
 
     <input type='text' name='data' value='WebWork User'>
 
-    <ww:submit value="GO2" theme="ajax" >
-        <ww:param name="resultDivId" >two</ww:param>
-    </ww:submit>
+    <ww:submit value="GO2" theme="ajax" resultDivId="two" />
 
 </ww:form>
 
@@ -39,9 +37,7 @@ Remote form replacing the forms content:<br/>
 
     <input type='text' name='data' value='WebWork User'>
 
-    <ww:submit value="GO3" theme="ajax" >
-        <ww:param name="resultDivId" >theForm3</ww:param>
-    </ww:submit>
+    <ww:submit value="GO3" theme="ajax" resultDivId="theForm3" />
 
 </ww:form>
 
@@ -55,9 +51,7 @@ Remote form evaluating suplied JS on completion:<br/>
 
     <input type='text' name='data' value='WebWork User'>
 
-    <ww:submit value="GO4" theme="ajax" >
-        <ww:param name="onLoadJS" >alert('form submitted');"</ww:param>
-    </ww:submit>
+    <ww:submit value="GO4" theme="ajax" onLoadJS="alert('form submitted');" />
 
 </ww:form>
 
