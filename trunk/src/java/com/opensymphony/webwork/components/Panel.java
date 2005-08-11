@@ -37,7 +37,7 @@ public class Panel extends Div {
     }
 
     public void end(Writer writer) {
-        TabbedPanel tabbedPanel = ((TabbedPanel) findAncestor(TabbedPanel.class));
+        TabbedPanel tabbedPanel = ((TabbedPanel) findLastAncestor(TabbedPanel.class));
         subscribeTopicName = tabbedPanel.getTopicName();
         tabbedPanel.addTab(this);
 

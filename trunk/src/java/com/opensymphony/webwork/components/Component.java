@@ -62,6 +62,18 @@ public class Component {
         return null;
     }
 
+    public Component findLastAncestor(Class clazz) {
+        Stack componentStack = getComponentStack();
+        for (int i=componentStack.size()-1; i>=0; i--) {
+            Component component = (Component) componentStack.get(i);
+            if (component.getClass().isAssignableFrom(clazz) && component != this) {
+                return component;
+            }
+        }
+
+        return null;
+    }
+
     protected String findString(String expr) {
         return (String) findValue(expr, String.class);
     }

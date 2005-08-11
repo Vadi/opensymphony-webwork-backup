@@ -24,12 +24,10 @@
 
 <body>
 
-<ww:topicScope>
-
     <table cellpadding="0" cellspacing="10" border="0" width="600">
         <tr>
             <td align="top">
-                <ww:tabbedPanel id="test" theme="ajax">
+                <ww:tabbedPanel id="test" >
                     <ww:panel id="one" tabName="one">
                         This is the first pane<br/>
                         <ww:form>
@@ -46,7 +44,7 @@
                 </ww:tabbedPanel>
             </td>
             <td align="top">
-                <ww:tabbedPanel id="test2" theme="ajax">
+                <ww:tabbedPanel id="test2" >
                     <ww:panel id="left" tabName="left">
                         This is the left pane<br/>
                         <ww:form>
@@ -54,8 +52,8 @@
                             <ww:textfield name="tt2" label="Test Text2"/>
                         </ww:form>
                     </ww:panel>
-                    <ww:remotepanel href="/AjaxTest.action" id="ryh1" theme="ajax"
-                                    tabName="remote one"></ww:remotepanel>
+                    <ww:panel remote="true" href="/AjaxTest.action" id="ryh1" theme="ajax"
+                                    tabName="remote one"></ww:panel>
                     <ww:panel id="middle" tabName="middle">
                         middle tab<br/>
                         <ww:form>
@@ -63,24 +61,24 @@
                             <ww:textfield name="tt2" label="Test Text442"/>
                         </ww:form>
                     </ww:panel>
-                    <ww:remotepanel href="/AjaxTest.action" id="ryh21" theme="ajax" tabName="remote right"/>
+                    <ww:panel remote="true" href="/AjaxTest.action" id="ryh21" theme="ajax" tabName="remote right"/>
                 </ww:tabbedPanel>
             </td>
         </tr>
         <tr>
             <td align="top">
-                <ww:tabbedPanel id="testremote" theme="ajax">
-                    <ww:remotepanel href="/AjaxTest.action" id="r1" theme="ajax" tabName="remote one"></ww:remotepanel>
-                    <ww:remotepanel href="/AjaxTest.action" id="r2" theme="ajax" tabName="remote two"></ww:remotepanel>
-                    <ww:remotepanel href="/AjaxTest.action" id="r3" theme="ajax"
-                                    tabName="remote three"></ww:remotepanel>
+                <ww:tabbedPanel id="testremote">
+                    <ww:panel remote="true" href="/AjaxTest.action" id="r1" theme="ajax" tabName="remote one"></ww:panel>
+                    <ww:panel remote="true" href="/AjaxTest.action" id="r2" theme="ajax" tabName="remote two"></ww:panel>
+                    <ww:panel remote="true" href="/AjaxTest.action" id="r3" theme="ajax"
+                                    tabName="remote three"></ww:panel>
                 </ww:tabbedPanel>
             </td>
             <td align="top">
-                <ww:tabbedPanel id="test3" theme="ajax">
+                <ww:tabbedPanel id="test3" >
                     <ww:panel id="left1" tabName="out one">
                         Outer one<br/>
-                        <ww:tabbedPanel id="test11" theme="ajax">
+                        <ww:tabbedPanel id="test11">
                             <ww:panel id="i11" tabName="inner 1 one">Inner 1</ww:panel>
                             <ww:panel id="112" tabName="inner 1 two">Inner 2</ww:panel>
                             <ww:panel id="i13" tabName="inner 1 three">Inner 3</ww:panel>
@@ -88,7 +86,7 @@
                     </ww:panel>
                     <ww:panel id="middle1" tabName="out two">
                         Outer two<br/>
-                        <ww:tabbedPanel id="test12" theme="ajax">
+                        <ww:tabbedPanel id="test12" >
                             <ww:panel id="i21" tabName="inner 2 one">Inner 21</ww:panel>
                             <ww:panel id="122" tabName="inner 2 two">Inner 22</ww:panel>
                             <ww:panel id="i23" tabName="inner 2 three">Inner 23</ww:panel>
@@ -96,7 +94,7 @@
                     </ww:panel>
                     <ww:panel id="right1" tabName="out three">
                         Outer three<br/>
-                        <ww:tabbedPanel id="test13" theme="ajax">
+                        <ww:tabbedPanel id="test13">
                             <ww:panel id="i31" tabName="inner 3 one">Inner 31</ww:panel>
                             <ww:panel id="132" tabName="inner 3 two">Inner 32</ww:panel>
                             <ww:panel id="i33" tabName="inner 3 three">Inner 33</ww:panel>
@@ -107,7 +105,5 @@
         </tr>
     </table>
 
-
-</ww:topicScope>
 </body>
 </html>
