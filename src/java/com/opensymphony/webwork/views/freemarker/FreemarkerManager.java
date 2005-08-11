@@ -225,11 +225,11 @@ public class FreemarkerManager {
                 new MultiTemplateLoader(new TemplateLoader[]{
                         templatePathLoader,
                         new WebappTemplateLoader(servletContext),
-                        new ClassTemplateLoader(FreemarkerResult.class, "/")
+                        new WebWorkClassTemplateLoader()
                 })
                 : new MultiTemplateLoader(new TemplateLoader[]{
                 new WebappTemplateLoader(servletContext),
-                new ClassTemplateLoader(FreemarkerResult.class, "/")
+                new WebWorkClassTemplateLoader()
         });
     }
 
