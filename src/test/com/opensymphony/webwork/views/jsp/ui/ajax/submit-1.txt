@@ -3,12 +3,12 @@
     dojoType='bindbutton'
 
 
-       value="submit"        
+value="submit"
 
 
 
 targetDiv='formId'
-
-
-
+onLoad="alert('form submitted');"
+notifyTopics='b'
+listenTopics='a'
 />

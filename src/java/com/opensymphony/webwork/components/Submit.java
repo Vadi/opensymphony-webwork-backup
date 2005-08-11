@@ -14,6 +14,10 @@ public class Submit extends UIBean {
     final public static String TEMPLATE = "submit";
 
     protected String align;
+    protected String resultDivId;
+    protected String onLoadJS;
+    protected String notifyTopics;
+    protected String listenTopics;
 
     public Submit(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -36,6 +40,18 @@ public class Submit extends UIBean {
 
         addParameter("align", findString(align));
 
+        if (null!=resultDivId)
+            addParameter("resultDivId", findString(resultDivId));
+
+        if (null!=onLoadJS)
+            addParameter("onLoadJS", findString(onLoadJS));
+
+        if (null!=notifyTopics)
+            addParameter("notifyTopics", findString(notifyTopics));
+
+        if (null!=listenTopics)
+            addParameter("listenTopics", findString(listenTopics));
+
         Form form = (Form) findAncestor(Form.class);
         if (form != null) {
             addParameter("formId", ((Form) form).getId());
@@ -44,5 +60,21 @@ public class Submit extends UIBean {
 
     public void setAlign(String align) {
         this.align = align;
+    }
+
+    public void setResultDivId(String resultDivId) {
+        this.resultDivId = resultDivId;
+    }
+
+    public void setOnLoadJS(String onLoadJS) {
+        this.onLoadJS = onLoadJS;
+    }
+
+    public void setNotifyTopics(String notifyTopics) {
+        this.notifyTopics = notifyTopics;
+    }
+
+    public void setListenTopics(String listenTopics) {
+        this.listenTopics = listenTopics;
     }
 }

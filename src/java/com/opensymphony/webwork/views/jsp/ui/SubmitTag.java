@@ -17,6 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SubmitTag extends AbstractUITag {
     protected String align;
+    protected String resultDivId;
+    protected String onLoadJS;
+    protected String notifyTopics;
+    protected String listenTopics;
 
     public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Submit(stack, req, res);
@@ -26,9 +30,29 @@ public class SubmitTag extends AbstractUITag {
         super.populateParams();
 
         ((Submit) bean).setAlign(align);
+        ((Submit) bean).setResultDivId(resultDivId);
+        ((Submit) bean).setOnLoadJS(onLoadJS);
+        ((Submit) bean).setNotifyTopics(notifyTopics);
+        ((Submit) bean).setListenTopics(listenTopics);
     }
 
     public void setAlign(String align) {
         this.align = align;
+    }
+
+    public void setResultDivId(String resultDivId) {
+        this.resultDivId = resultDivId;
+    }
+
+    public void setOnLoadJS(String onLoadJS) {
+        this.onLoadJS = onLoadJS;
+    }
+
+    public void setNotifyTopics(String notifyTopics) {
+        this.notifyTopics = notifyTopics;
+    }
+
+    public void setListenTopics(String listenTopics) {
+        this.listenTopics = listenTopics;
     }
 }
