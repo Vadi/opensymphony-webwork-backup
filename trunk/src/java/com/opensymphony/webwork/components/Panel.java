@@ -52,7 +52,7 @@ public class Panel extends Div {
         }
 
         if (subscribeTopicName != null) {
-            addParameter("subscribeTopicName", findString(subscribeTopicName));
+            addParameter("subscribeTopicName", subscribeTopicName);
         }
 
         if (remote != null && "true".equalsIgnoreCase(remote)) {
