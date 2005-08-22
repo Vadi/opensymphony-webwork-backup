@@ -63,7 +63,7 @@ public class Panel extends Div {
     }
 
     public String getTabName() {
-        return tabName;
+        return findString(tabName);
     }
 
     public String getComponentName() {
