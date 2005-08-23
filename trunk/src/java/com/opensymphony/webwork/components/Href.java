@@ -1,6 +1,5 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.webwork.components.ClosingUIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,6 +51,8 @@ public class Href extends ClosingUIBean {
 
         if (showErrorTransportText != null) {
             addParameter("showErrorTransportText", findValue(showErrorTransportText, Boolean.class));
+        } else {
+            addParameter("showErrorTransportText", Boolean.FALSE );
         }
 
         if (errorText != null) {
