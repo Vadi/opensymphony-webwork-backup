@@ -18,9 +18,12 @@
         </sequential>
     </macrodef>
 
+    <target name="precompile">
+        <compile srcdir="launcher/src/java" destdir="launcher/build/java"/>
+    </target>
+
     <target name="predist">
         <!-- build up the launcher jar -->
-        <compile srcdir="launcher/src/java" destdir="launcher/build/java"/>
         <jar destfile="dist/webwork-launcher.jar">
             <manifest>
                 <attribute name="Main-Class" value="Main"/>
@@ -62,6 +65,7 @@
     </target>
 
     <target name="clean" depends="common.clean">
+        <delete dir="launcher/build"/>
         <delete dir="webapps/base/build"/>
         <delete dir="webapps/sandbox/build"/>
         <delete dir="webapps/ajax/build"/>
