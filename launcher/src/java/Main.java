@@ -52,7 +52,11 @@ public class Main {
             }
             if (!tools.exists()) {
                 // try the OS X common path
-                tools = new File(javaHome, "../" + version + "/Classes/classes.jar");
+                tools = new File(javaHome, "../Classes/classes.jar");
+            }
+            if (!tools.exists()) {
+                // try the other OS X common path
+                tools = new File(altJavaHome, "../Classes/classes.jar");
             }
             if (!tools.exists()) {
                 // did the user specify it by hand?
