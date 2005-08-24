@@ -8,11 +8,12 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
+import com.mockobjects.servlet.MockHttpServletRequest;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
+import com.opensymphony.webwork.dispatcher.mapper.DefaultActionMapper;
 import junit.framework.TestCase;
 
-import com.mockobjects.servlet.MockHttpServletRequest;
-import com.opensymphony.webwork.dispatcher.mapper.DefaultActionMapper;
-import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
+import java.util.HashMap;
 
 
 /**
@@ -20,14 +21,12 @@ import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
  */
 public class DefautActionMapperTest extends TestCase {
     public DefautActionMapperTest(String string) {
-        super(string);    //To change body of overridden methods use File | Settings | File Templates.
+        super(string);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
     public void testGetMapping() throws Exception {
-
         MockHttpServletRequest req = new MockHttpServletRequest();
+        req.setupGetParameterMap(new HashMap());
         req.setupGetRequestURI("/my/namespace/actionName.action");
         req.setupGetServletPath("/my/namespace/actionName.action");
         req.setupGetAttribute(null);
@@ -36,15 +35,14 @@ public class DefautActionMapperTest extends TestCase {
         DefaultActionMapper mapper = new DefaultActionMapper();
         ActionMapping mapping = mapper.getMapping(req);
 
-        assertEquals( "/my/namespace", mapping.getNamespace() );
-        assertEquals( "actionName", mapping.getName() );
-        assertEquals( "", mapping.getMethod() );
-
+        assertEquals("/my/namespace", mapping.getNamespace());
+        assertEquals("actionName", mapping.getName());
+        assertNull(mapping.getMethod());
     }
 
     public void testGetMappingWithMethod() throws Exception {
-
         MockHttpServletRequest req = new MockHttpServletRequest();
+        req.setupGetParameterMap(new HashMap());
         req.setupGetRequestURI("/my/namespace/actionName!add.action");
         req.setupGetServletPath("/my/namespace/actionName!add.action");
         req.setupGetAttribute(null);
@@ -53,15 +51,14 @@ public class DefautActionMapperTest extends TestCase {
         DefaultActionMapper mapper = new DefaultActionMapper();
         ActionMapping mapping = mapper.getMapping(req);
 
-        assertEquals( "/my/namespace", mapping.getNamespace() );
-        assertEquals( "actionName", mapping.getName() );
-        assertEquals( "add", mapping.getMethod() );
-
+        assertEquals("/my/namespace", mapping.getNamespace());
+        assertEquals("actionName", mapping.getName());
+        assertEquals("add", mapping.getMethod());
     }
 
     public void testGetUri() throws Exception {
-
         MockHttpServletRequest req = new MockHttpServletRequest();
+        req.setupGetParameterMap(new HashMap());
         req.setupGetRequestURI("/my/namespace/actionName.action");
         req.setupGetServletPath("/my/namespace/actionName.action");
         req.setupGetAttribute(null);
@@ -69,13 +66,12 @@ public class DefautActionMapperTest extends TestCase {
 
         DefaultActionMapper mapper = new DefaultActionMapper();
         ActionMapping mapping = mapper.getMapping(req);
-        assertEquals( "/my/namespace/actionName.action", mapper.getUriFromActionMapping(mapping) );
-
+        assertEquals("/my/namespace/actionName.action", mapper.getUriFromActionMapping(mapping));
     }
 
     public void testGetUriWithMethod() throws Exception {
-
         MockHttpServletRequest req = new MockHttpServletRequest();
+        req.setupGetParameterMap(new HashMap());
         req.setupGetRequestURI("/my/namespace/actionName!add.action");
         req.setupGetServletPath("/my/namespace/actionName!add.action");
         req.setupGetAttribute(null);
@@ -84,7 +80,6 @@ public class DefautActionMapperTest extends TestCase {
         DefaultActionMapper mapper = new DefaultActionMapper();
         ActionMapping mapping = mapper.getMapping(req);
 
-        assertEquals( "/my/namespace/actionName!add.action", mapper.getUriFromActionMapping(mapping) );
-
+        assertEquals("/my/namespace/actionName!add.action", mapper.getUriFromActionMapping(mapping));
     }
 }
