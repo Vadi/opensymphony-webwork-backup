@@ -4,7 +4,8 @@
 <xwork>
     <package name="webwork-default">
         <result-types>
-            <result-type name="dispatcher" class="com.opensymphony.webwork.dispatcher.ServletDispatcherResult" default="true"/>
+            <result-type name="dispatcher" class="com.opensymphony.webwork.dispatcher.ServletDispatcherResult"
+                         default="true"/>
             <result-type name="redirect" class="com.opensymphony.webwork.dispatcher.ServletRedirectResult"/>
             <result-type name="velocity" class="com.opensymphony.webwork.dispatcher.VelocityResult"/>
             <result-type name="chain" class="com.opensymphony.xwork.ActionChainResult"/>
@@ -23,13 +24,16 @@
             <interceptor name="params" class="com.opensymphony.xwork.interceptor.ParametersInterceptor"/>
             <interceptor name="model-driven" class="com.opensymphony.xwork.interceptor.ModelDrivenInterceptor"/>
             <interceptor name="component" class="com.opensymphony.xwork.interceptor.component.ComponentInterceptor"/>
+            <interceptor name="i18n" class="com.opensymphony.xwork.interceptor.I18nInterceptor"/>
             <interceptor name="token" class="com.opensymphony.webwork.interceptor.TokenInterceptor"/>
-            <interceptor name="token-session" class="com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"/>
+            <interceptor name="token-session"
+                         class="com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"/>
             <interceptor name="validation" class="com.opensymphony.xwork.validator.ValidationInterceptor"/>
             <interceptor name="workflow" class="com.opensymphony.xwork.interceptor.DefaultWorkflowInterceptor"/>
             <interceptor name="servlet-config" class="com.opensymphony.webwork.interceptor.ServletConfigInterceptor"/>
             <interceptor name="prepare" class="com.opensymphony.xwork.interceptor.PrepareInterceptor"/>
-            <interceptor name="conversionError" class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
+            <interceptor name="conversionError"
+                         class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
             <interceptor name="fileUpload" class="com.opensymphony.webwork.interceptor.FileUploadInterceptor"/>
             <interceptor name="execAndWait" class="com.opensymphony.webwork.interceptor.ExecuteAndWaitInterceptor"/>
 
@@ -73,6 +77,12 @@
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
 
+            <!-- Sample i18n stack -->
+            <interceptor-stack name="chainStack">
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+
             <!-- Sample execute and wait stack.
                  Note: execAndWait should always be the *last* interceptor. -->
             <interceptor-stack name="executeAndWaitStack">
@@ -90,6 +100,7 @@
             <interceptor-stack name="completeStack">
                 <interceptor-ref name="prepare"/>
                 <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="i18n"/>
                 <interceptor-ref name="chain"/>
                 <interceptor-ref name="model-driven"/>
                 <interceptor-ref name="component"/>
@@ -105,4 +116,4 @@
         <default-interceptor-ref name="completeStack"/>
     </package>
 </xwork>
-<!-- // END SNIPPET: webwork-default -->
+        <!-- // END SNIPPET: webwork-default -->
