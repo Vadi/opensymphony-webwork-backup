@@ -47,7 +47,7 @@ public class Form extends ClosingUIBean {
         super.evaluateExtraParams();
 
         if (action != null) {
-            final String action = findString(this.action);
+            String action = findString(this.action);
             String namespace;
 
             if (this.namespace == null) {
@@ -63,7 +63,14 @@ public class Form extends ClosingUIBean {
             final ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
 
             if (actionConfig != null) {
-                ActionMapping mapping = new ActionMapping(action, namespace, parameters);
+                String actionMethod = "";
+                if (action.indexOf("!")!=-1) {
+                    int endIdx = action.lastIndexOf("!");
+                    actionMethod = action.substring(endIdx+1, action.length());
+                    action = action.substring(0, endIdx);
+                }
+
+                ActionMapping mapping = new ActionMapping(action, namespace, actionMethod, parameters);
                 String result = UrlHelper.buildUrl(ActionMapperFactory.getMapper().getUriFromActionMapping(mapping), request, response, null);
                 addParameter("action", result);
                 addParameter("namespace", namespace);

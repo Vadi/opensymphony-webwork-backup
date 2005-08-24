@@ -79,7 +79,7 @@ public class RestfulActionMapper implements ActionMapper {
             LOG.warn(e);
         }
 
-        return new ActionMapping(actionName, "", parameters);
+        return new ActionMapping(actionName, "", "", parameters);
     }
 
     public String getUriFromActionMapping(ActionMapping mapping) {

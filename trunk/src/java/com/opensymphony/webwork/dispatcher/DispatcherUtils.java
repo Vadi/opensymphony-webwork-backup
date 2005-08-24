@@ -147,7 +147,7 @@ public class DispatcherUtils {
         try {
             String namespace = mapping.getNamespace();
             String name = mapping.getName();
-            String method = null;
+            String method = mapping.getMethod();
 
             for (Iterator iterator = requestParams.entrySet().iterator(); iterator.hasNext();) {
                 Map.Entry entry = (Map.Entry) iterator.next();
