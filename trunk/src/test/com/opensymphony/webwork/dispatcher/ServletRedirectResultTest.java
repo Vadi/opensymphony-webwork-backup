@@ -14,6 +14,7 @@ import ognl.Ognl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
 
 /**
@@ -61,6 +62,7 @@ public class ServletRedirectResultTest extends TestCase implements WebWorkStatic
 
     public void testRelativeRedirect() throws Exception {
         view.setLocation("foo.jsp");
+        requestMock.expectAndReturn("getParameterMap", new HashMap());
         requestMock.expectAndReturn("getServletPath", "/namespace/some.action");
         requestMock.expectAndReturn("getAttribute", C.ANY_ARGS, null);
         responseMock.expectAndReturn("encodeRedirectURL", "/context/namespace/foo.jsp", "/context/namespace/foo.jsp");
