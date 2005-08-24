@@ -4,6 +4,7 @@
     <include file="webwork-default.xml"/>
 
     <package name="default" extends="webwork-default">
+
         <action name="test">
             <result type="freemarker">test.ftl</result>
         </action>
@@ -11,5 +12,39 @@
         <action name="tableTest" class="com.opensymphony.webwork.sandbox.TableTest">
             <result type="freemarker">tableTest.ftl</result>
         </action>
+    </package>
+
+    <package name="upload" extends="default" namespace="/upload">
+        <interceptors>
+            <interceptor-stack name="completeStackWithSpecialFileUpload">
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="model-driven"/>
+                <interceptor-ref name="component"/>
+                <interceptor-ref name="fileUpload">
+                    <param name="maximumSize">102400</param>
+                    <param name="allowedTypes">image/gif</param>
+                    <param name="disallowedTypes">text/plain</param>
+                </interceptor-ref>
+                <interceptor-ref name="static-params"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation"/>
+                <interceptor-ref name="workflow"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="completeStackWithSpecialFileUpload"/>
+
+        <global-results>
+            <result name="success">/fileUploadTest.jsp</result>
+            <result name="input">/fileUploadTest.jsp</result>
+            <result name="error">/fileUploadTest.jsp</result>
+        </global-results>
+
+        <action name="start" class="com.opensymphony.webwork.sandbox.FileUploadTestAction"/>
+
+        <action name="attempt" class="com.opensymphony.webwork.sandbox.FileUploadTestAction" method="attemptUpload"/>
     </package>
 </xwork>
