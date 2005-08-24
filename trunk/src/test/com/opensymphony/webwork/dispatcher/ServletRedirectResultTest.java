@@ -8,8 +8,8 @@ import com.mockobjects.dynamic.C;
 import com.mockobjects.dynamic.Mock;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkStatics;
+import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.xwork.ActionContext;
-import junit.framework.TestCase;
 import ognl.Ognl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ import java.util.HashMap;
  * @author $author$
  * @version $Revision$
  */
-public class ServletRedirectResultTest extends TestCase implements WebWorkStatics {
+public class ServletRedirectResultTest extends WebWorkTestCase implements WebWorkStatics {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     protected ServletRedirectResult view;
