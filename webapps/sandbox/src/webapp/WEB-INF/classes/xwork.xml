@@ -12,6 +12,7 @@
         <action name="tableTest" class="com.opensymphony.webwork.sandbox.TableTest">
             <result type="freemarker">tableTest.ftl</result>
         </action>
+
     </package>
 
     <package name="upload" extends="default" namespace="/upload">
