@@ -31,10 +31,27 @@ public class DefaultActionMapper implements ActionMapper {
         int endIdx = uri.lastIndexOf(".");
         String name = uri.substring(((beginIdx == -1) ? 0 : (beginIdx + 1)), (endIdx == -1) ? uri.length() : endIdx);
 
-        return new ActionMapping(name, namespace, null);
+        // remove the method ( "Foo!methodName" )
+        String method = "";
+        if (name.indexOf("!")!=-1) {
+            endIdx = name.lastIndexOf("!");
+            method = name.substring(endIdx+1, name.length());
+            name = name.substring(0, endIdx);
+        }
+
+        return new ActionMapping(name, namespace, method, null);
     }
 
     public String getUriFromActionMapping(ActionMapping mapping) {
-        return mapping.getNamespace() + "/" + mapping.getName() + "." + Configuration.get("webwork.action.extension");
+        StringBuffer uri = new StringBuffer();
+
+        uri.append(mapping.getNamespace()).append("/").append(mapping.getName());
+        if (null!=mapping.getMethod() && !"".equals(mapping.getMethod())) {
+            uri.append("!").append(mapping.getMethod());
+        }
+
+        uri.append(".").append(Configuration.get("webwork.action.extension"));
+
+        return uri.toString();
     }
 }

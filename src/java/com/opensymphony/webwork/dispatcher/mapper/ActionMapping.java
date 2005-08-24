@@ -13,11 +13,13 @@ import java.util.Map;
 public class ActionMapping {
     private String name;
     private String namespace;
+    private String method;
     private Map params;
 
-    public ActionMapping(String name, String namespace, Map params) {
+    public ActionMapping(String name, String namespace, String method, Map params) {
         this.name = name;
         this.namespace = namespace;
+        this.method = method;
         this.params = params;
     }
 
@@ -31,5 +33,9 @@ public class ActionMapping {
 
     public Map getParams() {
         return params;
+    }
+
+    public String getMethod() {
+        return method;
     }
 }
