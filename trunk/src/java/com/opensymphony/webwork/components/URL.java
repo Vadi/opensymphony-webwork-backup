@@ -111,6 +111,8 @@ public class URL extends Component {
                 throw new RuntimeException("IOError: " + e.getMessage(), e);
             }
         }
+
+        super.end(writer);
     }
 
     public void setIncludeParams(String includeParams) {
