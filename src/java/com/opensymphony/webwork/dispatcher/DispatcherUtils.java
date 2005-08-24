@@ -28,7 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
@@ -148,18 +147,6 @@ public class DispatcherUtils {
             String namespace = mapping.getNamespace();
             String name = mapping.getName();
             String method = mapping.getMethod();
-
-            for (Iterator iterator = requestParams.entrySet().iterator(); iterator.hasNext();) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                String key = (String) entry.getKey();
-                if (key.startsWith("method:")) {
-                    method = key.substring("method:".length());
-                    iterator.remove();
-                } else if (key.startsWith("action:")) {
-                    name = key.substring("action:".length());
-                    iterator.remove();
-                }
-            }
 
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, extraContext);
             proxy.setMethod(method);
