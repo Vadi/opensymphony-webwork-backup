@@ -34,9 +34,8 @@ public abstract class MultiPartRequest {
      * @return <tt>true</tt> if the request is multipart form data, <tt>false</tt> otherwise.
      */
     public static boolean isMultiPart(HttpServletRequest request) {
-        String content_type = request.getHeader("Content-Type");
-
-        return !(content_type == null || !content_type.startsWith("multipart/form-data"));
+        String content_type = request.getContentType();
+        return content_type != null && content_type.indexOf("multipart/form-data") != -1;
     }
 
     /**

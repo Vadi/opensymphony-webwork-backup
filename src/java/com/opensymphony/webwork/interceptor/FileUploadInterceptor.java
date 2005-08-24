@@ -13,10 +13,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Iterator;
-
+import java.util.*;
 
 /**
  * Interceptor that is based off of {@link MultiPartRequestWrapper}. It adds the following
@@ -31,24 +28,34 @@ import java.util.Iterator;
  * of the three patterns above, such as setDocument(File document), setDocumentContentType(String contentType), etc.
  */
 public class FileUploadInterceptor implements Interceptor {
-    //~ Static fields/initializers /////////////////////////////////////////////
+//~ Static fields/initializers /////////////////////////////////////////////
 
     protected static final Log log = LogFactory.getLog(FileUploadInterceptor.class);
 
-    //~ Instance fields ////////////////////////////////////////////////////////
+    private static final String DEFAULT_DELIMITER = ",";
+
+//~ Instance fields ////////////////////////////////////////////////////////
 
     protected Long maximumSize;
     protected String allowedTypes;
     protected String disallowedTypes;
+    protected Set allowedTypesSet;
+    protected Set disallowedTypesSet;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
+//~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAllowedTypes(String allowedTypes) {
         this.allowedTypes = allowedTypes;
+
+// set the allowedTypes as a collection for easier access later
+        allowedTypesSet = getDelimitedValues(allowedTypes);
     }
 
     public void setDisallowedTypes(String disallowedTypes) {
         this.disallowedTypes = disallowedTypes;
+
+// set the disallowedTypes as a collection for easier access later
+        disallowedTypesSet = getDelimitedValues(disallowedTypes);
     }
 
     public void setMaximumSize(Long maximumSize) {
@@ -80,11 +87,8 @@ public class FileUploadInterceptor implements Interceptor {
         MultiPartRequestWrapper multiWrapper = (MultiPartRequestWrapper) ServletActionContext.getRequest();
 
         if (multiWrapper.hasErrors()) {
-            Collection errors = multiWrapper.getErrors();
-            Iterator i = errors.iterator();
-
-            while (i.hasNext()) {
-                String error = (String) i.next();
+            for (Iterator errorIter = multiWrapper.getErrors().iterator(); errorIter.hasNext();) {
+                String error = (String) errorIter.next();
 
                 if (validation != null) {
                     validation.addActionError(error);
@@ -94,61 +98,145 @@ public class FileUploadInterceptor implements Interceptor {
             }
         }
 
-        Enumeration e = multiWrapper.getFileParameterNames();
+        Map parameters = invocation.getInvocationContext().getParameters();
 
-        // Bind allowed Files
-        while (e != null && e.hasMoreElements()) {
-            // get the value of this input tag
-            String inputName = (String) e.nextElement();
+// Bind allowed Files
+        Enumeration fileParameterNames = multiWrapper.getFileParameterNames();
+        while (fileParameterNames != null && fileParameterNames.hasMoreElements()) {
+// get the value of this input tag
+            String inputName = (String) fileParameterNames.nextElement();
 
-            // get the content type
+// get the content type
             String[] contentType = multiWrapper.getContentTypes(inputName);
 
-            // get the name of the file from the input tag
-            String[] fileName = multiWrapper.getFileNames(inputName);
+            if (isNonEmpty(contentType)) {
+// get the name of the file from the input tag
+                String[] fileName = multiWrapper.getFileNames(inputName);
 
-            // Get a File object for the uploaded File
-            File[] file = multiWrapper.getFiles(inputName);
+                if (isNonEmpty(fileName)) {
+                    // Get a File object for the uploaded File
+                    File[] files = multiWrapper.getFiles(inputName);
+                    if (files != null) {
+                        for (int index = 0; index < files.length; index++) {
+                            log.info("file " + inputName + " " + contentType[index] + " " + fileName[index] + " " + files[index]);
 
-            if (file != null) {
-                for (int i = 0; i < file.length; i++) {
-                    log.info("file " + inputName + " " + contentType[i] + " " + fileName[i] + " " + file[i]);
+                            if (acceptFile(files[0], contentType[0], inputName, validation)) {
+                                parameters.put(inputName, files);
+                                parameters.put(inputName + "ContentType", contentType);
+                                parameters.put(inputName + "FileName", fileName);
+                            }
+                        }
+                    }
+                } else {
+                    log.error("Could not find a Filename for " + inputName + ". Verify that a valid file was submitted.");
                 }
-            }
-
-            // If it's null the upload failed
-            if (file == null) {
-                if (validation != null) {
-                    validation.addFieldError(inputName, "Could not upload file(s). Perhaps it is too large?");
-                }
-
-                log.error("Error uploading: " + fileName);
             } else {
-                invocation.getInvocationContext().getParameters().put(inputName, file);
-                invocation.getInvocationContext().getParameters().put(inputName + "ContentType", contentType);
-                invocation.getInvocationContext().getParameters().put(inputName + "FileName", fileName);
+                log.error("Could not find a Content-Type for " + inputName + ". Verify that a valid file was submitted.");
             }
         }
 
-        // invoke action
+// invoke action
         String result = invocation.invoke();
 
-        // cleanup
-        e = multiWrapper.getFileParameterNames();
-
-        while (e != null && e.hasMoreElements()) {
-            String inputValue = (String) e.nextElement();
+// cleanup
+        fileParameterNames = multiWrapper.getFileParameterNames();
+        while (fileParameterNames != null && fileParameterNames.hasMoreElements()) {
+            String inputValue = (String) fileParameterNames.nextElement();
             File[] file = multiWrapper.getFiles(inputValue);
-            for (int i = 0; i < file.length; i++) {
-                File f = file[i];
-                log.info("removing file " + inputValue + " " + f);
+            for (int index = 0; index < file.length; index++) {
+                File currentFile = file[index];
+                log.info("removing file " + inputValue + " " + currentFile);
 
-                if ((f != null) && f.isFile()) {
-                    f.delete();
+                if ((currentFile != null) && currentFile.isFile()) {
+                    currentFile.delete();
                 }
             }
         }
 
+        return result;
+    }
+
+    /**
+     * Override for added functionality. Checks if the proposed file is acceptable by contentType and size.
+     *
+     * @param file        - proposed upload file.
+     * @param contentType - contentType of the file.
+     * @param inputName   - inputName of the file.
+     * @param validation  - Non-null ValidationAware if the action implements ValidationAware, allowing for better logging.
+     * @return true if the proposed file is acceptable by contentType and size.
+     */
+    protected boolean acceptFile(File file, String contentType, String inputName, ValidationAware validation) {
+        boolean fileIsAcceptable = false;
+
+// If it's null the upload failed
+        if (file == null) {
+            if (validation != null) {
+                validation.addFieldError(inputName, "Could not upload file.");
+            }
+
+            log.error("Error uploading: " + inputName);
+
+        } else if (maximumSize != null && maximumSize.longValue() < file.length()) {
+            String errMsg = "File too large: " + inputName + " \"" + file.getName() + "\" " + file.length();
+            if (validation != null) {
+                validation.addFieldError(inputName, errMsg);
+            }
+
+            log.error(errMsg);
+
+        } else if (containsItem(disallowedTypesSet, contentType)) {
+            String errMsg = "Content-Type disallowed: " + inputName + " \"" + file.getName() + "\" " + contentType;
+            if (validation != null) {
+                validation.addFieldError(inputName, errMsg);
+            }
+
+            log.error(errMsg);
+
+        } else if (!containsItem(allowedTypesSet, contentType)) {
+            String errMsg = "Content-Type not allowed: " + inputName + " \"" + file.getName() + "\" " + contentType;
+            if (validation != null) {
+                validation.addFieldError(inputName, errMsg);
+            }
+
+            log.error(errMsg);
+
+        } else {
+            fileIsAcceptable = true;
+        }
+
+        return fileIsAcceptable;
+    }
+
+    /**
+     * @param itemCollection - Collection of string items (all lowercase).
+     * @param key            - Key to search for.
+     * @return true if itemCollection contains the key.
+     */
+    private static boolean containsItem(Collection itemCollection, String key) {
+        return itemCollection.contains(key.toLowerCase());
+    }
+
+    private static Set getDelimitedValues(String delimitedString) {
+        Set delimitedValues = new HashSet();
+        if (delimitedString != null) {
+            StringTokenizer stringTokenizer = new StringTokenizer(delimitedString, DEFAULT_DELIMITER);
+            while (stringTokenizer.hasMoreTokens()) {
+                String nextToken = stringTokenizer.nextToken().toLowerCase().trim();
+                if (nextToken.length() > 0) {
+                    delimitedValues.add(nextToken);
+                }
+            }
+        }
+        return delimitedValues;
+    }
+
+    private static boolean isNonEmpty(Object[] objArray) {
+        boolean result = false;
+        for (int index = 0; index < objArray.length && !result; index++) {
+            if (objArray[index] != null) {
+                result = true;
+            }
+        }
         return result;
     }
 }
