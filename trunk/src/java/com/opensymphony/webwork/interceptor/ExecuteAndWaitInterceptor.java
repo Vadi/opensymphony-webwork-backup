@@ -4,7 +4,6 @@
  */
 package com.opensymphony.webwork.interceptor;
 
-import com.opensymphony.webwork.views.freemarker.FreemarkerResult;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
@@ -70,9 +69,10 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
                 if (!results.containsKey("wait")) {
                     LOG.warn("ExecuteAndWait interceptor detected that no result named 'wait' is available. " +
                             "Defaulting to a plain built-in wait page. It is highly recommend you provided " +
-                            "provide an action-specific or global result named 'wait'!");
+                            "provide an action-specific or global result named 'wait'! This requires FreeMarker " +
+                            "support and won't work if you don't have it installed");
                     // no wait result? hmm -- let's try to do dynamically put it in for you!
-                    ResultConfig rc = new ResultConfig("wait", FreemarkerResult.class,
+                    ResultConfig rc = new ResultConfig("wait", "com.opensymphony.webwork.views.freemarker.FreemarkerResult",
                             Collections.singletonMap("location", "com/opensymphony/webwork/interceptor/wait.ftl"));
                     results.put("wait", rc);
                 }
