@@ -64,9 +64,9 @@ public class Form extends ClosingUIBean {
 
             if (actionConfig != null) {
                 String actionMethod = "";
-                if (action.indexOf("!")!=-1) {
+                if (action.indexOf("!") != -1) {
                     int endIdx = action.lastIndexOf("!");
-                    actionMethod = action.substring(endIdx+1, action.length());
+                    actionMethod = action.substring(endIdx + 1, action.length());
                     action = action.substring(0, endIdx);
                 }
 

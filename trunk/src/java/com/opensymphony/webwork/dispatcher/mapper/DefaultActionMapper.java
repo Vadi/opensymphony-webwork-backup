@@ -3,6 +3,8 @@ package com.opensymphony.webwork.dispatcher.mapper;
 import com.opensymphony.webwork.config.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Default action mapper implementation, using the standard *.[ext] (where ext
@@ -31,12 +33,21 @@ public class DefaultActionMapper implements ActionMapper {
         int endIdx = uri.lastIndexOf(".");
         String name = uri.substring(((beginIdx == -1) ? 0 : (beginIdx + 1)), (endIdx == -1) ? uri.length() : endIdx);
 
-        // remove the method ( "Foo!methodName" )
         String method = "";
-        if (name.indexOf("!")!=-1) {
+        if (name.indexOf("!") != -1) {
             endIdx = name.lastIndexOf("!");
-            method = name.substring(endIdx+1, name.length());
+            method = name.substring(endIdx + 1, name.length());
             name = name.substring(0, endIdx);
+        } else {
+            for (Iterator iterator = request.getParameterMap().entrySet().iterator(); iterator.hasNext();) {
+                Map.Entry entry = (Map.Entry) iterator.next();
+                String key = (String) entry.getKey();
+                if (key.startsWith("method:")) {
+                    method = key.substring("method:".length());
+                } else if (key.startsWith("action:")) {
+                    name = key.substring("action:".length());
+                }
+            }
         }
 
         return new ActionMapping(name, namespace, method, null);
@@ -46,7 +57,7 @@ public class DefaultActionMapper implements ActionMapper {
         StringBuffer uri = new StringBuffer();
 
         uri.append(mapping.getNamespace()).append("/").append(mapping.getName());
-        if (null!=mapping.getMethod() && !"".equals(mapping.getMethod())) {
+        if (null != mapping.getMethod() && !"".equals(mapping.getMethod())) {
             uri.append("!").append(mapping.getMethod());
         }
 

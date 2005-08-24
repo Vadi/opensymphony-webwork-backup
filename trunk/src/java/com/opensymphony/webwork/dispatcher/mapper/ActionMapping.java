@@ -36,7 +36,7 @@ public class ActionMapping {
     }
 
     public String getMethod() {
-        if (null!=method && "".equals(method) ) {
+        if (null != method && "".equals(method)) {
             return null;
         } else {
             return method;
