@@ -8,6 +8,7 @@ import java.io.Serializable;
  * Background thread to be executed by the ExecuteAndWaitInterceptor.
  *
  * @author <a href="plightbo@gmail.com">Pat Lightbody</a>
+ * @author <a href="jim@jimvanfleet.com">Jim Van Fleet</a>
  */
 public class BackgroundProcess implements Serializable {
     protected Object action;
@@ -20,12 +21,11 @@ public class BackgroundProcess implements Serializable {
         this.invocation = invocation;
         this.action = invocation.getAction();
         try {
-            beforeInvocation();
             final Thread t = new Thread(new Runnable() {
                 public void run() {
                     try {
-                        invocation.getResult();
-                        result = invocation.invoke();
+                        beforeInvocation();
+                        result = invocation.invokeActionOnly();
                         afterInvocation();
                     } catch (Exception e) {
                         exception = e;

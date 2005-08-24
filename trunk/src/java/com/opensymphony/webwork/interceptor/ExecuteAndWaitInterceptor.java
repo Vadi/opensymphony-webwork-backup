@@ -4,9 +4,16 @@
  */
 package com.opensymphony.webwork.interceptor;
 
+import com.opensymphony.webwork.views.freemarker.FreemarkerResult;
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.ActionProxy;
+import com.opensymphony.xwork.config.entities.ResultConfig;
 import com.opensymphony.xwork.interceptor.Interceptor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+import java.util.Collections;
 import java.util.Map;
 
 
@@ -20,7 +27,7 @@ import java.util.Map;
  * <p/>
  * <p/>
  * <pre>
- *  &lt;meta http-equiv="refresh" content="5;url=&lt;ww:url includeParams="'all'" /&gt;"/&gt;
+ *  &lt;meta http-equiv="refresh" content="5;url=&lt;ww:url includeParams="all" /&gt;"/&gt;
  * </pre>
  * <p/>
  * <p/>
@@ -30,15 +37,11 @@ import java.util.Map;
  * @author <a href="plightbo@gmail.com">Pat Lightbody</a>
  */
 public class ExecuteAndWaitInterceptor implements Interceptor {
-    //~ Static fields/initializers /////////////////////////////////////////////
+    private static final Log LOG = LogFactory.getLog(ExecuteAndWaitInterceptor.class);
 
     public static final String KEY = "__execWait";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     private int threadPriority = Thread.NORM_PRIORITY;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void init() {
     }
@@ -48,8 +51,10 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
     }
 
     public String intercept(ActionInvocation actionInvocation) throws Exception {
-        String name = actionInvocation.getProxy().getActionName();
-        Map session = actionInvocation.getInvocationContext().getSession();
+        ActionProxy proxy = actionInvocation.getProxy();
+        String name = proxy.getActionName();
+        ActionContext context = actionInvocation.getInvocationContext();
+        Map session = context.getSession();
 
         synchronized (session) {
             BackgroundProcess bp = (BackgroundProcess) session.get(KEY + name);
@@ -61,6 +66,17 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
 
             if (!bp.isDone()) {
                 actionInvocation.getStack().push(bp.getAction());
+                Map results = proxy.getConfig().getResults();
+                if (!results.containsKey("wait")) {
+                    LOG.warn("ExecuteAndWait interceptor detected that no result named 'wait' is available. " +
+                            "Defaulting to a plain built-in wait page. It is highly recommend you provided " +
+                            "provide an action-specific or global result named 'wait'!");
+                    // no wait result? hmm -- let's try to do dynamically put it in for you!
+                    ResultConfig rc = new ResultConfig("wait", FreemarkerResult.class,
+                            Collections.singletonMap("location", "com/opensymphony/webwork/interceptor/wait.ftl"));
+                    results.put("wait", rc);
+                }
+
                 return "wait";
             } else {
                 session.remove(KEY + name);
