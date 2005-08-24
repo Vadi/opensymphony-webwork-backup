@@ -16,6 +16,10 @@ import java.util.Map;
 public class DefaultActionMapper implements ActionMapper {
     public ActionMapping getMapping(HttpServletRequest request) {
         String uri = request.getServletPath();
+        if (uri == null) {
+            uri = request.getRequestURI();
+            uri = uri.substring(request.getContextPath().length());
+        }
         String includeUri = (String) request.getAttribute("javax.servlet.include.servlet_path");
         if (includeUri != null) {
             uri = includeUri;
