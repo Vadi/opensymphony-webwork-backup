@@ -131,9 +131,9 @@ public class SessionMap extends AbstractMap implements Serializable {
      * @return the object that was just set.
      */
     public Object put(Object key, Object value) {
-        synchronized(this) {
+        synchronized (this) {
             if (session == null) {
-                session = request.getSession(false);
+                session = request.getSession(true);
             }
         }
 
