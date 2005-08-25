@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.velocity.components;
 
-import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.webwork.components.Href;
+import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,5 +18,9 @@ public class HrefDirective extends AbstractDirective {
 
     protected UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Href(stack, req, res);
+    }
+
+    public int getType() {
+        return BLOCK;
     }
 }

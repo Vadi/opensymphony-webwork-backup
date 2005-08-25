@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.velocity.components;
 
-import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.webwork.components.GenericUIBean;
+import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,5 +19,9 @@ public class ComponentDirective extends AbstractDirective {
 
     public String getBeanName() {
         return "component";
+    }
+
+    public int getType() {
+        return BLOCK;
     }
 }

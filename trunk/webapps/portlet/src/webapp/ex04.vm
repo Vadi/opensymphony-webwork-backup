@@ -1,0 +1,16 @@
+<html> 
+<head> 
+<title>WebWork Tutorial - Example 4</title> 
+<meta name="help-path" content="/help/help4.html"/> 
+</head> 
+<body> 
+<p>Custom Component Example:</p> 
+#wwcomponent ("template=components/datefield.vm")
+      #param ("label" "Date") 
+      #param ("name" "mydatefield") 
+      #param ("mysize" 3) 
+#end
+<br/>
+<br/>
+</body> 
+</html>

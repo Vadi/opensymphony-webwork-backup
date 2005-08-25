@@ -1,0 +1,12 @@
+#if ($page.getProperty("page.htmlTitle") || $title)
+    <div class="menuheading">
+    #if ($page.getProperty("page.htmlTitle"))
+        $page.getProperty("page.htmlTitle")
+    #else
+        $title
+    #end
+    </div>
+#end
+<div class="menuitems">
+    $body
+</div>

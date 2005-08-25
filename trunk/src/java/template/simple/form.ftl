@@ -8,6 +8,9 @@
 <#if parameters.name?exists>
  name="${parameters.name?html}"<#rt/>
 </#if>
+<#if parameters.onsubmit?exists>
+ action="${parameters.onsubmit?html}"<#rt/>
+</#if>
 <#if parameters.action?exists>
  action="${parameters.action?html}"<#rt/>
 </#if>
@@ -27,3 +30,7 @@
  style="${parameters.cssStyle?html}"<#rt/>
 </#if>
 >
+<#-- Add portlet support -->
+<#if parameters.isPortlet?exists>
+ <input type="hidden" name="wwAction" value="${parameters.wwAction?html}"/><#rt/>
+</#if>

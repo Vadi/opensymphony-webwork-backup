@@ -1,0 +1,234 @@
+<html>
+<body>
+<table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+    <tr>
+        <td valign="top" class="pagebody">
+            <div class="pageheader">
+                <span class="pagetitle">
+                            WebWork : WebWork SiteMesh Menu Tutorial - Example 5
+                                                    </span>
+            </div>
+
+            <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a
+                    name="WebWorkSiteMeshMenuTutorial-Example5-Thesampledescription"> The sample description</a></h2>
+                This sample will demo how to use sitemesh as decorator to decorate html page as menu</p>
+
+            <h2 class="heading2"><a name="WebWorkSiteMeshMenuTutorial-Example5-Thesampleinclude"> The sample
+                include </a></h2>
+            <ul class="star">
+                <li> one view files: menu.vm</li>
+                <li> one sitemesh configuration file: decorators.xml</li>
+                <li> one sitemesh decoration file: menuDecorator.vm</li>
+                <li> generated html page in portal server</li>
+            </ul>
+
+            <h2 class="heading2"><a name="WebWorkSiteMeshMenuTutorial-Example5-Hereisthesamplelist"> Here is the sample
+                list</a></h2>
+
+            <div class="code" style="border-style: solid; "><div class="codeHeader"
+                                                                 style="border-bottom-style: solid; "><b>menu.vm, the
+                main content file will be rendered</b></div>
+
+                <div class="codeContent">
+                    <pre><span class="xml&#45;tag">&lt;html&gt;</span> &#10;<span
+                            class="xml&#45;tag">&lt;head&gt;</span> &#10; <span class="xml&#45;tag">&lt;title&gt;</span>&#87;ebWork
+                        SiteMesh Menu Tutorial &#45; Example 5<span class="xml&#45;tag">&lt;/title&gt;</span> &#10;<span
+                            class="xml&#45;tag">&lt;/head&gt;</span> &#10;<span class="xml&#45;tag">&lt;body&gt;</span>
+                        &#10; <span class="xml&#45;tag">&lt;h1&gt;</span>Custom Menu Example:<span class="xml&#45;tag">&lt;/h1&gt;</span>
+                        &#10; <span class="xml&#45;tag">&lt;h2&gt;</span>&#87;ebWork SiteMesh Menu Tutorial<span
+                            class="xml&#45;tag">&lt;/h2&gt;</span>&#10; <span class="xml&#45;tag">&lt;table&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;tbody&gt;</span>&#10; <span
+                            class="xml&#45;tag">&lt;tr&gt;</span><span class="xml&#45;tag">&lt;td&gt;</span>&#10; <span
+                            class="xml&#45;tag">&lt;div class=<span class="xml&#45;quote">&quot;tabletitle&quot;</span>&gt;</span>decorated
+                        content:<span class="xml&#45;tag">&lt;/div&gt;</span>&#10; <span class="xml&#45;tag">&lt;div class=<span
+                            class="xml&#45;quote">&quot;preformatted &quot;</span>&gt;</span>&#10; The main content
+                        displayed here&#33;&#10; <span class="xml&#45;tag">&lt;/div&gt;</span>&#10; <span
+                            class="xml&#45;tag">&lt;/td&gt;</span><span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;/tbody&gt;</span>&#10; <span
+                            class="xml&#45;tag">&lt;/table&gt;</span>&#10;<span class="xml&#45;tag">&lt;/body&gt;</span>
+                        &#10;<span class="xml&#45;tag">&lt;/html&gt;</span></pre>
+                </div></div><br/>
+
+
+            <div class="code" style="border-style: solid; "><div class="codeHeader"
+                                                                 style="border-bottom-style: solid; "><b>sitemesh
+                decorator configuration file: decorators.xml in WEB-INF</b></div>
+
+                <div class="codeContent">
+                    <pre><span class="xml&#45;tag">&lt;decorators defaultdir=<span class="xml&#45;quote">&quot;/decorators&quot;</span>&gt;</span>&#10;
+                        <span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; No decorator &#45;&#45;&gt;</span></span>&#10;
+                        <span class="xml&#45;tag">&lt;decorator name=<span class="xml&#45;quote">&quot;none&quot;</span>&gt;</span>&#10;
+                        <span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; in case some appservers decide they /can/ decorate 404 pages &#45;&#45;&gt;</span></span>&#10;
+                        <span class="xml&#45;tag">&lt;url&#45;pattern&gt;</span>/fourohfour.action<span
+                            class="xml&#45;tag">&lt;/url&#45;pattern&gt;</span>&#10; <span class="xml&#45;tag">&lt;url&#45;pattern&gt;</span>/styles/&#42;<span
+                            class="xml&#45;tag">&lt;/url&#45;pattern&gt;</span>&#10; <span class="xml&#45;tag">&lt;url&#45;pattern&gt;</span>/index.vm<span
+                            class="xml&#45;tag">&lt;/url&#45;pattern&gt;</span>&#10; <span class="xml&#45;tag">&lt;url&#45;pattern&gt;</span>/help/&#42;<span
+                            class="xml&#45;tag">&lt;/url&#45;pattern&gt;</span>&#10; <span class="xml&#45;tag">&lt;/decorator&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;decorator name=<span class="xml&#45;quote">&quot;menu&quot;</span> page=<span
+                                class="xml&#45;quote">&quot;menuDecorator.vm&quot;</span>&gt;</span>&#10; <span
+                            class="xml&#45;tag">&lt;pattern&gt;</span>/menu.vm<span
+                            class="xml&#45;tag">&lt;/pattern&gt;</span>&#10; <span class="xml&#45;tag">&lt;/decorator&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;decorator name=<span class="xml&#45;quote">&quot;edit&quot;</span> page=<span
+                                class="xml&#45;quote">&quot;editDecorator.vm&quot;</span>&gt;</span>&#10; <span
+                            class="xml&#45;tag">&lt;pattern&gt;</span>/edit/&#42;<span class="xml&#45;tag">&lt;/pattern&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;/decorator&gt;</span>&#10; <span class="xml&#45;tag">&lt;decorator name=<span
+                            class="xml&#45;quote">&quot;index&quot;</span> page=<span class="xml&#45;quote">&quot;indexDecorator.vm&quot;</span>&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;pattern&gt;</span>/index.vm<span class="xml&#45;tag">&lt;/pattern&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;/decorator&gt;</span>&#10; <span class="xml&#45;tag">&lt;decorator name=<span
+                            class="xml&#45;quote">&quot;main&quot;</span> page=<span class="xml&#45;quote">&quot;mainDecorator.vm&quot;</span>&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;pattern&gt;</span>&#42;<span
+                            class="xml&#45;tag">&lt;/pattern&gt;</span>&#10; <span class="xml&#45;tag">&lt;/decorator&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;decorator name=<span
+                                class="xml&#45;quote">&quot;printable&quot;</span> page=<span class="xml&#45;quote">&quot;printable.vm&quot;</span> /&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;decorator name=<span
+                                class="xml&#45;quote">&quot;menupanel&quot;</span> page=<span class="xml&#45;quote">&quot;menupanel.vm&quot;</span> /&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;/decorators&gt;</span></pre>
+                </div></div><br/>
+
+
+            <div class="code" style="border-style: solid; "><div class="codeHeader"
+                                                                 style="border-bottom-style: solid; "><b>decorators/menuDecorator.vm,
+                will be used to decorate menu.vm</b></div>
+
+                <div class="codeContent">
+                    <pre><span class="xml&#45;tag">&lt;html&gt;</span>&#10;<span class="xml&#45;tag">&lt;head&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;title&gt;</span>$title<span
+                            class="xml&#45;tag">&lt;/title&gt;</span>&#10; <span class="xml&#45;tag">&lt;link rel=<span
+                            class="xml&#45;quote">&quot;stylesheet&quot;</span> href=<span class="xml&#45;quote">&quot;$req.contextPath/styles/main.css&quot;</span> type=<span
+                            class="xml&#45;quote">&quot;text/css&quot;</span> /&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;/head&gt;</span>&#10;<span class="xml&#45;tag">&lt;body&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;div id=<span class="xml&#45;quote">&quot;Content&quot;</span> width=<span
+                            class="xml&#45;quote">&quot;100&#37;&quot;</span>&gt;</span>&#10; <span class="xml&#45;tag">&lt;table border=<span
+                            class="xml&#45;quote">&quot;0&quot;</span> cellpadding=<span class="xml&#45;quote">&quot;0&quot;</span> cellspacing=<span
+                            class="xml&#45;quote">&quot;0&quot;</span> width=<span class="xml&#45;quote">&quot;100&#37;&quot;</span> &gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;tr&gt;</span>&#10; <span class="xml&#45;tag">&lt;td width=<span
+                            class="xml&#45;quote">&quot;80&#37;&quot;</span> class=<span class="xml&#45;quote">&quot;logocell&quot;</span>&gt;</span><span
+                            class="xml&#45;tag">&lt;a href=<span class="xml&#45;quote">&quot;$actionURL&#63;wwLink=/index.vm&quot;</span>&gt;</span>Home<span
+                            class="xml&#45;tag">&lt;/a&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10; <span
+                            class="xml&#45;tag">&lt;td align=right&gt;</span>Contact info: $textUtils.linkEmail(<span
+                            class="xml&#45;quote">&quot;hu&#95;pengfei&#64;yahoo.com.cn&quot;</span>)<span
+                            class="xml&#45;tag">&lt;/td&gt;</span>&#10; <span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;tr&gt;</span>&#10; <span class="xml&#45;tag">&lt;td align=left valign=<span
+                            class="xml&#45;quote">&quot;bottom&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;br/&gt;</span>&#10;
+                        #if (&#33;$page.getProperty(<span
+                            class="xml&#45;quote">&quot;page.no&#45;page&#45;header&quot;</span>))&#10; <span
+                            class="xml&#45;tag">&lt;div class=<span class="xml&#45;quote">&quot;pageheader&quot;</span>&gt;</span><span
+                            class="xml&#45;tag">&lt;span class=<span class="xml&#45;quote">&quot;pagetitle&quot;</span>&gt;</span>$title
+                        <span class="xml&#45;tag">&lt;/span&gt;</span><span class="xml&#45;tag">&lt;/div&gt;</span>&#10;
+                        #end &#10; <span class="xml&#45;tag">&lt;/td&gt;</span>&#10; <span class="xml&#45;tag">&lt;td align=right valign=<span
+                            class="xml&#45;quote">&quot;bottom&quot;</span>&gt;</span>&#10; <span class="xml&#45;tag">&lt;br/&gt;</span>This
+                        content was decorated by &#83;iteMesh&#10; <span class="xml&#45;tag">&lt;/td&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;/tr&gt;</span>&#10; <span
+                            class="xml&#45;tag">&lt;/table&gt;</span>&#10; <span
+                            class="xml&#45;tag">&lt;table border=<span class="xml&#45;quote">&quot;0&quot;</span> cellpadding=<span
+                            class="xml&#45;quote">&quot;0&quot;</span> cellspacing=<span class="xml&#45;quote">&quot;0&quot;</span> width=<span
+                            class="xml&#45;quote">&quot;100&#37;&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;tr&gt;</span>&#10;
+                        <span class="xml&#45;tag">&lt;td valign=<span class="xml&#45;quote">&quot;top&quot;</span> class=<span
+                                class="xml&#45;quote">&quot;pagebody&quot;</span> width=<span class="xml&#45;quote">&quot;20&#37;&quot;</span>&gt;</span><span
+                            class="xml&#45;tag">&lt;br/&gt;</span>&#10; #applyDecorator (<span class="xml&#45;quote">&quot;menupanel&quot;</span>&#160;<span
+                            class="xml&#45;quote">&quot;&#83;ystemInfo&quot;</span>)&#10; <span class="xml&#45;tag">&lt;img src=<span
+                            class="xml&#45;quote">&quot;$req.contextPath/images/icons/bullet&#95;creme.gif&quot;</span> height=8 width=8 alt=<span
+                            class="xml&#45;quote">&quot;&quot;&gt;</span> &#10;               <span class="xml&#45;tag">&lt;a href=&quot;</span>$actionURL&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>CPU Info<span
+                            class="xml&#45;tag">&lt;/a&gt;</span><span class="xml&#45;tag">&lt;br&gt;</span>&#10;	    <span
+                            class="xml&#45;tag">&lt;img src=&quot;</span>$req.contextPath/images/icons/bullet&#95;creme.gif<span
+                            class="xml&#45;quote">&quot; height=8 width=8 alt=&quot;</span><span class="xml&#45;quote">&quot;&gt;</span>&#10;	    <span
+                            class="xml&#45;tag">&lt;a href=&quot;</span>$actionURL&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>HDD Info<span
+                            class="xml&#45;tag">&lt;/a&gt;</span><span class="xml&#45;tag">&lt;br&gt;</span>&#10;               <span
+                            class="xml&#45;tag">&lt;img src=&quot;</span>$req.contextPath/images/icons/bullet&#95;creme.gif<span
+                            class="xml&#45;quote">&quot; height=8 width=8 alt=&quot;</span><span class="xml&#45;quote">&quot;&gt;</span>&#10;	    <span
+                            class="xml&#45;tag">&lt;a href=&quot;</span>$actionURL&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>MEM Info<span
+                            class="xml&#45;tag">&lt;/a&gt;</span><span class="xml&#45;tag">&lt;br&gt;</span>&#10;	 #end&#10;	 #applyDecorator (&quot;</span>menupanel<span
+                            class="xml&#45;quote">&quot; &quot;</span>Security<span class="xml&#45;quote">&quot;)&#10;	   <span
+                            class="xml&#45;tag">&lt;img src=&quot;</span>$req.contextPath/images/icons/bullet&#95;creme.gif<span
+                            class="xml&#45;quote">&quot; height=8 width=8 alt=&quot;</span><span class="xml&#45;quote">&quot;&gt;</span>&#10;	   <span
+                            class="xml&#45;tag">&lt;a href=&quot;</span>$actionURL&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>Manage Users<span
+                            class="xml&#45;tag">&lt;/a&gt;</span><span class="xml&#45;tag">&lt;br&gt;</span>&#10;	   <span
+                            class="xml&#45;tag">&lt;img src=&quot;</span>$req.contextPath/images/icons/bullet&#95;creme.gif<span
+                            class="xml&#45;quote">&quot; height=8 width=8 alt=&quot;</span><span class="xml&#45;quote">&quot;&gt;</span>&#10;	   <span
+                            class="xml&#45;tag">&lt;a href=&quot;</span>$actionURL&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>Manage Groups<span
+                            class="xml&#45;tag">&lt;/a&gt;</span><span class="xml&#45;tag">&lt;br&gt;</span>&#10;	   <span
+                            class="xml&#45;tag">&lt;img src=&quot;</span>$req.contextPath/images/icons/bullet&#95;creme.gif<span
+                            class="xml&#45;quote">&quot; height=8 width=8 alt=&quot;</span><span class="xml&#45;quote">&quot;&gt;</span>&#10;	   <span
+                            class="xml&#45;tag">&lt;a href=&quot;</span>$actionURL&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>Global Permissions<span class="xml&#45;tag">&lt;/a&gt;</span><span
+                            class="xml&#45;tag">&lt;br&gt;</span>&#10;	 #end&#10;	<span class="xml&#45;tag">&lt;br/&gt;</span>&#10;	<span
+                            class="xml&#45;tag">&lt;/td&gt;</span>&#10;    <span class="xml&#45;tag">&lt;td valign=&quot;</span>top<span
+                            class="xml&#45;quote">&quot; class=&quot;</span>pagebody<span class="xml&#45;quote">&quot; width=&quot;</span>60&#37;<span
+                            class="xml&#45;quote">&quot;&gt;</span><span class="xml&#45;tag">&lt;br/&gt;</span>&#10;        $body&#10;    <span
+                            class="xml&#45;tag">&lt;/td&gt;</span>&#10;#parse (&quot;</span>/decorators/includes/complete&#95;footer.vm&quot;)
+                    </pre>
+                </div></div><br/>
+
+            <div class="code" style="border-style: solid; "><div class="codeHeader"
+                                                                 style="border-bottom-style: solid; "><b>rendered
+                display html page in portal server</b></div>
+
+                <div class="codeContent">
+                    <pre><span class="xml&#45;tag">&lt;td valign=<span class="xml&#45;quote">&quot;top&quot;</span> class=<span
+                            class="xml&#45;quote">&quot;pagebody&quot;</span> width=<span class="xml&#45;quote">&quot;20&#37;&quot;</span>&gt;</span><span
+                            class="xml&#45;tag">&lt;br/&gt;</span>&#10;<span class="xml&#45;tag">&lt;div class=<span
+                            class="xml&#45;quote">&quot;menuheading&quot;</span>&gt;</span>&#83;ystemInfo<span
+                            class="xml&#45;tag">&lt;/div&gt;</span>&#10;<span class="xml&#45;tag">&lt;div class=<span
+                            class="xml&#45;quote">&quot;menuitems&quot;</span>&gt;</span>&#10; <span
+                            class="xml&#45;tag">&lt;img src=<span class="xml&#45;quote">&quot;/portlet/images/icons/bullet&#95;creme.gif&quot;</span> height=8 width=8 alt=<span
+                            class="xml&#45;quote">&quot;&quot;&gt;</span>&#10;    <span class="xml&#45;tag">&lt;a href=&quot;</span>&#104;ttp://localhost:8080/jetspeed/portal/xxxxxx/wwportlet.psml&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>&#10;     CPU Info<span class="xml&#45;tag">&lt;/a&gt;</span><span
+                            class="xml&#45;tag">&lt;br&gt;</span>&#10;    <span
+                            class="xml&#45;tag">&lt;img src=&quot;</span>/portlet/images/icons/bullet&#95;creme.gif<span
+                            class="xml&#45;quote">&quot; height=8 width=8 alt=&quot;</span><span class="xml&#45;quote">&quot;&gt;</span>&#10;    <span
+                            class="xml&#45;tag">&lt;a href=&quot;</span>&#104;ttp://localhost:8080/jetspeed/portal/xxxxxx/wwportlet.psml&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>&#10;      HDD Info<span class="xml&#45;tag">&lt;/a&gt;</span><span
+                            class="xml&#45;tag">&lt;br&gt;</span>&#10;    <span
+                            class="xml&#45;tag">&lt;img src=&quot;</span>/portlet/images/icons/bullet&#95;creme.gif<span
+                            class="xml&#45;quote">&quot; height=8 width=8 alt=&quot;</span><span class="xml&#45;quote">&quot;&gt;</span>&#10;    <span
+                            class="xml&#45;tag">&lt;a href=&quot;</span>&#104;ttp://localhost:8080/jetspeed/portal/xxxxxx/wwportlet.psml&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>&#10;      MEM Info<span class="xml&#45;tag">&lt;/a&gt;</span><span
+                            class="xml&#45;tag">&lt;br&gt;</span>&#10;<span class="xml&#45;tag">&lt;/div&gt;</span>				   &#10;&#10;<span
+                            class="xml&#45;tag">&lt;div class=&quot;</span>menuheading<span class="xml&#45;quote">&quot;&gt;</span>Security<span
+                            class="xml&#45;tag">&lt;/div&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;div class=&quot;</span>menuitems<span class="xml&#45;quote">&quot;&gt;</span>&#10;    <span
+                            class="xml&#45;tag">&lt;img src=&quot;</span>/portlet/images/icons/bullet&#95;creme.gif<span
+                            class="xml&#45;quote">&quot; height=8 width=8 alt=&quot;</span><span class="xml&#45;quote">&quot;&gt;</span>&#10;    <span
+                            class="xml&#45;tag">&lt;a href=&quot;</span>&#104;ttp://localhost:8080/jetspeed/portal/xxxxxx/wwportlet.psml&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>&#10;       Manage Users<span class="xml&#45;tag">&lt;/a&gt;</span><span
+                            class="xml&#45;tag">&lt;br&gt;</span>&#10;    <span
+                            class="xml&#45;tag">&lt;img src=&quot;</span>/portlet/images/icons/bullet&#95;creme.gif<span
+                            class="xml&#45;quote">&quot; height=8 width=8 alt=&quot;</span><span class="xml&#45;quote">&quot;&gt;</span>&#10;    <span
+                            class="xml&#45;tag">&lt;a href=&quot;</span>&#104;ttp://localhost:8080/jetspeed/portal/xxxxxx/wwportlet.psml&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>&#10;       Manage Groups<span class="xml&#45;tag">&lt;/a&gt;</span><span
+                            class="xml&#45;tag">&lt;br&gt;</span>&#10;    <span
+                            class="xml&#45;tag">&lt;img src=&quot;</span>/portlet/images/icons/bullet&#95;creme.gif<span
+                            class="xml&#45;quote">&quot; height=8 width=8 alt=&quot;</span><span class="xml&#45;quote">&quot;&gt;</span>&#10;    <span
+                            class="xml&#45;tag">&lt;a href=&quot;</span>&#104;ttp://localhost:8080/jetspeed/portal/xxxxxx/wwportlet.psml&#63;wwLink=/menu.vm<span
+                            class="xml&#45;quote">&quot;&gt;</span>&#10;      Global Permissions<span
+                            class="xml&#45;tag">&lt;/a&gt;</span><span class="xml&#45;tag">&lt;br&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;/div&gt;</span><span
+                            class="xml&#45;tag">&lt;br/&gt;</span>&#10;<span class="xml&#45;tag">&lt;/td&gt;</span>&#10;&#10;<span
+                            class="xml&#45;tag">&lt;td valign=&quot;</span>top<span class="xml&#45;quote">&quot; class=&quot;</span>pagebody<span
+                            class="xml&#45;quote">&quot; width=&quot;</span>60&#37;<span class="xml&#45;quote">&quot;&gt;</span><span
+                            class="xml&#45;tag">&lt;br/&gt;</span>&#10;&#10;<span class="xml&#45;tag">&lt;h1&gt;</span>Custom Menu Example:<span
+                            class="xml&#45;tag">&lt;/h1&gt;</span> &#10;<span class="xml&#45;tag">&lt;h2&gt;</span>&#87;ebWork SiteMesh Menu Tutorial<span
+                            class="xml&#45;tag">&lt;/h2&gt;</span>&#10;<span class="xml&#45;tag">&lt;table&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;tbody&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;tr&gt;</span><span class="xml&#45;tag">&lt;td&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;div class=&quot;</span>tabletitle<span class="xml&#45;quote">&quot;&gt;</span>decorated content:<span
+                            class="xml&#45;tag">&lt;/div&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;div class=&quot;</span>preformatted &quot;&gt;</span>&#10;The main
+                        content displayed here&#33;&#10;<span class="xml&#45;tag">&lt;/div&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;/td&gt;</span><span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;/tbody&gt;</span>&#10;<span
+                            class="xml&#45;tag">&lt;/table&gt;</span>&#10;&#10;<span
+                            class="xml&#45;tag">&lt;/td&gt;</span></pre>
+                </div></div>
+
+
+        </td>
+    </tr>
+</table>
+</body>
+</html>

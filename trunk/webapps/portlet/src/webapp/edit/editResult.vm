@@ -1,0 +1,15 @@
+<html>
+<head><title>$action.getText('title')</title></head>
+<body>
+<p>$action.getText('greeting') $now
+</p>
+<p>
+	$!userName 
+</p>
+#bodytag (Form "action='/edit.action'" "method='post'")
+		<input type="text" name="userName" value="" />
+		<INPUT name="Submit" type="submit" value="Submit"/>
+#end
+</body>
+</html>
+

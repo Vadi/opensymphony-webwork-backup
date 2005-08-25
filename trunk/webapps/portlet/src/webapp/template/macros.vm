@@ -1,0 +1,277 @@
+#macro (typeIcon $type)
+    #if ($type == "page")
+        <img src="$req.contextPath/images/icons/docs_16.gif" height="16" width="16" border="0" align="absmiddle" />
+    #elseif ($type == "comment")
+        <img src="$req.contextPath/images/icons/comment_16.gif" height="16" width="16" border="0" align="absmiddle"/>
+    #elseif ($type == "spacedesc")
+        <img src="$req.contextPath/images/icons/web_16.gif" height="16" width="16" border="0" align="absmiddle" />
+    #elseif ($type == "userinfo")
+        <img src="$req.contextPath/images/icons/user_16.gif" height="16" width="16" border="0" align="absmiddle" />
+    #elseif ($type == "blogpost")
+        <img src="$req.contextPath/images/icons/blogentry_16.gif" height="16" width="16" border="0" align="absmiddle" />
+    #elseif ($type == "attachment")
+        <img src="$req.contextPath/images/icons/attachments/file.gif" height="16" width="16" border="0" align="absmiddle" />
+    #elseif ($type == "mail")
+        <img src="$req.contextPath/images/icons/mail_content_16.gif" height="16" width="16" border="0" align="absmiddle" />
+    #end
+#end
+
+#macro (contentHref $content)
+    <a href="$req.contextPath$content.urlPath">$webwork.htmlEncode($content.realTitle)</a>
+#end
+
+#*
+PARAMETERS:
+request		- the http request
+title		- the text of the link
+url 		- the URI to link to
+selected	- the nav item will be selected if this link matches request.getServletPath().startsWith(selected)
+tooltip		- an optional phrase to be used as the tooltip for the navitem link.
+*#
+#macro(navitem $title $url $selected $tooltip $accessKey)
+    ## only hide the javascript if it is IE or Mozilla (not netscape or Opera) - Fixes JRA-1427
+    #if ($webReqUtils.isGoodBrowser($req) && $textUtils.noNull($req.getHeader("USER-AGENT")).indexOf("Opera") == -1)
+        #set ($captureJavascript = true)
+    #end
+
+    #if ($req.servletPath.startsWith($selected))
+        ## css hack as described here:  http://www.fo3nix.pwp.blueyonder.co.uk/tutorials/css/hacks/
+        ## only good browsers recognise that 'return false' isn't killing the <a> tag.  So don't 'return false' in netscape 4
+	    <td nowrap onClick="window.document.location='$url'" align=center valign=middle class="navItemOver">&nbsp;&nbsp;
+    #else
+        <td nowrap onClick="window.document.location='$url'" align=center valign=middle class="navItem" onMouseOver="this.className='navItemOver'" onMouseOut="this.className='navItem'">&nbsp;&nbsp;
+    #end
+        <a href="$url"
+        #if ($tooltip) title="$tooltip"#end
+        #if ($accessKey) accessKey="$accessKey" #end
+        #if ($captureJavascript) onClick="return false" #end
+        >$title</a> &nbsp;&nbsp;</td>
+#end
+
+#*
+Prints the search result pagination info.
+*#
+#macro(pagination $paginationSupport $actionContext)
+    #set ($previousIndexes = $paginationSupport.previousStartIndexes)
+    #set ($nextIndexes = $paginationSupport.nextStartIndexes)
+
+    <div class="centered">
+        #if( $paginationSupport.items.size() > 0 )
+            <!-- I don't think the user cares about the start and end index of the pages they are viewing -->
+            #set ($startIndex = $paginationSupport.startIndex + 1)
+            #set ($endIndex = $paginationSupport.endIndex)
+            <!--<span class="smalltext">
+                (Displaying <b>$startIndex</b> to <b>$endIndex</b> of <b>$paginationSupport.items.size()</b>)
+            </span>
+            <br/>-->
+        #end
+
+        #if( $previousIndexes || $nextIndexes )
+            #set ($currentIndex = 0)
+
+            #if( $previousIndexes )
+                <a href="${actionContext}startIndex=$paginationSupport.previousIndex">&lt;&lt; Previous</a>
+                #foreach( $index in $previousIndexes )
+                    |
+                    <a href="${actionContext}startIndex=$index">
+                    #set ($currentIndex = $currentIndex + 1)
+                    $currentIndex</a>
+                #end
+                |
+            #end
+
+            #set ($currentIndex = $currentIndex + 1)
+            <b>$currentIndex</b>
+
+            #if( $nextIndexes )
+                #foreach( $index in $nextIndexes )
+                    |
+                    <a href="${actionContext}startIndex=$index">
+                    #set ($currentIndex = $currentIndex + 1)
+                    $currentIndex</a>
+                #end
+                |
+                <a href="${actionContext}startIndex=$paginationSupport.nextIndex">Next &gt;&gt;</a>
+            #end
+            <span class="smalltext">(total: <b>$paginationSupport.items.size()</b>)</span>
+        #end
+    </div>
+#end
+
+#*
+Prints the breadcrumbs
+*#
+#macro(breadcrumbs)
+    Location:
+    #if ($bootstrap.isSetupComplete() && $page.getProperty("page.breadcrumbs"))
+        $page.getProperty("page.breadcrumbs")
+    #end
+#end
+
+
+#macro(printableicon)
+    #if ($bootstrap.isSetupComplete() && $page && $page.request)
+        <a href="$page.request.requestURI?#if ($textUtils.stringSet($page.request.queryString))${page.request.queryString}&#end
+decorator=printable"><img src="$req.contextPath/images/icons/print_16.gif" width="16" height="16" hspace="1" vspace="1" align="absmiddle" border="0" alt="View a printable version of the current page." title="View a printable version of the current page."/></a>
+    #end
+#end
+
+#macro(pagetitle $class)
+    #if ($bootstrap.isSetupComplete() && $page.getProperty("page.spacename"))
+        <div class="$class">#if ($page.getProperty("page.spacekey"))<a href="$req.contextPath/display/$page.getProperty("page.spacekey")">#end<img src="$req.contextPath/images/confluence_logo.gif" align="bottom" border="0">#if ($page.getProperty("page.spacekey"))</a>#end $page.getProperty("page.spacename")</div>
+    #else
+        <div class="$class"><a href="$req.contextPath/"><img src="$req.contextPath/images/confluence_logo.gif" border="0"></a> <a href="$req.contextPath/">CONFLUENCE</a></div>
+    #end
+#end
+
+#macro(bottomshadow)
+        <div>This content was decorated by SiteMesh.
+        </div>
+        <div class="bottomshadow"></div>
+#end
+
+#macro(poweredby)
+  	<div id="poweredby" class="smalltext">
+		Powered by WebWork MVC Portlet</a>
+		<br/>
+	</div>
+#end
+
+#macro (colourRow $name $colour $isDefault)
+    <tr>
+        <td nowrap width="40%" align="right"><b>$action.getText($name)</b></td>
+        <td width="30"><div style="background-color: $colour; width: 30; border: 1px solid black">&nbsp;</div></td>
+        <td><span class="monospaceInput">#if($isDefault)&lt;default&gt;#else$colour#end</span></td>
+    </tr>
+#end
+
+
+#macro (onoff $test)
+    #if ($test) <font color="009900"><b>ON</b></font> #else <font color="990000"><b>OFF</b></font> #end
+#end
+
+#macro (yesno $test)
+    #if ($test) <font color="009900"><b>YES</b></font> #else <font color="990000"><b>NO</b></font> #end
+#end
+
+#macro (fielderror $fieldname)
+    #set ($fieldErrors = $action.fieldErrors)
+    #if ($fieldErrors)
+      #if ($fieldErrors.get($fieldname))
+          #foreach ($error in $fieldErrors.get($fieldname))
+          <div class="error"><span class="errorMessage">
+            #set( $message = $action.getText(${error}) )
+            #if( $message && $message != "" )
+              $message
+            #else
+              $error
+            #end
+          </span></div>
+          #end
+      #end
+    #end
+#end
+
+#macro (fielderrorRow $fieldname)
+    #set ($fieldErrors = $stack.findValue("fieldErrors"))
+    #if ($fieldErrors)
+        #if ($fieldErrors.get($fieldname))
+            #foreach ($error in $fieldErrors.get($fieldname))
+                <tr>
+                <td colspan="2" class="error"><span class="errorMessage">
+                #set( $message = $stack.findValue("getText(${error})") )
+                #if( $message && $message != "" )
+                  $message
+                #else
+                  $error
+                #end
+                </span></td>
+                </tr>
+            #end
+        #end
+    #end
+#end
+
+#macro(infoPanelInit)
+    #if ($page.getProperty("meta.help-path"))
+      #set ($helpPath = $page.getProperty("meta.help-path"))
+    #end
+
+    #if ($page.getProperty("page.help-content"))
+      #set ($helpContent = $page.getProperty("page.help-content"))
+    #end
+
+    ## decide whether or not to include the right nav bar
+    #if ($helpPath || $helpContent)
+      #set ($helpAvailable = true)
+    #end
+
+    #if ($page.getProperty("page.operations") && !$page.getProperty("page.operations-icons"))
+      #set ($hasPageOperations = true)
+    #end
+
+    #if ($page.getProperty("meta.infopanel-width"))
+      #set ($panelWidth = $page.getProperty("meta.infopanel-width"))
+    #end
+
+    #set ($infoPanelRequired = ($helpAvailable || $hasPageOperations))
+#end
+
+#macro(infoPanel $incomingLinks $trackbacks $referrers $externalReferences)
+<div class="navmenu">
+
+  #if ($helpAvailable)
+      <div class="helpheading">
+          <img src="$req.contextPath/images/icons/help_16.gif" height=16 width=16 border=0 align=absmiddle height=16 width=16 title="Help Tips">
+          Help Tips
+      </div>
+      <div class="helpcontent" 	style="BORDER-RIGHT: #3c78b5 0.75pt dashed; PADDING-RIGHT: 8pt; BORDER-TOP: #3c78b5 0.75pt dashed; PADDING-LEFT: 8pt; BACKGROUND: #f0f0f0; PADDING-BOTTOM: 0mm; BORDER-LEFT: #3c78b5 0.75pt dashed; PADDING-TOP: 0mm; BORDER-BOTTOM: #3c78b5 0.75pt dashed">
+          #if ($helpContent)
+              $page.getProperty("page.help-content")
+          #else
+              $fileUtil.getResourceContent($req, $helpPath)
+          #end
+      </div>
+  #else
+      #if ($hasPageOperations)
+          #if ($page.getProperty("page.operations.title"))
+              <div class="menuheading">$page.getProperty("page.operations.title")</div>
+          #else
+              <div class="menuheading">Operations</div>
+          #end
+          <div class="menuitems">
+              $page.getProperty("page.operations")
+
+              #if ($incomingLinks && $page.getProperty("page.incoming-links"))
+                  $page.getProperty("page.incoming-links")
+              #end
+
+              #if ($trackbacks && $page.getProperty("page.trackbacks"))
+                  $page.getProperty("page.trackbacks")
+              #end
+
+              #if ($referrers && $page.getProperty("page.referrers"))
+                  $page.getProperty("page.referrers")
+              #end
+
+              #if ($externalReferences && $page.getProperty("page.external-references"))
+                  $page.getProperty("page.external-references")
+              #end
+          </div>
+      #end
+  #end
+</div>
+#end
+
+#macro(breadcrumbsAndSearch)
+<!-- CONF-BEGIN breadcrumbsAndSearch -->
+  <div width="100%" class="breadcrumbs">
+      <table width=100% cellspacing=0 cellpadding=0 border=0><tr>
+          <td>
+          &nbsp;#breadcrumbs()
+          </td>
+          #searchbox()
+      </tr></table>
+  </div>
+<!-- CONF-END breadcrumbsAndSearch -->
+#end

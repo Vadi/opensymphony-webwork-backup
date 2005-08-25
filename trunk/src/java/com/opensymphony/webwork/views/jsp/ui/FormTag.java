@@ -25,6 +25,7 @@ public class FormTag extends AbstractUITag {
     String method;
     String namespace;
     String validate;
+    String onsubmit;
 
     public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Form(stack, req, res);
@@ -40,6 +41,7 @@ public class FormTag extends AbstractUITag {
         form.setMethod(method);
         form.setNamespace(namespace);
         form.setValidate(validate);
+        form.setOnselect(onsubmit);
     }
 
     public void setAction(String action) {
@@ -64,5 +66,9 @@ public class FormTag extends AbstractUITag {
 
     public void setValidate(String validate) {
         this.validate = validate;
+    }
+
+    public void setOnsubmit(String onsubmit) {
+        this.onsubmit = onsubmit;
     }
 }

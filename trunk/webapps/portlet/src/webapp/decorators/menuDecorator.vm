@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title>$title</title>
+    <link rel="stylesheet" href="$req.contextPath/styles/main.css" type="text/css" />
+</head>
+<body>
+
+<div id="Content" width="100%">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%"  class="wpsPortletTitle" style="padding:5px;">
+        <tr>
+            <td width="80%" class="logocell"><a href="$actionURL?wwLink=/index.vm">Home</a></td>
+			<td align=right>Contact info£º$textUtils.linkEmail("hu_pengfei@yahoo.com.cn")</td>
+        </tr>
+        <tr>
+            <td align=left valign="bottom">
+				<br/>
+				 #if (!$page.getProperty("page.no-page-header"))
+						<div class="pageheader">
+							<span class="pagetitle">$title </span>
+						</div>
+				 #end
+				 
+            </td>
+            <td align=right valign="bottom">
+				<br/>This content was decorated by SiteMesh
+            </td>
+        </tr>
+    </table>
+
+	<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
+	<td valign="top" class="pagebody" width="20%">
+				<br/>
+				#applyDecorator ("menupanel" "SystemInfo")
+					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+					<a href="$actionURL?wwLink=/menu.vm">CPU Info</a><br>
+					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+					<a href="$actionURL?wwLink=/menu.vm">HDD Info</a><br>
+					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+					<a href="$actionURL?wwLink=/menu.vm">MEM Info</a><br>
+				#end
+				#applyDecorator ("menupanel" "Security")
+					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+					<a href="$actionURL?wwLink=/menu.vm">Manage Users</a><br>
+					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+					<a href="$actionURL?wwLink=/menu.vm">Manage Groups</a><br>
+					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+					<a href="$actionURL?wwLink=/menu.vm">Global Permissions</a><br>
+				#end
+				<br/>
+	</td>
+
+    <td valign="top" class="pagebody" width="60%">
+		<br/>
+        $body
+    </td>
+
+#parse ("/decorators/includes/complete_footer.vm")

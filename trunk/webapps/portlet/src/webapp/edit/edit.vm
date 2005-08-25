@@ -1,0 +1,16 @@
+<html>
+<head><title>请输入您的编辑信息</title></head>
+<body>
+<p>欢迎使用系统编辑功能 $!now
+</p>
+<p>
+	$!userName 
+</p>
+#bodytag (Form "action='/edit.action'" "method='post'")
+		<input type="text" name="userName" value="" />
+		<INPUT name="Submit" type="submit" value="Submit"/>
+#end
+<br/>
+</body>
+</html>
+

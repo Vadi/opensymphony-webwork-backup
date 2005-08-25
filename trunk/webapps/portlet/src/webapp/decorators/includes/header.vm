@@ -1,0 +1,8 @@
+<html>
+<head>
+    <title>$title</title>
+
+    #standardHeader()
+</head>
+<body onload="placeFocus()">
+<div class="errorbox">This header.vmd file should not be used anymore - please fix your decorator.</div>

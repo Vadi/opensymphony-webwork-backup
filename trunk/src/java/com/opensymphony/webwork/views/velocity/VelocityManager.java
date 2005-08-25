@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.portlet.velocity.ApplyDecoratorDirective;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.webwork.views.util.ContextUtil;
@@ -123,7 +124,7 @@ public class VelocityManager {
      * <li><strong>res</strong> - the current HttpServletResponse</li>
      * <li><strong>stack</strong> - the current {@link OgnlValueStack}</li>
      * <li><strong>ognl</strong> - an {@link OgnlTool}</li>
-     * <li><strong>webwork</strong> - an instance of {@link WebWorkUtil}</li>
+     * <li><strong>webwork</strong> - an instance of {@link com.opensymphony.webwork.util.WebWorkUtil}</li>
      * <li><strong>action</strong> - the current WebWork action</li>
      * </ul>
      *
@@ -226,6 +227,8 @@ public class VelocityManager {
         // now apply our systemic defaults, then allow user to override
         applyDefaultConfiguration(context, properties);
 
+        String defaultUserDirective = properties.getProperty("userdirective");
+
         /**
          * if the user has specified an external velocity configuration file, we'll want to search for it in the
          * following order
@@ -296,6 +299,16 @@ public class VelocityManager {
             }
         }
 
+        String userdirective = properties.getProperty("userdirective");
+
+        if ((userdirective == null) || userdirective.trim().equals("")) {
+            userdirective = defaultUserDirective;
+        } else {
+            userdirective = userdirective.trim() + "," + defaultUserDirective;
+        }
+
+        properties.setProperty("userdirective", userdirective);
+
         // for debugging purposes, allows users to dump out the properties that have been configured
         if (log.isDebugEnabled()) {
             log.debug("Initializing Velocity with the following properties ...");
@@ -333,8 +346,6 @@ public class VelocityManager {
     /**
      * Initializes the ServletToolboxManager for this servlet's
      * toolbox (if any).
-     *
-     * @param config servlet configuation
      */
     protected void initToolbox(ServletContext context) {
         /* if we have a toolbox, get a manager for it */
@@ -483,30 +494,34 @@ public class VelocityManager {
 
         // components
         StringBuffer sb = new StringBuffer();
-        addDirective(sb, ComboBoxDirective.class);
+
+        //deprecated directive class
+        addDirective(sb, BodyTagDirective.class);
+        addDirective(sb, TagDirective.class);
+        addDirective(sb, ParamDirective.class);
+
+        addDirective(sb, ApplyDecoratorDirective.class);
+        addDirective(sb, CheckBoxDirective.class);
         addDirective(sb, CheckBoxListDirective.class);
         addDirective(sb, ComboBoxDirective.class);
         addDirective(sb, ComponentDirective.class);
+        addDirective(sb, DatePickerDirective.class);
+        addDirective(sb, DivDirective.class);
         addDirective(sb, DoubleSelectDirective.class);
         addDirective(sb, FileDirective.class);
         addDirective(sb, FormDirective.class);
         addDirective(sb, HiddenDirective.class);
+        addDirective(sb, HrefDirective.class);
         addDirective(sb, LabelDirective.class);
+        addDirective(sb, PanelDirective.class);
         addDirective(sb, PasswordDirective.class);
         addDirective(sb, RadioDirective.class);
         addDirective(sb, SelectDirective.class);
         addDirective(sb, SubmitDirective.class);
+        addDirective(sb, TabbedPanelDirective.class);
         addDirective(sb, TextAreaDirective.class);
         addDirective(sb, TextFieldDirective.class);
-        addDirective(sb, DatePickerDirective.class);
         addDirective(sb, TokenDirective.class);
-
-        // deprecated elements
-        addDirective(sb, ParamDirective.class);
-        addDirective(sb, TagDirective.class);
-        addDirective(sb, BodyTagDirective.class);
-        addDirective(sb, TextFieldDirective.class);
-        addDirective(sb, TextFieldDirective.class);
 
         String directives = sb.toString();
 

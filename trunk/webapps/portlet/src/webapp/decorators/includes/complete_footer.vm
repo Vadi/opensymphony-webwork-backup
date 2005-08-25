@@ -1,0 +1,13 @@
+#infoPanelInit()
+        #if ($infoPanelRequired == true)
+        	<td width="5">&nbsp;</td>
+        	<td valign="top" width="#if ($panelWidth) $panelWidth #else 30% #end">
+            #infoPanel(true true true true)
+        	</td>
+    	#end
+    </tr>
+</table>
+
+</div>
+
+#parse ("/decorators/includes/footer.vm")

@@ -1,0 +1,15 @@
+<html>
+<head><title>Please input your information</title>
+<meta name="help-path" content="/help/help1.html"/> 
+</head>
+<body>
+<p>Welcome to Use $!now
+</p>
+#wwform ("action=/hello.action" "method=post")
+		<input type="text" name="userName" value="" />
+		<INPUT name="Submit" type="submit" value="Submit"/>
+#end
+<br/>
+</body>
+</html>
+

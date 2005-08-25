@@ -35,7 +35,7 @@ import java.io.Writer;
  *
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  * @deprecated Automatic JSP tag support doesn't work well and is likely to break. Please use the native Velocity
- * tags introduced in WebWork 2.2
+ *             tags introduced in WebWork 2.2
  */
 public class ParamDirective extends Directive {
     public String getName() {
@@ -60,6 +60,31 @@ public class ParamDirective extends Directive {
      */
     public boolean render(InternalContextAdapter contextAdapter, Writer writer, Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
         Object object = contextAdapter.get(VelocityManager.TAG);
+
+        //Fixed for Param -- Added by Henry Hu
+        /*
+         * Param Usage Example:
+         * <p>Custom Component Example:</p> 
+         	#wwcomponent ("template=components/datefield.vm")
+         		#param ("label" "Date") 
+         		#param ("name" "mydatefield") 
+         		#param ("mysize" 3) 
+           #end
+           <br/> 
+           
+           datefield.vm:
+           #set ($name = $stack.getContext().get("name"))
+           #set ($label = $stack.getContext().get("label")) 
+           #set ($size = $stack.getContext().get("mysize")) 
+           #set ($yearsize = $size * 2)
+			$label:
+			<input type="text" name="${name}.day" size="$size" /> / 
+			<input type="text" name="${name}.month" size="$size" /> / 
+			<input type="text" name="${name}.year" size="$yearsize" /> (dd/mm/yyyy)
+           **/
+
+        OgnlValueStack stack = ActionContext.getContext().getValueStack();
+        stack.getContext().put(node.jjtGetChild(0).value(contextAdapter).toString(), node.jjtGetChild(1).value(contextAdapter));
 
         if ((object != null) && (object instanceof ParamTag.Parametric)) {
             if ((node.jjtGetNumChildren() != 2) && (node.jjtGetNumChildren() != 3)) {

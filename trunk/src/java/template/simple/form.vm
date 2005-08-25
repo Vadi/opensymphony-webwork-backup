@@ -9,3 +9,5 @@
 #if ($parameters.cssClass)  class="$!webwork.htmlEncode($parameters.cssClass)"  #end
 #if ($parameters.cssStyle)  style="$!webwork.htmlEncode($parameters.cssStyle)"  #end
 >
+
+#if ($parameters.isPortlet) <input type="hidden" name="wwAction" value="$!webwork.htmlEncode($parameters.wwAction)"/> #end
