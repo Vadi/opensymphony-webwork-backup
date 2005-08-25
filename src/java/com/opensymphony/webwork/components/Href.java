@@ -1,6 +1,8 @@
 package com.opensymphony.webwork.components;
 
+import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.portlet.context.PortletContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,61 +36,40 @@ public class Href extends ClosingUIBean {
         return TEMPLATE;
     }
 
-    public String getComponentName() {
-        return COMPONENT_NAME; // todo: is this needed? if not, remove it
-    }
-
     protected void evaluateExtraParams() {
         super.evaluateExtraParams();
 
         //Fix for wwportlet Support -- Added by Henry Hu
         if (href != null) {
-
-            String actionURL = com.opensymphony.webwork.portlet.context.PortletContext.getContext().getActionURL();
-            String hrefValue = href;
+            String hrefValue = findString(href);
             String contextPath = request.getContextPath();
-
-            String hrefTemp = "";
             StringBuffer sb = new StringBuffer();
+            String actionUrl = PortletContext.getContext().getActionURL();
 
-            if (hrefValue != null && !"".equals(hrefValue)) {
-
-                if (!hrefValue.startsWith("/"))
-                    hrefValue = "/" + hrefValue;
-
-                if (hrefValue.startsWith(contextPath)) {
+            if (!TextUtils.stringSet(actionUrl)) {
+                if (hrefValue.startsWith("/") && hrefValue.startsWith(contextPath)) {
                     contextPath = "";
                 }
+                sb.append(contextPath).append(hrefValue);
+            } else {
+                String actionExtension = (String) Configuration.get("webwork.action.extension");
 
-                if (actionURL == null || "".equals(actionURL)) {
-                    sb.append(contextPath).append(hrefValue);
-                    hrefTemp = sb.toString();
-
+                if (actionExtension == null || "".equals(actionExtension)) {
+                    actionExtension = ".action";
                 } else {
-
-                    String actionExtension = (String) Configuration.get("webwork.action.extension");
-
-                    if (actionExtension == null || "".equals(actionExtension)) {
-                        actionExtension = ".action";
-                    } else {
-                        actionExtension = "." + actionExtension;
-                    }
-
-                    boolean isWebWorkAction = hrefValue.indexOf(actionExtension) >= 0;
-
-                    if (isWebWorkAction) {
-                        sb.append(actionURL).append("?wwXAction=.").append(hrefValue);
-                    } else {
-                        sb.append(actionURL).append("?wwLink=").append(hrefValue);
-                    }
-
-                    hrefTemp = sb.toString();//actionURL+"?wwXAction=./"+pageValue;
-
+                    actionExtension = "." + actionExtension;
                 }
 
-                addParameter("href", hrefTemp);
+                boolean isWebWorkAction = hrefValue.indexOf(actionExtension) >= 0;
+
+                if (isWebWorkAction) {
+                    sb.append(actionUrl).append("?wwXAction=.").append(hrefValue);
+                } else {
+                    sb.append(actionUrl).append("?wwLink=").append(hrefValue);
+                }
             }
 
+            addParameter("href", sb.toString());
         }
         /////////////Fix End ////////////////
 
