@@ -9,9 +9,9 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.mockobjects.servlet.MockHttpServletRequest;
+import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.dispatcher.mapper.DefaultActionMapper;
-import junit.framework.TestCase;
 
 import java.util.HashMap;
 
@@ -19,11 +19,7 @@ import java.util.HashMap;
 /**
  * @author roughley
  */
-public class DefautActionMapperTest extends TestCase {
-    public DefautActionMapperTest(String string) {
-        super(string);
-    }
-
+public class DefautActionMapperTest extends WebWorkTestCase {
     public void testGetMapping() throws Exception {
         MockHttpServletRequest req = new MockHttpServletRequest();
         req.setupGetParameterMap(new HashMap());
