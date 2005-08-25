@@ -1,5 +1,6 @@
 package com.opensymphony.webwork.components;
 
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,19 +41,68 @@ public class Href extends ClosingUIBean {
     protected void evaluateExtraParams() {
         super.evaluateExtraParams();
 
+        //Fix for wwportlet Support -- Added by Henry Hu
         if (href != null) {
+
+            String actionURL = com.opensymphony.webwork.portlet.context.PortletContext.getContext().getActionURL();
+            String hrefValue = href;
+            String contextPath = request.getContextPath();
+
+            String hrefTemp = "";
+            StringBuffer sb = new StringBuffer();
+
+            if (hrefValue != null && !"".equals(hrefValue)) {
+
+                if (!hrefValue.startsWith("/"))
+                    hrefValue = "/" + hrefValue;
+
+                if (hrefValue.startsWith(contextPath)) {
+                    contextPath = "";
+                }
+
+                if (actionURL == null || "".equals(actionURL)) {
+                    sb.append(contextPath).append(hrefValue);
+                    hrefTemp = sb.toString();
+
+                } else {
+
+                    String actionExtension = (String) Configuration.get("webwork.action.extension");
+
+                    if (actionExtension == null || "".equals(actionExtension)) {
+                        actionExtension = ".action";
+                    } else {
+                        actionExtension = "." + actionExtension;
+                    }
+
+                    boolean isWebWorkAction = hrefValue.indexOf(actionExtension) >= 0;
+
+                    if (isWebWorkAction) {
+                        sb.append(actionURL).append("?wwXAction=.").append(hrefValue);
+                    } else {
+                        sb.append(actionURL).append("?wwLink=").append(hrefValue);
+                    }
+
+                    hrefTemp = sb.toString();//actionURL+"?wwXAction=./"+pageValue;
+
+                }
+
+                addParameter("href", hrefTemp);
+            }
+
+        }
+        /////////////Fix End ////////////////
+
+/*        if (href != null) {
             String stackUrl = findString(href);
             String contextPath = request.getContextPath();
             if (stackUrl.startsWith("/") && stackUrl.startsWith(contextPath)) {
                 contextPath = "";
             }
             addParameter("href", contextPath + stackUrl );
-        }
+        }*/
 
         if (showErrorTransportText != null) {
             addParameter("showErrorTransportText", findValue(showErrorTransportText, Boolean.class));
-        } else {
-            addParameter("showErrorTransportText", Boolean.FALSE );
         }
 
         if (errorText != null) {

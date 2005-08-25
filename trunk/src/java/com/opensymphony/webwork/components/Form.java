@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * User: plightbo
  * Date: Jul 1, 2005
  * Time: 11:23:47 PM
+ * <br>Revised by <a href="mailto:hu_pengfei@yahoo.com.cn">Henry Hu</a>
  */
 public class Form extends ClosingUIBean {
     final public static String OPEN_TEMPLATE = "form";
@@ -43,11 +44,21 @@ public class Form extends ClosingUIBean {
         return TEMPLATE;
     }
 
+    /*
+    * Revised for Portlet actionURL as form action, and add wwAction as hidden
+    * field. Refer to template.simple/form.vm
+    */
     protected void evaluateExtraParams() {
         super.evaluateExtraParams();
 
+        //Add for Portlet Support -- Added by Henry Hu
+        String actionURL = com.opensymphony.webwork.portlet.context.PortletContext.getContext().getActionURL();
+        boolean isPortlet = (actionURL != null && !"".equals(actionURL));
+        /////
+
         if (action != null) {
-            String action = findString(this.action);
+
+            //           final String action = findString(this.action);
             String namespace;
 
             if (this.namespace == null) {
@@ -63,16 +74,27 @@ public class Form extends ClosingUIBean {
             final ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
 
             if (actionConfig != null) {
-                String actionMethod = "";
-                if (action.indexOf("!") != -1) {
-                    int endIdx = action.lastIndexOf("!");
-                    actionMethod = action.substring(endIdx + 1, action.length());
-                    action = action.substring(0, endIdx);
+
+                //Add Portlet Support. -- Added by Henry Hu
+                if (isPortlet) {
+                    addParameter("action", actionURL);
+                    addParameter("wwAction", action);
+                    addParameter("isPortlet", "Portlet");
+                    //////Fix End//////////
+                } else {
+                    String actionMethod = "";
+                    if (action.indexOf("!") != -1) {
+                        int endIdx = action.lastIndexOf("!");
+                        actionMethod = action.substring(endIdx + 1, action.length());
+                        action = action.substring(0, endIdx);
+                    }
+
+                    ActionMapping mapping = new ActionMapping(action, namespace, actionMethod, parameters);
+                    String result = UrlHelper.buildUrl(ActionMapperFactory.getMapper().getUriFromActionMapping(mapping), request, response, null);
+                    addParameter("action", result);
                 }
 
-                ActionMapping mapping = new ActionMapping(action, namespace, actionMethod, parameters);
-                String result = UrlHelper.buildUrl(ActionMapperFactory.getMapper().getUriFromActionMapping(mapping), request, response, null);
-                addParameter("action", result);
+
                 addParameter("namespace", namespace);
 
                 // if the name isn't specified, use the action name
@@ -86,7 +108,16 @@ public class Form extends ClosingUIBean {
                 }
             } else if (action != null) {
                 String result = UrlHelper.buildUrl(action, request, response, null);
-                addParameter("action", result);
+
+                //Add Portlet Support. -- Added by Henry Hu
+                if (isPortlet) {
+                    addParameter("action", actionURL);
+                    addParameter("wwAction", action);
+                    addParameter("isPortlet", "Portlet");
+                    //////Fix End///////////
+                } else {
+                    addParameter("action", result);
+                }
 
                 // namespace: cut out anything between the start and the last /
                 int slash = result.lastIndexOf('/');
@@ -110,6 +141,11 @@ public class Form extends ClosingUIBean {
             }
         }
 
+        ///Add onSubmit javascript support -- Added by Henry Hu
+        if (onsubmit != null) {
+            addParameter("onsubmit", findString(onsubmit));
+        }
+
         if (target != null) {
             addParameter("target", findString(target));
         }
@@ -126,6 +162,14 @@ public class Form extends ClosingUIBean {
             addParameter("validate", findValue(validate, Boolean.class));
         }
     }
+
+    //Add onSubmit javascript support -- Added by Henry Hu
+    String onsubmit;
+
+    public void setOnsubmit(String onsubmit) {
+        this.onsubmit = onsubmit;
+    }
+    /////////Fix End ///////////
 
     public void setAction(String action) {
         this.action = action;
@@ -150,4 +194,6 @@ public class Form extends ClosingUIBean {
     public void setValidate(String validate) {
         this.validate = validate;
     }
+
+
 }
