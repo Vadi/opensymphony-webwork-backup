@@ -1,0 +1,19 @@
+<html>
+<head><title>$action.getText('heading')</title>
+<meta name="help-path" content="/help/help1.html"/> 
+</head>
+<body>
+<!-- h1>$action.getText('heading')</h1 -->
+<p>$action.getText('greeting') $now
+</p>
+<p>
+	$userName 
+
+</p>
+#wwform ("action=/hello.action" "method=post")
+		<input type="text" name="userName" value="" />
+		<INPUT name="Submit" type="submit" value="Submit"/>
+#end
+</body>
+</html>
+

@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>$title</title>
+
+    #standardHeader()
+</head>
+<body onload="placeFocus()">
+
+<div id="Content">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td class="logocell">#pagetitle("spacenametitle-printable")</td>
+        </tr>
+    </table>
+
+    <div width="100%" class="breadcrumbs">
+        <table width=100% cellspacing=0 cellpadding=0 border=0>
+        <tr>
+            <td>#breadcrumbs()</td>
+            <td align=right width=200 valign="bottom">
+                <b><a href="#" onClick="javascript:history.go(-1); ">&lt;&lt; Back to previous view</a></b>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+	<table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<td valign="top" class="pagebody">
+				<div class="pageheader">
+					<span class="pagetitle">$title</span>
+				</div>
+
+				$body
+			</td>
+		</tr>
+	</table>
+</div>
+
+#parse ("/decorators/includes/footer.vmd")

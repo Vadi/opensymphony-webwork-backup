@@ -1,0 +1,65 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+
+<xwork>
+    <include file="webwork-default.xml"/>
+
+    <package name="default" extends="webwork-default">
+        <interceptors>
+            <interceptor-stack name="standard-interceptors">
+                <interceptor-ref name="static-params"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="defaultStack"/>
+
+        <global-results>
+            <result name="error" type="dispatcher">
+                <param name="location">/error.jsp</param>
+            </result>
+        </global-results>
+
+        <!-- System Setup Services -->
+        <action name="edit" class="com.test.EditAction">
+            <result name="success">
+                <param name="location">/edit/editResult.vm</param>
+            </result>
+        </action>
+
+        <!-- Business Function Services -->
+        <action name="hello" class="com.test.HelloAction">
+            <result name="success">
+                <param name="location">/helloResult.vm</param>
+            </result>
+        </action>
+
+        <action name="jsphello" class="com.test.HelloAction">
+            <result name="success">
+                <param name="location">/helloResult.jsp</param>
+            </result>
+        </action>
+
+
+        <action name="formProcessing" class="com.test.FormProcessingAction">
+            <result name="input" type="dispatcher">
+                <param name="location">ex02.vm</param>
+            </result>
+            <result name="success" type="dispatcher">
+                <param name="location">ex02Success.vm</param>
+            </result>
+            <interceptor-ref name="validationWorkflowStack"/>
+        </action>
+
+        <action name="registerSupport" class="com.test.RegisterActionSupport">
+            <result name="success" type="dispatcher">
+                <param name="location">/registerResult.vm</param>
+            </result>
+            <result name="input" type="dispatcher">
+                <param name="location">/registerSupport.vm</param>
+            </result>
+            <interceptor-ref name="validationWorkflowStack"/>
+        </action>
+
+    </package>
+</xwork>

@@ -1,0 +1,38 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd">
+<validators>
+    <field name="checkbox">
+        <field-validator type="requiredstring">
+            <message>Please, check the checkbox.</message>
+        </field-validator>
+    </field>
+    <field name="file">
+        <field-validator type="requiredstring">
+            <message>Please select a file.</message>
+        </field-validator>
+    </field>
+    <field name="password">
+        <field-validator type="requiredstring">
+            <message>Please type something in the password field.</message>
+        </field-validator>
+    </field>
+    <field name="radio">
+        <field-validator type="requiredstring">
+            <message>Please select a radio button.</message>
+        </field-validator>
+    </field>
+    <field name="select">
+        <field-validator type="requiredstring">
+            <message>Please select an option from the list.</message>
+        </field-validator>
+    </field>
+    <field name="textarea">
+        <field-validator type="requiredstring">
+            <message>Please type something in the text area.</message>
+        </field-validator>
+    </field>
+    <field name="textfield">
+        <field-validator type="requiredstring">
+            <message>Please type something in the text field.</message>
+        </field-validator>
+    </field>
+</validators>

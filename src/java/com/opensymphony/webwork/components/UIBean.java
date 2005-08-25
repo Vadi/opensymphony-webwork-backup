@@ -20,8 +20,6 @@ import java.io.Writer;
  * Time: 11:14:38 PM
  */
 public abstract class UIBean extends Component {
-    private static final String FILE_SEPARATOR = "/";
-
     private static final Log LOG = LogFactory.getLog(UIBean.class);
 
     protected HttpServletRequest request;
@@ -288,7 +286,6 @@ public abstract class UIBean extends Component {
             addParameter("id", form.getParameters().get("id") + "_" + name);
         }
 
-
         if (form != null) {
             addParameter("form", form.getParameters());
         }
@@ -322,7 +319,6 @@ public abstract class UIBean extends Component {
     public void setCssClass(String cssClass) {
         this.cssClass = cssClass;
     }
-
 
     public void setCssStyle(String cssStyle) {
         this.cssStyle = cssStyle;

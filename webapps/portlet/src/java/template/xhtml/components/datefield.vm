@@ -1,0 +1,9 @@
+#set ($name = $stack.getContext().get("name"))
+#set ($label = $stack.getContext().get("label")) 
+#set ($size = $stack.getContext().get("mysize")) 
+#set ($yearsize = $size * 2)
+
+$label:
+<input type="text" name="${name}.day" size="$size" /> / 
+<input type="text" name="${name}.month" size="$size" /> / 
+<input type="text" name="${name}.year" size="$yearsize" /> (dd/mm/yyyy)

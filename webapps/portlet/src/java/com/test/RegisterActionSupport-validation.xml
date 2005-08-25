@@ -1,0 +1,29 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd">
+<validators>
+    <field name="user.username">
+        <field-validator type="requiredstring">
+            <message>You must enter a value for username.</message>
+        </field-validator>
+    </field>
+    <field name="user.password">
+        <field-validator type="requiredstring">
+            <message>You must enter a value for password.</message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+            <param name="expression">user.password == verifyPassword</param>
+            <message>Passwords don't match.</message>
+        </field-validator>
+    </field>
+    <field name="user.email">
+        <field-validator type="email">
+            <message>You must enter a valid email.</message>
+        </field-validator>
+    </field>
+    <field name="user.age">
+        <field-validator type="int">
+            <param name="min">6</param>
+            <param name="max">100</param>
+            <message>Age must be between ${min} and ${max}, current value is ${user.age}.</message>
+        </field-validator>
+    </field>
+</validators>

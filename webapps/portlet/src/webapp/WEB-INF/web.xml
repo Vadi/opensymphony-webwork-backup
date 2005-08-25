@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app id="WebApp_ID">
+    <display-name>WebWorkPortlet</display-name>
+
+    <servlet>
+        <servlet-name>WebWorkVelocityServlet</servlet-name>
+        <display-name>WebWorkVelocityServlet</display-name>
+        <description></description>
+        <servlet-class>com.opensymphony.webwork.portlet.servlet.WebWorkVelocityServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>WebWorkJSPServlet</servlet-name>
+        <display-name>WebWorkJSPServlet</display-name>
+        <description></description>
+        <servlet-class>com.opensymphony.webwork.portlet.servlet.WebWorkJSPServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WebWorkVelocityServlet</servlet-name>
+        <url-pattern>*.vm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WebWorkJSPServlet</servlet-name>
+        <url-pattern>*.jspt</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <taglib id="PortletTLD">
+        <taglib-uri>http://java.sun.com/portlet</taglib-uri>
+        <taglib-location>/WEB-INF/tld/std-portlet.tld</taglib-location>
+    </taglib>
+    <taglib>
+        <taglib-uri>webwork</taglib-uri>
+        <taglib-location>/WEB-INF/tld/taglib.tld</taglib-location>
+    </taglib>
+    <taglib>
+        <taglib-uri>sitemesh</taglib-uri>
+        <taglib-location>/WEB-INF/lib/sitemesh-2.2.1.jar</taglib-location>
+    </taglib>
+</web-app>

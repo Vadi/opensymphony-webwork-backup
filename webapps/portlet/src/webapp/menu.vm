@@ -1,0 +1,20 @@
+<html> 
+<head> 
+<title>WebWork SiteMesh Menu Tutorial - Example 5</title> 
+<meta name="help-path" content="/help/help5.html"/>  
+</head> 
+<body> 
+<h2>Custom Menu Example:</h1> 
+<h3>WebWork SiteMesh Menu Tutorial</h2>
+<table>
+<tbody>
+<tr><td>
+<div class="tabletitle">decorated content:</div>
+<div class="preformatted ">
+The main content displayed here!
+</div>
+</td></tr>
+</tbody>
+</table>
+</body> 
+</html>

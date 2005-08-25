@@ -1,0 +1,32 @@
+<project name="webwork-webapps" default="help" basedir=".">
+    <property file="../build.properties"/>
+
+    <target name="help">
+        <echo>
+            To build a webapp, simply run:
+
+            ant build -Dwebapp=XXX
+
+            ... Where XXX is the name of the webapp you want to build.
+            After the build is finished, the fully-built war file can
+            be found in the dist directory. You may deploy this file
+            to any servlet container.
+
+            For example:
+
+            ant build -Dwebapp=sandbox
+        </echo>
+    </target>
+
+    <target name="build">
+        <delete dir="${basedir}/tmp"/>
+        <mkdir dir="${basedir}/dist"/>
+        <copy file="${basedir}/${webapp}.war" todir="dist" overwrite="yes"/>
+        <war update="yes" file="${basedir}/dist/${webapp}.war">
+            <zipfileset file="${basedir}/../webwork-2.2.jar" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib/core" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib/optional" prefix="WEB-INF/lib" includes="*.jar"/>
+        </war>
+    </target>
+</project>

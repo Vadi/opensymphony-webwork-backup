@@ -1,0 +1,19 @@
+<html>
+<head><title>Please input your information</title>
+<meta name="help-path" content="/help/help0.html"/>  
+</head>
+<body>
+<h1>Welcome to use WebWork2 For Portal MVC Portlet Framework</h1>
+<img border="0" src='$!req.contextPath/images/gettingstarted.jpg' alt='Portlet Demo' title='Portlet Demo'>
+<p>Framework also provide SiteMesh support</p>
+#wwhref ("href=hello.vm") WebWork Example 1 (Velocity) #end<br/>
+#wwhref ("href=ex02.vm") WebWork Example 2 (Velocity) #end<br/>
+#wwhref ("href=ex03.vm") WebWork Example 3 (Velocity) #end<br/>
+#wwhref ("href=ex04.vm") WebWork Example 4 (Velocity) #end<br/>
+#wwhref ("href=menu.vm") WebWork SiteMesh MenuPanel Example 5 (Velocity) #end<br/>
+#wwhref ("href=registerSupport.vm") WebWork User Register Demo 6 #end<br/>
+#wwhref ("href=hello.jsp") WebWork JSP Demo 7 #end<br/>
+<br/>
+</body>
+</html>
+

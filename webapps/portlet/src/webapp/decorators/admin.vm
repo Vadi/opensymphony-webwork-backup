@@ -1,0 +1,83 @@
+<html>
+<head>
+    <title>$title</title>
+
+    #standardHeader()
+</head>
+<body onload="placeFocus()">
+
+<div id="Content">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td width="60%" rowspan=2 class="logocell">#pagetitle("spacenametitle")</td>
+
+            <td width="40%" align="right" valign="top">#globalnavbar("table")</td>
+        </tr>
+        <tr>
+            <td align=right valign="bottom">
+                #usernavbar()
+                #printableicon()
+                #helpicon()
+            </td>
+        </tr>
+    </table>
+
+	#breadcrumbsAndSearch()
+
+    <table border="0" cellpadding="5" cellspacing="0" width="100%"><tr><td>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
+
+    <td valign="top" width="20%">
+        <div class="navmenu">
+			#applyDecorator ("menupanel" "Login & Logout")
+				#if (!$user)
+                <img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+                <a href="$req.contextPath/login.action">Login</a><br> 
+				#else
+				<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+                <a href="$req.contextPath/logout.action">Logout</a><br>
+				#end
+        	#end
+
+        	#applyDecorator ("menupanel" "Space Admin")
+                <img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+                <a href="$req.contextPath/spaces/listspaces.action">List Spaces</a><br>        	
+        	#end
+
+			
+		#if( $user )
+			#set ($checker = $permissionCheckDispatcher)
+			#set ($canBrowseUsers = $checker.isPermitted("/admin/users/browseusers.action") )
+			#set ($canBrowseGroups = $checker.isPermitted("/admin/users/browsegroups.action") )
+			#set ($canSetGlobal = $checker.isPermitted("/admin/permissions/globalpermissions.action") )
+			
+			#if ($canBrowseUsers || $canBrowseGroups || $canSetGlobal)
+             
+				#applyDecorator ("menupanel" "Security")
+
+					#if($canBrowseUsers)
+					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+					<a href="$req.contextPath/admin/users/browseusers.action">Manage Users</a><br>
+				    #end	
+					#if ($canBrowseGroups)
+						<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+						<a href="$req.contextPath/admin/users/browsegroups.action">Manage Groups</a><br>
+					#end
+					#if ($canSetGlobal)				
+						<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
+						<a href="$req.contextPath/admin/permissions/globalpermissions.action">Global Permissions</a><br>
+					#end
+				#end
+			#end
+		#end
+
+        </div>
+    </td>
+    <td valign="top" class="pagebody" style="padding: 10px">
+        <div class="pageheader">
+            <span class="pagetitle">$title</span>
+        </div>
+        $body
+    </td>
+
+#parse ("/decorators/includes/complete_footer.vmd")

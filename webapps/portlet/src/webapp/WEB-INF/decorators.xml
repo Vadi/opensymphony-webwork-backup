@@ -1,0 +1,32 @@
+<decorators defaultdir="/decorators">
+
+    <!-- No decorator -->
+    <decorator name="none">
+        <!-- in case some appservers decide they /can/ decorate 404 pages -->
+        <url-pattern>/fourohfour.action</url-pattern>
+        <url-pattern>/styles/*</url-pattern>
+        <url-pattern>/index.vm</url-pattern>
+        <url-pattern>/help/*</url-pattern>
+        <!-- url-pattern>/*.jsp</url-pattern -->
+    </decorator>
+
+    <decorator name="menu" page="menuDecorator.vm">
+        <pattern>/menu.vm</pattern>
+    </decorator>
+
+    <decorator name="edit" page="editDecorator.vm">
+        <pattern>/edit/*</pattern>
+    </decorator>
+
+    <decorator name="index" page="indexDecorator.vm">
+        <pattern>/index.vm</pattern>
+    </decorator>
+
+    <decorator name="main" page="mainDecorator.vm">
+        <pattern>*</pattern>
+    </decorator>
+
+    <decorator name="printable" page="printable.vm"/>
+    <decorator name="menupanel" page="menupanel.vm"/>
+
+</decorators>
