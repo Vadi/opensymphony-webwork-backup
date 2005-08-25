@@ -71,16 +71,6 @@ public class Href extends ClosingUIBean {
 
             addParameter("href", sb.toString());
         }
-        /////////////Fix End ////////////////
-
-/*        if (href != null) {
-            String stackUrl = findString(href);
-            String contextPath = request.getContextPath();
-            if (stackUrl.startsWith("/") && stackUrl.startsWith(contextPath)) {
-                contextPath = "";
-            }
-            addParameter("href", contextPath + stackUrl );
-        }*/
 
         if (showErrorTransportText != null) {
             addParameter("showErrorTransportText", findValue(showErrorTransportText, Boolean.class));
