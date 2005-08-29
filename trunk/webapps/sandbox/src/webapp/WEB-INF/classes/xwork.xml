@@ -2,6 +2,7 @@
 
 <xwork>
     <include file="webwork-default.xml"/>
+    <include file="config-browser.xml"/>
 
     <package name="default" extends="webwork-default">
 
