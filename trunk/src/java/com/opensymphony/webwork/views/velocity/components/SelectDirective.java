@@ -1,6 +1,6 @@
 package com.opensymphony.webwork.views.velocity.components;
 
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.Select;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -17,7 +17,7 @@ public class SelectDirective extends AbstractDirective {
         return "select";
     }
 
-    protected UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    protected Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Select(stack, req, res);
     }
 }

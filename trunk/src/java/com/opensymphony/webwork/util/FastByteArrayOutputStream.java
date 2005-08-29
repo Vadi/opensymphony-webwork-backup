@@ -4,10 +4,10 @@
  */
 package com.opensymphony.webwork.util;
 
-import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.io.Writer;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -168,7 +168,7 @@ public class FastByteArrayOutputStream extends OutputStream {
         out.write(buffer, 0, index);
     }
 
-    public void writeTo(JspWriter out, String encoding) throws IOException {
+    public void writeTo(Writer out, String encoding) throws IOException {
         // Check if we have a list of buffers
         if (buffers != null) {
             Iterator iter = buffers.iterator();

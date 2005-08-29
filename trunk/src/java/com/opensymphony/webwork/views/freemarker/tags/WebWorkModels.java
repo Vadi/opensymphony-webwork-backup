@@ -34,7 +34,9 @@ public class WebWorkModels {
     protected TokenModel token;
     protected WebTableModel table;
     protected URLModel url;
+    protected IncludeModel include;
     protected ParamModel param;
+    protected ActionModel action;
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         this.stack = stack;
@@ -194,11 +196,27 @@ public class WebWorkModels {
         return url;
     }
 
+    public IncludeModel getInclude() {
+        if (include == null) {
+            include = new IncludeModel(stack, req, res);
+        }
+
+        return include;
+    }
+
     public ParamModel getParam() {
         if (param == null) {
             param = new ParamModel();
         }
 
         return param;
+    }
+
+    public ActionModel getAction() {
+        if (action == null) {
+            action = new ActionModel(stack, req, res);
+        }
+
+        return action;
     }
 }

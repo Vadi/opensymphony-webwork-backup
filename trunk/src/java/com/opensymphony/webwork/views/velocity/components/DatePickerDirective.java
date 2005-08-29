@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.velocity.components;
 
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.DatePicker;
-import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 5:47:08 PM
  */
 public class DatePickerDirective extends TextFieldDirective {
-    protected UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    protected Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new DatePicker(stack, req, res);
     }
 

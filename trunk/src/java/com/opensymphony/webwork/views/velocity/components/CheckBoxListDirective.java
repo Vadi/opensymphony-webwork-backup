@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.velocity.components;
 
-import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.webwork.components.CheckboxList;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 8:58:20 AM
  */
 public class CheckBoxListDirective extends AbstractDirective {
-    protected UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    protected Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new CheckboxList(stack, req, res);
     }
 

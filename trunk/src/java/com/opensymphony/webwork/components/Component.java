@@ -7,7 +7,10 @@ import com.opensymphony.xwork.util.TextParseUtil;
 
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * User: plightbo
@@ -25,7 +28,6 @@ public class Component {
     public Component(OgnlValueStack stack) {
         this.stack = stack;
         this.parameters = new HashMap();
-        stack.push(this);
         getComponentStack().push(this);
     }
 
@@ -47,7 +49,6 @@ public class Component {
 
     public void end(Writer writer) {
         getComponentStack().pop();
-        stack.pop();
     }
 
     public Component findAncestor(Class clazz) {
@@ -64,7 +65,7 @@ public class Component {
 
     public Component findLastAncestor(Class clazz) {
         Stack componentStack = getComponentStack();
-        for (int i=componentStack.size()-1; i>=0; i--) {
+        for (int i = componentStack.size() - 1; i >= 0; i--) {
             Component component = (Component) componentStack.get(i);
             if (component.getClass().isAssignableFrom(clazz) && component != this) {
                 return component;
@@ -79,6 +80,10 @@ public class Component {
     }
 
     protected Object findValue(String expr) {
+        if (expr == null) {
+            return null;
+        }
+
         if (ALT_SYNTAX) {
             // does the expression start with %{ and end with }? if so, just cut it off!
             if (expr.startsWith("%{") && expr.endsWith("}")) {
@@ -108,11 +113,26 @@ public class Component {
         return TextParseUtil.translateVariables('%', expression, stack);
     }
 
+    /**
+     * Pushes this component's parameter Map as well as the component itself on to the stack
+     * and then copies the supplied parameters over. Because the component's parameter Map is
+     * pushed before the component itself, any key-value pair that can't be assigned to componet
+     * will be set in the parameters Map.
+     *
+     * @param params
+     */
     public void copyParams(Map params) {
-        for (Iterator iterator = params.entrySet().iterator(); iterator.hasNext();) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            String key = (String) entry.getKey();
-            stack.setValue(key, entry.getValue());
+        stack.push(parameters);
+        stack.push(this);
+        try {
+            for (Iterator iterator = params.entrySet().iterator(); iterator.hasNext();) {
+                Map.Entry entry = (Map.Entry) iterator.next();
+                String key = (String) entry.getKey();
+                stack.setValue(key, entry.getValue());
+            }
+        } finally {
+            stack.pop();
+            stack.pop();
         }
     }
 

@@ -1,12 +1,13 @@
 package com.opensymphony.webwork.components.template;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.components.Include;
 import com.opensymphony.webwork.components.UIBean;
-import com.opensymphony.webwork.views.jsp.IncludeTag;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 import java.util.Iterator;
 import java.util.List;
@@ -36,7 +37,8 @@ public class JspTemplateEngine extends BaseTemplateEngine {
         for (Iterator iterator = templates.iterator(); iterator.hasNext();) {
             Template t = (Template) iterator.next();
             try {
-                IncludeTag.include(getFinalTemplateName(t), pageContext);
+                Include.include(getFinalTemplateName(t), pageContext.getOut(),
+                        pageContext.getRequest(), (HttpServletResponse) pageContext.getResponse());
                 success = true;
                 break;
             } catch (Exception e) {

@@ -1,6 +1,6 @@
 package com.opensymphony.webwork.views.velocity.components;
 
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.TextArea;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -17,7 +17,7 @@ public class TextAreaDirective extends AbstractDirective {
         return "textarea";
     }
 
-    protected UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    protected Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new TextArea(stack, req, res);
     }
 }
