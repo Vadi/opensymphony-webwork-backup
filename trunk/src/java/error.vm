@@ -1,4 +1,0 @@
-#parse("/tigris-macros.vm")
-#startPage("An error occured")
-#errorMessageMultiple("An error occured" "Unable to execute $action.class.name" $action.actionErrors)
-#endPage()
