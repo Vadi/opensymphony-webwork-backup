@@ -1,0 +1,76 @@
+<project>
+    <name>WebWork</name>
+    <jiraId>10030</jiraId>
+    <jiraName>WW</jiraName>
+    <confluenceName>WW</confluenceName>
+
+    <forums>
+        <usersId>1</usersId>
+        <devId>32</devId>
+        <cvsId>9</cvsId>
+    </forums>
+
+    <docs>
+        <url>wikidocs/Documentation.html</url>
+    </docs>
+
+    <owners>
+        <person>
+            <name>Patrick Lightbody</name>
+            <email>plightbo@gmail.com</email>
+        </person>
+        <person>
+            <name>Jason Carreira</name>
+            <email>jcarreira@gmail.com</email>
+        </person>
+    </owners>
+
+    <developers>
+        <person>
+            <name>Henry Hu</name>
+            <email></email>
+            <role>Portlet integration</role>
+        </person>
+        <person>
+            <name>Ian Roughley</name>
+            <email></email>
+            <role>AJAX components</role>
+        </person>
+        <person>
+            <name>Cameron Braid</name>
+            <email></email>
+            <role>UI templates</role>
+        </person>
+        <person>
+            <name>Mathias Bogaert</name>
+            <email>m.bogaert at memenco dot com</email>
+            <role>Bugfixing, UI templates, Velocity</role>
+        </person>
+    </developers>
+
+    <releases>
+        <release>
+            <version>2.2 Beta 1</version>
+            <date>8/28/2005</date>
+            <jiraId>21421</jiraId>
+            <downloads>
+                <download>
+                    <url>https://webwork.dev.java.net/files/documents/693/19605/webwork-2.2-beta-1.zip</url>
+                    <name>Full release</name>
+                </download>
+            </downloads>
+        </release>
+        <release>
+            <version>2.1.7</version>
+            <date>12/14/2004</date>
+            <jiraId>21421</jiraId>
+            <downloads>
+                <download>
+                    <url>https://webwork.dev.java.net/files/documents/693/9723/webwork-2.1.7.zip</url>
+                    <name>Full release</name>
+                </download>
+            </downloads>
+        </release>
+    </releases>
+
+</project>
