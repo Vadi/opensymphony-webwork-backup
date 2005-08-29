@@ -25,6 +25,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
     public int doEndTag() throws JspException {
         component.addAllParameters(getParameters());
         component.end(pageContext.getOut());
+        pageContext.setAttribute(getId(), component.getProxy().getAction());
 
         return SKIP_BODY;
     }
@@ -33,6 +34,7 @@ public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics
         component = new ActionComponent(getStack(),
                 (HttpServletRequest) pageContext.getRequest(),
                 (HttpServletResponse) pageContext.getResponse());
+        component.setId(id);
         component.setName(name);
         component.setNamespace(namespace);
         component.setExecuteResult(executeResult);
