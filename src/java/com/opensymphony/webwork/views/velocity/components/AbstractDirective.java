@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.views.velocity.components;
 
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.velocity.context.InternalContextAdapter;
 import org.apache.velocity.exception.MethodInvocationException;
@@ -36,14 +36,14 @@ public abstract class AbstractDirective extends Directive {
         return LINE;
     }
 
-    protected abstract UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res);
+    protected abstract Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res);
 
     public boolean render(InternalContextAdapter ctx, Writer writer, Node node) throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
         // get the bean
         OgnlValueStack stack = (OgnlValueStack) ctx.get("stack");
         HttpServletRequest req = (HttpServletRequest) stack.getContext().get(ServletActionContext.HTTP_REQUEST);
         HttpServletResponse res = (HttpServletResponse) stack.getContext().get(ServletActionContext.HTTP_RESPONSE);
-        UIBean bean = getBean(stack, req, res);
+        Component bean = getBean(stack, req, res);
 
         // get the parameters
         Map params = createPropertyMap(ctx, node);

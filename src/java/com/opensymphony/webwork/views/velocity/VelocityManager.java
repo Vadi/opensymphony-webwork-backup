@@ -501,6 +501,8 @@ public class VelocityManager {
         addDirective(sb, ParamDirective.class);
 
         addDirective(sb, ApplyDecoratorDirective.class);
+
+        addDirective(sb, ActionDirective.class);
         addDirective(sb, CheckBoxDirective.class);
         addDirective(sb, CheckBoxListDirective.class);
         addDirective(sb, ComboBoxDirective.class);
@@ -511,6 +513,7 @@ public class VelocityManager {
         addDirective(sb, FileDirective.class);
         addDirective(sb, FormDirective.class);
         addDirective(sb, HiddenDirective.class);
+        addDirective(sb, IncludeDirective.class);
         addDirective(sb, HrefDirective.class);
         addDirective(sb, LabelDirective.class);
         addDirective(sb, PanelDirective.class);
@@ -522,6 +525,7 @@ public class VelocityManager {
         addDirective(sb, TextAreaDirective.class);
         addDirective(sb, TextFieldDirective.class);
         addDirective(sb, TokenDirective.class);
+        addDirective(sb, URLDirective.class);
 
         String directives = sb.toString();
 

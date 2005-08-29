@@ -4,15 +4,16 @@
  */
 package com.opensymphony.webwork.views.jsp.vui;
 
+import com.opensymphony.webwork.components.Include;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.ContainUtil;
-import com.opensymphony.webwork.views.jsp.IncludeTag;
 import com.opensymphony.webwork.views.jsp.ParamTag;
 import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
@@ -129,7 +130,8 @@ public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements Pa
                 template = getFooterTemplate();
             }
 
-            IncludeTag.include(getTemplateDirectory() + template, pageContext);
+            Include.include(getTemplateDirectory() + template, pageContext.getOut(),
+                    pageContext.getRequest(), (HttpServletResponse) pageContext.getResponse());
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new JspTagException("Exception including footer: " + toString(ex));
@@ -159,7 +161,8 @@ public abstract class AbstractVUITag extends WebWorkBodyTagSupport implements Pa
                 template = getHeaderTemplate();
             }
 
-            IncludeTag.include(getTemplateDirectory() + template, pageContext);
+            Include.include(getTemplateDirectory() + template, pageContext.getOut(),
+                    pageContext.getRequest(), (HttpServletResponse) pageContext.getResponse());
         } catch (Exception ex) {
             ex.printStackTrace();
 

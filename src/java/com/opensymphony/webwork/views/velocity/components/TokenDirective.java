@@ -1,6 +1,6 @@
 package com.opensymphony.webwork.views.velocity.components;
 
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.Token;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -17,7 +17,7 @@ public class TokenDirective extends AbstractDirective {
         return "token";
     }
 
-    protected UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    protected Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Token(stack, req, res);
     }
 }
