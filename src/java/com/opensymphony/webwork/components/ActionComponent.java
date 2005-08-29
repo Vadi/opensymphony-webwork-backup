@@ -81,6 +81,10 @@ public class ActionComponent extends Component {
         return extraContext;
     }
 
+    public ActionProxy getProxy() {
+        return proxy;
+    }
+
     /**
      * Execute the requested action.  If no namespace is provided, we'll
      * attempt to derive a namespace using buildNamespace().  The ActionProxy

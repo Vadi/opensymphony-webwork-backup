@@ -39,7 +39,7 @@ public class ActionTagTest extends AbstractTagTest {
             Object o = pageContext.findAttribute(TestConfigurationProvider.TEST_NAMESPACE_ACTION);
             assertTrue(o instanceof TestAction);
 
-            assertEquals(TestConfigurationProvider.TEST_NAMESPACE, tag.proxy.getNamespace());
+            assertEquals(TestConfigurationProvider.TEST_NAMESPACE, tag.component.getProxy().getNamespace());
         } catch (JspException ex) {
             ex.printStackTrace();
             fail();
