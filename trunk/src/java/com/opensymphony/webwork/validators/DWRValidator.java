@@ -6,6 +6,8 @@ package com.opensymphony.webwork.validators;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.entities.ActionConfig;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import uk.ltd.getahead.dwr.ExecutionContext;
 
 import javax.servlet.ServletConfig;
@@ -25,6 +27,8 @@ import java.util.Map;
  * </dwr>
  */
 public class DWRValidator {
+    private static final Log LOG = LogFactory.getLog(DWRValidator.class);
+
     public ValidationAwareSupport doPost(String namespace, String action, Map params) throws Exception {
         ServletConfig sc = ExecutionContext.get().getServletConfig();
         HashMap ctx = new HashMap();
@@ -32,19 +36,24 @@ public class DWRValidator {
         ctx.put(ActionContext.PARAMETERS, params);
         ctx.put(WebWorkStatics.SERVLET_CONTEXT, sc.getServletContext());
 
-        ValidatorActionProxy proxy = new ValidatorActionProxy(namespace, action, ctx);
-        proxy.execute();
-        Object a = proxy.getAction();
+        try {
+            ValidatorActionProxy proxy = new ValidatorActionProxy(namespace, action, ctx);
+            proxy.execute();
+            Object a = proxy.getAction();
 
-        if (a instanceof ValidationAware) {
-            ValidationAware aware = (ValidationAware) a;
-            ValidationAwareSupport vas = new ValidationAwareSupport();
-            vas.setActionErrors(aware.getActionErrors());
-            vas.setActionMessages(aware.getActionMessages());
-            vas.setFieldErrors(aware.getFieldErrors());
+            if (a instanceof ValidationAware) {
+                ValidationAware aware = (ValidationAware) a;
+                ValidationAwareSupport vas = new ValidationAwareSupport();
+                vas.setActionErrors(aware.getActionErrors());
+                vas.setActionMessages(aware.getActionMessages());
+                vas.setFieldErrors(aware.getFieldErrors());
 
-            return vas;
-        } else {
+                return vas;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            LOG.error("Error while trying to validate", e);
             return null;
         }
     }
