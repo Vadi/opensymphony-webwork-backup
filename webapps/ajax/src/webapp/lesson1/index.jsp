@@ -1,17 +1,21 @@
 <%@ taglib prefix="ww" uri="/webwork" %>
 <html>
 <head>
-    <title></title>
+    <title>AJAX-based based validation</title>
     <%@ include file="../commonInclude.jsp" %>
 </head>
 
 <body>
-<div class="source">
-    <pre>
 
-    </pre>
-</div>
+<h2>Examples</h2>
 
-<hr/>
+<p>
+    <ol>
+        <li>
+            <a href="hello!default.action">A simple DIV that refreshes only once</a>
+        </li>
+    </ol>
+</p>
+
 </body>
 </html>

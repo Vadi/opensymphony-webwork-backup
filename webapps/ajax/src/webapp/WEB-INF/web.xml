@@ -18,6 +18,16 @@
         <listener-class>com.opensymphony.webwork.lifecycle.LifecycleListener</listener-class>
     </listener>
 
+    <servlet>
+        <servlet-name>dwr</servlet-name>
+        <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dwr</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>default.jsp</welcome-file>

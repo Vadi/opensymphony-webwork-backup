@@ -12,7 +12,7 @@
 <p>
     <ol>
         <li>
-            <a href="example7.jsp">Various remote links and remote DIV's working together</a>
+            <a href="example7.jsp">Simple form</a>
         </li>
 
     </ol>
