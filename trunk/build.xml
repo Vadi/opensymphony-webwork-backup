@@ -29,7 +29,7 @@
 
     <target name="predist">
         <!-- build up the launcher jar -->
-        <jar destfile="dist/webwork-launcher.jar">
+        <jar destfile="dist/launcher.jar">
             <manifest>
                 <attribute name="Main-Class" value="Main"/>
             </manifest>
@@ -41,6 +41,9 @@
 
         <!-- grab dist.properties, which tells the dist where to find osbuild.xml -->
         <copy file="${src}/etc/dist.properties" todir="${dist}"/>
+
+        <!-- grab the README.txt file -->
+        <copy file="${src}/etc/README.txt" todir="${dist}"/>
 
         <!-- prepare each tutorial/example -->
         <webapp name="starter"/>
