@@ -3083,7 +3083,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>topicName</name>
+            <name>listenTopics</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
