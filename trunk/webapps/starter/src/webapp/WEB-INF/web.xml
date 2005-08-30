@@ -4,7 +4,7 @@
 
     <display-name>Acme Corp</display-name>
 
-    <!-- BEGIN SNIPPET: example -->
+    <!-- START SNIPPET: example -->
     <filter>
         <filter-name>webwork</filter-name>
         <filter-class>com.opensymphony.webwork.dispatcher.FilterDispatcher</filter-class>
