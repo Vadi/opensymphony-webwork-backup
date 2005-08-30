@@ -4,6 +4,7 @@
 
     <display-name>Acme Corp</display-name>
 
+    <!-- BEGIN SNIPPET: example -->
     <filter>
         <filter-name>webwork</filter-name>
         <filter-class>com.opensymphony.webwork.dispatcher.FilterDispatcher</filter-class>
@@ -17,6 +18,7 @@
     <listener>
         <listener-class>com.opensymphony.webwork.lifecycle.LifecycleListener</listener-class>
     </listener>
+    <!-- END SNIPPET: example -->
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
