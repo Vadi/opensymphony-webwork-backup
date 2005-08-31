@@ -2,22 +2,21 @@
  * Copyright (c) 2005 Opensymphony. All Rights Reserved.
  */
 package com.opensymphony.webwork.spring.lifecycle;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
+import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.spring.SpringObjectFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.opensymphony.xwork.ObjectFactory;
-import com.opensymphony.xwork.spring.SpringObjectFactory;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 /**
  * ApplicationContextListener that sets up the environment so that XWork and
  * Webwork can load data and information from Spring. Relies on Spring's
  * {@link org.springframework.web.context.ContextLoaderListener}having been
  * called first.
- * 
+ *
  * @author sms
  */
 public class SpringObjectFactoryListener implements ServletContextListener
