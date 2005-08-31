@@ -22,6 +22,7 @@
             <interceptor name="chain" class="com.opensymphony.xwork.interceptor.ChainingInterceptor"/>
             <interceptor name="static-params" class="com.opensymphony.xwork.interceptor.StaticParametersInterceptor"/>
             <interceptor name="params" class="com.opensymphony.xwork.interceptor.ParametersInterceptor"/>
+            <interceptor name="external-ref" class="com.opensymphony.xwork.interceptor.ExternalReferencesInterceptor"/>
             <interceptor name="model-driven" class="com.opensymphony.xwork.interceptor.ModelDrivenInterceptor"/>
             <interceptor name="component" class="com.opensymphony.xwork.interceptor.component.ComponentInterceptor"/>
             <interceptor name="i18n" class="com.opensymphony.xwork.interceptor.I18nInterceptor"/>
@@ -36,6 +37,9 @@
                          class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
             <interceptor name="fileUpload" class="com.opensymphony.webwork.interceptor.FileUploadInterceptor"/>
             <interceptor name="execAndWait" class="com.opensymphony.webwork.interceptor.ExecuteAndWaitInterceptor"/>
+            <interceptor name="alias" class="com.opensymphony.xwork.interceptor.AliasInterceptor"/>
+            <interceptor name="autowiring" class="com.opensymphony.xwork.spring.interceptor.ActionAutowiringInterceptor"/>
+            <interceptor name="sessionAutowiring" class="com.opensymphony.webwork.spring.interceptor.SessionContextAutowiringInterceptor"/>
 
             <!-- Basic stack -->
             <interceptor-stack name="defaultStack">

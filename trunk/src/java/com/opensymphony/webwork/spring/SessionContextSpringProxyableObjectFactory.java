@@ -3,10 +3,13 @@
  */
 package com.opensymphony.webwork.spring;
 
+import com.opensymphony.webwork.spring.lifecycle.ApplicationContextSessionListener;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.spring.SpringProxyableObjectFactory;
-import com.opensymphony.webwork.spring.lifecycle.ApplicationContextSessionListener;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 
 import java.util.Map;
 
@@ -16,13 +19,28 @@ import java.util.Map;
  * @author Jason Carreira <jcarreira@eplus.com>
  */
 public class SessionContextSpringProxyableObjectFactory extends SpringProxyableObjectFactory {
+    private static final Log log = LogFactory.getLog(SessionContextSpringProxyableObjectFactory.class);
 
     protected ApplicationContext getApplicationContext() {
+        if (log.isDebugEnabled()) {
+            log.debug("Getting the session-scoped app context");
+        }
         Map session = ActionContext.getContext().getSession();
+        if (session == null) {
+            log.warn("There is no session map in the ActionContext.");
+            return appContext;
+        }
         ApplicationContext sessionContext = (ApplicationContext) session.get(ApplicationContextSessionListener.APP_CONTEXT_SESSION_KEY);
         if (sessionContext == null) {
-            throw new IllegalStateException("There is no application context in the user's session");
+            throw new IllegalStateException("There is no application context in the user's session.");
         }
         return sessionContext;
     }
+
+    public Object buildBean(String beanName) throws Exception {
+        Object bean = super.buildBean(beanName);
+        AutowireCapableBeanFactory autoWiringBeanFactory = findAutoWiringBeanFactory(getApplicationContext());
+        return autoWireBean(bean, autoWiringBeanFactory);
+    }
+
 }
