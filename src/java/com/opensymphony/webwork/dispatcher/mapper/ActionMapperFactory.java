@@ -29,7 +29,7 @@ public class ActionMapperFactory {
 
                 return mapper;
             } catch (Exception e) {
-                String msg = "Could not creat ActionMapper: WebWork will *not* work!";
+                String msg = "Could not create ActionMapper: WebWork will *not* work!";
                 LOG.fatal(msg, e);
                 throw new RuntimeException(msg, e);
             }
