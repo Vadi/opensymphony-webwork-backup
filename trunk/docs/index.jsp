@@ -1,4 +1,3 @@
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
 <html>
 <head>
     <title>WebWork</title>
@@ -17,7 +16,7 @@ JavaBeans, robust client and server side validation, and much more.
 
 <hr/>
 
-<page:applyDecorator name="news" page="http://blogs.opensymphony.com/webwork/website.html"/>
+<%= com.opensymphony.util.FileUtils.readFile(new java.io.File("/var/www/domains/opensymphony.com/blogs/htdocs/webwork/website.html")) %>
 
 </body>
 </html>
