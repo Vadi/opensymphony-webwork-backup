@@ -52,7 +52,7 @@
         <dependency org="servletapi" name="servletapi" rev="2.3" conf="build->*"/>
 
         <!-- xwork itself -->
-        <dependency org="opensymphony" name="xwork" rev="1.1-20050831225623" conf="default->default"/>
+        <dependency org="opensymphony" name="xwork" rev="1.1+" conf="default->default"/>
         <dependency org="apache" name="commons-logging" rev="1.0.4" conf="default->default"/>
 
         <!-- ajax -->
@@ -113,6 +113,6 @@
         <dependency org="portlet-api" name="portlet-api" rev="1.0" conf="portlet->default"/>
 
         <!-- spring -->
-        <dependency org="opensymphony" name="xwork" rev="1.1-20050831225623" conf="spring->spring"/>
+        <dependency org="opensymphony" name="xwork" rev="1.1+" conf="spring->spring"/>
     </dependencies>
 </ivy-module>
