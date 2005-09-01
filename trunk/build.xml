@@ -1,6 +1,4 @@
 <project name="webwork" default="jar" basedir=".">
-    <property file="dist.properties"/>
-
     <!-- overridden properties (must be before the import!) -->
     <property name="src.test" value="src/test"/>
 
@@ -21,6 +19,11 @@
     <target name="ivyrep.copy-ivy" depends="init">
         <ivy-deliver deliverpattern="${ivyrep.path}/opensymphony/${name}/[artifact]-[revision].[ext]"
                      pubrevision="${version}-${TIME}" pubdate="${TIME}"/>
+    </target>
+
+    <target name="reports" depends="common.reports">
+        <mkdir dir="${dist.docs}/dependencies"/>
+        <ivy-report todir="${dist.docs}/dependencies" graph="false"/>
     </target>
 
     <macrodef name="webapp">
@@ -51,12 +54,6 @@
             </manifest>
             <fileset dir="launcher/build/java"/>
         </jar>
-
-        <!-- get the osbuild.xml file in to the dist dir -->
-        <copy file="${common.build}" todir="${dist}"/>
-
-        <!-- grab dist.properties, which tells the dist where to find osbuild.xml -->
-        <copy file="${src}/etc/dist.properties" todir="${dist}"/>
 
         <!-- grab the README.txt file -->
         <copy file="${src}/etc/README.txt" todir="${dist}"/>
