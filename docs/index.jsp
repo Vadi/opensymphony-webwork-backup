@@ -17,7 +17,7 @@ JavaBeans, robust client and server side validation, and much more.
 
 <hr/>
 
-<page:applyDecorator name="none" page="http://blogs.opensymphony.com/webwork/website.html"/>
+<page:applyDecorator name="news" page="http://blogs.opensymphony.com/webwork/website.html"/>
 
 </body>
 </html>
