@@ -1,4 +1,4 @@
-<%@ page import="java.net.URL"%>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
 <html>
 <head>
     <title>WebWork</title>
