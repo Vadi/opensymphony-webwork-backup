@@ -37,6 +37,8 @@ public class WebWorkModels {
     protected IncludeModel include;
     protected ParamModel param;
     protected ActionModel action;
+    protected HrefModel a;
+    protected DivModel div;
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         this.stack = stack;
@@ -218,5 +220,21 @@ public class WebWorkModels {
         }
 
         return action;
+    }
+
+    public HrefModel getA() {
+        if (a == null) {
+            a = new HrefModel(stack, req, res);
+        }
+
+        return a;
+    }
+
+    public DivModel getDiv() {
+        if (div == null) {
+            div = new DivModel(stack, req, res);
+        }
+
+        return div;
     }
 }
