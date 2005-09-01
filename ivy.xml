@@ -2,9 +2,9 @@
 <?xml-stylesheet type="text/xsl" href="http://www.jayasoft.fr/org/ivyrep/ivy-doc.xsl"?>
 <ivy-module version="1.0">
     <info organisation="opensymphony" module="webwork"
-          revision="@VERSION@"
-          status="@STATUS@"
-          publication="@PUBLICATION@">
+          revision="2.2"
+          status="integration"
+          publication="20050829053520">
         <license name="Apache" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
         <ivyauthor name="opensymphony" url="http://www.opensymphony.com/"/>
 
@@ -16,26 +16,103 @@
             robust support for building reusable UI templates, such as form controls, UI themes, internationalization,
             dynamic form parameter mapping to JavaBeans, robust
             client and server side validation, and much more.
+            <br/>
         </description>
     </info>
     <configurations>
-        <conf name="default" description="The webwork jar file" visibility="public"/>
-        <conf name="config-browser" description="The webwork config-browser utility jar file" visibility="public"/>
-        <conf name="fileupload" description="The webwork jar file plus commons-fileupload" extends="default" visibility="public"/>
-        <conf name="fileupload-cos" description="The webwork jar file plus com.oreilly.servlet" extends="default" visibility="public"/>
-        <conf name="fileupload-pell" description="The webwork jar file plus Pell multi-part upload" extends="default" visibility="public"/>
+        <conf name="build" visibility="private"/>
+        <conf name="default"/>
+        <conf name="ajax"/>
+        <conf name="freemarker"/>
+        <conf name="velocity"/>
+        <conf name="fileupload"/>
+        <conf name="fileupload-cos" deprecated="20050831000000"/>
+        <conf name="fileupload-pell" deprecated="20050831000000"/>
+        <conf name="hibernate"/>
+        <conf name="sitemesh"/>
+        <conf name="prototype"/>
+        <conf name="jasperreports"/>
+        <conf name="jfree"/>
+        <conf name="xslt"/>
+        <conf name="portlet"/>
+        <conf name="spring"/>
     </configurations>
     <publications>
         <artifact name="webwork" type="jar" conf="default"/>
-        <artifact name="webwork-config-browser" type="jar" conf="config-browser"/>
     </publications>
     <dependencies>
-        <dependency org="opensymphony" name="xwork" rev="1.1+"/>
-        <dependency org="ognl" name="ognl" rev="2.6.7"/>
-        <dependency org="apache" name="commons-logging" rev="1.0.4"/>
-        <dependency org="apache" name="velocity" rev="1.3.1" conf="default->velocity-dep"/>
+        <!-- build dependencies -->
+        <dependency org="mockobjects" name="mockobjects-core" rev="0.09" conf="build->*"/>
+        <dependency org="mockobjects" name="mockobjects-jdk1.3" rev="0.09" conf="build->*"/>
+        <dependency org="mockobjects" name="mockobjects-alt-jdk1.3" rev="0.09" conf="build->*"/>
+        <dependency org="mockobjects" name="mockobjects-alt-jdk1.3-j2ee1.3" rev="0.09" conf="build->*"/>
+        <dependency org="mockobjects" name="mockobjects-jdk1.3-j2ee1.3" rev="0.09" conf="build->*"/>
+        <dependency org="clover" name="clover" rev="1.3.9" conf="build->*"/>
+        <dependency org="junit" name="junit" rev="3.8.1" conf="build->*"/>
+        <dependency org="servletapi" name="servletapi" rev="2.3" conf="build->*"/>
+
+        <!-- xwork itself -->
+        <dependency org="opensymphony" name="xwork" rev="1.1-20050831225623" conf="default->default"/>
+        <dependency org="apache" name="commons-logging" rev="1.0.4" conf="default->default"/>
+
+        <!-- ajax -->
+        <dependency org="dwr" name="dwr" rev="1.0" conf="ajax->*"/>
+
+        <!-- freemarker -->
+        <dependency org="freemarker" name="freemarker" rev="2.3.3" conf="freemarker->default"/>
+
+        <!-- velocity -->
+        <dependency org="apache" name="velocity" rev="1.4" conf="velocity->velocity-dep"/>
+        <dependency org="apache" name="velocity-tools" rev="1.1" conf="velocity->view"/>
+
+        <!-- fileupload -->
         <dependency org="apache" name="commons-fileupload" rev="1.0" conf="fileupload->default"/>
-        <dependency org="cos" name="cos-multipart" rev="20021105" conf="fileupload-cos->default"/>
+
+        <!-- fileupload-cos -->
+        <dependency org="cos" name="cos" rev="20021105" conf="fileupload-cos->default"/>
+
+        <!-- fileupload-pell -->
         <dependency org="pell" name="multipartrequest" rev="1.19" conf="fileupload-pell->default"/>
+
+        <!-- hibernate -->
+        <dependency org="hibernate" name="hibernate" rev="3.0.5" conf="hibernate->default"/>
+        <!--<dependency org="aspectj" name="aspectjrt" rev="1.2" conf="prototype->default"/>-->
+        <!--<dependency org="sun" name="jta" rev="1.0" conf="prototype->default"/>-->
+
+        <!-- sitemesh -->
+        <dependency org="opensymphony" name="sitemesh" rev="2.2.1" conf="sitemesh->default"/>
+
+        <!-- prototype -->
+        <dependency org="jetty" name="org.mortbay.jetty" rev="5.1.4" conf="prototype->default"/>
+        <dependency org="ant" name="ant" rev="1.6.5" conf="prototype->default"/>
+        <dependency org="apache" name="commons-jci" rev="1.0-modified" conf="prototype->default"/>
+        <dependency org="tomcat" name="jasper-runtime" rev="5.5.9" conf="prototype->default"/>
+        <dependency org="tomcat" name="jasper-runtime" rev="5.5.9" conf="prototype->default"/>
+        <dependency org="eclipse" name="jdtcore" rev="3.1.0" conf="prototype->default"/>
+        <dependency org="commons-el" name="commons-el" rev="1.0" conf="prototype->default"/>
+        <dependency org="commons-io" name="commons-io" rev="1.0" conf="prototype->default"/>
+        <dependency org="commons-lang" name="commons-lang" rev="2.1" conf="prototype->default"/>
+
+        <!-- jasperreports -->
+        <dependency org="jasperreports" name="jasperreports" rev="1.0.0" conf="jasperreports->default"/>
+        <dependency org="itext" name="itext" rev="1.3.1" conf="jasperreports->default"/>
+        <dependency org="poi" name="poi" rev="2.5.1" conf="jasperreports->default"/>
+        <dependency org="commons-beanutils" name="commons-beanutils" rev="1.7.0" conf="jasperreports->default"/>
+        <dependency org="commons-digester" name="commons-digester" rev="1.7" conf="jasperreports->default"/>
+        <dependency org="commons-collections" name="commons-digester" rev="1.7" conf="jasperreports->default"/>
+
+        <!-- jfree -->
+        <dependency org="jfree" name="jcommon" rev="0.9.6" conf="jfree->default"/>
+        <dependency org="jfree" name="jfreechart" rev="0.9.21" conf="jfree->default"/>
+
+        <!-- xslt -->
+        <dependency org="jfree" name="jcommon" rev="0.9.6" conf="xslt->default"/>
+
+        <!-- portlet -->
+        <dependency org="org.apache.pluto" name="pluto" rev="1.0.1-rc4" conf="portlet->default"/>
+        <dependency org="portlet-api" name="portlet-api" rev="1.0" conf="portlet->default"/>
+
+        <!-- spring -->
+        <dependency org="opensymphony" name="xwork" rev="1.1-20050831225623" conf="spring->spring"/>
     </dependencies>
 </ivy-module>

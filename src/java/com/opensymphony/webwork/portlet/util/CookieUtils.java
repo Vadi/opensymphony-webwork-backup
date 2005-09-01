@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.portlet.util;
 
-import org.apache.log4j.Category;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Includes code from Jive 1.2.4 (released under the Apache license)
  */
 public class CookieUtils {
-    private static final Category log = Category.getInstance(CookieUtils.class);
+    private static final Log log = LogFactory.getLog(CookieUtils.class);
 
     // the key which represents the list of cookies to add for this request (in case of redirect)
     public static final String COOKIES_TO_SEND = "atlassian.core.web.cookies.unsent";

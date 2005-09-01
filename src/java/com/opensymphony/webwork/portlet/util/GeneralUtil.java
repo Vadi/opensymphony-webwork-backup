@@ -2,7 +2,8 @@ package com.opensymphony.webwork.portlet.util;
 
 import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.ServletActionContext;
-import org.apache.log4j.Category;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import sun.misc.BASE64Encoder;
 
 import javax.mail.internet.MailDateFormat;
@@ -22,7 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class GeneralUtil {
-    private static final Category log;
+    private static final Log log;
 
     private static String DEFAULT_FORMATTING_PROPERTIES_FILE_NAME = "default-formatting.properties";
 
@@ -43,7 +44,7 @@ public final class GeneralUtil {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("([\\w-%\\+\\.]+@[\\w-%\\.]+\\.[\\p{Alpha}]+)");
 
     static {
-        log = Category.getInstance(com.opensymphony.webwork.portlet.util.GeneralUtil.class);
+        log = LogFactory.getLog(com.opensymphony.webwork.portlet.util.GeneralUtil.class);
         loadDefaultProperties();
         try {
             saveDefaultFormattingPropertiesFile();
