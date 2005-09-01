@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="http://www.jayasoft.fr/org/ivyrep/ivy-doc.xsl"?>
 <ivy-module version="1.0">
     <info organisation="opensymphony" module="webwork"
-          revision="2.2"
+          revision="2.2-beta-1"
           status="integration"
           publication="20050829053520">
         <license name="Apache" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
