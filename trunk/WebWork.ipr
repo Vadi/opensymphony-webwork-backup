@@ -16,9 +16,13 @@
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/../xwork/build.xml">
       <additionalClassPath>
-        <entry path="file://$PROJECT_DIR$/../xwork/lib/build/junit.jar" />
-        <entry path="file://$PROJECT_DIR$/../xwork/lib/build/clover.jar" />
-        <entry path="file://$PROJECT_DIR$/lib/build/jsch.jar" />
+        <entry path="file://$PROJECT_DIR$/../opensymphony/common/commons-cli.jar" />
+        <entry path="file://$PROJECT_DIR$/../opensymphony/common/commons-httpclient.jar" />
+        <entry path="file://$PROJECT_DIR$/../opensymphony/common/commons-logging.jar" />
+        <entry path="file://$PROJECT_DIR$/../opensymphony/common/ivy-1.1.jar" />
+        <entry path="file://$PROJECT_DIR$/../opensymphony/common/clover-license.jar" />
+        <entry path="file://$PROJECT_DIR$/../xwork/lib/junit.jar" />
+        <entry path="file://$PROJECT_DIR$/../xwork/lib/clover.jar" />
       </additionalClassPath>
       <antReference projectDefault="true" />
       <customJdkName value="" />
