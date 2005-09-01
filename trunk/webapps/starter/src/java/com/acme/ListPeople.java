@@ -19,7 +19,7 @@ public class ListPeople implements HibernateSessionAware {
     }
 
     public String execute() {
-        people = session.getAll(Person.class);
+        people = session.createCriteria(Person.class).list();
         return "success";
     }
 

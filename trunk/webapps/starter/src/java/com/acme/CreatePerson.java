@@ -17,7 +17,7 @@ public class CreatePerson implements HibernateSessionAware {
     }
 
     public String execute() {
-        session.create(person);
+        session.save(person);
         return "success";
     }
 
