@@ -18,7 +18,7 @@ import junit.framework.TestCase;
 import ognl.Ognl;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.DefaultPieDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;

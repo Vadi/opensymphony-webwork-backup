@@ -3,7 +3,8 @@
  */
 package com.opensymphony.webwork.portlet.velocity;
 
-import org.apache.log4j.Category;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.context.InternalContextAdapter;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
@@ -21,10 +22,10 @@ import java.io.Writer;
  */
 public final class ParamDirective extends Directive {
 
-    private static Category log;
+    private static Log log;
 
     static {
-        log = Category.getInstance(com.opensymphony.webwork.portlet.velocity.ParamDirective.class);
+        log = LogFactory.getLog(com.opensymphony.webwork.portlet.velocity.ParamDirective.class);
     }
 
     public ParamDirective() {

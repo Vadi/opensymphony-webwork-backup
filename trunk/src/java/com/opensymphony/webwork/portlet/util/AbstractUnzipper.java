@@ -1,20 +1,21 @@
 package com.opensymphony.webwork.portlet.util;
 
-import org.apache.log4j.Category;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.*;
 import java.util.zip.ZipEntry;
 
 public abstract class AbstractUnzipper implements Unzipper {
 
-    protected static Category log;
+    protected static Log log;
 
     private static final int BUFFER_SIZE = 10240;
 
     protected File destDir;
 
     static {
-        log = Category.getInstance(com.opensymphony.webwork.portlet.util.FileUnzipper.class);
+        log = LogFactory.getLog(com.opensymphony.webwork.portlet.util.FileUnzipper.class);
     }
 
     public abstract File unzipFileInArchive(String s) throws Exception;

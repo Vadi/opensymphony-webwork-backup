@@ -12,7 +12,8 @@ import com.opensymphony.webwork.portlet.context.PortletContext;
 import com.opensymphony.webwork.portlet.sitemesh.VelocityUtils;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
 import com.opensymphony.xwork.ActionContext;
-import org.apache.log4j.Category;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.context.InternalContextAdapter;
 import org.apache.velocity.exception.MethodInvocationException;
@@ -38,7 +39,7 @@ import java.util.Stack;
  * @since 2005-7-18
  */
 public final class ApplyDecoratorDirective extends Directive {
-    private static final Category log;
+    private static final Log log;
 
     public static final String STACK_KEY;
 
@@ -47,7 +48,7 @@ public final class ApplyDecoratorDirective extends Directive {
     private Map params;
 
     static {
-        log = Category.getInstance(com.opensymphony.webwork.portlet.velocity.ApplyDecoratorDirective.class);
+        log = LogFactory.getLog(com.opensymphony.webwork.portlet.velocity.ApplyDecoratorDirective.class);
         STACK_KEY = (com.opensymphony.webwork.portlet.velocity.ApplyDecoratorDirective.DirectiveStack.class).getName();
     }
 
