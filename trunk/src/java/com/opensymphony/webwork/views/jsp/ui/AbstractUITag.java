@@ -5,12 +5,7 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.components.UIBean;
-import com.opensymphony.webwork.views.jsp.ParameterizedTagSupport;
-import com.opensymphony.xwork.util.OgnlValueStack;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
+import com.opensymphony.webwork.views.jsp.ComponentTagSupport;
 
 
 /**
@@ -18,10 +13,7 @@ import javax.servlet.jsp.JspException;
  *
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  */
-public abstract class AbstractUITag extends ParameterizedTagSupport {
-
-    protected UIBean bean;
-
+public abstract class AbstractUITag extends ComponentTagSupport {
     protected String cssClass;
     protected String cssStyle;
     protected String disabled;
@@ -48,52 +40,37 @@ public abstract class AbstractUITag extends ParameterizedTagSupport {
     protected String onselect;
     protected String onchange;
 
-    public abstract UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res);
-
-    public int doEndTag() throws JspException {
-        bean.end(pageContext.getOut());
-        bean = null;
-
-        return EVAL_BODY_INCLUDE;
-    }
-
-    public int doStartTag() throws JspException {
-        bean = getBean(getStack(), (HttpServletRequest) pageContext.getRequest(), (HttpServletResponse) pageContext.getResponse());
-        populateParams();
-        bean.addAllParameters(getParameters());
-        bean.start(pageContext.getOut());
-
-        return EVAL_PAGE;
-    }
 
     protected void populateParams() {
-        bean.setId(id);
-        bean.setCssClass(cssClass);
-        bean.setCssClass(cssClass);
-        bean.setCssStyle(cssStyle);
-        bean.setDisabled(disabled);
-        bean.setLabel(label);
-        bean.setLabelPosition(labelPosition);
-        bean.setName(name);
-        bean.setRequired(required);
-        bean.setTabindex(tabindex);
-        bean.setValue(value);
-        bean.setTemplate(template);
-        bean.setTheme(theme);
-        bean.setOnclick(onclick);
-        bean.setOndblclick(ondblclick);
-        bean.setOnmousedown(onmousedown);
-        bean.setOnmouseup(onmouseup);
-        bean.setOnmouseover(onmouseover);
-        bean.setOnmousemove(onmousemove);
-        bean.setOnmouseout(onmouseout);
-        bean.setOnfocus(onfocus);
-        bean.setOnblur(onblur);
-        bean.setOnkeypress(onkeypress);
-        bean.setOnkeydown(onkeydown);
-        bean.setOnkeyup(onkeyup);
-        bean.setOnselect(onselect);
-        bean.setOnchange(onchange);
+        super.populateParams();
+
+        UIBean uiBean = (UIBean) component;
+        uiBean.setCssClass(cssClass);
+        uiBean.setCssClass(cssClass);
+        uiBean.setCssStyle(cssStyle);
+        uiBean.setDisabled(disabled);
+        uiBean.setLabel(label);
+        uiBean.setLabelPosition(labelPosition);
+        uiBean.setName(name);
+        uiBean.setRequired(required);
+        uiBean.setTabindex(tabindex);
+        uiBean.setValue(value);
+        uiBean.setTemplate(template);
+        uiBean.setTheme(theme);
+        uiBean.setOnclick(onclick);
+        uiBean.setOndblclick(ondblclick);
+        uiBean.setOnmousedown(onmousedown);
+        uiBean.setOnmouseup(onmouseup);
+        uiBean.setOnmouseover(onmouseover);
+        uiBean.setOnmousemove(onmousemove);
+        uiBean.setOnmouseout(onmouseout);
+        uiBean.setOnfocus(onfocus);
+        uiBean.setOnblur(onblur);
+        uiBean.setOnkeypress(onkeypress);
+        uiBean.setOnkeydown(onkeydown);
+        uiBean.setOnkeyup(onkeyup);
+        uiBean.setOnselect(onselect);
+        uiBean.setOnchange(onchange);
     }
 
     public void setCssClass(String cssClass) {

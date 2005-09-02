@@ -1,15 +1,18 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.webwork.components.ClosingUIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 7:23:11 AM
+ * A tag that creates a HTML &gt;DIV /&lt; that obtains it's content via a remote XMLHttpRequest call
+ * via the dojo framework.
+ * <p/>
+ * If a "listenTopics" is supplied, it will listen to that topic and refresh it's content when any message
+ * is received.
+ *
+ * @author Ian Roughley
  */
 public class Div extends ClosingUIBean {
     public static final String TEMPLATE = "div";
@@ -46,7 +49,7 @@ public class Div extends ClosingUIBean {
             if (stackUrl.startsWith("/") && stackUrl.startsWith(contextPath)) {
                 contextPath = "";
             }
-            addParameter("href", contextPath + stackUrl );
+            addParameter("href", contextPath + stackUrl);
         }
 
         if (null != updateFreq && !"".equals(updateFreq)) {

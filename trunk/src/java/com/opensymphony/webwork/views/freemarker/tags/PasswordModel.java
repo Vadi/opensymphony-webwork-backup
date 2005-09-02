@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 1, 2005
- * Time: 8:47:51 PM
+ * @see Password
  */
 public class PasswordModel extends TagModel {
     public PasswordModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

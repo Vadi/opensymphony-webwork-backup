@@ -11,7 +11,7 @@ import javax.servlet.jsp.JspException;
  * @author $Author$
  * @version $Revision$
  */
-public class IfTag extends WebWorkTagSupport {
+public class IfTag extends WebWorkBodyTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     public static final String ANSWER = "webwork.if.answer";

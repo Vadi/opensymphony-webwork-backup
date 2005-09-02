@@ -4,44 +4,40 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.components.ActionComponent;
+import com.opensymphony.webwork.components.Component;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
 
 /**
  * @see ActionComponent
  */
-public class ActionTag extends ParameterizedTagSupport implements WebWorkStatics {
-    protected ActionComponent component;
-
+public class ActionTag extends ComponentTagSupport {
     protected String name;
     protected String namespace;
     protected boolean executeResult;
     protected boolean ignoreContextParams;
 
-    public int doEndTag() throws JspException {
-        component.addAllParameters(getParameters());
-        component.end(pageContext.getOut());
-        pageContext.setAttribute(getId(), component.getProxy().getAction());
-
-        return SKIP_BODY;
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new ActionComponent(stack, req, res);
     }
 
-    public int doStartTag() throws JspException {
-        component = new ActionComponent(getStack(),
-                (HttpServletRequest) pageContext.getRequest(),
-                (HttpServletResponse) pageContext.getResponse());
-        component.setId(id);
-        component.setName(name);
-        component.setNamespace(namespace);
-        component.setExecuteResult(executeResult);
-        component.setIgnoreContextParams(ignoreContextParams);
-        component.start(pageContext.getOut());
+    protected void populateParams() {
+        super.populateParams();
 
-        return EVAL_BODY_INCLUDE;
+        ActionComponent action = (ActionComponent) component;
+        action.setName(name);
+        action.setNamespace(namespace);
+        action.setExecuteResult(executeResult);
+        action.setIgnoreContextParams(ignoreContextParams);
+        action.start(pageContext.getOut());
+    }
+
+    protected void addParameter(String name, Object value) {
+        ActionComponent ac = (ActionComponent) component;
+        ac.addParameter(name, value);
     }
 
     public void setName(String name) {

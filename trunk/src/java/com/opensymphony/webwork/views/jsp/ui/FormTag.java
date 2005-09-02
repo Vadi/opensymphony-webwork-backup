@@ -4,8 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.Form;
-import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,28 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * FormTag
- *
- * @author Jason Carreira
- *         Created Apr 1, 2003 8:19:47 PM
+ * @see Form
  */
 public class FormTag extends AbstractUITag {
-    String action;
-    String target;
-    String enctype;
-    String method;
-    String namespace;
-    String validate;
-    String onsubmit;
+    protected String action;
+    protected String target;
+    protected String enctype;
+    protected String method;
+    protected String namespace;
+    protected String validate;
+    protected String onsubmit;
 
-    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Form(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        Form form = ((Form) bean);
+        Form form = ((Form) component);
         form.setAction(action);
         form.setTarget(target);
         form.setEnctype(enctype);

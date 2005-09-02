@@ -18,10 +18,6 @@ import javax.servlet.jsp.tagext.Tag;
  * @version $Revision$
  */
 public class MergeIteratorTag extends ActionTag {
-    //~ Methods ////////////////////////////////////////////////////////////////
-
-    // Attributes ----------------------------------------------------
-    // Constructor ---------------------------------------------------
     public void setParent(Tag t) {
         super.setParent(t);
         setName("'" + MergeIteratorFilter.class.getName() + "'");

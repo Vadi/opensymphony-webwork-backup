@@ -43,8 +43,12 @@ public class ActionComponent extends Component {
         this.res = res;
     }
 
-    public void end(Writer writer) {
+    public void end(Writer writer, String body) {
         executeAction();
+
+        if (getId() != null) {
+            getStack().setValue("#attr['" + getId() + "']", proxy.getAction());
+        }
     }
 
     private Map createExtraContext() {

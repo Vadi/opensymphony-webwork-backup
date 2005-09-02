@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 28, 2005
- * Time: 5:21:20 PM
+ * @see URL
  */
 public class URLDirective extends AbstractDirective {
     public String getBeanName() {

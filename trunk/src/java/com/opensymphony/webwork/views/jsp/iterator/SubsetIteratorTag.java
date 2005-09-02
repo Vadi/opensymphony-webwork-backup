@@ -22,27 +22,20 @@ import javax.servlet.jsp.tagext.Tag;
  * @version $Revision$
  */
 public class SubsetIteratorTag extends ActionTag {
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     String countAttr;
 
-    // Attributes ----------------------------------------------------
     String sourceAttr;
     String startAttr;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setCount(String aCount) {
         countAttr = aCount;
     }
 
-    // Constructor ---------------------------------------------------
     public void setParent(Tag t) {
         super.setParent(t);
         setName("'" + SubsetIteratorFilter.class.getName() + "'");
     }
 
-    // Public --------------------------------------------------------
     public void setSource(String aName) {
         sourceAttr = aName;
     }

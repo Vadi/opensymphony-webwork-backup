@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 18, 2005
- * Time: 7:17:47 PM
+ * @see Form
  */
 public class FormModel extends TagModel {
     public FormModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

@@ -14,16 +14,10 @@ import ognl.OgnlException;
  * @version $Id$
  */
 public class OgnlTool {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
     private static OgnlTool instance = new OgnlTool();
-
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     private OgnlTool() {
     }
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public static OgnlTool getInstance() {
         return instance;

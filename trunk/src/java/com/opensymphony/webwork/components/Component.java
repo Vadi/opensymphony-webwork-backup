@@ -47,7 +47,7 @@ public class Component {
     public void start(Writer writer) {
     }
 
-    public void end(Writer writer) {
+    public void end(Writer writer, String body) {
         getComponentStack().pop();
     }
 
@@ -171,5 +171,9 @@ public class Component {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean usesBody() {
+        return false;
     }
 }

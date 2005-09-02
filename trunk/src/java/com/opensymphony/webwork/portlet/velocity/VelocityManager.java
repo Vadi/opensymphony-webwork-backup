@@ -9,9 +9,6 @@ import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.util.WebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.webwork.views.util.ContextUtil;
-import com.opensymphony.webwork.views.velocity.BodyTagDirective;
-import com.opensymphony.webwork.views.velocity.ParamDirective;
-import com.opensymphony.webwork.views.velocity.TagDirective;
 import com.opensymphony.webwork.views.velocity.WebWorkVelocityContext;
 import com.opensymphony.webwork.views.velocity.components.*;
 import com.opensymphony.xwork.ObjectFactory;
@@ -547,12 +544,8 @@ public class VelocityManager {
         // components
         StringBuffer sb = new StringBuffer();
 
-        //deprecated
-        addDirective(sb, BodyTagDirective.class);
-        addDirective(sb, TagDirective.class);
-        addDirective(sb, ParamDirective.class);
-
-        addDirective(sb, ApplyDecoratorDirective.class);
+        addDirective(sb, ActionDirective.class);
+        addDirective(sb, BeanDirective.class);
         addDirective(sb, CheckBoxDirective.class);
         addDirective(sb, CheckBoxListDirective.class);
         addDirective(sb, ComboBoxDirective.class);
@@ -564,16 +557,24 @@ public class VelocityManager {
         addDirective(sb, FormDirective.class);
         addDirective(sb, HiddenDirective.class);
         addDirective(sb, HrefDirective.class);
+        addDirective(sb, I18nDirective.class);
+        addDirective(sb, IncludeDirective.class);
         addDirective(sb, LabelDirective.class);
         addDirective(sb, PanelDirective.class);
+        addDirective(sb, com.opensymphony.webwork.views.velocity.components.ParamDirective.class);
         addDirective(sb, PasswordDirective.class);
+        addDirective(sb, PushDirective.class);
         addDirective(sb, RadioDirective.class);
         addDirective(sb, SelectDirective.class);
+        addDirective(sb, SetDirective.class);
         addDirective(sb, SubmitDirective.class);
         addDirective(sb, TabbedPanelDirective.class);
         addDirective(sb, TextAreaDirective.class);
+        addDirective(sb, TextDirective.class);
         addDirective(sb, TextFieldDirective.class);
         addDirective(sb, TokenDirective.class);
+        addDirective(sb, URLDirective.class);
+        addDirective(sb, WebTableDirective.class);
 
         String directives = sb.toString();
 

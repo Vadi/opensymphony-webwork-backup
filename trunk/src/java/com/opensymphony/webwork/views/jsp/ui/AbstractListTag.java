@@ -18,7 +18,7 @@ public abstract class AbstractListTag extends AbstractUITag {
     protected void populateParams() {
         super.populateParams();
 
-        ListUIBean listUIBean = ((ListUIBean) bean);
+        ListUIBean listUIBean = ((ListUIBean) component);
         listUIBean.setList(list);
         listUIBean.setListKey(listKey);
         listUIBean.setListValue(listValue);

@@ -64,7 +64,7 @@ public abstract class UIBean extends Component {
     protected String onselect;
     protected String onchange;
 
-    public void end(Writer writer) {
+    public void end(Writer writer, String body) {
         evaluateParams();
         try {
             mergeTemplate(writer, buildTemplateName(template, getDefaultTemplate()));
@@ -72,7 +72,7 @@ public abstract class UIBean extends Component {
             e.printStackTrace();
         }
 
-        super.end(writer);
+        super.end(writer, body);
     }
 
     /**

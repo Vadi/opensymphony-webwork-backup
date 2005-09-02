@@ -17,26 +17,18 @@ import java.util.Comparator;
  * @version $Revision$
  */
 public class SortIteratorTag extends ActionTag {
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     String comparatorAttr;
-
-    // Attributes ----------------------------------------------------
     String sourceAttr;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setComparator(String aComparator) {
         comparatorAttr = aComparator;
     }
 
-    // Constructor ---------------------------------------------------
     public void setParent(Tag t) {
         super.setParent(t);
         setName("'" + SortIteratorFilter.class.getName() + "'");
     }
 
-    // Public --------------------------------------------------------
     public void setSource(String aName) {
         sourceAttr = aName;
     }

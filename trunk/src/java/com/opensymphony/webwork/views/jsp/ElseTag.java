@@ -11,7 +11,7 @@ import javax.servlet.jsp.JspException;
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @version $Revision$
  */
-public class ElseTag extends WebWorkTagSupport {
+public class ElseTag extends WebWorkBodyTagSupport {
     //~ Methods ////////////////////////////////////////////////////////////////
 
     public int doStartTag() throws JspException {

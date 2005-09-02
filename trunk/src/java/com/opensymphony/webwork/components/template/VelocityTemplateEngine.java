@@ -1,9 +1,7 @@
 package com.opensymphony.webwork.components.template;
 
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.views.velocity.AbstractTagDirective;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
-import com.opensymphony.xwork.ActionContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
@@ -75,12 +73,7 @@ public class VelocityTemplateEngine extends BaseTemplateEngine {
 
         Context context = velocityManager.createContext(templateContext.getStack(), req, res);
 
-        // get the writer (ghetto JSP hack here, should be removed someday)
-        Writer outputWriter = (Writer) ActionContext.getContext().get(AbstractTagDirective.VELOCITY_WRITER);
-        if (outputWriter == null) {
-            outputWriter = templateContext.getWriter();
-        }
-
+        Writer outputWriter = templateContext.getWriter();
         context.put("tag", templateContext.getTag());
         context.put("parameters", templateContext.getParameters());
 

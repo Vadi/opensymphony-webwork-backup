@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 7, 2005
- * Time: 5:16:15 PM
+ * @see DatePicker
  */
 public class DatePickerModel extends TextFieldModel {
     public DatePickerModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

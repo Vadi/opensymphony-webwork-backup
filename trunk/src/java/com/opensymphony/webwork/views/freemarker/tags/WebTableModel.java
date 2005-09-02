@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 6, 2005
- * Time: 8:13:02 PM
+ * @see WebTable
  */
 public class WebTableModel extends TagModel {
     public WebTableModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

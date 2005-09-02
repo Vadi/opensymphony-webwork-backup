@@ -4,23 +4,34 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import com.opensymphony.webwork.components.Component;
+import com.opensymphony.webwork.components.Set;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
-import javax.servlet.jsp.JspException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @author $Author$
- * @version $Revision$
+ * @see Set
  */
-public class SetTag extends WebWorkTagSupport {
-    //~ Instance fields ////////////////////////////////////////////////////////
+public class SetTag extends ComponentTagSupport {
+    protected String name;
+    protected String scope;
+    protected String value;
 
-    String name;
-    String scope;
-    String value;
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new Set(stack);
+    }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
+    protected void populateParams() {
+        super.populateParams();
+
+        Set set = (Set) component;
+        set.setName(name);
+        set.setScope(scope);
+        set.setValue(value);
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -32,29 +43,5 @@ public class SetTag extends WebWorkTagSupport {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public int doStartTag() throws JspException {
-        OgnlValueStack stack = getStack();
-
-        if (value == null) {
-            value = "top";
-        }
-
-        Object o = findValue(value);
-
-        if ("application".equals(scope)) {
-            super.pageContext.getServletContext().setAttribute(name, o);
-        } else if ("session".equals(scope)) {
-            pageContext.getSession().setAttribute(name, o);
-        } else if ("request".equals(scope)) {
-            pageContext.getRequest().setAttribute(name, o);
-        } else if ("page".equals(scope)) {
-            pageContext.setAttribute(name, o);
-        } else {
-            stack.getContext().put(name, o);
-        }
-
-        return SKIP_BODY;
     }
 }

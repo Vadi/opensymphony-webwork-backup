@@ -10,39 +10,28 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.Include;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
 
 
 /**
- * Include a servlet's output (result of servlet or a JSP page).
- *
- * @author Rickard Oberg (rickard@dreambean.com)
- * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a>
- * @version $Revision$
+ * @see Include
  */
-public class IncludeTag extends ParametereizedBodyTagSupport {
-    protected Include include;
+public class IncludeTag extends ComponentTagSupport {
     protected String value;
 
-    public int doEndTag() throws JspException {
-        include.addAllParameters(getParameters());
-        include.end(pageContext.getOut());
-
-        return EVAL_PAGE;
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new Include(stack, req, res);
     }
 
-    public int doStartTag() throws JspException {
-        include = new Include(getStack(),
-                (HttpServletRequest) pageContext.getRequest(),
-                (HttpServletResponse) pageContext.getResponse());
-        include.setValue(value);
-        include.start(pageContext.getOut());
+    protected void populateParams() {
+        super.populateParams();
 
-        return EVAL_BODY_BUFFERED;
+        ((Include) component).setValue(value);
     }
 
     public void setValue(String value) {

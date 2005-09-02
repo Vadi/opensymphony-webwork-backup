@@ -12,9 +12,13 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * User: plightbo
- * Date: Aug 7, 2005
- * Time: 11:29:02 AM
+ * This tag is used to create a URL.
+ * You can use the "param" tag inside the body to provide
+ * additional request parameters.
+ *
+ * @author Rickard Öberg (rickard@dreambean.com)
+ * @version $Revision$
+ * @see com.opensymphony.webwork.views.jsp.ParamTag
  */
 public class URL extends Component {
     private static final Log LOG = LogFactory.getLog(URL.class);
@@ -86,7 +90,7 @@ public class URL extends Component {
 
     }
 
-    public void end(Writer writer) {
+    public void end(Writer writer, String body) {
         String scheme = req.getScheme();
 
         if (this.scheme != null) {
@@ -112,7 +116,7 @@ public class URL extends Component {
             }
         }
 
-        super.end(writer);
+        super.end(writer, body);
     }
 
     public void setIncludeParams(String includeParams) {

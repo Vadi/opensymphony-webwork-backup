@@ -4,10 +4,9 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.views.jsp.AbstractTagTest;
-import com.opensymphony.webwork.views.jsp.TextTag;
+import com.opensymphony.webwork.TestAction;
+import com.opensymphony.webwork.components.Text;
 import com.opensymphony.webwork.views.jsp.ui.TestAction1;
 import com.opensymphony.webwork.views.jsp.ui.WebWorkBodyContent;
 import com.opensymphony.xwork.Action;
@@ -15,7 +14,6 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.Tag;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +45,8 @@ public class TextTagTest extends AbstractTagTest {
         String key = "expressionKey";
         String value = "Foo is " + fooValue;
         tag.setName(key);
-        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        tag.doStartTag();
+        tag.doEndTag();
         assertEquals(value, writer.toString());
     }
 
@@ -64,10 +63,11 @@ public class TextTagTest extends AbstractTagTest {
 
         String expected = MessageFormat.format(pattern, params.toArray());
         tag.setName(key);
-        tag.addParameter(param1);
-        tag.addParameter(param2);
-        tag.addParameter(param3);
-        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        tag.doStartTag();
+        ((Text) tag.component).addParameter(param1);
+        ((Text) tag.component).addParameter(param2);
+        ((Text) tag.component).addParameter(param3);
+        tag.doEndTag();
         assertEquals(expected, writer.toString());
     }
 
@@ -75,26 +75,29 @@ public class TextTagTest extends AbstractTagTest {
         String key = "simpleKey";
         String value = "Simple Message";
         tag.setName(key);
-        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        tag.doStartTag();
+        tag.doEndTag();
         assertEquals(value, writer.toString());
     }
 
     public void testTextTagUsesValueStackInRequestNotActionContext() throws JspException {
         String key = "simpleKey";
         String value1 = "Simple Message";
-        String value2="This is TestBean1";
+        String value2 = "This is TestBean1";
         tag.setName(key);
-        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        tag.doStartTag();
+        tag.doEndTag();
         assertEquals(value1, writer.toString());
         final StringBuffer buffer = writer.getBuffer();
-        buffer.delete(0,buffer.length());
+        buffer.delete(0, buffer.length());
         OgnlValueStack newStack = new OgnlValueStack();
-        newStack.getContext().put(ActionContext.LOCALE,Locale.US);
+        newStack.getContext().put(ActionContext.LOCALE, Locale.US);
         newStack.push(new TestAction1());
         request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, newStack);
-        assertNotSame(ActionContext.getContext().getValueStack().peek(),newStack.peek());
+        assertNotSame(ActionContext.getContext().getValueStack().peek(), newStack.peek());
 
-        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        tag.doStartTag();
+        tag.doEndTag();
         assertEquals(value2, writer.toString());
     }
 
@@ -103,19 +106,21 @@ public class TextTagTest extends AbstractTagTest {
         stack.push(new TestAction1());
         ActionContext.getContext().setLocale(Locale.US);
         String key = "simpleKey";
-        String value_en="This is TestBean1";
+        String value_en = "This is TestBean1";
         tag.setName(key);
-        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        tag.doStartTag();
+        tag.doEndTag();
         assertEquals(value_en, writer.toString());
         final StringBuffer buffer = writer.getBuffer();
-        buffer.delete(0,buffer.length());
-        String value_de="This is TestBean1 in German";
+        buffer.delete(0, buffer.length());
+        String value_de = "This is TestBean1 in German";
         OgnlValueStack newStack = new OgnlValueStack(stack);
-        newStack.getContext().put(ActionContext.LOCALE,Locale.GERMANY);
-        assertNotSame(newStack.getContext().get(ActionContext.LOCALE),ActionContext.getContext().getLocale());
+        newStack.getContext().put(ActionContext.LOCALE, Locale.GERMANY);
+        assertNotSame(newStack.getContext().get(ActionContext.LOCALE), ActionContext.getContext().getLocale());
         request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, newStack);
-        assertEquals(ActionContext.getContext().getValueStack().peek(),newStack.peek());
-        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        assertEquals(ActionContext.getContext().getValueStack().peek(), newStack.peek());
+        tag.doStartTag();
+        tag.doEndTag();
         assertEquals(value_de, writer.toString());
     }
 
@@ -127,14 +132,16 @@ public class TextTagTest extends AbstractTagTest {
         WebWorkBodyContent bodyContent = new WebWorkBodyContent(null);
         bodyContent.print(bodyText);
         tag.setBodyContent(bodyContent);
-        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        tag.doStartTag();
+        tag.doEndTag();
         assertEquals(bodyText, writer.toString());
     }
 
     public void testWithNoMessageAndNoDefaultKeyReturned() throws JspException {
         final String key = "key.does.not.exist";
         tag.setName("'" + key + "'");
-        assertEquals(Tag.EVAL_PAGE, tag.doEndTag());
+        tag.doStartTag();
+        tag.doEndTag();
         assertEquals(key, writer.toString());
     }
 

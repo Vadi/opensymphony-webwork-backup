@@ -6,39 +6,46 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 1, 2005
- * Time: 8:41:12 PM
+ * Provides @ww.xxx access for various tags.
+ *
+ * @author plightbo
  */
 public class WebWorkModels {
     protected OgnlValueStack stack;
     protected HttpServletRequest req;
     protected HttpServletResponse res;
 
-    protected CheckboxListModel checkboxlist;
+    protected ActionModel action;
+    protected BeanModel bean;
     protected CheckboxModel checkbox;
+    protected CheckboxListModel checkboxlist;
     protected ComboBoxModel comboBox;
     protected ComponentModel component;
+    protected DatePickerModel datepicker;
+    protected DivModel div;
     protected DoubleSelectModel doubleselect;
     protected FileModel file;
     protected FormModel form;
     protected HiddenModel hidden;
+    protected HrefModel a;
+    protected I18nModel i18n;
+    protected IncludeModel include;
     protected LabelModel label;
+    protected PanelModel panel;
     protected PasswordModel password;
+    protected PushModel push;
+    protected ParamModel param;
     protected RadioModel radio;
     protected SelectModel select;
+    protected SetModel set;
     protected SubmitModel submit;
+    protected TabbedPanelModel tabbedPanel;
     protected TextAreaModel textarea;
+    protected TextModel text;
     protected TextFieldModel textfield;
-    protected DatePickerModel datepicker;
     protected TokenModel token;
-    protected WebTableModel table;
     protected URLModel url;
-    protected IncludeModel include;
-    protected ParamModel param;
-    protected ActionModel action;
-    protected HrefModel a;
-    protected DivModel div;
+    protected WebTableModel table;
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         this.stack = stack;
@@ -208,7 +215,7 @@ public class WebWorkModels {
 
     public ParamModel getParam() {
         if (param == null) {
-            param = new ParamModel();
+            param = new ParamModel(stack, req, res);
         }
 
         return param;
@@ -236,5 +243,61 @@ public class WebWorkModels {
         }
 
         return div;
+    }
+
+    public TextModel getText() {
+        if (text == null) {
+            text = new TextModel(stack, req, res);
+        }
+
+        return text;
+    }
+
+    public TabbedPanelModel getTabbedPanel() {
+        if (tabbedPanel == null) {
+            tabbedPanel = new TabbedPanelModel(stack, req, res);
+        }
+
+        return tabbedPanel;
+    }
+
+    public PanelModel getPanel() {
+        if (panel == null) {
+            panel = new PanelModel(stack, req, res);
+        }
+
+        return panel;
+    }
+
+    public BeanModel getBean() {
+        if (bean == null) {
+            bean = new BeanModel(stack, req, res);
+        }
+
+        return bean;
+    }
+
+    public I18nModel getI18n() {
+        if (i18n == null) {
+            i18n = new I18nModel(stack, req, res);
+        }
+
+        return i18n;
+    }
+
+    public PushModel getPush() {
+        if (push == null) {
+            push = new PushModel(stack, req, res);
+        }
+
+        return push;
+    }
+
+    public SetModel getSet() {
+        if (set == null) {
+            set = new SetModel(stack, req, res);
+        }
+
+        return set;
     }
 }

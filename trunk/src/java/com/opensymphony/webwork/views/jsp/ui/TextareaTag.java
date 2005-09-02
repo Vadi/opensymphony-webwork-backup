@@ -4,7 +4,7 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.TextArea;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
- * @version $Id$
+ * @see TextArea
  */
 public class TextareaTag extends AbstractUITag {
     protected String cols;
@@ -22,14 +21,14 @@ public class TextareaTag extends AbstractUITag {
     protected String rows;
     protected String wrap;
 
-    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new TextArea(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        TextArea textArea = ((TextArea) bean);
+        TextArea textArea = ((TextArea) component);
         textArea.setCols(cols);
         textArea.setReadonly(readonly);
         textArea.setRows(rows);

@@ -11,7 +11,7 @@ import javax.servlet.jsp.JspException;
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @version $Revision$
  */
-public class ElseIfTag extends WebWorkTagSupport {
+public class ElseIfTag extends WebWorkBodyTagSupport {
     //~ Instance fields ////////////////////////////////////////////////////////
 
     protected Boolean answer;
@@ -25,7 +25,7 @@ public class ElseIfTag extends WebWorkTagSupport {
 
     public int doEndTag() throws JspException {
         if (answer == null) {
-            answer = new Boolean(false);
+            answer = Boolean.FALSE;
         }
 
         if (answer.booleanValue()) {
@@ -38,7 +38,7 @@ public class ElseIfTag extends WebWorkTagSupport {
     public int doStartTag() throws JspException {
         Boolean ifResult = (Boolean) pageContext.getAttribute(IfTag.ANSWER);
 
-        if ((ifResult == null) || (ifResult.booleanValue() == true)) {
+        if ((ifResult == null) || (ifResult.booleanValue())) {
             return SKIP_BODY;
         }
 

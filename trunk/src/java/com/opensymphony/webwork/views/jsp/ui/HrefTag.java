@@ -1,7 +1,6 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.Href;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -9,35 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * A tag that creates a HTML &gt;a href='' /&lt; that when clicked calls a URL remote XMLHttpRequest call
- * via the dojo framework.  The result from the URL is executed as JavaScript.
- * <p/>
- * If a "listenTopics" is supplied, it will publish a 'click' message to that topic when the result is
- * returned.  If utilizing the topic/event elements, then this tag needs to be contained within
- * a &gt;ww:topicScope /&lt; tag.
- *
- * @see TopicScopeTag
- *
- * @author		Ian Roughley
- * @version		$Id$
+ * @see Href
  */
 public class HrefTag extends AbstractUITag {
-
-
     protected String href;
     protected String errorText;
     protected String showErrorTransportText;
     protected String notifyTopics;
     protected String afterLoading;
 
-    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Href(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        Href link = (Href) bean;
+        Href link = (Href) component;
         link.setHref(href);
         link.setErrorText(errorText);
         link.setShowErrorTransportText(showErrorTransportText);
@@ -61,7 +48,7 @@ public class HrefTag extends AbstractUITag {
         this.notifyTopics = notifyTopics;
     }
 
-     public void setAfterLoading(String afterLoading) {
-         this.afterLoading = afterLoading;
-     }
+    public void setAfterLoading(String afterLoading) {
+        this.afterLoading = afterLoading;
+    }
 }

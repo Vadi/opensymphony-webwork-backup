@@ -4,53 +4,31 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import com.opensymphony.webwork.components.Component;
+import com.opensymphony.webwork.components.Push;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.jsp.JspException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @author $Author$
- * @version $Revision$
+ * @see Push
  */
-public class PushTag extends WebWorkBodyTagSupport {
-    //~ Static fields/initializers /////////////////////////////////////////////
+public class PushTag extends ComponentTagSupport {
+    protected String value;
 
-    private static final Log log = LogFactory.getLog(PushTag.class);
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new Push(stack);
+    }
 
-    //~ Instance fields ////////////////////////////////////////////////////////
+    protected void populateParams() {
+        super.populateParams();
 
-    private String value;
-    private boolean pushed = false;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
+        ((Push) component).setValue(value);
+    }
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public int doEndTag() throws JspException {
-        OgnlValueStack stack = getStack();
-
-        if (pushed && (stack != null)) {
-            stack.pop();
-        }
-
-        return SKIP_BODY;
-    }
-
-    public int doStartTag() throws JspException {
-        OgnlValueStack stack = getStack();
-
-        if (stack != null) {
-            stack.push(findValue(value));
-            pushed = true;
-        } else {
-            pushed = false; // need to ensure push is assigned, otherwise we may have a leftover value
-        }
-
-        return EVAL_BODY_INCLUDE;
     }
 }

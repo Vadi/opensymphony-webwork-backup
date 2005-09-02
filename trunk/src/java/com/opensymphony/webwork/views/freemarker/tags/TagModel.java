@@ -13,11 +13,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * User: plightbo
- * Date: Jul 18, 2005
- * Time: 8:00:43 PM
- */
 public abstract class TagModel implements TemplateTransformModel {
     protected OgnlValueStack stack;
     protected HttpServletRequest req;
