@@ -10,10 +10,7 @@ import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
 import com.opensymphony.webwork.dispatcher.multipart.WebWorkRequestWrapper;
 import com.opensymphony.webwork.util.AttributeMap;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.ActionProxy;
-import com.opensymphony.xwork.ActionProxyFactory;
-import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
@@ -143,6 +140,7 @@ public class DispatcherUtils {
         if (stack != null) {
             extraContext.put(ActionContext.VALUE_STACK, new OgnlValueStack(stack));
         }
+
         try {
             String namespace = mapping.getNamespace();
             String name = mapping.getName();
@@ -151,7 +149,15 @@ public class DispatcherUtils {
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, extraContext);
             proxy.setMethod(method);
             request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, proxy.getInvocation().getStack());
-            proxy.execute();
+
+            // if the ActionMapping says to go straight to a result, do it!
+            if (mapping.getResult() != null) {
+                Result result = mapping.getResult();
+                result.execute(proxy.getInvocation());
+            } else {
+                proxy.execute();
+            }
+
             // If there was a previous value stack then set it back onto the request
             if (stack != null) {
                 request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);

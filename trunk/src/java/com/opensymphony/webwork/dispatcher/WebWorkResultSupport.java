@@ -5,10 +5,8 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.WebWorkStatics;
-import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
-import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 
 
@@ -64,16 +62,10 @@ import com.opensymphony.xwork.util.TextParseUtil;
  * @see com.opensymphony.xwork.Result
  */
 public abstract class WebWorkResultSupport implements Result, WebWorkStatics {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
     public static final String DEFAULT_PARAM = "location";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     protected boolean parse = true;
-    private String location;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
+    protected String location;
 
     /**
      * The location to go to after action execution. This could be a JSP page or another action.

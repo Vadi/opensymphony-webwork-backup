@@ -6,6 +6,7 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,15 +23,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author Patrick Lightbody
  */
 public class ServletRedirectResult extends WebWorkResultSupport {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
     private static final Log log = LogFactory.getLog(ServletRedirectResult.class);
 
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     protected boolean prependServletContext = true;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets whether or not to prepend the servlet context path to the redirected URL.
@@ -50,8 +45,9 @@ public class ServletRedirectResult extends WebWorkResultSupport {
      * @throws Exception if an error occurs when redirecting.
      */
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
-        HttpServletRequest request = ServletActionContext.getRequest();
-        HttpServletResponse response = ServletActionContext.getResponse();
+        ActionContext ctx = invocation.getInvocationContext();
+        HttpServletRequest request = (HttpServletRequest) ctx.get(ServletActionContext.HTTP_REQUEST);
+        HttpServletResponse response = (HttpServletResponse) ctx.get(ServletActionContext.HTTP_RESPONSE);
 
         if (isPathUrl(finalLocation)) {
             if (!finalLocation.startsWith("/")) {

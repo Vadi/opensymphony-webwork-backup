@@ -1,5 +1,7 @@
 package com.opensymphony.webwork.dispatcher.mapper;
 
+import com.opensymphony.xwork.Result;
+
 import java.util.Map;
 
 /**
@@ -15,6 +17,11 @@ public class ActionMapping {
     private String namespace;
     private String method;
     private Map params;
+    private Result result;
+
+    public ActionMapping(Result result) {
+        this.result = result;
+    }
 
     public ActionMapping(String name, String namespace, String method, Map params) {
         this.name = name;
@@ -41,5 +48,13 @@ public class ActionMapping {
         } else {
             return method;
         }
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
     }
 }
