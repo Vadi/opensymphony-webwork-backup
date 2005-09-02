@@ -7,6 +7,8 @@
             <result-type name="dispatcher" class="com.opensymphony.webwork.dispatcher.ServletDispatcherResult"
                          default="true"/>
             <result-type name="redirect" class="com.opensymphony.webwork.dispatcher.ServletRedirectResult"/>
+            <result-type name="redirect-action"
+                         class="com.opensymphony.webwork.dispatcher.ServletActionRedirectResult"/>
             <result-type name="velocity" class="com.opensymphony.webwork.dispatcher.VelocityResult"/>
             <result-type name="chain" class="com.opensymphony.xwork.ActionChainResult"/>
             <result-type name="xslt" class="com.opensymphony.webwork.views.xslt.XSLTResult"/>
@@ -38,8 +40,10 @@
             <interceptor name="fileUpload" class="com.opensymphony.webwork.interceptor.FileUploadInterceptor"/>
             <interceptor name="execAndWait" class="com.opensymphony.webwork.interceptor.ExecuteAndWaitInterceptor"/>
             <interceptor name="alias" class="com.opensymphony.xwork.interceptor.AliasInterceptor"/>
-            <interceptor name="autowiring" class="com.opensymphony.xwork.spring.interceptor.ActionAutowiringInterceptor"/>
-            <interceptor name="sessionAutowiring" class="com.opensymphony.webwork.spring.interceptor.SessionContextAutowiringInterceptor"/>
+            <interceptor name="autowiring"
+                         class="com.opensymphony.xwork.spring.interceptor.ActionAutowiringInterceptor"/>
+            <interceptor name="sessionAutowiring"
+                         class="com.opensymphony.webwork.spring.interceptor.SessionContextAutowiringInterceptor"/>
 
             <!-- Basic stack -->
             <interceptor-stack name="defaultStack">

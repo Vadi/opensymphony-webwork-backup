@@ -1,6 +1,8 @@
 package com.opensymphony.webwork.dispatcher.mapper;
 
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.dispatcher.ServletRedirectResult;
+import com.opensymphony.xwork.Result;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
@@ -25,7 +27,8 @@ public class DefaultActionMapper implements ActionMapper {
             uri = includeUri;
         }
 
-        if (!uri.endsWith("." + Configuration.get("webwork.action.extension"))) {
+        String ext = (String) Configuration.get("webwork.action.extension");
+        if (!uri.endsWith("." + ext)) {
             return null;
         }
 
@@ -38,6 +41,7 @@ public class DefaultActionMapper implements ActionMapper {
         String name = uri.substring(((beginIdx == -1) ? 0 : (beginIdx + 1)), (endIdx == -1) ? uri.length() : endIdx);
 
         String method = "";
+        Result result = null;
         if (name.indexOf("!") != -1) {
             endIdx = name.lastIndexOf("!");
             method = name.substring(endIdx + 1, name.length());
@@ -50,11 +54,26 @@ public class DefaultActionMapper implements ActionMapper {
                     method = key.substring("method:".length());
                 } else if (key.startsWith("action:")) {
                     name = key.substring("action:".length());
+                } else if (key.startsWith("redirect:")) {
+                    String location = key.substring("redirect:".length());
+                    ServletRedirectResult redirect = new ServletRedirectResult();
+                    redirect.setLocation(location);
+                    result = redirect;
+                } else if (key.startsWith("redirect-action")) {
+                    String location = key.substring("redirect-action:".length());
+                    ServletRedirectResult redirect = new ServletRedirectResult();
+                    redirect.setLocation(location + "." + ext);
+                    result = redirect;
                 }
             }
         }
 
-        return new ActionMapping(name, namespace, method, null);
+        ActionMapping mapping = new ActionMapping(name, namespace, method, null);
+        if (result != null) {
+            mapping.setResult(result);
+        }
+
+        return mapping;
     }
 
     public String getUriFromActionMapping(ActionMapping mapping) {
