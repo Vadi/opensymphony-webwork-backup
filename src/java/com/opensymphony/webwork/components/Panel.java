@@ -36,12 +36,12 @@ public class Panel extends Div {
         return TEMPLATE_CLOSE;
     }
 
-    public void end(Writer writer) {
+    public void end(Writer writer, String body) {
         TabbedPanel tabbedPanel = ((TabbedPanel) findLastAncestor(TabbedPanel.class));
         subscribeTopicName = tabbedPanel.getTopicName();
         tabbedPanel.addTab(this);
 
-        super.end(writer);
+        super.end(writer, body);
     }
 
     public void evaluateExtraParams() {

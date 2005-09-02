@@ -7,8 +7,10 @@ package com.opensymphony.webwork.views.jsp;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.TestConfigurationProvider;
+import com.opensymphony.webwork.components.ActionComponent;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -34,12 +36,14 @@ public class ActionTagTest extends AbstractTagTest {
 
         try {
             tag.doStartTag();
+            ActionComponent ac = ((ActionComponent) tag.component);
             tag.doEndTag();
+            ActionProxy proxy = ac.getProxy();
 
             Object o = pageContext.findAttribute(TestConfigurationProvider.TEST_NAMESPACE_ACTION);
             assertTrue(o instanceof TestAction);
 
-            assertEquals(TestConfigurationProvider.TEST_NAMESPACE, tag.component.getProxy().getNamespace());
+            assertEquals(TestConfigurationProvider.TEST_NAMESPACE, proxy.getNamespace());
         } catch (JspException ex) {
             ex.printStackTrace();
             fail();

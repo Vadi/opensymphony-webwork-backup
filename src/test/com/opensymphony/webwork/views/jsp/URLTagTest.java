@@ -40,8 +40,8 @@ public class URLTagTest extends AbstractUITagTest {
 
         try {
             tag.doStartTag();
-            tag.addParameter("param1", "value1");
-            tag.addParameter("param2", "value2");
+            tag.component.addParameter("param1", "value1");
+            tag.component.addParameter("param2", "value2");
             tag.doEndTag();
             assertEquals("/TestAction.action?param2=value2&amp;param0=value0&amp;param1=value1", writer.toString());
         } catch (JspException ex) {

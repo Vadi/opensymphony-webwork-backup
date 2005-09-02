@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 7, 2005
- * Time: 2:57:47 PM
+ * @see URL
  */
 public class URLModel extends TagModel {
     public URLModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

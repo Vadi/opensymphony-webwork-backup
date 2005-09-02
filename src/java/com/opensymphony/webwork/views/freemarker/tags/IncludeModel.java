@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 28, 2005
- * Time: 5:19:57 PM
+ * @see Include
  */
 public class IncludeModel extends TagModel {
     public IncludeModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

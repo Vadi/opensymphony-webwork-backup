@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 1, 2005
- * Time: 8:46:59 PM
+ * @see DoubleSelect
  */
 public class DoubleSelectModel extends TagModel {
     public DoubleSelectModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

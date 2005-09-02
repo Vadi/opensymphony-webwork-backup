@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: patrick
- * Date: Aug 5, 2005
- * Time: 8:55:26 AM
+ * @see Token
  */
 public class TokenDirective extends AbstractDirective {
     public String getBeanName() {

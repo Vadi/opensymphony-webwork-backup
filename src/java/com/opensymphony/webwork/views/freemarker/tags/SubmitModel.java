@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 1, 2005
- * Time: 8:48:36 PM
+ * @see Submit
  */
 public class SubmitModel extends TagModel {
     public SubmitModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

@@ -1,7 +1,6 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.views.jsp.ui.AbstractUITag;
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.Div;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -9,17 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * A tag that creates a HTML &gt;DIV /&lt; that obtains it's content via a remote XMLHttpRequest call
- * via the dojo framework.
- * <p/>
- * If a "listenTopics" is supplied, it will listen to that topic and refresh it's content when any message
- * is received.
- *
- * @author		Ian Roughley
- * @version		$Id$
+ * @see Div
  */
 public class DivTag extends AbstractUITag {
-
     protected String href;
     protected String updateFreq;
     protected String delay;
@@ -29,14 +20,14 @@ public class DivTag extends AbstractUITag {
     protected String listenTopics;
     protected String afterLoading;
 
-    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Div(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        Div div = (Div) bean;
+        Div div = (Div) component;
         div.setHref(href);
         div.setUpdateFreq(updateFreq);
         div.setDelay(delay);

@@ -4,9 +4,9 @@
  */
 package com.opensymphony.webwork.views.jsp.ui.table;
 
-import com.opensymphony.webwork.views.jsp.ui.ComponentTag;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.table.WebTable;
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.views.jsp.ui.ComponentTag;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,14 +23,14 @@ public class WebTableTag extends ComponentTag {
     protected boolean sortable;
     protected int sortColumn;
 
-    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new WebTable(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        WebTable table = (WebTable) bean;
+        WebTable table = (WebTable) component;
         table.setSortOrder(sortOrder);
         table.setSortable(sortable);
         table.setModelName(modelName);

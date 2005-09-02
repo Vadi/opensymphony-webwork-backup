@@ -9,7 +9,10 @@ import com.mockobjects.servlet.MockJspWriter;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -47,26 +50,6 @@ public class IteratorTagTest extends AbstractUITagTest {
         tag.setValue("list");
 
         iterateThreeStrings();
-    }
-
-    public void testEnumerationWrapper() {
-        Vector v = new Vector();
-        v.add("foo");
-        v.add("bar");
-
-        Iterator ei = new EnumeratorIterator(v.elements());
-        assertTrue(ei.hasNext());
-        assertEquals("foo", ei.next());
-        assertTrue(ei.hasNext());
-        assertEquals("bar", ei.next());
-        assertFalse(ei.hasNext());
-
-        try {
-            ei.remove();
-            fail("Remove method not supported, expected an exception");
-        } catch (Exception e) {
-            // this is expected
-        }
     }
 
     public void testIteratorWithDefaultValue() {

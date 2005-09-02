@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 28, 2005
- * Time: 6:12:34 PM
+ * @see ActionComponent
  */
 public class ActionModel extends TagModel {
     public ActionModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

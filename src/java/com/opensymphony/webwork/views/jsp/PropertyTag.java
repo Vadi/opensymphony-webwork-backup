@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author $Author$
  * @version $Revision$
  */
-public class PropertyTag extends WebWorkTagSupport {
+public class PropertyTag extends WebWorkBodyTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(PropertyTag.class);

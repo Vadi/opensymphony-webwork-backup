@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 1, 2005
- * Time: 8:48:13 PM
+ * @see Radio
  */
 public class RadioModel extends TagModel {
     public RadioModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

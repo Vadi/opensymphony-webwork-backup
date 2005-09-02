@@ -4,7 +4,7 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.DoubleSelect;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author <a href="mailto:m.bogaert@memenco.com">Mathias Bogaert</a>
- * @version $Id$
+ * @see DoubleSelect
  */
 public class DoubleSelectTag extends AbstractDoubleListTag {
     protected String emptyOption;
@@ -22,14 +21,14 @@ public class DoubleSelectTag extends AbstractDoubleListTag {
     protected String multiple;
     protected String size;
 
-    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new DoubleSelect(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        DoubleSelect doubleSelect = ((DoubleSelect) bean);
+        DoubleSelect doubleSelect = ((DoubleSelect) component);
         doubleSelect.setEmptyOption(emptyOption);
         doubleSelect.setHeaderKey(headerKey);
         doubleSelect.setHeaderValue(headerValue);

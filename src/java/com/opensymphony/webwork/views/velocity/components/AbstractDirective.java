@@ -17,11 +17,6 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * User: patrick
- * Date: Aug 5, 2005
- * Time: 7:55:26 AM
- */
 public abstract class AbstractDirective extends Directive {
     public String getName() {
         return "ww" + getBeanName();
@@ -56,7 +51,7 @@ public abstract class AbstractDirective extends Directive {
             body.render(ctx, writer);
         }
 
-        bean.end(writer);
+        bean.end(writer, null);
         return true;
     }
 

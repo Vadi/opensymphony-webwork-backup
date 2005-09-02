@@ -39,7 +39,7 @@ public class Include extends Component {
         this.res = res;
     }
 
-    public void end(Writer writer) {
+    public void end(Writer writer, String body) {
         String page = findString(value);
         StringBuffer urlBuf = new StringBuffer();
 

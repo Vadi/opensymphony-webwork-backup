@@ -9,9 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 7:22:58 AM
+ * A tag that creates a HTML &gt;a href='' /&lt; that when clicked calls a URL remote XMLHttpRequest call
+ * via the dojo framework.  The result from the URL is executed as JavaScript.
+ * <p/>
+ * If a "listenTopics" is supplied, it will publish a 'click' message to that topic when the result is
+ * returned.  If utilizing the topic/event elements, then this tag needs to be contained within
+ * a &gt;ww:topicScope /&lt; tag.
+ *
+ * @author Ian Roughley
  */
 public class Href extends ClosingUIBean {
     final public static String OPEN_TEMPLATE = "a";

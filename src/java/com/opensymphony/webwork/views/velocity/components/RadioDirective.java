@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: patrick
- * Date: Aug 5, 2005
- * Time: 8:56:10 AM
+ * @see Radio
  */
 public class RadioDirective extends AbstractDirective {
     public String getBeanName() {

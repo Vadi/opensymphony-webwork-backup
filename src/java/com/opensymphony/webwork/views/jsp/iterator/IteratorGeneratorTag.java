@@ -18,21 +18,14 @@ import javax.servlet.jsp.tagext.Tag;
  * @version $Revision$
  */
 public class IteratorGeneratorTag extends ActionTag {
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     String countAttr;
     String separatorAttr;
-
-    // Attributes ----------------------------------------------------
     String valueAttr;
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setCount(String aCount) {
         countAttr = aCount;
     }
 
-    // Constructor ---------------------------------------------------
     public void setParent(Tag t) {
         super.setParent(t);
         setName("'" + IteratorGenerator.class.getName() + "'");
@@ -42,7 +35,6 @@ public class IteratorGeneratorTag extends ActionTag {
         separatorAttr = aChar;
     }
 
-    // Public --------------------------------------------------------
     public void setVal(String aValue) {
         valueAttr = aValue;
     }

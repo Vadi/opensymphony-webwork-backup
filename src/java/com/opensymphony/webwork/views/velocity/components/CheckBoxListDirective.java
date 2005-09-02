@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: patrick
- * Date: Aug 5, 2005
- * Time: 8:58:20 AM
+ * @see CheckboxList
  */
 public class CheckBoxListDirective extends AbstractDirective {
     protected Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

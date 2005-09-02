@@ -13,20 +13,11 @@ package com.opensymphony.webwork.views.jsp;
  * @author Rickard Öberg (rickard@dreambean.com)
  */
 public class IteratorStatus {
-    //~ Instance fields ////////////////////////////////////////////////////////
-
-    // Attributes ----------------------------------------------------
     protected StatusState state;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    // Static --------------------------------------------------------
-    // Constructors --------------------------------------------------
     public IteratorStatus(StatusState aState) {
         state = aState;
     }
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public int getCount() {
         return state.index + 1;
@@ -36,7 +27,6 @@ public class IteratorStatus {
         return ((state.index + 1) % 2) == 0;
     }
 
-    // Public --------------------------------------------------------
     public boolean isFirst() {
         return state.index == 0;
     }
@@ -56,8 +46,6 @@ public class IteratorStatus {
     public int modulus(int operand) {
         return (state.index + 1) % operand;
     }
-
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     public static class StatusState {
         boolean last = false;

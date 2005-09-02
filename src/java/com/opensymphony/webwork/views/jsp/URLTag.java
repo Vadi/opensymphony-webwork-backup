@@ -10,44 +10,32 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.URL;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
 
 
 /**
- * This tag is used to create a URL.
- * You can use the "param" tag inside the body to provide
- * additional request parameters.
- *
- * @author Rickard Öberg (rickard@dreambean.com)
- * @version $Revision$
- * @see com.opensymphony.webwork.views.jsp.ParamTag
+ * @see URL
  */
-public class URLTag extends ParametereizedBodyTagSupport {
-    protected URL url;
-
+public class URLTag extends ComponentTagSupport {
     protected String includeParams;
     protected String scheme;
     protected String value;
     protected String encode;
     protected String includeContext;
 
-    public int doEndTag() throws JspException {
-        url.addAllParameters(getParameters());
-        url.end(pageContext.getOut());
-
-        return EVAL_PAGE;
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new URL(stack, req, res);
     }
 
-    public int doStartTag() throws JspException {
-        url = new URL(getStack(),
-                (HttpServletRequest) pageContext.getRequest(),
-                (HttpServletResponse) pageContext.getResponse());
+    protected void populateParams() {
+        super.populateParams();
+
+        URL url = (URL) component;
         url.setIncludeParams(includeParams);
         url.setScheme(scheme);
         url.setValue(value);
@@ -57,9 +45,6 @@ public class URLTag extends ParametereizedBodyTagSupport {
         if (includeContext != null) {
             url.setIncludeContext(Boolean.valueOf(includeContext).booleanValue());
         }
-        url.start(pageContext.getOut());
-
-        return EVAL_BODY_BUFFERED;
     }
 
     public void setEncode(String encode) {

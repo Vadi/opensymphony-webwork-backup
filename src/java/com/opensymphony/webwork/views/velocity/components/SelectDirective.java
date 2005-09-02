@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: patrick
- * Date: Aug 5, 2005
- * Time: 8:56:02 AM
+ * @see Select
  */
 public class SelectDirective extends AbstractDirective {
     public String getBeanName() {

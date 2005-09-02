@@ -6,18 +6,20 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.TestAction;
+import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.views.velocity.AbstractTagDirective;
+import com.opensymphony.webwork.dispatcher.ApplicationMap;
+import com.opensymphony.webwork.dispatcher.DispatcherUtils;
+import com.opensymphony.webwork.dispatcher.RequestMap;
+import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import junit.framework.TestCase;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
 import java.io.File;
 import java.io.StringWriter;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -26,9 +28,7 @@ import java.util.Map;
  * User: jcarreira
  * Created: Oct 17, 2003 10:24:34 PM
  */
-public abstract class AbstractTagTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
-
+public abstract class AbstractTagTest extends WebWorkTestCase {
     protected Action action;
     protected Map context;
     protected Map session;
@@ -41,18 +41,7 @@ public abstract class AbstractTagTest extends TestCase {
     protected WebWorkMockHttpServletRequest request;
     protected WebWorkMockPageContext pageContext;
     protected HttpServletResponse response;
-
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    public AbstractTagTest() {
-        super();
-    }
-
-    public AbstractTagTest(String s) {
-        super(s);
-    }
-
-    //~ Methods ////////////////////////////////////////////////////////////////
+    protected WebWorkMockServletContext servletContext;
 
     /**
      * Constructs the action that we're going to test against.  For most UI tests, this default action should be enough.
@@ -83,9 +72,8 @@ public abstract class AbstractTagTest extends TestCase {
         writer = new StringWriter();
 
         JspWriter jspWriter = new WebWorkMockJspWriter(writer);
-        context.put(AbstractTagDirective.VELOCITY_WRITER, writer);
 
-        WebWorkMockServletContext servletContext = new WebWorkMockServletContext();
+        servletContext = new WebWorkMockServletContext();
         servletContext.setRealPath(new File("nosuchfile.properties").getAbsolutePath());
         servletContext.setServletInfo("Resin");
 
@@ -95,11 +83,24 @@ public abstract class AbstractTagTest extends TestCase {
         pageContext.setJspWriter(jspWriter);
         pageContext.setServletContext(servletContext);
 
+        DispatcherUtils.initialize(pageContext.getServletContext());
+        DispatcherUtils du = DispatcherUtils.getInstance();
+        session = new SessionMap(request);
+        Map extraContext = du.createContextMap(new RequestMap(request),
+                request.getParameterMap(),
+                session,
+                new ApplicationMap(pageContext.getServletContext()),
+                request,
+                response,
+                pageContext.getServletContext());
+        // let's not set the locale -- there is a test that checks if DispatcherUtils actually picks this up...
+        // ... but generally we want to just use no locale (let it stay system default)
+        extraContext.remove(ActionContext.LOCALE);
+        stack.getContext().putAll(extraContext);
+
         context.put(ServletActionContext.HTTP_REQUEST, request);
         context.put(ServletActionContext.HTTP_RESPONSE, response);
         context.put(ServletActionContext.SERVLET_CONTEXT, servletContext);
-
-        session = new HashMap();
 
         ActionContext.setContext(new ActionContext(context));
 

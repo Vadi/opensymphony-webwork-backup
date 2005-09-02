@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 1, 2005
- * Time: 8:46:40 PM
+ * @see ComboBox
  */
 public class ComboBoxModel extends TagModel {
     public ComboBoxModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

@@ -4,17 +4,16 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.webwork.components.UIBean;
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.Select;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
- * @version $Id$
+ * @see Select
  */
 public class SelectTag extends AbstractListTag {
     protected String emptyOption;
@@ -23,14 +22,14 @@ public class SelectTag extends AbstractListTag {
     protected String multiple;
     protected String size;
 
-    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Select(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        Select select = ((Select) bean);
+        Select select = ((Select) component);
         select.setEmptyOption(emptyOption);
         select.setHeaderKey(headerKey);
         select.setHeaderValue(headerValue);

@@ -81,7 +81,12 @@ public class AttributeMap implements Map {
     }
 
     public Object put(Object key, Object value) {
-        throw new UnsupportedOperationException(UNSUPPORTED);
+        PageContext pc = getPageContext();
+        if (pc != null) {
+            pc.setAttribute(key.toString(), value);
+        }
+
+        return null;
     }
 
     public void putAll(Map t) {

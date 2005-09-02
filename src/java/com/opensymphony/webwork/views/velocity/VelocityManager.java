@@ -39,8 +39,6 @@ import java.util.*;
  * @author Matt Ho <matt@indigoegg.com>
  */
 public class VelocityManager {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
     private static final Log log = LogFactory.getLog(VelocityManager.class);
     private static VelocityManager instance;
     public static final String WEBWORK = "webwork";
@@ -55,9 +53,6 @@ public class VelocityManager {
      */
     public static final String TAG = "tag";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
-
-    private OgnlTool ognlTool = OgnlTool.getInstance();
     private VelocityEngine velocityEngine;
 
     /**
@@ -72,13 +67,9 @@ public class VelocityManager {
      */
     private String[] chainedContextNames;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
-
     protected VelocityManager() {
         init();
     }
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * retrieve an instance to the current VelocityManager
@@ -495,14 +486,10 @@ public class VelocityManager {
         // components
         StringBuffer sb = new StringBuffer();
 
-        //deprecated directive class
-        addDirective(sb, BodyTagDirective.class);
-        addDirective(sb, TagDirective.class);
-        addDirective(sb, ParamDirective.class);
-
         addDirective(sb, ApplyDecoratorDirective.class);
 
         addDirective(sb, ActionDirective.class);
+        addDirective(sb, BeanDirective.class);
         addDirective(sb, CheckBoxDirective.class);
         addDirective(sb, CheckBoxListDirective.class);
         addDirective(sb, ComboBoxDirective.class);
@@ -513,19 +500,25 @@ public class VelocityManager {
         addDirective(sb, FileDirective.class);
         addDirective(sb, FormDirective.class);
         addDirective(sb, HiddenDirective.class);
-        addDirective(sb, IncludeDirective.class);
         addDirective(sb, HrefDirective.class);
+        addDirective(sb, I18nDirective.class);
+        addDirective(sb, IncludeDirective.class);
         addDirective(sb, LabelDirective.class);
         addDirective(sb, PanelDirective.class);
+        addDirective(sb, com.opensymphony.webwork.views.velocity.components.ParamDirective.class);
         addDirective(sb, PasswordDirective.class);
+        addDirective(sb, PushDirective.class);
         addDirective(sb, RadioDirective.class);
         addDirective(sb, SelectDirective.class);
+        addDirective(sb, SetDirective.class);
         addDirective(sb, SubmitDirective.class);
         addDirective(sb, TabbedPanelDirective.class);
         addDirective(sb, TextAreaDirective.class);
+        addDirective(sb, TextDirective.class);
         addDirective(sb, TextFieldDirective.class);
         addDirective(sb, TokenDirective.class);
         addDirective(sb, URLDirective.class);
+        addDirective(sb, WebTableDirective.class);
 
         String directives = sb.toString();
 

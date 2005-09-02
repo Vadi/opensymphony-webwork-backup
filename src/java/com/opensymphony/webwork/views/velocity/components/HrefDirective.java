@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Ian Roughley
- * @version $Id$
+ * @see Href
  */
 public class HrefDirective extends AbstractDirective {
     public String getBeanName() {

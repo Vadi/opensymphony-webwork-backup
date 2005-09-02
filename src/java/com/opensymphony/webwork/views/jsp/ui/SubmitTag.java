@@ -4,16 +4,15 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.Submit;
-import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Matt Ho <a href="mailto:matt@indigoegg.com">&lt;matt@indigoegg.com&gt;</a>
- * @version $Id$
+ * @see Submit
  */
 public class SubmitTag extends AbstractUITag {
     protected String align;
@@ -22,18 +21,18 @@ public class SubmitTag extends AbstractUITag {
     protected String notifyTopics;
     protected String listenTopics;
 
-    public UIBean getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Submit(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        ((Submit) bean).setAlign(align);
-        ((Submit) bean).setResultDivId(resultDivId);
-        ((Submit) bean).setOnLoadJS(onLoadJS);
-        ((Submit) bean).setNotifyTopics(notifyTopics);
-        ((Submit) bean).setListenTopics(listenTopics);
+        ((Submit) component).setAlign(align);
+        ((Submit) component).setResultDivId(resultDivId);
+        ((Submit) component).setOnLoadJS(onLoadJS);
+        ((Submit) component).setNotifyTopics(notifyTopics);
+        ((Submit) component).setListenTopics(listenTopics);
     }
 
     public void setAlign(String align) {

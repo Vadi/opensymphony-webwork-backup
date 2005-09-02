@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 18, 2005
- * Time: 8:00:08 PM
+ * @see TextField
  */
 public class TextFieldModel extends TagModel {
     public TextFieldModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

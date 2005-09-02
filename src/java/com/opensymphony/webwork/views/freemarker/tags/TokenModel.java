@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Aug 1, 2005
- * Time: 8:48:55 PM
+ * @see Token
  */
 public class TokenModel extends TagModel {
     public TokenModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {

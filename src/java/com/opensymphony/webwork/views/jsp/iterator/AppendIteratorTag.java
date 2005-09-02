@@ -18,10 +18,6 @@ import javax.servlet.jsp.tagext.Tag;
  * @version $Revision$
  */
 public class AppendIteratorTag extends ActionTag {
-    //~ Methods ////////////////////////////////////////////////////////////////
-
-    // Attributes ----------------------------------------------------
-    // Constructor ---------------------------------------------------
     public void setParent(Tag t) {
         super.setParent(t);
         setName("'" + AppendIteratorFilter.class.getName() + "'");

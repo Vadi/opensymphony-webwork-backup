@@ -4,8 +4,6 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
-import com.opensymphony.webwork.views.jsp.ParamTag;
-
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +17,7 @@ import java.util.Map;
  * Date: May 31, 2003
  * Time: 10:21:36 AM
  */
-public class MockTag extends BodyTagSupport implements ParamTag.Parametric {
+public class MockTag extends BodyTagSupport {
     //~ Static fields/initializers /////////////////////////////////////////////
 
     private static String s;
