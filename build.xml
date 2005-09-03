@@ -100,25 +100,34 @@
 
     <!-- other targets -->
 
-    <target name='dojo-profile'>
-        <ant dir="../dojo/buildscripts" target="release" inheritall="false">
-            <property name="docless" value="true"/>
-            <property name="nostrip" value="true"/>
-            <property name="profileFile" value="../../webwork/dojo.profile.js"/>
-        </ant>
+<!--
+	Cameron Braid : Disabled at the moment
+	
+	<target name='dojo-profile'>
+		<property name="dojo.dir" value='../dojo'/>
+		<ant dir="${dojo.dir}/buildscripts" target="release" inheritall="false">
+			<property name="docless" value="true"/>
+			<property name="nostrip" value="true"/>
+			<property name="profileFile" value="${basedir}/dojo.profile.js"/>
+		</ant>
 
-        <sync todir="${src.java}/com/opensymphony/webwork/static/dojo/src" includeEmptyDirs="no" verbose="yes">
-            <fileset dir="../dojo/release/dojo/src">
-                <exclude name="**/*.js"/>
-                <exclude name="Makefile"/>
-                <exclude name="README.TXT"/>
-            </fileset>
-        </sync>
+		<sync todir="${src.java}/com/opensymphony/webwork/static/dojo/src" includeEmptyDirs="no" verbose="yes">
+			<fileset dir="${dojo.dir}/release/dojo/src">
+				<exclude name="**/*.js"/>
+				<exclude name="api/**"/>
+				<exclude name="tests/**"/>
+				<exclude name="Makefile"/>
+				<exclude name="README.TXT"/>
+			</fileset>
+		</sync>
 
-        <copy todir="${src.java}/com/opensymphony/webwork/static/dojo" preservelastmodified="true">
-            <fileset dir="../dojo/release/dojo">
-                <exclude name="src/**"/>
-            </fileset>
-        </copy>
-    </target>
+		<copy todir="${src.java}/com/opensymphony/webwork/static/dojo" preservelastmodified="true">
+			<fileset dir="${dojo.dir}/release/dojo">
+				<exclude name="src/**"/>
+				<exclude name="api/**"/>
+				<exclude name="tests/**"/>
+			</fileset>
+		</copy>
+	</target>
+-->
 </project>
