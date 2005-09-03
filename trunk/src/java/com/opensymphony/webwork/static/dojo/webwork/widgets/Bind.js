@@ -90,6 +90,7 @@ webwork.widgets.HTMLBind = function() {
     }
     
     this.bind = function() {
+
 		var args = {
 			load: self.load,
 			error: self.error,

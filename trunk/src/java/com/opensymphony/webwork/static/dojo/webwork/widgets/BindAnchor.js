@@ -44,7 +44,8 @@ webwork.widgets.HTMLBindAnchor = function() {
 			srcObj: self.anchor,
 			srcFunc: "onclick",
 			adviceObj: self,
-			adviceFunc: "bind"
+			adviceFunc: "bind",
+			adviceType: 'before'
 		});
 		
 		webwork.Util.passThroughWidgetTagContent(self, frag, self.anchor);
