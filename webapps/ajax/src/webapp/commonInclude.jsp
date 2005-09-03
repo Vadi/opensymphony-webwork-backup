@@ -9,16 +9,16 @@
 </script>
 
 <script language="JavaScript" type="text/javascript"
-        src="<ww:url includeParams="none" value="/webwork/dojo/__package__.js" />"></script>
+        src="<ww:url includeParams="none" value="/webwork/dojo/dojo.js" />"></script>
 <script language="JavaScript" type="text/javascript"
         src="<ww:url includeParams="none" value="/webwork/CommonFunctions.js" />"></script>
 
 <script language="JavaScript" type="text/javascript">
-    dojo.hostenv.loadModule("dojo.io.BrowserIO");
-    dojo.hostenv.loadModule("dojo.event.topic");
-    dojo.hostenv.loadModule("webwork.widgets.Bind");
-    dojo.hostenv.loadModule("webwork.widgets.BindDiv");
-    dojo.hostenv.loadModule("webwork.widgets.BindButton");
-    dojo.hostenv.loadModule("webwork.widgets.BindAnchor");
+    dojo.require("dojo.io.BrowserIO");
+    dojo.require("dojo.event.topic");
+    dojo.require("webwork.widgets.Bind");
+    dojo.require("webwork.widgets.BindDiv");
+    dojo.require("webwork.widgets.BindButton");
+    dojo.require("webwork.widgets.BindAnchor");
 </script>
 <!--// END SNIPPET: common-include-->
