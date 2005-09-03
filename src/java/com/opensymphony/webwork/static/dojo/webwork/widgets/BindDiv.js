@@ -1,21 +1,18 @@
-dojo.hostenv.startPackage("webwork.widgets.BindDiv");
-dojo.hostenv.startPackage("webwork.widgets.HTMLBindDiv");
+dojo.provide("webwork.widgets.BindDiv");
+dojo.provide("webwork.widgets.HTMLBindDiv");
 
-dojo.hostenv.loadModule("dojo.io.*");
+dojo.require("dojo.io.*");
 
-dojo.hostenv.loadModule("dojo.event.*");
+dojo.require("dojo.event.*");
 
-dojo.hostenv.loadModule("dojo.xml.Parse");
-dojo.hostenv.loadModule("dojo.webui.widgets.Parse");
-dojo.hostenv.loadModule("dojo.webui.Widget");
-dojo.hostenv.loadModule("dojo.webui.DomWidget");
-dojo.hostenv.loadModule("dojo.webui.WidgetManager");
+dojo.require("dojo.xml.Parse");
+dojo.require("dojo.widget.*");
 
-dojo.hostenv.loadModule("dojo.animation.*");
-dojo.hostenv.loadModule("dojo.math.*");
+dojo.require("dojo.animation.*");
+dojo.require("dojo.math.*");
 
-dojo.hostenv.loadModule("webwork.Util");
-dojo.hostenv.loadModule("webwork.widgets.Bind");
+dojo.require("webwork.Util");
+dojo.require("webwork.widgets.Bind");
 
 /*
  * Component to do remote updating of a DOM tree.
@@ -23,20 +20,20 @@ dojo.hostenv.loadModule("webwork.widgets.Bind");
 
 webwork.widgets.HTMLBindDiv = function() {
 
-	dojo.webui.DomWidget.call(this);
-	dojo.webui.HTMLWidget.call(this);
+	// inheritance
+    // see: http://www.cs.rit.edu/~atk/JavaScript/manuals/jsobj/
 	webwork.widgets.HTMLBind.call(this);
 
-	this.callback = webwork.Util.makeGlobalCallback(this);
-
 	var self = this;
-
+	this.widgetType = "BindDiv";
 	this.templatePath = "webwork/widgets/BindDiv.html";
 
-	this.isContainer = false;
-	this.widgetType = "BindDiv";
-	
-	// default properties
+	// register a global object to use for window.setTimeout callbacks
+	this.callback = webwork.Util.makeGlobalCallback(this);
+
+	//
+	// default properties that can be provided by the widget user
+	//
 
 	// html to display while loading remote content
     this.loadingHtml = "";
@@ -46,26 +43,28 @@ webwork.widgets.HTMLBindDiv = function() {
 	
 	// how often to update the content from the server, after the initial delay
 	this.refresh = 0;
-		
+
+	// does the timeout loop start automatically ?
+	this.autoStart = true;
+
 	// dom node in the template that will contain the remote content
 	this.contentDiv = null;
 	
-	this.bindAfterTimeout = function(millis) {
-		webwork.Util.setTimeout(self.callback, "doBindAfterTimeout", millis);
+	this._nextTimeout = function(millis) {
+		webwork.Util.setTimeout(self.callback, "afterTimeout", millis);
 	}
 
 	var super_fillInTemplate = this.fillInTemplate;
 	this.fillInTemplate = function(args, frag) {
+		super_fillInTemplate(args, frag);
 
 		if (self.id == "") { 
 			self.contentDiv.id = webwork.Util.nextId();		
 		}else {
 			self.contentDiv.id = self.id;
 		}
-		
-		self.targetDiv = self.contentDiv.id;
 
-		super_fillInTemplate();
+		self.targetDiv = self.contentDiv.id;
 		
 		webwork.Util.passThroughArgs(self.extraArgs, self.contentDiv);
 		webwork.Util.passThroughWidgetTagContent(self, frag, self.contentDiv);
@@ -79,7 +78,9 @@ webwork.widgets.HTMLBindDiv = function() {
 			adviceFunc: "loading"
 		});
 
-		self.start();
+		if (self.autoStart) {
+			self.start();
+		}
 
 	}
 	
@@ -93,17 +94,21 @@ webwork.widgets.HTMLBindDiv = function() {
 	}
 	
     this.loading = function() {
-        if( self.loadingHtml != "" ) self.contentDiv.innerHTML = self.loadingHtml;
+        if( self.loadingHtml != "" ) {
+        	self.contentDiv.innerHTML = self.loadingHtml;
+        }
 	}
 
-	var connected = false;
-	
-	this.doBindAfterTimeout = function() {
+	this.afterTimeout = function() {
 		if (running) {
-			// setup the next timeout
-			if (self.refresh > 0) self.bindAfterTimeout(self.refresh);
+		
 			// do the bind
 			self.bind();
+			
+			// setup the next timeout
+			if (self.refresh > 0) {
+				self._nextTimeout(self.refresh);
+			}
 		}
 	}
 
@@ -119,14 +124,16 @@ webwork.widgets.HTMLBindDiv = function() {
 		if (running) return;
 		running = true;
 		
-		if (self.delay > 0)
-			self.bindAfterTimeout(self.delay);
-
+		if (self.delay > 0) {
+			self._nextTimeout(self.delay);
+		}
 	}
 
 }
 dj_inherits(webwork.widgets.HTMLBindDiv, webwork.widgets.HTMLBind);
-dojo.webui.widgets.tags.addParseTreeHandler("dojo:BindDiv");
 
-// TODO needs to be placed into a package include
-dojo.webui.widgetManager.registerWidgetPackage('webwork.widgets');
+// make it a tag
+dojo.widget.tags.addParseTreeHandler("dojo:BindDiv");
+
+// HACK - register this module as a widget package - to be replaced when dojo implements a propper widget namspace manager
+dojo.widget.manager.registerWidgetPackage('webwork.widgets');

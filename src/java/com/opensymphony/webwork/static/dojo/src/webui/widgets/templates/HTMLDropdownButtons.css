@@ -1,54 +1,65 @@
-.btn:focus {
-	color : #333;
-}
-
 ul.dropdownButtons {
-	font-size : 90%;
-	position : relatlive;
-}
-
-ul.dropdownButtons, ul.dropdownButtons ul {
-	float : left;
-	list-style-type : none;
-	margin-left : 0;
-	padding-left : 0;
+	margin : 0;
+	padding : 5px 0;
 }
 
 ul.dropdownButtons li {
-	position : relative;
-	float : left;
+	display : inline;
 	margin-right : 5px;
+	padding : 2px 0;
 }
 
 ul.dropdownButtons li a {
-	display : block;
-	float : left;
 	padding : 2px 9px;
-	border : 2px outset #999;
-	_border-color : #ccc;
+	border : 2px outset #ccc;
 	border-right-width : 1px;
-	background : #ddd;
+	background : #f4f4f4;
+	color : #333;
 	text-decoration : none;
-	color : black;
 }
 
-ul.dropdownButtons li div.downArrow {
+ul.dropdownButtons li ul {
+	display : none;
+}
+
+ul.dropdownButtons li a.disabled {
+	color : #999;
+	cursor : default;
+}
+
+ul.dropdownButtons li .downArrow {
+	display : inline;
 	padding : 2px 4px;
-	border : 2px outset #999;
-	_border-color : #ccc;
-	float : left;
+	border : 2px outset #ccc;
 	border-left : 0;
-	background : #ddd url(dropdownButtonsArrow.gif) no-repeat 4px 9px;
+	background : #f4f4f4 url(dropdownButtonsArrow.gif) no-repeat 4px 9px;
 	text-decoration : none;
 	color : black;
 	cursor : pointer;
 	_cursor : hand;
 }
 
+ul.dropdownButtons li .downArrow.disabled {
+	background-image : url(dropdownButtonsArrow-disabled.gif);
+	cursor : default;
+}
+
 ul.dropdownButtons li a:hover,
-ul.dropdownButtons li div.downArrow:hover {
-	color : #333;
-	background-color : #eee;
+ul.dropdownButtons li span.downArrow:hover {
+	color : black;
+	background-color : #ddd;
+}
+
+ul.dropdownButtons li .downArrow.pressed, ul.dropdownButtons li .downArrow:focus {
+	border-style : inset;
+	background-position : 5px 10px;
+	padding : 2px 4px;
+}
+
+ul.dropdownButtons li a.disabled:hover,
+ul.dropdownButtons li span.downArrow.disabled:hover {
+	color : #999;
+	background-color : #f4f4f4;
 }
 
 ul.dropdownButtons li a:focus {
@@ -57,31 +68,33 @@ ul.dropdownButtons li a:focus {
 	border-style : inset;
 }
 
-ul.dropdownButtons li ul {
+/* Menu
+ ******************** */
+ul.dropdownButtonsMenu {
 	position : absolute;
-	left : 0;
-	display : none;
-	xwidth : 150px;
-	padding : 0;
-	border : 1px solid #999;
-	background : #ddd;
-}
-
-ul.dropdownButtons li li {
-	float : none;
 	margin : 0;
+	_margin : -2px;
+	padding : 0;
+	display : none;
+	border : 1px solid #aaa;
+	background : #f4f4f4;
+	list-style : none;
+	z-index : 99;
 }
 
-ul.dropdownButtons li li a {
-	float : none;
-	padding : 2px 4px;
-	border : 0;
-	background : inherit;
+ul.dropdownButtonsMenu li {
+	_display : inline;
+}
+
+ul.dropdownButtonsMenu a {
 	display : block;
-	_width : 100%;
+	padding : 2px 5px;
+	color : #333;
+	text-decoration : none;
 }
 
-ul.dropdownButtons li li a:hover,
-ul.dropdownButtons li li a:focus {
-	padding : 2px 4px;
+ul.dropdownButtonsMenu a:hover {
+	background : #ddd;
+	color : black;
 }
+

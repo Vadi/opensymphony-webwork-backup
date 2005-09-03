@@ -1,17 +1,14 @@
-dojo.hostenv.startPackage("webwork.widgets.DynArchCalendar");
-dojo.hostenv.startPackage("webwork.widgets.HTMLDynArchCalendar");
+dojo.provide("webwork.widgets.DynArchCalendar");
+dojo.provide("webwork.widgets.HTMLDynArchCalendar");
 
-dojo.hostenv.loadModule("dojo.io.*");
+dojo.require("dojo.io.*");
 
-dojo.hostenv.loadModule("dojo.event.*");
+dojo.require("dojo.event.*");
 
-dojo.hostenv.loadModule("dojo.xml.Parse");
-dojo.hostenv.loadModule("dojo.webui.widgets.Parse");
-dojo.hostenv.loadModule("dojo.webui.Widget");
-dojo.hostenv.loadModule("dojo.webui.DomWidget");
-dojo.hostenv.loadModule("dojo.webui.WidgetManager");
+dojo.require("dojo.xml.Parse");
+dojo.require("dojo.widget.*");
 
-dojo.hostenv.loadModule("webwork.Util");
+dojo.require("webwork.Util");
 
 /*
  * Component to do remote updating of a DOM tree.
@@ -19,8 +16,8 @@ dojo.hostenv.loadModule("webwork.Util");
 
 webwork.widgets.HTMLDynArchCalendar = function() {
 
-	dojo.webui.DomWidget.call(this);
-	dojo.webui.HTMLWidget.call(this);
+	dojo.widget.DomWidget.call(this);
+	dojo.widget.HTMLWidget.call(this);
 
 	var self = this;
 
@@ -145,11 +142,11 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 	
 }
 
-// is this needed as well as dojo.webui.Widget.call(this);
-dj_inherits(webwork.widgets.HTMLDynArchCalendar, dojo.webui.DomWidget);
+// is this needed as well as dojo.widget.Widget.call(this);
+dj_inherits(webwork.widgets.HTMLDynArchCalendar, dojo.widget.DomWidget);
 
-// allow the markup parser to construct these widgets
-dojo.webui.widgets.tags.addParseTreeHandler("dojo:dynarchcalendar");
+// make it a tag
+dojo.widget.tags.addParseTreeHandler("dojo:dynarchcalendar");
 
-// register this widget constructor with the widget manager
-dojo.webui.widgetManager.registerWidgetPackage('webwork.widgets');
+// HACK - register this module as a widget package - to be replaced when dojo implements a propper widget namspace manager
+dojo.widget.manager.registerWidgetPackage('webwork.widgets');

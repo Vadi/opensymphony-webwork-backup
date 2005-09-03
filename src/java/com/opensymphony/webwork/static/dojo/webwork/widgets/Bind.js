@@ -1,36 +1,31 @@
-dojo.hostenv.startPackage("webwork.widgets.Bind");
-dojo.hostenv.startPackage("webwork.widgets.HTMLBind");
+dojo.provide("webwork.widgets.Bind");
+dojo.provide("webwork.widgets.HTMLBind");
 
-dojo.hostenv.loadModule("dojo.io.*");
+dojo.require("dojo.io.*");
 
-dojo.hostenv.loadModule("dojo.event.*");
+dojo.require("dojo.event.*");
 
-dojo.hostenv.loadModule("dojo.xml.Parse");
-dojo.hostenv.loadModule("dojo.webui.widgets.Parse");
-dojo.hostenv.loadModule("dojo.webui.Widget");
-dojo.hostenv.loadModule("dojo.webui.DomWidget");
-dojo.hostenv.loadModule("dojo.webui.WidgetManager");
+dojo.require("dojo.xml.Parse");
+dojo.require("dojo.widget.*");
 
-dojo.hostenv.loadModule("webwork.Util");
+dojo.require("webwork.Util");
 
 /*
  * 
  */
 
-webwork.widgets.Bind = function() {
+webwork.widgets.HTMLBind = function() {
+
+	// inheritance
+    // see: http://www.cs.rit.edu/~atk/JavaScript/manuals/jsobj/
+	dojo.widget.HtmlWidget.call(this);
 
 	var self = this;
+	this.widgetType = "Bind";
+	this.templatePath = "webwork/widgets/Bind.html";
 
 	// the name of the global javascript variable to associate with this widget instance
 	this.id = "";
-
-
-	/**
-	 * Bind Operation Inputs
-	 *
-	 * formId or href or urlScript must be supplied
-	 *	 
-	 */
 
 	// the id of the form object to bind to
 	this.formId = "";
@@ -38,8 +33,8 @@ webwork.widgets.Bind = function() {
 	// the url to bind to
 	this.href = "";
 	
-	// javascript code to provide the url
-	this.getUrl = ""
+	// javascript code to provide the href - will be evaluated each time before the data is loaded
+	this.getHref = ""
 	
 	// topics that will be notified with a "notify" message when the bind operation has completed successfully
 	this.notifyTopics = "";
@@ -69,7 +64,7 @@ webwork.widgets.Bind = function() {
 	// if true, we set the bind mimetype to text/javascript to cause dojo to eval the result
 	this.evalResult = false;
 	
-	// does the bind call use the client side cache
+	// does the bind call use the client side cache - NOTE : doesn't seem to make IE not use the cache :(
 	this.useCache = false;
 	
 	var trim = function(a) {
@@ -102,20 +97,21 @@ webwork.widgets.Bind = function() {
 		};
 
 		// the formId can either be a id or a form refrence
-		if (self.formId != "")
+		if (self.formId != "") {
 			if (typeof formId == "object") {
 				args.formNode = self.formId;
 			}else{
 				args.formNode = document.getElementById(self.formId);
 			}
+		}
 			
 		
-		if (self.href != "")
+		if (self.href != "") {
 			args.url = this.href;
-
-		// havn't tested this yet
-		if (self.getUrl != "")
-			args.url = eval(this.getUrl);
+		}
+		if (self.getHref != "") {
+			args.url = eval(this.getHref);
+		}
 
 		if (self.evalResult) {
 			args.mimetype = "text/javascript";
@@ -130,14 +126,16 @@ webwork.widgets.Bind = function() {
 			var div = document.getElementById(self.targetDiv);
 			if (div) {
 				var d = webwork.Util.nextId();
+
+				// IE seems to have major issues with setting div.innerHTML in this thread !!
+				window.setTimeout(function() { div.innerHTML = data; }, 0);
+
 				dj_debug("received html <a onclick=\"var e = document.getElementById('" + d + "'); e.style.display = (e.style.display=='none')?'block':'none';return false;\" href='#'>showHide</a><textarea style='display:none; width:98%;height:200px' id='" + d + "'>" + data + "</textarea>");
-				div.innerHTML = data;
 				// create widget components from the received html
 				try{
-					var parser = new dojo.xml.Parse();
-					var frag  = parser.parseElement(div, null, true);
-					var fragParser = new dojo.webui.widgets.Parse(frag);
-					fragParser.createComponents(frag);
+					var xmlParser = new dojo.xml.Parse();
+					var frag  = xmlParser.parseElement(div, null, true);
+					dojo.widget.getParser().createComponents(frag);
 				}catch(e){
 					dj_debug("auto-build-widgets error: "+e);
 				}
@@ -170,21 +168,13 @@ webwork.widgets.Bind = function() {
 
 }
 
-webwork.widgets.HTMLBind = function() {
-	dojo.webui.DomWidget.call(this);
-	dojo.webui.HTMLWidget.call(this);
-	webwork.widgets.Bind.call(this);
+webwork.widgets.HTMLBind = webwork.widgets.HTMLBind;
 
-	var self = this;
-	this.isContainer = false;
-	this.widgetType = "Bind";
-	this.templatePath = "webwork/widgets/Bind.html";
+// complete the inheritance process
+dj_inherits(webwork.widgets.HTMLBind, dojo.widget.HtmlWidget);
 
-}
+// make it a tag
+dojo.widget.tags.addParseTreeHandler("dojo:bind");
 
-dj_inherits(webwork.widgets.Bind, dojo.webui.DomWidget);
-dj_inherits(webwork.widgets.HTMLBind, webwork.widgets.Bind);
-dojo.webui.widgets.tags.addParseTreeHandler("dojo:bind");
-
-// TODO needs to be placed into a package include
-dojo.webui.widgetManager.registerWidgetPackage('webwork.widgets');
+// HACK - register this module as a widget package - to be replaced when dojo implements a propper widget namspace manager
+dojo.widget.manager.registerWidgetPackage('webwork.widgets');
