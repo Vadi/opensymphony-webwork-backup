@@ -2,11 +2,9 @@ dojo.provide("webwork.widgets.BindAnchor");
 dojo.provide("webwork.widgets.HTMLBindAnchor");
 
 dojo.require("dojo.io.*");
-
 dojo.require("dojo.event.*");
-
-dojo.require("dojo.xml.Parse");
 dojo.require("dojo.widget.*");
+dojo.require("dojo.xml.Parse");
 
 dojo.require("webwork.Util");
 dojo.require("webwork.widgets.HTMLBind");
@@ -20,7 +18,6 @@ webwork.widgets.HTMLBindAnchor = function() {
 	// inheritance
     // see: http://www.cs.rit.edu/~atk/JavaScript/manuals/jsobj/
 	webwork.widgets.HTMLBind.call(this);
-
 	var self = this;
 
 	this.widgetType = "BindAnchor";
