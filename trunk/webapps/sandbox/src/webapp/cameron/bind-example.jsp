@@ -26,7 +26,11 @@
 	</head>
 	
 	<body>
-
+		
+		<a href='javascript:dojo.event.topic.publish("allWidgets", "")'>send event to allWidgets</a>
+		
+		<hr/>
+	
 		<div dojoType='BindDiv'
 			id='rd1'
 			href="data/date.jsp?sleep=1000" 
@@ -43,6 +47,8 @@
 		<a href='javascript:rd1.start()'>start</a>
 		<a href='javascript:rd1.stop()'>stop</a>
 
+		<hr/>
+		
 		<div dojoType='BindDiv'
 			id='rd2'
 			getHref="'data/date.jsp?sleep=2000&__date__=' + new Date().getTime()" 
@@ -55,6 +61,20 @@
 			>
 			<b>initial content</b>
 		</div>
-		<a href='javascript:dojo.event.topic.publish("allWidgets", "")'>send event to allWidgets</a>
+		
+		<hr/>
+		
+		<a id='anchor' dojoType='bindanchor' href='data/date.jsp' targetDiv='anchor' listenTopics='allWidgets'>
+			click me to see the current server datetime
+		</a>				
+
+		<hr/>
+		
+		<a dojoType='bindanchor' href='data/alert.js' evalResult='true' listenTopics='allWidgets'>
+			click me to eval some server side javascript
+		</a>				
+
+		<hr/>
+
 	</body>
 </html>
