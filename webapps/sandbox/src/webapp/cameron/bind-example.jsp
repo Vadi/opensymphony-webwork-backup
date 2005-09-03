@@ -14,6 +14,7 @@
 			dojo.require("webwork.widgets.BindDiv");
 			dojo.require("webwork.widgets.BindButton");
 			dojo.require("webwork.widgets.BindAnchor");
+			dojo.require("webwork.widgets.ToggleBindDiv");
 		</script>
 		
 		<style>
@@ -54,9 +55,8 @@
 			loadingHtml='Loading...'
 			delay='0'
 			refresh='0' 
-			style='border: 1px solid red; display:none;'
+			style='border: 1px solid red;'
 			listenTopics='allWidgets'
-			toggle='true'
 			>
 			<b>initial content</b>
 		</div>
@@ -72,6 +72,48 @@
 		<a dojoType='bindanchor' href='data/alert.js' evalResult='true' listenTopics='allWidgets'>
 			click me to eval some server side javascript
 		</a>				
+
+		<hr/>
+
+		<h2>Togglable div</h2>		
+		<p>
+			<ul>
+				<li>will display below here, when toggled
+				<li>initially hidden
+				<li><a href="javascript:dojo.event.topic.publish('toggles', '')">toggle</a>
+			</ul>
+		</p>
+		<div dojoType='BindDiv'
+			id='toggle1'
+			getHref="'data/date.jsp?sleep=2000&__date__=' + new Date().getTime()" 
+			loadingHtml='Loading...'
+			style='border: 1px solid red; display:none;'
+			listenTopics='toggles,allWidgets'
+			toggle='true'
+			>
+			<b>initial content</b>
+		</div>
+
+		<hr/>
+
+		<h2>Togglable div (using subclass - an example for Pat)</h2>		
+		<p>
+			<ul>
+				<li>will display below here, when toggled
+				<li>initially hidden
+				<li><a href="javascript:dojo.event.topic.publish('toggles', '')">toggle</a>
+			</ul>
+		</p>
+		<div dojoType='ToggleBindDiv'
+			id='toggle2'
+			getHref="'data/date.jsp?sleep=2000&__date__=' + new Date().getTime()" 
+			loadingHtml='Loading...'
+			style='border: 1px solid red; display:none;'
+			listenTopics='toggles,allWidgets'
+			toggle2='true'
+			>
+			<b>initial content</b>
+		</div>
 
 		<hr/>
 
