@@ -23,10 +23,8 @@ webwork.widgets.HTMLBindAnchor = function() {
 
 	var self = this;
 
-	this.templatePath = "webwork/widgets/BindAnchor.html";
-
-	this.isContainer = false;
 	this.widgetType = "BindAnchor";
+	this.templatePath = dojo.uri.dojoUri("webwork/widgets/BindAnchor.html");
 
 	// the template anchor instance
 	this.anthor = null;
@@ -35,8 +33,12 @@ webwork.widgets.HTMLBindAnchor = function() {
 	this.fillInTemplate = function(args, frag) {
 		super_fillInTemplate(args, frag);
 
+		if (self.id) {
+			self.anchor.id = self.id;
+		}
+		
 		webwork.Util.passThroughArgs(self.extraArgs, self.anchor);
-		self.anchor.href = "javascript:";
+		self.anchor.href = "javascript:{}";
 
 		dojo.event.kwConnect({
 			srcObj: self.anchor,
