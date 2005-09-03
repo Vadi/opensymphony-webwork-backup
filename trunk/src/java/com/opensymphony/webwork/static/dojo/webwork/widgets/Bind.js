@@ -2,11 +2,9 @@ dojo.provide("webwork.widgets.Bind");
 dojo.provide("webwork.widgets.HTMLBind");
 
 dojo.require("dojo.io.*");
-
 dojo.require("dojo.event.*");
-
-dojo.require("dojo.xml.Parse");
 dojo.require("dojo.widget.*");
+dojo.require("dojo.xml.Parse");
 
 dojo.require("webwork.Util");
 
@@ -19,10 +17,11 @@ webwork.widgets.HTMLBind = function() {
 	// inheritance
     // see: http://www.cs.rit.edu/~atk/JavaScript/manuals/jsobj/
 	dojo.widget.HtmlWidget.call(this);
-
 	var self = this;
+
 	this.widgetType = "Bind";
 	this.templatePath = dojo.uri.dojoUri("webwork/widgets/Bind.html");
+
 
 	// the name of the global javascript variable to associate with this widget instance
 	this.id = "";

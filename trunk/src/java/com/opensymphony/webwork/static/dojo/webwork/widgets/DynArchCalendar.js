@@ -19,12 +19,11 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 	dojo.widget.DomWidget.call(this);
 	dojo.widget.HTMLWidget.call(this);
 
-	var self = this;
 
 	this.templatePath = "webwork/widgets/DynArchCalendar.html";
-
-	this.isContainer = false;
 	this.widgetType = "DynArchCalendar";
+
+	var self = this;
 	
 	// default properties
 	

@@ -2,17 +2,12 @@ dojo.provide("webwork.widgets.BindDiv");
 dojo.provide("webwork.widgets.HTMLBindDiv");
 
 dojo.require("dojo.io.*");
-
 dojo.require("dojo.event.*");
-
-dojo.require("dojo.xml.Parse");
 dojo.require("dojo.widget.*");
-
-dojo.require("dojo.animation.*");
-dojo.require("dojo.math.*");
+dojo.require("dojo.xml.Parse");
 
 dojo.require("webwork.Util");
-dojo.require("webwork.widgets.Bind");
+dojo.require("webwork.widgets.HTMLBind");
 
 /*
  * Component to do remote updating of a DOM tree.
@@ -23,10 +18,11 @@ webwork.widgets.HTMLBindDiv = function() {
 	// inheritance
     // see: http://www.cs.rit.edu/~atk/JavaScript/manuals/jsobj/
 	webwork.widgets.HTMLBind.call(this);
-
 	var self = this;
+
 	this.widgetType = "BindDiv";
 	this.templatePath = dojo.uri.dojoUri("webwork/widgets/BindDiv.html");
+
 
 	// register a global object to use for window.setTimeout callbacks
 	this.callback = webwork.Util.makeGlobalCallback(this);
@@ -51,6 +47,7 @@ webwork.widgets.HTMLBindDiv = function() {
 	this.contentDiv = null;
 
 	// support a toggelable div - each listenEvent will trigger a change in the display state
+	// the bind call will only happen when the remote div is displayed
 	this.toggle = false;
 		
 	this._nextTimeout = function(millis) {

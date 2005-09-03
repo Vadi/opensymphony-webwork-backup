@@ -1,11 +1,9 @@
 dojo.provide("webwork.widgets.BindButton");
 
 dojo.require("dojo.io.*");
-
 dojo.require("dojo.event.*");
-
-dojo.require("dojo.xml.Parse");
 dojo.require("dojo.widget.*");
+dojo.require("dojo.xml.Parse");
 
 dojo.require("webwork.Util");
 dojo.require("webwork.widgets.HTMLBind");
@@ -19,13 +17,10 @@ webwork.widgets.HTMLBindButton = function() {
 	// inheritance
     // see: http://www.cs.rit.edu/~atk/JavaScript/manuals/jsobj/
 	webwork.widgets.HTMLBind.call(this);
-
 	var self = this;
 
-	this.templatePath = dojo.uri.dojoUri("webwork/widgets/BindButton.html");
-
-	this.isContainer = false;
 	this.widgetType = "BindButton";
+	this.templatePath = dojo.uri.dojoUri("webwork/widgets/BindButton.html");
 	
 	// the type of the input button - can be image
 	this.type = "submit";
