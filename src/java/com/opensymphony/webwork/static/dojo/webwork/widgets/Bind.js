@@ -22,7 +22,7 @@ webwork.widgets.HTMLBind = function() {
 
 	var self = this;
 	this.widgetType = "Bind";
-	this.templatePath = "webwork/widgets/Bind.html";
+	this.templatePath = dojo.uri.dojoUri("webwork/widgets/Bind.html");
 
 	// the name of the global javascript variable to associate with this widget instance
 	this.id = "";
@@ -48,7 +48,7 @@ webwork.widgets.HTMLBind = function() {
 	/**
 	 * Bind Operation Outputs
 	 *
-	 * if eval = true the result will be eval'ed by bind (internally the content type will be set to etxt/javascript
+	 * if evalResult = true the result will be eval'ed by bind (internally the content type will be set to etxt/javascript
 	 * otherwise targetDiv and onLoad may both be specified, targetDiv will be filled first
 	 */
 
@@ -121,7 +121,7 @@ webwork.widgets.HTMLBind = function() {
     }
     
     this.load = function(type, data) {
-		    
+
     	if (self.targetDiv != "") {
 			var div = document.getElementById(self.targetDiv);
 			if (div) {
