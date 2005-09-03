@@ -21,20 +21,20 @@
         };
     </script>
 
-    <script language="JavaScript" type="text/javascript" src="<ww:url value='/webwork/dojo/__package__.js'/>"></script>
+    <script language="JavaScript" type="text/javascript" src="<ww:url value='/webwork/dojo/dojo.js'/>"></script>
     <script language="JavaScript" type="text/javascript" src="<ww:url value='/js/nifty.js'/>"></script>
     <script language="JavaScript" type="text/javascript" src="<ww:url value='/js/dtree.js'/>"></script>
 
     <script language="JavaScript" type="text/javascript">
-        dojo.hostenv.loadModule("dojo.io.BrowserIO");
-        dojo.hostenv.loadModule("dojo.event.Topic");
+        dojo.require("dojo.io.BrowserIO");
+        dojo.require("dojo.event.Topic");
 
-        dojo.hostenv.loadModule("webwork.widgets.Bind");
-        dojo.hostenv.loadModule("webwork.widgets.BindDiv");
-        dojo.hostenv.loadModule("webwork.widgets.BindButton");
-        dojo.hostenv.loadModule("webwork.widgets.BindAnchor");
+        dojo.require("webwork.widgets.Bind");
+        dojo.require("webwork.widgets.BindDiv");
+        dojo.require("webwork.widgets.BindButton");
+        dojo.require("webwork.widgets.BindAnchor");
 
-        dojo.event.connect(window, "onload", function() {
+        window.onload = function() {
             if (!NiftyCheck())
                 return;
             //            Rounded("blockquote","tr bl","#ECF1F9","#CDFFAA","smooth border #88D84F");
@@ -43,7 +43,7 @@
             Rounded("div#categories", "tl br", "white", "#f0e68c", "smooth border #daa520");
             Rounded("div#cart", "tl br", "white", "#ffdab9", "smooth border #8b0000");
             //            Rounded("div.productDetails","tr bl","#ECF1F9","#CDFFAA","smooth border #88D84F");
-        });
+        };
 
     </script>
     <decorator:head/>
