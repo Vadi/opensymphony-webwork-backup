@@ -49,7 +49,10 @@ webwork.widgets.HTMLBindDiv = function() {
 
 	// dom node in the template that will contain the remote content
 	this.contentDiv = null;
-	
+
+	// support a toggelable div - each listenEvent will trigger a change in the display state
+	this.toggle = false;
+		
 	this._nextTimeout = function(millis) {
 		webwork.Util.setTimeout(self.callback, "afterTimeout", millis);
 	}
@@ -82,6 +85,24 @@ webwork.widgets.HTMLBindDiv = function() {
 			self.start();
 		}
 
+	   	if (self.toggle) {
+			dojo.event.kwConnect({
+				type: 'around',
+				srcObj: self,
+				srcFunc: "bind",
+				adviceObj: self,
+				adviceFunc: "__toggleInterceptor"
+			});
+    	}
+
+	}
+	
+	this.__toggleInterceptor = function(invocation) {
+		var hidden = self.contentDiv.style.display == 'none';
+		self.contentDiv.style.display = (hidden)?'':'none';
+		if (hidden) {
+			invocation.proceed();
+		}
 	}
 	
 	this.error = function(type, error) {

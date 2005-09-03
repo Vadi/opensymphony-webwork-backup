@@ -38,7 +38,6 @@
 			delay='1000'
 			refresh='2000' 
 			autoStart='false'
-			class='sampleBox'
 			style='border: 1px solid red;'
 			listenTopics='allWidgets'
 			>
@@ -55,9 +54,9 @@
 			loadingHtml='Loading...'
 			delay='0'
 			refresh='0' 
-			class='sampleBox'
-			style='border: 1px solid red;'
+			style='border: 1px solid red; display:none;'
 			listenTopics='allWidgets'
+			toggle='true'
 			>
 			<b>initial content</b>
 		</div>
