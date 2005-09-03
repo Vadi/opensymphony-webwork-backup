@@ -26,7 +26,7 @@ webwork.widgets.HTMLBindDiv = function() {
 
 	var self = this;
 	this.widgetType = "BindDiv";
-	this.templatePath = "webwork/widgets/BindDiv.html";
+	this.templatePath = dojo.uri.dojoUri("webwork/widgets/BindDiv.html");
 
 	// register a global object to use for window.setTimeout callbacks
 	this.callback = webwork.Util.makeGlobalCallback(this);
