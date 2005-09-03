@@ -8,6 +8,8 @@ webwork.Util.passThroughArgs = function(args, target){
 			target.style.cssText = v;
 		}else if (n == "class") {
 			target.className = v;
+		}else if (n == "dojoType") {
+		}else if (n == "dojotype") {
 		}else{
 			target[n] = v;
 		}
