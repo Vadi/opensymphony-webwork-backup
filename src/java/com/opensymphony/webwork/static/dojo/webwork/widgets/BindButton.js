@@ -22,7 +22,7 @@ webwork.widgets.HTMLBindButton = function() {
 
 	var self = this;
 
-	this.templatePath = "webwork/widgets/BindButton.html";
+	this.templatePath = dojo.uri.dojoUri("webwork/widgets/BindButton.html");
 
 	this.isContainer = false;
 	this.widgetType = "BindButton";
