@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @see TextField
  */
 public class TextFieldTag extends AbstractUITag {
-    protected String maxLength;
+    protected String maxlength;
     protected String readonly;
     protected String size;
 
@@ -27,13 +27,13 @@ public class TextFieldTag extends AbstractUITag {
         super.populateParams();
 
         TextField textField = ((TextField) component);
-        textField.setMaxLength(maxLength);
+        textField.setMaxLength(maxlength);
         textField.setReadonly(readonly);
         textField.setSize(size);
     }
 
-    public void setMaxLength(String maxLength) {
-        this.maxLength = maxLength;
+    public void setMaxlength(String maxlength) {
+        this.maxlength = maxlength;
     }
 
     public void setReadonly(String readonly) {
