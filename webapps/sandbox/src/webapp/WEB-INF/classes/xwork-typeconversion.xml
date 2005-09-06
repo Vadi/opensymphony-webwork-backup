@@ -1,0 +1,10 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.1.dtd">
+
+<xwork>
+    <package name="typeconversion" extends="webwork-default" namespace="/typeconversion">
+        <action name="test" class="com.opensymphony.webwork.sandbox.typeconversion.TypeConversionAction">
+            <result name="input" type="freemarker">test.ftl</result>
+            <result type="freemarker">test.ftl</result>
+        </action>
+    </package>
+</xwork>
