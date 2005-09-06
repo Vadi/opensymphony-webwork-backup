@@ -43,6 +43,7 @@ public class Main {
             urls.add(new File("webwork-2.2-beta-1.jar").toURL());
             // ... but it might not be (ie: we're in development in IDEA), so use this as backup
             urls.add(new File("build/java/").toURL());
+            urls.add(new File("../xwork/build/java/").toURL());
 
             // load tools.jar from JAVA_HOME
             File tools = new File(javaHome, "lib/tools.jar");
