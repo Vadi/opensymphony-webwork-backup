@@ -80,6 +80,12 @@ public class DispatcherUtils {
 
         LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
 
+        if (Configuration.isSet("webwork.devMode")) {
+            OgnlValueStack.setDevMode("true".equals(Configuration.getString("webwork.devMode")));
+            Configuration.set("webwork.i18n.reload", "true");
+            Configuration.set("webwork.configuration.xml.reload", "true");
+        }
+
         //check for configuration reloading
         if ("true".equalsIgnoreCase(Configuration.getString("webwork.configuration.xml.reload"))) {
             FileManager.setReloadingConfigs(true);
