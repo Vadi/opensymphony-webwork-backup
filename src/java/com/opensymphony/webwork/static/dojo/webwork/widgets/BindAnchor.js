@@ -24,7 +24,7 @@ webwork.widgets.HTMLBindAnchor = function() {
 	this.templatePath = dojo.uri.dojoUri("webwork/widgets/BindAnchor.html");
 
 	// the template anchor instance
-	this.anthor = null;
+	this.anchor = null;
 
 	var super_fillInTemplate = this.fillInTemplate;
 	this.fillInTemplate = function(args, frag) {
