@@ -2,6 +2,7 @@ package com.opensymphony.webwork.views.freemarker.tags;
 
 import com.opensymphony.webwork.components.Component;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import freemarker.ext.beans.CollectionModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
@@ -26,9 +27,9 @@ public abstract class TagModel implements TemplateTransformModel {
 
     public Writer getWriter(Writer writer, Map params) throws TemplateModelException, IOException {
         Component bean = getBean();
-        params = convertParams(params);
-        bean.copyParams(params);
-        //bean.addAllParameters(params);
+        Map basicParams = convertParams(params);
+        bean.copyParams(basicParams);
+        bean.addAllParameters(getComplexParams(params));
         bean.start(writer);
         return new CallbackWriter(bean, writer);
     }
@@ -39,7 +40,20 @@ public abstract class TagModel implements TemplateTransformModel {
         HashMap map = new HashMap(params.size());
         for (Iterator iterator = params.entrySet().iterator(); iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
-            map.put(entry.getKey(), entry.getValue().toString());
+            if (!(entry.getValue() instanceof CollectionModel)) {
+                map.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return map;
+    }
+
+    private Map getComplexParams(Map params) {
+        HashMap map = new HashMap(params.size());
+        for (Iterator iterator = params.entrySet().iterator(); iterator.hasNext();) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            if (entry.getValue() instanceof CollectionModel) {
+                map.put(entry.getKey(), entry.getValue());
+            }
         }
         return map;
     }
