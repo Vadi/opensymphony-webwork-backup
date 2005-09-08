@@ -67,12 +67,12 @@ public abstract class UIBean extends Component {
     public void end(Writer writer, String body) {
         evaluateParams();
         try {
+            super.end(writer, body);
             mergeTemplate(writer, buildTemplateName(template, getDefaultTemplate()));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        super.end(writer, body);
     }
 
     /**
