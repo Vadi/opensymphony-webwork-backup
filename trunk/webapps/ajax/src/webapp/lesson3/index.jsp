@@ -12,7 +12,7 @@
 <p>
     <ol>
         <li>
-            <a href="example7.jsp">Simple form</a>
+            <a href="example7.jsp">Link and DIV example</a>
         </li>
 
     </ol>
