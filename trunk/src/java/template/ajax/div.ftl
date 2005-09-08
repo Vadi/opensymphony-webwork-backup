@@ -1,4 +1,4 @@
-<div dojoType='binddiv'
+<div dojoType='BindDiv'
 	<#if parameters.id?if_exists != "">id="${parameters.id?html}"</#if>
 	<#if parameters.href?if_exists != "">href="${parameters.href}"</#if>
 	<#if parameters.loadingText?if_exists != "">loadingHtml="${parameters.loadingText?html}"</#if>
