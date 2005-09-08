@@ -7,6 +7,7 @@ import com.opensymphony.xwork.util.TextParseUtil;
 
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -48,6 +49,12 @@ public class Component {
     }
 
     public void end(Writer writer, String body) {
+        try {
+            writer.write(body);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("IOError: " + e.getMessage(), e);
+        }
         getComponentStack().pop();
     }
 
