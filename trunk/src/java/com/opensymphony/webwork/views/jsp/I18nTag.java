@@ -27,4 +27,8 @@ public class I18nTag extends ComponentTagSupport {
 
         ((I18n) component).setName(name);
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
