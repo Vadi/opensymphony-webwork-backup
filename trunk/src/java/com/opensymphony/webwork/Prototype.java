@@ -1,7 +1,6 @@
 package com.opensymphony.webwork;
 
-import org.apache.commons.jci.CompilingClassLoader;
-import org.apache.commons.jci.compilers.eclipse.EclipseJavaCompiler;
+import com.opensymphony.webwork.util.classloader.CompilingClassLoader;
 import org.mortbay.http.SocketListener;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.WebApplicationContext;
@@ -73,7 +72,9 @@ public class Prototype {
             ClassLoader parent = Thread.currentThread().getContextClassLoader();
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
-                parent = new CompilingClassLoader(parent, file, new EclipseJavaCompiler());
+                CompilingClassLoader ccl = new CompilingClassLoader(parent, file);
+                ccl.start();
+                parent = ccl;
             }
             URLClassLoader url = new MyURLClassLoader(urls, parent);
             Thread.currentThread().setContextClassLoader(url);
