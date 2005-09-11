@@ -60,6 +60,8 @@ public class DispatcherUtils {
     // set from webwork.locale property in webwork.properties
     protected Locale locale = null;
 
+    protected boolean devMode = false;
+
     // used to get WebLogic to play nice
     protected boolean paramsWorkaroundEnabled = false;
 
@@ -81,7 +83,7 @@ public class DispatcherUtils {
         LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
 
         if (Configuration.isSet("webwork.devMode")) {
-            OgnlValueStack.setDevMode("true".equals(Configuration.getString("webwork.devMode")));
+            devMode = true;
             Configuration.set("webwork.i18n.reload", "true");
             Configuration.set("webwork.configuration.xml.reload", "true");
         }
@@ -202,6 +204,7 @@ public class DispatcherUtils {
         extraContext.put(ActionContext.SESSION, sessionMap);
         extraContext.put(ActionContext.APPLICATION, applicationMap);
         extraContext.put(ActionContext.LOCALE, (locale == null) ? request.getLocale() : locale);
+        extraContext.put(ActionContext.DEV_MODE, Boolean.valueOf(devMode));
 
         extraContext.put(WebWorkStatics.HTTP_REQUEST, request);
         extraContext.put(WebWorkStatics.HTTP_RESPONSE, response);
