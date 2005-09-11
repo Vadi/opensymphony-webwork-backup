@@ -62,7 +62,7 @@ public class Component {
         Stack componentStack = getComponentStack();
         for (Iterator iterator = componentStack.iterator(); iterator.hasNext();) {
             Component component = (Component) iterator.next();
-            if (component.getClass().isAssignableFrom(clazz) && component != this) {
+            if (clazz.isAssignableFrom(component.getClass()) && component != this) {
                 return component;
             }
         }
