@@ -1,4 +1,4 @@
-<div dojoType='binddiv'
+<div dojoType='BindDiv'
 	id="mylabel"
 	href="a"
 	loadingHtml="b"

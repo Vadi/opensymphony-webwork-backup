@@ -1,4 +1,4 @@
-<a dojoType='bindanchor'
+<a dojoType='BindAnchor'
 	id="mylink"
 	href="a"
 	notifyTopics='g'
