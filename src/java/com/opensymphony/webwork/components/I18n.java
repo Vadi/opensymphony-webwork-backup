@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 public class I18n extends Component {
     private static final Log LOG = LogFactory.getLog(I18n.class);
 
+    protected boolean pushed;
     protected String name;
 
     public I18n(OgnlValueStack stack) {
@@ -46,6 +47,7 @@ public class I18n extends Component {
                         return locale;
                     }
                 }));
+                pushed = true;
             }
         } catch (Exception e) {
             String msg = "Could not find the bundle " + name;
@@ -55,7 +57,9 @@ public class I18n extends Component {
     }
 
     public void end(Writer writer, String body) {
-        getStack().pop();
+        if (pushed) {
+            getStack().pop();
+        }
 
         super.end(writer, body);
     }
