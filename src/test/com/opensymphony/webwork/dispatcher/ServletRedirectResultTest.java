@@ -10,6 +10,8 @@ import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.MockActionInvocation;
 import ognl.Ognl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,7 @@ public class ServletRedirectResultTest extends WebWorkTestCase implements WebWor
     private ActionContext oldContext;
     private Mock requestMock;
     private Mock responseMock;
+    protected ActionInvocation ai;
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
@@ -39,7 +42,9 @@ public class ServletRedirectResultTest extends WebWorkTestCase implements WebWor
         responseMock.expect("sendRedirect", C.args(C.eq("/context/bar/foo.jsp")));
 
         try {
-            view.execute(null);
+            view.execute(ai);
+            requestMock.verify();
+            responseMock.verify();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -53,7 +58,9 @@ public class ServletRedirectResultTest extends WebWorkTestCase implements WebWor
         responseMock.expect("sendRedirect", C.args(C.eq("/bar/foo.jsp")));
 
         try {
-            view.execute(null);
+            view.execute(ai);
+            requestMock.verify();
+            responseMock.verify();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -68,27 +75,27 @@ public class ServletRedirectResultTest extends WebWorkTestCase implements WebWor
         responseMock.expectAndReturn("encodeRedirectURL", "/context/namespace/foo.jsp", "/context/namespace/foo.jsp");
         responseMock.expect("sendRedirect", C.args(C.eq("/context/namespace/foo.jsp")));
 
-        view.execute(null);
+        view.execute(ai);
+
+        requestMock.verify();
+        responseMock.verify();
     }
 
-    protected void setUp() {
+    protected void setUp() throws Exception {
+        super.setUp();
+
         view = new ServletRedirectResult();
 
         responseMock = new Mock(HttpServletResponse.class);
 
         requestMock = new Mock(HttpServletRequest.class);
         requestMock.matchAndReturn("getContextPath", "/context");
-        oldContext = ActionContext.getContext();
 
         ActionContext ac = new ActionContext(Ognl.createDefaultContext(null));
-        ActionContext.setContext(ac);
-        ServletActionContext.setResponse((HttpServletResponse) responseMock.proxy());
-        ServletActionContext.setRequest((HttpServletRequest) requestMock.proxy());
-    }
-
-    protected void tearDown() {
-        requestMock.verify();
-        responseMock.verify();
-        ActionContext.setContext(oldContext);
+        ac.put(ServletActionContext.HTTP_REQUEST, requestMock.proxy());
+        ac.put(ServletActionContext.HTTP_RESPONSE, responseMock.proxy());
+        MockActionInvocation ai = new MockActionInvocation();
+        ai.setInvocationContext(ac);
+        this.ai = ai;
     }
 }
