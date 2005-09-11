@@ -91,13 +91,14 @@
         <!-- prototype -->
         <dependency org="jetty" name="org.mortbay.jetty" rev="5.1.4" conf="prototype->default"/>
         <dependency org="ant" name="ant" rev="1.6.5" conf="prototype->default"/>
-        <dependency org="apache" name="commons-jci" rev="1.0-modified" conf="prototype->default"/>
         <dependency org="tomcat" name="jasper-runtime" rev="5.5.9" conf="prototype->default"/>
-        <dependency org="tomcat" name="jasper-runtime" rev="5.5.9" conf="prototype->default"/>
-        <dependency org="eclipse" name="jdtcore" rev="3.1.0" conf="prototype->default"/>
+        <dependency org="tomcat" name="jasper-compiler" rev="5.5.9" conf="prototype->default"/>
+        <dependency org="eclipse" name="jdtcore" rev="3.0.1" conf="prototype->default"/>
         <dependency org="commons-el" name="commons-el" rev="1.0" conf="prototype->default"/>
         <dependency org="commons-io" name="commons-io" rev="1.0" conf="prototype->default"/>
         <dependency org="commons-lang" name="commons-lang" rev="2.1" conf="prototype->default"/>
+        <dependency org="servletapi" name="servletapi" rev="2.4" conf="build->*"/>
+        <dependency org="jspapi" name="jsp-api" rev="2.0" conf="build->*"/>
 
         <!-- jasperreports -->
         <dependency org="jasperreports" name="jasperreports" rev="1.0.0" conf="jasperreports->default"/>
