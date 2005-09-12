@@ -17,6 +17,12 @@
 
     </package>
 
+    <package name="typeconversion" extends="default" namespace="/typeconversion">
+        <action name="typeconversion" class="com.opensymphony.webwork.sandbox.typeconversion.TypeConversionAction">
+            <result type="freemarker">test.ftl</result>
+        </action>
+    </package>
+
     <package name="upload" extends="default" namespace="/upload">
         <interceptors>
             <interceptor-stack name="completeStackWithSpecialFileUpload">
