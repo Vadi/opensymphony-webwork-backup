@@ -2,9 +2,12 @@ package com.opensymphony.webwork.sandbox.typeconversion;
 
 import com.opensymphony.webwork.components.Set;
 import com.opensymphony.xwork.ActionSupport;
+import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.util.InstantiatingNullHandler;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Iterator;
 
 /**
  * User: plightbo
@@ -18,6 +21,7 @@ public class TypeConversionAction extends ActionSupport {
     Map stringMap;
     List stringList;
     Set stringSet;
+    List intList;
     Bean bean;
 
     public String execute() throws Exception {
@@ -72,6 +76,14 @@ public class TypeConversionAction extends ActionSupport {
 
     public void setStringSet(Set stringSet) {
         this.stringSet = stringSet;
+    }
+
+    public List getIntList() {
+        return intList;
+    }
+
+    public void setIntList(List intList) {
+        this.intList = intList;
     }
 
     public Bean getBean() {
