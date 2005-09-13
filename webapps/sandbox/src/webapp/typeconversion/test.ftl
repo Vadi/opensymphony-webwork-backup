@@ -4,7 +4,7 @@
 </head>
 
 <body>
-<@ww.form action="test" method="post">
+<@ww.form action="typeconversion" method="post">
 <@ww.textfield label="Two: Name" name="beanMap['456'].name"/>
 <@ww.submit value="Submit"/>
 
