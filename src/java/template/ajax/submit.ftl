@@ -1,6 +1,7 @@
-<input
+<button
         type="submit"
         dojoType='BindButton'
+
 <#if parameters.formId?exists>formId='${parameters.formId}'</#if>
     <#if parameters.name?exists>name="${parameters.name?html}"</#if>
         <#if parameters.nameValue?exists>value="${parameters.nameValue?html}"</#if>

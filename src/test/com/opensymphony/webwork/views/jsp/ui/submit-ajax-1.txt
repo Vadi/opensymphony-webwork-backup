@@ -1,14 +1,15 @@
-<input
-    type="submit"
-    dojoType='BindButton'
-
-
-value="submit"
+<button
+        type="submit"
+        dojoType='BindButton'
 
 
 
-targetDiv='formId'
-onLoad="alert('form submitted');"
-notifyTopics='b'
-listenTopics='a'
-/>
+        value="submit"
+
+
+
+                    targetDiv='formId'
+                        onLoad="alert('form submitted');"
+                            notifyTopics='b'
+                                listenTopics='a'
+                                    />
