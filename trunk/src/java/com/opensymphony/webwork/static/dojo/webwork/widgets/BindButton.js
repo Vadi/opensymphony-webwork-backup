@@ -1,4 +1,5 @@
 dojo.provide("webwork.widgets.BindButton");
+dojo.provide("webwork.widgets.HTMLBindButton");
 
 dojo.require("dojo.io.*");
 dojo.require("dojo.event.*");
@@ -9,11 +10,11 @@ dojo.require("webwork.Util");
 dojo.require("webwork.widgets.HTMLBind");
 
 /*
- * Component to do remote updating of a DOM tree.
+ * Component to do a remote submit of a HTML form.
  */
 
 webwork.widgets.HTMLBindButton = function() {
-	
+
 	// inheritance
     // see: http://www.cs.rit.edu/~atk/JavaScript/manuals/jsobj/
 	webwork.widgets.HTMLBind.call(this);
@@ -21,24 +22,22 @@ webwork.widgets.HTMLBindButton = function() {
 
 	this.widgetType = "BindButton";
 	this.templatePath = dojo.uri.dojoUri("webwork/widgets/BindButton.html");
-	
-	// the type of the input button - can be image
-	this.type = "submit";
 
-	// the template button instance
-	this.button = null;
+	// dom node in the template that will contain the remote content
+	this.attachBtn = null;
 
-	var super_fillInTemplate = this.fillInTemplate;
+    var super_fillInTemplate = this.fillInTemplate;
 	this.fillInTemplate = function(args, frag) {
 		super_fillInTemplate(args, frag);
-		
-		webwork.Util.passThroughArgs(self.extraArgs, self.button);
-		self.button.type = self.type;
-    }
+
+       if (self.id) {
+			self.attachBtn.id = self.id;
+		}
+
+		webwork.Util.passThroughArgs(self.extraArgs, self.attachBtn);
+	}
 
 }
-
-// is this needed as well as dojo.widget.Widget.call(this);
 dj_inherits(webwork.widgets.HTMLBindButton, webwork.widgets.HTMLBind);
 
 // make it a tag
