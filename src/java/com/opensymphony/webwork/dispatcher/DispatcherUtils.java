@@ -82,7 +82,7 @@ public class DispatcherUtils {
 
         LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
 
-        if (Configuration.isSet("webwork.devMode")) {
+        if ("true".equals(Configuration.get("webwork.devMode"))) {
             devMode = true;
             Configuration.set("webwork.i18n.reload", "true");
             Configuration.set("webwork.configuration.xml.reload", "true");
