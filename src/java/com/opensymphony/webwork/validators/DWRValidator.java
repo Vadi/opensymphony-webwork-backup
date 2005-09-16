@@ -63,7 +63,7 @@ public class DWRValidator {
             super(proxy, extraContext, true);
         }
 
-        protected String invokeAction(Action action, ActionConfig actionConfig) throws Exception {
+        protected String invokeAction(Object action, ActionConfig actionConfig) throws Exception {
             return Action.NONE; // don't actually execute the action
         }
     }

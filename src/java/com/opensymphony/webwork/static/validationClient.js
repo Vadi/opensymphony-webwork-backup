@@ -18,8 +18,10 @@ function ValidationClient(servletUrl) {
         }
 
 		validator.doPost(function(action) {
-		    vc.onErrors(input, action);
-		}, namespace, actionName, params);
+            if (action) {
+                vc.onErrors(input, action);
+            }
+        }, namespace, actionName, params);
     }
     
 

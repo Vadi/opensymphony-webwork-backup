@@ -7,13 +7,15 @@ webworkValidator.onErrors = function(input, errors) {
 	clearErrorRows(table);
 	clearErrorLabels(form);
 
-	for (var fieldName in errors.fieldErrors) {
-		if (form.elements[fieldName].touched) {
-			for (var i = 0; i < errors.fieldErrors[fieldName].length; i++) {
-				addError(form.elements[fieldName], errors.fieldErrors[fieldName][i]);
-			}
-		}
-	}
+    if (errors.fieldErrors) {
+        for (var fieldName in errors.fieldErrors) {
+            if (form.elements[fieldName].touched) {
+                for (var i = 0; i < errors.fieldErrors[fieldName].length; i++) {
+                    addError(form.elements[fieldName], errors.fieldErrors[fieldName][i]);
+                }
+            }
+        }
+    }
 }
 
 function validate(element) {
