@@ -20,6 +20,7 @@ import java.util.Stack;
  */
 public class Component {
     public static final boolean ALT_SYNTAX = "true".equals(Configuration.getString("webwork.tag.altSyntax"));
+    public static final boolean ALT_SYNTAX_2_1 = "2.1".equals(Configuration.getString("webwork.tag.altSyntax"));
     public static final String COMPONENT_STACK = "__component_stack";
 
     protected OgnlValueStack stack;
@@ -93,6 +94,11 @@ public class Component {
 
         if (ALT_SYNTAX) {
             return TextParseUtil.translateVariables('%', expr, stack, Object.class);
+        } else if (ALT_SYNTAX_2_1) {
+            // does the expression start with %{ and end with }? if so, just cut it off!
+            if (expr.startsWith("%{") && expr.endsWith("}")) {
+                expr = expr.substring(2, expr.length() - 1);
+            }
         }
 
         return getStack().findValue(expr);
@@ -101,7 +107,16 @@ public class Component {
     protected Object findValue(String expr, Class toType) {
         if (ALT_SYNTAX) {
             return TextParseUtil.translateVariables('%', expr, stack, toType);
+        } else if (ALT_SYNTAX_2_1 && toType == String.class) {
+            return TextParseUtil.translateVariables('%', expr, stack);
         } else {
+            if (ALT_SYNTAX_2_1) {
+                // does the expression start with %{ and end with }? if so, just cut it off!
+                if (expr.startsWith("%{") && expr.endsWith("}")) {
+                    expr = expr.substring(2, expr.length() - 1);
+                }
+            }
+            
             return getStack().findValue(expr, toType);
         }
     }

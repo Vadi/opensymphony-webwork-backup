@@ -263,7 +263,7 @@ public abstract class UIBean extends Component {
                     addParameter("nameValue", findValue(value, valueClazz));
                 } else if (name != null) {
                     String expr = name.toString();
-                    if (ALT_SYNTAX) {
+                    if (ALT_SYNTAX || ALT_SYNTAX_2_1) {
                         expr = "%{" + expr + "}";
                     }
 
