@@ -92,32 +92,18 @@ public class Component {
         }
 
         if (ALT_SYNTAX) {
-            // does the expression start with %{ and end with }? if so, just cut it off!
-            if (expr.startsWith("%{") && expr.endsWith("}")) {
-                expr = expr.substring(2, expr.length() - 1);
-            }
+            return TextParseUtil.translateVariables('%', expr, stack, Object.class);
         }
 
         return getStack().findValue(expr);
     }
 
     protected Object findValue(String expr, Class toType) {
-        if (ALT_SYNTAX && toType == String.class) {
-            return translateVariables(expr, getStack());
+        if (ALT_SYNTAX) {
+            return TextParseUtil.translateVariables('%', expr, stack, toType);
         } else {
-            if (ALT_SYNTAX) {
-                // does the expression start with %{ and end with }? if so, just cut it off!
-                if (expr.startsWith("%{") && expr.endsWith("}")) {
-                    expr = expr.substring(2, expr.length() - 1);
-                }
-            }
-
             return getStack().findValue(expr, toType);
         }
-    }
-
-    public static String translateVariables(String expression, OgnlValueStack stack) {
-        return TextParseUtil.translateVariables('%', expression, stack);
     }
 
     /**

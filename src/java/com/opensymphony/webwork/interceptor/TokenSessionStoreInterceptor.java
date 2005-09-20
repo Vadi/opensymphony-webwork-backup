@@ -12,6 +12,7 @@ import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 
 /**
@@ -29,6 +30,10 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
         HttpServletRequest request = ServletActionContext.getRequest();
         String tokenName = TokenHelper.getTokenName(request);
         String token = TokenHelper.getToken(tokenName, request);
+
+        Map params = invocation.getInvocationContext().getParameters();
+        params.remove(tokenName);
+        params.remove(TokenHelper.TOKEN_NAME_FIELD);
 
         if ((tokenName != null) && (token != null)) {
             ActionInvocation savedInvocation = InvocationSessionStore.loadInvocation(tokenName, token);
