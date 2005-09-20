@@ -42,10 +42,10 @@ public class CallbackWriter extends Writer implements TransformControl {
     }
 
     public void write(char cbuf[], int off, int len) throws IOException {
-        writer.write(cbuf, off, len);
-
         if (bean.usesBody()) {
             body.write(cbuf, off, len);
+        } else {
+            writer.write(cbuf, off, len);
         }
     }
 

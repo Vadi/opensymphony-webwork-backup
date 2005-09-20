@@ -58,7 +58,7 @@ public class Param extends Component {
             }
         }
 
-        super.end(writer, body);
+        super.end(writer, "");
     }
 
     public boolean usesBody() {

@@ -53,7 +53,6 @@ public class Component {
         try {
             writer.write(body);
         } catch (IOException e) {
-            e.printStackTrace();
             throw new RuntimeException("IOError: " + e.getMessage(), e);
         }
         getComponentStack().pop();
@@ -61,21 +60,9 @@ public class Component {
 
     public Component findAncestor(Class clazz) {
         Stack componentStack = getComponentStack();
-        for (Iterator iterator = componentStack.iterator(); iterator.hasNext();) {
-            Component component = (Component) iterator.next();
-            if (clazz.isAssignableFrom(component.getClass()) && component != this) {
-                return component;
-            }
-        }
-
-        return null;
-    }
-
-    public Component findLastAncestor(Class clazz) {
-        Stack componentStack = getComponentStack();
         for (int i = componentStack.size() - 1; i >= 0; i--) {
             Component component = (Component) componentStack.get(i);
-            if (component.getClass().isAssignableFrom(clazz) && component != this) {
+            if (clazz.isAssignableFrom(component.getClass()) && component != this) {
                 return component;
             }
         }
@@ -116,7 +103,7 @@ public class Component {
                     expr = expr.substring(2, expr.length() - 1);
                 }
             }
-            
+
             return getStack().findValue(expr, toType);
         }
     }
