@@ -12,6 +12,7 @@ import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.MockActionInvocation;
+import com.opensymphony.xwork.util.OgnlValueStack;
 import ognl.Ognl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -97,5 +98,6 @@ public class ServletRedirectResultTest extends WebWorkTestCase implements WebWor
         MockActionInvocation ai = new MockActionInvocation();
         ai.setInvocationContext(ac);
         this.ai = ai;
+        ai.setStack(new OgnlValueStack());
     }
 }
