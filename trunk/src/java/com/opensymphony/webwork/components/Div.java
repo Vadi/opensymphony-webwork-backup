@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.views.util.UrlHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,12 +45,7 @@ public class Div extends ClosingUIBean {
         super.evaluateExtraParams();
 
         if (href != null) {
-            String stackUrl = findString(href);
-            String contextPath = request.getContextPath();
-            if (stackUrl.startsWith("/") && stackUrl.startsWith(contextPath)) {
-                contextPath = "";
-            }
-            addParameter("href", contextPath + stackUrl);
+            addParameter("href", UrlHelper.buildUrl(findString(href), request, response, null));
         }
 
         if (null != updateFreq && !"".equals(updateFreq)) {
