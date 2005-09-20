@@ -336,5 +336,6 @@
   <component name="WeblogicWebModuleProperties">
     <option name="IS_RUN_APPC" value="false" />
   </component>
+  <component name="com.fuhrer.idea.plugin.jboss.JBossWebModule" />
 </module>
 
