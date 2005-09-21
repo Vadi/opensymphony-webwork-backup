@@ -38,7 +38,7 @@ public class WebWorkSpringObjectFactory extends SpringObjectFactory implements O
 
         this.setApplicationContext(appContext);
 
-        String autoWire = Configuration.getString("webwork.spring.objectFactory.autoWire");
+        String autoWire = Configuration.getString("webwork.objectFactory.spring.autoWire");
         int type = -1;
         if ("name".equals(autoWire)) {
             type = AutowireCapableBeanFactory.AUTOWIRE_BY_NAME;
