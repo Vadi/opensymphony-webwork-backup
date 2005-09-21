@@ -3,12 +3,9 @@
  */
 package com.opensymphony.webwork.spring.lifecycle;
 
-import com.opensymphony.xwork.ObjectFactory;
-import com.opensymphony.xwork.spring.SpringObjectFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -22,18 +19,11 @@ import javax.servlet.ServletContextListener;
  * @deprecated Please configure webwork.property to use {@link com.opensymphony.webwork.spring.WebWorkSpringObjectFactory}
  */
 public class SpringObjectFactoryListener implements ServletContextListener {
-    /**
-     * Creates a {@link com.opensymphony.xwork.spring.SpringObjectFactory}and sets that as the default
-     * {@link ObjectFactory}to use for XWork.
-     *
-     * @param event The ServletContextEvent.
-     */
+    private static final Log log = LogFactory.getLog(SpringObjectFactoryListener.class);
+
     public void contextInitialized(ServletContextEvent event) {
-        ServletContext app = event.getServletContext();
-        ApplicationContext appContext = WebApplicationContextUtils.getWebApplicationContext(app);
-        SpringObjectFactory objFactory = new SpringObjectFactory();
-        objFactory.setApplicationContext(appContext);
-        ObjectFactory.setObjectFactory(objFactory);
+        log.fatal("SpringObjectFactoryListener is deprecated and no longer does anything - you should remove it from web.xml\n" +
+                "Please set webwork.objectFactory = spring to enable Spring-WebWork integration.");
     }
 
     public void contextDestroyed(ServletContextEvent arg0) {
