@@ -29,7 +29,7 @@ import java.io.IOException;
  * @see FilterDispatcher
  * @since 2.2
  */
-public class ActionContexCleanUp implements Filter {
+public class ActionContextCleanUp implements Filter {
     private static final String CLEANUP_PRESENT = "__cleanup_present";
 
     public void init(FilterConfig filterConfig) throws ServletException {
