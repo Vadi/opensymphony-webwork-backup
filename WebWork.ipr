@@ -256,6 +256,7 @@
       <module fileurl="file://$PROJECT_DIR$/launcher/WebWork Launcher.iml" filepath="$PROJECT_DIR$/launcher/WebWork Launcher.iml" />
       <module fileurl="file://$PROJECT_DIR$/../xwork/XWork.iml" filepath="$PROJECT_DIR$/../xwork/XWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/../xwork/xwork-editor/XWorkEditor.iml" filepath="$PROJECT_DIR$/../xwork/xwork-editor/XWorkEditor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../xwork/tiger/XWorkTiger.iml" filepath="$PROJECT_DIR$/../xwork/tiger/XWorkTiger.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="JDK 1.5.0" />
