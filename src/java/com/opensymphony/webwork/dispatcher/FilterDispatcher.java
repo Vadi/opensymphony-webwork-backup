@@ -59,7 +59,7 @@ import java.util.StringTokenizer;
  * <p/>
  * This filter will also automatically clean up the {@link ActionContext} for you, ensuring
  * that no memory leaks take place. However, this can sometimes cause problems integrating
- * with other products like SiteMesh. See {@link ActionContexCleanUp} for more information
+ * with other products like SiteMesh. See {@link ActionContextCleanUp} for more information
  * on how to deal with this.
  * <p/>
  * <p/>
@@ -96,7 +96,7 @@ import java.util.StringTokenizer;
  * @author Patrick Lightbody
  * @see com.opensymphony.webwork.lifecycle.LifecycleListener
  * @see ActionMapper
- * @see ActionContexCleanUp
+ * @see ActionContextCleanUp
  * @since 2.2
  */
 public class FilterDispatcher implements Filter, WebWorkStatics {
@@ -176,7 +176,7 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
                 du.serviceAction(request, response, filterConfig.getServletContext(), mapping);
             }
         } finally {
-            ActionContexCleanUp.cleanUp(req);
+            ActionContextCleanUp.cleanUp(req);
         }
     }
 
