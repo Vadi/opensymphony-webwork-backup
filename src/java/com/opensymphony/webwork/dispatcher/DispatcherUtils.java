@@ -72,6 +72,12 @@ public class DispatcherUtils {
 
         if (Configuration.isSet("webwork.objectFactory")) {
             String className = (String) Configuration.get("webwork.objectFactory");
+            if (className.equals("spring")) {
+                // note: this class name needs to be in string form so we don't put hard
+                //       dependencies on spring, since it isn't technically required.
+                className = "com.opensymphony.webwork.spring.WebWorkSpringObjectFactory";
+            }
+
             try {
                 Class clazz = ClassLoaderUtil.loadClass(className, DispatcherUtils.class);
                 ObjectFactory objectFactory = (ObjectFactory) clazz.newInstance();

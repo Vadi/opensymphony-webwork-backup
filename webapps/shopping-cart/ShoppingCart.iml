@@ -232,11 +232,6 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xwork.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/xwork.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/asm-attrs.jar" />
       <url>jar://$MODULE_DIR$/../../../xwork/lib/asm-attrs.jar!/</url>
     </containerElement>

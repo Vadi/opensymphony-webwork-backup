@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 /**
  * @author Scott N. Smith scottnelsonsmith@yahoo.com
  * @version $Id$
+ * @deprecated XWork IoC has been deprecated in favor of Spring.
+ *             Please refer to the Spring-WebWork integration documentation for more info.
  */
 public class SessionLifecycleListenerCompatWeblogic61
         extends SessionLifecycleListener {

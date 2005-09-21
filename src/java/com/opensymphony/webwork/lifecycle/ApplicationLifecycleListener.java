@@ -14,9 +14,9 @@ import org.xml.sax.SAXException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.beans.Introspector;
 import java.io.IOException;
 import java.io.InputStream;
-import java.beans.Introspector;
 
 
 /**
@@ -25,6 +25,8 @@ import java.beans.Introspector;
  * @author <a href="mailto:joew@thoughtworks.com">Joe Walnes</a>
  * @author Patrick Lightbody
  * @author Bill Lynch (docs)
+ * @deprecated XWork IoC has been deprecated in favor of Spring.
+ *             Please refer to the Spring-WebWork integration documentation for more info.
  */
 public class ApplicationLifecycleListener implements ServletContextListener {
     //~ Static fields/initializers /////////////////////////////////////////////
