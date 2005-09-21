@@ -10,6 +10,7 @@ import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
 import com.opensymphony.webwork.dispatcher.multipart.WebWorkRequestWrapper;
 import com.opensymphony.webwork.util.AttributeMap;
+import com.opensymphony.webwork.util.ObjectFactoryInitializable;
 import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
@@ -74,6 +75,9 @@ public class DispatcherUtils {
             try {
                 Class clazz = ClassLoaderUtil.loadClass(className, DispatcherUtils.class);
                 ObjectFactory objectFactory = (ObjectFactory) clazz.newInstance();
+                if (objectFactory instanceof ObjectFactoryInitializable) {
+                    ((ObjectFactoryInitializable) objectFactory).init(servletContext);
+                }
                 ObjectFactory.setObjectFactory(objectFactory);
             } catch (Exception e) {
                 LOG.error("Could not load ObjectFactory named " + className + ". Using default ObjectFactory.", e);

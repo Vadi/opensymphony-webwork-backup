@@ -2,6 +2,7 @@
  * Copyright (c) 2005 Opensymphony. All Rights Reserved.
  */
 package com.opensymphony.webwork.spring.lifecycle;
+
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.spring.SpringObjectFactory;
 import org.springframework.context.ApplicationContext;
@@ -18,24 +19,23 @@ import javax.servlet.ServletContextListener;
  * called first.
  *
  * @author sms
+ * @deprecated Please configure webwork.property to use {@link com.opensymphony.webwork.spring.WebWorkSpringObjectFactory}
  */
-public class SpringObjectFactoryListener implements ServletContextListener
-{
+public class SpringObjectFactoryListener implements ServletContextListener {
     /**
      * Creates a {@link com.opensymphony.xwork.spring.SpringObjectFactory}and sets that as the default
      * {@link ObjectFactory}to use for XWork.
      *
-     * @param event
-     *            The ServletContextEvent.
+     * @param event The ServletContextEvent.
      */
     public void contextInitialized(ServletContextEvent event) {
         ServletContext app = event.getServletContext();
-        ApplicationContext appContext = WebApplicationContextUtils
-                .getWebApplicationContext(app);
+        ApplicationContext appContext = WebApplicationContextUtils.getWebApplicationContext(app);
         SpringObjectFactory objFactory = new SpringObjectFactory();
         objFactory.setApplicationContext(appContext);
         ObjectFactory.setObjectFactory(objFactory);
     }
+
     public void contextDestroyed(ServletContextEvent arg0) {
         // Nothing to do.
     }

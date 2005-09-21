@@ -16,7 +16,7 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>com.opensymphony.webwork.lifecycle.LifecycleListener</listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <!-- END SNIPPET: example -->
 
@@ -37,7 +37,7 @@
         <url-pattern>*.action</url-pattern>
     </servlet-mapping>
     END SNIPPET: compatibility -->
-    
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>default.jsp</welcome-file>

@@ -1,7 +1,6 @@
 package com.acme;
 
-import com.opensymphony.webwork.hibernate.HibernateSession;
-import com.opensymphony.webwork.hibernate.HibernateSessionAware;
+import com.opensymphony.xwork.ActionSupport;
 
 import java.util.List;
 
@@ -10,17 +9,28 @@ import java.util.List;
  * Date: Aug 10, 2005
  * Time: 12:03:15 AM
  */
-public class ListPeople implements HibernateSessionAware {
+public class ListPeople extends ActionSupport {
+    String foo;
+    PersonManager pm;
     List people;
-    HibernateSession session;
 
-    public void setHibernateSession(HibernateSession session) {
-        this.session = session;
+    public void setPm(PersonManager pm) {
+        this.pm = pm;
+    }
+
+    public void setFoo(String foo) {
+        this.foo = foo;
     }
 
     public String execute() {
-        people = session.createCriteria(Person.class).list();
-        return "success";
+        people = pm.getPeople();
+        System.out.println(foo);
+        System.out.println(foo);
+        System.out.println(foo);
+        System.out.println(foo);
+        System.out.println(foo);
+
+        return SUCCESS;
     }
 
     public List getPeople() {

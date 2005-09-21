@@ -1,28 +1,24 @@
 package com.acme;
 
-import com.opensymphony.webwork.hibernate.HibernateSession;
-import com.opensymphony.webwork.hibernate.HibernateSessionAware;
+import com.opensymphony.xwork.ActionSupport;
 
 /**
  * User: plightbo
  * Date: Aug 9, 2005
  * Time: 9:24:03 PM
  */
-public class CreatePerson implements HibernateSessionAware {
+public class CreatePerson extends ActionSupport {
+    PersonManager pm;
     Person person;
-    HibernateSession session;
 
-    public void setHibernateSession(HibernateSession session) {
-        this.session = session;
+    public void setPm(PersonManager pm) {
+        this.pm = pm;
     }
 
     public String execute() {
-        session.save(person);
-        return "success";
-    }
+        pm.createPerson(person);
 
-    public String doDefault() {
-        return "input";
+        return SUCCESS;
     }
 
     public Person getPerson() {
