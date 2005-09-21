@@ -20,6 +20,8 @@ public class WebWorkSpringObjectFactory extends SpringObjectFactory implements O
     private static final Log log = LogFactory.getLog(WebWorkSpringObjectFactory.class);
 
     public void init(ServletContext servletContext) {
+        log.info("Initializing WebWork-Spring integration...");
+
         ApplicationContext appContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
         if (appContext == null) {
             // uh oh! looks like the lifecycle listener wasn't installed. Let's inform the user
@@ -48,5 +50,7 @@ public class WebWorkSpringObjectFactory extends SpringObjectFactory implements O
             type = AutowireCapableBeanFactory.AUTOWIRE_CONSTRUCTOR;
         }
         this.setAutowireStrategy(type);
+
+        log.info("... initialized WebWork-Spring integration successfully");
     }
 }
