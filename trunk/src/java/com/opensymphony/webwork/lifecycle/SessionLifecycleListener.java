@@ -21,6 +21,8 @@ import java.io.Serializable;
  * @author <a href="mailto:joew@thoughtworks.com">Joe Walnes</a>
  * @author Cameron Braid
  * @author Bill Lynch (docs)
+ * @deprecated XWork IoC has been deprecated in favor of Spring.
+ *             Please refer to the Spring-WebWork integration documentation for more info.
  */
 public class SessionLifecycleListener implements HttpSessionListener, Serializable {
     //~ Static fields/initializers /////////////////////////////////////////////
@@ -44,7 +46,7 @@ public class SessionLifecycleListener implements HttpSessionListener, Serializab
         ServletContext application = getServletContext(session);
         ComponentManager fallback = (ComponentManager) application.getAttribute(ComponentManager.COMPONENT_MANAGER_KEY);
         if (fallback != null) {
-             container.setFallback(fallback);
+            container.setFallback(fallback);
         }
 
         ComponentConfiguration config = (ComponentConfiguration) application.getAttribute("ComponentConfiguration");
@@ -84,8 +86,10 @@ public class SessionLifecycleListener implements HttpSessionListener, Serializab
         return new SessionComponentManager();
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
-
+    /**
+     * @deprecated XWork IoC has been deprecated in favor of Spring.
+     *             Please refer to the Spring-WebWork integration documentation for more info.
+     */
     class SessionComponentManager extends DefaultComponentManager implements HttpSessionBindingListener {
         public void valueBound(HttpSessionBindingEvent event) {
         }

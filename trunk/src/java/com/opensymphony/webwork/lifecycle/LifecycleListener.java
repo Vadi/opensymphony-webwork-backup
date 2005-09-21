@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSessionListener;
  * @see SessionLifecycleListener
  * @see com.opensymphony.webwork.dispatcher.FilterDispatcher
  * @since 2.2
+ * @deprecated XWork IoC has been deprecated in favor of Spring.
+ *             Please refer to the Spring-WebWork integration documentation for more info.
  */
 public class LifecycleListener extends ApplicationLifecycleListener implements HttpSessionListener {
     SessionLifecycleListener session = new SessionLifecycleListener();

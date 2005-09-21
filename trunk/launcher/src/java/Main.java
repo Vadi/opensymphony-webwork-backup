@@ -34,8 +34,7 @@ public class Main {
         String version = System.getProperty("java.version");
         boolean jdk15 = version.indexOf("1.5") != -1;
 
-        String javaHome = (String) System.getenv().get("JAVA_HOME");
-        String altJavaHome = System.getProperty("java.home");
+        String javaHome = System.getProperty("java.home");
         ArrayList urls = new ArrayList();
         try {
             findJars(new File("lib"), urls);
@@ -49,7 +48,7 @@ public class Main {
             File tools = new File(javaHome, "lib/tools.jar");
             if (!tools.exists()) {
                 // hmm, not there, how about java.home?
-                tools = new File(altJavaHome, "../lib/tools.jar");
+                tools = new File(javaHome, "../lib/tools.jar");
             }
             if (!tools.exists()) {
                 // try the OS X common path
@@ -57,7 +56,7 @@ public class Main {
             }
             if (!tools.exists()) {
                 // try the other OS X common path
-                tools = new File(altJavaHome, "../Classes/classes.jar");
+                tools = new File(javaHome, "../Classes/classes.jar");
             }
             if (!tools.exists()) {
                 // did the user specify it by hand?

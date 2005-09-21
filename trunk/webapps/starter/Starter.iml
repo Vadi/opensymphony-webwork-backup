@@ -76,11 +76,6 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-jci.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/commons-jci.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-logging.jar" />
       <url>jar://$MODULE_DIR$/../../lib/commons-logging.jar!/</url>
     </containerElement>
@@ -233,11 +228,6 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/velocity-tools-view.jar" />
       <url>jar://$MODULE_DIR$/../../lib/velocity-tools-view.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xwork.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/xwork.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
