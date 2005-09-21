@@ -57,6 +57,7 @@ public class Form extends ClosingUIBean {
         /////
 
         if (action != null) {
+            String action = findString(this.action);
 
             //           final String action = findString(this.action);
             String namespace;
