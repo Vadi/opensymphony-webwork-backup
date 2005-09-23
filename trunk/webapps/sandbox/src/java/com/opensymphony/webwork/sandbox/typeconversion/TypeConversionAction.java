@@ -2,12 +2,9 @@ package com.opensymphony.webwork.sandbox.typeconversion;
 
 import com.opensymphony.webwork.components.Set;
 import com.opensymphony.xwork.ActionSupport;
-import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.util.InstantiatingNullHandler;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
 
 /**
  * User: plightbo
@@ -25,8 +22,54 @@ public class TypeConversionAction extends ActionSupport {
     Bean bean;
 
     public String execute() throws Exception {
-        System.out.println(beanMap);
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        System.out.println("before");
+        pause(SUCCESS);
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
+        System.out.println("after");
 
+        if (bean != null) {
+            System.out.println(bean.getName());
+        }
         return SUCCESS;
     }
 

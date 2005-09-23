@@ -21,13 +21,14 @@ import com.opensymphony.webwork.util.classloader.listeners.CompilingListener;
 import com.opensymphony.webwork.util.classloader.monitor.FilesystemAlterationMonitor;
 import com.opensymphony.webwork.util.classloader.stores.MemoryResourceStore;
 import com.opensymphony.webwork.util.classloader.stores.TransactionalResourceStore;
+import com.uwyn.rife.continuations.ClassByteAware;
 
 import java.io.File;
 
 /**
  * @author tcurdt
  */
-public class CompilingClassLoader extends ReloadingClassLoader {
+public class CompilingClassLoader extends ReloadingClassLoader implements ClassByteAware {
 
     private final TransactionalResourceStore transactionalStore;
     private final JavaCompiler compiler;
@@ -57,6 +58,10 @@ public class CompilingClassLoader extends ReloadingClassLoader {
         super(pParent, pRepository, pStore);
         transactionalStore = pStore;
         compiler = pCompiler;
+    }
+
+    public byte[] getClassBytes(String classname) throws ClassNotFoundException {
+        return transactionalStore.read(classname);
     }
 
     public void start() {

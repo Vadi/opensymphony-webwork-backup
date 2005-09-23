@@ -6,7 +6,6 @@
     <include file="xwork-typeconversion.xml"/>
 
     <package name="default" extends="webwork-default">
-
         <action name="test">
             <result type="freemarker">test.ftl</result>
         </action>
@@ -15,6 +14,9 @@
             <result type="freemarker">tableTest.ftl</result>
         </action>
 
+        <action name="guess" class="com.opensymphony.webwork.sandbox.Guess">
+            <result type="freemarker">guess.ftl</result>
+        </action>
     </package>
 
     <package name="typeconversion" extends="default" namespace="/typeconversion">

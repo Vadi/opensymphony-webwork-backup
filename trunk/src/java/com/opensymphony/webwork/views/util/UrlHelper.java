@@ -2,6 +2,7 @@ package com.opensymphony.webwork.views.util;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 import org.apache.commons.logging.Log;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -93,6 +95,16 @@ public class UrlHelper {
             }
 
             link.append(requestURI);
+        }
+
+        // tie in the continuation parameter
+        String continueId = (String) ActionContext.getContext().get("__continue");
+        if (continueId != null) {
+            if (params == null) {
+                params = Collections.singletonMap("continue", continueId);
+            } else {
+                params.put("continue", continueId);
+            }
         }
 
         //if the action was not explicitly set grab the params from the request
