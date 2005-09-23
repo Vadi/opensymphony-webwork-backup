@@ -103,6 +103,11 @@ public class DispatcherUtils {
             FileManager.setReloadingConfigs(true);
         }
 
+        if (Configuration.isSet("webwork.continuations.package")) {
+            String pkg = Configuration.getString("webwork.continuations.package");
+            ObjectFactory.setContinuationPackage(pkg);
+        }
+
         if (Configuration.isSet("webwork.i18n.encoding")) {
             encoding = Configuration.getString("webwork.i18n.encoding");
         }
@@ -163,6 +168,11 @@ public class DispatcherUtils {
             String namespace = mapping.getNamespace();
             String name = mapping.getName();
             String method = mapping.getMethod();
+
+            String id = request.getParameter("continue");
+            if (id != null) {
+                extraContext.put("__continue", id);
+            }
 
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, extraContext);
             proxy.setMethod(method);

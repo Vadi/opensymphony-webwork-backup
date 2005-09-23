@@ -77,6 +77,18 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
         return parameterMap;
     }
 
+    public String getParameter(String string) {
+        return (String) parameterMap.get(string);
+    }
+
+    public Enumeration getParameterNames() {
+        return Collections.enumeration(parameterMap.keySet());
+    }
+
+    public String[] getParameterValues(String string) {
+        return (String[]) parameterMap.get(string);
+    }
+
     public String getPathInfo() {
         return pathInfo;
     }
