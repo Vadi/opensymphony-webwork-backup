@@ -27,6 +27,21 @@
 
     <developers>
         <person>
+            <name>Jay Bose</name>
+            <email></email>
+            <role>Docmentation</role>
+        </person>
+        <person>
+            <name>Bob Lee</name>
+            <email></email>
+            <role>Misc</role>
+        </person>
+        <person>
+            <name>Gabe Zimmerman</name>
+            <email></email>
+            <role>Type conversion</role>
+        </person>
+        <person>
             <name>Henry Hu</name>
             <email></email>
             <role>Portlet integration</role>
@@ -50,12 +65,12 @@
 
     <releases>
         <release>
-            <version>2.2 Beta 1</version>
-            <date>8/28/2005</date>
-            <jiraId>21421</jiraId>
+            <version>2.2 Beta 2</version>
+            <date>9/22/2005</date>
+            <jiraId>21320</jiraId>
             <downloads>
                 <download>
-                    <url>https://webwork.dev.java.net/files/documents/693/19605/webwork-2.2-beta-1.zip</url>
+                    <url>https://webwork.dev.java.net/files/documents/693/21111/webwork-2.2-beta-2.zip</url>
                     <name>Full release</name>
                 </download>
             </downloads>
