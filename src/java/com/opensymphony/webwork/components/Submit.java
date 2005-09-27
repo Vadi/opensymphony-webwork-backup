@@ -54,7 +54,7 @@ public class Submit extends UIBean {
 
         Form form = (Form) findAncestor(Form.class);
         if (form != null) {
-            addParameter("formId", ((Form) form).getId());
+            addParameter("formId", findString(((Form) form).getId()));
         }
     }
 
