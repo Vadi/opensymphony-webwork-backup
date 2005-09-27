@@ -9,8 +9,7 @@
 <p/>
 
 WebWork is a Java web-application development framework. It is built specifically with developer productivity and
-code simplicity in mind. WebWork is built on top of XWork, which provides a generic command pattern framework as well
-as an Inversion of Control container. In addition to these features, WebWork provides robust support for building
+code simplicity in mind, providing robust support for building
 reusable UI templates, such as form controls, UI themes, internationalization, dynamic form parameter mapping to
 JavaBeans, robust client and server side validation, and much more.
 
