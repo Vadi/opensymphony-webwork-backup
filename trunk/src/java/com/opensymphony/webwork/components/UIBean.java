@@ -281,7 +281,11 @@ public abstract class UIBean extends Component {
         final Form form = (Form) findAncestor(Form.class);
 
         if (id != null) {
-            addParameter("id", id);
+            if (ALT_SYNTAX) {
+                addParameter("id", findString(id));
+            } else {
+                addParameter("id", id);
+            }
         } else if (form != null) {
             addParameter("id", form.getParameters().get("id") + "_" + name);
         }
