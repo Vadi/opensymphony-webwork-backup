@@ -57,7 +57,7 @@ public class Form extends ClosingUIBean {
         /////
 
         if (action != null) {
-            String action = findString(this.action);
+            String action = findString(this.action, "action", "Action is required. Example: updatePerson");
 
             //           final String action = findString(this.action);
             String namespace;

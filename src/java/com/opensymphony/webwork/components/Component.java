@@ -4,10 +4,12 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,6 +21,8 @@ import java.util.Stack;
  * Time: 5:52:26 PM
  */
 public class Component {
+    private static final Log LOG = LogFactory.getLog(Component.class);
+
     public static final boolean ALT_SYNTAX = "true".equals(Configuration.getString("webwork.tag.altSyntax"));
     public static final boolean ALT_SYNTAX_2_1 = "2.1".equals(Configuration.getString("webwork.tag.altSyntax"));
     public static final String COMPONENT_STACK = "__component_stack";
@@ -31,6 +35,14 @@ public class Component {
         this.stack = stack;
         this.parameters = new HashMap();
         getComponentStack().push(this);
+    }
+
+    private String getComponentName() {
+        Class c = getClass();
+        String name = c.getName();
+        int dot = name.lastIndexOf('.');
+
+        return name.substring(dot + 1).toLowerCase();
     }
 
     public OgnlValueStack getStack() {
@@ -74,6 +86,25 @@ public class Component {
         return (String) findValue(expr, String.class);
     }
 
+    protected String findString(String expr, String field, String errorMsg) {
+        if (expr == null) {
+            throw fieldError(field, errorMsg, null);
+        } else {
+            return findString(expr);
+        }
+    }
+
+    private RuntimeException fieldError(String field, String errorMsg, Exception e) {
+        String msg = "tag " + getComponentName() + ", field " + field + ": " + errorMsg;
+        if (e == null) {
+            LOG.error(msg);
+            return new RuntimeException(msg);
+        } else {
+            LOG.error(msg, e);
+            return new RuntimeException(msg, e);
+        }
+    }
+
     protected Object findValue(String expr) {
         if (expr == null) {
             return null;
@@ -89,6 +120,26 @@ public class Component {
         }
 
         return getStack().findValue(expr);
+    }
+
+    protected Object findValue(String expr, String field, String errorMsg) {
+        if (expr == null) {
+            throw fieldError(field, errorMsg, null);
+        } else {
+            Object value = null;
+            Exception problem = null;
+            try {
+                value = findValue(expr);
+            } catch (Exception e) {
+                problem = e;
+            }
+
+            if (value == null) {
+                throw fieldError(field, errorMsg, problem);
+            }
+
+            return value;
+        }
     }
 
     protected Object findValue(String expr, Class toType) {

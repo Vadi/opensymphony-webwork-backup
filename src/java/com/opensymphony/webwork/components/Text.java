@@ -43,7 +43,7 @@ public class Text extends Component implements Param.UnnamedParametric {
     }
 
     public void end(Writer writer, String body) {
-        actualName = findString(name);
+        actualName = findString(name, "name", "You must specify the i18n key. Example: welcome.header");
         String defaultMessage;
         if (TextUtils.stringSet(body)) {
             defaultMessage = body;

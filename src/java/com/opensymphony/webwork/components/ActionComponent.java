@@ -98,7 +98,7 @@ public class ActionComponent extends Component {
      * @see com.opensymphony.webwork.views.jsp.TagUtils#buildNamespace
      */
     private void executeAction() {
-        String actualName = findString(name);
+        String actualName = findString(name, "name", "Action name is required. Example: updatePerson");
 
         if (actualName == null) {
             String message = "Unable to find value for name " + name;
