@@ -40,7 +40,7 @@ public class Include extends Component {
     }
 
     public void end(Writer writer, String body) {
-        String page = findString(value);
+        String page = findString(value, "value", "You must specify the URL to include. Example: /foo.jsp");
         StringBuffer urlBuf = new StringBuffer();
 
         // Add URL

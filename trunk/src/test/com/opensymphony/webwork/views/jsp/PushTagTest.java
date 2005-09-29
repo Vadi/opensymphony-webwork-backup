@@ -17,8 +17,10 @@ public class PushTagTest extends AbstractUITagTest {
     public void testSimple() {
         PushTag tag = new PushTag();
 
+        stack.setValue("foo", "bar");
+
         tag.setPageContext(pageContext);
-        tag.setValue("title");
+        tag.setValue("foo");
 
         try {
             assertEquals(2, stack.size());

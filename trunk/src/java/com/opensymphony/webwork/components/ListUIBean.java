@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.webwork.util.MakeIterator;
 import com.opensymphony.webwork.util.ContainUtil;
+import com.opensymphony.webwork.util.MakeIterator;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,22 +25,20 @@ public abstract class ListUIBean extends UIBean {
     }
 
     public void evaluateExtraParams() {
-        Object value = findValue(list);
+        Object value = findValue(list, "list", "You must specify a collection/array/map/enumeration/iterator. Example: people or people.{name}");
 
-        if (list != null) {
-            if (value instanceof Collection) {
-                addParameter("list", value);
-            } else {
-                addParameter("list", MakeIterator.convert(value));
-            }
+        if (value instanceof Collection) {
+            addParameter("list", value);
+        } else {
+            addParameter("list", MakeIterator.convert(value));
+        }
 
-            if (value instanceof Collection) {
-                addParameter("listSize", new Integer(((Collection) value).size()));
-            } else if (value instanceof Map) {
-                addParameter("listSize", new Integer(((Map) value).size()));
-            } else if (value != null && value.getClass().isArray()) {
-                addParameter("listSize", new Integer(Array.getLength(value)));
-            }
+        if (value instanceof Collection) {
+            addParameter("listSize", new Integer(((Collection) value).size()));
+        } else if (value instanceof Map) {
+            addParameter("listSize", new Integer(((Map) value).size()));
+        } else if (value != null && value.getClass().isArray()) {
+            addParameter("listSize", new Integer(Array.getLength(value)));
         }
 
         if (listKey != null) {

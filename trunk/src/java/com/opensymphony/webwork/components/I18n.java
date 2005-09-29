@@ -33,7 +33,7 @@ public class I18n extends Component {
         super.start(writer);
 
         try {
-            String name = this.findString(this.name);
+            String name = this.findString(this.name, "name", "Resource bundle name is required. Example: foo or foo_en");
             ResourceBundle bundle = (ResourceBundle) findValue("texts('" + name + "')");
 
             if (bundle == null) {

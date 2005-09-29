@@ -63,12 +63,9 @@ public class Bean extends Component {
     public void start(Writer writer) {
         super.start(writer);
 
-        if (name == null) {
-            throw new RuntimeException("Bean name must be specified.");
-        }
-
         try {
-            bean = ObjectFactory.getObjectFactory().buildBean(ClassLoaderUtil.loadClass(findString(name), getClass()));
+            String beanName = findString(name, "name", "Bean name is required. Example: com.acme.FooBean");
+            bean = ObjectFactory.getObjectFactory().buildBean(ClassLoaderUtil.loadClass(beanName, getClass()));
         } catch (Exception e) {
             log.error("Could not instantiate bean", e);
 
