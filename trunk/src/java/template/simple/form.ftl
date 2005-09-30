@@ -9,7 +9,7 @@
  name="${parameters.name?html}"<#rt/>
 </#if>
 <#if parameters.onsubmit?exists>
- action="${parameters.onsubmit?html}"<#rt/>
+ onsubmit="${parameters.onsubmit?html}"<#rt/>
 </#if>
 <#if parameters.action?exists>
  action="${parameters.action?html}"<#rt/>
