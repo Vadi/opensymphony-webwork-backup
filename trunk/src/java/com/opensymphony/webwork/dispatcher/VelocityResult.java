@@ -91,9 +91,9 @@ public class VelocityResult extends WebWorkResultSupport {
 
             t.merge(context, writer);
 
-            if (usedJspFactory) {
-                writer.flush();
-            }
+            // always flush the writer (we used to only flush it if this was a jspWriter, but someone asked
+            // to do it all the time (WW-829). Since Velocity support is being deprecated, we'll oblige :)
+            writer.flush();
         } catch (Exception e) {
             log.error("Unable to render Velocity Template, '" + finalLocation + "'", e);
             throw e;
