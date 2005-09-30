@@ -13,7 +13,7 @@
         <td width="180" bgcolor="#eeeeee">
             <a href="http://www.amazon.com/exec/obidos/tg/detail/-/1932394532/qid=1128052468/sr=8-1/ref=pd_bbs_1/104-0806192-0414332?v=glance&s=books&n=507846"
                     ><img align="left" alt="WebWork in Action" border="0" src="wwia.jpg"></a>
-            <small><b>WebWork in Action</b> is the first book entirely on WebWork. It covers everything up to version
+            <small><b><a href="http://www.amazon.com/exec/obidos/tg/detail/-/1932394532/qid=1128052468/sr=8-1/ref=pd_bbs_1/104-0806192-0414332?v=glance&s=books&n=507846">WebWork in Action</a></b> is the first book entirely on WebWork. It covers everything up to version
                 2.1.7 and
                 some features of 2.2.</small>
         </td>
