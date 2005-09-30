@@ -17,6 +17,7 @@ public class CallbackWriter extends Writer implements TransformControl {
     private Component bean;
     private Writer writer;
     private StringWriter body;
+    private boolean afterBody = false;
 
     public CallbackWriter(Component bean, Writer writer) {
         this.bean = bean;
@@ -42,7 +43,7 @@ public class CallbackWriter extends Writer implements TransformControl {
     }
 
     public void write(char cbuf[], int off, int len) throws IOException {
-        if (bean.usesBody()) {
+        if (bean.usesBody() && !afterBody) {
             body.write(cbuf, off, len);
         } else {
             writer.write(cbuf, off, len);
@@ -54,6 +55,7 @@ public class CallbackWriter extends Writer implements TransformControl {
     }
 
     public int afterBody() throws TemplateModelException, IOException {
+        afterBody = true;
         bean.end(this, bean.usesBody() ? body.toString() : "");
 
         return END_EVALUATION;
