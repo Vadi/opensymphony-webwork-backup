@@ -21,6 +21,7 @@ public class Form extends ClosingUIBean {
     final public static String OPEN_TEMPLATE = "form";
     final public static String TEMPLATE = "form-close";
 
+    protected String onsubmit;
     protected String action;
     protected String target;
     protected String enctype;
@@ -57,7 +58,7 @@ public class Form extends ClosingUIBean {
         /////
 
         if (action != null) {
-            String action = findString(this.action, "action", "Action is required. Example: updatePerson");
+            String action = findString(this.action);
 
             //           final String action = findString(this.action);
             String namespace;
@@ -164,13 +165,9 @@ public class Form extends ClosingUIBean {
         }
     }
 
-    //Add onSubmit javascript support -- Added by Henry Hu
-    String onsubmit;
-
     public void setOnsubmit(String onsubmit) {
         this.onsubmit = onsubmit;
     }
-    /////////Fix End ///////////
 
     public void setAction(String action) {
         this.action = action;
