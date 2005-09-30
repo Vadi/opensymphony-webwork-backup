@@ -3,14 +3,19 @@
  */
 package com.opensymphony.webwork.validators;
 
-import com.opensymphony.webwork.WebWorkStatics;
+import com.opensymphony.webwork.dispatcher.ApplicationMap;
+import com.opensymphony.webwork.dispatcher.DispatcherUtils;
+import com.opensymphony.webwork.dispatcher.RequestMap;
+import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import uk.ltd.getahead.dwr.ExecutionContext;
 
-import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,11 +35,27 @@ public class DWRValidator {
     private static final Log LOG = LogFactory.getLog(DWRValidator.class);
 
     public ValidationAwareSupport doPost(String namespace, String action, Map params) throws Exception {
-        ServletConfig sc = ExecutionContext.get().getServletConfig();
-        HashMap ctx = new HashMap();
+        HttpServletRequest req = ExecutionContext.get().getHttpServletRequest();
+        ServletContext servletContext = ExecutionContext.get().getServletContext();
+        HttpServletResponse res = ExecutionContext.get().getHttpServletResponse();
 
-        ctx.put(ActionContext.PARAMETERS, params);
-        ctx.put(WebWorkStatics.SERVLET_CONTEXT, sc.getServletContext());
+        Map requestParams = new HashMap(req.getParameterMap());
+        if (params != null) {
+            requestParams.putAll(params);
+        } else {
+            params = requestParams;
+        }
+        Map requestMap = new RequestMap(req);
+        Map session = new SessionMap(req);
+        Map application = new ApplicationMap(servletContext);
+        DispatcherUtils du = DispatcherUtils.getInstance();
+        HashMap ctx = du.createContextMap(requestMap,
+                params,
+                session,
+                application,
+                req,
+                res,
+                servletContext);
 
         try {
             ValidatorActionProxy proxy = new ValidatorActionProxy(namespace, action, ctx);
