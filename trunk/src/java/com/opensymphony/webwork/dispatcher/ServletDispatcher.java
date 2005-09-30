@@ -104,8 +104,7 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         } catch (IOException e) {
             String message = "Could not wrap servlet request with MultipartRequestWrapper!";
             LOG.error(message, e);
-            du.sendError(request, response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, new ServletException(message, e));
-            return;
+            throw new ServletException(message, e);
         }
 
         du.serviceAction(request, response, getServletContext(), mapping);

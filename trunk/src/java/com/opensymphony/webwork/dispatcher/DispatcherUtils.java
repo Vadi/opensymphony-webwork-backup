@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -130,14 +131,17 @@ public class DispatcherUtils {
     /**
      * Loads the action and executes it. This method first creates the action context from the given
      * parameters then loads an <tt>ActionProxy</tt> from the given action name and namespace. After that,
-     * the action is executed and output channels throught the response object. Errors are also
-     * sent back to the user via the {@link DispatcherUtils#sendError} method.
+     * the action is executed and output channels throught the response object. Actions not found are
+     * sent back to the user via the {@link DispatcherUtils#sendError} method, using the 404 return code.
+     * All other errors are reported by throwing a ServletException.
      *
      * @param request  the HttpServletRequest object
      * @param response the HttpServletResponse object
      * @param mapping  the action mapping object
+     * @throws ServletException when an unknown error occurs (not a 404, but typically something that
+     *                          would end up as a 5xx by the servlet container)
      */
-    public void serviceAction(HttpServletRequest request, HttpServletResponse response, ServletContext context, ActionMapping mapping) {
+    public void serviceAction(HttpServletRequest request, HttpServletResponse response, ServletContext context, ActionMapping mapping) throws ServletException {
         // request map wrapping the http request objects
         Map requestMap = new RequestMap(request);
 
@@ -194,8 +198,9 @@ public class DispatcherUtils {
             LOG.error("Could not find action", e);
             sendError(request, response, HttpServletResponse.SC_NOT_FOUND, e);
         } catch (Exception e) {
-            LOG.error("Could not execute action", e);
-            sendError(request, response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e);
+            String msg = "Could not execute action";
+            LOG.error(msg, e);
+            throw new ServletException(msg, e);
         }
     }
 
@@ -397,6 +402,7 @@ public class DispatcherUtils {
             // send the error response
             response.sendError(code, e.getMessage());
         } catch (IOException e1) {
+            // we're already sending an error, not much else we can do if more stuff breaks
         }
     }
 }
