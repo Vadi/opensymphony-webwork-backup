@@ -4,10 +4,6 @@
 </head>
 
 <body>
-<center><img src="logo.png"/></center>
-
-<p/>
-
 <table align="right" cellpadding="6" cellspacing="0" border="0" style="border: 1 black solid;">
     <tr>
         <td width="180" bgcolor="#eeeeee">
@@ -33,6 +29,10 @@
         </td>
     </tr>
 </table>
+
+<center><img src="logo.png"/></center>
+
+<p/>
 
 WebWork is a Java web-application development framework. It is built specifically with developer productivity and code
 simplicity in mind, providing robust support for building reusable UI templates, such as form controls, UI themes,
