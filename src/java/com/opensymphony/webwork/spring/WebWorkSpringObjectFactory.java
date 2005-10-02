@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2005 Opensymphony. All Rights Reserved.
+ */
 package com.opensymphony.webwork.spring;
 
 import com.opensymphony.webwork.config.Configuration;
@@ -35,11 +38,11 @@ public class WebWorkSpringObjectFactory extends SpringObjectFactory implements O
             log.fatal(message);
             return;
         }
-
+        
         this.setApplicationContext(appContext);
 
         String autoWire = Configuration.getString("webwork.objectFactory.spring.autoWire");
-        int type = -1;
+        int type = AutowireCapableBeanFactory.AUTOWIRE_BY_NAME;   // default
         if ("name".equals(autoWire)) {
             type = AutowireCapableBeanFactory.AUTOWIRE_BY_NAME;
         } else if ("type".equals(autoWire)) {
