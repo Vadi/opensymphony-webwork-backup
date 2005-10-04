@@ -2775,11 +2775,6 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>reloadingText</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
             <name>errorText</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
