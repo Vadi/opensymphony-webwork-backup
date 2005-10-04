@@ -23,7 +23,7 @@
         <default-interceptor-ref name="catalogStack"/>
 
         <action name="catalog" class="com.opensymphony.webwork.example.ajax.actions.ShowCatalog">
-            <result name="success">/catalog.jsp</result>
+            <result name="success">/category.jsp</result>
         </action>
 
         <action name="cart" class="com.opensymphony.webwork.example.ajax.actions.ShowCart">
