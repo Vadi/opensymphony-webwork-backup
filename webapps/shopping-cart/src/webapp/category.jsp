@@ -1,33 +1,36 @@
-<%@ taglib uri="webwork" prefix="ww" %>
+<%
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
+<%@ taglib uri="/webwork" prefix="ww" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <ww:if test="category != null">
-    <h3><ww:if test="category.parent != null"><ww:property value="category.parent.name"/> &gt; </ww:if><ww:property
-            value="category.name"/></h3>
+    <h3><ww:if test="category.parent != null"><ww:property value="category.parent.name"/> &gt; </ww:if><ww:property value="category.name"/></h3>
 
     <ww:set name="categoryProducts" value="%{catalog.findProductsByCategory(category)}"/>
     <ww:if test="(#categoryProducts != null) && (#categoryProducts.size > 0)">
         <div>
             <ww:iterator value="#categoryProducts">
-                <ww:form id="qty_%{id}" namespace="/catalog/remote" action="updateQuantity" theme="ajax">
+                <%--<ww:form id="qty_%{id}" namespace="/catalog/remote" action="updateQuantity" theme="ajax">--%>
+                <ww:form id="qty" action="/catalog/remote/updateQuantity" method="post" theme="ajax">
                     <ww:hidden name="productId" value="%{id}"/>
-                    <ww:hidden name="formId" value="qty_%{id}"/>
+                    <ww:hidden name="formId" value="qty"/>
+                    <%--<ww:hidden name="formId" value="qty_%{id}"/>--%>
                     <div class="product">
                         <div class="productDetails">
                             <div class="productHeader">
                                 <div class="productName"><ww:property value="name"/></div>
 
-                                <div class="productPrice"><ww:text name="format.money" value0="price"/></div>
+                                <div class="productPrice"><ww:textfield name="format.money" value="%{price}" /></div>
                             </div>
 
                             <div class="productDescription"><ww:property value="description"/></div>
                         </div>
 
                         <p class="productQuantity">
-                            Quantity:&nbsp;<ww:textfield name="quantity" value="%{cart.getQuantityForProduct(top)}"
-                                                         theme="simple" size="2"/>
-                            <ww:submit value="Update" theme="ajax">
-                                <ww:param name="notifyTopics">cartUpdated</ww:param>
-                            </ww:submit>
+                            Quantity:&nbsp;<ww:textfield name="quantity" value="%{cart.getQuantityForProduct(top)}" theme="simple" size="2"/>
+                            <ww:submit value="Update" theme="ajax" resultDivId="qty" notifyTopics="cartUpdated" />
                         </p>
                     </div>
                 </ww:form>

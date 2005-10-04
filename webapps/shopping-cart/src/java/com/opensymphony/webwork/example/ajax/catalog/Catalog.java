@@ -4,13 +4,14 @@
 package com.opensymphony.webwork.example.ajax.catalog;
 
 import java.util.Set;
+import java.io.Serializable;
 
 /**
  * Catalog
  *
  * @author Jason Carreira <jcarreira@eplus.com>
  */
-public interface Catalog extends Identifiable {
+public interface Catalog extends Identifiable, Serializable {
     /**
      * Get a Set of all {@link Category}s in this Catalog.
      */

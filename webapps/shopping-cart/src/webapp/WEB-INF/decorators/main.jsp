@@ -1,6 +1,11 @@
+<%
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
 <%@ taglib uri="sitemesh-decorator" prefix="decorator" %>
 <%@ taglib uri="sitemesh-page" prefix="page" %>
-<%@ taglib uri="webwork" prefix="ww" %>
+<%@ taglib uri="/webwork" prefix="ww" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -17,7 +22,7 @@
         djConfig = {
             baseRelativePath: "<ww:url value='/webwork/dojo/'/>",
             parseWidgets: true,
-            isDebug: false
+            isDebug: true
         };
     </script>
 
@@ -27,14 +32,14 @@
 
     <script language="JavaScript" type="text/javascript">
         dojo.require("dojo.io.BrowserIO");
-        dojo.require("dojo.event.Topic");
+        dojo.require("dojo.event.topic");
 
         dojo.require("webwork.widgets.Bind");
         dojo.require("webwork.widgets.BindDiv");
         dojo.require("webwork.widgets.BindButton");
         dojo.require("webwork.widgets.BindAnchor");
 
-        window.onload = function() {
+        dojo.event.connect (window, "onload" , function() {
             if (!NiftyCheck())
                 return;
             //            Rounded("blockquote","tr bl","#ECF1F9","#CDFFAA","smooth border #88D84F");
@@ -43,7 +48,7 @@
             Rounded("div#categories", "tl br", "white", "#f0e68c", "smooth border #daa520");
             Rounded("div#cart", "tl br", "white", "#ffdab9", "smooth border #8b0000");
             //            Rounded("div.productDetails","tr bl","#ECF1F9","#CDFFAA","smooth border #88D84F");
-        };
+        });
 
     </script>
     <decorator:head/>
