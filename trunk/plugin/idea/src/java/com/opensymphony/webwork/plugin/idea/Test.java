@@ -27,6 +27,7 @@ import com.opensymphony.xwork.config.entities.ActionConfig;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -82,7 +83,6 @@ public class Test implements ProjectComponent {
         final DefaultMutableTreeNode top = new DefaultMutableTreeNode("WebWork");
         final JTree tree = new JTree(top);
         tree.setShowsRootHandles(true);
-        
 
         panel.add(new JScrollPane(tree), new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
 
@@ -117,8 +117,8 @@ public class Test implements ProjectComponent {
                         nsNode.add(new DefaultMutableTreeNode(action));
                     }
                 }
-
-                tree.validate();
+                DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+                model.nodeStructureChanged(top);
             }
         });
     }
