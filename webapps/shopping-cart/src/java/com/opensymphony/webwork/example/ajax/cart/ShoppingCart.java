@@ -6,13 +6,14 @@ package com.opensymphony.webwork.example.ajax.cart;
 import com.opensymphony.webwork.example.ajax.catalog.Product;
 
 import java.util.Set;
+import java.io.Serializable;
 
 /**
  * ShoppingCart
  *
  * @author Jason Carreira <jcarreira@eplus.com>
  */
-public interface ShoppingCart {
+public interface ShoppingCart extends Serializable {
     /**
      * Adds the specified quantity of the given {@link Product} to the shopping cart. This will add to any
      * existing quantity of this {@link Product} in the cart.
