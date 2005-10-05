@@ -11,9 +11,7 @@
 </head>
 
 <body id="page-home">
-<ww:div id="main" href="/catalog/remote/activeCategory.action" theme="ajax" listenTopics="categorySelected" loadingText="loading...">
-    <ww:include value="category.jsp"/>
-    <ww:param name="onLoad" value="Rounded('div.productDetails','tr bl','#ECF1F9','#CDFFAA','smooth border #88D84F');"/>
-</ww:div>
+<%--<ww:action name="activeCategory" namespace="/catalog/remote" executeResult="true" />--%>
+<ww:div id="main" href="/catalog/remote/activeCategory.action" theme="ajax" listenTopics="categorySelected" loadingText="loading..." />
 </body>
 </html>
