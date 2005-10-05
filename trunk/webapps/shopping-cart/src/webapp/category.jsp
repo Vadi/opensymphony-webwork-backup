@@ -13,25 +13,26 @@
         <div>
             <ww:iterator value="#categoryProducts">
                 <%--<ww:form id="qty_%{id}" namespace="/catalog/remote" action="updateQuantity" theme="ajax">--%>
-                <ww:form id="qty" action="/catalog/remote/updateQuantity" method="post" theme="ajax">
+                <ww:form id="qtyForm" name="qtyForm" namespace="/catalog/remote" action="updateQuantity" method="POST" theme="ajax" validate="true">
                     <ww:hidden name="productId" value="%{id}"/>
-                    <ww:hidden name="formId" value="qty"/>
-                    <%--<ww:hidden name="formId" value="qty_%{id}"/>--%>
                     <div class="product">
                         <div class="productDetails">
                             <div class="productHeader">
-                                <div class="productName"><ww:property value="name"/></div>
-
-                                <div class="productPrice"><ww:textfield name="format.money" value="%{price}" /></div>
+                                <tr>
+                                    <td><div class="productName"><ww:property value="name"/></div></td>
+                                    <td><div class="productPrice">$<ww:property value="price" /></div></td>
+                                </tr>
                             </div>
-
+                            <tr><td colspan="2">
                             <div class="productDescription"><ww:property value="description"/></div>
+                            </td></tr>
                         </div>
-
+                        <tr><td colspan="2">
                         <p class="productQuantity">
                             Quantity:&nbsp;<ww:textfield name="quantity" value="%{cart.getQuantityForProduct(top)}" theme="simple" size="2"/>
-                            <ww:submit value="Update" theme="ajax" resultDivId="qty" notifyTopics="cartUpdated" />
+                            <ww:submit id="qtySubmit" name="qtySubmit" value="Update" theme="ajax" resultDivId="qtyForm" notifyTopics="cartUpdated"/>
                         </p>
+                        </td></tr>
                     </div>
                 </ww:form>
             </ww:iterator>
