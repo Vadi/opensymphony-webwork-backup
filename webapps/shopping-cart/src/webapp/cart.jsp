@@ -9,5 +9,5 @@
 
 <div id="cartTable">
     <div><span class="cartLabel">Number of Items:</span><span class="cartValue"><ww:property value="numCartItems"/></span></div>
-    <div><span class="cartLabel">Total:</span><span class="cartValue"> $<ww:property value="%{cartTotal}" /></span></div>
+    <div><span class="cartLabel">Total:</span><span class="cartValue"> $<ww:property value="cartTotal" /></span></div>
 </div>
