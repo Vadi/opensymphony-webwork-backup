@@ -40,8 +40,9 @@ public abstract class TagModel implements TemplateTransformModel {
         HashMap map = new HashMap(params.size());
         for (Iterator iterator = params.entrySet().iterator(); iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
-            if (!(entry.getValue() instanceof CollectionModel)) {
-                map.put(entry.getKey(), entry.getValue().toString());
+            Object value = entry.getValue();
+            if (value != null && !(value instanceof CollectionModel)) {
+                map.put(entry.getKey(), value.toString());
             }
         }
         return map;
