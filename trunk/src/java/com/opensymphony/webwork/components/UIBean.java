@@ -263,7 +263,7 @@ public abstract class UIBean extends Component {
                     addParameter("nameValue", findValue(value, valueClazz));
                 } else if (name != null) {
                     String expr = name.toString();
-                    if (ALT_SYNTAX || ALT_SYNTAX_2_1) {
+                    if (ALT_SYNTAX) {
                         expr = "%{" + expr + "}";
                     }
 
@@ -281,11 +281,7 @@ public abstract class UIBean extends Component {
         final Form form = (Form) findAncestor(Form.class);
 
         if (id != null) {
-            if (ALT_SYNTAX) {
-                addParameter("id", findString(id));
-            } else {
-                addParameter("id", id);
-            }
+            addParameter("id", id);
         } else if (form != null) {
             addParameter("id", form.getParameters().get("id") + "_" + name);
         }
