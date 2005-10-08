@@ -1,6 +1,7 @@
 package com.opensymphony.webwork;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,27 +15,164 @@ import java.util.ArrayList;
  */
 public class Main {
     public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Usage:");
+            System.out.println("  java -jar webwork-launcher.jar [command] (optional command args)");
+            System.out.println("");
+            System.out.println("Where [command] is one of the following:");
+            System.out.println("  prototype");
+            System.out.println("  prototype:xxx");
+            System.out.println("  webflow");
+            System.out.println("  webflow:xxx");
+            System.out.println("");
+            System.out.println("Execute the commands for additional usage instructions.");
+            System.out.println("Note: the *:xxx commands are just shortcuts for ");
+            System.out.println("      running the command on a webapp in the webapps dir.");
+            System.out.println("      For example, 'prototype:sandbox' will start prototype");
+            System.out.println("      automatically for the webapp 'sandbox'.");
+            return;
+        }
+
+        // check the JDK version
+        String version = System.getProperty("java.version");
+        boolean jdk15 = version.indexOf("1.5") != -1;
+
+        String javaHome = System.getProperty("java.home");
         ArrayList urls = new ArrayList();
         try {
             findJars(new File("lib"), urls);
-            urls.add(new File("webwork-2.2.jar").toURL());
+
+            // use all the jars in the current that start with "webwork" and end with ".jar", but aren't the src jar
+            File wd = new File(".");
+            File[] jars = wd.listFiles(new FilenameFilter() {
+                public boolean accept(File dir, String name) {
+                    if (name.startsWith("webwork") && name.endsWith(".jar") && name.indexOf("-src.") == -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+            for (int i = 0; i < jars.length; i++) {
+                File jar = jars[i];
+                urls.add(jar.toURL());
+            }
+
+            // ... but there might not be any (ie: we're in development in IDEA), so use this as backup
+            urls.add(new File("build/java/").toURL());
+            urls.add(new File("../xwork/build/java/").toURL());
+
+            // load tools.jar from JAVA_HOME
+            File tools = new File(javaHome, "lib/tools.jar");
+            if (!tools.exists()) {
+                // hmm, not there, how about java.home?
+                tools = new File(javaHome, "../lib/tools.jar");
+            }
+            if (!tools.exists()) {
+                // try the OS X common path
+                tools = new File(javaHome, "../Classes/classes.jar");
+            }
+            if (!tools.exists()) {
+                // try the other OS X common path
+                tools = new File(javaHome, "../Classes/classes.jar");
+            }
+            if (!tools.exists()) {
+                // did the user specify it by hand?
+                String prop = System.getProperty("tools");
+                if (prop != null) {
+                    tools = new File(prop);
+                }
+            }
+            if (!tools.exists()) {
+                System.out.println("Error: Could not find tools.jar! Please do one of the following: ");
+                System.out.println("");
+                System.out.println("        - Use the JDK's JVM (ie: c:\\jdk1.5.0\\bin\\java)");
+                System.out.println("        - Specify JAVA_HOME to point to your JDK 1.5 home");
+                System.out.println("        - Specify a direct path to tools.jar via, as shown below:");
+                System.out.println("");
+                System.out.println("       java -Dtools=/path/to/tools.jar -jar webwork-launcher.jar ...");
+                return;
+            }
+
+            // finally, add the verified tools.jar
+            urls.add(tools.toURL());
         } catch (MalformedURLException e) {
             e.printStackTrace();
             System.out.println("Could not find URLs -- see stack trace.");
         }
 
         String command = args[0];
+        String[] programArgs = new String[args.length - 1];
+        System.arraycopy(args, 1, programArgs, 0, programArgs.length);
+        if (command.startsWith("prototype:")) {
+            command = "prototype";
+            String name = checkWebAppArgs(args);
+            programArgs = new String[]{"/" + name,
+                    "webapps/" + name + "/src/webapp",
+                    "webapps/" + name + "/src/java"};
+        }
+
         if ("prototype".equals(command)) {
-            URLClassLoader cl = new URLClassLoader((URL[]) urls.toArray(new URL[urls.size()]),
-                    Main.class.getClassLoader());
-            Thread.currentThread().setContextClassLoader(cl);
-            try {
-                Class clazz = cl.loadClass("com.opensymphony.webwork.Prototype");
-                Method main = clazz.getDeclaredMethod("main", new Class[]{String[].class});
-                main.invoke(null, new Object[]{new String[0]});
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (!jdk15) {
+                System.out.println("Sorry, but prototype only runs on Java 1.5.");
+                System.out.println("You are running: " + version);
+                System.out.println("Please try again with Java 1.5, or deploy");
+                System.out.println("  as a normal J2EE webapp to use Java 1.4.");
+                return;
             }
+
+            launch("com.opensymphony.webwork.Prototype", programArgs, urls);
+            return;
+        }
+
+        if (command.startsWith("webflow:")) {
+            command = "webflow";
+            String name = checkWebAppArgs(args);
+            programArgs = new String[]{"-config", "webapps/" + name + "/src/webapp/WEB-INF/classes",
+                    "-views", "webapps/" + name + "/src/webapp",
+                    "-output", "."};
+        }
+
+        if ("webflow".equals(command)) {
+            launch("com.opensymphony.webwork.webFlow.WebFlow", programArgs, urls);
+        }
+    }
+
+    private static String checkWebAppArgs(String[] args) {
+        int colon = args[0].indexOf(':');
+        String name = null;
+        try {
+            name = args[0].substring(colon + 1);
+        } catch (Exception e) {
+        }
+        if (name == null || name.equals("")) {
+            System.out.println("Error: you must specify the webapp you wish");
+            System.out.println("       to deploy. The webapp name must be the");
+            System.out.println("       name of the directory found in webapps/.");
+            System.out.println("");
+            System.out.println("Example: java -jar webwork-launcher.jar prototype:sandbox");
+            System.exit(1);
+        }
+
+        return name;
+    }
+
+    private static void launch(String program, String[] programArgs, ArrayList urls) {
+        URLClassLoader cl = new MainClassLoader((URL[]) urls.toArray(new URL[urls.size()]));
+        try {
+            System.out.println(cl.loadClass(program).getClassLoader());
+            System.out.println(cl.loadClass("com.uwyn.rife.continuations.ClassByteAware").getClassLoader());
+            System.out.println(cl.loadClass("com.opensymphony.webwork.util.classloader.CompilingClassLoader").getClassLoader());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Thread.currentThread().setContextClassLoader(cl);
+        try {
+            Class clazz = cl.loadClass(program);
+            Method main = clazz.getDeclaredMethod("main", new Class[]{String[].class});
+            main.invoke(null, new Object[]{programArgs});
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -50,36 +188,34 @@ public class Main {
         }
     }
 
-    static class MyClassLoader extends URLClassLoader {
-        private ClassLoader parent;
-
-        public MyClassLoader(URL[] urls, ClassLoader parent) {
-            super(urls, parent);
-            this.parent = parent;
+    /**
+     * Reverses the typical order of classloading to defer only to the parent if the
+     * current class loader can't be found. This is required to allow for the launcher
+     * to be embedded within webwork.jar (otherwise the dependencies wouldn't be found
+     * by the system ClassLoader when invoking using "java -jar webwork.jar ...").
+     */
+    public static class MainClassLoader extends URLClassLoader {
+        public MainClassLoader(URL[] urls) {
+            super(urls);
         }
 
-        public Class loadClass(String name) throws ClassNotFoundException {
-            Class aClass = null;
-            try {
-                aClass = findClass(name);
-            } catch (ClassNotFoundException e) {
+        public Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
+            ClassLoader parent = getParent();
+            // First, check if the class has already been loaded
+            Class c = findLoadedClass(name);
+            if (c == null) {
+                try {
+                    c = findClass(name);
+                } catch (ClassNotFoundException e) {
+                    // If still not found, only then ask the parent
+                    c = parent.loadClass(name);
+                }
+            }
+            if (resolve) {
+                resolveClass(c);
             }
 
-            if (aClass != null) {
-                return aClass;
-            } else {
-                return super.loadClass(name);
-            }
+            return c;
         }
-
-        public URL getResource(String name) {
-            URL url = findResource(name);
-            if (url == null && parent != null) {
-                url = super.getResource(name);
-            }
-
-            return url;
-        }
-
     }
 }

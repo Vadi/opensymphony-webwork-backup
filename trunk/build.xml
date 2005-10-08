@@ -13,7 +13,7 @@
         <taskdef name="ivy-report" classname="fr.jayasoft.ivy.ant.IvyReport"/>
         <taskdef name="ivy-deliver" classname="fr.jayasoft.ivy.ant.IvyDeliver"/>
 
-        <ivy-retrieve/>
+        <!--<ivy-retrieve/>-->
     </target>
 
     <target name="ivyrep.copy-ivy" depends="init">
@@ -42,19 +42,7 @@
         </sequential>
     </macrodef>
 
-    <target name="precompile">
-        <compile srcdir="launcher/src/java" destdir="launcher/build/java"/>
-    </target>
-
     <target name="predist">
-        <!-- build up the launcher jar -->
-        <jar destfile="dist/launcher.jar">
-            <manifest>
-                <attribute name="Main-Class" value="Main"/>
-            </manifest>
-            <fileset dir="launcher/build/java"/>
-        </jar>
-
         <!-- grab the README.txt file -->
         <copy file="${src}/etc/README.txt" todir="${dist}"/>
 
@@ -74,7 +62,7 @@
     <target name="jar" depends="compile">
         <mkdir dir="${build}"/>
 
-        <jar basedir="${build.java}" jarfile="${build}/${name}-${version}.jar">
+        <jar basedir="${build.java}" jarfile="dist/${name}-${version}.jar">
             <manifest>
                 <attribute name="Main-Class" value="com.opensymphony.webwork.Main"/>
                 <attribute name="Implementation-Title" value="${fullname}"/>
@@ -90,7 +78,6 @@
     </target>
 
     <target name="clean" depends="common.clean">
-        <delete dir="launcher/build"/>
         <delete dir="webapps/base/build"/>
         <delete dir="webapps/sandbox/build"/>
         <delete dir="webapps/ajax/build"/>
@@ -100,34 +87,34 @@
 
     <!-- other targets -->
 
-<!--
-	Cameron Braid : Disabled at the moment
-	
-	<target name='dojo-profile'>
-		<property name="dojo.dir" value='../dojo'/>
-		<ant dir="${dojo.dir}/buildscripts" target="release" inheritall="false">
-			<property name="docless" value="true"/>
-			<property name="nostrip" value="true"/>
-			<property name="profileFile" value="${basedir}/dojo.profile.js"/>
-		</ant>
+    <!--
+        Cameron Braid : Disabled at the moment
 
-		<sync todir="${src.java}/com/opensymphony/webwork/static/dojo/src" includeEmptyDirs="no" verbose="yes">
-			<fileset dir="${dojo.dir}/release/dojo/src">
-				<exclude name="**/*.js"/>
-				<exclude name="api/**"/>
-				<exclude name="tests/**"/>
-				<exclude name="Makefile"/>
-				<exclude name="README.TXT"/>
-			</fileset>
-		</sync>
+        <target name='dojo-profile'>
+            <property name="dojo.dir" value='../dojo'/>
+            <ant dir="${dojo.dir}/buildscripts" target="release" inheritall="false">
+                <property name="docless" value="true"/>
+                <property name="nostrip" value="true"/>
+                <property name="profileFile" value="${basedir}/dojo.profile.js"/>
+            </ant>
 
-		<copy todir="${src.java}/com/opensymphony/webwork/static/dojo" preservelastmodified="true">
-			<fileset dir="${dojo.dir}/release/dojo">
-				<exclude name="src/**"/>
-				<exclude name="api/**"/>
-				<exclude name="tests/**"/>
-			</fileset>
-		</copy>
-	</target>
--->
+            <sync todir="${src.java}/com/opensymphony/webwork/static/dojo/src" includeEmptyDirs="no" verbose="yes">
+                <fileset dir="${dojo.dir}/release/dojo/src">
+                    <exclude name="**/*.js"/>
+                    <exclude name="api/**"/>
+                    <exclude name="tests/**"/>
+                    <exclude name="Makefile"/>
+                    <exclude name="README.TXT"/>
+                </fileset>
+            </sync>
+
+            <copy todir="${src.java}/com/opensymphony/webwork/static/dojo" preservelastmodified="true">
+                <fileset dir="${dojo.dir}/release/dojo">
+                    <exclude name="src/**"/>
+                    <exclude name="api/**"/>
+                    <exclude name="tests/**"/>
+                </fileset>
+            </copy>
+        </target>
+    -->
 </project>
