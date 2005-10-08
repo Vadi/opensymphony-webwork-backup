@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  * Date: Aug 7, 2005
  * Time: 7:14:01 PM
  */
-public class Prototype {
+public class QuickStart {
     public static void main(String[] args) {
         if (args.length != 3) {
             System.err.println("prototype must be invoked with three argumenets:");
@@ -85,7 +85,7 @@ public class Prototype {
             socketListener.setPort(8080);
             server.addListener(socketListener);
 
-            WebApplicationContext ctx = new PrototypeWebAppContext(webapp);
+            WebApplicationContext ctx = new QuickStartWebAppContext(webapp);
             ctx.setContextPath(contextPath);
             ctx.setClassLoader(url);
             server.addContext("localhost", ctx);
@@ -97,11 +97,11 @@ public class Prototype {
 
     }
 
-    static class PrototypeWebAppContext extends WebApplicationContext {
-        public PrototypeWebAppContext() {
+    static class QuickStartWebAppContext extends WebApplicationContext {
+        public QuickStartWebAppContext() {
         }
 
-        public PrototypeWebAppContext(String string) {
+        public QuickStartWebAppContext(String string) {
             super(string);
         }
 

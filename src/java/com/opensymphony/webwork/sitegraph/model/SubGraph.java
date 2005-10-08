@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.webFlow.model;
+package com.opensymphony.webwork.sitegraph.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class SubGraph implements Render {
         this.parent = parent;
     }
 
-    public void addNode(WebFlowNode node) {
+    public void addNode(SiteGraphNode node) {
         node.setParent(this);
         Graph.nodeMap.put(node.getFullName(), node);
         nodes.add(node);
@@ -56,8 +56,8 @@ public class SubGraph implements Render {
 
         // write out the actions
         for (Iterator iterator = nodes.iterator(); iterator.hasNext();) {
-            WebFlowNode webFlowNode = (WebFlowNode) iterator.next();
-            webFlowNode.render(writer);
+            SiteGraphNode siteGraphNode = (SiteGraphNode) iterator.next();
+            siteGraphNode.render(writer);
         }
 
         // .. footer

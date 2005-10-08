@@ -1,13 +1,13 @@
 /*
  * Created on Aug 12, 2004 by mgreer
  */
-package com.opensymphony.webwork.webFlow.renderers;
+package com.opensymphony.webwork.sitegraph.renderers;
 
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.webFlow.XWorkConfigRetriever;
-import com.opensymphony.webwork.webFlow.entities.Target;
-import com.opensymphony.webwork.webFlow.entities.View;
-import com.opensymphony.webwork.webFlow.model.*;
+import com.opensymphony.webwork.sitegraph.XWorkConfigRetriever;
+import com.opensymphony.webwork.sitegraph.entities.Target;
+import com.opensymphony.webwork.sitegraph.entities.View;
+import com.opensymphony.webwork.sitegraph.model.*;
 import com.opensymphony.xwork.ActionChainResult;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.ResultConfig;
@@ -138,7 +138,7 @@ public class DOTRenderer {
                     location = location.substring(0, location.indexOf('!'));
                 }
             }
-            WebFlowNode to = graph.findNode(location, temp.node);
+            SiteGraphNode to = graph.findNode(location, temp.node);
             if (to != null) {
                 graph.addLink(new Link(temp.node, to, temp.typeResult, temp.label));
             }
@@ -154,7 +154,7 @@ public class DOTRenderer {
         }
     }
 
-    private void addTempLink(WebFlowNode node, String location, int type, String label) {
+    private void addTempLink(SiteGraphNode node, String location, int type, String label) {
         links.add(new TempLink(node, location, type, label));
     }
 
@@ -188,12 +188,12 @@ public class DOTRenderer {
     }
 
     class TempLink {
-        WebFlowNode node;
+        SiteGraphNode node;
         String location;
         int typeResult;
         String label;
 
-        public TempLink(WebFlowNode node, String location, int typeResult, String label) {
+        public TempLink(SiteGraphNode node, String location, int typeResult, String label) {
             this.node = node;
             this.location = location;
             this.typeResult = typeResult;

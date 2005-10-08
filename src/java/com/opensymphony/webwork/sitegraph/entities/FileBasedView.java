@@ -1,11 +1,10 @@
-package com.opensymphony.webwork.webFlow.entities;
+package com.opensymphony.webwork.sitegraph.entities;
 
 import com.opensymphony.util.FileUtils;
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.webFlow.model.Link;
+import com.opensymphony.webwork.sitegraph.model.Link;
 
 import java.io.File;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;

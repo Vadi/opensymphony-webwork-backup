@@ -17,18 +17,18 @@ public class Main {
     public static void main(String[] args) {
         if (args.length == 0) {
             System.out.println("Usage:");
-            System.out.println("  java -jar webwork-launcher.jar [command] (optional command args)");
+            System.out.println("  java -jar webwork.jar [command] (optional command args)");
             System.out.println("");
             System.out.println("Where [command] is one of the following:");
-            System.out.println("  prototype");
-            System.out.println("  prototype:xxx");
-            System.out.println("  webflow");
-            System.out.println("  webflow:xxx");
+            System.out.println("  quickstart");
+            System.out.println("  quickstart:xxx");
+            System.out.println("  sitegraph");
+            System.out.println("  sitegraph:xxx");
             System.out.println("");
             System.out.println("Execute the commands for additional usage instructions.");
             System.out.println("Note: the *:xxx commands are just shortcuts for ");
             System.out.println("      running the command on a webapp in the webapps dir.");
-            System.out.println("      For example, 'prototype:sandbox' will start prototype");
+            System.out.println("      For example, 'quickstart:sandbox' will start QuickStart");
             System.out.println("      automatically for the webapp 'sandbox'.");
             return;
         }
@@ -104,37 +104,37 @@ public class Main {
         String command = args[0];
         String[] programArgs = new String[args.length - 1];
         System.arraycopy(args, 1, programArgs, 0, programArgs.length);
-        if (command.startsWith("prototype:")) {
-            command = "prototype";
+        if (command.startsWith("quickstart:")) {
+            command = "quickstart";
             String name = checkWebAppArgs(args);
             programArgs = new String[]{"/" + name,
                     "webapps/" + name + "/src/webapp",
                     "webapps/" + name + "/src/java"};
         }
 
-        if ("prototype".equals(command)) {
+        if ("quickstart".equals(command)) {
             if (!jdk15) {
-                System.out.println("Sorry, but prototype only runs on Java 1.5.");
+                System.out.println("Sorry, but QuickStart only runs on Java 1.5.");
                 System.out.println("You are running: " + version);
                 System.out.println("Please try again with Java 1.5, or deploy");
                 System.out.println("  as a normal J2EE webapp to use Java 1.4.");
                 return;
             }
 
-            launch("com.opensymphony.webwork.Prototype", programArgs, urls);
+            launch("com.opensymphony.webwork.QuickStart", programArgs, urls);
             return;
         }
 
-        if (command.startsWith("webflow:")) {
-            command = "webflow";
+        if (command.startsWith("sitegraph:")) {
+            command = "sitegraph";
             String name = checkWebAppArgs(args);
             programArgs = new String[]{"-config", "webapps/" + name + "/src/webapp/WEB-INF/classes",
                     "-views", "webapps/" + name + "/src/webapp",
                     "-output", "."};
         }
 
-        if ("webflow".equals(command)) {
-            launch("com.opensymphony.webwork.webFlow.WebFlow", programArgs, urls);
+        if ("sitegraph".equals(command)) {
+            launch("com.opensymphony.webwork.sitegraph.SiteGraph", programArgs, urls);
         }
     }
 
@@ -150,7 +150,7 @@ public class Main {
             System.out.println("       to deploy. The webapp name must be the");
             System.out.println("       name of the directory found in webapps/.");
             System.out.println("");
-            System.out.println("Example: java -jar webwork-launcher.jar prototype:sandbox");
+            System.out.println("Example: java -jar webwork.jar quickstart:sandbox");
             System.exit(1);
         }
 
@@ -159,13 +159,6 @@ public class Main {
 
     private static void launch(String program, String[] programArgs, ArrayList urls) {
         URLClassLoader cl = new MainClassLoader((URL[]) urls.toArray(new URL[urls.size()]));
-        try {
-            System.out.println(cl.loadClass(program).getClassLoader());
-            System.out.println(cl.loadClass("com.uwyn.rife.continuations.ClassByteAware").getClassLoader());
-            System.out.println(cl.loadClass("com.opensymphony.webwork.util.classloader.CompilingClassLoader").getClassLoader());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         Thread.currentThread().setContextClassLoader(cl);
         try {
             Class clazz = cl.loadClass(program);

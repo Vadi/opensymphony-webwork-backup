@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.webFlow.model;
+package com.opensymphony.webwork.sitegraph.model;
 
 import java.io.IOException;
 
@@ -7,11 +7,11 @@ import java.io.IOException;
  * Date: Jun 26, 2005
  * Time: 4:49:14 PM
  */
-public abstract class WebFlowNode implements Render, Comparable {
+public abstract class SiteGraphNode implements Render, Comparable {
     private String name;
     private SubGraph parent;
 
-    public WebFlowNode(String name) {
+    public SiteGraphNode(String name) {
         this.name = name;
     }
 
@@ -45,6 +45,6 @@ public abstract class WebFlowNode implements Render, Comparable {
     public abstract String getColor();
 
     public int compareTo(Object o) {
-        return name.compareTo(((WebFlowNode) o).name);
+        return name.compareTo(((SiteGraphNode) o).name);
     }
 }
