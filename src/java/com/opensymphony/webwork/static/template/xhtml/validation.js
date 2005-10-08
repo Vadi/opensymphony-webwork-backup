@@ -30,6 +30,10 @@ function clearErrorRows(table) {
     // clear out any rows with an "errorFor" attribute
     var rows = table.rows;
     var rowsToDelete = new Array();
+    if (rows == null){
+        return;
+    }
+
     for(var i = 0; i < rows.length; i++) {
         var r = rows[i];
         if (r.getAttribute("errorFor")) {
