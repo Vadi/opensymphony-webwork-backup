@@ -13,7 +13,7 @@
         <taskdef name="ivy-report" classname="fr.jayasoft.ivy.ant.IvyReport"/>
         <taskdef name="ivy-deliver" classname="fr.jayasoft.ivy.ant.IvyDeliver"/>
 
-        <!--<ivy-retrieve/>-->
+        <ivy-retrieve/>
     </target>
 
     <target name="ivyrep.copy-ivy" depends="init">
