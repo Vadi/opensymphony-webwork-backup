@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.webFlow.entities;
+package com.opensymphony.webwork.sitegraph.entities;
 
 
 /**

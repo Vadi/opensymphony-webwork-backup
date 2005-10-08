@@ -1,13 +1,13 @@
 /*
  * Created on Aug 14, 2004 by mgreer
  */
-package com.opensymphony.webwork.webFlow;
+package com.opensymphony.webwork.sitegraph;
 
-import com.opensymphony.webwork.webFlow.collectors.ArbitraryXMLConfigurationProvider;
-import com.opensymphony.webwork.webFlow.entities.FreeMarkerView;
-import com.opensymphony.webwork.webFlow.entities.JspView;
-import com.opensymphony.webwork.webFlow.entities.VelocityView;
-import com.opensymphony.webwork.webFlow.entities.View;
+import com.opensymphony.webwork.sitegraph.collectors.ArbitraryXMLConfigurationProvider;
+import com.opensymphony.webwork.sitegraph.entities.FreeMarkerView;
+import com.opensymphony.webwork.sitegraph.entities.JspView;
+import com.opensymphony.webwork.sitegraph.entities.VelocityView;
+import com.opensymphony.webwork.sitegraph.entities.View;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.ConfigurationProvider;
 import com.opensymphony.xwork.config.entities.ActionConfig;
@@ -17,7 +17,10 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Initializes and retrieves XWork config elements

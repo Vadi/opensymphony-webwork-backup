@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.webFlow.entities;
+package com.opensymphony.webwork.sitegraph.entities;
 
 import java.io.File;
 import java.util.regex.Pattern;

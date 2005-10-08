@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.webFlow.model;
+package com.opensymphony.webwork.sitegraph.model;
 
 import java.io.IOException;
 import java.util.*;
@@ -37,8 +37,8 @@ public class Graph extends SubGraph {
 
         // render all the nodes
         for (Iterator iterator = nodes.iterator(); iterator.hasNext();) {
-            WebFlowNode webFlowNode = (WebFlowNode) iterator.next();
-            webFlowNode.render(writer);
+            SiteGraphNode siteGraphNode = (SiteGraphNode) iterator.next();
+            siteGraphNode.render(writer);
         }
 
         // finally, render the links
@@ -51,7 +51,7 @@ public class Graph extends SubGraph {
         writer.write("}", true);
     }
 
-    public WebFlowNode findNode(String location, WebFlowNode ref) {
+    public SiteGraphNode findNode(String location, SiteGraphNode ref) {
         if (location.startsWith("/")) {
             location = location.substring(1);
         } else {
@@ -65,6 +65,6 @@ public class Graph extends SubGraph {
 
         location = location.replaceAll("[\\.\\/\\-\\$\\{\\}]", "_");
 
-        return (WebFlowNode) nodeMap.get(location);
+        return (SiteGraphNode) nodeMap.get(location);
     }
 }

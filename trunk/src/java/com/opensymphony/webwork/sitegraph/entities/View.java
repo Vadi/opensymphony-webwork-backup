@@ -1,7 +1,7 @@
 /*
  * Created on Aug 13, 2004 by mgreer
  */
-package com.opensymphony.webwork.webFlow.entities;
+package com.opensymphony.webwork.sitegraph.entities;
 
 import java.util.Set;
 

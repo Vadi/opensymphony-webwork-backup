@@ -1,9 +1,9 @@
 /*
  * Created on Aug 12, 2004 by mgreer
  */
-package com.opensymphony.webwork.webFlow;
+package com.opensymphony.webwork.sitegraph;
 
-import com.opensymphony.webwork.webFlow.renderers.DOTRenderer;
+import com.opensymphony.webwork.sitegraph.renderers.DOTRenderer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -11,22 +11,22 @@ import java.io.*;
 
 /**
  * // START SNIPPET: javadocs-intro
- * WebFlow is a tool that renders out GraphViz-generated images depicting your
- * WebWork-powered web application's flow. WebFlow requires GraphViz be installed
+ * SiteGraph is a tool that renders out GraphViz-generated images depicting your
+ * WebWork-powered web application's flow. SiteGraph requires GraphViz be installed
  * and that the "dot" executable be in your command path. You can find GraphViz
  * at http://www.graphviz.org.
  * // END SNIPPET: javadocs-intro
  * <p/>
  * // START SNIPPET: javadocs-api
- * If you wish to use WebFlow through its API rather than through the command line,
- * you can do that as well. All you need to do is create a new WebFlow instance,
+ * If you wish to use SiteGraph through its API rather than through the command line,
+ * you can do that as well. All you need to do is create a new SiteGraph instance,
  * optionally specify a {@link Writer} to output the dot content to, and then call
  * {@link #prepare()}.
  * // END SNIPPET: javadocs-api
  */
-public class WebFlow {
+public class SiteGraph {
 
-    private static final Log LOG = LogFactory.getLog(WebFlow.class);
+    private static final Log LOG = LogFactory.getLog(SiteGraph.class);
 
     private String configDir;
     private String views;
@@ -34,7 +34,7 @@ public class WebFlow {
     private String namespace;
     private Writer writer;
 
-    public WebFlow(String configDir, String views, String output, String namespace) {
+    public SiteGraph(String configDir, String views, String output, String namespace) {
         this.configDir = configDir;
         this.views = views;
         this.output = output;
@@ -42,10 +42,10 @@ public class WebFlow {
     }
 
     public static void main(String[] args) throws IOException {
-        LOG.info("WebFlow starting...");
+        LOG.info("SiteGraph starting...");
 
         if (args.length != 8 && args.length != 6) {
-            InputStream is = WebFlow.class.getResourceAsStream("webflow-usage.txt");
+            InputStream is = SiteGraph.class.getResourceAsStream("sitegraph-usage.txt");
             byte[] buffer = new byte[2048];
             int length = -1;
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -66,9 +66,9 @@ public class WebFlow {
         String namespace = getArg(args, "ns");
 
         // START SNIPPET: example-api
-        WebFlow webFlow = new WebFlow(configDir, views, output, namespace);
-        webFlow.prepare();
-        webFlow.render();
+        SiteGraph siteGraph = new SiteGraph(configDir, views, output, namespace);
+        siteGraph.prepare();
+        siteGraph.render();
         // END SNIPPET: example-api
     }
 

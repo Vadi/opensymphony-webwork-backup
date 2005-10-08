@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.webFlow.model;
+package com.opensymphony.webwork.sitegraph.model;
 
 import java.io.IOException;
 
@@ -14,12 +14,12 @@ public class Link implements Render, Comparable {
     public static final int TYPE_RESULT = 3;
     public static final int TYPE_REDIRECT = 4;
 
-    private WebFlowNode from;
-    private WebFlowNode to;
+    private SiteGraphNode from;
+    private SiteGraphNode to;
     private int type;
     private String label;
 
-    public Link(WebFlowNode from, WebFlowNode to, int type, String label) {
+    public Link(SiteGraphNode from, SiteGraphNode to, int type, String label) {
         this.from = from;
         this.to = to;
         this.type = type;

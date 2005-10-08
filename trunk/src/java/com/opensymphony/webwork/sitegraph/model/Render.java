@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.webFlow.model;
+package com.opensymphony.webwork.sitegraph.model;
 
 import java.io.IOException;
 
