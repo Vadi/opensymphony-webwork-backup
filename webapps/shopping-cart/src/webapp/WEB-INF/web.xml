@@ -46,6 +46,10 @@
         <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
 
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
     <taglib>
         <taglib-uri>webwork</taglib-uri>
         <taglib-location>/WEB-INF/webwork.tld</taglib-location>
@@ -60,9 +64,5 @@
         <taglib-uri>sitemesh-decorator</taglib-uri>
         <taglib-location>/WEB-INF/sitemesh-decorator.tld</taglib-location>
     </taglib>
-
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
 
 </web-app>
