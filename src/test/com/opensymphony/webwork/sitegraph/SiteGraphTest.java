@@ -11,7 +11,7 @@ import java.io.StringWriter;
  * Date: Jun 25, 2005
  * Time: 4:18:28 PM
  */
-public class WebFlowTest extends WebWorkTestCase {
+public class SiteGraphTest extends WebWorkTestCase {
     public void testWebFlow() {
         String dir = "src/test/com/opensymphony/webwork/sitegraph";
         SiteGraph siteGraph = new SiteGraph(dir, dir, dir, "");
