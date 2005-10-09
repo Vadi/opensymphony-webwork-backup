@@ -17,6 +17,7 @@ import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.util.XWorkContinuationConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -173,9 +174,9 @@ public class DispatcherUtils {
             String name = mapping.getName();
             String method = mapping.getMethod();
 
-            String id = request.getParameter("continue");
+            String id = request.getParameter(XWorkContinuationConfig.CONTINUE_PARAM);
             if (id != null) {
-                extraContext.put("__continue", id);
+                extraContext.put(XWorkContinuationConfig.CONTINUE_KEY, id);
             }
 
             ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, extraContext);
