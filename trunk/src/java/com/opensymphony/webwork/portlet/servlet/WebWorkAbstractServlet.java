@@ -34,7 +34,6 @@ import java.io.StringWriter;
  * @since 2005-7-6
  */
 public abstract class WebWorkAbstractServlet extends HttpServlet implements RequestConstants {
-    //~ Instance fields
     // ////////////////////////////////////////////////////////
 
     private VelocityManager velocityManager;
@@ -49,14 +48,12 @@ public abstract class WebWorkAbstractServlet extends HttpServlet implements Requ
 
     private static final GeneralUtil GENERAL_UTIL = new GeneralUtil();
 
-    //~ Constructors
     // ///////////////////////////////////////////////////////////
 
     public WebWorkAbstractServlet() {
         velocityManager = VelocityManager.getInstance();
     }
 
-    //~ Methods
     // ////////////////////////////////////////////////////////////////
 
     protected abstract void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;

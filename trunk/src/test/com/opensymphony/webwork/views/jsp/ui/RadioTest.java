@@ -15,7 +15,6 @@ import java.util.HashMap;
  * @version $Id$
  */
 public class RadioTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testMapChecked() throws Exception {
         TestAction testAction = (TestAction) action;
@@ -45,8 +44,8 @@ public class RadioTest extends AbstractUITagTest {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
         testAction.setList(new String[][]{
-            {"hello", "world"},
-            {"foo", "bar"}
+                {"hello", "world"},
+                {"foo", "bar"}
         });
 
         RadioTag tag = new RadioTag();

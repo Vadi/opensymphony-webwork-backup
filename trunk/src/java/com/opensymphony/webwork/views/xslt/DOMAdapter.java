@@ -17,7 +17,6 @@ import java.util.Collection;
  *         Time: 19:39:13
  */
 public class DOMAdapter {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public short getNodeType() {
         return Node.PROCESSING_INSTRUCTION_NODE; // What to return, is DOMAdapter a Node at last?
@@ -35,7 +34,9 @@ public class DOMAdapter {
             if (adapterClass == null) {
                 if (klass.isArray()) {
                     adapterClass = ArrayAdapter.class;
-                } else if (String.class.isAssignableFrom(klass) || klass.isPrimitive() || Number.class.isAssignableFrom(klass)) {
+                } else
+                if (String.class.isAssignableFrom(klass) || klass.isPrimitive() || Number.class.isAssignableFrom(klass))
+                {
                     adapterClass = ToStringAdapter.class;
                 } else if (Collection.class.isAssignableFrom(klass)) {
                     adapterClass = CollectionAdapter.class;
@@ -45,11 +46,11 @@ public class DOMAdapter {
             }
 
             Constructor c = adapterClass.getConstructor(new Class[]{
-                DOMAdapter.class, AdapterNode.class, String.class,
-                Object.class
+                    DOMAdapter.class, AdapterNode.class, String.class,
+                    Object.class
             });
             AdapterNode adapter = ((AdapterNode) c.newInstance(new Object[]{
-                this, parent, propertyName, value
+                    this, parent, propertyName, value
             }));
 
             return adapter;

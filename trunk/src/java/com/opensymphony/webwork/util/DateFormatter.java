@@ -17,7 +17,6 @@ import java.util.Date;
  * @version $Revision$
  */
 public class DateFormatter {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Date date;
     DateFormat format;
@@ -25,7 +24,6 @@ public class DateFormatter {
     // Attributes ----------------------------------------------------
     DateFormat parser;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     // Public --------------------------------------------------------
     public DateFormatter() {
@@ -34,7 +32,6 @@ public class DateFormatter {
         this.date = new Date();
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setDate(String date) {
         try {

@@ -18,11 +18,9 @@ import java.util.Properties;
  * @author Bill Lynch (docs)
  */
 public class PropertiesConfiguration extends Configuration {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Properties settings;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Creates a new properties config given the name of a properties file. The name is expected to NOT have
@@ -48,7 +46,6 @@ public class PropertiesConfiguration extends Configuration {
         }
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets a property in the properties file.

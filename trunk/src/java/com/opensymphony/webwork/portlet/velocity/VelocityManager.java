@@ -47,7 +47,6 @@ import java.util.*;
  * @author Matt Ho <matt@indigoegg.com>
  */
 public class VelocityManager {
-    //~ Static fields/initializers
     // /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(VelocityManager.class);
@@ -72,7 +71,6 @@ public class VelocityManager {
      */
     public static final String TAG = "tag";
 
-    //~ Instance fields
     // ////////////////////////////////////////////////////////
     private OgnlTool ognlTool = OgnlTool.getInstance();
 
@@ -92,14 +90,12 @@ public class VelocityManager {
      */
     private String[] chainedContextNames;
 
-    //~ Constructors
     // ///////////////////////////////////////////////////////////
 
     protected VelocityManager() {
         init();
     }
 
-    //~ Methods
     // ////////////////////////////////////////////////////////////////
 
     /**

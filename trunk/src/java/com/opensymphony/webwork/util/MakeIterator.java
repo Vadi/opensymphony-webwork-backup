@@ -17,7 +17,6 @@ import java.util.*;
  * @version $Id$
  */
 public class MakeIterator {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Determine whether a given object can be made into an <code>Iterator</code>

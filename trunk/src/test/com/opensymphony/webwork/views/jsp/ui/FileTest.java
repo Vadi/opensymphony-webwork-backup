@@ -14,12 +14,10 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
  * Time: 10:43:24 PM
  */
 public class FileTest extends AbstractUITagTest {
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public FileTest() {
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;

@@ -15,7 +15,6 @@ import java.util.Vector;
  * @version $Revision$
  */
 public class TabbedPane {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected String tabAlign = null;
 
@@ -23,14 +22,12 @@ public class TabbedPane {
     protected Vector content = null;
     protected int selectedIndex = 0;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     // Public --------------------------------------------------------
     public TabbedPane(int defaultIndex) {
         selectedIndex = defaultIndex;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setContent(Vector content) {
         this.content = content;

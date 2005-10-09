@@ -13,11 +13,9 @@ import com.opensymphony.webwork.components.table.renderer.DefaultCellRenderer;
  * @version $Revision$
  */
 public class WebTableColumn {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     static final private CellRenderer DEFAULT_RENDERER = new DefaultCellRenderer();
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     CellRenderer _renderer = null;
     String _displayName = null;
@@ -25,7 +23,6 @@ public class WebTableColumn {
     boolean _hidden = false;
     int _offset = -1;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public WebTableColumn(String name, int offset) {
         _name = name;
@@ -34,7 +31,6 @@ public class WebTableColumn {
         _renderer = DEFAULT_RENDERER;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setDisplayName(String displayName) {
         _displayName = displayName;

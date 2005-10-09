@@ -21,22 +21,18 @@ import java.io.InputStream;
  *         Time: 16:50:06
  */
 public class ServletURIResolver implements URIResolver {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     protected static Log log = LogFactory.getLog(URIResolver.class);
     static final String protocol = "res:";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private ServletContext sc;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public ServletURIResolver(ServletContext sc) {
         this.sc = sc;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public Source resolve(String href, String base) throws TransformerException {
         if (href.startsWith(protocol)) {

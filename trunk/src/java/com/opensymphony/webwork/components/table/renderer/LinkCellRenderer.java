@@ -12,7 +12,6 @@ import com.opensymphony.webwork.components.table.WebTable;
  * @version $Revision$
  */
 public class LinkCellRenderer extends AbstractCellRenderer {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     /**
      * this is the actual renderer tha will be used to display the text
@@ -90,12 +89,10 @@ public class LinkCellRenderer extends AbstractCellRenderer {
      */
     protected int _paramColumn = -1;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public LinkCellRenderer() {
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * should the link data be encodeed?

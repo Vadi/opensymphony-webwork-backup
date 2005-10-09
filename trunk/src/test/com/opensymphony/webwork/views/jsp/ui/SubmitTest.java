@@ -14,7 +14,6 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
  * Time: 10:52:57 PM
  */
 public class SubmitTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testDefaultValues() throws Exception {
         TestAction testAction = (TestAction) action;

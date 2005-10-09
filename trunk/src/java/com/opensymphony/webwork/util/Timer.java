@@ -12,13 +12,11 @@ package com.opensymphony.webwork.util;
  * @version $Revision$
  */
 public class Timer {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     // Attributes ----------------------------------------------------
     long current = System.currentTimeMillis();
     long start = current;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     // Public --------------------------------------------------------
     public long getTime() {

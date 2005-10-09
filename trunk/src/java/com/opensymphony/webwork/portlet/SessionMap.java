@@ -14,12 +14,10 @@ import java.util.*;
  * @since 2005-7-18
  */
 public class SessionMap extends AbstractMap implements Serializable {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     PortletSession session;
     Set entries;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Creates a new session map given a http servlet request. Note, ths enumeration of request
@@ -31,7 +29,6 @@ public class SessionMap extends AbstractMap implements Serializable {
         this.session = request.getPortletSession(true);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Removes all attributes from the session as well as clears entries in this map.

@@ -14,7 +14,6 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
  * Time: 10:49:54 PM
  */
 public class HiddenTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;

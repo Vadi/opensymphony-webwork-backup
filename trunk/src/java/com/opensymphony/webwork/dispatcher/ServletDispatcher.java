@@ -56,7 +56,6 @@ import java.io.IOException;
  * @deprecated use {@link FilterDispatcher} instead
  */
 public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
      * Logger for this class.

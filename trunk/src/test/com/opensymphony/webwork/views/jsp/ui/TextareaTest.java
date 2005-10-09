@@ -13,7 +13,6 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
  * @version $Id$
  */
 public class TextareaTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;

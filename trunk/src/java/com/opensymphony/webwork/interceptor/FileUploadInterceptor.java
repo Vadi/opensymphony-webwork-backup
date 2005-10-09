@@ -31,13 +31,11 @@ import java.util.*;
  * of the three patterns above, such as setDocument(File document), setDocumentContentType(String contentType), etc.
  */
 public class FileUploadInterceptor implements Interceptor {
-//~ Static fields/initializers /////////////////////////////////////////////
 
     protected static final Log log = LogFactory.getLog(FileUploadInterceptor.class);
 
     private static final String DEFAULT_DELIMITER = ",";
 
-//~ Instance fields ////////////////////////////////////////////////////////
 
     protected Long maximumSize;
     protected String allowedTypes;
@@ -46,7 +44,6 @@ public class FileUploadInterceptor implements Interceptor {
     protected Set disallowedTypesSet = Collections.EMPTY_SET;
     static final String DEFAULT_MESSAGE = "no.message.found";
 
-//~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAllowedTypes(String allowedTypes) {
         this.allowedTypes = allowedTypes;

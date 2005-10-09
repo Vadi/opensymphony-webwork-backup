@@ -12,12 +12,10 @@ import javax.servlet.jsp.JspException;
  * @version $Revision$
  */
 public class SetTagTest extends AbstractUITagTest {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Chewbacca chewie;
     SetTag tag;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testApplicationScope() throws JspException {
         tag.setName("foo");
@@ -82,7 +80,6 @@ public class SetTagTest extends AbstractUITagTest {
         tag.setPageContext(pageContext);
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     public class Chewbacca {
         String name;

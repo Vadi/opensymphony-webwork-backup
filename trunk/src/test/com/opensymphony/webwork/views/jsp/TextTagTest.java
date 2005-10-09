@@ -27,12 +27,10 @@ import java.util.Locale;
  * Created: Oct 17, 2003 2:15:36 PM
  */
 public class TextTagTest extends AbstractTagTest {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private String fooValue = "com.opensymphony.webwork.views.jsp.TextTagTest.fooValue";
     private TextTag tag;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public Action getAction() {
         TestAction action = new TestAction();

@@ -21,11 +21,9 @@ import java.util.List;
  * @author Bill Lynch (docs)
  */
 public abstract class MultiPartRequest {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     protected static Log log = LogFactory.getLog(MultiPartRequest.class);
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Returns <tt>true</tt> if the request is multipart form data, <tt>false</tt> otherwise.

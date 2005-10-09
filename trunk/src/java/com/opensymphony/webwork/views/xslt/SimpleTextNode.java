@@ -15,13 +15,11 @@ import org.w3c.dom.Text;
  *         Time: 19:45:12
  */
 public class SimpleTextNode extends DefaultAdapterNode implements Text, AdapterNode {
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public SimpleTextNode(DOMAdapter rootAdapter, AdapterNode parent, String propertyName, Object value) {
         super(rootAdapter, parent, propertyName, value);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setData(String string) throws DOMException {
         throw new RuntimeException("Operation not supported");

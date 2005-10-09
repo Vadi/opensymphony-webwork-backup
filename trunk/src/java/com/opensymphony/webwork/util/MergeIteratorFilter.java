@@ -18,7 +18,6 @@ import java.util.List;
  * @version $Revision$
  */
 public class MergeIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     List iterators = new ArrayList();
 
@@ -26,7 +25,6 @@ public class MergeIteratorFilter extends IteratorFilterSupport implements Iterat
     List sources = new ArrayList();
     int idx = 0;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     // Public --------------------------------------------------------
     public void setSource(Object anIterator) {

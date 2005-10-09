@@ -6,7 +6,6 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
-import com.opensymphony.webwork.views.jsp.ui.DivTag;
 
 
 /**
@@ -14,7 +13,6 @@ import com.opensymphony.webwork.views.jsp.ui.DivTag;
  * @version $Id$
  */
 public class DivTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
 
     public void testSimple() throws Exception {

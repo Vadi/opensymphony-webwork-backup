@@ -16,17 +16,14 @@ import java.util.List;
  *         Time: 20:40:44
  */
 public class CollectionNodeList implements NodeList {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private List nodes;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public CollectionNodeList(List nodes) {
         this.nodes = nodes;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public int getLength() {
         return nodes.size();

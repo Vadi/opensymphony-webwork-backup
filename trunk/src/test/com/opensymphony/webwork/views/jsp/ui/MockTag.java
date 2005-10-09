@@ -18,7 +18,6 @@ import java.util.Map;
  * Time: 10:21:36 AM
  */
 public class MockTag extends BodyTagSupport {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static String s;
     private static Integer i;
@@ -30,7 +29,6 @@ public class MockTag extends BodyTagSupport {
     private static HashMap params;
     private static MockTag instance = new MockTag();
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public static MockTag getInstance() {
         return instance;

@@ -17,7 +17,6 @@ import java.io.Serializable;
  * @see <related>
  */
 public class Counter implements java.util.Iterator, Serializable {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     boolean wrap = false;
 
@@ -27,7 +26,6 @@ public class Counter implements java.util.Iterator, Serializable {
     long interval = 1;
     long last = -1;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAdd(long addition) {
         current += addition;

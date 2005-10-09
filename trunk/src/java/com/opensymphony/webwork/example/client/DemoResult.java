@@ -4,18 +4,17 @@
  */
 package com.opensymphony.webwork.example.client;
 
-import java.awt.*;
-
 import javax.swing.*;
+import java.awt.*;
 
 
 /**
  * Result panel object for the client dispatcher example
+ *
  * @author Peter Kelley
  * @version 1.0
  */
 public class DemoResult extends JPanel {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     GridBagLayout gridBagLayout1 = new GridBagLayout();
     JLabel jLabel1 = new JLabel();
@@ -27,7 +26,6 @@ public class DemoResult extends JPanel {
     JTextField invocationNumber = new JTextField();
     JTextField output = new JTextField();
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public DemoResult() {
         try {
@@ -37,10 +35,10 @@ public class DemoResult extends JPanel {
         }
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Setter for property input.
+     *
      * @param newInput the new value for field input
      */
     public void setInput(JTextField newInput) {
@@ -49,6 +47,7 @@ public class DemoResult extends JPanel {
 
     /**
      * Getter for property input.
+     *
      * @return the value of field input
      */
     public JTextField getInput() {
@@ -57,6 +56,7 @@ public class DemoResult extends JPanel {
 
     /**
      * Setter for property invocationNumber.
+     *
      * @param newInvocationNumber the new value for field invocationNumber
      */
     public void setInvocationNumber(JTextField newInvocationNumber) {
@@ -65,6 +65,7 @@ public class DemoResult extends JPanel {
 
     /**
      * Getter for property invocationNumber.
+     *
      * @return the value of field invocationNumber
      */
     public JTextField getInvocationNumber() {
@@ -73,6 +74,7 @@ public class DemoResult extends JPanel {
 
     /**
      * Getter for property messages.
+     *
      * @return the value of field messages
      */
     public JTextArea getMessages() {
@@ -81,6 +83,7 @@ public class DemoResult extends JPanel {
 
     /**
      * Setter for property output.
+     *
      * @param newOutput the new value for field output
      */
     public void setOutput(JTextField newOutput) {
@@ -89,6 +92,7 @@ public class DemoResult extends JPanel {
 
     /**
      * Getter for property output.
+     *
      * @return the value of field output
      */
     public JTextField getOutput() {

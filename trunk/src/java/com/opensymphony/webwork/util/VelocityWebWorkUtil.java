@@ -7,9 +7,8 @@
  */
 package com.opensymphony.webwork.util;
 
-import com.opensymphony.util.TextUtils;
-import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
+import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
@@ -25,18 +24,15 @@ import java.io.IOException;
  * @author CameronBraid
  */
 public class VelocityWebWorkUtil extends WebWorkUtil {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private Context ctx;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public VelocityWebWorkUtil(Context ctx, OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
         this.ctx = ctx;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      */

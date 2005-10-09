@@ -29,7 +29,6 @@ import java.util.Map;
  * Time: 7:09:59 AM
  */
 public class TagUtils {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public static OgnlValueStack getStack(PageContext pageContext) {
         HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();

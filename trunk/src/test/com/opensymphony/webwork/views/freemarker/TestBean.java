@@ -13,12 +13,10 @@ package com.opensymphony.webwork.views.freemarker;
  * @author CameronBraid
  */
 public class TestBean {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private String pName = null;
     private String pValue = null;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      *
@@ -29,7 +27,6 @@ public class TestBean {
         setValue(value);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setName(String aName) {
         pName = aName;

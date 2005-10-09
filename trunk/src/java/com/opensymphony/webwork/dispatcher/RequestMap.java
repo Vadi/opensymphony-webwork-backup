@@ -19,12 +19,10 @@ import java.util.Set;
  * @author Bill Lynch (docs)
  */
 public class RequestMap extends AbstractMap implements Serializable {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Set entries;
     private HttpServletRequest request;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Saves the request to use as the backing for getting and setting values
@@ -35,7 +33,6 @@ public class RequestMap extends AbstractMap implements Serializable {
         this.request = request;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Removes all attributes from the request as well as clears entries in this map.

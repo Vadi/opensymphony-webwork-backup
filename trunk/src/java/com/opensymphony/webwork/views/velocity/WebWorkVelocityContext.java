@@ -13,12 +13,10 @@ import org.apache.velocity.VelocityContext;
  * @version $Revision$
  */
 public class WebWorkVelocityContext extends VelocityContext {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     OgnlValueStack stack;
     VelocityContext[] chainedContexts;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public WebWorkVelocityContext(OgnlValueStack stack) {
         this(null, stack);
@@ -29,7 +27,6 @@ public class WebWorkVelocityContext extends VelocityContext {
         this.stack = stack;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public boolean internalContainsKey(Object key) {
         boolean contains = super.internalContainsKey(key);

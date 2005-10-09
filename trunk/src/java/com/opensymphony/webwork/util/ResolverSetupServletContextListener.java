@@ -24,7 +24,6 @@ import java.util.Iterator;
  * @author Ross
  */
 public class ResolverSetupServletContextListener implements ServletContextListener {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void contextDestroyed(ServletContextEvent event) {
     }

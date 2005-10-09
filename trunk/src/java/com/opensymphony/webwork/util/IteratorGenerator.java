@@ -19,7 +19,6 @@ import java.util.StringTokenizer;
  * @version $Revision$
  */
 public class IteratorGenerator implements Iterator, Action {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     List values;
     Object value;
@@ -29,7 +28,6 @@ public class IteratorGenerator implements Iterator, Action {
     int count = 0;
     int currentCount = 0;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setCount(int aCount) {
         this.count = aCount;

@@ -13,12 +13,10 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
  * @version $Id$
  */
 public class CheckboxTest extends AbstractUITagTest {
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public CheckboxTest() {
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testChecked() throws Exception {
         TestAction testAction = (TestAction) action;

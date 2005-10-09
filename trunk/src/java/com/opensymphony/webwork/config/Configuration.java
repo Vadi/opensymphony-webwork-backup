@@ -38,14 +38,12 @@ import java.util.StringTokenizer;
  * @author Bill Lynch (docs)
  */
 public class Configuration {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     static Configuration configurationImpl;
     static Configuration defaultImpl;
     static Locale locale; // Cached locale
     private static final Log LOG = LogFactory.getLog(Configuration.class);
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets the current configuration implementation. Can only be called once.

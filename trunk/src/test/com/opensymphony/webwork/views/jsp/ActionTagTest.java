@@ -24,7 +24,6 @@ import javax.servlet.jsp.JspException;
  *         Created Mar 27, 2003 9:10:27 PM
  */
 public class ActionTagTest extends AbstractTagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testActionTagWithNamespace() {
         request.setupGetServletPath(TestConfigurationProvider.TEST_NAMESPACE + "/" + "foo.action");

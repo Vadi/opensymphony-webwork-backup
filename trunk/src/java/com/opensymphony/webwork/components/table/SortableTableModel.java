@@ -12,13 +12,11 @@ import javax.swing.table.TableModel;
  * @version $Revision$
  */
 public interface SortableTableModel extends TableModel {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     final static public String NONE = "NONE";
     final static public String ASC = "ASC";
     final static public String DESC = "DESC";
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public int getSortedColumnNumber();
 

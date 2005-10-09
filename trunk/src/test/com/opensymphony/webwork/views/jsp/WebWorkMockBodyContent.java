@@ -18,19 +18,16 @@ import java.io.Writer;
  *         Date: Mar 15, 2004 10:50:56 PM
  */
 public class WebWorkMockBodyContent extends BodyContent {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private JspWriter jspWriter;
     private String body = null;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public WebWorkMockBodyContent(JspWriter jspWriter) {
         super(jspWriter);
         this.jspWriter = jspWriter;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public Reader getReader() {
         return null;

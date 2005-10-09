@@ -57,7 +57,6 @@ import java.util.Iterator;
  * @version $Revision$
  */
 public class IteratorTag extends WebWorkBodyTagSupport {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected Iterator iterator;
     protected IteratorStatus status;
@@ -66,7 +65,6 @@ public class IteratorTag extends WebWorkBodyTagSupport {
     protected String statusAttr;
     protected String value;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setStatus(String name) {
         this.statusAttr = name;

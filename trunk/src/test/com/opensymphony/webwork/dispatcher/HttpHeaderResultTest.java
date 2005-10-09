@@ -11,7 +11,6 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.XWorkTestCase;
 import com.opensymphony.xwork.util.OgnlUtil;
-import junit.framework.TestCase;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -25,14 +24,12 @@ import java.util.Map;
  *         Date: Nov 16, 2003 1:08:20 AM
  */
 public class HttpHeaderResultTest extends XWorkTestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     ActionInvocation invocation;
     HttpHeaderResult result;
     HttpServletResponse response;
     Mock responseMock;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testHeaderValuesAreNotParsedWhenParseIsFalse() throws Exception {
         Map params = new HashMap();

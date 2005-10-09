@@ -19,17 +19,14 @@ import java.util.List;
  *         Time: 18:59:07
  */
 public class CollectionAdapter extends DefaultElementAdapter {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private Log log = LogFactory.getLog(this.getClass());
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public CollectionAdapter(DOMAdapter rootAdapter, AdapterNode parent, String propertyName, Object value) {
         super(rootAdapter, parent, propertyName, value);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     protected List buildChildrenAdapters() {
         Collection values = (Collection) getValue();

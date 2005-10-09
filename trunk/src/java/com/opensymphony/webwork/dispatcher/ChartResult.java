@@ -28,14 +28,12 @@ import java.io.OutputStream;
  * @author Bernard Choi
  */
 public class ChartResult implements Result {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     JFreeChart chart;
     boolean chartSet = false;
     private int height;
     private int width;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets the JFreeChart to use.

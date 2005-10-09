@@ -18,7 +18,6 @@ import java.util.*;
  *         Created Mar 28, 2003 10:28:50 PM
  */
 public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Locale locale = Locale.US;
     private Map attributes = new HashMap();
@@ -32,7 +31,6 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
     private int serverPort;
     private String encoding;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAttribute(String s, Object o) {
         attributes.put(s, o);

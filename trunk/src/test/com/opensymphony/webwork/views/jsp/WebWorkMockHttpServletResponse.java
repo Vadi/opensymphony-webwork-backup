@@ -20,7 +20,6 @@ import java.util.Locale;
  */
 public class WebWorkMockHttpServletResponse extends MockHttpServletResponse {
     private Locale locale;
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public Locale getLocale() {
         return locale;

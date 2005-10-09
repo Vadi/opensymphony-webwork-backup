@@ -16,7 +16,6 @@ import java.util.List;
  *         Created Apr 9, 2003 11:12:54 PM
  */
 public class TestConfiguration extends Configuration {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Get a named setting.

@@ -20,11 +20,9 @@ import java.util.Map;
  * @version $Revision$
  */
 public class IteratorTagTest extends AbstractUITagTest {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     IteratorTag tag;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testArrayIterator() {
         Foo foo = new Foo();
@@ -248,7 +246,6 @@ public class IteratorTagTest extends AbstractUITagTest {
         assertEquals(3, stack.size());
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     class Foo {
         private Collection list;

@@ -18,7 +18,6 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * @see ConversionErrorInterceptor
  */
 public class WebWorkConversionErrorInterceptor extends ConversionErrorInterceptor {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     protected Object getOverrideExpr(ActionInvocation invocation, Object value) {
         OgnlValueStack stack = invocation.getStack();

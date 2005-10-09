@@ -20,18 +20,15 @@ import java.util.Vector;
  * @version $Revision$
  */
 public class TabbedPaneTag extends ComponentTag {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private final static String TEMPLATE = "tabbedpane";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected String contentName;
 
     // Protected --------------------------------------------------------
     protected TabbedPane tabPane;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public int getColSpanLength() {
         return ((this.getTabAlign().compareToIgnoreCase("CENTER") == 0) ? (this.getContent().size() + 2) : (this.getContent().size() + 1));

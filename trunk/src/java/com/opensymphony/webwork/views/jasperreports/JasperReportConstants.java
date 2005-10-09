@@ -12,7 +12,6 @@ package com.opensymphony.webwork.views.jasperreports;
  * @version $Id$
  */
 public interface JasperReportConstants {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
      * PDF format constant

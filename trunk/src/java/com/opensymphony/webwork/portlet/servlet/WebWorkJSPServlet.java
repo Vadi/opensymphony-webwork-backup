@@ -29,14 +29,12 @@ import java.io.IOException;
  */
 public class WebWorkJSPServlet extends WebWorkAbstractServlet {
 
-    //~ Constructors
     // ///////////////////////////////////////////////////////////
 
     public WebWorkJSPServlet() {
         super();
     }
 
-    //~ Methods
     // ////////////////////////////////////////////////////////////////
 
     protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

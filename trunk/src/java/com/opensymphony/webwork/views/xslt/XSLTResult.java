@@ -31,26 +31,22 @@ import java.util.Map;
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
  */
 public class XSLTResult implements Result {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(XSLTResult.class);
     public static final String DEFAULT_PARAM = "location";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected boolean noCache = false;
     private Map templatesCache;
     private String location;
     private boolean parse;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public XSLTResult() {
         templatesCache = new HashMap();
         noCache = Configuration.getString("webwork.xslt.nocache").trim().equalsIgnoreCase("true");
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setLocation(String location) {
         this.location = location;
@@ -128,8 +124,8 @@ public class XSLTResult implements Result {
                 }
 
                 if (
-                // This may result in the template being put into the cache multiple times
-                // if concurrent requests are made, but that's ok.
+                    // This may result in the template being put into the cache multiple times
+                    // if concurrent requests are made, but that's ok.
                         log.isDebugEnabled()) {
                     // This may result in the template being put into the cache multiple times
                     // if concurrent requests are made, but that's ok.

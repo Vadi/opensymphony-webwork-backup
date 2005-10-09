@@ -32,11 +32,9 @@ import java.util.*;
  * @version $Revision$
  */
 public class WebWorkUtil {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     protected static final Log log = LogFactory.getLog(WebWorkUtil.class);
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected HttpServletRequest request;
     protected HttpServletResponse response;
@@ -44,7 +42,6 @@ public class WebWorkUtil {
     protected OgnlTool ognl = OgnlTool.getInstance();
     protected OgnlValueStack stack;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public WebWorkUtil(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         this.stack = stack;
@@ -52,7 +49,6 @@ public class WebWorkUtil {
         this.response = response;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public Object bean(Object aName) throws Exception {
         String name = aName.toString();
@@ -214,7 +210,6 @@ public class WebWorkUtil {
         return Integer.toString(anInt);
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     static class ResponseWrapper extends HttpServletResponseWrapper {
         StringWriter strout;

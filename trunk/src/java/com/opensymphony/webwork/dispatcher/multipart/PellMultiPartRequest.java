@@ -24,11 +24,9 @@ import java.util.List;
  * @author <a href="scott@atlassian.com">Scott Farquhar</a> (added i18n handling (WW-109))
  */
 public class PellMultiPartRequest extends MultiPartRequest {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private ServletMultipartRequest multi;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Creates a new request wrapper to handle multi-part data using methods adapted from Jason Pell's
@@ -47,7 +45,6 @@ public class PellMultiPartRequest extends MultiPartRequest {
         }
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public Enumeration getFileParameterNames() {
         return multi.getFileParameterNames();

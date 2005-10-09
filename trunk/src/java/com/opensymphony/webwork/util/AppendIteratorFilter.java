@@ -19,14 +19,12 @@ import java.util.List;
  * @see <related>
  */
 public class AppendIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     List iterators = new ArrayList();
 
     // Attributes ----------------------------------------------------
     List sources = new ArrayList();
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     // Public --------------------------------------------------------
     public void setSource(Object anIterator) {

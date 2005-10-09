@@ -20,7 +20,6 @@ import java.net.URL;
  * @version $Revision$
  */
 public class ClassLoaderUtils {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Load a given resource.

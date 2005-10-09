@@ -21,12 +21,10 @@ import javax.servlet.http.HttpServletRequest;
  * @author Jason Carreira
  */
 public class TokenInterceptor implements Interceptor {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     public static final String INVALID_TOKEN_CODE = "invalid.token";
     private static final Log LOG = LogFactory.getLog(TokenInterceptor.class);
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Called to let an interceptor clean up any resources it has allocated. Does nothing by default -

@@ -14,8 +14,6 @@ import org.w3c.dom.*;
  *         Time: 19:46:43
  */
 public abstract class DefaultAdapterNode implements Node, AdapterNode {
-    //~ Static fields/initializers /////////////////////////////////////////////
-
     private static final NodeList EMPTY_NODELIST = new NodeList() {
         public Node item(int i) {
             return null;
@@ -26,15 +24,10 @@ public abstract class DefaultAdapterNode implements Node, AdapterNode {
         }
     };
 
-
-    //~ Instance fields ////////////////////////////////////////////////////////
-
     private AdapterNode parent;
     private DOMAdapter rootAdapter;
     private Object value;
     private String propertyName;
-
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public DefaultAdapterNode(DOMAdapter rootAdapter, AdapterNode parent, String propertyName, Object value) {
         //assert rootAdapter != null : "rootAdapter == null";
@@ -51,8 +44,6 @@ public abstract class DefaultAdapterNode implements Node, AdapterNode {
             LogFactory.getLog(getClass()).debug("Creating " + this);
         }
     }
-
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public NamedNodeMap getAttributes() {
         return null;
@@ -202,238 +193,115 @@ public abstract class DefaultAdapterNode implements Node, AdapterNode {
     protected void operationNotSupported() {
         throw new RuntimeException("Operation not supported.");
     }
-    
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Text#isElementContentWhitespace()
-     */
+
     public boolean isElementContentWhitespace() {
-        // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Text#getWholeText()
-     */
     public String getWholeText() {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Text#replaceWholeText(java.lang.String)
-     */
     public Text replaceWholeText(String content) throws DOMException {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#getBaseURI()
-     */
     public String getBaseURI() {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#compareDocumentPosition(org.w3c.dom.Node)
-     */
     public short compareDocumentPosition(Node other) throws DOMException {
-        // TODO Auto-generated method stub
         return 0;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#getTextContent()
-     */
     public String getTextContent() throws DOMException {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#setTextContent(java.lang.String)
-     */
     public void setTextContent(String textContent) throws DOMException {
-        // TODO Auto-generated method stub
-        
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#isSameNode(org.w3c.dom.Node)
-     */
     public boolean isSameNode(Node other) {
-        // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#lookupPrefix(java.lang.String)
-     */
     public String lookupPrefix(String namespaceURI) {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#isDefaultNamespace(java.lang.String)
-     */
     public boolean isDefaultNamespace(String namespaceURI) {
-        // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#lookupNamespaceURI(java.lang.String)
-     */
     public String lookupNamespaceURI(String prefix) {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#isEqualNode(org.w3c.dom.Node)
-     */
     public boolean isEqualNode(Node arg) {
-        // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#getFeature(java.lang.String, java.lang.String)
-     */
     public Object getFeature(String feature, String version) {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#setUserData(java.lang.String, java.lang.Object, org.w3c.dom.UserDataHandler)
-     */
     public Object setUserData(String key, Object data, UserDataHandler handler) {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Node#getUserData(java.lang.String)
-     */
     public Object getUserData(String key) {
-        // TODO Auto-generated method stub
         return null;
     }
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#getInputEncoding()
-     */
+
     public String getInputEncoding() {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#getXmlEncoding()
-     */
     public String getXmlEncoding() {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#getXmlStandalone()
-     */
     public boolean getXmlStandalone() {
-        // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#setXmlStandalone(boolean)
-     */
     public void setXmlStandalone(boolean xmlStandalone) throws DOMException {
-        // TODO Auto-generated method stub
-        
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#getXmlVersion()
-     */
     public String getXmlVersion() {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#setXmlVersion(java.lang.String)
-     */
     public void setXmlVersion(String xmlVersion) throws DOMException {
-        // TODO Auto-generated method stub
-        
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#getStrictErrorChecking()
-     */
     public boolean getStrictErrorChecking() {
-        // TODO Auto-generated method stub
         return false;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#setStrictErrorChecking(boolean)
-     */
     public void setStrictErrorChecking(boolean strictErrorChecking) {
-        // TODO Auto-generated method stub
-        
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#getDocumentURI()
-     */
     public String getDocumentURI() {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#setDocumentURI(java.lang.String)
-     */
     public void setDocumentURI(String documentURI) {
-        // TODO Auto-generated method stub
-        
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#adoptNode(org.w3c.dom.Node)
-     */
     public Node adoptNode(Node source) throws DOMException {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#getDomConfig()
-     */
     public DOMConfiguration getDomConfig() {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#normalizeDocument()
-     */
     public void normalizeDocument() {
-        // TODO Auto-generated method stub
-        
     }
 
-    /* (non-Javadoc)
-     * @see org.w3c.dom.Document#renameNode(org.w3c.dom.Node, java.lang.String, java.lang.String)
-     */
     public Node renameNode(Node n, String namespaceURI, String qualifiedName) throws DOMException {
-        // TODO Auto-generated method stub
         return null;
     }
-
-    
 }

@@ -21,12 +21,10 @@ import java.util.Map;
  * To change this template use Options | File Templates.
  */
 public class WebWorkMockPageContext extends MockPageContext {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private Map attributes = new HashMap();
     private ServletResponse response;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAttribute(String s, Object o) {
         if ((s == null) || (o == null)) {

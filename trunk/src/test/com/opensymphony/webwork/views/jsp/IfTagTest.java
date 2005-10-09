@@ -19,13 +19,11 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @version $Revision$
  */
 public class IfTagTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     IfTag tag;
     MockPageContext pageContext;
     OgnlValueStack stack;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testNonBooleanTest() {
         // set up the stack
@@ -157,7 +155,6 @@ public class IfTagTest extends TestCase {
         tag.setPageContext(pageContext);
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     class Foo {
         int num;

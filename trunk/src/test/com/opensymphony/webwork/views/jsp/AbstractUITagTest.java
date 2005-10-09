@@ -17,7 +17,6 @@ import java.util.StringTokenizer;
  * @version $Id$
  */
 public abstract class AbstractUITagTest extends AbstractTagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Attempt to verify the contents of this.writer against the contents of the URL specified.  verify() performs a

@@ -32,14 +32,12 @@ import java.io.IOException;
  *         Preferences - Java - Code Generation - Code and Comments
  */
 public class ChartResultTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private ActionInvocation actionInvocation;
     private JFreeChart mockChart;
     private Mock responseMock;
     private MockServletOutputStream os;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testChart() throws Exception {
         responseMock.expectAndReturn("getOutputStream", os);
@@ -88,18 +86,12 @@ public class ChartResultTest extends TestCase {
         ServletActionContext.setResponse((HttpServletResponse) responseMock.proxy());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see junit.framework.TestCase#tearDown()
-     */
     protected void tearDown() throws Exception {
         actionInvocation = null;
         os = null;
         responseMock = null;
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     private class MockServletOutputStream extends ServletOutputStream {
         // very simple check that outputStream was written to.

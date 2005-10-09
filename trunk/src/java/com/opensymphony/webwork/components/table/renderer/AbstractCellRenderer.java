@@ -13,14 +13,12 @@ import com.opensymphony.webwork.components.table.WebTable;
  * content by implementing getCellValue
  */
 abstract public class AbstractCellRenderer implements CellRenderer {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     /**
      * used for horizontal cell alignmnet
      */
     protected String _alignment = null;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAlignment(String alignment) {
         _alignment = alignment;

@@ -25,11 +25,9 @@ import java.io.Serializable;
  *             Please refer to the Spring-WebWork integration documentation for more info.
  */
 public class SessionLifecycleListener implements HttpSessionListener, Serializable {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(SessionLifecycleListener.class);
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Initializes an XWork component manager for the lifetime of the user's session.

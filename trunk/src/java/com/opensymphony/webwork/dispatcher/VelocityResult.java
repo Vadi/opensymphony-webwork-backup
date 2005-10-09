@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.PageContext;
-import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 
 /**
@@ -36,11 +36,9 @@ import java.io.OutputStreamWriter;
  * @author <a href="mailto:matt@indigoegg.com">Matt Ho</a>
  */
 public class VelocityResult extends WebWorkResultSupport {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(VelocityResult.class);
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Creates a Velocity context from the action, loads a Velocity template and executes the

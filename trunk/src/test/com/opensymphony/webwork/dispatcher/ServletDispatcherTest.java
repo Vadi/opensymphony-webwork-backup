@@ -16,25 +16,14 @@ import java.util.Map;
  * @author CameronBraid
  */
 public class ServletDispatcherTest extends AbstractServletDispatcherTestCase {
-    //~ Methods ////////////////////////////////////////////////////////////////
-
-    /* (non-Javadoc)
-     * @see com.opensymphony.webwork.dispatcher.AbstractServletDispatcherTest#getConfigFilename()
-     */
     public String getConfigFilename() {
         return "com/opensymphony/webwork/dispatcher/ServletDispatcherTest-xwork.xml";
     }
 
-    /* (non-Javadoc)
-     * @see com.opensymphony.webwork.dispatcher.AbstractServletDispatcherTest#getServletDispatcher()
-     */
     public ServletDispatcher getServletDispatcher() {
         return new ServletDispatcher();
     }
 
-    /* (non-Javadoc)
-     * @see com.opensymphony.webwork.dispatcher.AbstractServletDispatcherTest#getServletPath()
-     */
     public String getServletPath() {
         return "/Test.action";
     }
@@ -45,9 +34,6 @@ public class ServletDispatcherTest extends AbstractServletDispatcherTestCase {
 //        assertEquals(Locale.GERMANY,ServletDispatcher.getLocale());
 //    }
 
-    /* (non-Javadoc)
-     * @see com.opensymphony.webwork.dispatcher.AbstractServletDispatcherTestCase#getParameterMap()
-     */
     protected Map getParameterMap() {
         Map map = new HashMap();
         map.put("foo", "bar");

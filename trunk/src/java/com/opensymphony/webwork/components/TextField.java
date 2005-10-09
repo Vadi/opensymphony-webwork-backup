@@ -16,7 +16,6 @@ public class TextField extends UIBean {
      */
     final public static String TEMPLATE = "text";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected String maxLength;
     protected String readonly;

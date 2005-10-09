@@ -13,7 +13,6 @@ import org.w3c.dom.Node;
  *         Time: 19:41:49
  */
 public interface AdapterNode extends Node {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     Node getNextSibling(AdapterNode child);
 

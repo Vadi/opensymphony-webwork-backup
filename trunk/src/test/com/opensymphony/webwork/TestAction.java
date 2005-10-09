@@ -9,8 +9,8 @@ import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionSupport;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -18,7 +18,6 @@ import java.util.List;
  * @version $Id$
  */
 public class TestAction extends ActionSupport {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private Collection collection;
     private Map map;
@@ -29,7 +28,6 @@ public class TestAction extends ActionSupport {
     private String[][] list;
     private List list2;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
     public Collection getCollection() {
         return collection;
     }

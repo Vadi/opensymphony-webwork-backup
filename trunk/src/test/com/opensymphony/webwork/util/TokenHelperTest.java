@@ -22,13 +22,11 @@ import java.util.Map;
  *         Created Apr 3, 2003 10:13:08 AM
  */
 public class TokenHelperTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private HttpServletRequest request;
     private HttpSession session;
     private Mock mockRequest;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSetToken() {
         String token = TokenHelper.setToken(request);

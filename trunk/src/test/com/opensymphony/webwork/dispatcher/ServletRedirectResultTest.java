@@ -27,7 +27,6 @@ import java.util.HashMap;
  * @version $Revision$
  */
 public class ServletRedirectResultTest extends WebWorkTestCase implements WebWorkStatics {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected ServletRedirectResult view;
     private ActionContext oldContext;
@@ -35,7 +34,6 @@ public class ServletRedirectResultTest extends WebWorkTestCase implements WebWor
     private Mock responseMock;
     protected ActionInvocation ai;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testAbsoluteRedirect() {
         view.setLocation("/bar/foo.jsp");
