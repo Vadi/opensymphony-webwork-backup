@@ -27,11 +27,9 @@ import java.util.Locale;
  * @deprecated Please use the FreemarkerResult result type instead
  */
 public class FreemarkerServlet extends HttpServlet {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected Configuration configuration;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      *
@@ -40,7 +38,6 @@ public class FreemarkerServlet extends HttpServlet {
         super();
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     final public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("webwork.freemarker.servlet", this);
@@ -231,7 +228,8 @@ public class FreemarkerServlet extends HttpServlet {
         } catch (TemplateException te) {
             // only throw a servlet exception if not a debug handler
             // this is what the original freemarker.ext.servlet.FreemarkerServlet does
-            if ((configuration.getTemplateExceptionHandler() != freemarker.template.TemplateExceptionHandler.HTML_DEBUG_HANDLER) && (configuration.getTemplateExceptionHandler() != freemarker.template.TemplateExceptionHandler.DEBUG_HANDLER)) {
+            if ((configuration.getTemplateExceptionHandler() != freemarker.template.TemplateExceptionHandler.HTML_DEBUG_HANDLER) && (configuration.getTemplateExceptionHandler() != freemarker.template.TemplateExceptionHandler.DEBUG_HANDLER))
+            {
                 throw new ServletException(te);
             }
         }

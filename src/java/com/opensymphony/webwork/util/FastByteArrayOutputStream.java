@@ -21,12 +21,10 @@ import java.util.LinkedList;
  * @version $Revision$
  */
 public class FastByteArrayOutputStream extends OutputStream {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     // Static --------------------------------------------------------
     private static final int DEFAULT_BLOCK_SIZE = 8192;
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private LinkedList buffers;
 
@@ -40,7 +38,6 @@ public class FastByteArrayOutputStream extends OutputStream {
     private int index;
     private int size;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     // Constructors --------------------------------------------------
     public FastByteArrayOutputStream() {
@@ -52,7 +49,6 @@ public class FastByteArrayOutputStream extends OutputStream {
         buffer = new byte[blockSize];
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public int getSize() {
         return size + index;

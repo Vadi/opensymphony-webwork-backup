@@ -27,7 +27,6 @@ import java.util.List;
  * @author $author$
  */
 public class TestConfigurationProvider implements ConfigurationProvider {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     public static final String TEST_ACTION_NAME = "testAction";
     public static final String EXECUTION_COUNT_ACTION_NAME = "executionCountAction";
@@ -36,7 +35,6 @@ public class TestConfigurationProvider implements ConfigurationProvider {
     public static final String TEST_NAMESPACE = "/testNamespace";
     public static final String TEST_NAMESPACE_ACTION = "testNamespaceAction";
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Allows the configuration to clean up any resources used

@@ -20,12 +20,10 @@ import java.util.Map;
  * @author Robert Dawson (robert@rojotek.com)
  */
 public class SessionMapTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private Mock requestMock;
     private Mock sessionMock;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testClearInvalidatesTheSession() throws Exception {
         MockSessionMap sessionMap = new MockSessionMap((HttpServletRequest) requestMock.proxy());
@@ -36,7 +34,7 @@ public class SessionMapTest extends TestCase {
     public void testGetOnSessionMapUsesWrappedSessionsGetAttribute() throws Exception {
         Object value = new Object();
         sessionMock.expectAndReturn("getAttribute", new Constraint[]{
-            new IsEqual("KEY")
+                new IsEqual("KEY")
         }, value);
 
         SessionMap sessionMap = new SessionMap((HttpServletRequest) requestMock.proxy());
@@ -48,7 +46,7 @@ public class SessionMapTest extends TestCase {
         Object value = new Object();
         sessionMock.expect("getAttribute", new Constraint[]{new IsAnything()});
         sessionMock.expect("setAttribute", new Constraint[]{
-            new IsEqual("KEY"), new IsEqual(value)
+                new IsEqual("KEY"), new IsEqual(value)
         });
 
         SessionMap sessionMap = new SessionMap((HttpServletRequest) requestMock.proxy());
@@ -59,10 +57,10 @@ public class SessionMapTest extends TestCase {
     public void testPuttingObjectInMapReturnsNullForPreviouslyUnusedKey() throws Exception {
         Object value = new Object();
         sessionMock.expectAndReturn("getAttribute", new Constraint[]{
-            new IsEqual("KEY")
+                new IsEqual("KEY")
         }, null);
         sessionMock.expect("setAttribute", new Constraint[]{
-            new IsEqual("KEY"), new IsEqual(value)
+                new IsEqual("KEY"), new IsEqual(value)
         });
 
         SessionMap sessionMap = new SessionMap((HttpServletRequest) requestMock.proxy());
@@ -74,16 +72,16 @@ public class SessionMapTest extends TestCase {
         Object originalValue = new Object();
         Object value = new Object();
         sessionMock.expectAndReturn("getAttribute", new Constraint[]{
-            new IsEqual("KEY")
+                new IsEqual("KEY")
         }, null);
         sessionMock.expect("setAttribute", new Constraint[]{
-            new IsEqual("KEY"), new IsEqual(originalValue)
+                new IsEqual("KEY"), new IsEqual(originalValue)
         });
         sessionMock.expectAndReturn("getAttribute", new Constraint[]{
-            new IsEqual("KEY")
+                new IsEqual("KEY")
         }, originalValue);
         sessionMock.expect("setAttribute", new Constraint[]{
-            new IsEqual("KEY"), new IsEqual(value)
+                new IsEqual("KEY"), new IsEqual(value)
         });
 
         SessionMap sessionMap = new SessionMap((HttpServletRequest) requestMock.proxy());
@@ -95,10 +93,10 @@ public class SessionMapTest extends TestCase {
     public void testRemovePassThroughCallToRemoveAttribute() throws Exception {
         Object value = new Object();
         sessionMock.expectAndReturn("getAttribute", new Constraint[]{
-            new IsEqual("KEY")
+                new IsEqual("KEY")
         }, value);
         sessionMock.expect("removeAttribute", new Constraint[]{
-            new IsEqual("KEY")
+                new IsEqual("KEY")
         });
 
         SessionMap sessionMap = new SessionMap((HttpServletRequest) requestMock.proxy());
@@ -109,10 +107,9 @@ public class SessionMapTest extends TestCase {
     protected void setUp() throws Exception {
         sessionMock = new Mock(HttpSession.class);
         requestMock = new Mock(HttpServletRequest.class);
-        requestMock.matchAndReturn("getSession", new Constraint[] { new IsEqual(Boolean.FALSE)}, sessionMock.proxy());
+        requestMock.matchAndReturn("getSession", new Constraint[]{new IsEqual(Boolean.FALSE)}, sessionMock.proxy());
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     /**
      * class that extends session map, making the values available in a local map -- useful

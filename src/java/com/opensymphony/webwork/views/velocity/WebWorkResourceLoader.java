@@ -4,12 +4,11 @@
  */
 package com.opensymphony.webwork.views.velocity;
 
+import com.opensymphony.webwork.util.ClassLoaderUtils;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 import java.io.InputStream;
-
-import com.opensymphony.webwork.util.ClassLoaderUtils;
 
 
 /**
@@ -19,7 +18,6 @@ import com.opensymphony.webwork.util.ClassLoaderUtils;
  * @version $Revision$
  */
 public class WebWorkResourceLoader extends ClasspathResourceLoader {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public synchronized InputStream getResourceStream(String name) throws ResourceNotFoundException {
         if ((name == null) || (name.length() == 0)) {

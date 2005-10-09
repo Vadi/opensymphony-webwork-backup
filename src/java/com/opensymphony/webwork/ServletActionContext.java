@@ -23,13 +23,11 @@ import java.util.Map;
  */
 public class ServletActionContext extends ActionContext implements WebWorkStatics {
     public static final String WEBWORK_VALUESTACK_KEY = "webwork.valueStack";
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     private ServletActionContext(Map context) {
         super(context);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Returns the HTTP page context.

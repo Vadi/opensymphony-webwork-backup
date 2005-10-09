@@ -13,7 +13,6 @@ import java.util.List;
  * @author CameronBraid
  */
 public class TestAction extends ActionSupport {
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      *
@@ -22,7 +21,6 @@ public class TestAction extends ActionSupport {
         super();
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public List getBeanList() {
         List list = new ArrayList();

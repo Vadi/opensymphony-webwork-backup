@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
  * @version $Revision$
  */
 public class DateCellRenderer extends AbstractCellRenderer {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     SimpleDateFormat _formater = new SimpleDateFormat();
 
@@ -25,13 +24,11 @@ public class DateCellRenderer extends AbstractCellRenderer {
      */
     String _formatString = null;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public DateCellRenderer() {
         super();
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getCellValue(WebTable table, Object data, int row, int col) {
         java.util.Date cellValue = null;

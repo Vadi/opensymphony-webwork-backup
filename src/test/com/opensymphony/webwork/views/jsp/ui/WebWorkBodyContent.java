@@ -18,17 +18,14 @@ import java.io.Writer;
  * Created: Oct 17, 2003 11:18:58 PM
  */
 public class WebWorkBodyContent extends BodyContent {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private StringBuffer buffer = new StringBuffer();
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public WebWorkBodyContent(JspWriter jspWriter) {
         super(jspWriter);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public Reader getReader() {
         return new StringReader(buffer.toString());

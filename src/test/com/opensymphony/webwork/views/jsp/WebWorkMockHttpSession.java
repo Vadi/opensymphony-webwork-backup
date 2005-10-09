@@ -17,11 +17,9 @@ import java.util.Hashtable;
  *         Created Jun 5, 2003 9:26:31 PM
  */
 public class WebWorkMockHttpSession extends MockHttpSession {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Hashtable attributes = new Hashtable();
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setAttribute(String s, Object o) {
         attributes.put(s, o);

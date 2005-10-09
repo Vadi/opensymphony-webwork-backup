@@ -18,14 +18,12 @@ import java.util.Map;
  * Time: 4:13:11 PM
  */
 public class URLBean {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     HashMap params;
     HttpServletRequest request;
     HttpServletResponse response;
     String page;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setPage(String page) {
         this.page = page;

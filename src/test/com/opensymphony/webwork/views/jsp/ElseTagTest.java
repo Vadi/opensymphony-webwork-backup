@@ -19,13 +19,11 @@ import javax.servlet.jsp.tagext.TagSupport;
  * @version $Revision$
  */
 public class ElseTagTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     ElseTag elseTag;
     MockPageContext pageContext;
     OgnlValueStack stack;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testTestFalse() {
         pageContext.setAttribute(IfTag.ANSWER, new Boolean(false));
@@ -89,7 +87,6 @@ public class ElseTagTest extends TestCase {
         pageContext.setRequest(request);
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     class Foo {
         int num;

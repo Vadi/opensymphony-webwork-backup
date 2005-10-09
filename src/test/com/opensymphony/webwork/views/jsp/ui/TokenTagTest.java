@@ -17,7 +17,6 @@ import javax.servlet.jsp.JspException;
  *         Created Apr 10, 2003 7:12:12 PM
  */
 public class TokenTagTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testDefaultName() {
         String tokenName = TokenHelper.DEFAULT_TOKEN_NAME;

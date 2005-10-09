@@ -23,7 +23,6 @@ import java.util.Map;
  *         Time: 20:08:17
  */
 public class BeanAdapter extends DefaultElementAdapter {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Object[] NULLPARAMS = new Object[0];
 
@@ -33,17 +32,14 @@ public class BeanAdapter extends DefaultElementAdapter {
      */
     private static Map propertyDescriptorCache;
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private Log log = LogFactory.getLog(this.getClass());
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public BeanAdapter(DOMAdapter rootAdapter, AdapterNode parent, String propertyName, Object value) {
         super(rootAdapter, parent, propertyName, value);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getTagName() {
         return getPropertyName();

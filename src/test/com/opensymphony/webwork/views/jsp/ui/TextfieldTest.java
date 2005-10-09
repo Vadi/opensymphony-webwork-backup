@@ -5,12 +5,11 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
-import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 import com.opensymphony.webwork.views.freemarker.tags.TextFieldModel;
+import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
+import freemarker.template.TransformControl;
 
 import java.util.HashMap;
-
-import freemarker.template.TransformControl;
 
 
 /**
@@ -18,7 +17,6 @@ import freemarker.template.TransformControl;
  * @version $Id$
  */
 public class TextfieldTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testErrors() throws Exception {
         TestAction testAction = (TestAction) action;

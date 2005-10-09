@@ -12,16 +12,13 @@ import javax.servlet.jsp.JspException;
  * @version $Revision$
  */
 public class IfTag extends WebWorkBodyTagSupport {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     public static final String ANSWER = "webwork.if.answer";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Boolean answer;
     String test;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setTest(String test) {
         this.test = test;

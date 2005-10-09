@@ -34,7 +34,6 @@ import javax.servlet.http.HttpServletResponse;
  * @see PrincipalAware
  */
 public class ServletConfigInterceptor extends AroundInterceptor implements WebWorkStatics {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Does nothing.

@@ -11,7 +11,6 @@ import com.opensymphony.webwork.components.table.WebTable;
  * @version $Revision$
  */
 public interface CellRenderer {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String renderCell(WebTable table, Object data, int row, int col);
 }

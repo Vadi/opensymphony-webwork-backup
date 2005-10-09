@@ -15,17 +15,14 @@ import java.util.Vector;
  * @version 1.0
  */
 abstract public class AbstractFilterModel extends AbstractTableModel {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected TableModel model;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public AbstractFilterModel(TableModel tm) {
         model = tm;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public boolean isCellEditable(int par1, int par2) {
         return model.isCellEditable(par1, par2);

@@ -18,21 +18,17 @@ import java.util.Set;
  * Time: 6:29:49 PM
  */
 public class AttributeMap implements Map {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     protected static final String UNSUPPORTED = "method makes no sense for a simplified map";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Map context;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public AttributeMap(Map context) {
         this.context = context;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public boolean isEmpty() {
         throw new UnsupportedOperationException(UNSUPPORTED);

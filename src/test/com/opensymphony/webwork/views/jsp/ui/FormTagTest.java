@@ -19,7 +19,6 @@ import com.opensymphony.xwork.config.ConfigurationManager;
  *         Created Apr 3, 2003 10:28:58 AM
  */
 public class FormTagTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testForm() throws Exception {
         request.setupGetServletPath("/testAction");

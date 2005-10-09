@@ -15,7 +15,10 @@ import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import freemarker.cache.*;
+import freemarker.cache.FileTemplateLoader;
+import freemarker.cache.MultiTemplateLoader;
+import freemarker.cache.TemplateLoader;
+import freemarker.cache.WebappTemplateLoader;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.jsp.TaglibFactory;
 import freemarker.ext.servlet.HttpRequestHashModel;
@@ -43,7 +46,6 @@ import java.util.Properties;
  * @author CameronBraid
  */
 public class FreemarkerManager {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(FreemarkerManager.class);
     public static final String CONFIG_SERVLET_CONTEXT_KEY = "freemarker.Configuration";
@@ -62,7 +64,6 @@ public class FreemarkerManager {
     public static final String KEY_JSP_TAGLIBS = "JspTaglibs";
     private static FreemarkerManager instance = null;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * To allow for custom configuration of freemarker, sublcass this class "ConfigManager" and

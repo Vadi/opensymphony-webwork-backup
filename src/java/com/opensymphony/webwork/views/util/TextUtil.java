@@ -19,7 +19,6 @@ package com.opensymphony.webwork.views.util;
  * @version $Revision$
  */
 public class TextUtil {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     protected static final int MAX_LENGTH = 300;
 
@@ -34,7 +33,6 @@ public class TextUtil {
         initMapping();
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Call escapeHTML(s, false)

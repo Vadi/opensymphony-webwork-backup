@@ -4,8 +4,6 @@
  */
 package com.opensymphony.webwork.components.table;
 
-import com.opensymphony.webwork.components.table.SortableTableModel;
-
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -21,7 +19,6 @@ import java.util.Collections;
  * @version 1.1
  */
 public class SortFilterModel extends AbstractFilterModel implements TableModelListener, SortableTableModel {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private ArrayList rows = new ArrayList();
 
@@ -32,14 +29,12 @@ public class SortFilterModel extends AbstractFilterModel implements TableModelLi
     private boolean dirty = true;
     private int sortColumn = -1;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public SortFilterModel(TableModel tm) {
         super(tm);
         setModel(tm);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public boolean isCellEditable(int r, int c) {
         if ((rows.size() > 0) && (r < rows.size())) {
@@ -158,7 +153,6 @@ public class SortFilterModel extends AbstractFilterModel implements TableModelLi
         fireTableDataChanged();
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     /* this inner class holds the index of the model row
      * Rows are compared by looking at the model row entries

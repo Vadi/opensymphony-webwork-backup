@@ -17,7 +17,6 @@ import java.util.ArrayList;
  * @version $Revision$
  */
 public class ComboBoxTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;

@@ -13,13 +13,11 @@ package com.opensymphony.webwork.util;
  * @author CameronBraid
  */
 public class ListEntry {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     final private Object key;
     final private Object value;
     final private boolean isSelected;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public ListEntry(Object key, Object value, boolean isSelected) {
         this.key = key;
@@ -27,7 +25,6 @@ public class ListEntry {
         this.isSelected = isSelected;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public boolean getIsSelected() {
         return isSelected;

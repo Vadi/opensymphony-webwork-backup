@@ -12,13 +12,11 @@ import com.opensymphony.webwork.components.table.WebTable;
  * @version $Revision$
  */
 public class DefaultCellRenderer extends AbstractCellRenderer {
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public DefaultCellRenderer() {
         super();
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getCellValue(WebTable table, Object data, int row, int col) {
         if (data != null) {

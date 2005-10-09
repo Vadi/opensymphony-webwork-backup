@@ -22,7 +22,6 @@ package com.opensymphony.webwork;
  * @author Bill Lynch (docs)
  */
 public interface WebWorkStatics {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
      * Constant for the HTTP request object.

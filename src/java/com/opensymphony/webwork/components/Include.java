@@ -200,17 +200,14 @@ public class Include extends Component {
      * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a>
      */
     static final class PageOutputStream extends ServletOutputStream {
-        //~ Instance fields ////////////////////////////////////////////////////////
 
         private FastByteArrayOutputStream buffer;
 
-        //~ Constructors ///////////////////////////////////////////////////////////
 
         public PageOutputStream() {
             buffer = new FastByteArrayOutputStream();
         }
 
-        //~ Methods ////////////////////////////////////////////////////////////////
 
         /**
          * Return all data that has been written to this OutputStream.
@@ -258,13 +255,11 @@ public class Include extends Component {
      * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a>
      */
     static final class PageResponse extends HttpServletResponseWrapper {
-        //~ Instance fields ////////////////////////////////////////////////////////
 
         protected PrintWriter pagePrintWriter;
         protected ServletOutputStream outputStream;
         private PageOutputStream pageOutputStream = null;
 
-        //~ Constructors ///////////////////////////////////////////////////////////
 
         /**
          * Create PageResponse wrapped around an existing HttpServletResponse.
@@ -273,7 +268,6 @@ public class Include extends Component {
             super(response);
         }
 
-        //~ Methods ////////////////////////////////////////////////////////////////
 
         /**
          * Return the content buffered inside the {@link PageOutputStream}.

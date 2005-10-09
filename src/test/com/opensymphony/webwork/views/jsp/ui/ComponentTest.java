@@ -13,7 +13,6 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
  * @version $Id$
  */
 public class ComponentTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Note -- this test uses empty.vm, so it's basically clear

@@ -22,12 +22,10 @@ import java.util.StringTokenizer;
  * @author Bill Lynch (docs)
  */
 public class DefaultConfiguration extends Configuration {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected Log log = LogFactory.getLog(this.getClass());
     Configuration config;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Creates a new DefaultConfiguration object by loading all property files
@@ -92,7 +90,6 @@ public class DefaultConfiguration extends Configuration {
         }
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets the given property - delegates to the internal config implementation.

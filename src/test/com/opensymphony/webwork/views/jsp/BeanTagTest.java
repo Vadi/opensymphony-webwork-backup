@@ -14,7 +14,6 @@ import javax.servlet.jsp.JspException;
  * @version $Revision$
  */
 public class BeanTagTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() {
         BeanTag tag = new BeanTag();

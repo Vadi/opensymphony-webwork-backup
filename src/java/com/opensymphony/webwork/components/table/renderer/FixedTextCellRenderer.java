@@ -12,14 +12,12 @@ import com.opensymphony.webwork.components.table.WebTable;
  * say something else.
  */
 public class FixedTextCellRenderer extends AbstractCellRenderer {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     /**
      * this is the text that will be shown in the column
      */
     protected String _text = "";
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getCellValue(WebTable table, Object data, int row, int col) {
         return _text;

@@ -4,6 +4,7 @@
  */
 package com.opensymphony.webwork.views.freemarker;
 
+import com.opensymphony.xwork.util.OgnlValueStack;
 import freemarker.template.ObjectWrapper;
 import freemarker.template.SimpleHash;
 import freemarker.template.TemplateModel;
@@ -12,8 +13,6 @@ import freemarker.template.TemplateModelException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
@@ -24,14 +23,12 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * in the order stated: Request, Session, Servlet Context
  */
 public class ScopesHashModel extends SimpleHash {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private HttpServletRequest request;
     private ObjectWrapper objectWraper;
     private ServletContext servletContext;
     private OgnlValueStack stack;
-    
-    //~ Constructors ///////////////////////////////////////////////////////////
+
 
     public ScopesHashModel(ObjectWrapper objectWrapper, ServletContext context, HttpServletRequest request, OgnlValueStack stack) {
         super(objectWrapper);
@@ -40,7 +37,6 @@ public class ScopesHashModel extends SimpleHash {
         this.stack = stack;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public TemplateModel get(String key) throws TemplateModelException {
         // Lookup in default scope
@@ -50,9 +46,9 @@ public class ScopesHashModel extends SimpleHash {
             return model;
         }
 
-        
+
         if (stack != null) {
-        	Object obj = stack.findValue(key);
+            Object obj = stack.findValue(key);
 
             if (obj != null) {
                 return wrap(obj);

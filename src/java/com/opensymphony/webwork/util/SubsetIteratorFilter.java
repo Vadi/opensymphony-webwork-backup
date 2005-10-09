@@ -18,7 +18,6 @@ import java.util.Iterator;
  * @version $Revision$
  */
 public class SubsetIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Iterator iterator;
     Object source;
@@ -28,7 +27,6 @@ public class SubsetIteratorFilter extends IteratorFilterSupport implements Itera
     // Attributes ----------------------------------------------------
     int start = 0;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setCount(int aCount) {
         this.count = aCount;

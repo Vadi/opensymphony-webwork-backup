@@ -21,7 +21,6 @@ import java.util.Map;
  *         Created Apr 3, 2003 9:21:53 AM
  */
 public class TokenHelper {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
      * The default name to map the token value
@@ -34,7 +33,6 @@ public class TokenHelper {
     final public static String TOKEN_NAME_FIELD = "webwork.token.name";
     private static final Log LOG = LogFactory.getLog(TokenHelper.class);
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets a transaction token into the session using the default token name.
@@ -133,7 +131,7 @@ public class TokenHelper {
 
         if (!token.equals(sessionToken)) {
             LOG.warn(LocalizedTextUtil.findText(TokenHelper.class, "webwork.invalid.token", request.getLocale(), "Form token {0} does not match the session token {1}.", new Object[]{
-                token, sessionToken
+                    token, sessionToken
             }));
 
             return false;

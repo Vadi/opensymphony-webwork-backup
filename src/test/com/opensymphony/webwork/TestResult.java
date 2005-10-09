@@ -23,16 +23,13 @@ import java.util.List;
  *         Created Apr 12, 2003 9:49:35 PM
  */
 public class TestResult implements Result {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log LOG = LogFactory.getLog(TestResult.class);
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private List expectedValues = new ArrayList();
     private List propertyNames = new ArrayList();
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setExpectedValue(int index, String value) {
         expectedValues.set(index, value);
@@ -61,7 +58,8 @@ public class TestResult implements Result {
     public void execute(ActionInvocation invocation) throws Exception {
         LOG.info("executing TestResult.");
 
-        if ((expectedValues != null) && (expectedValues.size() > 0) && (propertyNames != null) && (propertyNames.size() > 0)) {
+        if ((expectedValues != null) && (expectedValues.size() > 0) && (propertyNames != null) && (propertyNames.size() > 0))
+        {
             OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
             for (int i = 0; i < propertyNames.size(); i++) {

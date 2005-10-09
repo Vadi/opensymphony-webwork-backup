@@ -23,17 +23,14 @@ import java.util.Map;
  * @author Jason Carreira
  */
 public class HttpHeaderResult implements Result {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     public static final String DEFAULT_PARAM = "status";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected boolean parse = true;
     private Map headers;
     private int status = -1;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Returns a Map of all HTTP headers.

@@ -23,11 +23,9 @@ import java.util.List;
  * @author CameronBraid
  */
 public class FreemarkerTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     TestAction testAction = null;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      *
@@ -36,7 +34,6 @@ public class FreemarkerTest extends TestCase {
         super(name);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSelectHelper() {
         WebWorkUtil wwUtil = new WebWorkUtil(ActionContext.getContext().getValueStack(), null, null);
@@ -55,7 +52,7 @@ public class FreemarkerTest extends TestCase {
     public void testValueStackMode() throws Exception {
         ScopesHashModel model = new ScopesHashModel(ObjectWrapper.BEANS_WRAPPER, null, null, ActionContext.getContext().getValueStack());
 
-		CollectionModel stringList = null;
+        CollectionModel stringList = null;
 
         stringList = (CollectionModel) model.get("stringList");
         assertEquals("one", stringList.get(0).toString());

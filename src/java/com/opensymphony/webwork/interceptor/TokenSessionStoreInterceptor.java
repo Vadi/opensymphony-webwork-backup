@@ -19,7 +19,6 @@ import java.util.Map;
  * @author Jason Carreira
  */
 public class TokenSessionStoreInterceptor extends TokenInterceptor {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * @param invocation

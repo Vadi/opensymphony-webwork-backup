@@ -22,19 +22,16 @@ import java.util.Map;
  *         Created Apr 12, 2003 10:34:53 PM
  */
 public class InvocationSessionStoreTest extends TestCase {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final String INVOCATION_KEY = "com.opensymphony.webwork.util.InvocationSessionStoreTest.invocation";
     private static final String TOKEN_VALUE = "com.opensymphony.webwork.util.InvocationSessionStoreTest.token";
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private ActionInvocation invocation;
     private Map session;
     private Mock invocationMock;
     private OgnlValueStack stack;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testStore() {
         assertNull(InvocationSessionStore.loadInvocation(INVOCATION_KEY, TOKEN_VALUE));

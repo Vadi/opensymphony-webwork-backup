@@ -13,11 +13,9 @@ import junit.framework.TestCase;
  * Time: 7:55:35 PM
  */
 public class CounterTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Counter c = new Counter();
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testCurrentAfterNext() {
         long next = c.getNext();

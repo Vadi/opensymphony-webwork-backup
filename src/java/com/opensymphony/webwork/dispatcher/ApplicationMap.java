@@ -19,12 +19,10 @@ import java.util.*;
  * @author Bill Lynch (docs)
  */
 public class ApplicationMap extends AbstractMap implements Serializable {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     ServletContext context;
     Set entries;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Creates a new map object given the servlet context.
@@ -35,7 +33,6 @@ public class ApplicationMap extends AbstractMap implements Serializable {
         this.context = ctx;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Removes all entries from the Map and removes all attributes from the servlet context.

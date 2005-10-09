@@ -35,14 +35,12 @@ import java.io.Writer;
  */
 public class WebWorkVelocityServlet extends WebWorkAbstractServlet {
 
-    //~ Constructors
     // ///////////////////////////////////////////////////////////
 
     public WebWorkVelocityServlet() {
         super();
     }
 
-    //~ Methods
     // ////////////////////////////////////////////////////////////////
 
     protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -12,12 +12,10 @@ import javax.servlet.jsp.JspException;
  * @version $Revision$
  */
 public class ElseIfTag extends WebWorkBodyTagSupport {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected Boolean answer;
     protected String test;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setTest(String test) {
         this.test = test;

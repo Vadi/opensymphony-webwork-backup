@@ -29,11 +29,9 @@ import java.io.InputStream;
  *             Please refer to the Spring-WebWork integration documentation for more info.
  */
 public class ApplicationLifecycleListener implements ServletContextListener {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(ApplicationLifecycleListener.class);
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Destroys the XWork component manager because the server is shutting down.

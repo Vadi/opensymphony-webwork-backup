@@ -18,7 +18,6 @@ import java.util.Locale;
  *         Created Apr 9, 2003 10:42:30 PM
  */
 public class ConfigurationTest extends WebWorkTestCase {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testConfiguration() {
         assertEquals("12345", Configuration.getString("webwork.multipart.maxSize"));

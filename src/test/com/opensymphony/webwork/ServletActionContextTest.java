@@ -23,7 +23,6 @@ import java.util.Map;
  * @author <a href="mailto:nightfal@etherlands.net">Erik Beeson</a>
  */
 public class ServletActionContextTest extends TestCase implements WebWorkStatics {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     ActionContext actionContext;
     ServletActionContext servletActionContext;
@@ -31,7 +30,6 @@ public class ServletActionContextTest extends TestCase implements WebWorkStatics
     private HttpServletResponse response;
     private MockServletContext servletContext;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setUp() {
         Map extraContext = new HashMap();

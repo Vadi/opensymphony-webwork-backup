@@ -33,7 +33,6 @@ import java.util.Map;
  * @author CameronBraid
  */
 public abstract class AbstractServletDispatcherTestCase extends WebWorkTestCase {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getConfigFilename() {
         return "xwork.xml";

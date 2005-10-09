@@ -12,7 +12,6 @@ import javax.servlet.jsp.JspException;
  * @version $Revision$
  */
 public class ElseTag extends WebWorkBodyTagSupport {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public int doStartTag() throws JspException {
         Boolean ifResult = (Boolean) pageContext.getAttribute(IfTag.ANSWER);

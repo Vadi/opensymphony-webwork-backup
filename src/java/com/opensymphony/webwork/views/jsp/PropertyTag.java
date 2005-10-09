@@ -17,17 +17,14 @@ import java.io.IOException;
  * @version $Revision$
  */
 public class PropertyTag extends WebWorkBodyTagSupport {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log log = LogFactory.getLog(PropertyTag.class);
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private String defaultValue;
     private String value;
     private boolean escape = true;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setDefault(String defaultValue) {
         this.defaultValue = defaultValue;

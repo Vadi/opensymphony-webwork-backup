@@ -18,7 +18,6 @@ import java.util.*;
  * @see <related>
  */
 public class SortIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Comparator comparator;
     Iterator iterator;
@@ -27,7 +26,6 @@ public class SortIteratorFilter extends IteratorFilterSupport implements Iterato
     // Attributes ----------------------------------------------------
     Object source;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setComparator(Comparator aComparator) {
         this.comparator = aComparator;

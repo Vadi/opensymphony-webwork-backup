@@ -18,9 +18,10 @@ import java.util.List;
  * @version $Id$
  */
 public class SelectTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
-    /** Tests WW-455: Select tag template does not work properly for Object like BigDecimal. */
+    /**
+     * Tests WW-455: Select tag template does not work properly for Object like BigDecimal.
+     */
     public void testBigDecimal() throws Exception {
         BigDecimalObject hello = new BigDecimalObject("hello", new BigDecimal(1));
         BigDecimalObject foo = new BigDecimalObject("foo", new BigDecimal(2));
@@ -84,9 +85,9 @@ public class SelectTest extends AbstractUITagTest {
         collection.add("foo");
         testAction.setCollection(collection);
         testAction.setList(new String[][]{
-            {"hello", "world"},
-            {"foo", "bar"},
-            {"cat", "dog"}
+                {"hello", "world"},
+                {"foo", "bar"},
+                {"cat", "dog"}
         });
 
         SelectTag tag = new SelectTag();
@@ -113,8 +114,8 @@ public class SelectTest extends AbstractUITagTest {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("hello");
         testAction.setList(new String[][]{
-            {"hello", "world"},
-            {"foo", "bar"}
+                {"hello", "world"},
+                {"foo", "bar"}
         });
 
         SelectTag tag = new SelectTag();

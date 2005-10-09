@@ -17,7 +17,6 @@ import java.util.Set;
  * @version $Id$
  */
 public class OgnlValueStackShadowMap extends HashMap {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     /**
      * valueStack reference
@@ -29,7 +28,6 @@ public class OgnlValueStackShadowMap extends HashMap {
      */
     Set entries;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Constructs an instance of OgnlValueStackShadowMap.
@@ -40,7 +38,6 @@ public class OgnlValueStackShadowMap extends HashMap {
         this.valueStack = valueStack;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Implementation of containsKey(), overriding HashMap implementation.

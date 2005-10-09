@@ -12,7 +12,6 @@ import com.opensymphony.webwork.components.table.WebTable;
  * @version $Revision$
  */
 public class BooleanCellRenderer extends AbstractCellRenderer {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     /**
      * value used if the boolean object is false
@@ -24,13 +23,11 @@ public class BooleanCellRenderer extends AbstractCellRenderer {
      */
     protected String _trueValue = "true";
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public BooleanCellRenderer() {
         super();
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getCellValue(WebTable table, Object data, int row, int col) {
         if (data == null) {

@@ -19,13 +19,11 @@ import java.util.*;
  * @author Bill Lynch (docs)
  */
 public class SessionMap extends AbstractMap implements Serializable {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected HttpSession session;
     protected Set entries;
     protected HttpServletRequest request;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Creates a new session map given a http servlet request. Note, ths enumeration of request
@@ -41,7 +39,6 @@ public class SessionMap extends AbstractMap implements Serializable {
         this.session = request.getSession(false);
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Removes all attributes from the session as well as clears entries in this map.

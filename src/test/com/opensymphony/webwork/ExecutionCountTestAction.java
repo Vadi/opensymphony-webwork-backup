@@ -16,15 +16,12 @@ import org.apache.commons.logging.LogFactory;
  *         Created Apr 18, 2003 6:17:40 PM
  */
 public class ExecutionCountTestAction extends ActionSupport {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final Log LOG = LogFactory.getLog(ExecutionCountTestAction.class);
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private int executionCount = 0;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public int getExecutionCount() {
         return executionCount;

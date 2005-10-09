@@ -14,7 +14,6 @@ import net.sf.jasperreports.engine.JasperCompileManager;
  * @version $Id$
  */
 public class CompileReport {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public static void main(String[] args) {
         if (args.length < 1) {

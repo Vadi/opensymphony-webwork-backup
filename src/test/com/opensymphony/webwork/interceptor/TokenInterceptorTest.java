@@ -30,7 +30,6 @@ import java.util.Map;
  *         Created Apr 9, 2003 11:42:01 PM
  */
 public class TokenInterceptorTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     ActionContext oldContext;
     HttpSession httpSession;
@@ -39,7 +38,6 @@ public class TokenInterceptorTest extends TestCase {
     Map session;
     WebWorkMockHttpServletRequest request;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testNoTokenInParams() {
         try {
@@ -79,10 +77,10 @@ public class TokenInterceptorTest extends TestCase {
 
     protected void setToken(String token) {
         request.getParameterMap().put(TokenHelper.TOKEN_NAME_FIELD, new String[]{
-            TokenHelper.DEFAULT_TOKEN_NAME
+                TokenHelper.DEFAULT_TOKEN_NAME
         });
         request.getParameterMap().put(TokenHelper.DEFAULT_TOKEN_NAME, new String[]{
-            token
+                token
         });
     }
 

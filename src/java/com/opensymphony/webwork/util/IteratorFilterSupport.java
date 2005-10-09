@@ -15,14 +15,12 @@ import java.util.Iterator;
  * @version $Revision$
  */
 public abstract class IteratorFilterSupport {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     // Protected implementation --------------------------------------
     protected Object getIterator(Object source) {
         return MakeIterator.convert(source);
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     // Wrapper for enumerations
     public class EnumerationIterator implements Iterator {

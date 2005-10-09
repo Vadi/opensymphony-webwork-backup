@@ -18,7 +18,6 @@ import java.util.Comparator;
  * @see SortIteratorFilter
  */
 public class Sorter {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public Comparator getAscending() {
         return new Comparator() {

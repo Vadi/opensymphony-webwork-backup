@@ -13,18 +13,15 @@ import org.w3c.dom.*;
  *         Time: 17:24:05
  */
 public class DocumentAdapter extends DefaultAdapterNode implements Document {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     private BeanAdapter rootElement;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public DocumentAdapter(DOMAdapter rootAdapter, AdapterNode parent, String propertyName, Object value) {
         super(rootAdapter, parent, propertyName, value);
         rootElement = new BeanAdapter(getRootAdapter(), this, getPropertyName(), getValue());
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public NodeList getChildNodes() {
         return new NodeList() {

@@ -17,7 +17,6 @@ import java.util.Map;
  * @version $Revision$
  */
 public class ContainUtil {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public static boolean contains(Object obj1, Object obj2) {
         if ((obj1 == null) || (obj2 == null)) {

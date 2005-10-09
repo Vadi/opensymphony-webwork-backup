@@ -21,7 +21,6 @@ import org.apache.velocity.exception.ResourceNotFoundException;
  * @version $Id$
  */
 public class VelocityResultTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     ActionInvocation actionInvocation;
     Mock mockActionProxy;
@@ -30,7 +29,6 @@ public class VelocityResultTest extends TestCase {
     TestVelocityEngine velocity;
     VelocityResult result;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testCanResolveLocationUsingOgnl() throws Exception {
         TestResult result = new TestResult();
@@ -89,7 +87,6 @@ public class VelocityResultTest extends TestCase {
         actionInvocation = (ActionInvocation) mockActionInvocation.proxy();
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     class Bean {
         private String location;

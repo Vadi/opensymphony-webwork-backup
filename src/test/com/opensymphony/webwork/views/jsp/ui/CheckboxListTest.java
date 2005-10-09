@@ -18,7 +18,6 @@ import java.util.Collection;
  * @version $Revision$
  */
 public class CheckboxListTest extends AbstractUITagTest {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testMultiple() throws Exception {
         TestAction testAction = (TestAction) action;

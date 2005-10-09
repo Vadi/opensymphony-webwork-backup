@@ -14,7 +14,6 @@ import java.text.DecimalFormat;
  * @version $Revision$
  */
 public class NumericCellRenderer extends AbstractCellRenderer {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     DecimalFormat _formater = new DecimalFormat();
 
@@ -35,13 +34,11 @@ public class NumericCellRenderer extends AbstractCellRenderer {
      */
     String _positiveColor = null;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     public NumericCellRenderer() {
         super();
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public String getCellValue(WebTable table, Object data, int row, int col) {
         StringBuffer retVal = new StringBuffer(128);

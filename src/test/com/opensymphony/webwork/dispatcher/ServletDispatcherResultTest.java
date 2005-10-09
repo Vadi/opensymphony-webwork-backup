@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  */
 public class ServletDispatcherResultTest extends TestCase implements WebWorkStatics {
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testInclude() {
         ServletDispatcherResult view = new ServletDispatcherResult();

@@ -21,20 +21,17 @@ import java.util.Iterator;
  * @version $Id$
  */
 public class OgnlValueStackDataSource implements JRDataSource {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     /**
      * Logger for this class
      */
     private static Log log = LogFactory.getLog(OgnlValueStackDataSource.class);
 
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Iterator iterator;
     OgnlValueStack valueStack;
     boolean firstTimeThrough = true;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Create a value stack data source on the given iterable property
@@ -60,7 +57,6 @@ public class OgnlValueStackDataSource implements JRDataSource {
         }
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Get the value of a given field

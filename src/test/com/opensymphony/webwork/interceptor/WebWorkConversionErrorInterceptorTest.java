@@ -24,7 +24,6 @@ import java.util.Map;
  *         Date: Nov 27, 2003 10:11:42 PM
  */
 public class WebWorkConversionErrorInterceptorTest extends TestCase {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected ActionContext context;
     protected ActionInvocation invocation;
@@ -33,7 +32,6 @@ public class WebWorkConversionErrorInterceptorTest extends TestCase {
     protected OgnlValueStack stack;
     protected WebWorkConversionErrorInterceptor interceptor;
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testEmptyValuesDoNotSetFieldErrors() throws Exception {
         conversionErrors.put("foo", new Long(123));

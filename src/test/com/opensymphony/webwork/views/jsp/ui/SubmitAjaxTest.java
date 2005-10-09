@@ -5,8 +5,6 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
-import com.opensymphony.webwork.views.jsp.ui.SubmitTag;
-import com.opensymphony.webwork.views.jsp.ui.HrefTest;
 
 /**
  * @author Ian Roughley
@@ -14,7 +12,6 @@ import com.opensymphony.webwork.views.jsp.ui.HrefTest;
  */
 public class SubmitAjaxTest extends AbstractUITagTest {
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void testSimple() throws Exception {
         SubmitTag tag = new SubmitTag();

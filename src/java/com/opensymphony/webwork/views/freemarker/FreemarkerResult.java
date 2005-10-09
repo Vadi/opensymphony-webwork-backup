@@ -8,12 +8,11 @@
 package com.opensymphony.webwork.views.freemarker;
 
 import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.views.util.ResourceUtil;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
-import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.webwork.views.util.ResourceUtil;
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
 import freemarker.template.*;
 
 import javax.servlet.ServletContext;
@@ -28,7 +27,6 @@ import java.util.Locale;
  * @author CameronBraid
  */
 public class FreemarkerResult extends WebWorkResultSupport {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     protected ActionInvocation invocation;
     protected Configuration configuration;
@@ -42,7 +40,6 @@ public class FreemarkerResult extends WebWorkResultSupport {
     protected String location;
     private String pContentType = "text/html";
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     public void setContentType(String aContentType) {
         pContentType = aContentType;

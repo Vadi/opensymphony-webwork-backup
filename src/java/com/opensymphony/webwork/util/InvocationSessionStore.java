@@ -20,16 +20,13 @@ import java.util.Map;
  *         Created Apr 12, 2003 9:53:19 PM
  */
 public class InvocationSessionStore {
-    //~ Static fields/initializers /////////////////////////////////////////////
 
     private static final String INVOCATION_MAP_KEY = "com.opensymphony.webwork.util.InvocationSessionStore.invocationMap";
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     private InvocationSessionStore() {
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Checks the Map in the Session for the key and the token. If the
@@ -94,7 +91,6 @@ public class InvocationSessionStore {
         return invocationMap;
     }
 
-    //~ Inner Classes //////////////////////////////////////////////////////////
 
     private static class InvocationContext implements Serializable {
         ActionInvocation invocation;

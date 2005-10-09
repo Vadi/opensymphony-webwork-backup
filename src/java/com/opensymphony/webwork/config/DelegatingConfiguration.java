@@ -19,11 +19,9 @@ import java.util.Set;
  * @author Bill Lynch (docs)
  */
 public class DelegatingConfiguration extends Configuration {
-    //~ Instance fields ////////////////////////////////////////////////////////
 
     Configuration[] configList;
 
-    //~ Constructors ///////////////////////////////////////////////////////////
 
     /**
      * Creates a new DelegatingConfiguration object given a list of {@link Configuration} implementations.
@@ -34,7 +32,6 @@ public class DelegatingConfiguration extends Configuration {
         configList = aConfigList;
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
 
     /**
      * Sets the given property - calls setImpl(String, Object) method on config objects in the config

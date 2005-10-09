@@ -18,32 +18,16 @@ import junit.framework.Assert;
  * @author CameronBraid
  */
 public class ServletDispatchedTestAssertInterceptor implements Interceptor {
-    //~ Constructors ///////////////////////////////////////////////////////////
-
-    /**
-     *
-     */
     public ServletDispatchedTestAssertInterceptor() {
         super();
     }
 
-    //~ Methods ////////////////////////////////////////////////////////////////
-
-    /* (non-Javadoc)
-     * @see com.opensymphony.xwork.interceptor.Interceptor#destroy()
-     */
     public void destroy() {
     }
 
-    /* (non-Javadoc)
-     * @see com.opensymphony.xwork.interceptor.Interceptor#init()
-     */
     public void init() {
     }
 
-    /* (non-Javadoc)
-     * @see com.opensymphony.xwork.interceptor.Interceptor#intercept(com.opensymphony.xwork.ActionInvocation)
-     */
     public String intercept(ActionInvocation invocation) throws Exception {
         Assert.assertTrue(invocation.getAction() instanceof TestAction);
 
