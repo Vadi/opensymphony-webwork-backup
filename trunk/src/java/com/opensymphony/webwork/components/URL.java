@@ -109,7 +109,6 @@ public class URL extends Component {
         } else {
             try {
                 writer.write(result);
-                writer.flush();
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException("IOError: " + e.getMessage(), e);
