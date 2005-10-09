@@ -110,6 +110,22 @@ public class UrlHelper {
         }
 
         //if the action was not explicitly set grab the params from the request
+        buildParametersString(params, link);
+
+        String result;
+
+        try {
+            result = encodeResult ? response.encodeURL(link.toString()) : link.toString();
+        } catch (Exception ex) {
+            // Could not encode the URL for some reason
+            // Use it unchanged
+            result = link.toString();
+        }
+
+        return result;
+    }
+
+    public static void buildParametersString(Map params, StringBuffer link) {
         if ((params != null) && (params.size() > 0)) {
             if (link.toString().indexOf("?") == -1) {
                 link.append("?");
@@ -153,18 +169,6 @@ public class UrlHelper {
                 }
             }
         }
-
-        String result;
-
-        try {
-            result = encodeResult ? response.encodeURL(link.toString()) : link.toString();
-        } catch (Exception ex) {
-            // Could not encode the URL for some reason
-            // Use it unchanged
-            result = link.toString();
-        }
-
-        return result;
     }
 
     /**
