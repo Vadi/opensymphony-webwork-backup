@@ -29,7 +29,7 @@
         <entry path="file://$PROJECT_DIR$/../xwork/lib/clover.jar" />
       </additionalClassPath>
       <antReference projectDefault="true" />
-      <customJdkName value="JDK 1.4.2" />
+      <customJdkName value="" />
       <maximumHeapSize value="128" />
       <properties />
     </buildFile>
