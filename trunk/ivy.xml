@@ -31,12 +31,13 @@
         <conf name="hibernate"/>
         <conf name="ibatis"/>
         <conf name="sitemesh"/>
-        <conf name="prototype"/>
+        <conf name="quickstart"/>
         <conf name="jasperreports"/>
         <conf name="jfree"/>
         <conf name="xslt"/>
         <conf name="portlet"/>
         <conf name="spring"/>
+        <conf name="xslt"/>
     </configurations>
     <publications>
         <artifact name="webwork" type="jar" conf="default"/>
@@ -77,8 +78,6 @@
 
         <!-- hibernate -->
         <dependency org="hibernate" name="hibernate" rev="3.0.5" conf="hibernate->default"/>
-        <!--<dependency org="aspectj" name="aspectjrt" rev="1.2" conf="prototype->default"/>-->
-        <!--<dependency org="sun" name="jta" rev="1.0" conf="prototype->default"/>-->
 
         <!-- ibatis -->
         <dependency org="com.ibatis" name="ibatis-common" rev="2.1.0.565" conf="ibatis->default"/>
@@ -88,17 +87,17 @@
         <!-- sitemesh -->
         <dependency org="opensymphony" name="sitemesh" rev="2.2.1" conf="sitemesh->default"/>
 
-        <!-- prototype -->
-        <dependency org="jetty" name="org.mortbay.jetty" rev="5.1.4" conf="prototype->default"/>
-        <dependency org="ant" name="ant" rev="1.6.5" conf="prototype->default"/>
-        <dependency org="tomcat" name="jasper-runtime" rev="5.5.9" conf="prototype->default"/>
-        <dependency org="tomcat" name="jasper-compiler" rev="5.5.9" conf="prototype->default"/>
-        <dependency org="eclipse" name="jdtcore" rev="3.0.1" conf="prototype->default"/>
-        <dependency org="commons-el" name="commons-el" rev="1.0" conf="prototype->default"/>
-        <dependency org="commons-io" name="commons-io" rev="1.0" conf="prototype->default"/>
-        <dependency org="commons-lang" name="commons-lang" rev="2.1" conf="prototype->default"/>
-        <dependency org="servletapi" name="servletapi" rev="2.4" conf="build->*"/>
-        <dependency org="jspapi" name="jsp-api" rev="2.0" conf="build->*"/>
+        <!-- quickstart -->
+        <dependency org="jetty" name="org.mortbay.jetty" rev="5.1.4" conf="quickstart->default"/>
+        <dependency org="ant" name="ant" rev="1.6.5" conf="quickstart->default"/>
+        <dependency org="tomcat" name="jasper-runtime" rev="5.5.9" conf="quickstart->default"/>
+        <dependency org="tomcat" name="jasper-compiler" rev="5.5.9" conf="quickstart->default"/>
+        <dependency org="eclipse" name="jdtcore" rev="3.0.1" conf="quickstart->default"/>
+        <dependency org="commons-el" name="commons-el" rev="1.0" conf="quickstart->default"/>
+        <dependency org="commons-io" name="commons-io" rev="1.0" conf="quickstart->default"/>
+        <dependency org="commons-lang" name="commons-lang" rev="2.1" conf="quickstart->default"/>
+        <dependency org="servletapi" name="servletapi" rev="2.4" conf="quickstart->*"/>
+        <dependency org="jspapi" name="jsp-api" rev="2.0" conf="quickstart->*"/>
 
         <!-- jasperreports -->
         <dependency org="jasperreports" name="jasperreports" rev="1.0.0" conf="jasperreports->default"/>
@@ -121,5 +120,8 @@
 
         <!-- spring -->
         <dependency org="opensymphony" name="xwork" rev="1.1+" conf="spring->spring"/>
+
+        <!-- xslt -->
+        <dependency org="w3c" name="dom" rev="3.0" conf="xslt->*"/>
     </dependencies>
 </ivy-module>
