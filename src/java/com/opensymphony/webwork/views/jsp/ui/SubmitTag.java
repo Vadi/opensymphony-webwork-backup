@@ -18,6 +18,7 @@ public class SubmitTag extends AbstractUITag {
     protected String align;
     protected String resultDivId;
     protected String onLoadJS;
+    protected String onLoad;
     protected String notifyTopics;
     protected String listenTopics;
 
@@ -31,6 +32,7 @@ public class SubmitTag extends AbstractUITag {
         ((Submit) component).setAlign(align);
         ((Submit) component).setResultDivId(resultDivId);
         ((Submit) component).setOnLoadJS(onLoadJS);
+        ((Submit) component).setOnLoad(onLoad);
         ((Submit) component).setNotifyTopics(notifyTopics);
         ((Submit) component).setListenTopics(listenTopics);
     }
@@ -53,5 +55,9 @@ public class SubmitTag extends AbstractUITag {
 
     public void setListenTopics(String listenTopics) {
         this.listenTopics = listenTopics;
+    }
+
+    public void setOnLoad(String onLoad) {
+        this.onLoad = onLoad;
     }
 }

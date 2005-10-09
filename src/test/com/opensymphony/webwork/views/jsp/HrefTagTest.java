@@ -32,6 +32,22 @@ public class HrefTagTest extends AbstractUITagTest {
         }
     }
 
+    public void testAddParameters() {
+        tag.setHref("/TestAction.action");
+
+        try {
+            tag.doStartTag();
+            tag.component.addParameter("param1", "value1");
+            tag.component.addParameter("param2", "value2");
+            tag.doEndTag();
+            assertTrue(writer.toString().indexOf("param1=value1")>-1);
+            assertTrue(writer.toString().indexOf("param2=value2")>-1);
+        } catch (JspException ex) {
+            ex.printStackTrace();
+            fail();
+        }
+    }
+
 
     protected void setUp() throws Exception {
         super.setUp();

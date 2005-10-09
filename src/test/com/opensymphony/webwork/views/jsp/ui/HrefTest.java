@@ -31,6 +31,8 @@ public class HrefTest extends AbstractUITagTest {
         tag.setAfterLoading("h");
 
         tag.doStartTag();
+        tag.getComponent().addParameter("param1","value1");
+        tag.getComponent().addParameter("param2","value2");
         tag.doEndTag();
 
         verify(HrefTest.class.getResource("href-1.txt"));
