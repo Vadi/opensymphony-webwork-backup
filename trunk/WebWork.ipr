@@ -29,7 +29,7 @@
         <entry path="file://$PROJECT_DIR$/../xwork/lib/clover.jar" />
       </additionalClassPath>
       <antReference projectDefault="true" />
-      <customJdkName value="" />
+      <customJdkName value="JDK 1.4.2" />
       <maximumHeapSize value="128" />
       <properties />
     </buildFile>
@@ -256,7 +256,7 @@
       <module fileurl="file://$PROJECT_DIR$/../xwork/XWork.iml" filepath="$PROJECT_DIR$/../xwork/XWork.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="false" jdk-15="false" project-jdk-name="JDK 1.5.0" />
+  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="false" project-jdk-name="JDK 1.4.2" />
   <component name="Regex">
     <option name="pos1" value="218" />
     <option name="pos2" value="218" />

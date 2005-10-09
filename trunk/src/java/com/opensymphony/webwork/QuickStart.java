@@ -23,11 +23,11 @@ import java.util.StringTokenizer;
 public class QuickStart {
     public static void main(String[] args) {
         if (args.length != 3) {
-            System.err.println("prototype must be invoked with three argumenets:");
+            System.err.println("QuickStart must be invoked with three argumenets:");
             System.err.println("[contextPath] [webapp] [sources]");
             System.err.println("");
-            System.err.println("Ex: java -jar webwork-launcher.jar \\");
-            System.err.println("    prototype /sandbox webapps/sandbox/src/webapp webapps/sandbox/src/java");
+            System.err.println("Ex: java -jar webwork.jar \\");
+            System.err.println("    quickstart /sandbox webapps/sandbox/src/webapp webapps/sandbox/src/java");
             return;
         }
 
@@ -41,7 +41,7 @@ public class QuickStart {
 
         String sources = args[2];
         if (sources == null) {
-            System.out.println("-Dsources must be specified as a comma-separated list of Java source paths.");
+            System.out.println("sources must be specified as a comma-separated list of Java source paths.");
             return;
         }
 
@@ -143,7 +143,7 @@ public class QuickStart {
         }
 
         public Class loadClass(String name) throws ClassNotFoundException {
-            Class aClass = null;
+            Class aClass;
 
             try {
                 aClass = parent.loadClass(name);
@@ -151,6 +151,7 @@ public class QuickStart {
                     return aClass;
                 }
             } catch (ClassNotFoundException e) {
+                // ok, then just derer to the normal logic
             }
 
             return super.loadClass(name);
