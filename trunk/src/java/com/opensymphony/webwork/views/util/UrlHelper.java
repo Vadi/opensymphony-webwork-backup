@@ -5,6 +5,7 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
+import com.opensymphony.xwork.util.XWorkContinuationConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -68,7 +69,8 @@ public class UrlHelper {
             link.append("://");
             link.append(request.getServerName());
 
-            if ((scheme.equals("http") && (httpPort != DEFAULT_HTTP_PORT)) || (scheme.equals("https") && httpsPort != DEFAULT_HTTPS_PORT)) {
+            if ((scheme.equals("http") && (httpPort != DEFAULT_HTTP_PORT)) || (scheme.equals("https") && httpsPort != DEFAULT_HTTPS_PORT))
+            {
                 link.append(":");
                 link.append(scheme.equals("http") ? httpPort : httpsPort);
             }
@@ -98,12 +100,12 @@ public class UrlHelper {
         }
 
         // tie in the continuation parameter
-        String continueId = (String) ActionContext.getContext().get("__continue");
+        String continueId = (String) ActionContext.getContext().get(XWorkContinuationConfig.CONTINUE_KEY);
         if (continueId != null) {
             if (params == null) {
-                params = Collections.singletonMap("continue", continueId);
+                params = Collections.singletonMap(XWorkContinuationConfig.CONTINUE_PARAM, continueId);
             } else {
-                params.put("continue", continueId);
+                params.put(XWorkContinuationConfig.CONTINUE_PARAM, continueId);
             }
         }
 
