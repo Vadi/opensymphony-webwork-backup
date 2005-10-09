@@ -253,12 +253,10 @@
       <module fileurl="file://$PROJECT_DIR$/webapps/starter/Starter.iml" filepath="$PROJECT_DIR$/webapps/starter/Starter.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/ajax/TutorialAJAX.iml" filepath="$PROJECT_DIR$/webapps/ajax/TutorialAJAX.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebWork.iml" filepath="$PROJECT_DIR$/WebWork.iml" />
-      <module fileurl="file://$PROJECT_DIR$/launcher/WebWork Launcher.iml" filepath="$PROJECT_DIR$/launcher/WebWork Launcher.iml" />
       <module fileurl="file://$PROJECT_DIR$/../xwork/XWork.iml" filepath="$PROJECT_DIR$/../xwork/XWork.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../xwork/tiger/XWorkTiger.iml" filepath="$PROJECT_DIR$/../xwork/tiger/XWorkTiger.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="JDK 1.5.0" />
+  <component name="ProjectRootManager" version="2" assert-keyword="false" jdk-15="false" project-jdk-name="JDK 1.5.0" />
   <component name="Regex">
     <option name="pos1" value="218" />
     <option name="pos2" value="218" />
