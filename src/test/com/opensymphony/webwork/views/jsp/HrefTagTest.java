@@ -5,6 +5,9 @@
 package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.views.jsp.ui.HrefTag;
+import com.opensymphony.webwork.views.jsp.ui.WebWorkBodyContent;
+import com.mockobjects.servlet.MockJspWriter;
+import com.mockobjects.servlet.MockBodyContent;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -34,15 +37,15 @@ public class HrefTagTest extends AbstractUITagTest {
 
     public void testAddParameters() {
         tag.setHref("/TestAction.action");
-
+        String bodyText = "<img src=\"#\"/>";
         try {
+            WebWorkBodyContent bodyContent = new WebWorkBodyContent(null);
+            bodyContent.print(bodyText);
+            tag.setBodyContent(bodyContent);
+
             tag.doStartTag();
-            tag.component.addParameter("param1", "value1");
-            tag.component.addParameter("param2", "value2");
             tag.doEndTag();
-            assertTrue(writer.toString().indexOf("param1=value1")>-1);
-            assertTrue(writer.toString().indexOf("param2=value2")>-1);
-        } catch (JspException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             fail();
         }
