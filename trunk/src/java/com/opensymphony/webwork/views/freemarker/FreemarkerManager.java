@@ -188,7 +188,7 @@ public class FreemarkerManager {
 
     protected BeansWrapper getObjectWrapper() {
         BeansWrapper beansWrapper = new BeansWrapper();
-        beansWrapper.setSimpleMapWrapper(true);
+        beansWrapper.setSimpleMapWrapper(false);
 
         return beansWrapper;
     }
