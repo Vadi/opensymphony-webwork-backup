@@ -128,17 +128,20 @@ webwork.widgets.HTMLBind = function() {
 				var d = webwork.Util.nextId();
 
 				// IE seems to have major issues with setting div.innerHTML in this thread !!
-				window.setTimeout(function() { div.innerHTML = data; }, 0);
+				window.setTimeout(function() {
+                    div.innerHTML = data;
+
+                    // create widget components from the received html
+                    try{
+                        var xmlParser = new dojo.xml.Parse();
+                        var frag  = xmlParser.parseElement(div, null, true);
+                        dojo.widget.getParser().createComponents(frag);
+                    }catch(e){
+                        dj_debug("auto-build-widgets error: "+e);
+                    }
+                }, 0);
 
 				dj_debug("received html <a onclick=\"var e = document.getElementById('" + d + "'); e.style.display = (e.style.display=='none')?'block':'none';return false;\" href='#'>showHide</a><textarea style='display:none; width:98%;height:200px' id='" + d + "'>" + data + "</textarea>");
-				// create widget components from the received html
-				try{
-					var xmlParser = new dojo.xml.Parse();
-					var frag  = xmlParser.parseElement(div, null, true);
-					dojo.widget.getParser().createComponents(frag);
-				}catch(e){
-					dj_debug("auto-build-widgets error: "+e);
-				}
 			}
     	}
     	
