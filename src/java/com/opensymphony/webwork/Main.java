@@ -176,8 +176,18 @@ public class Main {
             if (f.isDirectory()) {
                 findJars(f, urls);
             } else if (f.getName().endsWith(".jar")) {
-                urls.add(f.toURL());
+                if (isValid(f.getName())) {
+                    urls.add(f.toURL());
+                }
             }
+        }
+    }
+
+    private static boolean isValid(String name) {
+        if (!"dom.jar".equals(name)) {
+            return true;
+        } else {
+            return false;
         }
     }
 
