@@ -2,9 +2,4 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-autowire="autodetect">
     <bean id="personManager" class="com.acme.PersonManager"/>
-    <bean id="action:listPeople" class="com.acme.ListPeople">
-        <property name="foo">
-            <value>bar</value>
-        </property>
-    </bean>
 </beans>
