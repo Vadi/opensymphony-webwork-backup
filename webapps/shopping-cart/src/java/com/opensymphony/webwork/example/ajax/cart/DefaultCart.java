@@ -38,7 +38,7 @@ public class DefaultCart implements ShoppingCart {
             entry = new DefaultCartEntry(quantity, product);
             contents.put(product, entry);
         } else {
-            entry.setQuantity(quantity);
+            entry.setQuantity(quantity+entry.getQuantity());
         }
     }
 
