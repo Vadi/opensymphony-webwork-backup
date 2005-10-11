@@ -1,7 +1,7 @@
 <input type="file"<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>
-<#if parameters.size?exists>
- size="${parameters.size?html}"<#rt/>
+<#if parameters.get("size")?exists>
+ size="${parameters.get("size")?html}"<#rt/>
 </#if>
 <#if parameters.nameValue?exists>
  value="${parameters.nameValue?html}"<#rt/>
