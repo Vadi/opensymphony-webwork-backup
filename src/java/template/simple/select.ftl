@@ -1,7 +1,7 @@
 <select<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>
-<#if parameters.size?exists>
- size="${parameters.size?html}"<#rt/>
+<#if parameters.get("size")?exists>
+ size="${parameters.get("size")?html}"<#rt/>
 </#if>
 <#if parameters.disabled?default(false)>
  disabled="disabled"<#rt/>
