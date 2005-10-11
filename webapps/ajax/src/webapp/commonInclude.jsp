@@ -4,7 +4,8 @@
     // Dojo configuration
     djConfig = {
         baseRelativePath: "<ww:url includeParams="none" value="/webwork/dojo/"/>",
-        isDebug: false
+        isDebug: false,
+        debugAtAllCosts: true // not needed, but allows the Venkman debugger to work with the includes
     };
 </script>
 
@@ -20,5 +21,6 @@
     dojo.require("webwork.widgets.BindDiv");
     dojo.require("webwork.widgets.BindButton");
     dojo.require("webwork.widgets.BindAnchor");
+    dojo.hostenv.writeIncludes(); // not needed, but allows the Venkman debugger to work with the includes
 </script>
 <!--// END SNIPPET: common-include-->
