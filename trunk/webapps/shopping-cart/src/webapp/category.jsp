@@ -12,8 +12,7 @@
     <ww:if test="(#categoryProducts != null) && (#categoryProducts.size > 0)">
         <div>
             <ww:iterator value="#categoryProducts">
-                <%--<ww:form id="qty_%{id}" namespace="/catalog/remote" action="updateQuantity" theme="ajax">--%>
-                <ww:form id="qtyForm" name="qtyForm" namespace="/catalog/remote" action="updateQuantity" method="POST" theme="ajax" validate="true">
+                <ww:form id="qtyForm_%{id}" name="qtyForm_%{id}" namespace="/catalog/remote" action="updateQuantity" method="POST" theme="ajax" validate="true">
                     <ww:hidden name="productId" value="%{id}"/>
                     <div class="product">
                         <div class="productDetails">
@@ -29,8 +28,8 @@
                         </div>
                         <tr><td colspan="2">
                         <p class="productQuantity">
-                            Quantity:&nbsp;<ww:textfield name="quantity" value="%{cart.getQuantityForProduct(top)}" theme="simple" size="2"/>
-                            <ww:submit id="qtySubmit" name="qtySubmit" value="Update" theme="ajax" resultDivId="qtyForm" notifyTopics="cartUpdated"/>
+                            Quantity:&nbsp;<ww:textfield id="quantity" name="quantity" value="%{cart.getQuantityForProduct(top)}" theme="simple" size="2"/>
+                            <ww:submit id="qtySubmit" name="qtySubmit" value="Update" theme="ajax" notifyTopics="cartUpdated" onLoadJS="document.qtyForm_%{id}.quantity.value=0;" />
                         </p>
                         </td></tr>
                     </div>

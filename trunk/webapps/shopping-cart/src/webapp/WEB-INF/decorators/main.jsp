@@ -22,7 +22,7 @@
         djConfig = {
             baseRelativePath: "<ww:url value='/webwork/dojo/'/>",
             parseWidgets: true,
-            isDebug: true
+            isDebug: false
         };
     </script>
 

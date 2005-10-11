@@ -8,6 +8,7 @@ import com.opensymphony.webwork.example.ajax.cart.ShoppingCartAware;
 import com.opensymphony.xwork.ActionSupport;
 
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * ShowCart
@@ -30,7 +31,13 @@ public class ShowCart extends ActionSupport implements ShoppingCartAware {
         if ((cart == null) || (cart.getContents() == null)) {
             return 0;
         }
-        return cart.getContents().size();
+        Set contents = cart.getContents();
+        int number = 0;
+        for( Iterator i=contents.iterator(); i.hasNext(); ) {
+            ShoppingCart.CartEntry entry = (ShoppingCart.CartEntry)i.next();
+            number += entry.getQuantity();
+        }
+        return number;
     }
 
     public double getCartTotal() {

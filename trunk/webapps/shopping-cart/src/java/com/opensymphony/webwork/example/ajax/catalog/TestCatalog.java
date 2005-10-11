@@ -24,6 +24,10 @@ public class TestCatalog implements Catalog {
     public static Product PRODUCT_HD_TV = new TestProduct(7001, "High Definition Television", "54\" High Definition Plasma Television", 5445.00, CATEGORY_TELEVISIONS);
     public static Product PRODUCT_STEREO = new TestProduct(7002, "All-in-one stereo", "All-in-one stereo with AM/FM tuner, 6 CD changer, 2x300 Watt speakers", 99.99, CATEGORY_STEREOS);
 
+    public static Product PRODUCT_BLUE_SHIRT = new TestProduct(8001, "Blue Shirt", "Blue Shirt", 29.99, CATEGORY_SHIRTS);
+    public static Product PRODUCT_RED_SHIRT = new TestProduct(8002, "Red Shirt", "Red Shirt", 29.99, CATEGORY_SHIRTS);
+    public static Product PRODUCT_GREEN_SHIRT = new TestProduct(8003, "Green Shirt", "Green Shirt", 29.99, CATEGORY_SHIRTS);
+
     public TestCatalog() {
     }
 

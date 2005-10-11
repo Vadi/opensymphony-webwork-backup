@@ -45,10 +45,7 @@
             <result name="success" type="chain">activeCategory</result>
         </action>
 
-        <action name="updateQuantity" class="com.opensymphony.webwork.example.ajax.actions.UpdateQuantityInCart">
-            <result name="success">/cart.jsp</result>
-            <result name="input">/cart.jsp</result>
-        </action>
+        <action name="updateQuantity" class="com.opensymphony.webwork.example.ajax.actions.UpdateQuantityInCart"/>
 
     </package>
 </xwork>
