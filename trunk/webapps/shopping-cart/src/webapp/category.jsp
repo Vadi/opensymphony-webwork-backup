@@ -28,8 +28,8 @@
                         </div>
                         <tr><td colspan="2">
                         <p class="productQuantity">
-                            Quantity:&nbsp;<ww:textfield id="quantity" name="quantity" value="%{cart.getQuantityForProduct(top)}" theme="simple" size="2"/>
-                            <ww:submit id="qtySubmit" name="qtySubmit" value="Update" theme="ajax" notifyTopics="cartUpdated" onLoadJS="document.qtyForm_%{id}.quantity.value=0;" />
+                            Quantity:&nbsp;<ww:textfield id="quantity" name="quantity" theme="simple" size="2" value="0"/>
+                            <ww:submit id="qtySubmit" name="qtySubmit" value="Update" theme="ajax" notifyTopics="cartUpdated" onLoadJS="document.qtyForm_%{id}.reset();" />
                         </p>
                         </td></tr>
                     </div>
