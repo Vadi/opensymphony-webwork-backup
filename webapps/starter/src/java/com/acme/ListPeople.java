@@ -10,7 +10,6 @@ import java.util.List;
  * Time: 12:03:15 AM
  */
 public class ListPeople extends ActionSupport {
-    String foo;
     PersonManager personManager;
     List people;
 
@@ -18,17 +17,8 @@ public class ListPeople extends ActionSupport {
         this.personManager = personManager;
     }
 
-    public void setFoo(String foo) {
-        this.foo = foo;
-    }
-
     public String execute() {
         people = personManager.getPeople();
-        System.out.println(foo);
-        System.out.println(foo);
-        System.out.println(foo);
-        System.out.println(foo);
-        System.out.println(foo);
 
         return SUCCESS;
     }
