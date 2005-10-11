@@ -8,15 +8,15 @@ import com.opensymphony.xwork.ActionSupport;
  * Time: 9:24:03 PM
  */
 public class CreatePerson extends ActionSupport {
-    PersonManager pm;
+    PersonManager personManager;
     Person person;
 
-    public void setPm(PersonManager pm) {
-        this.pm = pm;
+    public void setPersonManager(PersonManager personManager) {
+        this.personManager = personManager;
     }
 
     public String execute() {
-        pm.createPerson(person);
+        personManager.createPerson(person);
 
         return SUCCESS;
     }

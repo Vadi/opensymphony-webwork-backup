@@ -11,11 +11,11 @@ import java.util.List;
  */
 public class ListPeople extends ActionSupport {
     String foo;
-    PersonManager pm;
+    PersonManager personManager;
     List people;
 
-    public void setPm(PersonManager pm) {
-        this.pm = pm;
+    public void setPersonManager(PersonManager personManager) {
+        this.personManager = personManager;
     }
 
     public void setFoo(String foo) {
@@ -23,7 +23,7 @@ public class ListPeople extends ActionSupport {
     }
 
     public String execute() {
-        people = pm.getPeople();
+        people = personManager.getPeople();
         System.out.println(foo);
         System.out.println(foo);
         System.out.println(foo);

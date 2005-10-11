@@ -4,7 +4,7 @@
     <include file="webwork-default.xml"/>
 
     <package name="default" extends="webwork-default">
-        <action name="listPeople">
+        <action name="listPeople" class="com.acme.ListPeople">
             <result type="freemarker">listPeople.ftl</result>
         </action>
 
