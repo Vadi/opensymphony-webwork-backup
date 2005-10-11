@@ -1,6 +1,6 @@
 <button type="submit" dojoType="BindButton"<#rt/>
-<#if parameters.formId?exists>
- formId="${parameters.formId}"<#rt/>
+<#if parameters.form?exists && parameters.form.id?exists>
+ formId="${parameters.form.id}"<#rt/>
 </#if>
 <#if parameters.name?exists>
  name="${parameters.name?html}"<#rt/>

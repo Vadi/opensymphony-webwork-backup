@@ -40,21 +40,20 @@ public class Submit extends UIBean {
 
         addParameter("align", findString(align));
 
-        if (null!=resultDivId)
+        if (null != resultDivId) {
             addParameter("resultDivId", findString(resultDivId));
+        }
 
-        if (null!=onLoadJS)
+        if (null != onLoadJS) {
             addParameter("onLoadJS", findString(onLoadJS));
+        }
 
-        if (null!=notifyTopics)
+        if (null != notifyTopics) {
             addParameter("notifyTopics", findString(notifyTopics));
+        }
 
-        if (null!=listenTopics)
+        if (null != listenTopics) {
             addParameter("listenTopics", findString(listenTopics));
-
-        Form form = (Form) findAncestor(Form.class);
-        if (form != null) {
-            addParameter("formId", findString(((Form) form).getId()));
         }
     }
 
