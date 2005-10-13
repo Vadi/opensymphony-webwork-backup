@@ -17,6 +17,9 @@
 <#if parameters.afterLoading?exists>
  onLoad="${parameters.afterLoading}"<#rt/>
 </#if>
+<#if parameters.preInvokeJS?exists>
+ preInvokeJS="${parameters.preInvokeJS}"<#rt/>
+</#if>
 <#if parameters.tabindex?exists>
  tabindex="${parameters.tabindex?html}"<#rt/>
 </#if>

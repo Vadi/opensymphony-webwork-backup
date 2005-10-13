@@ -16,6 +16,7 @@ public class HrefTag extends AbstractUITag {
     protected String showErrorTransportText;
     protected String notifyTopics;
     protected String afterLoading;
+    protected String preInvokeJS;
 
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Href(stack, req, res);
@@ -30,6 +31,7 @@ public class HrefTag extends AbstractUITag {
         link.setShowErrorTransportText(showErrorTransportText);
         link.setNotifyTopics(notifyTopics);
         link.setAfterLoading(afterLoading);
+        link.setPreInvokeJS(preInvokeJS);
     }
 
     public void setHref(String href) {
@@ -51,4 +53,9 @@ public class HrefTag extends AbstractUITag {
     public void setAfterLoading(String afterLoading) {
         this.afterLoading = afterLoading;
     }
+
+    public void setPreInvokeJS(String preInvokeJS) {
+        this.preInvokeJS = preInvokeJS;
+    }
 }
+
