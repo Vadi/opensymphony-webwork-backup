@@ -26,7 +26,10 @@ webwork.widgets.HTMLBindAnchor = function() {
 	// the template anchor instance
 	this.anchor = null;
 
-	var super_fillInTemplate = this.fillInTemplate;
+    //a snippet of js to invode before binding
+    this.preInvokeJS = "";
+
+    var super_fillInTemplate = this.fillInTemplate;
 	this.fillInTemplate = function(args, frag) {
 		super_fillInTemplate(args, frag);
 
@@ -36,19 +39,30 @@ webwork.widgets.HTMLBindAnchor = function() {
 		
 		webwork.Util.passThroughArgs(self.extraArgs, self.anchor);
 		self.anchor.href = "javascript:{}";
+        dojo.event.kwConnect({
+            srcObj: self.anchor,
+            srcFunc: "onclick",
+            adviceObj: self,
+            adviceFunc: "execute",
+            adviceType: 'before'
+        });
 
-		dojo.event.kwConnect({
-			srcObj: self.anchor,
-			srcFunc: "onclick",
-			adviceObj: self,
-			adviceFunc: "bind",
-			adviceType: 'before'
-		});
-		
-		webwork.Util.passThroughWidgetTagContent(self, frag, self.anchor);
-		
+        webwork.Util.passThroughWidgetTagContent(self, frag, self.anchor);
     }
+    this.execute = function() {
+        var executeConnect = true;
+        //If the user provided some preInvokeJS invoke it and store the results into the
+        //executeConnect var to determine if the connect should occur
+		if (self.preInvokeJS != "") {
+            dj_debug('Evaluating js: ' + this.preInvokeJS);
+            executeConnect = eval(this.preInvokeJS);
+		}
+        if (executeConnect) {
+            this.bind();
+        }
 
+
+    }
 }
 
 // complete the inheritance process

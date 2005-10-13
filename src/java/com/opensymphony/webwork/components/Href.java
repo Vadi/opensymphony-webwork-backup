@@ -28,6 +28,7 @@ public class Href extends ClosingUIBean {
     protected String showErrorTransportText;
     protected String notifyTopics;
     protected String afterLoading;
+    protected String preInvokeJS;
 
     public Href(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -98,6 +99,9 @@ public class Href extends ClosingUIBean {
         if (afterLoading != null) {
             addParameter("afterLoading", findString(afterLoading));
         }
+        if (preInvokeJS != null) {
+            addParameter("preInvokeJS", findString(preInvokeJS));
+        }
     }
 
     /**
@@ -157,5 +161,9 @@ public class Href extends ClosingUIBean {
 
     public void setAfterLoading(String afterLoading) {
         this.afterLoading = afterLoading;
+    }
+
+    public void setPreInvokeJS(String preInvokeJS) {
+        this.preInvokeJS = preInvokeJS;
     }
 }
