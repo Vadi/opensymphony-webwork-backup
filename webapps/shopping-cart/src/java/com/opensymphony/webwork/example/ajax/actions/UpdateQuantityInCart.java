@@ -16,6 +16,6 @@ public class UpdateQuantityInCart extends AbstractModifyCartAction {
         if (cart != null) {
             cart.setQuantity(quantity, product);
         }
-        return SUCCESS;
+        return NONE;
     }
 }
