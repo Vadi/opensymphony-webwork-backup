@@ -61,6 +61,8 @@ public class Component {
     }
 
     public void end(Writer writer, String body) {
+        assert(body != null);
+
         try {
             writer.write(body);
         } catch (IOException e) {
