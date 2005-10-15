@@ -13,8 +13,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Default" level="application_server_libraries" />
     <orderEntry type="module" module-name="WebWork" />
+    <orderEntry type="library" name="Generic" level="application_server_libraries" />
     <orderEntryProperties />
   </component>
   <component name="WebModuleBuildComponent">
@@ -34,11 +34,6 @@
     <containerElement type="module" name="XWork">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/classes" />
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/antlr.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/antlr.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -87,28 +82,13 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/dom4j.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/dom4j.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/dwr.jar" />
       <url>jar://$MODULE_DIR$/../../lib/dwr.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/ehcache.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/ehcache.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/freemarker.jar" />
       <url>jar://$MODULE_DIR$/../../lib/freemarker.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/hibernate.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/hibernate.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
