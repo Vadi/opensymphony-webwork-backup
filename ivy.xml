@@ -28,8 +28,6 @@
         <conf name="fileupload"/>
         <conf name="fileupload-cos" deprecated="20050831000000"/>
         <conf name="fileupload-pell" deprecated="20050831000000"/>
-        <conf name="hibernate"/>
-        <conf name="ibatis"/>
         <conf name="sitemesh"/>
         <conf name="quickstart"/>
         <conf name="jasperreports"/>
@@ -75,14 +73,6 @@
 
         <!-- fileupload-pell -->
         <dependency org="pell" name="multipartrequest" rev="1.19" conf="fileupload-pell->default"/>
-
-        <!-- hibernate -->
-        <dependency org="hibernate" name="hibernate" rev="3.0.5" conf="hibernate->default"/>
-
-        <!-- ibatis -->
-        <dependency org="com.ibatis" name="ibatis-common" rev="2.1.0.565" conf="ibatis->default"/>
-        <dependency org="com.ibatis" name="ibatis-dao" rev="2.1.0.565" conf="ibatis->default"/>
-        <dependency org="com.ibatis" name="ibatis-sqlmap" rev="2.1.0.565" conf="ibatis->default"/>
 
         <!-- sitemesh -->
         <dependency org="opensymphony" name="sitemesh" rev="2.2.1" conf="sitemesh->default"/>
