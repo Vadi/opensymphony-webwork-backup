@@ -51,7 +51,7 @@ public abstract class AbstractDirective extends Directive {
             body.render(ctx, writer);
         }
 
-        bean.end(writer, null);
+        bean.end(writer, "");
         return true;
     }
 
