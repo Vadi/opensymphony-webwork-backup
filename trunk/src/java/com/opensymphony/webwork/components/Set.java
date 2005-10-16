@@ -27,13 +27,24 @@ public class Set extends Component {
 
         Object o = findValue(value);
 
-        if ("application".equals(scope)) {
+        String name;
+        if (ALT_SYNTAX) {
+            name = findString(this.name, "name", "Name is required");
+        } else {
+            name = this.name;
+
+            if (this.name == null) {
+                throw fieldError("name", "Name is required", null);
+            }
+        }
+
+        if ("application".equalsIgnoreCase(scope)) {
             stack.setValue("#application['" + name + "']", o);
-        } else if ("session".equals(scope)) {
+        } else if ("session".equalsIgnoreCase(scope)) {
             stack.setValue("#session['" + name + "']", o);
-        } else if ("request".equals(scope)) {
+        } else if ("request".equalsIgnoreCase(scope)) {
             stack.setValue("#request['" + name + "']", o);
-        } else if ("page".equals(scope)) {
+        } else if ("page".equalsIgnoreCase(scope)) {
             stack.setValue("#attr['" + name + "']", o, false);
         } else {
             stack.getContext().put(name, o);
