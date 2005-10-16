@@ -12,5 +12,8 @@ Hello!!!
         </@ww.param>
     </@ww.textfield>
     <@ww.datepicker label="Birthday" name="birthday"/>
+    <@ww.datepicker label="Date 1" name="date"/>
+    <@ww.datepicker label="Date 2" name="date2"/>
+    <@ww.datepicker label="Date 3" name="date3"/>
 </@ww.form>
 
