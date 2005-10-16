@@ -16,7 +16,7 @@ import java.util.Map;
  * Time: 7:58:43 AM
  */
 public abstract class ListUIBean extends UIBean {
-    protected String list;
+    protected Object list;
     protected String listKey;
     protected String listValue;
 
@@ -25,7 +25,26 @@ public abstract class ListUIBean extends UIBean {
     }
 
     public void evaluateExtraParams() {
-        Object value = findValue(list, "list", "You must specify a collection/array/map/enumeration/iterator. Example: people or people.{name}");
+        Object value = null;
+
+        if (list == null) {
+            list = parameters.get("list");
+        }
+
+        if (list instanceof String) {
+            value = findValue((String) list);
+        } else if (list instanceof Collection) {
+            value = list;
+        } else if (MakeIterator.isIterable(list)) {
+            value = MakeIterator.convert(list);
+        }
+
+        if (value == null) {
+            // will throw an exception if not found
+            value = findValue((list == null) ? (String) list : list.toString(), "list",
+                    "You must specify a collection/array/map/enumeration/iterator. " +
+                    "Example: people or people.{name}");
+        }
 
         if (value instanceof Collection) {
             addParameter("list", value);
@@ -62,7 +81,7 @@ public abstract class ListUIBean extends UIBean {
         return null; // don't convert nameValue to anything, we need the raw value
     }
 
-    public void setList(String list) {
+    public void setList(Object list) {
         this.list = list;
     }
 
