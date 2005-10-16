@@ -95,7 +95,7 @@ public class Component {
         }
     }
 
-    private RuntimeException fieldError(String field, String errorMsg, Exception e) {
+    protected RuntimeException fieldError(String field, String errorMsg, Exception e) {
         String msg = "tag " + getComponentName() + ", field " + field + ": " + errorMsg;
         if (e == null) {
             LOG.error(msg);
