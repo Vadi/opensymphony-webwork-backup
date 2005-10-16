@@ -1,3 +1,4 @@
+<!-- START SNIPPET: example -->
 <html>
 <head>
     <title></title>
@@ -9,8 +10,10 @@
 </#list>
 
 <@ww.form action="guess" method="post">
-<@ww.textfield label="Guess" name="guess"/>
-<@ww.submit value="Guess"/>
+    <@ww.textfield label="Guess" name="guess"/>
+    <@ww.submit value="Guess"/>
 </@ww.form>
 </body>
 </html>
+
+<!-- END SNIPPET: example -->

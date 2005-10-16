@@ -4,12 +4,8 @@ import com.opensymphony.xwork.ActionSupport;
 
 import java.util.Random;
 
-/**
- * User: patrick
- * Date: Sep 22, 2005
- * Time: 8:06:46 AM
- */
 public class Guess extends ActionSupport {
+    // START SNIPPET: example
     int guess;
 
     public String execute() throws Exception {
@@ -40,4 +36,5 @@ public class Guess extends ActionSupport {
     public void setGuess(int guess) {
         this.guess = guess;
     }
+    // END SNIPPET: guess
 }
