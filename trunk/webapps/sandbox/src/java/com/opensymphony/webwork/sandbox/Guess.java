@@ -4,8 +4,8 @@ import com.opensymphony.xwork.ActionSupport;
 
 import java.util.Random;
 
+// START SNIPPET: example
 public class Guess extends ActionSupport {
-    // START SNIPPET: example
     int guess;
 
     public String execute() throws Exception {
@@ -36,5 +36,5 @@ public class Guess extends ActionSupport {
     public void setGuess(int guess) {
         this.guess = guess;
     }
-    // END SNIPPET: guess
 }
+// END SNIPPET: example
