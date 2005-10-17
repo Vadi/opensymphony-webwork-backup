@@ -42,15 +42,11 @@ public class Main {
         try {
             findJars(new File("lib"), urls);
 
-            // use all the jars in the current that start with "webwork" and end with ".jar", but aren't the src jar
+            // use all the jars in the current that aren't the src jar
             File wd = new File(".");
             File[] jars = wd.listFiles(new FilenameFilter() {
                 public boolean accept(File dir, String name) {
-                    if (name.startsWith("webwork") && name.endsWith(".jar") && name.indexOf("-src.") == -1) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return name.endsWith(".jar") && name.indexOf("-src.") == -1;
                 }
             });
             for (int i = 0; i < jars.length; i++) {
