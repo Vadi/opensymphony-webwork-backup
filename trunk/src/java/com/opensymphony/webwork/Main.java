@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * <!-- START SNIPPET: javadoc -->
  * WebWork comes with various related tools included in the webwork jar file. You can access these tools by simply
- * unpacking the WebWork distribution and running <b>java -jar webwork-[version].jar</b>. WebWork will automatically include
+ * unpacking the WebWork distribution and running <b>java -jar webwork.jar</b>. WebWork will automatically include
  * all jars in the same directory as the webwork.jar file as well as all jars in the <i>lib</i> directory. This means you
  * can invoke these tools either from within the standard directory structure found in the WebWork distribution, or from
  * within your WEB-INF/lib directory.
