@@ -27,6 +27,7 @@
     <table cellpadding="0" cellspacing="10" border="0" width="600">
         <tr>
             <td align="top">
+                <!--// START SNIPPET: tabbedpanel-tag-->
                 <ww:tabbedPanel id="test2" theme="simple" >
                       <ww:panel id="left" tabName="left" theme="ajax">
                           This is the left pane<br/>
@@ -45,6 +46,7 @@
                       </ww:panel>
                       <ww:panel remote="true" href="/AjaxTest.action"  id="ryh21" theme="ajax" tabName="remote right" />
                   </ww:tabbedPanel>
+                <!--// END SNIPPET: tabbedpanel-tag-->
              </td>
         </tr>
     </table>
