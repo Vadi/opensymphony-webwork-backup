@@ -48,6 +48,8 @@
             Rounded("div#categories", "tl br", "white", "#f0e68c", "smooth border #daa520");
             Rounded("div#cart", "tl br", "white", "#ffdab9", "smooth border #8b0000");
             //            Rounded("div.productDetails","tr bl","#ECF1F9","#CDFFAA","smooth border #88D84F");
+
+            dojo.event.topic.publish( "cartUpdated" );
         });
 
     </script>
@@ -123,9 +125,7 @@
 
             <div id="cart">
                 <ww:div href="/catalog/remote/cart.action" theme="ajax" listenTopics="cartUpdated"
-                        loadingText="loading..." id="cart-body">
-                    <ww:action name="cart" executeResult="true"/>
-                </ww:div>
+                        loadingText="loading..." id="cart-body" />
             </div>
             <br clear="all"/>
         </div><!-- end sub -->
