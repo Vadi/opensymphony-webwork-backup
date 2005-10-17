@@ -9,9 +9,16 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 
 /**
- * User: plightbo
- * Date: Aug 9, 2005
- * Time: 12:22:06 AM
+ * <!-- START SNIPPET: javadoc -->
+ * WebWork comes with various related tools included in the webwork jar file. You can access these tools by simply
+ * unpacking the WebWork distribution and running <b>java -jar webwork-[version].jar</b>. WebWork will automatically include
+ * all jars in the same directory as the webwork.jar file as well as all jars in the <i>lib</i> directory. This means you
+ * can invoke these tools either from within the standard directory structure found in the WebWork distribution, or from
+ * within your WEB-INF/lib directory.
+ * <p/>
+ *
+ * You can access the help information for these tools by simply running the jar without any arguments.
+ * <!-- END SNIPPET: javadoc -->
  */
 public class Main {
     public static void main(String[] args) {
@@ -140,6 +147,7 @@ public class Main {
         try {
             name = args[0].substring(colon + 1);
         } catch (Exception e) {
+            //this is OK to skip
         }
         if (name == null || name.equals("")) {
             System.out.println("Error: you must specify the webapp you wish");
@@ -180,11 +188,7 @@ public class Main {
     }
 
     private static boolean isValid(String name) {
-        if (!"dom.jar".equals(name)) {
-            return true;
-        } else {
-            return false;
-        }
+        return !"dom.jar".equals(name);
     }
 
     /**
