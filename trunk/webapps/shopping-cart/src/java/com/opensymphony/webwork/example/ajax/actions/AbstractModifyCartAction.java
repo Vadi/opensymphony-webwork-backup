@@ -4,7 +4,6 @@
 package com.opensymphony.webwork.example.ajax.actions;
 
 import com.opensymphony.webwork.example.ajax.catalog.Catalog;
-import com.opensymphony.webwork.example.ajax.catalog.CatalogAware;
 import com.opensymphony.webwork.example.ajax.catalog.Product;
 
 /**
@@ -12,7 +11,7 @@ import com.opensymphony.webwork.example.ajax.catalog.Product;
  *
  * @author Jason Carreira <jcarreira@eplus.com>
  */
-public abstract class AbstractModifyCartAction extends ShowCart implements CatalogAware {
+public abstract class AbstractModifyCartAction extends ShowCart {
     protected int quantity;
     private Integer productId;
     protected Product product;

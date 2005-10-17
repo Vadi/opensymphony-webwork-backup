@@ -4,7 +4,6 @@
 package com.opensymphony.webwork.example.ajax.actions;
 
 import com.opensymphony.webwork.example.ajax.cart.ShoppingCart;
-import com.opensymphony.webwork.example.ajax.cart.ShoppingCartAware;
 import com.opensymphony.xwork.ActionSupport;
 
 import java.util.Iterator;
@@ -15,7 +14,7 @@ import java.util.Set;
  *
  * @author Jason Carreira <jcarreira@eplus.com>
  */
-public class ShowCart extends ActionSupport implements ShoppingCartAware {
+public class ShowCart extends ActionSupport {
     private ShoppingCart cart;
 
     public void setShoppingCart(ShoppingCart cart) {

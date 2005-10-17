@@ -4,7 +4,6 @@
 package com.opensymphony.webwork.example.ajax.actions;
 
 import com.opensymphony.webwork.example.ajax.catalog.Catalog;
-import com.opensymphony.webwork.example.ajax.catalog.CatalogAware;
 import com.opensymphony.xwork.ActionSupport;
 
 /**
@@ -12,7 +11,7 @@ import com.opensymphony.xwork.ActionSupport;
  *
  * @author Jason Carreira <jcarreira@eplus.com>
  */
-public class ShowCatalog extends ActionSupport implements CatalogAware {
+public class ShowCatalog extends ActionSupport {
     protected Catalog catalog;
 
     public void setCatalog(Catalog catalog) {
