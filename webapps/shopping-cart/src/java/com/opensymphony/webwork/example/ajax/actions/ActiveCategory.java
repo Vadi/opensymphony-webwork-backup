@@ -4,9 +4,7 @@
 package com.opensymphony.webwork.example.ajax.actions;
 
 import com.opensymphony.webwork.example.ajax.cart.ShoppingCart;
-import com.opensymphony.webwork.example.ajax.cart.ShoppingCartAware;
 import com.opensymphony.webwork.example.ajax.catalog.Catalog;
-import com.opensymphony.webwork.example.ajax.catalog.CatalogAware;
 import com.opensymphony.webwork.example.ajax.catalog.Category;
 import com.opensymphony.webwork.interceptor.SessionAware;
 import com.opensymphony.xwork.ActionSupport;
@@ -18,7 +16,7 @@ import java.util.Map;
  *
  * @author Jason Carreira <jcarreira@eplus.com>
  */
-public class ActiveCategory extends ActionSupport implements SessionAware, CatalogAware, ShoppingCartAware {
+public class ActiveCategory extends ActionSupport implements SessionAware {
     public static final String ACTIVE_CATEGORY_ID = "catalog_activeCategoryId";
     private Map session;
     private Category category;
