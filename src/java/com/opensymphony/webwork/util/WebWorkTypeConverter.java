@@ -11,8 +11,7 @@ import java.util.Map;
  * both to and from strings -- the critical functionality that is core to WebWork's type coversion system.
  *
  * <p/> Type converters do not have to use this class. It is merely a helper base class, although it is recommended that
- * you use this class as it provides the common type conversion contract required for most web-based type conversion (to
- * and from String).
+ * you use this class as it provides the common type conversion contract required for all web-based type conversion.
  *
  * <!-- END SNIPPET: javadoc -->
  */
