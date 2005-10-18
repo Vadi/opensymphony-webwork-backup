@@ -5,12 +5,16 @@ import ognl.DefaultTypeConverter;
 import java.util.Map;
 
 /**
- * Base class for type converters used in WebWork. This class provides two abstract
- * methods that are used to convert both to and from strings -- the critical
- * functionality that is core to WebWork's type coversion system.
- * <p/>
- * Type converts do not have to use this class. It is merely a helper
- * base class.
+ * <!-- START SNIPPET: javadoc -->
+ *
+ * Base class for type converters used in WebWork. This class provides two abstract methods that are used to convert
+ * both to and from strings -- the critical functionality that is core to WebWork's type coversion system.
+ *
+ * <p/> Type converters do not have to use this class. It is merely a helper base class, although it is recommended that
+ * you use this class as it provides the common type conversion contract required for most web-based type conversion (to
+ * and from String).
+ *
+ * <!-- END SNIPPET: javadoc -->
  */
 public abstract class WebWorkTypeConverter extends DefaultTypeConverter {
     public Object convertValue(Map context, Object o, Class toClass) {

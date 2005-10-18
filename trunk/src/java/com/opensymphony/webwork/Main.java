@@ -10,14 +10,15 @@ import java.util.ArrayList;
 
 /**
  * <!-- START SNIPPET: javadoc -->
+ *
  * WebWork comes with various related tools included in the webwork jar file. You can access these tools by simply
- * unpacking the WebWork distribution and running <b>java -jar webwork.jar</b>. WebWork will automatically include
- * all jars in the same directory as the webwork.jar file as well as all jars in the <i>lib</i> directory. This means you
+ * unpacking the WebWork distribution and running <b>java -jar webwork.jar</b>. WebWork will automatically include all
+ * jars in the same directory as the webwork.jar file as well as all jars in the <i>lib</i> directory. This means you
  * can invoke these tools either from within the standard directory structure found in the WebWork distribution, or from
  * within your WEB-INF/lib directory.
- * <p/>
  *
- * You can access the help information for these tools by simply running the jar without any arguments.
+ * <p/> You can access the help information for these tools by simply running the jar without any arguments.
+ *
  * <!-- END SNIPPET: javadoc -->
  */
 public class Main {
@@ -192,10 +193,9 @@ public class Main {
     }
 
     /**
-     * Reverses the typical order of classloading to defer only to the parent if the
-     * current class loader can't be found. This is required to allow for the launcher
-     * to be embedded within webwork.jar (otherwise the dependencies wouldn't be found
-     * by the system ClassLoader when invoking using "java -jar webwork.jar ...").
+     * Reverses the typical order of classloading to defer only to the parent if the current class loader can't be
+     * found. This is required to allow for the launcher to be embedded within webwork.jar (otherwise the dependencies
+     * wouldn't be found by the system ClassLoader when invoking using "java -jar webwork.jar ...").
      */
     public static class MainClassLoader extends URLClassLoader {
         public MainClassLoader(URL[] urls) {
