@@ -25,17 +25,9 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>com.opensymphony.webwork.lifecycle.ApplicationLifecycleListener</listener-class>
-    </listener>
-
-    <listener>
-        <listener-class>com.opensymphony.webwork.lifecycle.SessionLifecycleListener</listener-class>
-    </listener>
-
-    <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    
+
     <servlet>
         <servlet-name>dwr</servlet-name>
         <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
