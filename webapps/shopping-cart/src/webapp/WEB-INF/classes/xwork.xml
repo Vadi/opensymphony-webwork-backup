@@ -10,7 +10,6 @@
             <interceptor-stack name="catalogStack">
                 <interceptor-ref name="logger"/>
                 <interceptor-ref name="component"/>
-                <!--<interceptor-ref name="prepare"/>-->
                 <interceptor-ref name="servlet-config"/>
                 <interceptor-ref name="static-params"/>
                 <interceptor-ref name="params"/>
