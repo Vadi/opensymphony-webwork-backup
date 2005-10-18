@@ -5,10 +5,10 @@
     <package name="webwork-default">
         <result-types>
             <result-type name="dispatcher" class="com.opensymphony.webwork.dispatcher.ServletDispatcherResult"
-                         default="true"/>
+                default="true"/>
             <result-type name="redirect" class="com.opensymphony.webwork.dispatcher.ServletRedirectResult"/>
             <result-type name="redirect-action"
-                         class="com.opensymphony.webwork.dispatcher.ServletActionRedirectResult"/>
+                class="com.opensymphony.webwork.dispatcher.ServletActionRedirectResult"/>
             <result-type name="velocity" class="com.opensymphony.webwork.dispatcher.VelocityResult"/>
             <result-type name="chain" class="com.opensymphony.xwork.ActionChainResult"/>
             <result-type name="xslt" class="com.opensymphony.webwork.views.xslt.XSLTResult"/>
@@ -30,21 +30,21 @@
             <interceptor name="i18n" class="com.opensymphony.xwork.interceptor.I18nInterceptor"/>
             <interceptor name="token" class="com.opensymphony.webwork.interceptor.TokenInterceptor"/>
             <interceptor name="token-session"
-                         class="com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"/>
+                class="com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"/>
             <interceptor name="validation" class="com.opensymphony.xwork.validator.ValidationInterceptor"/>
             <interceptor name="workflow" class="com.opensymphony.xwork.interceptor.DefaultWorkflowInterceptor"/>
             <interceptor name="servlet-config" class="com.opensymphony.webwork.interceptor.ServletConfigInterceptor"/>
             <interceptor name="prepare" class="com.opensymphony.xwork.interceptor.PrepareInterceptor"/>
             <interceptor name="conversionError"
-                         class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
+                class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
             <interceptor name="fileUpload" class="com.opensymphony.webwork.interceptor.FileUploadInterceptor"/>
             <interceptor name="execAndWait" class="com.opensymphony.webwork.interceptor.ExecuteAndWaitInterceptor"/>
             <interceptor name="alias" class="com.opensymphony.xwork.interceptor.AliasInterceptor"/>
             <interceptor name="exception" class="com.opensymphony.xwork.interceptor.ExceptionMappingInterceptor"/>
             <interceptor name="autowiring"
-                         class="com.opensymphony.xwork.spring.interceptor.ActionAutowiringInterceptor"/>
+                class="com.opensymphony.xwork.spring.interceptor.ActionAutowiringInterceptor"/>
             <interceptor name="sessionAutowiring"
-                         class="com.opensymphony.webwork.spring.interceptor.SessionContextAutowiringInterceptor"/>
+                class="com.opensymphony.webwork.spring.interceptor.SessionContextAutowiringInterceptor"/>
 
             <!-- Basic stack -->
             <interceptor-stack name="defaultStack">
@@ -127,4 +127,4 @@
         <default-interceptor-ref name="completeStack"/>
     </package>
 </xwork>
-        <!-- // END SNIPPET: webwork-default -->
+<!-- // END SNIPPET: webwork-default -->
