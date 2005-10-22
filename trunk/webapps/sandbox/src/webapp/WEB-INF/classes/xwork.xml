@@ -36,7 +36,6 @@
                 <interceptor-ref name="fileUpload">
                     <param name="maximumSize">102400</param>
                     <param name="allowedTypes">image/gif</param>
-                    <param name="disallowedTypes">text/plain</param>
                 </interceptor-ref>
                 <interceptor-ref name="static-params"/>
                 <interceptor-ref name="params"/>

@@ -62,9 +62,7 @@ public class FileUploadInterceptor implements Interceptor {
 
     protected Long maximumSize;
     protected String allowedTypes;
-    protected String disallowedTypes;
     protected Set allowedTypesSet = Collections.EMPTY_SET;
-    protected Set disallowedTypesSet = Collections.EMPTY_SET;
     static final String DEFAULT_MESSAGE = "no.message.found";
 
 
@@ -73,13 +71,6 @@ public class FileUploadInterceptor implements Interceptor {
 
         // set the allowedTypes as a collection for easier access later
         allowedTypesSet = getDelimitedValues(allowedTypes);
-    }
-
-    public void setDisallowedTypes(String disallowedTypes) {
-        this.disallowedTypes = disallowedTypes;
-
-        // set the disallowedTypes as a collection for easier access later
-        disallowedTypesSet = getDelimitedValues(disallowedTypes);
     }
 
     public void setMaximumSize(Long maximumSize) {
@@ -182,12 +173,13 @@ public class FileUploadInterceptor implements Interceptor {
     }
 
     /**
-     * Override for added functionality. Checks if the proposed file is acceptable by contentType and size.
+     * Override for added functionality. Checks if the proposed file is acceptable based on contentType and size.
      *
      * @param file        - proposed upload file.
      * @param contentType - contentType of the file.
      * @param inputName   - inputName of the file.
-     * @param validation  - Non-null ValidationAware if the action implements ValidationAware, allowing for better logging.
+     * @param validation  - Non-null ValidationAware if the action implements ValidationAware, allowing for better
+     *                    logging.
      * @return true if the proposed file is acceptable by contentType and size.
      */
     protected boolean acceptFile(File file, String contentType, String inputName, ValidationAware validation) {
@@ -203,14 +195,6 @@ public class FileUploadInterceptor implements Interceptor {
 
         } else if (maximumSize != null && maximumSize.longValue() < file.length()) {
             String errMsg = getTextMessage("webwork.messages.error.file.too.large", new Object[]{inputName, file.getName(), "" + file.length()});
-            if (validation != null) {
-                validation.addFieldError(inputName, errMsg);
-            }
-
-            log.error(errMsg);
-
-        } else if (containsItem(disallowedTypesSet, contentType)) {
-            String errMsg = getTextMessage("webwork.messages.error.content.type.disallowed", new Object[]{inputName, file.getName(), contentType});
             if (validation != null) {
                 validation.addFieldError(inputName, errMsg);
             }
