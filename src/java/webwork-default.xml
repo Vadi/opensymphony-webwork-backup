@@ -1,16 +1,18 @@
-<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.1.dtd">
 
 <!-- // START SNIPPET: webwork-default -->
 <xwork>
     <package name="webwork-default">
         <result-types>
             <result-type name="chain" class="com.opensymphony.xwork.ActionChainResult"/>
-            <result-type name="dispatcher" class="com.opensymphony.webwork.dispatcher.ServletDispatcherResult" default="true"/>
+            <result-type name="dispatcher" class="com.opensymphony.webwork.dispatcher.ServletDispatcherResult"
+                         default="true"/>
             <result-type name="freemarker" class="com.opensymphony.webwork.views.freemarker.FreemarkerResult"/>
             <result-type name="httpheader" class="com.opensymphony.webwork.dispatcher.HttpHeaderResult"/>
             <result-type name="jasper" class="com.opensymphony.webwork.views.jasperreports.JasperReportsResult"/>
             <result-type name="redirect" class="com.opensymphony.webwork.dispatcher.ServletRedirectResult"/>
-            <result-type name="redirect-action" class="com.opensymphony.webwork.dispatcher.ServletActionRedirectResult"/>
+            <result-type name="redirect-action"
+                         class="com.opensymphony.webwork.dispatcher.ServletActionRedirectResult"/>
             <result-type name="stream" class="com.opensymphony.webwork.dispatcher.StreamResult"/>
             <result-type name="velocity" class="com.opensymphony.webwork.dispatcher.VelocityResult"/>
             <result-type name="xslt" class="com.opensymphony.webwork.views.xslt.XSLTResult"/>
@@ -18,10 +20,12 @@
 
         <interceptors>
             <interceptor name="alias" class="com.opensymphony.xwork.interceptor.AliasInterceptor"/>
-            <interceptor name="autowiring" class="com.opensymphony.xwork.spring.interceptor.ActionAutowiringInterceptor"/>
+            <interceptor name="autowiring"
+                         class="com.opensymphony.xwork.spring.interceptor.ActionAutowiringInterceptor"/>
             <interceptor name="chain" class="com.opensymphony.xwork.interceptor.ChainingInterceptor"/>
             <interceptor name="component" class="com.opensymphony.xwork.interceptor.component.ComponentInterceptor"/>
-            <interceptor name="conversionError" class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
+            <interceptor name="conversionError"
+                         class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
             <interceptor name="external-ref" class="com.opensymphony.xwork.interceptor.ExternalReferencesInterceptor"/>
             <interceptor name="execAndWait" class="com.opensymphony.webwork.interceptor.ExecuteAndWaitInterceptor"/>
             <interceptor name="exception" class="com.opensymphony.xwork.interceptor.ExceptionMappingInterceptor"/>
@@ -33,15 +37,17 @@
             <interceptor name="prepare" class="com.opensymphony.xwork.interceptor.PrepareInterceptor"/>
             <interceptor name="static-params" class="com.opensymphony.xwork.interceptor.StaticParametersInterceptor"/>
             <interceptor name="servlet-config" class="com.opensymphony.webwork.interceptor.ServletConfigInterceptor"/>
-            <interceptor name="sessionAutowiring" class="com.opensymphony.webwork.spring.interceptor.SessionContextAutowiringInterceptor"/>
+            <interceptor name="sessionAutowiring"
+                         class="com.opensymphony.webwork.spring.interceptor.SessionContextAutowiringInterceptor"/>
             <interceptor name="timer" class="com.opensymphony.xwork.interceptor.TimerInterceptor"/>
             <interceptor name="token" class="com.opensymphony.webwork.interceptor.TokenInterceptor"/>
-            <interceptor name="token-session" class="com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"/>
+            <interceptor name="token-session"
+                         class="com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"/>
             <interceptor name="validation" class="com.opensymphony.xwork.validator.ValidationInterceptor"/>
             <interceptor name="workflow" class="com.opensymphony.xwork.interceptor.DefaultWorkflowInterceptor"/>
 
             <!-- Basic stack -->
-            <interceptor-stack name="defaultStack">
+            <interceptor-stack name="basicStack">
                 <interceptor-ref name="exception"/>
                 <interceptor-ref name="servlet-config"/>
                 <interceptor-ref name="prepare"/>
@@ -52,7 +58,7 @@
 
             <!-- Sample validation and workflow stack -->
             <interceptor-stack name="validationWorkflowStack">
-                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="basicStack"/>
                 <interceptor-ref name="validation"/>
                 <interceptor-ref name="workflow"/>
             </interceptor-stack>
@@ -60,37 +66,37 @@
             <!-- Sample file upload stack -->
             <interceptor-stack name="fileUploadStack">
                 <interceptor-ref name="fileUpload"/>
-                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="basicStack"/>
             </interceptor-stack>
 
             <!-- Sample Inversion of Control stack -->
             <interceptor-stack name="componentStack">
                 <interceptor-ref name="component"/>
-                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="basicStack"/>
             </interceptor-stack>
 
             <!-- Sample model-driven stack  -->
             <interceptor-stack name="modelDrivenStack">
                 <interceptor-ref name="model-driven"/>
-                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="basicStack"/>
             </interceptor-stack>
 
             <!-- Sample action chaining stack -->
             <interceptor-stack name="chainStack">
                 <interceptor-ref name="chain"/>
-                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="basicStack"/>
             </interceptor-stack>
 
             <!-- Sample i18n stack -->
             <interceptor-stack name="chainStack">
                 <interceptor-ref name="i18n"/>
-                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="basicStack"/>
             </interceptor-stack>
 
             <!-- Sample execute and wait stack.
                  Note: execAndWait should always be the *last* interceptor. -->
             <interceptor-stack name="executeAndWaitStack">
-                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="basicStack"/>
                 <interceptor-ref name="execAndWait"/>
             </interceptor-stack>
 
@@ -101,8 +107,9 @@
                  switched around (ex: if you wish to have your components
                  before prepare() is called, you'd need to move the component
                  interceptor up -->
-            <interceptor-stack name="completeStack">
+            <interceptor-stack name="defaultStack">
                 <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
                 <interceptor-ref name="prepare"/>
                 <interceptor-ref name="servlet-config"/>
                 <interceptor-ref name="i18n"/>
@@ -116,9 +123,16 @@
                 <interceptor-ref name="validation"/>
                 <interceptor-ref name="workflow"/>
             </interceptor-stack>
+
+            <!-- The completeStack is here for backwards compatibility for
+                 applications that still refer to the defaultStack by the
+                 old name -->
+            <interceptor-stack name="completeStack">
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
         </interceptors>
 
-        <default-interceptor-ref name="completeStack"/>
+        <default-interceptor-ref name="defaultStack"/>
     </package>
 </xwork>
 <!-- // END SNIPPET: webwork-default -->
