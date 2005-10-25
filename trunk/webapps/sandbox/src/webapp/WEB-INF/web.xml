@@ -29,10 +29,4 @@
         <welcome-file>default.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-
-    <taglib>
-        <taglib-uri>webwork</taglib-uri>
-        <taglib-location>/WEB-INF/webwork.tld</taglib-location>
-    </taglib>
-
 </web-app>

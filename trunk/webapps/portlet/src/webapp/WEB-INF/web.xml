@@ -37,10 +37,6 @@
         <taglib-location>/WEB-INF/tld/std-portlet.tld</taglib-location>
     </taglib>
     <taglib>
-        <taglib-uri>webwork</taglib-uri>
-        <taglib-location>/WEB-INF/tld/taglib.tld</taglib-location>
-    </taglib>
-    <taglib>
         <taglib-uri>sitemesh</taglib-uri>
         <taglib-location>/WEB-INF/lib/sitemesh-2.2.1.jar</taglib-location>
     </taglib>

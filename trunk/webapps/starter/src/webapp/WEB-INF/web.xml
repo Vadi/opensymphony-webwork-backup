@@ -45,6 +45,7 @@
     </welcome-file-list>
 
     <!-- START SNIPPET: taglib -->
+    <!-- this typically isn't required, as the taglib is include in webwork.jar -->
     <taglib>
         <taglib-uri>webwork</taglib-uri>
         <taglib-location>/WEB-INF/webwork.tld</taglib-location>
