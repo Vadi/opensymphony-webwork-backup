@@ -11,37 +11,50 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * <!-- START SNIPPET: description -->
- * TODO: Give a description of the Interceptor.
+ *
+ * This interceptor extends {@link ConversionErrorInterceptor} but only adds conversion errors from the ActionContext to
+ * the field errors of the action if the field value is not null, "", or {""} (a size 1 String array with only an empty
+ * String). See {@link ConversionErrorInterceptor} for more information, as well as the Type Conversion documentation.
+ *
  * <!-- END SNIPPET: description -->
  *
+ * <p/> <u>Interceptor parameters:</u>
+ *
  * <!-- START SNIPPET: parameters -->
- * TODO: Describe the paramters for this Interceptor.
+ *
+ * <ul>
+ *
+ * <li>None</li>
+ *
+ * </ul>
+ *
  * <!-- END SNIPPET: parameters -->
  *
+ * <p/> <u>Extending the interceptor:</u>
+ *
+ * <p/>
+ *
  * <!-- START SNIPPET: extending -->
- * TODO: Discuss some possible extension of the Interceptor.
+ *
+ * There are no known extension points for this interceptor.
+ *
  * <!-- END SNIPPET: extending -->
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;!-- TODO: Describe how the Interceptor reference will effect execution --&gt;
  * &lt;action name="someAction" class="com.examples.SomeAction"&gt;
- *      TODO: fill in the interceptor reference.
- *     &lt;interceptor-ref name=""/&gt;
+ *     &lt;interceptor-ref name="params"/&gt;
+ *     &lt;interceptor-ref name="conversionError"/&gt;
  *     &lt;result name="success"&gt;good_result.ftl&lt;/result&gt;
  * &lt;/action&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
- * 
- * This interceptor adds the conversion errors from the ActionContext to the field errors of the Action
- * if the field value is not null, "", or {""} (a size 1 String array with only an empty String).
  *
  * @author Jason Carreira
  * @see com.opensymphony.xwork.ActionContext#getConversionErrors()
  * @see ConversionErrorInterceptor
  */
 public class WebWorkConversionErrorInterceptor extends ConversionErrorInterceptor {
-
     protected Object getOverrideExpr(ActionInvocation invocation, Object value) {
         OgnlValueStack stack = invocation.getStack();
 
@@ -55,8 +68,8 @@ public class WebWorkConversionErrorInterceptor extends ConversionErrorIntercepto
     }
 
     /**
-     * Returns <tt>false</tt> if the value is null, "", or {""} (array of size 1 with
-     * a blank element). Returns <tt>true</tt> otherwise.
+     * Returns <tt>false</tt> if the value is null, "", or {""} (array of size 1 with a blank element). Returns
+     * <tt>true</tt> otherwise.
      *
      * @param propertyName the name of the property to check.
      * @param value        the value to error check.
