@@ -1,60 +1,21 @@
-<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.1.dtd">
+&lt;xwork&gt;
+    &lt;include file="webwork-default.xml"/&gt;
 
-<xwork>
-    <include file="webwork-default.xml"/>
-    <include file="config-browser.xml"/>
-    <include file="xwork-typeconversion.xml"/>
+    &lt;package name="default" extends="webwork-default"&gt;
+        &lt;global-results&gt;
+            &lt;result name="success" type="freemarker"&gt;error.ftl&lt;/result&gt;
+        &lt;/global-results&gt;
 
-    <package name="default" extends="webwork-default">
-        <action name="test">
-            <result type="freemarker">test.ftl</result>
-        </action>
+        &lt;global-exception-mappings&gt;
+            &lt;exception-mapping exception="java.lang.Exception" result="error"/&gt;
+        &lt;/global-exception-mappings&gt;
 
-        <action name="tableTest" class="com.opensymphony.webwork.sandbox.TableTest">
-            <result type="freemarker">tableTest.ftl</result>
-        </action>
-
-        <action name="guess" class="com.opensymphony.webwork.sandbox.Guess">
-            <result type="freemarker">guess.ftl</result>
-        </action>
-    </package>
-
-    <package name="typeconversion" extends="default" namespace="/typeconversion">
-        <action name="typeconversion" class="com.opensymphony.webwork.sandbox.typeconversion.TypeConversionAction">
-            <result type="freemarker">test.ftl</result>
-        </action>
-    </package>
-
-    <package name="upload" extends="default" namespace="/upload">
-        <interceptors>
-            <interceptor-stack name="completeStackWithSpecialFileUpload">
-                <interceptor-ref name="prepare"/>
-                <interceptor-ref name="servlet-config"/>
-                <interceptor-ref name="chain"/>
-                <interceptor-ref name="model-driven"/>
-                <interceptor-ref name="component"/>
-                <interceptor-ref name="fileUpload">
-                    <param name="maximumSize">102400</param>
-                    <param name="allowedTypes">image/gif</param>
-                </interceptor-ref>
-                <interceptor-ref name="static-params"/>
-                <interceptor-ref name="params"/>
-                <interceptor-ref name="conversionError"/>
-                <interceptor-ref name="validation"/>
-                <interceptor-ref name="workflow"/>
-            </interceptor-stack>
-        </interceptors>
-
-        <default-interceptor-ref name="completeStackWithSpecialFileUpload"/>
-
-        <global-results>
-            <result name="success">/fileUploadTest.jsp</result>
-            <result name="input">/fileUploadTest.jsp</result>
-            <result name="error">/fileUploadTest.jsp</result>
-        </global-results>
-
-        <action name="start" class="com.opensymphony.webwork.sandbox.FileUploadTestAction"/>
-
-        <action name="attempt" class="com.opensymphony.webwork.sandbox.FileUploadTestAction" method="attemptUpload"/>
-    </package>
-</xwork>
+        &lt;action name="test"&gt;
+            &lt;interceptor-ref name="exception"/&gt;
+            &lt;interceptor-ref name="basicStack"/&gt;
+            &lt;exception-mapping exception="com.acme.CustomException" result="custom_error"/&gt;
+            &lt;result name="custom_error"&gt;custom_error.ftl&lt;/result&gt;
+            &lt;result name="success" type="freemarker"&gt;test.ftl&lt;/result&gt;
+        &lt;/action&gt;
+    &lt;/package&gt;
+&lt;/xwork&gt;

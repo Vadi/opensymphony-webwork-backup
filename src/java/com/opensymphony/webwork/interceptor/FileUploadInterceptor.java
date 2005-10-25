@@ -15,56 +15,95 @@ import com.opensymphony.xwork.util.LocalizedTextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.*;
 
 /**
  * <!-- START SNIPPET: description -->
- * TODO: Give a description of the Interceptor.
+ *
+ * Interceptor that is based off of {@link MultiPartRequestWrapper}, which is automatically applied for any request that
+ * includes a file. It adds the following parameters, where [File Name] is the name given to the file uploaded by the
+ * HTML form:
+ *
+ * <ul>
+ *
+ * <li>[File Name] : File - the actual File</li>
+ *
+ * <li>[File Name]ContentType : String - the content type of the file</li>
+ *
+ * <li>[File Name]FileName : String - the actual name of the file uploaded (not the HTML name)</li>
+ *
+ * </ul>
+ *
+ * <p/> You can get access to these files by merely providing setters in your action that correspond to any of the three
+ * patterns above, such as setDocument(File document), setDocumentContentType(String contentType), etc.
+ *
+ * <p/> This interceptor will add several field errors, assuming that the action implements {@link ValidationAware}.
+ * These error messages are based on several i18n values stored in webwork-messages.properties, a default i18n file
+ * processed for all i18n requests. You can override the text of these messages by providing text for the following
+ * keys:
+ *
+ * <ul>
+ *
+ * <li>webwork.messages.error.uploading - a general error that occurs when the file could not be uploaded</li>
+ *
+ * <li>webwork.messages.error.file.too.large - occurs when the uploaded file is too large</li>
+ *
+ * <li>webwork.messages.error.content.type.not.allowed - occurs when the uploaded file does not match the expected
+ * content types specified</li>
+ *
+ * </ul>
+ *
  * <!-- END SNIPPET: description -->
  *
+ * <p/> <u>Interceptor parameters:</u>
+ *
  * <!-- START SNIPPET: parameters -->
- * TODO: Describe the paramters for this Interceptor.
+ *
+ * <ul>
+ *
+ * <li>maximumSize (optional) - the maximum size (in bytes) that the interceptor will allow a file reference to be set
+ * on the action. Note, this is <b>not</b> related to the various properties found in webwork.properties.</li>
+ *
+ * <li>allowedTypes (optional) - a comma separated list of content types (ie: text/html) that the interceptor will allow
+ * a file reference to be set on the action.</li>
+ *
+ * </ul>
+ *
  * <!-- END SNIPPET: parameters -->
  *
+ * <p/> <u>Extending the interceptor:</u>
+ *
+ * <p/>
+ *
  * <!-- START SNIPPET: extending -->
- * TODO: Discuss some possible extension of the Interceptor.
+ *
+ * You can extend this interceptor and override the {@link #acceptFile} method to provide more control over which files
+ * are supported and which are not.
+ *
  * <!-- END SNIPPET: extending -->
+ *
+ * <p/> <u>Example code:</u>
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;!-- TODO: Describe how the Interceptor reference will effect execution --&gt;
  * &lt;action name="someAction" class="com.examples.SomeAction"&gt;
- *      TODO: fill in the interceptor reference.
- *     &lt;interceptor-ref name=""/&gt;
+ *     &lt;interceptor-ref name="fileUpload"/&gt;
+ *     &lt;interceptor-ref name="basicStack"/&gt;
  *     &lt;result name="success"&gt;good_result.ftl&lt;/result&gt;
  * &lt;/action&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
- * 
- * Interceptor that is based off of {@link MultiPartRequestWrapper}. It adds the following
- * parameters, where [File Name] is the name given to the file uploaded by the HTML form:
- * <ul>
- * <li>[File Name] : File - the actual File</li>
- * <li>[File Name]ContentType : String - the content type of the file</li>
- * <li>[File Name]FileName : String - the actual name of the file uploaded (not the HTML name)</li>
- * </ul>
- * <p/>
- * You can get access to these files by merely providing setters in your action that correspond to any
- * of the three patterns above, such as setDocument(File document), setDocumentContentType(String contentType), etc.
  */
 public class FileUploadInterceptor implements Interceptor {
-
     protected static final Log log = LogFactory.getLog(FileUploadInterceptor.class);
-
     private static final String DEFAULT_DELIMITER = ",";
-
+    private static final String DEFAULT_MESSAGE = "no.message.found";
 
     protected Long maximumSize;
     protected String allowedTypes;
     protected Set allowedTypesSet = Collections.EMPTY_SET;
-    static final String DEFAULT_MESSAGE = "no.message.found";
-
 
     public void setAllowedTypes(String allowedTypes) {
         this.allowedTypes = allowedTypes;
@@ -84,10 +123,13 @@ public class FileUploadInterceptor implements Interceptor {
     }
 
     public String intercept(ActionInvocation invocation) throws Exception {
-        if (!(ServletActionContext.getRequest() instanceof MultiPartRequestWrapper)) {
+        ActionContext ac = invocation.getInvocationContext();
+        HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
+
+        if (!(request instanceof MultiPartRequestWrapper)) {
             if (log.isDebugEnabled()) {
                 ActionProxy proxy = invocation.getProxy();
-                log.debug(getTextMessage("webwork.messages.bypass.request", new Object[]{proxy.getNamespace(), proxy.getActionName()}));
+                log.debug(getTextMessage("webwork.messages.bypass.request", new Object[]{proxy.getNamespace(), proxy.getActionName()}, ActionContext.getContext().getLocale()));
             }
 
             return invocation.invoke();
@@ -100,7 +142,7 @@ public class FileUploadInterceptor implements Interceptor {
             validation = (ValidationAware) action;
         }
 
-        MultiPartRequestWrapper multiWrapper = (MultiPartRequestWrapper) ServletActionContext.getRequest();
+        MultiPartRequestWrapper multiWrapper = (MultiPartRequestWrapper) request;
 
         if (multiWrapper.hasErrors()) {
             for (Iterator errorIter = multiWrapper.getErrors().iterator(); errorIter.hasNext();) {
@@ -114,7 +156,7 @@ public class FileUploadInterceptor implements Interceptor {
             }
         }
 
-        Map parameters = invocation.getInvocationContext().getParameters();
+        Map parameters = ac.getParameters();
 
         // Bind allowed Files
         Enumeration fileParameterNames = multiWrapper.getFileParameterNames();
@@ -134,9 +176,9 @@ public class FileUploadInterceptor implements Interceptor {
                     File[] files = multiWrapper.getFiles(inputName);
                     if (files != null) {
                         for (int index = 0; index < files.length; index++) {
-                            getTextMessage("webwork.messages.current.file", new Object[]{inputName, contentType[index], fileName[index], files[index]});
+                            getTextMessage("webwork.messages.current.file", new Object[]{inputName, contentType[index], fileName[index], files[index]}, ActionContext.getContext().getLocale());
 
-                            if (acceptFile(files[0], contentType[0], inputName, validation)) {
+                            if (acceptFile(files[0], contentType[0], inputName, validation, ac.getLocale())) {
                                 parameters.put(inputName, files);
                                 parameters.put(inputName + "ContentType", contentType);
                                 parameters.put(inputName + "FileName", fileName);
@@ -144,10 +186,10 @@ public class FileUploadInterceptor implements Interceptor {
                         }
                     }
                 } else {
-                    log.error(getTextMessage("webwork.messages.invalid.file", new Object[]{inputName}));
+                    log.error(getTextMessage("webwork.messages.invalid.file", new Object[]{inputName}, ActionContext.getContext().getLocale()));
                 }
             } else {
-                log.error(getTextMessage("webwork.messages.invalid.content.type", new Object[]{inputName}));
+                log.error(getTextMessage("webwork.messages.invalid.content.type", new Object[]{inputName}, ActionContext.getContext().getLocale()));
             }
         }
 
@@ -161,7 +203,7 @@ public class FileUploadInterceptor implements Interceptor {
             File[] file = multiWrapper.getFiles(inputValue);
             for (int index = 0; index < file.length; index++) {
                 File currentFile = file[index];
-                log.info(getTextMessage("webwork.messages.removing.file", new Object[]{inputValue, currentFile}));
+                log.info(getTextMessage("webwork.messages.removing.file", new Object[]{inputValue, currentFile}, ActionContext.getContext().getLocale()));
 
                 if ((currentFile != null) && currentFile.isFile()) {
                     currentFile.delete();
@@ -180,9 +222,10 @@ public class FileUploadInterceptor implements Interceptor {
      * @param inputName   - inputName of the file.
      * @param validation  - Non-null ValidationAware if the action implements ValidationAware, allowing for better
      *                    logging.
+     * @param locale
      * @return true if the proposed file is acceptable by contentType and size.
      */
-    protected boolean acceptFile(File file, String contentType, String inputName, ValidationAware validation) {
+    protected boolean acceptFile(File file, String contentType, String inputName, ValidationAware validation, Locale locale) {
         boolean fileIsAcceptable = false;
 
         // If it's null the upload failed
@@ -191,24 +234,21 @@ public class FileUploadInterceptor implements Interceptor {
                 validation.addFieldError(inputName, "Could not upload file.");
             }
 
-            log.error(getTextMessage("webwork.messages.error.uploading", new Object[]{inputName}));
-
+            log.error(getTextMessage("webwork.messages.error.uploading", new Object[]{inputName}, locale));
         } else if (maximumSize != null && maximumSize.longValue() < file.length()) {
-            String errMsg = getTextMessage("webwork.messages.error.file.too.large", new Object[]{inputName, file.getName(), "" + file.length()});
+            String errMsg = getTextMessage("webwork.messages.error.file.too.large", new Object[]{inputName, file.getName(), "" + file.length()}, locale);
             if (validation != null) {
                 validation.addFieldError(inputName, errMsg);
             }
 
             log.error(errMsg);
-
         } else if (!containsItem(allowedTypesSet, contentType)) {
-            String errMsg = getTextMessage("webwork.messages.error.content.type.not.allowed", new Object[]{inputName, file.getName(), contentType});
+            String errMsg = getTextMessage("webwork.messages.error.content.type.not.allowed", new Object[]{inputName, file.getName(), contentType}, locale);
             if (validation != null) {
                 validation.addFieldError(inputName, errMsg);
             }
 
             log.error(errMsg);
-
         } else {
             fileIsAcceptable = true;
         }
@@ -249,11 +289,11 @@ public class FileUploadInterceptor implements Interceptor {
         return result;
     }
 
-    private String getTextMessage(String messageKey, Object[] args) {
+    private String getTextMessage(String messageKey, Object[] args, Locale locale) {
         if (args == null || args.length == 0) {
-            return LocalizedTextUtil.findText(this.getClass(), messageKey, ActionContext.getContext().getLocale());
+            return LocalizedTextUtil.findText(this.getClass(), messageKey, locale);
         } else {
-            return LocalizedTextUtil.findText(this.getClass(), messageKey, ActionContext.getContext().getLocale(), DEFAULT_MESSAGE, args);
+            return LocalizedTextUtil.findText(this.getClass(), messageKey, locale, DEFAULT_MESSAGE, args);
         }
     }
 }

@@ -1,15 +1,5 @@
 package com.opensymphony.webwork.interceptor;
 
-import java.util.IdentityHashMap;
-import java.util.Map;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
@@ -17,26 +7,108 @@ import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.interceptor.Interceptor;
 import com.opensymphony.xwork.interceptor.PreResultListener;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 /**
  * <!-- START SNIPPET: description -->
- * TODO: Give a description of the Interceptor.
+ *
+ * This is designed to solve a few simple issues related to wizard-like functionality in WebWork. One of those issues is
+ * that some applications have a application-wide parameters commonly used, such <i>pageLen</i> (used for records per
+ * page). Rather than requiring that each action check if such parameters are supplied, this interceptor can look for
+ * specified parameters and pull them out of the session.
+ *
+ * <p/> This works by setting listed properties at action start with values from session/application attributes keyed
+ * after the action's class, the action's name, or any supplied key. After action is executed all the listed properties
+ * are taken back and put in session or application context.
+ *
+ * <p/> To make sure that each execution of the action is consistent it makes use of session-level locking. This way it
+ * guarantees that each action execution is atomic at the session level. It doesn't guarantee application level
+ * consistency however there has yet to be enough reasons to do so. Application level consistency would also be a big
+ * performance overkill.
+ *
+ * <p/> Note that this interceptor takes a snapshot of action properties just before result is presented (using a {@link
+ * PreResultListener}), rather than after action is invoked. There is a reason for that: At this moment we know that
+ * action's state is "complete" as it's values may depend on the rest of the stack and specifically - on the values of
+ * nested interceptors.
+ *
  * <!-- END SNIPPET: description -->
  *
+ * <p/> <u>Interceptor parameters:</u>
+ *
  * <!-- START SNIPPET: parameters -->
- * TODO: Describe the paramters for this Interceptor.
+ *
+ * <ul>
+ *
+ * <li>session - a list of action properties to be bound to session scope</li>
+ *
+ * <li>application - a list of action properties to be bound to application scope</li>
+ *
+ * <li>key - a session/application attribute key prefix, can contain following values:</li>
+ *
+ * <ul>
+ *
+ * <li>CLASS - that creates a unique key prefix based on action namespace and action class, it's a default value</li>
+ *
+ * <li>ACTION - creates a unique key prefix based on action namespace and action name</li>
+ *
+ * <li>any other value is taken literally as key prefix</li>
+ *
+ * </ul>
+ *
+ * <li>type - with one of the following</li>
+ *
+ * <ul>
+ *
+ * <li>start - means it's a start action of the wizard-like action sequence and all session scoped properties are reset
+ * to their defaults</li>
+ *
+ * <li>end - means that session scoped properties are removed from session after action is run</li>
+ *
+ * <li>any other value or no value means that it's in-the-middle action that is set with session properties before it's
+ * executed, and it's properties are put back to session after execution</li>
+ *
+ * </ul>
+ *
+ * <li>sessionReset - boolean value causing all session values to be reset to action's default values or application
+ * scope values, note that it is similliar to type="start" and in fact it does the same, but in our team it is sometimes
+ * semantically preferred. We use session scope in two patterns - sometimes there are wizzard-like action sequences that
+ * have start and end, and sometimes we just want simply reset current session values.</li>
+ *
+ * </ul>
+ *
  * <!-- END SNIPPET: parameters -->
  *
+ * <p/> <u>Extending the interceptor:</u>
+ *
+ * <p/>
+ *
  * <!-- START SNIPPET: extending -->
- * TODO: Discuss some possible extension of the Interceptor.
+ *
+ * There are no know extension points for this interceptor.
+ *
  * <!-- END SNIPPET: extending -->
+ *
+ * <p/> <u>Example code:</u>
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;!-- TODO: Describe how the Interceptor reference will effect execution --&gt;
+ * &lt;!-- As the filter and orderBy parameters are common for all my browse-type actions,
+ *      you can move control to the scope interceptor. In the session parameter you can list
+ *      action properties that are going to be automatically managed over session. You can
+ *      do the same for application-scoped variables--&gt;
  * &lt;action name="someAction" class="com.examples.SomeAction"&gt;
- *      TODO: fill in the interceptor reference.
- *     &lt;interceptor-ref name=""/&gt;
+ *     &lt;interceptor-ref name="basicStack"/&gt;
+ *     &lt;interceptor-ref name="hibernate"/&gt;
+ *     &lt;interceptor-ref name="scope"&gt;
+ *         &lt;param name="session"&gt;filter,orderBy&lt;/param&gt;
+ *     &lt;/interceptor-ref&gt;
  *     &lt;result name="success"&gt;good_result.ftl&lt;/result&gt;
  * &lt;/action&gt;
  * <!-- END SNIPPET: example -->
@@ -57,14 +129,16 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
 
     //list of application scoped properties
     public void setApplication(String s) {
-        if (s != null)
+        if (s != null) {
             application = s.split(" *, *");
+        }
     }
 
     //list of session scoped properties
     public void setSession(String s) {
-        if (s != null)
+        if (s != null) {
             session = s.split(" *, *");
+        }
     }
 
     private String getKey(ActionInvocation invocation) {
@@ -88,19 +162,25 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
         }
     };
 
-    private static Object nullConvert(Object o) {
-        if (o == null) return NULL;
-        if (o == NULL) return null;
+    private static final Object nullConvert(Object o) {
+        if (o == null) {
+            return NULL;
+        }
+
+        if (o == NULL) {
+            return null;
+        }
+        
         return o;
     }
 
 
     private static Map locks = new IdentityHashMap();
 
-    static void lock(Object o, ActionInvocation invocation) throws Exception {
+    static final void lock(Object o, ActionInvocation invocation) throws Exception {
         synchronized (o) {
             int count = 3;
-            Object previous;
+            Object previous = null;
             while ((previous = locks.get(o)) != null) {
                 if (previous == invocation) {
                     return;
@@ -108,6 +188,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
                 if (count-- <= 0) {
                     locks.remove(o);
                     o.notify();
+
                     throw new RuntimeException("Deadlock in session lock");
                 }
                 o.wait(10000);
@@ -117,7 +198,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
         }
     }
 
-    static void unlock(Object o) {
+    static final void unlock(Object o) {
         synchronized (o) {
             locks.remove(o);
             o.notify();
@@ -139,34 +220,39 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
         ServletContext app = ServletActionContext.getServletContext();
         final OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
-        if (LOG.isDebugEnabled())
+        if (LOG.isDebugEnabled()) {
             LOG.debug("scope interceptor before");
+        }
 
         if (application != null)
             for (int i = 0; i < application.length; i++) {
                 String string = application[i];
                 Object attribute = app.getAttribute(key + string);
                 if (attribute != null) {
-                    if (LOG.isDebugEnabled())
+                    if (LOG.isDebugEnabled()) {
                         LOG.debug("application scoped variable set " + string + " = " + String.valueOf(attribute));
+                    }
 
                     stack.setValue(string, nullConvert(attribute));
                 }
             }
 
-        if (request.getParameter(sessionReset) != null)
+        if (request.getParameter(sessionReset) != null) {
             return;
+        }
 
-        if (reset)
+        if (reset) {
             return;
+        }
 
         if (session != null && (!"start".equals(type)))
             for (int i = 0; i < session.length; i++) {
                 String string = session[i];
                 Object attribute = ses.getAttribute(key + string);
                 if (attribute != null) {
-                    if (LOG.isDebugEnabled())
+                    if (LOG.isDebugEnabled()) {
                         LOG.debug("session scoped variable set " + string + " = " + String.valueOf(attribute));
+                    }
                     stack.setValue(string, nullConvert(attribute));
                 }
             }
@@ -186,15 +272,17 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
             for (int i = 0; i < application.length; i++) {
                 String string = application[i];
                 Object value = stack.findValue(string);
-                if (LOG.isDebugEnabled())
+                if (LOG.isDebugEnabled()) {
                     LOG.debug("application scoped variable saved " + string + " = " + String.valueOf(value));
+                }
+
                 //if( value != null)
                 app.setAttribute(key + string, nullConvert(value));
             }
 
         boolean ends = "end".equals(type);
 
-        if (session != null)
+        if (session != null) {
             for (int i = 0; i < session.length; i++) {
                 String string = session[i];
                 if (ends) {
@@ -202,19 +290,20 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
                 } else {
                     Object value = stack.findValue(string);
 
-                    if (LOG.isDebugEnabled())
+                    if (LOG.isDebugEnabled()) {
                         LOG.debug("session scoped variable saved " + string + " = " + String.valueOf(value));
+                    }
 
                     // Null value should be scoped too
                     //if( value != null)
                     ses.setAttribute(key + string, nullConvert(value));
                 }
             }
+        }
         unlock(ses);
-        if (LOG.isDebugEnabled())
+        if (LOG.isDebugEnabled()) {
             LOG.debug("scope interceptor after (before result)");
-
-
+        }
     }
 
     public String getType() {
@@ -223,10 +312,11 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
 
     public void setType(String type) {
         type = type.toLowerCase();
-        if ("start".equals(type) || "end".equals(type))
+        if ("start".equals(type) || "end".equals(type)) {
             this.type = type;
-        else
+        } else {
             throw new IllegalArgumentException("Only start or end are allowed arguments for type");
+        }
     }
 
     public String getSessionReset() {
@@ -254,7 +344,6 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
         } finally {
             unlock(ses);
         }
-
 
         return result;
     }
