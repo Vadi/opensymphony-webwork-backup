@@ -69,7 +69,9 @@
                 <interceptor-ref name="basicStack"/>
             </interceptor-stack>
 
-            <!-- Sample Inversion of Control stack -->
+            <!-- Sample WebWork Inversion of Control stack
+                 Note: WebWork's IoC is deprecated - please
+                 look at alternatives such as Sprint -->
             <interceptor-stack name="componentStack">
                 <interceptor-ref name="component"/>
                 <interceptor-ref name="basicStack"/>
@@ -115,7 +117,6 @@
                 <interceptor-ref name="i18n"/>
                 <interceptor-ref name="chain"/>
                 <interceptor-ref name="model-driven"/>
-                <interceptor-ref name="component"/>
                 <interceptor-ref name="fileUpload"/>
                 <interceptor-ref name="static-params"/>
                 <interceptor-ref name="params"/>

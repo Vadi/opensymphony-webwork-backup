@@ -7,6 +7,7 @@ package com.opensymphony.webwork.interceptor;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.util.InvocationSessionStore;
 import com.opensymphony.webwork.util.TokenHelper;
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -17,23 +18,45 @@ import java.util.Map;
 
 /**
  * <!-- START SNIPPET: description -->
- * TODO: Give a description of the Interceptor.
+ *
+ * This interceptor builds off of the {@link TokenInterceptor}, providing advanced logic for handling invalid tokens.
+ * Unlike the normal token interceptor, this interceptor will attempt to provide intelligent fail-over in the event of
+ * multiple requests using the same session. That is, it will block subsequent requests until the first request is
+ * complete, and then instead of returning the <i>invalid.token</i> code, it will attempt to display the same response
+ * that the original, valid action invocation would have displayed if no multiple requests were submitted in the first
+ * place.
+ *
  * <!-- END SNIPPET: description -->
  *
+ * <p/> <u>Interceptor parameters:</u>
+ *
  * <!-- START SNIPPET: parameters -->
- * TODO: Describe the paramters for this Interceptor.
+ *
+ * <ul>
+ *
+ * <li>None</li>
+ *
+ * </ul>
+ *
  * <!-- END SNIPPET: parameters -->
  *
+ * <p/> <u>Extending the interceptor:</u>
+ *
+ * <p/>
+ *
  * <!-- START SNIPPET: extending -->
- * TODO: Discuss some possible extension of the Interceptor.
+ *
+ * There are no known extension points for this interceptor.
+ *
  * <!-- END SNIPPET: extending -->
+ *
+ * <p/> <u>Example code:</u>
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;!-- TODO: Describe how the Interceptor reference will effect execution --&gt;
  * &lt;action name="someAction" class="com.examples.SomeAction"&gt;
- *      TODO: fill in the interceptor reference.
- *     &lt;interceptor-ref name=""/&gt;
+ *     &lt;interceptor-ref name="token-session/&gt;
+ *     &lt;interceptor-ref name="basicStack"/&gt;
  *     &lt;result name="success"&gt;good_result.ftl&lt;/result&gt;
  * &lt;/action&gt;
  * <!-- END SNIPPET: example -->
@@ -42,18 +65,14 @@ import java.util.Map;
  * @author Jason Carreira
  */
 public class TokenSessionStoreInterceptor extends TokenInterceptor {
-
-    /**
-     * @param invocation
-     * @return
-     * @throws Exception
-     */
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
-        HttpServletRequest request = ServletActionContext.getRequest();
+        ActionContext ac = invocation.getInvocationContext();
+
+        HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
         String tokenName = TokenHelper.getTokenName(request);
         String token = TokenHelper.getToken(tokenName, request);
 
-        Map params = invocation.getInvocationContext().getParameters();
+        Map params = ac.getParameters();
         params.remove(tokenName);
         params.remove(TokenHelper.TOKEN_NAME_FIELD);
 
@@ -63,7 +82,7 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
             if (savedInvocation != null) {
                 // set the valuestack to the request scope
                 OgnlValueStack stack = savedInvocation.getStack();
-                ServletActionContext.getRequest().setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
+                request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
 
                 Result result = savedInvocation.getResult();
 
@@ -81,14 +100,10 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
         return INVALID_TOKEN_CODE;
     }
 
-    /**
-     * @param invocation
-     * @return
-     * @throws Exception
-     */
     protected String handleValidToken(ActionInvocation invocation) throws Exception {
         // we know the token name and token must be there
-        HttpServletRequest request = ServletActionContext.getRequest();
+        ActionContext ac = invocation.getInvocationContext();
+        HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
         String key = TokenHelper.getTokenName(request);
         String token = TokenHelper.getToken(key, request);
         InvocationSessionStore.storeInvocation(key, token, invocation);
