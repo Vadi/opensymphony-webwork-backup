@@ -21,7 +21,7 @@ public abstract class ComponentTagSupport extends WebWorkBodyTagSupport {
         component.end(pageContext.getOut(), getBody());
         component = null;
 
-        return EVAL_BODY_INCLUDE;
+        return EVAL_PAGE;
     }
 
     public int doStartTag() throws JspException {
@@ -29,7 +29,7 @@ public abstract class ComponentTagSupport extends WebWorkBodyTagSupport {
         populateParams();
         component.start(pageContext.getOut());
 
-        return EVAL_PAGE;
+        return EVAL_BODY_INCLUDE;
     }
 
     protected void populateParams() {
