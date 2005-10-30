@@ -2,6 +2,7 @@ package com.opensymphony.webwork.sitemesh;
 
 import com.opensymphony.module.sitemesh.Decorator;
 import com.opensymphony.module.sitemesh.Page;
+import com.opensymphony.module.sitemesh.HTMLPage;
 import com.opensymphony.module.sitemesh.filter.PageFilter;
 import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
 import com.opensymphony.xwork.ActionContext;
@@ -50,6 +51,12 @@ public class FreeMarkerPageFilter extends PageFilter {
 
             // populate the hash with the page
             model.put("page", page);
+            if (page instanceof HTMLPage) {
+                HTMLPage htmlPage = ((HTMLPage) page);
+                model.put("head", htmlPage.getHead());
+            }
+            model.put("title",page.getTitle());
+            model.put("body",page.getBody());
 
             // finally, render it
             template.process(model, res.getWriter());
