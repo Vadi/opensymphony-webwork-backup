@@ -2550,6 +2550,16 @@
             <rtexprvalue>false</rtexprvalue>
         </attribute>
         <attribute>
+            <name>template</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>openTemplate</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>contentName</name>
             <required>true</required>
             <rtexprvalue>false</rtexprvalue>
@@ -2589,7 +2599,6 @@
         </attribute>
     </tag>
 
-    <!-- ******************** WebWork Ajax Tags *************************** -->
     <tag>
         <name>div</name>
         <tagclass>com.opensymphony.webwork.views.jsp.ui.DivTag</tagclass>
@@ -2617,6 +2626,11 @@
         </attribute>
         <attribute>
             <name>template</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>openTemplate</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -2693,6 +2707,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>openTemplate</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>href</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -2761,6 +2780,16 @@
         </attribute>
         <attribute>
             <name>theme</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>template</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>openTemplate</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
