@@ -99,7 +99,8 @@ import java.util.StringTokenizer;
  * @see ActionContextCleanUp
  * @since 2.2
  */
-public class FilterDispatcher implements Filter, WebWorkStatics {
+public class
+        FilterDispatcher implements Filter, WebWorkStatics {
     private static final Log LOG = LogFactory.getLog(FilterDispatcher.class);
 
     protected FilterConfig filterConfig;
