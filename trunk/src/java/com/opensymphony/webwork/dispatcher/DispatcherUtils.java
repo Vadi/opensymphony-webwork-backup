@@ -8,7 +8,6 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
-import com.opensymphony.webwork.dispatcher.multipart.WebWorkRequestWrapper;
 import com.opensymphony.webwork.util.AttributeMap;
 import com.opensymphony.webwork.util.ObjectFactoryInitializable;
 import com.opensymphony.xwork.*;
