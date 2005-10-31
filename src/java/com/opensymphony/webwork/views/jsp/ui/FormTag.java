@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see Form
  */
-public class FormTag extends AbstractUITag {
+public class FormTag extends AbstractClosingTag {
     protected String action;
     protected String target;
     protected String enctype;

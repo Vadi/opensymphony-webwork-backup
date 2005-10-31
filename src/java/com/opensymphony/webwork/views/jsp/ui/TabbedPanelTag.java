@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @see TabbedPanel
  */
-public class TabbedPanelTag extends AbstractUITag {
+public class TabbedPanelTag extends AbstractClosingTag {
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new TabbedPanel(stack, req, res);
     }

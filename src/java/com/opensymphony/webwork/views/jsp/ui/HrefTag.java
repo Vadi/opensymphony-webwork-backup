@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see Href
  */
-public class HrefTag extends AbstractUITag {
+public class HrefTag extends AbstractClosingTag {
     protected String href;
     protected String errorText;
     protected String showErrorTransportText;

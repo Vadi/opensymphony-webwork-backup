@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see Div
  */
-public class DivTag extends AbstractUITag {
+public class DivTag extends AbstractClosingTag {
     protected String href;
     protected String updateFreq;
     protected String delay;
