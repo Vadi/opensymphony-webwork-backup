@@ -54,7 +54,7 @@ public class FreemarkerTemplateEngine extends BaseTemplateEngine {
 
         // prepare freemarker
         FreemarkerManager freemarkerManager = FreemarkerManager.getInstance();
-        Configuration config = freemarkerManager.getConfigruation(servletContext);
+        Configuration config = freemarkerManager.getConfiguration(servletContext);
 
         // get the list of templates we can use
         List templates = templateContext.getTemplate().getPossibleTemplates(this);

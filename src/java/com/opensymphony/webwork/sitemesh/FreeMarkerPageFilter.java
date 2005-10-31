@@ -43,7 +43,7 @@ public class FreeMarkerPageFilter extends PageFilter {
             ActionContext ctx = ActionContext.getContext();
 
             // get the configuration and template
-            Configuration config = fmm.getConfigruation(servletContext);
+            Configuration config = fmm.getConfiguration(servletContext);
             Template template = config.getTemplate(decorator.getPage());
 
             // get the main hash
