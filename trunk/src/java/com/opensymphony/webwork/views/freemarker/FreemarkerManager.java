@@ -97,7 +97,7 @@ public class FreemarkerManager {
         return instance;
     }
 
-    public final synchronized freemarker.template.Configuration getConfigruation(ServletContext servletContext) throws TemplateException {
+    public final synchronized freemarker.template.Configuration getConfiguration(ServletContext servletContext) throws TemplateException {
         freemarker.template.Configuration config = (freemarker.template.Configuration) servletContext.getAttribute(CONFIG_SERVLET_CONTEXT_KEY);
 
         if (config == null) {

@@ -101,7 +101,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
      * </b>
      */
     protected Configuration getConfiguration() throws TemplateException {
-        return FreemarkerManager.getInstance().getConfigruation(ServletActionContext.getServletContext());
+        return FreemarkerManager.getInstance().getConfiguration(ServletActionContext.getServletContext());
     }
 
     /**

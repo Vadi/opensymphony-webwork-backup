@@ -73,7 +73,7 @@ public class FreemarkerServlet extends HttpServlet {
     }
 
     protected Configuration createConfiguration() throws TemplateException {
-        return FreemarkerManager.getInstance().getConfigruation(getServletContext());
+        return FreemarkerManager.getInstance().getConfiguration(getServletContext());
     }
 
     protected TemplateModel createModel(ObjectWrapper wrapper, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) throws TemplateModelException {
