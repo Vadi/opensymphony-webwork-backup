@@ -8,9 +8,14 @@ import org.apache.commons.logging.LogFactory;
 import java.util.HashMap;
 
 /**
- * User: plightbo
- * Date: Jun 20, 2005
- * Time: 6:56:45 PM
+ * <!-- START SNIPPET: javadoc -->
+ *
+ * Factory that creates {@link ActionMapper}s. This factory looks up the class name of the {@link ActionMapper} from
+ * WebWork's configuration using the key <b>webwork.mapper.class</b>.
+ *
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * @author Patrick Lightbody
  */
 public class ActionMapperFactory {
     protected static final Log LOG = LogFactory.getLog(ActionMapperFactory.class);

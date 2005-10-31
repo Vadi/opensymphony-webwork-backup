@@ -9,9 +9,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Default action mapper implementation, using the standard *.[ext] (where ext
- * usually "action") pattern. This implementation does not concern itself with
- * parameters.
+ * <!-- START SNIPPET: javadoc -->
+ *
+ * Default action mapper implementation, using the standard *.[ext] (where ext usually "action") pattern. This
+ * implementation does not concern itself with parameters. The extension is looked up from the WebWork configuration key
+ * <b>webwork.action.exection</b>.
+ *
+ * <!-- END SNIPPET: javadoc -->
  *
  * @author Patrick Lightbody
  */
