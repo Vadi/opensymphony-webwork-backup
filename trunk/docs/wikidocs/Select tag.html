@@ -1,0 +1,198 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Select tag
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h3><a name="Selecttag-%3Cww%3Aselect%2F%3E">&lt;ww:select /&gt;</a></h3>
+
+<p>Generates a select list filled with a specified list. The "listKey" attribute is the property to pull from each item in the list to generate the value of the &lt;option&gt; tag for that item. The "listValue" attribute fills the label of the option (the display name). One great feature is that it will auto-select the appropriate option based on the "value" attribute. If the value matches the current listKey, that option will be selected (if the types match; see below).</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&lt;ww:select label=<span class="code-quote">"'Users'"</span> 
+	name=<span class="code-quote">"'userId'"</span> 
+	listKey=<span class="code-quote">"id"</span> 
+	listValue=<span class="code-quote">"name"</span> 
+	list=<span class="code-quote">"app.users"</span> 
+	value=<span class="code-quote">"app.user.id"</span> 
+	onchange=<span class="code-quote">"'chooseUser(this)'"</span>
+/&gt;</pre>
+</div></div>
+
+<p>will create the following (if getApp().getUser().getId() == 2):</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;tr&gt;</span>
+	<span class="code-tag">&lt;td&gt;</span>Users<span class="code-tag">&lt;/td&gt;</span>
+	<span class="code-tag">&lt;td&gt;</span>
+		<span class="code-tag">&lt;select name=<span class="code-quote">"userId"</span> onchange=<span class="code-quote">"chooseUser(this)"</span>&gt;</span>
+			<span class="code-tag">&lt;option value=<span class="code-quote">"1"</span>&gt;</span>
+				User Number One
+			<span class="code-tag">&lt;/option&gt;</span>
+			<span class="code-tag">&lt;option value=<span class="code-quote">"2"</span> selected=<span class="code-quote">"selected"</span>&gt;</span>
+				User Number Two
+			<span class="code-tag">&lt;/option&gt;</span>
+		<span class="code-tag">&lt;/select&gt;</span>
+	<span class="code-tag">&lt;td&gt;</span>
+<span class="code-tag">&lt;/tr&gt;</span></pre>
+</div></div>
+
+<p>Of course, the &lt;td&gt; formatting and such depends on the <a href="Themes.html" title="Themes">template</a> you are using.</p>
+
+<p><b>Sample Usages</b></p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&lt;ww:select label=<span class="code-quote">"'Pets'"</span> 
+        name=<span class="code-quote">"'petIds'"</span> 
+        list=<span class="code-quote">"petDao.pets"</span> 
+        listKey=<span class="code-quote">"id"</span> 
+        listValue=<span class="code-quote">"name"</span> 
+        multiple=<span class="code-quote">"true"</span> 
+        size=<span class="code-quote">"3"</span> 
+        required=<span class="code-quote">"true"</span> 
+/&gt;
+
+&lt;ww:select label=<span class="code-quote">"'Months'"</span> 
+        name=<span class="code-quote">"'months'"</span> 
+        list=<span class="code-quote">"#{'01':'Jan', '02':'Feb', [...]}"</span> 
+        value=<span class="code-quote">"selectedMonth"</span>
+        required=<span class="code-quote">"true"</span> 
+/&gt;
+
+// The month id (01, 02, ...) returned by the getSelectedMonth() call 
+// against the stack will be auto-selected</pre>
+</div></div>
+
+<p>Note: For any of the tags that use lists (select probably being the most ubiquitous), which uses the OGNL list notation (see the "months" example above), it should be noted that the map key created (in the months example, the '01', '02', etc.) is typed.  '1' is a char, '01' is a String, "1" is a String.  This is important since if the value returned by your "value" attribute is NOT the same type as the key in the "list" attribute, they WILL NOT MATCH, even though their String values may be equivalent.  If they don't match, nothing in your list will be auto-selected.</p>
+
+<p><b>Attributes</b></p>
+<table class='confluenceTable'>
+<tr>
+<th class='confluenceTh'>	Name			</th>
+<th class='confluenceTh'>	Required	</th>
+<th class='confluenceTh'>	Description	</th>
+</tr>
+<tr>
+<td class='confluenceTd'>	id				</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML id attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	name 			</td>
+<td class='confluenceTd'>	<b>yes</b>		</td>
+<td class='confluenceTd'>	HTML name attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	value			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Data to pass as field value	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	required		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Is field required for form submission	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	list			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Iteratable source to populate from.  If the list is a Map (key, value), the Map key will become the option "value" parameter and the Map value will become the option body. </td>
+</tr>
+<tr>
+<td class='confluenceTd'>	listKey			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Property of list objects to get field value from	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	listValue		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Property of list objects to get field content from	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	emptyOption		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Whether or not to add an empty (--) option after the header option	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	multiple		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Creates a multiple select.  The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute.  Passing a Collection may work too?  Haven't tested this.	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	size			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Size of the element box (# of elements to show)	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	disabled		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML disabled attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	tabindex		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML tabindex attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onchange		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML onchange attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onclick 		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML onclick attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	headerKey		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Key for first item in list	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	headerValue		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Value for first item in list	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	label			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Text used as label in template	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	labelposition	</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Alignment of label (left,right,center)	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	cssClass		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML class attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	cssStyle		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML style attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	theme			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Theme to use	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	template		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Name of template to use	</td>
+</tr>
+</table>
+
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

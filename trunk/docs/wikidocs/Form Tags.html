@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <title>WebWork - 
+         Tags
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>Within the form tags, there are two classes of tags: the form tag itself, and all other tags, which make up the individual form elements. This is important as the behavior of the form tag itself is different than that of the elements enclosed within it. Before we go provide a reference for all the form tags, including the form tag itself, we must outline some general characteristics first.</p>
+
+<h2><a name="FormTags-FormTagThemes">Form Tag Themes</a></h2>
+
+<p>As previously noted in <a href="Themes and Templates.html" title="Themes and Templates">Themes and Templates</a>, the HTML Tags (which includes Form Tags) are all driven by templates. Templates are grouped together to form themes. By default, WebWork provides three themes:</p>
+
+<ul>
+	<li>simple</li>
+	<li>xhtml, which extends simple (default)</li>
+	<li>ajax, which extends xhtml</li>
+</ul>
+
+
+<p>Remember: the xhtml theme renders out a two-column table. If you need a different layout, we highly recommend that you do <em>not</em> write your own HTML, but rather create your own theme or utilize the simple theme.</p>
+
+<p>The downside of using the simple theme is that it doesn't support as many of the attributes that the other themes do. For example, the label attribute does nothing in the simple theme. Similarly, the functionality offered by the simple theme is much less than that of the xhtml and ajax themes: the automatic display of error messages is not supported.</p>
+
+<h2><a name="FormTags-CommonAttributes">Common Attributes</a></h2>
+
+<p>All the form tags extend the UIBean class. This base class generally common attributes, grouped in to three classes: templated-related, javascript-related, and general attributes. We won't document what these attributes do here as that is taken care of in each individual tag's reference. However, it is a good idea to familiarize yourself with the structure of the UI tags and what attributes are available for all tags.</p>
+
+<p>In addition to these attributes, a special attribute exists for all form element tags: <em>form</em> (ie: ${parameters.form}). This represents the parameters used to render the form tag and allows you to provide interaction between your form elements and the form itself. For example, in a template you could access the form's ID by calling ${parameters.form.id}.</p>
+
+<h3><a name="FormTags-TemplateRelatedAttributes">Template-Related Attributes</a></h3>
+
+<p>TODO: need to include code from UIBean.java</p>
+
+<h3><a name="FormTags-JavascriptRelatedAttributes">Javascript-Related Attributes</a></h3>
+
+<p>TODO: need to include code from UIBean.java</p>
+
+<h3><a name="FormTags-GeneralAttributes">General Attributes</a></h3>
+
+<p>TODO: need to include code from UIBean.java</p>
+
+<h3><a name="FormTags-WhenSomeAttributesDon%27tApply">When Some Attributes Don't Apply</a></h3>
+
+<p>Note that some tags don't don't have any templates that utilize certain attributes, either because it doesn't make sense or it isn't required. For example, the form tag, while it supports the <em>tabindex</em> attribute, none of the themes render it out. Also, as mentioned, certain themes won't utilize some attributes.</p>
+
+<h2><a name="FormTags-Value%2FNameRelationship">Value/Name Relationship</a></h2>
+
+<p>In many of the tags, except for the form tag, there is a unique relationship between the <em>name</em> and <em>value</em> attributes. The <em>name</em> attribute is what the form element gets named and eventually submitted as. This effectively is the expression to which you wish to bind the incoming value to. In most cases, it is a simple JavaBean property, such as "firstName". This would eventually call setFirstName().</p>
+
+<p>Similarly, you often wish to also display in your form elements existing data from the same JavaBean property. This time, the attribute <em>value</em> is used. A value of "%{firstName}" would call getFirstName() and display it in your form, allowing users to edit the value and re-submit it.</p>
+
+<p>You could use the following code, and it would work just fine:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;@ww.form action=<span class="code-quote">"updatePerson"</span>&gt;</span>
+    <span class="code-tag">&lt;@ww.textfield label=<span class="code-quote">"First name"</span> name=<span class="code-quote">"firstName"</span> value=<span class="code-quote">"%{firstName}"</span>/&gt;</span>
+    ...
+<span class="code-tag">&lt;/@ww.form&gt;</span></pre>
+</div></div>
+
+<p>However, because the relationship between <em>name</em> and <em>value</em> is so often predictable, we automatically do this for you, allowing you to do:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;@ww.form action=<span class="code-quote">"updatePerson"</span>&gt;</span>
+    <span class="code-tag">&lt;@ww.textfield label=<span class="code-quote">"First name"</span> name=<span class="code-quote">"firstName"</span>/&gt;</span>
+    ...
+<span class="code-tag">&lt;/@ww.form&gt;</span></pre>
+</div></div>
+
+<p>While most attributes are exposed to the underlying templates as the same key as the attribute (ie: ${parameters.label}), the <em>value</em> attribute is not. Instead, it can be accessed via the "nameValue" key (ie: ${parameters.nameValue}) to indicate that it may have been generated from the <em>name</em> attribute rather than explicitly defined in the <em>value</em> attribute.</p>
+
+<h2><a name="FormTags-IDNameAssignment">ID Name Assignment</a></h2>
+
+<p>All form tags automatically assign an ID for you. You are free to override this ID if you wish. The ID assignment works as follows:</p>
+
+<ol>
+	<li>For forms, the ID is the assumed to the action name. In the previous example, the ID would be "updatePerson".</li>
+	<li>For form elements, the ID is assumed to be form's ID_element name</li>
+</ol>
+
+
+<h2><a name="FormTags-RequiredAttribute">Required Attribute</a></h2>
+<p>The "required" attribute on many WebWork UI tags defaults to true only if you have client side validation enabled and there is a validator associated with that particular field.</p>
+
+<h2><a name="FormTags-FormTagReference">Form Tag Reference</a></h2>
+
+<ol>
+	<li><a href="checkbox.html" title="checkbox">checkbox</a> - renders a checkbox input field</li>
+	<li><a href="checkboxlist.html" title="checkboxlist">checkboxlist</a> - renders a list of checkboxes</li>
+	<li><a href="combobox.html" title="combobox">combobox</a> - renders a widget that fills a text box from a select</li>
+	<li><a href="datepicker.html" title="datepicker">datepicker</a> - renders</li>
+	<li><a href="doubleselect.html" title="doubleselect">doubleselect</a> - renders</li>
+	<li><a href="file.html" title="file">file</a> - renders</li>
+	<li><a href="form.html" title="form">form</a> - renders an input form</li>
+	<li><a href="hidden.html" title="hidden">hidden</a> - renders a hidden form field</li>
+	<li><a href="label.html" title="label">label</a> - renders renders a label</li>
+	<li><a href="password.html" title="password">password</a> - renders a password textfield</li>
+	<li><a href="radio.html" title="radio">radio</a> - renders a radio button</li>
+	<li><a href="select.html" title="select">select</a> - renders a select</li>
+	<li><a href="submit.html" title="submit">submit</a> - renders a submit button</li>
+	<li><a href="textarea.html" title="textarea">textarea</a> - renders a textarea</li>
+	<li><a href="textfield.html" title="textfield">textfield</a> - renders a textfield</li>
+	<li><a href="token.html" title="token">token</a> - renders a hidden field to stop double-submission of containing forms</li>
+</ol>
+
+
+<div class="information-block" align='center'><div class='informationMacroPadding'><table cellpadding='5' width='85%' cellspacing='0' class='noteMacro' border='0'><tr><td width='16' valign='top'><img src="/images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>It's very important to note that all tags that insert something into the valuestack (like i18n or bean tags) will remove those objects from the stack on its end tag.  This means that if you instantiate a bean with the bean tag (&lt;ww:bean name="'br.univap.fcc.sgpw.util.FormattersHelper'"&gt;) that bean will be avaliable on the valuestack only until the &lt;/ww:bean&gt; tag.</p></td></tr></table></div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Velocity Result
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h4><a name="VelocityResult-Velocity">Velocity</a></h4>
+<p>This result mocks a JSP execution environment and then displays a Velocity template that will be streamed directly to the servlet output. Also see <a href="Resources Available to Velocity Views.html" title="Resources Available to Velocity Views">Resources Available to Velocity Views</a></p>
+
+<table class='confluenceTable'>
+<tr>
+<th class='confluenceTh'>Parameters </th>
+<th class='confluenceTh'> Required </th>
+<th class='confluenceTh'> Description </th>
+</tr>
+<tr>
+<td class='confluenceTd'> location </td>
+<td class='confluenceTd'> <b>yes</b> </td>
+<td class='confluenceTd'>  the location to go to after execution </td>
+</tr>
+<tr>
+<td class='confluenceTd'> parse </td>
+<td class='confluenceTd'> no </td>
+<td class='confluenceTd'> true by default. If set to false, the location param will not be parsed for Ognl expressions </td>
+</tr>
+</table>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"velocity"</span>&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"location"</span>&gt;</span>foo.vm<span class="code-tag">&lt;/param&gt;</span>
+<span class="code-tag">&lt;/result&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

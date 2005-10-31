@@ -1,0 +1,313 @@
+<html>
+    <head>
+        <title>WebWork - 
+        div
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>The div tag is primarily an AJAX tag, providing a remote call from the current page to update a section of content without having to refresh the entire page.</p>
+
+<div class="information-block" align='center'><div class='informationMacroPadding'><table cellpadding='5' width='85%' cellspacing='0' class='noteMacro' border='0'><tr><td width='16' valign='top'><img src="/images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Be sure to setup the page containing this tag to be <a href="Configured for AJAX.html" title="Configured for AJAX">Configured for AJAX</a> </td></tr></table></div></div>	
+
+
+<table class='confluenceTable'>
+<tr>
+<th class='confluenceTh'>	Attribute	</th>
+<th class='confluenceTh'>	Type	</th>
+<th class='confluenceTh'>	Required	</th>
+<th class='confluenceTh'>	Default	</th>
+<th class='confluenceTh'>	Description	</th>
+</tr>
+<tr>
+<td class='confluenceTd'>	id	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	TRUE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>	The id to assign the DIV	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	name	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>	The name to assign the DIV	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>       href    </td>
+<td class='confluenceTd'>       string  </td>
+<td class='confluenceTd'>       TRUE   </td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>       	The URL to call to obtain the content </td>
+</tr>
+<tr>
+<td class='confluenceTd'>	delay	</td>
+<td class='confluenceTd'>	boolean	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>	How long to wait before fetching the content (in milliseconds)	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	updateFreq	</td>
+<td class='confluenceTd'>	boolean	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>	How often to re-fetch the content (in milliseconds)	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	loadingText	</td>
+<td class='confluenceTd'>	boolean	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>	The text to display to the user while the new content is being fetched (especially good if the content will take awhile) </td>
+</tr>
+<tr>
+<td class='confluenceTd'>	errorText	</td>
+<td class='confluenceTd'>	boolean	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>	The text to display to the user if the is an error fetching the content	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	showErrorTransportText	</td>
+<td class='confluenceTd'>	boolean	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>	true/false - when to show the error message as content when the URL had problems	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	listenTopics	</td>
+<td class='confluenceTd'>	boolean	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>	Topic name to listen to (comma delimited), that will cause the DIV's content to be re-fetched	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	afterLoading	</td>
+<td class='confluenceTd'>	boolean	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>	Javascript code that will be executed after the content has been fetched	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	theme	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>	 This tag will usually use the ajax theme	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	template	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	cssClass	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	cssStyle	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	label	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	labelposition	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	tabindex	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onclick	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	ondblclick	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onmousedown	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onmouseup	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onmouseover	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onmousemove	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onmouseout	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onfocus	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onblur	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onkeypress	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onkeydown	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onselect	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onchange	</td>
+<td class='confluenceTd'>	string	</td>
+<td class='confluenceTd'>	FALSE	</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+</table>
+
+
+<h3><a name="div-BasicFunctions">Basic Functions</a></h3>
+<p>The remote DIV is handy for a few basic use cases. </p>
+
+<h4><a name="div-Getremotedataandrefresh">Get remote data and refresh</a></h4>
+<p>First in its simplest form as mentioned above, it can load load its contents from a remote div. Additionally it can refresh them periodically.  So... whats that do for you? Well say for example want to show the latest weather from weather.com on your page and update it every 1 minutes.  You could do this like this:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:div
+            id=<span class="code-quote">"weather"</span>
+            cssStyle=<span class="code-quote">"border: 1px solid yellow;"</span>
+            href=<span class="code-quote">"http:<span class="code-comment">//www.weather.com/address_to_feed"</span>
+</span>            theme=<span class="code-quote">"ajax"</span>
+            delay=<span class="code-quote">"2000"</span>
+            updateFreq=<span class="code-quote">"60000"</span>
+            errorText=<span class="code-quote">"There was an error"</span>
+            loadingText=<span class="code-quote">"loading..."</span>&gt;Initial Content
+    &lt;/ww:div&gt;</pre>
+</div></div>
+
+<h4><a name="div-Initializedivwithremotedata">Initialize div with remote data</a></h4>
+<p>OK that was fun, but lets say that you want to initially load the data from a remote page then refresh it. This example contrasts to the above example in that the initial data is NOT just 'Initial Content'.<br/>
+Here is how you can do that:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:div href=<span class="code-quote">"/listPeople.action"</span> theme=<span class="code-quote">"ajax"</span> errorText=<span class="code-quote">"error opps"</span>
+          loadingText=<span class="code-quote">"loading..."</span> id=<span class="code-quote">"cart-body"</span> &gt;
+      &lt;ww:action namespace=<span class="code-quote">"" name="</span>listPeople<span class="code-quote">" executeResult="</span><span class="code-keyword">true</span>" /&gt;
+  &lt;/ww:div&gt;</pre>
+</div></div>
+<p>Just stick an action in the body... that will be the initial data</p>
+
+<h4><a name="div-Bealistenerfordata">Be a listener for data</a></h4>
+<p>Perhaps the coolest aspect of the remote div is its ability to be a listener in a pub-sub model. Wow you say... HTML pages dont have a pub-sub model. That used to be true but... WebWork has turned that notion upside down... read about our rich Decouped Components via Pub and Sub.   So.... back to the example... the div can listen to topics in a pub sub model... did we mention how cool that is yet?  Just use the  listenTopics attibute to specify one or more topics(comma delimted) that this div should listen for to trigger a refresh.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:div
+        id=<span class="code-quote">"three"</span>
+        cssStyle=<span class="code-quote">"border: 1px solid yellow;"</span>
+        href=<span class="code-quote">"/ShowThankYouEmail.action"</span>
+        theme=<span class="code-quote">"ajax"</span>
+        listenTopics=<span class="code-quote">"user_downloads_webwork, user_loves_webwork"</span>
+        delay=<span class="code-quote">"1000"</span>&gt;Initial Content&lt;/ww:div&gt;
+
+&lt;ww:a
+        id=<span class="code-quote">"link1"</span>
+        theme=<span class="code-quote">"ajax"</span>
+        href=<span class="code-quote">"/DownloadWebWork.action"</span>
+        notifyTopics=<span class="code-quote">"user_downloads_webwork, the_world_is_a_better_place"</span>
+        errorText=<span class="code-quote">"An Error ocurred"</span>&gt;Download&lt;/ww:a&gt;</pre>
+</div></div>
+<p>See how the ww:a and the ww:div are loosely coupled via a pub-sub model??? When users click on the hyperlink called Download, the WebWork anchor publishes a message to two topics, one called user_downloads_webwork and the other called  the_world_is_a_better_place.  Our div listens to the first topic as well as a topic called user_loves_webwork.  So using this model... anytime a user downloads webwork... or a user loves webwork... our website will personally thank them!!! Did I mention how cool this is?</p>
+
+
+<h3><a name="div-AdditionalFunctions">Additional Functions</a></h3>
+
+<p> There are also javascript functions to refresh the content, stop and start the refreshing of the component. For the remote div with the component id "remotediv1":</p>
+
+<p>To start refreshing use the javascript:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">remotediv1.start();</pre>
+</div></div>    
+
+<p>To stop refreshing use the javascript:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">remotediv1.stop();</pre>
+</div></div>    
+
+<p>To refresh the content use the javascript:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">remotediv1.bind();</pre>
+</div></div>    
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

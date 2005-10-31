@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <title>WebWork - 
+         tag
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h3><a name="Formtag-%3Cww%3Aform%2F%3E">&lt;ww:form /&gt;  </a></h3>
+
+<p>An HTML form. </p>
+
+<p><b>Sample Usages</b></p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:form name=<span class="code-quote">"'myForm'"</span> action=<span class="code-quote">"'submit.action'"</span>&gt;</span>
+...
+<span class="code-tag">&lt;/ww:form&gt;</span></pre>
+</div></div>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:form name=<span class="code-quote">"'myForm'"</span> action=<span class="code-quote">"'submit'"</span> namespace=<span class="code-quote">"'/foo'"</span>&gt;</span>
+...
+<span class="code-tag">&lt;/ww:form&gt;</span></pre>
+</div></div>
+
+
+<p><b>Attributes</b></p>
+<table class='confluenceTable'>
+<tr>
+<th class='confluenceTh'>	Name			</th>
+<th class='confluenceTh'>	Required	</th>
+<th class='confluenceTh'>	Description	</th>
+</tr>
+<tr>
+<td class='confluenceTd'>	name 			</td>
+<td class='confluenceTd'>	<b>yes</b>		</td>
+<td class='confluenceTd'>	HTML name attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	value			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Data to pass as field value	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	openTemplate	</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Template to use for the open form tag	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	action			</td>
+<td class='confluenceTd'>	<b>yes</b>		</td>
+<td class='confluenceTd'>	HTML action attribute </td>
+</tr>
+<tr>
+<td class='confluenceTd'>	namespace		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Namespace of action</td>
+</tr>
+<tr>
+</tr>
+<tr>
+<td class='confluenceTd'>	target			</td>
+<td class='confluenceTd'>	no		    </td>
+<td class='confluenceTd'>	HTML target attribute </td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	method			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	'GET' or 'POST'	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	enctype			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML enctype attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	validate		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Whether to use client-side validation	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	cssClass		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML class attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	cssStyle		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML style attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	theme			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Theme to use	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	template		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Name of template to use for the closing form tag	</td>
+</tr>
+</table>
+
+<p><b>Note</b>: The <b>action</b> attribute works in two different ways. The original (and deprecated) format is shown in the first sample usage. The newer format allows you to specify just the action name (as well as a namespace, if there is one) as defined in xwork.xml. This is <b>required</b> if you wish to do any form of <a href="Client-Side Validation.html" title="Client-Side Validation">Client-Side Validation</a></p>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

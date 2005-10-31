@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Action Chaining
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>The ActionChainResult in WebWork2 provides the ability to compose multiple Actions together to execute in a defined sequence or workflow. By applying the ActionChainResult as the result of your Action, like so:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;!-- simple chain example to an action in same namespace -&gt;</span>
+<span class="code-tag">&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"chain"</span>&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"actionName"</span>&gt;</span>Bar<span class="code-tag">&lt;/param&gt;</span>
+<span class="code-tag">&lt;/result&gt;</span></pre>
+</div></div>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;!- example of chaining to an action in a different namespace/package --&gt;</span>
+<span class="code-tag">&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"chain"</span>&gt;</span>
+	<span class="code-tag">&lt;param name=<span class="code-quote">"actionName"</span>&gt;</span>viewFoo<span class="code-tag">&lt;/param&gt;</span>
+	<span class="code-tag">&lt;param name=<span class="code-quote">"namespace"</span>&gt;</span>/foo<span class="code-tag">&lt;/param&gt;</span>
+<span class="code-tag">&lt;/result&gt;</span></pre>
+</div></div>
+
+<p>another Action in the same namespace (or the default "" namespace) can be executed after this Action (see <a href="http://wiki.opensymphony.com//display/XW/Configuration" title="Configuration">XW:Configuration</a>). An optional "namespace" parameter may also be added to specify an Action in a different namespace. The original parameters from the request and the ValueStack are passed in when this Action is chained to, so the chained to Action will be added on the ValueStack above the chained from Action. This allows the chained to Action to access the properties of the preceding Action(s) using the ValueStack, and also makes these properties available to the final result of the chain, such as the JSP or Velocity page. </p>
+
+<p>If you need to copy the properties from your previous Actions in the chain to the current Action, you should apply the ChainingInterceptor (see <a href="http://wiki.opensymphony.com//display/XW/Interceptors" title="Interceptors">XW:Interceptors</a>) which copies the properties of all objects on the ValueStack to the current target.</p>
+
+<p>One common use of Action chaining is to provide lookup lists (like for a dropdown list of states, etc). Since these Actions get put on the ValueStack, these properties will be available in the view. This functionality can also be done using the ActionTag to execute an Action from the display page. In WW1.x Action chaining is often used to chain to a RedirectAction to redirect to another page after processing (in WW2 we have a redirect result).</p>
+
+<p>Basically it's good when you have some reusable code you want to encapsulate... In WW2 if you use it a lot, you could make it an Interceptor, or use it as an Action with chaining. If you need to set up and use some properties from it, it needs to be an Action.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
