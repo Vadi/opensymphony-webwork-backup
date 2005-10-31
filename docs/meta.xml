@@ -65,12 +65,12 @@
 
     <releases>
         <release>
-            <version>2.2 Beta 2</version>
-            <date>9/22/2005</date>
+            <version>2.2 Beta 3</version>
+            <date>10/30/2005</date>
             <jiraId>21320</jiraId>
             <downloads>
                 <download>
-                    <url>https://webwork.dev.java.net/files/documents/693/21111/webwork-2.2-beta-2.zip</url>
+                    <url>https://webwork.dev.java.net/files/documents/693/23275/webwork-2.2-beta-3.zip</url>
                     <name>Full release</name>
                 </download>
             </downloads>
