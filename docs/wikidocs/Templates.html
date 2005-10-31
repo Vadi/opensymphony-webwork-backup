@@ -1,0 +1,448 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Templates
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h3><a name="Templates-Overview">Overview</a></h3>
+
+<p>In WebWork, the UI tags wrap generic HTML controls while providing tight integration with the core framework. The tags have been designed to minimize the amount of logic in compiled code and delegate the actual rendering of HTML to a template system. Templates can be grouped together and seperated into different <a href="Themes.html" title="Themes">Themes</a>.  The UI tags attempt to cover the most common scenarios, while providing a Component Tag for creating custom components. The UI tags also provide built-in support for displaying inline error messages.</p>
+<h4><a name="Templates-Templates">Templates</a></h4>
+
+<p>WebWork uses the Velocity template system to render the actual HTML output for all UI tags (jsp and velocity). A default implementation of all templates has been included with the core distribution allowing users to use WebWork's UI tags "out of the box". Templates can be edited individually or replaced entirely allowing for complete customization of the resulting HTML output. In addition, the default template can be overridden on a per tag basis allowing for a very fine level of control.</p>
+
+<p>The templates can be found in the distribution package in a directory called <tt>template</tt> under the <tt>src/java</tt> directory or in the webwork-x.x.jar file.  For template customization, copy the <tt>template</tt> directory into the root directory of your application or place it in the classpath.  Webwork will attempt to load the templates from those two places first. Otherwise, the templates will be loaded from the webwork jar file.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">/myApp
+      /META-INF
+      /WEB-INF
+      /template</pre>
+</div></div>
+
+<p>Inside the <tt>template</tt> directory, you will find two template sets called <a href="Themes.html" title="Themes">Themes</a> (xhtml and simple).  The default template set that is used with UI tags is 'xhtml' unless specified by the theme attribute in your UI tag or in the <a href="webwork.properties.html" title="webwork.properties">webwork.properties</a> file with the webwork.ui.theme variable.  You can modify the pre-existing templates or create your own.</p>
+
+<p>The AbstractUI class is the base class that other UI tags extend. It provides a set of attributes that are common across UI components. The AbstractUI class defines an abstract method:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">protected</span> <span class="code-keyword">abstract</span> <span class="code-object">String</span> getTemplateName();</pre>
+</div></div>
+
+<p>The AbstractUI class will load the template specified by the subclass or optionally, a template specified by the user using the template attribute.  The following will load myOwnTextTemplate.vm for the textfield UI tag instead of the built in template text.vm</p>
+
+<p><ins>NOTE:</ins> You have to create a template file called myOwnTextTemplate.vm and store it in xhtml for this to work.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag"><span class="code-comment">&lt;!-- loads /template/xhtml/myOwnTextTemplate.vm --&gt;</span></span>
+
+<span class="code-tag">&lt;ww:ui textfield label=<span class="code-quote">"'mylabel'"</span> name=<span class="code-quote">"'myname'"</span> template=<span class="code-quote">"'myOwnTextTemplate.vm'"</span> /&gt;</span></pre>
+</div></div>
+<p>otherwise</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag"><span class="code-comment">&lt;!-- loads default /template/xhtml/text.vm --&gt;</span></span>
+<span class="code-tag">&lt;ww:ui textfield label=<span class="code-quote">"'mylabel'"</span> name=<span class="code-quote">"'myname'"</span> /&gt;</span></pre>
+</div></div>
+
+<h4><a name="Templates-Builtintemplates">Built in templates</a></h4>
+
+<p>The default templates that correspond to each UI tag are as follows:</p>
+<table class='confluenceTable'>
+<tr>
+<th class='confluenceTh'> UI tag  </th>
+<th class='confluenceTh'> default template </th>
+</tr>
+<tr>
+<td class='confluenceTd'> checkboxList </td>
+<td class='confluenceTd'> checkboxlist.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> checkbox </td>
+<td class='confluenceTd'> checbox.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> combobox </td>
+<td class='confluenceTd'> combobox.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> component </td>
+<td class='confluenceTd'> empty.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> doubleSelect </td>
+<td class='confluenceTd'> doubleselect.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> file </td>
+<td class='confluenceTd'> file.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> form </td>
+<td class='confluenceTd'>	form.vm(to open) <br clear="all" />  form-close.vm(to close) </td>
+</tr>
+<tr>
+<td class='confluenceTd'> hidden </td>
+<td class='confluenceTd'> hidden.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> label </td>
+<td class='confluenceTd'> label.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> password </td>
+<td class='confluenceTd'> password.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> radio </td>
+<td class='confluenceTd'> radiomap.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> select </td>
+<td class='confluenceTd'> select.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> submit </td>
+<td class='confluenceTd'> submit.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> tabbedpane </td>
+<td class='confluenceTd'> tabbedpane.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> textarea </td>
+<td class='confluenceTd'> textarea.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> textfield </td>
+<td class='confluenceTd'> text.vm </td>
+</tr>
+<tr>
+<td class='confluenceTd'> token </td>
+<td class='confluenceTd'> token.vm </td>
+</tr>
+</table>
+
+<h4><a name="Templates-Accessingvariables">Accessing variables</a></h4>
+
+<p>A VelocityContext object is created and used by all WW velocity views with the following context parameters: </p>
+
+<ul>
+	<li>tag - a reference to the tag object</li>
+	<li>stack - the current OgnlValueStack</li>
+	<li>ognl - a reference to the utility class OgnlTool</li>
+	<li>req - a reference to the HttpServletRequest object</li>
+	<li>res - a reference to the HttpServletResponse</li>
+	<li>webwork - instance of WebWorkUtil</li>
+	<li>action - action associated with the current request/ActionInvocation</li>
+	<li>parameters - map of the current parameters</li>
+</ul>
+
+
+<p>These variables can be accessed in the template by using $TAG_NAME where TAG_NAME is one of tag, stack, ognl, req, ...). The template file is then processed.  A few examples:<br/>
+<ins>NOTE:</ins> The bang (&#33;) will print the value if its defined and "" if its not</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">$!req.requestURI
+$!req.method</pre>
+</div></div>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">$!tag.templateDir
+$!tag.theme</pre>
+</div></div>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">$!parameters.name
+$!parameters</pre>
+</div></div>
+
+<h4><a name="Templates-UnderstandingtheWebworkTemplateSystem">Understanding the Webwork Template System</a></h4>
+
+<p>Look at how the template is found and loaded.  A peek into AbstractUITag shows us the string used to build the template:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">protected</span> <span class="code-object">String</span> buildTemplateName(<span class="code-object">String</span> myTemplate, <span class="code-object">String</span> myDefaultTemplate) {
+        ...
+        <span class="code-keyword">return</span> <span class="code-quote">"/"</span> + getTemplateDir() + <span class="code-quote">"/"</span> + getTheme() + <span class="code-quote">"/"</span> + template;
+}</pre>
+</div></div>
+<p>With the defaults, this will return the string for the textfield UI tag</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">/template/xhtml/text.vm</pre>
+</div></div>
+<p>Webwork will attempt to find these values before it uses the default ones.  You don't have to override any values and can modify the built in templates if you so desire(your choice).  Webwork searches for these values in the order they are listed:</p>
+<ul>
+	<li>getTemplateDir()
+	<ul>
+		<li>webwork.ui.templateDir value in webwork.properties</li>
+		<li>otherwise, "template" is returned</li>
+	</ul>
+	</li>
+	<li>getTheme()
+	<ul>
+		<li>in UI tag theme attribute</li>
+		<li>webwork.ui.theme value in webwork.properties</li>
+		<li>otherwise, "xhtml" is returned</li>
+	</ul>
+	</li>
+	<li>template
+	<ul>
+		<li>in UI tag template attribute</li>
+		<li>otherwise, defaults to specified template</li>
+	</ul>
+	</li>
+</ul>
+
+
+
+<h4><a name="Templates-TemplateswithCSS">Templates with CSS</a></h4>
+
+<p>The default templates define several properties for use with CSS when HTML is generated from webwork tags.   These properties can be found in a stylesheet located in the /template/xhtml directory called <tt>styles.css</tt>.  You can use this stylesheet as a skeleton for your application and build on it or create your own, but remember you must include a link to the stylesheet within your jsp or velocity page.<br/>
+styles.css:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">.label {font-style:italic; }
+.errorLabel {font-style:italic; color:red; }
+.errorMessage {font-weight:bold; text-align: center; color:red; }
+.checkboxLabel {}
+.checkboxErrorLabel {color:red; }
+.required {color:red;}
+.requiredLabel {font-weight:bold; font-style:italic; }</pre>
+</div></div>
+<p>referencing the stylesheet with a link inside your webpage (relative path or you can specify it from the root of your container):</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;link rel =<span class="code-quote">"stylesheet"</span> type=<span class="code-quote">"text/css"</span> href=<span class="code-quote">"/webwork-example/template/xhtml/styles.css"</span> title=<span class="code-quote">"Style"</span>&gt;</span></pre>
+</div></div>
+
+<p><ins>Note:</ins> Webwork now has new attributes in the UI tags for more generic support of HTML styles and classes to make the look and feel even more flexible to implement.  These are defined respectively as cssStyle and cssClass.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ui:textfield label=<span class="code-quote">"'lebal'"</span> name=<span class="code-quote">"'nmae'"</span> cssStyle=<span class="code-quote">"'float:left; color:red'"</span> cssClass=<span class="code-quote">"'myclass'"</span>   /&gt;</span></pre>
+</div></div>
+
+<h4><a name="Templates-CreatingCustomComponents">Creating Custom Components</a></h4>
+
+<p>At first glance the component tag doesn't look that impressive. The ability to specify a single template and use a number of predetermined attributes looks rather lacking. But the supplied tag offers a number of benefits to developers.</p>
+
+<p>Before diving right into the custom component, first I will identify some advantages to using the component tag to create your components. Then I will detail the two types of error messages in WebWork 2 and how our custom component (for displaying one of these types) fits into the equation. Finally, I will present a sample Action class, Jsp file and template file for our component. When we are finished, you will be able to incorporate the new component into your application.</p>
+
+<p>Why use the component tag?</p>
+<ul>
+	<li>removes the need to develop your own Jsp tag library</li>
+	<li>provides integrated support for accessing the ValueStack</li>
+	<li>leverages XWork's support for internationalization, localization and error handling</li>
+	<li>faster prototyping using templates (editable text files) instead of compiled code</li>
+	<li>re-use and combine existing templates</li>
+</ul>
+
+
+<p>More on error message support:</p>
+
+<p>In WebWork 2, there are two types of error messages: field error messages and action error messages. Field error messages are used to indicate a problem with a specific control and are displayed inline with the control. A number of tags provide built-in support for displaying these types of messages. Action error messages on the other hand, indicate a problem with executing an action. Many things can go wrong in a web application, especially an application that relies on external resources such as a database, remote web service, or other resource that might not be accessible during the execution of an action. Handling an error gracefully and presenting the user with a useful message can often be the difference in a positive user/customer experience and a bad one. </p>
+
+<p>When these types of errors occur, it is more appropriate to display these messages separate from individual controls on the form. In the example below, we will create a custom component that can be used to display action error messages in a bulletted list. This component can then be used on all your forms to display these error messages.</p>
+
+<p>The action class below was created to handle a promotion on the website: a free e-certificate. It will try to email the certificate, but an exception will be thrown.</p>
+
+<p>Action class:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">package</span> example;
+
+<span class="code-keyword">import</span> com.opensymphony.xwork.ActionSupport;
+
+<span class="code-keyword">public</span> class AddUser <span class="code-keyword">extends</span> ActionSupport {
+
+    <span class="code-keyword">private</span> <span class="code-object">String</span> fullname;
+    <span class="code-keyword">private</span> <span class="code-object">String</span> email;
+
+    <span class="code-keyword">public</span> <span class="code-object">String</span> execute() <span class="code-keyword">throws</span> Exception {
+        <span class="code-comment">// we are ignoring field validation in <span class="code-keyword">this</span> example
+</span>
+        <span class="code-keyword">try</span> {
+            MailUtil.sendCertificate(email, fullname);
+        } <span class="code-keyword">catch</span> (Exception ex) {
+            <span class="code-comment">// there was a problem sending the email
+</span>            <span class="code-comment">// in a real application, we would also
+</span>            <span class="code-comment">// log the exception
+</span>            addActionError(<span class="code-quote">"We are experiencing a technical problem and have contacted our support staff. "</span> +
+                           <span class="code-quote">"Please <span class="code-keyword">try</span> again later."</span>);
+        }
+
+        <span class="code-keyword">if</span> (hasErrors()) {
+            <span class="code-keyword">return</span> ERROR;
+        } <span class="code-keyword">else</span> {
+            <span class="code-keyword">return</span> SUCCESS;
+        }
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">String</span> getFullname() {
+        <span class="code-keyword">return</span> fullname;
+    }
+
+    <span class="code-keyword">public</span> void setFullname(<span class="code-object">String</span> fullname) {
+        <span class="code-keyword">this</span>.fullname = fullname;
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">String</span> getEmail() {
+        <span class="code-keyword">return</span> email;
+    }
+
+    <span class="code-keyword">public</span> void setEmail(<span class="code-object">String</span> email) {
+        <span class="code-keyword">this</span>.email = email;
+    }
+
+}</pre>
+</div></div>
+
+<p>Jsp page:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;%@ taglib uri=<span class="code-quote">"webwork"</span> prefix=<span class="code-quote">"ui"</span> %&gt;</span>
+
+<span class="code-tag">&lt;html&gt;</span>
+<span class="code-tag">&lt;head&gt;</span><span class="code-tag">&lt;title&gt;</span>custom component example<span class="code-tag">&lt;/title&gt;</span><span class="code-tag">&lt;/head&gt;</span>
+
+<span class="code-tag"><span class="code-comment">&lt;!-- don't forget this --&gt;</span></span>
+<span class="code-tag">&lt;link rel =<span class="code-quote">"stylesheet"</span> type=<span class="code-quote">"text/css"</span> href=<span class="code-quote">"/webwork-example/template/xhtml/styles.css"</span> title=<span class="code-quote">"Style"</span>&gt;</span>
+
+<span class="code-tag">&lt;body&gt;</span>
+
+<span class="code-tag">&lt;ui:form action=<span class="code-quote">"AddUser.action"</span> method=<span class="code-quote">"POST"</span>&gt;</span>
+<span class="code-tag">&lt;table&gt;</span>
+    <span class="code-tag">&lt;ui:component template=<span class="code-quote">"action-errors.vm"</span> /&gt;</span>
+    <span class="code-tag">&lt;ui:textfield label=<span class="code-quote">"Full Name"</span> name=<span class="code-quote">"fullname"</span> /&gt;</span>
+    <span class="code-tag">&lt;ui:textfield label=<span class="code-quote">"Email"</span> name=<span class="code-quote">"email"</span> /&gt;</span>
+    <span class="code-tag">&lt;ui:submit name=<span class="code-quote">"submit"</span> value=<span class="code-quote">"Send me a free E-Certificate!"</span> /&gt;</span>
+<span class="code-tag">&lt;/table&gt;</span>
+<span class="code-tag">&lt;/ui:form&gt;</span>
+
+<span class="code-tag">&lt;/body&gt;</span>
+<span class="code-tag">&lt;/html&gt;</span></pre>
+</div></div>
+
+<p>HTML output (before submitting):</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;html&gt;</span>
+<span class="code-tag">&lt;head&gt;</span><span class="code-tag">&lt;title&gt;</span>custom component example<span class="code-tag">&lt;/title&gt;</span><span class="code-tag">&lt;/head&gt;</span>
+<span class="code-tag">&lt;link rel =<span class="code-quote">"stylesheet"</span> type=<span class="code-quote">"text/css"</span> href=<span class="code-quote">"/webwork-example/template/xhtml/styles.css"</span> title=<span class="code-quote">"Style"</span>&gt;</span>
+
+<span class="code-tag">&lt;body&gt;</span>
+
+<span class="code-tag">&lt;form  action=<span class="code-quote">"AddUser.action"</span> method=<span class="code-quote">"POST"</span> /&gt;</span>
+
+<span class="code-tag">&lt;table&gt;</span>
+    
+
+    <span class="code-tag">&lt;tr&gt;</span>
+  <span class="code-tag">&lt;td align=<span class="code-quote">"right"</span> valign=<span class="code-quote">"top"</span>&gt;</span><span class="code-tag">&lt;span class=<span class="code-quote">"label"</span>&gt;</span>Full Name:<span class="code-tag">&lt;/span&gt;</span><span class="code-tag">&lt;/td&gt;</span>
+  <span class="code-tag">&lt;td&gt;</span>
+<span class="code-tag">&lt;input type=<span class="code-quote">"text"</span> name=<span class="code-quote">"fullname"</span> value="" /&gt;</span>
+  <span class="code-tag">&lt;/td&gt;</span>
+<span class="code-tag">&lt;/tr&gt;</span>
+    <span class="code-tag">&lt;tr&gt;</span>
+  <span class="code-tag">&lt;td align=<span class="code-quote">"right"</span> valign=<span class="code-quote">"top"</span>&gt;</span><span class="code-tag">&lt;span class=<span class="code-quote">"label"</span>&gt;</span>Email:<span class="code-tag">&lt;/span&gt;</span><span class="code-tag">&lt;/td&gt;</span>
+  <span class="code-tag">&lt;td&gt;</span>
+<span class="code-tag">&lt;input type=<span class="code-quote">"text"</span> name=<span class="code-quote">"email"</span> value="" /&gt;</span>
+  <span class="code-tag">&lt;/td&gt;</span>
+<span class="code-tag">&lt;/tr&gt;</span>
+    
+<span class="code-tag">&lt;tr&gt;</span>
+  <span class="code-tag">&lt;td colspan=<span class="code-quote">"2"</span>&gt;</span>
+    <span class="code-tag">&lt;div align=<span class="code-quote">"right"</span>&gt;</span>
+      <span class="code-tag">&lt;input type=<span class="code-quote">"submit"</span> name=<span class="code-quote">"submit"</span> value=<span class="code-quote">"Send me a free E-Certificate!"</span>/&gt;</span>
+    <span class="code-tag">&lt;/div&gt;</span>
+  <span class="code-tag">&lt;/td&gt;</span>
+<span class="code-tag">&lt;/tr&gt;</span>
+
+
+<span class="code-tag">&lt;/table&gt;</span>
+<span class="code-tag">&lt;/form&gt;</span>
+
+<span class="code-tag">&lt;/body&gt;</span>
+<span class="code-tag">&lt;/html&gt;</span></pre>
+</div></div>
+
+<p>The template below will loop through any action errors and display them to the user in a bulletted list.</p>
+
+<p>Template (action-errors.vm)</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml">#set ($actionErrors = $stack.findValue(<span class="code-quote">"actionErrors"</span>))
+
+#if ($actionErrors)
+<span class="code-tag">&lt;tr&gt;</span>
+    <span class="code-tag">&lt;td colspan=<span class="code-quote">"2"</span>&gt;</span>
+        <span class="code-tag">&lt;span class=<span class="code-quote">"errorMessage"</span>&gt;</span>The following errors occurred:<span class="code-tag">&lt;/span&gt;</span>
+        <span class="code-tag">&lt;ul&gt;</span>
+            #foreach ($actionError in $actionErrors)
+            <span class="code-tag">&lt;li&gt;</span><span class="code-tag">&lt;span class=<span class="code-quote">"errorMessage"</span>&gt;</span>$actionError<span class="code-tag">&lt;/span&gt;</span><span class="code-tag">&lt;/li&gt;</span>
+            #end
+        <span class="code-tag">&lt;/ul&gt;</span>
+    <span class="code-tag">&lt;/td&gt;</span>
+<span class="code-tag">&lt;/tr&gt;</span>
+#end</pre>
+</div></div>
+
+<p>HTML output (after submitting):</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;html&gt;</span>
+<span class="code-tag">&lt;head&gt;</span><span class="code-tag">&lt;title&gt;</span>custom component example<span class="code-tag">&lt;/title&gt;</span><span class="code-tag">&lt;/head&gt;</span>
+<span class="code-tag">&lt;link rel =<span class="code-quote">"stylesheet"</span> type=<span class="code-quote">"text/css"</span> href=<span class="code-quote">"/webwork-example/template/xhtml/styles.css"</span> title=<span class="code-quote">"Style"</span>&gt;</span>
+
+<span class="code-tag">&lt;body&gt;</span>
+
+<span class="code-tag">&lt;form  action=<span class="code-quote">"AddUser.action"</span> method=<span class="code-quote">"POST"</span> /&gt;</span>
+
+<span class="code-tag">&lt;table&gt;</span>
+    
+<span class="code-tag">&lt;tr&gt;</span>
+    <span class="code-tag">&lt;td colspan=<span class="code-quote">"2"</span>&gt;</span>
+        <span class="code-tag">&lt;span class=<span class="code-quote">"errorMessage"</span>&gt;</span>The following errors occurred:<span class="code-tag">&lt;/span&gt;</span>
+        <span class="code-tag">&lt;ul&gt;</span>
+            <span class="code-tag">&lt;li class=<span class="code-quote">"errorMessage"</span>&gt;</span>
+                We are experiencing a technical problem and have contacted our 
+                support staff. Please try again later.
+            <span class="code-tag">&lt;/li&gt;</span>
+        <span class="code-tag">&lt;/ul&gt;</span>
+    <span class="code-tag">&lt;/td&gt;</span>
+<span class="code-tag">&lt;/tr&gt;</span>
+
+    <span class="code-tag">&lt;tr&gt;</span>
+  <span class="code-tag">&lt;td align=<span class="code-quote">"right"</span> valign=<span class="code-quote">"top"</span>&gt;</span><span class="code-tag">&lt;span class=<span class="code-quote">"label"</span>&gt;</span>Full Name:<span class="code-tag">&lt;/span&gt;</span><span class="code-tag">&lt;/td&gt;</span>
+  <span class="code-tag">&lt;td&gt;</span>
+<span class="code-tag">&lt;input type=<span class="code-quote">"text"</span> name=<span class="code-quote">"fullname"</span> value=<span class="code-quote">"Sample User"</span> /&gt;</span>
+  <span class="code-tag">&lt;/td&gt;</span>
+<span class="code-tag">&lt;/tr&gt;</span>
+    <span class="code-tag">&lt;tr&gt;</span>
+  <span class="code-tag">&lt;td align=<span class="code-quote">"right"</span> valign=<span class="code-quote">"top"</span>&gt;</span><span class="code-tag">&lt;span class=<span class="code-quote">"label"</span>&gt;</span>Email:<span class="code-tag">&lt;/span&gt;</span><span class="code-tag">&lt;/td&gt;</span>
+  <span class="code-tag">&lt;td&gt;</span>
+<span class="code-tag">&lt;input type=<span class="code-quote">"text"</span> name=<span class="code-quote">"email"</span> value=<span class="code-quote">"user@example.com"</span> /&gt;</span>
+  <span class="code-tag">&lt;/td&gt;</span>
+<span class="code-tag">&lt;/tr&gt;</span>
+    
+<span class="code-tag">&lt;tr&gt;</span>
+  <span class="code-tag">&lt;td colspan=<span class="code-quote">"2"</span>&gt;</span>
+    <span class="code-tag">&lt;div align=<span class="code-quote">"right"</span>&gt;</span>
+      <span class="code-tag">&lt;input type=<span class="code-quote">"submit"</span> name=<span class="code-quote">"submit"</span> value=<span class="code-quote">"Send me a free E-Certificate!"</span>/&gt;</span>
+    <span class="code-tag">&lt;/div&gt;</span>
+  <span class="code-tag">&lt;/td&gt;</span>
+<span class="code-tag">&lt;/tr&gt;</span>
+
+
+<span class="code-tag">&lt;/table&gt;</span>
+<span class="code-tag">&lt;/form&gt;</span>
+
+<span class="code-tag">&lt;/body&gt;</span>
+<span class="code-tag">&lt;/html&gt;</span></pre>
+</div></div>
+
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>WebWork - 
+        ActionMapper
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table bgcolor='#ffffe0' cellpadding='0' cellspacing='0' width='100%' border='0'><tr><td><div stlye='font-size:8px; text-align:center;'><center>Content pulled from external source. Click <a href='/plugins/snippet/clearCache.action?id=javadoc&amp;url=https%3A%2F%2Fopensymphony.dev.java.net%2Fsource%2Fbrowse%2F*checkout*%2Fwebwork%2Fsrc%2Fjava%2Fcom%2Fopensymphony%2Fwebwork%2Fdispatcher%2Fmapper%2FActionMapper.java'>here</a> to refresh.</center></div></td></tr><tr><td>
+<p>The ActionMapper is responsible for providing a mapping between HTTP requests and action invocation requests and
+vice-versa. When given an HttpServletRequest, the ActionMapper may return null if no action invocation request maps,
+or it may return an ActionMapping that describes an action invocation that WebWork should attempt to try. The
+ActionMapper is not required to guarantee that the ActionMapping returned be a real action or otherwise
+ensure a valid request. This means that most ActionMappers do not need to consult WebWork's configuration to
+determine if a request should be mapped.</p>
+
+<p><p/> Just as requests can be mapped from HTTP to an action invocation, the opposite is true as well. However, because
+HTTP requests (when shown in HTTP responses) must be in String form, a String is returned rather than an actual
+request object.</p>
+</td></tr></table>
+
+<p>By default, the DefaultActionMapper is used:</p>
+
+<table bgcolor='#ffffe0' cellpadding='0' cellspacing='0' width='100%' border='0'><tr><td><div stlye='font-size:8px; text-align:center;'><center>Content pulled from external source. Click <a href='/plugins/snippet/clearCache.action?id=javadoc&amp;url=https%3A%2F%2Fopensymphony.dev.java.net%2Fsource%2Fbrowse%2F*checkout*%2Fwebwork%2Fsrc%2Fjava%2Fcom%2Fopensymphony%2Fwebwork%2Fdispatcher%2Fmapper%2FDefaultActionMapper.java'>here</a> to refresh.</center></div></td></tr><tr><td>
+<p>Default action mapper implementation, using the standard *.[ext] (where ext usually "action") pattern. This
+implementation does not concern itself with parameters. The extension is looked up from the WebWork configuration key
+<b>webwork.action.exection</b>.</p>
+</td></tr></table>
+
+<p>You can define your own ActionMapper by configuring the ActionMapperFactory:</p>
+
+<table bgcolor='#ffffe0' cellpadding='0' cellspacing='0' width='100%' border='0'><tr><td><div stlye='font-size:8px; text-align:center;'><center>Content pulled from external source. Click <a href='/plugins/snippet/clearCache.action?id=javadoc&amp;url=https%3A%2F%2Fopensymphony.dev.java.net%2Fsource%2Fbrowse%2F*checkout*%2Fwebwork%2Fsrc%2Fjava%2Fcom%2Fopensymphony%2Fwebwork%2Fdispatcher%2Fmapper%2FActionMapperFactory.java'>here</a> to refresh.</center></div></td></tr><tr><td>
+<p>Factory that creates ActionMappers. This factory looks up the class name of the ActionMapper from
+WebWork's configuration using the key <b>webwork.mapper.class</b>.</p>
+</td></tr></table>
+
+<p>Possible uses of the ActionMapper include defining your own, cleaner namespaces, such as URLs like <b>/person/1</b>, which would be similar to a request to <b>/getPerson.action?personID=1</b> using the DefaultActionMapper.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

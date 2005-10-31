@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Accessing application, session, request objects
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>Webwork provides several access helpers to access Session, Application, Request scopes.<br/>
+Web agnostic (independent of the servlet API) with calls:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">Map session = (Map) ActionContext.getContext().get(<span class="code-quote">"session"</span>);
+session.put(<span class="code-quote">"myId"</span>,myProp);</pre>
+</div></div>
+
+<p>The following gives you the same thing as above:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">ServletActionContext.getRequest().getSession()</pre>
+</div></div>
+
+<p>Note: Be sure not to use ActionContext.getContext() in the constructor of your action since the values may not be set up already (returning null for getSession()).<br/>
+Note also: ActionContext.getContext().get("session") is the same as<br/>
+ActionContext.getContext().getSession() with a cast to Map.</p>
+
+<p>If you really need to get access to the HttpSession, use the ServletConfigInterceptor (see <a href="Interceptors.html" title="Interceptors">Interceptors</a>).</p>
+
+<p>In your views, you can access with your jsps as such</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww: property value=<span class="code-quote">"#session.myId"</span> /&gt;
+
+&lt;ww: property value=<span class="code-quote">"#request.myId"</span> /&gt;</pre>
+</div></div>
+
+<p>All the servlet scopes can be accessed like above.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">Map request = (Map) ActionContext.getContext().get(<span class="code-quote">"request"</span>);
+request.put(<span class="code-quote">"myId"</span>,myProp);
+Map application = (Map) ActionContext.getContext().get(<span class="code-quote">"application"</span>);
+application.put(<span class="code-quote">"myId"</span>,myProp);
+Map session = (Map) ActionContext.getContext().get(<span class="code-quote">"attr"</span>);
+attr.put(<span class="code-quote">"myId"</span>,myProp);</pre>
+</div></div>
+<p>The 'attr' map will search the javax.servlet.jsp.PageContext for the specified key. If the PageContext dosen't exist, it will search request,session,application maps respectively.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
