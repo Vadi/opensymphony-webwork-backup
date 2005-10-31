@@ -11,6 +11,7 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionSupport;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.WebWorkTestCase;
 import junit.framework.TestCase;
 
 import java.util.HashMap;
@@ -23,7 +24,7 @@ import java.util.Map;
  * @author Jason Carreira
  *         Date: Nov 27, 2003 10:11:42 PM
  */
-public class WebWorkConversionErrorInterceptorTest extends TestCase {
+public class WebWorkConversionErrorInterceptorTest extends WebWorkTestCase {
 
     protected ActionContext context;
     protected ActionInvocation invocation;
@@ -39,6 +40,7 @@ public class WebWorkConversionErrorInterceptorTest extends TestCase {
         conversionErrors.put("baz", new String[]{""});
 
         ActionSupport action = new ActionSupport();
+        mockInvocation.expectAndReturn("getAction", action);
         stack.push(action);
         assertNull(action.getFieldErrors().get("foo"));
         assertNull(action.getFieldErrors().get("bar"));
@@ -54,6 +56,7 @@ public class WebWorkConversionErrorInterceptorTest extends TestCase {
         conversionErrors.put("foo", new Long(123));
 
         ActionSupport action = new ActionSupport();
+        mockInvocation.expectAndReturn("getAction", action);
         stack.push(action);
         assertNull(action.getFieldErrors().get("foo"));
         interceptor.intercept(invocation);
