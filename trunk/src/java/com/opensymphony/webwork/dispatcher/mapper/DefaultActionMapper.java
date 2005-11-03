@@ -147,8 +147,11 @@ public class DefaultActionMapper implements ActionMapper {
             uri.append("!").append(mapping.getMethod());
         }
 
-        uri.append(".").append(Configuration.get("webwork.action.extension"));
-
+        String extension = getExtension();
+        if (extension != null) {
+            uri.append(".").append(extension);
+        }
+        
         return uri.toString();
     }
 
