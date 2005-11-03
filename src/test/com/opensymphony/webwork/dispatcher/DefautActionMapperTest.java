@@ -81,7 +81,7 @@ public class DefautActionMapperTest extends WebWorkTestCase {
         assertEquals("/my/namespace/actionName!add.action", mapper.getUriFromActionMapping(mapping));
     }
 
-    public void testGetMappingWithNoPrefix() throws Exception {
+    public void testGetMappingWithNoExtension() throws Exception {
         Object old = Configuration.get("webwork.action.extension");
         Configuration.set("webwork.action.extension", "");
         try {
