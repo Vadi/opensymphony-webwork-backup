@@ -13,11 +13,14 @@ import java.util.Map;
  * @author Patrick Lightbody
  */
 public class ActionMapping {
+
     private String name;
     private String namespace;
     private String method;
     private Map params;
     private Result result;
+
+    public ActionMapping() {}
 
     public ActionMapping(Result result) {
         this.result = result;
@@ -56,5 +59,21 @@ public class ActionMapping {
 
     public void setResult(Result result) {
         this.result = result;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public void setParams(Map params) {
+        this.params = params;
     }
 }

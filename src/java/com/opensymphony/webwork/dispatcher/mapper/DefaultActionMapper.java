@@ -1,8 +1,8 @@
 package com.opensymphony.webwork.dispatcher.mapper;
 
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.util.PrefixTrie;
 import com.opensymphony.webwork.dispatcher.ServletRedirectResult;
-import com.opensymphony.xwork.Result;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
@@ -11,73 +11,132 @@ import java.util.Map;
 /**
  * <!-- START SNIPPET: javadoc -->
  *
- * Default action mapper implementation, using the standard *.[ext] (where ext usually "action") pattern. This
- * implementation does not concern itself with parameters. The extension is looked up from the WebWork configuration key
- * <b>webwork.action.exection</b>.
+ * Default action mapper implementation, using the standard *.[ext] (where ext
+ * usually "action") pattern. The extension is looked up from the WebWork
+ * configuration key <b>webwork.action.exection</b>.
  *
  * <!-- END SNIPPET: javadoc -->
  *
  * @author Patrick Lightbody
  */
 public class DefaultActionMapper implements ActionMapper {
-    public ActionMapping getMapping(HttpServletRequest request) {
-        String uri = request.getServletPath();
-        if (uri == null) {
-            uri = request.getRequestURI();
-            uri = uri.substring(request.getContextPath().length());
-        }
-        String includeUri = (String) request.getAttribute("javax.servlet.include.servlet_path");
-        if (includeUri != null) {
-            uri = includeUri;
-        }
 
-        String ext = (String) Configuration.get("webwork.action.extension");
-        if (!uri.endsWith("." + ext)) {
-            return null;
-        }
+    static final String METHOD_PREFIX = "method:";
+    static final String ACTION_PREFIX = "action:";
+    static final String REDIRECT_PREFIX = "redirect:";
+    static final String REDIRECT_ACTION_PREFIX = "redirect-action:";
 
-        // get the namespace
-        String namespace = uri.substring(0, uri.lastIndexOf("/"));
+    static PrefixTrie prefixTrie = new PrefixTrie() {{
+        put(METHOD_PREFIX, new ParameterAction() {
+            public void execute(String key, ActionMapping mapping) {
+                mapping.setMethod(key.substring(METHOD_PREFIX.length()));
+            }
+        });
 
-        // Get action name ("Foo.action" -> "Foo" action)
-        int beginIdx = uri.lastIndexOf("/");
-        int endIdx = uri.lastIndexOf(".");
-        String name = uri.substring(((beginIdx == -1) ? 0 : (beginIdx + 1)), (endIdx == -1) ? uri.length() : endIdx);
+        put(ACTION_PREFIX, new ParameterAction() {
+            public void execute(String key, ActionMapping mapping) {
+                mapping.setName(key.substring(ACTION_PREFIX.length()));
+            }
+        });
 
-        String method = "";
-        Result result = null;
-        if (name.indexOf("!") != -1) {
-            endIdx = name.lastIndexOf("!");
-            method = name.substring(endIdx + 1, name.length());
-            name = name.substring(0, endIdx);
-        } else {
-            for (Iterator iterator = request.getParameterMap().entrySet().iterator(); iterator.hasNext();) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                String key = (String) entry.getKey();
-                if (key.startsWith("method:")) {
-                    method = key.substring("method:".length());
-                } else if (key.startsWith("action:")) {
-                    name = key.substring("action:".length());
-                } else if (key.startsWith("redirect:")) {
-                    String location = key.substring("redirect:".length());
-                    ServletRedirectResult redirect = new ServletRedirectResult();
-                    redirect.setLocation(location);
-                    result = redirect;
-                } else if (key.startsWith("redirect-action")) {
-                    String location = key.substring("redirect-action:".length());
-                    ServletRedirectResult redirect = new ServletRedirectResult();
-                    redirect.setLocation(location + "." + ext);
-                    result = redirect;
+        put(REDIRECT_PREFIX, new ParameterAction() {
+            public void execute(String key, ActionMapping mapping) {
+                ServletRedirectResult redirect = new ServletRedirectResult();
+                redirect.setLocation(key.substring(REDIRECT_PREFIX.length()));
+                mapping.setResult(redirect);
+            }
+        });
+
+        put(REDIRECT_ACTION_PREFIX, new ParameterAction() {
+            public void execute(String key, ActionMapping mapping) {
+                String location = key.substring(REDIRECT_ACTION_PREFIX.length());
+                ServletRedirectResult redirect = new ServletRedirectResult();
+                String extension = getExtension();
+                if (extension != null) {
+                    location += "." + extension;
                 }
+                redirect.setLocation(location);
+                mapping.setResult(redirect);
+            }
+        });
+    }};
+
+    public ActionMapping getMapping(HttpServletRequest request) {
+        ActionMapping mapping = new ActionMapping();
+        String uri = getUri(request);
+
+        parseNameAndNamespace(uri, mapping);
+
+        // handle special parameter prefixes.
+        Map parameterMap = request.getParameterMap();
+        for (Iterator iterator = parameterMap.entrySet().iterator(); iterator.hasNext();) {
+            String key = (String) iterator.next();
+            ParameterAction parameterAction = (ParameterAction) prefixTrie.get(key);
+            if (parameterAction != null) {
+                parameterAction.execute(key, mapping);
+                break;
             }
         }
 
-        ActionMapping mapping = new ActionMapping(name, namespace, method, null);
-        if (result != null) {
-            mapping.setResult(result);
+        // handle "name!method" convention.
+        String name = mapping.getName();
+        int exclamation = name.lastIndexOf("!");
+        if (exclamation != -1) {
+            mapping.setName(name.substring(0, exclamation));
+            mapping.setMethod(name.substring(exclamation + 1));
         }
 
         return mapping;
+    }
+
+    void parseNameAndNamespace(String uri, ActionMapping mapping) {
+        String namespace, name;
+        int lastSlash = uri.lastIndexOf("/");
+        if (lastSlash == -1) {
+            namespace = "";
+            name = uri;
+        } else {
+            namespace = uri.substring(0, lastSlash);
+            name = uri.substring(lastSlash + 1);
+        }
+        mapping.setNamespace(namespace);
+        mapping.setName(dropExtension(name));
+    }
+
+    String dropExtension(String name) {
+        String extension = getExtension();
+        if (extension == null) {
+            return name;
+        }
+
+        extension = "." + extension;
+        return name.endsWith(extension)
+            ? name.substring(0, name.length() - extension.length())
+            : name;
+    }
+
+    /**
+     * Returns null if no extension is specified.
+     */
+    static String getExtension() {
+        String extension = (String) Configuration.get("webwork.action.extension");
+        return extension.equals("") ? null : extension;
+    }
+
+    String getUri(HttpServletRequest request) {
+        // handle http dispatcher includes.
+        String uri = (String) request.getAttribute("javax.servlet.include.servlet_path");
+        if (uri != null) {
+            return uri;
+        }
+
+        uri = request.getServletPath();
+        if (uri != null) {
+            return uri;
+        }
+
+        uri = request.getRequestURI();
+        return uri.substring(request.getContextPath().length());
     }
 
     public String getUriFromActionMapping(ActionMapping mapping) {
@@ -91,5 +150,9 @@ public class DefaultActionMapper implements ActionMapper {
         uri.append(".").append(Configuration.get("webwork.action.extension"));
 
         return uri.toString();
+    }
+
+    interface ParameterAction {
+        void execute(String key, ActionMapping mapping);
     }
 }
