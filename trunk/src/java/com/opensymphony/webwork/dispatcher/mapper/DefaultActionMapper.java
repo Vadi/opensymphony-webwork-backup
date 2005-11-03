@@ -69,7 +69,7 @@ public class DefaultActionMapper implements ActionMapper {
 
         // handle special parameter prefixes.
         Map parameterMap = request.getParameterMap();
-        for (Iterator iterator = parameterMap.entrySet().iterator(); iterator.hasNext();) {
+        for (Iterator iterator = parameterMap.keySet().iterator(); iterator.hasNext();) {
             String key = (String) iterator.next();
             ParameterAction parameterAction = (ParameterAction) prefixTrie.get(key);
             if (parameterAction != null) {
@@ -151,7 +151,7 @@ public class DefaultActionMapper implements ActionMapper {
         if (extension != null) {
             uri.append(".").append(extension);
         }
-        
+
         return uri.toString();
     }
 
