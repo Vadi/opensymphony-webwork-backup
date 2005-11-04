@@ -78,6 +78,10 @@ public class DefaultActionMapper implements ActionMapper {
             }
         }
 
+        if (mapping.getName() == null) {
+            return null;
+        }
+
         // handle "name!method" convention.
         String name = mapping.getName();
         int exclamation = name.lastIndexOf("!");
@@ -112,7 +116,7 @@ public class DefaultActionMapper implements ActionMapper {
         extension = "." + extension;
         return name.endsWith(extension)
             ? name.substring(0, name.length() - extension.length())
-            : name;
+            : null;
     }
 
     /**
