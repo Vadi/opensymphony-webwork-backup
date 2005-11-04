@@ -1,21 +1,22 @@
-&lt;xwork&gt;
-    &lt;include file="webwork-default.xml"/&gt;
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.1.dtd">
+<xwork>
+    <include file="webwork-default.xml"/>
 
-    &lt;package name="default" extends="webwork-default"&gt;
-        &lt;global-results&gt;
-            &lt;result name="success" type="freemarker"&gt;error.ftl&lt;/result&gt;
-        &lt;/global-results&gt;
+    <package name="default" extends="webwork-default">
+        <global-results>
+            <result name="success" type="freemarker">error.ftl</result>
+        </global-results>
 
-        &lt;global-exception-mappings&gt;
-            &lt;exception-mapping exception="java.lang.Exception" result="error"/&gt;
-        &lt;/global-exception-mappings&gt;
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
 
-        &lt;action name="test"&gt;
-            &lt;interceptor-ref name="exception"/&gt;
-            &lt;interceptor-ref name="basicStack"/&gt;
-            &lt;exception-mapping exception="com.acme.CustomException" result="custom_error"/&gt;
-            &lt;result name="custom_error"&gt;custom_error.ftl&lt;/result&gt;
-            &lt;result name="success" type="freemarker"&gt;test.ftl&lt;/result&gt;
-        &lt;/action&gt;
-    &lt;/package&gt;
-&lt;/xwork&gt;
+        <action name="test">
+            <interceptor-ref name="exception"/>
+            <interceptor-ref name="basicStack"/>
+            <exception-mapping exception="com.acme.CustomException" result="custom_error"/>
+            <result name="custom_error">custom_error.ftl</result>
+            <result name="success" type="freemarker">test.ftl</result>
+        </action>
+    </package>
+</xwork>
