@@ -7,6 +7,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * <!-- START SNIPPET: javadoc -->
@@ -162,8 +164,10 @@ public class Main {
         return name;
     }
 
-    private static void launch(String program, String[] programArgs, ArrayList urls) {
-        URLClassLoader cl = new MainClassLoader((URL[]) urls.toArray(new URL[urls.size()]));
+    private static void launch(String program, String[] programArgs, List urls) {
+        Collections.reverse(urls);
+        URL[] urlArray = (URL[]) urls.toArray(new URL[urls.size()]);
+        URLClassLoader cl = new MainClassLoader(urlArray);
         Thread.currentThread().setContextClassLoader(cl);
         try {
             Class clazz = cl.loadClass(program);
