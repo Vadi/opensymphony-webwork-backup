@@ -227,15 +227,6 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jdtcore.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/oscore.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -471,6 +462,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/log4j.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jasper-compiler-jdt.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

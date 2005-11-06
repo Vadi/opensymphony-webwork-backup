@@ -20,6 +20,7 @@ import com.opensymphony.webwork.util.classloader.compilers.JavaCompiler;
 import com.opensymphony.webwork.util.classloader.monitor.FilesystemAlterationListener;
 import com.opensymphony.webwork.util.classloader.problems.CompilationProblem;
 import com.opensymphony.webwork.util.classloader.problems.DefaultCompilationProblemHandler;
+import com.opensymphony.webwork.util.classloader.problems.ConsoleCompilationProblemHandler;
 import com.opensymphony.webwork.util.classloader.readers.ResourceReader;
 import com.opensymphony.webwork.util.classloader.stores.TransactionalResourceStore;
 import org.apache.commons.logging.Log;
@@ -42,7 +43,7 @@ public class CompilingListener implements FilesystemAlterationListener {
     private final JavaCompiler compiler;
     private final ResourceReader reader;
     private final TransactionalResourceStore transactionalStore;
-    private final DefaultCompilationProblemHandler problemHandler = new DefaultCompilationProblemHandler();
+    private final DefaultCompilationProblemHandler problemHandler = new ConsoleCompilationProblemHandler();
 
     public CompilingListener(
             final ResourceReader pReader,
