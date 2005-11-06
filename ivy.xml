@@ -59,7 +59,7 @@
         <dependency org="dwr" name="dwr" rev="1.0" conf="ajax->*"/>
 
         <!-- freemarker -->
-        <dependency org="freemarker" name="freemarker" rev="2.3.3" conf="freemarker->default"/>
+        <dependency org="freemarker" name="freemarker" rev="2.3.4" conf="freemarker->default"/>
 
         <!-- velocity -->
         <dependency org="apache" name="velocity" rev="1.4" conf="velocity->velocity-dep"/>
@@ -80,9 +80,9 @@
         <!-- quickstart -->
         <dependency org="jetty" name="org.mortbay.jetty" rev="5.1.4" conf="quickstart->default"/>
         <dependency org="ant" name="ant" rev="1.6.5" conf="quickstart->default"/>
-        <dependency org="tomcat" name="jasper-runtime" rev="5.5.9" conf="quickstart->default"/>
-        <dependency org="tomcat" name="jasper-compiler" rev="5.5.9" conf="quickstart->default"/>
-        <dependency org="eclipse" name="jdtcore" rev="3.0.1" conf="quickstart->default"/>
+        <dependency org="tomcat" name="jasper-runtime" rev="5.5.12" conf="quickstart->default"/>
+        <dependency org="tomcat" name="jasper-compiler" rev="5.5.12" conf="quickstart->default"/>
+        <dependency org="tomcat" name="jasper-compiler-jdt" rev="5.5.12" conf="quickstart->default"/>
         <dependency org="commons-el" name="commons-el" rev="1.0" conf="quickstart->default"/>
         <dependency org="commons-io" name="commons-io" rev="1.0" conf="quickstart->default"/>
         <dependency org="commons-lang" name="commons-lang" rev="2.1" conf="quickstart->default"/>
