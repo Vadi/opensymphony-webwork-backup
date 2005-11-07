@@ -29,7 +29,7 @@ public abstract class ComponentTagSupport extends WebWorkBodyTagSupport {
         populateParams();
         component.start(pageContext.getOut());
 
-        return EVAL_BODY_INCLUDE;
+        return component.usesBody() ? EVAL_BODY_BUFFERED : EVAL_BODY_INCLUDE;
     }
 
     protected void populateParams() {

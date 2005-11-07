@@ -3,6 +3,10 @@
     <conf defaultResolver="default" checkUpToDate="true"/>
     <resolvers>
         <chain name="default">
+            <filesystem name="integration" checkmodified="true">
+                <ivy pattern="${integration.repository}/[organisation]/[module]/ivy-[revision].xml"/>
+                <artifact pattern="${integration.repository}/[organisation]/[module]/[artifact]-[revision].[ext]"/>
+            </filesystem>
             <url name="opensymphony" checkmodified="true">
                 <ivy pattern="http://ivyrep.opensymphony.com/[organisation]/[module]/ivy-[revision].xml"/>
                 <artifact

@@ -8,8 +8,8 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.spring.SpringProxyableObjectFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.context.ApplicationContext;
 
 import java.util.Map;
 
@@ -21,11 +21,14 @@ import java.util.Map;
 public class SessionContextSpringProxyableObjectFactory extends SpringProxyableObjectFactory {
     private static final Log log = LogFactory.getLog(SessionContextSpringProxyableObjectFactory.class);
 
-    protected ApplicationContext getApplicationContext() {
+    protected ApplicationContext getApplicationContext(Map context) {
         if (log.isDebugEnabled()) {
             log.debug("Getting the session-scoped app context");
         }
-        Map session = ActionContext.getContext().getSession();
+        if (context == null) {
+            return appContext;
+        }
+        Map session = (Map) context.get(ActionContext.SESSION);
         if (session == null) {
             log.warn("There is no session map in the ActionContext.");
             return appContext;
@@ -37,9 +40,9 @@ public class SessionContextSpringProxyableObjectFactory extends SpringProxyableO
         return sessionContext;
     }
 
-    public Object buildBean(String beanName) throws Exception {
-        Object bean = super.buildBean(beanName);
-        AutowireCapableBeanFactory autoWiringBeanFactory = findAutoWiringBeanFactory(getApplicationContext());
+    public Object buildBean(String beanName, Map extraContext) throws Exception {
+        Object bean = super.buildBean(beanName, extraContext);
+        AutowireCapableBeanFactory autoWiringBeanFactory = findAutoWiringBeanFactory(getApplicationContext(extraContext));
         return autoWireBean(bean, autoWiringBeanFactory);
     }
 

@@ -42,6 +42,7 @@ public class WebWorkConversionErrorInterceptorTest extends WebWorkTestCase {
         ActionSupport action = new ActionSupport();
         mockInvocation.expectAndReturn("getAction", action);
         stack.push(action);
+        mockInvocation.matchAndReturn("getAction",action);
         assertNull(action.getFieldErrors().get("foo"));
         assertNull(action.getFieldErrors().get("bar"));
         assertNull(action.getFieldErrors().get("baz"));
@@ -58,6 +59,7 @@ public class WebWorkConversionErrorInterceptorTest extends WebWorkTestCase {
         ActionSupport action = new ActionSupport();
         mockInvocation.expectAndReturn("getAction", action);
         stack.push(action);
+        mockInvocation.matchAndReturn("getAction",action);
         assertNull(action.getFieldErrors().get("foo"));
         interceptor.intercept(invocation);
         assertTrue(action.hasFieldErrors());

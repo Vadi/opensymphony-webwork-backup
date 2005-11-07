@@ -85,7 +85,8 @@ public class VelocityManager {
             if (!classname.equals(VelocityManager.class.getName())) {
                 try {
                     log.info("Instantiating VelocityManager!, " + classname);
-                    instance = (VelocityManager) ObjectFactory.getObjectFactory().buildBean(Class.forName(classname));
+                    // singleton instances shouldn't be built accessing request or session-specific context data
+                    instance = (VelocityManager) ObjectFactory.getObjectFactory().buildBean(Class.forName(classname), null);
                 } catch (Exception e) {
                     log.fatal("Fatal exception occurred while trying to instantiate a VelocityManager instance, " + classname, e);
                     instance = new VelocityManager();
@@ -122,7 +123,7 @@ public class VelocityManager {
      * @return a new WebWorkVelocityContext
      */
     public Context createContext(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
-        VelocityContext[] chainedContexts = prepareChainedContexts(req, res);
+        VelocityContext[] chainedContexts = prepareChainedContexts(req, res, stack.getContext());
         WebWorkVelocityContext context = new WebWorkVelocityContext(chainedContexts, stack);
         Map standardMap = ContextUtil.getStandardContext(stack, req, res);
         for (Iterator iterator = standardMap.entrySet().iterator(); iterator.hasNext();) {
@@ -157,9 +158,10 @@ public class VelocityManager {
      *
      * @param servletRequest
      * @param servletResponse
+     * @param extraContext
      * @return an VelocityContext[] of contexts to chain
      */
-    protected VelocityContext[] prepareChainedContexts(HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+    protected VelocityContext[] prepareChainedContexts(HttpServletRequest servletRequest, HttpServletResponse servletResponse, Map extraContext) {
         if (this.chainedContextNames == null) {
             return null;
         }
@@ -167,7 +169,7 @@ public class VelocityManager {
         for (int i = 0; i < chainedContextNames.length; i++) {
             String className = chainedContextNames[i];
             try {
-                VelocityContext velocityContext = (VelocityContext) ObjectFactory.getObjectFactory().buildBean(className);
+                VelocityContext velocityContext = (VelocityContext) ObjectFactory.getObjectFactory().buildBean(className, null);
                 contextList.add(velocityContext);
             } catch (Exception e) {
                 log.warn("Warning.  " + e.getClass().getName() + " caught while attempting to instantiate a chained VelocityContext, " + className + " -- skipping");

@@ -5,7 +5,7 @@
 
 <#assign params = ""/>
 	<#list config.params?keys as p>
-		<#assign params = p + " = " + config.params.get(p) + "<br />" />
+		<#assign params = p + " = " + ${config.params.get(p)} + "<br />" />
 	</#list>
 <table>
 	<tr><td>Action name:</td><td>${actionName}</td></tr>

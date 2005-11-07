@@ -46,7 +46,7 @@ public class ActionComponent extends Component {
     public void end(Writer writer, String body) {
         executeAction();
 
-        if (getId() != null) {
+        if ((getId() != null) && (proxy != null)) {
             getStack().setValue("#attr['" + getId() + "']", proxy.getAction());
         }
     }
@@ -131,7 +131,7 @@ public class ActionComponent extends Component {
             req.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
         }
 
-        if (getId() != null) {
+        if ((getId() != null) && (proxy != null)) {
             final Map context = stack.getContext();
             context.put(getId(), proxy.getAction());
         }
