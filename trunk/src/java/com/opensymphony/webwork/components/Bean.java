@@ -63,16 +63,16 @@ public class Bean extends Component {
     public void start(Writer writer) {
         super.start(writer);
 
+        OgnlValueStack stack = getStack();
+
         try {
             String beanName = findString(name, "name", "Bean name is required. Example: com.acme.FooBean");
-            bean = ObjectFactory.getObjectFactory().buildBean(ClassLoaderUtil.loadClass(beanName, getClass()));
+            bean = ObjectFactory.getObjectFactory().buildBean(ClassLoaderUtil.loadClass(beanName, getClass()), stack.getContext());
         } catch (Exception e) {
             log.error("Could not instantiate bean", e);
 
             return;
         }
-
-        OgnlValueStack stack = getStack();
 
         // push bean on stack
         stack.push(bean);

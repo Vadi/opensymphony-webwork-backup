@@ -28,7 +28,7 @@ public class ActionMapperFactory {
             try {
                 ActionMapper mapper = (ActionMapper) classMap.get(clazz);
                 if (mapper == null) {
-                    mapper = (ActionMapper) ObjectFactory.getObjectFactory().buildBean(clazz);
+                    mapper = (ActionMapper) ObjectFactory.getObjectFactory().buildBean(clazz, null);
                     classMap.put(clazz, mapper);
                 }
 

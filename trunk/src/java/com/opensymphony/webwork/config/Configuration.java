@@ -33,7 +33,7 @@ import java.util.StringTokenizer;
  * <li>{@link #listImpl()}</li>
  * <li>{@link #isSetImpl(String)}</li></ul>
  *
- * @author Rickard Öberg
+ * @author Rickard ï¿½berg
  * @author Jason Carreira
  * @author Bill Lynch (docs)
  */
@@ -210,7 +210,8 @@ public class Configuration {
 
                 if (!className.equals(defaultImpl.getClass().getName())) {
                     try {
-                        defaultImpl = (Configuration) ObjectFactory.getObjectFactory().buildBean(Thread.currentThread().getContextClassLoader().loadClass(className));
+                        // singleton instances shouldn't be built accessing request or session-specific context data
+                        defaultImpl = (Configuration) ObjectFactory.getObjectFactory().buildBean(Thread.currentThread().getContextClassLoader().loadClass(className), null);
                     } catch (Exception e) {
                         LOG.error("Could not instantiate configuration", e);
                     }

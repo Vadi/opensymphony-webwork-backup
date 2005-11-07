@@ -59,7 +59,7 @@ public class WebWorkUtil {
             classes.put(name, c);
         }
 
-        return ObjectFactory.getObjectFactory().buildBean(c);
+        return ObjectFactory.getObjectFactory().buildBean(c, stack.getContext());
     }
 
     public Object findString(String name) {
@@ -108,6 +108,17 @@ public class WebWorkUtil {
     public Object findValue(String expression, String className) throws ClassNotFoundException {
         return stack.findValue(expression, Class.forName(className));
     }
+
+    public String getText(String text) {
+        return (String) stack.findValue("getText('" + text + "')"); 
+    }
+
+    /*
+	 * @return the url ContextPath. An empty string if one does not exist.
+	 */
+	public String getContext() {
+		return (request == null)? "" : request.getContextPath();
+	}
 
     /**
      * the selectedList objects are matched to the list.listValue
