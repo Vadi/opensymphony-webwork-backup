@@ -135,7 +135,7 @@ public class DefaultActionMapper implements ActionMapper {
         }
 
         uri = request.getServletPath();
-        if (uri != null) {
+        if (uri == null || uri.length() == 0) {
             return uri;
         }
 
