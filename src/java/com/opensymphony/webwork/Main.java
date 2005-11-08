@@ -65,8 +65,8 @@ public class Main {
             }
 
             // ... but there might not be any (ie: we're in development in IDEA), so use this as backup
-            urls.add(new File("build/java/").toURL());
-            urls.add(new File("../xwork/build/java/").toURL());
+            urls.add(new File(System.getProperty("webwork.classes", "build/java")).toURL());
+            urls.add(new File(System.getProperty("xwork.classes", "../xwork/build/java/")).toURL());
 
             // load tools.jar from JAVA_HOME
             File tools = new File(javaHome, "lib/tools.jar");
@@ -180,6 +180,10 @@ public class Main {
 
     private static void findJars(File file, ArrayList urls) throws MalformedURLException {
         File[] files = file.listFiles();
+        if (files == null) {
+            return;
+        }
+        
         for (int i = 0; i < files.length; i++) {
             File f = files[i];
             if (f.isDirectory()) {
