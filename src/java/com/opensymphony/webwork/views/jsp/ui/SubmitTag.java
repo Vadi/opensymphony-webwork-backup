@@ -20,6 +20,7 @@ public class SubmitTag extends AbstractUITag {
     protected String onLoadJS;
     protected String notifyTopics;
     protected String listenTopics;
+    protected String preInvokeJS;
 
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Submit(stack, req, res);
@@ -33,6 +34,7 @@ public class SubmitTag extends AbstractUITag {
         ((Submit) component).setOnLoadJS(onLoadJS);
         ((Submit) component).setNotifyTopics(notifyTopics);
         ((Submit) component).setListenTopics(listenTopics);
+        ((Submit) component).setPreInvokeJS(preInvokeJS);
     }
 
     public void setAlign(String align) {
@@ -55,4 +57,7 @@ public class SubmitTag extends AbstractUITag {
         this.listenTopics = listenTopics;
     }
 
+    public void setPreInvokeJS(String preInvokeJS) {
+        this.preInvokeJS = preInvokeJS;
+    }
 }

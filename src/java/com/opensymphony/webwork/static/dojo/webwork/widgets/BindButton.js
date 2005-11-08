@@ -26,6 +26,9 @@ webwork.widgets.HTMLBindButton = function() {
 	// dom node in the template that will contain the remote content
 	this.attachBtn = null;
 
+    //a snippet of js to invode before binding
+    this.preInvokeJS = "";
+
     var super_fillInTemplate = this.fillInTemplate;
 	this.fillInTemplate = function(args, frag) {
 		super_fillInTemplate(args, frag);
@@ -37,7 +40,20 @@ webwork.widgets.HTMLBindButton = function() {
 		webwork.Util.passThroughArgs(self.extraArgs, self.attachBtn);
 	}
 
+    this.execute = function() {
+        var executeConnect = true;
+        //If the user provided some preInvokeJS invoke it and store the results into the
+        //executeConnect var to determine if the connect should occur
+		if (self.preInvokeJS != "") {
+            dj_debug('Evaluating js: ' + this.preInvokeJS);
+            executeConnect = eval(this.preInvokeJS);
+		}
+        if (executeConnect) {
+            this.bind();
+        }
+    }
 }
+
 dj_inherits(webwork.widgets.HTMLBindButton, webwork.widgets.HTMLBind);
 
 // make it a tag

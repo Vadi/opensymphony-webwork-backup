@@ -18,6 +18,7 @@ public class Submit extends UIBean {
     protected String onLoadJS;
     protected String notifyTopics;
     protected String listenTopics;
+    protected String preInvokeJS;
 
     public Submit(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -55,6 +56,10 @@ public class Submit extends UIBean {
         if (null != listenTopics) {
             addParameter("listenTopics", findString(listenTopics));
         }
+
+        if (preInvokeJS != null) {
+            addParameter("preInvokeJS", findString(preInvokeJS));
+        }
     }
 
     public void setAlign(String align) {
@@ -75,5 +80,9 @@ public class Submit extends UIBean {
 
     public void setListenTopics(String listenTopics) {
         this.listenTopics = listenTopics;
+    }
+
+    public void setPreInvokeJS(String preInvokeJS) {
+        this.preInvokeJS = preInvokeJS;
     }
 }
