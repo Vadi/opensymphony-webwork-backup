@@ -20,6 +20,9 @@
 <#if parameters.onLoadJS?exists>
  onLoad="${parameters.onLoadJS}"<#rt/>
 </#if>
+<#if parameters.preInvokeJS?exists>
+ preInvokeJS="${parameters.preInvokeJS}"<#rt/>
+</#if>
 <#if parameters.notifyTopics?exists>
  notifyTopics="${parameters.notifyTopics}"<#rt/>
 </#if>
