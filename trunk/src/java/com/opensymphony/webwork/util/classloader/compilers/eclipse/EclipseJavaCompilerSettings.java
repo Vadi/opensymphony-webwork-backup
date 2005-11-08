@@ -18,8 +18,8 @@ public class EclipseJavaCompilerSettings implements JavaCompilerSettings {
         map.put(CompilerOptions.OPTION_ReportUnusedImport, CompilerOptions.IGNORE);
         map.put(CompilerOptions.OPTION_Encoding, "UTF-8");
         map.put(CompilerOptions.OPTION_LocalVariableAttribute, CompilerOptions.GENERATE);
-        map.put(CompilerOptions.OPTION_Source, CompilerOptions.VERSION_1_5);
-        map.put(CompilerOptions.OPTION_TargetPlatform, CompilerOptions.VERSION_1_5);
+        map.put(CompilerOptions.OPTION_Source, CompilerOptions.VERSION_1_4);
+        map.put(CompilerOptions.OPTION_TargetPlatform, CompilerOptions.VERSION_1_4);
     }
 
     public Map getMap() {
