@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 public class ResourceUtil {
     public static String getResourceBase(HttpServletRequest req) {
         String path = req.getServletPath();
+        if (path == null || "".equals(path)) {
+            return "";
+        }
+
         return path.substring(0, path.lastIndexOf('/'));
     }
 }
