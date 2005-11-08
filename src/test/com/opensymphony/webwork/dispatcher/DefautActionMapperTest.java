@@ -21,10 +21,17 @@ import java.util.HashMap;
  * @author roughley
  */
 public class DefautActionMapperTest extends WebWorkTestCase {
+    private MockHttpServletRequest req;
+
+    protected void setUp() throws Exception {
+        super.setUp();
+        req = new MockHttpServletRequest();
+        req.setupGetParameterMap(new HashMap());
+        req.setupGetContextPath("/my/namespace");
+    }
 
     public void testGetMapping() throws Exception {
-        MockHttpServletRequest req = new MockHttpServletRequest();
-        req.setupGetParameterMap(new HashMap());
+        setUp();
         req.setupGetRequestURI("/my/namespace/actionName.action");
         req.setupGetServletPath("/my/namespace/actionName.action");
         req.setupGetAttribute(null);
@@ -39,7 +46,6 @@ public class DefautActionMapperTest extends WebWorkTestCase {
     }
 
     public void testGetMappingWithMethod() throws Exception {
-        MockHttpServletRequest req = new MockHttpServletRequest();
         req.setupGetParameterMap(new HashMap());
         req.setupGetRequestURI("/my/namespace/actionName!add.action");
         req.setupGetServletPath("/my/namespace/actionName!add.action");
@@ -55,7 +61,6 @@ public class DefautActionMapperTest extends WebWorkTestCase {
     }
 
     public void testGetUri() throws Exception {
-        MockHttpServletRequest req = new MockHttpServletRequest();
         req.setupGetParameterMap(new HashMap());
         req.setupGetRequestURI("/my/namespace/actionName.action");
         req.setupGetServletPath("/my/namespace/actionName.action");
@@ -68,7 +73,6 @@ public class DefautActionMapperTest extends WebWorkTestCase {
     }
 
     public void testGetUriWithMethod() throws Exception {
-        MockHttpServletRequest req = new MockHttpServletRequest();
         req.setupGetParameterMap(new HashMap());
         req.setupGetRequestURI("/my/namespace/actionName!add.action");
         req.setupGetServletPath("/my/namespace/actionName!add.action");
@@ -85,7 +89,6 @@ public class DefautActionMapperTest extends WebWorkTestCase {
         Object old = Configuration.get("webwork.action.extension");
         Configuration.set("webwork.action.extension", "");
         try {
-            MockHttpServletRequest req = new MockHttpServletRequest();
             req.setupGetParameterMap(new HashMap());
             req.setupGetRequestURI("/my/namespace/actionName");
             req.setupGetServletPath("/my/namespace/actionName");
