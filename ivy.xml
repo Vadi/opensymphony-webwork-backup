@@ -89,6 +89,7 @@
         <dependency org="servletapi" name="servletapi" rev="2.4" conf="quickstart->*" force="true"/>
         <dependency org="jspapi" name="jsp-api" rev="2.0" conf="quickstart->*"/>
         <dependency org="log4j" name="log4j" rev="1.2.9" conf="quickstart->*"/>
+        <dependency org="commons-collections" name="commons-collections" rev="2.1.1" conf="quickstart->default"/>
 
         <!-- jasperreports -->
         <dependency org="jasperreports" name="jasperreports" rev="1.0.0" conf="jasperreports->default"/>
