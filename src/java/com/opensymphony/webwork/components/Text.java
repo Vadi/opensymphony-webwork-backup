@@ -76,6 +76,7 @@ public class Text extends Component implements Param.UnnamedParametric {
                 LOG.error("Could not write out URL tag", e);
             }
         }
+        super.end(writer, body);
     }
 
     public void addParameter(String key, Object value) {
