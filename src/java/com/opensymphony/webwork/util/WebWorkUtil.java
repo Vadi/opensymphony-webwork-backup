@@ -62,6 +62,14 @@ public class WebWorkUtil {
         return ObjectFactory.getObjectFactory().buildBean(c, stack.getContext());
     }
 
+    public boolean isTrue(String expression) {
+        Boolean retVal = (Boolean) stack.findValue(expression, Boolean.class);
+        if (retVal == null) {
+            return false;
+        }
+        return retVal.booleanValue();
+    }
+
     public Object findString(String name) {
         return stack.findValue(name, String.class);
     }
