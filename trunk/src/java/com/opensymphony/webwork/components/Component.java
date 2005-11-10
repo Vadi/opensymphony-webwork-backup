@@ -48,7 +48,7 @@ public class Component {
         return stack;
     }
 
-    private Stack getComponentStack() {
+    protected Stack getComponentStack() {
         Stack componentStack = (Stack) stack.getContext().get(COMPONENT_STACK);
         if (componentStack == null) {
             componentStack = new Stack();

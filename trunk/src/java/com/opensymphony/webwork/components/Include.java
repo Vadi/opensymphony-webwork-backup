@@ -83,6 +83,7 @@ public class Include extends Component {
         } catch (Exception e) {
             LogFactory.getLog(getClass()).warn("Exception thrown during include of " + result, e);
         }
+        super.end(writer, body);
     }
 
     public void setValue(String value) {
