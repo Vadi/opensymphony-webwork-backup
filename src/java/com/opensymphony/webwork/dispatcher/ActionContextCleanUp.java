@@ -39,8 +39,8 @@ public class ActionContextCleanUp implements Filter {
         try {
             req.setAttribute(CLEANUP_PRESENT, Boolean.TRUE);
             chain.doFilter(req, res);
-            req.setAttribute(CLEANUP_PRESENT, Boolean.FALSE);
         } finally {
+            req.setAttribute(CLEANUP_PRESENT, Boolean.FALSE);
             cleanUp(req);
         }
     }
