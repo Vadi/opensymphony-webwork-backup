@@ -42,6 +42,10 @@ public class FreeMarkerPageFilter extends PageFilter {
             FreemarkerManager fmm = FreemarkerManager.getInstance();
             ServletContext servletContext = filterConfig.getServletContext();
             ActionContext ctx = ServletActionContext.getActionContext(req);
+            if (ctx == null) {
+                // ok, one isn't associated with the request, so let's get a ThreadLocal one (which will create one if needed)
+                ctx = ActionContext.getContext();
+            }
 
             // get the configuration and template
             Configuration config = fmm.getConfiguration(servletContext);
