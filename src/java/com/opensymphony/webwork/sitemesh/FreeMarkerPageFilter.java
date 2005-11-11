@@ -5,6 +5,7 @@ import com.opensymphony.module.sitemesh.Page;
 import com.opensymphony.module.sitemesh.HTMLPage;
 import com.opensymphony.module.sitemesh.filter.PageFilter;
 import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.ActionContext;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleHash;
@@ -40,7 +41,7 @@ public class FreeMarkerPageFilter extends PageFilter {
         try {
             FreemarkerManager fmm = FreemarkerManager.getInstance();
             ServletContext servletContext = filterConfig.getServletContext();
-            ActionContext ctx = ActionContext.getContext();
+            ActionContext ctx = ServletActionContext.getActionContext(req);
 
             // get the configuration and template
             Configuration config = fmm.getConfiguration(servletContext);
