@@ -138,7 +138,7 @@ public class Form extends ClosingUIBean {
                     } else {
                         id = result.substring(slash + 1);
                     }
-                    addParameter("id", id);
+                    addParameter("id", escape(id));
                 }
             }
         }
