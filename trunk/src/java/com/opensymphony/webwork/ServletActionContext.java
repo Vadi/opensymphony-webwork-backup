@@ -5,6 +5,7 @@
 package com.opensymphony.webwork;
 
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,19 @@ public class ServletActionContext extends ActionContext implements WebWorkStatic
         super(context);
     }
 
+
+    public static ActionContext getActionContext(HttpServletRequest req) {
+        OgnlValueStack vs = getValueStack(req);
+        if (vs != null) {
+            return new ActionContext(vs.getContext());
+        } else {
+            return null;
+        }
+    }
+
+    public static OgnlValueStack getValueStack(HttpServletRequest req) {
+        return (OgnlValueStack) req.getAttribute(WEBWORK_VALUESTACK_KEY);
+    }
 
     /**
      * Returns the HTTP page context.
