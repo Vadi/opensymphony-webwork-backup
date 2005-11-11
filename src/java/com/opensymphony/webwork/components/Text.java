@@ -1,17 +1,18 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.util.TextUtils;
-import com.opensymphony.xwork.TextProvider;
-import com.opensymphony.xwork.util.OgnlValueStack;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.opensymphony.util.TextUtils;
+import com.opensymphony.xwork.TextProvider;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * Access a i18n-ized message. The message must be in a resource bundle
@@ -76,7 +77,7 @@ public class Text extends Component implements Param.UnnamedParametric {
                 LOG.error("Could not write out URL tag", e);
             }
         }
-        super.end(writer, body);
+        super.end(writer, "");
     }
 
     public void addParameter(String key, Object value) {
