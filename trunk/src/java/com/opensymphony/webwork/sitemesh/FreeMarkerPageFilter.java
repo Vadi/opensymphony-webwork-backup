@@ -8,6 +8,7 @@ import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleHash;
 import freemarker.template.Template;
@@ -45,7 +46,9 @@ public class FreeMarkerPageFilter extends PageFilter {
             ActionContext ctx = ServletActionContext.getActionContext(req);
             if (ctx == null) {
                 // ok, one isn't associated with the request, so let's get a ThreadLocal one (which will create one if needed)
-                ctx = new ActionContext(DispatcherUtils.getInstance().createContextMap(req, res, null, servletContext));
+                OgnlValueStack vs = new OgnlValueStack();
+                vs.getContext().putAll(DispatcherUtils.getInstance().createContextMap(req, res, null, servletContext));
+                ctx = new ActionContext(vs.getContext());
             }
 
             // get the configuration and template
