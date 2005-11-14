@@ -142,25 +142,7 @@ public class DispatcherUtils {
      *                          would end up as a 5xx by the servlet container)
      */
     public void serviceAction(HttpServletRequest request, HttpServletResponse response, ServletContext context, ActionMapping mapping) throws ServletException {
-        // request map wrapping the http request objects
-        Map requestMap = new RequestMap(request);
-
-        // parameters map wrapping the http paraneters.
-        Map params = mapping.getParams();
-        Map requestParams = new HashMap(request.getParameterMap());
-        if (params != null) {
-            params.putAll(requestParams);
-        } else {
-            params = requestParams;
-        }
-
-        // session map wrapping the http session
-        Map session = new SessionMap(request);
-
-        // application map wrapping the ServletContext
-        Map application = new ApplicationMap(context);
-
-        HashMap extraContext = createContextMap(requestMap, params, session, application, request, response, context);
+        HashMap extraContext = createContextMap(request, mapping, context, response);
 
         // If there was a previous value stack, then create a new copy and pass it in to be used by the new Action
         OgnlValueStack stack = (OgnlValueStack) request.getAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY);
@@ -202,6 +184,31 @@ public class DispatcherUtils {
             LOG.error(msg, e);
             throw new ServletException(msg, e);
         }
+    }
+
+    public Map createContextMap(HttpServletRequest request, HttpServletResponse response, ActionMapping mapping, ServletContext context) {
+        // request map wrapping the http request objects
+        Map requestMap = new RequestMap(request);
+
+        // parameters map wrapping the http paraneters.
+        Map params = null;
+        if (mapping != null) {
+            params = mapping.getParams();
+        }
+        Map requestParams = new HashMap(request.getParameterMap());
+        if (params != null) {
+            params.putAll(requestParams);
+        } else {
+            params = requestParams;
+        }
+
+        // session map wrapping the http session
+        Map session = new SessionMap(request);
+
+        // application map wrapping the ServletContext
+        Map application = new ApplicationMap(context);
+
+        return createContextMap(requestMap, params, session, application, request, response, context);
     }
 
     /**
