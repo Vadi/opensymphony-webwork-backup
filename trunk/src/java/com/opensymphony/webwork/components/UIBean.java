@@ -255,6 +255,11 @@ public abstract class UIBean extends Component {
             addParameter("cssStyle", findString(cssStyle));
         }
 
+        // see if the value was specified as a parameter already
+        if (parameters.containsKey("value")) {
+            value = (String) parameters.get("value");
+        }
+
         if (evaluateNameValue()) {
             final Class valueClazz = getValueClassType();
 
@@ -300,7 +305,11 @@ public abstract class UIBean extends Component {
 
     protected String escape(String name) {
         // escape any possible values that can make the ID painful to work with in JavaScript
-        return name.replaceAll("[\\.\\[\\]]", "_");
+        if (name != null) {
+            return name.replaceAll("[\\.\\[\\]]", "_");
+        } else {
+            return "";
+        }
     }
 
     protected void evaluateExtraParams() {
