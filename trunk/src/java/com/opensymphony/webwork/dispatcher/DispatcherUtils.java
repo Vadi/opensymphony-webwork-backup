@@ -142,7 +142,7 @@ public class DispatcherUtils {
      *                          would end up as a 5xx by the servlet container)
      */
     public void serviceAction(HttpServletRequest request, HttpServletResponse response, ServletContext context, ActionMapping mapping) throws ServletException {
-        HashMap extraContext = createContextMap(request, mapping, context, response);
+        Map extraContext = createContextMap(request, response, mapping, context);
 
         // If there was a previous value stack, then create a new copy and pass it in to be used by the new Action
         OgnlValueStack stack = (OgnlValueStack) request.getAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY);
