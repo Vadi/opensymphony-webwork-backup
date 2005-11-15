@@ -146,6 +146,13 @@ public abstract class UIBean extends Component {
             theme = findString(this.theme);
         }
 
+        if (theme == null || theme.equals("")) {
+            Form form = (Form) findAncestor(Form.class);
+            if (form != null) {
+                theme = form.getTheme();
+            }
+        }
+
         // If theme set is not explicitly given,
         // try to find attribute which states the theme set to use
         if ((theme == null) || (theme.equals(""))) {
