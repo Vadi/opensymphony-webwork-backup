@@ -5,6 +5,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import freemarker.template.SimpleNumber;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
+import freemarker.template.SimpleSequence;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +15,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public abstract class TagModel implements TemplateTransformModel {
+    private static final Log LOG = LogFactory.getLog(TagModel.class);
+
     protected OgnlValueStack stack;
     protected HttpServletRequest req;
     protected HttpServletResponse res;
@@ -54,10 +60,16 @@ public abstract class TagModel implements TemplateTransformModel {
             Map.Entry entry = (Map.Entry) iterator.next();
             Object value = entry.getValue();
             if (value != null && complexType(value)) {
-                if (value instanceof BeanModel) {
+                if (value instanceof freemarker.ext.beans.BeanModel) {
                     map.put(entry.getKey(), ((freemarker.ext.beans.BeanModel) value).getWrappedObject());
                 } else if (value instanceof SimpleNumber) {
                     map.put(entry.getKey(), ((SimpleNumber) value).getAsNumber());
+                } else if (value instanceof SimpleSequence) {
+                    try {
+                        map.put(entry.getKey(), ((SimpleSequence) value).toList());
+                    } catch (TemplateModelException e) {
+                        LOG.error("There was a problem converting a SimpleSequence to a list", e);
+                    }
                 }
             }
         }
@@ -65,6 +77,8 @@ public abstract class TagModel implements TemplateTransformModel {
     }
 
     private boolean complexType(Object value) {
-        return value instanceof freemarker.ext.beans.BeanModel || value instanceof SimpleNumber;
+        return value instanceof freemarker.ext.beans.BeanModel
+                || value instanceof SimpleNumber
+                || value instanceof SimpleSequence;
     }
 }
