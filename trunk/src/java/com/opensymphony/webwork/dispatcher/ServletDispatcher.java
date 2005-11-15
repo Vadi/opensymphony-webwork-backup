@@ -85,6 +85,11 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
      * @throws ServletException if an error occurs while loading or executing the action.
      */
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        // prepare the request no matter what - this ensures that the proper character encoding
+        // is used before invoking the mapper (see WW-9127)
+        DispatcherUtils du = DispatcherUtils.getInstance();
+        du.prepare(request, response);
+
         ActionMapping mapping = ActionMapperFactory.getMapper().getMapping(request);
         if (mapping == null) {
             try {
@@ -94,9 +99,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
             }
             return;
         }
-
-        DispatcherUtils du = DispatcherUtils.getInstance();
-        du.prepare(request, response);
 
         try {
             request = du.wrapRequest(request, getServletContext());
