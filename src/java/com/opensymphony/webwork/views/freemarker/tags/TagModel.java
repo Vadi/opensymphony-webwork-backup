@@ -2,7 +2,7 @@ package com.opensymphony.webwork.views.freemarker.tags;
 
 import com.opensymphony.webwork.components.Component;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import freemarker.ext.beans.CollectionModel;
+import freemarker.template.SimpleNumber;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
@@ -41,7 +41,7 @@ public abstract class TagModel implements TemplateTransformModel {
         for (Iterator iterator = params.entrySet().iterator(); iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
             Object value = entry.getValue();
-            if (value != null && !(value instanceof CollectionModel)) {
+            if (value != null && !complexType(value)) {
                 map.put(entry.getKey(), value.toString());
             }
         }
@@ -52,11 +52,19 @@ public abstract class TagModel implements TemplateTransformModel {
         HashMap map = new HashMap(params.size());
         for (Iterator iterator = params.entrySet().iterator(); iterator.hasNext();) {
             Map.Entry entry = (Map.Entry) iterator.next();
-            if (entry.getValue() instanceof CollectionModel) {
-                map.put(entry.getKey(), ((CollectionModel) entry.getValue()).getWrappedObject());
+            Object value = entry.getValue();
+            if (value != null && complexType(value)) {
+                if (value instanceof BeanModel) {
+                    map.put(entry.getKey(), ((freemarker.ext.beans.BeanModel) value).getWrappedObject());
+                } else if (value instanceof SimpleNumber) {
+                    map.put(entry.getKey(), ((SimpleNumber) value).getAsNumber());
+                }
             }
         }
         return map;
     }
 
+    private boolean complexType(Object value) {
+        return value instanceof freemarker.ext.beans.BeanModel || value instanceof SimpleNumber;
+    }
 }
