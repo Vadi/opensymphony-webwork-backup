@@ -257,28 +257,28 @@ public abstract class UIBean extends Component {
 
         // see if the value was specified as a parameter already
         if (parameters.containsKey("value")) {
-            value = (String) parameters.get("value");
-        }
+            parameters.put("nameValue", parameters.get("value"));
+        } else {
+            if (evaluateNameValue()) {
+                final Class valueClazz = getValueClassType();
 
-        if (evaluateNameValue()) {
-            final Class valueClazz = getValueClassType();
+                if (valueClazz != null) {
+                    if (value != null) {
+                        addParameter("nameValue", findValue(value, valueClazz));
+                    } else if (name != null) {
+                        String expr = name.toString();
+                        if (ALT_SYNTAX) {
+                            expr = "%{" + expr + "}";
+                        }
 
-            if (valueClazz != null) {
-                if (value != null) {
-                    addParameter("nameValue", findValue(value, valueClazz));
-                } else if (name != null) {
-                    String expr = name.toString();
-                    if (ALT_SYNTAX) {
-                        expr = "%{" + expr + "}";
+                        addParameter("nameValue", findValue(expr, valueClazz));
                     }
-
-                    addParameter("nameValue", findValue(expr, valueClazz));
-                }
-            } else {
-                if (value != null) {
-                    addParameter("nameValue", findValue(value));
-                } else if (name != null) {
-                    addParameter("nameValue", findValue(name.toString()));
+                } else {
+                    if (value != null) {
+                        addParameter("nameValue", findValue(value));
+                    } else if (name != null) {
+                        addParameter("nameValue", findValue(name.toString()));
+                    }
                 }
             }
         }
