@@ -3,10 +3,6 @@
 <h3>Action information - ${actionName}</h3>
 
 
-<#assign params = ""/>
-	<#list config.params?keys as p>
-		<#assign params = p + " = " + ${config.params.get(p)} + "<br />" />
-	</#list>
 <table>
 	<tr><td>Action name:</td><td>${actionName}</td></tr>
 	<tr><td>Namespace:</td><td> ${namespace}</td></tr>
@@ -52,12 +48,12 @@
     <table width="100%">
     	<tr><th>Name</th><th>Type</th><th>Parameters</th></tr>
     	<#assign count=config.results?size>
-    	<#list config.results?values as r>
+    	<#list config.results.values() as r>
     		<tr <#if r_index%2 gt 0>class="b"<#else>class="a"</#if>>
     		<td>${r.name}</td>
     		<td>${r.className}</td>
     		<td>
-    		<#list r.params?keys as p>    				
+    		<#list r.params.keySet() as p>
     			${p} = ${r.params[p]}<br>
     		</#list>
     		</td>
