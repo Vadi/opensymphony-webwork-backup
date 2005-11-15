@@ -111,7 +111,7 @@ public class Component {
             return null;
         }
 
-        if (ALT_SYNTAX) {
+        if (altSyntax()) {
             // does the expression start with %{ and end with }? if so, just cut it off!
             if (expr.startsWith("%{") && expr.endsWith("}")) {
                 expr = expr.substring(2, expr.length() - 1);
@@ -119,6 +119,10 @@ public class Component {
         }
 
         return getStack().findValue(expr);
+    }
+
+    public boolean altSyntax() {
+        return ALT_SYNTAX || stack.getContext().containsKey("useAltSyntax");
     }
 
     protected Object findValue(String expr, String field, String errorMsg) {
@@ -142,10 +146,10 @@ public class Component {
     }
 
     protected Object findValue(String expr, Class toType) {
-        if (ALT_SYNTAX && toType == String.class) {
+        if (altSyntax() && toType == String.class) {
             return TextParseUtil.translateVariables('%', expr, stack);
         } else {
-            if (ALT_SYNTAX) {
+            if (altSyntax()) {
                 // does the expression start with %{ and end with }? if so, just cut it off!
                 if (expr.startsWith("%{") && expr.endsWith("}")) {
                     expr = expr.substring(2, expr.length() - 1);

@@ -267,7 +267,7 @@ public abstract class UIBean extends Component {
                         addParameter("nameValue", findValue(value, valueClazz));
                     } else if (name != null) {
                         String expr = name.toString();
-                        if (ALT_SYNTAX) {
+                        if (altSyntax()) {
                             expr = "%{" + expr + "}";
                         }
 
@@ -287,7 +287,7 @@ public abstract class UIBean extends Component {
 
         if (id != null) {
             // this check is needed for backwards compatibility with 2.1.x
-            if (ALT_SYNTAX) {
+            if (altSyntax()) {
                 addParameter("id", findString(id));
             } else {
                 addParameter("id", id);
