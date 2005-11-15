@@ -1,4 +1,4 @@
-<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.1.dtd">
 
 <xwork>
     <include file="webwork-default.xml"/>
@@ -16,6 +16,10 @@
             <result name="error" type="freemarker">/config-browser/error.ftl</result>
             <result name="input" type="freemarker">/config-browser/error.ftl</result>
         </global-results>
+
+        <action name="index">
+            <result type="redirect-action">actionNames</result>
+        </action>
 
         <action name="actionNames" class="com.opensymphony.webwork.config_browser.ActionNamesAction">
             <result type="freemarker" name="success">/config-browser/actionNames.ftl</result>

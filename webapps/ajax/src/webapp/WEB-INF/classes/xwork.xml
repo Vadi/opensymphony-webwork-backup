@@ -3,6 +3,8 @@
 <xwork>
     <include file="webwork-default.xml"/>
 
+    <include file="config-browser.xml"/>
+
     <package name="ajax" extends="webwork-default">
         <action name="hello" class="com.opensymphony.webwork.tutorial.ajax.HelloWorld">
             <result name="input">hello-input.jsp</result>
