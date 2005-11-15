@@ -146,6 +146,12 @@ public class
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
+
+        // prepare the request no matter what - this ensures that the proper character encoding
+        // is used before invoking the mapper (see WW-9127)
+        DispatcherUtils du = DispatcherUtils.getInstance();
+        du.prepare(request, response);
+
         ActionMapper mapper = ActionMapperFactory.getMapper();
         ActionMapping mapping = mapper.getMapping(request);
 
@@ -162,9 +168,6 @@ public class
                     chain.doFilter(request, response);
                 }
             } else {
-                DispatcherUtils du = DispatcherUtils.getInstance();
-                du.prepare(request, response);
-
                 try {
                     request = du.wrapRequest(request, filterConfig.getServletContext());
                 } catch (IOException e) {
