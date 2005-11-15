@@ -7,7 +7,8 @@ import com.opensymphony.module.sitemesh.filter.PageFilter;
 import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.DispatcherUtils;
-import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.*;
+import com.opensymphony.xwork.interceptor.PreResultListener;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleHash;
@@ -49,6 +50,12 @@ public class FreeMarkerPageFilter extends PageFilter {
                 OgnlValueStack vs = new OgnlValueStack();
                 vs.getContext().putAll(DispatcherUtils.getInstance().createContextMap(req, res, null, servletContext));
                 ctx = new ActionContext(vs.getContext());
+                if (ctx.getActionInvocation() == null) {
+                    // put in a dummy ActionSupport so basic functionality still works
+                    ActionSupport action = new ActionSupport();
+                    vs.push(action);
+                    ctx.setActionInvocation(new DummyActionInvocation(action));
+                }
             }
 
             // get the configuration and template
@@ -73,6 +80,56 @@ public class FreeMarkerPageFilter extends PageFilter {
             String msg = "Error applying decorator: " + e.getMessage();
             LOG.error(msg, e);
             throw new ServletException(msg, e);
+        }
+    }
+
+    static class DummyActionInvocation implements ActionInvocation {
+        ActionSupport action;
+
+        public DummyActionInvocation(ActionSupport action) {
+            this.action = action;
+        }
+
+        public Object getAction() {
+            return action;
+        }
+
+        public boolean isExecuted() {
+            return false;
+        }
+
+        public ActionContext getInvocationContext() {
+            return null;
+        }
+
+        public ActionProxy getProxy() {
+            return null;
+        }
+
+        public Result getResult() throws Exception {
+            return null;
+        }
+
+        public String getResultCode() {
+            return null;
+        }
+
+        public void setResultCode(String resultCode) {
+        }
+
+        public OgnlValueStack getStack() {
+            return null;
+        }
+
+        public void addPreResultListener(PreResultListener listener) {
+        }
+
+        public String invoke() throws Exception {
+            return null;
+        }
+
+        public String invokeActionOnly() throws Exception {
+            return null;
         }
     }
 }

@@ -163,13 +163,6 @@ public class FreemarkerManager {
         return model;
     }
 
-    /**
-     * @deprecated please use buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper, OgnlValueStack stack)
-     */
-    public ScopesHashModel buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper) {
-        return buildScopesHashModel(servletContext, request, response, wrapper, ActionContext.getContext().getValueStack());
-    }
-
     public void populateContext(ScopesHashModel model, OgnlValueStack stack, Object action, HttpServletRequest request, HttpServletResponse response) {
         // put the same objects into the context that the velocity result uses
         Map standard = ContextUtil.getStandardContext(stack, request, response);
@@ -284,7 +277,7 @@ public class FreemarkerManager {
     }
 
     public SimpleHash buildTemplateModel(OgnlValueStack stack, Object action, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper) {
-        ScopesHashModel model = buildScopesHashModel(servletContext, request, response, wrapper);
+        ScopesHashModel model = buildScopesHashModel(servletContext, request, response, wrapper, stack);
         populateContext(model, stack, action, request, response);
         model.put("ww", new WebWorkModels(stack, request, response));
         return model;
