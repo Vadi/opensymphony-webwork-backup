@@ -35,7 +35,7 @@ public class Label extends UIBean {
             addParameter("nameValue", findString(value));
         } else if (name != null) {
             String expr = name;
-            if (ALT_SYNTAX) {
+            if (altSyntax()) {
                 expr = "%{" + expr + "}";
             }
 

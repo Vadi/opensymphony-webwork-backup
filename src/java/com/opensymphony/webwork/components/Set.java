@@ -28,7 +28,7 @@ public class Set extends Component {
         Object o = findValue(value);
 
         String name;
-        if (ALT_SYNTAX) {
+        if (altSyntax()) {
             name = findString(this.name, "name", "Name is required");
         } else {
             name = this.name;
