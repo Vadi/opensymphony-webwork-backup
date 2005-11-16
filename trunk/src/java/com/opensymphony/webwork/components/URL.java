@@ -105,7 +105,7 @@ public class URL extends Component {
         }
 
         String result;
-        if (value == null) {
+        if (value == null && action != null) {
             result = determineActionURL(action, namespace, method, req, res, parameters);
         } else {
             result = UrlHelper.buildUrl(value, req, res, parameters, scheme, includeContext, encode);
