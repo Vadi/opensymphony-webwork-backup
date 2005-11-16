@@ -4,8 +4,7 @@
     <property name="compile.version" value="1.4"/>
     <property name="test.compile.version" value="1.4"/>
 
-    <property name="common.build" value="../opensymphony/common/osbuild.xml"/>
-    <import file="${common.build}"/>
+    <import file="osbuild.xml"/>
 
     <target name="init" depends="common.init">
         <taskdef name="ivy-configure" classname="fr.jayasoft.ivy.ant.IvyConfigure"/>
