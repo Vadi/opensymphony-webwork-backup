@@ -3,6 +3,7 @@ package com.opensymphony.webwork.dispatcher.mapper;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.PrefixTrie;
 import com.opensymphony.webwork.dispatcher.ServletRedirectResult;
+import com.opensymphony.webwork.views.util.UrlHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
@@ -155,6 +156,8 @@ public class DefaultActionMapper implements ActionMapper {
         if (extension != null) {
             uri.append(".").append(extension);
         }
+
+        UrlHelper.buildParametersString(mapping.getParams(), uri);
 
         return uri.toString();
     }
