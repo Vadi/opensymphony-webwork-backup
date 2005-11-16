@@ -2,11 +2,18 @@ package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
+import com.opensymphony.webwork.views.jsp.TagUtils;
+import com.opensymphony.webwork.views.util.UrlHelper;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -158,6 +165,38 @@ public class Component {
 
             return getStack().findValue(expr, toType);
         }
+    }
+
+    /**
+     * Renders an action URL by consulting the {@link com.opensymphony.webwork.dispatcher.mapper.ActionMapper}.
+     */
+    protected String determineActionURL(String action, String namespace, String method,
+                                      HttpServletRequest req, HttpServletResponse res, Map parameters) {
+        String finalAction = findString(action);
+        String finalNamespace = determineNamespace(namespace, getStack(), req);
+        ActionMapping mapping = new ActionMapping(finalAction, finalNamespace, method, parameters);
+        ActionMapper mapper = ActionMapperFactory.getMapper();
+        String uri = mapper.getUriFromActionMapping(mapping);
+        return UrlHelper.buildUrl(uri, req, res, null);
+    }
+
+    /**
+     * Determines the namespace of the current page being renderdd. Useful for Form, URL, and Href generations.
+     */
+    protected String determineNamespace(String namespace, OgnlValueStack stack, HttpServletRequest req) {
+        String result;
+
+        if (namespace == null) {
+            result = TagUtils.buildNamespace(stack, req);
+        } else {
+            result = findString(namespace);
+        }
+
+        if (result == null) {
+            result = "";
+        }
+
+        return result;
     }
 
     /**

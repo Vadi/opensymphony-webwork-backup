@@ -59,19 +59,7 @@ public class Form extends ClosingUIBean {
 
         if (action != null) {
             String action = findString(this.action);
-
-            //           final String action = findString(this.action);
-            String namespace;
-
-            if (this.namespace == null) {
-                namespace = TagUtils.buildNamespace(getStack(), request);
-            } else {
-                namespace = findString(this.namespace);
-            }
-
-            if (namespace == null) {
-                namespace = "";
-            }
+            String namespace = determineNamespace(this.namespace, getStack(), request);
 
             final ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
 

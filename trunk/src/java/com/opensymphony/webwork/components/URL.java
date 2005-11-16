@@ -1,6 +1,9 @@
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.views.util.UrlHelper;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpUtils;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Map;
 
 /**
  * This tag is used to create a URL.
@@ -42,6 +46,9 @@ public class URL extends Component {
     protected String includeParams;
     protected String scheme;
     protected String value;
+    protected String action;
+    protected String namespace;
+    protected String method;
     protected boolean encode = true;
     protected boolean includeContext = true;
 
@@ -97,7 +104,13 @@ public class URL extends Component {
             scheme = this.scheme;
         }
 
-        String result = UrlHelper.buildUrl(value, req, res, parameters, scheme, includeContext, encode);
+        String result;
+        if (value == null) {
+            result = determineActionURL(action, namespace, method, req, res, parameters);
+        } else {
+            result = UrlHelper.buildUrl(value, req, res, parameters, scheme, includeContext, encode);
+        }
+
 
         String id = getId();
 
@@ -128,6 +141,18 @@ public class URL extends Component {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     public void setEncode(boolean encode) {
