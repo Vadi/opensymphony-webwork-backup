@@ -21,8 +21,7 @@ import java.util.Map;
 /**
  * UrlHelper
  *
- * @author Jason Carreira
- *         Created Apr 19, 2003 9:32:19 PM
+ * @author Jason Carreira Created Apr 19, 2003 9:32:19 PM
  */
 public class UrlHelper {
     private static final Log LOG = LogFactory.getLog(UrlHelper.class);
@@ -80,7 +79,10 @@ public class UrlHelper {
             // Check if context path needs to be added
             // Add path to absolute links
             if (action.startsWith("/") && includeContext) {
-                link.append(request.getContextPath());
+                String contextPath = request.getContextPath();
+                if (!contextPath.equals("/")) {
+                    link.append(contextPath);
+                }
             } else if (changedScheme) {
                 String uri = request.getRequestURI();
                 link.append(uri.substring(0, uri.lastIndexOf('/')));
@@ -173,8 +175,8 @@ public class UrlHelper {
 
     /**
      * Translates any script expressions using {@link com.opensymphony.xwork.util.TextParseUtil#translateVariables} and
-     * encodes the URL using {@link java.net.URLEncoder#encode} with the encoding of UTF-8 (as recommended by the
-     * w3c and pointed out in issue WW-747).
+     * encodes the URL using {@link java.net.URLEncoder#encode} with the encoding of UTF-8 (as recommended by the w3c
+     * and pointed out in issue WW-747).
      *
      * @param input
      * @return the translated and encoded string

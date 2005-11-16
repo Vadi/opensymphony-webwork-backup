@@ -5,12 +5,13 @@
 package com.opensymphony.webwork.views.util;
 
 import com.mockobjects.dynamic.Mock;
-import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.WebWorkTestCase;
+import com.opensymphony.webwork.config.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.TreeMap;
+import java.util.HashMap;
 
 
 /**
@@ -18,6 +19,20 @@ import java.util.TreeMap;
  * @version $Id$
  */
 public class UrlHelperTest extends WebWorkTestCase {
+    public void testBuildWithRootContext() {
+        String expectedUrl = "/MyAction.action";
+
+        Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
+        mockHttpServletRequest.expectAndReturn("getContextPath", "/");
+
+        Mock mockHttpServletResponse = new Mock(HttpServletResponse.class);
+        mockHttpServletResponse.expectAndReturn("encodeURL", expectedUrl, expectedUrl);
+
+        String actualUrl = UrlHelper.buildUrl(expectedUrl, (HttpServletRequest) mockHttpServletRequest.proxy(),
+                (HttpServletResponse) mockHttpServletResponse.proxy(), new HashMap());
+        assertEquals(expectedUrl, actualUrl);
+    }
+
     /**
      * just one &, not &amp;
      */
@@ -52,8 +67,8 @@ public class UrlHelperTest extends WebWorkTestCase {
     }
 
     /**
-     * The UrlHelper should build a URL that starts with "https" followed by the server name
-     * when the scheme of the current request is "http" and the port for the "https" scheme is 443.
+     * The UrlHelper should build a URL that starts with "https" followed by the server name when the scheme of the
+     * current request is "http" and the port for the "https" scheme is 443.
      */
     public void testSwitchToHttpsScheme() {
         String expectedString = "https://www.mydomain.com/mywebapp/MyAction.action?foo=bar&amp;hello=earth&amp;hello=mars";
@@ -77,8 +92,8 @@ public class UrlHelperTest extends WebWorkTestCase {
     }
 
     /**
-     * The UrlHelper should build a URL that starts with "http" followed by the server name when
-     * the scheme of the current request is "https" and the port for the "http" scheme is 80.
+     * The UrlHelper should build a URL that starts with "http" followed by the server name when the scheme of the
+     * current request is "https" and the port for the "http" scheme is 80.
      */
     public void testSwitchToHttpScheme() {
         String expectedString = "http://www.mydomain.com/mywebapp/MyAction.action?foo=bar&amp;hello=earth&amp;hello=mars";
@@ -102,8 +117,8 @@ public class UrlHelperTest extends WebWorkTestCase {
     }
 
     /**
-     * This test is similar to {@link #testSwitchToHttpsScheme()} with the HTTP port equal to 7001
-     * and the HTTPS port equal to 7002.
+     * This test is similar to {@link #testSwitchToHttpsScheme()} with the HTTP port equal to 7001 and the HTTPS port
+     * equal to 7002.
      */
     public void testSwitchToHttpsNonDefaultPort() {
 
@@ -131,8 +146,8 @@ public class UrlHelperTest extends WebWorkTestCase {
     }
 
     /**
-     * This test is similar to {@link #testSwitchToHttpScheme()} with the HTTP port equal to 7001
-     * and the HTTPS port equal to port 7002.
+     * This test is similar to {@link #testSwitchToHttpScheme()} with the HTTP port equal to 7001 and the HTTPS port
+     * equal to port 7002.
      */
     public void testSwitchToHttpNonDefaultPort() {
 
@@ -160,8 +175,8 @@ public class UrlHelperTest extends WebWorkTestCase {
     }
 
     /**
-     * A check to verify that the scheme, server, and port number are omitted when the
-     * scheme of the current request matches the scheme supplied when building the URL.
+     * A check to verify that the scheme, server, and port number are omitted when the scheme of the current request
+     * matches the scheme supplied when building the URL.
      */
     public void testBuildWithSameScheme() {
         String expectedString = "/mywebapp/MyAction.action?foo=bar&amp;hello=earth&amp;hello=mars";
