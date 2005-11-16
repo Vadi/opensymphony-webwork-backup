@@ -9,8 +9,8 @@
         <entry path="file://$PROJECT_DIR$/../opensymphony/common/commons-httpclient.jar" />
         <entry path="file://$PROJECT_DIR$/../opensymphony/common/commons-logging.jar" />
         <entry path="file://$PROJECT_DIR$/../opensymphony/common/ivy-1.1.jar" />
-        <entry path="file://$PROJECT_DIR$/lib/junit.jar" />
-        <entry path="file://$PROJECT_DIR$/lib/clover.jar" />
+        <entry path="file://$PROJECT_DIR$/lib/build/clover.jar" />
+        <entry path="file://$PROJECT_DIR$/lib/build/junit.jar" />
       </additionalClassPath>
       <antReference projectDefault="true" />
       <customJdkName value="" />
@@ -25,8 +25,8 @@
         <entry path="file://$PROJECT_DIR$/../opensymphony/common/commons-logging.jar" />
         <entry path="file://$PROJECT_DIR$/../opensymphony/common/ivy-1.1.jar" />
         <entry path="file://$PROJECT_DIR$/../opensymphony/common/clover-license.jar" />
-        <entry path="file://$PROJECT_DIR$/../xwork/lib/junit.jar" />
-        <entry path="file://$PROJECT_DIR$/../xwork/lib/clover.jar" />
+        <entry path="file://$PROJECT_DIR$/../xwork/lib/build/clover.jar" />
+        <entry path="file://$PROJECT_DIR$/../xwork/lib/build/junit.jar" />
       </additionalClassPath>
       <antReference projectDefault="true" />
       <customJdkName value="" />
