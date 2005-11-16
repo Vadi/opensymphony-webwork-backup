@@ -6,7 +6,11 @@
 		<td>
 			<ul>
 			<#list actionNames as name>
-				<li><a href="showConfig.action?namespace=${namespace}&actionName=${name}">${name}</a></li>
+                <@ww.url id="showConfig" action="showConfig" includeParams="none">
+                    <@ww.param name="namespace">${namespace}</@ww.param>
+                    <@ww.param name="actionName">${name}</@ww.param>
+                </@ww.url>
+                <li><a href="${showConfig}">${name}</a></li>
 			</#list>
 			</ul>
 		</td>

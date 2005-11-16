@@ -157,8 +157,6 @@ public class DefaultActionMapper implements ActionMapper {
             uri.append(".").append(extension);
         }
 
-        UrlHelper.buildParametersString(mapping.getParams(), uri);
-
         return uri.toString();
     }
 
