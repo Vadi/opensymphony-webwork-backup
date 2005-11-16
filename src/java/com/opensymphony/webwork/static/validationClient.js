@@ -14,7 +14,9 @@ function ValidationClient(servletUrl) {
 		var params = new Object();
 	    for (var i = 0; i < form.elements.length; i++) {
 	        var e = form.elements[i];
-	        params[e.name] = e.value;
+            if (e.name != null && e.name != '') {
+                params[e.name] = e.value;
+            }
         }
 
 		validator.doPost(function(action) {
