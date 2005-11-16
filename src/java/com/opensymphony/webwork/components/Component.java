@@ -177,7 +177,7 @@ public class Component {
         ActionMapping mapping = new ActionMapping(finalAction, finalNamespace, method, parameters);
         ActionMapper mapper = ActionMapperFactory.getMapper();
         String uri = mapper.getUriFromActionMapping(mapping);
-        return UrlHelper.buildUrl(uri, req, res, null);
+        return UrlHelper.buildUrl(uri, req, res, parameters);
     }
 
     /**

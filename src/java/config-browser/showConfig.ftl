@@ -12,14 +12,18 @@
 		${p}
 	</#list></td></tr>
 	
-	<tr><td>Location:</td><td> <a href="${req.contextPath}${namespace}/${actionName}.action">
-		${req.contextPath}${namespace}/${actionName}.action
+	<tr><td>Default location:</td><td> <a href="${base}${namespace}/${actionName}.action">
+		${base}${namespace}/${actionName}.action
 	</a>
 	</td></tr>
 </table>
 
 <!-- URLTag is faulty -->
-<#assign url = "showConfig.action?namespace=" + namespace + "&actionName=" + actionName + "&detailView=">
+<@ww.url id="url" action="showConfig" includeParams="none">
+    <@ww.param name="namespace">${namespace}</@ww.param>
+    <@ww.param name="actionName">${actionName}</@ww.param>
+</@ww.url>
+<#assign url = url + "&amp;detailView=">
 <!-- Set all to false -->
 <#assign detailsSelected = false>
 <#assign interceptorsSelected = false>
