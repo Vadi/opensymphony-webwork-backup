@@ -88,7 +88,7 @@ public class QuickStart {
             WebApplicationContext ctx = new QuickStartWebAppContext(webapp);
             ctx.setContextPath(contextPath);
             ctx.setClassLoader(url);
-            server.addContext("localhost", ctx);
+            server.addContext(null, ctx);
 
             server.start();
         } catch (Exception e) {
