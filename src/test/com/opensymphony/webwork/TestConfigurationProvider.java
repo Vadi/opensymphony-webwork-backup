@@ -19,6 +19,7 @@ import com.opensymphony.xwork.interceptor.ParametersInterceptor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -101,6 +102,11 @@ public class TestConfigurationProvider implements ConfigurationProvider {
         defaultPackageConfig.addActionConfig(TOKEN_SESSION_ACTION_NAME, tokenSessionActionConfig);
 
         configurationManager.addPackageConfig("defaultPackage", defaultPackageConfig);
+
+        Map testActionTagResults = new HashMap();
+        testActionTagResults.put(Action.SUCCESS, new ResultConfig(Action.SUCCESS, TestActionTagResult.class, new HashMap()));
+        ActionConfig testActionTagActionConfig = new ActionConfig((String) null, TestAction.class, (Map) null, testActionTagResults, new ArrayList());
+        defaultPackageConfig.addActionConfig("testActionTagAction", testActionTagActionConfig);
 
         PackageConfig namespacePackageConfig = new PackageConfig();
         namespacePackageConfig.setNamespace(TEST_NAMESPACE);
