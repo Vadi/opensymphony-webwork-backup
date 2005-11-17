@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.TestAction;
+import com.opensymphony.webwork.TestActionTagResult;
 import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.components.ActionComponent;
 import com.opensymphony.xwork.Action;
@@ -15,12 +16,14 @@ import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 
 
 /**
  * ActionTagTest
  *
  * @author Jason Carreira
+ * @author tmjee ( tm_jee(at)yahoo.co.uk )
  *         Created Mar 27, 2003 9:10:27 PM
  */
 public class ActionTagTest extends AbstractTagTest {
@@ -81,6 +84,48 @@ public class ActionTagTest extends AbstractTagTest {
         ServletActionContext.setRequest(null);
         ServletActionContext.setResponse(null);
         this.testSimple();
+    }
+    
+    public void testActionWithExecuteResult() throws Exception {
+    	ActionTag tag = new ActionTag();
+    	tag.setPageContext(pageContext);
+    	tag.setNamespace("");
+    	tag.setName("testActionTagAction");
+    	tag.setExecuteResult(true);
+    	
+    	tag.doStartTag();
+    	
+    	// tag clear components on doEndTag
+    	ActionComponent component = (ActionComponent) tag.getComponent();
+    	
+    	tag.doEndTag();
+
+    	TestActionTagResult result = (TestActionTagResult) component.getProxy().getInvocation().getResult();
+    	
+    	assertTrue(stack.getContext().containsKey(ServletActionContext.PAGE_CONTEXT));
+    	assertTrue(stack.getContext().get(ServletActionContext.PAGE_CONTEXT) instanceof PageContext);
+    	assertTrue(result.isExecuted());
+    }
+    
+    public void testActionWithoutExecuteResult() throws Exception {
+    	ActionTag tag = new ActionTag();
+    	tag.setPageContext(pageContext);
+    	tag.setNamespace("");
+    	tag.setName("testActionTagAction");
+    	tag.setExecuteResult(false);
+    	
+    	tag.doStartTag();
+    	
+    	// tag clear components on doEndTag, so we need to get it here
+    	ActionComponent component = (ActionComponent) tag.getComponent();
+    	
+    	tag.doEndTag();
+    	
+    	TestActionTagResult result = (TestActionTagResult) component.getProxy().getInvocation().getResult();
+    	
+    	assertTrue(stack.getContext().containsKey(ServletActionContext.PAGE_CONTEXT));
+    	assertTrue(stack.getContext().get(ServletActionContext.PAGE_CONTEXT) instanceof PageContext);
+    	assertNull(result); // result is never executed, hence never set into invocation
     }
 
     protected void setUp() throws Exception {

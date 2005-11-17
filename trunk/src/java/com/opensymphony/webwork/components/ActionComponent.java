@@ -12,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.ServletContext;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
@@ -66,6 +67,7 @@ public class ActionComponent extends Component {
 
         ActionContext ctx = new ActionContext(stack.getContext());
         ServletContext servletContext = (ServletContext) ctx.get(ServletActionContext.SERVLET_CONTEXT);
+        PageContext pageContext = (PageContext) ctx.get(ServletActionContext.PAGE_CONTEXT);
         Map session = ctx.getSession();
         Map application = ctx.getApplication();
 
@@ -81,6 +83,9 @@ public class ActionComponent extends Component {
 
         OgnlValueStack newStack = new OgnlValueStack(stack);
         extraContext.put(ActionContext.VALUE_STACK, newStack);
+
+        // add page context, such that ServletDispatcherResult will do an include
+        extraContext.put(ServletActionContext.PAGE_CONTEXT, pageContext);
 
         return extraContext;
     }
