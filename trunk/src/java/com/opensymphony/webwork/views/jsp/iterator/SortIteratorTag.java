@@ -4,47 +4,89 @@
  */
 package com.opensymphony.webwork.views.jsp.iterator;
 
-import com.opensymphony.webwork.util.SortIteratorFilter;
-import com.opensymphony.webwork.views.jsp.ActionTag;
+import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.Tag;
+
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 
 /**
- * @author Rickard Öberg (rickard@dreambean.com)
+ * A Tag that sorts a List using a Comparator both passed in as the tag attribute.
+ * If 'id' attribute is specified, the sorted list will be placed into the PageContext
+ * attribute using the key specified by 'id'. The sorted list will ALWAYS be
+ * pushed into the stack and poped at the end of this tag.
+ *
+ * USAGE 1:
+ * <pre>
+ * &lt;ww:sort comparator="myComparator" source="myList"&gt;
+ * 		&lt;ww:iterator&gt;
+ * 			&lt;!-- do something with each sorted elements --&gt;
+ * 			&lt;ww:property value="..." /&gt;
+ *      &lt;/ww:iterator&gt;
+ * &lt;/ww:sort&gt;
+ * </pre>
+ *
+ * USAGE 2:
+ * <pre>
+ * &lt;ww:sort id="mySortedList comparator="myComparator" source="myList" /&gt;
+ *
+ * &lt;%
+ *    List sortedList = (List) pageContext.getAttribute("mySortedList");
+ *    for (Iterator i = sortedList.iterator(); i.hasNext(); ) {
+ *    	// do something with each of the sorted elements
+ *    }
+ * %&gt;
+ * </pre>
+ *
+ *
+ * @author Rickard ï¿½berg (rickard@dreambean.com)
+ * @author tm_jee (tm_jee(at)yahoo.co.uk)
  * @version $Revision$
  */
-public class SortIteratorTag extends ActionTag {
-    String comparatorAttr;
+public class SortIteratorTag extends WebWorkBodyTagSupport {
+
+	String comparatorAttr;
     String sourceAttr;
 
     public void setComparator(String aComparator) {
         comparatorAttr = aComparator;
     }
 
-    public void setParent(Tag t) {
-        super.setParent(t);
-        setName("'" + SortIteratorFilter.class.getName() + "'");
-    }
 
     public void setSource(String aName) {
         sourceAttr = aName;
     }
 
     public int doStartTag() throws JspException {
-        int returnVal = super.doStartTag();
-
+        List listToSort;
         if (sourceAttr == null) {
-            addParameter("source", findValue("top"));
+            listToSort = (List) findValue("top");
         } else {
-            addParameter("source", findValue(sourceAttr));
+            listToSort = (List) findValue(sourceAttr);
         }
 
         Comparator c = (Comparator) findValue(comparatorAttr);
-        addParameter("comparator", c);
 
-        return returnVal;
+        Collections.sort(listToSort, c);
+
+        // push sorted list into stack, so nexted tag have access to it
+    	getStack().push(listToSort);
+        if (getId() != null && getId().length() > 0) {
+        	pageContext.setAttribute(getId(), listToSort);
+        }
+
+        return EVAL_BODY_INCLUDE;
+    }
+
+    public int doEndTag() throws JspException {
+    	int returnVal =  super.doEndTag();
+
+   		// pop sorted list from stack at the end of tag
+   		getStack().pop();
+
+    	return returnVal;
     }
 }
