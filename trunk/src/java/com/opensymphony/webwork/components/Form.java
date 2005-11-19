@@ -2,21 +2,16 @@ package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
-import com.opensymphony.webwork.views.jsp.TagUtils;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ActionInvocation;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * User: plightbo
- * Date: Jul 1, 2005
- * Time: 11:23:47 PM
- * <br>Revised by <a href="mailto:hu_pengfei@yahoo.com.cn">Henry Hu</a>
- */
 public class Form extends ClosingUIBean {
     final public static String OPEN_TEMPLATE = "form";
     final public static String TEMPLATE = "form-close";
@@ -52,86 +47,98 @@ public class Form extends ClosingUIBean {
     protected void evaluateExtraParams() {
         super.evaluateExtraParams();
 
-        //Add for Portlet Support -- Added by Henry Hu
         String actionURL = com.opensymphony.webwork.portlet.context.PortletContext.getContext().getActionURL();
         boolean isPortlet = (actionURL != null && !"".equals(actionURL));
-        /////
 
-        if (action != null) {
-            String action = findString(this.action);
-            String namespace = determineNamespace(this.namespace, getStack(), request);
+        // calculate the action and namespace
+        String namespace = determineNamespace(this.namespace, getStack(), request);
+        String action = null;
+        if (this.action != null) {
+            // if it isn't specified, we'll make somethig up
+            action = findString(this.action);
+        }
 
-            final ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
-
-            if (actionConfig != null) {
-
-                //Add Portlet Support. -- Added by Henry Hu
-                if (isPortlet) {
-                    addParameter("action", actionURL);
-                    addParameter("wwAction", action);
-                    addParameter("isPortlet", "Portlet");
-                    //////Fix End//////////
-                } else {
-                    String actionMethod = "";
-                    if (action.indexOf("!") != -1) {
-                        int endIdx = action.lastIndexOf("!");
-                        actionMethod = action.substring(endIdx + 1, action.length());
-                        action = action.substring(0, endIdx);
-                    }
-
-                    ActionMapping mapping = new ActionMapping(action, namespace, actionMethod, parameters);
-                    String result = UrlHelper.buildUrl(ActionMapperFactory.getMapper().getUriFromActionMapping(mapping), request, response, null);
-                    addParameter("action", result);
-                }
-
-
-                addParameter("namespace", namespace);
-
-                // if the name isn't specified, use the action name
-                if (name == null) {
-                    addParameter("name", action);
-                }
-
-                // if the id isn't specified, use the action name
-                if (id == null) {
-                    addParameter("id", action);
-                }
-            } else if (action != null) {
-                String result = UrlHelper.buildUrl(action, request, response, null);
-
-                //Add Portlet Support. -- Added by Henry Hu
-                if (isPortlet) {
-                    addParameter("action", actionURL);
-                    addParameter("wwAction", action);
-                    addParameter("isPortlet", "Portlet");
-                    //////Fix End///////////
-                } else {
-                    addParameter("action", result);
-                }
-
-                // namespace: cut out anything between the start and the last /
-                int slash = result.lastIndexOf('/');
-                if (slash != -1) {
-                    addParameter("namespace", result.substring(0, slash));
-                } else {
-                    addParameter("namespace", "");
-                }
-
-                // name/id: cut out anything between / and . should be the id and name
-                if (id == null) {
-                    slash = result.lastIndexOf('/');
-                    int dot = result.indexOf('.', slash);
-                    if (dot != -1) {
-                        id = result.substring(slash + 1, dot);
-                    } else {
-                        id = result.substring(slash + 1);
-                    }
-                    addParameter("id", escape(id));
+        if (action == null) {
+            // no action supplied? ok, then default to the current request (action or general URL)
+            ActionInvocation ai = (ActionInvocation) getStack().getContext().get(ActionContext.ACTION_INVOCATION);
+            if (ai != null) {
+                action = ai.getProxy().getActionName();
+                namespace = ai.getProxy().getNamespace();
+            } else {
+                // hmm, ok, we need to just assume the current URL cut down
+                String uri = request.getRequestURI();
+                action = uri.substring(uri.lastIndexOf('/'));
+                int dot = action.indexOf('.');
+                if (dot != -1) {
+                    action = action.substring(0, dot + 1);
                 }
             }
         }
 
-        ///Add onSubmit javascript support -- Added by Henry Hu
+        final ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
+        if (actionConfig != null) {
+            if (isPortlet) {
+                addParameter("action", actionURL);
+                addParameter("wwAction", action);
+                addParameter("isPortlet", "Portlet");
+            } else {
+                String actionMethod = "";
+                if (action.indexOf("!") != -1) {
+                    int endIdx = action.lastIndexOf("!");
+                    actionMethod = action.substring(endIdx + 1, action.length());
+                    action = action.substring(0, endIdx);
+                }
+
+                ActionMapping mapping = new ActionMapping(action, namespace, actionMethod, parameters);
+                String result = UrlHelper.buildUrl(ActionMapperFactory.getMapper().getUriFromActionMapping(mapping), request, response, null);
+                addParameter("action", result);
+            }
+
+            addParameter("namespace", namespace);
+
+            // if the name isn't specified, use the action name
+            if (name == null) {
+                addParameter("name", action);
+            }
+
+            // if the id isn't specified, use the action name
+            if (id == null) {
+                addParameter("id", action);
+            }
+        } else if (action != null) {
+            String result = UrlHelper.buildUrl(action, request, response, null);
+
+            //Add Portlet Support. -- Added by Henry Hu
+            if (isPortlet) {
+                addParameter("action", actionURL);
+                addParameter("wwAction", action);
+                addParameter("isPortlet", "Portlet");
+                //////Fix End///////////
+            } else {
+                addParameter("action", result);
+            }
+
+            // namespace: cut out anything between the start and the last /
+            int slash = result.lastIndexOf('/');
+            if (slash != -1) {
+                addParameter("namespace", result.substring(0, slash));
+            } else {
+                addParameter("namespace", "");
+            }
+
+            // name/id: cut out anything between / and . should be the id and name
+            if (id == null) {
+                slash = result.lastIndexOf('/');
+                int dot = result.indexOf('.', slash);
+                if (dot != -1) {
+                    id = result.substring(slash + 1, dot);
+                } else {
+                    id = result.substring(slash + 1);
+                }
+                addParameter("id", escape(id));
+            }
+        }
+
         if (onsubmit != null) {
             addParameter("onsubmit", findString(onsubmit));
         }
