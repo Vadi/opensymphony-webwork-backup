@@ -68,10 +68,6 @@ public class Form extends ClosingUIBean {
                 // hmm, ok, we need to just assume the current URL cut down
                 String uri = request.getRequestURI();
                 action = uri.substring(uri.lastIndexOf('/'));
-                int dot = action.indexOf('.');
-                if (dot != -1) {
-                    action = action.substring(0, dot + 1);
-                }
             }
         }
 

@@ -109,6 +109,10 @@ public class FormTagTest extends AbstractUITagTest {
     }
 
     public void testFormWithNoAction() throws Exception {
+        request.setupGetServletPath("/");
+        request.setupGetContextPath("/");
+        request.setRequestURI("/foo.jsp");
+
         FormTag tag = new FormTag();
         tag.setPageContext(pageContext);
         tag.doStartTag();

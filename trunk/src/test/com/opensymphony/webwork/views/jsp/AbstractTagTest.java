@@ -68,6 +68,7 @@ public abstract class AbstractTagTest extends WebWorkTestCase {
         request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
         response = new WebWorkMockHttpServletResponse();
         request.setSession(new WebWorkMockHttpSession());
+        request.setupGetServletPath("/");
 
         writer = new StringWriter();
 
