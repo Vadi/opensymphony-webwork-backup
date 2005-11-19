@@ -155,4 +155,20 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
     public void setupGetPathInfo(String pathInfo) {
         this.pathInfo = pathInfo;
     }
+
+    public int getRemotePort() {
+        return 0;
+    }
+
+    public String getLocalName() {
+        return null;
+    }
+
+    public String getLocalAddr() {
+        return null;
+    }
+
+    public int getLocalPort() {
+        return 0;
+    }
 }
