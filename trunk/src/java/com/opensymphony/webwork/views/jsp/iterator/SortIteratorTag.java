@@ -42,22 +42,27 @@ import java.util.List;
  * </pre>
  *
  *
- * @author Rickard �berg (rickard@dreambean.com)
+ * @jsp.tag name="sort" bodycontent="JSP"
+ * @author Rickard Oberg (rickard@dreambean.com)
  * @author tm_jee (tm_jee(at)yahoo.co.uk)
- * @version $Revision$
  */
 public class SortIteratorTag extends WebWorkBodyTagSupport {
 
 	String comparatorAttr;
     String sourceAttr;
 
-    public void setComparator(String aComparator) {
-        comparatorAttr = aComparator;
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
+    public void setComparator(String comparator) {
+        comparatorAttr = comparator;
     }
 
-
-    public void setSource(String aName) {
-        sourceAttr = aName;
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
+    public void setSource(String source) {
+        sourceAttr = source;
     }
 
     public int doStartTag() throws JspException {

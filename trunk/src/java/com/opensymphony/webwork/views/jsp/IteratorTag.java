@@ -52,6 +52,7 @@ import java.util.Iterator;
  * &lt;/table&gt;
  * </pre>
  *
+ * @jsp.tag name="iterator" bodycontent="JSP"
  * @author $Author$
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @version $Revision$
@@ -65,11 +66,16 @@ public class IteratorTag extends WebWorkBodyTagSupport {
     protected String statusAttr;
     protected String value;
 
-
-    public void setStatus(String name) {
-        this.statusAttr = name;
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
+    public void setStatus(String status) {
+        this.statusAttr = status;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setValue(String value) {
         this.value = value;
     }

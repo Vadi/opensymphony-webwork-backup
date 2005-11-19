@@ -8,18 +8,18 @@ import javax.servlet.jsp.JspException;
 
 
 /**
+ * @jsp.tag name="if" bodycontent="JSP"
  * @author $Author$
- * @version $Revision$
  */
 public class IfTag extends WebWorkBodyTagSupport {
-
     public static final String ANSWER = "webwork.if.answer";
-
 
     Boolean answer;
     String test;
 
-
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setTest(String test) {
         this.test = test;
     }

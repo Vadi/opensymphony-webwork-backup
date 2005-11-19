@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="include" bodycontent="JSP"
  * @see Include
  */
 public class IncludeTag extends ComponentTagSupport {
@@ -34,6 +35,9 @@ public class IncludeTag extends ComponentTagSupport {
         ((Include) component).setValue(value);
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setValue(String value) {
         this.value = value;
     }

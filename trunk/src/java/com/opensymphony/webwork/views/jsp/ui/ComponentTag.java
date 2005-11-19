@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @jsp.tag name="component" bodycontent="JSP"
  * @see GenericUIBean
  */
 public class ComponentTag extends AbstractUITag {

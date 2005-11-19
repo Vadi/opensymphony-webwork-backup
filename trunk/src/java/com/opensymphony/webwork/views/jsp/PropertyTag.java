@@ -13,27 +13,34 @@ import java.io.IOException;
 
 
 /**
+ * @jsp.tag name="property" bodycontent="empty"
  * @author $Author$
  * @version $Revision$
  */
 public class PropertyTag extends WebWorkBodyTagSupport {
-
     private static final Log log = LogFactory.getLog(PropertyTag.class);
-
 
     private String defaultValue;
     private String value;
     private boolean escape = true;
 
-
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setDefault(String defaultValue) {
         this.defaultValue = defaultValue;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setEscape(boolean escape) {
         this.escape = escape;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setValue(String value) {
         this.value = value;
     }

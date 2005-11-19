@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @jsp.tag name="action" bodycontent="empty"
  * @see ActionComponent
  */
 public class ActionTag extends ComponentTagSupport {
@@ -40,18 +41,30 @@ public class ActionTag extends ComponentTagSupport {
         ac.addParameter(name, value);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setExecuteResult(boolean executeResult) {
         this.executeResult = executeResult;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setIgnoreContextParams(boolean ignoreContextParams) {
         this.ignoreContextParams = ignoreContextParams;
     }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="text" bodycontent="JSP"
  * @see Text
  */
 public class TextTag extends ComponentTagSupport {
@@ -28,6 +29,9 @@ public class TextTag extends ComponentTagSupport {
         ((Text) component).setName(name);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setName(String name) {
         this.name = name;
     }

@@ -16,8 +16,9 @@ import java.util.Vector;
 /**
  * TabbedPane tag.
  *
+ * @jsp.tag name="tabbedpane" bodycontent="JSP"
  * @author Onyeje Bose (digi9ten@yahoo.com)
- * @version $Revision$
+ * @deprecated Please use the tabbed panel
  */
 public class TabbedPaneTag extends ComponentTag {
 
@@ -42,6 +43,10 @@ public class TabbedPaneTag extends ComponentTag {
         return tabPane.getContent();
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @param contentName
+     */
     public void setContentName(String contentName) {
         this.contentName = strVal(contentName);
 

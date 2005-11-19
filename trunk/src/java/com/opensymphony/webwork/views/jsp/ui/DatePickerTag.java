@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @jsp.tag name="datepicker" bodycontent="JSP"
  * @see DatePicker
  */
 public class DatePickerTag extends TextFieldTag {

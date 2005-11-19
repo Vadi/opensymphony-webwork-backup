@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="i18n" bodycontent="JSP"
  * @see I18n
  */
 public class I18nTag extends ComponentTagSupport {
@@ -28,6 +29,9 @@ public class I18nTag extends ComponentTagSupport {
         ((I18n) component).setName(name);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setName(String name) {
         this.name = name;
     }

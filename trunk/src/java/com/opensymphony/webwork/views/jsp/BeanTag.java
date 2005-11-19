@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="bean" bodycontent="JSP"
  * @see Bean
  */
 public class BeanTag extends ComponentTagSupport {
@@ -32,6 +33,9 @@ public class BeanTag extends ComponentTagSupport {
         ((Bean) component).setName(name);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setName(String name) {
         this.name = name;
     }

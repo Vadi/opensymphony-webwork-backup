@@ -8,15 +8,17 @@ import javax.servlet.jsp.JspException;
 
 
 /**
+ * @jsp.tag name="elseif" bodycontent="JSP"
  * @author Rick Salsa (rsal@mb.sympatico.ca)
- * @version $Revision$
  */
 public class ElseIfTag extends WebWorkBodyTagSupport {
 
     protected Boolean answer;
     protected String test;
 
-
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setTest(String test) {
         this.test = test;
     }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @jsp.tag name="panel" bodycontent="JSP"
  * @see Panel
  */
 public class PanelTag extends DivTag {
@@ -28,14 +29,23 @@ public class PanelTag extends DivTag {
         panel.setRemote(remote);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setTabName(String tabName) {
         this.tabName = tabName;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setSubscribeTopicName(String subscribeTopicName) {
         this.subscribeTopicName = subscribeTopicName;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setRemote(String remote) {
         this.remote = remote;
     }

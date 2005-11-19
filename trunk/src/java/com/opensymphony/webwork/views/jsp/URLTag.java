@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="url" bodycontent="JSP"
  * @see URL
  */
 public class URLTag extends ComponentTagSupport {
@@ -47,23 +48,38 @@ public class URLTag extends ComponentTagSupport {
         }
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setEncode(String encode) {
         this.encode = encode;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setIncludeContext(String includeContext) {
         this.includeContext = includeContext;
     }
 
-    public void setIncludeParams(String aName) {
-        includeParams = aName;
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
+    public void setIncludeParams(String name) {
+        includeParams = name;
     }
 
-    public void setScheme(String aScheme) {
-        scheme = aScheme;
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
+    public void setScheme(String scheme) {
+        this.scheme = scheme;
     }
 
-    public void setValue(String aName) {
-        value = aName;
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
+    public void setValue(String value) {
+        this.value = value;
     }
 }

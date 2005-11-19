@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="form" bodycontent="JSP"
  * @see Form
  */
 public class FormTag extends AbstractClosingTag {
@@ -41,30 +42,51 @@ public class FormTag extends AbstractClosingTag {
         form.setOnselect(onsubmit);
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setAction(String action) {
         this.action = action;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setTarget(String target) {
         this.target = target;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setEnctype(String enctype) {
         this.enctype = enctype;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setMethod(String method) {
         this.method = method;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setValidate(String validate) {
         this.validate = validate;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnsubmit(String onsubmit) {
         this.onsubmit = onsubmit;
     }
