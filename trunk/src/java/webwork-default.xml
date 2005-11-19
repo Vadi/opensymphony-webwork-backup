@@ -90,7 +90,7 @@
             </interceptor-stack>
 
             <!-- Sample i18n stack -->
-            <interceptor-stack name="chainStack">
+            <interceptor-stack name="i18nStack">
                 <interceptor-ref name="i18n"/>
                 <interceptor-ref name="basicStack"/>
             </interceptor-stack>
