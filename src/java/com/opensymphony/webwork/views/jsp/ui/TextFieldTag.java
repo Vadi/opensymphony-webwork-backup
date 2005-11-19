@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @jsp.tag name="textfield" bodycontent="JSP"
  * @see TextField
  */
 public class TextFieldTag extends AbstractUITag {
@@ -32,14 +33,23 @@ public class TextFieldTag extends AbstractUITag {
         textField.setSize(size);
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setMaxlength(String maxlength) {
         this.maxlength = maxlength;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setReadonly(String readonly) {
         this.readonly = readonly;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setSize(String size) {
         this.size = size;
     }

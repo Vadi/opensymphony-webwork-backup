@@ -13,13 +13,12 @@ import javax.servlet.jsp.tagext.Tag;
 
 /**
  * Instantiate a JavaBean.
- * <p/>
- * The bean may be an action, in which it is executed before used.
- * It is lazily executed, which means that you can set parameters
- * by using the "param" tag.
+ *
+ * <p/> The bean may be an action, in which it is executed before used. It is lazily executed, which means that you can
+ * set parameters by using the "param" tag.
  *
  * @author Rickard Öberg (rickard@dreambean.com)
- * @version $Revision$
+ * @jsp.tag name="subset" bodycontent="JSP"
  */
 public class SubsetIteratorTag extends ActionTag {
     String countAttr;
@@ -27,8 +26,11 @@ public class SubsetIteratorTag extends ActionTag {
     String sourceAttr;
     String startAttr;
 
-    public void setCount(String aCount) {
-        countAttr = aCount;
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
+    public void setCount(String count) {
+        countAttr = count;
     }
 
     public void setParent(Tag t) {
@@ -36,12 +38,18 @@ public class SubsetIteratorTag extends ActionTag {
         setName("'" + SubsetIteratorFilter.class.getName() + "'");
     }
 
-    public void setSource(String aName) {
-        sourceAttr = aName;
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
+    public void setSource(String source) {
+        sourceAttr = source;
     }
 
-    public void setStart(String aStart) {
-        startAttr = aStart;
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
+    public void setStart(String start) {
+        startAttr = start;
     }
 
     public int doStartTag() throws JspException {

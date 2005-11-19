@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
+ * @jsp.tag name="tabbedPanel" bodycontent="JSP"
  * @see TabbedPanel
  */
 public class TabbedPanelTag extends AbstractClosingTag {

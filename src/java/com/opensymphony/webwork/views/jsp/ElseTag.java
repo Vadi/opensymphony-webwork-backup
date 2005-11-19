@@ -8,11 +8,10 @@ import javax.servlet.jsp.JspException;
 
 
 /**
+ * @jsp.tag name="else" bodycontent="JSP"
  * @author Rick Salsa (rsal@mb.sympatico.ca)
- * @version $Revision$
  */
 public class ElseTag extends WebWorkBodyTagSupport {
-
     public int doStartTag() throws JspException {
         Boolean ifResult = (Boolean) pageContext.getAttribute(IfTag.ANSWER);
 

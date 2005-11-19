@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="textarea" bodycontent="JSP"
  * @see TextArea
  */
 public class TextareaTag extends AbstractUITag {
@@ -35,18 +36,30 @@ public class TextareaTag extends AbstractUITag {
         textArea.setWrap(wrap);
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setCols(String cols) {
         this.cols = cols;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setReadonly(String readonly) {
         this.readonly = readonly;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setRows(String rows) {
         this.rows = rows;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setWrap(String wrap) {
         this.wrap = wrap;
     }

@@ -14,8 +14,8 @@ import javax.servlet.jsp.tagext.Tag;
  * Append a list of iterators. The values of the iterators will be merged
  * into one iterator.
  *
+ * @jsp.tag name="append" bodycontent="JSP"
  * @author Rickard Öberg (rickard@dreambean.com)
- * @version $Revision$
  */
 public class AppendIteratorTag extends ActionTag {
     public void setParent(Tag t) {

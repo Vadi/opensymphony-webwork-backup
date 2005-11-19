@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="checkboxlist" bodycontent="JSP"
  * @see CheckboxList
  */
 public class CheckboxListTag extends AbstractListTag {

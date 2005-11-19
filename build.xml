@@ -58,6 +58,34 @@
         <copy file="webapps/build.xml" todir="${dist}/webapps"/>
     </target>
 
+    <target name="xdoclet-taglib">
+        <taskdef
+            name="xdoclet"
+            classname="xdoclet.DocletTask"
+            classpathref="cp"
+            />
+        <taskdef
+            name="webdoclet"
+            classname="xdoclet.modules.web.WebDocletTask"
+            classpathref="cp"
+            />
+
+        <webdoclet
+            destdir="src/java/META-INF"
+            mergedir="src/etc"
+            excludedtags="@version,@author,@todo"
+            addedtags="@xdoclet-generated at ${TODAY},@copyright The XDoclet Team,@author XDoclet,@version ${version}"
+            verbose="false"
+            >
+
+            <fileset dir="${src.java}">
+                <include name="**/*Tag.java"/>
+            </fileset>
+
+            <jsptaglib jspversion="1.2" destdir="src/java/META-INF" shortname="j2ee" validateXml="false"/>
+        </webdoclet>
+    </target>
+
     <!-- overridden targets -->
 
     <target name="jar" depends="compile">

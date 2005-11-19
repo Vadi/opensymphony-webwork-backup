@@ -73,109 +73,185 @@ public abstract class AbstractUITag extends ComponentTagSupport {
         uiBean.setOnchange(onchange);
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setCssClass(String cssClass) {
         this.cssClass = cssClass;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setCssStyle(String cssStyle) {
         this.cssStyle = cssStyle;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setDisabled(String disabled) {
         this.disabled = disabled;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setLabel(String label) {
         this.label = label;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setLabelPosition(String labelPosition) {
         this.labelPosition = labelPosition;
     }
 
     /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
      * @deprecated please use setLabelPosition instead
      */
     public void setLabelposition(String labelPosition) {
         this.labelPosition = labelPosition;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setRequired(String required) {
         this.required = required;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setTabindex(String tabindex) {
         this.tabindex = tabindex;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setValue(String value) {
         this.value = value;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setTemplate(String template) {
         this.template = template;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setTheme(String theme) {
         this.theme = theme;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnclick(String onclick) {
         this.onclick = onclick;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOndblclick(String ondblclick) {
         this.ondblclick = ondblclick;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnmousedown(String onmousedown) {
         this.onmousedown = onmousedown;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnmouseup(String onmouseup) {
         this.onmouseup = onmouseup;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnmouseover(String onmouseover) {
         this.onmouseover = onmouseover;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnmousemove(String onmousemove) {
         this.onmousemove = onmousemove;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnmouseout(String onmouseout) {
         this.onmouseout = onmouseout;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnfocus(String onfocus) {
         this.onfocus = onfocus;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnblur(String onblur) {
         this.onblur = onblur;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnkeypress(String onkeypress) {
         this.onkeypress = onkeypress;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnkeydown(String onkeydown) {
         this.onkeydown = onkeydown;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnkeyup(String onkeyup) {
         this.onkeyup = onkeyup;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnselect(String onselect) {
         this.onselect = onselect;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setOnchange(String onchange) {
         this.onchange = onchange;
     }

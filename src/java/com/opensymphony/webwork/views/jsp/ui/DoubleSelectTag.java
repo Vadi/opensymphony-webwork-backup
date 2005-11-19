@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @jsp.tag name="doubleselect" bodycontent="JSP"
  * @see DoubleSelect
  */
 public class DoubleSelectTag extends AbstractDoubleListTag {
@@ -36,22 +37,37 @@ public class DoubleSelectTag extends AbstractDoubleListTag {
         doubleSelect.setSize(size);
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setEmptyOption(String emptyOption) {
         this.emptyOption = emptyOption;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setHeaderKey(String headerKey) {
         this.headerKey = headerKey;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setHeaderValue(String headerValue) {
         this.headerValue = headerValue;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setMultiple(String multiple) {
         this.multiple = multiple;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setSize(String size) {
         this.size = size;
     }

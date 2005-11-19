@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="table" bodycontent="JSP"
  * @author $author$
  * @version $Revision$
  */
@@ -37,18 +38,30 @@ public class WebTableTag extends ComponentTag {
         table.setSortOrder(sortOrder);
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setSortOrder(String sortOrder) {
         this.sortOrder = sortOrder;
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setModelName(String modelName) {
         this.modelName = modelName;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setSortable(boolean sortable) {
         this.sortable = sortable;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setSortColumn(int sortColumn) {
         this.sortColumn = sortColumn;
     }

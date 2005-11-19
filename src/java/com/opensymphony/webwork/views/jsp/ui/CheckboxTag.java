@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="checkbox" bodycontent="JSP"
  * @see Checkbox
  */
 public class CheckboxTag extends AbstractUITag {
@@ -28,6 +29,9 @@ public class CheckboxTag extends AbstractUITag {
         ((Checkbox) component).setFieldValue(fieldValue);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setFieldValue(String aValue) {
         this.fieldValue = aValue;
     }

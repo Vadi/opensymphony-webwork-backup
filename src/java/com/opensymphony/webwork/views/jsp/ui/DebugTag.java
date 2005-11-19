@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @jsp.tag name="debug" bodycontent="JSP"
  * @see Debug
  */
 public class DebugTag extends AbstractUITag {

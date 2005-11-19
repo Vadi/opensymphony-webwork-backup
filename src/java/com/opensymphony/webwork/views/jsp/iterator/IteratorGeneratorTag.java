@@ -14,16 +14,19 @@ import javax.servlet.jsp.tagext.Tag;
 /**
  * Generate an iterator
  *
+ * @jsp.tag name="generator" bodycontent="JSP"
  * @author Rickard Öberg (rickard@dreambean.com)
- * @version $Revision$
  */
 public class IteratorGeneratorTag extends ActionTag {
     String countAttr;
     String separatorAttr;
     String valueAttr;
 
-    public void setCount(String aCount) {
-        countAttr = aCount;
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
+    public void setCount(String count) {
+        countAttr = count;
     }
 
     public void setParent(Tag t) {
@@ -31,12 +34,18 @@ public class IteratorGeneratorTag extends ActionTag {
         setName("'" + IteratorGenerator.class.getName() + "'");
     }
 
-    public void setSeparator(String aChar) {
-        separatorAttr = aChar;
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
+    public void setSeparator(String separator) {
+        separatorAttr = separator;
     }
 
-    public void setVal(String aValue) {
-        valueAttr = aValue;
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
+    public void setVal(String val) {
+        valueAttr = val;
     }
 
     public int doStartTag() throws JspException {

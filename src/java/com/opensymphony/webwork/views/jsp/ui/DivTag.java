@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @jsp.tag name="div" bodycontent="JSP"
  * @see Div
  */
 public class DivTag extends AbstractClosingTag {
@@ -38,34 +39,58 @@ public class DivTag extends AbstractClosingTag {
         div.setAfterLoading(afterLoading);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setHref(String href) {
         this.href = href;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setUpdateFreq(String updateFreq) {
         this.updateFreq = updateFreq;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setDelay(String delay) {
         this.delay = delay;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setLoadingText(String loadingText) {
         this.loadingText = loadingText;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setErrorText(String errorText) {
         this.errorText = errorText;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setShowErrorTransportText(String showErrorTransportText) {
         this.showErrorTransportText = showErrorTransportText;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setListenTopics(String listenTopics) {
         this.listenTopics = listenTopics;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setAfterLoading(String afterLoading) {
         this.afterLoading = afterLoading;
     }

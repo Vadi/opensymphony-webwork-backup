@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 public class Submit extends UIBean {
     final public static String TEMPLATE = "submit";
 
+    protected String action;
+    protected String method;
     protected String align;
     protected String resultDivId;
     protected String onLoadJS;
@@ -39,6 +41,22 @@ public class Submit extends UIBean {
 
         super.evaluateParams();
 
+        if (action != null || method != null) {
+            String name;
+
+            if (action != null) {
+                name = "action:" + findString(action);
+
+                if (method != null) {
+                    name += findString(method);
+                }
+            } else {
+                name = "method:" + findString(method);
+            }
+            
+            addParameter("name", name);
+        }
+
         addParameter("align", findString(align));
 
         if (null != resultDivId) {
@@ -60,6 +78,14 @@ public class Submit extends UIBean {
         if (preInvokeJS != null) {
             addParameter("preInvokeJS", findString(preInvokeJS));
         }
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     public void setAlign(String align) {

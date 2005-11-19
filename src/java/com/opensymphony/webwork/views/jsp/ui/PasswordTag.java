@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * @jsp.tag name="password" bodycontent="JSP"
  * @see Password
  */
 public class PasswordTag extends TextFieldTag {
@@ -29,13 +30,16 @@ public class PasswordTag extends TextFieldTag {
     }
 
     /**
-     * @param aShowPasswordAttr
-     * @deprecated use showPassword()
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @deprecated use setShowPassword()
      */
-    public void setShow(String aShowPasswordAttr) {
-        this.showPassword = aShowPasswordAttr;
+    public void setShow(String showPassword) {
+        this.showPassword = showPassword;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setShowPassword(String showPassword) {
         this.showPassword = showPassword;
     }

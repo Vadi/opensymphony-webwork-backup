@@ -31,26 +31,44 @@ public abstract class AbstractDoubleListTag extends AbstractListTag {
         bean.setFormName(formName);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setDoubleList(String list) {
         this.doubleList = list;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setDoubleListKey(String listKey) {
         this.doubleListKey = listKey;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setDoubleListValue(String listValue) {
         this.doubleListValue = listValue;
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     */
     public void setDoubleName(String aName) {
         doubleName = aName;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setDoubleValue(String doubleValue) {
         this.doubleValue = doubleValue;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setFormName(String formName) {
         this.formName = formName;
     }
