@@ -4,21 +4,33 @@
  */
 package com.opensymphony.webwork.views.jsp.iterator;
 
+import com.opensymphony.webwork.util.MakeIterator;
+import com.opensymphony.webwork.util.SortIteratorFilter;
 import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
 
 import javax.servlet.jsp.JspException;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 
 /**
+ * <!-- START SNIPPET: javadoc -->
  * A Tag that sorts a List using a Comparator both passed in as the tag attribute.
  * If 'id' attribute is specified, the sorted list will be placed into the PageContext
  * attribute using the key specified by 'id'. The sorted list will ALWAYS be
  * pushed into the stack and poped at the end of this tag.
+ * <!-- END SNIPPET: javadoc -->
  *
+ *
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ * 		<li>source (Object) - the source for the sort to take place (should be iteratable) else JspException will be thrown</li>
+ * 		<li>comparator* (Object) - the comparator used to do sorting (should be a type of Comparator or its decendent) else JspException will be thrown</li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ *
+ *
+ * <!-- START SNIPPET: example -->
  * USAGE 1:
  * <pre>
  * &lt;ww:sort comparator="myComparator" source="myList"&gt;
@@ -34,22 +46,28 @@ import java.util.List;
  * &lt;ww:sort id="mySortedList comparator="myComparator" source="myList" /&gt;
  *
  * &lt;%
- *    List sortedList = (List) pageContext.getAttribute("mySortedList");
- *    for (Iterator i = sortedList.iterator(); i.hasNext(); ) {
+ *    Iterator sortedIterator = (Iterator) pageContext.getAttribute("mySortedList");
+ *    for (Iterator i = sortedIterator; i.hasNext(); ) {
  *    	// do something with each of the sorted elements
  *    }
  * %&gt;
  * </pre>
+ * <!-- END SNIPPET: example -->
  *
  *
  * @jsp.tag name="sort" bodycontent="JSP"
+ * @see com.opensymphony.webwork.util.SortIteratorFilter
  * @author Rickard Oberg (rickard@dreambean.com)
  * @author tm_jee (tm_jee(at)yahoo.co.uk)
  */
 public class SortIteratorTag extends WebWorkBodyTagSupport {
 
+	private static final long serialVersionUID = -7835719609764092235L;
+	
 	String comparatorAttr;
     String sourceAttr;
+    
+    SortIteratorFilter sortIteratorFilter = null;
 
     /**
      * @jsp.attribute required="true"  rtexprvalue="true"
@@ -66,21 +84,34 @@ public class SortIteratorTag extends WebWorkBodyTagSupport {
     }
 
     public int doStartTag() throws JspException {
-        List listToSort;
+    	// Source
+        Object srcToSort;
         if (sourceAttr == null) {
-            listToSort = (List) findValue("top");
+            srcToSort = findValue("top");
         } else {
-            listToSort = (List) findValue(sourceAttr);
+            srcToSort = findValue(sourceAttr);
+        }
+        if (! MakeIterator.isIterable(srcToSort)) { // see if source is Iteratable
+        	throw new JspException("source ["+srcToSort+"] is not iteratable");
         }
 
+        // Comparator
+        Object comparatorObj = findValue(comparatorAttr);
+        if (! (comparatorObj instanceof Comparator)) {
+        	throw new JspException("comparator ["+comparatorObj+"] does not implements Comparator interface");
+        }
         Comparator c = (Comparator) findValue(comparatorAttr);
 
-        Collections.sort(listToSort, c);
+        // SortIteratorFilter
+        sortIteratorFilter = new SortIteratorFilter();
+        sortIteratorFilter.setComparator(c);
+        sortIteratorFilter.setSource(srcToSort);
+        sortIteratorFilter.execute();
 
-        // push sorted list into stack, so nexted tag have access to it
-    	getStack().push(listToSort);
+        // push sorted iterator into stack, so nexted tag have access to it
+    	getStack().push(sortIteratorFilter);
         if (getId() != null && getId().length() > 0) {
-        	pageContext.setAttribute(getId(), listToSort);
+        	pageContext.setAttribute(getId(), sortIteratorFilter);
         }
 
         return EVAL_BODY_INCLUDE;
@@ -91,6 +122,7 @@ public class SortIteratorTag extends WebWorkBodyTagSupport {
 
    		// pop sorted list from stack at the end of tag
    		getStack().pop();
+   		sortIteratorFilter = null;
 
     	return returnVal;
     }

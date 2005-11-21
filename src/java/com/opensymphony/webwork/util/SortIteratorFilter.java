@@ -11,11 +11,13 @@ import java.util.*;
 
 
 /**
- * A bean that takes an iterator and outputs a subset of it.
+ * A bean that takes a source and comparator then attempt to sort the source
+ * utilizing the comparator. It is being used in SortIteratorTag.
  *
- * @author Rickard Öberg (rickard@middleware-company.com)
+ * @author Rickard ï¿½berg (rickard@middleware-company.com)
+ * @author tm_jee ( tm_jee(at)yahoo.co.uk )
  * @version $Revision$
- * @see <related>
+ * @see com.opensymphony.webwork.views.jsp.iterator.SortIteratorTag
  */
 public class SortIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
 
