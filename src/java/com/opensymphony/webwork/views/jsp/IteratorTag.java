@@ -13,9 +13,21 @@ import java.util.Iterator;
 
 
 /**
+ * <!-- START SNIPPET: javadoc -->
  * <p>Iterator will iterate over a value. An iterable value can be either of: java.util.Collection,
  * java.util.Iterator, java.util.Enumeration, java.util.Map, array.</p>
  * <p/>
+ * <!-- END SNIPPET: javadoc -->
+ * 
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ * 		<li>status (String) - if specified, an instanceof IteratorStatus will be pushed into stack upon each iteration</li>
+ * 		<li>value (Object) - the source to iterate over, must be iteratable, else an the object itself will be put into a newly created List (see MakeIterator#convert(Object)</li>
+ * 		<li>id (String) - if specified the current iteration object will be place with this id in both request and page scope</li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ * 
+ * <!-- START SNIPPET: example -->
  * <p>Example:</p>
  * <pre>
  * &lt;ww:iterator value="days"&gt;
@@ -51,10 +63,12 @@ import java.util.Iterator;
  * &lt;/ww:iterator&gt;
  * &lt;/table&gt;
  * </pre>
+ * <!-- END SNIPPET: example -->
  *
  * @jsp.tag name="iterator" bodycontent="JSP"
  * @author $Author$
  * @author Rick Salsa (rsal@mb.sympatico.ca)
+ * @author tm_jee ( tm_jee(at)yahoo.co.uk )
  * @version $Revision$
  */
 public class IteratorTag extends WebWorkBodyTagSupport {
