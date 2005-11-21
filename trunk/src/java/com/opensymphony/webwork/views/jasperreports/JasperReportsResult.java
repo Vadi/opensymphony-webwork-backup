@@ -1,30 +1,44 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2005 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.views.jasperreports;
 
-import com.opensymphony.util.TextUtils;
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
-import com.opensymphony.xwork.ActionInvocation;
-import com.opensymphony.xwork.util.OgnlValueStack;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.export.*;
-import net.sf.jasperreports.engine.util.JRLoader;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXmlExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.opensymphony.util.TextUtils;
+import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
+import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * Genreates a JasperReports report using the specified format or PDF if no format is specified.
@@ -41,6 +55,7 @@ import java.util.Map;
  * <li>contentDisposition: disposition (defaults to "inline", values are typically <i>filename="document.pdf"</i>)</li>
  * <li>documentName: name of the document (will generate the http header Content-disposition = X; filename=X.[format])</li>
  * <li>delimiter: the delimiter used when generating CSV reports. By default, the character used is ",".</li>
+ * <li>imageServletUrl: name of the url that, when prefixed with the context page, can return report images.</li>
  * </ul>
  * <p/>
  * This result follows the same rules from {@link WebWorkResultSupport}.
@@ -52,12 +67,22 @@ import java.util.Map;
 public class JasperReportsResult extends WebWorkResultSupport implements JasperReportConstants {
     private final static Log LOG = LogFactory.getLog(JasperReportsResult.class);
 
-    protected String IMAGES_DIR = "/images/";
+
     protected String dataSource;
     protected String format;
     protected String documentName;
     protected String contentDisposition;
     protected String delimiter;
+    protected String imageServletUrl = "/images/"; 
+    
+
+    public String getImageServletUrl() {
+        return imageServletUrl;
+    }
+
+    public void setImageServletUrl(final String imageServletUrl) {
+        this.imageServletUrl = imageServletUrl;
+    }
 
     public void setDataSource(String dataSource) {
         this.dataSource = dataSource;
@@ -119,6 +144,8 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
 
         if (!"contype".equals(request.getHeader("User-Agent"))) {
             // Determine the directory that the report file is in and set the reportDirectory parameter
+            // For WW 2.1.7:
+            //  ServletContext servletContext = ((ServletConfig) invocation.getInvocationContext().get(ServletActionContext.SERVLET_CONFIG)).getServletContext();
             ServletContext servletContext = (ServletContext) invocation.getInvocationContext().get(ServletActionContext.SERVLET_CONTEXT);
             String systemId = servletContext.getRealPath(finalLocation);
             Map parameters = new OgnlValueStackShadowMap(stack);
@@ -171,12 +198,18 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
                     } else if (format.equals(FORMAT_HTML)) {
                         response.setContentType("text/html");
 
+                        // IMAGES_MAPS seems to be only supported as "backward compatible" from JasperReports 1.1.0
+                
                         Map imagesMap = new HashMap();
 
                         request.getSession(true).setAttribute("IMAGES_MAP", imagesMap);
                         exporter = new JRHtmlExporter();
                         exporter.setParameter(JRHtmlExporterParameter.IMAGES_MAP, imagesMap);
-                        exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + IMAGES_DIR);
+                        exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + imageServletUrl);
+                        // Needed to support chart images:
+                        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                        request.getSession().setAttribute("net.sf.jasperreports.j2ee.jasper_print", jasperPrint);
+
                     } else if (format.equals(FORMAT_XLS)) {
                         response.setContentType("application/vnd.ms-excel");
                         exporter = new JRXlsExporter();
