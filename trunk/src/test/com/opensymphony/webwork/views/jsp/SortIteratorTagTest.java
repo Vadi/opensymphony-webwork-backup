@@ -10,7 +10,10 @@ import com.opensymphony.xwork.ActionSupport;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.servlet.jsp.JspException;
 
 /**
  * Test case to test SortIteratorTag.
@@ -29,21 +32,69 @@ public class SortIteratorTagTest extends AbstractTagTest {
         tag.setPageContext(pageContext);
         tag.doStartTag();
 
-        // if not a List, just let the ClassCastException be thrown as error instead of failure
-        List sortedList = (List) stack.findValue("top");
+        // if not an Iterator, just let the ClassCastException be thrown as error instead of failure
+        Iterator sortedIterator = (Iterator) stack.findValue("top");
 
-        assertNotNull(sortedList);
-        assertEquals(sortedList.size(), 5);
-        assertEquals(sortedList.get(0), new Integer(1));
-        assertEquals(sortedList.get(1), new Integer(2));
-        assertEquals(sortedList.get(2), new Integer(3));
-        assertEquals(sortedList.get(3), new Integer(4));
-        assertEquals(sortedList.get(4), new Integer(5));
+        assertNotNull(sortedIterator);
+        // 1
+        assertTrue(sortedIterator.hasNext());
+        assertEquals(sortedIterator.next(), new Integer(1));
+        // 2
+        assertTrue(sortedIterator.hasNext());
+        assertEquals(sortedIterator.next(), new Integer(2));
+        // 3.
+        assertTrue(sortedIterator.hasNext());
+        assertEquals(sortedIterator.next(), new Integer(3));
+        // 4.
+        assertTrue(sortedIterator.hasNext());
+        assertEquals(sortedIterator.next(), new Integer(4));
+        // 5
+        assertTrue(sortedIterator.hasNext());
+        assertEquals(sortedIterator.next(), new Integer(5));
 
+        assertFalse(sortedIterator.hasNext());
         tag.doEndTag();
     }
 
-    public void testSortWithId() throws Exception {
+    public void testSortWithIdIteratorAvailableInStackTop() throws Exception {
+    	
+    	SortIteratorTag tag = new SortIteratorTag();
+
+        tag.setId("myId");
+        tag.setComparator("comparator");
+        tag.setSource("source");
+
+        tag.setPageContext(pageContext);
+        tag.doStartTag();
+
+        {
+            Iterator sortedIterator = (Iterator) stack.findValue("top");
+
+            assertNotNull(sortedIterator);
+            // 1
+            assertTrue(sortedIterator.hasNext());
+            assertEquals(sortedIterator.next(), new Integer(1));
+            // 2
+            assertTrue(sortedIterator.hasNext());
+            assertEquals(sortedIterator.next(), new Integer(2));
+            // 3
+            assertTrue(sortedIterator.hasNext());
+            assertEquals(sortedIterator.next(), new Integer(3));
+            // 4
+            assertTrue(sortedIterator.hasNext());
+            assertEquals(sortedIterator.next(), new Integer(4));
+            // 5
+            assertTrue(sortedIterator.hasNext());
+            assertEquals(sortedIterator.next(), new Integer(5));
+            
+            assertFalse(sortedIterator.hasNext());
+        }
+
+        tag.doEndTag();
+    }
+    
+    
+    public void testSortWithIdIteratorAvailableInPageContext() throws Exception {
         SortIteratorTag tag = new SortIteratorTag();
 
         tag.setId("myId");
@@ -54,27 +105,26 @@ public class SortIteratorTagTest extends AbstractTagTest {
         tag.doStartTag();
 
         {
-            List sortedList = (List) stack.findValue("top");
+            Iterator sortedIterator = (Iterator) pageContext.getAttribute("myId");
 
-            assertNotNull(sortedList);
-            assertEquals(sortedList.size(), 5);
-            assertEquals(sortedList.get(0), new Integer(1));
-            assertEquals(sortedList.get(1), new Integer(2));
-            assertEquals(sortedList.get(2), new Integer(3));
-            assertEquals(sortedList.get(3), new Integer(4));
-            assertEquals(sortedList.get(4), new Integer(5));
-        }
-
-        {
-            List sortedList = (List) pageContext.getAttribute("myId");
-
-            assertNotNull(sortedList);
-            assertEquals(sortedList.size(), 5);
-            assertEquals(sortedList.get(0), new Integer(1));
-            assertEquals(sortedList.get(1), new Integer(2));
-            assertEquals(sortedList.get(2), new Integer(3));
-            assertEquals(sortedList.get(3), new Integer(4));
-            assertEquals(sortedList.get(4), new Integer(5));
+            assertNotNull(sortedIterator);
+            // 1
+            assertTrue(sortedIterator.hasNext());
+            assertEquals(sortedIterator.next(), new Integer(1));
+            // 2
+            assertTrue(sortedIterator.hasNext());
+            assertEquals(sortedIterator.next(), new Integer(2));
+            // 3
+            assertTrue(sortedIterator.hasNext());
+            assertEquals(sortedIterator.next(), new Integer(3));
+            // 4
+            assertTrue(sortedIterator.hasNext());
+            assertEquals(sortedIterator.next(), new Integer(4));
+            // 5
+            assertTrue(sortedIterator.hasNext());
+            assertEquals(sortedIterator.next(), new Integer(5));
+            
+            assertFalse(sortedIterator.hasNext());
         }
 
         tag.doEndTag();
@@ -90,9 +140,9 @@ public class SortIteratorTagTest extends AbstractTagTest {
             tag.setPageContext(pageContext);
             tag.doStartTag();
             tag.doEndTag();
-            fail("ClassCastException expected");
+            fail("JspException expected");
         }
-        catch (ClassCastException e) {
+        catch (JspException e) {
             // ok
             assertTrue(true);
         }
@@ -108,9 +158,9 @@ public class SortIteratorTagTest extends AbstractTagTest {
             tag.setPageContext(pageContext);
             tag.doStartTag();
             tag.doEndTag();
-            fail("ClassCastException expected");
+            fail("JspException expected");
         }
-        catch (ClassCastException e) {
+        catch (JspException e) {
             // good
             assertTrue(true);
         }
