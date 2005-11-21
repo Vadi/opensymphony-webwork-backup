@@ -11,18 +11,26 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /**
- * A bean that generates an iterator filled with a given object
+ * A bean that generates an iterator filled with a given object depending on the count,
+ * separator and converter defined. It is being used by IteratorGeneratorTag. 
  *
- * @author Rickard Öberg (rickard@middleware-company.com)
+ * @author Rickard ï¿½berg (rickard@middleware-company.com)
+ * @author tm_jee ( tm_jee(at)yahoo.co.uk )
  * @version $Revision$
  */
 public class IteratorGenerator implements Iterator, Action {
+	
+	private static final Log _log = LogFactory.getLog(IteratorGenerator.class);
 
     List values;
     Object value;
     String separator;
+    Converter converter;
 
     // Attributes ----------------------------------------------------
     int count = 0;
@@ -44,6 +52,10 @@ public class IteratorGenerator implements Iterator, Action {
     public void setSeparator(String aChar) {
         separator = aChar;
     }
+    
+    public void setConverter(Converter aConverter) {
+    	converter = aConverter;
+    }
 
     // Public --------------------------------------------------------
     public void setValues(Object aValue) {
@@ -61,7 +73,19 @@ public class IteratorGenerator implements Iterator, Action {
                 StringTokenizer tokens = new StringTokenizer(value.toString(), separator);
 
                 while (tokens.hasMoreTokens()) {
-                    values.add(tokens.nextToken());
+                	String token = tokens.nextToken().trim();
+                	if (converter != null) {
+                		try {
+                			Object convertedObj = converter.convert(token);
+                			values.add(convertedObj);
+                		}
+                		catch(Exception e) { // make sure things, goes on, we just ignore the bad ones
+                			_log.warn("unable to convert ["+token+"], skipping this token, it will not appear in the generated iterator", e);
+                		}
+                	}
+                	else {
+                		values.add(token);
+                	}
                 }
             } else {
                 values.add(value.toString());
@@ -91,5 +115,14 @@ public class IteratorGenerator implements Iterator, Action {
 
     public void remove() {
         throw new UnsupportedOperationException("Remove is not supported in IteratorGenerator.");
+    }
+    
+    
+    // Inner class --------------------------------------------------
+    /**
+     * Interface for converting each separated token into an Object of choice.
+     */
+    public static interface Converter {
+    	Object convert(String token) throws Exception;
     }
 }
