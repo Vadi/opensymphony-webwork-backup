@@ -24,6 +24,7 @@ import java.util.Comparator;
  *
  * <!-- START SNIPPET: params -->
  * <ul>
+ * 		<li>id (String) - if specified, the sorted iterator will be place with this id under page context</li> 
  * 		<li>source (Object) - the source for the sort to take place (should be iteratable) else JspException will be thrown</li>
  * 		<li>comparator* (Object) - the comparator used to do sorting (should be a type of Comparator or its decendent) else JspException will be thrown</li>
  * </ul>
