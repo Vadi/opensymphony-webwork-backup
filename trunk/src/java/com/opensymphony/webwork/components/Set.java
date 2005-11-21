@@ -5,9 +5,40 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import java.io.Writer;
 
 /**
- * User: plightbo
- * Date: Sep 1, 2005
- * Time: 7:53:56 PM
+ * <!-- START SNIPPET: javadoc -->
+ *
+ * The set tag assigns a value to a variable in a specified scope. It is useful when you wish to assign a variable to a
+ * complex expression and then simply reference that variable each time rather than the complex expression. This is
+ * useful in both cases: when the complex expression takes time (performance improvement) or is hard to read (code
+ * readability improvement).
+ *
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Parameters</b>
+ *
+ * <!-- START SNIPPET: params -->
+ *
+ * <ul>
+ *
+ * <li>name* (String): The name of the new variable that is assigned the value of <i>value</i></li>
+ *
+ * <li>value (Object): The value that is assigned to the variable named <i>name</i></li>
+ *
+ * <li>scope (String): The scope in which to assign the variable. Can be <b>application</b>, <b>session</b>,
+ * <b>request</b>, <b>page</b>, or <b>action</b>. By default it is <b>action</b>.</li>
+ *
+ * </ul>
+ *
+ * <!-- END SNIPPET: params -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:set name="personName" value="person.name"/&gt;
+ * Hello, &lt;ww:property value="#personName"/&gt;. How are you?
+ * <!-- END SNIPPET: example -->
+ * </pre>
  */
 public class Set extends Component {
     protected String name;
