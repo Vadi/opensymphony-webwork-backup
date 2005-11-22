@@ -63,6 +63,51 @@ import java.util.Iterator;
  * &lt;/ww:iterator&gt;
  * &lt;/table&gt;
  * </pre>
+ * <p>
+ * The next example will further demonstrate the use of the status 
+ * attribute, using a DAO obtained from the action class through OGNL, 
+ * iterating over groups and their users (in a security context). 
+ * The last() method indicates if the current object is the last available 
+ * in the iteration, and if not, we need to seperate the users using a 
+ * comma:
+ * </p>
+ * <pre>
+ *	&lt;webwork:iterator value="groupDao.groups" status="groupStatus"&gt;
+ *		&lt;tr class="&lt;webwork:if test="#groupStatus.odd == true "&gt;odd&lt;/webwork:if&gt;&lt;webwork:else&gt;even&lt;/webwork:else&gt;"&gt;
+ *			&lt;td&gt;&lt;webwork:property value="name" /&gt;&lt;/td&gt;
+ *			&lt;td&gt;&lt;webwork:property value="description" /&gt;&lt;/td&gt;
+ *			&lt;td&gt;
+ *				&lt;webwork:iterator value="users" status="userStatus"&gt;
+ *					&lt;webwork:property value="fullName" /&gt;&lt;webwork:if test="!#userStatus.last"&gt;,&lt;/webwork:if&gt;                
+ *				&lt;/webwork:iterator&gt;
+ *			&lt;/td&gt;
+ *		&lt;/tr&gt;
+ *	&lt;/webwork:iterator&gt;
+ * </pre>
+ * <p>
+ * 
+ * </p>
+ * The next example iterates over a an action collection and passes 
+ * every iterator value to another action.
+ * </p>
+ * <pre>
+ *		&lt;ww:action name="entries" id="entries"/&gt;
+ *		&lt;ww:iterator value="#entries.entries" &gt;
+ *			&lt;ww:property value="name" /&gt;
+ *			&lt;ww:property /&gt;
+ *			&lt;ww:push value="..."&gt;
+ *				&lt;ww:action name="edit" id="edit" &gt;
+ *					&lt;ww:param name="entry" value="[0]" /&gt;
+ *				&lt;/ww:action&gt;
+ *			&lt;/push&gt;
+ *		&lt;/ww:iterator&gt;
+ * </pre>
+ * The trick here lies in the use of the '[0]' 
+ * operator. It takes the current iterator value and passes it on to the 
+ * edit action. Using the '[0]' operator has the same effect as using 
+ * &gt;ww:property /&gt;. (The latter, however, does not work from inside the 
+ * param tag).
+ * 
  * <!-- END SNIPPET: example -->
  *
  * @jsp.tag name="iterator" bodycontent="JSP"
