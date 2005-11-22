@@ -27,20 +27,27 @@ import java.util.Iterator;
  * </ul>
  * <!-- END SNIPPET: params -->
  * 
- * <!-- START SNIPPET: example -->
- * <p>Example:</p>
+ * <!-- START SNIPPET: example1description -->
+ * <p>The following example retrieves the value of the getDays() method of the current object on the value stack and uses
+ * it to iterate over. The &lt;ww:property/&gt; tag prints out the current value of the iterator.</p>
+ * <!-- END SNIPPET: example1description -->
  * <pre>
+ * <!-- START SNIPPET: example1code -->
  * &lt;ww:iterator value="days"&gt;
  *   &lt;p&gt;day is: &lt;ww:property/&gt;&lt;/p&gt;
  * &lt;/ww:iterator&gt;
+ * <!-- END SNIPPET: example1code -->
  * </pre>
- * <p>The above example retrieves the value of the getDays() method of the current object on the value stack and uses
- * it to iterate over. The &lt;ww:property/&gt; tag prints out the current value of the iterator.</p>
+ * 
+ * 
+ * <!-- START SNIPPET: example2description -->
  * <p>The following example uses a {@link BeanTag} and places it into the ActionContext. The iterator tag will
  * retrieve that object from the ActionContext and then calls its getDays() method as above. The status attribute is also
  * used to create a {@link IteratorStatus} object, which in this example, its odd() method is used to
  * alternate row colours:</p>
+ * <!-- END SNIPPET: example2description -->
  * <pre>
+ * <!-- START SNIPPET: example2code -->
  * &lt;ww:bean name="'com.opensymphony.webwork.example.IteratorExample'" id="it"&gt;
  *   &lt;ww:param name="'day'" value="'foo'"/&gt;
  *   &lt;ww:param name="'day'" value="'bar'"/&gt;
@@ -62,7 +69,10 @@ import java.util.Iterator;
  *   &lt;/tr&gt;
  * &lt;/ww:iterator&gt;
  * &lt;/table&gt;
+ * <!-- END SNIPPET: example2code -->
  * </pre>
+ * 
+ * <!--START SNIPPET: example2description -->
  * <p>
  * The next example will further demonstrate the use of the status 
  * attribute, using a DAO obtained from the action class through OGNL, 
@@ -71,7 +81,9 @@ import java.util.Iterator;
  * in the iteration, and if not, we need to seperate the users using a 
  * comma:
  * </p>
+ * <!-- END SNIPPET: example3description -->
  * <pre>
+ * <!-- START SNIPPET: example3code -->
  *	&lt;webwork:iterator value="groupDao.groups" status="groupStatus"&gt;
  *		&lt;tr class="&lt;webwork:if test="#groupStatus.odd == true "&gt;odd&lt;/webwork:if&gt;&lt;webwork:else&gt;even&lt;/webwork:else&gt;"&gt;
  *			&lt;td&gt;&lt;webwork:property value="name" /&gt;&lt;/td&gt;
@@ -83,14 +95,22 @@ import java.util.Iterator;
  *			&lt;/td&gt;
  *		&lt;/tr&gt;
  *	&lt;/webwork:iterator&gt;
+ *<!-- END SNIPPET: example3code -->
  * </pre>
  * <p>
  * 
+ * <!-- START SNIPPET: example4description -->
  * </p>
  * The next example iterates over a an action collection and passes 
- * every iterator value to another action.
+ * every iterator value to another action. The trick here lies in the use of the '[0]' 
+ * operator. It takes the current iterator value and passes it on to the 
+ * edit action. Using the '[0]' operator has the same effect as using 
+ * &gt;ww:property /&gt;. (The latter, however, does not work from inside the 
+ * param tag).
  * </p>
+ * <!-- END SNIPPET: example4description -->
  * <pre>
+ * <!-- START SNIPPET: example4code -->
  *		&lt;ww:action name="entries" id="entries"/&gt;
  *		&lt;ww:iterator value="#entries.entries" &gt;
  *			&lt;ww:property value="name" /&gt;
@@ -101,14 +121,8 @@ import java.util.Iterator;
  *				&lt;/ww:action&gt;
  *			&lt;/push&gt;
  *		&lt;/ww:iterator&gt;
+ * <!-- END SNIPPET: example4code -->
  * </pre>
- * The trick here lies in the use of the '[0]' 
- * operator. It takes the current iterator value and passes it on to the 
- * edit action. Using the '[0]' operator has the same effect as using 
- * &gt;ww:property /&gt;. (The latter, however, does not work from inside the 
- * param tag).
- * 
- * <!-- END SNIPPET: example -->
  *
  * @jsp.tag name="iterator" bodycontent="JSP"
  * @author $Author$
