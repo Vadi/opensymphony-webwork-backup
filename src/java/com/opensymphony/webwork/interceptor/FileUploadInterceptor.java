@@ -64,10 +64,11 @@ import java.util.*;
  * <ul>
  *
  * <li>maximumSize (optional) - the maximum size (in bytes) that the interceptor will allow a file reference to be set
- * on the action. Note, this is <b>not</b> related to the various properties found in webwork.properties.</li>
+ * on the action. Note, this is <b>not</b> related to the various properties found in webwork.properties.
+ * Default to approximately 2MB.</li>
  *
  * <li>allowedTypes (optional) - a comma separated list of content types (ie: text/html) that the interceptor will allow
- * a file reference to be set on the action.</li>
+ * a file reference to be set on the action. If none is specified allow all types to be uploaded.</li>
  *
  * </ul>
  *
