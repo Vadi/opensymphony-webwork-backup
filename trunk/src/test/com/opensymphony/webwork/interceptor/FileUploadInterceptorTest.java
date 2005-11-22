@@ -12,7 +12,10 @@ import com.opensymphony.xwork.ValidationAwareSupport;
 import junit.framework.TestCase;
 
 /**
+ * Test case for FileUploadInterceptor.
+ * 
  * @author tmjee
+ * @version $Date$ $Id$
  */
 public class FileUploadInterceptorTest extends TestCase {
 
