@@ -8,8 +8,39 @@ import javax.servlet.jsp.JspException;
 
 
 /**
+ * <!-- START SNIPPET: javadoc -->
+ * Perform basic condition flow. 'If' tag could be used by itself or 
+ * with 'Else If' Tag and/or single/multiple 'Else' Tag.
+ * <!-- END SNIPPET: javadoc -->
+ * 
+ * 
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ * 		<li>test* (Boolean) - Logic to determined if body of tag is to be displayed</li>
+ * 		<li></li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ * 
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * 	&lt;ww:if test="%{false}"&gt;
+ *		&lt;div&gt;Will Not Be Executed&lt;/div&gt;
+ *  &lt;/ww:if&gt;
+ * 	&lt;ww:elseif test="%{true}"&gt;
+ *		&lt;div&gt;Will Be Executed&lt;/div&gt;
+ * 	&lt;/ww:elseif&gt;
+ * 	&lt;ww:else&gt;
+ *		&lt;div&gt;Will Not Be Executed&lt;/div&gt;
+ * 	&lt;/ww:else&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ * 
  * @jsp.tag name="if" bodycontent="JSP"
  * @author $Author$
+ * @author tmjee
+ * @see com.opensymphony.webwork.views.jsp.ElseTag
+ * @see com.opensymphony.webwork.views.jsp.ElseIfTag
  */
 public class IfTag extends WebWorkBodyTagSupport {
     public static final String ANSWER = "webwork.if.answer";
