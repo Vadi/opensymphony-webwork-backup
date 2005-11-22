@@ -17,7 +17,6 @@ import javax.servlet.jsp.JspException;
  * <!-- START SNIPPET: params -->
  * <ul>
  * 		<li>test* (Boolean) - Logic to determined if body of tag is to be displayed</li>
- * 		<li></li>
  * </ul>
  * <!-- END SNIPPET: params -->
  * 
