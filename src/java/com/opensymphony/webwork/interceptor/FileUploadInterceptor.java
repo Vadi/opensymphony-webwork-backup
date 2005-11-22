@@ -242,7 +242,7 @@ public class FileUploadInterceptor implements Interceptor {
             }
 
             log.error(errMsg);
-        } else if (!containsItem(allowedTypesSet, contentType)) {
+        } else if ((! allowedTypesSet.isEmpty()) && (!containsItem(allowedTypesSet, contentType))) {
             String errMsg = getTextMessage("webwork.messages.error.content.type.not.allowed", new Object[]{inputName, file.getName(), contentType}, locale);
             if (validation != null) {
                 validation.addFieldError(inputName, errMsg);
