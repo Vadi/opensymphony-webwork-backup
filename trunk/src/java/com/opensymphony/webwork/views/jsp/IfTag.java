@@ -23,15 +23,15 @@ import javax.servlet.jsp.JspException;
  * 
  * <pre>
  * <!-- START SNIPPET: example -->
- * 	&lt;ww:if test="%{false}"&gt;
- *		&lt;div&gt;Will Not Be Executed&lt;/div&gt;
+ *  &lt;ww:if test="%{false}"&gt;
+ *	    &lt;div&gt;Will Not Be Executed&lt;/div&gt;
  *  &lt;/ww:if&gt;
  * 	&lt;ww:elseif test="%{true}"&gt;
- *		&lt;div&gt;Will Be Executed&lt;/div&gt;
- * 	&lt;/ww:elseif&gt;
- * 	&lt;ww:else&gt;
- *		&lt;div&gt;Will Not Be Executed&lt;/div&gt;
- * 	&lt;/ww:else&gt;
+ *	    &lt;div&gt;Will Be Executed&lt;/div&gt;
+ *  &lt;/ww:elseif&gt;
+ *  &lt;ww:else&gt;
+ *	    &lt;div&gt;Will Not Be Executed&lt;/div&gt;
+ *  &lt;/ww:else&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  * 
