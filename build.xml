@@ -76,6 +76,7 @@
             excludedtags="@version,@author,@todo"
             addedtags="@xdoclet-generated at ${TODAY},@copyright The XDoclet Team,@author XDoclet,@version ${version}"
             verbose="false"
+            force="true"
             >
 
             <fileset dir="${src.java}">
