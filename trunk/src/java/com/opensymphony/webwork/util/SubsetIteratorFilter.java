@@ -5,24 +5,32 @@
 package com.opensymphony.webwork.util;
 
 import com.opensymphony.xwork.Action;
+
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 
 /**
  * A bean that takes an iterator and outputs a subset of it.
  *
- * @author Rickard Öberg (rickard@middleware-company.com)
+ * @author Rickard ï¿½berg (rickard@middleware-company.com)
+ * @author tm_jee (tm_jee (at) yahoo.co.uk)
  * @version $Revision$
  */
 public class SubsetIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
 
+	private static final Log _log = LogFactory.getLog(SubsetIteratorFilter.class);
+	
     Iterator iterator;
     Object source;
     int count = -1;
     int currentCount = 0;
+    
+    Decider decider;
 
     // Attributes ----------------------------------------------------
     int start = 0;
@@ -40,6 +48,10 @@ public class SubsetIteratorFilter extends IteratorFilterSupport implements Itera
     public void setStart(int aStart) {
         this.start = aStart;
     }
+    
+    public void setDecider(Decider aDecider) {
+    	this.decider = aDecider;
+    }
 
     // Action implementation -----------------------------------------
     public String execute() {
@@ -55,22 +67,42 @@ public class SubsetIteratorFilter extends IteratorFilterSupport implements Itera
         // Calculate iterator filter
         if (source instanceof Iterator) {
             iterator = (Iterator) source;
+            
 
             // Read away <start> items
             for (int i = 0; (i < start) && iterator.hasNext(); i++) {
                 iterator.next();
             }
+            
+            
+            // now let Decider decide if element should be added (if a decider exist)
+            if (decider != null) {
+            	List list = new ArrayList();
+            	while(iterator.hasNext()) {
+            		Object currentElement = iterator.next();
+            		if (decide(currentElement)) {
+            			list.add(currentElement);
+            		}
+            	}
+            	iterator = list.iterator();
+            }
+            
         } else if (source.getClass().isArray()) {
             ArrayList list = new ArrayList(((Object[]) source).length);
             Object[] objects = (Object[]) source;
             int len = objects.length;
 
-            if (count != -1) {
-                len -= count;
+            if (count >= 0) {
+            	len = start + count;
+            	if (len > objects.length) {
+            		len = objects.length;
+            	}
             }
 
             for (int j = start; j < len; j++) {
-                list.add(objects[j]);
+            	if (decide(objects[j])) {
+                    list.add(objects[j]);
+            	}
             }
 
             count = -1; // Don't have to check this in the iterator code
@@ -86,7 +118,7 @@ public class SubsetIteratorFilter extends IteratorFilterSupport implements Itera
 
     // Iterator implementation ---------------------------------------
     public boolean hasNext() {
-        return (iterator == null) ? false : (iterator.hasNext() && ((count == -1) || (currentCount < count)));
+        return (iterator == null) ? false : (iterator.hasNext() && ((count < 0) || (currentCount < count)));
     }
 
     public Object next() {
@@ -97,5 +129,25 @@ public class SubsetIteratorFilter extends IteratorFilterSupport implements Itera
 
     public void remove() {
         iterator.remove();
+    }
+    
+    // inner class ---------------------------------------------------
+    public static interface Decider {
+    	boolean decide(Object element) throws Exception;
+    }
+    
+    // protected -----------------------------------------------------
+    protected boolean decide(Object element) {
+    	if (decider != null) {
+    		try {
+    			boolean okToAdd = decider.decide(element);
+    			return okToAdd;
+    		}
+    		catch(Exception e) {
+    			_log.warn("decider ["+decider+"] encountered an error while decide adding element ["+element+"], element will be ignored, it will not appeared in subseted iterator", e);
+    			return false;
+    		}
+    	}
+    	return true;
     }
 }
