@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * 		<li>decider (Object) - Extension to plug-in a decider to determine if that particular entry is to be included in the resulting subset iterator</li>
  * 		<li>id (String) - Indicate the pageContext attribute id to store the resultant subset iterator in</li>
  * </ul>
- * <!-- START SNIPPET: params -->
+ * <!-- END SNIPPET: params -->
  * 
  * 
  * <pre>
@@ -58,7 +58,7 @@ import org.apache.commons.logging.LogFactory;
  *		   return l;
  *	     }
  *	}
- * <!-- START SNIPPET: action -->
+ * <!-- END SNIPPET: action -->
  * </pre>
  * 
  * 
