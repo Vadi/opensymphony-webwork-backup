@@ -6,3 +6,6 @@ clover.jar
 mockobjects-jdk1.3.jar
 servletapi.jar
 mockobjects-alt-jdk1.3.jar
+xdoclet-web-module.jar
+xdoclet.jar
+xjavadoc.jar
