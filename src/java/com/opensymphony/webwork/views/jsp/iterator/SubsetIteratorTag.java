@@ -4,9 +4,6 @@
  */
 package com.opensymphony.webwork.views.jsp.iterator;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.opensymphony.webwork.util.SubsetIteratorFilter;
 import com.opensymphony.webwork.util.SubsetIteratorFilter.Decider;
 import com.opensymphony.webwork.views.jsp.WebWorkBodyTagSupport;
