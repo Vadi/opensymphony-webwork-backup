@@ -12,10 +12,13 @@ import java.util.List;
 
 
 /**
- * A bean that takes several iterators and outputs the merge of them.
+ * A bean that takes several iterators and outputs the merge of them. Used by 
+ * MergeIteratorTag.
  *
- * @author Rickard Öberg (rickard@middleware-company.com)
+ * @author Rickard ï¿½berg (rickard@middleware-company.com)
  * @version $Revision$
+ * @see com.opensymphony.webwork.views.jsp.iterator.MergeIteratorTag
+ * @see MergeIterator
  */
 public class MergeIteratorFilter extends IteratorFilterSupport implements Iterator, Action {
 

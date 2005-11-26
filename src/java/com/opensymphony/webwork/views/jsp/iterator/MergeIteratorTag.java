@@ -4,10 +4,13 @@
  */
 package com.opensymphony.webwork.views.jsp.iterator;
 
-import com.opensymphony.webwork.util.MergeIteratorFilter;
-import com.opensymphony.webwork.views.jsp.ActionTag;
+import com.opensymphony.webwork.components.Component;
+import com.opensymphony.webwork.components.MergeIterator;
+import com.opensymphony.webwork.views.jsp.ComponentTagSupport;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
-import javax.servlet.jsp.tagext.Tag;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -15,11 +18,17 @@ import javax.servlet.jsp.tagext.Tag;
  * into one iterator.
  *
  * @jsp.tag name="merge" bodycontent="JSP"
- * @author Rickard Öberg (rickard@dreambean.com)
+ * @author Rickard ï¿½berg (rickard@dreambean.com)
+ * @author tm_jee ( tm_jee (at) yahoo.co.uk )
+ * @see MergeIterator
+ * @see com.opensymphony.webwork.util.MergeIteratorFilter
  */
-public class MergeIteratorTag extends ActionTag {
-    public void setParent(Tag t) {
-        super.setParent(t);
-        setName("'" + MergeIteratorFilter.class.getName() + "'");
-    }
+public class MergeIteratorTag extends ComponentTagSupport {
+
+	private static final long serialVersionUID = 4999729472466011218L;
+
+	public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+		return new MergeIterator(stack);
+	}
+	
 }
