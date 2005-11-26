@@ -4,10 +4,13 @@
  */
 package com.opensymphony.webwork.views.jsp.iterator;
 
-import com.opensymphony.webwork.util.AppendIteratorFilter;
-import com.opensymphony.webwork.views.jsp.ActionTag;
+import com.opensymphony.webwork.components.AppendIterator;
+import com.opensymphony.webwork.components.Component;
+import com.opensymphony.webwork.views.jsp.ComponentTagSupport;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
-import javax.servlet.jsp.tagext.Tag;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -15,11 +18,19 @@ import javax.servlet.jsp.tagext.Tag;
  * into one iterator.
  *
  * @jsp.tag name="append" bodycontent="JSP"
- * @author Rickard Öberg (rickard@dreambean.com)
+ * @author Rickard ï¿½berg (rickard@dreambean.com)
+ * @author tmjee (tm_jee (at) yahoo.co.uk )
+ * @see AppendIterator
+ * @see com.opensymphony.webwork.util.AppendIteratorFilter
  */
-public class AppendIteratorTag extends ActionTag {
-    public void setParent(Tag t) {
-        super.setParent(t);
-        setName("'" + AppendIteratorFilter.class.getName() + "'");
-    }
+public class AppendIteratorTag extends ComponentTagSupport {
+
+	private static final long serialVersionUID = -6017337859763283691L;
+
+	public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+		return new AppendIterator(stack);
+	}
+	
+
+	
 }
