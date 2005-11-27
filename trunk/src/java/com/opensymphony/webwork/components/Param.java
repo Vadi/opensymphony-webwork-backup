@@ -16,6 +16,14 @@ import java.io.Writer;
  * and wanted to provide custom params to assist with the rendering, we could declare something like<p/>
  * <!-- END SNIPPET: javadoc -->
  *
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ * 		<li>name (String) - the name of the parameter</li>
+ *      <li>value (Object) - the value of the parameter</li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ *
+ *
  * <p/> <b>Examples</b>
  * <!-- START SNIPPET: example -->
  * &lt;ui:component&gt;
@@ -32,8 +40,9 @@ import java.io.Writer;
  * <!-- END SNIPPET: exampledescription -->
  * <pre>
  *
- * @author Rickard Öberg (rickard@dreambean.com)
+ * @author Rickard ï¿½berg (rickard@dreambean.com)
  * @author Rene Gielen
+ * @author tm_jee
  * @version $Revision$
  * @since 2.2
  *
