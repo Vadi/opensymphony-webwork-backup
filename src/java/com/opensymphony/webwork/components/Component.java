@@ -255,6 +255,10 @@ public class Component {
         return id;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="HTML id attribute"
+     */
     public void setId(String id) {
         this.id = id;
     }

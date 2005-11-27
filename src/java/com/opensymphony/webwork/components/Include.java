@@ -20,10 +20,26 @@ import java.net.URLEncoder;
 import java.util.*;
 
 /**
- * Include a servlet's output (result of servlet or a JSP page).
+ * <!-- START SNIPPET: javadoc -->
+ * Include a servlet's output (result of servlet or a JSP page).</p>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:include ... /&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
  *
  * @author Rickard Oberg (rickard@dreambean.com)
  * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a>
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="include" body-content="JSP"
+ * description="Include a servlet's output (result of servlet or a JSP page)"
  */
 public class Include extends Component {
     private static String encoding;
@@ -86,6 +102,10 @@ public class Include extends Component {
         super.end(writer, body);
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The output to include"
+     */
     public void setValue(String value) {
         this.value = value;
     }
@@ -129,7 +149,7 @@ public class Include extends Component {
             StringBuffer flatPathBuffer = new StringBuffer();
 
             for (int i = 0; i < stack.size(); i++) {
-                flatPathBuffer.append("/" + stack.elementAt(i));
+                flatPathBuffer.append("/").append(stack.elementAt(i));
             }
 
             returnValue = flatPathBuffer.toString();

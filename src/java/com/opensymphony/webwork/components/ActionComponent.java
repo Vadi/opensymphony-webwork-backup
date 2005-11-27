@@ -25,7 +25,7 @@ import java.util.Map;
  * namespace.  The body content of the tag is used to render the results from the Action.  Any Result processor defined
  * for this Action in xwork.xml will be ignored.
  * <!-- END SNIPPET: javadoc -->
- * 
+ *
  * <!-- START SNIPPET: params -->
  * <ul>
  *      <li>id (String) - the id (if speficied) to put the action under stack's context.
@@ -35,7 +35,7 @@ import java.util.Map;
  *      <li>ignoreContextParams (Boolean) - default to false. Decides wheather the request parameters are to be included when the action is invoked</li>
  * </ul>
  * <!-- END SNIPPET: params -->
- * 
+ *
  * <pre>
  * <!-- START SNIPPET: javacode -->
  * public class ActionTagAction extends ActionSupport {
@@ -43,7 +43,7 @@ import java.util.Map;
  *	public String execute() throws Exception {
  *		return "done";
  *	}
- *	
+ *
  *	public String doDefault() throws Exception {
  *		ServletActionContext.getRequest().setAttribute("stringByAction", "This is a String put in by the action's doDefault()");
  *		return "done";
@@ -51,10 +51,10 @@ import java.util.Map;
  * }
  * <!-- END SNIPPET: javacode -->
  * </pre>
- *  
+ *
  * <pre>
  * <!-- START SNIPPET: webworkxml -->
- *   <xwork> 
+ *   <xwork>
  *      ....
  *     <action name="actionTagAction1" class="tmjee.testing.ActionTagAction">
  *         <result name="done">success.jsp</result>
@@ -66,7 +66,7 @@ import java.util.Map;
  *   </xwork>
  * <!-- END SNIPPET: webworkxml -->
  * </pre>
- * 
+ *
  * <pre>
  * <!-- START SNIPPET: example -->
  * <div>The following action tag will execute result and include it in this page</div>div>
@@ -82,6 +82,12 @@ import java.util.Map;
  *
  * @author <a href="mailto:plightbo@gmail.com">Pat Lightbody</a>
  * @author tm_jee ( tm_jee (at) yahoo.co.uk )
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="action" body-content="empty"
+ * description="Execute an action from within a view"
  */
 public class ActionComponent extends Component {
     private static final Log LOG = LogFactory.getLog(ActionComponent.class);
@@ -199,18 +205,34 @@ public class ActionComponent extends Component {
         }
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="The action to execute"
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set namespace attribute"
+     */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="true/false - whether the result (probably a view) should be executed/rendered"
+     */
     public void setExecuteResult(boolean executeResult) {
         this.executeResult = executeResult;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set ignoreContextParams attribute"
+     */
     public void setIgnoreContextParams(boolean ignoreContextParams) {
         this.ignoreContextParams = ignoreContextParams;
     }

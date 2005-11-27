@@ -6,9 +6,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 8:23:42 AM
+ * <!-- START SNIPPET: javadoc -->
+ * Renders two HTML select elements to represent eg. "available|selected" type input.
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:doubleselect label="'doubleselect test'" ... /&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="doubleselect" body-content="JSP"
+ * description="Render a double select element"
  */
 public class DoubleSelect extends DoubleListUIBean {
     final public static String TEMPLATE = "doubleselect";
@@ -51,22 +67,43 @@ public class DoubleSelect extends DoubleListUIBean {
         addParameter("onchange", getParameters().get("name") + "Redirect(this.options.selectedIndex)");
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Whether or not to add an empty (--) option after the header option"
+     */
     public void setEmptyOption(String emptyOption) {
         this.emptyOption = emptyOption;
     }
 
+    /**
+     * Cannot be empty! "'-1'" and "''" is correct, "" is bad.
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Key for first item in list"
+     */
     public void setHeaderKey(String headerKey) {
         this.headerKey = headerKey;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Value expression for first item in list"
+     */
     public void setHeaderValue(String headerValue) {
         this.headerValue = headerValue;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute. Passing a Collection may work too? Haven't tested this."
+     */
     public void setMultiple(String multiple) {
         this.multiple = multiple;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description=" Size of the element box (# of elements to show)"
+     */
     public void setSize(String size) {
         this.size = size;
     }

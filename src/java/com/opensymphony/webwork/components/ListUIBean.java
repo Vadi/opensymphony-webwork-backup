@@ -11,9 +11,12 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 7:58:43 AM
+ * DoubleListUIBean is the standard superclass of all webwork list handling components.
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
  */
 public abstract class ListUIBean extends UIBean {
     protected Object list;
@@ -81,14 +84,27 @@ public abstract class ListUIBean extends UIBean {
         return null; // don't convert nameValue to anything, we need the raw value
     }
 
+    /**
+     * If the list is a Map (key, value), the Map key will become the option "value" parameter and the Map value will become the option body.
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="Iteratable source to populate from."
+     */
     public void setList(Object list) {
         this.list = list;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Property of list objects to get field value from"
+     */
     public void setListKey(String listKey) {
         this.listKey = listKey;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Property of list objects to get field content from"
+      */
     public void setListValue(String listValue) {
         this.listValue = listValue;
     }

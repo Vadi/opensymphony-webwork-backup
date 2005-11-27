@@ -12,6 +12,33 @@ import com.opensymphony.xwork.ActionInvocation;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * <!-- START SNIPPET: javadoc -->
+ * Renders HTML an input form.<p/>
+ *
+ * The remote form allows the form to be submitted without the page being refreshed. The results from the form
+ * can be inserted into any HTML element on the page.<p/>
+ *
+ * TODO: Talk generally about the form, behaviors, etc. Mention theme-specific notes as well.<p/>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:form ... /&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Ian Roughley
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="form" body-content="JSP"
+ * description="Renders an input form"
+  */
 public class Form extends ClosingUIBean {
     final public static String OPEN_TEMPLATE = "form";
     final public static String TEMPLATE = "form-close";
@@ -156,30 +183,58 @@ public class Form extends ClosingUIBean {
         }
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="HTML onsubmit attribute"
+     */
     public void setOnsubmit(String onsubmit) {
         this.onsubmit = onsubmit;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set action attribute"
+     */
     public void setAction(String action) {
         this.action = action;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set target attribute"
+     */
     public void setTarget(String target) {
         this.target = target;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set enctype attribute"
+     */
     public void setEnctype(String enctype) {
         this.enctype = enctype;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set method attribute"
+     */
     public void setMethod(String method) {
         this.method = method;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set namespace attribute"
+     */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set validate attribute"
+     */
     public void setValidate(String validate) {
         this.validate = validate;
     }

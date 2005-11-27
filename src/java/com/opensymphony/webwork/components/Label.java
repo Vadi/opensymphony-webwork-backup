@@ -6,10 +6,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 7:12:39 AM
- */
+ * <!-- START SNIPPET: javadoc -->
+ * Renders an HTML LABEL that will allow you to output label:name combination that has the same format treatment as
+ * the rest of your UI controls.</p>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ * <p/>
+ * <!-- START SNIPPET: exampledescription -->
+ * In this example, a label is rendered. The label is retrieved from a ResourceBundle by calling ActionSupport's
+ * getText() method giving you an output of User name: a label.<p/>
+ * <!-- END SNIPPET: exampledescription -->
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:label label="text('user_name')" name="'a label'" /&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="label" body-content="JSP"
+ * description="Render a label that displays read-only information"
+  */
 public class Label extends UIBean {
     final public static String TEMPLATE = "label";
 
@@ -43,6 +64,10 @@ public class Label extends UIBean {
         }
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="HTML for attribute"
+     */
     public void setFor(String forAttr) {
         this.forAttr = forAttr;
     }

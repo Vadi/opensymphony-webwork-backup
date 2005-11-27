@@ -9,9 +9,48 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 7:22:54 AM
+ * <!-- START SNIPPET: javadoc -->
+ * Render a panel for tabbedPanel.</p>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ * <p/>
+ * <!-- START SNIPPET: exampledescription -->
+ * The following is an example of a tabbedpanel and panel tag utilizing local and remote content.<p/>
+ * <!-- END SNIPPET: exampledescription -->
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:tabbedPanel id="test2" theme="simple" &gt;
+ *     &lt;ww:panel id="left" tabName="left" theme="ajax"&gt;
+ *         This is the left pane&lt;br/&gt;
+ *         &lt;ww:form &gt;
+ *             &lt;ww:textfield name="tt" label="Test Text" /&gt;  &lt;br/&gt;
+ *             &lt;ww:textfield name="tt2" label="Test Text2" /&gt;
+ *         &lt;/ww:form&gt;
+ *     &lt;/ww:panel&gt;
+ *     &lt;ww:panel remote="true" href="/AjaxTest.action" id="ryh1" theme="ajax" tabName="remote one" /&gt;
+ *     &lt;ww:panel id="middle" tabName="middle" theme="ajax"&gt;
+ *         middle tab&lt;br/&gt;
+ *         &lt;ww:form &gt;
+ *             &lt;ww:textfield name="tt" label="Test Text44" /&gt;  &lt;br/&gt;
+ *             &lt;ww:textfield name="tt2" label="Test Text442" /&gt;
+ *         &lt;/ww:form&gt;
+ *     &lt;/ww:panel&gt;
+ *     &lt;ww:panel remote="true" href="/AjaxTest.action"  id="ryh21" theme="ajax" tabName="remote right" /&gt;
+ * &lt;/ww:tabbedPanel&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Ian Roughley
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @see TabbedPanel
+ *
+ * @jsp.tag name="panel" body-content="JSP"
+ * description="Render a panel for tabbedPanel"
  */
 public class Panel extends Div {
     private static final Log LOG = LogFactory.getLog(Panel.class);
@@ -70,14 +109,26 @@ public class Panel extends Div {
         return COMPONENT_NAME;
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="The text of the tab to display in the header tab list"
+     */
     public void setTabName(String tabName) {
         this.tabName = tabName;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set subscribeTopicName attribute"
+     */
     public void setSubscribeTopicName(String subscribeTopicName) {
         this.subscribeTopicName = subscribeTopicName;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="true/false - determines whether this is a remote panel (ajax) or a local panel (content loaded into visible/hidden containers)"
+     */
     public void setRemote(String remote) {
         this.remote = remote;
     }

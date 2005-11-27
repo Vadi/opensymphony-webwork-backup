@@ -18,16 +18,16 @@ import java.io.Writer;
  * ActionContext.</p>
  * <p/>
  * <!-- END SNIPPET: javadoc -->
- * 
- * 
+ *
+ *
  * <!-- START SNIPPET: params -->
  * <ul>
  * 		<li>id - the stack's context id (if supplied) that the created bean will be store under</li>
  * 		<li>name* - the class name of the bean to be instantiated (must respect JavaBean specification)</li>
  * </ul>
  * <!-- END SNIPPET: params -->
- * 
- * 
+ *
+ *
  * <p>Examples:</p>
  * <p/>
  * <pre>
@@ -37,7 +37,7 @@ import java.io.Writer;
  *   [ww:param name="foo" value="BAR"/]
  *   The value of foo is : [ww:property value="foo"/], when inside the bean tag.<br />
  * [/ww:bean]
- * 
+ *
  * &lt;-- in jsp form --&gt;
  * &lt;ww:bean name="com.opensymphony.webwork.example.counter.SimpleCounter" id="counter"&gt;
  * 	 &lt;ww:param name="foo" value="BAR" /&gt;
@@ -46,7 +46,7 @@ import java.io.Writer;
  * <!-- END SNIPPET: examples -->
  * </pre>
  * <p/>
- * 
+ *
  * <!-- START SNIPPET: examplesdescription -->
  * <p>This example instantiates a bean called SimpleCounter and sets the foo property (setFoo('BAR')). The
  * SimpleCounter object is then pushed onto the Valuestack, which means that we can called its accessor methods (getFoo())
@@ -58,7 +58,7 @@ import java.io.Writer;
  * <pre>
  * &lt;-- jsp form --&gt;
  * &lt;ww:property value="#counter" /&gt;
- * 
+ *
  * &lt;-- freemarker form --&gt;
  * [ww:property value="#counter.foo"/]
  * </pre>
@@ -70,8 +70,14 @@ import java.io.Writer;
  * @author $author$
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @author Brock Bulger
- * @author tm_jee ( tm_jee (at) yahoo.co.uk )
+ * @author Rene Gielen
  * @version $Revision$
+ * @since 2.2
+ *
+ * @see Param
+ *
+ * @jsp.tag name="bean" body-content="JSP"
+ * description="Instantiate a JavaBean and place it in the context."
  */
 public class Bean extends Component {
     protected static Log log = LogFactory.getLog(Bean.class);
@@ -118,6 +124,10 @@ public class Bean extends Component {
         OgnlUtil.setProperty(key, value, bean, getStack().getContext());
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="Name of the bean to instantiate"
+     */
     public void setName(String name) {
         this.name = name;
     }

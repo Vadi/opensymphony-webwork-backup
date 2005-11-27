@@ -6,9 +6,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 6:46:38 AM
+ * <!-- START SNIPPET: javadoc -->
+ * Render a submit button.</p>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:submit value="'Submit'" /&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="submit" body-content="JSP"
+ * description="Render a submit button"
  */
 public class Submit extends UIBean {
     final public static String TEMPLATE = "submit";
@@ -80,34 +96,66 @@ public class Submit extends UIBean {
         }
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set action attribute"
+     */
     public void setAction(String action) {
         this.action = action;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set method attribute"
+     */
     public void setMethod(String method) {
         this.method = method;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="HTML align attribute"
+     */
     public void setAlign(String align) {
         this.align = align;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set resultDivId attribute"
+     */
     public void setResultDivId(String resultDivId) {
         this.resultDivId = resultDivId;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set onLoadJS attribute"
+     */
     public void setOnLoadJS(String onLoadJS) {
         this.onLoadJS = onLoadJS;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set notifyTopics attribute"
+     */
     public void setNotifyTopics(String notifyTopics) {
         this.notifyTopics = notifyTopics;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set listenTopics attribute"
+     */
     public void setListenTopics(String listenTopics) {
         this.listenTopics = listenTopics;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set preInvokeJS attribute"
+     */
     public void setPreInvokeJS(String preInvokeJS) {
         this.preInvokeJS = preInvokeJS;
     }

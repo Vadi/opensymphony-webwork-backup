@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
 
 /**
- * User: plightbo
- * Date: Jul 18, 2005
- * Time: 7:55:59 PM
+ * ClosingUIBean is the standard superclass for UI components such as div etc.
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
  */
 public abstract class ClosingUIBean extends UIBean {
     private static final Log LOG = LogFactory.getLog(ClosingUIBean.class);
@@ -24,6 +27,10 @@ public abstract class ClosingUIBean extends UIBean {
 
     public abstract String getDefaultOpenTemplate();
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set template to use for opening the rendered html."
+     */
     public void setOpenTemplate(String openTemplate) {
         this.openTemplate = openTemplate;
     }
