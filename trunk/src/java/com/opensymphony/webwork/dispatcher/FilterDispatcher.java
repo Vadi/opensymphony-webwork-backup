@@ -79,7 +79,8 @@ import java.util.StringTokenizer;
  * This means that you can simply request /webwork/xhtml/styles.css and the XHTML UI theme's default
  * stylesheet will be returned. Likewise, many of the AJAX UI components require various JavaScript files,
  * which are found in the com.opensymphony.webwork.static package. If you wish to add additional packages
- * to be searched, you can add a comma separated list in the filter init parameter named "packages".
+ * to be searched, you can add a comma separated (space, tab and new line will do as well) list in 
+ * the filter init parameter named "packages".
  * <b>Be careful</b>, however, to expose any packages that may have sensitive information, such as properties
  * file with database access credentials.
  * <p/>
