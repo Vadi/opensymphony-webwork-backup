@@ -60,7 +60,7 @@
         <copy file="webapps/build.xml" todir="${dist}/webapps"/>
     </target>
 
-    <target name="xdoclet-taglib">
+    <target name="xdoclet-taglib" depends="init">
         <taskdef
             name="xdoclet"
             classname="xdoclet.DocletTask"
@@ -89,7 +89,7 @@
         </xdoclet>
     </target>
 
-    <target name="xdoclet-tagdoc" depends="xdoclet-taglib">
+    <target name="xdoclet-tagdoc" depends="init">
         <mkdir dir="${dist.docs.tagdocdir}"/>
         <taskdef name="xdoclet" classname="xdoclet.DocletTask" classpathref="cp"/>
         <xdoclet destdir="${dist.docs.tagdocdir}"
