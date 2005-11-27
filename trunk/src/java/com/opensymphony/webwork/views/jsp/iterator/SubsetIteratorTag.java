@@ -54,6 +54,15 @@ import org.apache.commons.logging.LogFactory;
  *	    public List getMyList() {
  *		   return l;
  *	     }
+ *
+ *      public Decider getMyDecider() {
+ *		return new Decider() {
+ *			public boolean decide(Object element) throws Exception {
+ *				int i = ((Integer)element).intValue();
+ *				return (((i % 2) == 0)?true:false);
+ *			}
+ *		};
+ *		} 
  *	}
  * <!-- END SNIPPET: action -->
  * </pre>
@@ -107,6 +116,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * <pre>
  * <!-- START SNIPPET: example5 -->
+ *  &lt;!--  D: List with Decider --&gt;
  *      &lt;ww:subset source="myList" decider="myDecider"&gt;
  * 	           &lt;ww:iterator&gt;
  *		            &lt;ww:property /&gt;
