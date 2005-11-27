@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @jsp.tag name="hidden" bodycontent="JSP"
  * @see Hidden
  */
 public class HiddenTag extends AbstractUITag {

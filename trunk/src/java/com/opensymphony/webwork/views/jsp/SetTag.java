@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @jsp.tag name="set" bodycontent="empty"
  * @see Set
  */
 public class SetTag extends ComponentTagSupport {
@@ -34,23 +33,14 @@ public class SetTag extends ComponentTagSupport {
         set.setValue(value);
     }
 
-    /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setScope(String scope) {
         this.scope = scope;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setValue(String value) {
         this.value = value;
     }

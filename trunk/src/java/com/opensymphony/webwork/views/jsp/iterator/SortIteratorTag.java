@@ -24,7 +24,7 @@ import java.util.Comparator;
  *
  * <!-- START SNIPPET: params -->
  * <ul>
- * 		<li>id (String) - if specified, the sorted iterator will be place with this id under page context</li> 
+ * 		<li>id (String) - if specified, the sorted iterator will be place with this id under page context</li>
  * 		<li>source (Object) - the source for the sort to take place (should be iteratable) else JspException will be thrown</li>
  * 		<li>comparator* (Object) - the comparator used to do sorting (should be a type of Comparator or its decendent) else JspException will be thrown</li>
  * </ul>
@@ -56,22 +56,25 @@ import java.util.Comparator;
  * <!-- END SNIPPET: example -->
  *
  *
- * @jsp.tag name="sort" bodycontent="JSP"
  * @see com.opensymphony.webwork.util.SortIteratorFilter
  * @author Rickard Oberg (rickard@dreambean.com)
  * @author tm_jee (tm_jee(at)yahoo.co.uk)
+ *
+ * @jsp.tag name="sort" body-content="JSP"
+ * description="Sort a List using a Comparator both passed in as the tag attribute."
  */
 public class SortIteratorTag extends WebWorkBodyTagSupport {
 
 	private static final long serialVersionUID = -7835719609764092235L;
-	
+
 	String comparatorAttr;
     String sourceAttr;
-    
+
     SortIteratorFilter sortIteratorFilter = null;
 
     /**
      * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="The comparator to use"
      */
     public void setComparator(String comparator) {
         comparatorAttr = comparator;
@@ -79,6 +82,7 @@ public class SortIteratorTag extends WebWorkBodyTagSupport {
 
     /**
      * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The iterable source to sort"
      */
     public void setSource(String source) {
         sourceAttr = source;

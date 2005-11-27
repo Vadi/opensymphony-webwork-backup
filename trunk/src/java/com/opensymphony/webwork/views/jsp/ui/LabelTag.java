@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @jsp.tag name="label" bodycontent="JSP"
  * @see Label
  */
 public class LabelTag extends AbstractUITag {
@@ -29,9 +28,6 @@ public class LabelTag extends AbstractUITag {
         ((Label) component).setFor(forAttr);
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setFor(String aFor) {
         this.forAttr = aFor;
     }

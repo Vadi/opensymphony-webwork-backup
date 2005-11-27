@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @jsp.tag name="combobox" bodycontent="JSP"
  * @see ComboBox
  */
 public class ComboBoxTag extends TextFieldTag {
@@ -28,9 +27,6 @@ public class ComboBoxTag extends TextFieldTag {
         ((ComboBox) component).setList(list);
     }
 
-    /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
-     */
     public void setList(String list) {
         this.list = list;
     }

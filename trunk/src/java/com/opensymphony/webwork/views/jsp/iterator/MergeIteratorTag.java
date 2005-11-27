@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
  * Append a list of iterators. The values of the iterators will be merged
  * into one iterator.
  *
- * @jsp.tag name="merge" bodycontent="JSP"
  * @author Rickard �berg (rickard@dreambean.com)
  * @author tm_jee ( tm_jee (at) yahoo.co.uk )
  * @see MergeIterator
@@ -30,5 +29,5 @@ public class MergeIteratorTag extends ComponentTagSupport {
 	public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
 		return new MergeIterator(stack);
 	}
-	
+
 }

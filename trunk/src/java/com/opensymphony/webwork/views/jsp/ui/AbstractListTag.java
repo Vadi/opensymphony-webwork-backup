@@ -24,23 +24,14 @@ public abstract class AbstractListTag extends AbstractUITag {
         listUIBean.setListValue(listValue);
     }
 
-    /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
-     */
     public void setList(String list) {
         this.list = list;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setListKey(String listKey) {
         this.listKey = listKey;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setListValue(String listValue) {
         this.listValue = listValue;
     }

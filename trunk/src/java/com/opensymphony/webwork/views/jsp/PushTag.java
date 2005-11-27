@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @jsp.tag name="push" bodycontent="JSP"
  * @see Push
  */
 public class PushTag extends ComponentTagSupport {
@@ -29,9 +28,6 @@ public class PushTag extends ComponentTagSupport {
         ((Push) component).setValue(value);
     }
 
-    /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
-     */
     public void setValue(String value) {
         this.value = value;
     }

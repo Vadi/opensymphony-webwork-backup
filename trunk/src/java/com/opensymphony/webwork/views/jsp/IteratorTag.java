@@ -18,7 +18,7 @@ import java.util.Iterator;
  * java.util.Iterator, java.util.Enumeration, java.util.Map, array.</p>
  * <p/>
  * <!-- END SNIPPET: javadoc -->
- * 
+ *
  * <!-- START SNIPPET: params -->
  * <ul>
  * 		<li>status (String) - if specified, an instanceof IteratorStatus will be pushed into stack upon each iteration</li>
@@ -26,7 +26,7 @@ import java.util.Iterator;
  * 		<li>id (String) - if specified the current iteration object will be place with this id in both request and page scope</li>
  * </ul>
  * <!-- END SNIPPET: params -->
- * 
+ *
  * <!-- START SNIPPET: example1description -->
  * <p>The following example retrieves the value of the getDays() method of the current object on the value stack and uses
  * it to iterate over. The &lt;ww:property/&gt; tag prints out the current value of the iterator.</p>
@@ -38,8 +38,8 @@ import java.util.Iterator;
  * &lt;/ww:iterator&gt;
  * <!-- END SNIPPET: example1code -->
  * </pre>
- * 
- * 
+ *
+ *
  * <!-- START SNIPPET: example2description -->
  * <p>The following example uses a {@link BeanTag} and places it into the ActionContext. The iterator tag will
  * retrieve that object from the ActionContext and then calls its getDays() method as above. The status attribute is also
@@ -71,14 +71,14 @@ import java.util.Iterator;
  * &lt;/table&gt;
  * <!-- END SNIPPET: example2code -->
  * </pre>
- * 
+ *
  * <!--START SNIPPET: example2description -->
  * <p>
- * The next example will further demonstrate the use of the status 
- * attribute, using a DAO obtained from the action class through OGNL, 
- * iterating over groups and their users (in a security context). 
- * The last() method indicates if the current object is the last available 
- * in the iteration, and if not, we need to seperate the users using a 
+ * The next example will further demonstrate the use of the status
+ * attribute, using a DAO obtained from the action class through OGNL,
+ * iterating over groups and their users (in a security context).
+ * The last() method indicates if the current object is the last available
+ * in the iteration, and if not, we need to seperate the users using a
  * comma:
  * </p>
  * <!-- END SNIPPET: example3description -->
@@ -90,7 +90,7 @@ import java.util.Iterator;
  *			&lt;td&gt;&lt;webwork:property value="description" /&gt;&lt;/td&gt;
  *			&lt;td&gt;
  *				&lt;webwork:iterator value="users" status="userStatus"&gt;
- *					&lt;webwork:property value="fullName" /&gt;&lt;webwork:if test="!#userStatus.last"&gt;,&lt;/webwork:if&gt;                
+ *					&lt;webwork:property value="fullName" /&gt;&lt;webwork:if test="!#userStatus.last"&gt;,&lt;/webwork:if&gt;
  *				&lt;/webwork:iterator&gt;
  *			&lt;/td&gt;
  *		&lt;/tr&gt;
@@ -98,14 +98,14 @@ import java.util.Iterator;
  *<!-- END SNIPPET: example3code -->
  * </pre>
  * <p>
- * 
+ *
  * <!-- START SNIPPET: example4description -->
  * </p>
- * The next example iterates over a an action collection and passes 
- * every iterator value to another action. The trick here lies in the use of the '[0]' 
- * operator. It takes the current iterator value and passes it on to the 
- * edit action. Using the '[0]' operator has the same effect as using 
- * &gt;ww:property /&gt;. (The latter, however, does not work from inside the 
+ * The next example iterates over a an action collection and passes
+ * every iterator value to another action. The trick here lies in the use of the '[0]'
+ * operator. It takes the current iterator value and passes it on to the
+ * edit action. Using the '[0]' operator has the same effect as using
+ * &gt;ww:property /&gt;. (The latter, however, does not work from inside the
  * param tag).
  * </p>
  * <!-- END SNIPPET: example4description -->
@@ -124,11 +124,13 @@ import java.util.Iterator;
  * <!-- END SNIPPET: example4code -->
  * </pre>
  *
- * @jsp.tag name="iterator" bodycontent="JSP"
  * @author $Author$
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @author tm_jee ( tm_jee(at)yahoo.co.uk )
  * @version $Revision$
+ *
+ * @jsp.tag name="iterator" body-content="JSP"
+ * description="Iterate over a iterable value"
  */
 public class IteratorTag extends WebWorkBodyTagSupport {
 
@@ -141,6 +143,7 @@ public class IteratorTag extends WebWorkBodyTagSupport {
 
     /**
      * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="if specified, an instanceof IteratorStatus will be pushed into stack upon each iteration"
      */
     public void setStatus(String status) {
         this.statusAttr = status;
@@ -148,6 +151,7 @@ public class IteratorTag extends WebWorkBodyTagSupport {
 
     /**
      * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="the iteratable source to iterate over, else an the object itself will be put into a newly created List"
      */
     public void setValue(String value) {
         this.value = value;

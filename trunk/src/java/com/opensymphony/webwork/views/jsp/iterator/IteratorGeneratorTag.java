@@ -17,11 +17,11 @@ import org.apache.commons.logging.LogFactory;
 /**
  * <!-- START SNIPPET: javadoc -->
  * Generate an iterator based on the val attribute supplied.
- * 
+ *
  * <b>NOTE:</b> The generated iterator will <b>ALWAYS</b> be pushed into the top of the stack, and poped
  * at the end of the tag.
  * <!-- END SNIPPET: javadoc -->
- * 
+ *
  * <!-- START SNIPPET: params -->
  * <ul>
  * 		<li>val* (Object) - the source to be parsed into an iterator </li>
@@ -31,8 +31,8 @@ import org.apache.commons.logging.LogFactory;
  *  	<li>converter (Object) - the converter (must extends off IteratorGenerator.Converter interface) to convert the String entry parsed from <i>val</i> into an object</li>
  * </ul>
  * <!-- END SNIPPET: params -->
- * 
- * 
+ *
+ *
  * <!-- START SNIPPET: example -->
  * Example One:
  * <pre>
@@ -44,7 +44,7 @@ import org.apache.commons.logging.LogFactory;
  * &lt;/ww:generator&gt;
  * </pre>
  * This generates an iterator and print it out using the iterator tag.
- * 
+ *
  * Example Two:
  * <pre>
  * Generate an iterator with count attribute
@@ -56,7 +56,7 @@ import org.apache.commons.logging.LogFactory;
  * </pre>
  * This generates an iterator, but only 3 entries will be available in the iterator
  * generated, namely aaa, bbb and ccc respectively because count attribute is set to 3
- * 
+ *
  * Example Three:
  * <pre>
  * Generate an iterator with id attribute
@@ -71,8 +71,8 @@ import org.apache.commons.logging.LogFactory;
  * </pre>
  * This generates an iterator and put it in the PageContext under the key as specified
  * by the id attribute.
- * 
- * 
+ *
+ *
  * Example Four:
  * <pre>
  * Generate an iterator with comparator attribute
@@ -81,12 +81,12 @@ import org.apache.commons.logging.LogFactory;
  * 		&lt;ww:property /&gt;&lt;br/&gt;
  * 	&lt;/ww:iterator&gt;
  * &lt;/ww:generator&gt;
- * 
- * 
+ *
+ *
  * public class GeneratorTagAction extends ActionSupport {
- *   
+ *
  *   ....
- *  
+ *
  *	 public Converter getMyConverter() {
  *		return new Converter() {
  *			public Object convert(String value) throws Exception {
@@ -96,37 +96,39 @@ import org.apache.commons.logging.LogFactory;
  *	 }
  *
  *   ...
- *   
+ *
  * }
  * </pre>
  * This will generate an iterator with each entries decided by the converter supplied. With
  * this converter, it simply add "converter-" to each entries.
  * <!-- END SNIPPET: example -->
- * 
  *
- * @jsp.tag name="generator" bodycontent="JSP"
  * @see com.opensymphony.webwork.util.IteratorGenerator
  * @author Rickard �berg (rickard@dreambean.com)
  * @author tm_jee ( tm_jee(at)yahoo.co.uk )
  * @version $Revision$
+ *
+ * @jsp.tag name="generator" body-content="JSP"
+ * description="Generate an iterator for a iterable source."
  */
 public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
-	
+
 	private static final long serialVersionUID = 2968037295463973936L;
 
 	public static final String DEFAULT_SEPARATOR = ",";
-	
+
 	private static final Log _log = LogFactory.getLog(IteratorGeneratorTag.class);
-	
+
     String countAttr;
     String separatorAttr;
     String valueAttr;
     String converterAttr;
-    
+
     IteratorGenerator iteratorGenerator = null;
 
     /**
      * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="the max number (Integer, Float, Double, Long, String) entries to be in the iterator"
      */
     public void setCount(String count) {
         countAttr = count;
@@ -134,6 +136,7 @@ public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
 
     /**
      * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="the separator to be used in separating the <i>val</i> into entries of the iterator"
      */
     public void setSeparator(String separator) {
         separatorAttr = separator;
@@ -141,29 +144,31 @@ public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
 
     /**
      * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="the source to be parsed into an iterator"
      */
     public void setVal(String val) {
         valueAttr = val;
     }
-    
+
     /**
      * @jsp.attribute required="false" rtexprvalue="true"
+     * description="the converter (must extends off IteratorGenerator.Converter interface) to convert the String entry parsed from <i>val</i> into an object"
      */
     public void setConverter(String aConverter) {
     	converterAttr = aConverter;
     }
 
     public int doStartTag() throws JspException {
-    	
+
     	// value
     	Object value = findValue(valueAttr);
-    	
+
     	// separator
     	String separator = DEFAULT_SEPARATOR;
     	if (separatorAttr != null && separatorAttr.length() > 0) {
     		separator = findString(separatorAttr);
     	}
-    	
+
     	// TODO: maybe this could be put into an Util class, or there is already one?
     	// count
     	int count = 0;
@@ -190,40 +195,40 @@ public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
     			}
     		}
     	}
-    	
+
     	// converter
     	Converter converter = null;
     	if (converterAttr != null && converterAttr.length() > 0) {
     		converter = (Converter) findValue(converterAttr);
     	}
-    	
-    	
+
+
     	iteratorGenerator = new IteratorGenerator();
     	iteratorGenerator.setValues(value);
     	iteratorGenerator.setCount(count);
     	iteratorGenerator.setSeparator(separator);
     	iteratorGenerator.setConverter(converter);
-    	
+
     	iteratorGenerator.execute();
-    	
-    	
-    	
+
+
+
     	// push resulting iterator into stack
     	getStack().push(iteratorGenerator);
     	if (getId() != null && getId().length() > 0) {
-    		// if an id is specified, we have the resulting iterator set into 
+    		// if an id is specified, we have the resulting iterator set into
     		// the pageContext attribute as well
     		pageContext.setAttribute(getId(), iteratorGenerator);
     	}
 
         return EVAL_BODY_INCLUDE;
     }
-    
+
     public int doEndTag() throws JspException {
     	// pop resulting iterator from stack at end tag
     	getStack().pop();
     	iteratorGenerator = null; // clean up
-    	
+
     	return EVAL_PAGE;
     }
 }

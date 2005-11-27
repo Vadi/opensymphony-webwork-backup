@@ -9,16 +9,16 @@ import javax.servlet.jsp.JspException;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Perform basic condition flow. 'If' tag could be used by itself or 
+ * Perform basic condition flow. 'If' tag could be used by itself or
  * with 'Else If' Tag and/or single/multiple 'Else' Tag.
  * <!-- END SNIPPET: javadoc -->
- * 
- * 
+ *
+ *
  * <!-- START SNIPPET: params -->
  * no params
  * <!-- END SNIPPET: params -->
- * 
- * 
+ *
+ *
  * <pre>
  * <!-- START SNIPPET: example -->
  *  &lt;ww:if test="%{false}"&gt;
@@ -32,10 +32,12 @@ import javax.servlet.jsp.JspException;
  *  &lt;/ww:else&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
- * 
- * @jsp.tag name="else" bodycontent="JSP"
+ *
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @author tmjee
+ *
+ * @jsp.tag name="else" bodycontent="JSP"
+ * description="Else tag"
  */
 public class ElseTag extends WebWorkBodyTagSupport {
     public int doStartTag() throws JspException {

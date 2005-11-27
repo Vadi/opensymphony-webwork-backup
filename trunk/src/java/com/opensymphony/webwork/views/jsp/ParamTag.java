@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @jsp.tag name="param" bodycontent="JSP"
  * @see Param
  */
 public class ParamTag extends ComponentTagSupport {
@@ -31,16 +30,10 @@ public class ParamTag extends ComponentTagSupport {
         param.setValue(value);
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setValue(String value) {
         this.value = value;
     }

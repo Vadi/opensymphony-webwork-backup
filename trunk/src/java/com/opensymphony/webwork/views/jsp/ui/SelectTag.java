@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @jsp.tag name="select" bodycontent="JSP"
  * @see Select
  */
 public class SelectTag extends AbstractListTag {
@@ -38,37 +37,22 @@ public class SelectTag extends AbstractListTag {
         select.setSize(size);
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setEmptyOption(String emptyOption) {
         this.emptyOption = emptyOption;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setHeaderKey(String headerKey) {
         this.headerKey = headerKey;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setHeaderValue(String headerValue) {
         this.headerValue = headerValue;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setMultiple(String multiple) {
         this.multiple = multiple;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setSize(String size) {
         this.size = size;
     }
