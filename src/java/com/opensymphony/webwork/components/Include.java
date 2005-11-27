@@ -29,7 +29,7 @@ import java.util.*;
  *
  * <!-- START SNIPPET: params -->
  * <ul>
- * 		<li>value* (String) - </li>
+ * 		<li>value* (String) - jsp page to be included</li>
  * </ul>
  * <!-- END SNIPPET: params -->
  *
