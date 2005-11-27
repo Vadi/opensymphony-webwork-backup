@@ -20,11 +20,68 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * <!-- START SNIPPET: javadoc -->
  * ActionTag enables developers to call Actions directly from a JSP page by specifying the Action name and an optional
  * namespace.  The body content of the tag is used to render the results from the Action.  Any Result processor defined
  * for this Action in xwork.xml will be ignored.
+ * <!-- END SNIPPET: javadoc -->
+ * 
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ *      <li>id (String) - the id (if speficied) to put the action under stack's context.
+ * 		<li>name* (String) - name of the action to be executed (without the extension suffix eg. .action)</li>
+ * 		<li>namespace (String) - default to the namespace where this action tag is invoked</li>
+ *      <li>executeResult (Boolean) -  default is false. Decides wheather the result of this action is to be executed or not</li>
+ *      <li>ignoreContextParams (Boolean) - default to false. Decides wheather the request parameters are to be included when the action is invoked</li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ * 
+ * <pre>
+ * <!-- START SNIPPET: javacode -->
+ * public class ActionTagAction extends ActionSupport {
+ *
+ *	public String execute() throws Exception {
+ *		return "done";
+ *	}
+ *	
+ *	public String doDefault() throws Exception {
+ *		ServletActionContext.getRequest().setAttribute("stringByAction", "This is a String put in by the action's doDefault()");
+ *		return "done";
+ *	}
+ * }
+ * <!-- END SNIPPET: javacode -->
+ * </pre>
+ *  
+ * <pre>
+ * <!-- START SNIPPET: webworkxml -->
+ *   <xwork> 
+ *      ....
+ *     <action name="actionTagAction1" class="tmjee.testing.ActionTagAction">
+ *         <result name="done">success.jsp</result>
+ *     </action>
+ *      <action name="actionTagAction2" class="tmjee.testing.ActionTagAction" method="default">
+ *         <result name="done">success.jsp</result>
+ *     </action>
+ *      ....
+ *   </xwork>
+ * <!-- END SNIPPET: webworkxml -->
+ * </pre>
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * <div>The following action tag will execute result and include it in this page</div>div>
+ *	<br />
+ *	<ww:action name="actionTagAction" executeResult="true" />
+ *  <br />
+ *  <div>The following action tag will not execute result, but put a String in request scope
+ *       under an id "stringByAction" which will be retrieved using property tag</div>
+ *  <ww:action name="actionTagAction!default" executeResult="false" />
+ *  <ww:property value="#attr.stringByAction" />
+ * <!-- END SNIPPET: example -->
+ * </pre>
  *
  * @author <a href="mailto:plightbo@gmail.com">Pat Lightbody</a>
+ * @author tm_jee ( tm_jee (at) yahoo.co.uk )
  */
 public class ActionComponent extends Component {
     private static final Log LOG = LogFactory.getLog(ActionComponent.class);
