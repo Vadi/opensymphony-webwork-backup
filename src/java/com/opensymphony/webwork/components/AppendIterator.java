@@ -15,7 +15,6 @@ import org.apache.commons.logging.LogFactory;
 import com.opensymphony.webwork.components.Param.UnnamedParametric;
 import com.opensymphony.webwork.util.AppendIteratorFilter;
 import com.opensymphony.webwork.util.MakeIterator;
-import com.opensymphony.xwork.ActionSupport;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
