@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @jsp.tag name="file" bodycontent="JSP"
  * @see File
  */
 public class FileTag extends AbstractUITag {
@@ -32,16 +31,10 @@ public class FileTag extends AbstractUITag {
         file.setSize(size);
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setAccept(String accept) {
         this.accept = accept;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setSize(String size) {
         this.size = size;
     }

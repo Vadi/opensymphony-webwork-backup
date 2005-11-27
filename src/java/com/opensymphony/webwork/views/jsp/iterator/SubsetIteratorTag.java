@@ -16,12 +16,12 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * A tag that takes an iterator and outputs a subset of it. It delegates to 
- * {@link com.opensymphony.webwork.util.SubsetIteratorFilter} internally to 
+ * A tag that takes an iterator and outputs a subset of it. It delegates to
+ * {@link com.opensymphony.webwork.util.SubsetIteratorFilter} internally to
  * perform the subset functionality.
- * 
+ *
  * <!-- END SNIPPET: javadoc -->
- * 
+ *
  * <!-- START SNIPPET: params -->
  * <ul>
  * 		<li>count (Object) - Indicate the number of entries to be in the resulting subset iterator</li>
@@ -31,8 +31,8 @@ import org.apache.commons.logging.LogFactory;
  * 		<li>id (String) - Indicate the pageContext attribute id to store the resultant subset iterator in</li>
  * </ul>
  * <!-- END SNIPPET: params -->
- * 
- * 
+ *
+ *
  * <pre>
  * <!-- START SNIPPET: action -->
  * public class MySubsetTagAction extends ActionSupport {
@@ -45,12 +45,12 @@ import org.apache.commons.logging.LogFactory;
  *		   l.add(new Integer(5));
  *		   return "done";
  *	    }
- *	 
+ *
  *
  *	    public Integer[] getMyArray() {
  *		   return a;
  *	    }
- *	
+ *
  *	    public List getMyList() {
  *		   return l;
  *	     }
@@ -62,12 +62,12 @@ import org.apache.commons.logging.LogFactory;
  *				return (((i % 2) == 0)?true:false);
  *			}
  *		};
- *		} 
+ *		}
  *	}
  * <!-- END SNIPPET: action -->
  * </pre>
- * 
- * 
+ *
+ *
  * <pre>
  * <!-- START SNIPPET: example1 -->
  * &lt;!-- A: List basic --&gt;
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  *    &lt;/ww:subset&gt;
  * <!-- END SNIPPET: example1 -->
  * </pre>
- * 
+ *
  * <pre>
  * <!-- START SNIPPET: example2 -->
  * &lt;!-- B: List with count --&gt;
@@ -89,7 +89,7 @@ import org.apache.commons.logging.LogFactory;
  *     &lt;/ww:subset&gt;
  * <!-- END SNIPPET: example2 -->
  * </pre>
- * 
+ *
  * <pre>
  * <!-- START SNIPPET: example3 -->
  * &lt;!--  C: List with start -->
@@ -100,7 +100,7 @@ import org.apache.commons.logging.LogFactory;
  *      &lt;/ww:subset&gt;
  * <!-- END SNIPPET: example3 -->
  * </pre>
- * 
+ *
  * <pre>
  * <!-- START SNIPPET: example4 -->
  * &lt;!--  D: List with id --&gt;
@@ -113,7 +113,7 @@ import org.apache.commons.logging.LogFactory;
  *      &lt;%  } %&gt;
  * <!-- END SNIPPET: example4 -->
  * </pre>
- * 
+ *
  * <pre>
  * <!-- START SNIPPET: example5 -->
  *  &lt;!--  D: List with Decider --&gt;
@@ -124,28 +124,30 @@ import org.apache.commons.logging.LogFactory;
  *      &lt;/ww:subset&gt;
  * <!-- END SNIPPET: example5 -->
  * </pre>
- * 
+ *
  *
  * @author Rickard �berg (rickard@dreambean.com)
  * @author tm_jee ( tm_jee(at)yahoo.co.uk )
- * @jsp.tag name="subset" bodycontent="JSP"
+ * @jsp.tag name="subset" body-content="JSP"
+ * description="Takes an iterator and outputs a subset of it"
  */
 public class SubsetIteratorTag extends WebWorkBodyTagSupport {
-	
+
 	private static final long serialVersionUID = -6252696081713080102L;
 
 	private static final Log _log = LogFactory.getLog(SubsetIteratorTag.class);
-	
+
     String countAttr;
     String sourceAttr;
     String startAttr;
     String deciderAttr;
-    
+
     SubsetIteratorFilter subsetIteratorFilter = null;
-    
-    
+
+
     /**
      * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Indicate the number of entries to be in the resulting subset iterator"
      */
     public void setCount(String count) {
         countAttr = count;
@@ -153,6 +155,7 @@ public class SubsetIteratorTag extends WebWorkBodyTagSupport {
 
     /**
      * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Indicate the source of which the resulting subset iterator is to be derived base on"
      */
     public void setSource(String source) {
         sourceAttr = source;
@@ -160,6 +163,7 @@ public class SubsetIteratorTag extends WebWorkBodyTagSupport {
 
     /**
      * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Indicate the starting index (eg. first entry is 0) of entries in the source to be available as the first entry in the resulting subset iterator"
      */
     public void setStart(String start) {
         startAttr = start;
@@ -167,14 +171,15 @@ public class SubsetIteratorTag extends WebWorkBodyTagSupport {
 
     /**
      * @jsp.attribute required="false" rtexprvalue = "true"
+     * description="Extension to plug-in a decider to determine if that particular entry is to be included in the resulting subset iterator"
      */
     public void setDecider(String decider) {
     	deciderAttr = decider;
     }
-    
-    
+
+
     public int doStartTag() throws JspException {
-    	
+
         // source
         Object source = null;
         if (sourceAttr == null && sourceAttr.length() <= 0) {
@@ -234,7 +239,7 @@ public class SubsetIteratorTag extends WebWorkBodyTagSupport {
     			}
     		}
         }
-        
+
         // decider
         Decider decider = null;
         if (deciderAttr != null && deciderAttr.length() > 0) {
@@ -244,15 +249,15 @@ public class SubsetIteratorTag extends WebWorkBodyTagSupport {
         	}
         	decider = (Decider) deciderObj;
         }
-        
-        
+
+
         subsetIteratorFilter = new SubsetIteratorFilter();
         subsetIteratorFilter.setCount(count);
         subsetIteratorFilter.setDecider(decider);
         subsetIteratorFilter.setSource(source);
         subsetIteratorFilter.setStart(start);
         subsetIteratorFilter.execute();
-        
+
         getStack().push(subsetIteratorFilter);
         if (getId() != null) {
         	pageContext.setAttribute(getId(), subsetIteratorFilter);
@@ -260,13 +265,13 @@ public class SubsetIteratorTag extends WebWorkBodyTagSupport {
 
         return EVAL_BODY_INCLUDE;
     }
-    
+
     public int doEndTag() throws JspException {
-    	
+
     	getStack().pop();
-    	
+
     	subsetIteratorFilter = null;
-    	
+
     	return EVAL_PAGE;
     }
 }

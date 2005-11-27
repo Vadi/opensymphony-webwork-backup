@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @jsp.tag name="submit" bodycontent="JSP"
  * @see Submit
  */
 public class SubmitTag extends AbstractUITag {
@@ -43,58 +42,34 @@ public class SubmitTag extends AbstractUITag {
         submit.setPreInvokeJS(preInvokeJS);
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setAction(String action) {
         this.action = action;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setMethod(String method) {
         this.method = method;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setAlign(String align) {
         this.align = align;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setResultDivId(String resultDivId) {
         this.resultDivId = resultDivId;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setOnLoadJS(String onLoadJS) {
         this.onLoadJS = onLoadJS;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setNotifyTopics(String notifyTopics) {
         this.notifyTopics = notifyTopics;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setListenTopics(String listenTopics) {
         this.listenTopics = listenTopics;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setPreInvokeJS(String preInvokeJS) {
         this.preInvokeJS = preInvokeJS;
     }

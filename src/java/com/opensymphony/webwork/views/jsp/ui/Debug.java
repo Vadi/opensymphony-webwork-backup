@@ -13,10 +13,26 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * User: plightbo
- * Date: Jul 30, 2005
- * Time: 5:35:42 PM
- */
+ * <!-- START SNIPPET: javadoc -->
+ * Renders an debug tag.
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:debug ... /&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="debug" body-content="JSP"
+ * description="Render debug tag"
+  */
 public class Debug extends UIBean {
     public static final String TEMPLATE = "debug";
 

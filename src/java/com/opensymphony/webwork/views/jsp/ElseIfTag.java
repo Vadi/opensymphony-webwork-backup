@@ -9,18 +9,18 @@ import javax.servlet.jsp.JspException;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Perform basic condition flow. 'If' tag could be used by itself or 
+ * Perform basic condition flow. 'If' tag could be used by itself or
  * with 'Else If' Tag and/or single/multiple 'Else' Tag.
  * <!-- END SNIPPET: javadoc -->
- * 
- * 
+ *
+ *
  * <!-- START SNIPPET: params -->
  * <ul>
  * 		<li>test* (Boolean) - Logic to determined if body of tag is to be displayed</li>
  * </ul>
  * <!-- END SNIPPET: params -->
- * 
- * 
+ *
+ *
  * <pre>
  * <!-- START SNIPPET: example -->
  *  &lt;ww:if test="%{false}"&gt;
@@ -34,10 +34,12 @@ import javax.servlet.jsp.JspException;
  *  &lt;/ww:else&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
- * 
- * @jsp.tag name="elseif" bodycontent="JSP"
+ *
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @author tmjee
+ *
+ * @jsp.tag name="elseif" body-content="JSP"
+ * description="Elseif tag"
  */
 public class ElseIfTag extends WebWorkBodyTagSupport {
 
@@ -46,6 +48,7 @@ public class ElseIfTag extends WebWorkBodyTagSupport {
 
     /**
      * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="Optional expression determining whether to evaluate body content."
      */
     public void setTest(String test) {
         this.test = test;

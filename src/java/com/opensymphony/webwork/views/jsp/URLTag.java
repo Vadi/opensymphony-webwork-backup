@@ -19,13 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @jsp.tag name="url" bodycontent="JSP"
  * @see URL
  */
 public class URLTag extends ComponentTagSupport {
     protected String includeParams;
     protected String scheme;
     protected String value;
+    protected String action;
+    protected String namespace;
+    protected String method;
     protected String encode;
     protected String includeContext;
 
@@ -40,6 +42,10 @@ public class URLTag extends ComponentTagSupport {
         url.setIncludeParams(includeParams);
         url.setScheme(scheme);
         url.setValue(value);
+        url.setMethod(method);
+        url.setNamespace(namespace);
+        url.setAction(action);
+
         if (encode != null) {
             url.setEncode(Boolean.valueOf(encode).booleanValue());
         }
@@ -48,37 +54,34 @@ public class URLTag extends ComponentTagSupport {
         }
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setEncode(String encode) {
         this.encode = encode;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setIncludeContext(String includeContext) {
         this.includeContext = includeContext;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setIncludeParams(String name) {
         includeParams = name;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
     public void setScheme(String scheme) {
         this.scheme = scheme;
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setValue(String value) {
         this.value = value;
     }

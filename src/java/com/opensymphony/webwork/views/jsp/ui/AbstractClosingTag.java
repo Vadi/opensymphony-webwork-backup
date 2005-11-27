@@ -14,9 +14,6 @@ public abstract class AbstractClosingTag extends AbstractUITag {
         ((ClosingUIBean) component).setOpenTemplate(openTemplate);
     }
 
-    /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     */
     public void setOpenTemplate(String openTemplate) {
         this.openTemplate = openTemplate;
     }

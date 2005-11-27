@@ -16,9 +16,11 @@ import java.util.Vector;
 /**
  * TabbedPane tag.
  *
- * @jsp.tag name="tabbedpane" bodycontent="JSP"
  * @author Onyeje Bose (digi9ten@yahoo.com)
  * @deprecated Please use the tabbed panel
+ *
+ * @jsp.tag name="tabbedpane" body-content="JSP"
+ * description="This tag is deprecated. Use tabbed panel instead."
  */
 public class TabbedPaneTag extends ComponentTag {
 

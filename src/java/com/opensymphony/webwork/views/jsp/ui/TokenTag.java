@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @jsp.tag name="token" bodycontent="JSP"
  * @see Token
  */
 public class TokenTag extends AbstractUITag {

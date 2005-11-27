@@ -13,7 +13,7 @@ import java.io.IOException;
 
 
 /**
- * @jsp.tag name="property" bodycontent="empty"
+ * @jsp.tag name="property" body-content="empty"
  * @author $Author$
  * @version $Revision$
  */

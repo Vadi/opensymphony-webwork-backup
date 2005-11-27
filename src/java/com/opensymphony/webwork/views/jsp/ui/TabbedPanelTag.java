@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * @jsp.tag name="tabbedPanel" bodycontent="JSP"
  * @see TabbedPanel
  */
 public class TabbedPanelTag extends AbstractClosingTag {
@@ -18,20 +17,10 @@ public class TabbedPanelTag extends AbstractClosingTag {
         return new TabbedPanel(stack, req, res);
     }
 
-    /**
-     * Get the list of panel tabs for this tab panel.
-     *
-     * @return the list of panel tabs for this tab panel
-     */
     public List getTabs() {
         return ((TabbedPanel) component).getTabs();
     }
 
-    /**
-     * Add a new panel to be rendered.
-     *
-     * @param pane a new panel to be rendered
-     */
     public void addTab(Panel pane) {
         ((TabbedPanel) component).addTab(pane);
     }

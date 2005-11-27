@@ -17,11 +17,9 @@ import javax.servlet.http.HttpServletResponse;
  * Append a list of iterators. The values of the iterators will be merged
  * into one iterator.
  *
- * @jsp.tag name="append" bodycontent="JSP"
  * @author Rickard �berg (rickard@dreambean.com)
  * @author tmjee (tm_jee (at) yahoo.co.uk )
  * @see AppendIterator
- * @see com.opensymphony.webwork.util.AppendIteratorFilter
  */
 public class AppendIteratorTag extends ComponentTagSupport {
 
@@ -30,7 +28,5 @@ public class AppendIteratorTag extends ComponentTagSupport {
 	public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
 		return new AppendIterator(stack);
 	}
-	
-
 	
 }

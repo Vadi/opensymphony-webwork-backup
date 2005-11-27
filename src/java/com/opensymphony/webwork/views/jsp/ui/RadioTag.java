@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * @jsp.tag name="radio" bodycontent="JSP"
  * @see Radio
  */
 public class RadioTag extends AbstractListTag {
