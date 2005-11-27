@@ -90,7 +90,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  *		return "done";
  *	}
  * }
- * <!-- START SNIPPET: javacode -->
+ * <!-- END SNIPPET: javacode -->
  * 
  * <!-- START SNIPPET: example -->
  * &lt;ww:merge id="myMergedIterator1"&gt;
