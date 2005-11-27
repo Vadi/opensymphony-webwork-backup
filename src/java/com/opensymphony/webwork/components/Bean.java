@@ -23,7 +23,7 @@ import java.io.Writer;
  * <!-- START SNIPPET: params -->
  * <ul>
  * 		<li>id - the stack's context id (if supplied) that the created bean will be store under</li>
- * 		<li>name (*) - the class name of the bean to be instantiated (must respect JavaBean specification)</li>
+ * 		<li>name* - the class name of the bean to be instantiated (must respect JavaBean specification)</li>
  * </ul>
  * <!-- END SNIPPET: params -->
  * 
