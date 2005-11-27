@@ -9,6 +9,13 @@ import java.io.Writer;
  * Push value on stack for simplified usage.</p>
  * <!-- END SNIPPET: javadoc -->
  *
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ * 		<li>value* (Object) - value to be pushed into the top of the stack</li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ *
+ *
  * <p/> <b>Examples</b>
  * <!-- START SNIPPET: example -->
  * &lt;ww:push value="user"&gt;
@@ -20,6 +27,7 @@ import java.io.Writer;
  *
  * @author Patrick Lightbody
  * @author Rene Gielen
+ * @author tm_jee
  * @version $Revision$
  * @since 2.2
  *
