@@ -18,23 +18,31 @@ import java.util.ResourceBundle;
  * the text tag to access messages from any bundle, and not just the bundle
  * associated with the current action.
  * <!-- END SNIPPET: javadoc -->
- *
- * <p/> <b>Examples</b>
- *
+ * 
+ * <!-- START SNIPPET: params-->
+ * <ul>
+ * 		<li>name* - the resource bundle's name (eg foo/bar/customBundle)</li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ * 
  * <pre>
+ * Example:
  * <!-- START SNIPPET: example -->
- * &lt;ww:i18n name="myI18nResources"/&gt;
+ * &lt;ww:i18n name="myCustomBundle"&gt;
+ *    The i18n value for key aaa.bbb.ccc in myCustomBundle is &lt;ww:property value="text('aaa.bbb.ccc')" /&gt;
+ * &lt;/ww:i18n&gt;
  * <!-- END SNIPPET: example -->
- * </pre>
- *
- * @author Rickard Öberg (rickard@dreambean.com)
+ * <pre>
+ * 
+ * @author Rickard ï¿½berg (rickard@dreambean.com)
  * @author Rene Gielen
+ * @author tm_jee ( tm_jee (at) yahoo.co.uk )
  * @version $Revision$
  * @since 2.2
  *
  * @jsp.tag name="i18n" body-content="JSP"
  * description="Get a resource bundle and place it on the value stack"
-  */
+ */
 public class I18n extends Component {
     private static final Log LOG = LogFactory.getLog(I18n.class);
 
