@@ -5,9 +5,26 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import java.io.Writer;
 
 /**
- * User: plightbo
- * Date: Sep 1, 2005
- * Time: 7:54:06 PM
+ * <!-- START SNIPPET: javadoc -->
+ * Push value on stack for simplified usage.</p>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:push value="user"&gt;
+ *     &lt;ww:propery value="firstName" /&gt;
+ *     &lt;ww:propery value="lastName" /&gt;
+ * &lt;/ww:push&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="push" body-content="JSP"
+ * description="Push value on stack for simplified usage."
  */
 public class Push extends Component {
     protected String value;
@@ -40,6 +57,10 @@ public class Push extends Component {
         super.end(writer, body);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="Value to push on stack"
+     */
     public void setValue(String value) {
         this.value = value;
     }
