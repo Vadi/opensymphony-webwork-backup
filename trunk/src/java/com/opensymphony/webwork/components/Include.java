@@ -3,6 +3,8 @@ package com.opensymphony.webwork.components;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.RequestDispatcher;
@@ -24,17 +26,44 @@ import java.util.*;
  * Include a servlet's output (result of servlet or a JSP page).</p>
  * <!-- END SNIPPET: javadoc -->
  *
- * <p/> <b>Examples</b>
  *
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ * 		<li>value* (String) - </li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ *
+ *
+ * <p/> <b>Examples</b>
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:include ... /&gt;
+ * &lt;-- One: --&gt;
+ * &lt;ww:include value="myJsp.jsp" /&gt;
+ * 
+ * &lt;-- Two: --&gt;
+ * <ww:include value="myJsp.jsp">
+ *    <ww:param name="param1" value="value2" />
+ *    <ww:param name="param2" value="value2" />
+ * </ww:include>
+ * 
+ * &lt;-- Three: --&gt;
+ * <ww:include value="myJsp.jsp">
+ *    <ww:param name="param1">value1</ww:param>
+ *    <ww:param name="param2">value2<ww:param>
+ * </ww:include>
  * <!-- END SNIPPET: example -->
+ * 
+ * <!-- START SNIPPET: exampledescription -->
+ * Example one - do an include myJsp.jsp page
+ * Example two - do an include to myJsp.jsp page with parameters param1=value1 and param2=value2
+ * Example three - do an include to myJsp.jsp page with parameters param1=value1 and param2=value2
+ * <!-- END SNIPPET: exampledescription -->
  * </pre>
  *
  * @author Rickard Oberg (rickard@dreambean.com)
  * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a>
  * @author Rene Gielen
+ * @author tm_jee
  * @version $Revision$
  * @since 2.2
  *
@@ -42,6 +71,9 @@ import java.util.*;
  * description="Include a servlet's output (result of servlet or a JSP page)"
  */
 public class Include extends Component {
+	
+	private static final Log _log = LogFactory.getLog(Include.class);
+	
     private static String encoding;
     private static boolean encodingDefined = true;
 
@@ -84,6 +116,7 @@ public class Include extends Component {
                     try {
                         urlBuf.append(URLEncoder.encode(values.get(i).toString()));
                     } catch (Exception e) {
+                    	_log.warn("unable to url-encode "+values.get(i).toString()+", it will be ignored");
                     }
 
                     concat = "&";
