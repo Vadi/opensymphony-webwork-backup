@@ -1,6 +1,8 @@
 <project name="webwork" default="jar" basedir=".">
     <!-- overridden properties (must be before the import!) -->
     <property name="src.test" value="src/test"/>
+    <property name="src.xdt" value="src/xdt"/>
+    <property name="dist.docs.tagdocdir" value="${dist.docs}/tagdocs"/>
     <property name="compile.version" value="1.4"/>
     <property name="test.compile.version" value="1.4"/>
 
@@ -64,27 +66,54 @@
             classname="xdoclet.DocletTask"
             classpathref="cp"
             />
-        <taskdef
-            name="webdoclet"
-            classname="xdoclet.modules.web.WebDocletTask"
-            classpathref="cp"
-            />
-
-        <webdoclet
-            destdir="src/java/META-INF"
-            mergedir="src/etc"
-            excludedtags="@version,@author,@todo"
-            addedtags="@xdoclet-generated at ${TODAY},@copyright The XDoclet Team,@author XDoclet,@version ${version}"
-            verbose="false"
-            force="true"
-            >
-
+        <xdoclet destdir="src/java/META-INF"
+                 addedtags="@xdoclet-generated at ${TODAY},@copyright The XDoclet Team,@author XDoclet,@version ${version}"
+                 excludedtags="@version,@author,@return,@exception,@todo"
+                 verbose="false"
+                 force="true"
+                 >
+            <!--
+                 mergedir="src/etc"
+            -->
             <fileset dir="${src.java}">
-                <include name="**/*Tag.java"/>
+                <include name="com/opensymphony/webwork/views/**/*.java"/>
+                <include name="com/opensymphony/webwork/components/**/*.java"/>
             </fileset>
+            <configParam name="Jspversion" value="1.2"/>
+            <configParam name="Description" value="WebWork JSP Taglib"/>
+            <configParam name="Displayname" value="WebWork Taglib"/>
+            <configParam name="Smallicon" value=""/>
+            <configParam name="Largeicon" value=""/>
+            <configParam name="Uri" value=""/>
+            <xmlTemplate templateFile="${src.xdt}/taglib_tld.xdt" destinationfile="taglib.tld"/>
+        </xdoclet>
+    </target>
 
-            <jsptaglib jspversion="1.2" destdir="src/java/META-INF" shortname="j2ee" validateXml="false"/>
-        </webdoclet>
+    <target name="xdoclet-tagdoc" depends="xdoclet-taglib">
+        <mkdir dir="${dist.docs.tagdocdir}"/>
+        <taskdef name="xdoclet" classname="xdoclet.DocletTask" classpathref="cp"/>
+        <xdoclet destdir="${dist.docs.tagdocdir}"
+                excludedtags="@version,@author,@return,@exception"
+                verbose="false"
+                force="true"
+            >
+            <fileset dir="${src.java}">
+                <include name="com/opensymphony/webwork/views/**/*.java"/>
+                <include name="com/opensymphony/webwork/components/**/*.java"/>
+            </fileset>
+            <template templateFile="${src.xdt}/tagdoc.xdt" destinationfile="{0}.html"/>
+        </xdoclet>
+        <xdoclet destdir="${dist.docs.tagdocdir}"
+                excludedtags="@version,@author,@return,@exception"
+                verbose="false"
+                force="true"
+            >
+            <fileset dir="${src.java}">
+                <include name="com/opensymphony/webwork/views/**/*.java"/>
+                <include name="com/opensymphony/webwork/components/**/*.java"/>
+            </fileset>
+            <template templateFile="${src.xdt}/tagdoc-toc.xdt" destinationfile="tagdoc_toc.html"/>
+        </xdoclet>
     </target>
 
     <!-- overridden targets -->
