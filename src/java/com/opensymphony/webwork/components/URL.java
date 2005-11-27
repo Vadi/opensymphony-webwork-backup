@@ -16,13 +16,34 @@ import java.io.Writer;
 import java.util.Map;
 
 /**
- * This tag is used to create a URL.
+ * <!-- START SNIPPET: javadoc -->
+ * This tag is used to create a URL.</p>
+ *
  * You can use the "param" tag inside the body to provide
- * additional request parameters.
+ * additional request parameters.</p>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:url value="editGadget.action"&gt;
+ *     &lt;ww:param name="id" value="%{selected}" /&gt;
+ * &lt;/ww:url&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
  *
  * @author Rickard Öberg (rickard@dreambean.com)
+ * @author Patrick Lightbody
+ * @author Ian Roughley
+ * @author Rene Gielen
  * @version $Revision$
- * @see com.opensymphony.webwork.views.jsp.ParamTag
+ * @since 2.2
+ *
+ * @see Param
+ *
+ * @jsp.tag name="url" body-content="JSP"
+ * description="This tag is used to create a URL"
  */
 public class URL extends Component {
     private static final Log LOG = LogFactory.getLog(URL.class);
@@ -131,34 +152,66 @@ public class URL extends Component {
         super.end(writer, body);
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The includeParams attribute may have the value 'none', 'get' or 'all'. Default is get."
+     */
     public void setIncludeParams(String includeParams) {
         this.includeParams = includeParams;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set scheme attribute"
+     */
     public void setScheme(String scheme) {
         this.scheme = scheme;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The target value to use, if not using action"
+     */
     public void setValue(String value) {
         this.value = value;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The action generate url for, if not using value"
+     */
     public void setAction(String action) {
         this.action = action;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The namespace to use"
+     */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The method of action to use"
+     */
     public void setMethod(String method) {
         this.method = method;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="true/false - whether to encode parameters"
+     */
     public void setEncode(boolean encode) {
         this.encode = encode;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="true/false - whether actual context should be included in url"
+     */
     public void setIncludeContext(boolean includeContext) {
         this.includeContext = includeContext;
     }

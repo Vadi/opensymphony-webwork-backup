@@ -39,6 +39,14 @@ import java.io.Writer;
  * Hello, &lt;ww:property value="#personName"/&gt;. How are you?
  * <!-- END SNIPPET: example -->
  * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="set" body-content="empty"
+ * description="Assigns a value to a variable in a specified scope"
  */
 public class Set extends Component {
     protected String name;
@@ -84,14 +92,26 @@ public class Set extends Component {
         super.end(writer, body);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="The name of the new variable that is assigned the value of <i>value</i>"
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The scope in which to assign the variable. Can be <b>application</b>, <b>session</b>, <b>request</b>, <b>page</b>, or <b>action</b>, which is the default."
+     */
     public void setScope(String scope) {
         this.scope = scope;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The value that is assigned to the variable named <i>name</i>"
+     */
     public void setValue(String value) {
         this.value = value;
     }

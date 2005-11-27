@@ -15,18 +15,42 @@ import com.opensymphony.xwork.TextProvider;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
- * Access a i18n-ized message. The message must be in a resource bundle
+ * <!-- START SNIPPET: javadoc -->
+ * Render a I18n text message.</p>
+ *
+ * The message must be in a resource bundle
  * with the same name as the action that it is associated with. In practice
  * this means that you should create a properties file in the same package
  * as your Java class with the same name as your class, but with .properties
- * extension.
- * <p/>
- * See examples for further info on how to use.
- * <p/>
+ * extension.<p/>
+ *
  * If the named message is not found, then the body of the tag will be used as default message.
- * If no body is used, then the name of the message will be used.
+ * If no body is used, then the name of the message will be used.<p/>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ * <p/>
+ * <!-- START SNIPPET: exampledescription -->
+ * Accessing messages from a given bundle (the i18n Shop example bundle in this case)</p>
+ * <!-- END SNIPPET: exampledescription -->
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:i18n name="'webwork.action.test.i18n.Shop'"&gt;
+ *     &lt;ww:text name="'main.title'"/&gt;
+ * &lt;/ww:i18n&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
  *
  * @author Jason Carreira
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @see Param
+ *
+ * @jsp.tag name="text" body-content="JSP"
+ * description="Render a I18n text message."
  */
 public class Text extends Component implements Param.UnnamedParametric {
     private static final Log LOG = LogFactory.getLog(Text.class);
@@ -39,6 +63,10 @@ public class Text extends Component implements Param.UnnamedParametric {
         super(stack);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * description=" Name of resource property to fetch"
+     */
     public void setName(String name) {
         this.name = name;
     }

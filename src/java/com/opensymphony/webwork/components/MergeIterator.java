@@ -91,7 +91,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  *	}
  * }
  * <!-- END SNIPPET: javacode -->
- * 
+ *
  * <!-- START SNIPPET: example -->
  * &lt;ww:merge id="myMergedIterator1"&gt;
  *		&lt;ww:param value="%{myList1}" /&gt;
@@ -102,15 +102,18 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  *		&lt;ww:property /&gt;
  * &lt;/ww:iterator&gt;
  * <!-- END SNIPPET: example -->
- * 
+ *
  * <!-- START SNIPPET: description -->
  * This wil generate "1aA2bB3cC".
  * <!-- START SNIPPET: description -->
- * 
+ *
  * @author tm_jee (tm_jee (at) yahoo.co.uk)
  * @version $Date$ $Id$
  * @see com.opensymphony.webwork.util.MergeIteratorFilter
  * @see com.opensymphony.webwork.views.jsp.iterator.MergeIteratorTag
+ *
+ * @jsp.tag name="merge" body-content="JSP"
+ * description="Merge the values of a list of iterators into one iterator"
  */
 public class MergeIterator extends Component implements UnnamedParametric {
 	
