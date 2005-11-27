@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * The div tag is primarily an AJAX tag, providing a remote call from the current page to update a section
  * of content without having to refresh the entire page.<p/>
  *
- * It creates a HTML &gt;DIV /&lt; that obtains it's content via a remote XMLHttpRequest call
+ * It creates a HTML &lt;DIV /&gt; that obtains it's content via a remote XMLHttpRequest call
  * via the dojo framework.<p/>
  *
  * If a "listenTopics" is supplied, it will listen to that topic and refresh it's content when any message
