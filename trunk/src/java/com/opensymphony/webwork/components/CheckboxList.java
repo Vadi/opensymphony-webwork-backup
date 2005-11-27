@@ -6,10 +6,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 8:09:06 AM
- */
+ * <!-- START SNIPPET: javadoc -->
+ *
+ * Creates a series of checkboxes from a list. Setup is like <ww:select /> or <ww:radio />, but creates checkbox tags.
+ *
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:checkboxlist name="foo" list="bar"/&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="checkboxlist" body-content="JSP"
+ * description="Render a list of checkboxes"
+  */
 public class CheckboxList extends ListUIBean {
     final public static String TEMPLATE = "checkboxlist";
 

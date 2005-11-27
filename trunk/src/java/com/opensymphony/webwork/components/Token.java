@@ -8,11 +8,34 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 7:02:04 AM
+ * <!-- START SNIPPET: javadoc -->
+ * Stop double-submission of forms.</p>
+ *
+ * The token tag is used to help with the "double click" submission problem. It is needed if you are using the
+ * TokenInterceptor or the TokenSessionInterceptor. The ww:token tag merely places a hidden element that contains
+ * the unique token.</p>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:token /&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @see com.opensymphony.webwork.interceptor.TokenInterceptor
+ * @see com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor
+ *
+ * @jsp.tag name="token" body-content="JSP"
+ * description="Stop double-submission of forms"
  */
-public class Token extends UIBean {
+    public class Token extends UIBean {
     final public static String TEMPLATE = "token";
 
     public Token(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {

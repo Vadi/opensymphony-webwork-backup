@@ -6,9 +6,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 6:57:53 AM
+ * <!-- START SNIPPET: javadoc -->
+ * Render HTML textarea tag.</p>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:textarea label="'Comments'" name="'comments'" cols="30" rows="8"/&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @see TabbedPanel
+ *
+ * @jsp.tag name="textarea" body-content="JSP"
+ * description="Render HTML textarea tag."
  */
 public class TextArea extends UIBean {
     final public static String TEMPLATE = "textarea";
@@ -46,18 +64,34 @@ public class TextArea extends UIBean {
         }
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="HTML cols attribute"
+     */
     public void setCols(String cols) {
         this.cols = cols;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="HTML readonly attribute"
+     */
     public void setReadonly(String readonly) {
         this.readonly = readonly;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="HTML rows attribute"
+     */
     public void setRows(String rows) {
         this.rows = rows;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="HTML wrap attribute"
+     */
     public void setWrap(String wrap) {
         this.wrap = wrap;
     }

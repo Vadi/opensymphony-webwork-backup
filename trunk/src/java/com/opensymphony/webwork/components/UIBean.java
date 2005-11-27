@@ -15,9 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
 
 /**
- * User: plightbo
- * Date: Jul 1, 2005
- * Time: 11:14:38 PM
+ * UIBean is the standard superclass of all webwork UI componentns.
+ * It defines common webwork and html properties all UI components should present for usage.
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
  */
 public abstract class UIBean extends Component {
     private static final Log LOG = LogFactory.getLog(UIBean.class);
@@ -330,6 +334,10 @@ public abstract class UIBean extends Component {
         return String.class;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The theme (other than default) to use for renedring the element"
+      */
     public void setTheme(String theme) {
         this.theme = theme;
     }
@@ -338,98 +346,202 @@ public abstract class UIBean extends Component {
         return template;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The template (other than default) to use for renedring the element"
+     */
     public void setTemplate(String template) {
         this.template = template;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The css class to use for element"
+     */
     public void setCssClass(String cssClass) {
         this.cssClass = cssClass;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The css style definitions for element ro use"
+     */
     public void setCssStyle(String cssStyle) {
         this.cssStyle = cssStyle;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html disabled attribute on rendered html element"
+     */
     public void setDisabled(String disabled) {
         this.disabled = disabled;
     }
 
+    /**
+     * @jsp.attribute required="false"
+     * description="Label expression used for rendering a element specific label"
+     * rtexprvalue="true"
+     */
     public void setLabel(String label) {
         this.label = label;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     */
     public void setLabelPosition(String labelPosition) {
         this.labelPosition = labelPosition;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @deprecated please use {@link #setLabelPosition} instead
+     */
+    public void setLabelposition(String labelPosition) {
+        this.labelPosition = labelPosition;
+    }
+
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The name to set for element"
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @jsp.attribute  required="false"  rtexprvalue="true"
+     * description="If set to true, the rendered element will inidicate that input is required"
+     */
     public void setRequired(String required) {
         this.required = required;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html tabindex attribute on rendered html element"
+     */
     public void setTabindex(String tabindex) {
         this.tabindex = tabindex;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Preset the value of input element."
+     */
     public void setValue(String value) {
         this.value = value;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onclick attribute on rendered html element"
+     */
     public void setOnclick(String onclick) {
         this.onclick = onclick;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html ondblclick attribute on rendered html element"
+     */
     public void setOndblclick(String ondblclick) {
         this.ondblclick = ondblclick;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onmousedown attribute on rendered html element"
+     */
     public void setOnmousedown(String onmousedown) {
         this.onmousedown = onmousedown;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onmouseup attribute on rendered html element"
+     */
     public void setOnmouseup(String onmouseup) {
         this.onmouseup = onmouseup;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onmouseover attribute on rendered html element"
+     */
     public void setOnmouseover(String onmouseover) {
         this.onmouseover = onmouseover;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onmousemove attribute on rendered html element"
+     */
     public void setOnmousemove(String onmousemove) {
         this.onmousemove = onmousemove;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onmouseout attribute on rendered html element"
+     */
     public void setOnmouseout(String onmouseout) {
         this.onmouseout = onmouseout;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onfocus attribute on rendered html element"
+     */
     public void setOnfocus(String onfocus) {
         this.onfocus = onfocus;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onblur attribute on rendered html element"
+     */
     public void setOnblur(String onblur) {
         this.onblur = onblur;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onkeypress attribute on rendered html element"
+     */
     public void setOnkeypress(String onkeypress) {
         this.onkeypress = onkeypress;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onkeydown attribute on rendered html element"
+     */
     public void setOnkeydown(String onkeydown) {
         this.onkeydown = onkeydown;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onkeyup attribute on rendered html element"
+     */
     public void setOnkeyup(String onkeyup) {
         this.onkeyup = onkeyup;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onselect attribute on rendered html element"
+     */
     public void setOnselect(String onselect) {
         this.onselect = onselect;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set the html onchange attribute on rendered html element"
+     */
     public void setOnchange(String onchange) {
         this.onchange = onchange;
     }

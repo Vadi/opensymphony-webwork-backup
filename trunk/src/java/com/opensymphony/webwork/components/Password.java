@@ -6,9 +6,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 7:06:06 AM
+ * <!-- START SNIPPET: javadoc -->
+ * Render an HTML input tag of type password.</p>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ * <p/>
+ * <!-- START SNIPPET: exampledescription -->
+ * In this example, a password control is displayed. For the label, we are calling ActionSupport's getText() to
+ * retrieve password label from a resource bundle.<p/>
+ * <!-- END SNIPPET: exampledescription -->
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:password label="text('password')" name="'password'" size="10" maxlength="15" /&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="password" body-content="JSP"
+ * description="Render an HTML input tag of type password"
  */
 public class Password extends TextField {
     final public static String TEMPLATE = "password";
@@ -31,7 +51,20 @@ public class Password extends TextField {
         }
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Whether to show input"
+     */
     public void setShowPassword(String showPassword) {
+        this.showPassword = showPassword;
+    }
+
+    /**
+     * @deprecated use {@link #setShowPassword(String)}
+     * @jsp.attribute required="false" rtexprvalue="true"
+     * description="Deprecated. Use showPassword instead."
+     */
+    public void setShow(String showPassword) {
         this.showPassword = showPassword;
     }
 }

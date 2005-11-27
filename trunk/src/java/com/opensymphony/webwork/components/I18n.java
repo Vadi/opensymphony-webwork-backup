@@ -13,12 +13,28 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
+ * <!-- START SNIPPET: javadoc -->
  * Gets a resource bundle and place it on the value stack. This allows
  * the text tag to access messages from any bundle, and not just the bundle
  * associated with the current action.
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:i18n name="myI18nResources"/&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
  *
  * @author Rickard Öberg (rickard@dreambean.com)
- */
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="i18n" body-content="JSP"
+ * description="Get a resource bundle and place it on the value stack"
+  */
 public class I18n extends Component {
     private static final Log LOG = LogFactory.getLog(I18n.class);
 
@@ -64,6 +80,10 @@ public class I18n extends Component {
         super.end(writer, body);
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="Name of ressource bundle to use"
+     */
     public void setName(String name) {
         this.name = name;
     }

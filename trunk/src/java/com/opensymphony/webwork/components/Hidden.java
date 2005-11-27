@@ -6,10 +6,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 7:09:11 AM
- */
+ * <!-- START SNIPPET: javadoc -->
+ * Renders an HTML input element of type hidden, populated by the specified property from the OgnlValueStack.
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:hidden name="foo" /&gt;
+ *
+ * Resulting HTML (if foo evaluates to bar):
+ * &lt;input type="hidden" name="foo" value="bar" /&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="hidden" body-content="JSP"
+ * description="Render a hidden input field"
+  */
 public class Hidden extends UIBean {
     final public static String TEMPLATE = "hidden";
 

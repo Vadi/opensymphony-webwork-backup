@@ -9,26 +9,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * <!-- START SNIPPET: javadoc -->
  * A tag that creates a HTML &gt;a href='' /&lt; that when clicked calls a URL remote XMLHttpRequest call
- * via the dojo framework.  The result from the URL is executed as JavaScript.
+ * via the dojo framework.  The result from the URL is executed as JavaScript.<p/>
  *
- * <p/>
  * If a "listenTopics" is supplied, it will publish a 'click' message to that topic when the result is
  * returned.  If utilizing the topic/event elements, then this tag needs to be contained within
- * a &gt;ww:topicScope /&lt; tag.
+ * a &gt;ww:topicScope /&lt; tag.<p/>
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;ww:href ... /&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
  *
  * @author Ian Roughley
- */
-public class Href extends ClosingUIBean {
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
+ *
+ * @jsp.tag name="href" body-content="JSP"
+ * description="Render a HTML href element that when clicked calls a URL via remote XMLHttpRequest"
+  */
+public class Href extends RemoteCallUIBean {
     final public static String OPEN_TEMPLATE = "a";
     final public static String TEMPLATE = "a-close";
     final public static String COMPONENT_NAME = Href.class.getName();
 
-    protected String href;
-    protected String errorText;
-    protected String showErrorTransportText;
     protected String notifyTopics;
-    protected String afterLoading;
     protected String preInvokeJS;
 
     public Href(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
@@ -43,18 +54,18 @@ public class Href extends ClosingUIBean {
         return TEMPLATE;
     }
 
-    protected void evaluateExtraParams() {
+    public void evaluateExtraParams() {
         super.evaluateExtraParams();
 
+        /*
+        TODO: This code was added to help with Portlet suppoort, but it is not correct.Instead, it should consult with ActionMapper
+        TODO: When fixing todo above, check whether solution is to be applied to RemoteCallUIBean (rgielen)
         if (href != null) {
             String hrefValue = findString(href);
 
             if (!TextUtils.stringSet(PortletContext.getContext().getActionURL())) {
                 addParameter("href", UrlHelper.buildUrl(hrefValue, request, response, null));
             } else {
-                /*
-                TODO: This code was added to help with Portlet suppoort, but it is not correct
-                      Instead, it should consult with ActionMapper
 
                 String actionExtension = (String) Configuration.get("webwork.action.extension");
 
@@ -73,50 +84,31 @@ public class Href extends ClosingUIBean {
                 }
 
                 addParameter("href", sb.toString());
-                */
             }
         }
-
-        if (showErrorTransportText != null) {
-            addParameter("showErrorTransportText", findValue(showErrorTransportText, Boolean.class));
-        }
-
-        if (errorText != null) {
-            addParameter("errorText", findString(errorText));
-        }
+        */
 
         if (notifyTopics != null) {
             addParameter("notifyTopics", findString(notifyTopics));
         }
 
-        if (afterLoading != null) {
-            addParameter("afterLoading", findString(afterLoading));
-        }
         if (preInvokeJS != null) {
             addParameter("preInvokeJS", findString(preInvokeJS));
         }
     }
 
-    public void setHref(String href) {
-        this.href = href;
-    }
-
-    public void setErrorText(String errorText) {
-        this.errorText = errorText;
-    }
-
-    public void setShowErrorTransportText(String showErrorTransportText) {
-        this.showErrorTransportText = showErrorTransportText;
-    }
-
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set notifyTopics attribute"
+     */
     public void setNotifyTopics(String notifyTopics) {
         this.notifyTopics = notifyTopics;
     }
 
-    public void setAfterLoading(String afterLoading) {
-        this.afterLoading = afterLoading;
-    }
-
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="Set preInvokeJS attribute"
+     */
     public void setPreInvokeJS(String preInvokeJS) {
         this.preInvokeJS = preInvokeJS;
     }

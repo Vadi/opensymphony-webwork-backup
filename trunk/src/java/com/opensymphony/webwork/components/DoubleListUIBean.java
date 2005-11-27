@@ -6,9 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * User: plightbo
- * Date: Jul 20, 2005
- * Time: 8:20:18 AM
+ * DoubleListUIBean is the standard superclass of all webwork double list handling components.
+ *
+ * @author Patrick Lightbody
+ * @author Rene Gielen
+ * @version $Revision$
+ * @since 2.2
  */
 public abstract class DoubleListUIBean extends ListUIBean {
     protected String doubleList;
@@ -64,26 +67,50 @@ public abstract class DoubleListUIBean extends ListUIBean {
         }
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="The second list to use"
+     */
     public void setDoubleList(String doubleList) {
         this.doubleList = doubleList;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The key expression to use for second list"
+     */
     public void setDoubleListKey(String doubleListKey) {
         this.doubleListKey = doubleListKey;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The value expression to use for second list"
+     */
     public void setDoubleListValue(String doubleListValue) {
         this.doubleListValue = doubleListValue;
     }
 
+    /**
+     * @jsp.attribute required="true"  rtexprvalue="true"
+     * description="The name for complete component"
+     */
     public void setDoubleName(String doubleName) {
         this.doubleName = doubleName;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The value expression for complete component"
+     */
     public void setDoubleValue(String doubleValue) {
         this.doubleValue = doubleValue;
     }
 
+    /**
+     * @jsp.attribute required="false"  rtexprvalue="true"
+     * description="The form name this component resides in an populates to"
+     */
     public void setFormName(String formName) {
         this.formName = formName;
     }
