@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="textfield" body-content="JSP"
+ * @jsp.tag name="textfield" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.TextFieldTag"
  * description="Render an HTML input field of type text"
  */
 public class TextField extends UIBean {

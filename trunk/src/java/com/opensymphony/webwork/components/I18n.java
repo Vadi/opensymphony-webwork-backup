@@ -18,13 +18,13 @@ import java.util.ResourceBundle;
  * the text tag to access messages from any bundle, and not just the bundle
  * associated with the current action.
  * <!-- END SNIPPET: javadoc -->
- * 
+ *
  * <!-- START SNIPPET: params-->
  * <ul>
  * 		<li>name* - the resource bundle's name (eg foo/bar/customBundle)</li>
  * </ul>
  * <!-- END SNIPPET: params -->
- * 
+ *
  * <pre>
  * Example:
  * <!-- START SNIPPET: example -->
@@ -33,14 +33,14 @@ import java.util.ResourceBundle;
  * &lt;/ww:i18n&gt;
  * <!-- END SNIPPET: example -->
  * <pre>
- * 
+ *
  * @author Rickard �berg (rickard@dreambean.com)
  * @author Rene Gielen
  * @author tm_jee ( tm_jee (at) yahoo.co.uk )
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="i18n" body-content="JSP"
+ * @jsp.tag name="i18n" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.I18nTag"
  * description="Get a resource bundle and place it on the value stack"
  */
 public class I18n extends Component {

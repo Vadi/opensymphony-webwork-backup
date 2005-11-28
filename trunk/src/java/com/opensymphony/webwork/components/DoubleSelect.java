@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="doubleselect" body-content="JSP"
+ * @jsp.tag name="doubleselect" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.DoubleSelectTag"
  * description="Render a double select element"
  */
 public class DoubleSelect extends DoubleListUIBean {

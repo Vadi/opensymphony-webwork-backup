@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="form" body-content="JSP"
+ * @jsp.tag name="form" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.FormTag"
  * description="Renders an input form"
   */
 public class Form extends ClosingUIBean {

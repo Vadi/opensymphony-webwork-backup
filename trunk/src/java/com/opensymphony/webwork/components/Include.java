@@ -39,20 +39,20 @@ import java.util.*;
  * <!-- START SNIPPET: example -->
  * &lt;-- One: --&gt;
  * &lt;ww:include value="myJsp.jsp" /&gt;
- * 
+ *
  * &lt;-- Two: --&gt;
  * <ww:include value="myJsp.jsp">
  *    <ww:param name="param1" value="value2" />
  *    <ww:param name="param2" value="value2" />
  * </ww:include>
- * 
+ *
  * &lt;-- Three: --&gt;
  * <ww:include value="myJsp.jsp">
  *    <ww:param name="param1">value1</ww:param>
  *    <ww:param name="param2">value2<ww:param>
  * </ww:include>
  * <!-- END SNIPPET: example -->
- * 
+ *
  * <!-- START SNIPPET: exampledescription -->
  * Example one - do an include myJsp.jsp page
  * Example two - do an include to myJsp.jsp page with parameters param1=value1 and param2=value2
@@ -67,13 +67,13 @@ import java.util.*;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="include" body-content="JSP"
+ * @jsp.tag name="include" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.IncludeTag"
  * description="Include a servlet's output (result of servlet or a JSP page)"
  */
 public class Include extends Component {
-	
+
 	private static final Log _log = LogFactory.getLog(Include.class);
-	
+
     private static String encoding;
     private static boolean encodingDefined = true;
 

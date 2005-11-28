@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="hidden" body-content="JSP"
+ * @jsp.tag name="hidden" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.HiddenTag"
  * description="Render a hidden input field"
   */
 public class Hidden extends UIBean {

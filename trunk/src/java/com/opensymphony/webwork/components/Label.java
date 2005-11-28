@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="label" body-content="JSP"
+ * @jsp.tag name="label" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.LabelTag"
  * description="Render a label that displays read-only information"
   */
 public class Label extends UIBean {

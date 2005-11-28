@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @see TabbedPanel
  *
- * @jsp.tag name="textarea" body-content="JSP"
+ * @jsp.tag name="textarea" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.TextareaTag"
  * description="Render HTML textarea tag."
  */
 public class TextArea extends UIBean {

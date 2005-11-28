@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="combobox" body-content="JSP"
+ * @jsp.tag name="combobox" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.ComboBoxTag"
  * description="Widget that fills a text box from a select"
   */
 public class ComboBox extends TextField {

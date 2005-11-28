@@ -76,7 +76,7 @@ import java.io.Writer;
  *
  * @see Param
  *
- * @jsp.tag name="bean" body-content="JSP"
+ * @jsp.tag name="bean" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.BeanTag"
  * description="Instantiate a JavaBean and place it in the context."
  */
 public class Bean extends Component {

@@ -49,7 +49,7 @@ import java.io.Writer;
  * @see Include
  * @see Bean
  *
- * @jsp.tag name="param" body-content="JSP"
+ * @jsp.tag name="param" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ParamTag"
  * description="Parametrize other tags"
  */
 public class Param extends Component {

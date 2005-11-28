@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="password" body-content="JSP"
+ * @jsp.tag name="password" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.PasswordTag"
  * description="Render an HTML input tag of type password"
  */
 public class Password extends TextField {

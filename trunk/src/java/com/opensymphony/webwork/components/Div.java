@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="div" body-content="JSP"
+ * @jsp.tag name="div" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.DivTag"
  * description="Render HTML div providing content from remote call via AJAX"
   */
 public class Div extends RemoteCallUIBean {

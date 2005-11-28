@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="file" body-content="JSP"
+ * @jsp.tag name="file" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.FileTag"
  * description="Render a file input field"
   */
 public class File extends UIBean {

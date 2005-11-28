@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="radio" body-content="JSP"
+ * @jsp.tag name="radio" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.RadioTag"
  * description="Renders a radio button input field"
  */
 public class Radio extends ListUIBean {

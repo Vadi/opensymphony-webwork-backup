@@ -112,7 +112,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * @see com.opensymphony.webwork.util.MergeIteratorFilter
  * @see com.opensymphony.webwork.views.jsp.iterator.MergeIteratorTag
  *
- * @jsp.tag name="merge" body-content="JSP"
+ * @jsp.tag name="merge" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.iterator.MergeIteratorTag"
  * description="Merge the values of a list of iterators into one iterator"
  */
 public class MergeIterator extends Component implements UnnamedParametric {

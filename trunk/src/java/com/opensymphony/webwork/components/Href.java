@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="href" body-content="JSP"
+ * @jsp.tag name="href" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.HrefTag"
  * description="Render a HTML href element that when clicked calls a URL via remote XMLHttpRequest"
   */
 public class Href extends RemoteCallUIBean {

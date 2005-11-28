@@ -31,7 +31,7 @@ import java.io.Writer;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="push" body-content="JSP"
+ * @jsp.tag name="push" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.PushTag"
  * description="Push value on stack for simplified usage."
  */
 public class Push extends Component {
