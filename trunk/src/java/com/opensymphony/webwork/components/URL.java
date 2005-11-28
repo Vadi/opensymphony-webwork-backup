@@ -51,7 +51,7 @@ import java.util.Map;
  * 
  * &lt;ww:url action="editGadget"&gt;
  *     &lt;ww:param name="id" value="%{selected}" /&gt;
- * &lt;/ww:url&gt
+ * &lt;/ww:url&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
