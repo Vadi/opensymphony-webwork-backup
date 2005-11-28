@@ -98,14 +98,14 @@ public class Param extends Component {
         this.name = name;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     /**
      * @jsp.attribute required="false"  rtexprvalue="true"
      * description="Value expression for Parameter to set"
      */
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public interface UnnamedParametric {
         public void addParameter(Object value);
     }
