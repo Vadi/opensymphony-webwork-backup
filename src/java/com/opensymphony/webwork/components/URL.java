@@ -23,13 +23,35 @@ import java.util.Map;
  * additional request parameters.</p>
  * <!-- END SNIPPET: javadoc -->
  *
- * <p/> <b>Examples</b>
  *
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ *      <li>action (String) - (value or action choose either one, if both exist value takes precedence) action's name (alias) <li>
+ *      <li>value (String) - (value or action choose either one, if both exist value takes precedence) the url itself</li>
+ *      <li>scheme (String) - http scheme (http, https) default to the scheme this request is in</li>
+ *      <li>namespace - action's namespace</li>
+ *      <li>method (String) - action's method, default to execute() </li>
+ *      <li>encode (Boolean) - url encode the generated url. Default is true</li>
+ *      <li>includeParams (String) - The includeParams attribute may have the value 'none', 'get' or 'all'. Default is 'get'. 
+ *                                   none - include no parameters in the URL
+ *                                   get  - include only GET parameters in the URL (default)
+ *                                   all  - include both GET and POST parameters in the URL
+ *      </li>
+ *      <li>includeContext (Boolean) - determine wheather to include the web app context path. Default is true.</li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ *
+ *
+ * <p/> <b>Examples</b>
  * <pre>
  * <!-- START SNIPPET: example -->
  * &lt;ww:url value="editGadget.action"&gt;
  *     &lt;ww:param name="id" value="%{selected}" /&gt;
  * &lt;/ww:url&gt;
+ * 
+ * &lt;ww:url action="editGadget"&gt;
+ *     &lt;ww:param name="id" value="%{selected}" /&gt;
+ * &lt;/ww:url&gt
  * <!-- END SNIPPET: example -->
  * </pre>
  *
@@ -50,7 +72,7 @@ public class URL extends Component {
 
     /**
      * The includeParams attribute may have the value 'none', 'get' or 'all'.
-     * It is used when the url tag is used without a value or page attribute.
+     * It is used when the url tag is used without a value attribute.
      * Its value is looked up on the ValueStack
      * If no includeParams is specified then 'get' is used.
      * none - include no parameters in the URL
