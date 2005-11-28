@@ -93,7 +93,12 @@
     </XDtConfig:ifConfigParamEquals>
     <XDtConfig:ifConfigParamEquals paramName="Jspversion" value="1.2">
       <name><XDtClass:classTagValue tagName="jsp:tag" paramName="name"/></name>
+     <XDtClass:ifHasClassTag tagName="jsp:tag" paramName="tag-class">
+      <tag-class><XDtClass:classTagValue tagName="jsp:tag" paramName="tag-class"/></tag-class>
+     </XDtClass:ifHasClassTag>
+     <XDtClass:ifDoesntHaveClassTag  tagName="jsp:tag" paramName="tag-class">
       <tag-class><XDtClass:fullClassName/></tag-class>
+     </XDtClass:ifDoesntHaveClassTag >
      <XDtClass:ifHasClassTag tagName="jsp:tag" paramName="tei-class">
       <tei-class><XDtClass:classTagValue tagName="jsp:tag" paramName="tei-class"/></tei-class>
      </XDtClass:ifHasClassTag>
