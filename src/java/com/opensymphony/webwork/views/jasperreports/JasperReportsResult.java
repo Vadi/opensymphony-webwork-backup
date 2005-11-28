@@ -38,6 +38,7 @@ import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
@@ -62,7 +63,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * Specifically, all three parameters will be parsed if the "parse" parameter is not set to false.
  *
  * @author Patrick Lightbody
- * @author <a href="mailto:hermanns@aixcept.de">Rainer Hermanns</a>
+ * @author Rainer Hermanns
  */
 public class JasperReportsResult extends WebWorkResultSupport implements JasperReportConstants {
     private final static Log LOG = LogFactory.getLog(JasperReportsResult.class);
@@ -151,6 +152,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
             Map parameters = new OgnlValueStackShadowMap(stack);
             File directory = new File(systemId.substring(0, systemId.lastIndexOf(File.separator)));
             parameters.put("reportDirectory", directory);
+            parameters.put("REPORT_LOCALE", invocation.getInvocationContext().getLocale());
 
             byte[] output;
             JasperPrint jasperPrint;
