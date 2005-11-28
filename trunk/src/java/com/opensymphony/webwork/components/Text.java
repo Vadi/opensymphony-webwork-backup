@@ -41,11 +41,14 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * <!-- START SNIPPET: exampledescription -->
  * Accessing messages from a given bundle (the i18n Shop example bundle in this case)</p>
  * <!-- END SNIPPET: exampledescription -->
+ * 
  * <pre>
  * <!-- START SNIPPET: example -->
  * &lt;ww:i18n name="'webwork.action.test.i18n.Shop'"&gt;
  *     &lt;ww:text name="'main.title'"/&gt;
  * &lt;/ww:i18n&gt;
+ * 
+ * &lt;ww:text name="'main.title'" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
