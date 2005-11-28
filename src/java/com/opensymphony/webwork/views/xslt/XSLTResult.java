@@ -25,10 +25,13 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
+ * @author Mike Mosiewicz
+ * @author Rainer Hermanns
  */
 public class XSLTResult implements Result {
 
@@ -40,6 +43,8 @@ public class XSLTResult implements Result {
     private Map templatesCache;
     private String location;
     private boolean parse;
+    private Pattern matchingPattern = null;
+    private Pattern excludingPattern = null;
 
 
     public XSLTResult() {
@@ -50,6 +55,14 @@ public class XSLTResult implements Result {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setMatchingPattern(String matchingPattern) {
+        this.matchingPattern = Pattern.compile(matchingPattern);
+    }
+
+    public void setExcludingPattern(String excludingPattern) {
+        this.excludingPattern = Pattern.compile(excludingPattern);
     }
 
     public void setParse(boolean parse) {
@@ -144,7 +157,9 @@ public class XSLTResult implements Result {
         return templates;
     }
 
-    private Source getTraxSourceForStack(Object action) throws IllegalAccessException, InstantiationException {
-        return new DOMSource(new DOMAdapter().adapt(action));
+    protected Source getTraxSourceForStack(Object action) throws IllegalAccessException, InstantiationException {
+        DOMAdapter adapter = new DOMAdapter();
+        adapter.setPattern(matchingPattern, excludingPattern);
+        return new DOMSource(adapter.adapt(action));
     }
 }

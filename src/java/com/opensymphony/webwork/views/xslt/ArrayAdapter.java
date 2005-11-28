@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
+ * @author Mike Mosiewicz
+ * @author Rainer Hermanns
  *         Date: 14.10.2003
  *         Time: 18:59:07
  */
@@ -32,7 +34,8 @@ public class ArrayAdapter extends DefaultElementAdapter {
 
         for (int i = 0; i < values.length; i++) {
             AdapterNode childAdapter = getRootAdapter().adapt(getRootAdapter(), this, "item", values[i]);
-            children.add(childAdapter);
+            if( childAdapter != null)
+                children.add(childAdapter);
 
             if (log.isDebugEnabled()) {
                 log.debug(this + " adding adapter: " + childAdapter);

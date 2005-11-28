@@ -10,6 +10,8 @@ import org.w3c.dom.*;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
+ * @author Mike Mosiewicz
+ * @author Rainer Hermanns
  *         Date: 10.10.2003
  *         Time: 19:46:43
  */
@@ -43,6 +45,27 @@ public abstract class DefaultAdapterNode implements Node, AdapterNode {
         if (LogFactory.getLog(getClass()).isDebugEnabled()) {
             LogFactory.getLog(getClass()).debug("Creating " + this);
         }
+    }
+
+    public int getDepth() {
+        if (parent == null) return 0;
+        return parent.getDepth() + 1;
+    }
+
+    public String getPath() {
+        StringBuffer buf = new StringBuffer();
+        getPath(buf);
+        return buf.toString();
+    }
+
+
+    /**
+     * @param buf
+     */
+    public void getPath(StringBuffer buf) {
+        if (parent != null)
+            ((DefaultAdapterNode) parent).getPath(buf);
+        buf.append('/').append(this.propertyName);
     }
 
     public NamedNodeMap getAttributes() {
@@ -142,16 +165,15 @@ public abstract class DefaultAdapterNode implements Node, AdapterNode {
     }
 
     public boolean equals(Object other) {
-        try {
+        if (other == this) return true;
+        if (other instanceof AdapterNode) {
             AdapterNode otherNode = (AdapterNode) other;
-            boolean result = true;
-            result &= getRootAdapter().equals(otherNode.getRootAdapter());
-            result &= getPropertyName().equals(otherNode.getPropertyName());
-            result &= ((getValue() != null) ? getValue().equals(otherNode.getValue()) : (otherNode.getValue() == null));
-            result &= ((getParentAdapterNode() != null) ? getParentAdapterNode().equals(otherNode.getParentAdapterNode()) : (otherNode.getParentAdapterNode() == null));
-
-            return result;
-        } catch (ClassCastException e) {
+            return
+                    getRootAdapter().equals(otherNode.getRootAdapter())
+                            & getPropertyName().equals(otherNode.getPropertyName())
+                            & ((getValue() != null) ? getValue().equals(otherNode.getValue()) : (otherNode.getValue() == null))
+                            & ((getParentAdapterNode() != null) ? getParentAdapterNode().equals(otherNode.getParentAdapterNode()) : (otherNode.getParentAdapterNode() == null));
+        } else {
             return false;
         }
     }
@@ -165,7 +187,22 @@ public abstract class DefaultAdapterNode implements Node, AdapterNode {
     }
 
     public int hashCode() {
-        return (getRootAdapter().hashCode() * 37) + ((getParentAdapterNode() != null) ? (getParentAdapterNode().hashCode() * 41) : 0) + (getPropertyName().hashCode() * 43) + ((getValue() != null) ? (getValue().hashCode() * 47) : 0);
+        /*
+         *  This code have to deal with possible circular references
+         */
+        return
+                (
+                        (
+                                getParentAdapterNode() != null &&
+                                        getParentAdapterNode().getPropertyName() != null)
+                                ?
+                                (getParentAdapterNode().getPropertyName().hashCode() * 41)
+                                :
+                                0
+                )
+                        + (getPropertyName().hashCode() * 43
+
+                );
     }
 
     public Node insertBefore(Node node, Node node1) throws DOMException {
@@ -303,5 +340,12 @@ public abstract class DefaultAdapterNode implements Node, AdapterNode {
 
     public Node renameNode(Node n, String namespaceURI, String qualifiedName) throws DOMException {
         return null;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    public String toString() {
+        return getClass().getName() + "(" + getPropertyName() + "," + value.toString() + ")";
     }
 }
