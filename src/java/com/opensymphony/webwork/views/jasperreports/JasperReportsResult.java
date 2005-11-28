@@ -16,13 +16,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
@@ -38,7 +32,6 @@ import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.xwork.ActionInvocation;
-import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
@@ -152,7 +145,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
             Map parameters = new OgnlValueStackShadowMap(stack);
             File directory = new File(systemId.substring(0, systemId.lastIndexOf(File.separator)));
             parameters.put("reportDirectory", directory);
-            parameters.put("REPORT_LOCALE", invocation.getInvocationContext().getLocale());
+            parameters.put(JRParameter.REPORT_LOCALE, invocation.getInvocationContext().getLocale());
 
             byte[] output;
             JasperPrint jasperPrint;
