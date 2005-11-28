@@ -22,10 +22,10 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * with the same name as the action that it is associated with. In practice
  * this means that you should create a properties file in the same package
  * as your Java class with the same name as your class, but with .properties
- * extension.<p/>
+ * extension.</p>
  *
  * <p>If the named message is not found, then the body of the tag will be used as default message.
- * If no body is used, then the name of the message will be used.<p/>
+ * If no body is used, then the name of the message will be used.</p>
  * <!-- END SNIPPET: javadoc -->
  *
  * <!-- START SNIPPET: params -->
