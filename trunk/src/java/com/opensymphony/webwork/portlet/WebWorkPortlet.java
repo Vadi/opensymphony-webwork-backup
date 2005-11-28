@@ -3,7 +3,6 @@
  */
 package com.opensymphony.webwork.portlet;
 
-import com.opensymphony.module.sitemesh.util.Container;
 import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.config.Configuration;
@@ -19,7 +18,6 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.pluto.core.impl.PortletConfigImpl;
 
 import javax.portlet.*;
-import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
