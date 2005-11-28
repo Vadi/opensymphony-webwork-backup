@@ -19,6 +19,8 @@ import java.util.Map;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
+ * @author Mike Mosiewicz
+ * @author Rainer Hermanns
  *         Date: 10.10.2003
  *         Time: 20:08:17
  */
@@ -60,7 +62,10 @@ public class BeanAdapter extends DefaultElementAdapter {
                 }
 
                 String propertyName = props[i].getName();
-                Object propertyValue;
+                if (! getRootAdapter().isAdaptable(getRootAdapter(), this, propertyName))
+                    continue;
+
+                Object propertyValue = null;
 
                 /** 999 white magic hack start 999 **
                  * some property accessors will throw exceptions, e.g. getLocale() in webwork.ActionSupport *grrr*
@@ -69,6 +74,7 @@ public class BeanAdapter extends DefaultElementAdapter {
                 try {
                     propertyValue = m.invoke(getValue(), NULLPARAMS);
                 } catch (Exception e) {
+                    log.error("Exception when checking property " + propertyName, e);
                     continue;
                 }
 
@@ -81,7 +87,8 @@ public class BeanAdapter extends DefaultElementAdapter {
                     childAdapter = getRootAdapter().adapt(getRootAdapter(), this, propertyName, propertyValue);
                 }
 
-                newAdapters.add(childAdapter);
+                if( childAdapter != null)
+                    newAdapters.add(childAdapter);
 
                 if (log.isDebugEnabled()) {
                     log.debug(this + " adding adapter: " + childAdapter);

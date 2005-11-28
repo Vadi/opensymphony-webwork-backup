@@ -9,6 +9,8 @@ import org.w3c.dom.*;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
+ * @author Mike Mosiewicz
+ * @author Rainer Hermanns
  *         Date: 14.10.2003
  *         Time: 17:24:05
  */
@@ -35,6 +37,13 @@ public class DocumentAdapter extends DefaultAdapterNode implements Document {
         };
     }
 
+    public int getDepth() {
+        return 0;
+    }
+
+    public void getPath(StringBuffer buf) {
+        //nothing - empty subpath
+    }
     public DocumentType getDoctype() {
         return null;
     }
