@@ -157,12 +157,11 @@ public class WebWorkPortlet extends GenericPortlet implements WebWorkPortletStat
 
             ///////////////////////////For OpenSessionInXWorkInterceptor in
             // WebWork Interceptor/////////////////////
-            if (Container.get() == Container.TOMCAT) {
+            try {
                 javax.servlet.http.HttpServletRequestWrapper requestWrapper = (javax.servlet.http.HttpServletRequestWrapper) request;
-                ServletContext servletContext = requestWrapper.getSession().getServletContext();
-                PortletContext.getContext().setServletContext(servletContext);
-            } else {
-                PortletContext.getContext().setServletConfig(((PortletConfigImpl) getPortletConfig()).getServletConfig());
+                PortletContext.getContext().setServletContext(requestWrapper.getSession().getServletContext());
+            } catch (Exception e) {
+                PortletContext.getContext().setServletConfig( ((PortletConfigImpl) getPortletConfig()).getServletConfig());
             }
 
             /*
