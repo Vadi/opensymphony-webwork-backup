@@ -8,13 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * <!-- START SNIPPET: javadoc -->
  * Renders datepicker element.
+ *
+ * Note the this element only works within &lt;ww:form&gt; tags, not plain HTML form.
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:datepicker ... /&gt;
+ * &lt;ww:datepicker name="order.date" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
