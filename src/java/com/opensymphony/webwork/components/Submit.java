@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="submit" body-content="JSP"
+ * @jsp.tag name="submit" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.SubmitTag"
  * description="Render a submit button"
  */
 public class Submit extends UIBean {

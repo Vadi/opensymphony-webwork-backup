@@ -50,7 +50,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="select" body-content="JSP"
+ * @jsp.tag name="select" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.SelectTag"
  * description="Render a select element"
  */
 public class Select extends ListUIBean {

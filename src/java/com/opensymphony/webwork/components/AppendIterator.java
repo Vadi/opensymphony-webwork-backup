@@ -98,7 +98,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * @see com.opensymphony.webwork.util.AppendIteratorFilter
  * @see com.opensymphony.webwork.views.jsp.iterator.AppendIteratorTag
  *
- * @jsp.tag name="append" body-content="JSP"
+ * @jsp.tag name="append" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.iterator.AppendIteratorTag"
  * description="Append the values of a list of iterators to one iterator"
  */
 public class AppendIterator extends Component implements UnnamedParametric {

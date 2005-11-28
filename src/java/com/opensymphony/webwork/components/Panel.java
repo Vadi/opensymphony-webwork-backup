@@ -49,7 +49,7 @@ import java.io.Writer;
  *
  * @see TabbedPanel
  *
- * @jsp.tag name="panel" body-content="JSP"
+ * @jsp.tag name="panel" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.PanelTag"
  * description="Render a panel for tabbedPanel"
  */
 public class Panel extends Div {

@@ -45,7 +45,7 @@ import java.io.Writer;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="set" body-content="empty"
+ * @jsp.tag name="set" body-content="empty" tag-class="com.opensymphony.webwork.views.jsp.SetTag"
  * description="Assigns a value to a variable in a specified scope"
  */
 public class Set extends Component {

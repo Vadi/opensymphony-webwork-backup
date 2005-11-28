@@ -54,7 +54,7 @@ import java.util.List;
  *
  * @see Panel
  *
- * @jsp.tag name="tabbedPanel" body-content="JSP"
+ * @jsp.tag name="tabbedPanel" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.TabbedPanelTag"
  * description="Render a tabbedPanel widget."
  */
 public class TabbedPanel extends ClosingUIBean {

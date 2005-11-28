@@ -32,7 +32,7 @@ import java.util.Map;
  *      <li>namespace - action's namespace</li>
  *      <li>method (String) - action's method, default to execute() </li>
  *      <li>encode (Boolean) - url encode the generated url. Default is true</li>
- *      <li>includeParams (String) - The includeParams attribute may have the value 'none', 'get' or 'all'. Default is 'get'. 
+ *      <li>includeParams (String) - The includeParams attribute may have the value 'none', 'get' or 'all'. Default is 'get'.
  *                                   none - include no parameters in the URL
  *                                   get  - include only GET parameters in the URL (default)
  *                                   all  - include both GET and POST parameters in the URL
@@ -48,7 +48,7 @@ import java.util.Map;
  * &lt;ww:url value="editGadget.action"&gt;
  *     &lt;ww:param name="id" value="%{selected}" /&gt;
  * &lt;/ww:url&gt;
- * 
+ *
  * &lt;ww:url action="editGadget"&gt;
  *     &lt;ww:param name="id" value="%{selected}" /&gt;
  * &lt;/ww:url&gt;
@@ -64,7 +64,7 @@ import java.util.Map;
  *
  * @see Param
  *
- * @jsp.tag name="url" body-content="JSP"
+ * @jsp.tag name="url" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.URLTag"
  * description="This tag is used to create a URL"
  */
 public class URL extends Component {
