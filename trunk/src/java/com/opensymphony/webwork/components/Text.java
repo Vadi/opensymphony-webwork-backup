@@ -30,6 +30,14 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  *
  * <p/> <b>Examples</b>
  * <p/>
+ * 
+ * 
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ *      <li>name* (String) - the i18n message key</li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ * 
  * <!-- START SNIPPET: exampledescription -->
  * Accessing messages from a given bundle (the i18n Shop example bundle in this case)</p>
  * <!-- END SNIPPET: exampledescription -->
