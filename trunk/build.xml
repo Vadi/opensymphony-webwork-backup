@@ -67,7 +67,6 @@
             classpathref="cp"
             />
         <xdoclet destdir="src/java/META-INF"
-                 addedtags="@xdoclet-generated at ${TODAY},@copyright The XDoclet Team,@author XDoclet,@version ${version}"
                  excludedtags="@version,@author,@return,@exception,@todo"
                  verbose="false"
                  force="true"
@@ -80,7 +79,9 @@
                 <include name="com/opensymphony/webwork/components/**/*.java"/>
             </fileset>
             <configParam name="Jspversion" value="1.2"/>
+            <configParam name="Taglibversion" value="1.1"/>
             <configParam name="Description" value="WebWork JSP Taglib"/>
+            <configParam name="Shortname" value="WebWork Taglib"/>
             <configParam name="Displayname" value="WebWork Taglib"/>
             <configParam name="Smallicon" value=""/>
             <configParam name="Largeicon" value=""/>
