@@ -28,26 +28,27 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * If no body is used, then the name of the message will be used.<p/>
  * <!-- END SNIPPET: javadoc -->
  *
- * <p/> <b>Examples</b>
- * <p/>
- * 
- * 
  * <!-- START SNIPPET: params -->
  * <ul>
  *      <li>name* (String) - the i18n message key</li>
  * </ul>
  * <!-- END SNIPPET: params -->
  * 
+ * Example:
+ * <pre>
  * <!-- START SNIPPET: exampledescription -->
- * Accessing messages from a given bundle (the i18n Shop example bundle in this case)</p>
+ * Accessing messages from a given bundle (the i18n Shop example bundle in the first example) and using bundle defined through ww in the second example.</p>
  * <!-- END SNIPPET: exampledescription -->
+ * </pre>
  * 
  * <pre>
  * <!-- START SNIPPET: example -->
+ * &lt;!-- First Example --&gt;
  * &lt;ww:i18n name="'webwork.action.test.i18n.Shop'"&gt;
  *     &lt;ww:text name="'main.title'"/&gt;
  * &lt;/ww:i18n&gt;
  * 
+ * &lt;!-- Second Example --&gt;
  * &lt;ww:text name="'main.title'" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
