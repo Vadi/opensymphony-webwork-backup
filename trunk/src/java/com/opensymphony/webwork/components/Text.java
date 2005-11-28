@@ -16,15 +16,15 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Render a I18n text message.</p>
+ * <p>Render a I18n text message.</p>
  *
- * The message must be in a resource bundle
+ * <p>The message must be in a resource bundle
  * with the same name as the action that it is associated with. In practice
  * this means that you should create a properties file in the same package
  * as your Java class with the same name as your class, but with .properties
  * extension.<p/>
  *
- * If the named message is not found, then the body of the tag will be used as default message.
+ * <p>If the named message is not found, then the body of the tag will be used as default message.
  * If no body is used, then the name of the message will be used.<p/>
  * <!-- END SNIPPET: javadoc -->
  *
