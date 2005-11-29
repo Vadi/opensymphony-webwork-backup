@@ -13,8 +13,39 @@ import java.io.IOException;
 
 
 /**
+ * <!-- START SNIPPET: javadoc -->
+ * Used to get the property of a <i>value</i>, which will default to the top of 
+ * the stack if none is specified.
+ * <!-- END SNIPPET: javadoc -->
+ * 
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ *      <li>default (String) - The default value to be used if <u>value</u> attribute is null</li>
+ *      <li>escape (Boolean) - Escape HTML. Default to true</li>
+ *      <li>value (Object) - value to be displayed</li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ * 
+ * <!-- START SNIPPET: example -->
+ * <ww:push value="myBean">
+ *     <!-- Example 1: -->
+ *     <ww:property value="myBeanProperty" />
+ *     
+ *     <!-- Example 2:
+ *     <ww:property value="myBeanProperty" default="a default value" />
+ * </ww:push>
+ * <!-- END SNIPPET: example -->
+ * 
+ * <pre>
+ * <!-- START SNIPPET: exampledescription -->
+ * Example 1 prints the result of myBean's getMyBeanProperty() method.
+ * Example 2 prints the result of myBean's getMyBeanProperty() method and if it is null, print 'a default value' instead.
+ * <!-- END SNIPPET: exampledescription -->
+ * </pre>
+ * 
  * @jsp.tag name="property" body-content="empty"
  * @author $Author$
+ * @author tm_jee
  * @version $Revision$
  */
 public class PropertyTag extends WebWorkBodyTagSupport {
@@ -51,6 +82,13 @@ public class PropertyTag extends WebWorkBodyTagSupport {
 
             if (value == null) {
                 value = "top";
+            }
+            else if (ALT_SYNTAX) {
+                // the same logic as with findValue(String)
+                // if value start with %{ and end with }, just cut it off!
+                if (value.startsWith("%{") && value.endsWith("}")) {
+                    value = value.substring(2, value.length() - 1);
+                }
             }
 
             // exception: don't call findString(), since we don't want the
