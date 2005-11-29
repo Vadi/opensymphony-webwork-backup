@@ -22,6 +22,7 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
 
     /**
      * @ww.tagattribute required="false"
+     * description="The id of the tag element."
      */
     public void setId(String string) {
         super.setId(string);
