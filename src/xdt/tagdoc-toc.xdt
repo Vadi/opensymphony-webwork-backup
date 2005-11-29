@@ -1,10 +1,11 @@
 <html>
 <head>
-<title>Taglib Index</title>
+<title>WebWork <XDtConfig:configParameterValue paramName="Taglibversion"/> Taglib Index</title>
 </head>
 
 <body>
 
+<h1>WebWork <XDtConfig:configParameterValue paramName="Taglibversion"/> Taglib Index</h1>
 <p>
 <table width="100%">
 
@@ -15,7 +16,7 @@
 
 <tr>
 <td align="left" valign="top" width="20%">
-<a href="<XDtPackage:packageNameAsPath/>/<XDtClass:className/>.html"><XDtClass:className/></a>
+<a href="<XDtClass:className/>.html">&lt;<XDtClass:classTagValue tagName="ww:tag" paramName="name"/> /&gt;</a>
 </td>
 <td align="left" valign="top" width="*">
 <XDtClass:ifHasClassTag tagName="ww:tag" paramName="description">
