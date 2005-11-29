@@ -50,13 +50,13 @@ import java.io.Writer;
  * </pre>
  * 
  * <pre>
- * <!-- START SNIPPET: example3 -->
+ * <!-- START SNIPPET: example3a -->
  * &lt;ww:push value="myObject"&gt;                                       ---(A)
  *    &lt;ww:bean name="'jp.SomeBean'" id="myBean"/&gt;                   ---(B)
  *       &lt;ww:param name="'myParam'" value="top.mySomeOtherValue"/&gt;  ---(C)
  *    &lt;/ww:bean&gt;
  * &lt;/ww:push&gt;
- * <!-- END SNIPPET: example3 -->
+ * <!-- END SNIPPET: example3a -->
  * </pre>
  * 
  * <pre>
