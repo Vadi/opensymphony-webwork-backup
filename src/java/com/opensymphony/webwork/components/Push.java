@@ -17,13 +17,74 @@ import java.io.Writer;
  *
  *
  * <p/> <b>Examples</b>
- * <!-- START SNIPPET: example -->
+ * <pre>
+ * <!-- START SNIPPET: example1 -->
  * &lt;ww:push value="user"&gt;
  *     &lt;ww:propery value="firstName" /&gt;
  *     &lt;ww:propery value="lastName" /&gt;
  * &lt;/ww:push&gt;
- * <!-- END SNIPPET: example -->
+ * <!-- END SNIPPET: example1 -->
  * </pre>
+ * 
+ * <!-- START SNIPPET: example1description -->
+ * Pushed user into the stack, and hence property tag could access user's properties 
+ * (firstName, lastName etc) since user is not at the top of the stack
+ * <!-- END SNIPPET: example1description -->
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example2 -->
+ *  &lt;ww:push value="myObject"&gt;                              ----- (1)
+ *       &ltww:bean name="'jp.SomeBean'" id="myBean"/&gt;        ----- (2)
+ * 		    &ltww:param name="'myParam'" value="top"/&gt;        ------ (3)
+ *       &lt/ww:bean&gt;
+ *   &lt/ww:push&gt;
+ * <!-- END SNIPPET: example2 -->
+ * </pre>
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example2description -->
+ * when in (1), myObject is at the top of the stack
+ * when in (2), jp.SomeBean is in the top of stack, also in stack's context with key myBean
+ * when in (3), top will get the jp.SomeBean instance
+ * <!-- END SNIPPET: example2description -->
+ * </pre>
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example3 -->
+ * <ww:push value="myObject">                                       ---(A)
+ *    <ww:bean name="'jp.SomeBean'" id="myBean"/>                   ---(B)
+ *       <ww:param name="'myParam'" value="top.mySomeOtherValue"/>  ---(C)
+ *    </ww:bean>
+ * </ww:push>
+ * <!-- END SNIPPET: example3 -->
+ * </pre>
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example3description -->
+ * when in (A), myObject is at the top of the stack
+ * when in (B), jp.SomeBean is at the top of the stack, also in context with key myBean
+ * when in (C), top refers to jp.SomeBean instance. so top.mySomeOtherValue would invoke SomeBean's mySomeOtherValue() method
+ * <!-- END SNIPPET: example3description -->
+ * </pre>
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example4 -->       
+ * <ww:push value="myObject">                                 ---- (i)
+ *    <ww:bean name="'jp.SomeBean'" id="myBean"/>             ---- (ii)
+ *       <ww:param name="'myParam'" value="[1].top"/>         -----(iii)
+ *    </ww:bean>
+ * </ww:push>
+ * <!-- END SNIPPET: example4 -->
+ * </pre>
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example4description -->
+ * when in (i), myObject is at the top of the stack
+ * when in (ii), jp.SomeBean is at the top of the stack, followed by myObject
+ * when in (iii), [1].top will returned top of the cut of stack starting from myObject, namely myObject itself 
+ * <!-- END SNIPPET: example4description -->
+ * </pre>
+ * 
  *
  * @author Patrick Lightbody
  * @author Rene Gielen
