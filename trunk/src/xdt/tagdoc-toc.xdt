@@ -11,17 +11,17 @@
 
 <XDtClass:forAllClasses>
 
-<XDtClass:ifHasClassTag tagName="jsp:tag">
+<XDtClass:ifHasClassTag tagName="ww:tag">
 
 <tr>
 <td align="left" valign="top" width="20%">
 <a href="<XDtPackage:packageNameAsPath/>/<XDtClass:className/>.html"><XDtClass:className/></a>
 </td>
 <td align="left" valign="top" width="*">
-<XDtClass:ifHasClassTag tagName="jsp:tag" paramName="description">
-<XDtClass:classTagValue tagName="jsp:tag" paramName="description"/>
+<XDtClass:ifHasClassTag tagName="ww:tag" paramName="description">
+<XDtClass:classTagValue tagName="ww:tag" paramName="description"/>
 </XDtClass:ifHasClassTag>
-<XDtClass:ifDoesntHaveClassTag tagName="jsp:tag" paramName="description">
+<XDtClass:ifDoesntHaveClassTag tagName="ww:tag" paramName="description">
 <b>No Description</b>
 </XDtClass:ifDoesntHaveClassTag>
 </td>
