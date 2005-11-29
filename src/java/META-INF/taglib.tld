@@ -3,7 +3,7 @@
 <!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
 <taglib>
 
-   <tlib-version>1.1</tlib-version>
+   <tlib-version>2.2-beta-4</tlib-version>
    <jsp-version>1.2</jsp-version>
    <short-name>WebWork Taglib</short-name>
 
@@ -54,6 +54,8 @@
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id of the tag element.]]></description>
 
       </attribute>
 
@@ -289,6 +291,8 @@
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id of the tag element.]]></description>
 
       </attribute>
 
@@ -755,7 +759,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[The scope in which to assign the variable. Can be <b>application</b>, <b>session</b>, <b>request</b>, <b>page</b>, or <b>action</b>, which is the default.]]></description>
+           <description><![CDATA[The scope in which to assign the variable. Can be <b>application</b>, <b>session</b>, <b>request</b>, <b>page</b>, or <b>action</b>.]]></description>
 
       </attribute>
       <attribute>
@@ -1985,6 +1989,8 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
+           <description><![CDATA[The id of the tag element.]]></description>
+
       </attribute>
 
    </tag>
@@ -2611,6 +2617,8 @@
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id of the tag element.]]></description>
 
       </attribute>
 
@@ -3378,6 +3386,8 @@
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id of the tag element.]]></description>
 
       </attribute>
 
@@ -4258,12 +4268,12 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[the max number (Integer, Float, Double, Long, String) entries to be in the iterator]]></description>
+           <description><![CDATA[the max number entries to be in the iterator]]></description>
 
       </attribute>
       <attribute>
          <name>separator</name>
-         <required>false</required>
+         <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[the separator to be used in separating the <i>val</i> into entries of the iterator]]></description>
@@ -4282,13 +4292,15 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[the converter (must extends off IteratorGenerator.Converter interface) to convert the String entry parsed from <i>val</i> into an object]]></description>
+           <description><![CDATA[the converter to convert the String entry parsed from <i>val</i> into an object]]></description>
 
       </attribute>
       <attribute>
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[the id to store the resultant iterator into page context, if such id is supplied]]></description>
 
       </attribute>
 
@@ -4527,11 +4539,14 @@
       <name>property</name>
       <tag-class>com.opensymphony.webwork.views.jsp.PropertyTag</tag-class>
       <body-content>empty</body-content>
+      <description><![CDATA[Print out expression which evaluates against the stack]]></description>
 
       <attribute>
          <name>default</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The default value to be used if <u>value</u> attribute is null]]></description>
 
       </attribute>
       <attribute>
@@ -4539,17 +4554,23 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
+           <description><![CDATA[Whether to escape HTML]]></description>
+
       </attribute>
       <attribute>
          <name>value</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
+           <description><![CDATA[value to be displayed]]></description>
+
       </attribute>
       <attribute>
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id of the tag element.]]></description>
 
       </attribute>
 
@@ -4803,7 +4824,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[The includeParams attribute may have the value 'none', 'get' or 'all'. Default is get.]]></description>
+           <description><![CDATA[The includeParams attribute may have the value 'none', 'get' or 'all'.]]></description>
 
       </attribute>
       <attribute>
@@ -4851,7 +4872,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[true/false - whether to encode parameters]]></description>
+           <description><![CDATA[whether to encode parameters]]></description>
 
       </attribute>
       <attribute>
@@ -5144,6 +5165,8 @@
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id of the tag element.]]></description>
 
       </attribute>
 
@@ -5981,6 +6004,8 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
+           <description><![CDATA[The id of the tag element.]]></description>
+
       </attribute>
 
    </tag>
@@ -6256,6 +6281,8 @@
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id of the tag element.]]></description>
 
       </attribute>
 
