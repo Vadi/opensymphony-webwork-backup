@@ -158,6 +158,14 @@ public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
     	converterAttr = aConverter;
     }
 
+    /**
+     * @ww.tagattribute required="false"
+     * description="the id to store the resultant iterator into page context, if such id is supplied"
+     */
+    public void setId(String string) {
+        super.setId(string);
+    }
+
     public int doStartTag() throws JspException {
 
     	// value
