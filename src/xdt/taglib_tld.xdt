@@ -195,10 +195,13 @@
         <XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="rtexprvalue">
          <rtexprvalue><XDtMethod:methodTagValue tagName="jsp:attribute" paramName="rtexprvalue" values="true,false,yes,no"/></rtexprvalue>
         </XDtMethod:ifHasMethodTag>
-        </XDtConfig:ifConfigParamNotGreaterOrEquals>  
+        <XDtMethod:ifDoesntHaveMethodTag tagName="jsp:attribute" paramName="rtexprvalue">
+         <rtexprvalue>true</rtexprvalue>
+        </XDtMethod:ifDoesntHaveMethodTag>
+        </XDtConfig:ifConfigParamNotGreaterOrEquals>
 
         <XDtConfig:ifConfigParamEquals paramName="Jspversion" value="1.2">
-          <XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="type">
+          <XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="tld-type">
            <type><XDtMethod:methodTagValue tagName="jsp:attribute" paramName="type"/></type>
           </XDtMethod:ifHasMethodTag>
           <XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="description">
