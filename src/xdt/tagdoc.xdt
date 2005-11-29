@@ -1,22 +1,22 @@
-<XDtClass:ifHasClassTag tagName="jsp:tag">
+<XDtClass:ifHasClassTag tagName="ww:tag">
 
 <html>
 <head>
-<title><XDtClass:classTagValue tagName="jsp:tag" paramName="name"/></title>
+<title>&lt;ww:<XDtClass:classTagValue tagName="ww:tag" paramName="name"/> /&gt;</title>
 </head>
 
 <body>
 
-<h1>Tag Name:<XDtClass:classTagValue tagName="jsp:tag" paramName="name"/></h1>
+<h1>Tag Name: &lt;ww:<XDtClass:classTagValue tagName="ww:tag" paramName="name"/> /&gt;</h1>
 
 <h2>Description</h2>
 <p>
 
-<XDtClass:ifHasClassTag tagName="jsp:tag" paramName="description">
-<XDtClass:classTagValue tagName="jsp:tag" paramName="description"/>
+<XDtClass:ifHasClassTag tagName="ww:tag" paramName="description">
+<XDtClass:classTagValue tagName="ww:tag" paramName="description"/>
 </XDtClass:ifHasClassTag>
 
-<XDtClass:ifDoesntHaveClassTag tagName="jsp:tag" paramName="description">
+<XDtClass:ifDoesntHaveClassTag tagName="ww:tag" paramName="description">
 <b>No Description</b>
 </XDtClass:ifDoesntHaveClassTag>
 
@@ -32,67 +32,72 @@
 <table width="100%">
 <tr>
 
-<th align="left" valign="top" width="15%"><h4>Attribute Name</h4></th>
-<th align="left" valign="top" width="*"><h4>Description</h4></th>
-<th align="left" valign="top" width="5%"><h4>Required?</h4></th>
-<th align="left" valign="top" width="5%"><h4>Runtime Expression?</h4></th>
-<th align="left" valign="top" width="5%"><h4>Type</h4></th>
+<th align="left" valign="top"><h4>Name</h4></th>
+<th align="left" valign="top"><h4>Required?</h4></th>
+<th align="left" valign="top"><h4>Default</h4></th>
+<th align="left" valign="top"><h4>Type</h4></th>
+<th align="left" valign="top"><h4>Description</h4></th>
 
 </tr>
 
 <XDtMethod:forAllMethods>
 
-<XDtMethod:ifHasMethodTag tagName="jsp:attribute">
+<XDtMethod:ifHasMethodTag tagName="ww:tagattribute">
 <tr>
 <!-- Attribute name -->
-<td align="left" valign="top" width="20%">
+<td align="left" valign="top">
 <XDtMethod:propertyName/>
 <!--
-<XDtMethod:methodTagValue tagName="jsp:attribute" paramName="name"/>
+<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="name"/>
 -->
 </td>
 
-<!-- Description -->
-<td align="left" valign="top" width="35%">
-<XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="description">
-<XDtMethod:methodTagValue tagName="jsp:attribute" paramName="description"/>
-</XDtMethod:ifHasMethodTag>
-
-<XDtMethod:ifDoesntHaveMethodTag tagName="jsp:attribute" paramName="description">
-None
-</XDtMethod:ifDoesntHaveMethodTag>
-</td>
-
 <!-- Required? -->
-<td align="left" valign="top" width="15%">
-<XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="required">
-<XDtMethod:methodTagValue tagName="jsp:attribute" paramName="required"/>
+<td align="left" valign="top">
+<XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="required">
+<XDtMethod:ifMethodTagValueEquals tagName="ww:tagattribute" paramName="required" value="true">
+<b><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="required"/></b>
+</XDtMethod:ifMethodTagValueEquals>
+<XDtMethod:ifMethodTagValueNotEquals tagName="ww:tagattribute" paramName="required" value="true">
+<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="required"/>
+</XDtMethod:ifMethodTagValueNotEquals>
 </XDtMethod:ifHasMethodTag>
 
-<XDtMethod:ifDoesntHaveMethodTag tagName="jsp:attribute" paramName="required">
+<XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="required">
 false
 </XDtMethod:ifDoesntHaveMethodTag>
 </td>
 
-<!-- Runtime Expressions? -->
-<td align="left" valign="top" width="15%">
-<XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="rtexprvalue">
-<XDtMethod:methodTagValue tagName="jsp:attribute" paramName="rtexprvalue"/>
+<!-- Default -->
+<td align="left" valign="top">
+<XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="default">
+<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="default"/>
 </XDtMethod:ifHasMethodTag>
 
-<XDtMethod:ifDoesntHaveMethodTag tagName="jsp:attribute" paramName="rtexprvalue">
-false
+<XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="default">
+&nbsp;
 </XDtMethod:ifDoesntHaveMethodTag>
 </td>
 
 <!-- Type -->
-<td align="left" valign="top" width="15%">
-<XDtMethod:ifHasMethodTag tagName="jsp:attribute" paramName="type">
-<XDtMethod:methodTagValue tagName="jsp:attribute" paramName="type"/>
+<td align="left" valign="top">
+<XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="type">
+<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="type"/>
 </XDtMethod:ifHasMethodTag>
 
-<XDtMethod:ifDoesntHaveMethodTag tagName="jsp:attribute" paramName="type">
-Unknown
+<XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="type">
+Object/String
+</XDtMethod:ifDoesntHaveMethodTag>
+</td>
+
+<!-- Description -->
+<td align="left" valign="top">
+<XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="description">
+<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="description"/>
+</XDtMethod:ifHasMethodTag>
+
+<XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="description">
+None
 </XDtMethod:ifDoesntHaveMethodTag>
 </td>
 
