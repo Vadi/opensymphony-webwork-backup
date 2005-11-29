@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="textfield" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.TextFieldTag"
+ * @ww.tag name="textfield" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.TextFieldTag"
  * description="Render an HTML input field of type text"
  */
 public class TextField extends UIBean {
@@ -66,7 +66,7 @@ public class TextField extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false" rtexprvalue="true"
+     * @ww.tagattribute required="false" rtexprvalue="true"
      * description="HTML maxLength attribute"
      */
     public void setMaxLength(String maxLength) {
@@ -74,7 +74,7 @@ public class TextField extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML readonly attribute"
      */
     public void setReadonly(String readonly) {
@@ -82,7 +82,7 @@ public class TextField extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML size attribute"
      */
     public void setSize(String size) {

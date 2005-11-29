@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="password" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.PasswordTag"
+ * @ww.tag name="password" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.PasswordTag"
  * description="Render an HTML input tag of type password"
  */
 public class Password extends TextField {
@@ -52,7 +52,7 @@ public class Password extends TextField {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Whether to show input"
      */
     public void setShowPassword(String showPassword) {
@@ -61,7 +61,7 @@ public class Password extends TextField {
 
     /**
      * @deprecated use {@link #setShowPassword(String)}
-     * @jsp.attribute required="false" rtexprvalue="true"
+     * @ww.tagattribute required="false" rtexprvalue="true"
      * description="Deprecated. Use showPassword instead."
      */
     public void setShow(String showPassword) {

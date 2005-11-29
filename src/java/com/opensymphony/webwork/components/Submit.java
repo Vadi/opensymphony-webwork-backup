@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="submit" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.SubmitTag"
+ * @ww.tag name="submit" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.SubmitTag"
  * description="Render a submit button"
  */
 public class Submit extends UIBean {
@@ -97,7 +97,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set action attribute"
      */
     public void setAction(String action) {
@@ -105,7 +105,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set method attribute"
      */
     public void setMethod(String method) {
@@ -113,7 +113,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML align attribute"
      */
     public void setAlign(String align) {
@@ -121,7 +121,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set resultDivId attribute"
      */
     public void setResultDivId(String resultDivId) {
@@ -129,7 +129,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set onLoadJS attribute"
      */
     public void setOnLoadJS(String onLoadJS) {
@@ -137,7 +137,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set notifyTopics attribute"
      */
     public void setNotifyTopics(String notifyTopics) {
@@ -145,7 +145,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set listenTopics attribute"
      */
     public void setListenTopics(String listenTopics) {
@@ -153,7 +153,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set preInvokeJS attribute"
      */
     public void setPreInvokeJS(String preInvokeJS) {

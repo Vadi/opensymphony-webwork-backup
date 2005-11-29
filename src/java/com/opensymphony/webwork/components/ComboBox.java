@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="combobox" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.ComboBoxTag"
+ * @ww.tag name="combobox" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.ComboBoxTag"
  * description="Widget that fills a text box from a select"
   */
 public class ComboBox extends TextField {
@@ -68,7 +68,7 @@ public class ComboBox extends TextField {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="Iteratable source to populate from. If this is missing, the select widget is simply not displayed."
       */
     public void setList(String list) {

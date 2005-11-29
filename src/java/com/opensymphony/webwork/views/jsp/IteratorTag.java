@@ -129,7 +129,7 @@ import java.util.Iterator;
  * @author tm_jee ( tm_jee(at)yahoo.co.uk )
  * @version $Revision$
  *
- * @jsp.tag name="iterator" body-content="JSP"
+ * @ww.tag name="iterator" tld-body-content="JSP"
  * description="Iterate over a iterable value"
  */
 public class IteratorTag extends WebWorkBodyTagSupport {
@@ -142,7 +142,7 @@ public class IteratorTag extends WebWorkBodyTagSupport {
     protected String value;
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="if specified, an instanceof IteratorStatus will be pushed into stack upon each iteration"
      */
     public void setStatus(String status) {
@@ -150,7 +150,7 @@ public class IteratorTag extends WebWorkBodyTagSupport {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="the iteratable source to iterate over, else an the object itself will be put into a newly created List"
      */
     public void setValue(String value) {

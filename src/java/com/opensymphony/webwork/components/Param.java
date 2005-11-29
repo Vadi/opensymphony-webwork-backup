@@ -49,7 +49,7 @@ import java.io.Writer;
  * @see Include
  * @see Bean
  *
- * @jsp.tag name="param" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ParamTag"
+ * @ww.tag name="param" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ParamTag"
  * description="Parametrize other tags"
  */
 public class Param extends Component {
@@ -91,7 +91,7 @@ public class Param extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Name of Parameter to set"
      */
     public void setName(String name) {
@@ -99,7 +99,7 @@ public class Param extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Value expression for Parameter to set"
      */
     public void setValue(String value) {

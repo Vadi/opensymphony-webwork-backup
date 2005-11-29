@@ -30,7 +30,7 @@ import java.util.Map;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="debug" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.DebugTag"
+ * @ww.tag name="debug" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.DebugTag"
  * description="Render debug tag"
   */
 public class Debug extends UIBean {

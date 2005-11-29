@@ -14,10 +14,10 @@ import java.io.IOException;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Used to get the property of a <i>value</i>, which will default to the top of 
+ * Used to get the property of a <i>value</i>, which will default to the top of
  * the stack if none is specified.
  * <!-- END SNIPPET: javadoc -->
- * 
+ *
  * <!-- START SNIPPET: params -->
  * <ul>
  *      <li>default (String) - The default value to be used if <u>value</u> attribute is null</li>
@@ -25,28 +25,33 @@ import java.io.IOException;
  *      <li>value (Object) - value to be displayed</li>
  * </ul>
  * <!-- END SNIPPET: params -->
- * 
+ *
  * <!-- START SNIPPET: example -->
  * <ww:push value="myBean">
  *     <!-- Example 1: -->
  *     <ww:property value="myBeanProperty" />
- *     
+ *
  *     <!-- Example 2: -->
  *     <ww:property value="myBeanProperty" default="a default value" />
  * </ww:push>
  * <!-- END SNIPPET: example -->
- * 
+ *
  * <pre>
  * <!-- START SNIPPET: exampledescription -->
  * Example 1 prints the result of myBean's getMyBeanProperty() method.
  * Example 2 prints the result of myBean's getMyBeanProperty() method and if it is null, print 'a default value' instead.
  * <!-- END SNIPPET: exampledescription -->
  * </pre>
- * 
- * @jsp.tag name="property" body-content="empty"
- * @author $Author$
+ *
+ * @author Patrick Lightbody
+ * @author Cameron Braid
+ * @author Mathias Bogaert
  * @author tm_jee
+ * @author Rene Gielen
  * @version $Revision$
+ *
+ * @ww.tag name="property" tld-body-content="empty"
+ * description="Print out expression which evaluates against the stack"
  */
 public class PropertyTag extends WebWorkBodyTagSupport {
     private static final Log log = LogFactory.getLog(PropertyTag.class);
@@ -56,21 +61,24 @@ public class PropertyTag extends WebWorkBodyTagSupport {
     private boolean escape = true;
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false" type="String"
+     * description="The default value to be used if <u>value</u> attribute is null"
      */
     public void setDefault(String defaultValue) {
         this.defaultValue = defaultValue;
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false" type="Boolean" default="true"
+     * description="Whether to escape HTML"
      */
     public void setEscape(boolean escape) {
         this.escape = escape;
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false" type="Object" default="&lt;top of stack&gt;"
+     * description="value to be displayed"
      */
     public void setValue(String value) {
         this.value = value;

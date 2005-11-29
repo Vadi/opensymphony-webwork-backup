@@ -19,7 +19,7 @@ import java.util.Vector;
  * @author Onyeje Bose (digi9ten@yahoo.com)
  * @deprecated Please use the tabbed panel
  *
- * @jsp.tag name="tabbedpane" body-content="JSP"
+ * @ww.tag name="tabbedpane" tld-body-content="JSP"
  * description="This tag is deprecated. Use tabbed panel instead."
  */
 public class TabbedPaneTag extends ComponentTag {
@@ -46,7 +46,7 @@ public class TabbedPaneTag extends ComponentTag {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * @param contentName
      */
     public void setContentName(String contentName) {

@@ -86,7 +86,7 @@ import java.util.Map;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="action" body-content="empty" tag-class="com.opensymphony.webwork.views.jsp.ActionTag"
+ * @ww.tag name="action" tld-body-content="empty" tld-tag-class="com.opensymphony.webwork.views.jsp.ActionTag"
  * description="Execute an action from within a view"
  */
 public class ActionComponent extends Component {
@@ -206,7 +206,7 @@ public class ActionComponent extends Component {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="The action to execute"
      */
     public void setName(String name) {
@@ -214,7 +214,7 @@ public class ActionComponent extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set namespace attribute"
      */
     public void setNamespace(String namespace) {
@@ -222,7 +222,7 @@ public class ActionComponent extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="true/false - whether the result (probably a view) should be executed/rendered"
      */
     public void setExecuteResult(boolean executeResult) {
@@ -230,7 +230,7 @@ public class ActionComponent extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set ignoreContextParams attribute"
      */
     public void setIgnoreContextParams(boolean ignoreContextParams) {

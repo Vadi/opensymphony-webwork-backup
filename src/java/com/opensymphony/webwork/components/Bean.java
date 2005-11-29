@@ -76,7 +76,7 @@ import java.io.Writer;
  *
  * @see Param
  *
- * @jsp.tag name="bean" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.BeanTag"
+ * @ww.tag name="bean" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.BeanTag"
  * description="Instantiate a JavaBean and place it in the context."
  */
 public class Bean extends Component {
@@ -125,7 +125,7 @@ public class Bean extends Component {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="Name of the bean to instantiate"
      */
     public void setName(String name) {

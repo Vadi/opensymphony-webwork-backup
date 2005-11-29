@@ -36,7 +36,7 @@ import javax.servlet.jsp.JspException;
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @author tmjee
  *
- * @jsp.tag name="else" bodycontent="JSP"
+ * @ww.tag name="else" bodycontent="JSP"
  * description="Else tag"
  */
 public class ElseTag extends WebWorkBodyTagSupport {

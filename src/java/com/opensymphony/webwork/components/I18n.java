@@ -40,7 +40,7 @@ import java.util.ResourceBundle;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="i18n" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.I18nTag"
+ * @ww.tag name="i18n" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.I18nTag"
  * description="Get a resource bundle and place it on the value stack"
  */
 public class I18n extends Component {
@@ -89,7 +89,7 @@ public class I18n extends Component {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="Name of ressource bundle to use"
      */
     public void setName(String name) {

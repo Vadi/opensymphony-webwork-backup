@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="datepicker" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.DatePickerTag"
+ * @ww.tag name="datepicker" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.DatePickerTag"
  * description="Render datepicker"
   */
 public class DatePicker extends TextField {

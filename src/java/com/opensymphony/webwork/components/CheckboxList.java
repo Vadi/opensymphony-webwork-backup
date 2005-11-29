@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="checkboxlist" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.CheckboxListTag"
+ * @ww.tag name="checkboxlist" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.CheckboxListTag"
  * description="Render a list of checkboxes"
   */
 public class CheckboxList extends ListUIBean {

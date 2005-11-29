@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="file" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.FileTag"
+ * @ww.tag name="file" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.FileTag"
  * description="Render a file input field"
   */
 public class File extends UIBean {
@@ -53,7 +53,7 @@ public class File extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Accept attribute to indicate accepted filetypes"
      */
     public void setAccept(String accept) {
@@ -61,7 +61,7 @@ public class File extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML size attribute"
      */
     public void setSize(String size) {

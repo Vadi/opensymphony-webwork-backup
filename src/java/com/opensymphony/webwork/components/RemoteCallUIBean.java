@@ -47,7 +47,7 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="The URL to call to obtain the content"
      */
     public void setHref(String href) {
@@ -55,7 +55,7 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="false" rtexprvalue="true"
+     * @ww.tagattribute required="false" rtexprvalue="true"
      * description="The text to display to the user if the is an error fetching the content"
      */
     public void setErrorText(String errorText) {
@@ -63,7 +63,7 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="true/false - when to show the error message as content when the URL had problems"
      */
     public void setShowErrorTransportText(String showErrorTransportText) {
@@ -71,7 +71,7 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Javascript code that will be executed after the content has been fetched"
      */
     public void setAfterLoading(String afterLoading) {

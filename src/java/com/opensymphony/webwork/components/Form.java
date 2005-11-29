@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="form" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.FormTag"
+ * @ww.tag name="form" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.FormTag"
  * description="Renders an input form"
   */
 public class Form extends ClosingUIBean {
@@ -184,7 +184,7 @@ public class Form extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML onsubmit attribute"
      */
     public void setOnsubmit(String onsubmit) {
@@ -192,7 +192,7 @@ public class Form extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set action attribute"
      */
     public void setAction(String action) {
@@ -200,7 +200,7 @@ public class Form extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set target attribute"
      */
     public void setTarget(String target) {
@@ -208,7 +208,7 @@ public class Form extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set enctype attribute"
      */
     public void setEnctype(String enctype) {
@@ -216,7 +216,7 @@ public class Form extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set method attribute"
      */
     public void setMethod(String method) {
@@ -224,7 +224,7 @@ public class Form extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set namespace attribute"
      */
     public void setNamespace(String namespace) {
@@ -232,7 +232,7 @@ public class Form extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set validate attribute"
      */
     public void setValidate(String validate) {

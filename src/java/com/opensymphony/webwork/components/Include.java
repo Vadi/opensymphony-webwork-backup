@@ -67,7 +67,7 @@ import java.util.*;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="include" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.IncludeTag"
+ * @ww.tag name="include" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.IncludeTag"
  * description="Include a servlet's output (result of servlet or a JSP page)"
  */
 public class Include extends Component {
@@ -136,7 +136,7 @@ public class Include extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The output to include"
      */
     public void setValue(String value) {

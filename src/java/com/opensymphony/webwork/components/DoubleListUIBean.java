@@ -68,7 +68,7 @@ public abstract class DoubleListUIBean extends ListUIBean {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="The second list to use"
      */
     public void setDoubleList(String doubleList) {
@@ -76,7 +76,7 @@ public abstract class DoubleListUIBean extends ListUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The key expression to use for second list"
      */
     public void setDoubleListKey(String doubleListKey) {
@@ -84,7 +84,7 @@ public abstract class DoubleListUIBean extends ListUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The value expression to use for second list"
      */
     public void setDoubleListValue(String doubleListValue) {
@@ -92,7 +92,7 @@ public abstract class DoubleListUIBean extends ListUIBean {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="The name for complete component"
      */
     public void setDoubleName(String doubleName) {
@@ -100,7 +100,7 @@ public abstract class DoubleListUIBean extends ListUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The value expression for complete component"
      */
     public void setDoubleValue(String doubleValue) {
@@ -108,7 +108,7 @@ public abstract class DoubleListUIBean extends ListUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The form name this component resides in an populates to"
      */
     public void setFormName(String formName) {
