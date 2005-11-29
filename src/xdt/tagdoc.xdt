@@ -34,7 +34,7 @@
 <tr>
 
 <th align="left" valign="top"><h4>Name</h4></th>
-<th align="left" valign="top"><h4>Required?</h4></th>
+<th align="left" valign="top"><h4>Required</h4></th>
 <th align="left" valign="top"><h4>Default</h4></th>
 <th align="left" valign="top"><h4>Type</h4></th>
 <th align="left" valign="top"><h4>Description</h4></th>
@@ -46,61 +46,19 @@
 <XDtMethod:ifHasMethodTag tagName="ww:tagattribute">
 <tr>
 <!-- Attribute name -->
-<td align="left" valign="top">
-<XDtMethod:propertyName/>
-<!--
-<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="name"/>
--->
-</td>
+<td align="left" valign="top"><XDtMethod:propertyName/></td>
 
-<!-- Required? -->
-<td align="left" valign="top">
-<XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="required">
-<XDtMethod:ifMethodTagValueEquals tagName="ww:tagattribute" paramName="required" value="true">
-<b><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="required"/></b>
-</XDtMethod:ifMethodTagValueEquals>
-<XDtMethod:ifMethodTagValueNotEquals tagName="ww:tagattribute" paramName="required" value="true">
-<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="required"/>
-</XDtMethod:ifMethodTagValueNotEquals>
-</XDtMethod:ifHasMethodTag>
-
-<XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="required">
-false
-</XDtMethod:ifDoesntHaveMethodTag>
-</td>
+<!-- Required -->
+<td align="left" valign="top"><XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="required"><XDtMethod:ifMethodTagValueEquals tagName="ww:tagattribute" paramName="required" value="true"><b><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="required"/></b></XDtMethod:ifMethodTagValueEquals><XDtMethod:ifMethodTagValueNotEquals tagName="ww:tagattribute" paramName="required" value="true"><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="required"/></XDtMethod:ifMethodTagValueNotEquals></XDtMethod:ifHasMethodTag><XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="required">false</XDtMethod:ifDoesntHaveMethodTag></td>
 
 <!-- Default -->
-<td align="left" valign="top">
-<XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="default">
-<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="default"/>
-</XDtMethod:ifHasMethodTag>
-
-<XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="default">
-&nbsp;
-</XDtMethod:ifDoesntHaveMethodTag>
-</td>
+<td align="left" valign="top"><XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="default"><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="default"/></XDtMethod:ifHasMethodTag><XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="default">&nbsp;</XDtMethod:ifDoesntHaveMethodTag></td>
 
 <!-- Type -->
-<td align="left" valign="top">
-<XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="type">
-<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="type"/>
-</XDtMethod:ifHasMethodTag>
-
-<XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="type">
-Object/String
-</XDtMethod:ifDoesntHaveMethodTag>
-</td>
+<td align="left" valign="top"><XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="type"><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="type"/></XDtMethod:ifHasMethodTag><XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="type">Object/String</XDtMethod:ifDoesntHaveMethodTag></td>
 
 <!-- Description -->
-<td align="left" valign="top">
-<XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="description">
-<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="description"/>
-</XDtMethod:ifHasMethodTag>
-
-<XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="description">
-None
-</XDtMethod:ifDoesntHaveMethodTag>
-</td>
+<td align="left" valign="top"><XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="description"><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="description"/></XDtMethod:ifHasMethodTag><XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="description">None</XDtMethod:ifDoesntHaveMethodTag></td>
 
 </tr>
 </XDtMethod:ifHasMethodTag>
