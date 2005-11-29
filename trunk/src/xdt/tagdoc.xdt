@@ -29,6 +29,7 @@
 <h2>Attributes</h2>
 <p>
 
+<!-- START SNIPPET: tagattributes -->
 <table width="100%">
 <tr>
 
@@ -107,10 +108,11 @@ None
 </XDtMethod:forAllMethods>
 
 </table>
+<!-- END SNIPPET: tagattributes -->
 
 </p>
 <p>
-<center><a href="taglib_toc.html">Back to Taglib Index</a>
+<center><a href="index.html">Back to Taglib Index</a>
 </p>
 </body>
 </html>
