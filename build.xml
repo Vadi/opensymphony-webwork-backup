@@ -2,11 +2,13 @@
     <!-- overridden properties (must be before the import!) -->
     <property name="src.test" value="src/test"/>
     <property name="src.xdt" value="src/xdt"/>
-    <property name="dist.docs.tagdocdir" value="${dist.docs}/tagdocs"/>
     <property name="compile.version" value="1.4"/>
     <property name="test.compile.version" value="1.4"/>
 
     <import file="osbuild.xml"/>
+
+    <property name="build.tagdocs" value="${build}/tagdocs"/>
+    <property name="docs.tags" value="${docs}/tags"/>
 
     <target name="init" depends="common.init" unless="skip.ivy">
         <taskdef name="ivy-configure" classname="fr.jayasoft.ivy.ant.IvyConfigure"/>
@@ -79,7 +81,7 @@
                 <include name="com/opensymphony/webwork/components/**/*.java"/>
             </fileset>
             <configParam name="Jspversion" value="1.2"/>
-            <configParam name="Taglibversion" value="1.1"/>
+            <configParam name="Taglibversion" value="${version}"/>
             <configParam name="Description" value="WebWork JSP Taglib"/>
             <configParam name="Shortname" value="WebWork Taglib"/>
             <configParam name="Displayname" value="WebWork Taglib"/>
@@ -91,9 +93,9 @@
     </target>
 
     <target name="xdoclet-tagdoc" depends="init">
-        <mkdir dir="${dist.docs.tagdocdir}"/>
+        <mkdir dir="${build.tagdocs}"/>
         <taskdef name="xdoclet" classname="xdoclet.DocletTask" classpathref="cp"/>
-        <xdoclet destdir="${dist.docs.tagdocdir}"
+        <xdoclet destdir="${build.tagdocs}"
                 excludedtags="@version,@author,@return,@exception"
                 verbose="false"
                 force="true"
@@ -104,7 +106,7 @@
             </fileset>
             <template templateFile="${src.xdt}/tagdoc.xdt" destinationfile="{0}.html"/>
         </xdoclet>
-        <xdoclet destdir="${dist.docs.tagdocdir}"
+        <xdoclet destdir="${build.tagdocs}"
                 excludedtags="@version,@author,@return,@exception"
                 verbose="false"
                 force="true"
@@ -113,8 +115,14 @@
                 <include name="com/opensymphony/webwork/views/**/*.java"/>
                 <include name="com/opensymphony/webwork/components/**/*.java"/>
             </fileset>
-            <template templateFile="${src.xdt}/tagdoc-toc.xdt" destinationfile="tagdoc_toc.html"/>
+            <configParam name="Taglibversion" value="${version}"/>
+            <template templateFile="${src.xdt}/tagdoc-toc.xdt" destinationfile="index.html"/>
         </xdoclet>
+
+        <mkdir dir="${docs.tags}"/>
+        <copy todir="${docs.tags}" flatten="true" includeemptydirs="false">
+            <fileset dir="${build.tagdocs}" includes="**/*.html"/>
+        </copy>
     </target>
 
     <!-- overridden targets -->
