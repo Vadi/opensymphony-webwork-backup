@@ -49,7 +49,7 @@ import java.io.Writer;
  *
  * @see TabbedPanel
  *
- * @jsp.tag name="panel" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.PanelTag"
+ * @ww.tag name="panel" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.PanelTag"
  * description="Render a panel for tabbedPanel"
  */
 public class Panel extends Div {
@@ -110,7 +110,7 @@ public class Panel extends Div {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="The text of the tab to display in the header tab list"
      */
     public void setTabName(String tabName) {
@@ -118,7 +118,7 @@ public class Panel extends Div {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set subscribeTopicName attribute"
      */
     public void setSubscribeTopicName(String subscribeTopicName) {
@@ -126,7 +126,7 @@ public class Panel extends Div {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="true/false - determines whether this is a remote panel (ajax) or a local panel (content loaded into visible/hidden containers)"
      */
     public void setRemote(String remote) {

@@ -1,9 +1,6 @@
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.views.util.UrlHelper;
-import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
-import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
-import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpUtils;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Map;
 
 /**
  * <!-- START SNIPPET: javadoc -->
@@ -64,7 +60,7 @@ import java.util.Map;
  *
  * @see Param
  *
- * @jsp.tag name="url" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.URLTag"
+ * @ww.tag name="url" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.URLTag"
  * description="This tag is used to create a URL"
  */
 public class URL extends Component {
@@ -175,15 +171,15 @@ public class URL extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     * description="The includeParams attribute may have the value 'none', 'get' or 'all'. Default is get."
+     * @ww.tagattribute required="false" default="get"
+     * description="The includeParams attribute may have the value 'none', 'get' or 'all'."
      */
     public void setIncludeParams(String includeParams) {
         this.includeParams = includeParams;
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set scheme attribute"
      */
     public void setScheme(String scheme) {
@@ -191,7 +187,7 @@ public class URL extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The target value to use, if not using action"
      */
     public void setValue(String value) {
@@ -199,7 +195,7 @@ public class URL extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The action generate url for, if not using value"
      */
     public void setAction(String action) {
@@ -207,7 +203,7 @@ public class URL extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The namespace to use"
      */
     public void setNamespace(String namespace) {
@@ -215,7 +211,7 @@ public class URL extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The method of action to use"
      */
     public void setMethod(String method) {
@@ -223,15 +219,15 @@ public class URL extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     * description="true/false - whether to encode parameters"
+     * @ww.tagattribute required="false" type="Boolean" default="true"
+     * description="whether to encode parameters"
      */
     public void setEncode(boolean encode) {
         this.encode = encode;
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false" type="Boolean" default="true"
      * description="true/false - whether actual context should be included in url"
      */
     public void setIncludeContext(boolean includeContext) {

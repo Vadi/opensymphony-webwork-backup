@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @see TabbedPanel
  *
- * @jsp.tag name="textarea" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.TextareaTag"
+ * @ww.tag name="textarea" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.TextareaTag"
  * description="Render HTML textarea tag."
  */
 public class TextArea extends UIBean {
@@ -65,7 +65,7 @@ public class TextArea extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML cols attribute"
      */
     public void setCols(String cols) {
@@ -73,7 +73,7 @@ public class TextArea extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML readonly attribute"
      */
     public void setReadonly(String readonly) {
@@ -81,7 +81,7 @@ public class TextArea extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML rows attribute"
      */
     public void setRows(String rows) {
@@ -89,7 +89,7 @@ public class TextArea extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML wrap attribute"
      */
     public void setWrap(String wrap) {

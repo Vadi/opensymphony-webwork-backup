@@ -92,7 +92,7 @@ import java.io.Writer;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="push" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.PushTag"
+ * @ww.tag name="push" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.PushTag"
  * description="Push value on stack for simplified usage."
  */
 public class Push extends Component {
@@ -127,7 +127,7 @@ public class Push extends Component {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="Value to push on stack"
      */
     public void setValue(String value) {

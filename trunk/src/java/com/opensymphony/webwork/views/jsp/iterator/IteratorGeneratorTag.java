@@ -108,7 +108,7 @@ import org.apache.commons.logging.LogFactory;
  * @author tm_jee ( tm_jee(at)yahoo.co.uk )
  * @version $Revision$
  *
- * @jsp.tag name="generator" body-content="JSP"
+ * @ww.tag name="generator" tld-body-content="JSP"
  * description="Generate an iterator for a iterable source."
  */
 public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
@@ -127,15 +127,15 @@ public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
     IteratorGenerator iteratorGenerator = null;
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     * description="the max number (Integer, Float, Double, Long, String) entries to be in the iterator"
+     * @ww.tagattribute required="false" type="Integer"
+     * description="the max number entries to be in the iterator"
      */
     public void setCount(String count) {
         countAttr = count;
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="the separator to be used in separating the <i>val</i> into entries of the iterator"
      */
     public void setSeparator(String separator) {
@@ -143,7 +143,7 @@ public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="the source to be parsed into an iterator"
      */
     public void setVal(String val) {
@@ -151,8 +151,8 @@ public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
     }
 
     /**
-     * @jsp.attribute required="false" rtexprvalue="true"
-     * description="the converter (must extends off IteratorGenerator.Converter interface) to convert the String entry parsed from <i>val</i> into an object"
+     * @ww.tagattribute required="false" type="com.opensymphony.webwork.util.IteratorGenerator.Converter"
+     * description="the converter to convert the String entry parsed from <i>val</i> into an object"
      */
     public void setConverter(String aConverter) {
     	converterAttr = aConverter;

@@ -54,7 +54,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="component" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.ComponentTag"
+ * @ww.tag name="component" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.ComponentTag"
  * description="Render a custom ui widget"
  */
 public class GenericUIBean extends UIBean {

@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="label" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.LabelTag"
+ * @ww.tag name="label" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.LabelTag"
  * description="Render a label that displays read-only information"
   */
 public class Label extends UIBean {
@@ -65,7 +65,7 @@ public class Label extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML for attribute"
      */
     public void setFor(String forAttr) {

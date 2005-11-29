@@ -60,7 +60,7 @@ import java.util.Comparator;
  * @author Rickard Oberg (rickard@dreambean.com)
  * @author tm_jee (tm_jee(at)yahoo.co.uk)
  *
- * @jsp.tag name="sort" body-content="JSP"
+ * @ww.tag name="sort" tld-body-content="JSP"
  * description="Sort a List using a Comparator both passed in as the tag attribute."
  */
 public class SortIteratorTag extends WebWorkBodyTagSupport {
@@ -73,7 +73,7 @@ public class SortIteratorTag extends WebWorkBodyTagSupport {
     SortIteratorFilter sortIteratorFilter = null;
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="The comparator to use"
      */
     public void setComparator(String comparator) {
@@ -81,7 +81,7 @@ public class SortIteratorTag extends WebWorkBodyTagSupport {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The iterable source to sort"
      */
     public void setSource(String source) {

@@ -256,7 +256,7 @@ public class Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="HTML id attribute"
      */
     public void setId(String id) {

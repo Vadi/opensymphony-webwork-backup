@@ -32,7 +32,7 @@ import java.util.Map;
  * @see com.opensymphony.webwork.interceptor.TokenInterceptor
  * @see com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor
  *
- * @jsp.tag name="token" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.TokenTag"
+ * @ww.tag name="token" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.TokenTag"
  * description="Stop double-submission of forms"
  */
     public class Token extends UIBean {

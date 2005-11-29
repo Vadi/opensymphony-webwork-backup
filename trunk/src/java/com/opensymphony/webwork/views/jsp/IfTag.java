@@ -41,7 +41,7 @@ import javax.servlet.jsp.JspException;
  * @see com.opensymphony.webwork.views.jsp.ElseTag
  * @see com.opensymphony.webwork.views.jsp.ElseIfTag
  *
- * @jsp.tag name="if" body-content="JSP"
+ * @ww.tag name="if" tld-body-content="JSP"
  * description="If tag"
  */
 public class IfTag extends WebWorkBodyTagSupport {
@@ -51,7 +51,7 @@ public class IfTag extends WebWorkBodyTagSupport {
     String test;
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="Logic to determined if body of tag is to be displayed"
      */
     public void setTest(String test) {

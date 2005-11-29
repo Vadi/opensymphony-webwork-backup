@@ -50,7 +50,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="select" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.SelectTag"
+ * @ww.tag name="select" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.SelectTag"
  * description="Render a select element"
  */
 public class Select extends ListUIBean {
@@ -92,7 +92,7 @@ public class Select extends ListUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Whether or not to add an empty (--) option after the header option"
      */
     public void setEmptyOption(String emptyOption) {
@@ -101,7 +101,7 @@ public class Select extends ListUIBean {
 
     /**
      * Cannot be empty! "'-1'" and "''" is correct, "" is bad.
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Key for first item in list"
      */
     public void setHeaderKey(String headerKey) {
@@ -109,7 +109,7 @@ public class Select extends ListUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Value expression for first item in list"
      */
     public void setHeaderValue(String headerValue) {
@@ -117,7 +117,7 @@ public class Select extends ListUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute. Passing a Collection may work too? Haven't tested this."
      */
     public void setMultiple(String multiple) {
@@ -125,7 +125,7 @@ public class Select extends ListUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description=" Size of the element box (# of elements to show)"
      */
     public void setSize(String size) {

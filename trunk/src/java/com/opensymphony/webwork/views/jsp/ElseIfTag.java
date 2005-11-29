@@ -38,7 +38,7 @@ import javax.servlet.jsp.JspException;
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @author tmjee
  *
- * @jsp.tag name="elseif" body-content="JSP"
+ * @ww.tag name="elseif" tld-body-content="JSP"
  * description="Elseif tag"
  */
 public class ElseIfTag extends WebWorkBodyTagSupport {
@@ -47,7 +47,7 @@ public class ElseIfTag extends WebWorkBodyTagSupport {
     protected String test;
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="Optional expression determining whether to evaluate body content."
      */
     public void setTest(String test) {

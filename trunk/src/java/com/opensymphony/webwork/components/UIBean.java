@@ -335,7 +335,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The theme (other than default) to use for renedring the element"
       */
     public void setTheme(String theme) {
@@ -347,7 +347,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The template (other than default) to use for renedring the element"
      */
     public void setTemplate(String template) {
@@ -355,7 +355,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The css class to use for element"
      */
     public void setCssClass(String cssClass) {
@@ -363,7 +363,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The css style definitions for element ro use"
      */
     public void setCssStyle(String cssStyle) {
@@ -371,7 +371,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html disabled attribute on rendered html element"
      */
     public void setDisabled(String disabled) {
@@ -379,7 +379,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"
+     * @ww.tagattribute required="false"
      * description="Label expression used for rendering a element specific label"
      * rtexprvalue="true"
      */
@@ -388,14 +388,14 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      */
     public void setLabelPosition(String labelPosition) {
         this.labelPosition = labelPosition;
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * @deprecated please use {@link #setLabelPosition} instead
      */
     public void setLabelposition(String labelPosition) {
@@ -403,7 +403,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The name to set for element"
      */
     public void setName(String name) {
@@ -411,7 +411,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute  required="false"  rtexprvalue="true"
+     * @ww.tagattribute  required="false"
      * description="If set to true, the rendered element will inidicate that input is required"
      */
     public void setRequired(String required) {
@@ -419,7 +419,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html tabindex attribute on rendered html element"
      */
     public void setTabindex(String tabindex) {
@@ -427,7 +427,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Preset the value of input element."
      */
     public void setValue(String value) {
@@ -435,7 +435,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onclick attribute on rendered html element"
      */
     public void setOnclick(String onclick) {
@@ -443,7 +443,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html ondblclick attribute on rendered html element"
      */
     public void setOndblclick(String ondblclick) {
@@ -451,7 +451,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onmousedown attribute on rendered html element"
      */
     public void setOnmousedown(String onmousedown) {
@@ -459,7 +459,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onmouseup attribute on rendered html element"
      */
     public void setOnmouseup(String onmouseup) {
@@ -467,7 +467,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onmouseover attribute on rendered html element"
      */
     public void setOnmouseover(String onmouseover) {
@@ -475,7 +475,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onmousemove attribute on rendered html element"
      */
     public void setOnmousemove(String onmousemove) {
@@ -483,7 +483,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onmouseout attribute on rendered html element"
      */
     public void setOnmouseout(String onmouseout) {
@@ -491,7 +491,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onfocus attribute on rendered html element"
      */
     public void setOnfocus(String onfocus) {
@@ -499,7 +499,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onblur attribute on rendered html element"
      */
     public void setOnblur(String onblur) {
@@ -507,7 +507,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onkeypress attribute on rendered html element"
      */
     public void setOnkeypress(String onkeypress) {
@@ -515,7 +515,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onkeydown attribute on rendered html element"
      */
     public void setOnkeydown(String onkeydown) {
@@ -523,7 +523,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onkeyup attribute on rendered html element"
      */
     public void setOnkeyup(String onkeyup) {
@@ -531,7 +531,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onselect attribute on rendered html element"
      */
     public void setOnselect(String onselect) {
@@ -539,7 +539,7 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set the html onchange attribute on rendered html element"
      */
     public void setOnchange(String onchange) {

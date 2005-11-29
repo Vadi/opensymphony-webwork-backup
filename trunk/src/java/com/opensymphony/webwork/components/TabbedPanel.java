@@ -54,7 +54,7 @@ import java.util.List;
  *
  * @see Panel
  *
- * @jsp.tag name="tabbedPanel" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.TabbedPanelTag"
+ * @ww.tag name="tabbedPanel" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.TabbedPanelTag"
  * description="Render a tabbedPanel widget."
  */
 public class TabbedPanel extends ClosingUIBean {
@@ -111,7 +111,7 @@ public class TabbedPanel extends ClosingUIBean {
     }
 
     /**
-     * @jsp.attribute required="true" rtexprvalue="true" description="HTML id attribute"
+     * @ww.tagattribute required="true" rtexprvalue="true" description="HTML id attribute"
      */
     public void setId(String id) {
         // This is required to override tld generation attributes to required=true

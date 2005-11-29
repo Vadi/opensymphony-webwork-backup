@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="checkbox" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.CheckboxTag"
+ * @ww.tag name="checkbox" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.CheckboxTag"
  * description="Render a checkbox input field"
   */
 public class Checkbox extends UIBean {
@@ -58,7 +58,7 @@ public class Checkbox extends UIBean {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true"
      * description="The actual HTML value attribute of the checkbox"
       */
     public void setFieldValue(String fieldValue) {

@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="div" body-content="JSP" tag-class="com.opensymphony.webwork.views.jsp.ui.DivTag"
+ * @ww.tag name="div" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.DivTag"
  * description="Render HTML div providing content from remote call via AJAX"
   */
 public class Div extends RemoteCallUIBean {
@@ -82,7 +82,7 @@ public class Div extends RemoteCallUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="How often to re-fetch the content (in milliseconds)"
      */
     public void setUpdateFreq(String updateFreq) {
@@ -90,7 +90,7 @@ public class Div extends RemoteCallUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="How long to wait before fetching the content (in milliseconds)"
      */
     public void setDelay(String delay) {
@@ -98,7 +98,7 @@ public class Div extends RemoteCallUIBean {
     }
 
     /**
-     * @jsp.attribute required="false" rtexprvalue="true"
+     * @ww.tagattribute required="false" rtexprvalue="true"
      * description=" The text to display to the user while the new content is being fetched (especially good if the content will take awhile)"
      */
     public void setLoadingText(String loadingText) {
@@ -106,7 +106,7 @@ public class Div extends RemoteCallUIBean {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Topic name to listen to (comma delimited), that will cause the DIV's content to be re-fetched"
      */
     public void setListenTopics(String listenTopics) {

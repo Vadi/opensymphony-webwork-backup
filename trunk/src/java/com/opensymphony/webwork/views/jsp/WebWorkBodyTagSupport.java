@@ -21,7 +21,7 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
     public static final boolean ALT_SYNTAX = "true".equals(Configuration.getString("webwork.tag.altSyntax"));
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      */
     public void setId(String string) {
         super.setId(string);

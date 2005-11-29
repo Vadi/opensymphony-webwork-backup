@@ -45,7 +45,7 @@ import java.io.Writer;
  * @version $Revision$
  * @since 2.2
  *
- * @jsp.tag name="set" body-content="empty" tag-class="com.opensymphony.webwork.views.jsp.SetTag"
+ * @ww.tag name="set" tld-body-content="empty" tld-tag-class="com.opensymphony.webwork.views.jsp.SetTag"
  * description="Assigns a value to a variable in a specified scope"
  */
 public class Set extends Component {
@@ -93,7 +93,7 @@ public class Set extends Component {
     }
 
     /**
-     * @jsp.attribute required="true"  rtexprvalue="true"
+     * @ww.tagattribute required="true" type="String"
      * description="The name of the new variable that is assigned the value of <i>value</i>"
      */
     public void setName(String name) {
@@ -101,15 +101,15 @@ public class Set extends Component {
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
-     * description="The scope in which to assign the variable. Can be <b>application</b>, <b>session</b>, <b>request</b>, <b>page</b>, or <b>action</b>, which is the default."
+     * @ww.tagattribute required="false" type="String" default="action"
+     * description="The scope in which to assign the variable. Can be <b>application</b>, <b>session</b>, <b>request</b>, <b>page</b>, or <b>action</b>."
      */
     public void setScope(String scope) {
         this.scope = scope;
     }
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="The value that is assigned to the variable named <i>name</i>"
      */
     public void setValue(String value) {

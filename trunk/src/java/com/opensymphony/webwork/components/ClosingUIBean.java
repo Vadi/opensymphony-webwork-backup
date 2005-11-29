@@ -28,7 +28,7 @@ public abstract class ClosingUIBean extends UIBean {
     public abstract String getDefaultOpenTemplate();
 
     /**
-     * @jsp.attribute required="false"  rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Set template to use for opening the rendered html."
      */
     public void setOpenTemplate(String openTemplate) {
