@@ -31,7 +31,7 @@ import java.io.IOException;
  *     <!-- Example 1: -->
  *     <ww:property value="myBeanProperty" />
  *     
- *     <!-- Example 2:
+ *     <!-- Example 2: -->
  *     <ww:property value="myBeanProperty" default="a default value" />
  * </ww:push>
  * <!-- END SNIPPET: example -->
