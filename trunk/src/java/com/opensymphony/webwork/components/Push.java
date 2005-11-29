@@ -34,10 +34,10 @@ import java.io.Writer;
  * <pre>
  * <!-- START SNIPPET: example2 -->
  *  &lt;ww:push value="myObject"&gt;                              ----- (1)
- *       &ltww:bean name="'jp.SomeBean'" id="myBean"/&gt;        ----- (2)
- * 		    &ltww:param name="'myParam'" value="top"/&gt;        ------ (3)
- *       &lt/ww:bean&gt;
- *   &lt/ww:push&gt;
+ *       &lt;ww:bean name="'jp.SomeBean'" id="myBean"/&gt;        ----- (2)
+ * 		    &lt;ww:param name="'myParam'" value="top"/&gt;        ------ (3)
+ *       &lt;/ww:bean&gt;
+ *   &lt;/ww:push&gt;
  * <!-- END SNIPPET: example2 -->
  * </pre>
  * 
@@ -51,11 +51,11 @@ import java.io.Writer;
  * 
  * <pre>
  * <!-- START SNIPPET: example3 -->
- * <ww:push value="myObject">                                       ---(A)
- *    <ww:bean name="'jp.SomeBean'" id="myBean"/>                   ---(B)
- *       <ww:param name="'myParam'" value="top.mySomeOtherValue"/>  ---(C)
- *    </ww:bean>
- * </ww:push>
+ * &lt;ww:push value="myObject"&gt;                                       ---(A)
+ *    &lt;ww:bean name="'jp.SomeBean'" id="myBean"/&gt;                   ---(B)
+ *       &lt;ww:param name="'myParam'" value="top.mySomeOtherValue"/&gt;  ---(C)
+ *    &lt;/ww:bean&gt;
+ * &lt;/ww:push&gt;
  * <!-- END SNIPPET: example3 -->
  * </pre>
  * 
@@ -69,11 +69,11 @@ import java.io.Writer;
  * 
  * <pre>
  * <!-- START SNIPPET: example4 -->       
- * <ww:push value="myObject">                                 ---- (i)
- *    <ww:bean name="'jp.SomeBean'" id="myBean"/>             ---- (ii)
- *       <ww:param name="'myParam'" value="[1].top"/>         -----(iii)
- *    </ww:bean>
- * </ww:push>
+ * &lt;ww:push value="myObject"&gt;                                 ---- (i)
+ *    &lt;ww:bean name="'jp.SomeBean'" id="myBean"/&gt;             ---- (ii)
+ *       &lt;ww:param name="'myParam'" value="[1].top"/&gt;         -----(iii)
+ *    &lt;/ww:bean&gt;
+ * &lt;/ww:push&gt;
  * <!-- END SNIPPET: example4 -->
  * </pre>
  * 
