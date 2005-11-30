@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * <!-- START SNIPPET: javadoc -->
  * A tag that creates a HTML &gt;a href='' /&lt; that when clicked calls a URL remote XMLHttpRequest call
- * via the dojo framework.  The result from the URL is executed as JavaScript.<p/>
+ * via the dojo framework. The result from the URL is executed as JavaScript.<p/>
  *
  * If a "listenTopics" is supplied, it will publish a 'click' message to that topic when the result is
  * returned.  If utilizing the topic/event elements, then this tag needs to be contained within
@@ -21,9 +21,33 @@ import javax.servlet.http.HttpServletResponse;
  * <p/> <b>Examples</b>
  *
  * <pre>
- * <!-- START SNIPPET: example -->
- * &lt;ww:href ... /&gt;
- * <!-- END SNIPPET: example -->
+ * <!-- START SNIPPET: example1 -->
+ * &lt;ww:a id="link1" theme="ajax" href="/DoIt.action" errorText="'An error ocurred'" showErrorTransportText="true"&gt;&lt;img border="none" src="&lt;%=request.getContextPath()%&gt;/images/delete.gif"/&gt;
+ *     &lt;ww:param name="id" value="1"/&gt;
+ * &lt;/ww:a&gt;
+ * <!-- END SNIPPET: example1 -->
+ * </pre>
+ * </p>
+ * <!-- START SNIPPET: exampledescription1 -->
+ * Results in
+ * <!-- END SNIPPET: exampledescription1 -->
+ * </p>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example2 -->
+ * &lt;a dojoType="BindAnchor" evalResult="true" id="link1" href="/DoIt.action?id=1" errorHtml="An error ocurred" showTransportError="true"&gt;&lt;/a&gt;
+ * <!-- END SNIPPET: example2 -->
+ * </pre>
+ * </p>
+ * <!-- START SNIPPET: exampledescription2 -->
+ * Here is an example that uses the postInvokeJS. This example is in altSyntax=true:
+ * <!-- END SNIPPET: exampledescription2 -->
+ * </p>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example3 -->
+ * &lt;ww:a id="test" theme="ajax" href="/simpeResult.action" preInvokeJS="confirm(\'You sure\')"&gt;A&lt;/ww:a&gt;
+ * <!-- END SNIPPET: example3 -->
  * </pre>
  *
  * @author Ian Roughley
@@ -98,16 +122,24 @@ public class Href extends RemoteCallUIBean {
     }
 
     /**
+     * @ww.tagattribute required="true" type="String"
+     * description="The id to assign the component"
+     */
+    public void setId(String id) {
+        super.setId(id);
+    }
+
+    /**
      * @ww.tagattribute required="false"
-     * description="Set notifyTopics attribute"
+     * description="Topic names to post an event to after the remote call has been made"
      */
     public void setNotifyTopics(String notifyTopics) {
         this.notifyTopics = notifyTopics;
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="Set preInvokeJS attribute"
+     * @ww.tagattribute required="false" type="String"
+     * description="A javascript snippet that will be invoked prior to the execution of the target href. If provided must return true or false. True indicates to continue executing target, false says do not execute link target. Possible uses are for confirm dialogs."
      */
     public void setPreInvokeJS(String preInvokeJS) {
         this.preInvokeJS = preInvokeJS;

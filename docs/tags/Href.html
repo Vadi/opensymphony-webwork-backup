@@ -16,7 +16,7 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> A tag that creates a HTML &gt;a href='' /&lt; that when clicked calls a URL remote XMLHttpRequest call via the dojo framework. The result from the URL is executed as JavaScript.<p/> If a "listenTopics" is supplied, it will publish a 'click' message to that topic when the result is returned. If utilizing the topic/event elements, then this tag needs to be contained within a &gt;ww:topicScope /&lt; tag.<p/> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:href ... /&gt; <!-- END SNIPPET: example --> </pre>
+<!-- START SNIPPET: javadoc --> A tag that creates a HTML &gt;a href='' /&lt; that when clicked calls a URL remote XMLHttpRequest call via the dojo framework. The result from the URL is executed as JavaScript.<p/> If a "listenTopics" is supplied, it will publish a 'click' message to that topic when the result is returned. If utilizing the topic/event elements, then this tag needs to be contained within a &gt;ww:topicScope /&lt; tag.<p/> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example1 --> &lt;ww:a id="link1" theme="ajax" href="/DoIt.action" errorText="'An error ocurred'" showErrorTransportText="true"&gt;&lt;img border="none" src="&lt;%=request.getContextPath()%&gt;/images/delete.gif"/&gt; &lt;ww:param name="id" value="1"/&gt; &lt;/ww:a&gt; <!-- END SNIPPET: example1 --> </pre> </p> <!-- START SNIPPET: exampledescription1 --> Results in <!-- END SNIPPET: exampledescription1 --> </p> <pre> <!-- START SNIPPET: example2 --> &lt;a dojoType="BindAnchor" evalResult="true" id="link1" href="/DoIt.action?id=1" errorHtml="An error ocurred" showTransportError="true"&gt;&lt;/a&gt; <!-- END SNIPPET: example2 --> </pre> </p> <!-- START SNIPPET: exampledescription2 --> Here is an example that uses the postInvokeJS. This example is in altSyntax=true: <!-- END SNIPPET: exampledescription2 --> </p> <pre> <!-- START SNIPPET: example3 --> &lt;ww:a id="test" theme="ajax" href="/simpeResult.action" preInvokeJS="confirm(\'You sure\')"&gt;A&lt;/ww:a&gt; <!-- END SNIPPET: example3 --> </pre>
 </p>
 
 <h2>Attributes</h2>
@@ -36,6 +36,24 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 
 <tr>
 <!-- Attribute name -->
+<td align="left" valign="top">id</td>
+
+<!-- Required -->
+<td align="left" valign="top"><b>true</b></td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">The id to assign the component</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
 <td align="left" valign="top">notifyTopics</td>
 
 <!-- Required -->
@@ -48,7 +66,7 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">Set notifyTopics attribute</td>
+<td align="left" valign="top">Topic names to post an event to after the remote call has been made</td>
 
 </tr>
 
@@ -63,10 +81,28 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 <td align="left" valign="top">&nbsp;</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">String</td>
 
 <!-- Description -->
-<td align="left" valign="top">Set preInvokeJS attribute</td>
+<td align="left" valign="top">A javascript snippet that will be invoked prior to the execution of the target href. If provided must return true or false. True indicates to continue executing target, false says do not execute link target. Possible uses are for confirm dialogs.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">theme</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">The theme to use for the element. <b>This tag will usually use the ajax theme.</b></td>
 
 </tr>
 
@@ -81,7 +117,7 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 <td align="left" valign="top">&nbsp;</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">String</td>
 
 <!-- Description -->
 <td align="left" valign="top">The URL to call to obtain the content</td>
@@ -99,7 +135,7 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 <td align="left" valign="top">&nbsp;</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">String</td>
 
 <!-- Description -->
 <td align="left" valign="top">The text to display to the user if the is an error fetching the content</td>
@@ -114,13 +150,13 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
-<td align="left" valign="top">true/false - when to show the error message as content when the URL had problems</td>
+<td align="left" valign="top">when to show the error message as content when the URL had problems</td>
 
 </tr>
 
@@ -135,7 +171,7 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 <td align="left" valign="top">&nbsp;</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">String</td>
 
 <!-- Description -->
 <td align="left" valign="top">Javascript code that will be executed after the content has been fetched</td>
@@ -157,24 +193,6 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 
 <!-- Description -->
 <td align="left" valign="top">Set template to use for opening the rendered html.</td>
-
-</tr>
-
-<tr>
-<!-- Attribute name -->
-<td align="left" valign="top">theme</td>
-
-<!-- Required -->
-<td align="left" valign="top">false</td>
-
-<!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
-
-<!-- Type -->
-<td align="left" valign="top">Object/String</td>
-
-<!-- Description -->
-<td align="left" valign="top">The theme (other than default) to use for renedring the element</td>
 
 </tr>
 
@@ -276,13 +294,13 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">left</td>
 
 <!-- Type -->
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">deprecated.</td>
 
 </tr>
 
@@ -300,7 +318,7 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">define label position of form element (top/left)</td>
 
 </tr>
 
@@ -330,13 +348,13 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
-<td align="left" valign="top">If set to true, the rendered element will inidicate that input is required</td>
+<td align="left" valign="top">If set to true, the rendered element will indicate that input is required</td>
 
 </tr>
 
@@ -625,24 +643,6 @@ Render a HTML href element that when clicked calls a URL via remote XMLHttpReque
 
 <!-- Description -->
 <td align="left" valign="top">Set the html onchange attribute on rendered html element</td>
-
-</tr>
-
-<tr>
-<!-- Attribute name -->
-<td align="left" valign="top">id</td>
-
-<!-- Required -->
-<td align="left" valign="top">false</td>
-
-<!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
-
-<!-- Type -->
-<td align="left" valign="top">Object/String</td>
-
-<!-- Description -->
-<td align="left" valign="top">HTML id attribute</td>
 
 </tr>
 

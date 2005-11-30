@@ -47,7 +47,15 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
     }
 
     /**
-     * @ww.tagattribute required="true"
+     * @ww.tagattribute required="false" type="String"
+     * description="The theme to use for the element. <b>This tag will usually use the ajax theme.</b>"
+     */
+    public void setTheme(String theme) {
+        super.setTheme(theme);
+    }
+
+    /**
+     * @ww.tagattribute required="true" type="String"
      * description="The URL to call to obtain the content"
      */
     public void setHref(String href) {
@@ -55,7 +63,7 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
     }
 
     /**
-     * @ww.tagattribute required="false" rtexprvalue="true"
+     * @ww.tagattribute required="false" type="String"
      * description="The text to display to the user if the is an error fetching the content"
      */
     public void setErrorText(String errorText) {
@@ -63,15 +71,15 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="true/false - when to show the error message as content when the URL had problems"
+     * @ww.tagattribute required="false" type="Boolean" default="false"
+     * description="when to show the error message as content when the URL had problems"
      */
     public void setShowErrorTransportText(String showErrorTransportText) {
         this.showErrorTransportText = showErrorTransportText;
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="String"
      * description="Javascript code that will be executed after the content has been fetched"
      */
     public void setAfterLoading(String afterLoading) {
