@@ -4,13 +4,13 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
+import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import junit.framework.TestCase;
 
 import javax.servlet.jsp.JspException;
 
@@ -21,14 +21,13 @@ import javax.servlet.jsp.JspException;
  * @author $Author$
  * @version $Revision$
  */
-public class PropertyTagTest extends TestCase {
+public class PropertyTagTest extends WebWorkTestCase {
 
-    MockHttpServletRequest request = new MockHttpServletRequest();
+    WebWorkMockHttpServletRequest request = new WebWorkMockHttpServletRequest();
     OgnlValueStack stack = new OgnlValueStack();
 
 
     public void testDefaultValue() {
-    	request.setupGetAttribute(stack);
         PropertyTag tag = new PropertyTag();
 
         Foo foo = new Foo();
@@ -59,7 +58,6 @@ public class PropertyTagTest extends TestCase {
     }
 
     public void testNull() {
-    	request.setupGetAttribute(stack);
         PropertyTag tag = new PropertyTag();
 
         Foo foo = new Foo();
@@ -89,7 +87,6 @@ public class PropertyTagTest extends TestCase {
     }
 
     public void testSimple() {
-    	request.setupGetAttribute(stack);
         PropertyTag tag = new PropertyTag();
 
         Foo foo = new Foo();
@@ -147,132 +144,128 @@ public class PropertyTagTest extends TestCase {
         jspWriter.verify();
         pageContext.verify();
     }
-    
-    
+
+
     public void testWithAltSyntax1() throws Exception {
         // setups
-    	request.setupGetAttribute(stack);
         Configuration.set("webwork.tag.altSyntax", "true");
         assertEquals(Configuration.get("webwork.tag.altSyntax"), "true");
-        
+
         Foo foo = new Foo();
         foo.setTitle("tm_jee");
         stack.push(foo);
-        
+
         MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("Foo is: tm_jee");
-        
+
         MockPageContext pageContext = new MockPageContext();
         pageContext.setJspWriter(jspWriter);
         pageContext.setRequest(request);
-        
+
         // test
         {PropertyTag tag = new PropertyTag();
         tag.setPageContext(pageContext);
         tag.setValue("%{toString()}");
         tag.doStartTag();
         tag.doEndTag();}
-        
+
         // verify test
         request.verify();
         jspWriter.verify();
         pageContext.verify();
     }
-    
+
     public void testWithAltSyntax2() throws Exception {
         // setups
-    	request.setupGetAttribute(stack);
         Configuration.set("webwork.tag.altSyntax", "true");
         assertEquals(Configuration.get("webwork.tag.altSyntax"), "true");
-        
+
         Foo foo = new Foo();
         foo.setTitle("tm_jee");
         stack.push(foo);
-        
+
         MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("Foo is: tm_jee");
-        
+
         MockPageContext pageContext = new MockPageContext();
         pageContext.setJspWriter(jspWriter);
         pageContext.setRequest(request);
-        
+
         // test
         {PropertyTag tag = new PropertyTag();
         tag.setPageContext(pageContext);
         tag.setValue("toString()");
         tag.doStartTag();
         tag.doEndTag();}
-        
+
         // verify test
         request.verify();
         jspWriter.verify();
         pageContext.verify();
     }
-    
+
     public void testWithoutAltSyntax1() throws Exception {
         //      setups
-    	request.setupGetAttribute(stack);
         Configuration.set("webwork.tag.altSyntax", "false");
         assertEquals(Configuration.get("webwork.tag.altSyntax"), "false");
-        
+
         Foo foo = new Foo();
         foo.setTitle("tm_jee");
         stack.push(foo);
-        
+
         MockJspWriter jspWriter = new MockJspWriter();
         jspWriter.setExpectedData("Foo is: tm_jee");
-        
+
         MockPageContext pageContext = new MockPageContext();
         pageContext.setJspWriter(jspWriter);
         pageContext.setRequest(request);
-        
+
         // test
         {PropertyTag tag = new PropertyTag();
         tag.setPageContext(pageContext);
         tag.setValue("toString()");
         tag.doStartTag();
         tag.doEndTag();}
-        
+
         // verify test
         request.verify();
         jspWriter.verify();
         pageContext.verify();
     }
-    
-    
+
+
     public void testWithoutAltSyntax2() throws Exception {
         //      setups
-    	request.setupGetAttribute(stack);
         Configuration.set("webwork.tag.altSyntax", "false");
         assertEquals(Configuration.get("webwork.tag.altSyntax"), "false");
-        
+
         Foo foo = new Foo();
         foo.setTitle("tm_jee");
         stack.push(foo);
-        
+
         MockJspWriter jspWriter = new MockJspWriter();
-        
+
         MockPageContext pageContext = new MockPageContext();
         pageContext.setJspWriter(jspWriter);
         pageContext.setRequest(request);
-        
+
         // test
         {PropertyTag tag = new PropertyTag();
         tag.setPageContext(pageContext);
         tag.setValue("%{toString()}");
         tag.doStartTag();
         tag.doEndTag();}
-        
+
         // verify test
         request.verify();
         jspWriter.verify();
         pageContext.verify();
     }
-    
+
 
     protected void setUp() throws Exception {
         ActionContext.getContext().setValueStack(stack);
-        request.setupGetAttribute(stack);
+        request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
     }
 
 

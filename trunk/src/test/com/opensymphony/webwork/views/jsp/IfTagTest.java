@@ -4,10 +4,10 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockPageContext;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.ServletActionContext;
 import junit.framework.TestCase;
 
 import javax.servlet.jsp.JspException;
@@ -143,11 +143,9 @@ public class IfTagTest extends TestCase {
         stack = new OgnlValueStack();
 
         // create the mock http servlet request
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        WebWorkMockHttpServletRequest request = new WebWorkMockHttpServletRequest();
         ActionContext.getContext().setValueStack(stack);
-        request.setupGetAttribute(stack);
-        request.setupGetAttribute(stack);
-        request.setupGetAttribute(stack);
+        request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
 
         // create the mock page context
         pageContext = new MockPageContext();

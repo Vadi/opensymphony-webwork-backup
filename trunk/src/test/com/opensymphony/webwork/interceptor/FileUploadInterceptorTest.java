@@ -4,12 +4,11 @@
  */
 package com.opensymphony.webwork.interceptor;
 
-import java.io.File;
-import java.util.Locale;
-
+import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.xwork.ValidationAwareSupport;
 
-import junit.framework.TestCase;
+import java.io.File;
+import java.util.Locale;
 
 /**
  * Test case for FileUploadInterceptor.
@@ -17,7 +16,7 @@ import junit.framework.TestCase;
  * @author tmjee
  * @version $Date$ $Id$
  */
-public class FileUploadInterceptorTest extends TestCase {
+public class FileUploadInterceptorTest extends WebWorkTestCase {
 
     public void testAcceptFileWithEmptyAllowedTypes() throws Exception {
         // when allowed type is empty
