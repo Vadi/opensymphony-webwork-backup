@@ -146,6 +146,8 @@ public class IfTagTest extends TestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         ActionContext.getContext().setValueStack(stack);
         request.setupGetAttribute(stack);
+        request.setupGetAttribute(stack);
+        request.setupGetAttribute(stack);
 
         // create the mock page context
         pageContext = new MockPageContext();
