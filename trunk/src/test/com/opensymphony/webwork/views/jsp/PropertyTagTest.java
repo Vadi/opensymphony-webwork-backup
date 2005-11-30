@@ -19,7 +19,6 @@ import javax.servlet.jsp.JspException;
  * PropertyTag test case.
  * 
  * @author $Author$
- * @author tm_jee
  * @version $Revision$
  */
 public class PropertyTagTest extends TestCase {
@@ -29,6 +28,7 @@ public class PropertyTagTest extends TestCase {
 
 
     public void testDefaultValue() {
+    	request.setupGetAttribute(stack);
         PropertyTag tag = new PropertyTag();
 
         Foo foo = new Foo();
@@ -59,6 +59,7 @@ public class PropertyTagTest extends TestCase {
     }
 
     public void testNull() {
+    	request.setupGetAttribute(stack);
         PropertyTag tag = new PropertyTag();
 
         Foo foo = new Foo();
@@ -88,6 +89,7 @@ public class PropertyTagTest extends TestCase {
     }
 
     public void testSimple() {
+    	request.setupGetAttribute(stack);
         PropertyTag tag = new PropertyTag();
 
         Foo foo = new Foo();
@@ -149,6 +151,7 @@ public class PropertyTagTest extends TestCase {
     
     public void testWithAltSyntax1() throws Exception {
         // setups
+    	request.setupGetAttribute(stack);
         Configuration.set("webwork.tag.altSyntax", "true");
         assertEquals(Configuration.get("webwork.tag.altSyntax"), "true");
         
@@ -178,6 +181,7 @@ public class PropertyTagTest extends TestCase {
     
     public void testWithAltSyntax2() throws Exception {
         // setups
+    	request.setupGetAttribute(stack);
         Configuration.set("webwork.tag.altSyntax", "true");
         assertEquals(Configuration.get("webwork.tag.altSyntax"), "true");
         
@@ -207,6 +211,7 @@ public class PropertyTagTest extends TestCase {
     
     public void testWithoutAltSyntax1() throws Exception {
         //      setups
+    	request.setupGetAttribute(stack);
         Configuration.set("webwork.tag.altSyntax", "false");
         assertEquals(Configuration.get("webwork.tag.altSyntax"), "false");
         
@@ -237,6 +242,7 @@ public class PropertyTagTest extends TestCase {
     
     public void testWithoutAltSyntax2() throws Exception {
         //      setups
+    	request.setupGetAttribute(stack);
         Configuration.set("webwork.tag.altSyntax", "false");
         assertEquals(Configuration.get("webwork.tag.altSyntax"), "false");
         
