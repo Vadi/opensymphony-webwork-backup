@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  * The remote form allows the form to be submitted without the page being refreshed. The results from the form
  * can be inserted into any HTML element on the page.<p/>
- *
- * TODO: Talk generally about the form, behaviors, etc. Mention theme-specific notes as well.<p/>
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
