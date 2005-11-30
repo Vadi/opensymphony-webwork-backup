@@ -16,7 +16,7 @@ Render a double select element
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Renders two HTML select elements to represent eg. "available|selected" type input. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:doubleselect label="'doubleselect test'" ... /&gt; <!-- END SNIPPET: example --> </pre>
+<!-- START SNIPPET: javadoc --> Renders two HTML select elements to represent eg. "available|selected" type input. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:doubleselect label="doubleselect test" ... /&gt; <!-- END SNIPPET: example --> </pre>
 </p>
 
 <h2>Attributes</h2>
@@ -42,10 +42,10 @@ Render a double select element
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
 <td align="left" valign="top">Whether or not to add an empty (--) option after the header option</td>
@@ -102,7 +102,7 @@ Render a double select element
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute. Passing a Collection may work too? Haven't tested this.</td>
+<td align="left" valign="top">Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute.</td>
 
 </tr>
 
@@ -117,10 +117,10 @@ Render a double select element
 <td align="left" valign="top">&nbsp;</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Integer</td>
 
 <!-- Description -->
-<td align="left" valign="top"> Size of the element box (# of elements to show)</td>
+<td align="left" valign="top">Size of the element box (# of elements to show)</td>
 
 </tr>
 
@@ -138,7 +138,7 @@ Render a double select element
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">The second list to use</td>
+<td align="left" valign="top">The second iterable source to populate from.</td>
 
 </tr>
 
@@ -228,7 +228,7 @@ Render a double select element
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">The form name this component resides in an populates to</td>
+<td align="left" valign="top">The form name this component resides in and populates to</td>
 
 </tr>
 
@@ -246,7 +246,7 @@ Render a double select element
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">Iteratable source to populate from.</td>
+<td align="left" valign="top">Iterable source to populate from.</td>
 
 </tr>
 
@@ -402,13 +402,13 @@ Render a double select element
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">left</td>
 
 <!-- Type -->
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">deprecated.</td>
 
 </tr>
 
@@ -426,7 +426,7 @@ Render a double select element
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">define label position of form element (top/left)</td>
 
 </tr>
 
@@ -456,13 +456,13 @@ Render a double select element
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
-<td align="left" valign="top">If set to true, the rendered element will inidicate that input is required</td>
+<td align="left" valign="top">If set to true, the rendered element will indicate that input is required</td>
 
 </tr>
 
@@ -768,7 +768,7 @@ Render a double select element
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">HTML id attribute</td>
+<td align="left" valign="top">id for referencing element. For UI and form tags it will be used as HTML id attribute</td>
 
 </tr>
 

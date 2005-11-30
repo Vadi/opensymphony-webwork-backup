@@ -192,8 +192,8 @@ public class Form extends ClosingUIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="Set action attribute"
+     * @ww.tagattribute required="false" default="current action"
+     * description="Set action nane to submit to, without .action suffix"
      */
     public void setAction(String action) {
         this.action = action;
@@ -201,7 +201,7 @@ public class Form extends ClosingUIBean {
 
     /**
      * @ww.tagattribute required="false"
-     * description="Set target attribute"
+     * description="HTML form target attribute"
      */
     public void setTarget(String target) {
         this.target = target;
@@ -209,7 +209,7 @@ public class Form extends ClosingUIBean {
 
     /**
      * @ww.tagattribute required="false"
-     * description="Set enctype attribute"
+     * description="HTML form enctype attribute"
      */
     public void setEnctype(String enctype) {
         this.enctype = enctype;
@@ -217,23 +217,23 @@ public class Form extends ClosingUIBean {
 
     /**
      * @ww.tagattribute required="false"
-     * description="Set method attribute"
+     * description="HTML form method attribute"
      */
     public void setMethod(String method) {
         this.method = method;
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="Set namespace attribute"
+     * @ww.tagattribute required="false" default="current namespace"
+     * description="namespace for action to submit to"
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="Set validate attribute"
+     * @ww.tagattribute required="false" type="Boolean" default="false"
+     * description="Whether client side/remote validation should be performed. Only usefull with theme xhtml/ajax"
      */
     public void setValidate(String validate) {
         this.validate = validate;
