@@ -104,7 +104,7 @@
                 <include name="com/opensymphony/webwork/views/**/*.java"/>
                 <include name="com/opensymphony/webwork/components/**/*.java"/>
             </fileset>
-            <template templateFile="${src.xdt}/tagdoc.xdt" destinationfile="{0}.html"/>
+            <xmlTemplate templateFile="${src.xdt}/tagdoc.xdt" destinationfile="{0}.html"/>
         </xdoclet>
         <xdoclet destdir="${build.tagdocs}"
                 excludedtags="@version,@author,@return,@exception"
@@ -121,7 +121,9 @@
 
         <mkdir dir="${docs.tags}"/>
         <copy todir="${docs.tags}" flatten="true" includeemptydirs="false">
-            <fileset dir="${build.tagdocs}" includes="**/*.html"/>
+            <fileset dir="${build.tagdocs}" includes="**/*.html">
+                <size value="10" when="more"/>
+            </fileset>
         </copy>
     </target>
 
