@@ -582,14 +582,14 @@ public abstract class UIBean extends Component {
     /**
      * @ww.tagattribute required="false"
      * description="Label expression used for rendering a element specific label"
-     * rtexprvalue="true"
      */
     public void setLabel(String label) {
         this.label = label;
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" default="left"
+     * description="define label position of form element (top/left)"
      */
     public void setLabelPosition(String labelPosition) {
         this.labelPosition = labelPosition;
@@ -597,6 +597,7 @@ public abstract class UIBean extends Component {
 
     /**
      * @ww.tagattribute required="false"
+     * description="deprecated."
      * @deprecated please use {@link #setLabelPosition} instead
      */
     public void setLabelposition(String labelPosition) {
@@ -612,8 +613,8 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @ww.tagattribute  required="false"
-     * description="If set to true, the rendered element will inidicate that input is required"
+     * @ww.tagattribute  required="false" type="Boolean" default="false"
+     * description="If set to true, the rendered element will indicate that input is required"
      */
     public void setRequired(String required) {
         this.required = required;
