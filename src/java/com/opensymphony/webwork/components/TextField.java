@@ -37,7 +37,7 @@ public class TextField extends UIBean {
     final public static String TEMPLATE = "text";
 
 
-    protected String maxLength;
+    protected String maxlength;
     protected String readonly;
     protected String size;
 
@@ -56,8 +56,8 @@ public class TextField extends UIBean {
             addParameter("size", findString(size));
         }
 
-        if (maxLength != null) {
-            addParameter("maxlength", findString(maxLength));
+        if (maxlength != null) {
+            addParameter("maxlength", findString(maxlength));
         }
 
         if (readonly != null) {
@@ -67,10 +67,18 @@ public class TextField extends UIBean {
 
     /**
      * @ww.tagattribute required="false" rtexprvalue="true"
-     * description="HTML maxLength attribute"
+     * description="HTML maxlength attribute"
      */
-    public void setMaxLength(String maxLength) {
-        this.maxLength = maxLength;
+    public void setMaxlength(String maxlength) {
+        this.maxlength = maxlength;
+    }
+
+    /**
+     * @ww.tagattribute required="false" rtexprvalue="true"
+     * description="Deprecated. Use maxlength instead."
+     */
+    public void setMaxLength(String maxlength) {
+        this.maxlength = maxlength;
     }
 
     /**
