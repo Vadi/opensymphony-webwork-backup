@@ -37,7 +37,7 @@ public class ContextUtilTest extends TestCase {
         Configuration.set("webwork.tag.altSyntax", "true");
         
         assertEquals(Configuration.getString("webwork.tag.altSyntax"), "true");
-        assertFalse(ContextUtil.isUseAltSyntax(stack.getContext()));
+        assertTrue(ContextUtil.isUseAltSyntax(stack.getContext()));
     }
     
     public void testAltSyntaxMethod3() throws Exception {
@@ -48,7 +48,7 @@ public class ContextUtilTest extends TestCase {
         Configuration.set("webwork.tag.altSyntax", "false");
         
         assertEquals(Configuration.getString("webwork.tag.altSyntax"), "false");
-        assertFalse(ContextUtil.isUseAltSyntax(stack.getContext()));
+        assertTrue(ContextUtil.isUseAltSyntax(stack.getContext()));
     }
     
     public void testAltSyntaxMethod4() throws Exception {
@@ -82,7 +82,7 @@ public class ContextUtilTest extends TestCase {
         Configuration.set("webwork.tag.altSyntax", "true");
         
         assertEquals(Configuration.getString("webwork.tag.altSyntax"), "true");
-        assertFalse(ContextUtil.isUseAltSyntax(stack.getContext()));
+        assertTrue(ContextUtil.isUseAltSyntax(stack.getContext()));
     }
     public void testAltSyntaxMethod7() throws Exception {
         OgnlValueStack stack = new OgnlValueStack();
@@ -92,7 +92,7 @@ public class ContextUtilTest extends TestCase {
         Configuration.set("webwork.tag.altSyntax", "false");
         
         assertEquals(Configuration.getString("webwork.tag.altSyntax"), "false");
-        assertFalse(ContextUtil.isUseAltSyntax(stack.getContext()));
+        assertTrue(ContextUtil.isUseAltSyntax(stack.getContext()));
     }
     public void testAltSyntaxMethod8() throws Exception {
         OgnlValueStack stack = new OgnlValueStack();
@@ -114,6 +114,6 @@ public class ContextUtilTest extends TestCase {
         Configuration.set("webwork.tag.altSyntax", Boolean.TRUE);
         
         assertEquals(Configuration.get("webwork.tag.altSyntax"), Boolean.TRUE);
-        assertFalse(ContextUtil.isUseAltSyntax(stack.getContext()));
+        assertTrue(ContextUtil.isUseAltSyntax(stack.getContext()));
     }
 }
