@@ -11,7 +11,6 @@ import java.util.List;
 import com.opensymphony.webwork.views.jsp.iterator.MergeIteratorTag;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionSupport;
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 /**
  * Test case for MergeIteratorTag.
