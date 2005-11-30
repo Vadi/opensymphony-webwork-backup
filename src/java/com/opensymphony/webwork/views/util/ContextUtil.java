@@ -1,9 +1,14 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.util;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.WebWorkUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * User: plightbo
- * Date: May 15, 2005
- * Time: 6:02:38 PM
+ * Value Stack's Context related Utilities.
+ * 
+ * @author plightbo
+ * @author tm_jee
+ * @version $Date$ $Id$
  */
 public class ContextUtil {
     public static final String REQUEST = "req";
@@ -44,8 +51,17 @@ public class ContextUtil {
         if (invocation != null) {
             map.put(ACTION, invocation.getAction());
         }
-
-
         return map;
+    }
+    
+    public static boolean isUseAltSyntax(Map context) {
+        // We didn't make altSyntax static cause, if so, webwork.configuration.xml.reload will not work
+        // plus the Configuration implementation should cache the properties, which WW's
+        // configuration implementation does
+        boolean altSyntax = "true".equals(Configuration.getString("webwork.tag.altSyntax"));
+        return altSyntax &&( 
+                (context.containsKey("useAltSyntax") && 
+                        context.get("useAltSyntax") != null &&
+                        "true".equals(context.get("useAltSyntax").toString())? true : false));
     }
 }
