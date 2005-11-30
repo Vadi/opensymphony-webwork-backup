@@ -27,9 +27,16 @@ public class TextFieldTag extends AbstractUITag {
         super.populateParams();
 
         TextField textField = ((TextField) component);
-        textField.setMaxLength(maxlength);
+        textField.setMaxlength(maxlength);
         textField.setReadonly(readonly);
         textField.setSize(size);
+    }
+
+    /**
+     * @deprecated please use {@link #setMaxlength} instead
+     */
+    public void setMaxLength(String maxlength) {
+        this.maxlength = maxlength;
     }
 
     public void setMaxlength(String maxlength) {
