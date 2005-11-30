@@ -54,6 +54,11 @@ public class ContextUtil {
         return map;
     }
     
+    /**
+     * Return true if either Configuration's altSyntax is on or the stack context's useAltSyntax is on
+     * @param context stack's context
+     * @return boolean
+     */
     public static boolean isUseAltSyntax(Map context) {
         // We didn't make altSyntax static cause, if so, webwork.configuration.xml.reload will not work
         // plus the Configuration implementation should cache the properties, which WW's
