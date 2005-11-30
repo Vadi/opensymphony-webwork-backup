@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * <!-- START SNIPPET: javadoc -->
  *
- * Creates a series of checkboxes from a list. Setup is like <ww:select /> or <ww:radio />, but creates checkbox tags.
+ * Creates a series of checkboxes from a list. Setup is like &lt;ww:select /&gt; or &lt;ww:radio /&gt;, but creates checkbox tags.
  *
  * <!-- END SNIPPET: javadoc -->
  *
