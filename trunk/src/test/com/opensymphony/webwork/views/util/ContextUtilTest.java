@@ -111,9 +111,9 @@ public class ContextUtilTest extends TestCase {
         stack.getContext().put("useAltSyntax", null);
         
         Configuration.reset();
-        Configuration.set("webwork.tag.altSyntax", true);
+        Configuration.set("webwork.tag.altSyntax", Boolean.TRUE);
         
-        assertEquals(Configuration.get("webwork.tag.altSyntax"), true);
+        assertEquals(Configuration.get("webwork.tag.altSyntax"), Boolean.TRUE);
         assertFalse(ContextUtil.isUseAltSyntax(stack.getContext()));
     }
 }
