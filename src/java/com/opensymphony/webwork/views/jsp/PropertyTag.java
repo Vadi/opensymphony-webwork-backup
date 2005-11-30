@@ -91,7 +91,7 @@ public class PropertyTag extends WebWorkBodyTagSupport {
             if (value == null) {
                 value = "top";
             }
-            else if (ALT_SYNTAX) {
+            else if (altSyntax()) {
                 // the same logic as with findValue(String)
                 // if value start with %{ and end with }, just cut it off!
                 if (value.startsWith("%{") && value.endsWith("}")) {
