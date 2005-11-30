@@ -5,6 +5,17 @@
     <property name="compile.version" value="1.4"/>
     <property name="test.compile.version" value="1.4"/>
 
+    <!-- overriding the one found in osbuild.xml to exclude xwork-tiger,
+         which breaks the unit tests currently -->
+    <path id="cp">
+        <fileset dir="lib">
+            <include name="**/*.jar"/>
+            <include name="**/*.zip"/>
+            <exclude name="**/jalopy/**"/>
+            <exclude name="**/tiger/**"/>
+        </fileset>
+    </path>
+
     <import file="osbuild.xml"/>
 
     <property name="build.tagdocs" value="${build}/tagdocs"/>
