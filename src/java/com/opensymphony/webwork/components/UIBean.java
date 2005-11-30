@@ -17,7 +17,208 @@ import java.io.Writer;
 /**
  * UIBean is the standard superclass of all webwork UI componentns.
  * It defines common webwork and html properties all UI components should present for usage.
- *
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * <!-- START SNIPPET: templateRelatedAttributes -->
+ * <table border="1">
+ *    <thead>
+ *       <tr>
+ *          <td>Attribute</td>
+ *          <td>Theme</td>
+ *          <td>Data Types</td>
+ *          <td>Description</td>
+ *       </tr>
+ *    </thead>
+ *    <tbody>
+ *       <tr>
+ *          <td>templateDir</td>
+ *          <td>n/a</td>
+ *          <td>String</td>
+ *          <td>define the template directory</td>
+ *       </td>
+ *       <tr>
+ *          <td>theme</td>
+ *          <td>n/a</td>
+ *          <td>String</td>
+ *          <td>define the theme name</td>
+ *       </td>
+ *       <tr>
+ *          <td>template</td>
+ *          <td>n/a</td>
+ *          <td>String</td>
+ *          <td>define the template name</td>
+ *       </td>
+ *    </tbody>
+ * </table>
+ * <!-- END SNIPPET: templateRelatedAttributes
+ * 
+ * <!-- START SNIPPET: generalAttributes -->
+ * <table border="1">
+ *    <thead>
+ *       <tr>
+ *          <td>Attribute</td>
+ *          <td>Theme</td>
+ *          <td>Data Types</td>
+ *          <td>Description</td>
+ *       </tr>
+ *    </thead>
+ *    <tbody>
+ *       <tr>
+ *          <td>cssClass</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>define html class attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>cssStyle</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>define html style attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>disabled</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>define html disabled attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>label</td>
+ *          <td>xhtml</td>
+ *          <td>String</td>
+ *          <td>define label of form element</td>
+ *       </tr>
+ *       <tr>
+ *          <td>labelPosition</td>
+ *          <td>xhtml</td>
+ *          <td>String</td>
+ *          <td>define label position of form element (top/left), default to left</td>
+ *       </tr>
+ *       <tr>
+ *          <td>name</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>Form Element's field name mapping</td>
+ *       </tr>
+ *       <tr>
+ *          <td>required</td>
+ *          <td>xhtml</td>
+ *          <td>Boolean</td>
+ *          <td>add * to label (true to add false otherwise)</td>
+ *       </tr>
+ *       <tr>
+ *          <td>tabIndex</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>define html tabindex attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>value</td>
+ *          <td>simple</td>
+ *          <td>Object</td>
+ *          <td>define value of form element</td>
+ *       </tr>
+ *    </tbody>
+ * </table>
+ * <!-- END SNIPPET: generalAttributes -->
+ * 
+ * <!-- START SNIPPET: javascriptRelatedAttributes -->
+ * <table border="1">
+ *    <thead>
+ *       <tr>
+ *          <td>Attribute</td>
+ *          <td>Theme</td>
+ *          <td>Data Types</td>
+ *          <td>Description</td>
+ *       </tr>
+ *    </thead>
+ *    <tbody>
+ *       <tr>
+ *          <td>onclick</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onclick attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>ondbclick</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript ondbclick attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onmousedown</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onmousedown attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onmouseup</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onmouseup attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onmouseover</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onmouseover attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onmouseout</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onmouseout attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onfocus</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onfocus attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onblur</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onblur attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onkeypress</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onkeypress attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onkeyup</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onkeyup attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onkeydown</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onkeydown attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onselect</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onselect attribute</td>
+ *       </tr>
+ *       <tr>
+ *          <td>onchange</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>html javascript onchange attribute</td>
+ *       </tr>
+ *    </tbody>
+ * </table>
+ * <!-- END SNIPPET: javascriptRelatedAttributes -->
+ * 
+ * 
  * @author Patrick Lightbody
  * @author Rene Gielen
  * @version $Revision$
