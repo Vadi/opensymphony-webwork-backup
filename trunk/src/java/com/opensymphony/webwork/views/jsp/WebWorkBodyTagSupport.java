@@ -4,8 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
+import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -13,12 +13,16 @@ import java.io.PrintWriter;
 
 
 /**
- * User: plightbo
+ * Contains common functonalities for WebWork JSP Tags.
+ * 
+ * @author plightbo
+ * @author tm_jee
  * Date: Oct 17, 2003
  * Time: 7:09:15 AM
  */
 public class WebWorkBodyTagSupport extends BodyTagSupport {
-    public static final boolean ALT_SYNTAX = "true".equals(Configuration.getString("webwork.tag.altSyntax"));
+
+    private static final long serialVersionUID = -1201668454354226175L;
 
     /**
      * @ww.tagattribute required="false"
@@ -26,6 +30,10 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
      */
     public void setId(String string) {
         super.setId(string);
+    }
+    
+    protected boolean altSyntax() {
+        return ContextUtil.isUseAltSyntax(getStack().getContext());
     }
 
     protected OgnlValueStack getStack() {
@@ -37,7 +45,7 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
     }
 
     protected Object findValue(String expr) {
-        if (ALT_SYNTAX) {
+        if (altSyntax()) {
             // does the expression start with %{ and end with }? if so, just cut it off!
             if (expr.startsWith("%{") && expr.endsWith("}")) {
                 expr = expr.substring(2, expr.length() - 1);
@@ -48,10 +56,10 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
     }
 
     protected Object findValue(String expr, Class toType) {
-        if (ALT_SYNTAX && toType == String.class) {
+        if (altSyntax() && toType == String.class) {
             return translateVariables(expr, getStack());
         } else {
-            if (ALT_SYNTAX) {
+            if (altSyntax()) {
                 // does the expression start with %{ and end with }? if so, just cut it off!
                 if (expr.startsWith("%{") && expr.endsWith("}")) {
                     expr = expr.substring(2, expr.length() - 1);
@@ -78,7 +86,7 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
             return bodyContent.getString().trim();
         }
     }
-
+    
     public static String translateVariables(String expression, OgnlValueStack stack) {
         while (true) {
             int x = expression.indexOf("%{");
