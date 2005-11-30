@@ -1,8 +1,5 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.util.TextUtils;
-import com.opensymphony.webwork.portlet.context.PortletContext;
-import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
