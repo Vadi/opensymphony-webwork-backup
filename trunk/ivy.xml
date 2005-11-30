@@ -36,6 +36,7 @@
         <conf name="portlet"/>
         <conf name="spring"/>
         <conf name="xslt"/>
+        <conf name="tiger"/>
     </configurations>
     <publications>
         <artifact name="webwork" type="jar" conf="default"/>
@@ -118,5 +119,8 @@
 
         <!-- xslt -->
         <dependency org="w3c" name="dom" rev="3.0" conf="xslt->*"/>
+
+        <!-- tiger -->
+        <dependency org="opensymphony" name="xwork-tiger" rev="1.1+" conf="tiger->*"/>
     </dependencies>
 </ivy-module>
