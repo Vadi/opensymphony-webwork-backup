@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:doubleselect label="'doubleselect test'" ... /&gt;
+ * &lt;ww:doubleselect label="doubleselect test" ... /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
@@ -68,7 +68,7 @@ public class DoubleSelect extends DoubleListUIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" default="false" type="Boolean"
      * description="Whether or not to add an empty (--) option after the header option"
      */
     public void setEmptyOption(String emptyOption) {
@@ -93,16 +93,17 @@ public class DoubleSelect extends DoubleListUIBean {
     }
 
     /**
+     * TODO: Passing a Collection may work too?
      * @ww.tagattribute required="false"
-     * description="Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute. Passing a Collection may work too? Haven't tested this."
+     * description="Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute."
      */
     public void setMultiple(String multiple) {
         this.multiple = multiple;
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description=" Size of the element box (# of elements to show)"
+     * @ww.tagattribute required="false" type="Integer"
+     * description="Size of the element box (# of elements to show)"
      */
     public void setSize(String size) {
         this.size = size;

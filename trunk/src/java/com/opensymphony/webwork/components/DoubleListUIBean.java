@@ -69,7 +69,7 @@ public abstract class DoubleListUIBean extends ListUIBean {
 
     /**
      * @ww.tagattribute required="true"
-     * description="The second list to use"
+     * description="The second iterable source to populate from."
      */
     public void setDoubleList(String doubleList) {
         this.doubleList = doubleList;
@@ -109,7 +109,7 @@ public abstract class DoubleListUIBean extends ListUIBean {
 
     /**
      * @ww.tagattribute required="false"
-     * description="The form name this component resides in an populates to"
+     * description="The form name this component resides in and populates to"
      */
     public void setFormName(String formName) {
         this.formName = formName;

@@ -16,7 +16,7 @@ Render a file input field
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Renders an HTML file input element. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:file ... /&gt; <!-- END SNIPPET: example --> </pre>
+<!-- START SNIPPET: javadoc --> Renders an HTML file input element. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:file name="anUploadFile" accept="text/*" /&gt; <!-- END SNIPPET: example --> </pre>
 </p>
 
 <h2>Attributes</h2>
@@ -48,7 +48,7 @@ Render a file input field
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">Accept attribute to indicate accepted filetypes</td>
+<td align="left" valign="top">HTML accept attribute to indicate accepted file mimetypes</td>
 
 </tr>
 
@@ -63,7 +63,7 @@ Render a file input field
 <td align="left" valign="top">&nbsp;</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Integer</td>
 
 <!-- Description -->
 <td align="left" valign="top">HTML size attribute</td>
@@ -186,13 +186,13 @@ Render a file input field
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">left</td>
 
 <!-- Type -->
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">deprecated.</td>
 
 </tr>
 
@@ -210,7 +210,7 @@ Render a file input field
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">define label position of form element (top/left)</td>
 
 </tr>
 
@@ -240,13 +240,13 @@ Render a file input field
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
-<td align="left" valign="top">If set to true, the rendered element will inidicate that input is required</td>
+<td align="left" valign="top">If set to true, the rendered element will indicate that input is required</td>
 
 </tr>
 
@@ -552,7 +552,7 @@ Render a file input field
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">HTML id attribute</td>
+<td align="left" valign="top">id for referencing element. For UI and form tags it will be used as HTML id attribute</td>
 
 </tr>
 

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:file ... /&gt;
+ * &lt;ww:file name="anUploadFile" accept="text/*" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
@@ -54,14 +54,14 @@ public class File extends UIBean {
 
     /**
      * @ww.tagattribute required="false"
-     * description="Accept attribute to indicate accepted filetypes"
+     * description="HTML accept attribute to indicate accepted file mimetypes"
      */
     public void setAccept(String accept) {
         this.accept = accept;
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="Integer"
      * description="HTML size attribute"
      */
     public void setSize(String size) {
