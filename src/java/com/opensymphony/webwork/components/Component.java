@@ -1,8 +1,8 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
 import com.opensymphony.webwork.views.jsp.TagUtils;
+import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
@@ -30,7 +30,6 @@ import java.util.Stack;
 public class Component {
     private static final Log LOG = LogFactory.getLog(Component.class);
 
-    public static final boolean ALT_SYNTAX = "true".equals(Configuration.getString("webwork.tag.altSyntax"));
     public static final String COMPONENT_STACK = "__component_stack";
 
     protected OgnlValueStack stack;
@@ -129,7 +128,7 @@ public class Component {
     }
 
     public boolean altSyntax() {
-        return ALT_SYNTAX || stack.getContext().containsKey("useAltSyntax");
+        return ContextUtil.isUseAltSyntax(stack.getContext());
     }
 
     protected Object findValue(String expr, String field, String errorMsg) {
