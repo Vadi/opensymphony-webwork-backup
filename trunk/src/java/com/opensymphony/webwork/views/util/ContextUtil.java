@@ -59,7 +59,7 @@ public class ContextUtil {
         // plus the Configuration implementation should cache the properties, which WW's
         // configuration implementation does
         boolean altSyntax = "true".equals(Configuration.getString("webwork.tag.altSyntax"));
-        return altSyntax &&( 
+        return altSyntax ||(
                 (context.containsKey("useAltSyntax") && 
                         context.get("useAltSyntax") != null &&
                         "true".equals(context.get("useAltSyntax").toString())? true : false));
