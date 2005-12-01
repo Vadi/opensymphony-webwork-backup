@@ -41,16 +41,16 @@ import java.util.*;
  * &lt;ww:include value="myJsp.jsp" /&gt;
  *
  * &lt;-- Two: --&gt;
- * <ww:include value="myJsp.jsp">
- *    <ww:param name="param1" value="value2" />
- *    <ww:param name="param2" value="value2" />
- * </ww:include>
+ * &lt;ww:include value="myJsp.jsp"&gt;
+ *    &lt;ww:param name="param1" value="value2" /&gt;
+ *    &lt;ww:param name="param2" value="value2" /&gt;
+ * &lt;/ww:include&gt;
  *
  * &lt;-- Three: --&gt;
- * <ww:include value="myJsp.jsp">
- *    <ww:param name="param1">value1</ww:param>
- *    <ww:param name="param2">value2<ww:param>
- * </ww:include>
+ * &lt;ww:include value="myJsp.jsp"&gt;
+ *    &lt;ww:param name="param1"&gt;value1&lt;/ww:param&gt;
+ *    &lt;ww:param name="param2"&gt;value2&lt;ww:param&gt;
+ * &lt;/ww:include&gt;
  * <!-- END SNIPPET: example -->
  *
  * <!-- START SNIPPET: exampledescription -->
@@ -136,8 +136,8 @@ public class Include extends Component {
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="The output to include"
+     * @ww.tagattribute required="true" type="String"
+     * description="The jsp/servlet output to include"
      */
     public void setValue(String value) {
         this.value = value;
