@@ -804,7 +804,7 @@
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Name of ressource bundle to use]]></description>
+           <description><![CDATA[Name of ressource bundle to use (eg foo/bar/customBundle)]]></description>
 
       </attribute>
       <attribute>
@@ -829,7 +829,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[id for referencing element. For UI and form tags it will be used as HTML id attribute]]></description>
+           <description><![CDATA[the id where the resultant merged iterator will be stored in the stack's context]]></description>
 
       </attribute>
 
@@ -1115,11 +1115,19 @@
       <description><![CDATA[Render a HTML href element that when clicked calls a URL via remote XMLHttpRequest]]></description>
 
       <attribute>
+         <name>id</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id to assign the component]]></description>
+
+      </attribute>
+      <attribute>
          <name>notifyTopics</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set notifyTopics attribute]]></description>
+           <description><![CDATA[Topic names to post an event to after the remote call has been made]]></description>
 
       </attribute>
       <attribute>
@@ -1127,7 +1135,15 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set preInvokeJS attribute]]></description>
+           <description><![CDATA[A javascript snippet that will be invoked prior to the execution of the target href. If provided must return true or false. True indicates to continue executing target, false says do not execute link target. Possible uses are for confirm dialogs.]]></description>
+
+      </attribute>
+      <attribute>
+         <name>theme</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The theme to use for the element. <b>This tag will usually use the ajax theme.</b>]]></description>
 
       </attribute>
       <attribute>
@@ -1151,7 +1167,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[true/false - when to show the error message as content when the URL had problems]]></description>
+           <description><![CDATA[when to show the error message as content when the URL had problems]]></description>
 
       </attribute>
       <attribute>
@@ -1168,14 +1184,6 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[Set template to use for opening the rendered html.]]></description>
-
-      </attribute>
-      <attribute>
-         <name>theme</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[The theme (other than default) to use for renedring the element]]></description>
 
       </attribute>
       <attribute>
@@ -1378,14 +1386,6 @@
            <description><![CDATA[Set the html onchange attribute on rendered html element]]></description>
 
       </attribute>
-      <attribute>
-         <name>id</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[id for referencing element. For UI and form tags it will be used as HTML id attribute]]></description>
-
-      </attribute>
 
    </tag>
    <tag>
@@ -1408,7 +1408,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set action attribute]]></description>
+           <description><![CDATA[Set action nane to submit to, without .action suffix]]></description>
 
       </attribute>
       <attribute>
@@ -1416,7 +1416,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set target attribute]]></description>
+           <description><![CDATA[HTML form target attribute]]></description>
 
       </attribute>
       <attribute>
@@ -1424,7 +1424,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set enctype attribute]]></description>
+           <description><![CDATA[HTML form enctype attribute]]></description>
 
       </attribute>
       <attribute>
@@ -1432,7 +1432,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set method attribute]]></description>
+           <description><![CDATA[HTML form method attribute]]></description>
 
       </attribute>
       <attribute>
@@ -1440,7 +1440,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set namespace attribute]]></description>
+           <description><![CDATA[namespace for action to submit to]]></description>
 
       </attribute>
       <attribute>
@@ -1448,7 +1448,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set validate attribute]]></description>
+           <description><![CDATA[Whether client side/remote validation should be performed. Only usefull with theme xhtml/ajax]]></description>
 
       </attribute>
       <attribute>
@@ -1975,10 +1975,10 @@
 
       <attribute>
          <name>value</name>
-         <required>false</required>
+         <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[The output to include]]></description>
+           <description><![CDATA[The jsp/servlet output to include]]></description>
 
       </attribute>
       <attribute>
@@ -2070,6 +2070,14 @@
 
       </attribute>
       <attribute>
+         <name>theme</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The theme to use for the element. <b>This tag will usually use the ajax theme.</b>]]></description>
+
+      </attribute>
+      <attribute>
          <name>href</name>
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
@@ -2090,7 +2098,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[true/false - when to show the error message as content when the URL had problems]]></description>
+           <description><![CDATA[when to show the error message as content when the URL had problems]]></description>
 
       </attribute>
       <attribute>
@@ -2107,14 +2115,6 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[Set template to use for opening the rendered html.]]></description>
-
-      </attribute>
-      <attribute>
-         <name>theme</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[The theme (other than default) to use for renedring the element]]></description>
 
       </attribute>
       <attribute>
@@ -2969,7 +2969,7 @@
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Iteratable source to populate from.]]></description>
+           <description><![CDATA[Iterable source to populate from.]]></description>
 
       </attribute>
       <attribute>
@@ -3465,7 +3465,7 @@
 
       <attribute>
          <name>name</name>
-         <required>false</required>
+         <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[Name of Parameter to set]]></description>
@@ -3782,7 +3782,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute. Passing a Collection may work too? Haven't tested this.]]></description>
+           <description><![CDATA[Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute.]]></description>
 
       </attribute>
       <attribute>
@@ -3790,7 +3790,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[ Size of the element box (# of elements to show)]]></description>
+           <description><![CDATA[Size of the element box (# of elements to show)]]></description>
 
       </attribute>
       <attribute>
@@ -3798,7 +3798,7 @@
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[The second list to use]]></description>
+           <description><![CDATA[The second iterable source to populate from.]]></description>
 
       </attribute>
       <attribute>
@@ -3838,7 +3838,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[The form name this component resides in an populates to]]></description>
+           <description><![CDATA[The form name this component resides in and populates to]]></description>
 
       </attribute>
       <attribute>
@@ -3846,7 +3846,7 @@
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Iteratable source to populate from.]]></description>
+           <description><![CDATA[Iterable source to populate from.]]></description>
 
       </attribute>
       <attribute>
@@ -4675,7 +4675,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Accept attribute to indicate accepted filetypes]]></description>
+           <description><![CDATA[HTML accept attribute to indicate accepted file mimetypes]]></description>
 
       </attribute>
       <attribute>
@@ -4997,7 +4997,7 @@
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Iteratable source to populate from.]]></description>
+           <description><![CDATA[Iterable source to populate from.]]></description>
 
       </attribute>
       <attribute>
@@ -5544,7 +5544,7 @@
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Iteratable source to populate from.]]></description>
+           <description><![CDATA[Iterable source to populate from.]]></description>
 
       </attribute>
       <attribute>
@@ -5809,7 +5809,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[true/false - determines whether this is a remote panel (ajax) or a local panel (content loaded into visible/hidden containers)]]></description>
+           <description><![CDATA[determines whether this is a remote panel (ajax) or a local panel (content loaded into visible/hidden containers)]]></description>
 
       </attribute>
       <attribute>
@@ -5845,6 +5845,14 @@
 
       </attribute>
       <attribute>
+         <name>theme</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The theme to use for the element. <b>This tag will usually use the ajax theme.</b>]]></description>
+
+      </attribute>
+      <attribute>
          <name>href</name>
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
@@ -5865,7 +5873,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[true/false - when to show the error message as content when the URL had problems]]></description>
+           <description><![CDATA[when to show the error message as content when the URL had problems]]></description>
 
       </attribute>
       <attribute>
@@ -5882,14 +5890,6 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[Set template to use for opening the rendered html.]]></description>
-
-      </attribute>
-      <attribute>
-         <name>theme</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[The theme (other than default) to use for renedring the element]]></description>
 
       </attribute>
       <attribute>
@@ -6137,7 +6137,7 @@
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[HTML id attribute]]></description>
+           <description><![CDATA[The id to assign to the component.]]></description>
 
       </attribute>
       <attribute>
