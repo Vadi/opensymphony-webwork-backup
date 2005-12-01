@@ -153,8 +153,15 @@ public class MergeIterator extends Component implements UnnamedParametric {
 		mergeIteratorFilter = null;
 	}
 
-	
-	// == UnnamedParametric interface implementation ---------------------
+    /**
+     * @ww.tagattribute required="false" 
+     * description="the id where the resultant merged iterator will be stored in the stack's context"
+     */
+    public void setId(String id) {
+        super.setId(id);
+    }
+
+    // == UnnamedParametric interface implementation ---------------------
 	public void addParameter(Object value) {
 		_parameters.add(value);
 	}
