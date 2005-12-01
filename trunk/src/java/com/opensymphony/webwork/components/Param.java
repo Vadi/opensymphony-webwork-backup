@@ -25,6 +25,7 @@ import java.io.Writer;
  *
  *
  * <p/> <b>Examples</b>
+ * <pre>
  * <!-- START SNIPPET: example -->
  * &lt;ui:component&gt;
  *  &lt;ui:param name="key"     value="[0]"/&gt;
@@ -38,7 +39,6 @@ import java.io.Writer;
  * where the key will be the identifier and the value the result of an OGNL expression run against the current
  * OgnlValueStack.<p/>
  * <!-- END SNIPPET: exampledescription -->
- * <pre>
  *
  * @author Rickard �berg (rickard@dreambean.com)
  * @author Rene Gielen
