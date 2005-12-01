@@ -9,12 +9,8 @@ import java.util.List;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Render a panel for tabbedPanel.</p>
- *
- * The tabbedpanel component is primarily an AJAX component, where each tab can either be local content or remote
+ * The tabbedpanel widget is primarily an AJAX component, where each tab can either be local content or remote
  * content (refreshed each time the user selects that tab).</p>
- *
- * Render a panel for tabbedPanel.</p>
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
@@ -43,6 +39,32 @@ import java.util.List;
  *     &lt;ww:panel remote="true" href="/AjaxTest.action"  id="ryh21" theme="ajax" tabName="remote right" /&gt;
  * &lt;/ww:tabbedPanel&gt;
  * <!-- END SNIPPET: example -->
+ * </pre>
+ *
+ * <p/> <b>Additional Configuration</b>
+ *
+ * <!-- START SNIPPET: exampledescription2 -->
+ * If you are looking for the "nifty" rounded corner look, there is additional configuration. This assumes
+ * that the background color of the tabs is white. If you are using a different color, please modify the
+ * parameter in the Rounded() method.<p/>
+ * <!-- END SNIPPET: exampledescription2 -->
+ *
+ * <pre>
+ * <!-- START SNIPPET: example2 -->
+ * &lt;link rel="stylesheet" type="text/css" href="&lt;ww:url value="/webwork/tabs.css"/&gt;"&gt;
+ * &lt;link rel="stylesheet" type="text/css" href="&lt;ww:url value="/webwork/niftycorners/niftyCorners.css"/&gt;"&gt;
+ * &lt;link rel="stylesheet" type="text/css" href="&lt;ww:url value="/webwork/niftycorners/niftyPrint.css"/&gt;" media="print"&gt;
+ * &lt;script type="text/javascript" src="&lt;ww:url value="/webwork/niftycorners/nifty.js"/&gt;"&gt;&lt;/script&gt;
+ * &lt;script type="text/javascript"&gt;
+ *     dojo.event.connect(window, "onload", function() {
+ *         if (!NiftyCheck())
+ *             return;
+ *         Rounded("li.tab_selected", "top", "white", "transparent", "border #ffffffS");
+ *         Rounded("li.tab_unselected", "top", "white", "transparent", "border #ffffffS");
+ *         // "white" needs to be replaced with the background color
+ *     });
+ * &lt;/script&gt;
+ * <!-- END SNIPPET: example2 -->
  * </pre>
  *
  * <b>Important:</b> Be sure to setup the page containing this tag to be Configured for AJAX
@@ -111,7 +133,8 @@ public class TabbedPanel extends ClosingUIBean {
     }
 
     /**
-     * @ww.tagattribute required="true" rtexprvalue="true" description="HTML id attribute"
+     * @ww.tagattribute required="true"
+     * description="The id to assign to the component."
      */
     public void setId(String id) {
         // This is required to override tld generation attributes to required=true
