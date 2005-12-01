@@ -91,7 +91,7 @@ public class Param extends Component {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="true" type="String"
      * description="Name of Parameter to set"
      */
     public void setName(String name) {
@@ -99,7 +99,7 @@ public class Param extends Component {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" default="The value of evaluating provided name against stack"
      * description="Value expression for Parameter to set"
      */
     public void setValue(String value) {
