@@ -15,9 +15,9 @@ import java.util.List;
  *
  * <p/> <b>Examples</b>
  * <p/>
- * <!-- START SNIPPET: exampledescription -->
+ * <!-- START SNIPPET: exdesc -->
  * The following is an example of a tabbedpanel and panel tag utilizing local and remote content.<p/>
- * <!-- END SNIPPET: exampledescription -->
+ * <!-- END SNIPPET: exdesc -->
  * <pre>
  * <!-- START SNIPPET: example -->
  * &lt;ww:tabbedPanel id="test2" theme="simple" &gt;
@@ -43,11 +43,11 @@ import java.util.List;
  *
  * <p/> <b>Additional Configuration</b>
  *
- * <!-- START SNIPPET: exampledescription2 -->
+ * <!-- START SNIPPET: exdesc2 -->
  * If you are looking for the "nifty" rounded corner look, there is additional configuration. This assumes
  * that the background color of the tabs is white. If you are using a different color, please modify the
  * parameter in the Rounded() method.<p/>
- * <!-- END SNIPPET: exampledescription2 -->
+ * <!-- END SNIPPET: exdesc2 -->
  *
  * <pre>
  * <!-- START SNIPPET: example2 -->
