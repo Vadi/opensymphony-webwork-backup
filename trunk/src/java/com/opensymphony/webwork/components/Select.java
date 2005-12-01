@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  * <p/> <b>Examples</b>
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:select label="'Pets'"
- *        name="'petIds'"
+ * &lt;ww:select label="Pets"
+ *        name="petIds"
  *        list="petDao.pets"
  *        listKey="id"
  *        listValue="name"
@@ -23,9 +23,9 @@ import javax.servlet.http.HttpServletResponse;
  *        required="true"
  * /&gt;
  *
- * &lt;ww:select label="'Months'"
- *        name="'months'"
- *        headerKey="'-1'" headerValue="'Select Month'"
+ * &lt;ww:select label="Months"
+ *        name="months"
+ *        headerKey="-1" headerValue="Select Month"
  *        list="#{'01':'Jan', '02':'Feb', [...]}"
  *        value="selectedMonth"
  *        required="true"
@@ -36,17 +36,18 @@ import javax.servlet.http.HttpServletResponse;
  * <!-- END SNIPPET: example -->
  * </pre>
  * <p/>
- * <!-- START SNIPPET: examplenote -->
+ * <!-- START SNIPPET: exnote -->
  * Note: For any of the tags that use lists (select probably being the most ubiquitous), which uses the OGNL list
  * notation (see the "months" example above), it should be noted that the map key created (in the months example,
  * the '01', '02', etc.) is typed. '1' is a char, '01' is a String, "1" is a String. This is important since if
  * the value returned by your "value" attribute is NOT the same type as the key in the "list" attribute, they
  * WILL NOT MATCH, even though their String values may be equivalent. If they don't match, nothing in your list
  * will be auto-selected.<p/>
- * <!-- END SNIPPET: examplenote -->
+ * <!-- END SNIPPET: exnote -->
  *
  * @author Patrick Lightbody
  * @author Rene Gielen
+ * @author tm_jee
  * @version $Revision$
  * @since 2.2
  *
