@@ -12,20 +12,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <p/> <b>Examples</b>
  * <p/>
- * <!-- START SNIPPET: exampledescription -->
+ * <!-- START SNIPPET: exdescription -->
  * In this example, a radio control is displayed with a list of genders. The gender list is built from attribute
  * id=genders. WW calls getGenders() which will return a Map. For examples using listKey and listValue attributes,
  * see the section select tag.<p/>
- * <!-- END SNIPPET: exampledescription -->
+ * <!-- END SNIPPET: exdescription -->
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:action name="'GenderMap'" id="genders"/&gt;
- * &lt;ww:radio label="'Gender'" name="'male'" list="#genders.genders"/&gt;
+ * &lt;ww:action name="GenderMap" id="genders"/&gt;
+ * &lt;ww:radio label="Gender" name="male" list="#genders.genders"/&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
  * @author Patrick Lightbody
  * @author Rene Gielen
+ * @author tm_jee
  * @version $Revision$
  * @since 2.2
  *
