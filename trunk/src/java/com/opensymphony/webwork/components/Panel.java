@@ -41,6 +41,32 @@ import java.io.Writer;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
+ * <p/> <b>Additional Configuration</b>
+ *
+ * <!-- START SNIPPET: exampledescription2 -->
+ * If you are looking for the "nifty" rounded corner look, there is additional configuration. This assumes
+ * that the background color of the tabs is white. If you are using a different color, please modify the
+ * parameter in the Rounded() method.<p/>
+ * <!-- END SNIPPET: exampledescription2 -->
+ *
+ * <pre>
+ * <!-- START SNIPPET: example2 -->
+ * &lt;link rel="stylesheet" type="text/css" href="&lt;ww:url value="/webwork/tabs.css"/&gt;"&gt;
+ * &lt;link rel="stylesheet" type="text/css" href="&lt;ww:url value="/webwork/niftycorners/niftyCorners.css"/&gt;"&gt;
+ * &lt;link rel="stylesheet" type="text/css" href="&lt;ww:url value="/webwork/niftycorners/niftyPrint.css"/&gt;" media="print"&gt;
+ * &lt;script type="text/javascript" src="&lt;ww:url value="/webwork/niftycorners/nifty.js"/&gt;"&gt;&lt;/script&gt;
+ * &lt;script type="text/javascript"&gt;
+ *     dojo.event.connect(window, "onload", function() {
+ *         if (!NiftyCheck())
+ *             return;
+ *         Rounded("li.tab_selected", "top", "white", "transparent", "border #ffffffS");
+ *         Rounded("li.tab_unselected", "top", "white", "transparent", "border #ffffffS");
+ *         // "white" needs to be replaced with the background color
+ *     });
+ * &lt;/script&gt;
+ * <!-- END SNIPPET: example2 -->
+ * </pre>
+ *
  * @author Ian Roughley
  * @author Patrick Lightbody
  * @author Rene Gielen
@@ -126,8 +152,8 @@ public class Panel extends Div {
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="true/false - determines whether this is a remote panel (ajax) or a local panel (content loaded into visible/hidden containers)"
+     * @ww.tagattribute required="false" type="Boolean" default="false"
+     * description="determines whether this is a remote panel (ajax) or a local panel (content loaded into visible/hidden containers)"
      */
     public void setRemote(String remote) {
         this.remote = remote;
