@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <p/> <b>Examples</b>
  * <p/>
- * <!-- START SNIPPET: exampledescription -->
+ * <!-- START SNIPPET: exdescription -->
  * In this example, a label is rendered. The label is retrieved from a ResourceBundle by calling ActionSupport's
  * getText() method giving you an output of User name: a label.<p/>
- * <!-- END SNIPPET: exampledescription -->
+ * <!-- END SNIPPET: exdescription -->
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:label label="text('user_name')" name="'a label'" /&gt;
+ * &lt;ww:label label="%{text('user_name')}" name="a label" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
