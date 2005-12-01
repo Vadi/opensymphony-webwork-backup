@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <p/> <b>Examples</b>
  * <p/>
- * <!-- START SNIPPET: exampledescription -->
+ * <!-- START SNIPPET: exdescription -->
  * In this example, a password control is displayed. For the label, we are calling ActionSupport's getText() to
  * retrieve password label from a resource bundle.<p/>
- * <!-- END SNIPPET: exampledescription -->
+ * <!-- END SNIPPET: exdescription -->
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:password label="text('password')" name="'password'" size="10" maxlength="15" /&gt;
+ * &lt;ww:password label="%{text('password')}" name="password" size="10" maxlength="15" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
