@@ -16,7 +16,7 @@ Render a panel for tabbedPanel
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Render a panel for tabbedPanel.</p> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <p/> <!-- START SNIPPET: exampledescription --> The following is an example of a tabbedpanel and panel tag utilizing local and remote content.<p/> <!-- END SNIPPET: exampledescription --> <pre> <!-- START SNIPPET: example --> &lt;ww:tabbedPanel id="test2" theme="simple" &gt; &lt;ww:panel id="left" tabName="left" theme="ajax"&gt; This is the left pane&lt;br/&gt; &lt;ww:form &gt; &lt;ww:textfield name="tt" label="Test Text" /&gt; &lt;br/&gt; &lt;ww:textfield name="tt2" label="Test Text2" /&gt; &lt;/ww:form&gt; &lt;/ww:panel&gt; &lt;ww:panel remote="true" href="/AjaxTest.action" id="ryh1" theme="ajax" tabName="remote one" /&gt; &lt;ww:panel id="middle" tabName="middle" theme="ajax"&gt; middle tab&lt;br/&gt; &lt;ww:form &gt; &lt;ww:textfield name="tt" label="Test Text44" /&gt; &lt;br/&gt; &lt;ww:textfield name="tt2" label="Test Text442" /&gt; &lt;/ww:form&gt; &lt;/ww:panel&gt; &lt;ww:panel remote="true" href="/AjaxTest.action" id="ryh21" theme="ajax" tabName="remote right" /&gt; &lt;/ww:tabbedPanel&gt; <!-- END SNIPPET: example --> </pre>
+<!-- START SNIPPET: javadoc --> Render a panel for tabbedPanel.</p> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <p/> <!-- START SNIPPET: exampledescription --> The following is an example of a tabbedpanel and panel tag utilizing local and remote content.<p/> <!-- END SNIPPET: exampledescription --> <pre> <!-- START SNIPPET: example --> &lt;ww:tabbedPanel id="test2" theme="simple" &gt; &lt;ww:panel id="left" tabName="left" theme="ajax"&gt; This is the left pane&lt;br/&gt; &lt;ww:form &gt; &lt;ww:textfield name="tt" label="Test Text" /&gt; &lt;br/&gt; &lt;ww:textfield name="tt2" label="Test Text2" /&gt; &lt;/ww:form&gt; &lt;/ww:panel&gt; &lt;ww:panel remote="true" href="/AjaxTest.action" id="ryh1" theme="ajax" tabName="remote one" /&gt; &lt;ww:panel id="middle" tabName="middle" theme="ajax"&gt; middle tab&lt;br/&gt; &lt;ww:form &gt; &lt;ww:textfield name="tt" label="Test Text44" /&gt; &lt;br/&gt; &lt;ww:textfield name="tt2" label="Test Text442" /&gt; &lt;/ww:form&gt; &lt;/ww:panel&gt; &lt;ww:panel remote="true" href="/AjaxTest.action" id="ryh21" theme="ajax" tabName="remote right" /&gt; &lt;/ww:tabbedPanel&gt; <!-- END SNIPPET: example --> </pre> <p/> <b>Additional Configuration</b> <!-- START SNIPPET: exampledescription2 --> If you are looking for the "nifty" rounded corner look, there is additional configuration. This assumes that the background color of the tabs is white. If you are using a different color, please modify the parameter in the Rounded() method.<p/> <!-- END SNIPPET: exampledescription2 --> <pre> <!-- START SNIPPET: example2 --> &lt;link rel="stylesheet" type="text/css" href="&lt;ww:url value="/webwork/tabs.css"/&gt;"&gt; &lt;link rel="stylesheet" type="text/css" href="&lt;ww:url value="/webwork/niftycorners/niftyCorners.css"/&gt;"&gt; &lt;link rel="stylesheet" type="text/css" href="&lt;ww:url value="/webwork/niftycorners/niftyPrint.css"/&gt;" media="print"&gt; &lt;script type="text/javascript" src="&lt;ww:url value="/webwork/niftycorners/nifty.js"/&gt;"&gt;&lt;/script&gt; &lt;script type="text/javascript"&gt; dojo.event.connect(window, "onload", function() { if (!NiftyCheck()) return; Rounded("li.tab_selected", "top", "white", "transparent", "border #ffffffS"); Rounded("li.tab_unselected", "top", "white", "transparent", "border #ffffffS"); // "white" needs to be replaced with the background color }); &lt;/script&gt; <!-- END SNIPPET: example2 --> </pre>
 </p>
 
 <h2>Attributes</h2>
@@ -78,13 +78,13 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
-<td align="left" valign="top">true/false - determines whether this is a remote panel (ajax) or a local panel (content loaded into visible/hidden containers)</td>
+<td align="left" valign="top">determines whether this is a remote panel (ajax) or a local panel (content loaded into visible/hidden containers)</td>
 
 </tr>
 
@@ -96,10 +96,10 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">0</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Integer</td>
 
 <!-- Description -->
 <td align="left" valign="top">How often to re-fetch the content (in milliseconds)</td>
@@ -114,10 +114,10 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">0</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Integer</td>
 
 <!-- Description -->
 <td align="left" valign="top">How long to wait before fetching the content (in milliseconds)</td>
@@ -138,7 +138,7 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top"> The text to display to the user while the new content is being fetched (especially good if the content will take awhile)</td>
+<td align="left" valign="top">The text to display to the user while the new content is being fetched (especially good if the content will take awhile)</td>
 
 </tr>
 
@@ -162,6 +162,24 @@ Render a panel for tabbedPanel
 
 <tr>
 <!-- Attribute name -->
+<td align="left" valign="top">theme</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">The theme to use for the element. <b>This tag will usually use the ajax theme.</b></td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
 <td align="left" valign="top">href</td>
 
 <!-- Required -->
@@ -171,7 +189,7 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">&nbsp;</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">String</td>
 
 <!-- Description -->
 <td align="left" valign="top">The URL to call to obtain the content</td>
@@ -189,7 +207,7 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">&nbsp;</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">String</td>
 
 <!-- Description -->
 <td align="left" valign="top">The text to display to the user if the is an error fetching the content</td>
@@ -204,13 +222,13 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
-<td align="left" valign="top">true/false - when to show the error message as content when the URL had problems</td>
+<td align="left" valign="top">when to show the error message as content when the URL had problems</td>
 
 </tr>
 
@@ -225,7 +243,7 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">&nbsp;</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">String</td>
 
 <!-- Description -->
 <td align="left" valign="top">Javascript code that will be executed after the content has been fetched</td>
@@ -247,24 +265,6 @@ Render a panel for tabbedPanel
 
 <!-- Description -->
 <td align="left" valign="top">Set template to use for opening the rendered html.</td>
-
-</tr>
-
-<tr>
-<!-- Attribute name -->
-<td align="left" valign="top">theme</td>
-
-<!-- Required -->
-<td align="left" valign="top">false</td>
-
-<!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
-
-<!-- Type -->
-<td align="left" valign="top">Object/String</td>
-
-<!-- Description -->
-<td align="left" valign="top">The theme (other than default) to use for renedring the element</td>
 
 </tr>
 
@@ -366,13 +366,13 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">left</td>
 
 <!-- Type -->
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">deprecated.</td>
 
 </tr>
 
@@ -390,7 +390,7 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">define label position of form element (top/left)</td>
 
 </tr>
 
@@ -420,13 +420,13 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
-<td align="left" valign="top">If set to true, the rendered element will inidicate that input is required</td>
+<td align="left" valign="top">If set to true, the rendered element will indicate that input is required</td>
 
 </tr>
 
@@ -732,7 +732,7 @@ Render a panel for tabbedPanel
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">HTML id attribute</td>
+<td align="left" valign="top">id for referencing element. For UI and form tags it will be used as HTML id attribute</td>
 
 </tr>
 
