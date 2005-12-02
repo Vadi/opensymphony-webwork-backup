@@ -70,6 +70,10 @@
         <path refid="cp"/>
     </path>
 
+    <path id="javadoc.path">
+        <path path="${src.java}"/>
+    </path>
+
     <available property="junit.available" classname="junit.framework.TestCase"/>
     <available property="clover.available" classname="org.apache.tools.ant.taskdefs.CloverCompilerAdapter"/>
 
@@ -202,9 +206,9 @@
         </sequential>
     </macrodef>
 
-    <target name="javadocs" description="generate javadocs" depends="init">
+    <target name="javadocs" description="generate javadocs" depends="init-standalone">
         <mkdir dir="${dist.docs}/api"/>
-        <javadoc sourcepath="${src.java}"
+        <javadoc sourcepathref="javadoc.path"
                  destdir="${dist.docs}/api"
                  packagenames="${docs.packages}"
                  classpathref="cp"
