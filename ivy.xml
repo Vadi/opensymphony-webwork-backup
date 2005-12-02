@@ -22,6 +22,7 @@
     <configurations>
         <conf name="build" visibility="private"/>
         <conf name="default"/>
+        <conf name="source"/>
         <conf name="ajax"/>
         <conf name="freemarker"/>
         <conf name="velocity"/>
@@ -58,6 +59,9 @@
         <!-- default -->
         <dependency org="opensymphony" name="xwork" rev="1.1+" conf="default->default"/>
         <dependency org="apache" name="commons-logging" rev="1.0.4" conf="default->default"/>
+
+        <!-- default -->
+        <dependency org="opensymphony" name="xwork" rev="1.1+" conf="source->source"/>
 
         <!-- ajax -->
         <dependency org="dwr" name="dwr" rev="1.0" conf="ajax->*"/>
