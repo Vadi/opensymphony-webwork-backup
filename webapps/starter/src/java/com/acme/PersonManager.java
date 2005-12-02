@@ -10,8 +10,10 @@ import java.util.List;
  */
 public class PersonManager {
     private List people = new ArrayList();
+    private static long COUNT = 0;
 
     public void createPerson(Person person) {
+        person.setId(new Long(++COUNT));
         people.add(person);
     }
 

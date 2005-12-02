@@ -6,22 +6,24 @@ package com.acme;
  * Time: 7:12:36 PM
  */
 public class Person {
-    long id;
+    Long id;
     String name;
+    String lastName;
 
     public Person() {
     }
 
-    public Person(long ID, String name) {
-        this.id = ID;
+    public Person(Long id, String name, String lastName) {
+        this.id = id;
         this.name = name;
+        this.lastName = lastName;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,5 +33,13 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
