@@ -29,7 +29,7 @@
         <entry path="file://$PROJECT_DIR$/../xwork/lib/build/junit.jar" />
       </additionalClassPath>
       <antReference projectDefault="true" />
-      <customJdkName value="" />
+      <customJdkName value="1.5" />
       <maximumHeapSize value="128" />
       <properties />
     </buildFile>
