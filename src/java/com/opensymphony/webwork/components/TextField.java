@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <p/> <b>Examples</b>
  * <p/>
- * <!-- START SNIPPET: exampledescription -->
+ * <!-- START SNIPPET: exdescription -->
  * In this example, a text control is rendered. The label is retrieved from a ResourceBundle by calling
  * ActionSupport's getText() method.<p/>
- * <!-- END SNIPPET: exampledescription -->
+ * <!-- END SNIPPET: exdescription -->
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:textfield label="text('user_name')" name="'user'" /&gt;
+ * &lt;ww:textfield label="%{text('user_name')}" name="user" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
