@@ -108,7 +108,12 @@
                  lead to some performance problems. Also, the ordering can be
                  switched around (ex: if you wish to have your components
                  before prepare() is called, you'd need to move the component
-                 interceptor up -->
+                 interceptor up.
+
+                 This stack also excludes from the normal validation and workflow
+                 the method names input, back, and cancel. These typically are
+                 associated with requests that should not be validated.
+                 -->
             <interceptor-stack name="defaultStack">
                 <interceptor-ref name="exception"/>
                 <interceptor-ref name="alias"/>
@@ -121,8 +126,12 @@
                 <interceptor-ref name="static-params"/>
                 <interceptor-ref name="params"/>
                 <interceptor-ref name="conversionError"/>
-                <interceptor-ref name="validation"/>
-                <interceptor-ref name="workflow"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel</param>
+                </interceptor-ref>
             </interceptor-stack>
 
             <!-- The completeStack is here for backwards compatibility for
