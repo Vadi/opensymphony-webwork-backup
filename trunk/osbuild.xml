@@ -99,7 +99,7 @@
         <fail message="Cannot run coverage tests. Please copy lib/build/clover.jar and lib/build/clover.license (if it exists) to ${ant.home}/lib"/>
     </target>
 
-    <target name="clean" depends="init">
+    <target name="clean">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
     </target>
@@ -206,7 +206,7 @@
         </sequential>
     </macrodef>
 
-    <target name="javadocs" description="generate javadocs" depends="init">
+    <target name="javadocs" description="generate javadocs">
         <mkdir dir="${dist.docs}/api"/>
         <javadoc sourcepathref="javadoc.path"
                  destdir="${dist.docs}/api"
