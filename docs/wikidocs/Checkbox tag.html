@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Checkbox tag
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h3><a name="Checkboxtag-%3Cww%3Acheckbox%2F%3E">&lt;ww:checkbox /&gt;</a></h3>
+
+<p>Renders an HTML input element of type checkbox, populated by the specified property from the OgnlValueStack.  </p>
+
+<p><b>Sample Usages</b></p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">JSP
+    <span class="code-tag">&lt;ww:checkbox label=<span class="code-quote">"'checkbox test'"</span> name=<span class="code-quote">"'checkboxField1'"</span> value=<span class="code-quote">"aBoolean"</span> fieldValue=<span class="code-quote">"'true'"</span>/&gt;</span>
+
+Velocity
+    #tag( Checkbox <span class="code-quote">"label='checkbox test'"</span> <span class="code-quote">"name='checkboxField1'"</span> <span class="code-quote">"value=aBoolean"</span> <span class="code-quote">"fieldValue='true'"</span> )
+
+HTML (simple template, aBoolean == true)
+	<span class="code-tag">&lt;input type=<span class="code-quote">"checkbox"</span> name=<span class="code-quote">"checkboxField1"</span> value=<span class="code-quote">"true"</span> checked=<span class="code-quote">"checked"</span> /&gt;</span></pre>
+</div></div>
+
+<p><b>Attributes</b></p>
+<table class='confluenceTable'>
+<tr>
+<th class='confluenceTh'>	Name			</th>
+<th class='confluenceTh'>	Required	</th>
+<th class='confluenceTh'>	Description	</th>
+</tr>
+<tr>
+<td class='confluenceTd'>	id				</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML id attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	name 			</td>
+<td class='confluenceTd'>	<b>yes</b>		</td>
+<td class='confluenceTd'>	HTML name attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	label			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Text used as label in template	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	labelposition	</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Alignment of label (left,right,center)	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	required		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Is field required for form submission	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	value			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Boolean which if true adds 'checked="checked"' to tag	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	fieldValue		</td>
+<td class='confluenceTd'>	<b>yes</b>		</td>
+<td class='confluenceTd'>	the actual HTML value attribute of the checkbox	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	tabindex		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML tabindex attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onchange		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML onchange attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	onclick 		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML onclick attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	cssClass		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML class attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	cssStyle		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	HTML style attribute	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	theme			</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Theme to use	</td>
+</tr>
+<tr>
+<td class='confluenceTd'>	template		</td>
+<td class='confluenceTd'>	no			</td>
+<td class='confluenceTd'>	Name of template to use	</td>
+</tr>
+</table>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

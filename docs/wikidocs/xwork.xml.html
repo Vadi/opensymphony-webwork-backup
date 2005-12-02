@@ -1,0 +1,221 @@
+<html>
+    <head>
+        <title>WebWork - 
+        xwork.xml
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>TODO: There is a lot of overlapping info at <a href="Action Configuration.html" title="Action Configuration">Action Configuration</a>.</p>
+
+<h2><a name="xwork.xml-Example">Example</a></h2>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;?xml version=<span class="code-quote">"1.0"</span> encoding=<span class="code-quote">"ISO-8859-1"</span>?&gt;</span>
+&lt;!DOCTYPE xwork 
+          PUBLIC 
+          <span class="code-quote">"-//OpenSymphony Group//XWork 1.0//EN"</span> 
+          <span class="code-quote">"http://www.opensymphony.com/xwork/xwork-1.0.dtd"</span>&gt;
+<span class="code-tag">&lt;xwork&gt;</span>
+    <span class="code-tag">&lt;include file=<span class="code-quote">"webwork-default.xml"</span>/&gt;</span>
+    
+    <span class="code-tag">&lt;package name=<span class="code-quote">"default"</span> extends=<span class="code-quote">"webwork-default"</span>&gt;</span>
+
+        <span class="code-tag">&lt;interceptors&gt;</span>
+            <span class="code-tag">&lt;interceptor-stack name=<span class="code-quote">"defaultComponentStack"</span>&gt;</span>
+                <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"component"</span>/&gt;</span>
+                <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultStack"</span>/&gt;</span>
+            <span class="code-tag">&lt;/interceptor-stack&gt;</span>
+        <span class="code-tag">&lt;/interceptors&gt;</span>
+
+        <span class="code-tag">&lt;default-interceptor-ref name=<span class="code-quote">"defaultStack"</span>/&gt;</span>
+
+        <span class="code-tag">&lt;action name=<span class="code-quote">"SimpleCounter"</span> class=<span class="code-quote">"com.opensymphony.webwork.example.counter.SimpleCounter"</span>&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"dispatcher"</span>&gt;</span>/success.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultComponentStack"</span>/&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+
+        &lt;!--
+          - Velocity implementation of the SimpleCounter.  Also demonstrate a more verbose version of result element
+          --&gt;
+        <span class="code-tag">&lt;action name=<span class="code-quote">"VelocityCounter"</span> class=<span class="code-quote">"com.opensymphony.webwork.example.counter.SimpleCounter"</span>&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"velocity"</span>&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"location"</span>&gt;</span>/success.vm<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultComponentStack"</span>/&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+
+        &lt;!--
+            - Different method can be used (processForm). 
+            --&gt;
+        <span class="code-tag">&lt;action name=<span class="code-quote">"formTest"</span> class=<span class="code-quote">"com.opensymphony.webwork.example.FormAction"</span> method=<span class="code-quote">"processForm"</span> &gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"dispatcher"</span>&gt;</span>/formSuccess.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"invalid.token"</span> type=<span class="code-quote">"dispatcher"</span>&gt;</span>/form.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultStack"</span>/&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"token"</span>/&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+
+    <span class="code-tag">&lt;/package&gt;</span>
+<span class="code-tag">&lt;/xwork&gt;</span></pre>
+</div></div>
+
+<h2><a name="xwork.xml-Actions">Actions</a></h2>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;action name=<span class="code-quote">"formTest"</span> class=<span class="code-quote">"com.opensymphony.webwork.example.FormAction"</span> method=<span class="code-quote">"processForm"</span>&gt;</span></pre>
+</div></div>
+
+<p>Actions are the basic "unit-of-work" in WebWork, they define, well, actions. An action will usually be a request, (and usually a button click, or form submit). The main action element (tag is too synonymous with JSP) has two parts, the friendly name (referenced in the URL, i.e. saveForm.action) and the corresponding "handler" class.</p>
+
+<p>The optional "<b>method</b>" parameter tells WebWork which method to call based upon this action. If you leave the method parameter blank, WebWork will call the method <b>execute()</b> by default. If there is no execute() method and no method specified in the xml file, WebWork will throw an exception.   </p>
+
+<p>Also, you can tell WebWork to invoke "<b>doSomething</b>"  method in your action by using the pattern "<b>actionName!something</b>" in your form.  For example, "<b>formTest!save.action</b>" will invoke the method "<b>save</b>" in FormAction class.  The method must be public and take no arguments:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> <span class="code-object">String</span> save() <span class="code-keyword">throws</span> Exception
+  {
+      ...
+      <span class="code-keyword">return</span> SUCCESS;
+  }</pre>
+</div></div>
+
+<p>All the configuration for "<b>actionName</b>" will be used for "actionName!something" (interceptors, result types, etc...)</p>
+
+<h2><a name="xwork.xml-Results">Results</a></h2>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;result name=<span class="code-quote">"missing-data"</span> type=<span class="code-quote">"dispatcher"</span>&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"location"</span>&gt;</span>/form.jsp<span class="code-tag">&lt;/param&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"parameterA"</span>&gt;</span>A<span class="code-tag">&lt;/param&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"parameterB"</span>&gt;</span>B<span class="code-tag">&lt;/param&gt;</span>
+<span class="code-tag">&lt;/result&gt;</span></pre>
+</div></div>
+
+<p>Result tags tell WebWork what to do next after the action has been called.   The "name" attribute maps to the result code returned from the action execute() method.  The "type" attribute indicates what result type class to use (see <a href="Result Types.html" title="Result Types">Result Types</a>).  The "param" elements allow you to pass parameters to<br/>
+the view:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;result-types&gt;</span>
+     ....
+    &lt;result-type name=<span class="code-quote">"header"</span>                    
+         class=<span class="code-quote">"com.opensymphony.webwork.dispatcher.HttpHeaderResult"</span>/&gt;
+		
+<span class="code-tag">&lt;/result-types&gt;</span>
+
+<span class="code-tag">&lt;result name=<span class="code-quote">"no-content"</span> type=<span class="code-quote">"header"</span>&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"status"</span>&gt;</span>204<span class="code-tag">&lt;/param&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"headers.customHeaderA"</span>&gt;</span>A<span class="code-tag">&lt;/param&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"headers.customHeaderB"</span>&gt;</span>B<span class="code-tag">&lt;/param&gt;</span>
+<span class="code-tag">&lt;/result&gt;</span></pre>
+</div></div>
+
+<p>There are a standard set of result codes built-in to WebWork, (in the Action interface) they include: </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">Action.SUCCESS = <span class="code-quote">"success"</span>;
+Action.NONE    = <span class="code-quote">"none"</span>;
+Action.ERROR   = <span class="code-quote">"error"</span>;
+Action.INPUT   = <span class="code-quote">"input"</span>;
+Action.LOGIN   = <span class="code-quote">"login"</span>;</pre>
+</div></div>
+
+<p>You can extend these result codes as you see fit (i.e "missing-data"). Most of the time you will have either SUCCESS or ERROR, with SUCCESS moving on to the next page in your application.</p>
+
+<p>If you only need to specify the "location" parameter, you can use the short form:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;result name=<span class="code-quote">"missing-data"</span> type=<span class="code-quote">"dispatcher"</span>&gt;/form.jsp&lt;/result&gt;</pre>
+</div></div>
+
+<p>See <a href="webwork-default.xml.html" title="webwork-default.xml">webwork-default.xml</a> or <a href="Result Types.html" title="Result Types">Result Types</a> for standard result types.</p>
+
+<h2><a name="xwork.xml-Interceptors">Interceptors</a></h2>
+
+<p>Interceptors allow you to define code to be executed before and/or after the execution of an action. Interceptors can be a powerful tool when writing web applications. Some of the most common implementations of an Interceptor might be: </p>
+<ul>
+	<li>Security Checking (ensuring the user is logged in)</li>
+	<li>Trace Logging (logging every action)</li>
+	<li>Bottleneck Checking (start a timer before and after every action, to check bottlenecks in your application)<br/>
+You can also chain Interceptors together to create an interceptor <b>stack</b>. If you wanted to do a login check, security check, and logging all before an Action call, this could easily be done with an interceptor package.</li>
+</ul>
+
+
+<p>Intercepters must first be defined (to give name them) and can be chained together as a stack:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;interceptors&gt;</span>
+  <span class="code-tag">&lt;interceptor name=<span class="code-quote">"security"</span> class=<span class="code-quote">"com.mycompany.security.SecurityInterceptor"</span>/&gt;</span>
+  <span class="code-tag">&lt;interceptor-stack name=<span class="code-quote">"defaultComponentStack"</span>&gt;</span>
+    <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"component"</span>/&gt;</span>
+    <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultStack"</span>/&gt;</span>
+  <span class="code-tag">&lt;/interceptor-stack&gt;</span>
+<span class="code-tag">&lt;/interceptors&gt;</span></pre>
+</div></div>
+
+<p>To use them in your actions:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;action name=<span class="code-quote">"VelocityCounter"</span> class=<span class="code-quote">"com.opensymphony.webwork.example.counter.SimpleCounter"</span>&gt;</span>
+   <span class="code-tag">&lt;result name=<span class="code-quote">"success"</span>&gt;</span>...<span class="code-tag">&lt;/result&gt;</span>
+   <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultComponentStack"</span>/&gt;</span>
+<span class="code-tag">&lt;/action&gt;</span></pre>
+</div></div>
+
+<p>NOTE: Reference name can be either the name of the interceptor or the name of a stack</p>
+
+<p>For more details, see <a href="Interceptors.html" title="Interceptors">Interceptors</a> reference.</p>
+
+<h2><a name="xwork.xml-Views">Views</a></h2>
+
+<p>WebWork supports JSP and Velocity for your application presentation layer. For this example we will use a JSP file. Webwork comes packaged with a tag library (taglibs). You can use these taglibs as components in your JSP file. Here is an section of our form.jsp page: </p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-html"><span class="code-tag">&lt;%@ taglib prefix=<span class="code-quote">"ww"</span> uri=<span class="code-quote">"webwork"</span> %&gt;</span>
+<span class="code-tag">&lt;html&gt;</span>
+<span class="code-tag">&lt;head&gt;</span><span class="code-tag">&lt;title&gt;</span>Webwork Form Example<span class="code-tag">&lt;/title&gt;</span><span class="code-tag">&lt;/head&gt;</span>
+<span class="code-tag">&lt;body&gt;</span>
+   <span class="code-tag">&lt;ww:form name=<span class="code-quote">"myForm"</span> action=<span class="code-quote">"'formTest'"</span> namespace=<span class="code-quote">"/"</span> method=<span class="code-quote">"POST"</span>&gt;</span>
+  <span class="code-tag">&lt;table&gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"First Name"</span> name=<span class="code-quote">"'formBean.firstName'"</span> value=<span class="code-quote">"formBean.firstName"</span>/&gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"Last Name"</span> name=<span class="code-quote">"'formBean.lastName'"</span> value=<span class="code-quote">"formBean.lastName"</span>/&gt;</span>
+    <span class="code-tag">&lt;ww:submit value=<span class="code-quote">"Save Form"</span>/&gt;</span>
+  <span class="code-tag">&lt;/table&gt;</span>
+<span class="code-tag">&lt;/ww:form&gt;</span>
+<span class="code-tag">&lt;/body&gt;</span></pre>
+</div></div>
+
+<p>The process of events will go as follows: </p>
+
+<ol>
+	<li>WebWork will take notice since the URI ends in <b>.action</b> (defined in <b>web.xml</b> files)</li>
+	<li>WebWork will look up the action <b>formTest</b> in its action hierarchy and call any Interceptors that might have been defined.</li>
+	<li>WebWork will translate <b>formTest</b> and decide to call the method <b>processForm</b> in the class <b>com.opensymphony.webwork.example.FormAction</b> as defined in <b>xwork.xml</b> file.</li>
+	<li>The method will process successfully and give WebWork the <b>SUCCESS</b> return parameter.</li>
+	<li>WebWork will translate the <b>SUCCESS</b> return parameter into the location <b>formSuccess.jsp</b> (as defined in <b>xwork.xml</b>) and redirect accordingly.</li>
+</ol>
+
+
+<h2><a name="xwork.xml-Include">Include</a></h2>
+
+<p>To make it easy to manage large scale development (lots of actions +  configuration), WebWork allows you to include other configuration files from xwork.xml :</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;xwork&gt;</span>
+    <span class="code-tag">&lt;include file=<span class="code-quote">"webwork-default.xml"</span>/&gt;</span>
+    <span class="code-tag">&lt;include file=<span class="code-quote">"user.xml"</span>/&gt;</span>
+    <span class="code-tag">&lt;include file=<span class="code-quote">"shoppingcart.xml"</span>/&gt;</span>
+    <span class="code-tag">&lt;include file=<span class="code-quote">"product.xml"</span>/&gt;</span>
+    ....
+<span class="code-tag">&lt;/xwork&gt;</span></pre>
+</div></div>
+
+<p>The included files must be the same format as xwork.xml (with the doctype and everything) and be placed on classpath (usually in /WEB-INF/classes or jar files in /WEB-INF/lib).</p>
+
+
+<p>Most of the content here provided by Matt Dowell &lt;matt.dowell@notiva.com&gt;</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

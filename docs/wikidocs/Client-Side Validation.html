@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Client-Side Validation
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>WebWork adds support for client-side validation on top of XWork's standard validation framework.  You can enable it on a per-form basis by specifying <b>validate="true"</b> in the &lt;<a href="UI Tags.html#UITags-form" title="form on UI Tags">ww:form</a>&gt; tag:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-html"><span class="code-tag">&lt;ww:form name=<span class="code-quote">"'test'"</span> action=<span class="code-quote">"'javascriptValidation'"</span> validate=<span class="code-quote">"true"</span>&gt;</span>
+  ...
+<span class="code-tag">&lt;/ww:form&gt;</span></pre>
+</div></div>
+
+<p>You must specify a <em>name</em> for the form in order for client-side validation.</p>
+
+<p>You should also make sure you provide the correct <em>action</em> and <em>namespace</em> attributes to the &lt;ww:form&gt; tag.  For example, if you have an Action named "submitProfile" in the "/user" namespace, you must use</p>
+<div class="code"><div class="codeContent">
+<pre class="code-html"><span class="code-tag">&lt;ww:form namespace=<span class="code-quote">"'/user'"</span> action=<span class="code-quote">"'submitProfile'"</span> validate=<span class="code-quote">"true"</span>&gt;</span>
+  ...
+<span class="code-tag">&lt;/ww:form&gt;</span></pre>
+</div></div>
+
+<p>While the following will "work" in the sense that the form will function correctly, client-side validation will not:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-html"><span class="code-tag">&lt;ww:form action=<span class="code-quote">"'/user/submitProfile.action'"</span> validate=<span class="code-quote">"true"</span>&gt;</span>
+  ...
+<span class="code-tag">&lt;/ww:form&gt;</span></pre>
+</div></div>
+
+
+<p>Of course, all the standard <a href="Validation.html" title="Validation">validation configuration</a> steps still apply.  Client-side validation uses the same validation rules as server-side validation.  If server-side validation doesn't work, then client-side validation won't work either.</p>
+
+<div class="panel"><div class="panelContent" style="background-color: #ffffce; ">
+<p><img class="emoticon" src="./icons/emoticons/information.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> Not all validators support client-side validation. Only validators that implement ScriptValidationAware  support this feature.  Refer to the list of WebWork validators to see which ones do so.</p>
+
+<p><img class="emoticon" src="./icons/emoticons/information.gif" height="16" width="16" align="absmiddle" alt="" border="0"/> Note that the <em>required</em> attribute on many WebWork <a href="UI Tags.html" title="UI Tags">UI tags</a> has nothing to do with client-side validation.</p>
+</div></div>
+
+<p><br clear="all" />
+<img class="emoticon" src="./icons/emoticons/warning.gif" height="16" width="16" align="absmiddle" alt="" border="0"/>  <b>Upgrade Alert</b>:  This feature was introduced in WebWork 2.1.  If upgrading from a previous version, make sure you are using the correct validators in <a href="Validation.html" title="Validation">validators.xml</a>.  You <em>must</em> be using the <b>com.opensymphony.webwork.validators.JavaScriptRequired&#42;Validator</b> version of the standard XWork validators. 
+<br clear="all" /></p>
+
+<h2><a name="Client-SideValidation-BuildingaValidatorthatsupportsclientsidevalidation">Building a Validator that supports client-side validation</a></h2>
+
+<p>Any validator can be extended to support client-side validation by implementing the <b>com.opensymphony.webwork.validators.ScriptValidationAware</b> interface:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> <span class="code-keyword">interface</span> ScriptValidationAware <span class="code-keyword">extends</span> FieldValidator {
+    <span class="code-keyword">public</span> <span class="code-object">String</span> validationScript(Map parameters);
+}</pre>
+</div></div>
+
+<p>The value returned by <b>validationScript</b> will be executed on the client-side before the form is submitted if client-side validation is enabled.  For example,  the <b>requiredstring</b> validator has the following code:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> <span class="code-object">String</span> validationScript(Map parameters) {
+        <span class="code-object">String</span> field = (<span class="code-object">String</span>) parameters.get(<span class="code-quote">"name"</span>);
+        <span class="code-object">StringBuffer</span> js = <span class="code-keyword">new</span> <span class="code-object">StringBuffer</span>();
+
+        js.append(<span class="code-quote">"value = form.elements['"</span> + field + <span class="code-quote">"'].value;\n"</span>);
+        js.append(<span class="code-quote">"<span class="code-keyword">if</span> (value == \"</span>\<span class="code-quote">") {\n"</span>);
+        js.append(<span class="code-quote">"\talert('"</span> + getMessage(<span class="code-keyword">null</span>) + <span class="code-quote">"');\n"</span>);
+        js.append(<span class="code-quote">"\treturn '"</span> + field + <span class="code-quote">"';\n"</span>);
+        js.append(<span class="code-quote">"}\n"</span>);
+        js.append(<span class="code-quote">"\n"</span>);
+
+        <span class="code-keyword">return</span> js.toString();
+}</pre>
+</div></div>
+
+<p>Only JavaScript is supported at this time.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

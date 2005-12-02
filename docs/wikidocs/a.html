@@ -1,0 +1,685 @@
+<html>
+    <head>
+        <title>WebWork - 
+        a
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h1><a name="a-Description">Description</a></h1>
+<p>A tag that creates a HTML &gt;a href='' /&lt; that when clicked calls a URL remote XMLHttpRequest call
+via the dojo framework. The result from the URL is executed as JavaScript.<p/></p>
+
+<p>If a "listenTopics" is supplied, it will publish a 'click' message to that topic when the result is
+returned.  If utilizing the topic/event elements, then this tag needs to be contained within
+a &gt;ww:topicScope /&lt; tag.<p/></p>
+
+<div class="information-block" align='center'><div class='informationMacroPadding'><table cellpadding='5' width='85%' cellspacing='0' class='noteMacro' border='0'><tr><td width='16' valign='top'><img src="/images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Be sure to setup the page containing this tag to be <a href="Configured for AJAX.html" title="Configured for AJAX">Configured for AJAX</a> </td></tr></table></div></div>	
+
+
+<h1><a name="a-Parameters">Parameters</a></h1>
+<p><table width="100%">
+<tr></p>
+
+<p><th align="left" valign="top"><h4>Name</h4></th>
+<th align="left" valign="top"><h4>Required</h4></th>
+<th align="left" valign="top"><h4>Default</h4></th>
+<th align="left" valign="top"><h4>Type</h4></th>
+<th align="left" valign="top"><h4>Description</h4></th></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">id</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top"><b>true</b></td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">The id to assign the component</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">notifyTopics</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Topic names to post an event to after the remote call has been made</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">preInvokeJS</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">String</td></p>
+
+<p><!-- Description --></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">theme</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">The theme to use for the element. <b>This tag will usually use the ajax theme.</b></td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">href</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top"><b>true</b></td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">The URL to call to obtain the content</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">errorText</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">The text to display to the user if the is an error fetching the content</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">showErrorTransportText</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Boolean</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">when to show the error message as content when the URL had problems</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">afterLoading</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Javascript code that will be executed after the content has been fetched</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">openTemplate</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set template to use for opening the rendered html.</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">template</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">The template (other than default) to use for renedring the element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">cssClass</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">The css class to use for element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">cssStyle</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">The css style definitions for element ro use</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">disabled</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html disabled attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">label</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Label expression used for rendering a element specific label</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">labelPosition</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">left</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">deprecated.</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">labelposition</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">define label position of form element (top/left)</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">name</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">The name to set for element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">required</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Boolean</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">If set to true, the rendered element will indicate that input is required</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tabindex</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html tabindex attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">value</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Preset the value of input element.</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onclick</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onclick attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">ondblclick</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html ondblclick attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onmousedown</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onmousedown attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onmouseup</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onmouseup attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onmouseover</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onmouseover attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onmousemove</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onmousemove attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onmouseout</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onmouseout attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onfocus</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onfocus attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onblur</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onblur attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onkeypress</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onkeypress attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onkeydown</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onkeydown attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onkeyup</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onkeyup attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onselect</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onselect attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">onchange</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Set the html onchange attribute on rendered html element</td></p>
+
+<p></tr></p>
+
+<p></table></p>
+
+
+<h1><a name="a-Examples">Examples</a></h1>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:a id=<span class="code-quote">"link1"</span> theme=<span class="code-quote">"ajax"</span> href=<span class="code-quote">"/DoIt.action"</span> errorText=<span class="code-quote">"'An error ocurred'"</span> showErrorTransportText=<span class="code-quote">"true"</span>&gt;</span><span class="code-tag">&lt;img border=<span class="code-quote">"none"</span> src=<span class="code-quote">"&lt;%=request.getContextPath()%&gt;</span>/images/delete.gif"</span>/&gt;
+    <span class="code-tag">&lt;ww:param name=<span class="code-quote">"id"</span> value=<span class="code-quote">"1"</span>/&gt;</span>
+<span class="code-tag">&lt;/ww:a&gt;</span></pre>
+</div></div>
+<p>Results in</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;a dojoType=<span class="code-quote">"BindAnchor"</span> evalResult=<span class="code-quote">"true"</span> id=<span class="code-quote">"link1"</span> href=<span class="code-quote">"/DoIt.action?id=1"</span> errorHtml=<span class="code-quote">"An error ocurred"</span> showTransportError=<span class="code-quote">"true"</span>&gt;</span><span class="code-tag">&lt;/a&gt;</span></pre>
+</div></div>
+<p>Here is an example that uses the postInvokeJS. This example is in altSyntax=true:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:a id=<span class="code-quote">"test"</span> theme=<span class="code-quote">"ajax"</span> href=<span class="code-quote">"/simpeResult.action"</span> preInvokeJS=<span class="code-quote">"confirm(\'You sure\')"</span>&gt;</span>A<span class="code-tag">&lt;/ww:a&gt;</span></pre>
+</div></div>
+
+
+<h1><a name="a-NestedElements">Nested Elements</a></h1>
+<p>The remote A tag supports nested param elements. &lt;ww:<a href="param.html" title="param">param</a> name="" value=""/&gt;</p>
+
+
+<h1><a name="a-HandlingResults">Handling Results</a></h1>
+<ul>
+	<li>Currently the remote a will try to evaluate the results as JavaScript. So the action defined in href should return a javascript snippet that will be executed upon return. Th</li>
+	<li>The afterLoading method is called after the the above javascript gets evaluated.  The afterLoading javascript does not currrently have access to the returned data.</li>
+</ul>
+
+
+
+<div class="information-block" align='center'><div class='informationMacroPadding'><table cellpadding='5' width='85%' cellspacing='0' class='noteMacro' border='0'><tr><td width='16' valign='top'><img src="/images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Using Sitemesh</b><br /> Remember that if you want your results to be executed... and your using sitemesh... you must NOT decorate the request w/ sitemesh.</td></tr></table></div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

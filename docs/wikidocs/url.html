@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>WebWork - 
+        url
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h1><a name="url-Description">Description</a></h1>
+<p>This tag is used to create a URL.</p></p>
+
+<p>You can use the "param" tag inside the body to provide
+additional request parameters.</p></p>
+
+<h1><a name="url-Parameters">Parameters</a></h1>
+<p><ul>
+     <li>action (String) - (value or action choose either one, if both exist value takes precedence) action's name (alias) <li>
+     <li>value (String) - (value or action choose either one, if both exist value takes precedence) the url itself</li>
+     <li>scheme (String) - http scheme (http, https) default to the scheme this request is in</li>
+     <li>namespace - action's namespace</li>
+     <li>method (String) - action's method, default to execute() </li>
+     <li>encode (Boolean) - url encode the generated url. Default is true</li>
+     <li>includeParams (String) - The includeParams attribute may have the value 'none', 'get' or 'all'. Default is 'get'.
+                                  none - include no parameters in the URL
+                                  get  - include only GET parameters in the URL (default)
+                                  all  - include both GET and POST parameters in the URL
+     </li>
+     <li>includeContext (Boolean) - determine wheather to include the web app context path. Default is true.</li>
+</ul></p>
+
+<h1><a name="url-Examples">Examples</a></h1>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:url value=<span class="code-quote">"editGadget.action"</span>&gt;</span>
+    <span class="code-tag">&lt;ww:param name=<span class="code-quote">"id"</span> value=<span class="code-quote">"%{selected}"</span> /&gt;</span>
+<span class="code-tag">&lt;/ww:url&gt;</span>
+
+<span class="code-tag">&lt;ww:url action=<span class="code-quote">"editGadget"</span>&gt;</span>
+    <span class="code-tag">&lt;ww:param name=<span class="code-quote">"id"</span> value=<span class="code-quote">"%{selected}"</span> /&gt;</span>
+<span class="code-tag">&lt;/ww:url&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
