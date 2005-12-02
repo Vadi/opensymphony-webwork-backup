@@ -18,7 +18,11 @@
         </fileset>
     </path>
 
-    
+    <mkdir dir="${build}/xwork-src"/>
+    <path id="javadoc.path">
+        <path path="${src.java}"/>
+        <path path="${build}/xwork-src"/>
+    </path>
 
     <property name="build.tagdocs" value="${build}/tagdocs"/>
     <property name="docs.tags" value="${docs}/tags"/>
@@ -32,6 +36,12 @@
         <taskdef name="ivy-deliver" classname="fr.jayasoft.ivy.ant.IvyDeliver"/>
 
         <ivy-retrieve/>
+    </target>
+
+    <target name="javadocs">
+        <!-- first, unzip the xwork-src jar so we can generate unified javadocs -->
+        <unjar src="${lib}/source/xwork-src.jar" dest="${build}/xwork-src"/>
+        <antcall target="common.javadocs"/>
     </target>
 
     <target name="ivyrep.copy-ivy" depends="init">
