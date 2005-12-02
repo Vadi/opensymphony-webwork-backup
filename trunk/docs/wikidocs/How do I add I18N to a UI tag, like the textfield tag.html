@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>WebWork - 
+         do I add I18N to a UI tag, like the textfield tag
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:textfield label=<span class="code-quote">"'i18n.label'"</span> name=<span class="code-quote">"'label1'"</span> value=<span class="code-quote">"''"</span>&gt;</pre>
+</div></div>
+<p>This will get the localized text message for the key "i18n.label" and put it in the label.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:textfield label=<span class="code-quote">"getText('i18n.label')"</span> name=<span class="code-quote">"'label1'"</span> value=<span class="code-quote">"''"</span>&gt;</pre>
+</div></div>
+
+<p>Alternatively, you could modify controlheader.vm and copy it to /template/xhtml. There you could make it so that it automatically does a call to $stack.findValue("getText($parameters.label)"), making the first example actually work for i18n.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

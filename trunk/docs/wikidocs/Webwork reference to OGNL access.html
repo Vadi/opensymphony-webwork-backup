@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Webwork reference to OGNL access
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>Webwork uses a standard naming context to evaluate OGNL expressions.  The top level object dealing with OGNL is a map (usually referred as a context map). OGNL has a concept of a root object (in webwork terms, this is the OGNLValueStack). Along with the root, other objects are placed in the context map (referred as in the context) including your session/application/request/attr maps. These objects have nothing to do with the root, they just exist along side it in the context map. So, to access these objects, the # is used telling ognl not to look in the root object, but within the rest of the context</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">|             
+
+                     |-- request
+                     |
+                     |--application
+                     |
+       context map---|--OgnlValueStack(root)
+                     |
+                     |--session
+                     |
+                     |--attr
+                     |
+                     |--parameters</pre>
+</div></div>
+
+<p>Note that their are other objects in the context map, I'm just referring to a few for this example. Now, your actions instances are placed in the OGNLValueStack so you can refer to your bean properties without the #.</p>
+
+<p>&lt;ww: property value="myBean.myProperty"/&gt;</p>
+
+
+<p>for sessions,request, and the rest that lie in the context map<br/>
+ActionContext.getContext().getSession().put("mySessionPropKey", mySessionObject);<br/>
+&lt;ww: property value="#session.mySessionPropKey"/&gt; or<br/>
+&lt;ww: property value="#session['mySessionPropKey']"/&gt;</p>
+
+<p>&lt;ww: property value="#attr.mySessionPropKey"/&gt;</p>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

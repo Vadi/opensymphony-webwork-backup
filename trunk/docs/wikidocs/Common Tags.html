@@ -1,0 +1,147 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Common Tags
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="information-block" align='center'><div class='informationMacroPadding'><table cellpadding='5' width='85%' cellspacing='0' class='warningMacro' border='0'><tr><td width='16' valign='top'><img src="/images/icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Warning</b><br />
+<p>The information here are for WebWork prior to 2.2</p></td></tr></table></div></div>
+
+
+<h3><a name="CommonTags-Param">Param</a></h3>
+<p>Sets a parameter for the parent tag. Examples include ww:url and ww:action.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:action name=<span class="code-quote">"VelocityCounter"</span> id=<span class="code-quote">"vc"</span>&gt;
+ &lt;ww:param name=<span class="code-quote">"foo"</span> value=<span class="code-quote">"'BAR'"</span>/&gt;
+&lt;/ww:action&gt;
+javascript:popUp('&lt;ww:url value=<span class="code-quote">"wiki.opensymphony.com/exec/edit"</span>&gt;&lt;ww:param name=<span class="code-quote">"name"</span> value=<span class="code-quote">"Common Tags"</span>/&gt;&lt;/ww:url&gt;')</pre>
+</div></div>
+<p>from webwork.tld:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;attribute&gt;
+   &lt;name&gt;name&lt;/name&gt;
+   &lt;required&gt;<span class="code-keyword">true</span>&lt;/required&gt;
+   &lt;rtexprvalue&gt;<span class="code-keyword">true</span>&lt;/rtexprvalue&gt;
+&lt;/attribute&gt;
+&lt;attribute&gt;
+   &lt;name&gt;value&lt;/name&gt;
+   &lt;required&gt;<span class="code-keyword">false</span>&lt;/required&gt;
+   &lt;rtexprvalue&gt;<span class="code-keyword">true</span>&lt;/rtexprvalue&gt;
+&lt;/attribute&gt;</pre>
+</div></div>
+<h3><a name="CommonTags-Property">Property</a></h3>
+
+<p>Used to get the value of a result attribute. If the value isn't given, the top of the stack will be returned.</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:property value=<span class="code-quote">"id"</span> <span class="code-keyword">default</span>=<span class="code-quote">"#session[OS:'customer'].id"</span>/&gt;</pre>
+</div></div>
+<p>From webwork.tld:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;attribute&gt;
+   &lt;name&gt;value&lt;/name&gt;
+   &lt;required&gt;<span class="code-keyword">false</span>&lt;/required&gt;
+   &lt;rtexprvalue&gt;<span class="code-keyword">true</span>&lt;/rtexprvalue&gt;
+ &lt;/attribute&gt;
+ &lt;attribute&gt;
+    &lt;name&gt;<span class="code-keyword">default</span>&lt;/name&gt;
+    &lt;required&gt;<span class="code-keyword">false</span>&lt;/required&gt;
+    &lt;rtexprvalue&gt;<span class="code-keyword">true</span>&lt;/rtexprvalue&gt;
+ &lt;/attribute&gt;</pre>
+</div></div>
+<h3><a name="CommonTags-Push">Push</a></h3>
+<p>Using ww:push, you can add an object of your choice to the top of the value stack. This is similar to what you can do with ww:set (see below), so read both before deciding which to use.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:push value=<span class="code-quote">"counter"</span>&gt;
+  &lt;ww:property value=<span class="code-quote">"count"</span>/&gt;
+&lt;/ww:push&gt;
+
+
+To make an action available on the stack:
+
+&lt;ww:action name=<span class="code-quote">"'SomeAction'"</span> id=<span class="code-quote">"sa"</span>/&gt;
+&lt;ww:push value=<span class="code-quote">"#sa"</span>&gt;
+ foo = &lt;ww:property value=<span class="code-quote">"foo"</span>/&gt;
+&lt;/ww:push&gt;</pre>
+</div></div>
+<p>from webwork.tld:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;attribute&gt;
+   &lt;name&gt;value&lt;/name&gt;
+   &lt;required&gt;<span class="code-keyword">true</span>&lt;/required&gt;
+   &lt;rtexprvalue&gt;<span class="code-keyword">true</span>&lt;/rtexprvalue&gt;
+&lt;/attribute&gt;</pre>
+</div></div>
+<h3><a name="CommonTags-Set">Set</a></h3>
+<p>You can create your own named variables from within a JSP using the ww:set tag. Reference your variable later using the #<em>variableName</em> notation.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:set name=<span class="code-quote">"huba"</span> value=<span class="code-quote">"foo.bar"</span> scope=<span class="code-quote">"webwork"</span> /&gt;
+
+&lt;ww:property value=<span class="code-quote">"#huba.otherExpression().baz"</span>/&gt;)</pre>
+</div></div>
+<p>from webwork.tld:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;info&gt;
+   Sets the value of an object in the VS to a scope
+   (page, stack, application, session). If the value
+   is not given, the top of the stack is used. If the
+   scope is not given, the <span class="code-keyword">default</span> scope of <span class="code-quote">"webwork"</span>
+   is used.
+&lt;/info&gt;
+&lt;attribute&gt;
+   &lt;name&gt;name&lt;/name&gt;
+   &lt;required&gt;<span class="code-keyword">true</span>&lt;/required&gt;
+   &lt;rtexprvalue&gt;<span class="code-keyword">true</span>&lt;/rtexprvalue&gt;
+&lt;/attribute&gt;
+&lt;attribute&gt;
+   &lt;name&gt;value&lt;/name&gt;
+   &lt;required&gt;<span class="code-keyword">false</span>&lt;/required&gt;
+   &lt;rtexprvalue&gt;<span class="code-keyword">true</span>&lt;/rtexprvalue&gt;
+&lt;/attribute&gt;
+&lt;attribute&gt;
+   &lt;name&gt;scope&lt;/name&gt;
+   &lt;required&gt;<span class="code-keyword">false</span>&lt;/required&gt;
+   &lt;rtexprvalue&gt;<span class="code-keyword">true</span>&lt;/rtexprvalue&gt;
+&lt;/attribute&gt;</pre>
+</div></div>
+<h3><a name="CommonTags-Url">Url</a></h3>
+<p>This tag builds an encoded Url. The simplest version of the tag, &lt;ww:url/&gt;, outputs the relative url of the current page. Here is example output from such a tag:<br/>
+ /jsp/cart.jsp?template=%5BLjava.lang.String%3B%40e29f36&amp;id=%5BLjava.lang.String%3B%40429be9<br/>
+Here is a more verbose example:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:url value=<span class="code-quote">"www.google.com/search"</span>&gt;
+  &lt;ww:param name=<span class="code-quote">"sourceid"</span> value=<span class="code-quote">"'navclient'"</span>/&gt;
+  &lt;ww:param name=<span class="code-quote">"ie"</span> value=<span class="code-quote">"'UTF-8'"</span>/&gt;
+  &lt;ww:param name=<span class="code-quote">"oe"</span> value=<span class="code-quote">"'UTF-8'"</span>/&gt;
+  &lt;ww:param name=<span class="code-quote">"q"</span> value=<span class="code-quote">"'webwork'"</span>/&gt;
+&lt;/ww:url&gt;</pre>
+</div></div>
+<p>and the resulting output:<br/>
+<a href="http://www.google.com/search?sourceid=navclient&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=webwork" title="Visit page outside Confluence">&#104;ttp://www.google.com/search?sourceid=navclient&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=webwork</a></p>
+
+<p>from webwork.tld:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;attribute&gt;
+   &lt;name&gt;value&lt;/name&gt;
+   &lt;required&gt;<span class="code-keyword">false</span>&lt;/required&gt;
+   &lt;rtexprvalue&gt;<span class="code-keyword">false</span>&lt;/rtexprvalue&gt;
+&lt;/attribute&gt;
+&lt;attribute&gt;
+    &lt;name&gt;id&lt;/name&gt;
+    &lt;required&gt;<span class="code-keyword">false</span>&lt;/required&gt;
+    &lt;rtexprvalue&gt;<span class="code-keyword">false</span>&lt;/rtexprvalue&gt;
+&lt;/attribute&gt;</pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

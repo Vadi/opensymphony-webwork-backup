@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Package Configuration
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h3><a name="PackageConfiguration-Overview">Overview</a></h3>
+
+<p>Packages are a way to group Actions, Results, Result Types, Interceptors and Stacks into a logical unit that shares a common configuration. Packages are similiar to objects in that they can be extended and have individual parts overridden by "sub" packages.</p>
+
+<h4><a name="PackageConfiguration-Packages">Packages</a></h4>
+
+<p>The package element has one required attribute, "name", which acts as the key for later reference to this package. The "extends" attribute is optional and allows one package to inherit the configuration of one or more previous packages including all interceptor, interceptor-stack, and action configurations. Note that the configuration file is processed sequentially down the document, so the package referenced by an "extends" should be defined above the package which extends it. The "abstract" optional attribute allows you to make a package abstract, which will allow you to extend from it without the action configurations defined in the abstract package actually being available at runtime.</p>
+
+<table class='confluenceTable'>
+<tr>
+<th class='confluenceTh'> Attribute </th>
+<th class='confluenceTh'> Required </th>
+<th class='confluenceTh'> Description </th>
+</tr>
+<tr>
+<td class='confluenceTd'> name </td>
+<td class='confluenceTd'> <b>yes</b> </td>
+<td class='confluenceTd'> key to for other packages to reference </td>
+</tr>
+<tr>
+<td class='confluenceTd'> extends </td>
+<td class='confluenceTd'> no </td>
+<td class='confluenceTd'> inherits package behavior of the package it extends </td>
+</tr>
+<tr>
+<td class='confluenceTd'> namespace </td>
+<td class='confluenceTd'> no </td>
+<td class='confluenceTd'> see <a href="Namespace Configuration.html" title="Namespace Configuration">Namespace Configuration</a> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> abstract </td>
+<td class='confluenceTd'> no </td>
+<td class='confluenceTd'> declares package to be abstract (no action configurations required in package) </td>
+</tr>
+</table>
+
+<h5><a name="PackageConfiguration-Sampleusageofpackagesinxwork.xml">Sample usage of packages in xwork.xml</a></h5>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;package name=<span class="code-quote">"bar"</span> extends=<span class="code-quote">"webwork-default"</span> namespace=<span class="code-quote">"/foo/bar"</span>&gt;</span>
+        <span class="code-tag">&lt;interceptors&gt;</span>
+            <span class="code-tag">&lt;interceptor-stack name=<span class="code-quote">"barDefaultStack"</span>&gt;</span>
+                <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"debugStack"</span>/&gt;</span>
+                <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultStack"</span>/&gt;</span>
+            <span class="code-tag">&lt;/interceptor-stack&gt;</span>
+        <span class="code-tag">&lt;/interceptors&gt;</span>
+
+        <span class="code-tag">&lt;action name=<span class="code-quote">"Bar"</span> class=<span class="code-quote">"com.opensymphony.xwork.SimpleAction"</span>&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"barDefaultStack"</span>/&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+
+        <span class="code-tag">&lt;action name=<span class="code-quote">"TestInterceptorParamInheritance"</span> class=<span class="code-quote">"com.opensymphony.xwork.SimpleAction"</span>&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"test"</span>&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"expectedFoo"</span>&gt;</span>expectedFoo<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;/interceptor-ref&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+
+        <span class="code-tag">&lt;action name=<span class="code-quote">"TestInterceptorParamInehritanceOverride"</span> class=<span class="code-quote">"com.opensymphony.xwork.SimpleAction"</span>&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"test"</span>&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"foo"</span>&gt;</span>foo123<span class="code-tag">&lt;/param&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"expectedFoo"</span>&gt;</span>foo123<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;/interceptor-ref&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+    <span class="code-tag">&lt;/package&gt;</span>
+
+    <span class="code-tag">&lt;package name=<span class="code-quote">"abstractPackage"</span> namespace=<span class="code-quote">"/abstract"</span> abstract=<span class="code-quote">"true"</span>&gt;</span>
+        <span class="code-tag">&lt;action name=<span class="code-quote">"test"</span> class=<span class="code-quote">"com.opensymphony.xwork.SimpleAction"</span>/&gt;</span>
+    <span class="code-tag">&lt;/package&gt;</span>
+
+    <span class="code-tag">&lt;package name=<span class="code-quote">"nonAbstractPackage"</span> extends=<span class="code-quote">"abstractPackage"</span> namespace=<span class="code-quote">"/nonAbstract"</span>/&gt;</span>
+
+    <span class="code-tag">&lt;package name=<span class="code-quote">"baz"</span> extends=<span class="code-quote">"default"</span> namespace=<span class="code-quote">"baz"</span>&gt;</span>
+        <span class="code-tag">&lt;action name=<span class="code-quote">"commandTest"</span> class=<span class="code-quote">"com.opensymphony.xwork.SimpleAction"</span>&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"foo"</span>&gt;</span>123<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"error"</span> type=<span class="code-quote">"chain"</span>&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"actionName"</span>&gt;</span>bar<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"static-params"</span>/&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+        <span class="code-tag">&lt;action name=<span class="code-quote">"myCommand"</span> class=<span class="code-quote">"com.opensymphony.xwork.SimpleAction"</span> method=<span class="code-quote">"commandMethod"</span>&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"bar"</span>&gt;</span>456<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"chain"</span>&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"actionName"</span>&gt;</span>foo<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"logger"</span>/&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+    <span class="code-tag">&lt;/package&gt;</span>
+
+    <span class="code-tag">&lt;package name=<span class="code-quote">"multipleInheritance"</span> extends=<span class="code-quote">"default,abstractPackage,bar"</span> namespace=<span class="code-quote">"multipleInheritance"</span>&gt;</span>
+        <span class="code-tag">&lt;action name=<span class="code-quote">"testMultipleInheritance"</span> class=<span class="code-quote">"com.opensymphony.xwork.SimpleAction"</span>&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"chain"</span>&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"actionName"</span>&gt;</span>foo<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"barDefaultStack"</span>/&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+    <span class="code-tag">&lt;/package&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

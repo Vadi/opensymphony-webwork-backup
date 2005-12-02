@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>WebWork - 
+        sort
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h1><a name="sort-Description">Description</a></h1>
+<p>A Tag that sorts a List using a Comparator both passed in as the tag attribute.
+If 'id' attribute is specified, the sorted list will be placed into the PageContext
+attribute using the key specified by 'id'. The sorted list will ALWAYS be
+pushed into the stack and poped at the end of this tag.</p>
+
+<h1><a name="sort-Parameters">Parameters</a></h1>
+<p><ul>
+		<li>id (String) - if specified, the sorted iterator will be place with this id under page context</li>
+		<li>source (Object) - the source for the sort to take place (should be iteratable) else JspException will be thrown</li>
+		<li>comparator* (Object) - the comparator used to do sorting (should be a type of Comparator or its decendent) else JspException will be thrown</li>
+</ul></p>
+
+<h1><a name="sort-Examples">Examples</a></h1>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">USAGE 1:
+<span class="code-tag">&lt;pre&gt;</span>
+<span class="code-tag">&lt;ww:sort comparator=<span class="code-quote">"myComparator"</span> source=<span class="code-quote">"myList"</span>&gt;</span>
+		<span class="code-tag">&lt;ww:iterator&gt;</span>
+			<span class="code-tag"><span class="code-comment">&lt;!-- do something with each sorted elements --&gt;</span></span>
+			<span class="code-tag">&lt;ww:property value=<span class="code-quote">"..."</span> /&gt;</span>
+     <span class="code-tag">&lt;/ww:iterator&gt;</span>
+<span class="code-tag">&lt;/ww:sort&gt;</span>
+<span class="code-tag">&lt;/pre&gt;</span>
+
+USAGE 2:
+<span class="code-tag">&lt;pre&gt;</span>
+<span class="code-tag">&lt;ww:sort id=<span class="code-quote">"mySortedList comparator="</span>myComparator<span class="code-quote">" source="</span>myList" /&gt;</span>
+
+&lt;%
+   Iterator sortedIterator = (Iterator) pageContext.getAttribute(<span class="code-quote">"mySortedList"</span>);
+   for (Iterator i = sortedIterator; i.hasNext(); ) {
+   	// do something with each of the sorted elements
+   }
+%&gt;
+<span class="code-tag">&lt;/pre&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
