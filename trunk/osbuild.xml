@@ -206,7 +206,7 @@
         </sequential>
     </macrodef>
 
-    <target name="javadocs" description="generate javadocs" depends="init-standalone">
+    <target name="javadocs" description="generate javadocs" depends="init">
         <mkdir dir="${dist.docs}/api"/>
         <javadoc sourcepathref="javadoc.path"
                  destdir="${dist.docs}/api"
