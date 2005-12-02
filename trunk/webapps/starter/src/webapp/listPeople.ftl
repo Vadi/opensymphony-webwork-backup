@@ -13,6 +13,7 @@
     <tr>
         <td>${person.id}</td>
         <td>${person.name}</td>
+        <td>${person.lastName}</td>
     </tr>
 </#list>
 </table>
