@@ -14,9 +14,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
+ * &lt;-- example one --&gt;
  * &lt;ww:hidden name="foo" /&gt;
+ * &lt;-- example two --&gt;
+ * &lt;ww:hidden name="foo" value="bar" /&gt;
  *
- * Resulting HTML (if foo evaluates to bar):
+ * Example One Resulting HTML (if foo evaluates to bar):
+ * &lt;input type="hidden" name="foo" value="bar" /&gt;
+ * Example Two Resulting HTML (if getBar method of the action returns 'bar')
  * &lt;input type="hidden" name="foo" value="bar" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
