@@ -15,11 +15,12 @@ import javax.servlet.http.HttpServletResponse;
  * <p/>
  * <!-- START SNIPPET: exdescription -->
  * In this example, a label is rendered. The label is retrieved from a ResourceBundle by calling ActionSupport's
- * getText() method giving you an output of User name: a label.<p/>
+ * getText() method giving you an output of 'User Name:tm_jee'. Assuming that i18n message user_name corresponds
+ * to 'User Name' and the action's getUserName() method returns 'tm_jee'<p/>
  * <!-- END SNIPPET: exdescription -->
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:label label="%{text('user_name')}" name="a label" /&gt;
+ * &lt;ww:label label="%{text('user_name')}" name="userName" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
