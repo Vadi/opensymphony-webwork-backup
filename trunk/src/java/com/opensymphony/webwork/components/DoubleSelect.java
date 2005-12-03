@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:doubleselect label="doubleselect test" ... /&gt;
+ * &lt;ww:doubleselect label="doubleselect test1" list="{'one','two'}" doubleList="top == 'one' ? {'apple', 'orange'} : {'monkey', 'chicken'}" /&gt;
+ * &lt;ww:doubleselect label="doubleselect test2" list="#{1:'one', 2:'two'}" doubleList="top == 1 ? {'apple', 'orange'} : {'monkey', 'chicken'}" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
