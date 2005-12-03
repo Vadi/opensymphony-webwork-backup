@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
  * <pre>
  * <!-- START SNIPPET: example -->
  * JSP:
- * &lt;ww:checkbox label="'checkbox test'" name="'checkboxField1'" value="aBoolean" fieldValue="'true'"/&gt;
+ * &lt;ww:checkbox label="checkbox test" name="checkboxField1" value="aBoolean" fieldValue="true"/&gt;
  *
  * Velocity:
- * #tag( Checkbox "label='checkbox test'" "name='checkboxField1'" "value=aBoolean" "fieldValue='true'" )
+ * #tag( Checkbox "label=checkbox test" "name=checkboxField1" "value=aBoolean" "fieldValue=true" )
  *
  * Resulting HTML (simple template, aBoolean == true):
  * &lt;input type="checkbox" name="checkboxField1" value="true" checked="checked" /&gt;
