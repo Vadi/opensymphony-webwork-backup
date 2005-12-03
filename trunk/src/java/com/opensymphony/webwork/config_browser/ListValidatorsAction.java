@@ -1,7 +1,7 @@
 package com.opensymphony.webwork.config_browser;
 
 import com.opensymphony.xwork.ActionSupport;
-import com.opensymphony.xwork.validator.ActionValidatorManager;
+import com.opensymphony.xwork.validator.ActionValidatorManagerFactory;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +10,7 @@ import java.util.List;
  * ListValidatorsAction loads the validations for a given class and context
  *
  * @author Jason Carreira
+ * @author Rainer Hermanns
  *         Date: May 31, 2004 5:06:16 PM
  */
 public class ListValidatorsAction extends ActionSupport {
@@ -47,6 +48,6 @@ public class ListValidatorsAction extends ActionSupport {
     }
 
     protected void loadValidators() {
-        validators = ActionValidatorManager.getValidators(clazz, context);
+        validators = ActionValidatorManagerFactory.getInstance().getValidators(clazz, context);
     }
 }
