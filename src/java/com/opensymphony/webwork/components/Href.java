@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * A tag that creates a HTML &gt;a href='' /&lt; that when clicked calls a URL remote XMLHttpRequest call
+ * A tag that creates a HTML &lt;a href='' /&gt; that when clicked calls a URL remote XMLHttpRequest call
  * via the dojo framework. The result from the URL is executed as JavaScript.<p/>
  *
  * If a "listenTopics" is supplied, it will publish a 'click' message to that topic when the result is
@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <pre>
  * <!-- START SNIPPET: example1 -->
- * &lt;ww:a id="link1" theme="ajax" href="/DoIt.action" errorText="'An error ocurred'" showErrorTransportText="true"&gt;&lt;img border="none" src="&lt;%=request.getContextPath()%&gt;/images/delete.gif"/&gt;
+ * &lt;ww:a id="link1" theme="ajax" href="/DoIt.action" errorText="An error ocurred" showErrorTransportText="true"&gt;
+ *     &lt;img border="none" src="&lt;%=request.getContextPath()%&gt;/images/delete.gif"/&gt;
  *     &lt;ww:param name="id" value="1"/&gt;
  * &lt;/ww:a&gt;
  * <!-- END SNIPPET: example1 -->
@@ -43,7 +44,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <pre>
  * <!-- START SNIPPET: example3 -->
- * &lt;ww:a id="test" theme="ajax" href="/simpeResult.action" preInvokeJS="confirm(\'You sure\')"&gt;A&lt;/ww:a&gt;
+ * &lt;ww:a id="test" theme="ajax" href="/simpeResult.action" preInvokeJS="confirm(\'You sure\')"&gt;
+ * 	A
+ * &lt;/ww:a&gt;
  * <!-- END SNIPPET: example3 -->
  * </pre>
  *
