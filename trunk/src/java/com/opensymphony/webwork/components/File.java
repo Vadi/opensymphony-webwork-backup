@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * <pre>
  * <!-- START SNIPPET: example -->
  * &lt;ww:file name="anUploadFile" accept="text/*" /&gt;
+ * &lt:ww:file name="anohterUploadFIle" accept="text/html,text/plain" /&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
