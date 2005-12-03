@@ -26,15 +26,15 @@ import javax.servlet.http.HttpServletResponse;
  * <pre>
  * <!-- START SNIPPET: example -->
  * JSP:
- * &lt;ww:bean name="'webwork.util.Counter'" id="year"&gt;
- *   &lt;ww:param name="'first'" value="text('firstBirthYear')"/&gt;
- *   &lt;ww:param name="'last'" value="2000"/&gt;
+ * &lt;ww:bean name="webwork.util.Counter" id="year"&gt;
+ *   &lt;ww:param name="first" value="text('firstBirthYear')"/&gt;
+ *   &lt;ww:param name="last" value="2000"/&gt;
  *
- *   &lt;ww:combobox label="'Birth year'" size="6" maxlength="4" name="'birthYear'" list="#year"/&gt;
+ *   &lt;ww:combobox label="Birth year" size="6" maxlength="4" name="birthYear" list="#year"/&gt;
  * &lt;/ww:bean&gt;
  *
  * Velocity:
- * #tag( ComboBox "label='Birth year'" "size='6'" "maxlength='4'" "name='birthYear'" "list=#year" )
+ * #tag( ComboBox "label=Birth year" "size=6" "maxlength=4" "name=birthYear" "list=#year" )
  * <!-- END SNIPPET: example -->
  * </pre>
  *
