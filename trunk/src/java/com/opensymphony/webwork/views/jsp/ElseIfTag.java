@@ -47,8 +47,8 @@ public class ElseIfTag extends WebWorkBodyTagSupport {
     protected String test;
 
     /**
-     * @ww.tagattribute required="true"
-     * description="Optional expression determining whether to evaluate body content."
+     * @ww.tagattribute required="true" type="Boolean"
+     * description="Expression to determine if body of tag is to be displayed"
      */
     public void setTest(String test) {
         this.test = test;

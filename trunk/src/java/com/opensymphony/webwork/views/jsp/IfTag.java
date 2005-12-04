@@ -51,8 +51,8 @@ public class IfTag extends WebWorkBodyTagSupport {
     String test;
 
     /**
-     * @ww.tagattribute required="true"
-     * description="Logic to determined if body of tag is to be displayed"
+     * @ww.tagattribute required="true" type="Boolean"
+     * description="Expression to determine if body of tag is to be displayed"
      */
     public void setTest(String test) {
         this.test = test;

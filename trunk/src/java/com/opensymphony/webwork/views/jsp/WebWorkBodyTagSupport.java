@@ -25,7 +25,7 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
     private static final long serialVersionUID = -1201668454354226175L;
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="String"
      * description="The id of the tag element."
      */
     public void setId(String string) {
