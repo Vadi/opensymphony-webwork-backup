@@ -198,7 +198,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="String"
      * description="Set action attribute"
      */
     public void setAction(String action) {
@@ -206,7 +206,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="String"
      * description="Set method attribute"
      */
     public void setMethod(String method) {
@@ -214,7 +214,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="String"
      * description="HTML align attribute"
      */
     public void setAlign(String align) {
@@ -222,7 +222,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false"  type="String"
      * description="The id of the HTML element to place the result (this can the the form's id or any id on the page"
      */
     public void setResultDivId(String resultDivId) {
@@ -230,7 +230,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="String"
      * description="Javascript code that will be executed after the form has been submitted. The format is onLoadJS='yourMethodName(data,type)'. NOTE: the words data and type must be left like that if you want the event type and the returned data."
      */
     public void setOnLoadJS(String onLoadJS) {
@@ -238,7 +238,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="String"
      * description=" Topic names to post an event to after the form has been submitted"
      */
     public void setNotifyTopics(String notifyTopics) {
@@ -246,7 +246,7 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="String"
      * description="Set listenTopics attribute"
      */
     public void setListenTopics(String listenTopics) {
@@ -254,8 +254,8 @@ public class Submit extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="Set preInvokeJS attribute"
+     * @ww.tagattribute required="false" type="String"
+     * description="Javascript code that will be executed before invokation. The format is preInvokeJS='yourMethodName(data,type)'."
      */
     public void setPreInvokeJS(String preInvokeJS) {
         this.preInvokeJS = preInvokeJS;
