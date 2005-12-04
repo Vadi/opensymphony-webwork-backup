@@ -133,7 +133,7 @@ public class TabbedPanel extends ClosingUIBean {
     }
 
     /**
-     * @ww.tagattribute required="true"
+     * @ww.tagattribute required="true" type="String"
      * description="The id to assign to the component."
      */
     public void setId(String id) {
