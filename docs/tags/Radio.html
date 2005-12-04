@@ -16,7 +16,7 @@ Renders a radio button input field
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Render a radio button input field.</p> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <p/> <!-- START SNIPPET: exampledescription --> In this example, a radio control is displayed with a list of genders. The gender list is built from attribute id=genders. WW calls getGenders() which will return a Map. For examples using listKey and listValue attributes, see the section select tag.<p/> <!-- END SNIPPET: exampledescription --> <pre> <!-- START SNIPPET: example --> &lt;ww:action name="'GenderMap'" id="genders"/&gt; &lt;ww:radio label="'Gender'" name="'male'" list="#genders.genders"/&gt; <!-- END SNIPPET: example --> </pre>
+<!-- START SNIPPET: javadoc --> Render a radio button input field.</p> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <p/> <!-- START SNIPPET: exdescription --> In this example, a radio control is displayed with a list of genders. The gender list is built from attribute id=genders. WW calls getGenders() which will return a Map. For examples using listKey and listValue attributes, see the section select tag. The default selected one will be determined (in this case) by the getMale() method in the action class which should retun a value similar to the key of the getGenters() map if that particular gender is to be selected.<p/> <!-- END SNIPPET: exdescription --> <pre> <!-- START SNIPPET: example --> &lt;ww:action name="GenderMap" id="genders"/&gt; &lt;ww:radio label="Gender" name="male" list="#genders.genders"/&gt; <!-- END SNIPPET: example --> </pre>
 </p>
 
 <h2>Attributes</h2>
@@ -48,7 +48,7 @@ Renders a radio button input field
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">Iteratable source to populate from.</td>
+<td align="left" valign="top">Iterable source to populate from.</td>
 
 </tr>
 
@@ -204,13 +204,13 @@ Renders a radio button input field
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">left</td>
 
 <!-- Type -->
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">deprecated.</td>
 
 </tr>
 
@@ -228,7 +228,7 @@ Renders a radio button input field
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">define label position of form element (top/left)</td>
 
 </tr>
 
@@ -258,13 +258,13 @@ Renders a radio button input field
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
-<td align="left" valign="top">If set to true, the rendered element will inidicate that input is required</td>
+<td align="left" valign="top">If set to true, the rendered element will indicate that input is required</td>
 
 </tr>
 
@@ -570,7 +570,7 @@ Renders a radio button input field
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">HTML id attribute</td>
+<td align="left" valign="top">id for referencing element. For UI and form tags it will be used as HTML id attribute</td>
 
 </tr>
 

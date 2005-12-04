@@ -93,7 +93,7 @@ public class Select extends ListUIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="Boolean" default="false"
      * description="Whether or not to add an empty (--) option after the header option"
      */
     public void setEmptyOption(String emptyOption) {
@@ -118,7 +118,7 @@ public class Select extends ListUIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false"  type="Boolean" default="false"
      * description="Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute. Passing a Collection may work too? Haven't tested this."
      */
     public void setMultiple(String multiple) {
@@ -126,7 +126,7 @@ public class Select extends ListUIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="Integer"
      * description=" Size of the element box (# of elements to show)"
      */
     public void setSize(String size) {
