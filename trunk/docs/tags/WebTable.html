@@ -1,22 +1,22 @@
 
 <html>
 <head>
-<title>&lt;ww:component /&gt;</title>
+<title>&lt;ww:table /&gt;</title>
 </head>
 
 <body>
 
-<h1>Tag Name: &lt;ww:component /&gt;</h1>
+<h1>Tag Name: &lt;ww:table /&gt;</h1>
 
 <h2>Description</h2>
 <p>
 
-Render a custom ui widget
+Instantiate a JavaBean and place it in the context.
 
 </p>
 
 <p>
-User: plightbo Date: Jul 31, 2005 Time: 9:40:11 PM
+
 </p>
 
 <h2>Attributes</h2>
@@ -31,6 +31,78 @@ User: plightbo Date: Jul 31, 2005 Time: 9:40:11 PM
 <th align="left" valign="top"><h4>Default</h4></th>
 <th align="left" valign="top"><h4>Type</h4></th>
 <th align="left" valign="top"><h4>Description</h4></th>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">modelName</td>
+
+<!-- Required -->
+<td align="left" valign="top"><b>true</b></td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">The name of model to use</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">sortColumn</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Integer</td>
+
+<!-- Description -->
+<td align="left" valign="top">Index of column to sort data by</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">sortOrder</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">NONE</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Set sort order. Allowed values are NONE, ASC and DESC</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">sortable</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">false</td>
+
+<!-- Type -->
+<td align="left" valign="top">Boolean</td>
+
+<!-- Description -->
+<td align="left" valign="top">Whether the table should be sortable. Requires that model implements com.opensymphony.webwork.components.table.SortableTableModel if set to true.</td>
 
 </tr>
 
@@ -150,13 +222,13 @@ User: plightbo Date: Jul 31, 2005 Time: 9:40:11 PM
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">left</td>
 
 <!-- Type -->
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">deprecated.</td>
 
 </tr>
 
@@ -174,7 +246,7 @@ User: plightbo Date: Jul 31, 2005 Time: 9:40:11 PM
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">None</td>
+<td align="left" valign="top">define label position of form element (top/left)</td>
 
 </tr>
 
@@ -204,13 +276,13 @@ User: plightbo Date: Jul 31, 2005 Time: 9:40:11 PM
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
-<td align="left" valign="top">If set to true, the rendered element will inidicate that input is required</td>
+<td align="left" valign="top">If set to true, the rendered element will indicate that input is required</td>
 
 </tr>
 
@@ -516,7 +588,7 @@ User: plightbo Date: Jul 31, 2005 Time: 9:40:11 PM
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">HTML id attribute</td>
+<td align="left" valign="top">id for referencing element. For UI and form tags it will be used as HTML id attribute</td>
 
 </tr>
 

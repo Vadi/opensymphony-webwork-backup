@@ -15,9 +15,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * User: plightbo
- * Date: Jul 31, 2005
- * Time: 9:40:11 PM
+ * @ww.tag name="table" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.table.WebTableTag"
+ * description="Instantiate a JavaBean and place it in the context."
  */
 public class WebTable extends GenericUIBean {
     private static final Log LOG = LogFactory.getLog(WebTable.class);
@@ -186,6 +185,10 @@ public class WebTable extends GenericUIBean {
         return (model);
     }
 
+    /**
+     * @ww.tagattribute required="true" type="String"
+     * description="The name of model to use"
+     */
     public void setModelName(String modelName) {
         this.modelName = modelName;
     }
@@ -222,6 +225,10 @@ public class WebTable extends GenericUIBean {
         return new WebTableRowIterator(this);
     }
 
+    /**
+     * @ww.tagattribute required="false" type="Integer"
+     * description="Index of column to sort data by"
+     */
     public void setSortColumn(int sortColumn) {
         this.sortColumn = sortColumn;
     }
@@ -238,6 +245,10 @@ public class WebTable extends GenericUIBean {
         return "WEBTABLE_" + modelName + "_SORT_COLUMN";
     }
 
+    /**
+     * @ww.tagattribute required="false" type="String" default="NONE"
+     * description="Set sort order. Allowed values are NONE, ASC and DESC"
+     */
     public void setSortOrder(String sortOrder) {
         if (sortOrder.equals(SortableTableModel.NONE)) {
             this.sortOrder = SortableTableModel.NONE;
@@ -262,6 +273,10 @@ public class WebTable extends GenericUIBean {
         return "WEBTABLE_" + modelName + "_SORT_ORDER";
     }
 
+    /**
+     * @ww.tagattribute required="false" type="Boolean" default="false"
+     * description="Whether the table should be sortable. Requires that model implements com.opensymphony.webwork.components.table.SortableTableModel if set to true."
+     */
     public void setSortable(boolean sortable) {
         sortableAttr = sortable;
 
