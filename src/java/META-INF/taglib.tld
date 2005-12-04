@@ -47,7 +47,7 @@
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Logic to determined if body of tag is to be displayed]]></description>
+           <description><![CDATA[Expression to determine if body of tag is to be displayed]]></description>
 
       </attribute>
       <attribute>
@@ -62,11 +62,43 @@
    </tag>
    <tag>
 
-      <name>component</name>
-      <tag-class>com.opensymphony.webwork.views.jsp.ui.ComponentTag</tag-class>
+      <name>table</name>
+      <tag-class>com.opensymphony.webwork.views.jsp.ui.table.WebTableTag</tag-class>
       <body-content>JSP</body-content>
-      <description><![CDATA[Render a custom ui widget]]></description>
+      <description><![CDATA[Instantiate a JavaBean and place it in the context.]]></description>
 
+      <attribute>
+         <name>modelName</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The name of model to use]]></description>
+
+      </attribute>
+      <attribute>
+         <name>sortColumn</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Index of column to sort data by]]></description>
+
+      </attribute>
+      <attribute>
+         <name>sortOrder</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Set sort order. Allowed values are NONE, ASC and DESC]]></description>
+
+      </attribute>
+      <attribute>
+         <name>sortable</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Whether the table should be sortable. Requires that model implements com.opensymphony.webwork.components.table.SortableTableModel if set to true.]]></description>
+
+      </attribute>
       <attribute>
          <name>theme</name>
          <required>false</required>
@@ -878,7 +910,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[HTML readonly attribute]]></description>
+           <description><![CDATA[Whether the input is readonly]]></description>
 
       </attribute>
       <attribute>
@@ -1713,7 +1745,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set resultDivId attribute]]></description>
+           <description><![CDATA[The id of the HTML element to place the result (this can the the form's id or any id on the page]]></description>
 
       </attribute>
       <attribute>
@@ -1721,7 +1753,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set onLoadJS attribute]]></description>
+           <description><![CDATA[Javascript code that will be executed after the form has been submitted. The format is onLoadJS='yourMethodName(data,type)'. NOTE: the words data and type must be left like that if you want the event type and the returned data.]]></description>
 
       </attribute>
       <attribute>
@@ -1729,7 +1761,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set notifyTopics attribute]]></description>
+           <description><![CDATA[ Topic names to post an event to after the form has been submitted]]></description>
 
       </attribute>
       <attribute>
@@ -1745,7 +1777,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set preInvokeJS attribute]]></description>
+           <description><![CDATA[Javascript code that will be executed before invokation. The format is preInvokeJS='yourMethodName(data,type)'.]]></description>
 
       </attribute>
       <attribute>
@@ -1987,45 +2019,6 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[id for referencing element. For UI and form tags it will be used as HTML id attribute]]></description>
-
-      </attribute>
-
-   </tag>
-   <tag>
-
-      <name>table</name>
-      <tag-class>com.opensymphony.webwork.views.jsp.ui.table.WebTableTag</tag-class>
-
-      <attribute>
-         <name>sortOrder</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-      </attribute>
-      <attribute>
-         <name>modelName</name>
-         <required>true</required>
-         <rtexprvalue>true</rtexprvalue>
-
-      </attribute>
-      <attribute>
-         <name>sortable</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-      </attribute>
-      <attribute>
-         <name>sortColumn</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-      </attribute>
-      <attribute>
-         <name>id</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[The id of the tag element.]]></description>
 
       </attribute>
 
@@ -3443,7 +3436,7 @@
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Optional expression determining whether to evaluate body content.]]></description>
+           <description><![CDATA[Expression to determine if body of tag is to be displayed]]></description>
 
       </attribute>
       <attribute>
@@ -3517,7 +3510,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[HTML readonly attribute]]></description>
+           <description><![CDATA[Whether the input is readonly]]></description>
 
       </attribute>
       <attribute>
@@ -4103,7 +4096,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[HTML readonly attribute]]></description>
+           <description><![CDATA[Whether the textarea is readonly]]></description>
 
       </attribute>
       <attribute>
@@ -4972,7 +4965,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[true/false - whether actual context should be included in url]]></description>
+           <description><![CDATA[whether actual context should be included in url]]></description>
 
       </attribute>
       <attribute>
@@ -5303,7 +5296,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[HTML readonly attribute]]></description>
+           <description><![CDATA[Whether the input is readonly]]></description>
 
       </attribute>
       <attribute>
@@ -6460,7 +6453,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[HTML readonly attribute]]></description>
+           <description><![CDATA[Whether the input is readonly]]></description>
 
       </attribute>
       <attribute>
