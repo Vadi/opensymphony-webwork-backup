@@ -135,7 +135,7 @@ public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
     }
 
     /**
-     * @ww.tagattribute required="true"
+     * @ww.tagattribute required="true" type="String"
      * description="the separator to be used in separating the <i>val</i> into entries of the iterator"
      */
     public void setSeparator(String separator) {
@@ -159,7 +159,7 @@ public class IteratorGeneratorTag extends WebWorkBodyTagSupport {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="String"
      * description="the id to store the resultant iterator into page context, if such id is supplied"
      */
     public void setId(String string) {
