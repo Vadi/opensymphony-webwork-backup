@@ -66,7 +66,7 @@ public class TextField extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false" rtexprvalue="true"
+     * @ww.tagattribute required="false" type="Integer"
      * description="HTML maxlength attribute"
      */
     public void setMaxlength(String maxlength) {
@@ -74,7 +74,7 @@ public class TextField extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false" rtexprvalue="true"
+     * @ww.tagattribute required="false"
      * description="Deprecated. Use maxlength instead."
      */
     public void setMaxLength(String maxlength) {
@@ -82,15 +82,15 @@ public class TextField extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="HTML readonly attribute"
+     * @ww.tagattribute required="false" type="Boolean" default="false"
+     * description="Whether the input is readonly"
      */
     public void setReadonly(String readonly) {
         this.readonly = readonly;
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="Integer"
      * description="HTML size attribute"
      */
     public void setSize(String size) {
