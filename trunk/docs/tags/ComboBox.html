@@ -16,7 +16,7 @@ Widget that fills a text box from a select
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> The combo box is basically an HTML INPUT of type text and HTML SELECT grouped together to give you a combo box functionality. You can place text in the INPUT control by using the SELECT control or type it in directly in the text field.<p/> In this example, the SELECT will be populated from id=year attribute. Counter is itself an Iterator. It will span from first to last. The population is done via javascript, and requires that this tag be surrounded by a &lt;form&gt;.<p/> Note that unlike the &lt;ww:select/&gt; tag, there is no ability to define the individual &lt;option&gt; tags' id attribute or content separately. Each of these is simply populated from the toString() method of the list item. Presumably this is because the select box isn't intended to actually submit useful data, but to assist the user in filling out the text field.<p/> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> JSP: &lt;ww:bean name="'webwork.util.Counter'" id="year"&gt; &lt;ww:param name="'first'" value="text('firstBirthYear')"/&gt; &lt;ww:param name="'last'" value="2000"/&gt; &lt;ww:combobox label="'Birth year'" size="6" maxlength="4" name="'birthYear'" list="#year"/&gt; &lt;/ww:bean&gt; Velocity: #tag( ComboBox "label='Birth year'" "size='6'" "maxlength='4'" "name='birthYear'" "list=#year" ) <!-- END SNIPPET: example --> </pre>
+<!-- START SNIPPET: javadoc --> The combo box is basically an HTML INPUT of type text and HTML SELECT grouped together to give you a combo box functionality. You can place text in the INPUT control by using the SELECT control or type it in directly in the text field.<p/> In this example, the SELECT will be populated from id=year attribute. Counter is itself an Iterator. It will span from first to last. The population is done via javascript, and requires that this tag be surrounded by a &lt;form&gt;.<p/> Note that unlike the &lt;ww:select/&gt; tag, there is no ability to define the individual &lt;option&gt; tags' id attribute or content separately. Each of these is simply populated from the toString() method of the list item. Presumably this is because the select box isn't intended to actually submit useful data, but to assist the user in filling out the text field.<p/> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> JSP: &lt;ww:bean name="webwork.util.Counter" id="year"&gt; &lt;ww:param name="first" value="text('firstBirthYear')"/&gt; &lt;ww:param name="last" value="2000"/&gt; &lt;ww:combobox label="Birth year" size="6" maxlength="4" name="birthYear" list="#year"/&gt; &lt;/ww:bean&gt; Velocity: #tag( ComboBox "label=Birth year" "size=6" "maxlength=4" "name=birthYear" "list=#year" ) <!-- END SNIPPET: example --> </pre>
 </p>
 
 <h2>Attributes</h2>
@@ -54,6 +54,24 @@ Widget that fills a text box from a select
 
 <tr>
 <!-- Attribute name -->
+<td align="left" valign="top">maxlength</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Integer</td>
+
+<!-- Description -->
+<td align="left" valign="top">HTML maxlength attribute</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
 <td align="left" valign="top">maxLength</td>
 
 <!-- Required -->
@@ -66,7 +84,7 @@ Widget that fills a text box from a select
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">HTML maxLength attribute</td>
+<td align="left" valign="top">Deprecated. Use maxlength instead.</td>
 
 </tr>
 
@@ -78,13 +96,13 @@ Widget that fills a text box from a select
 <td align="left" valign="top">false</td>
 
 <!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
+<td align="left" valign="top">false</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Boolean</td>
 
 <!-- Description -->
-<td align="left" valign="top">HTML readonly attribute</td>
+<td align="left" valign="top">Whether the input is readonly</td>
 
 </tr>
 
@@ -99,7 +117,7 @@ Widget that fills a text box from a select
 <td align="left" valign="top">&nbsp;</td>
 
 <!-- Type -->
-<td align="left" valign="top">Object/String</td>
+<td align="left" valign="top">Integer</td>
 
 <!-- Description -->
 <td align="left" valign="top">HTML size attribute</td>
@@ -228,7 +246,7 @@ Widget that fills a text box from a select
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">define label position of form element (top/left)</td>
+<td align="left" valign="top">deprecated.</td>
 
 </tr>
 
@@ -246,7 +264,7 @@ Widget that fills a text box from a select
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">deprecated.</td>
+<td align="left" valign="top">define label position of form element (top/left)</td>
 
 </tr>
 
