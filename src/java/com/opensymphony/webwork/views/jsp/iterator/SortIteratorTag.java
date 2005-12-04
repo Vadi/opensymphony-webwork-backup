@@ -73,7 +73,7 @@ public class SortIteratorTag extends WebWorkBodyTagSupport {
     SortIteratorFilter sortIteratorFilter = null;
 
     /**
-     * @ww.tagattribute required="true"
+     * @ww.tagattribute required="true" type="java.util.Comparator"
      * description="The comparator to use"
      */
     public void setComparator(String comparator) {

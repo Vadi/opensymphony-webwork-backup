@@ -146,7 +146,7 @@ public class SubsetIteratorTag extends WebWorkBodyTagSupport {
 
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="Integer"
      * description="Indicate the number of entries to be in the resulting subset iterator"
      */
     public void setCount(String count) {
@@ -162,7 +162,7 @@ public class SubsetIteratorTag extends WebWorkBodyTagSupport {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="Integer"
      * description="Indicate the starting index (eg. first entry is 0) of entries in the source to be available as the first entry in the resulting subset iterator"
      */
     public void setStart(String start) {
@@ -170,7 +170,7 @@ public class SubsetIteratorTag extends WebWorkBodyTagSupport {
     }
 
     /**
-     * @ww.tagattribute required="false" rtexprvalue = "true"
+     * @ww.tagattribute required="false" type="com.opensymphony.webwork.util.SubsetIteratorFilter.Decider"
      * description="Extension to plug-in a decider to determine if that particular entry is to be included in the resulting subset iterator"
      */
     public void setDecider(String decider) {

@@ -142,7 +142,7 @@ public class IteratorTag extends WebWorkBodyTagSupport {
     protected String value;
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="Boolean" default="false"
      * description="if specified, an instanceof IteratorStatus will be pushed into stack upon each iteration"
      */
     public void setStatus(String status) {
