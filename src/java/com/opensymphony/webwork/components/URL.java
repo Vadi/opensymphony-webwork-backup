@@ -228,7 +228,7 @@ public class URL extends Component {
 
     /**
      * @ww.tagattribute required="false" type="Boolean" default="true"
-     * description="true/false - whether actual context should be included in url"
+     * description="whether actual context should be included in url"
      */
     public void setIncludeContext(boolean includeContext) {
         this.includeContext = includeContext;
