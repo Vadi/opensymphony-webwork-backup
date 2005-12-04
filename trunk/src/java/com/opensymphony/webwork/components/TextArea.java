@@ -65,7 +65,7 @@ public class TextArea extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="Integer"
      * description="HTML cols attribute"
      */
     public void setCols(String cols) {
@@ -73,15 +73,15 @@ public class TextArea extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="HTML readonly attribute"
+     * @ww.tagattribute required="false" type="Boolean" default="false"
+     * description="Whether the textarea is readonly"
      */
     public void setReadonly(String readonly) {
         this.readonly = readonly;
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="Integer"
      * description="HTML rows attribute"
      */
     public void setRows(String rows) {
@@ -89,7 +89,7 @@ public class TextArea extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="String"
      * description="HTML wrap attribute"
      */
     public void setWrap(String wrap) {
