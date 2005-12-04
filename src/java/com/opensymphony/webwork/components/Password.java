@@ -52,7 +52,7 @@ public class Password extends TextField {
     }
 
     /**
-     * @ww.tagattribute required="false"
+     * @ww.tagattribute required="false" type="Boolean" default="false"
      * description="Whether to show input"
      */
     public void setShowPassword(String showPassword) {
