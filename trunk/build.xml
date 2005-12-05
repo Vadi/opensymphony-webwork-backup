@@ -179,6 +179,7 @@
     <target name="clean" depends="common.clean">
         <delete dir="webapps/base/build"/>
         <delete dir="webapps/sandbox/build"/>
+        <delete dir="webapps/starter/build"/>
         <delete dir="webapps/ajax/build"/>
         <delete dir="webapps/shopping-cart/build"/>
         <delete dir="webapps/portlet/build"/>
