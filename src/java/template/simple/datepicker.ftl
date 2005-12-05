@@ -4,7 +4,7 @@
 <#assign trash = stack.setValue("#datepicker_included", true)/>
 <script language="JavaScript" src="<@ww.url value="/webwork/tigracalendar/calendar2.js"/>"></script>
 </#if>
-<script langauge="JavaScript">
+<script language="JavaScript">
 var cal_${parameters.id} = new calendar2(document.forms['${parameters.form.id}'].elements['${parameters.name}']);
 cal_${parameters.id}.year_scroll = true;
 cal_${parameters.id}.time_comp = false;
