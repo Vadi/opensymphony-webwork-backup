@@ -6,11 +6,12 @@ import java.io.Writer;
 
 /**
  * <!-- START SNIPPET: javadoc -->
+ * <b>NOTE: NON-JSP-TAG</b>
  *
- * The set tag assigns a value to a variable in a specified scope. It is useful when you wish to assign a variable to a
+ * <p>The set tag assigns a value to a variable in a specified scope. It is useful when you wish to assign a variable to a
  * complex expression and then simply reference that variable each time rather than the complex expression. This is
  * useful in both cases: when the complex expression takes time (performance improvement) or is hard to read (code
- * readability improvement).
+ * readability improvement).</P>
  *
  * <!-- END SNIPPET: javadoc -->
  *

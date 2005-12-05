@@ -14,9 +14,11 @@ import java.util.ResourceBundle;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Gets a resource bundle and place it on the value stack. This allows
+ * <b>NOTE: NON-JSP-TAG</b>
+ * 
+ * <p>Gets a resource bundle and place it on the value stack. This allows
  * the text tag to access messages from any bundle, and not just the bundle
- * associated with the current action.
+ * associated with the current action.</p>
  * <!-- END SNIPPET: javadoc -->
  *
  * <!-- START SNIPPET: params-->
