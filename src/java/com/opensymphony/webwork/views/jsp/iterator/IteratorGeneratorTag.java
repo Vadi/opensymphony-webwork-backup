@@ -16,8 +16,10 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Generate an iterator based on the val attribute supplied.
- *
+ * <b>NOTE: JSP-TAG</b>
+ * 
+ * <p>Generate an iterator based on the val attribute supplied.</P>
+ * 
  * <b>NOTE:</b> The generated iterator will <b>ALWAYS</b> be pushed into the top of the stack, and poped
  * at the end of the tag.
  * <!-- END SNIPPET: javadoc -->

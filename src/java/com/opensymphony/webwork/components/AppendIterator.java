@@ -19,6 +19,8 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * <!-- START SNIPPET: javadoc -->
+ * <B>NOTE: NON-JSP-TAG</B>
+ * 
  * <p>Component for AppendIteratorTag, which jobs is to append iterators to form an
  * appended iterator whereby entries goes from one iterator to another after each
  * respective iterator is exhausted of entries.</p>

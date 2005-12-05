@@ -14,6 +14,8 @@ import java.util.Iterator;
 
 /**
  * <!-- START SNIPPET: javadoc -->
+ * <b>NOTE: JSP-TAG</b>
+ * 
  * <p>Iterator will iterate over a value. An iterable value can be either of: java.util.Collection,
  * java.util.Iterator, java.util.Enumeration, java.util.Map, array.</p>
  * <p/>

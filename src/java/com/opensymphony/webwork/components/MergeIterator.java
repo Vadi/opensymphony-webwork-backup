@@ -18,8 +18,9 @@ import com.opensymphony.webwork.util.MergeIteratorFilter;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
- * 
  * <!-- START SNIPPET: javadoc -->
+ * <b>NOTE: NON-JSP-TAG</b>
+ * 
  * <p>Component for MergeIteratorTag, which job is to merge iterators and successive 
  * call to the merged iterator will cause each merge iterator to have a chance to 
  * expose its element, subsequently next call will allow the next iterator to expose 
