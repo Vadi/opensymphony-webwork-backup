@@ -16,10 +16,11 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * A tag that takes an iterator and outputs a subset of it. It delegates to
+ * <b>NOTE: JSP-TAG</b>
+ * 
+ * <p>A tag that takes an iterator and outputs a subset of it. It delegates to
  * {@link com.opensymphony.webwork.util.SubsetIteratorFilter} internally to
- * perform the subset functionality.
- *
+ * perform the subset functionality.</p>
  * <!-- END SNIPPET: javadoc -->
  *
  * <!-- START SNIPPET: params -->
