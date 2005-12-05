@@ -13,9 +13,11 @@ import java.io.Writer;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * This tag is used to create a URL.</p>
+ * <b>NOTE: NON-JSP-TAG</b>
+ * 
+ * <p>This tag is used to create a URL.</p>
  *
- * You can use the "param" tag inside the body to provide
+ * <p>You can use the "param" tag inside the body to provide
  * additional request parameters.</p>
  * <!-- END SNIPPET: javadoc -->
  *
@@ -51,7 +53,7 @@ import java.io.Writer;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
- * @author Rickard Öberg (rickard@dreambean.com)
+ * @author Rickard ï¿½berg (rickard@dreambean.com)
  * @author Patrick Lightbody
  * @author Ian Roughley
  * @author Rene Gielen
