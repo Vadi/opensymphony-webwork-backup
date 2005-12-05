@@ -9,8 +9,10 @@ import javax.servlet.jsp.JspException;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Perform basic condition flow. 'If' tag could be used by itself or
- * with 'Else If' Tag and/or single/multiple 'Else' Tag.
+ * <b>NOTE: JSP-TAG</b>
+ * 
+ * <p>Perform basic condition flow. 'If' tag could be used by itself or
+ * with 'Else If' Tag and/or single/multiple 'Else' Tag.</p>
  * <!-- END SNIPPET: javadoc -->
  *
  *

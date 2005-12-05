@@ -15,10 +15,12 @@ import java.util.Comparator;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * A Tag that sorts a List using a Comparator both passed in as the tag attribute.
+ * <b>NOTE: JSP-TAG</b>
+ * 
+ * <p>A Tag that sorts a List using a Comparator both passed in as the tag attribute.
  * If 'id' attribute is specified, the sorted list will be placed into the PageContext
  * attribute using the key specified by 'id'. The sorted list will ALWAYS be
- * pushed into the stack and poped at the end of this tag.
+ * pushed into the stack and poped at the end of this tag.</p>
  * <!-- END SNIPPET: javadoc -->
  *
  *
