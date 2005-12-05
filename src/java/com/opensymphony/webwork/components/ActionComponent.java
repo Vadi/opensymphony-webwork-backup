@@ -88,7 +88,7 @@ import java.util.Map;
  * @version $Revision$
  * @since 2.2
  *
- * @ww.tag name="action" tld-body-content="empty" tld-tag-class="com.opensymphony.webwork.views.jsp.ActionTag"
+ * @ww.tag name="action" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ActionTag"
  * description="Execute an action from within a view"
  */
 public class ActionComponent extends Component {
