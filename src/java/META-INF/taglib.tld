@@ -3458,7 +3458,7 @@
 
       <attribute>
          <name>name</name>
-         <required>true</required>
+         <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[Name of Parameter to set]]></description>

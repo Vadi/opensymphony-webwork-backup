@@ -7,7 +7,7 @@ import java.io.Writer;
 /**
  * <!-- START SNIPPET: javadoc -->
  * <b>NOTE: NON-JSP-TAG</b>
- * 
+ *
  * <p>This tag can be used to parameterize other tags, who implement
  * the ParametricTag interface declared here.</p>
  *
@@ -93,7 +93,7 @@ public class Param extends Component {
     }
 
     /**
-     * @ww.tagattribute required="true" type="String"
+     * @ww.tagattribute required="false" type="String"
      * description="Name of Parameter to set"
      */
     public void setName(String name) {
