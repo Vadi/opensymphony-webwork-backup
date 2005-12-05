@@ -6,7 +6,9 @@ import java.io.Writer;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Push value on stack for simplified usage.</p>
+ * <b>NOTE: NON-JSP-TAG</b>
+ * 
+ * <p>Push value on stack for simplified usage.</p>
  * <!-- END SNIPPET: javadoc -->
  *
  * <!-- START SNIPPET: params -->

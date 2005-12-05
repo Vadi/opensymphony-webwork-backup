@@ -14,8 +14,10 @@ import java.io.IOException;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Used to get the property of a <i>value</i>, which will default to the top of
- * the stack if none is specified.
+ * <b>NOTE: JSP-TAG</b>
+ * 
+ * <p>Used to get the property of a <i>value</i>, which will default to the top of
+ * the stack if none is specified.</p>
  * <!-- END SNIPPET: javadoc -->
  *
  * <!-- START SNIPPET: params -->
@@ -54,7 +56,10 @@ import java.io.IOException;
  * description="Print out expression which evaluates against the stack"
  */
 public class PropertyTag extends WebWorkBodyTagSupport {
-    private static final Log log = LogFactory.getLog(PropertyTag.class);
+	
+	private static final long serialVersionUID = -505263309324809212L;
+
+	private static final Log log = LogFactory.getLog(PropertyTag.class);
 
     private String defaultValue;
     private String value;

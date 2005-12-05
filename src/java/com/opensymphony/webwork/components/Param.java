@@ -6,8 +6,10 @@ import java.io.Writer;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * This tag can be used to parameterize other tags, who implement
- * the ParametricTag interface declared here.<p/>
+ * <b>NOTE: NON-JSP-TAG</b>
+ * 
+ * <p>This tag can be used to parameterize other tags, who implement
+ * the ParametricTag interface declared here.</p>
  *
  * The include tag and bean tag are examples of such tags.<p/>
  *

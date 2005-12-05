@@ -23,7 +23,9 @@ import java.util.*;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Include a servlet's output (result of servlet or a JSP page).</p>
+ * <b>NOTE: NON-JSP-TAG</b>
+ * 
+ * <p>Include a servlet's output (result of servlet or a JSP page).</p>
  * <!-- END SNIPPET: javadoc -->
  *
  *
