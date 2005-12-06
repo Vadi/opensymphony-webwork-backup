@@ -7,6 +7,8 @@
    <jsp-version>1.2</jsp-version>
    <short-name>WebWork Taglib</short-name>
 
+   <uri>webwork</uri>
+
    <display-name>WebWork Taglib</display-name>
    <description><![CDATA[WebWork JSP Taglib]]></description>
 
