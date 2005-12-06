@@ -11,8 +11,6 @@ import java.io.Writer;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * <b>NOTE: NON-JSP-TAG</b>
- * 
  * <p>Instantiates a class that conforms to the JavaBeans specification. This tag has a body which can contain
  * a number of {@link Param} elements to set any mutator methods on that class.</p>
  * <p/>

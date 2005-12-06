@@ -21,8 +21,6 @@ import java.util.Map;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * <b>NOTE: NON-JSP-TAG</b>
- * 
  * <p>ActionTag enables developers to call Actions directly from a JSP page by specifying the Action name and an optional
  * namespace.  The body content of the tag is used to render the results from the Action.  Any Result processor defined
  * for this Action in xwork.xml will be ignored.</p>
