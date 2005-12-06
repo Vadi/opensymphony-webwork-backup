@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.config;
 
 import com.opensymphony.webwork.WebWorkTestCase;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 import java.util.Iterator;
@@ -20,10 +21,10 @@ import java.util.Locale;
 public class ConfigurationTest extends WebWorkTestCase {
 
     public void testConfiguration() {
-        assertEquals("12345", Configuration.getString("webwork.multipart.maxSize"));
-        assertEquals("\temp", Configuration.getString("webwork.multipart.saveDir"));
+        assertEquals("12345", Configuration.getString(WebWorkConstants.WEBWORK_MULTIPART_MAXSIZE));
+        assertEquals("\temp", Configuration.getString(WebWorkConstants.WEBWORK_MULTIPART_SAVEDIR));
 
-        assertEquals("test,com/opensymphony/webwork/othertest", Configuration.getString("webwork.custom.properties"));
+        assertEquals("test,com/opensymphony/webwork/othertest", Configuration.getString( WebWorkConstants.WEBWORK_CUSTOM_PROPERTIES));
         assertEquals("testvalue", Configuration.getString("testkey"));
         assertEquals("othertestvalue", Configuration.getString("othertestkey"));
 
@@ -35,7 +36,7 @@ public class ConfigurationTest extends WebWorkTestCase {
     }
 
     public void testDefaultResourceBundlesLoaded() {
-        assertEquals("testmessages,testmessages2", Configuration.getString("webwork.custom.i18n.resources"));
+        assertEquals("testmessages,testmessages2", Configuration.getString(WebWorkConstants.WEBWORK_CUSTOM_I18N_RESOURCES));
         assertEquals("This is a test message", LocalizedTextUtil.findDefaultText("default.testmessage", Locale.getDefault()));
         assertEquals("This is another test message", LocalizedTextUtil.findDefaultText("default.testmessage2", Locale.getDefault()));
     }

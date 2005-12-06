@@ -2,6 +2,7 @@ package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
@@ -237,7 +238,7 @@ public class Include extends Component {
     private static String getEncoding() {
         if (encodingDefined) {
             try {
-                encoding = Configuration.getString("webwork.i18n.encoding");
+                encoding = Configuration.getString(WebWorkConstants.WEBWORK_I18N_ENCODING);
             } catch (IllegalArgumentException e) {
                 encoding = System.getProperty("file.encoding");
                 encodingDefined = false;

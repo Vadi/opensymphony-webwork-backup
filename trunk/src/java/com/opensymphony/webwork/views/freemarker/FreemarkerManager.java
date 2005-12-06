@@ -12,7 +12,7 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.JspSupportServlet;
 import com.opensymphony.webwork.views.freemarker.tags.WebWorkModels;
 import com.opensymphony.webwork.views.util.ContextUtil;
-import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import freemarker.cache.FileTemplateLoader;
@@ -77,8 +77,8 @@ public class FreemarkerManager {
         if (instance == null) {
             String classname = FreemarkerManager.class.getName();
 
-            if (Configuration.isSet("webwork.freemarker.manager.classname")) {
-                classname = Configuration.getString("webwork.freemarker.manager.classname").trim();
+            if (Configuration.isSet(WebWorkConstants.WEBWORK_FREEMARKER_MANAGER_CLASSNAME)) {
+                classname = Configuration.getString(WebWorkConstants.WEBWORK_FREEMARKER_MANAGER_CLASSNAME).trim();
             }
 
             try {

@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.config;
 
 import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.webwork.WebWorkConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -77,7 +78,7 @@ public class Configuration {
     public static Locale getLocale() {
         if (locale == null) {
             try {
-                StringTokenizer localeTokens = new StringTokenizer(getString("webwork.locale"), "_");
+                StringTokenizer localeTokens = new StringTokenizer(getString(WebWorkConstants.WEBWORK_LOCALE), "_");
                 String lang = null;
                 String country = null;
 
@@ -206,7 +207,7 @@ public class Configuration {
 
             // Create default implementation
             try {
-                String className = getString("webwork.configuration");
+                String className = getString(WebWorkConstants.WEBWORK_CONFIGURATION);
 
                 if (!className.equals(defaultImpl.getClass().getName())) {
                     try {

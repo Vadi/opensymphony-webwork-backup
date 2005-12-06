@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.portlet.velocity.ApplyDecoratorDirective;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
@@ -78,8 +79,8 @@ public class VelocityManager {
         if (instance == null) {
             String classname = VelocityManager.class.getName();
 
-            if (Configuration.isSet("webwork.velocity.manager.classname")) {
-                classname = Configuration.getString("webwork.velocity.manager.classname").trim();
+            if (Configuration.isSet(WebWorkConstants.WEBWORK_VELOCITY_MANAGER_CLASSNAME)) {
+                classname = Configuration.getString(WebWorkConstants.WEBWORK_VELOCITY_MANAGER_CLASSNAME).trim();
             }
 
             if (!classname.equals(VelocityManager.class.getName())) {
@@ -232,8 +233,8 @@ public class VelocityManager {
          */
         String configfile;
 
-        if (Configuration.isSet("webwork.velocity.configfile")) {
-            configfile = Configuration.getString("webwork.velocity.configfile");
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_VELOCITY_CONFIGFILE)) {
+            configfile = Configuration.getString(WebWorkConstants.WEBWORK_VELOCITY_CONFIGFILE);
         } else {
             configfile = "velocity.properties";
         }
@@ -329,7 +330,7 @@ public class VelocityManager {
         initChainedContexts();
 
 
-        if (Configuration.isSet("webwork.velocity.toolboxlocation")) {
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_VELOCITY_TOOLBOXLOCATION)) {
             toolBoxLocation = Configuration.get("webwork.velocity.toolboxlocation").toString();
         }
 
@@ -358,9 +359,9 @@ public class VelocityManager {
      */
     protected void initChainedContexts() {
 
-        if (Configuration.isSet("webwork.velocity.contexts")) {
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_VELOCITY_CONTEXTS)) {
             // we expect contexts to be a comma separated list of classnames
-            String contexts = Configuration.get("webwork.velocity.contexts").toString();
+            String contexts = Configuration.get(WebWorkConstants.WEBWORK_VELOCITY_CONTEXTS).toString();
             StringTokenizer st = new StringTokenizer(contexts, ",");
             List contextList = new ArrayList();
 

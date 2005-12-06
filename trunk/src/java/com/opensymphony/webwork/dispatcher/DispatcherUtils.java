@@ -4,6 +4,7 @@ import com.opensymphony.util.ClassLoaderUtil;
 import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkStatics;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
@@ -68,11 +69,11 @@ public class DispatcherUtils {
     protected boolean paramsWorkaroundEnabled = false;
 
     protected DispatcherUtils(ServletContext servletContext) {
-        boolean reloadi18n = Boolean.valueOf((String) Configuration.get("webwork.i18n.reload")).booleanValue();
+        boolean reloadi18n = Boolean.valueOf((String) Configuration.get(WebWorkConstants.WEBWORK_I18N_RELOAD)).booleanValue();
         LocalizedTextUtil.setReloadBundles(reloadi18n);
 
-        if (Configuration.isSet("webwork.objectFactory")) {
-            String className = (String) Configuration.get("webwork.objectFactory");
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_OBJECTFACTORY)) {
+            String className = (String) Configuration.get(WebWorkConstants.WEBWORK_OBJECTFACTORY);
             if (className.equals("spring")) {
                 // note: this class name needs to be in string form so we don't put hard
                 //       dependencies on spring, since it isn't technically required.
@@ -95,34 +96,34 @@ public class DispatcherUtils {
 
         if ("true".equals(Configuration.get("webwork.devMode"))) {
             devMode = true;
-            Configuration.set("webwork.i18n.reload", "true");
-            Configuration.set("webwork.configuration.xml.reload", "true");
+            Configuration.set(WebWorkConstants.WEBWORK_I18N_RELOAD, "true");
+            Configuration.set(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD, "true");
         }
 
         //check for configuration reloading
-        if ("true".equalsIgnoreCase(Configuration.getString("webwork.configuration.xml.reload"))) {
+        if ("true".equalsIgnoreCase(Configuration.getString(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD))) {
             FileManager.setReloadingConfigs(true);
         }
 
-        if (Configuration.isSet("webwork.continuations.package")) {
-            String pkg = Configuration.getString("webwork.continuations.package");
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_CONTINUATIONS_PACKAGE)) {
+            String pkg = Configuration.getString(WebWorkConstants.WEBWORK_CONTINUATIONS_PACKAGE);
             ObjectFactory.setContinuationPackage(pkg);
         }
 
-        if (Configuration.isSet("webwork.i18n.encoding")) {
-            encoding = Configuration.getString("webwork.i18n.encoding");
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_I18N_ENCODING)) {
+            encoding = Configuration.getString(WebWorkConstants.WEBWORK_I18N_ENCODING);
         }
 
-        if (Configuration.isSet("webwork.locale")) {
-            locale = localeFromString(Configuration.getString("webwork.locale"));
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_LOCALE)) {
+            locale = localeFromString(Configuration.getString(WebWorkConstants.WEBWORK_LOCALE));
         }
 
         // test wether param-access workaround needs to be enabled
         if (servletContext.getServerInfo().indexOf("WebLogic") >= 0) {
             LOG.info("WebLogic server detected. Enabling WebWork parameter access work-around.");
             paramsWorkaroundEnabled = true;
-        } else if (Configuration.isSet("webwork.dispatcher.parametersWorkaround")) {
-            paramsWorkaroundEnabled = "true".equals(Configuration.get("webwork.dispatcher.parametersWorkaround"));
+        } else if (Configuration.isSet(WebWorkConstants.WEBWORK_DISPATCHER_PARAMETERSWORKAROUND)) {
+            paramsWorkaroundEnabled = "true".equals(Configuration.get(WebWorkConstants.WEBWORK_DISPATCHER_PARAMETERSWORKAROUND));
         } else {
             LOG.debug("Parameter access work-around disabled.");
         }
@@ -294,7 +295,7 @@ public class DispatcherUtils {
     public static int getMaxSize() {
         Integer maxSize = new Integer(Integer.MAX_VALUE);
         try {
-            String maxSizeStr = Configuration.getString("webwork.multipart.maxSize");
+            String maxSizeStr = Configuration.getString(WebWorkConstants.WEBWORK_MULTIPART_MAXSIZE);
 
             if (maxSizeStr != null) {
                 try {
@@ -322,7 +323,7 @@ public class DispatcherUtils {
      * @return the path to save uploaded files to
      */
     public String getSaveDir(ServletContext servletContext) {
-        String saveDir = Configuration.getString("webwork.multipart.saveDir").trim();
+        String saveDir = Configuration.getString(WebWorkConstants.WEBWORK_MULTIPART_SAVEDIR).trim();
 
         if (saveDir.equals("")) {
             File tempdir = (File) servletContext.getAttribute("javax.servlet.context.tempdir");

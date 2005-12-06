@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.dispatcher.multipart;
 
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.WebWorkConstants;
 import http.utils.multipartrequest.ServletMultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -109,7 +110,7 @@ public class PellMultiPartRequest extends MultiPartRequest {
         String encoding = null;
 
         try {
-            encoding = Configuration.getString("webwork.i18n.encoding");
+            encoding = Configuration.getString(WebWorkConstants.WEBWORK_I18N_ENCODING);
 
             if (encoding != null) {
                 //NB: This should never be called at the same time as the constructor for
