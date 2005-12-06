@@ -110,7 +110,7 @@
             <configParam name="Displayname" value="WebWork Taglib"/>
             <configParam name="Smallicon" value=""/>
             <configParam name="Largeicon" value=""/>
-            <configParam name="Uri" value=""/>
+            <configParam name="Uri" value="webwork"/>
             <xmlTemplate templateFile="${src.xdt}/taglib_tld.xdt" destinationfile="taglib.tld"/>
         </xdoclet>
     </target>
