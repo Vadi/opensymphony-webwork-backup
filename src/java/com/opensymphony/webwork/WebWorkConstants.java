@@ -7,6 +7,8 @@ package com.opensymphony.webwork;
  */
 public final class WebWorkConstants {
 
+    public static final String WEBWORK_DEVMODE = "webwork.devMode";
+
     public static final String WEBWORK_I18N_RELOAD = "webwork.i18n.reload";
     public static final String WEBWORK_I18N_ENCODING = "webwork.i18n.encoding";
 
@@ -49,4 +51,5 @@ public final class WebWorkConstants {
 
     public static final String WEBWORK_CUSTOM_PROPERTIES = "webwork.custom.properties";
     public static final String WEBWORK_CUSTOM_I18N_RESOURCES = "webwork.custom.i18n.resources";
+    public static final String WEBWORK_MAPPER_CLASS = "webwork.mapper.class";
 }

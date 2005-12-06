@@ -3,6 +3,7 @@ package com.opensymphony.webwork.sitegraph.entities;
 import com.opensymphony.util.FileUtils;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.sitegraph.model.Link;
+import com.opensymphony.webwork.WebWorkConstants;
 
 import java.io.File;
 import java.util.Set;
@@ -45,7 +46,7 @@ public abstract class FileBasedView implements View {
     }
 
     protected Pattern getLinkPattern() {
-        Object ext = Configuration.get("webwork.action.extension");
+        Object ext = Configuration.get(WebWorkConstants.WEBWORK_ACTION_EXTENSION);
         String actionRegex = "([A-Za-z0-9\\._\\-\\!]+\\." + ext + ")";
         return Pattern.compile(actionRegex);
     }

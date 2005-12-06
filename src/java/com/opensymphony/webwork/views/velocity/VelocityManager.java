@@ -331,7 +331,7 @@ public class VelocityManager {
 
 
         if (Configuration.isSet(WebWorkConstants.WEBWORK_VELOCITY_TOOLBOXLOCATION)) {
-            toolBoxLocation = Configuration.get("webwork.velocity.toolboxlocation").toString();
+            toolBoxLocation = Configuration.get(WebWorkConstants.WEBWORK_VELOCITY_TOOLBOXLOCATION).toString();
         }
 
     }

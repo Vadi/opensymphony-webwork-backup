@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.config;
 
 import com.opensymphony.xwork.util.LocalizedTextUtil;
+import com.opensymphony.webwork.WebWorkConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -54,7 +55,7 @@ public class DefaultConfiguration extends Configuration {
 
         // Add list of additional properties configurations
         try {
-            StringTokenizer configFiles = new StringTokenizer((String) config.getImpl("webwork.custom.properties"), ",");
+            StringTokenizer configFiles = new StringTokenizer((String) config.getImpl(WebWorkConstants.WEBWORK_CUSTOM_PROPERTIES), ",");
 
             while (configFiles.hasMoreTokens()) {
                 String name = configFiles.nextToken();
@@ -73,7 +74,7 @@ public class DefaultConfiguration extends Configuration {
 
         // Add addtional list of i18n global resource bundles
         try {
-            StringTokenizer bundleFiles = new StringTokenizer((String) config.getImpl("webwork.custom.i18n.resources"), ", ");
+            StringTokenizer bundleFiles = new StringTokenizer((String) config.getImpl(WebWorkConstants.WEBWORK_CUSTOM_I18N_RESOURCES), ", ");
 
             while (bundleFiles.hasMoreTokens()) {
                 String name = bundleFiles.nextToken();
