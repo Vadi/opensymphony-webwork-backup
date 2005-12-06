@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.ActionContext;
@@ -111,7 +112,7 @@ public class WebWorkVelocityServlet extends VelocityServlet {
     private String getEncoding() {
         // todo look into converting this to using XWork/WebWork2 encoding rules
         try {
-            return Configuration.getString("webwork.i18n.encoding");
+            return Configuration.getString(WebWorkConstants.WEBWORK_I18N_ENCODING);
         } catch (IllegalArgumentException e) {
             return RuntimeSingleton.getString(RuntimeSingleton.OUTPUT_ENCODING, DEFAULT_OUTPUT_ENCODING);
         }

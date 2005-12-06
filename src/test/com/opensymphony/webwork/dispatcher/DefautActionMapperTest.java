@@ -10,6 +10,7 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.opensymphony.webwork.WebWorkTestCase;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.dispatcher.mapper.DefaultActionMapper;
@@ -86,8 +87,8 @@ public class DefautActionMapperTest extends WebWorkTestCase {
     }
 
     public void testGetMappingWithNoExtension() throws Exception {
-        Object old = Configuration.get("webwork.action.extension");
-        Configuration.set("webwork.action.extension", "");
+        Object old = Configuration.get(WebWorkConstants.WEBWORK_ACTION_EXTENSION);
+        Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, "");
         try {
             req.setupGetParameterMap(new HashMap());
             req.setupGetRequestURI("/my/namespace/actionName");
@@ -103,7 +104,7 @@ public class DefautActionMapperTest extends WebWorkTestCase {
             assertNull(mapping.getMethod());
         }
         finally {
-            Configuration.set("webwork.action.extension", old);
+            Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, old);
         }
     }
 }

@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.TestConfigurationProvider;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 import com.opensymphony.xwork.ActionContext;
@@ -49,7 +50,7 @@ public class FormTagTest extends AbstractUITagTest {
     public void testFormTagWithDifferentActionExtension() throws Exception {
         request.setupGetServletPath("/testNamespace/testNamespaceAction");
         String oldConfiguration = (String) Configuration.get("webwork.action.extension");
-        Configuration.set("webwork.action.extension", "jspa");
+        Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, "jspa");
 
         FormTag tag = new FormTag();
         tag.setPageContext(pageContext);
@@ -61,12 +62,12 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        Configuration.set("webwork.action.extension", oldConfiguration);
+        Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, oldConfiguration);
 
         verify(FormTag.class.getResource("Formtag-5.txt"));
 
         // set it back to the default
-        Configuration.set("webwork.action.extension", "action");
+        Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, "action");
     }
 
     /**

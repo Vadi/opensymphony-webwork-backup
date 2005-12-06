@@ -10,6 +10,7 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.WebWorkUtil;
+import com.opensymphony.webwork.WebWorkConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,7 +64,7 @@ public class ContextUtil {
         // We didn't make altSyntax static cause, if so, webwork.configuration.xml.reload will not work
         // plus the Configuration implementation should cache the properties, which WW's
         // configuration implementation does
-        boolean altSyntax = "true".equals(Configuration.getString("webwork.tag.altSyntax"));
+        boolean altSyntax = "true".equals(Configuration.getString(WebWorkConstants.WEBWORK_TAG_ALTSYNTAX));
         return altSyntax ||(
                 (context.containsKey("useAltSyntax") && 
                         context.get("useAltSyntax") != null &&

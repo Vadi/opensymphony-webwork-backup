@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.util;
 
 import com.mockobjects.dynamic.Mock;
 import com.opensymphony.webwork.WebWorkTestCase;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import java.util.HashMap;
  * @version $Id$
  */
 public class UrlHelperTest extends WebWorkTestCase {
+
     public void testBuildWithRootContext() {
         String expectedUrl = "/MyAction.action";
 
@@ -124,8 +126,8 @@ public class UrlHelperTest extends WebWorkTestCase {
 
         String expectedString = "https://www.mydomain.com:7002/mywebapp/MyAction.action?foo=bar&amp;hello=earth&amp;hello=mars";
 
-        Configuration.set("webwork.url.http.port", "7001");
-        Configuration.set("webwork.url.https.port", "7002");
+        Configuration.set(WebWorkConstants.WEBWORK_URL_HTTP_PORT, "7001");
+        Configuration.set(WebWorkConstants.WEBWORK_URL_HTTPS_PORT, "7002");
 
         Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
         mockHttpServletRequest.expectAndReturn("getServerName", "www.mydomain.com");
@@ -153,8 +155,8 @@ public class UrlHelperTest extends WebWorkTestCase {
 
         String expectedString = "http://www.mydomain.com:7001/mywebapp/MyAction.action?foo=bar&amp;hello=earth&amp;hello=mars";
 
-        Configuration.set("webwork.url.http.port", "7001");
-        Configuration.set("webwork.url.https.port", "7002");
+        Configuration.set(WebWorkConstants.WEBWORK_URL_HTTP_PORT, "7001");
+        Configuration.set(WebWorkConstants.WEBWORK_URL_HTTPS_PORT, "7002");
 
         Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
         mockHttpServletRequest.expectAndReturn("getServerName", "www.mydomain.com");

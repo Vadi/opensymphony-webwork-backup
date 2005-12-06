@@ -6,6 +6,7 @@ package com.opensymphony.webwork.dispatcher.multipart;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.WebWorkRequestWrapper;
+import com.opensymphony.webwork.WebWorkConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -53,7 +54,7 @@ public class MultiPartRequestWrapper extends WebWorkRequestWrapper {
         if (request instanceof MultiPartRequest) {
             multi = (MultiPartRequest) request;
         } else {
-            String parser = Configuration.getString("webwork.multipart.parser");
+            String parser = Configuration.getString(WebWorkConstants.WEBWORK_MULTIPART_PARSER);
 
             // If it's not set, use Pell
             if (parser.equals("")) {

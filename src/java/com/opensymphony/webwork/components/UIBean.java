@@ -5,6 +5,7 @@ import com.opensymphony.webwork.components.template.TemplateEngine;
 import com.opensymphony.webwork.components.template.TemplateEngineManager;
 import com.opensymphony.webwork.components.template.TemplateRenderingContext;
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
@@ -333,7 +334,7 @@ public abstract class UIBean extends Component {
 
         // Default template set
         if ((templateDir == null) || (templateDir.equals(""))) {
-            templateDir = Configuration.getString("webwork.ui.templateDir");
+            templateDir = Configuration.getString(WebWorkConstants.WEBWORK_UI_TEMPLATEDIR);
         }
 
         // Defaults to 'template'
@@ -366,7 +367,7 @@ public abstract class UIBean extends Component {
 
         // Default theme set
         if ((theme == null) || (theme.equals(""))) {
-            theme = Configuration.getString("webwork.ui.theme");
+            theme = Configuration.getString(WebWorkConstants.WEBWORK_UI_THEME);
         }
 
         return theme;

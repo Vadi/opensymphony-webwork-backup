@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.views.xslt;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
@@ -49,7 +50,7 @@ public class XSLTResult implements Result {
 
     public XSLTResult() {
         templatesCache = new HashMap();
-        noCache = Configuration.getString("webwork.xslt.nocache").trim().equalsIgnoreCase("true");
+        noCache = Configuration.getString(WebWorkConstants.WEBWORK_XSLT_NOCACHE).trim().equalsIgnoreCase("true");
     }
 
 

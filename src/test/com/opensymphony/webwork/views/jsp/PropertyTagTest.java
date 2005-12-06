@@ -8,6 +8,7 @@ import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkTestCase;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -148,8 +149,8 @@ public class PropertyTagTest extends WebWorkTestCase {
 
     public void testWithAltSyntax1() throws Exception {
         // setups
-        Configuration.set("webwork.tag.altSyntax", "true");
-        assertEquals(Configuration.get("webwork.tag.altSyntax"), "true");
+        Configuration.set(WebWorkConstants.WEBWORK_TAG_ALTSYNTAX, "true");
+        assertEquals(Configuration.get(WebWorkConstants.WEBWORK_TAG_ALTSYNTAX), "true");
 
         Foo foo = new Foo();
         foo.setTitle("tm_jee");
@@ -177,8 +178,8 @@ public class PropertyTagTest extends WebWorkTestCase {
 
     public void testWithAltSyntax2() throws Exception {
         // setups
-        Configuration.set("webwork.tag.altSyntax", "true");
-        assertEquals(Configuration.get("webwork.tag.altSyntax"), "true");
+        Configuration.set(WebWorkConstants.WEBWORK_TAG_ALTSYNTAX, "true");
+        assertEquals(Configuration.get(WebWorkConstants.WEBWORK_TAG_ALTSYNTAX), "true");
 
         Foo foo = new Foo();
         foo.setTitle("tm_jee");
@@ -206,8 +207,8 @@ public class PropertyTagTest extends WebWorkTestCase {
 
     public void testWithoutAltSyntax1() throws Exception {
         //      setups
-        Configuration.set("webwork.tag.altSyntax", "false");
-        assertEquals(Configuration.get("webwork.tag.altSyntax"), "false");
+        Configuration.set(WebWorkConstants.WEBWORK_TAG_ALTSYNTAX, "false");
+        assertEquals(Configuration.get(WebWorkConstants.WEBWORK_TAG_ALTSYNTAX), "false");
 
         Foo foo = new Foo();
         foo.setTitle("tm_jee");
@@ -236,8 +237,8 @@ public class PropertyTagTest extends WebWorkTestCase {
 
     public void testWithoutAltSyntax2() throws Exception {
         //      setups
-        Configuration.set("webwork.tag.altSyntax", "false");
-        assertEquals(Configuration.get("webwork.tag.altSyntax"), "false");
+        Configuration.set(WebWorkConstants.WEBWORK_TAG_ALTSYNTAX, "false");
+        assertEquals(Configuration.get(WebWorkConstants.WEBWORK_TAG_ALTSYNTAX), "false");
 
         Foo foo = new Foo();
         foo.setTitle("tm_jee");

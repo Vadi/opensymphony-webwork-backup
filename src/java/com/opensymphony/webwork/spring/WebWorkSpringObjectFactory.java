@@ -5,6 +5,7 @@ package com.opensymphony.webwork.spring;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.ObjectFactoryInitializable;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.xwork.spring.SpringObjectFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,7 +42,7 @@ public class WebWorkSpringObjectFactory extends SpringObjectFactory implements O
         
         this.setApplicationContext(appContext);
 
-        String autoWire = Configuration.getString("webwork.objectFactory.spring.autoWire");
+        String autoWire = Configuration.getString(WebWorkConstants.WEBWORK_OBJECTFACTORY_SPRING_AUTOWIRE);
         int type = AutowireCapableBeanFactory.AUTOWIRE_BY_NAME;   // default
         if ("name".equals(autoWire)) {
             type = AutowireCapableBeanFactory.AUTOWIRE_BY_NAME;

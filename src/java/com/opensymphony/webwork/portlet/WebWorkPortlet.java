@@ -5,6 +5,7 @@ package com.opensymphony.webwork.portlet;
 
 import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.portlet.context.PortletContext;
 import com.opensymphony.webwork.portlet.util.PortletMessaging;
@@ -50,7 +51,7 @@ public class WebWorkPortlet extends GenericPortlet implements WebWorkPortletStat
     private Map cheatRequestMap = null;
 
     public void init() throws PortletException {
-        if ("true".equalsIgnoreCase(Configuration.getString("webwork.configuration.xml.reload"))) {
+        if ("true".equalsIgnoreCase(Configuration.getString(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD))) {
             FileManager.setReloadingConfigs(true);
         }
 
