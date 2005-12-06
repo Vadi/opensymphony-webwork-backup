@@ -6,6 +6,7 @@ package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.util.ClassLoaderUtil;
 import com.opensymphony.webwork.WebWorkStatics;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
@@ -262,7 +263,7 @@ public class
             resourcePath = packagePrefix + name;
         }
 
-        String enc = (String) Configuration.get("webwork.i18n.encoding");
+        String enc = (String) Configuration.get(WebWorkConstants.WEBWORK_I18N_ENCODING);
         resourcePath = URLDecoder.decode(resourcePath, enc);
 
         return ClassLoaderUtil.getResourceAsStream(resourcePath, getClass());

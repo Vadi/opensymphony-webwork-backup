@@ -5,6 +5,7 @@ import com.opensymphony.module.sitemesh.Page;
 import com.opensymphony.module.sitemesh.filter.PageFilter;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.xwork.ActionContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -67,7 +68,7 @@ public class VelocityPageFilter extends PageFilter {
     }
 
     protected String getEncoding() {
-        String encoding = (String) Configuration.get("webwork.i18n.encoding");
+        String encoding = (String) Configuration.get(WebWorkConstants.WEBWORK_I18N_ENCODING);
         if (encoding == null) {
             encoding = System.getProperty("file.encoding");
         }

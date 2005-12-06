@@ -3,6 +3,7 @@ package com.opensymphony.webwork.dispatcher.mapper;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.ServletRedirectResult;
 import com.opensymphony.webwork.util.PrefixTrie;
+import com.opensymphony.webwork.WebWorkConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
@@ -225,7 +226,7 @@ public class DefaultActionMapper implements ActionMapper {
      * Returns null if no extension is specified.
      */
     static String getExtension() {
-        String extension = (String) Configuration.get("webwork.action.extension");
+        String extension = (String) Configuration.get(WebWorkConstants.WEBWORK_ACTION_EXTENSION);
         return extension.equals("") ? null : extension;
     }
 

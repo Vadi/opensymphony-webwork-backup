@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.JspSupportServlet;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
@@ -123,7 +124,7 @@ public class VelocityResult extends WebWorkResultSupport {
      * @return The encoding associated with this template (defaults to the value of 'webwork.i18n.encoding' property)
      */
     protected String getEncoding(String templateLocation) {
-        String encoding = (String) Configuration.get("webwork.i18n.encoding");
+        String encoding = (String) Configuration.get(WebWorkConstants.WEBWORK_I18N_ENCODING);
         if (encoding == null) {
             encoding = System.getProperty("file.encoding");
         }

@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.dispatcher.mapper;
 
 import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.xwork.ObjectFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +25,7 @@ public class ActionMapperFactory {
 
     public static ActionMapper getMapper() {
         synchronized (classMap) {
-            String clazz = (String) Configuration.get("webwork.mapper.class");
+            String clazz = (String) Configuration.get(WebWorkConstants.WEBWORK_MAPPER_CLASS);
             try {
                 ActionMapper mapper = (ActionMapper) classMap.get(clazz);
                 if (mapper == null) {

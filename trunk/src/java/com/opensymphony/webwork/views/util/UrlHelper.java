@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.views.util;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -50,14 +51,14 @@ public class UrlHelper {
         int httpPort = DEFAULT_HTTP_PORT;
 
         try {
-            httpPort = Integer.parseInt((String) Configuration.get("webwork.url.http.port"));
+            httpPort = Integer.parseInt((String) Configuration.get(WebWorkConstants.WEBWORK_URL_HTTP_PORT));
         } catch (Exception ex) {
         }
 
         int httpsPort = DEFAULT_HTTPS_PORT;
 
         try {
-            httpsPort = Integer.parseInt((String) Configuration.get("webwork.url.https.port"));
+            httpsPort = Integer.parseInt((String) Configuration.get(WebWorkConstants.WEBWORK_URL_HTTPS_PORT));
         } catch (Exception ex) {
         }
 
