@@ -1,12 +1,11 @@
 package com.opensymphony.webwork.components;
 
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.Level;
+import java.util.Locale;
 
 /**
  * <!-- START SNIPPET: javadoc -->
@@ -16,7 +15,7 @@ import org.apache.log4j.Level;
  * Therefore a alternative implementation was added, utilizing jscalendar. To use this, set the template parameter
  * to "datepicker_js.ftl"</p>
  *
- * <b>Important</>: Be sure to set the id param is you use the jscalendar implementation.</p>
+ * <b>Important:</b> Be sure to set the id param is you use the jscalendar implementation.</p>
  *
  * Following a reference for the format parameter (copied from jscalendar documentation:
  * <table border=0><tr><td valign=top ></td></tr>
@@ -48,7 +47,7 @@ import org.apache.log4j.Level;
  * <tr><td valign=top ><tt>%%</tt> </td><td valign=top >a literal <tt>%</tt> character
  * </td></tr></table><p>
  *
- * <b>Note</>: The this element only works within &lt;ww:form&gt; tags, not plain HTML form.
+ * <b>Note:</b> The this element only works within &lt;ww:form&gt; tags, not plain HTML form.
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
@@ -80,11 +79,6 @@ import org.apache.log4j.Level;
   */
 public class DatePicker extends TextField {
 
-    /**
-     * log4j reference
-     */
-    private static final Logger log = Logger.getLogger(DatePicker.class);
-
     final public static String TEMPLATE = "datepicker";
 
     protected String language;
@@ -105,6 +99,11 @@ public class DatePicker extends TextField {
 
         if (language != null) {
             addParameter("language", findString(language));
+        } else {
+            final Locale locale = (Locale) getStack().getContext().get(ActionContext.LOCALE);
+            if (locale != null) {
+                addParameter("language", locale.getLanguage());
+            }
         }
 
         if (format != null) {
@@ -122,7 +121,7 @@ public class DatePicker extends TextField {
     }
 
     /**
-     * @ww.tagattribute required="false" type="String" default="en"
+     * @ww.tagattribute required="false" type="String" default="The language of the current Locale"
      * description="The language to use for the widget texts and localization presets. <b>Only valid for jscalendar</b>"
      */
     public void setLanguage(String language) {
