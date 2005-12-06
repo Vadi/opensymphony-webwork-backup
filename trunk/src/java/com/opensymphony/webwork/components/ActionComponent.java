@@ -71,7 +71,7 @@ import java.util.Map;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * <div>The following action tag will execute result and include it in this page</div>div>
+ *  <div>The following action tag will execute result and include it in this page</div>
  *	<br />
  *	<ww:action name="actionTagAction" executeResult="true" />
  *  <br />
