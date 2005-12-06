@@ -13,8 +13,6 @@ import java.io.Writer;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * <b>NOTE: NON-JSP-TAG</b>
- * 
  * <p>This tag is used to create a URL.</p>
  *
  * <p>You can use the "param" tag inside the body to provide

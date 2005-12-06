@@ -16,8 +16,6 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * <B>NOTE: NON-JSP-TAG</b>
- * 
  * <p>Render a I18n text message.</p>
  *
  * <p>The message must be in a resource bundle

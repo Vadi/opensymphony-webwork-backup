@@ -14,8 +14,6 @@ import java.util.Map;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * <b>NOTE: NON-JSP-TAG</b>
- * 
  * <p>Renders an debug tag.</P>
  * <!-- END SNIPPET: javadoc -->
  *
