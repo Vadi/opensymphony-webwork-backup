@@ -11,13 +11,14 @@ import java.util.Locale;
  * <!-- START SNIPPET: javadoc -->
  * Renders datepicker element.</p>
  *
- * Default implementation uses tigracalendar, which is quite unflexible especially in terms of i18n.
- * Therefore a alternative implementation was added, utilizing jscalendar. To use this, set the template parameter
- * to "datepicker_js.ftl"</p>
+ * Implementation was changed in WebWork 2.2 to use <a href="http://www.dynarch.com/projects/calendar/">jscalendar</a> instead of
+ * non locale aware tigracalendar. Check locale and format settings if you used the old widget in your applications.
+ * Be sure to include proper stylesheet as described below if you don't want the calender widget to look transparent.</p>
  *
- * <b>Important:</b> Be sure to set the id param is you use the jscalendar implementation.</p>
+ * <b>Important:</b> Be sure to set the id attributs if not used within a &lt;ww:form /&gt; tag,
+ * as it takes care of setting the id for you, being required to copy selected date to text input element.</p>
  *
- * Following a reference for the format parameter (copied from jscalendar documentation:
+ * Following a reference for the format parameter (copied from jscalendar documentation):
  * <table border=0><tr><td valign=top ></td></tr>
  * <tr><td valign=top ><tt>%a</tt> </td><td valign=top >abbreviated weekday name </td></tr>
  * <tr><td valign=top ><tt>%A</tt> </td><td valign=top >full weekday name </td></tr>
@@ -46,22 +47,25 @@ import java.util.Locale;
  * <tr><td valign=top ><tt>%Y</tt> </td><td valign=top >year including the century ( ex. 1979 )</td></tr>
  * <tr><td valign=top ><tt>%%</tt> </td><td valign=top >a literal <tt>%</tt> character
  * </td></tr></table><p>
- *
- * <b>Note:</b> The this element only works within &lt;ww:form&gt; tags, not plain HTML form.
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
  *
  * <pre>
  * <!-- START SNIPPET: expl1 -->
- * &lt;ww:datepicker name="order.date" /&gt;
- * &lt;ww:datepicker name="invoice.date" template="datepicker_js.ftl" language="de" format="%d.%m.&Y %H:%M" showstime="true" /&gt;
+ * Date in application's locale format:
+ *     &lt;ww:datepicker name="order.date" id="order.date" /&gt;
+ * Date in german locale, with german texts:
+ *     &lt;ww:datepicker name="delivery.date" id="delivery.date" template="datepicker_js.ftl" language="de" /&gt;
+ * Date in german locale, with german texts and custom date format, including time:
+ *     &lt;ww:datepicker name="invoice.date" id="invoice.date" template="datepicker_js.ftl" language="de" format="%d. %b &Y %H:%M" showstime="true" /&gt;
  * <!-- END SNIPPET: expl1 -->
  * </pre>
  * <p/>
  * <!-- START SNIPPET: expldesc2 -->
- * If you use jscalendar, you might want to use one of the standard stylesheets provided with jscalendar. For example,
- * to activate the calendar-blue style, include the following in your stylesheet definition:
+ * If you use this jscalendar based datepicker widget, you might want to use one of the standard stylesheets provided
+ * with jscalendar (all distribution stylesheets are included in webwork jar). For example, to activate the
+ * calendar-blue style, include the following in your stylesheet definition:
  * <!-- END SNIPPET: expldesc2 -->
  * <pre>
  * <!-- START SNIPPET: expl2 -->
@@ -122,7 +126,7 @@ public class DatePicker extends TextField {
 
     /**
      * @ww.tagattribute required="false" type="String" default="The language of the current Locale"
-     * description="The language to use for the widget texts and localization presets. <b>Only valid for jscalendar</b>"
+     * description="The language to use for the widget texts and localization presets."
      */
     public void setLanguage(String language) {
         this.language = language;
@@ -130,7 +134,7 @@ public class DatePicker extends TextField {
 
     /**
      * @ww.tagattribute required="false" type="String" default="Dateformat specified by language preset (%Y/%m/%d for en)"
-     * description="The format to use for date field. <b>Only valid for jscalendar</b>"
+     * description="The format to use for date field."
      */
     public void setFormat(String format) {
         this.format = format;
@@ -138,7 +142,7 @@ public class DatePicker extends TextField {
 
     /**
      * @ww.tagattribute required="false" type="String" default="false"
-     * description="Whether time selector is to be shown. Valid values are &quot;true&quot;, &quot;false&quot;, &quot;24&quot; and &quot;12&quot;. <b>Only valid for jscalendar</b>"
+     * description="Whether time selector is to be shown. Valid values are &quot;true&quot;, &quot;false&quot;, &quot;24&quot; and &quot;12&quot;."
      */
     public void setShowstime(String showstime) {
         this.showstime = showstime;
@@ -146,7 +150,7 @@ public class DatePicker extends TextField {
 
     /**
      * @ww.tagattribute required="false" type="Boolean" default="true"
-     * description="Whether to use selected value after single or double click. <b>Only valid for jscalendar</b>"
+     * description="Whether to use selected value after single or double click."
      */
     public void setSingleclick(String singleclick) {
         this.singleclick = singleclick;
