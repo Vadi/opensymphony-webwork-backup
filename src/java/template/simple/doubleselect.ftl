@@ -36,17 +36,16 @@
     for (i = 0; i < (${parameters.listSize} + ${startCount}); i++)
     ${parameters.name}Group[i] = new Array();
 
-<#list items as item>
-    <#assign trash = stack.push(item)/>
+<@ww.iterator value="parameters.list">
     <#if parameters.listKey?exists>
-        <#assign itemKey = stack.findValue(parameters.listKey)/>
+        <#assign itemKey = stack.findString(parameters.listKey)/>
     <#else>
-        <#assign itemKey = item/>
+        <#assign itemKey = stack.findString('top')/>
     </#if>
     <#if parameters.listValue?exists>
-        <#assign itemValue = stack.findValue(parameters.listValue)/>
+        <#assign itemValue = stack.findString(parameters.listValue)/>
     <#else>
-        <#assign itemValue = item/>
+        <#assign itemValue = stack.findString('top')/>
     </#if>
     <#assign doubleItems = stack.findValue(parameters.doubleList)/>
     <#assign doubleItemCount = 0/>
@@ -69,25 +68,22 @@
         </#list>
         <#assign itemCount = itemCount + 1/>
     </#if>
-    <#assign trash = stack.pop()/>
-</#list>
+</@ww.iterator>
 
     var ${parameters.name}Temp = document.${parameters.formName}.${parameters.doubleName};
 <#assign itemCount = startCount/>
 <#assign redirectTo = 0/>
-<#list items as item>
-    <#assign trash = stack.push(item)/>
+<@ww.iterator value="parameters.list">
     <#if parameters.listValue?exists>
-        <#assign itemValue = stack.findValue(parameters.listValue)/>
+        <#assign itemValue = stack.findString(parameters.listValue)/>
     <#else>
-        <#assign itemValue = item/>
+        <#assign itemValue = stack.findString('top')/>
     </#if>
     <#if tag.contains(parameters.nameValue, itemKey)>
         <#assign redirectTo = itemCount/>
     </#if>
     <#assign itemCount = itemCount + 1/>
-    <#assign trash = stack.pop()/>
-</#list>
+</@ww.iterator>
     ${parameters.name}Redirect(${redirectTo});
 
     function ${parameters.name}Redirect(x) {
