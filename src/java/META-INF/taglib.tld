@@ -2602,14 +2602,6 @@
            <description><![CDATA[whether the request parameters are to be included when the action is invoked]]></description>
 
       </attribute>
-      <attribute>
-         <name>id</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[id for referencing element. For UI and form tags it will be used as HTML id attribute]]></description>
-
-      </attribute>
 
    </tag>
    <tag>

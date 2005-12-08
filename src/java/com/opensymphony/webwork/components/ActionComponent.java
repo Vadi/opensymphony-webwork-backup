@@ -209,8 +209,8 @@ public class ActionComponent extends Component {
      * @ww.tagattribute required="false" type="String"
      * description="the id (if speficied) to put the action under stack's context."
      */
-    public String getId() {
-        return super.getId();
+    public void setId(String id) {
+        super.setId(id);
     }
 
     /**
