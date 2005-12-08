@@ -107,12 +107,14 @@ public class ActionComponent extends Component {
         this.res = res;
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         executeAction();
 
         if ((getId() != null) && (proxy != null)) {
             getStack().setValue("#attr['" + getId() + "']", proxy.getAction());
         }
+
+        return false;
     }
 
     private Map createExtraContext() {

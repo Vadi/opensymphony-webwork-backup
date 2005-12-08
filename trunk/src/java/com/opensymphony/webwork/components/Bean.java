@@ -89,8 +89,8 @@ public class Bean extends Component {
         super(stack);
     }
 
-    public void start(Writer writer) {
-        super.start(writer);
+    public boolean start(Writer writer) {
+        boolean result = super.start(writer);
 
         OgnlValueStack stack = getStack();
 
@@ -100,7 +100,7 @@ public class Bean extends Component {
         } catch (Exception e) {
             log.error("Could not instantiate bean", e);
 
-            return;
+            return false;
         }
 
         // push bean on stack
@@ -111,13 +111,14 @@ public class Bean extends Component {
             getStack().getContext().put(getId(), bean);
         }
 
+        return result;
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         OgnlValueStack stack = getStack();
         stack.pop();
 
-        super.end(writer, body);
+        return super.end(writer, body);
     }
 
     public void addParameter(String key, Object value) {

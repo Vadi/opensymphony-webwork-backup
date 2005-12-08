@@ -29,26 +29,21 @@
 <#if parameters.emptyOption?exists>
     <option value=""></option>
 </#if>
-<#assign items = parameters.list/>
-<#if items?exists>
-    <#list items as item>
-        <#assign trash = stack.push(item)/>
+<@ww.iterator value="parameters.list">
         <#if parameters.listKey?exists>
-            <#assign itemKey = stack.findValue(parameters.listKey)/>
+            <#assign itemKey = stack.findString(parameters.listKey)/>
         <#else>
-            <#assign itemKey = item/>
+            <#assign itemKey = stack.findString('top')/>
         </#if>
         <#if parameters.listValue?exists>
-            <#assign itemValue = stack.findValue(parameters.listValue)/>
+            <#assign itemValue = stack.findString(parameters.listValue)/>
         <#else>
-            <#assign itemValue = item/>
+            <#assign itemValue = stack.findString('top')/>
         </#if>
     <option value="${itemKey?html}"<#rt/>
         <#if tag.contains(parameters.nameValue, itemKey) == true>
  selected="selected"<#rt/>
         </#if>
     >${itemValue?html}</option><#lt/>
-        <#assign trash = stack.pop()/>
-    </#list>
-</#if>
+</@ww.iterator>
 </select>

@@ -44,8 +44,8 @@ public class Debug extends UIBean {
         return TEMPLATE;
     }
 
-    public void start(Writer writer) {
-        super.start(writer);
+    public boolean start(Writer writer) {
+        boolean result = super.start(writer);
 
         OgnlValueStack stack = getStack();
         Iterator iter = stack.getRoot().iterator();
@@ -62,6 +62,8 @@ public class Debug extends UIBean {
         }
 
         addParameter("stackValues", stackValues);
+
+        return result;
     }
 
     private class DebugMapEntry implements Map.Entry {

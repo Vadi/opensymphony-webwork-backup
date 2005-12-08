@@ -112,12 +112,14 @@ public class AppendIterator extends Component implements UnnamedParametric {
 		super(stack);
 	}
 	
-	public void start(Writer writer) {
+	public boolean start(Writer writer) {
 		_parameters = new ArrayList();
 		appendIteratorFilter = new AppendIteratorFilter();
-	}
+
+        return super.start(writer);
+    }
 	
-	public void end(Writer writer, String body) {
+	public boolean end(Writer writer, String body) {
 		
 		for (Iterator paramEntries = _parameters.iterator(); paramEntries.hasNext(); ) {
 				
@@ -136,7 +138,9 @@ public class AppendIterator extends Component implements UnnamedParametric {
 		}
 		
 		appendIteratorFilter = null;
-	}
+
+        return super.end(writer, body);
+    }
 
 	// UnnamedParametric implementation --------------------------------------
 	public void addParameter(Object value) {

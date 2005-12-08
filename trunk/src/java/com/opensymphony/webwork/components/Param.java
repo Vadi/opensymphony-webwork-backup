@@ -60,7 +60,7 @@ public class Param extends Component {
         super(stack);
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         Component component = findAncestor(Component.class);
         if (value != null) {
             if (component instanceof UnnamedParametric) {
@@ -83,7 +83,7 @@ public class Param extends Component {
             }
         }
 
-        super.end(writer, "");
+        return super.end(writer, "");
     }
 
     public boolean usesBody() {

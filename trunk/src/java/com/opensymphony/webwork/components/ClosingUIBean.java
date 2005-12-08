@@ -35,8 +35,8 @@ public abstract class ClosingUIBean extends UIBean {
         this.openTemplate = openTemplate;
     }
 
-    public void start(Writer writer) {
-        super.start(writer);
+    public boolean start(Writer writer) {
+        boolean result = super.start(writer);
         try {
             evaluateParams();
 
@@ -45,5 +45,7 @@ public abstract class ClosingUIBean extends UIBean {
             LOG.error("Could not open template", e);
             e.printStackTrace();
         }
+
+        return result;
     }
 }

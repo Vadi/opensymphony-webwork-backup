@@ -46,6 +46,8 @@ public class WebWorkModels {
     protected TokenModel token;
     protected URLModel url;
     protected WebTableModel table;
+    protected PropertyModel property;
+    protected IteratorModel iterator;
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         this.stack = stack;
@@ -299,5 +301,21 @@ public class WebWorkModels {
         }
 
         return set;
+    }
+
+    public PropertyModel getProperty() {
+        if (property == null) {
+            property = new PropertyModel(stack, req, res);
+        }
+
+        return property;
+    }
+
+    public IteratorModel getIterator() {
+        if (iterator == null) {
+            iterator = new IteratorModel(stack, req, res);
+        }
+
+        return iterator;
     }
 }

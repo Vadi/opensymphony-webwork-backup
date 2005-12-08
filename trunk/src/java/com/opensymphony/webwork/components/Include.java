@@ -88,7 +88,7 @@ public class Include extends Component {
         this.res = res;
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         String page = findString(value, "value", "You must specify the URL to include. Example: /foo.jsp");
         StringBuffer urlBuf = new StringBuffer();
 
@@ -133,7 +133,8 @@ public class Include extends Component {
         } catch (Exception e) {
             LogFactory.getLog(getClass()).warn("Exception thrown during include of " + result, e);
         }
-        super.end(writer, body);
+
+        return super.end(writer, body);
     }
 
     /**

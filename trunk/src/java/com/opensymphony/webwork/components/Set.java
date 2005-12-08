@@ -56,7 +56,7 @@ public class Set extends Component {
         super(stack);
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         OgnlValueStack stack = getStack();
 
         if (value == null) {
@@ -88,7 +88,7 @@ public class Set extends Component {
             stack.getContext().put(name, o);
         }
 
-        super.end(writer, body);
+        return super.end(writer, body);
     }
 
     /**

@@ -125,13 +125,15 @@ public class MergeIterator extends Component implements UnnamedParametric {
 		super(stack);
 	}
 	
-	public void start(Writer writer) {
+	public boolean start(Writer writer) {
 		
 		mergeIteratorFilter = new MergeIteratorFilter();
 		_parameters = new ArrayList();
-	}
+
+        return super.start(writer);
+    }
 	
-	public void end(Writer writer, String body) {
+	public boolean end(Writer writer, String body) {
 		
 		for (Iterator parametersIterator = _parameters.iterator(); parametersIterator.hasNext(); ) {
 			Object iteratorEntryObj = parametersIterator.next();
@@ -150,7 +152,9 @@ public class MergeIterator extends Component implements UnnamedParametric {
 		}
 		
 		mergeIteratorFilter = null;
-	}
+
+        return super.end(writer, body);
+    }
 
     /**
      * @ww.tagattribute required="false" 
