@@ -73,6 +73,10 @@ import java.util.Map;
  *	<br />
  *	<ww:action name="actionTagAction" executeResult="true" />
  *  <br />
+ *  <div>The following action tag will do the same as above, but invokes method specialMethod in action</div>
+ *	<br />
+ *	<ww:action name="actionTagAction!specialMethod" executeResult="true" />
+ *  <br />
  *  <div>The following action tag will not execute result, but put a String in request scope
  *       under an id "stringByAction" which will be retrieved using property tag</div>
  *  <ww:action name="actionTagAction!default" executeResult="false" />
@@ -176,6 +180,19 @@ public class ActionComponent extends Component {
             throw new RuntimeException(message);
         }
 
+        // handle "name!method" convention.
+        final String actionName;
+        final String methodName;
+
+        int exclamation = actualName.lastIndexOf("!");
+        if (exclamation != -1) {
+            actionName = actualName.substring(0, exclamation);
+            methodName = actualName.substring(exclamation + 1);
+        } else {
+            actionName = actualName;
+            methodName = null;
+        }
+
         String namespace;
 
         if (this.namespace == null) {
@@ -188,7 +205,10 @@ public class ActionComponent extends Component {
         OgnlValueStack stack = getStack();
         // execute at this point, after params have been set
         try {
-            proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actualName, createExtraContext(), executeResult);
+            proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, createExtraContext(), executeResult);
+            if (null != methodName) {
+                proxy.setMethod(methodName);
+            }
             // set the new stack into the request for the taglib to use
             req.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, proxy.getInvocation().getStack());
             proxy.execute();
