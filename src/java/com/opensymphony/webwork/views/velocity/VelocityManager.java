@@ -511,6 +511,7 @@ public class VelocityManager {
         addDirective(sb, com.opensymphony.webwork.views.velocity.components.ParamDirective.class);
         addDirective(sb, PasswordDirective.class);
         addDirective(sb, PushDirective.class);
+        addDirective(sb, PropertyDirective.class);
         addDirective(sb, RadioDirective.class);
         addDirective(sb, SelectDirective.class);
         addDirective(sb, SetDirective.class);

@@ -270,7 +270,7 @@ public abstract class UIBean extends Component {
     protected String onselect;
     protected String onchange;
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         evaluateParams();
         try {
             super.end(writer, body);
@@ -279,6 +279,7 @@ public abstract class UIBean extends Component {
             e.printStackTrace();
         }
 
+        return false;
     }
 
     /**

@@ -51,12 +51,12 @@ public class Panel extends Div {
         return TEMPLATE_CLOSE;
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         TabbedPanel tabbedPanel = ((TabbedPanel) findAncestor(TabbedPanel.class));
         subscribeTopicName = tabbedPanel.getTopicName();
         tabbedPanel.addTab(this);
 
-        super.end(writer, body);
+        return super.end(writer, body);
     }
 
     public void evaluateExtraParams() {

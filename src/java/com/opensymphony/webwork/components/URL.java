@@ -97,7 +97,9 @@ public class URL extends Component {
         this.res = res;
     }
 
-    public void start(Writer writer) {
+    public boolean start(Writer writer) {
+        boolean result = super.start(writer);
+        
         if (value != null) {
             value = findString(value);
         }
@@ -134,9 +136,11 @@ public class URL extends Component {
             LOG.warn("Unable to put request parameters (" + req.getQueryString() + ") into parameter map.", e);
         }
 
+
+        return result;
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         String scheme = req.getScheme();
 
         if (this.scheme != null) {
@@ -167,7 +171,7 @@ public class URL extends Component {
             }
         }
 
-        super.end(writer, body);
+        return super.end(writer, body);
     }
 
     /**

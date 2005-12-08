@@ -63,10 +63,17 @@ public class Component {
         return componentStack;
     }
 
-    public void start(Writer writer) {
+    /**
+     * @return true if the body should be evaluated
+     */
+    public boolean start(Writer writer) {
+        return true;
     }
 
-    public void end(Writer writer, String body) {
+    /**
+     * @return true if the body should be evaluated again
+     */
+    public boolean end(Writer writer, String body) {
         assert(body != null);
 
         try {
@@ -75,6 +82,8 @@ public class Component {
             throw new RuntimeException("IOError: " + e.getMessage(), e);
         }
         getComponentStack().pop();
+
+        return false;
     }
 
     public Component findAncestor(Class clazz) {

@@ -51,14 +51,24 @@ public class CallbackWriter extends Writer implements TransformControl {
     }
 
     public int onStart() throws TemplateModelException, IOException {
-        return EVALUATE_BODY;
+        boolean result = bean.start(this);
+
+        if (result) {
+            return EVALUATE_BODY;
+        } else {
+            return SKIP_BODY;
+        }
     }
 
     public int afterBody() throws TemplateModelException, IOException {
         afterBody = true;
-        bean.end(this, bean.usesBody() ? body.toString() : "");
+        boolean result = bean.end(this, bean.usesBody() ? body.toString() : "");
 
-        return END_EVALUATION;
+        if (result) {
+            return REPEAT_EVALUATION;
+        } else {
+            return END_EVALUATION;
+        }
     }
 
     public void onError(Throwable throwable) throws Throwable {

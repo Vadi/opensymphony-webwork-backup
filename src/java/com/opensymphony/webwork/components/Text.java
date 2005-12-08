@@ -84,7 +84,7 @@ public class Text extends Component implements Param.UnnamedParametric {
         this.name = name;
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         actualName = findString(name, "name", "You must specify the i18n key. Example: welcome.header");
         String defaultMessage;
         if (TextUtils.stringSet(body)) {
@@ -118,7 +118,8 @@ public class Text extends Component implements Param.UnnamedParametric {
                 LOG.error("Could not write out URL tag", e);
             }
         }
-        super.end(writer, "");
+
+        return super.end(writer, "");
     }
 
     public void addParameter(String key, Object value) {

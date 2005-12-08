@@ -36,7 +36,6 @@ public abstract class TagModel implements TemplateTransformModel {
         Map basicParams = convertParams(params);
         bean.copyParams(basicParams);
         bean.addAllParameters(getComplexParams(params));
-        bean.start(writer);
         return new CallbackWriter(bean, writer);
     }
 

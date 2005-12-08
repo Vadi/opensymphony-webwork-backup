@@ -103,8 +103,8 @@ public class Push extends Component {
         super(stack);
     }
 
-    public void start(Writer writer) {
-        super.start(writer);
+    public boolean start(Writer writer) {
+        boolean result = super.start(writer);
 
         OgnlValueStack stack = getStack();
 
@@ -114,16 +114,18 @@ public class Push extends Component {
         } else {
             pushed = false; // need to ensure push is assigned, otherwise we may have a leftover value
         }
+
+        return result;
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         OgnlValueStack stack = getStack();
 
         if (pushed && (stack != null)) {
             stack.pop();
         }
 
-        super.end(writer, body);
+        return super.end(writer, body);
     }
 
     /**

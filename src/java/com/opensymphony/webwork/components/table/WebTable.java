@@ -39,7 +39,7 @@ public class WebTable extends GenericUIBean {
         return TEMPLATE;
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         if (sortableAttr && model instanceof SortableTableModel) {
             LOG.debug("we are looking for " + getSortColumnLinkName());
 
@@ -85,7 +85,7 @@ public class WebTable extends GenericUIBean {
             }
         }
 
-        super.end(writer, body);
+        return super.end(writer, body);
     }
 
     public WebTableColumn getColumn(int index) {

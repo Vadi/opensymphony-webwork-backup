@@ -53,8 +53,8 @@ public class I18n extends Component {
         super(stack);
     }
 
-    public void start(Writer writer) {
-        super.start(writer);
+    public boolean start(Writer writer) {
+        boolean result = super.start(writer);
 
         try {
             String name = this.findString(this.name, "name", "Resource bundle name is required. Example: foo or foo_en");
@@ -78,14 +78,16 @@ public class I18n extends Component {
             LOG.error(msg, e);
             throw new RuntimeException(msg);
         }
+
+        return result;
     }
 
-    public void end(Writer writer, String body) {
+    public boolean end(Writer writer, String body) {
         if (pushed) {
             getStack().pop();
         }
 
-        super.end(writer, body);
+        return super.end(writer, body);
     }
 
     /**
