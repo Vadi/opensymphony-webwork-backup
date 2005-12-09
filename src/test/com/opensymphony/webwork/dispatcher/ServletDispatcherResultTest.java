@@ -8,8 +8,8 @@ import com.mockobjects.dynamic.C;
 import com.mockobjects.dynamic.Mock;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkStatics;
+import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.xwork.ActionContext;
-import junit.framework.TestCase;
 import ognl.Ognl;
 
 import javax.servlet.RequestDispatcher;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author $author$
  * @version $Revision$
  */
-public class ServletDispatcherResultTest extends TestCase implements WebWorkStatics {
+public class ServletDispatcherResultTest extends WebWorkTestCase implements WebWorkStatics {
 
     public void testInclude() {
         ServletDispatcherResult view = new ServletDispatcherResult();
