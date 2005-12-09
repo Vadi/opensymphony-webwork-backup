@@ -5,7 +5,6 @@ import com.opensymphony.webwork.views.jsp.IteratorStatus;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import java.io.Writer;
-import java.io.IOException;
 import java.util.Iterator;
 
 /**
@@ -192,11 +191,13 @@ public class IteratorComponent extends Component {
         OgnlValueStack stack = getStack();
         stack.pop();
 
+/*
         try {
             writer.write(body);
         } catch (IOException e) {
             throw new RuntimeException("IOError: " + e.getMessage(), e);
         }
+*/
         if (iterator.hasNext()) {
             Object currentValue = iterator.next();
             stack.push(currentValue);
