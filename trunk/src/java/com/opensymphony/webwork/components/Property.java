@@ -47,7 +47,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Rene Gielen
  * @version $Revision$
  *
- * @ww.tag name="property" tld-body-content="empty"
+ * @ww.tag name="property" tld-body-content="empty" tld-tag-class="com.opensymphony.webwork.views.jsp.PropertyTag"
  * description="Print out expression which evaluates against the stack"
  */
 public class Property extends Component {

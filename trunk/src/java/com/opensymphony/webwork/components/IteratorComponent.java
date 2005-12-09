@@ -80,7 +80,7 @@ import java.util.Iterator;
  * <!-- END SNIPPET: example2code -->
  * </pre>
  *
- * <!--START SNIPPET: example2description -->
+ * <!--START SNIPPET: example3description -->
  *
  * <p> The next example will further demonstrate the use of the status attribute, using a DAO obtained from the action
  * class through OGNL, iterating over groups and their users (in a security context). The last() method indicates if the
@@ -133,7 +133,8 @@ import java.util.Iterator;
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @author tm_jee ( tm_jee(at)yahoo.co.uk )
  * @version $Revision$
- * @ww.tag name="iterator" tld-body-content="JSP" description="Iterate over a iterable value"
+ * @ww.tag name="iterator" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.IteratorTag"
+ * description="Iterate over a iterable value"
  */
 public class IteratorComponent extends Component {
     protected Iterator iterator;
