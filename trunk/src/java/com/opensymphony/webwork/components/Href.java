@@ -82,34 +82,7 @@ public class Href extends RemoteCallUIBean {
         super.evaluateExtraParams();
 
         /*
-        TODO: This code was added to help with Portlet suppoort, but it is not correct.Instead, it should consult with ActionMapper
-        TODO: When fixing todo above, check whether solution is to be applied to RemoteCallUIBean (rgielen)
-        if (href != null) {
-            String hrefValue = findString(href);
-
-            if (!TextUtils.stringSet(PortletContext.getContext().getActionURL())) {
-                addParameter("href", UrlHelper.buildUrl(hrefValue, request, response, null));
-            } else {
-
-                String actionExtension = (String) Configuration.get("webwork.action.extension");
-
-                if (actionExtension == null || "".equals(actionExtension)) {
-                    actionExtension = ".action";
-                } else {
-                    actionExtension = "." + actionExtension;
-                }
-
-                boolean isWebWorkAction = hrefValue.indexOf(actionExtension) >= 0;
-
-                if (isWebWorkAction) {
-                    sb.append(actionUrl).append("?wwXAction=.").append(hrefValue);
-                } else {
-                    sb.append(actionUrl).append("?wwLink=").append(hrefValue);
-                }
-
-                addParameter("href", sb.toString());
-            }
-        }
+        Moved the portlet related codes to Super Class RemoteCallUIBean -- Henry Hu  mail:hu_pengfei@yahoo.com.cn
         */
 
         if (notifyTopics != null) {
