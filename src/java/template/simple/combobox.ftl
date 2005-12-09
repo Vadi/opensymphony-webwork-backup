@@ -6,14 +6,14 @@
  disabled="disabled"<#rt/>
     </#if>
 >
-    <#list parameters.list as param>
-    <option value="${param?html}"<#rt/>
-        <#if parameters.name = param>
+    <@ww.iterator value="parameters.list">
+    <option value="${top?html}"<#rt/>
+        <#if parameters.name = top>
  selected="selected"<#rt/>
         </#if>
     ><#t/>
-            ${param?html}<#t/>
+            ${top?html}<#t/>
     </option><#lt/>
-    </#list>
+    </@ww.iterator>
 </select>
 </#if>
