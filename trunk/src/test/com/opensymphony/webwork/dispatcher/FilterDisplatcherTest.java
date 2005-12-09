@@ -4,6 +4,18 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
+import com.mockobjects.servlet.MockFilterChain;
+import com.mockobjects.servlet.MockFilterConfig;
+import com.mockobjects.servlet.MockHttpServletRequest;
+import com.mockobjects.servlet.MockHttpServletResponse;
+import com.mockobjects.servlet.MockServletContext;
+import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
+
 import junit.framework.TestCase;
 
 /**
@@ -38,5 +50,83 @@ public class FilterDisplatcherTest extends TestCase {
 		assertEquals(result4[1], "foo/bar/package2/");
 		assertEquals(result4[2], "foo/bar/package3/");
 		assertEquals(result4[3], "foo/bar/package4/");
+	}
+	
+	
+	public void testDoNotParseNonWebWorkRequest() throws Exception {
+		Configuration.set(WebWorkConstants.WEBWORK_MAPPER_CLASS, NullActionMapper.class.getName());
+	
+		MockFilterConfig config = new MockFilterConfig();
+		MockServletContext context = new MockServletContext();
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		MockFilterChain chain = new MockFilterChain();
+		
+		request.setupGetServletPath("/asd");
+		
+		DispatcherUtils.setInstance(new DoNothingDispatcherUtils(context));
+		
+		TestingFilterDispatcher dispatcher = new TestingFilterDispatcher();
+		dispatcher.doFilter(request, response, chain);
+		
+		assertFalse(dispatcher.getExecutedSetupContainer());
+		request.verify();
+		response.verify();
+		config.verify();
+		context.verify();
+		chain.verify();
+	}
+	
+	
+	public void testParseWebWorkRequest() throws Exception {
+		Configuration.set(WebWorkConstants.WEBWORK_MAPPER_CLASS, NullActionMapper.class.getName());
+		
+		MockFilterConfig config = new MockFilterConfig();
+		MockServletContext context = new MockServletContext();
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		MockFilterChain chain = new MockFilterChain();
+		
+		NullActionMapper.setActionMapping(new ActionMapping());
+		
+		request.setupGetAttribute(Boolean.TRUE);
+		
+		TestingFilterDispatcher dispatcher = new TestingFilterDispatcher();
+		dispatcher.doFilter(request, response, chain);
+		
+		assertTrue(dispatcher.getExecutedSetupContainer());
+		request.verify();
+		response.verify();
+		config.verify();
+		context.verify();
+		chain.verify();
+	}
+	
+	
+	
+	// ========= inner classes =================================================
+	
+	class DoNothingDispatcherUtils extends DispatcherUtils {
+		protected DoNothingDispatcherUtils(ServletContext servletContext) {
+			super(servletContext);
+		}
+		
+		protected void init(ServletContext context) { }
+	}
+	
+	
+	
+	// override FilterDispatcher's setupContainer(...) for testing purposes
+	class TestingFilterDispatcher extends FilterDispatcher {
+		private boolean _executedSetupContainer = false;
+		protected void setupContainer(HttpServletRequest request) {
+			_executedSetupContainer = true;
+		}
+		public void setExecutedSetupContainer(boolean executedSetupContainer) {
+			_executedSetupContainer = executedSetupContainer;
+		}
+		public boolean getExecutedSetupContainer() {
+			return _executedSetupContainer;
+		}
 	}
 }
