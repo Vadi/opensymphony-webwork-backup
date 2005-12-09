@@ -53,6 +53,12 @@ public class ScopesHashModel extends SimpleHash {
             if (obj != null) {
                 return wrap(obj);
             }
+
+            // ok, then try the context
+            obj = stack.getContext().get(key);
+            if (obj != null) {
+                return wrap(obj);
+            }
         }
 
         if (request != null) {
