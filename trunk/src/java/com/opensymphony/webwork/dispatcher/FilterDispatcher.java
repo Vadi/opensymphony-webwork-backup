@@ -157,29 +157,31 @@ public class
         ActionMapper mapper = ActionMapperFactory.getMapper();
         ActionMapping mapping = mapper.getMapping(request);
 
+         if (mapping == null) {
+        	 // there is no action in this request, should we look for a static resource?
+        	 if (request.getServletPath().startsWith("/webwork")) {
+        	 String name = request.getServletPath().substring("/webwork".length());
+        	 findStaticResource(name, response);
+        	 } else {
+        	 // this is a normal request, let it pass through
+        	 chain.doFilter(request, response);
+        	 }
+        	 // WW did its job here
+        	 return;
+        	 }
+        	
+        
         try {
             setupContainer(request);
 
-            if (mapping == null) {
-                // there is no action in this request, should we look for a static resource?
-                if (request.getServletPath().startsWith("/webwork")) {
-                    String name = request.getServletPath().substring("/webwork".length());
-                    findStaticResource(name, response);
-                } else {
-                    // this is a normal request, let it pass through
-                    chain.doFilter(request, response);
-                }
-            } else {
-                try {
-                    request = du.wrapRequest(request, filterConfig.getServletContext());
-                } catch (IOException e) {
-                    String message = "Could not wrap servlet request with MultipartRequestWrapper!";
-                    LOG.error(message, e);
-                    throw new ServletException(message, e);
-                }
-
-                du.serviceAction(request, response, filterConfig.getServletContext(), mapping);
-            }
+             try {
+            	 request = du.wrapRequest(request, filterConfig.getServletContext());
+             } catch (IOException e) {
+            	 String message = "Could not wrap servlet request with MultipartRequestWrapper!";
+            	 LOG.error(message, e);
+            	 throw new ServletException(message, e);
+             }
+             du.serviceAction(request, response, filterConfig.getServletContext(), mapping);
         } finally {
             ActionContextCleanUp.cleanUp(req);
         }
