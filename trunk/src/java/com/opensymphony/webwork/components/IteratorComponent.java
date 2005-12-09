@@ -5,6 +5,7 @@ import com.opensymphony.webwork.views.jsp.IteratorStatus;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import java.io.Writer;
+import java.io.IOException;
 import java.util.Iterator;
 
 /**
@@ -207,6 +208,11 @@ public class IteratorComponent extends Component {
                 statusState.setLast(!iterator.hasNext());
             }
 
+            try {
+                writer.write(body);
+            } catch (IOException e) {
+                throw new RuntimeException("IOError: " + e.getMessage(), e);
+            }
             return true;
         } else {
             // Reset status object in case someone else uses the same name in another iterator tag instance
