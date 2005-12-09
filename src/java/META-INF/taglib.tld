@@ -2889,6 +2889,39 @@
    </tag>
    <tag>
 
+      <name>iterator</name>
+      <tag-class>com.opensymphony.webwork.views.jsp.IteratorTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[Iterate over a iterable value]]></description>
+
+      <attribute>
+         <name>status</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[if specified, an instanceof IteratorStatus will be pushed into stack upon each iteration]]></description>
+
+      </attribute>
+      <attribute>
+         <name>value</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[the iteratable source to iterate over, else an the object itself will be put into a newly created List]]></description>
+
+      </attribute>
+      <attribute>
+         <name>id</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[id for referencing element. For UI and form tags it will be used as HTML id attribute]]></description>
+
+      </attribute>
+
+   </tag>
+   <tag>
+
       <name>append</name>
       <tag-class>com.opensymphony.webwork.views.jsp.iterator.AppendIteratorTag</tag-class>
       <body-content>JSP</body-content>
@@ -4611,47 +4644,6 @@
    </tag>
    <tag>
 
-      <name>property</name>
-      <tag-class>com.opensymphony.webwork.views.jsp.PropertyTag</tag-class>
-      <body-content>empty</body-content>
-      <description><![CDATA[Print out expression which evaluates against the stack]]></description>
-
-      <attribute>
-         <name>default</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[The default value to be used if <u>value</u> attribute is null]]></description>
-
-      </attribute>
-      <attribute>
-         <name>escape</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[Whether to escape HTML]]></description>
-
-      </attribute>
-      <attribute>
-         <name>value</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[value to be displayed]]></description>
-
-      </attribute>
-      <attribute>
-         <name>id</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[The id of the tag element.]]></description>
-
-      </attribute>
-
-   </tag>
-   <tag>
-
       <name>file</name>
       <tag-class>com.opensymphony.webwork.views.jsp.ui.FileTag</tag-class>
       <body-content>JSP</body-content>
@@ -5217,39 +5209,6 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[id for referencing element. For UI and form tags it will be used as HTML id attribute]]></description>
-
-      </attribute>
-
-   </tag>
-   <tag>
-
-      <name>iterator</name>
-      <tag-class>com.opensymphony.webwork.views.jsp.IteratorTag</tag-class>
-      <body-content>JSP</body-content>
-      <description><![CDATA[Iterate over a iterable value]]></description>
-
-      <attribute>
-         <name>status</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[if specified, an instanceof IteratorStatus will be pushed into stack upon each iteration]]></description>
-
-      </attribute>
-      <attribute>
-         <name>value</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[the iteratable source to iterate over, else an the object itself will be put into a newly created List]]></description>
-
-      </attribute>
-      <attribute>
-         <name>id</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[The id of the tag element.]]></description>
 
       </attribute>
 
@@ -6077,6 +6036,47 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[Set the html onchange attribute on rendered html element]]></description>
+
+      </attribute>
+      <attribute>
+         <name>id</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[id for referencing element. For UI and form tags it will be used as HTML id attribute]]></description>
+
+      </attribute>
+
+   </tag>
+   <tag>
+
+      <name>property</name>
+      <tag-class>com.opensymphony.webwork.views.jsp.PropertyTag</tag-class>
+      <body-content>empty</body-content>
+      <description><![CDATA[Print out expression which evaluates against the stack]]></description>
+
+      <attribute>
+         <name>default</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The default value to be used if <u>value</u> attribute is null]]></description>
+
+      </attribute>
+      <attribute>
+         <name>escape</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Whether to escape HTML]]></description>
+
+      </attribute>
+      <attribute>
+         <name>value</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[value to be displayed]]></description>
 
       </attribute>
       <attribute>
