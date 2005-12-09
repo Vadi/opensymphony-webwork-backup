@@ -1,10 +1,13 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.webwork.views.util.UrlHelper;
-import com.opensymphony.xwork.util.OgnlValueStack;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.opensymphony.util.TextUtils;
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.portlet.context.PortletContext;
+import com.opensymphony.webwork.views.util.UrlHelper;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * RemoteCallUIBean is superclass for all components dealing with remote calls.
@@ -30,7 +33,39 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
         super.evaluateExtraParams();
 
         if (href != null) {
-            addParameter("href", UrlHelper.buildUrl(findString(href), request, response, null));
+
+            // Fix: This code was added to help with Portlet suppoort.
+            //Modified by Henry Hu @12/9/2005 mail: hu_pengfei@yahoo.com.cn
+            //Original Code is:
+            //addParameter("href", UrlHelper.buildUrl(findString(href), request, response, null));
+
+            String hrefValue = findString(href);
+            String actionUrl = PortletContext.getContext().getActionURL();
+
+            if (!TextUtils.stringSet(actionUrl)) {
+                addParameter("href", UrlHelper.buildUrl(hrefValue, request, response, null));
+            } else {
+
+                String actionExtension = (String) Configuration.get("webwork.action.extension");
+
+                if (actionExtension == null || "".equals(actionExtension)) {
+                    actionExtension = ".action";
+                } else {
+                    actionExtension = "." + actionExtension;
+                }
+
+                boolean isWebWorkAction = hrefValue.indexOf(actionExtension) >= 0;
+                StringBuffer sb = new StringBuffer();
+                if (isWebWorkAction) {
+                    sb.append(actionUrl).append("?wwXAction=.").append(hrefValue);
+                } else {
+                    sb.append(actionUrl).append("?wwLink=").append(hrefValue);
+                }
+
+                addParameter("href", sb.toString());
+            }
+
+
         }
 
         if (showErrorTransportText != null) {
