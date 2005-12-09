@@ -191,6 +191,11 @@ public class IteratorComponent extends Component {
         OgnlValueStack stack = getStack();
         stack.pop();
 
+        try {
+            writer.write(body);
+        } catch (IOException e) {
+            throw new RuntimeException("IOError: " + e.getMessage(), e);
+        }
         if (iterator.hasNext()) {
             Object currentValue = iterator.next();
             stack.push(currentValue);
@@ -208,11 +213,6 @@ public class IteratorComponent extends Component {
                 statusState.setLast(!iterator.hasNext());
             }
 
-            try {
-                writer.write(body);
-            } catch (IOException e) {
-                throw new RuntimeException("IOError: " + e.getMessage(), e);
-            }
             return true;
         } else {
             // Reset status object in case someone else uses the same name in another iterator tag instance

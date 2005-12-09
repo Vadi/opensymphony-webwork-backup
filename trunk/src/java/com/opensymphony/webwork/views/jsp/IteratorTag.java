@@ -10,6 +10,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspException;
 
 
 /**
@@ -36,4 +37,20 @@ public class IteratorTag extends ComponentTagSupport {
     public void setValue(String value) {
         this.value = value;
     }
+
+    public int doEndTag() throws JspException {
+        component = null;
+        return EVAL_PAGE;
+    }
+
+    public int doAfterBody() throws JspException {
+        boolean again = component.end(pageContext.getOut(), getBody());
+
+        if (again) {
+            return EVAL_BODY_AGAIN;
+        } else {
+            return SKIP_BODY;
+        }
+    }
+
 }

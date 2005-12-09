@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.mockobjects.servlet.MockBodyContent;
 import com.mockobjects.servlet.MockJspWriter;
+import com.opensymphony.webwork.views.jsp.ui.SelectTag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -23,11 +24,8 @@ public class IteratorTagTest extends AbstractUITagTest {
 
     IteratorTag tag;
 
-    public void testNothing() {
-        // needed so junit doesn't freak out
-    }
 
-    public void _testArrayIterator() {
+    public void testArrayIterator() {
         Foo foo = new Foo();
         foo.setArray(new String[]{"test1", "test2", "test3"});
 
@@ -38,7 +36,7 @@ public class IteratorTagTest extends AbstractUITagTest {
         iterateThreeStrings();
     }
 
-    public void _testCollectionIterator() {
+    public void testCollectionIterator() {
         Foo foo = new Foo();
         ArrayList list = new ArrayList();
         list.add("test1");
@@ -53,12 +51,12 @@ public class IteratorTagTest extends AbstractUITagTest {
         iterateThreeStrings();
     }
 
-    public void _testIteratorWithDefaultValue() {
+    public void testIteratorWithDefaultValue() {
         stack.push(new String[]{"test1", "test2", "test3"});
         iterateThreeStrings();
     }
 
-    public void _testMapIterator() {
+    public void testMapIterator() {
         Foo foo = new Foo();
         HashMap map = new HashMap();
         map.put("test1", "123");
@@ -116,7 +114,7 @@ public class IteratorTagTest extends AbstractUITagTest {
         assertEquals(3, stack.size());
     }
 
-    public void _testStatus() {
+    public void testStatus() {
         Foo foo = new Foo();
         foo.setArray(new String[]{"test1", "test2", "test3"});
 
@@ -194,7 +192,7 @@ public class IteratorTagTest extends AbstractUITagTest {
         // create the needed objects
         tag = new IteratorTag();
 
-        MockBodyContent mockBodyContent = new MockBodyContent();
+        MockBodyContent mockBodyContent = new TestMockBodyContent();
         mockBodyContent.setupGetEnclosingWriter(new MockJspWriter());
         tag.setBodyContent(mockBodyContent);
 
@@ -247,6 +245,12 @@ public class IteratorTagTest extends AbstractUITagTest {
 
         assertEquals(result, TagSupport.SKIP_BODY);
         assertEquals(3, stack.size());
+        try {
+            tag.doEndTag();
+            verify(IteratorTag.class.getResource("Iterator-1.txt"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -277,6 +281,12 @@ public class IteratorTagTest extends AbstractUITagTest {
 
         public Map getMap() {
             return map;
+        }
+    }
+
+    class TestMockBodyContent extends MockBodyContent {
+        public String getString() {
+            return ".-.";
         }
     }
 }
