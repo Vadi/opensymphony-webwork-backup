@@ -1,18 +1,16 @@
-<#assign items = parameters.list/>
-<#if items?exists>
-    <#assign itemCount = 0/>
-    <#list items as item>
+<#assign itemCount = 0/>
+<#if parameters.list?exists>
+    <@ww.iterator value="parameters.list">
         <#assign itemCount = itemCount + 1/>
-        <#assign trash = stack.push(item)/>
         <#if parameters.listKey?exists>
-            <#assign itemKey = stack.findValue(parameters.listKey)/>
+            <#assign itemKey = stack.findString(parameters.listKey)/>
         <#else>
-            <#assign itemKey = item/>
+            <#assign itemKey = stack.findString('top')/>
         </#if>
         <#if parameters.listValue?exists>
-            <#assign itemValue = stack.findValue(parameters.listValue)/>
+            <#assign itemValue = stack.findString(parameters.listValue)/>
         <#else>
-            <#assign itemValue = item/>
+            <#assign itemValue = stack.findString('top')/>
         </#if>
 <input type="checkbox" name="${parameters.name?html}" value="${itemKey?html}" id="${parameters.name?html}-${itemCount}"<#rt/>
         <#if tag.contains(parameters.nameValue, itemKey)>
@@ -21,8 +19,7 @@
         <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
 />
 <label for="${parameters.name?html}-${itemCount}" class="checkboxLabel">${itemValue?html}</label>
-        <#assign trash = stack.pop()/>
-    </#list>
+    </@ww.iterator>
 <#else>
   &nbsp;
 </#if>

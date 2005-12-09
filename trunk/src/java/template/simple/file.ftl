@@ -4,7 +4,7 @@
  size="${parameters.get("size")?html}"<#rt/>
 </#if>
 <#if parameters.nameValue?exists>
- value="${parameters.nameValue?html}"<#rt/>
+ value="<@ww.property value="parameters.nameValue"/>"<#rt/>
 </#if>
 <#if parameters.disabled?default(false)>
  disabled="disabled"<#rt/>

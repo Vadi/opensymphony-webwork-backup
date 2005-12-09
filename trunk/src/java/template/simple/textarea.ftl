@@ -26,6 +26,6 @@
 <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
 ><#rt/>
 <#if parameters.nameValue?exists>
-${parameters.nameValue?html}<#t/>
+<@ww.property value="parameters.nameValue"/><#t/>
 </#if>
 </textarea>

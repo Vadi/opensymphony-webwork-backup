@@ -1,17 +1,14 @@
-<#assign items = parameters.list/>
-<#if items?exists>
-    <#list items as item>
-        <#assign trash = stack.push(item)/>
-        <#if parameters.listKey?exists>
-            <#assign itemKey = stack.findValue(parameters.listKey)/>
-        <#else>
-            <#assign itemKey = item/>
-        </#if>
-        <#if parameters.listValue?exists>
-            <#assign itemValue = stack.findValue(parameters.listValue)/>
-        <#else>
-            <#assign itemValue = item/>
-        </#if>
+<@ww.iterator value="parameters.list">
+    <#if parameters.listKey?exists>
+        <#assign itemKey = stack.findString(parameters.listKey)/>
+    <#else>
+        <#assign itemKey = stack.findString('top')/>
+    </#if>
+    <#if parameters.listValue?exists>
+        <#assign itemValue = stack.findString(parameters.listValue)/>
+    <#else>
+        <#assign itemValue = stack.findString('top')/>
+    </#if>
 <input type="radio" name="${parameters.name?html}" id="${parameters.name?html}${itemKey?html}"<#rt/>
 <#if tag.contains(parameters.nameValue, itemKey)>
  checked="checked"<#rt/>
@@ -36,6 +33,4 @@
 <label for="${parameters.name?html}${itemKey?html}"><#rt/>
     ${itemValue}<#t/>
 </label>
-        <#assign trash = stack.pop()/>
-    </#list>
-</#if>
+</@ww.iterator>

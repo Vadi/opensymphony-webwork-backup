@@ -6,7 +6,7 @@
  name="${parameters.name?html}"<#rt/>
 </#if>
 <#if parameters.nameValue?exists>
- value="${parameters.nameValue?html}"<#rt/>
+ value="<@ww.property value="parameters.nameValue"/>"<#rt/>
 </#if>
 <#if parameters.cssClass?exists>
  class="${parameters.cssClass?html}"<#rt/>

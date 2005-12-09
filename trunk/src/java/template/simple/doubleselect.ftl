@@ -47,27 +47,22 @@
     <#else>
         <#assign itemValue = stack.findString('top')/>
     </#if>
-    <#assign doubleItems = stack.findValue(parameters.doubleList)/>
     <#assign doubleItemCount = 0/>
-    <#if doubleItems?exists>
-        <#list doubleItems as doubleItem>
-            <#assign trash = stack.push(doubleItem)/>
-            <#if parameters.doubleListKey?exists>
-                <#assign doubleItemKey = stack.findValue(parameters.doubleListKey)/>
-            <#else>
-                <#assign doubleItemKey = doubleItem/>
-            </#if>
-            <#if parameters.doubleListValue?exists>
-                <#assign doubleItemValue = stack.findValue(parameters.doubleListValue)/>
-            <#else>
-                <#assign doubleItemValue = doubleItem/>
-            </#if>
+    <@ww.iterator value="${parameters.doubleList}">
+        <#if parameters.doubleListKey?exists>
+            <#assign doubleItemKey = stack.findString(parameters.doubleListKey)/>
+        <#else>
+            <#assign doubleItemKey = stack.findString('top')/>
+        </#if>
+        <#if parameters.doubleListValue?exists>
+            <#assign doubleItemValue = stack.findString(parameters.doubleListValue)/>
+        <#else>
+            <#assign doubleItemValue = stack.findString('top')/>
+        </#if>
     ${parameters.name}Group[${itemCount}][${doubleItemCount}] = new Option("${doubleItemKey}", "${doubleItemValue}");
-            <#assign doubleItemCount = doubleItemCount + 1/>
-            <#assign trash = stack.pop()/>
-        </#list>
-        <#assign itemCount = itemCount + 1/>
-    </#if>
+        <#assign doubleItemCount = doubleItemCount + 1/>
+    </@ww.iterator>
+    <#assign itemCount = itemCount + 1/>
 </@ww.iterator>
 
     var ${parameters.name}Temp = document.${parameters.formName}.${parameters.doubleName};
