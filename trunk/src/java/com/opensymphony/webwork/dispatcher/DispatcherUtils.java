@@ -69,7 +69,11 @@ public class DispatcherUtils {
     protected boolean paramsWorkaroundEnabled = false;
 
     protected DispatcherUtils(ServletContext servletContext) {
-        boolean reloadi18n = Boolean.valueOf((String) Configuration.get(WebWorkConstants.WEBWORK_I18N_RELOAD)).booleanValue();
+        init(servletContext);
+    }
+
+    protected void init(ServletContext servletContext) {
+    	boolean reloadi18n = Boolean.valueOf((String) Configuration.get(WebWorkConstants.WEBWORK_I18N_RELOAD)).booleanValue();
         LocalizedTextUtil.setReloadBundles(reloadi18n);
 
         if (Configuration.isSet(WebWorkConstants.WEBWORK_OBJECTFACTORY)) {
@@ -128,7 +132,7 @@ public class DispatcherUtils {
             LOG.debug("Parameter access work-around disabled.");
         }
     }
-
+    
     /**
      * Loads the action and executes it. This method first creates the action context from the given
      * parameters then loads an <tt>ActionProxy</tt> from the given action name and namespace. After that,
