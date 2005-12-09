@@ -250,6 +250,7 @@ public class IteratorTagTest extends AbstractUITagTest {
             verify(IteratorTag.class.getResource("Iterator-1.txt"));
         } catch (Exception e) {
             e.printStackTrace();
+            fail();
         }
     }
 
