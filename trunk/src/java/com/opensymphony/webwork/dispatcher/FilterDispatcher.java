@@ -80,7 +80,7 @@ import java.util.StringTokenizer;
  * This means that you can simply request /webwork/xhtml/styles.css and the XHTML UI theme's default
  * stylesheet will be returned. Likewise, many of the AJAX UI components require various JavaScript files,
  * which are found in the com.opensymphony.webwork.static package. If you wish to add additional packages
- * to be searched, you can add a comma separated (space, tab and new line will do as well) list in 
+ * to be searched, you can add a comma separated (space, tab and new line will do as well) list in
  * the filter init parameter named "packages".
  * <b>Be careful</b>, however, to expose any packages that may have sensitive information, such as properties
  * file with database access credentials.
@@ -157,23 +157,29 @@ public class
         ActionMapper mapper = ActionMapperFactory.getMapper();
         ActionMapping mapping = mapper.getMapping(request);
 
-        if (mapping == null) {
-        	 // there is no action in this request, should we look for a static resource?
-        	 if (request.getServletPath().startsWith("/webwork")) {
-        		 String name = request.getServletPath().substring("/webwork".length());
-        		 findStaticResource(name, response);
-        	 } 
-        	 else {
-        		 // this is a normal request, let it pass through
-        		 chain.doFilter(request, response);
-        	 }
-        	 // WW did its job here
-        	 return;
-        }
-        	
-        
         try {
             setupContainer(request);
+
+            if (mapping == null) {
+                // there is no action in this request, should we look for a static resource?
+                if (request.getServletPath().startsWith("/webwork")) {
+                    String name = request.getServletPath().substring("/webwork".length());
+                    findStaticResource(name, response);
+                } else {
+                    // this is a normal request, let it pass through
+                    chain.doFilter(request, response);
+                }
+            } else {
+                try {
+                    request = du.wrapRequest(request, filterConfig.getServletContext());
+                } catch (IOException e) {
+                    String message = "Could not wrap servlet request with MultipartRequestWrapper!";
+                    LOG.error(message, e);
+                    throw new ServletException(message, e);
+                }
+
+                du.serviceAction(request, response, filterConfig.getServletContext(), mapping);
+            }
         } finally {
             ActionContextCleanUp.cleanUp(req);
         }
