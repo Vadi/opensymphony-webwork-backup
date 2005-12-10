@@ -35,6 +35,7 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
 import com.opensymphony.webwork.views.util.ContextUtil;
+import com.opensymphony.webwork.views.velocity.components.ADirective;
 import com.opensymphony.webwork.views.velocity.components.ActionDirective;
 import com.opensymphony.webwork.views.velocity.components.ApplyDecoratorDirective;
 import com.opensymphony.webwork.views.velocity.components.BeanDirective;
@@ -547,6 +548,7 @@ public class VelocityManager {
         addDirective(sb, ApplyDecoratorDirective.class);
         addDirective(sb, DecoratorParamDirective.class);
 
+        addDirective(sb, ADirective.class);
         addDirective(sb, ActionDirective.class);
         addDirective(sb, BeanDirective.class);
         addDirective(sb, CheckBoxDirective.class);
