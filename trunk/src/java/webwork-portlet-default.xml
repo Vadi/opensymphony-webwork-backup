@@ -1,0 +1,139 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.1.dtd">
+
+<!-- // START SNIPPET: webwork-default -->
+<xwork>
+    <package name="webwork-default">
+        <result-types>
+	    	<result-type name="dispatcher" class="com.opensymphony.webwork.portlet.result.PortletDispatcherResult" default="true"/>
+            <result-type name="velocity" class="com.opensymphony.webwork.portlet.result.PortletDispatcherResult" />
+        </result-types>
+
+        <interceptors>
+            <interceptor name="alias" class="com.opensymphony.xwork.interceptor.AliasInterceptor"/>
+            <interceptor name="autowiring"
+                         class="com.opensymphony.xwork.spring.interceptor.ActionAutowiringInterceptor"/>
+            <interceptor name="chain" class="com.opensymphony.xwork.interceptor.ChainingInterceptor"/>
+            <interceptor name="component" class="com.opensymphony.xwork.interceptor.component.ComponentInterceptor"/>
+            <interceptor name="conversionError"
+                         class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
+            <interceptor name="external-ref" class="com.opensymphony.xwork.interceptor.ExternalReferencesInterceptor"/>
+            <interceptor name="execAndWait" class="com.opensymphony.webwork.interceptor.ExecuteAndWaitInterceptor"/>
+            <interceptor name="exception" class="com.opensymphony.xwork.interceptor.ExceptionMappingInterceptor"/>
+            <interceptor name="fileUpload" class="com.opensymphony.webwork.interceptor.FileUploadInterceptor"/>
+            <interceptor name="i18n" class="com.opensymphony.xwork.interceptor.I18nInterceptor"/>
+            <interceptor name="logger" class="com.opensymphony.xwork.interceptor.LoggingInterceptor"/>
+            <interceptor name="model-driven" class="com.opensymphony.xwork.interceptor.ModelDrivenInterceptor"/>
+            <interceptor name="params" class="com.opensymphony.xwork.interceptor.ParametersInterceptor"/>
+            <interceptor name="prepare" class="com.opensymphony.xwork.interceptor.PrepareInterceptor"/>
+            <interceptor name="static-params" class="com.opensymphony.xwork.interceptor.StaticParametersInterceptor"/>
+            <interceptor name="scope" class="com.opensymphony.webwork.interceptor.ScopeInterceptor"/>
+            <interceptor name="servlet-config" class="com.opensymphony.webwork.interceptor.ServletConfigInterceptor"/>
+            <interceptor name="sessionAutowiring"
+                         class="com.opensymphony.webwork.spring.interceptor.SessionContextAutowiringInterceptor"/>
+            <interceptor name="timer" class="com.opensymphony.xwork.interceptor.TimerInterceptor"/>
+            <interceptor name="token" class="com.opensymphony.webwork.interceptor.TokenInterceptor"/>
+            <interceptor name="token-session"
+                         class="com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"/>
+            <interceptor name="validation" class="com.opensymphony.xwork.validator.ValidationInterceptor"/>
+            <interceptor name="workflow" class="com.opensymphony.xwork.interceptor.DefaultWorkflowInterceptor"/>
+
+            <!-- Basic stack -->
+            <interceptor-stack name="basicStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="static-params"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
+            </interceptor-stack>
+
+            <!-- Sample validation and workflow stack -->
+            <interceptor-stack name="validationWorkflowStack">
+                <interceptor-ref name="basicStack"/>
+                <interceptor-ref name="validation"/>
+                <interceptor-ref name="workflow"/>
+            </interceptor-stack>
+
+            <!-- Sample file upload stack -->
+            <interceptor-stack name="fileUploadStack">
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="basicStack"/>
+            </interceptor-stack>
+
+            <!-- Sample WebWork Inversion of Control stack
+                 Note: WebWork's IoC is deprecated - please
+                 look at alternatives such as Sprint -->
+            <interceptor-stack name="componentStack">
+                <interceptor-ref name="component"/>
+                <interceptor-ref name="basicStack"/>
+            </interceptor-stack>
+
+            <!-- Sample model-driven stack  -->
+            <interceptor-stack name="modelDrivenStack">
+                <interceptor-ref name="model-driven"/>
+                <interceptor-ref name="basicStack"/>
+            </interceptor-stack>
+
+            <!-- Sample action chaining stack -->
+            <interceptor-stack name="chainStack">
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="basicStack"/>
+            </interceptor-stack>
+
+            <!-- Sample i18n stack -->
+            <interceptor-stack name="i18nStack">
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="basicStack"/>
+            </interceptor-stack>
+
+            <!-- Sample execute and wait stack.
+                 Note: execAndWait should always be the *last* interceptor. -->
+            <interceptor-stack name="executeAndWaitStack">
+                <interceptor-ref name="basicStack"/>
+                <interceptor-ref name="execAndWait"/>
+            </interceptor-stack>
+
+            <!-- A complete stack with all the common interceptors in place.
+                 Generally, this stack should be the one you use, though it
+                 may process additional stuff you don't need, which could
+                 lead to some performance problems. Also, the ordering can be
+                 switched around (ex: if you wish to have your components
+                 before prepare() is called, you'd need to move the component
+                 interceptor up.
+
+                 This stack also excludes from the normal validation and workflow
+                 the method names input, back, and cancel. These typically are
+                 associated with requests that should not be validated.
+                 -->
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="model-driven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="static-params"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel</param>
+                </interceptor-ref>
+            </interceptor-stack>
+
+            <!-- The completeStack is here for backwards compatibility for
+                 applications that still refer to the defaultStack by the
+                 old name -->
+            <interceptor-stack name="completeStack">
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="defaultStack"/>
+    </package>
+</xwork>
+<!-- // END SNIPPET: webwork-default -->
