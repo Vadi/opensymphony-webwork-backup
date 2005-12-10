@@ -32,9 +32,13 @@ import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.portlet.util.FileUtils;
 import com.opensymphony.webwork.portlet.util.GeneralUtil;
+import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
+import freemarker.template.Configuration;
+import freemarker.template.TemplateException;
 
 /**
  * @author <a href="mailto:hu_pengfei@yahoo.com.cn"> Henry Hu </a>
@@ -42,6 +46,8 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  */
 public abstract class WebWorkAbstractServlet extends HttpServlet implements RequestConstants {
     // ////////////////////////////////////////////////////////
+
+    protected Configuration configuration;
 
     private VelocityManager velocityManager;
 
@@ -61,8 +67,6 @@ public abstract class WebWorkAbstractServlet extends HttpServlet implements Requ
         velocityManager = VelocityManager.getInstance();
     }
 
-    // ////////////////////////////////////////////////////////////////
-
     protected abstract void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
     public void init(ServletConfig servletConfig) throws ServletException {
@@ -75,7 +79,20 @@ public abstract class WebWorkAbstractServlet extends HttpServlet implements Requ
 
         //Initialize VelocityEngine@VelocityManager
         VelocityManager.getInstance().init(getServletContext());
+
+
+        try {
+            configuration = createConfiguration();
+        } catch (TemplateException e) {
+            throw new ServletException("could not configure Freemarker", e);
+        }
     }
+
+
+    protected Configuration createConfiguration() throws TemplateException {
+        return FreemarkerManager.getInstance().getConfiguration(getServletContext());
+    }
+
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doFilter(request, response);
