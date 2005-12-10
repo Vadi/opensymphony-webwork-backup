@@ -1,135 +1,45 @@
 <html>
-<body>
-<table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
-    <tr>
-        <td valign="top" class="pagebody">
-            <div class="pageheader">
-                <span class="pagetitle">
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
                             WebWork : WebWork JSP Demo 7
                                                     </span>
-            </div>
+				    </div>
+				    <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a name="WebWorkJSPDemo7-Thesampledescription"> The sample description</a></h2>
+This sample demo how to use JSP as display script in wwportlet framework.</p><h2 class="heading2"><a name="WebWorkJSPDemo7-Thesampleinclude"> The sample include </a></h2>
+<ul class="star">
+<li> two view files: hello.jsp &amp; helloResult.jsp</li>
+<li> one xwork file: xwork.xml</li>
+<li> one java action file: HelloAction.java</li>
+</ul>
+<h2 class="heading2"><a name="WebWorkJSPDemo7-Hereisthesamplelist"> Here is the sample list</a></h2>
 
-            <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a
-                    name="WebWorkJSPDemo7-Thesampledescription"> The sample description</a></h2>
-                This sample demo how to use JSP as display script in wwportlet framework.</p>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>hello.jsp</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;&#37;&#64; taglib uri=<span class="xml&#45;quote">&quot;webwork&quot;</span> prefix=<span class="xml&#45;quote">&quot;ww&quot;</span>&#37;&gt;</span>&#10;<span class="xml&#45;tag">&lt;html&gt;</span>&#10;<span class="xml&#45;tag">&lt;head&gt;</span><span class="xml&#45;tag">&lt;title&gt;</span>Please input your information<span class="xml&#45;tag">&lt;/title&gt;</span><span class="xml&#45;tag">&lt;/head&gt;</span>&#10;<span class="xml&#45;tag">&lt;body&gt;</span>&#10;<span class="xml&#45;tag">&lt;p&gt;</span>Welcome to Use <span class="xml&#45;tag">&lt;ww:property value=<span class="xml&#45;quote">&quot;now&quot;</span>/&gt;</span>&#10;<span class="xml&#45;tag">&lt;/p&gt;</span>&#10;<span class="xml&#45;tag">&lt;ww:form action=<span class="xml&#45;quote">&quot;&#039;/jsphello.action&#039;&quot;</span> method=<span class="xml&#45;quote">&quot;&#039;post&#039;&quot;</span>&gt;</span>&#10; <span class="xml&#45;tag">&lt;ww:textfield label=&quot;User Name:&quot; name=<span class="xml&#45;quote">&quot;userName&quot;</span> value=<span class="xml&#45;quote">&quot;%{userName}&quot; /&gt;</span>&#10; <span class="xml&#45;tag"></span></span>&lt;ww:submit name=&quot;Submit&quot; value=&quot;Submit&quot;/&gt;&#10;<span class="xml&#45;tag">&lt;/ww:form&gt;</span>&#10;<span class="xml&#45;tag">&lt;br/&gt;</span>&#10;<span class="xml&#45;tag">&lt;/body&gt;</span>&#10;<span class="xml&#45;tag">&lt;/html&gt;</span></pre>
+</div></div><br/>
 
-            <h2 class="heading2"><a name="WebWorkJSPDemo7-Thesampleinclude"> The sample include </a></h2>
-            <ul class="star">
-                <li> two view files: hello.jsp &amp; helloResult.jsp</li>
-                <li> one xwork file: xwork.xml</li>
-                <li> one java action file: HelloAction.java</li>
-            </ul>
-
-            <h2 class="heading2"><a name="WebWorkJSPDemo7-Hereisthesamplelist"> Here is the sample list</a></h2>
-
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; "><b>hello.jsp</b>
-            </div>
-
-                <div class="codeContent">
-                    <pre><span class="xml&#45;tag">&lt;&#37;&#64; taglib uri=<span class="xml&#45;quote">&quot;webwork&quot;</span> prefix=<span
-                            class="xml&#45;quote">&quot;ww&quot;</span>&#37;&gt;</span>&#10;<span class="xml&#45;tag">&lt;html&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;head&gt;</span><span class="xml&#45;tag">&lt;title&gt;</span>Please
-                        input your information<span class="xml&#45;tag">&lt;/title&gt;</span><span class="xml&#45;tag">&lt;/head&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;body&gt;</span>&#10;<span class="xml&#45;tag">&lt;p&gt;</span>Welcome
-                        to Use <span class="xml&#45;tag">&lt;ww:property value=<span class="xml&#45;quote">&quot;now&quot;</span>/&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;/p&gt;</span>&#10;<span class="xml&#45;tag">&lt;ww:form action=<span
-                            class="xml&#45;quote">&quot;&#039;/jsphello.action&#039;&quot;</span> method=<span
-                            class="xml&#45;quote">&quot;&#039;post&#039;&quot;</span>&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;text&quot;</span> name=<span
-                            class="xml&#45;quote">&quot;userName&quot;</span> value=<span class="xml&#45;quote">&quot;&quot; /&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;inputname=&quot;</span>Submit<span class="xml&#45;quote">&quot; type=&quot;</span>submit<span
-                            class="xml&#45;quote">&quot; value=&quot;</span>Submit&quot;/&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;/ww:form&gt;</span>&#10;<span class="xml&#45;tag">&lt;br/&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;/body&gt;</span>&#10;<span class="xml&#45;tag">&lt;/html&gt;</span>
-                    </pre>
-                </div></div><br/>
-
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; ">
-                <b>helloResult.jsp</b></div>
-
-                <div class="codeContent">
-                    <pre><span class="xml&#45;tag">&lt;&#37;&#64; taglib uri=<span class="xml&#45;quote">&quot;webwork&quot;</span> prefix=<span
-                            class="xml&#45;quote">&quot;ww&quot;</span>&#37;&gt;</span>&#10;<span class="xml&#45;tag">&lt;html&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;head&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;title&gt;</span><span class="xml&#45;tag">&lt;ww:text name=<span
-                            class="xml&#45;quote">&quot;heading&quot;</span> /&gt;</span><span class="xml&#45;tag">&lt;/title&gt;</span>&#10;<span
-                            class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; meta name=<span
-                            class="xml&#45;quote">&quot;help&#45;path&quot;</span> content=<span class="xml&#45;quote">&quot;/help/help2.html&quot;</span>/ &#45;&#45;&gt;</span></span>
-                        &#10;<span class="xml&#45;tag">&lt;/head&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;body&gt;</span>&#10;<span class="xml&#45;tag">&lt;p&gt;</span><span
-                            class="xml&#45;tag">&lt;ww:text name=<span class="xml&#45;quote">&quot;greeting&quot;</span> /&gt;</span>
-                        &#64; <span class="xml&#45;tag">&lt;ww:property value=<span class="xml&#45;quote">&quot;now&quot;</span> /&gt;</span><span
-                            class="xml&#45;tag">&lt;/p&gt;</span>&#10;<span class="xml&#45;tag">&lt;p&gt;</span>User
-                        Name: <span class="xml&#45;tag">&lt;ww:property value=<span class="xml&#45;quote">&quot;userName&quot;</span> /&gt;</span><span
-                            class="xml&#45;tag">&lt;/p&gt;</span>&#10;<span class="xml&#45;tag">&lt;ww:form action=<span
-                            class="xml&#45;quote">&quot;/jsphello.action&quot;</span> method=<span
-                            class="xml&#45;quote">&quot;post&quot;</span>&gt;</span>&#10; <span class="xml&#45;tag">&lt;ww:textfield label=<span
-                            class="xml&#45;quote">&quot;User Name&quot;</span> name=<span class="xml&#45;quote">&quot;userName&quot;</span>/&gt;</span><span
-                            class="xml&#45;tag">&lt;br&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;ww:submit value=<span
-                            class="xml&#45;quote">&quot;Submit&quot;</span> /&gt;</span>&#10;<span class="xml&#45;tag">&lt;/ww:form&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;ww:a href=<span class="xml&#45;quote">&quot;hello.jsp&quot;</span> id=<span
-                            class="xml&#45;quote">&quot;hello&quot;</span>&gt;</span>Back<span class="xml&#45;tag">&lt;/ww:a&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;/body&gt;</span>&#10;<span class="xml&#45;tag">&lt;/html&gt;</span>
-                    </pre>
-                </div></div><br/>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>helloResult.jsp</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;&#37;&#64; taglib uri=<span class="xml&#45;quote">&quot;webwork&quot;</span> prefix=<span class="xml&#45;quote">&quot;ww&quot;</span>&#37;&gt;</span>&#10;<span class="xml&#45;tag">&lt;html&gt;</span>&#10;<span class="xml&#45;tag">&lt;head&gt;</span>&#10;<span class="xml&#45;tag">&lt;title&gt;</span><span class="xml&#45;tag">&lt;ww:text name=<span class="xml&#45;quote">&quot;heading&quot;</span> /&gt;</span><span class="xml&#45;tag">&lt;/title&gt;</span>&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; meta name=<span class="xml&#45;quote">&quot;help&#45;path&quot;</span> content=<span class="xml&#45;quote">&quot;/help/help2.html&quot;</span>/ &#45;&#45;&gt;</span></span> &#10;<span class="xml&#45;tag">&lt;/head&gt;</span>&#10;<span class="xml&#45;tag">&lt;body&gt;</span>&#10;<span class="xml&#45;tag">&lt;p&gt;</span><span class="xml&#45;tag">&lt;ww:text name=<span class="xml&#45;quote">&quot;greeting&quot;</span> /&gt;</span> &#64; <span class="xml&#45;tag">&lt;ww:property value=<span class="xml&#45;quote">&quot;now&quot;</span> /&gt;</span><span class="xml&#45;tag">&lt;/p&gt;</span>&#10;<span class="xml&#45;tag">&lt;p&gt;</span>User Name: <span class="xml&#45;tag">&lt;ww:property value=<span class="xml&#45;quote">&quot;userName&quot;</span> /&gt;</span><span class="xml&#45;tag">&lt;/p&gt;</span>&#10;<span class="xml&#45;tag">&lt;ww:form action=<span class="xml&#45;quote">&quot;/jsphello.action&quot;</span> method=<span class="xml&#45;quote">&quot;post&quot;</span>&gt;</span>&#10; <span class="xml&#45;tag">&lt;ww:textfield label=<span class="xml&#45;quote">&quot;User Name&quot;</span> name=<span class="xml&#45;quote">&quot;userName&quot;</span>/&gt;</span><span class="xml&#45;tag">&lt;br&gt;</span>&#10; <span class="xml&#45;tag">&lt;ww:submit value=<span class="xml&#45;quote">&quot;Submit&quot;</span> /&gt;</span>&#10;<span class="xml&#45;tag">&lt;/ww:form&gt;</span>&#10;<span class="xml&#45;tag">&lt;ww:a href=<span class="xml&#45;quote">&quot;hello.jsp&quot;</span> id=<span class="xml&#45;quote">&quot;hello&quot;</span>&gt;</span>Back<span class="xml&#45;tag">&lt;/ww:a&gt;</span>&#10;<span class="xml&#45;tag">&lt;/body&gt;</span>&#10;<span class="xml&#45;tag">&lt;/html&gt;</span></pre>
+</div></div><br/>
 
 
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; "><b>xwork.xml code
-                snippet</b></div>
-
-                <div class="codeContent">
-                    <pre><span class="xml&#45;tag">&lt;xwork&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;include file=<span class="xml&#45;quote">&quot;webwork&#45;default.xml&quot;</span>/&gt;</span>&#10;&#10;<span
-                            class="xml&#45;tag">&lt;package name=<span class="xml&#45;quote">&quot;default&quot;</span> extends=<span
-                            class="xml&#45;quote">&quot;webwork&#45;default&quot;</span>&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;interceptors&gt;</span>&#10; <span class="xml&#45;tag">&lt;interceptor&#45;stack name=<span
-                            class="xml&#45;quote">&quot;standard&#45;interceptors&quot;</span>&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;static&#45;params&quot;</span>/&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;params&quot;</span>/&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;conversionError&quot;</span>/&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/interceptor&#45;stack&gt;</span>&#10;<span class="xml&#45;tag">&lt;/interceptors&gt;</span>&#10;....&#10;<span
-                            class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; Business Function Services &#45;&#45;&gt;</span></span>&#10;
-                        <span class="xml&#45;tag">&lt;action name=<span
-                                class="xml&#45;quote">&quot;jsphello&quot;</span> class=<span class="xml&#45;quote">&quot;com.test.&#72;elloAction&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;result name=<span class="xml&#45;quote">&quot;success&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;location&quot;</span>&gt;</span>/helloResult.jsp<span
-                            class="xml&#45;tag">&lt;/param&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;/result&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;/action&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;/package&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;/xwork&gt;</span></pre>
-                </div></div><br/>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>xwork.xml code snippet</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;xwork&gt;</span>&#10;<span class="xml&#45;tag">&lt;include file=<span class="xml&#45;quote">&quot;webwork&#45;portlet-default.xml&quot;</span>/&gt;</span>&#10;&#10;<span class="xml&#45;tag">&lt;package name=<span class="xml&#45;quote">&quot;default&quot;</span> extends=<span class="xml&#45;quote">&quot;webwork&#45;default&quot;</span>&gt;</span>&#10;<span class="xml&#45;tag">&lt;interceptors&gt;</span>&#10; <span class="xml&#45;tag">&lt;interceptor&#45;stack name=<span class="xml&#45;quote">&quot;standard&#45;interceptors&quot;</span>&gt;</span>&#10;   <span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;static&#45;params&quot;</span>/&gt;</span>&#10;   <span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;params&quot;</span>/&gt;</span>&#10;   <span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;conversionError&quot;</span>/&gt;</span>&#10;  <span class="xml&#45;tag">&lt;/interceptor&#45;stack&gt;</span>&#10;<span class="xml&#45;tag">&lt;/interceptors&gt;</span>&#10;....&#10;<span class="xml&#45;tag"><span class="xml&#45;comment">&lt;&#33;&#45;&#45; Business Function Services &#45;&#45;&gt;</span></span>&#10; <span class="xml&#45;tag">&lt;action name=<span class="xml&#45;quote">&quot;jsphello&quot;</span> class=<span class="xml&#45;quote">&quot;com.test.&#72;elloAction&quot;</span>&gt;</span>&#10;    <span class="xml&#45;tag">&lt;result name=<span class="xml&#45;quote">&quot;success&quot;</span>&gt;</span>&#10;       <span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;location&quot;</span>&gt;</span>/helloResult.jsp<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/result&gt;</span>&#10; <span class="xml&#45;tag">&lt;/action&gt;</span>&#10;<span class="xml&#45;tag">&lt;/package&gt;</span>&#10;<span class="xml&#45;tag">&lt;/xwork&gt;</span></pre>
+</div></div><br/>
 
 
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; "><b>HelloAction.java</b>
-            </div>
-
-                <div class="codeContent">
-                    <pre><span class="java&#45;keyword">package</span> com.test;&#10;<span class="java&#45;keyword">import</span>
-                        java.util.Date;&#10;<span class="java&#45;keyword">import</span> com.opensymphony.xwork.&#65;ctionSupport;&#10;&#10;<span
-                            class="java&#45;keyword">public</span> class &#72;elloAction <span class="java&#45;keyword">extends</span>
-                        &#65;ctionSupport &#123; &#10;<span class="java&#45;keyword">private</span>&#160;<span
-                            class="java&#45;object">String</span> &#95;userName; &#10;<span class="java&#45;keyword">public</span>
-                        void setUserName(<span class="java&#45;object">String</span> name) &#123; &#10;&#95;userName =
-                        name; &#10;&#125; &#10;&#10;<span class="java&#45;keyword">public</span>&#160;<span
-                            class="java&#45;object">String</span> getUserName() &#123; &#10;<span
-                            class="java&#45;keyword">return</span> &#95;userName; &#10;&#125; &#10;&#10;<span
-                            class="java&#45;keyword">public</span> Date getNow() &#123;&#10;<span
-                            class="java&#45;keyword">return</span>&#160;<span class="java&#45;keyword">new</span>
-                        Date(<span class="java&#45;object">System</span>.currentTimeMillis());&#10;&#125;&#10;&#10;<span
-                            class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span>
-                        execute() <span class="java&#45;keyword">throws</span> Exception &#123; &#10;<span
-                            class="java&#45;keyword">return</span> SUCCESS; &#10;&#125; &#10;&#125;</pre>
-                </div></div><br/>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>HelloAction.java</b></div><div class="codeContent">
+<pre><span class="java&#45;keyword">package</span> com.test;&#10;<span class="java&#45;keyword">import</span> java.util.Date;&#10;<span class="java&#45;keyword">import</span> com.opensymphony.xwork.&#65;ctionSupport;&#10;&#10;<span class="java&#45;keyword">public</span> class &#72;elloAction <span class="java&#45;keyword">extends</span> &#65;ctionSupport &#123; &#10;<span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span> &#95;userName; &#10;<span class="java&#45;keyword">public</span> void setUserName(<span class="java&#45;object">String</span> name) &#123; &#10;&#95;userName = name; &#10;&#125; &#10;&#10;<span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> getUserName() &#123; &#10;<span class="java&#45;keyword">return</span> &#95;userName; &#10;&#125; &#10;&#10;<span class="java&#45;keyword">public</span> Date getNow() &#123;&#10;<span class="java&#45;keyword">return</span>&#160;<span class="java&#45;keyword">new</span> Date(<span class="java&#45;object">System</span>.currentTimeMillis());&#10;&#125;&#10;&#10;<span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> execute() <span class="java&#45;keyword">throws</span> Exception &#123; &#10;<span class="java&#45;keyword">return</span> SUCCESS; &#10;&#125; &#10;&#125;</pre>
+</div></div><br/>
 
 
-        </td>
-    </tr>
-</table>
-</body>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
 </html>
