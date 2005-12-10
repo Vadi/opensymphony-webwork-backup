@@ -1,11 +1,11 @@
-<html> 
-<head> 
-<title>WebWork Tutorial - Example 2</title>
-<meta name="help-path" content="/help/help2.html"/>  
-</head> 
+<html>
+<head>
+<title>WebWork Tutorial - Example 2 (Velocity Version)</title>
+<meta name="help-path" content="/help/help2.html"/>
+</head>
 <body>
-<style type="text/css"> 
-  .errorMessage { color: red; } 
+<style type="text/css">
+  .errorMessage { color: red; }
   .wwFormTable {}
   .label {font-style:italic; }
   .errorLabel {font-style:italic; color:red; }
@@ -13,19 +13,19 @@
   .checkboxLabel {}
   .checkboxErrorLabel {color:red; }
   .required {color:red;}
-</style>  
-<p>UI Form Tags Example using Velocity:</p> 
-#wwform ("action=/formProcessing.action" "method=post") 
-       #wwcheckbox ("name=checkbox" "label=A checkbox" "fieldValue=checkbox_value") 
-       #wwfile ("name=file" "label=A file field") 
-       #wwhidden ("name=hidden" "value=hidden_value") 
-       #wwlabel ("label=A label") 
-       #wwpassword ("name=password" "label=A password field") 
-       #wwradio ("name=radio" "label=Radio buttons" "list={'One', 'Two', 'Three'}") 
-       #wwselect ("name=select" "label=A select list" "list={'One', 'Two', 'Three'}" "emptyOption=true") 
-       #wwtextarea ("name=textarea" "label=A text area" "rows=3" "cols=40") 
-       #wwtextfield ("name=textfield" "label=A text field") 
-       #wwsubmit ("value=Send Form") 
-#end 
-</body> 
+</style>
+<p>UI Form Tags Example using Velocity:</p>
+#wwform ("action=/formProcessing.action" "method=post")
+       #wwcheckbox ("name=checkbox" "label=A checkbox" "fieldValue=checkbox_value")
+       #wwfile ("name=file" "label=A file field")
+       #wwhidden ("name=hidden" "value=hidden_value")
+       #wwlabel ("label=A label")
+       #wwpassword ("name=password" "label=A password field")
+       #wwradio ("name=radio" "label=Radio buttons" "list={'One', 'Two', 'Three'}")
+       #wwselect ("name=select" "label=A select list" "list={'One', 'Two', 'Three'}" "emptyOption=true")
+       #wwtextarea ("name=textarea" "label=A text area" "rows=3" "cols=40")
+       #wwtextfield ("name=textfield" "label=A text field")
+       #wwsubmit ("value=Send Form")
+#end
+</body>
 </html>

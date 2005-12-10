@@ -1,16 +1,16 @@
-<html> 
-<head> 
-<title>WebWork Tutorial - Example 3</title>
-<meta name="help-path" content="/help/help3.html"/> 
-</head> 
-<body> 
-<H2>Template & Theme Change Example:</H2> 
+<html>
+<head>
+<title>WebWork Tutorial - Example 3 (Velocity Version)</title>
+<meta name="help-path" content="/help/help3.html"/>
+</head>
+<body>
+<H2>Template & Theme Change Example (Velocity Version):</H2>
 <br/> More detail please refer to template/components directory.
 <p>
 #wwcheckbox ("name=checkbox" "label=A checkbox" "fieldValue=checkbox_value" "theme=xhtml/components")
-</p> 
+</p>
 <p>
 #wwtextfield ("name=textfield" "label=A text field" "template=components/mytextfield.vm")
-</p> 
-</body> 
+</p>
+</body>
 </html>

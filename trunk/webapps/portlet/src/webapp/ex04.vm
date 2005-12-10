@@ -1,10 +1,10 @@
 <html>
 <head>
-<title>WebWork Tutorial - Example 4</title>
+<title>WebWork Tutorial - Example 4 (Velocity Version)</title>
 <meta name="help-path" content="/help/help4.html"/>
 </head>
 <body>
-<p>Custom Component Example:</p>
+<p>Custom Component Example (Velocity):</p>
 #wwcomponent ("template=components/datefield.vm")
       #wwparam ("name=label" "value=%{'Date'}")
       #wwparam ("name=name" "value=%{'mydatefield'}")

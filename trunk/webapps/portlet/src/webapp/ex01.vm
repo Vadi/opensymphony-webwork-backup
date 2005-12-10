@@ -1,0 +1,15 @@
+<html>
+<head><title>Please input your information (Velocity Version)</title>
+<meta name="help-path" content="/help/help1.html"/>
+</head>
+<body>
+<p>Welcome to Use $!now
+</p>
+#wwform ("action=/hello.action" "method=post")
+    	#wwtextfield ("label=User Name" "name=userName" "value=%{userName}")
+		#wwsubmit ("name=Submit" "value=Submit")
+#end
+<br/>
+</body>
+</html>
+
