@@ -3,20 +3,9 @@
  */
 package com.opensymphony.webwork.portlet.servlet;
 
-import com.opensymphony.module.sitemesh.*;
-import com.opensymphony.module.sitemesh.filter.PageResponseWrapper;
-import com.opensymphony.module.sitemesh.util.Container;
-import com.opensymphony.module.sitemesh.util.OutputConverter;
-import com.opensymphony.util.TextUtils;
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.portlet.util.FileUtils;
-import com.opensymphony.webwork.portlet.util.GeneralUtil;
-import com.opensymphony.webwork.portlet.velocity.VelocityManager;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.util.OgnlValueStack;
-import org.apache.velocity.Template;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.context.Context;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -25,9 +14,27 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.context.Context;
+
+import com.opensymphony.module.sitemesh.Config;
+import com.opensymphony.module.sitemesh.Decorator;
+import com.opensymphony.module.sitemesh.Factory;
+import com.opensymphony.module.sitemesh.HTMLPage;
+import com.opensymphony.module.sitemesh.Page;
+import com.opensymphony.module.sitemesh.RequestConstants;
+import com.opensymphony.module.sitemesh.filter.PageResponseWrapper;
+import com.opensymphony.module.sitemesh.util.Container;
+import com.opensymphony.module.sitemesh.util.OutputConverter;
+import com.opensymphony.util.TextUtils;
+import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.portlet.util.FileUtils;
+import com.opensymphony.webwork.portlet.util.GeneralUtil;
+import com.opensymphony.webwork.views.velocity.VelocityManager;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * @author <a href="mailto:hu_pengfei@yahoo.com.cn"> Henry Hu </a>

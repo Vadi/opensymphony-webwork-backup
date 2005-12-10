@@ -3,20 +3,22 @@
  */
 package com.opensymphony.webwork.portlet.servlet;
 
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.portlet.velocity.VelocityManager;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.util.OgnlValueStack;
-import org.apache.velocity.Template;
-import org.apache.velocity.context.Context;
+import java.io.IOException;
+import java.io.Writer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.PageContext;
-import java.io.IOException;
-import java.io.Writer;
+
+import org.apache.velocity.Template;
+import org.apache.velocity.context.Context;
+
+import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.views.velocity.VelocityManager;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * When WebWorkPortlet doService() include the .vm resource, then
@@ -64,7 +66,7 @@ public class WebWorkVelocityServlet extends WebWorkAbstractServlet {
          */
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
-//Moved to Parent class doFilter()       
+//Moved to Parent class doFilter()
 //        request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY,stack);
 //        stack.getContext().put(ServletActionContext.HTTP_REQUEST, request);
 //        stack.getContext().put(ServletActionContext.HTTP_RESPONSE, response);
