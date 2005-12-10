@@ -3,7 +3,9 @@
  */
 package com.opensymphony.webwork.portlet.sitemesh;
 
-import com.opensymphony.webwork.portlet.velocity.VelocityManager;
+import java.io.StringWriter;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.Template;
@@ -11,8 +13,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 
-import java.io.StringWriter;
-import java.util.Map;
+import com.opensymphony.webwork.views.velocity.VelocityManager;
 
 /**
  * @author <a href="mailto:hu_pengfei@yahoo.com.cn">Henry Hu </a>
