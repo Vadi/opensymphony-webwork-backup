@@ -3,6 +3,25 @@
  */
 package com.opensymphony.webwork.portlet;
 
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.GenericPortlet;
+import javax.portlet.PortalContext;
+import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletRequestDispatcher;
+import javax.portlet.PortletResponse;
+import javax.portlet.PortletURL;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+
+import org.apache.pluto.core.impl.PortletConfigImpl;
+
 import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkConstants;
@@ -14,15 +33,7 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionGlobalContext;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.ActionProxyFactory;
-import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import org.apache.pluto.core.impl.PortletConfigImpl;
-
-import javax.portlet.*;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author <a href="mailto:hu_pengfei@yahoo.com.cn">Henry Hu </a>
@@ -251,7 +262,7 @@ public class WebWorkPortlet extends GenericPortlet implements WebWorkPortletStat
         extraContext.put(PORTLET_RESPONSE, response);
         extraContext.put(PORTLET_CONTEXT, getPortletContext());
 
-        extraContext.put(ComponentInterceptor.COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
+//        extraContext.put(ComponentInterceptor.COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
 
         // helpers to get access to request/session/application scope
         extraContext.put("request", requestMap);
