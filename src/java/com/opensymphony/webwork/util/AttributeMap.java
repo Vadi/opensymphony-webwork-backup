@@ -66,7 +66,14 @@ public class AttributeMap implements Map {
                 return application.get(key);
             }
         } else {
-            return pc.findAttribute(key.toString());
+            //Fixed for NPE throw from PageContext  by Henry Hu - mail: hu_pengfei@yahoo.com.cn
+            //Original Code:
+            //return pc.findAttribute(key.toString());
+            try{
+                return pc.findAttribute(key.toString());
+            }catch (NullPointerException npe){
+                return null;
+            }//End of Fixed for NPE
         }
 
         return null;
