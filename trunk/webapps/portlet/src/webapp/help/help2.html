@@ -1,407 +1,62 @@
 <html>
-<body>
-<table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
-    <tr>
-        <td valign="top" class="pagebody">
-            <div class="pageheader">
-                <span class="pagetitle">
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
                             WebWork : WebWork Tutorial - Example 2
                                                     </span>
-            </div>
+				    </div>
+				    <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a name="WebWorkTutorial-Example2-Thesampledescription"> The sample description</a></h2>
+This demo will demo how to use webwork standard UI component, and xwork action in portal application.</p><h2 class="heading2"><a name="WebWorkTutorial-Example2-Thesampleinclude"> The sample include </a></h2>
+<ul class="star">
+<li> two view files: ex02.vm &amp; ex02Success.vm</li>
+<li> one xwork file: xwork.xml</li>
+<li> one java action file: FormProcessingAction.java</li>
+<li> one validation file: FormProcessingAction-validation.xml</li>
+<li> generated html page in portal server</li>
+</ul>
+<h2 class="heading2"><a name="WebWorkTutorial-Example2-Hereisthesamplelist"> Here is the sample list</a></h2>
 
-            <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a
-                    name="WebWorkTutorial-Example2-Thesampledescription"> The sample description</a></h2>
-                This demo will demo how to use webwork standard UI component, and xwork action in portal application.
-            </p>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>ex02.vm</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;html&gt;</span> &#10;<span class="xml&#45;tag">&lt;head&gt;</span> &#10;<span class="xml&#45;tag">&lt;title&gt;</span>&#87;ebWork Tutorial &#45; Example 2<span class="xml&#45;tag">&lt;/title&gt;</span>&#10;<span class="xml&#45;tag">&lt;meta name=<span class="xml&#45;quote">&quot;help&#45;path&quot;</span> content=<span class="xml&#45;quote">&quot;/help/help2.html&quot;</span>/&gt;</span>  &#10;<span class="xml&#45;tag">&lt;/head&gt;</span> &#10;<span class="xml&#45;tag">&lt;body&gt;</span>&#10;<span class="xml&#45;tag">&lt;p&gt;</span>UI Form Tags Example using Velocity:<span class="xml&#45;tag">&lt;/p&gt;</span> &#10;#wwform (<span class="xml&#45;quote">&quot;action=/formProcessing.action&quot;</span>&#160;<span class="xml&#45;quote">&quot;method=post&quot;</span>) &#10;       #wwcheckbox (<span class="xml&#45;quote">&quot;name=checkbox&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=A checkbox&quot;</span>&#160;<span class="xml&#45;quote">&quot;fieldValue=checkbox&#95;value&quot;</span>) &#10;       #wwfile (<span class="xml&#45;quote">&quot;name=file&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=A file field&quot;</span>) &#10;       #wwhidden (<span class="xml&#45;quote">&quot;name=hidden&quot;</span>&#160;<span class="xml&#45;quote">&quot;value=hidden&#95;value&quot;</span>) &#10;       #wwlabel (<span class="xml&#45;quote">&quot;label=A label&quot;</span>) &#10;       #wwpassword (<span class="xml&#45;quote">&quot;name=password&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=A password field&quot;</span>) &#10;       #wwradio (<span class="xml&#45;quote">&quot;name=radio&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=Radio buttons&quot;</span>&#160;<span class="xml&#45;quote">&quot;list=&#123;&#039;One&#039;, &#039;Two&#039;, &#039;Three&#039;&#125;&quot;</span>) &#10;       #wwselect (<span class="xml&#45;quote">&quot;name=select&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=A select list&quot;</span>&#160;<span class="xml&#45;quote">&quot;list=&#123;&#039;One&#039;, &#039;Two&#039;, &#039;Three&#039;&#125;&quot;</span>&#160;<span class="xml&#45;quote">&quot;emptyOption=true&quot;</span>) &#10;       #wwtextarea (<span class="xml&#45;quote">&quot;name=textarea&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=A text area&quot;</span>&#160;<span class="xml&#45;quote">&quot;rows=3&quot;</span>&#160;<span class="xml&#45;quote">&quot;cols=40&quot;</span>) &#10;       #wwtextfield (<span class="xml&#45;quote">&quot;name=textfield&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=A text field&quot;</span>) &#10;       #wwsubmit (<span class="xml&#45;quote">&quot;value=Send Form&quot;</span>) &#10;#end &#10;<span class="xml&#45;tag">&lt;/body&gt;</span> &#10;<span class="xml&#45;tag">&lt;/html&gt;</span></pre>
+</div></div><br/>
 
-            <h2 class="heading2"><a name="WebWorkTutorial-Example2-Thesampleinclude"> The sample include </a></h2>
-            <ul class="star">
-                <li> two view files: ex02.vm &amp; ex02Success.vm</li>
-                <li> one xwork file: xwork.xml</li>
-                <li> one java action file: FormProcessingAction.java</li>
-                <li> one validation file: FormProcessingAction-validation.xml</li>
-                <li> generated html page in portal server</li>
-            </ul>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>ex02.vm generated html page in Portal Server</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;p&gt;</span>UI Form Tags Example using Velocity:<span class="xml&#45;tag">&lt;/p&gt;</span>&#10;<span class="xml&#45;tag">&lt;form namespace=<span class="xml&#45;quote">&quot;/portlet&quot;</span> id=<span class="xml&#45;quote">&quot;formProcessing&quot;</span>&#10;	action=<span class="xml&#45;quote">&quot;&#104;ttp://localhost:8080/jetspeed/portal/xxxxxx/wwportlet.psml&quot;</span>&#10;	method=<span class="xml&#45;quote">&quot;post&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;hidden&quot;</span> name=<span class="xml&#45;quote">&quot;wwAction&quot;</span>&#10;	value=<span class="xml&#45;quote">&quot;/formProcessing.action&quot;</span> /&gt;</span>&#10;<span class="xml&#45;tag">&lt;table class=<span class="xml&#45;quote">&quot;wwFormTable&quot;</span>&gt;</span>&#10;	<span class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td valign=<span class="xml&#45;quote">&quot;top&quot;</span> colspan=<span class="xml&#45;quote">&quot;2&quot;</span>&gt;</span>&#10;		<span class="xml&#45;tag">&lt;table width=<span class="xml&#45;quote">&quot;100&#37;&quot;</span> border=<span class="xml&#45;quote">&quot;0&quot;</span> cellpadding=<span class="xml&#45;quote">&quot;0&quot;</span> cellspacing=<span class="xml&#45;quote">&quot;0&quot;</span>&gt;</span>&#10;			<span class="xml&#45;tag">&lt;tr&gt;</span>&#10;			<span class="xml&#45;tag">&lt;td valign=<span class="xml&#45;quote">&quot;middle&quot;</span>&gt;</span>&#10;                                     <span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;checkbox&quot;</span> name=<span class="xml&#45;quote">&quot;checkbox&quot;</span>&#10;			        value=<span class="xml&#45;quote">&quot;checkbox&#95;value&quot;</span> id=<span class="xml&#45;quote">&quot;formProcessing&#95;checkbox&quot;</span> /&gt;</span>&#10;                                  <span class="xml&#45;tag">&lt;/td&gt;</span>&#10;			<span class="xml&#45;tag">&lt;td width=<span class="xml&#45;quote">&quot;100&#37;&quot;</span> valign=<span class="xml&#45;quote">&quot;middle&quot;</span>&gt;</span>&#10;                                     <span class="xml&#45;tag">&lt;label for=<span class="xml&#45;quote">&quot;formProcessing&#95;checkbox&quot;</span> class=<span class="xml&#45;quote">&quot;checkboxLabel&quot;</span>&gt;</span>&#10;                                     A checkbox&#10;                                     <span class="xml&#45;tag">&lt;/label&gt;</span>&#10;                                   <span class="xml&#45;tag">&lt;/td&gt;</span>&#10;			<span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;/table&gt;</span>&#10;		<span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td align=<span class="xml&#45;quote">&quot;right&quot;</span> valign=<span class="xml&#45;quote">&quot;top&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;label for=<span class="xml&#45;quote">&quot;formProcessing&#95;file&quot;</span>&#10;			class=<span class="xml&#45;quote">&quot;label&quot;</span>&gt;</span>A file field:<span class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;file&quot;</span> name=<span class="xml&#45;quote">&quot;file&quot;</span> id=<span class="xml&#45;quote">&quot;formProcessing&#95;file&quot;</span> /&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;hidden&quot;</span> name=<span class="xml&#45;quote">&quot;hidden&quot;</span> value=<span class="xml&#45;quote">&quot;hidden&#95;value&quot;</span>&#10;		id=<span class="xml&#45;quote">&quot;formProcessing&#95;hidden&quot;</span> /&gt;</span>&#10;	<span class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td align=<span class="xml&#45;quote">&quot;right&quot;</span> valign=<span class="xml&#45;quote">&quot;top&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;label for=<span class="xml&#45;quote">&quot;formProcessing&#95;null&quot;</span>&#10;			class=<span class="xml&#45;quote">&quot;label&quot;</span>&gt;</span>A label:<span class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;label id=<span class="xml&#45;quote">&quot;formProcessing&#95;null&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td align=<span class="xml&#45;quote">&quot;right&quot;</span> valign=<span class="xml&#45;quote">&quot;top&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;label for=<span class="xml&#45;quote">&quot;formProcessing&#95;password&quot;</span>&#10;			class=<span class="xml&#45;quote">&quot;label&quot;</span>&gt;</span>A password field:<span class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;password&quot;</span> name=<span class="xml&#45;quote">&quot;password&quot;</span>&#10;			id=<span class="xml&#45;quote">&quot;formProcessing&#95;password&quot;</span> /&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td align=<span class="xml&#45;quote">&quot;right&quot;</span> valign=<span class="xml&#45;quote">&quot;top&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;label for=<span class="xml&#45;quote">&quot;formProcessing&#95;radio&quot;</span>&#10;			class=<span class="xml&#45;quote">&quot;label&quot;</span>&gt;</span>Radio buttons:<span class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;radio&quot;</span> name=<span class="xml&#45;quote">&quot;radio&quot;</span> id=<span class="xml&#45;quote">&quot;radioOne&quot;</span> value=<span class="xml&#45;quote">&quot;One&quot;</span> /&gt;</span><span class="xml&#45;tag">&lt;label&#10;			for=<span class="xml&#45;quote">&quot;radioOne&quot;</span>&gt;</span>One<span class="xml&#45;tag">&lt;/label&gt;</span>&#160;<span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;radio&quot;</span> name=<span class="xml&#45;quote">&quot;radio&quot;</span>&#10;			id=<span class="xml&#45;quote">&quot;radioTwo&quot;</span> value=<span class="xml&#45;quote">&quot;Two&quot;</span> /&gt;</span><span class="xml&#45;tag">&lt;label&#10;			for=<span class="xml&#45;quote">&quot;radioTwo&quot;</span>&gt;</span>Two<span class="xml&#45;tag">&lt;/label&gt;</span>&#160;<span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;radio&quot;</span> name=<span class="xml&#45;quote">&quot;radio&quot;</span>&#10;			id=<span class="xml&#45;quote">&quot;radioThree&quot;</span> value=<span class="xml&#45;quote">&quot;Three&quot;</span> /&gt;</span><span class="xml&#45;tag">&lt;label&#10;			for=<span class="xml&#45;quote">&quot;radioThree&quot;</span>&gt;</span>Three<span class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td align=<span class="xml&#45;quote">&quot;right&quot;</span> valign=<span class="xml&#45;quote">&quot;top&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;label for=<span class="xml&#45;quote">&quot;formProcessing&#95;select&quot;</span>&#10;			class=<span class="xml&#45;quote">&quot;label&quot;</span>&gt;</span>A select list:<span class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;select name=<span class="xml&#45;quote">&quot;select&quot;</span> id=<span class="xml&#45;quote">&quot;formProcessing&#95;select&quot;</span>&gt;</span>&#10;			<span class="xml&#45;tag">&lt;option value=<span class="xml&#45;quote">&quot;&quot;&gt;</span><span class="xml&#45;tag">&lt;/option&gt;</span>&#10;			<span class="xml&#45;tag">&lt;option value=&quot;</span>One<span class="xml&#45;quote">&quot;&gt;</span>One<span class="xml&#45;tag">&lt;/option&gt;</span>&#10;			<span class="xml&#45;tag">&lt;option value=&quot;</span>Two<span class="xml&#45;quote">&quot;&gt;</span>Two<span class="xml&#45;tag">&lt;/option&gt;</span>&#10;			<span class="xml&#45;tag">&lt;option value=&quot;</span>Three<span class="xml&#45;quote">&quot;&gt;</span>Three<span class="xml&#45;tag">&lt;/option&gt;</span>&#10;		<span class="xml&#45;tag">&lt;/select&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td align=&quot;</span>right<span class="xml&#45;quote">&quot; valign=&quot;</span>top<span class="xml&#45;quote">&quot;&gt;</span><span class="xml&#45;tag">&lt;label for=&quot;</span>formProcessing&#95;textarea<span class="xml&#45;quote">&quot;&#10;			class=&quot;</span>label<span class="xml&#45;quote">&quot;&gt;</span>A text area:<span class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;textarea name=&quot;</span>textarea<span class="xml&#45;quote">&quot; cols=&quot;</span>40<span class="xml&#45;quote">&quot; rows=&quot;</span>3<span class="xml&#45;quote">&quot;&#10;			id=&quot;</span>formProcessing&#95;textarea<span class="xml&#45;quote">&quot;&gt;</span><span class="xml&#45;tag">&lt;/textarea&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td align=&quot;</span>right<span class="xml&#45;quote">&quot; valign=&quot;</span>top<span class="xml&#45;quote">&quot;&gt;</span><span class="xml&#45;tag">&lt;label for=&quot;</span>formProcessing&#95;textfield<span class="xml&#45;quote">&quot;&#10;			class=&quot;</span>label<span class="xml&#45;quote">&quot;&gt;</span>A text field:<span class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;input type=&quot;</span>text<span class="xml&#45;quote">&quot; name=&quot;</span>textfield<span class="xml&#45;quote">&quot; id=&quot;</span>formProcessing&#95;textfield<span class="xml&#45;quote">&quot; /&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td colspan=&quot;</span>2<span class="xml&#45;quote">&quot;&gt;</span>&#10;		<span class="xml&#45;tag">&lt;div align=&quot;</span>right<span class="xml&#45;quote">&quot;&gt;</span><span class="xml&#45;tag">&lt;input type=&quot;</span>submit<span class="xml&#45;quote">&quot; value=&quot;</span>Send Form&quot; /&gt;</span><span class="xml&#45;tag">&lt;/div&gt;</span>&#10;		<span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;<span class="xml&#45;tag">&lt;/table&gt;</span>&#10;<span class="xml&#45;tag">&lt;/form&gt;</span></pre>
+</div></div><br/>
 
-            <h2 class="heading2"><a name="WebWorkTutorial-Example2-Hereisthesamplelist"> Here is the sample list</a>
-            </h2>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>ex02Success.vm</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;html&gt;</span> &#10;<span class="xml&#45;tag">&lt;head&gt;</span> &#10;<span class="xml&#45;tag">&lt;title&gt;</span>&#87;ebWork Tutorial &#45; Example 2 Result<span class="xml&#45;tag">&lt;/title&gt;</span> &#10;<span class="xml&#45;tag">&lt;meta name=<span class="xml&#45;quote">&quot;help&#45;path&quot;</span> content=<span class="xml&#45;quote">&quot;/help/help2.html&quot;</span>/&gt;</span> &#10;<span class="xml&#45;tag">&lt;/head&gt;</span> &#10;<span class="xml&#45;tag">&lt;body&gt;</span> &#10;<span class="xml&#45;tag">&lt;p&gt;</span>UI Form Tags Example result using Velocity:<span class="xml&#45;tag">&lt;/p&gt;</span> &#10;<span class="xml&#45;tag">&lt;ul&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>checkbox: $&#33;checkbox<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>&#102;ile: $&#33;file<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>hidden: $&#33;hidden<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>password: $&#33;password<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>radio: $&#33;radio<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>select: $&#33;select<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>textarea: $&#33;textarea<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>textfield: $&#33;textfield<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;<span class="xml&#45;tag">&lt;/ul&gt;</span> &#10;<span class="xml&#45;tag">&lt;/body&gt;</span> &#10;<span class="xml&#45;tag">&lt;/html&gt;</span></pre>
+</div></div><br/>
 
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; "><b>ex02.vm</b>
-            </div>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>ex02Success.vm generated html page in Portal Server</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;td valign=<span class="xml&#45;quote">&quot;top&quot;</span> class=<span class="xml&#45;quote">&quot;pagebody&quot;</span> width=<span class="xml&#45;quote">&quot;60&#37;&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;br/&gt;</span>&#10;    <span class="xml&#45;tag">&lt;p&gt;</span>UI Form Tags Example result using Velocity:<span class="xml&#45;tag">&lt;/p&gt;</span> &#10;    <span class="xml&#45;tag">&lt;ul&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>checkbox: checkbox&#95;value<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>&#102;ile: D:&#92;Test.java<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>hidden: hidden&#95;value<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>password: test<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>radio: One<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>select: Two<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>textarea: test<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;       <span class="xml&#45;tag">&lt;li&gt;</span>textfield: test<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;   <span class="xml&#45;tag">&lt;/ul&gt;</span>&#10;<span class="xml&#45;tag">&lt;/td&gt;</span></pre>
+</div></div><br/>
 
-                <div class="codeContent">
-                    <pre><span class="xml&#45;tag">&lt;html&gt;</span> &#10;<span
-                            class="xml&#45;tag">&lt;head&gt;</span> &#10;<span class="xml&#45;tag">&lt;title&gt;</span>&#87;ebWork
-                        Tutorial &#45; Example 2<span class="xml&#45;tag">&lt;/title&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;meta name=<span
-                            class="xml&#45;quote">&quot;help&#45;path&quot;</span> content=<span class="xml&#45;quote">&quot;/help/help2.html&quot;</span>/&gt;</span>
-                        &#10;<span class="xml&#45;tag">&lt;/head&gt;</span> &#10;<span
-                            class="xml&#45;tag">&lt;body&gt;</span>&#10;<span class="xml&#45;tag">&lt;p&gt;</span>UI
-                        Form Tags Example using Velocity:<span class="xml&#45;tag">&lt;/p&gt;</span> &#10;#wwform (<span
-                            class="xml&#45;quote">&quot;action=/formProcessing.action&quot;</span>&#160;<span
-                            class="xml&#45;quote">&quot;method=post&quot;</span>) &#10; #wwcheckbox (<span
-                            class="xml&#45;quote">&quot;name=checkbox&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=A checkbox&quot;</span>&#160;<span
-                            class="xml&#45;quote">&quot;fieldValue=checkbox&#95;value&quot;</span>) &#10; #wwfile (<span
-                            class="xml&#45;quote">&quot;name=file&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=A file field&quot;</span>)
-                        &#10; #wwhidden (<span class="xml&#45;quote">&quot;name=hidden&quot;</span>&#160;<span
-                            class="xml&#45;quote">&quot;value=hidden&#95;value&quot;</span>) &#10; #wwlabel (<span
-                            class="xml&#45;quote">&quot;label=A label&quot;</span>) &#10; #wwpassword (<span
-                            class="xml&#45;quote">&quot;name=password&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=A password field&quot;</span>)
-                        &#10; #wwradio (<span class="xml&#45;quote">&quot;name=radio&quot;</span>&#160;<span
-                            class="xml&#45;quote">&quot;label=Radio buttons&quot;</span>&#160;<span
-                            class="xml&#45;quote">&quot;list=&#123;&#039;One&#039;, &#039;Two&#039;, &#039;Three&#039;&#125;&quot;</span>)
-                        &#10; #wwselect (<span class="xml&#45;quote">&quot;name=select&quot;</span>&#160;<span
-                            class="xml&#45;quote">&quot;label=A select list&quot;</span>&#160;<span
-                            class="xml&#45;quote">&quot;list=&#123;&#039;One&#039;, &#039;Two&#039;, &#039;Three&#039;&#125;&quot;</span>&#160;<span
-                            class="xml&#45;quote">&quot;emptyOption=true&quot;</span>) &#10; #wwtextarea (<span
-                            class="xml&#45;quote">&quot;name=textarea&quot;</span>&#160;<span class="xml&#45;quote">&quot;label=A text area&quot;</span>&#160;<span
-                            class="xml&#45;quote">&quot;rows=3&quot;</span>&#160;<span class="xml&#45;quote">&quot;cols=40&quot;</span>)
-                        &#10; #wwtextfield (<span class="xml&#45;quote">&quot;name=textfield&quot;</span>&#160;<span
-                            class="xml&#45;quote">&quot;label=A text field&quot;</span>) &#10; #wwsubmit (<span
-                            class="xml&#45;quote">&quot;value=Send Form&quot;</span>) &#10;#end &#10;<span
-                            class="xml&#45;tag">&lt;/body&gt;</span> &#10;<span class="xml&#45;tag">&lt;/html&gt;</span>
-                    </pre>
-                </div></div><br/>
-
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; "><b>ex02.vm
-                generated html page in Portal Server</b></div>
-
-                <div class="codeContent">
-                    <pre><span class="xml&#45;tag">&lt;p&gt;</span>UI Form Tags Example using Velocity:<span
-                            class="xml&#45;tag">&lt;/p&gt;</span>&#10;<span class="xml&#45;tag">&lt;form namespace=<span
-                            class="xml&#45;quote">&quot;/portlet&quot;</span> id=<span class="xml&#45;quote">&quot;formProcessing&quot;</span>&#10;	action=<span
-                            class="xml&#45;quote">&quot;&#104;ttp://localhost:8080/jetspeed/portal/xxxxxx/wwportlet.psml&quot;</span>&#10;	method=<span
-                            class="xml&#45;quote">&quot;post&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;input type=<span
-                            class="xml&#45;quote">&quot;hidden&quot;</span> name=<span class="xml&#45;quote">&quot;wwAction&quot;</span>&#10;	value=<span
-                            class="xml&#45;quote">&quot;/formProcessing.action&quot;</span> /&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;table class=<span
-                            class="xml&#45;quote">&quot;wwFormTable&quot;</span>&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;tr&gt;</span>&#10; <span class="xml&#45;tag">&lt;td valign=<span
-                            class="xml&#45;quote">&quot;top&quot;</span> colspan=<span class="xml&#45;quote">&quot;2&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;table width=<span
-                                class="xml&#45;quote">&quot;100&#37;&quot;</span> border=<span class="xml&#45;quote">&quot;0&quot;</span> cellpadding=<span
-                                class="xml&#45;quote">&quot;0&quot;</span> cellspacing=<span class="xml&#45;quote">&quot;0&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;tr&gt;</span>&#10; <span class="xml&#45;tag">&lt;td valign=<span
-                            class="xml&#45;quote">&quot;middle&quot;</span>&gt;</span>&#10; <span class="xml&#45;tag">&lt;input type=<span
-                            class="xml&#45;quote">&quot;checkbox&quot;</span> name=<span class="xml&#45;quote">&quot;checkbox&quot;</span>&#10;			        value=<span
-                            class="xml&#45;quote">&quot;checkbox&#95;value&quot;</span> id=<span class="xml&#45;quote">&quot;formProcessing&#95;checkbox&quot;</span> /&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/td&gt;</span>&#10; <span class="xml&#45;tag">&lt;td width=<span
-                            class="xml&#45;quote">&quot;100&#37;&quot;</span> valign=<span class="xml&#45;quote">&quot;middle&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;label for=<span class="xml&#45;quote">&quot;formProcessing&#95;checkbox&quot;</span> class=<span
-                                class="xml&#45;quote">&quot;checkboxLabel&quot;</span>&gt;</span>&#10; A checkbox&#10;
-                        <span class="xml&#45;tag">&lt;/label&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;/td&gt;</span>&#10; <span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/table&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;/td&gt;</span>&#10; <span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;tr&gt;</span>&#10; <span class="xml&#45;tag">&lt;td align=<span
-                            class="xml&#45;quote">&quot;right&quot;</span> valign=<span class="xml&#45;quote">&quot;top&quot;</span>&gt;</span><span
-                            class="xml&#45;tag">&lt;label for=<span class="xml&#45;quote">&quot;formProcessing&#95;file&quot;</span>&#10;			class=<span
-                            class="xml&#45;quote">&quot;label&quot;</span>&gt;</span>A file field:<span
-                            class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;input type=<span
-                            class="xml&#45;quote">&quot;file&quot;</span> name=<span class="xml&#45;quote">&quot;file&quot;</span> id=<span
-                            class="xml&#45;quote">&quot;formProcessing&#95;file&quot;</span> /&gt;</span><span
-                            class="xml&#45;tag">&lt;/td&gt;</span>&#10; <span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;hidden&quot;</span> name=<span
-                                class="xml&#45;quote">&quot;hidden&quot;</span> value=<span class="xml&#45;quote">&quot;hidden&#95;value&quot;</span>&#10;		id=<span
-                                class="xml&#45;quote">&quot;formProcessing&#95;hidden&quot;</span> /&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;tr&gt;</span>&#10; <span class="xml&#45;tag">&lt;td align=<span
-                            class="xml&#45;quote">&quot;right&quot;</span> valign=<span class="xml&#45;quote">&quot;top&quot;</span>&gt;</span><span
-                            class="xml&#45;tag">&lt;label for=<span class="xml&#45;quote">&quot;formProcessing&#95;null&quot;</span>&#10;			class=<span
-                            class="xml&#45;quote">&quot;label&quot;</span>&gt;</span>A label:<span class="xml&#45;tag">&lt;/label&gt;</span><span
-                            class="xml&#45;tag">&lt;/td&gt;</span>&#10; <span class="xml&#45;tag">&lt;td&gt;</span><span
-                            class="xml&#45;tag">&lt;label id=<span class="xml&#45;quote">&quot;formProcessing&#95;null&quot;</span>&gt;</span><span
-                            class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/tr&gt;</span>&#10; <span class="xml&#45;tag">&lt;tr&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;td align=<span class="xml&#45;quote">&quot;right&quot;</span> valign=<span
-                                class="xml&#45;quote">&quot;top&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;label for=<span
-                            class="xml&#45;quote">&quot;formProcessing&#95;password&quot;</span>&#10;			class=<span
-                            class="xml&#45;quote">&quot;label&quot;</span>&gt;</span>A password field:<span
-                            class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;input type=<span
-                            class="xml&#45;quote">&quot;password&quot;</span> name=<span class="xml&#45;quote">&quot;password&quot;</span>&#10;			id=<span
-                            class="xml&#45;quote">&quot;formProcessing&#95;password&quot;</span> /&gt;</span><span
-                            class="xml&#45;tag">&lt;/td&gt;</span>&#10; <span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;tr&gt;</span>&#10; <span class="xml&#45;tag">&lt;td align=<span
-                            class="xml&#45;quote">&quot;right&quot;</span> valign=<span class="xml&#45;quote">&quot;top&quot;</span>&gt;</span><span
-                            class="xml&#45;tag">&lt;label for=<span class="xml&#45;quote">&quot;formProcessing&#95;radio&quot;</span>&#10;			class=<span
-                            class="xml&#45;quote">&quot;label&quot;</span>&gt;</span>Radio buttons:<span
-                            class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;input type=<span
-                            class="xml&#45;quote">&quot;radio&quot;</span> name=<span class="xml&#45;quote">&quot;radio&quot;</span> id=<span
-                            class="xml&#45;quote">&quot;radioOne&quot;</span> value=<span class="xml&#45;quote">&quot;One&quot;</span> /&gt;</span><span
-                            class="xml&#45;tag">&lt;label&#10;			for=<span class="xml&#45;quote">&quot;radioOne&quot;</span>&gt;</span>One<span
-                            class="xml&#45;tag">&lt;/label&gt;</span>&#160;<span
-                            class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;radio&quot;</span> name=<span
-                            class="xml&#45;quote">&quot;radio&quot;</span>&#10;			id=<span
-                            class="xml&#45;quote">&quot;radioTwo&quot;</span> value=<span class="xml&#45;quote">&quot;Two&quot;</span> /&gt;</span><span
-                            class="xml&#45;tag">&lt;label&#10;			for=<span class="xml&#45;quote">&quot;radioTwo&quot;</span>&gt;</span>Two<span
-                            class="xml&#45;tag">&lt;/label&gt;</span>&#160;<span
-                            class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;radio&quot;</span> name=<span
-                            class="xml&#45;quote">&quot;radio&quot;</span>&#10;			id=<span
-                            class="xml&#45;quote">&quot;radioThree&quot;</span> value=<span class="xml&#45;quote">&quot;Three&quot;</span> /&gt;</span><span
-                            class="xml&#45;tag">&lt;label&#10;			for=<span class="xml&#45;quote">&quot;radioThree&quot;</span>&gt;</span>Three<span
-                            class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/tr&gt;</span>&#10; <span class="xml&#45;tag">&lt;tr&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;td align=<span class="xml&#45;quote">&quot;right&quot;</span> valign=<span
-                                class="xml&#45;quote">&quot;top&quot;</span>&gt;</span><span class="xml&#45;tag">&lt;label for=<span
-                            class="xml&#45;quote">&quot;formProcessing&#95;select&quot;</span>&#10;			class=<span
-                            class="xml&#45;quote">&quot;label&quot;</span>&gt;</span>A select list:<span
-                            class="xml&#45;tag">&lt;/label&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;td&gt;</span><span class="xml&#45;tag">&lt;select name=<span
-                            class="xml&#45;quote">&quot;select&quot;</span> id=<span class="xml&#45;quote">&quot;formProcessing&#95;select&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;option value=<span
-                                class="xml&#45;quote">&quot;&quot;&gt;</span><span
-                                class="xml&#45;tag">&lt;/option&gt;</span>&#10;			<span class="xml&#45;tag">&lt;option value=&quot;</span>One<span
-                                class="xml&#45;quote">&quot;&gt;</span>One<span
-                                class="xml&#45;tag">&lt;/option&gt;</span>&#10;			<span class="xml&#45;tag">&lt;option value=&quot;</span>Two<span
-                                class="xml&#45;quote">&quot;&gt;</span>Two<span
-                                class="xml&#45;tag">&lt;/option&gt;</span>&#10;			<span class="xml&#45;tag">&lt;option value=&quot;</span>Three<span
-                                class="xml&#45;quote">&quot;&gt;</span>Three<span
-                                class="xml&#45;tag">&lt;/option&gt;</span>&#10;		<span class="xml&#45;tag">&lt;/select&gt;</span><span
-                                class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span
-                                class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span
-                                class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td align=&quot;</span>right<span
-                                class="xml&#45;quote">&quot; valign=&quot;</span>top<span class="xml&#45;quote">&quot;&gt;</span><span
-                                class="xml&#45;tag">&lt;label for=&quot;</span>formProcessing&#95;textarea<span
-                                class="xml&#45;quote">&quot;&#10;			class=&quot;</span>label<span
-                                class="xml&#45;quote">&quot;&gt;</span>A text area:<span class="xml&#45;tag">&lt;/label&gt;</span><span
-                                class="xml&#45;tag">&lt;/td&gt;</span>&#10;		<span
-                                class="xml&#45;tag">&lt;td&gt;</span><span
-                                class="xml&#45;tag">&lt;textarea name=&quot;</span>textarea<span class="xml&#45;quote">&quot; cols=&quot;</span>40<span
-                                class="xml&#45;quote">&quot; rows=&quot;</span>3<span class="xml&#45;quote">&quot;&#10;			id=&quot;</span>formProcessing&#95;textarea<span
-                                class="xml&#45;quote">&quot;&gt;</span><span
-                                class="xml&#45;tag">&lt;/textarea&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span
-                                class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span
-                                class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td align=&quot;</span>right<span
-                                class="xml&#45;quote">&quot; valign=&quot;</span>top<span class="xml&#45;quote">&quot;&gt;</span><span
-                                class="xml&#45;tag">&lt;label for=&quot;</span>formProcessing&#95;textfield<span
-                                class="xml&#45;quote">&quot;&#10;			class=&quot;</span>label<span
-                                class="xml&#45;quote">&quot;&gt;</span>A text field:<span class="xml&#45;tag">&lt;/label&gt;</span><span
-                                class="xml&#45;tag">&lt;/td&gt;</span>&#10;		<span
-                                class="xml&#45;tag">&lt;td&gt;</span><span
-                                class="xml&#45;tag">&lt;input type=&quot;</span>text<span class="xml&#45;quote">&quot; name=&quot;</span>textfield<span
-                                class="xml&#45;quote">&quot; id=&quot;</span>formProcessing&#95;textfield<span
-                                class="xml&#45;quote">&quot; /&gt;</span><span class="xml&#45;tag">&lt;/td&gt;</span>&#10;	<span
-                                class="xml&#45;tag">&lt;/tr&gt;</span>&#10;	<span
-                                class="xml&#45;tag">&lt;tr&gt;</span>&#10;		<span class="xml&#45;tag">&lt;td colspan=&quot;</span>2<span
-                                class="xml&#45;quote">&quot;&gt;</span>&#10;		<span class="xml&#45;tag">&lt;div align=&quot;</span>right<span
-                                class="xml&#45;quote">&quot;&gt;</span><span
-                                class="xml&#45;tag">&lt;input type=&quot;</span>submit<span class="xml&#45;quote">&quot; value=&quot;</span>Send Form&quot; /&gt;</span><span
-                            class="xml&#45;tag">&lt;/div&gt;</span>&#10; <span class="xml&#45;tag">&lt;/td&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/tr&gt;</span>&#10;<span class="xml&#45;tag">&lt;/table&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;/form&gt;</span></pre>
-                </div></div><br/>
-
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; ">
-                <b>ex02Success.vm</b></div>
-
-                <div class="codeContent">
-                    <pre><span class="xml&#45;tag">&lt;html&gt;</span> &#10;<span
-                            class="xml&#45;tag">&lt;head&gt;</span> &#10;<span class="xml&#45;tag">&lt;title&gt;</span>&#87;ebWork
-                        Tutorial &#45; Example 2 Result<span class="xml&#45;tag">&lt;/title&gt;</span> &#10;<span
-                            class="xml&#45;tag">&lt;meta name=<span
-                            class="xml&#45;quote">&quot;help&#45;path&quot;</span> content=<span class="xml&#45;quote">&quot;/help/help2.html&quot;</span>/&gt;</span>
-                        &#10;<span class="xml&#45;tag">&lt;/head&gt;</span> &#10;<span
-                            class="xml&#45;tag">&lt;body&gt;</span> &#10;<span class="xml&#45;tag">&lt;p&gt;</span>UI
-                        Form Tags Example result using Velocity:<span class="xml&#45;tag">&lt;/p&gt;</span> &#10;<span
-                            class="xml&#45;tag">&lt;ul&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>checkbox:
-                        $&#33;checkbox<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>&#102;ile:
-                        $&#33;file<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>hidden:
-                        $&#33;hidden<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>password:
-                        $&#33;password<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>radio:
-                        $&#33;radio<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>select:
-                        $&#33;select<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>textarea:
-                        $&#33;textarea<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>textfield:
-                        $&#33;textfield<span class="xml&#45;tag">&lt;/li&gt;</span> &#10;<span class="xml&#45;tag">&lt;/ul&gt;</span>
-                        &#10;<span class="xml&#45;tag">&lt;/body&gt;</span> &#10;<span
-                            class="xml&#45;tag">&lt;/html&gt;</span></pre>
-                </div></div><br/>
-
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; "><b>ex02Success.vm
-                generated html page in Portal Server</b></div>
-
-                <div class="codeContent">
-                    <pre><span class="xml&#45;tag">&lt;td valign=<span class="xml&#45;quote">&quot;top&quot;</span> class=<span
-                            class="xml&#45;quote">&quot;pagebody&quot;</span> width=<span class="xml&#45;quote">&quot;60&#37;&quot;</span>&gt;</span><span
-                            class="xml&#45;tag">&lt;br/&gt;</span>&#10; <span class="xml&#45;tag">&lt;p&gt;</span>UI
-                        Form Tags Example result using Velocity:<span class="xml&#45;tag">&lt;/p&gt;</span> &#10; <span
-                            class="xml&#45;tag">&lt;ul&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>checkbox:
-                        checkbox&#95;value<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>&#102;ile:
-                        D:&#92;Test.java<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>hidden:
-                        hidden&#95;value<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span class="xml&#45;tag">&lt;li&gt;</span>password:
-                        test<span class="xml&#45;tag">&lt;/li&gt;</span> &#10; <span
-                            class="xml&#45;tag">&lt;li&gt;</span>radio: One<span class="xml&#45;tag">&lt;/li&gt;</span>
-                        &#10; <span class="xml&#45;tag">&lt;li&gt;</span>select: Two<span class="xml&#45;tag">&lt;/li&gt;</span>
-                        &#10; <span class="xml&#45;tag">&lt;li&gt;</span>textarea: test<span class="xml&#45;tag">&lt;/li&gt;</span>
-                        &#10; <span class="xml&#45;tag">&lt;li&gt;</span>textfield: test<span class="xml&#45;tag">&lt;/li&gt;</span>
-                        &#10; <span class="xml&#45;tag">&lt;/ul&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;/td&gt;</span></pre>
-                </div></div><br/>
-
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; "><b>webwork-default.xml
-                code snippet</b></div>
-
-                <div class="codeContent">
-                    <pre><span class="xml&#45;tag">&lt;package name=<span class="xml&#45;quote">&quot;webwork&#45;default&quot;</span>&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;result&#45;types&gt;</span>&#10;<span class="xml&#45;tag">&lt;result&#45;type name=<span
-                            class="xml&#45;quote">&quot;dispatcher&quot;</span> class=<span class="xml&#45;quote">&quot;com.opensymphony.webwork.portlet.result.&#80;ortletDispatcherResult&quot;</span>/&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;result&#45;type name=<span class="xml&#45;quote">&quot;velocity&quot;</span> class=<span
-                            class="xml&#45;quote">&quot;com.opensymphony.webwork.portlet.result.&#80;ortletDispatcherResult&quot;</span> default=<span
-                            class="xml&#45;quote">&quot;true&quot;</span>/&gt;</span>&#10;<span class="xml&#45;tag">&lt;/result&#45;types&gt;</span>
-                        &#10;....</pre>
-                </div></div><br/>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>webwork-default.xml code snippet</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;package name=<span class="xml&#45;quote">&quot;webwork&#45;default&quot;</span>&gt;</span>&#10;<span class="xml&#45;tag">&lt;result&#45;types&gt;</span>&#10;<span class="xml&#45;tag">&lt;result&#45;type name=<span class="xml&#45;quote">&quot;dispatcher&quot;</span> class=<span class="xml&#45;quote">&quot;com.opensymphony.webwork.portlet.result.&#80;ortletDispatcherResult&quot;</span>/&gt;</span>&#10;<span class="xml&#45;tag">&lt;result&#45;type name=<span class="xml&#45;quote">&quot;velocity&quot;</span> class=<span class="xml&#45;quote">&quot;com.opensymphony.webwork.portlet.result.&#80;ortletDispatcherResult&quot;</span> default=<span class="xml&#45;quote">&quot;true&quot;</span>/&gt;</span>&#10;<span class="xml&#45;tag">&lt;/result&#45;types&gt;</span> &#10;....</pre>
+</div></div><br/>
 
 
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; "><b>xwork.xml code
-                snippet</b></div>
-
-                <div class="codeContent">
-                    <pre><span class="xml&#45;tag">&lt;xwork&gt;</span>&#10; <span class="xml&#45;tag">&lt;include file=<span
-                            class="xml&#45;quote">&quot;webwork&#45;default.xml&quot;</span> /&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;package name=<span class="xml&#45;quote">&quot;default&quot;</span> extends=<span
-                            class="xml&#45;quote">&quot;webwork&#45;default&quot;</span>&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;interceptors&gt;</span>&#10; <span class="xml&#45;tag">&lt;interceptor&#45;stack name=<span
-                            class="xml&#45;quote">&quot;standard&#45;interceptors&quot;</span>&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;static&#45;params&quot;</span> /&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;params&quot;</span> /&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;conversionError&quot;</span> /&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/interceptor&#45;stack&gt;</span>&#10; <span class="xml&#45;tag">&lt;/interceptors&gt;</span>&#10;
-                        ....&#10; <span class="xml&#45;tag">&lt;action name=<span class="xml&#45;quote">&quot;formProcessing&quot;</span> class=<span
-                            class="xml&#45;quote">&quot;com.test.&#70;ormProcessingAction&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;result name=<span class="xml&#45;quote">&quot;input&quot;</span> type=<span
-                                class="xml&#45;quote">&quot;dispatcher&quot;</span>&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;location&quot;</span>&gt;</span>ex02.vm<span
-                            class="xml&#45;tag">&lt;/param&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;/result&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;result name=<span class="xml&#45;quote">&quot;success&quot;</span> type=<span
-                            class="xml&#45;quote">&quot;dispatcher&quot;</span>&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;location&quot;</span>&gt;</span>ex02Success.vm<span
-                            class="xml&#45;tag">&lt;/param&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;/result&gt;</span>&#10; <span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span
-                            class="xml&#45;quote">&quot;validationWorkflowStack&quot;</span> /&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;/action&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;/package&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;/xwork&gt;</span></pre>
-                </div></div><br/>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>xwork.xml code snippet</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;xwork&gt;</span>&#10;	<span class="xml&#45;tag">&lt;include file=<span class="xml&#45;quote">&quot;webwork-portlet-default.xml&quot;</span> /&gt;</span>&#10;	<span class="xml&#45;tag">&lt;package name=<span class="xml&#45;quote">&quot;default&quot;</span> extends=<span class="xml&#45;quote">&quot;webwork&#45;default&quot;</span>&gt;</span>&#10;		<span class="xml&#45;tag">&lt;interceptors&gt;</span>&#10;			<span class="xml&#45;tag">&lt;interceptor&#45;stack name=<span class="xml&#45;quote">&quot;standard&#45;interceptors&quot;</span>&gt;</span>&#10;				<span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;static&#45;params&quot;</span> /&gt;</span>&#10;				<span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;params&quot;</span> /&gt;</span>&#10;				<span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;conversionError&quot;</span> /&gt;</span>&#10;			<span class="xml&#45;tag">&lt;/interceptor&#45;stack&gt;</span>&#10;		<span class="xml&#45;tag">&lt;/interceptors&gt;</span>&#10;                       ....&#10;		<span class="xml&#45;tag">&lt;action name=<span class="xml&#45;quote">&quot;formProcessing&quot;</span> class=<span class="xml&#45;quote">&quot;com.test.&#70;ormProcessingAction&quot;</span>&gt;</span>&#10;			<span class="xml&#45;tag">&lt;result name=<span class="xml&#45;quote">&quot;input&quot;</span> type=<span class="xml&#45;quote">&quot;dispatcher&quot;</span>&gt;</span>&#10;				<span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;location&quot;</span>&gt;</span>ex02.vm<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;			<span class="xml&#45;tag">&lt;/result&gt;</span>&#10;			<span class="xml&#45;tag">&lt;result name=<span class="xml&#45;quote">&quot;success&quot;</span> type=<span class="xml&#45;quote">&quot;dispatcher&quot;</span>&gt;</span>&#10;				<span class="xml&#45;tag">&lt;param name=<span class="xml&#45;quote">&quot;location&quot;</span>&gt;</span>ex02Success.vm<span class="xml&#45;tag">&lt;/param&gt;</span>&#10;			<span class="xml&#45;tag">&lt;/result&gt;</span>&#10;			<span class="xml&#45;tag">&lt;interceptor&#45;ref name=<span class="xml&#45;quote">&quot;validationWorkflowStack&quot;</span> /&gt;</span>&#10;		<span class="xml&#45;tag">&lt;/action&gt;</span>&#10;	<span class="xml&#45;tag">&lt;/package&gt;</span>&#10;<span class="xml&#45;tag">&lt;/xwork&gt;</span></pre>
+</div></div><br/>
 
 
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; "><b>FormProcessingAction.java</b>
-            </div>
-
-                <div class="codeContent">
-                    <pre><span class="java&#45;keyword">package</span> com.test;&#10;<span class="java&#45;keyword">import</span>
-                        com.opensymphony.xwork.&#65;ctionSupport;&#10;<span class="java&#45;keyword">public</span> class
-                        &#70;ormProcessingAction <span class="java&#45;keyword">extends</span> &#65;ctionSupport &#123;&#10;
-                        <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span>
-                        checkbox;&#10; <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span>
-                        file;&#10; <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span>
-                        hidden;&#10; <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span>
-                        password;&#10; <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span>
-                        radio;&#10; <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span>
-                        select;&#10; <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span>
-                        textarea;&#10; <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span>
-                        textfield;&#10;&#10; <span class="java&#45;keyword">public</span>&#160;<span
-                            class="java&#45;object">String</span> getCheckbox() &#123;&#10; <span
-                            class="java&#45;keyword">return</span> checkbox;&#10; &#125;&#10; <span
-                            class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span>
-                        getFile() &#123;&#10; <span class="java&#45;keyword">return</span> file;&#10; &#125;&#10; <span
-                            class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span>
-                        getHidden() &#123;&#10; <span class="java&#45;keyword">return</span> hidden;&#10; &#125;&#10;
-                        <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span>
-                        getPassword() &#123;&#10; <span class="java&#45;keyword">return</span> password;&#10; &#125;&#10;
-                        <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span>
-                        getRadio() &#123;&#10; <span class="java&#45;keyword">return</span> radio;&#10; &#125;&#10;
-                        <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span>
-                        getSelect() &#123;&#10; <span class="java&#45;keyword">return</span> select;&#10; &#125;&#10;
-                        <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span>
-                        getTextarea() &#123;&#10; <span class="java&#45;keyword">return</span> textarea;&#10; &#125;&#10;
-                        <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span>
-                        getTextfield() &#123;&#10; <span class="java&#45;keyword">return</span> textfield;&#10; &#125;&#10;
-                        <span class="java&#45;keyword">public</span> void setCheckbox(<span class="java&#45;object">String</span>
-                        checkbox) &#123;&#10; <span class="java&#45;keyword">this</span>.checkbox = checkbox;&#10;
-                        &#125;&#10; <span class="java&#45;keyword">public</span> void setFile(<span
-                            class="java&#45;object">String</span> file) &#123;&#10; <span
-                            class="java&#45;keyword">this</span>.file = file;&#10; &#125;&#10; <span
-                            class="java&#45;keyword">public</span> void setHidden(<span
-                            class="java&#45;object">String</span> hidden) &#123;&#10; <span class="java&#45;keyword">this</span>.hidden
-                        = hidden;&#10; &#125;&#10; <span class="java&#45;keyword">public</span> void setPassword(<span
-                            class="java&#45;object">String</span> password) &#123;&#10; <span class="java&#45;keyword">this</span>.password
-                        = password;&#10; &#125;&#10; <span class="java&#45;keyword">public</span> void setRadio(<span
-                            class="java&#45;object">String</span> radio) &#123;&#10; <span
-                            class="java&#45;keyword">this</span>.radio = radio;&#10; &#125;&#10; <span
-                            class="java&#45;keyword">public</span> void setSelect(<span
-                            class="java&#45;object">String</span> select) &#123;&#10; <span class="java&#45;keyword">this</span>.select
-                        = select;&#10; &#125;&#10; <span class="java&#45;keyword">public</span> void setTextarea(<span
-                            class="java&#45;object">String</span> textarea) &#123;&#10; <span class="java&#45;keyword">this</span>.textarea
-                        = textarea;&#10; &#125;&#10; <span class="java&#45;keyword">public</span> void
-                        setTextfield(<span class="java&#45;object">String</span> textfield) &#123;&#10; <span
-                            class="java&#45;keyword">this</span>.textfield = textfield;&#10; &#125;&#10; <span
-                            class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span>
-                        execute() <span class="java&#45;keyword">throws</span> Exception &#123;&#10; <span
-                            class="java&#45;keyword">return</span> SUCCESS;&#10; &#125; &#10; <span
-                            class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span>
-                        myMethod() <span class="java&#45;keyword">throws</span> Exception &#123;&#10; file = file&#43;
-                        <span class="java&#45;quote">&quot;Hello&quot;</span>;&#10; <span class="java&#45;keyword">return</span>
-                        SUCCESS;&#10; &#125;&#10;&#125;</pre>
-                </div></div><br/>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>FormProcessingAction.java</b></div><div class="codeContent">
+<pre><span class="java&#45;keyword">package</span> com.test;&#10;<span class="java&#45;keyword">import</span> com.opensymphony.xwork.&#65;ctionSupport;&#10;<span class="java&#45;keyword">public</span> class &#70;ormProcessingAction <span class="java&#45;keyword">extends</span> &#65;ctionSupport &#123;&#10;    <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span> checkbox;&#10;    <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span> file;&#10;    <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span> hidden;&#10;    <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span> password;&#10;    <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span> radio;&#10;    <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span> select;&#10;    <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span> textarea;&#10;    <span class="java&#45;keyword">private</span>&#160;<span class="java&#45;object">String</span> textfield;&#10;&#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> getCheckbox() &#123;&#10;        <span class="java&#45;keyword">return</span> checkbox;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> getFile() &#123;&#10;        <span class="java&#45;keyword">return</span> file;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> getHidden() &#123;&#10;        <span class="java&#45;keyword">return</span> hidden;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> getPassword() &#123;&#10;        <span class="java&#45;keyword">return</span> password;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> getRadio() &#123;&#10;        <span class="java&#45;keyword">return</span> radio;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> getSelect() &#123;&#10;        <span class="java&#45;keyword">return</span> select;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> getTextarea() &#123;&#10;        <span class="java&#45;keyword">return</span> textarea;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> getTextfield() &#123;&#10;        <span class="java&#45;keyword">return</span> textfield;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span> void setCheckbox(<span class="java&#45;object">String</span> checkbox) &#123;&#10;        <span class="java&#45;keyword">this</span>.checkbox = checkbox;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span> void setFile(<span class="java&#45;object">String</span> file) &#123;&#10;        <span class="java&#45;keyword">this</span>.file = file;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span> void setHidden(<span class="java&#45;object">String</span> hidden) &#123;&#10;        <span class="java&#45;keyword">this</span>.hidden = hidden;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span> void setPassword(<span class="java&#45;object">String</span> password) &#123;&#10;        <span class="java&#45;keyword">this</span>.password = password;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span> void setRadio(<span class="java&#45;object">String</span> radio) &#123;&#10;        <span class="java&#45;keyword">this</span>.radio = radio;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span> void setSelect(<span class="java&#45;object">String</span> select) &#123;&#10;        <span class="java&#45;keyword">this</span>.select = select;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span> void setTextarea(<span class="java&#45;object">String</span> textarea) &#123;&#10;        <span class="java&#45;keyword">this</span>.textarea = textarea;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span> void setTextfield(<span class="java&#45;object">String</span> textfield) &#123;&#10;        <span class="java&#45;keyword">this</span>.textfield = textfield;&#10;    &#125;&#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> execute() <span class="java&#45;keyword">throws</span> Exception &#123;&#10;        <span class="java&#45;keyword">return</span> SUCCESS;&#10;    &#125;    &#10;    <span class="java&#45;keyword">public</span>&#160;<span class="java&#45;object">String</span> myMethod() <span class="java&#45;keyword">throws</span> Exception &#123;&#10;        file = file&#43; <span class="java&#45;quote">&quot;Hello&quot;</span>;&#10;        <span class="java&#45;keyword">return</span> SUCCESS;&#10;    &#125;&#10;&#125;</pre>
+</div></div><br/>
 
 
-            <div class="code" style="border-style: solid; "><div class="codeHeader"
-                                                                 style="border-bottom-style: solid; "><b>FormProcessingAction-validation.xml</b>
-            </div>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>FormProcessingAction-validation.xml</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;&#33;DOCTYPE validators PUBLIC <span class="xml&#45;quote">&quot;....&quot;</span>&gt;</span>&#10;<span class="xml&#45;tag">&lt;validators&gt;</span>&#10;  <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;checkbox&quot;</span>&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;      <span class="xml&#45;tag">&lt;message&gt;</span>Please, check the checkbox.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;  <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;  <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;file&quot;</span>&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;      <span class="xml&#45;tag">&lt;message&gt;</span>Please select a file.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;  <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;  <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;password&quot;</span>&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;      <span class="xml&#45;tag">&lt;message&gt;</span>Please type something in the password field.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;  <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;  <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;radio&quot;</span>&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;      <span class="xml&#45;tag">&lt;message&gt;</span>Please select a radio button.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;  <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;  <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;select&quot;</span>&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;      <span class="xml&#45;tag">&lt;message&gt;</span>Please select an option from the list.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;  <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;  <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;textarea&quot;</span>&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;      <span class="xml&#45;tag">&lt;message&gt;</span>Please type something in the text area.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;  <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;  <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;textfield&quot;</span>&gt;</span>&#10;    <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;      <span class="xml&#45;tag">&lt;message&gt;</span>Please type something in the text field.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;    <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;  <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span></pre>
+</div></div>
 
-                <div class="codeContent">
-                    <pre><span class="xml&#45;tag">&lt;&#33;DOCTYPE validators PUBLIC <span class="xml&#45;quote">&quot;....&quot;</span>&gt;</span>&#10;<span
-                            class="xml&#45;tag">&lt;validators&gt;</span>&#10; <span class="xml&#45;tag">&lt;field name=<span
-                            class="xml&#45;quote">&quot;checkbox&quot;</span>&gt;</span>&#10; <span class="xml&#45;tag">&lt;field&#45;validator type=<span
-                            class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;message&gt;</span>Please, check the checkbox.<span
-                            class="xml&#45;tag">&lt;/message&gt;</span>&#10; <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/field&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;field name=<span
-                            class="xml&#45;quote">&quot;file&quot;</span>&gt;</span>&#10; <span class="xml&#45;tag">&lt;field&#45;validator type=<span
-                            class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;message&gt;</span>Please select a file.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10; <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;password&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;message&gt;</span>Please type something in the password
-                        field.<span class="xml&#45;tag">&lt;/message&gt;</span>&#10; <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/field&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;radio&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;message&gt;</span>Please select a radio button.<span
-                            class="xml&#45;tag">&lt;/message&gt;</span>&#10; <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/field&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;select&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;message&gt;</span>Please select an option from the list.<span
-                            class="xml&#45;tag">&lt;/message&gt;</span>&#10; <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/field&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;textarea&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;message&gt;</span>Please type something in the text area.<span
-                            class="xml&#45;tag">&lt;/message&gt;</span>&#10; <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/field&gt;</span>&#10; <span
-                            class="xml&#45;tag">&lt;field name=<span class="xml&#45;quote">&quot;textfield&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;field&#45;validator type=<span class="xml&#45;quote">&quot;requiredstring&quot;</span>&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;message&gt;</span>Please type something in the text field.<span
-                            class="xml&#45;tag">&lt;/message&gt;</span>&#10; <span class="xml&#45;tag">&lt;/field&#45;validator&gt;</span>&#10;
-                        <span class="xml&#45;tag">&lt;/field&gt;</span>&#10;<span class="xml&#45;tag">&lt;/validators&gt;</span>
-                    </pre>
-                </div></div>
-
-
-        </td>
-    </tr>
-</table>
-</body>
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
 </html>
