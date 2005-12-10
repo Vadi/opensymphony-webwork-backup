@@ -3,17 +3,24 @@
 <meta name="help-path" content="/help/help0.html"/>
 </head>
 <body>
-<h1>Welcome to use WebWork2 For Portal MVC Portlet Framework</h1>
+<h1>Welcome to WebWork2.2 JSR168 Portlet Support DEMO</h1>
 <img border="0" src='$!req.contextPath/images/gettingstarted.jpg' alt='Portlet Demo' title='Portlet Demo'>
 <p>Framework also provide SiteMesh support</p>
-#wwhref ("href=hello.vm") WebWork Example 1 (Velocity) #end<br/>
-####wwa function is same as wwhref
+#wwhref ("href=ex01.vm") WebWork Example 1 (Velocity) #end<br/>
+#wwhref ("href=ex01.ftl") WebWork Example 1 (Freemarker) #end<br/>
+#wwhref ("href=ex01.jsp") WebWork Example 1 (JSP Version) #end<br/>
+##############################################
+####wwa function is same as wwhref ###########
+##############################################
 #wwa 	("href=ex02.vm") WebWork Example 2 (Velocity) #end<br/>
+#wwhref	("href=ex02.ftl") WebWork Example 2 (Freemarker) #end<br/>
 #wwa 	("href=ex03.vm") WebWork Example 3 (Velocity) #end<br/>
+#wwhref	("href=ex03.ftl") WebWork Example 3 (Freemarker) #end<br/>
 #wwa	("href=ex04.vm") WebWork Example 4 (Velocity) #end<br/>
+#wwhref	("href=ex04.ftl") WebWork Example 4 (Freemarker) #end<br/>
 #wwhref ("href=menu.vm") WebWork SiteMesh MenuPanel Example 5 (Velocity) #end<br/>
-#wwhref ("href=registerSupport.vm") WebWork User Register Demo 6 #end<br/>
-#wwhref ("href=hello.jsp") WebWork JSP Demo 7 #end<br/>
+#wwa	("href=registerSupport.vm") WebWork User Register Demo 6 (Velocity) #end<br/>
+#wwhref ("href=registerSupport.ftl") WebWork User Register Demo 6 (Freemarker) #end<br/>
 <br/>
 </body>
 </html>
