@@ -70,7 +70,7 @@
         </sequential>
     </macrodef>
 
-    <target name="predist">
+    <target name="predist" depends="jar">
         <!-- grab the README.txt file -->
         <copy file="${src}/etc/README.txt" todir="${dist}"/>
 
@@ -85,6 +85,33 @@
         <copy file="webapps/build.xml" todir="${dist}/webapps"/>
     </target>
 
+
+    <macrodef name="build_deployable_war">
+        <attribute name="warname"/>
+        <sequential>
+	<ant dir="${dist}/webapps/" target="build" inheritAll="true">
+	     <property name="webapp" value="@{warname}"/>
+	</ant>
+	</sequential>
+    </macrodef>
+    
+    <target name="deployable_wars" depends="predist">
+  	<echo>
+Build all deployable webapps, after the build is finished, 
+the fully-built wars file can be found in the dist directory:
+	${basedir}/dist/webapps/dist
+	
+You may deploy those files to any servlet or portlet container.
+        </echo>
+  	<build_deployable_war warname="starter"/>
+  	<build_deployable_war warname="sandbox"/>
+  	<build_deployable_war warname="ajax"/>
+  	<build_deployable_war warname="shopping-cart"/>
+  	<build_deployable_war warname="portlet"/>
+    </target>
+
+
+    
     <target name="xdoclet-taglib" depends="init">
         <taskdef
             name="xdoclet"
@@ -168,6 +195,7 @@
                 <attribute name="Implementation-Version" value="${version}"/>
             </manifest>
         </jar>
+        <copy file="${build}/${name}-${version}.jar" tofile="${build}/webwork.jar"/>
     </target>
 
     <target name="dist" depends="common.dist" description="generate distribution zip file">
