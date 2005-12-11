@@ -148,7 +148,10 @@ public class FreemarkerResult extends WebWorkResultSupport {
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpServletResponse response = ServletActionContext.getResponse();
         OgnlValueStack stack = ServletActionContext.getContext().getValueStack();
-        return FreemarkerManager.getInstance().buildTemplateModel(stack, invocation.getAction(), servletContext, request, response, wrapper);
+
+        Object action = null;
+        if(invocation!= null ) action = invocation.getAction(); //Added for NullPointException
+        return FreemarkerManager.getInstance().buildTemplateModel(stack, action, servletContext, request, response, wrapper);
     }
 
     /**
