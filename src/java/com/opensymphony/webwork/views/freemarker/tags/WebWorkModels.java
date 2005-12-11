@@ -239,6 +239,14 @@ public class WebWorkModels {
         return a;
     }
 
+    public HrefModel getHref() {
+        if (a == null) {
+            a = new HrefModel(stack, req, res);
+        }
+
+        return a;
+    }
+
     public DivModel getDiv() {
         if (div == null) {
             div = new DivModel(stack, req, res);
