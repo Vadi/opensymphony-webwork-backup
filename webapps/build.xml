@@ -33,7 +33,7 @@
             <zipfileset dir="${basedir}/../../lib/freemarker" prefix="WEB-INF/lib" includes="*.jar"/>
             <zipfileset dir="${basedir}/../../lib/portlet" prefix="WEB-INF/lib" includes="*.jar"/>
             <zipfileset dir="${basedir}/../../lib/sitemesh" prefix="WEB-INF/lib" includes="*.jar"/>
-            <zipfileset dir="${basedir}/../../lib/spring" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../../lib/spring" prefix="WEB-INF/lib" includes="*.jar" excludes="commons-logging.jar"/>
         </war>
     </target>
 </project>
