@@ -19,6 +19,7 @@ import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.servlet.http.HttpServlet;
 
 import org.apache.pluto.core.impl.PortletConfigImpl;
 
@@ -29,6 +30,7 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.portlet.context.PortletContext;
 import com.opensymphony.webwork.portlet.util.PortletMessaging;
 import com.opensymphony.webwork.util.AttributeMap;
+import com.opensymphony.webwork.views.JspSupportServlet;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionGlobalContext;
 import com.opensymphony.xwork.ActionProxy;
@@ -165,11 +167,15 @@ public class WebWorkPortlet extends GenericPortlet implements WebWorkPortletStat
 
         try {
 
-            ///////////////////////////For OpenSessionInXWorkInterceptor in
-            // WebWork Interceptor/////////////////////
+            ///////////////////////////For OpenSessionInXWorkInterceptor in WebWork Interceptor/////////////////////
             try {
-                javax.servlet.http.HttpServletRequestWrapper requestWrapper = (javax.servlet.http.HttpServletRequestWrapper) request;
-                PortletContext.getContext().setServletContext(requestWrapper.getSession().getServletContext());
+                // javax.servlet.http.HttpServletRequestWrapper requestWrapper = (javax.servlet.http.HttpServletRequestWrapper) request;
+                // PortletContext.getContext().setServletContext(requestWrapper.getSession().getServletContext());
+
+                HttpServlet servlet = JspSupportServlet.jspSupportServlet;
+                if(servlet != null)
+                    PortletContext.getContext().setServletContext(servlet.getServletContext());
+
             } catch (Exception e) {
                 PortletContext.getContext().setServletConfig( ((PortletConfigImpl) getPortletConfig()).getServletConfig());
             }
