@@ -2,38 +2,44 @@
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app id="WebApp_ID">
 	<display-name>WWPortlet</display-name>
-
 	<servlet>
-		<servlet-name>WebWorkFreemarkerServlet</servlet-name>
-		<display-name>WebWorkFreemarkerServlet</display-name>
+	    <servlet-name>JspSupportServlet</servlet-name>
+		<display-name>JspSupportServlet</display-name>
 		<description></description>
-		<servlet-class>com.opensymphony.webwork.portlet.servlet.WebWorkFreemarkerServlet</servlet-class>
+	    <servlet-class>com.opensymphony.webwork.views.JspSupportServlet</servlet-class>
+	    <load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>FreemarkerResultProxy</servlet-name>
+		<display-name>FreemarkerResultProxy</display-name>
+		<description></description>
+		<servlet-class>com.opensymphony.webwork.portlet.views.FreemarkerResultProxy</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet>
-		<servlet-name>WebWorkVelocityServlet</servlet-name>
-		<display-name>WebWorkVelocityServlet</display-name>
+		<servlet-name>VelocityResultProxy</servlet-name>
+		<display-name>VelocityResultProxy</display-name>
 		<description></description>
-		<servlet-class>com.opensymphony.webwork.portlet.servlet.WebWorkVelocityServlet</servlet-class>
+		<servlet-class>com.opensymphony.webwork.portlet.views.VelocityResultProxy</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<servlet>
-		<servlet-name>WebWorkJSPServlet</servlet-name>
-		<display-name>WebWorkJSPServlet</display-name>
+		<servlet-name>JSPResultProxy</servlet-name>
+		<display-name>JSPResultProxy</display-name>
 		<description></description>
-		<servlet-class>com.opensymphony.webwork.portlet.servlet.WebWorkJSPServlet</servlet-class>
+		<servlet-class>com.opensymphony.webwork.portlet.views.JSPResultProxy</servlet-class>
 		<load-on-startup>3</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>WebWorkFreemarkerServlet</servlet-name>
+		<servlet-name>FreemarkerResultProxy</servlet-name>
 		<url-pattern>*.ftl</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>WebWorkVelocityServlet</servlet-name>
+		<servlet-name>VelocityResultProxy</servlet-name>
 		<url-pattern>*.vm</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>WebWorkJSPServlet</servlet-name>
+		<servlet-name>JSPResultProxy</servlet-name>
 		<url-pattern>*.jspt</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
