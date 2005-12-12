@@ -43,6 +43,11 @@ public class WebWorkVelocityContext extends VelocityContext {
             if (o != null) {
                 return true;
             }
+
+            o = stack.getContext().get(key.toString());
+            if (o != null) {
+                return true;
+            }
         }
 
         // if we still haven't found it, le's search through our chained contexts
@@ -71,6 +76,12 @@ public class WebWorkVelocityContext extends VelocityContext {
             if (object != null) {
                 return object;
             }
+
+            object = stack.getContext().get(key);
+            if (object != null) {
+                return object;
+            }
+
         }
 
         // finally, if we're chained to other contexts, let's look in them
