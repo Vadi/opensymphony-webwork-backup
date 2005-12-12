@@ -21,14 +21,14 @@ import java.util.Map;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * <p>ActionTag enables developers to call Actions directly from a JSP page by specifying the Action name and an optional
- * namespace.  The body content of the tag is used to render the results from the Action.  Any Result processor defined
- * for this Action in xwork.xml will be ignored.</p>
+ * <p>This tag enables developers to call actions directly from a JSP page by specifying the action name and an optional
+ * namespace.  The body content of the tag is used to render the results from the Action.  Any result processor defined
+ * for this action in xwork.xml will be ignored, <i>unless</i> the executeResult parameter is specified.</p>
  * <!-- END SNIPPET: javadoc -->
  *
  * <!-- START SNIPPET: params -->
  * <ul>
- *      <li>id (String) - the id (if speficied) to put the action under stack's context.
+ *      <li>id (String) - the id (if specified) to put the action under stack's context.
  * 		<li>name* (String) - name of the action to be executed (without the extension suffix eg. .action)</li>
  * 		<li>namespace (String) - default to the namespace where this action tag is invoked</li>
  *      <li>executeResult (Boolean) -  default is false. Decides wheather the result of this action is to be executed or not</li>
