@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.portlet.context.PortletContext;
+import com.opensymphony.webwork.portlet.util.PortalContainer;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -57,9 +58,23 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
                 boolean isWebWorkAction = hrefValue.indexOf(actionExtension) >= 0;
                 StringBuffer sb = new StringBuffer();
                 if (isWebWorkAction) {
-                    sb.append(actionUrl).append("?wwXAction=.").append(hrefValue);
+
+                    if (PortalContainer.LIFERAY_PORTAL == PortalContainer.get()) {
+                        int catIndex = actionUrl.lastIndexOf("&#p_");
+                        String liferay_actionUrl = actionUrl.substring(0, (catIndex == -1) ? actionUrl.length() : catIndex);
+                        sb.append(liferay_actionUrl).append("&wwXAction=.").append(hrefValue);
+                    }else {
+                        sb.append(actionUrl).append("?wwXAction=.").append(hrefValue);
+                    }
+
                 } else {
-                    sb.append(actionUrl).append("?wwLink=").append(hrefValue);
+                    if (PortalContainer.LIFERAY_PORTAL == PortalContainer.get()) {
+                        int catIndex = actionUrl.lastIndexOf("&#p_");
+                        String liferay_actionUrl = actionUrl.substring(0, (catIndex == -1) ? actionUrl.length() : catIndex);
+                        sb.append(liferay_actionUrl).append("&wwLink=").append(hrefValue);
+                    }else {
+                        sb.append(actionUrl).append("?wwLink=").append(hrefValue);
+                    }
                 }
 
                 addParameter("href", sb.toString());
