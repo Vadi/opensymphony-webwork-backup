@@ -15,7 +15,7 @@
         href="/AjaxTest.action"
         theme="ajax"
         delay="2000"
-        updateFreq="#parameters.period"
+        updateFreq="%{#parameters.period}"
         errorText="There was an error">Initial Content</ww:div>
 
 </body>
