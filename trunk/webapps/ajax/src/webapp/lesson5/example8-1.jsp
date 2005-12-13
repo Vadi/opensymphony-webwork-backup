@@ -6,10 +6,10 @@
     <title>Ajax examples - tabbled panel</title>
 
     <jsp:include page="../commonInclude.jsp"/>
-    <link rel="stylesheet" type="text/css" href="<ww:url value="/com/opensymphony/webwork/static/tabs.css"/>">
-    <link rel="stylesheet" type="text/css" href="<ww:url value="/com/opensymphony/webwork/static/niftycorners/niftyCorners.css"/>">
-    <link rel="stylesheet" type="text/css" href="<ww:url value="/com/opensymphony/webwork/static/niftycorners/niftyPrint.css"/>" media="print">
-    <script type="text/javascript" src="<ww:url value="/com/opensymphony/webwork/static/niftycorners/nifty.js"/>"></script>
+    <link rel="stylesheet" type="text/css" href="<ww:url value="/webwork/tabs.css"/>">
+    <link rel="stylesheet" type="text/css" href="<ww:url value="/webwork/niftycorners/niftyCorners.css"/>">
+    <link rel="stylesheet" type="text/css" href="<ww:url value="/webwork/niftycorners/niftyPrint.css"/>" media="print">
+    <script type="text/javascript" src="<ww:url value="/webwork/niftycorners/nifty.js"/>"></script>
     <script type="text/javascript">
         window.onload = function() {
             if (!NiftyCheck())
@@ -28,7 +28,7 @@
         <tr>
             <td align="top">
                 <ww:tabbedPanel id="test" theme="ajax">
-                    <ww:panel id="one" tabName="one" theme="ajax">
+                    <ww:panel id="one" tabName="one" theme="ajax" >
                         This is the first pane<br/>
                         <ww:form>
                             <ww:textfield name="tt" label="Test Text"/>  <br/>
