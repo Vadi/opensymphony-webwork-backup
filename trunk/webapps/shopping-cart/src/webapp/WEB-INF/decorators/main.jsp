@@ -5,7 +5,7 @@
 %>
 <%@ taglib uri="sitemesh-decorator" prefix="decorator" %>
 <%@ taglib uri="sitemesh-page" prefix="page" %>
-<%@ taglib uri="/webwork" prefix="ww" %>
+<%@ taglib prefix="ww" uri="webwork" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -20,13 +20,14 @@
     <script language="JavaScript" type="text/javascript">
         // Dojo configuration
         djConfig = {
-            baseRelativePath: "<ww:url value='/webwork/dojo/'/>",
-            parseWidgets: true,
-            isDebug: false
+            baseRelativePath: "<ww:url includeParams="none" value="/webwork/dojo/"/>",
+            isDebug: false,
+            debugAtAllCosts: true // not needed, but allows the Venkman debugger to work with the includes
         };
     </script>
 
-    <script language="JavaScript" type="text/javascript" src="<ww:url value='/webwork/dojo/dojo.js'/>"></script>
+    <script language="JavaScript" type="text/javascript"
+            src="<ww:url includeParams="none" value="/webwork/dojo/dojo.js" />"></script>
     <script language="JavaScript" type="text/javascript" src="<ww:url value='/js/nifty.js'/>"></script>
     <script language="JavaScript" type="text/javascript" src="<ww:url value='/js/dtree.js'/>"></script>
 

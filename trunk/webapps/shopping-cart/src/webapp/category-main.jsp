@@ -3,7 +3,7 @@
     response.setHeader("Cache-Control", "no-cache");
     response.setDateHeader("Expires", 0);
 %>
-<%@ taglib uri="/webwork" prefix="ww" %>
+<%@ taglib prefix="ww" uri="webwork" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head><title>Category</title>
