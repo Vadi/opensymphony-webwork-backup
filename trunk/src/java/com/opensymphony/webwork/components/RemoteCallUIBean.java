@@ -105,7 +105,7 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
     }
 
     /**
-     * @ww.tagattribute required="true" type="String"
+     * @ww.tagattribute required="false" type="String"
      * description="The URL to call to obtain the content"
      */
     public void setHref(String href) {
