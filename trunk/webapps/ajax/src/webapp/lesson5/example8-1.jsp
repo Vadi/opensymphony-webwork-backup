@@ -1,15 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="ww" uri="/webwork" %>
+<%@ taglib prefix="ww" uri="webwork" %>
 
 <html>
 <head>
     <title>Ajax examples - tabbled panel</title>
 
     <jsp:include page="../commonInclude.jsp"/>
-    <link rel="stylesheet" type="text/css" href="<ww:url value="/webwork/tabs.css"/>">
-    <link rel="stylesheet" type="text/css" href="<ww:url value="/webwork/niftycorners/niftyCorners.css"/>">
-    <link rel="stylesheet" type="text/css" href="<ww:url value="/webwork/niftycorners/niftyPrint.css"/>" media="print">
-    <script type="text/javascript" src="<ww:url value="/webwork/niftycorners/nifty.js"/>"></script>
+    <link rel="stylesheet" type="text/css" href="<ww:url value="/com/opensymphony/webwork/static/tabs.css"/>">
+    <link rel="stylesheet" type="text/css" href="<ww:url value="/com/opensymphony/webwork/static/niftycorners/niftyCorners.css"/>">
+    <link rel="stylesheet" type="text/css" href="<ww:url value="/com/opensymphony/webwork/static/niftycorners/niftyPrint.css"/>" media="print">
+    <script type="text/javascript" src="<ww:url value="/com/opensymphony/webwork/static/niftycorners/nifty.js"/>"></script>
     <script type="text/javascript">
         window.onload = function() {
             if (!NiftyCheck())
