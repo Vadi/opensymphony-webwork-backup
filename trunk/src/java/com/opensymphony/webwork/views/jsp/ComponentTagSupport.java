@@ -34,9 +34,9 @@ public abstract class ComponentTagSupport extends WebWorkBodyTagSupport {
         boolean evalBody = component.start(pageContext.getOut());
 
         if (evalBody) {
-            return EVAL_BODY_AGAIN;
-        } else {
             return component.usesBody() ? EVAL_BODY_BUFFERED : EVAL_BODY_INCLUDE;
+        } else {
+            return SKIP_BODY;
         }
     }
 
