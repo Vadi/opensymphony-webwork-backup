@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="ww" uri="/webwork" %>
+<%@ taglib prefix="ww" uri="webwork" %>
 
 <html>
 <head>
