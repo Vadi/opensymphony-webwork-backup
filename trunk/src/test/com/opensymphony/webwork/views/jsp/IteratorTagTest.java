@@ -6,7 +6,6 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.mockobjects.servlet.MockBodyContent;
 import com.mockobjects.servlet.MockJspWriter;
-import com.opensymphony.webwork.views.jsp.ui.SelectTag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -186,6 +185,50 @@ public class IteratorTagTest extends AbstractUITagTest {
         assertFalse(status.isEven());
     }
 
+    public void testEmptyArray() {
+        Foo foo = new Foo();
+        foo.setArray(new String[]{});
+
+        stack.push(foo);
+
+        tag.setValue("array");
+
+        validateSkipBody();
+    }
+
+    public void testNullArray() {
+        Foo foo = new Foo();
+        foo.setArray(null);
+
+        stack.push(foo);
+
+        tag.setValue("array");
+
+        validateSkipBody();
+    }
+
+    public void testEmptyCollection() {
+        Foo foo = new Foo();
+        foo.setList(new ArrayList());
+
+        stack.push(foo);
+
+        tag.setValue("list");
+
+        validateSkipBody();
+    }
+
+    public void testNullCollection() {
+        Foo foo = new Foo();
+        foo.setList(null);
+
+        stack.push(foo);
+
+        tag.setValue("list");
+
+        validateSkipBody();
+    }
+
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -247,6 +290,24 @@ public class IteratorTagTest extends AbstractUITagTest {
         assertEquals(3, stack.size());
     }
 
+    private void validateSkipBody() {
+        int result = 0;
+
+        try {
+            result = tag.doStartTag();
+        } catch (JspException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        assertEquals(result, TagSupport.SKIP_BODY);
+        try {
+            result = tag.doEndTag();
+        } catch (JspException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
     class Foo {
         private Collection list;
