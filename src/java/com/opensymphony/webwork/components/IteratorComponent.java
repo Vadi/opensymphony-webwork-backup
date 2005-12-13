@@ -189,16 +189,11 @@ public class IteratorComponent extends Component {
 
     public boolean end(Writer writer, String body) {
         OgnlValueStack stack = getStack();
-        stack.pop();
-
-/*
-        try {
-            writer.write(body);
-        } catch (IOException e) {
-            throw new RuntimeException("IOError: " + e.getMessage(), e);
+        if (iterator != null) {
+            stack.pop();
         }
-*/
-        if (iterator.hasNext()) {
+
+        if (iterator!=null && iterator.hasNext()) {
             Object currentValue = iterator.next();
             stack.push(currentValue);
 
