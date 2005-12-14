@@ -38,15 +38,6 @@ public class IteratorTag extends ComponentTagSupport {
         this.value = value;
     }
 
-    public int doStartTag() throws JspException {
-        final int result = super.doStartTag();
-        if (result != SKIP_BODY) {
-            return EVAL_BODY_AGAIN;
-        } else {
-            return result;
-        }
-    }
-
     public int doEndTag() throws JspException {
         component = null;
         return EVAL_PAGE;
