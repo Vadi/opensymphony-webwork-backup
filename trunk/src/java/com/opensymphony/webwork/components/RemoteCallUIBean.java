@@ -62,9 +62,9 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
                     if (PortalContainer.LIFERAY_PORTAL == PortalContainer.get()) {
                         int catIndex = actionUrl.lastIndexOf("&#p_");
                         String liferay_actionUrl = actionUrl.substring(0, (catIndex == -1) ? actionUrl.length() : catIndex);
-                        sb.append(liferay_actionUrl).append("&wwXAction=.").append(hrefValue);
+                        sb.append(liferay_actionUrl).append("&wwXAction=").append(hrefValue);
                     }else {
-                        sb.append(actionUrl).append("?wwXAction=.").append(hrefValue);
+                        sb.append(actionUrl).append("?wwXAction=").append(hrefValue);
                     }
 
                 } else {
