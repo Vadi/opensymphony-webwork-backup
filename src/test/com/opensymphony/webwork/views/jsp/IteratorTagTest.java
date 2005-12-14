@@ -76,7 +76,7 @@ public class IteratorTagTest extends AbstractUITagTest {
             fail();
         }
 
-        assertEquals(TagSupport.EVAL_BODY_AGAIN, result);
+        assertEquals(TagSupport.EVAL_BODY_INCLUDE, result);
         assertEquals(4, stack.size());
         assertTrue(stack.getRoot().peek() instanceof Map.Entry);
 
@@ -131,7 +131,7 @@ public class IteratorTagTest extends AbstractUITagTest {
             fail();
         }
 
-        assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
+        assertEquals(result, TagSupport.EVAL_BODY_INCLUDE);
         assertEquals("test1", stack.getRoot().peek());
         assertEquals(4, stack.size());
 
@@ -253,7 +253,7 @@ public class IteratorTagTest extends AbstractUITagTest {
             fail();
         }
 
-        assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
+        assertEquals(result, TagSupport.EVAL_BODY_INCLUDE);
         assertEquals("test1", stack.getRoot().peek());
         assertEquals(4, stack.size());
 
