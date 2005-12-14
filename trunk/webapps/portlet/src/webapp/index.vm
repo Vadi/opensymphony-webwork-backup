@@ -21,6 +21,7 @@
 #wwhref ("href=menu.vm") WebWork SiteMesh MenuPanel Example 5 (Velocity) #end<br/>
 #wwa	("href=registerSupport.vm") WebWork User Register Demo 6 (Velocity) #end<br/>
 #wwhref ("href=registerSupport.ftl") WebWork User Register Demo 6 (Freemarker) #end<br/>
+#wwhref ("href=cewolf.action") WebWork CeWolf Taglib Demo 7 (JSP Version) #end<br/>
 <br/>
 </body>
 </html>
