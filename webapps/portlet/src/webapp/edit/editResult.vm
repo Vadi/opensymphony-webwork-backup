@@ -6,9 +6,9 @@
 <p>
 	$!userName 
 </p>
-#bodytag (Form "action='/edit.action'" "method='post'")
-		<input type="text" name="userName" value="" />
-		<INPUT name="Submit" type="submit" value="Submit"/>
+#wwform ("action=/edit.action" "method=post")
+		#wwtextfield ("label=User Name" "name=userName")
+		#wwsubmit ("value=Submit")
 #end
 </body>
 </html>
