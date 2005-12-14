@@ -78,10 +78,39 @@ public class TextTagTest extends AbstractTagTest {
         assertEquals(value, writer.toString());
     }
 
+    private Locale getForeignLocale() {
+        if (Locale.getDefault().getLanguage().equals("de")) {
+            return Locale.FRANCE;
+        } else {
+            return Locale.GERMANY;
+        }
+    }
+
+    private Locale getDefaultLocale() {
+        if (Locale.getDefault().getLanguage().equals("de")) {
+            return Locale.GERMANY;
+        } else if (Locale.getDefault().getLanguage().equals("fr")) {
+            return Locale.FRANCE;
+        } else {
+            return Locale.US;
+        }
+    }
+
+    private String getLocalizedMessage(Locale locale) {
+        if (locale.getLanguage().equals("de")) {
+            return "This is TestBean1 in German";
+        } else if (locale.getLanguage().equals("fr")) {
+            return "This is TestBean1 in French";
+        } else {
+            return "This is TestBean1";
+        }
+    }
+
     public void testTextTagUsesValueStackInRequestNotActionContext() throws JspException {
         String key = "simpleKey";
         String value1 = "Simple Message";
-        String value2 = "This is TestBean1";
+        Locale foreignLocale = getForeignLocale();
+        String value2 = getLocalizedMessage(foreignLocale);
         tag.setName(key);
         tag.doStartTag();
         tag.doEndTag();
@@ -89,7 +118,7 @@ public class TextTagTest extends AbstractTagTest {
         final StringBuffer buffer = writer.getBuffer();
         buffer.delete(0, buffer.length());
         OgnlValueStack newStack = new OgnlValueStack();
-        newStack.getContext().put(ActionContext.LOCALE, Locale.US);
+        newStack.getContext().put(ActionContext.LOCALE, foreignLocale);
         newStack.push(new TestAction1());
         request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, newStack);
         assertNotSame(ActionContext.getContext().getValueStack().peek(), newStack.peek());
@@ -102,24 +131,31 @@ public class TextTagTest extends AbstractTagTest {
     public void testTextTagUsesLocaleFromValueStack() throws JspException {
         stack.pop();
         stack.push(new TestAction1());
-        ActionContext.getContext().setLocale(Locale.US);
+
+        Locale defaultLocale = getDefaultLocale();
+        Locale foreignLocale = getForeignLocale();
+        assertNotSame(defaultLocale, foreignLocale);
+
+        ActionContext.getContext().setLocale(defaultLocale);
         String key = "simpleKey";
-        String value_en = "This is TestBean1";
+        String value_default = getLocalizedMessage(defaultLocale);
         tag.setName(key);
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals(value_en, writer.toString());
+        assertEquals(value_default, writer.toString());
+
         final StringBuffer buffer = writer.getBuffer();
         buffer.delete(0, buffer.length());
-        String value_de = "This is TestBean1 in German";
+        String value_int = getLocalizedMessage(foreignLocale);
+        assertFalse(value_default.equals(value_int));
         OgnlValueStack newStack = new OgnlValueStack(stack);
-        newStack.getContext().put(ActionContext.LOCALE, Locale.GERMANY);
+        newStack.getContext().put(ActionContext.LOCALE, foreignLocale);
         assertNotSame(newStack.getContext().get(ActionContext.LOCALE), ActionContext.getContext().getLocale());
         request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, newStack);
         assertEquals(ActionContext.getContext().getValueStack().peek(), newStack.peek());
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals(value_de, writer.toString());
+        assertEquals(value_int, writer.toString());
     }
 
     public void testWithNoMessageAndBodyIsNotEmptyBodyIsReturned() throws Exception {
