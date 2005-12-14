@@ -108,8 +108,8 @@
         <dependency org="commons-collections" name="commons-collections" rev="2.1.1" conf="jasperreports->default"/>
 
         <!-- jfree -->
-        <dependency org="jfree" name="jcommon" rev="0.9.6" conf="jfree->default"/>
-        <dependency org="jfree" name="jfreechart" rev="0.9.21" conf="jfree->default"/>
+        <dependency org="jfree" name="jcommon" rev="1.0.0" conf="jfree->default"/>
+        <dependency org="jfree" name="jfreechart" rev="1.0.0" conf="jfree->default"/>
 
         <!-- xslt -->
         <dependency org="jfree" name="jcommon" rev="0.9.6" conf="xslt->default"/>
