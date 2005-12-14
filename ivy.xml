@@ -38,6 +38,7 @@
         <conf name="spring"/>
         <conf name="xslt"/>
         <conf name="tiger"/>
+        <conf name="cewolf"/>
     </configurations>
     <publications>
         <artifact name="webwork" type="jar" conf="default"/>
@@ -126,5 +127,9 @@
 
         <!-- tiger -->
         <dependency org="opensymphony" name="xwork-tiger" rev="1.1+" conf="tiger->*"/>
+
+        <!-- cewolf -->
+        <dependency org="cewolf" name="cewolf" rev="0.12.0" conf="cewolf->*"/>
+
     </dependencies>
 </ivy-module>
