@@ -2,6 +2,7 @@
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app id="WebApp_ID">
 	<display-name>WWPortlet</display-name>
+	<!-- Begin of WebWork2.2 Portlet Configuration -->
 	<servlet>
 	    <servlet-name>JspSupportServlet</servlet-name>
 		<display-name>JspSupportServlet</display-name>
@@ -30,6 +31,32 @@
 		<servlet-class>com.opensymphony.webwork.portlet.views.JSPResultProxy</servlet-class>
 		<load-on-startup>3</load-on-startup>
 	</servlet>
+	<!-- End of WebWork2.2 Portlet Configuration -->
+
+	<!-- Begin of CewolfServlet Configuration -->
+  	<servlet>
+    	<servlet-name>CewolfServlet</servlet-name>
+    	<servlet-class>de.laures.cewolf.CewolfRenderer</servlet-class>
+		<!-- sets storage implementation -->
+    	<init-param>
+    	    <param-name>storage</param-name>
+    	    <param-value>de.laures.cewolf.storage.TransientSessionStorage</param-value>
+    	</init-param>
+		<!-- sets overlib.js location relative to webapp -->
+    	<init-param>
+    	    <param-name>overliburl</param-name>
+    	    <param-value>/etc/overlib.js</param-value>
+    	</init-param>
+		<!-- turn on or off debugging logging -->
+    	<init-param>
+    	    <param-name>debug</param-name>
+    	    <param-value>false</param-value>
+    	</init-param>
+    	<load-on-startup>3</load-on-startup>
+  	</servlet>
+	<!-- End of CewolfServlet Configuration -->
+
+	<!-- Begin of WebWork2.2 Portlet Mapping Configuration -->
 	<servlet-mapping>
 		<servlet-name>FreemarkerResultProxy</servlet-name>
 		<url-pattern>*.ftl</url-pattern>
@@ -42,11 +69,22 @@
 		<servlet-name>JSPResultProxy</servlet-name>
 		<url-pattern>*.jspt</url-pattern>
 	</servlet-mapping>
+	<!-- End of WebWork2.2 Portlet Mapping Configuration -->
+
+	<!-- Begin of CewolfServlet Mapping Configuration -->
+  	<servlet-mapping>
+    	<servlet-name>CewolfServlet</servlet-name>
+    	<url-pattern>/cewolf/*</url-pattern>
+  	</servlet-mapping>
+	<!-- End of CewolfServlet Mapping Configuration -->
+
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
 	<taglib>
 		<taglib-uri>webwork</taglib-uri>
 		<taglib-location>/WEB-INF/lib/webwork.jar</taglib-location>

@@ -86,5 +86,11 @@
 			<interceptor-ref name="validationWorkflowStack" />
 		</action>
 
+		<action name="cewolf" class="com.test.CewolfAction">
+			<result name="success">
+				<param name="location">/cewolf.jsp</param>
+			</result>
+		</action>
+
 	</package>
 </xwork>
