@@ -93,6 +93,7 @@ public abstract class AbstractServletDispatcherTestCase extends WebWorkTestCase 
 
         ServletContext servletContextMock = (ServletContext) servletContextDMock.proxy();
         servletContextDMock.expectAndReturn("getServerInfo", "Resin");
+        servletContextDMock.expectAndReturn("getServerInfo", "Resin");
 
         MockServletConfig servletConfigMock = new MockServletConfig();
         servletConfigMock.setServletContext(servletContextMock);
