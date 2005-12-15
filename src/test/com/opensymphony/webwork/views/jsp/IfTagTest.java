@@ -4,6 +4,7 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -119,6 +120,7 @@ public class IfTagTest extends TestCase {
         tag.setTest("num == 2");
 
         int result = 0;
+        //tag.setPageContext(pageContext);
 
         try {
             result = tag.doStartTag();
@@ -150,7 +152,8 @@ public class IfTagTest extends TestCase {
         // create the mock page context
         pageContext = new MockPageContext();
         pageContext.setRequest(request);
-
+        pageContext.setJspWriter(new MockJspWriter());
+        
         // associate the tag with the mock page request
         tag.setPageContext(pageContext);
     }
