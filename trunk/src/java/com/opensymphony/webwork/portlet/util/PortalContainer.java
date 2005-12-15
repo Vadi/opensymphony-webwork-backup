@@ -36,7 +36,7 @@ public class PortalContainer {
         classMappings.put("org.apache.jetspeed.container.JetspeedContainerServlet",  new Integer(JETSPEED_PORTAL));
         classMappings.put("com.ibm.wps.Copyright",                            		 new Integer(IBM_PORTAL));
         classMappings.put("com.liferay.portal.servlet.MainServlet",                  new Integer(LIFERAY_PORTAL));
-        classMappings.put("org.jboss.portal.core.model.portal.PortalObjectContainer",new Integer(JBOSS_PORTAL));
+        classMappings.put("org.jboss.portal.server.PortalServer",					 new Integer(JBOSS_PORTAL));
     }
 
     /** Get the current container. */
