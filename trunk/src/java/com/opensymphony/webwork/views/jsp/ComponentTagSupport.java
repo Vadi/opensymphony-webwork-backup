@@ -18,14 +18,9 @@ public abstract class ComponentTagSupport extends WebWorkBodyTagSupport {
     public abstract Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res);
 
     public int doEndTag() throws JspException {
-        boolean again = component.end(pageContext.getOut(), getBody());
+        component.end(pageContext.getOut(), getBody());
         component = null;
-
-        if (again) {
-            return EVAL_BODY_AGAIN;
-        } else {
-            return EVAL_PAGE;
-        }
+        return EVAL_PAGE;
     }
 
     public int doStartTag() throws JspException {
