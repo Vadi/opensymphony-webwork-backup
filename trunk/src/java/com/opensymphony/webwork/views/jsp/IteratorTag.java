@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 
-
 /**
  * @see IteratorComponent
  */
 public class IteratorTag extends ComponentTagSupport {
+
     protected String statusAttr;
     protected String value;
 
@@ -49,10 +49,12 @@ public class IteratorTag extends ComponentTagSupport {
         if (again) {
             return EVAL_BODY_AGAIN;
         } else {
-            try {
-                bodyContent.writeOut(bodyContent.getEnclosingWriter());
-            } catch (Exception e) {
-                throw new JspException(e.getMessage());
+            if (bodyContent != null) {
+                try {
+                    bodyContent.writeOut(bodyContent.getEnclosingWriter());
+                } catch (Exception e) {
+                    throw new JspException(e.getMessage());
+                }
             }
             return SKIP_BODY;
         }
