@@ -113,7 +113,7 @@
         <dependency org="jfree" name="jfreechart" rev="1.0.0" conf="jfree->default"/>
 
         <!-- xslt -->
-        <dependency org="jfree" name="jcommon" rev="0.9.6" conf="xslt->default"/>
+        <dependency org="jfree" name="jcommon" rev="1.0.0" conf="xslt->default"/>
 
         <!-- portlet -->
         <dependency org="org.apache.pluto" name="pluto" rev="1.0.1-rc4" conf="portlet->default"/>
