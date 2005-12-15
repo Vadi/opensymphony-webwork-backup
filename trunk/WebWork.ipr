@@ -283,6 +283,7 @@
     <root url="file://$PROJECT_DIR$/src/webapp" name="example" validate="false" />
   </component>
   <component name="libraryTable" />
+  <component name="org.tmatesoft.tmate.projectComponent" />
   <component name="uidesigner-configuration">
     <option name="INSTRUMENT_CLASSES" value="true" />
     <option name="COPY_FORMS_RUNTIME_TO_OUTPUT" value="true" />
