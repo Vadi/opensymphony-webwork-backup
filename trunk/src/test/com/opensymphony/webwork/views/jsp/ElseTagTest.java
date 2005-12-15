@@ -4,13 +4,17 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import com.lowagie.tools.concat_pdf;
 import com.mockobjects.servlet.MockHttpServletRequest;
+import com.mockobjects.servlet.MockJspWriter;
 import com.mockobjects.servlet.MockPageContext;
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.components.If;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import junit.framework.TestCase;
 
+import javax.servlet.ServletContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -27,19 +31,18 @@ public class ElseTagTest extends TestCase {
 
 
     public void testTestFalse() {
-        pageContext.setAttribute(If.ANSWER, new Boolean(false));
-        elseTag.setPageContext(pageContext);
+    	stack.getContext().put(If.ANSWER, new Boolean(false));
 
         int result = 0;
 
         try {
+        	elseTag.setPageContext(pageContext);
             result = elseTag.doStartTag();
             elseTag.doEndTag();
         } catch (JspException e) {
             e.printStackTrace();
             fail();
         }
-
         assertEquals(TagSupport.EVAL_BODY_INCLUDE, result);
     }
 
@@ -59,7 +62,7 @@ public class ElseTagTest extends TestCase {
     }
 
     public void testTestTrue() {
-        pageContext.setAttribute(If.ANSWER, new Boolean(true));
+    	stack.getContext().put(If.ANSWER, new Boolean(true));
         elseTag.setPageContext(pageContext);
 
         int result = 0;
@@ -80,12 +83,20 @@ public class ElseTagTest extends TestCase {
         stack = new OgnlValueStack();
 
         // create the mock http servlet request
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ActionContext.getContext().setValueStack(stack);
+        WebWorkMockHttpServletRequest request = new WebWorkMockHttpServletRequest();
+        
+        // NOTE: in WW Tag library, TagUtil gets stack from request, which will be set
+        //       when request going through the FilterDispatcher --> DispatcherUtil etc. route
+        request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
 
+        WebWorkMockServletContext servletContext = new WebWorkMockServletContext();
+        servletContext.setServletInfo("not-weblogic");
+        
         // create the mock page context
         pageContext = new WebWorkMockPageContext();
         pageContext.setRequest(request);
+        pageContext.setServletContext(servletContext);
+        pageContext.setJspWriter(new MockJspWriter());
     }
 
 
