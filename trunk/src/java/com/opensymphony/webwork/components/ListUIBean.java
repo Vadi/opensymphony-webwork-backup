@@ -44,9 +44,13 @@ public abstract class ListUIBean extends UIBean {
 
         if (value == null) {
             // will throw an exception if not found
-            value = findValue((list == null) ? (String) list : list.toString(), "list",
+            /*value = findValue((list == null) ? (String) list : list.toString(), "list",
                     "You must specify a collection/array/map/enumeration/iterator. " +
-                    "Example: people or people.{name}");
+                    "Example: people or people.{name}");*/
+        	
+        	// ww-1010, allows value with null value to be compatible with ww 
+        	// 2.1.7 behaviour
+        	value = findValue((list == null)?(String) list:list.toString());
         }
 
         if (value instanceof Collection) {

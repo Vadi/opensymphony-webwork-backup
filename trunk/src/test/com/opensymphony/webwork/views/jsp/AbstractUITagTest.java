@@ -47,8 +47,8 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
          * compare the trimmed values of each buffer and make sure they're equivalent.  however, let's make sure to
          * normalize the strings first to account for line termination differences between platforms.
          */
-        String writerString = writer.toString();
-        String bufferString = buffer.toString();
+        String writerString = normalize(writer.toString());
+        String bufferString = normalize(buffer.toString());
 
         assertEquals(bufferString, writerString);
     }
