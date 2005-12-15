@@ -63,6 +63,8 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
                         int catIndex = actionUrl.lastIndexOf("&#p_");
                         String liferay_actionUrl = actionUrl.substring(0, (catIndex == -1) ? actionUrl.length() : catIndex);
                         sb.append(liferay_actionUrl).append("&wwXAction=").append(hrefValue);
+                    }else if(PortalContainer.JBOSS_PORTAL == PortalContainer.get()){
+                        sb.append(actionUrl).append("&wwXAction=").append(hrefValue);
                     }else {
                         sb.append(actionUrl).append("?wwXAction=").append(hrefValue);
                     }
@@ -72,6 +74,8 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
                         int catIndex = actionUrl.lastIndexOf("&#p_");
                         String liferay_actionUrl = actionUrl.substring(0, (catIndex == -1) ? actionUrl.length() : catIndex);
                         sb.append(liferay_actionUrl).append("&wwLink=").append(hrefValue);
+                    }else if(PortalContainer.JBOSS_PORTAL == PortalContainer.get()){
+                        sb.append(actionUrl).append("&wwLink=").append(hrefValue);
                     }else {
                         sb.append(actionUrl).append("?wwLink=").append(hrefValue);
                     }
