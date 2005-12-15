@@ -86,6 +86,7 @@ public class WebWorkPortlet extends GenericPortlet implements WebWorkPortletStat
 
     protected void doHelp(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 
+        response.setContentType("text/html");
         ActionContext.getContext().put("template", helpFileName);
         PortletRequestDispatcher rd = getPortletContext().getRequestDispatcher(mockHelpFileName);
         try {
