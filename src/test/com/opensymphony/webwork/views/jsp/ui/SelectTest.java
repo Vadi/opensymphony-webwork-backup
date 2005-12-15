@@ -78,6 +78,22 @@ public class SelectTest extends AbstractUITagTest {
         }
     }
 
+    public void testNullList() throws Exception {
+    	TestAction testAction = (TestAction) action;
+    	testAction.setList2(null);
+    	
+    	SelectTag tag = new SelectTag();
+    	tag.setName("collection");
+    	tag.setValue("list2");
+    	tag.setLabel("tmjee_name");
+    	
+    	tag.setPageContext(pageContext);
+    	tag.doStartTag();
+    	tag.doEndTag();
+    	
+    	verify(SelectTag.class.getResource("Select-4.txt"));
+    }
+    
     public void testMultiple() throws Exception {
         TestAction testAction = (TestAction) action;
         Collection collection = new ArrayList(2);
