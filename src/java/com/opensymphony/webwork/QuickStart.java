@@ -91,6 +91,12 @@ public class QuickStart {
             server.addContext(null, ctx);
 
             server.start();
+
+            System.out.println("");
+            System.out.println("********************************************************");
+            System.out.println("Quick-started at http://localhost:8080" + contextPath);
+            System.out.println("You may now edit your Java source files and web files.");
+            System.out.println("********************************************************");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,19 +148,27 @@ public class QuickStart {
             this.parent = parent;
         }
 
-        public Class loadClass(String name) throws ClassNotFoundException {
-            Class aClass;
-
-            try {
-                aClass = parent.loadClass(name);
-                if (aClass != null) {
-                    return aClass;
-                }
-            } catch (ClassNotFoundException e) {
-                // ok, then just derer to the normal logic
+        public Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
+            if (name.startsWith("java.") || name.startsWith("sun.")) {
+                return super.loadClass(name, resolve);
             }
 
-            return super.loadClass(name);
+            ClassLoader parent = getParent();
+            // First, check if the class has already been loaded
+            Class c = findLoadedClass(name);
+            if (c == null) {
+                try {
+                    c = findClass(name);
+                } catch (Throwable t) {
+                    // If still not found, only then ask the parent
+                    c = parent.loadClass(name);
+                }
+            }
+            if (resolve) {
+                resolveClass(c);
+            }
+
+            return c;
         }
 
         public URL getResource(String name) {
