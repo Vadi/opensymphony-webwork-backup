@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.jsp;
 
 import com.mockobjects.servlet.MockHttpServletRequest;
 import com.mockobjects.servlet.MockPageContext;
+import com.opensymphony.webwork.components.If;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import junit.framework.TestCase;
@@ -26,7 +27,7 @@ public class ElseTagTest extends TestCase {
 
 
     public void testTestFalse() {
-        pageContext.setAttribute(IfTag.ANSWER, new Boolean(false));
+        pageContext.setAttribute(If.ANSWER, new Boolean(false));
         elseTag.setPageContext(pageContext);
 
         int result = 0;
@@ -58,7 +59,7 @@ public class ElseTagTest extends TestCase {
     }
 
     public void testTestTrue() {
-        pageContext.setAttribute(IfTag.ANSWER, new Boolean(true));
+        pageContext.setAttribute(If.ANSWER, new Boolean(true));
         elseTag.setPageContext(pageContext);
 
         int result = 0;
