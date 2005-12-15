@@ -4,53 +4,19 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import javax.servlet.jsp.JspException;
+import com.opensymphony.webwork.components.Component;
+import com.opensymphony.webwork.components.Else;
+import com.opensymphony.xwork.util.OgnlValueStack;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * <!-- START SNIPPET: javadoc -->
- * <b>NOTE: JSP-TAG</b>
- * 
- * <p>Perform basic condition flow. 'If' tag could be used by itself or
- * with 'Else If' Tag and/or single/multiple 'Else' Tag.</p>
- * <!-- END SNIPPET: javadoc -->
- *
- *
- * <!-- START SNIPPET: params -->
- * no params
- * <!-- END SNIPPET: params -->
- *
- *
- * <pre>
- * <!-- START SNIPPET: example -->
- *  &lt;ww:if test="%{false}"&gt;
- *	    &lt;div&gt;Will Not Be Executed&lt;/div&gt;
- *  &lt;/ww:if&gt;
- * 	&lt;ww:elseif test="%{true}"&gt;
- *	    &lt;div&gt;Will Be Executed&lt;/div&gt;
- *  &lt;/ww:elseif&gt;
- *  &lt;ww:else&gt;
- *	    &lt;div&gt;Will Not Be Executed&lt;/div&gt;
- *  &lt;/ww:else&gt;
- * <!-- END SNIPPET: example -->
- * </pre>
- *
- * @author Rick Salsa (rsal@mb.sympatico.ca)
- * @author tmjee
- *
- * @ww.tag name="else" bodycontent="JSP"
- * description="Else tag"
+ * @see Else
  */
-public class ElseTag extends WebWorkBodyTagSupport {
-    public int doStartTag() throws JspException {
-        Boolean ifResult = (Boolean) pageContext.getAttribute(IfTag.ANSWER);
-
-        pageContext.removeAttribute(IfTag.ANSWER);
-
-        if ((ifResult == null) || (ifResult.booleanValue() == true)) {
-            return SKIP_BODY;
-        } else {
-            return EVAL_BODY_INCLUDE;
-        }
+public class ElseTag extends ComponentTagSupport {
+    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+        return new Else(stack);
     }
 }
