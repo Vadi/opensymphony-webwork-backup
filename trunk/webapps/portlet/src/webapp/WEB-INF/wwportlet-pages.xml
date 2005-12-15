@@ -1,0 +1,12 @@
+<pages>
+   <portal-name>default</portal-name>
+   <page>
+      <page-name>wwportlet</page-name>
+      <window>
+         <window-name>WWPortletWindow</window-name>
+         <instance-ref>wwportlet.WebWorkPortlet.WWPortletInstance</instance-ref>
+         <region>left</region>
+         <height>0</height>
+      </window>
+   </page>
+</pages>
