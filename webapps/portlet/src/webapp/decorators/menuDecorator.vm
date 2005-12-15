@@ -8,8 +8,8 @@
 <div id="Content" width="100%">
     <table border="0" cellpadding="0" cellspacing="0" width="100%"  class="wpsPortletTitle" style="padding:5px;">
         <tr>
-            <td width="80%" class="logocell"><a href="$actionURL?wwLink=/index.vm">Home</a></td>
-			<td align=right>Contact info£º$textUtils.linkEmail("hu_pengfei@yahoo.com.cn")</td>
+            <td width="80%" class="logocell">#wwhref("href=/index.vm")Home#end</td>
+			<td align=right>Contact info??$textUtils.linkEmail("hu_pengfei@yahoo.com.cn")</td>
         </tr>
         <tr>
             <td align=left valign="bottom">
@@ -19,7 +19,7 @@
 							<span class="pagetitle">$title </span>
 						</div>
 				 #end
-				 
+
             </td>
             <td align=right valign="bottom">
 				<br/>This content was decorated by SiteMesh
@@ -32,19 +32,19 @@
 				<br/>
 				#applyDecorator ("menupanel" "SystemInfo")
 					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
-					<a href="$actionURL?wwLink=/menu.vm">CPU Info</a><br>
+					#wwhref ("href=/menu.vm")CPU Info#end<br>
 					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
-					<a href="$actionURL?wwLink=/menu.vm">HDD Info</a><br>
+					#wwhref ("href=/menu.vm")HDD Info#end<br>
 					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
-					<a href="$actionURL?wwLink=/menu.vm">MEM Info</a><br>
+					#wwhref ("href=/menu.vm")MEM Info#end<br>
 				#end
 				#applyDecorator ("menupanel" "Security")
 					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
-					<a href="$actionURL?wwLink=/menu.vm">Manage Users</a><br>
+					#wwhref ("href=/menu.vm")Manage Users#end<br>
 					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
-					<a href="$actionURL?wwLink=/menu.vm">Manage Groups</a><br>
+					#wwhref ("href=/menu.vm")Manage Groups#end<br>
 					<img src="$req.contextPath/images/icons/bullet_creme.gif" height=8 width=8 alt="">
-					<a href="$actionURL?wwLink=/menu.vm">Global Permissions</a><br>
+					#wwhref ("href=/menu.vm")Global Permissions#end<br>
 				#end
 				<br/>
 	</td>
