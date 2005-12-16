@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @author tm_jee
  * @version $Id$
  */
 public class SelectTest extends AbstractUITagTest {
@@ -77,14 +78,35 @@ public class SelectTest extends AbstractUITagTest {
             return bigDecimal;
         }
     }
-
+    
     public void testNullList() throws Exception {
     	TestAction testAction = (TestAction) action;
     	testAction.setList2(null);
     	
     	SelectTag tag = new SelectTag();
     	tag.setName("collection");
-    	tag.setValue("list2");
+    	tag.setList("list2");
+    	tag.setLabel("tmjee_name");
+    	
+    	tag.setPageContext(pageContext);
+    	try {
+    		tag.doStartTag();
+    		tag.doEndTag();
+    		fail("exception should have been thrown value of select tag is null");
+    	}
+    	catch(Exception e) {
+    		assertTrue(true);
+    	}
+    }
+    
+
+    public void testEmptyList() throws Exception {
+    	TestAction testAction = (TestAction) action;
+    	testAction.setList2(new ArrayList());
+    	
+    	SelectTag tag = new SelectTag();
+    	tag.setName("collection");
+    	tag.setList("list2");
     	tag.setLabel("tmjee_name");
     	
     	tag.setPageContext(pageContext);

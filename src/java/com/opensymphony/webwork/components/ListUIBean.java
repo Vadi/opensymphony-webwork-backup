@@ -22,6 +22,9 @@ public abstract class ListUIBean extends UIBean {
     protected Object list;
     protected String listKey;
     protected String listValue;
+    
+    // indicate if an exception is to be thrown when value attribute is null
+    protected boolean throwExceptionOnNullValueAttribute = false; 
 
     protected ListUIBean(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -41,16 +44,18 @@ public abstract class ListUIBean extends UIBean {
         } else if (MakeIterator.isIterable(list)) {
             value = MakeIterator.convert(list);
         }
-
         if (value == null) {
-            // will throw an exception if not found
-            /*value = findValue((list == null) ? (String) list : list.toString(), "list",
+        	if (throwExceptionOnNullValueAttribute) {
+        		// will throw an exception if not found
+        		value = findValue((list == null) ? (String) list : list.toString(), "list",
                     "You must specify a collection/array/map/enumeration/iterator. " +
-                    "Example: people or people.{name}");*/
-        	
-        	// ww-1010, allows value with null value to be compatible with ww 
-        	// 2.1.7 behaviour
-        	value = findValue((list == null)?(String) list:list.toString());
+                    "Example: people or people.{name}");
+        	}
+        	else {
+        		// ww-1010, allows value with null value to be compatible with ww 
+        		// 2.1.7 behaviour
+        		value = findValue((list == null)?(String) list:list.toString());
+        	}
         }
 
         if (value instanceof Collection) {
@@ -111,5 +116,10 @@ public abstract class ListUIBean extends UIBean {
       */
     public void setListValue(String listValue) {
         this.listValue = listValue;
+    }
+    
+    
+    public void setThrowExceptionOnNullValueAttribute(boolean throwExceptionOnNullValueAttribute) {
+    	this.throwExceptionOnNullValueAttribute = throwExceptionOnNullValueAttribute;
     }
 }
