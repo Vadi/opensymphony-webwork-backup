@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @see CheckboxList
+ * @author $author$
+ * @version $Date$ $Id$
  */
-public class CheckboxListTag extends AbstractListTag {
+public class CheckboxListTag extends AbstractRequiredListTag {
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new CheckboxList(stack, req, res);
     }

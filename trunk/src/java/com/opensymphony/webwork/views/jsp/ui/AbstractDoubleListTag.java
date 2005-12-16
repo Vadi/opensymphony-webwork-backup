@@ -10,8 +10,9 @@ import com.opensymphony.webwork.components.DoubleSelect;
 
 /**
  * @author <a href="mailto:m.bogaert@memenco.com">Mathias Bogaert</a>
+ * @version $Date$ $Id$
  */
-public abstract class AbstractDoubleListTag extends AbstractListTag {
+public abstract class AbstractDoubleListTag extends AbstractRequiredListTag {
     protected String doubleList;
     protected String doubleListKey;
     protected String doubleListValue;

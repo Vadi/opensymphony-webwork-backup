@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see Select
  */
-public class SelectTag extends AbstractListTag {
+public class SelectTag extends AbstractRequiredListTag {
     protected String emptyOption;
     protected String headerKey;
     protected String headerValue;

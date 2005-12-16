@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @see Radio
+ * @author $author$
+ * @version $Date$ $Id$
  */
-public class RadioTag extends AbstractListTag {
+public class RadioTag extends AbstractRequiredListTag {
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Radio(stack, req, res);
     }
