@@ -1,10 +1,20 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.widget.Widget");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.provide("dojo.widget.Widget");
 dojo.provide("dojo.widget.tags");
 
-dojo.require("dojo.lang.*");
+dojo.require("dojo.lang");
 dojo.require("dojo.widget.Manager");
 dojo.require("dojo.event.*");
-dojo.require("dojo.text.*");
+dojo.require("dojo.string");
 
 dojo.widget.Widget = function(){
 	// these properties aren't primitives and need to be created on a per-item
@@ -12,7 +22,6 @@ dojo.widget.Widget = function(){
 	this.children = [];
 	// this.selection = new dojo.widget.Selection();
 	// FIXME: need to replace this with context menu stuff
-	this.rightClickItems = [];
 	this.extraArgs = {};
 }
 // FIXME: need to be able to disambiguate what our rendering context is
@@ -32,6 +41,14 @@ dojo.lang.extend(dojo.widget.Widget, {
 	isContainer: false, // can we contain other widgets?
 	widgetId: "",
 	widgetType: "Widget", // used for building generic widgets
+
+	toString: function() {
+		return '[Widget ' + this.widgetType + ', ' + (this.widgetId || 'NO ID') + ']';
+	},
+
+	repr: function(){
+		return this.toString();
+	},
 
 	enable: function(){
 		// should be over-ridden
@@ -56,10 +73,12 @@ dojo.lang.extend(dojo.widget.Widget, {
 	create: function(args, fragment, parentComp){
 		this.satisfyPropertySets(args, fragment, parentComp);
 		this.mixInProperties(args, fragment, parentComp);
+		this.postMixInProperties(args, fragment, parentComp);
 		dojo.widget.manager.add(this);
 		this.buildRendering(args, fragment, parentComp);
 		this.initialize(args, fragment, parentComp);
 		this.postInitialize(args, fragment, parentComp);
+		this.postCreate(args, fragment, parentComp);
 		return this;
 	},
 
@@ -92,8 +111,24 @@ dojo.lang.extend(dojo.widget.Widget, {
 		});
 	},
 
+	getChildrenOfType: function(type, recurse){
+		var ret = [];
+		type = type.toLowerCase();
+		for(var x=0; x<this.children.length; x++){
+			if(this.children[x].widgetType.toLowerCase() == type){
+				ret.push(this.children[x]);
+			}
+			if(recurse){
+				ret = ret.concat(this.children[x].getChildrenOfType(type, recurse));
+			}
+		}
+		return ret;
+	},
+
 	satisfyPropertySets: function(args){
+		// dojo.profile.start("satisfyPropertySets");
 		// get the default propsets for our component type
+		/*
 		var typePropSets = []; // FIXME: need to pull these from somewhere!
 		var localPropSets = []; // pull out propsets from the parser's return structure
 
@@ -105,18 +140,24 @@ dojo.lang.extend(dojo.widget.Widget, {
 
 		for(var x=0; x<localPropSets.length; x++){
 		}
+		*/
+		// dojo.profile.end("satisfyPropertySets");
 		
 		return args;
 	},
 
 	mixInProperties: function(args, frag){
 		if((args["fastMixIn"])||(frag["fastMixIn"])){
+			// dojo.profile.start("mixInProperties_fastMixIn");
 			// fast mix in assumes case sensitivity, no type casting, etc...
+			// dojo.lang.mixin(this, args);
 			for(var x in args){
 				this[x] = args[x];
 			}
+			// dojo.profile.end("mixInProperties_fastMixIn");
 			return;
 		}
+		// dojo.profile.start("mixInProperties");
 		/*
 		 * the actual mix-in code attempts to do some type-assignment based on
 		 * PRE-EXISTING properties of the "this" object. When a named property
@@ -149,21 +190,18 @@ dojo.lang.extend(dojo.widget.Widget, {
 
 		// NOTE: caching lower-cased args in the prototype is only 
 		// acceptable if the properties are invariant.
-		var lcArgs;
 		// if we have a name-cache, get it
-		if(this.constructor.prototype["lcArgs"]){
-			lcArgs = this.constructor.prototype.lcArgs;
-		}else{
+		var lcArgs = dojo.widget.lcArgsCache[this.widgetType];
+		if ( lcArgs == null ){
 			// build a lower-case property name cache if we don't have one
 			lcArgs = {};
 			for(var y in this){
 				lcArgs[((new String(y)).toLowerCase())] = y;
 			}
-			this.constructor.prototype.lcArgs = lcArgs;
+			dojo.widget.lcArgsCache[this.widgetType] = lcArgs;
 		}
-
+		var visited = {};
 		for(var x in args){
-
 			if(!this[x]){ // check the cache for properties
 				var y = lcArgs[(new String(x)).toLowerCase()];
 				if(y){
@@ -171,18 +209,19 @@ dojo.lang.extend(dojo.widget.Widget, {
 					x = y; 
 				}
 			}
-			
+			if(visited[x]){ continue; }
+			visited[x] = true;
 			if((typeof this[x]) != (typeof undef)){
 				if(typeof args[x] != "string"){
 					this[x] = args[x];
 				}else{
-					if(typeof this[x] == "string"){
+					if(dojo.lang.isString(this[x])){
 						this[x] = args[x];
-					}else if(typeof this[x] == "number"){
+					}else if(dojo.lang.isNumber(this[x])){
 						this[x] = new Number(args[x]); // FIXME: what if NaN is the result?
-					}else if(typeof this[x] == "boolean"){
+					}else if(dojo.lang.isBoolean(this[x])){
 						this[x] = (args[x].toLowerCase()=="false") ? false : true;
-					}else if(typeof this[x] == "function"){
+					}else if(dojo.lang.isFunction(this[x])){
 
 						// FIXME: need to determine if always over-writing instead
 						// of attaching here is appropriate. I suspect that we
@@ -203,10 +242,11 @@ dojo.lang.extend(dojo.widget.Widget, {
 						// takes correctly.
 						var tn = dojo.event.nameAnonFunc(new Function(args[x]), this);
 						dojo.event.connect(this, x, this, tn);
-					}else if(this[x].constructor == Array){ // typeof [] == "object"
+					}else if(dojo.lang.isArray(this[x])){ // typeof [] == "object"
 						this[x] = args[x].split(";");
+					} else if (this[x] instanceof Date) {
+						this[x] = new Date(Number(args[x])); // assume timestamp
 					}else if(typeof this[x] == "object"){ 
-
 						// FIXME: should we be allowing extension here to handle
 						// other object types intelligently?
 
@@ -216,7 +256,7 @@ dojo.lang.extend(dojo.widget.Widget, {
 						for(var y=0; y<pairs.length; y++){
 							var si = pairs[y].indexOf(":");
 							if((si != -1)&&(pairs[y].length>si)){
-								this[x][dojo.text.trim(pairs[y].substr(0, si))] = pairs[y].substr(si+1);
+								this[x][dojo.string.trim(pairs[y].substr(0, si))] = pairs[y].substr(si+1);
 							}
 						}
 					}else{
@@ -230,6 +270,10 @@ dojo.lang.extend(dojo.widget.Widget, {
 				this.extraArgs[x] = args[x];
 			}
 		}
+		// dojo.profile.end("mixInProperties");
+	},
+	
+	postMixInProperties: function(){
 	},
 
 	initialize: function(args, frag){
@@ -241,6 +285,10 @@ dojo.lang.extend(dojo.widget.Widget, {
 		return false;
 	},
 
+	postCreate: function(args, frag){
+		return false;
+	},
+
 	uninitialize: function(){
 		// dj_unimplemented("dojo.widget.Widget.uninitialize");
 		return false;
@@ -248,7 +296,7 @@ dojo.lang.extend(dojo.widget.Widget, {
 
 	buildRendering: function(){
 		// SUBCLASSES MUST IMPLEMENT
-		dj_unimplemented("dojo.widget.Widget.buildRendering");
+		dj_unimplemented("dojo.widget.Widget.buildRendering, on "+this.toString()+", ");
 		return false;
 	},
 
@@ -338,6 +386,12 @@ dojo.lang.extend(dojo.widget.Widget, {
 	}
 });
 
+// Lower case name cache: listing of the lower case elements in each widget.
+// We can't store the lcArgs in the widget itself because if B subclasses A,
+// then B.prototype.lcArgs might return A.prototype.lcArgs, which is not what we
+// want
+dojo.widget.lcArgsCache = {};
+
 // TODO: should have a more general way to add tags or tag libraries?
 // TODO: need a default tags class to inherit from for things like getting propertySets
 // TODO: parse properties/propertySets into component attributes
@@ -365,21 +419,23 @@ dojo.widget.tags["dojo:connect"] = function(fragment, widgetParser, parentComp){
 }
 
 dojo.widget.buildWidgetFromParseTree = function(type, frag, parser, parentComp, insertionIndex){
+	var localProperties = {};
 	var stype = type.split(":");
 	stype = (stype.length == 2) ? stype[1] : type;
 	// outputObjectInfo(frag["dojo:"+stype]);
 	// FIXME: we don't seem to be doing anything with this!
-	var propertySets = parser.getPropertySets(frag);
+	// var propertySets = parser.getPropertySets(frag);
 	var localProperties = parser.parseProperties(frag["dojo:"+stype]);
-	for(var x=0; x<propertySets.length; x++){
-		
-	}
+	// var tic = new Date();
 	var twidget = dojo.widget.manager.getImplementation(stype);
-	if (!twidget) {
+	if(!twidget){
 		throw new Error("cannot find \"" + stype + "\" widget");
-	} else if (!twidget.create) {
+	}else if (!twidget.create){
 		throw new Error("\"" + stype + "\" widget object does not appear to implement *Widget");
 	}
 	localProperties["dojoinsertionindex"] = insertionIndex;
-	return twidget.create(localProperties, frag, parentComp);
+	// FIXME: we loose no less than 5ms in construction!
+	var ret = twidget.create(localProperties, frag, parentComp);
+	// dojo.debug(new Date() - tic);
+	return ret;
 }

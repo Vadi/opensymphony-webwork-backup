@@ -17,7 +17,10 @@ div.comboBoxOptions {
 	border: 1px solid #afafaf;
 	/* padding: 2px; */
 	position: absolute;
+	/* FIXME: we probably need an iframe underlay on IE to prevent windowed controls from bleeding through */
+	z-index: 1000; 
 	overflow: auto;
+	-moz-opacity: 0;
 }
 
 table.dojoComboBox {

@@ -11,17 +11,17 @@
 		<tr valign="top">
 			<td>
 				<input type="text" class="comboBoxInput"
-					dojoAttachEvent="onKeyDown; onKeyUp;"
+					dojoAttachEvent="keyDown: onKeyDown; keyUp: onKeyUp;"
 					dojoAttachPoint="textInputNode">
 			</td>
-			<td dojoAttachEvent="onClick; startSearchFromInput;">
+			<td>
 				<!-- FIXME: we need a simple way to make sure that relative
 				location replacement gets done -->
 				<img border="0" 
 					hspace="0"
 					vspace="0"
 					dojoAttachPoint="downArrowNode"
-					dojoAttachEvent="onClick: handleArrowClick;"
+					dojoAttachEvent="onMouseUp: handleArrowClick;"
 					src="${dojoRoot}/src/widget/templates/images/combo_box_arrow.png">
 			</td>
 		</tr>

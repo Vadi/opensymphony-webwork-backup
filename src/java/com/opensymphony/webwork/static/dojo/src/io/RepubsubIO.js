@@ -1,4 +1,14 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.require("dojo.event.Event");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.require("dojo.event.Event");
 dojo.require("dojo.event.BrowserEvent");
 dojo.require("dojo.io.BrowserIO");
 
@@ -9,7 +19,7 @@ dojo.provide("dojo.io.repubsubTransport");
 dojo.io.repubsubTranport = new function(){
 	var rps = dojo.io.repubsub;
 	this.canHandle = function(kwArgs){
-		if(((kwArgs["mimetype"] == "text/plain")||(kwArgs["mimetype"] == "text/javascript"))&&(kwArgs["method"] == "repubsub")){
+		if((kwArgs["mimetype"] == "text/javascript")&&(kwArgs["method"] == "repubsub")){
 			return true;
 		}
 		return false;
@@ -43,7 +53,7 @@ dojo.io.repubsubTranport = new function(){
 
 		// NOTE: in this case, url MUST be the "topic" to which we
 		// subscribe/publish for this channel
-		if(!rps[kwArgs.url]){
+		if(!rps.topics[kwArgs.url]){
 			kwArgs.rpsLoad = function(evt){
 				kwArgs.load("load", evt);
 			}
@@ -231,7 +241,7 @@ dojo.io.repubsub = new function(){
 	}
 
 	this.writeLog = function(str, lvl){
-		dj_debug(((new Date()).toLocaleTimeString())+": "+str);
+		dojo.debug(((new Date()).toLocaleTimeString())+": "+str);
 	}
 
 	this.init = function(){

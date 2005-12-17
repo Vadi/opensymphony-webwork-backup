@@ -75,7 +75,7 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 	this.fillInTemplate = function(args, frag) {
 
 		if (!Calendar) {
-			dj_debug("DynArch Calendar Script not included");
+			dojo.debug("DynArch Calendar Script not included");
 			return;
 		}
 
@@ -142,7 +142,7 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 }
 
 // is this needed as well as dojo.widget.Widget.call(this);
-dj_inherits(webwork.widgets.HTMLDynArchCalendar, dojo.widget.DomWidget);
+dojo.inherits((webwork.widgets.HTMLDynArchCalendar, dojo.widget.DomWidget);
 
 // make it a tag
 dojo.widget.tags.addParseTreeHandler("dojo:dynarchcalendar");

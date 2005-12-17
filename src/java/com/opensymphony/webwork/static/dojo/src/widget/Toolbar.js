@@ -1,34 +1,45 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.widget.ToolbarContainer");
-dojo.provide("dojo.widget.HTMLToolbarContainer");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.provide("dojo.widget.ToolbarContainer");
+dojo.provide("dojo.widget.html.ToolbarContainer");
 dojo.provide("dojo.widget.Toolbar");
-dojo.provide("dojo.widget.HTMLToolbar");
+dojo.provide("dojo.widget.html.Toolbar");
 dojo.provide("dojo.widget.ToolbarItem");
-dojo.provide("dojo.widget.HTMLToolbarButtonGroup");
-dojo.provide("dojo.widget.HTMLToolbarButton");
-dojo.provide("dojo.widget.HTMLToolbarDialog");
-dojo.provide("dojo.widget.HTMLToolbarMenu");
-dojo.provide("dojo.widget.HTMLToolbarSeparator");
-dojo.provide("dojo.widget.HTMLToolbarSpace");
+dojo.provide("dojo.widget.html.ToolbarButtonGroup");
+dojo.provide("dojo.widget.html.ToolbarButton");
+dojo.provide("dojo.widget.html.ToolbarDialog");
+dojo.provide("dojo.widget.html.ToolbarMenu");
+dojo.provide("dojo.widget.html.ToolbarSeparator");
+dojo.provide("dojo.widget.html.ToolbarSpace");
 dojo.provide("dojo.widget.Icon");
 
 dojo.require("dojo.widget.*");
+dojo.require("dojo.html");
 
 /* ToolbarContainer
  *******************/
-dojo.widget.HTMLToolbarContainer = function() {
+dojo.widget.html.ToolbarContainer = function() {
 	dojo.widget.HtmlWidget.call(this);
 
 	this.widgetType = "ToolbarContainer";
 	this.isContainer = true;
 
 	this.templateString = '<div class="toolbarContainer" dojoAttachPoint="containerNode"></div>';
-	this.templateCssPath = dojo.uri.dojoUri("src/webui/widgets/templates/HtmlToolbar.css");
+	this.templateCssPath = dojo.uri.dojoUri("src/widget/templates/HtmlToolbar.css");
 
 	this.getItem = function(name) {
 		if(name instanceof dojo.widget.ToolbarItem) { return name; }
 		for(var i = 0; i < this.children.length; i++) {
 			var child = this.children[i];
-			if(child instanceof dojo.widget.HTMLToolbar) {
+			if(child instanceof dojo.widget.html.Toolbar) {
 				var item = child.getItem(name);
 				if(item) { return item; }
 			}
@@ -40,7 +51,7 @@ dojo.widget.HTMLToolbarContainer = function() {
 		var items = [];
 		for(var i = 0; i < this.children.length; i++) {
 			var child = this.children[i];
-			if(child instanceof dojo.widget.HTMLToolbar) {
+			if(child instanceof dojo.widget.html.Toolbar) {
 				items = items.concat(child.getItems());
 			}
 		}
@@ -50,7 +61,7 @@ dojo.widget.HTMLToolbarContainer = function() {
 	this.enable = function() {
 		for(var i = 0; i < this.children.length; i++) {
 			var child = this.children[i];
-			if(child instanceof dojo.widget.HTMLToolbar) {
+			if(child instanceof dojo.widget.html.Toolbar) {
 				child.enable.apply(child, arguments);
 			}
 		}
@@ -59,7 +70,7 @@ dojo.widget.HTMLToolbarContainer = function() {
 	this.disable = function() {
 		for(var i = 0; i < this.children.length; i++) {
 			var child = this.children[i];
-			if(child instanceof dojo.widget.HTMLToolbar) {
+			if(child instanceof dojo.widget.html.Toolbar) {
 				child.disable.apply(child, arguments);
 			}
 		}
@@ -68,7 +79,7 @@ dojo.widget.HTMLToolbarContainer = function() {
 	this.select = function(name) {
 		for(var i = 0; i < this.children.length; i++) {
 			var child = this.children[i];
-			if(child instanceof dojo.widget.HTMLToolbar) {
+			if(child instanceof dojo.widget.html.Toolbar) {
 				child.select(arguments);
 			}
 		}
@@ -77,7 +88,7 @@ dojo.widget.HTMLToolbarContainer = function() {
 	this.deselect = function(name) {
 		for(var i = 0; i < this.children.length; i++) {
 			var child = this.children[i];
-			if(child instanceof dojo.widget.HTMLToolbar) {
+			if(child instanceof dojo.widget.html.Toolbar) {
 				child.deselect(arguments);
 			}
 		}
@@ -87,7 +98,7 @@ dojo.widget.HTMLToolbarContainer = function() {
 		var values = {};
 		for(var i = 0; i < this.children.length; i++) {
 			var child = this.children[i];
-			if(child instanceof dojo.widget.HTMLToolbar) {
+			if(child instanceof dojo.widget.html.Toolbar) {
 				dojo.lang.mixin(values, child.getItemsState());
 			}
 		}
@@ -98,7 +109,7 @@ dojo.widget.HTMLToolbarContainer = function() {
 		var values = {};
 		for(var i = 0; i < this.children.length; i++) {
 			var child = this.children[i];
-			if(child instanceof dojo.widget.HTMLToolbar) {
+			if(child instanceof dojo.widget.html.Toolbar) {
 				dojo.lang.mixin(values, child.getItemsActiveState());
 			}
 		}
@@ -109,28 +120,74 @@ dojo.widget.HTMLToolbarContainer = function() {
 		var values = {};
 		for(var i = 0; i < this.children.length; i++) {
 			var child = this.children[i];
-			if(child instanceof dojo.widget.HTMLToolbar) {
+			if(child instanceof dojo.widget.html.Toolbar) {
 				dojo.lang.mixin(values, child.getItemsSelectedState());
 			}
 		}
 		return values;
 	}
 }
-dj_inherits(dojo.widget.HTMLToolbarContainer, dojo.widget.HtmlWidget);
+dojo.inherits(dojo.widget.html.ToolbarContainer, dojo.widget.HtmlWidget);
 dojo.widget.tags.addParseTreeHandler("dojo:toolbarContainer");
 
 /* Toolbar
  **********/
-dojo.widget.HTMLToolbar = function() {
+dojo.widget.html.Toolbar = function() {
 	dojo.widget.HtmlWidget.call(this);
 
 	this.widgetType = "Toolbar";
 	this.isContainer = true;
 
-	this.templateString = '<div class="toolbar" dojoAttachPoint="containerNode"></div>';
+	this.templateString = '<div class="toolbar" dojoAttachPoint="containerNode" unselectable="on" dojoOnMouseover="_onmouseover" dojoOnMouseout="_onmouseout" dojoOnClick="_onclick" dojoOnMousedown="_onmousedown" dojoOnMouseup="_onmouseup"></div>';
+	//this.templateString = '<div class="toolbar" dojoAttachPoint="containerNode" unselectable="on"></div>';
+
+	// given a node, tries to find it's toolbar item
+	this._getItem = function(node) {
+		var start = new Date();
+		var widget = null;
+		while(node && node != this.domNode) {
+			if(dojo.html.hasClass(node, "toolbarItem")) {
+				var widgets = dojo.widget.manager.getWidgetsByFilter(function(w) { return w.domNode == node; });
+				if(widgets.length == 1) {
+					widget = widgets[0];
+					break;
+				} else if(widgets.length > 1) {
+					dojo.raise("Toolbar._getItem: More than one widget matches the node");
+				}
+			}
+			node = node.parentNode;
+		}
+		return widget;
+	}
+
+	this._onmouseover = function(e) {
+		var widget = this._getItem(e.target);
+		if(widget && widget._onmouseover) { widget._onmouseover(e); }
+	}
+
+	this._onmouseout = function(e) {
+		var widget = this._getItem(e.target);
+		if(widget && widget._onmouseout) { widget._onmouseout(e); }
+	}
+
+	this._onclick = function(e) {
+		var widget = this._getItem(e.target);
+		if(widget && widget._onclick){ 
+			widget._onclick(e);
+		}
+	}
+
+	this._onmousedown = function(e) {
+		var widget = this._getItem(e.target);
+		if(widget && widget._onmousedown) { widget._onmousedown(e); }
+	}
+
+	this._onmouseup = function(e) {
+		var widget = this._getItem(e.target);
+		if(widget && widget._onmouseup) { widget._onmouseup(e); }
+	}
 
 	var oldAddChild = this.addChild;
-	var ddd=0;
 	this.addChild = function(item, pos, props) {
 		var widget = dojo.widget.ToolbarItem.make(item, null, props);
 		var ret = oldAddChild.call(this, widget, null, pos, null);
@@ -199,7 +256,7 @@ dojo.widget.HTMLToolbar = function() {
 		for(var i = 0; i < items.length; i++) {
 			var child = this.getItem(items[i]);
 			if(child instanceof dojo.widget.ToolbarItem) {
-				child.enable();
+				child.enable(false, true);
 			}
 		}
 	}
@@ -242,7 +299,7 @@ dojo.widget.HTMLToolbar = function() {
 		}
 	}
 }
-dj_inherits(dojo.widget.HTMLToolbar, dojo.widget.HtmlWidget);
+dojo.inherits(dojo.widget.html.Toolbar, dojo.widget.HtmlWidget);
 dojo.widget.tags.addParseTreeHandler("dojo:toolbar");
 
 /* ToolbarItem hierarchy:
@@ -261,10 +318,10 @@ dojo.widget.tags.addParseTreeHandler("dojo:toolbar");
 dojo.widget.ToolbarItem = function() {
 	dojo.widget.HtmlWidget.call(this);
 }
-dj_inherits(dojo.widget.ToolbarItem, dojo.widget.HtmlWidget);
+dojo.inherits(dojo.widget.ToolbarItem, dojo.widget.HtmlWidget);
 
 dojo.lang.extend(dojo.widget.ToolbarItem, {
-	templateString: '<span unselectable="on" class="toolbarItem" dojoOnMouseover="_onmouseover" dojoOnMouseout="_onmouseout" dojoOnClick="_onclick" dojoOnMousedown="_onmousedown" dojoOnMouseup="_onmouseup"></span>',
+	templateString: '<span unselectable="on" class="toolbarItem"></span>',
 
 	_name: null,
 	getName: function() { return this._name; },
@@ -363,17 +420,17 @@ dojo.lang.extend(dojo.widget.ToolbarItem, {
 	// fired from: setSelected, setEnabled, setLabel
 	update: function() {
 		if(this._enabled) {
-			dojo.xml.htmlUtil.removeClass(this.domNode, "disabled");
+			dojo.html.removeClass(this.domNode, "disabled");
 			if(this._selected) {
-				dojo.xml.htmlUtil.addClass(this.domNode, "selected");
+				dojo.html.addClass(this.domNode, "selected");
 			} else {
-				dojo.xml.htmlUtil.removeClass(this.domNode, "selected");
+				dojo.html.removeClass(this.domNode, "selected");
 			}
 		} else {
 			this._selected = false;
-			dojo.xml.htmlUtil.addClass(this.domNode, "disabled");
-			dojo.xml.htmlUtil.removeClass(this.domNode, "down");
-			dojo.xml.htmlUtil.removeClass(this.domNode, "hover");
+			dojo.html.addClass(this.domNode, "disabled");
+			dojo.html.removeClass(this.domNode, "down");
+			dojo.html.removeClass(this.domNode, "hover");
 		}
 		this._updateIcon();
 	},
@@ -406,18 +463,20 @@ dojo.lang.extend(dojo.widget.ToolbarItem, {
 
 	_onmouseover: function(e) {
 		if(!this._enabled) { return };
-		dojo.xml.htmlUtil.addClass(this.domNode, "hover");
+		dojo.html.addClass(this.domNode, "hover");
 	},
 
 	_onmouseout: function(e) {
-		dojo.xml.htmlUtil.removeClass(this.domNode, "hover");
-		dojo.xml.htmlUtil.removeClass(this.domNode, "down");
+		dojo.html.removeClass(this.domNode, "hover");
+		dojo.html.removeClass(this.domNode, "down");
 		if(!this._selected) {
-			dojo.xml.htmlUtil.removeClass(this.domNode, "selected");
+			dojo.html.removeClass(this.domNode, "selected");
 		}
 	},
 
 	_onclick: function(e) {
+		// FIXME: buttons never seem to have this._enabled set to true on Opera 9
+		// dojo.debug("widget:", this.widgetType, ":", this.getName(), ", enabled:", this._enabled);
 		if(this._enabled && !this._toggleItem) {
 			this._fireEvent("onClick");
 		}
@@ -426,7 +485,7 @@ dojo.lang.extend(dojo.widget.ToolbarItem, {
 	_onmousedown: function(e) {
 		if(e.preventDefault) { e.preventDefault(); }
 		if(!this._enabled) { return };
-		dojo.xml.htmlUtil.addClass(this.domNode, "down");
+		dojo.html.addClass(this.domNode, "down");
 		if(this._toggleItem) {
 			if(this.parent.preventDeselect && this._selected) {
 				return;
@@ -436,7 +495,7 @@ dojo.lang.extend(dojo.widget.ToolbarItem, {
 	},
 
 	_onmouseup: function(e) {
-		dojo.xml.htmlUtil.removeClass(this.domNode, "down");
+		dojo.html.removeClass(this.domNode, "down");
 	},
 
 	fillInTemplate: function(args, frag) {
@@ -500,7 +559,7 @@ dojo.widget.ToolbarItem.make = function(wh, whIsType, props) {
 
 /* ToolbarButtonGroup
  *********************/
-dojo.widget.HTMLToolbarButtonGroup = function() {
+dojo.widget.html.ToolbarButtonGroup = function() {
 	dojo.widget.ToolbarItem.call(this);
 
 	this.widgetType = "ToolbarButtonGroup";
@@ -595,23 +654,23 @@ dojo.widget.HTMLToolbarButtonGroup = function() {
 
 	this.preventDeselect = false; // if true, once you select one, you can't have none selected
 }
-dj_inherits(dojo.widget.HTMLToolbarButtonGroup, dojo.widget.ToolbarItem);
+dojo.inherits(dojo.widget.html.ToolbarButtonGroup, dojo.widget.ToolbarItem);
 dojo.widget.tags.addParseTreeHandler("dojo:toolbarButtonGroup");
 
 /* ToolbarButton
  ***********************/
-dojo.widget.HTMLToolbarButton = function() {
+dojo.widget.html.ToolbarButton = function() {
 	dojo.widget.ToolbarItem.call(this);
 }
-dj_inherits(dojo.widget.HTMLToolbarButton, dojo.widget.ToolbarItem);
+dojo.inherits(dojo.widget.html.ToolbarButton, dojo.widget.ToolbarItem);
 dojo.widget.tags.addParseTreeHandler("dojo:toolbarButton");
 
-dojo.lang.extend(dojo.widget.HTMLToolbarButton, {
+dojo.lang.extend(dojo.widget.html.ToolbarButton, {
 	widgetType: "ToolbarButton",
 
 	fillInTemplate: function(args, frag) {
-		dojo.widget.HTMLToolbarButton.superclass.fillInTemplate.call(this, args, frag);
-		dojo.xml.htmlUtil.addClass(this.domNode, "toolbarButton");
+		dojo.widget.html.ToolbarButton.superclass.fillInTemplate.call(this, args, frag);
+		dojo.html.addClass(this.domNode, "toolbarButton");
 		if(this._icon) {
 			this.setIcon(this._icon);
 		}
@@ -634,17 +693,17 @@ dojo.lang.extend(dojo.widget.HTMLToolbarButton, {
 
 /* ToolbarDialog
  **********************/
-dojo.widget.HTMLToolbarDialog = function() {
-	dojo.widget.HTMLToolbarButton.call(this);
+dojo.widget.html.ToolbarDialog = function() {
+	dojo.widget.html.ToolbarButton.call(this);
 }
-dj_inherits(dojo.widget.HTMLToolbarDialog, dojo.widget.HTMLToolbarButton);
+dojo.inherits(dojo.widget.html.ToolbarDialog, dojo.widget.html.ToolbarButton);
 dojo.widget.tags.addParseTreeHandler("dojo:toolbarDialog");
 
-dojo.lang.extend(dojo.widget.HTMLToolbarDialog, {
+dojo.lang.extend(dojo.widget.html.ToolbarDialog, {
 	widgetType: "ToolbarDialog",
 	
 	fillInTemplate: function (args, frag) {
-		dojo.widget.HTMLToolbarDialog.superclass.fillInTemplate.call(this, args, frag);
+		dojo.widget.html.ToolbarDialog.superclass.fillInTemplate.call(this, args, frag);
 		dojo.event.connect(this, "onSelect", this, "showDialog");
 		dojo.event.connect(this, "onDeselect", this, "hideDialog");
 	},
@@ -661,12 +720,12 @@ dojo.lang.extend(dojo.widget.HTMLToolbarDialog, {
 
 /* ToolbarMenu
  **********************/
-dojo.widget.HTMLToolbarMenu = function() {
-	dojo.widget.HTMLToolbarDialog.call(this);
+dojo.widget.html.ToolbarMenu = function() {
+	dojo.widget.html.ToolbarDialog.call(this);
 
 	this.widgetType = "ToolbarMenu";
 }
-dj_inherits(dojo.widget.HTMLToolbarMenu, dojo.widget.HTMLToolbarDialog);
+dojo.inherits(dojo.widget.html.ToolbarMenu, dojo.widget.html.ToolbarDialog);
 dojo.widget.tags.addParseTreeHandler("dojo:toolbarMenu");
 
 /* ToolbarMenuItem
@@ -676,13 +735,13 @@ dojo.widget.ToolbarMenuItem = function() {
 
 /* ToolbarSeparator
  **********************/
-dojo.widget.HTMLToolbarSeparator = function() {
+dojo.widget.html.ToolbarSeparator = function() {
 	dojo.widget.ToolbarItem.call(this);
 
 	this.widgetType = "ToolbarSeparator";
 	this.templateString = '<span unselectable="on" class="toolbarItem toolbarSeparator"></span>';
 
-	this.defaultIconPath = new dojo.uri.dojoUri("src/webui/widgets/templates/buttons/-.gif");
+	this.defaultIconPath = new dojo.uri.dojoUri("src/widget/templates/buttons/-.gif");
 
 	var oldFillInTemplate = this.fillInTemplate;
 	this.fillInTemplate = function(args, frag, skip) {
@@ -695,14 +754,18 @@ dojo.widget.HTMLToolbarSeparator = function() {
 			this.domNode.appendChild(this._icon.getNode());
 		}
 	}
+
+	// don't want events!
+	this._onmouseover = this._onmouseout = this._onclick
+		= this._onmousedown = this._onmouseup = null;
 }
-dj_inherits(dojo.widget.HTMLToolbarSeparator, dojo.widget.ToolbarItem);
+dojo.inherits(dojo.widget.html.ToolbarSeparator, dojo.widget.ToolbarItem);
 dojo.widget.tags.addParseTreeHandler("dojo:toolbarSeparator");
 
 /* ToolbarSpace
  **********************/
-dojo.widget.HTMLToolbarSpace = function() {
-	dojo.widget.HTMLToolbarSeparator.call(this);
+dojo.widget.html.ToolbarSpace = function() {
+	dojo.widget.html.ToolbarSeparator.call(this);
 
 	this.widgetType = "ToolbarSpace";
 
@@ -710,32 +773,32 @@ dojo.widget.HTMLToolbarSpace = function() {
 	this.fillInTemplate = function(args, frag, skip) {
 		oldFillInTemplate.call(this, args, frag, true);
 		if(!skip) {
-			dojo.xml.htmlUtil.addClass(this.domNode, "toolbarSpace");
+			dojo.html.addClass(this.domNode, "toolbarSpace");
 		}
 	}
 }
-dj_inherits(dojo.widget.HTMLToolbarSpace, dojo.widget.HTMLToolbarSeparator);
+dojo.inherits(dojo.widget.html.ToolbarSpace, dojo.widget.html.ToolbarSeparator);
 dojo.widget.tags.addParseTreeHandler("dojo:toolbarSpace");
 
 /* ToolbarSelect
  ******************/
  
-/*dojo.widget.HTMLToolbarSelect = function() {
-	dojo.widget.HTMLToolbarDialog.call(this);
+/*dojo.widget.html.ToolbarSelect = function() {
+	dojo.widget.html.ToolbarDialog.call(this);
 
 	// fix inheritence chain
 	for (var method in this.constructor.prototype) {
 		this[method] = this.constructor.prototype[method];
 	}
 }
-dj_inherits(dojo.widget.HTMLToolbarSelect, dojo.widget.HTMLToolbarDialog);
+dojo.inherits(dojo.widget.html.ToolbarSelect, dojo.widget.html.ToolbarDialog);
 dojo.widget.tags.addParseTreeHandler("dojo:toolbarSelect");
 
-dojo.lang.extend(dojo.widget.HTMLToolbarSelect, {
+dojo.lang.extend(dojo.widget.html.ToolbarSelect, {
 	widgetType: "ToolbarSelect",
 	
 	fillInTemplate: function (args, frag) {
-		dojo.widget.HTMLToolbarSelect.superclass.fillInTemplate.call(this, args, frag);
+		dojo.widget.html.ToolbarSelect.superclass.fillInTemplate.call(this, args, frag);
 		
 		this.dialog = document.createElement("ul");
 		for(var value in args.values) {
@@ -747,23 +810,23 @@ dojo.lang.extend(dojo.widget.HTMLToolbarSelect, {
 	},
 	
 	showDialog: function (e) {
-		dojo.widget.HTMLToolbarSelect.superclass.showDialog.call(this, e);
-		with (dojo.xml.htmlUtil) {
+		dojo.widget.html.ToolbarSelect.superclass.showDialog.call(this, e);
+		with (dojo.html) {
 			var x = getAbsoluteX(this.domNode);
 			var y = getAbsoluteY(this.domNode) + getInnerHeight(this.domNode);
 		}
 		with (this.domNode.style) { top = y + "px"; left = x + "px"; }
-		document.body.appendChild(this.dialog);
+		dojo.html.body().appendChild(this.dialog);
 	},
 	
 	hideDialog: function (e) {
-		dojo.widget.HTMLToolbarSelect.superclass.hideDialog.call(this, e);
+		dojo.widget.html.ToolbarSelect.superclass.hideDialog.call(this, e);
 		this.dialog.parentNode.removeChild(this.dialog);
 	}
 
 });*/
 
-dojo.widget.HTMLToolbarSelect = function() {
+dojo.widget.html.ToolbarSelect = function() {
 	dojo.widget.ToolbarItem.call(this);
 	this.widgetType = "ToolbarSelect";
 	this.templateString = '<span class="toolbarItem toolbarSelect" unselectable="on"><select dojoAttachPoint="selectBox" dojoOnChange="changed"></select></span>';
@@ -791,8 +854,12 @@ dojo.widget.HTMLToolbarSelect = function() {
 		this.selectBox.disabled = !this._enabled;
 		return ret;
 	}
+
+	// don't want events!
+	this._onmouseover = this._onmouseout = this._onclick
+		= this._onmousedown = this._onmouseup = null;
 }
-dj_inherits(dojo.widget.HTMLToolbarSelect, dojo.widget.ToolbarItem);
+dojo.inherits(dojo.widget.html.ToolbarSelect, dojo.widget.ToolbarItem);
 dojo.widget.tags.addParseTreeHandler("dojo:toolbarSelect");
 
 /* Icon
@@ -808,7 +875,7 @@ dojo.widget.Icon = function(enabled, disabled, hover, selected) {
 
 	this.getState = function() { return currentState; }
 	this.setState = function(value) {
-		if(dojo.alg.inArray(value, states)) {
+		if(dojo.lang.inArray(value, states)) {
 			if(this[value]) {
 				currentState = value;
 				domNode.setAttribute("src", this[currentState].src);

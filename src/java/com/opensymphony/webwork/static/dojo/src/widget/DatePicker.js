@@ -1,4 +1,14 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.widget.DatePicker");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.provide("dojo.widget.DatePicker");
 dojo.require("dojo.widget.DomWidget");
 
 dojo.widget.DatePicker = function(){
@@ -10,5 +20,7 @@ dojo.widget.DatePicker = function(){
 	this.weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 }
 
-dj_inherits(dojo.widget.DatePicker, dojo.widget.Widget);
+dojo.inherits(dojo.widget.DatePicker, dojo.widget.Widget);
 dojo.widget.tags.addParseTreeHandler("dojo:datepicker");
+
+dojo.requireAfterIf("html", "dojo.widget.html.DatePicker");

@@ -103,7 +103,7 @@ webwork.widgets.HTMLBindDiv = function() {
 	}
 	
 	this.error = function(type, error) {
-		//for (a in error) dj_debug("error." + a + ":" + error[a]);
+		//for (a in error) dojo.debug("error." + a + ":" + error[a]);
 		if (self.showTransportError) {
 			self.contentDiv.innerHTML = error.message;
 		}else{
@@ -148,7 +148,7 @@ webwork.widgets.HTMLBindDiv = function() {
 	}
 
 }
-dj_inherits(webwork.widgets.HTMLBindDiv, webwork.widgets.HTMLBind);
+dojo.inherits((webwork.widgets.HTMLBindDiv, webwork.widgets.HTMLBind);
 
 // make it a tag
 dojo.widget.tags.addParseTreeHandler("dojo:BindDiv");

@@ -1,13 +1,25 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.require("dojo.widget.DomWidget");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.require("dojo.widget.DomWidget");
 dojo.provide("dojo.widget.SvgWidget");
 dojo.provide("dojo.widget.SVGWidget"); // back compat
+
+dojo.require("dojo.dom");
 
 // SVGWidget is a mixin ONLY
 dojo.widget.SvgWidget = function(args){
 	// mix in the parent type
 	// dojo.widget.DomWidget.call(this);
 }
-dj_inherits(dojo.widget.SvgWidget, dojo.widget.DomWidget);
+dojo.inherits(dojo.widget.SvgWidget, dojo.widget.DomWidget);
 
 dojo.lang.extend(dojo.widget.SvgWidget, {
 	getContainerHeight: function(){
@@ -26,7 +38,7 @@ dojo.lang.extend(dojo.widget.SvgWidget, {
 	},
 
 	createNodesFromText: function(txt, wrap){
-		return dojo.xml.domUtil.createNodesFromText(txt, wrap);
+		return dojo.dom.createNodesFromText(txt, wrap);
 	}
 });
 

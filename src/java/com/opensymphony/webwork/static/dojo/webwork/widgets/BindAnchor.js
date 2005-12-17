@@ -54,7 +54,7 @@ webwork.widgets.HTMLBindAnchor = function() {
         //If the user provided some preInvokeJS invoke it and store the results into the
         //executeConnect var to determine if the connect should occur
 		if (self.preInvokeJS != "") {
-            dj_debug('Evaluating js: ' + this.preInvokeJS);
+            dojo.debug('Evaluating js: ' + this.preInvokeJS);
             executeConnect = eval(this.preInvokeJS);
 		}
         if (executeConnect) {
@@ -66,7 +66,7 @@ webwork.widgets.HTMLBindAnchor = function() {
 }
 
 // complete the inheritance process
-dj_inherits(webwork.widgets.HTMLBindAnchor, webwork.widgets.HTMLBind);
+dojo.inherits((webwork.widgets.HTMLBindAnchor, webwork.widgets.HTMLBind);
 
 // make it a tag
 dojo.widget.tags.addParseTreeHandler("dojo:BindAnchor");

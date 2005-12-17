@@ -1,4 +1,14 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above *//*		This is the dojo logging facility, which is stolen from nWidgets, which
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+/*		This is the dojo logging facility, which is stolen from nWidgets, which
 		is patterned on the Python logging module, which in turn has been
 		heavily influenced by log4j (execpt with some more pythonic choices,
 		which we adopt as well).
@@ -43,7 +53,7 @@
 
 dojo.provide("dojo.logging.Logger");
 dojo.provide("dojo.log");
-dojo.require("dojo.lang.*");
+dojo.require("dojo.lang");
 
 /*
 	A simple data structure class that stores information for and about
@@ -353,7 +363,7 @@ dojo.logging.MemoryLogHandler = function(level, recordsToKeep, postType, postInt
 	// mixin style inheritance
 	dojo.logging.LogHandler.call(this, level);
 	// default is unlimited
-	this.numRecords = (typeof djConfig['loggingNumRecords'] != 'undefined') ? djConfig['loggingNumRecords'] : ( recordsToKeep || -1);
+	this.numRecords = (typeof djConfig['loggingNumRecords'] != 'undefined') ? djConfig['loggingNumRecords'] : ((recordsToKeep) ? recordsToKeep : -1);
 	// 0=count, 1=time, -1=don't post TODO: move this to a better location for prefs
 	this.postType = (typeof djConfig['loggingPostType'] != 'undefined') ? djConfig['loggingPostType'] : ( postType || -1);
 	// milliseconds for time, interger for number of records, -1 for non-posting,
@@ -371,7 +381,7 @@ dojo.logging.MemoryLogHandler.prototype.emit = function(record){
 	this.data.push(record);
 	if(this.numRecords != -1){
 		while(this.data.length>this.numRecords){
-			this.data.pop();
+			this.data.shift();
 		}
 	}
 }
@@ -381,10 +391,16 @@ dojo.logging.logQueueHandler = new dojo.logging.MemoryLogHandler(0,50,0,10000);
 dojo.logging.logQueueHandler.emit = function(record){
 	// we should probably abstract this in the future
 	var logStr = String(dojo.log.getLevelName(record.level)+": "+record.time.toLocaleTimeString())+": "+record.message;
-	if(typeof dj_global["print"] == "function"){
+	if(!dj_undef("debug", dj_global)){
+		dojo.debug(logStr);
+	}else if((typeof dj_global["print"] == "function")&&(!dojo.render.html.capable)){
 		print(logStr);
-	}else if(dj_global["dj_debug"]){
-		dj_debug(logStr);
+	}
+	this.data.push(record);
+	if(this.numRecords != -1){
+		while(this.data.length>this.numRecords){
+			this.data.shift();
+		}
 	}
 }
 

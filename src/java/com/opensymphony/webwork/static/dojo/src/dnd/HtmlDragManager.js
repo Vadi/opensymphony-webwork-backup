@@ -1,14 +1,25 @@
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
 /* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.dnd.HtmlDragManager");
 dojo.require("dojo.event.*");
-dojo.require("dojo.alg.*");
-dojo.require("dojo.xml.htmlUtil");
+dojo.require("dojo.lang");
+dojo.require("dojo.html");
+dojo.require("dojo.style");
 
 // NOTE: there will only ever be a single instance of HTMLDragManager, so it's
 // safe to use prototype properties for book-keeping.
 dojo.dnd.HtmlDragManager = function(){
 }
 
-dj_inherits(dojo.dnd.HtmlDragManager, dojo.dnd.DragManager);
+dojo.inherits(dojo.dnd.HtmlDragManager, dojo.dnd.DragManager);
 
 dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 	/**
@@ -45,6 +56,8 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 	 *	4.) mouse-up
 	 *			(clobber draggable selection)
 	 */
+	disabled: false, // to kill all dragging!
+	nestedTargets: false,
 	mouseDownTimer: null, // used for click-hold operations
 	dsCounter: 0,
 	dsPrefix: "dojoDragSource",
@@ -55,6 +68,9 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 	currentDropTarget: null,
 	currentDropTargetPoints: null,
 	previousDropTarget: null,
+
+	selectedSources: [],
+	dragObjects: [],
 
 	// mouse position properties
 	currentX: null,
@@ -68,14 +84,27 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 
 	// method over-rides
 	registerDragSource: function(ds){
-		// FIXME: dragSource objects SHOULD have some sort of property that
-		// references their DOM node, we shouldn't just be passing nodes and
-		// expecting it to work.
-		var dp = this.dsPrefix;
-		var dpIdx = dp+"Idx_"+(this.dsCounter++);
-		ds.dragSourceId = dpIdx;
-		this.dragSources[dpIdx] = ds;
-		ds.domNode.setAttribute(dp, dpIdx);
+		if(ds["domNode"]){
+			// FIXME: dragSource objects SHOULD have some sort of property that
+			// references their DOM node, we shouldn't just be passing nodes and
+			// expecting it to work.
+			var dp = this.dsPrefix;
+			var dpIdx = dp+"Idx_"+(this.dsCounter++);
+			ds.dragSourceId = dpIdx;
+			this.dragSources[dpIdx] = ds;
+			ds.domNode.setAttribute(dp, dpIdx);
+		}
+	},
+
+	unregisterDragSource: function(ds){
+		if (ds["domNode"]){
+
+			var dp = this.dsPrefix;
+			var dpIdx = ds.dragSourceId;
+			delete ds.dragSourceId;
+			delete this.dragSources[dpIdx];
+			ds.domNode.setAttribute(dp, null);
+		}
 	},
 
 	registerDropTarget: function(dt){
@@ -84,12 +113,12 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 
 	getDragSource: function(e){
 		var tn = e.target;
-		if(tn === document.body){ return; }
-		var ta = dojo.xml.htmlUtil.getAttribute(tn, this.dsPrefix);
+		if(tn === dojo.html.body()){ return; }
+		var ta = dojo.html.getAttribute(tn, this.dsPrefix);
 		while((!ta)&&(tn)){
 			tn = tn.parentNode;
-			if((!tn)||(tn === document.body)){ return; }
-			ta = dojo.xml.htmlUtil.getAttribute(tn, this.dsPrefix);
+			if((!tn)||(tn === dojo.html.body())){ return; }
+			ta = dojo.html.getAttribute(tn, this.dsPrefix);
 		}
 		return this.dragSources[ta];
 	},
@@ -98,20 +127,35 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 	},
 
 	onMouseDown: function(e){
+		if(this.disabled) { return; }
+		
+		// do not start drag involvement if the user is interacting with
+		// a form element.
+		switch(e.target.tagName.toLowerCase()) {
+			case "a": case "button": case "textarea":
+			case "input":
+				return;
+		}
+		
 		// find a selection object, if one is a parent of the source node
 		var ds = this.getDragSource(e);
 		if(!ds){ return; }
-		if(!dojo.alg.inArray(this.selectedSources, ds)){
+		if(!dojo.lang.inArray(this.selectedSources, ds)){
 			this.selectedSources.push(ds);
 		}
-		//e.preventDefault();
+		
+		// WARNING: preventing the default action on all mousedown events
+		// prevents user interaction with the contents.
+		e.preventDefault();
+		
 		dojo.event.connect(document, "onmousemove", this, "onMouseMove");
 	},
 
 	onMouseUp: function(e){
 		var _this = this;
+		e.dragSource = this.dragSource;
 		if((!e.shiftKey)&&(!e.ctrlKey)){
-			dojo.alg.forEach(this.dragObjects, function(tempDragObj){
+			dojo.lang.forEach(this.dragObjects, function(tempDragObj){
 				var ret = null;
 				if(!tempDragObj){ return; }
 				if(_this.currentDropTarget) {
@@ -135,17 +179,26 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 						 _this.currentDropTarget.onDragOut(e);
 					}
 				}
-				tempDragObj.onDragEnd({
-					dragStatus: (_this.dropAcceptable && ret) ? "dropSuccess" : "dropFailure"
-				});
+				
+				e.dragStatus = _this.dropAcceptable && ret ? "dropSuccess" : "dropFailure";
+				tempDragObj.onDragEnd(e);
 			});
 						
 			this.selectedSources = [];
 			this.dragObjects = [];
+			this.dragSource = null;
 		}
 		dojo.event.disconnect(document, "onmousemove", this, "onMouseMove");
 		this.currentDropTarget = null;
 		this.currentDropTargetPoints = null;
+	},
+
+	scrollBy: function(x, y) {
+		for(var i = 0; i < this.dragObjects.length; i++) {
+			if(this.dragObjects[i].updateDragOffset) {
+				this.dragObjects[i].updateDragOffset();
+			}
+		}
 	},
 
 	onMouseMove: function(e){
@@ -154,7 +207,11 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 		// onDragStart to all the right parties and get things lined up for
 		// drop target detection
 		if((this.selectedSources.length)&&(!this.dragObjects.length)){
-			dojo.alg.forEach(this.selectedSources, function(tempSource){
+			if (this.selectedSources.length == 1) {
+				this.dragSource = this.selectedSources[0];
+			}
+		
+			dojo.lang.forEach(this.selectedSources, function(tempSource){
 				if(!tempSource){ return; }
 				var tdo = tempSource.onDragStart(e);
 				if(tdo){
@@ -163,31 +220,29 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 				}
 			});
 
-
 			this.dropTargetDimensions = [];
-			dojo.alg.forEach(this.dropTargets, function(tempTarget){
-				var hu = dojo.xml.htmlUtil;
+			dojo.lang.forEach(this.dropTargets, function(tempTarget){
 				var tn = tempTarget.domNode;
-				var ttx = hu.getAbsoluteX(tn);
-				var tty = hu.getAbsoluteY(tn);
+				if(!tn){ return; }
+				var ttx = dojo.style.getAbsoluteX(tn, true);
+				var tty = dojo.style.getAbsoluteY(tn, true);
 				_this.dropTargetDimensions.push([
 					[ttx, tty],	// upper-left
 					// lower-right
-					[ ttx+hu.getInnerWidth(tn), tty+hu.getInnerHeight(tn) ],
+					[ ttx+dojo.style.getInnerWidth(tn), tty+dojo.style.getInnerHeight(tn) ],
 					tempTarget
 				]);
 			});
 		}
-		dojo.alg.forEach(this.dragObjects, function(tempDragObj){
-			if(!tempDragObj){ return; }
-			tempDragObj.onDragMove(e);
-		});
+		for (var i = 0; i < this.dragObjects.length; i++){
+			if(this.dragObjects[i]){ this.dragObjects[i].onDragMove(e); }
+		}
 
 		// if we have a current drop target, check to see if we're outside of
 		// it. If so, do all the actions that need doing.
 		var dtp = this.currentDropTargetPoints;
-		if((dtp)&&(_this.isInsideBox(e, dtp))){
-			this.currentDropTarget.onDragMove(e);
+		if((!this.nestedTargets)&&(dtp)&&(this.isInsideBox(e, dtp))){
+			if (this.dropAcceptable){ this.currentDropTarget.onDragMove(e); }
 		}else{
 			// FIXME: need to fix the event object!
 			if(this.currentDropTarget){
@@ -199,12 +254,15 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 			this.dropAcceptable = false;
 
 			// check the mouse position to see if we're in a drop target
-			dojo.alg.forEach(this.dropTargetDimensions, function(tmpDA){
+			dojo.lang.forEach(this.dropTargetDimensions, function(tmpDA){
 				// FIXME: is there a way to shortcut this?
-				if((!_this.currentDropTarget)&&(_this.isInsideBox(e, tmpDA))){
+				if( ((!_this.currentDropTarget)||(_this.nestedTargets))&&
+					(_this.isInsideBox(e, tmpDA))){
 					_this.currentDropTarget = tmpDA[2];
 					_this.currentDropTargetPoints = tmpDA;
-					return "break";
+					if(!_this.nestedTargets){
+						return "break";
+					}
 				}
 			});
 			e.dragObjects = this.dragObjects;
@@ -243,4 +301,5 @@ dojo.dnd.dragManager = new dojo.dnd.HtmlDragManager();
 	dojo.event.connect(d, "onmouseout", 	dm, "onMouseOut");
 	dojo.event.connect(d, "onmousedown",	dm, "onMouseDown");
 	dojo.event.connect(d, "onmouseup",		dm, "onMouseUp");
+	dojo.event.connect(window, "scrollBy",	dm, "scrollBy");
 })();

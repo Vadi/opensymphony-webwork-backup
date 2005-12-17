@@ -49,7 +49,7 @@ webwork.widgets.HTMLToggleBindDiv = function() {
 	}
 
 }
-dj_inherits(webwork.widgets.HTMLToggleBindDiv, webwork.widgets.HTMLBindDiv);
+dojo.inherits((webwork.widgets.HTMLToggleBindDiv, webwork.widgets.HTMLBindDiv);
 
 // make it a tag
 dojo.widget.tags.addParseTreeHandler("dojo:ToggleBindDiv");
