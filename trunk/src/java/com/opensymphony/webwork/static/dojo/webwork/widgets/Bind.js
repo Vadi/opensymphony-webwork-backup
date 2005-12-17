@@ -137,11 +137,11 @@ webwork.widgets.HTMLBind = function() {
                         var frag  = xmlParser.parseElement(div, null, true);
                         dojo.widget.getParser().createComponents(frag);
                     }catch(e){
-                        dj_debug("auto-build-widgets error: "+e);
+                        dojo.debug("auto-build-widgets error: "+e);
                     }
                 }, 0);
 
-				dj_debug("received html <a onclick=\"var e = document.getElementById('" + d + "'); e.style.display = (e.style.display=='none')?'block':'none';return false;\" href='#'>showHide</a><textarea style='display:none; width:98%;height:200px' id='" + d + "'>" + data + "</textarea>");
+				dojo.debug("received html <a onclick=\"var e = document.getElementById('" + d + "'); e.style.display = (e.style.display=='none')?'block':'none';return false;\" href='#'>showHide</a><textarea style='display:none; width:98%;height:200px' id='" + d + "'>" + data + "</textarea>");
 			}
     	}
     	
@@ -154,7 +154,7 @@ webwork.widgets.HTMLBind = function() {
 			var nt = self.notifyTopics.split(",");
 			for (var i=0; i < nt.length; i++) {
 				var topic = trim(nt[i]);
-				dj_debug('notifying [' + topic + ']');
+				dojo.debug('notifying [' + topic + ']');
 				dojo.event.topic.publish( topic, "notify" );
 			}
 		}
@@ -174,7 +174,7 @@ webwork.widgets.HTMLBind = function() {
 webwork.widgets.HTMLBind = webwork.widgets.HTMLBind;
 
 // complete the inheritance process
-dj_inherits(webwork.widgets.HTMLBind, dojo.widget.HtmlWidget);
+dojo.inherits(webwork.widgets.HTMLBind, dojo.widget.HtmlWidget);
 
 // make it a tag
 dojo.widget.tags.addParseTreeHandler("dojo:bind");

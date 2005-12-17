@@ -1,11 +1,14 @@
-<table cellpadding="0" cellspacing="0" border="0" style="empty-cells: show; clear: none;">
-	<tbody>
-		<tr valign="top" align="left">
-			<td valign="top" dojoAttachPoint="textAreaContainer" width="*">
-			</td>
-			<td valign="bottom">
-				<div resizeHandle="true" style="font-size: 25px;">&#187;</div>
-			</td>
-		</tr>
-	</tbody>
-</table>
+<div>
+	<div style="border: 2px solid black; width: 90%; height: 200px;"
+		dojoAttachPoint="rootLayoutNode">
+		<div dojoAttachPoint="textAreaContainerNode" 
+			style="border: 0px; margin: 0px; overflow: hidden;">
+		</div>
+		<div dojoAttachPoint="statusBarContainerNode" class="statusBar">
+			<div dojoAttachPoint="statusLabelNode" 
+				class="statusPanel"
+				style="padding-right: 0px; z-index: 1;">drag to resize</div>
+			<div dojoAttachPoint="resizeHandleNode"></div>
+		</div>
+	</div>
+</div>

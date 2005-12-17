@@ -1,6 +1,16 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.math.curves");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
 
-dojo.require("dojo.math.Math");
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.provide("dojo.math.curves");
+
+dojo.require("dojo.math");
 
 /* Curves from Dan's 13th lib stuff.
  * See: http://pupius.co.uk/js/Toolkit.Drawing.js
@@ -38,7 +48,8 @@ dojo.math.curves = {
 	//between are the Bezier control points.
 	Bezier: function(pnts) {
 		this.getValue = function(step) {
-			if(step >= 1) { step = 0.99999999; } // FIXME: Dan, I get NaN at step = 1, is this the right solution?
+			if(step >= 1) return this.p[this.p.length-1];	// if step>=1 we must be at the end of the curve
+			if(step <= 0) return this.p[0];					// if step<=0 we must be at the start of the curve
 			var retVal = new Array(this.p[0].length);
 			for(var k=0;j<this.p[0].length;k++) { retVal[k]=0; }
 			for(var j=0;j<this.p[0].length;j++) {
@@ -148,7 +159,7 @@ dojo.math.curves = {
 		var totalWeight = 0;
 
 		this.add = function(curve, weight) {
-			if( weight < 0 ) { dj_throw("dojo.math.curves.Path.add: weight cannot be less than 0"); }
+			if( weight < 0 ) { dojo.raise("dojo.math.curves.Path.add: weight cannot be less than 0"); }
 			curves.push(curve);
 			weights.push(weight);
 			totalWeight += weight;

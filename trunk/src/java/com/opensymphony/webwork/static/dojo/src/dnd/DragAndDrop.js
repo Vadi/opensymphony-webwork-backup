@@ -1,4 +1,14 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.require("dojo.lang.*");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.require("dojo.lang");
 dojo.provide("dojo.dnd.DragSource");
 dojo.provide("dojo.dnd.DropTarget");
 dojo.provide("dojo.dnd.DragObject");
@@ -16,6 +26,14 @@ dojo.lang.extend(dojo.dnd.DragSource, {
 	},
 	
 	onDragStart: function(){
+	},
+
+	unregister: function(){
+		dojo.dnd.dragManager.unregisterDragSource(this);
+	},
+
+	reregister: function(){
+		dojo.dnd.dragManager.registerDragSource(this);
 	}
 });
 
@@ -55,6 +73,7 @@ dojo.lang.extend(dojo.dnd.DragObject, {
 });
 
 dojo.dnd.DropTarget = function(){
+	if (this.constructor == dojo.dnd.DropTarget) { return; } // need to be subclassed
 	dojo.dnd.dragManager.registerDropTarget(this);
 }
 
@@ -81,7 +100,7 @@ dojo.dnd.DragEvent = function(){
 	this.dragSource = null;
 	this.dragObject = null;
 	this.target = null;
-	this.eventSatus = "success"; 
+	this.eventStatus = "success"; 
 	//
 	// can be one of:
 	//	[	"dropSuccess", "dropFailure", "dragMove", 

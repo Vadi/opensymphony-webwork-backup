@@ -1,4 +1,14 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above *//*
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+/*
  * JScript .NET jsc
  *
  */
@@ -34,7 +44,7 @@ dojo.hostenv.loadUri = function(uri){
 	}
 	// TODO: in JScript .NET, eval will not affect the symbol table of the current code?
 	var value = dj_eval(contents);
-	dj_debug("jsc eval of contents returned: ", value);
+	dojo.debug("jsc eval of contents returned: ", value);
 	return 1;
 
 	// for an example doing runtime code compilation, see:

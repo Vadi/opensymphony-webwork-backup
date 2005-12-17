@@ -45,7 +45,7 @@ webwork.widgets.HTMLBindButton = function() {
         //If the user provided some preInvokeJS invoke it and store the results into the
         //executeConnect var to determine if the connect should occur
 		if (self.preInvokeJS != "") {
-            dj_debug('Evaluating js: ' + this.preInvokeJS);
+            dojo.debug('Evaluating js: ' + this.preInvokeJS);
             executeConnect = eval(this.preInvokeJS);
 		}
         if (executeConnect) {
@@ -54,7 +54,7 @@ webwork.widgets.HTMLBindButton = function() {
     }
 }
 
-dj_inherits(webwork.widgets.HTMLBindButton, webwork.widgets.HTMLBind);
+dojo.inherits((webwork.widgets.HTMLBindButton, webwork.widgets.HTMLBind);
 
 // make it a tag
 dojo.widget.tags.addParseTreeHandler("dojo:BindButton");

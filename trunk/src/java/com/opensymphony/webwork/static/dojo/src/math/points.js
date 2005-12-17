@@ -1,11 +1,21 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.math.points");
-dojo.require("dojo.math.Math");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.provide("dojo.math.points");
+dojo.require("dojo.math");
 
 // TODO: add a Point class?
 dojo.math.points = {
 	translate: function(a, b) {
 		if( a.length != b.length ) {
-			dj_throw("dojo.math.translate: points not same size (a:[" + a + "], b:[" + b + "])");
+			dojo.raise("dojo.math.translate: points not same size (a:[" + a + "], b:[" + b + "])");
 		}
 		var c = new Array(a.length);
 		for(var i = 0; i < a.length; i++) {
@@ -16,7 +26,7 @@ dojo.math.points = {
 
 	midpoint: function(a, b) {
 		if( a.length != b.length ) {
-			dj_throw("dojo.math.midpoint: points not same size (a:[" + a + "], b:[" + b + "])");
+			dojo.raise("dojo.math.midpoint: points not same size (a:[" + a + "], b:[" + b + "])");
 		}
 		var c = new Array(a.length);
 		for(var i = 0; i < a.length; i++) {

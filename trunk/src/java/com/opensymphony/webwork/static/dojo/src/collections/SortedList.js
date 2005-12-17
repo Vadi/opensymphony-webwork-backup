@@ -1,7 +1,18 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.collections.SortedList");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.provide("dojo.collections.SortedList");
 dojo.require("dojo.collections.Collections");
 
 dojo.collections.SortedList = function(dictionary){
+	var _this = this;
 	var items = {};
 	var q = [];
 	var sorter = function(a,b){
@@ -10,14 +21,21 @@ dojo.collections.SortedList = function(dictionary){
 		return 0;
 	};
 	var build = function(){
-		var e = this.getIterator();
-		while (e.moveNext()) q.push(e.entry);
+		q = [];
+		var e = _this.getIterator();
+		while (!e.atEnd) {
+			q.push(e.entry);
+			e.moveNext();
+		}
 		q.sort(sorter);
 	};
 
 	if (dictionary){
 		var e = dictionary.getIterator();
-		while (e.moveNext()) q[q.length] = items[e.key] = new dojo.collections.DictionaryEntry(e.key, e.value);
+		while (!e.atEnd) {
+			q[q.length] = items[e.key] = new dojo.collections.DictionaryEntry(e.key, e.value);
+			e.moveNext();
+		}
 		q.sort(sorter);
 	}
 
@@ -42,20 +60,22 @@ dojo.collections.SortedList = function(dictionary){
 	};
 	this.containsValue = function(o){
 		var e = this.getIterator();
-		while (e.moveNext()){
+		while (!e.atEnd){
 			if (e.value == o) return true;
+			e.moveNext();
 		}
 		return false;
 	};
 	this.copyTo = function(arr, i){
 		var e = this.getIterator();
 		var idx = i;
-		while (e.moveNext()){
+		while (!e.atEnd){
 			arr.splice(idx, 0, e.entry);
 			idx++;
+			e.moveNext();
 		}
 	};
-	this.getByIndex = function(o){
+	this.getByIndex = function(i){
 		return q[i].value;
 	};
 	this.getIterator = function(){
@@ -67,30 +87,41 @@ dojo.collections.SortedList = function(dictionary){
 	this.getKeyList = function(){
 		var arr = [];
 		var e = this.getIterator();
-		while (e.moveNext()) arr.push(e.key);
+		while (!e.atEnd){
+			arr.push(e.key);
+			e.moveNext();
+		}
 		return arr;
 	};
 	this.getValueList = function(){
 		var arr = [];
 		var e = this.getIterator();
-		while (e.moveNext()) arr.push(e.value);
+		while (!e.atEnd){
+			arr.push(e.value);
+			e.moveNext();
+		}
 		return arr;
 	};
 	this.indexOfKey = function(k){
 		for (var i = 0; i < q.length; i++){
-			if (q[i].key == k) return i;
+			if (q[i].key == k) {
+				return i;
+			}
 		}
 		return -1;
 	};
 	this.indexOfValue = function(o){
 		for (var i = 0; i < q.length; i++){
-			if (q[i].value == o) return i;
+			if (q[i].value == o) {
+				return i;
+			}
 		}
 		return -1;
 	};
 	this.item = function(k){
 		return items[k];
 	};
+
 	this.remove = function(k){
 		delete items[k];
 		build();
@@ -101,7 +132,8 @@ dojo.collections.SortedList = function(dictionary){
 		build();
 		this.count = q.length;
 	};
+
 	this.setByIndex = function(i,o){
-		items[q[i].key] = o;
+		items[q[i].key].value = o;
 	};
 }

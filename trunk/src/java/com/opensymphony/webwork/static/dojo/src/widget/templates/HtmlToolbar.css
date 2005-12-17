@@ -1,27 +1,27 @@
 .toolbarContainer {
 	border-bottom : 0;
-	background-color : #eef;
+	background-color : #def;
 	color : ButtonText;
 	font : Menu;
+	background-image: url(images/toolbar-bg.gif);
 }
 
 .toolbar {
 	padding : 2px 4px;
-	font-size : 11px;
 	min-height : 26px;
 	_height : 26px;
 }
 
 .toolbarItem {
 	float : left;
-	padding : 1px 3px;
-	margin : 1px 2px 1px 0;
+	padding : 1px 2px;
+	margin : 0 2px 1px 0;
 	cursor : pointer;
-	border : 1px solid #eef;
+	/* border : 1px solid #def; */
 }
 
 .toolbarItem.selected, .toolbarItem.down {
-	margin : 2px 1px 0 1px;
+	margin : 1px 1px 0 1px;
 	border-color : #bbf;
 	background-color : #fafaff;
 }
@@ -31,8 +31,8 @@
 }
 
 .toolbarButton span {
-	line-height : 19px;
-	vertical-align : top;
+	line-height : 16px;
+	vertical-align : middle;
 }
 
 .toolbarButton.hover {

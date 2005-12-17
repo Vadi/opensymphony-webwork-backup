@@ -1,10 +1,20 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above *///	hostenv_svg
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+//	hostenv_svg
 if(typeof window == 'undefined'){
 	dj_throw("attempt to use adobe svg hostenv when no window object");
 }
-dj_debug = function(){ 
+dojo.debug = function(){ 
+	if (!djConfig.isDebug) { return; }
 	var args = arguments;
-	if(!dojo.hostenv.is_debug_){ return; }
 	var isJUM = dj_global["jum"];
 	var s = isJUM ? "": "DEBUG: ";
 	for (var i = 0; i < args.length; ++i){ s += args[i]; }
@@ -36,7 +46,7 @@ dojo.render.svg.capable = true;
 dojo.render.svg.support.builtin = true;
 //	FIXME the following two is a big-ass hack for now.
 dojo.render.svg.moz = ((navigator.userAgent.indexOf("Gecko") >= 0) && (!((navigator.appVersion.indexOf("Konqueror") >= 0) || (navigator.appVersion.indexOf("Safari") >= 0))));
-dojo.render.svg.adobe = !dojo.render.svg.moz;
+dojo.render.svg.adobe = (window.parseXML != null);
 
 //	agent-specific implementations.
 
@@ -103,3 +113,111 @@ dojo.hostenv.startPackage = function(moduleName){
 	}
 	return; 
 };
+
+//	wrapper objects for ASVG
+if (window.parseXML){
+	window.XMLSerialzer = function(){
+		//	based on WebFX RichTextControl getXHTML() function.
+		function nodeToString(n, a) {
+			function fixText(s) { return String(s).replace(/\&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;"); }
+			function fixAttribute(s) { return fixText(s).replace(/\"/g, "&quot;"); }
+			switch (n.nodeType) {
+				case 1:	{	//	ELEMENT
+					var name = n.nodeName;
+					a.push("<" + name);
+					for (var i = 0; i < n.attributes.length; i++) {
+						if (n.attributes.item(i).specified) {
+							a.push(" " + n.attributes.item(i).nodeName.toLowerCase() + "=\"" + fixAttribute(n.attributes.item(i).nodeValue) + "\"");
+						}
+					}
+					if (n.canHaveChildren || n.hasChildNodes()) {
+						a.push(">");
+						for (var i = 0; i < n.childNodes.length; i++) nodeToString(n.childNodes.item(i), a);
+						a.push("</" + name + ">\n");
+					} else a.push(" />\n");
+					break;
+				}
+				case 3: {	//	TEXT
+					a.push(fixText(n.nodeValue));
+					break;
+				}
+				case 4: {	//	CDATA
+					a.push("<![CDA" + "TA[\n" + n.nodeValue + "\n]" + "]>");
+					break;
+				}
+				case 7:{	//	PROCESSING INSTRUCTION
+					a.push(n.nodeValue);
+					if (/(^<\?xml)|(^<\!DOCTYPE)/.test(n.nodeValue)) a.push("\n");
+					break;
+				}
+				case 8:{	//	COMMENT
+					a.push("<!-- " + n.nodeValue + " -->\n");
+					break;
+				}
+				case 9:		//	DOCUMENT
+				case 11:{	//	DOCUMENT FRAGMENT
+					for (var i = 0; i < n.childNodes.length; i++) nodeToString(n.childNodes.item(i), a);
+					break;
+				}
+				default:{
+					a.push("<!--\nNot Supported:\n\n" + "nodeType: " + n.nodeType + "\nnodeName: " + n.nodeName + "\n-->");
+				}
+			}
+		}
+		this.serializeToString = function(node){
+			var a = [];
+			nodeToString(node, a);
+			return a.join("");
+		};
+	};
+
+	window.DOMParser = function(){
+		//	mimetype is basically ignored
+		this.parseFromString = function(s){
+			return parseXML(s, window.document);
+		}
+	};
+
+	window.XMLHttpRequest = function(){
+		//	we ignore the setting and getting of content-type.
+		var uri = null;
+		var method = "POST";
+		var isAsync = true;	
+		var cb = function(d){
+			this.responseText = d.content;
+			try {
+				this.responseXML = parseXML(this.responseText, window.document);
+			} catch(e){}
+			this.status = "200";
+			this.statusText = "OK";
+			if (!d.success) {
+				this.status = "500";
+				this.statusText = "Internal Server Error";
+			}
+			this.onload();
+			this.onreadystatechange();
+		};
+		this.onload = function(){};
+		this.readyState = 4;
+		this.onreadystatechange = function(){};
+		this.status = 0;
+		this.statusText = "";
+		this.responseBody = null;
+		this.responseStream = null;
+		this.responseXML = null;
+		this.responseText = null;
+		this.abort = function(){ return; };
+		this.getAllResponseHeaders = function(){ return []; };
+		this.getResponseHeader = function(n){ return null; };
+		this.setRequestHeader = function(nm, val){ };
+		this.open = function(meth, url, async){ 
+			method = meth;
+			uri = url;
+		};
+		this.send = function(data){
+			var d = data || null;
+			if (method == "GET") getURL(uri, cb);
+			else postURL(uri, data, cb);
+		};
+	};
+}

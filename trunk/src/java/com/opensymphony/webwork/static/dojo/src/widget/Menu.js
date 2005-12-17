@@ -1,11 +1,17 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.widget.Menu");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.provide("dojo.widget.Menu");
 dojo.provide("dojo.widget.DomMenu");
-dojo.provide("dojo.widget.HtmlMenu");
 
-dojo.require("dojo.widget.Widget");
-dojo.require("dojo.widget.DomWidget");
-dojo.require("dojo.widget.HtmlWidget");
-
+dojo.require("dojo.widget.*");
 
 dojo.widget.tags.addParseTreeHandler("dojo:menu");
 
@@ -15,18 +21,18 @@ dojo.widget.tags.addParseTreeHandler("dojo:menu");
 dojo.widget.Menu = function () {
 	dojo.widget.Menu.superclass.constructor.call(this);
 }
-dj_inherits(dojo.widget.Menu, dojo.widget.Widget);
+dojo.inherits(dojo.widget.Menu, dojo.widget.Widget);
 
 dojo.lang.extend(dojo.widget.Menu, {
 	widgetType: "Menu",
+	isContainer: true,
 	
 	items: [],
-
-	push: function (item) {
+	push: function(item){
 		dojo.connect.event(item, "onSelect", this, "onSelect");
 		this.items.push(item);
-	}
-
+	},
+	onSelect: function(){}
 });
 
 
@@ -36,10 +42,11 @@ dojo.lang.extend(dojo.widget.Menu, {
 dojo.widget.DomMenu = function(){
 	dojo.widget.DomMenu.superclass.constructor.call(this);
 }
-dj_inherits(dojo.widget.DomMenu, dojo.widget.DomWidget);
+dojo.inherits(dojo.widget.DomMenu, dojo.widget.DomWidget);
 
 dojo.lang.extend(dojo.widget.DomMenu, {
 	widgetType: "Menu",
+	isContainer: true,
 
 	push: function (item) {
 		dojo.widget.Menu.call(this, item);
@@ -47,26 +54,4 @@ dojo.lang.extend(dojo.widget.DomMenu, {
 	}
 });
 
-
-/* HtmlMenu
- ***********/
- 
-dojo.widget.HtmlMenu = function(){
-	dojo.widget.HtmlMenu.superclass.constructor.call(this);
-}
-dj_inherits(dojo.widget.HtmlMenu, dojo.widget.HtmlWidget);
-
-dojo.lang.extend(dojo.widget.HtmlMenu, {
-	widgetType: "Menu",
-
-	templateString: '<ul style="list-style: none; padding: 0; margin: 0;"></ul>',
-	templateCssPath: dojo.uri.dojoUri("src/widget/templates/Menu.css"),
-	
-	fillInTemplate: function () {
-		//dojo.widget.HtmlMenu.superclass.fillInTemplate.apply(this, arguments);
-		this.domNode.className = "Menu";
-	},
-	
-	push: dojo.widget.DomMenu.prototype.push
-
-});
+dojo.requireAfterIf("html", "dojo.widget.html.Menu");

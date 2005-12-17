@@ -1,7 +1,18 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.widget.Parse");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.provide("dojo.widget.Parse");
 
 dojo.require("dojo.widget.Manager");
-dojo.require("dojo.text.*");
+dojo.require("dojo.string");
+dojo.require("dojo.dom");
 
 dojo.widget.Parse = function(fragment) {
 	this.propertySetsList = [];
@@ -45,7 +56,7 @@ dojo.widget.Parse = function(fragment) {
 					// non-destructive widgets from the same ctor node
 					var tna = tn.split(";");
 					for(var x=0; x<tna.length; x++){
-						var ltn = dojo.text.trim(tna[x]).toLowerCase();
+						var ltn = dojo.string.trim(tna[x]).toLowerCase();
 						if(djTags[ltn]){
 							built = true;
 							// var tic = new Date();
@@ -53,13 +64,13 @@ dojo.widget.Parse = function(fragment) {
 							returnValue.push(djTags[ltn](fragment[item], this, parentComp, fragment[item]["index"]));
 						}else{
 							if(ltn.substr(0, 5)=="dojo:"){
-								dj_debug("no tag handler registed for type: ", ltn);
+								dojo.debug("no tag handler registed for type: ", ltn);
 							}
 						}
 					}
 				}
 			}catch(e){
-				if(dojo.hostenv.is_debug_){ dj_debug(e); }
+				dojo.debug(e);
 				// throw(e);
 				// IE is such a bitch sometimes
 			}
@@ -219,12 +230,12 @@ dojo.widget.Parse = function(fragment) {
 		var tagName = "dojo:" + componentName.toLowerCase();
 		frag[tagName] = {};
 		var bo = {};
-		for(prop in properties){
+		properties.dojotype = componentName;
+		for(var prop in properties){
 			if(typeof bo[prop] == "undefined"){
-				frag[tagName][prop.toLowerCase()] = [{value: properties[prop]}];
+				frag[tagName][prop] = [{value: properties[prop]}];
 			}
 		}
-		frag[tagName]["dojotype"] = [{value: componentName}];
 		frag[tagName].nodeRef = nodeRef;
 		frag.tagName = tagName;
 		var fragContainer = [frag];
@@ -277,10 +288,10 @@ dojo.widget.getParser = function(name){
 		notRef = true;
 		refNode = tn;
 		if(h){
-			document.body.appendChild(refNode);
+			dojo.html.body().appendChild(refNode);
 		}
 	}else if(position){
-		dojo.xml.domUtil.insert(tn, refNode, position);
+		dojo.dom.insertAtPosition(tn, refNode, position);
 	}else{ // otherwise don't replace, but build in-place
 		tn = refNode;
 	}
@@ -304,7 +315,8 @@ dojo.widget._oldFromScript = function(placeKeeperNode, name, props){
 		nodeRef: placeKeeperNode,
 		fastMixIn: true
 	};
-	return dojo.widget.getParser().createComponentFromScript(placeKeeperNode, name, props);
+	var ret = dojo.widget.getParser().createComponentFromScript(placeKeeperNode, name, props, true);
+	return ret;
 }
 
 

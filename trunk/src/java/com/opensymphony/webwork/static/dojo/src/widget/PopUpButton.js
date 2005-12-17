@@ -1,12 +1,24 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.widget.PopUpButton");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.provide("dojo.widget.PopUpButton");
 dojo.provide("dojo.widget.DomPopUpButton");
 dojo.provide("dojo.widget.HtmlPopUpButton");
 
-dojo.require("dojo.widget.Button");
-dojo.require("dojo.widget.HtmlButton");
+//dojo.require("dojo.widget.Button");
+//dojo.require("dojo.widget.HtmlButton");
 
 dojo.require("dojo.widget.Menu");
 dojo.require("dojo.widget.MenuItem");
+
+dojo.require("dojo.html");
 
 dojo.widget.tags.addParseTreeHandler("dojo:PopUpButton");
 
@@ -16,7 +28,7 @@ dojo.widget.tags.addParseTreeHandler("dojo:PopUpButton");
 dojo.widget.PopUpButton = function () {
 	dojo.widget.PopUpButton.superclass.constructor.call(this);
 }
-dj_inherits(dojo.widget.PopUpButton, dojo.widget.Widget);
+dojo.inherits(dojo.widget.PopUpButton, dojo.widget.Widget);
 
 dojo.lang.extend(dojo.widget.PopUpButton, {
 	widgetType: "PopUpButton",
@@ -30,7 +42,7 @@ dojo.lang.extend(dojo.widget.PopUpButton, {
 dojo.widget.DomPopUpButton = function(){
 	dojo.widget.DomPopUpButton.superclass.constructor.call(this);
 }
-dj_inherits(dojo.widget.DomPopUpButton, dojo.widget.DomWidget);
+dojo.inherits(dojo.widget.DomPopUpButton, dojo.widget.DomWidget);
 
 dojo.lang.extend(dojo.widget.DomPopUpButton, {
 	widgetType: dojo.widget.PopUpButton.prototype.widgetType
@@ -43,7 +55,7 @@ dojo.lang.extend(dojo.widget.DomPopUpButton, {
 dojo.widget.HtmlPopUpButton = function () {
 	dojo.widget.HtmlPopUpButton.superclass.constructor.call(this);
 }
-dj_inherits(dojo.widget.HtmlPopUpButton, dojo.widget.HtmlWidget);
+dojo.inherits(dojo.widget.HtmlPopUpButton, dojo.widget.HtmlWidget);
 
 dojo.lang.extend(dojo.widget.HtmlPopUpButton, {
 	widgetType: dojo.widget.PopUpButton.prototype.widgetType,
@@ -51,7 +63,7 @@ dojo.lang.extend(dojo.widget.HtmlPopUpButton, {
 	templateCssPath: dojo.uri.dojoUri("src/widget/templates/PopUpButton.css"),
 	
 	buildRendering: function (args, frag) {
-		dojo.xml.htmlUtil.insertCssFile(this.templateCssPath, null, true);
+		dojo.html.insertCssFile(this.templateCssPath, null, true);
 	
 		this.domNode = document.createElement("a");
 		this.domNode.className = "PopUpButton";
@@ -60,11 +72,11 @@ dojo.lang.extend(dojo.widget.HtmlPopUpButton, {
 		// draw the arrow
 		var arrow = document.createElement("img");
 		arrow.src = dojo.uri.dojoUri("src/widget/templates/images/dropdownButtonsArrow.gif");
-		dojo.xml.htmlUtil.setClass(arrow, "downArrow");
+		dojo.html.setClass(arrow, "downArrow");
 		this.domNode.appendChild(arrow);
 
 		this.menu = dojo.widget.fromScript("Menu");
-		dojo.xml.htmlUtil.addClass(this.menu.domNode, "PopUpButtonMenu");
+		dojo.html.addClass(this.menu.domNode, "PopUpButtonMenu");
 		dojo.event.connect(this.menu, "onSelect", this, "onSelect");
 		
 		if (frag["dojo:" + this.widgetType.toLowerCase()].nodeRef) {
@@ -72,7 +84,7 @@ dojo.lang.extend(dojo.widget.HtmlPopUpButton, {
 			var options = node.getElementsByTagName("option");
 			for (var i = 0; i < options.length; i++) {
 				var properties = {
-					title: dojo.xml.domUtil.textContent(options[i]),
+					title: dojo.dom.textContent(options[i]),
 					value: options[i].value
 				}
 				this.addItem(dojo.widget.fromScript("MenuItem", properties));
@@ -82,7 +94,7 @@ dojo.lang.extend(dojo.widget.HtmlPopUpButton, {
 
 	addItem: function (item) {
 		// TODO: should be dojo.widget.MenuItem
-		if (item instanceof dojo.widget.HtmlMenuItem) {
+		if (item instanceof dojo.widget.html.MenuItem) {
 			this.menu.push(item);
 		} else {
 			// TODO: create one
@@ -109,7 +121,7 @@ dojo.lang.extend(dojo.widget.HtmlPopUpButton, {
 			}
 		}
 		
-		dojo.xml.htmlUtil[(this._enabled ? "add" : "remove")
+		dojo.html[(this._enabled ? "add" : "remove")
 			+ "Class"](this.domNode, "disabled");
 		
 		return this._enabled;
@@ -157,12 +169,12 @@ dojo.lang.extend(dojo.widget.HtmlPopUpButton, {
 	_showMenu: function (e) {
 		if (!this._enabled) { return; }
 		this._menuVisible = true;
-		with (dojo.xml.htmlUtil) {
+		with (dojo.html) {
 			var y = getAbsoluteY(this.domNode) + getInnerHeight(this.domNode);
 			var x = getAbsoluteX(this.domNode);
 		}
 	
-		document.body.appendChild(this.menu.domNode);
+		dojo.html.body().appendChild(this.menu.domNode);
 		with (this.menu.domNode.style) {
 			top = y + "px";
 			left = x + "px";

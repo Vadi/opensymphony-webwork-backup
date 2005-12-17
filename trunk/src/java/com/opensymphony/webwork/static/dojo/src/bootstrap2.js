@@ -1,4 +1,14 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above *//*
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+/*
  * bootstrap2.js - runs after the hostenv_*.js file.
  */
 
@@ -39,13 +49,17 @@ dojo.hostenv.require = dojo.hostenv.loadModule;
 dojo.require = function(){
 	dojo.hostenv.loadModule.apply(dojo.hostenv, arguments);
 }
+dojo.requireAfter = dojo.require;
 
 dojo.requireIf = function(){
-	if((arguments[0]=="common")||(dojo.render[arguments[0]].capable)){
-		dojo.require(arguments[1], arguments[2], arguments[3]);
+	if((arguments[0] === true)||(arguments[0]=="common")||(dojo.render[arguments[0]].capable)){
+		var args = [];
+		for (var i = 1; i < arguments.length; i++) { args.push(arguments[i]); }
+		dojo.require.apply(dojo, args);
 	}
 }
 
+dojo.requireAfterIf = dojo.requireIf;
 dojo.conditionalRequire = dojo.requireIf;
 
 dojo.kwCompoundRequire = function(){
@@ -54,5 +68,12 @@ dojo.kwCompoundRequire = function(){
 
 dojo.hostenv.provide = dojo.hostenv.startPackage;
 dojo.provide = function(){
-	dojo.hostenv.startPackage.apply(dojo.hostenv, arguments);
+	return dojo.hostenv.startPackage.apply(dojo.hostenv, arguments);
 }
+
+dojo.setModulePrefix = function(module, prefix){
+	return dojo.hostenv.setModulePrefix(module, prefix);
+}
+
+// stub
+dojo.profile = { start: function(){}, end: function(){}, dump: function(){} };

@@ -1,12 +1,29 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.io.BrowserIO");
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
 
-dojo.require("dojo.io.IO");
-dojo.require("dojo.alg.*");
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+dojo.provide("dojo.io.BrowserIO");
+
+dojo.require("dojo.io");
+dojo.require("dojo.lang");
+dojo.require("dojo.dom");
+
+try {
+	if((!djConfig.preventBackButtonFix)&&(!dojo.hostenv.post_load_)){
+		document.write("<iframe style='border: 0px; width: 1px; height: 1px; position: absolute; bottom: 0px; right: 0px; visibility: visible;' name='djhistory' id='djhistory' src='"+(dojo.hostenv.getBaseScriptUri()+'iframe_history.html')+"'></iframe>");
+	}
+}catch(e){/* squelch */}
 
 dojo.io.checkChildrenForFile = function(node){
 	var hasFile = false;
 	var inputs = node.getElementsByTagName("input");
-	dojo.alg.forEach(inputs, function(input){
+	dojo.lang.forEach(inputs, function(input){
 		if(hasFile){ return; }
 		if(input.getAttribute("type")=="file"){
 			hasFile = true;
@@ -20,40 +37,54 @@ dojo.io.formHasFile = function(formNode){
 }
 
 // TODO: Move to htmlUtils
-dojo.io.encodeForm = function(formNode){
+dojo.io.encodeForm = function(formNode, encoding){
 	if((!formNode)||(!formNode.tagName)||(!formNode.tagName.toLowerCase() == "form")){
-		dj_throw("Attempted to encode a non-form element.");
+		dojo.raise("Attempted to encode a non-form element.");
 	}
-	var ec = encodeURIComponent;
+	var enc = /utf/i.test(encoding||"") ? encodeURIComponent : dojo.string.encodeAscii;
 	var values = [];
 
-	for(var i = 0; i < formNode.elements.length; i++) {
+	for(var i = 0; i < formNode.elements.length; i++){
 		var elm = formNode.elements[i];
-		if(elm.disabled){
+		if(elm.disabled || elm.tagName.toLowerCase() == "fieldset" || !elm.name){
 			continue;
 		}
-		var name = ec(elm.name);
+		var name = enc(elm.name);
 		var type = elm.type.toLowerCase();
 
-		if((type == "select")&&(elm.multiple)){
-			for(var j = 0; j < elm.options.length; j++) {
-				values.push(name + "=" + ec(elm.options[j].value));
+		if(type == "select-multiple"){
+			for(var j = 0; j < elm.options.length; j++){
+				if(elm.options[j].selected) {
+					values.push(name + "=" + enc(elm.options[j].value));
+				}
 			}
-		}else if(dojo.alg.inArray(type, ["radio", "checked"])){
+		}else if(dojo.lang.inArray(type, ["radio", "checkbox"])){
 			if(elm.checked){
-				values.push(name + "=" + ec(elm.value));
+				values.push(name + "=" + enc(elm.value));
 			}
-		}else if(!dojo.alg.inArray(type, ["file", "submit", "reset", "button"])) {
-			values.push(name + "=" + ec(elm.value));
+		}else if(!dojo.lang.inArray(type, ["file", "submit", "reset", "button"])) {
+			values.push(name + "=" + enc(elm.value));
 		}
 	}
-	return values.join("&");
+
+	// now collect input type="image", which doesn't show up in the elements array
+	var inputs = formNode.getElementsByTagName("input");
+	for(var i = 0; i < inputs.length; i++) {
+		var input = inputs[i];
+		if(input.type.toLowerCase() == "image" && input.form == formNode) {
+			var name = enc(input.name);
+			values.push(name + "=" + enc(input.value));
+			values.push(name + ".x=0");
+			values.push(name + ".y=0");
+		}
+	}
+	return values.join("&") + "&";
 }
 
 dojo.io.setIFrameSrc = function(iframe, src, replace){
 	try{
 		var r = dojo.render.html;
-		// dj_debug(iframe);
+		// dojo.debug(iframe);
 		if(!replace){
 			if(r.safari){
 				iframe.location = src;
@@ -61,60 +92,19 @@ dojo.io.setIFrameSrc = function(iframe, src, replace){
 				frames[iframe.name].location = src;
 			}
 		}else{
-			var idoc = (r.moz) ? iframe.contentWindow : iframe;
+			var idoc;
+			// dojo.debug(iframe.name);
+			if(r.ie){
+				idoc = iframe.contentWindow.document;
+			}else if(r.moz){
+				idoc = iframe.contentWindow;
+			}
 			idoc.location.replace(src);
-			dj_debug(iframe.contentWindow.location);
 		}
 	}catch(e){ 
-		dj_debug("setIFrameSrc: "+e); 
+		dojo.debug(e); 
+		dojo.debug("setIFrameSrc: "+e); 
 	}
-}
-
-dojo.io.createIFrame = function(fname){
-	if(window[fname]){ return window[fname]; }
-	if(window.frames[fname]){ return window.frames[fname]; }
-	var r = dojo.render.html;
-	var cframe = null;
-	cframe = document.createElement((((r.ie)&&(r.win)) ? "<iframe name="+fname+">" : "iframe"));
-	with(cframe){
-		name = fname;
-		setAttribute("name", fname);
-		id = fname;
-	}
-	window[fname] = cframe;
-	document.body.appendChild(cframe);
-	with(cframe.style){
-		position = "absolute";
-		left = top = "0px";
-		height = width = "1px";
-		visibility = "hidden";
-		if(dojo.hostenv.is_debug_){
-			position = "relative";
-			height = "100px";
-			width = "300px";
-			visibility = "visible";
-		}
-	}
-
-	// FIXME: do we need to (optionally) squelch onload?
-	
-	dojo.io.setIFrameSrc(cframe, dojo.hostenv.getBaseScriptUri()+"iframe_history.html", true);
-	return cframe;
-}
-
-
-dojo.io.cancelDOMEvent = function(evt){
-	if(!evt){ return false; }
-	if(evt.preventDefault){
-		evt.stopPropagation();
-		evt.preventDefault();
-	}else{
-		if(window.event){
-			window.event.cancelBubble = true;
-			window.event.returnValue = false;
-		}
-	}
-	return false;
 }
 
 dojo.io.XMLHTTPTransport = new function(){
@@ -127,6 +117,7 @@ dojo.io.XMLHTTPTransport = new function(){
 
 	var _cache = {}; // FIXME: make this public? do we even need to?
 	this.useCache = false; // if this is true, we'll cache unless kwArgs.useCache = false
+	this.preventCache = false; // if this is true, we'll always force GET requests to cache
 	this.historyStack = [];
 	this.forwardStack = [];
 	this.historyIframe = null;
@@ -171,12 +162,12 @@ dojo.io.XMLHTTPTransport = new function(){
 
 	// moved successful load stuff here
 	function doLoad(kwArgs, http, url, query, useCache) {
-		if(http.status==200 || (location.protocol=="file:" && http.status==0)) {
+		if((http.status==200)||(location.protocol=="file:" && http.status==0)) {
 			var ret;
-			if(kwArgs.method.toLowerCase() == "head") {
+			if(kwArgs.method.toLowerCase() == "head"){
 				var headers = http.getAllResponseHeaders();
 				ret = {};
-				ret.toString = function() { return headers; }
+				ret.toString = function(){ return headers; }
 				var values = headers.split(/[\r\n]+/g);
 				for(var i = 0; i < values.length; i++) {
 					var pair = values[i].match(/^([^:]+)\s*:\s*(.+)$/i);
@@ -184,28 +175,39 @@ dojo.io.XMLHTTPTransport = new function(){
 						ret[pair[1]] = pair[2];
 					}
 				}
-			} else if(kwArgs.mimetype == "text/javascript") {
-				ret = dj_eval(http.responseText);
-			} else if(kwArgs.mimetype == "text/xml") {
+			}else if(kwArgs.mimetype == "text/javascript"){
+				try{
+					ret = dj_eval(http.responseText);
+				}catch(e){
+					dojo.debug(e);
+					dojo.debug(http.responseText);
+					ret = null;
+				}
+			}else if(kwArgs.mimetype == "text/json"){
+				try{
+					ret = dj_eval("("+http.responseText+")");
+				}catch(e){
+					dojo.debug(e);
+					dojo.debug(http.responseText);
+					ret = false;
+				}
+			}else if((kwArgs.mimetype == "application/xml")||
+						(kwArgs.mimetype == "text/xml")){
 				ret = http.responseXML;
 				if(!ret || typeof ret == "string") {
-					ret = dojo.xml.domUtil.createDocumentFromText(http.responseText);
+					ret = dojo.dom.createDocumentFromText(http.responseText);
 				}
-			} else {
+			}else{
 				ret = http.responseText;
 			}
 
-			if( useCache ) { // only cache successful responses
+			if(useCache){ // only cache successful responses
 				addToCache(url, query, kwArgs.method, http);
 			}
-			if( typeof kwArgs.load == "function" ) {
-				kwArgs.load("load", ret, http);
-			}
-		} else {
+			kwArgs[(typeof kwArgs.load == "function") ? "load" : "handle"]("load", ret, http);
+		}else{
 			var errObj = new dojo.io.Error("XMLHttpTransport Error: "+http.status+" "+http.statusText);
-			if( typeof kwArgs.error == "function" ) {
-				kwArgs.error("error", errObj, http);
-			}
+			kwArgs[(typeof kwArgs.error == "function") ? "error" : "handle"]("error", errObj, http);
 		}
 	}
 
@@ -230,16 +232,16 @@ dojo.io.XMLHTTPTransport = new function(){
 		}
 		if(!this.bookmarkAnchor){
 			this.bookmarkAnchor = document.createElement("a");
-			document.body.appendChild(this.bookmarkAnchor);
+			(document.body||document.getElementsByTagName("body")[0]).appendChild(this.bookmarkAnchor);
 			this.bookmarkAnchor.style.display = "none";
 		}
-		if((!args["changeURL"])||(dojo.render.html.ie)){
+		if((!args["changeUrl"])||(dojo.render.html.ie)){
 			var url = dojo.hostenv.getBaseScriptUri()+"iframe_history.html?"+(new Date()).getTime();
 			this.moveForward = true;
 			dojo.io.setIFrameSrc(this.historyIframe, url, false);
 		}
-		if(args["changeURL"]){
-			hash = "#"+ ((args["changeURL"]!==true) ? args["changeURL"] : (new Date()).getTime());
+		if(args["changeUrl"]){
+			hash = "#"+ ((args["changeUrl"]!==true) ? args["changeUrl"] : (new Date()).getTime());
 			setTimeout("window.location.href = '"+hash+"';", 1);
 			this.bookmarkAnchor.href = hash;
 			if(dojo.render.html.ie){
@@ -390,6 +392,31 @@ dojo.io.XMLHTTPTransport = new function(){
 		this.historyStack.push(last);
 	}
 
+	this.inFlight = [];
+	this.inFlightTimer = null;
+
+	this.startWatchingInFlight = function(){
+		if(!this.inFlightTimer){
+			this.inFlightTimer = setInterval("dojo.io.XMLHTTPTransport.watchInFlight();", 10);
+		}
+	}
+
+	this.watchInFlight = function(){
+		for(var x=this.inFlight.length-1; x>=0; x--){
+			var tif = this.inFlight[x];
+			if(!tif){ this.inFlight.splice(x, 1); continue; }
+			if(4==tif.http.readyState){
+				// remove it so we can clean refs
+				this.inFlight.splice(x, 1);
+				doLoad(tif.req, tif.http, tif.url, tif.query, tif.useCache);
+				if(this.inFlight.length == 0){
+					clearInterval(this.inFlightTimer);
+					this.inFlightTimer = null;
+				}
+			} // FIXME: need to implement a timeout param here!
+		}
+	}
+
 	var hasXmlHttp = dojo.hostenv.getXmlhttpObject() ? true : false;
 	this.canHandle = function(kwArgs){
 		// canHandle just tells dojo.io.bind() if this is a good transport to
@@ -399,17 +426,19 @@ dojo.io.XMLHTTPTransport = new function(){
 		// multi-part mime encoded and avoid using this transport for those
 		// requests.
 		return hasXmlHttp
-			&& dojo.alg.inArray(kwArgs["mimetype"], ["text/plain", "text/html", "text/xml", "text/javascript"])
-			&& dojo.alg.inArray(kwArgs["method"].toLowerCase(), ["post", "get", "head"])
+			&& dojo.lang.inArray((kwArgs["mimetype"]||"".toLowerCase()), ["text/plain", "text/html", "application/xml", "text/xml", "text/javascript", "text/json"])
+			&& dojo.lang.inArray(kwArgs["method"].toLowerCase(), ["post", "get", "head"])
 			&& !( kwArgs["formNode"] && dojo.io.formHasFile(kwArgs["formNode"]) );
 	}
+
+	this.multipartBoundary = "45309FFF-BD65-4d50-99C9-36986896A96F";	// unique guid as a boundary value for multipart posts
 
 	this.bind = function(kwArgs){
 		if(!kwArgs["url"]){
 			// are we performing a history action?
 			if( !kwArgs["formNode"]
-				&& (kwArgs["backButton"] || kwArgs["back"] || kwArgs["changeURL"] || kwArgs["watchForURL"])
-				&& (!window["djConfig"] && !window["djConfig"]["preventBackButtonFix"]) ) {
+				&& (kwArgs["backButton"] || kwArgs["back"] || kwArgs["changeUrl"] || kwArgs["watchForURL"])
+				&& (!djConfig.preventBackButtonFix)) {
 				this.addToHistory(kwArgs);
 				return true;
 			}
@@ -423,31 +452,110 @@ dojo.io.XMLHTTPTransport = new function(){
 			if((ta)&&(!kwArgs["url"])){ url = ta; }
 			var tp = kwArgs.formNode.getAttribute("method");
 			if((tp)&&(!kwArgs["method"])){ kwArgs.method = tp; }
-			query += dojo.io.encodeForm(kwArgs.formNode);
+			query += dojo.io.encodeForm(kwArgs.formNode, kwArgs.encoding);
 		}
 
-		if(!kwArgs["method"]) {
+		if(url.indexOf("#") > -1) {
+			dojo.debug("Warning: dojo.io.bind: stripping hash values from url:", url);
+			url = url.split("#")[0];
+		}
+
+		if(kwArgs["file"]){
+			// force post for file transfer
+			kwArgs.method = "post";
+		}
+
+		if(!kwArgs["method"]){
 			kwArgs.method = "get";
 		}
 
-		if(kwArgs["content"]){
-			query += dojo.io.argsFromMap(kwArgs.content);
+		// guess the multipart value		
+		if(kwArgs.method.toLowerCase() == "get"){
+			// GET cannot use multipart
+			kwArgs.multipart = false;
+		}else{
+			if(kwArgs["file"]){
+				// enforce multipart when sending files
+				kwArgs.multipart = true;
+			}else if(!kwArgs["multipart"]){
+				// default 
+				kwArgs.multipart = false;
+			}
 		}
 
-		if(kwArgs["postContent"] && kwArgs.method.toLowerCase() == "post") {
-			query = kwArgs.postContent;
-		}
-
-		if(kwArgs["backButton"] || kwArgs["back"] || kwArgs["changeURL"]){
+		if(kwArgs["backButton"] || kwArgs["back"] || kwArgs["changeUrl"]){
 			this.addToHistory(kwArgs);
 		}
 
+		do { // break-block
+
+			if(kwArgs.postContent){
+				query = kwArgs.postContent;
+				break;
+			}
+
+			if(kwArgs["content"]) {
+				query += dojo.io.argsFromMap(kwArgs.content, kwArgs.encoding);
+			}
+			
+			if(kwArgs.method.toLowerCase() == "get" || !kwArgs.multipart){
+				break;
+			}
+
+			var	t = [];
+			if(query.length){
+				var q = query.split("&");
+				for(var i = 0; i < q.length; ++i){
+					if(q[i].length){
+						var p = q[i].split("=");
+						t.push(	"--" + this.multipartBoundary,
+								"Content-Disposition: form-data; name=\"" + p[0] + "\"", 
+								"",
+								p[1]);
+					}
+				}
+			}
+
+			if(kwArgs.file){
+				if(dojo.lang.isArray(kwArgs.file)){
+					for(var i = 0; i < kwArgs.file.length; ++i){
+						var o = kwArgs.file[i];
+						t.push(	"--" + this.multipartBoundary,
+								"Content-Disposition: form-data; name=\"" + o.name + "\"; filename=\"" + ("fileName" in o ? o.fileName : o.name) + "\"",
+								"Content-Type: " + ("contentType" in o ? o.contentType : "application/octet-stream"),
+								"",
+								o.content);
+					}
+				}else{
+					var o = kwArgs.file;
+					t.push(	"--" + this.multipartBoundary,
+							"Content-Disposition: form-data; name=\"" + o.name + "\"; filename=\"" + ("fileName" in o ? o.fileName : o.name) + "\"",
+							"Content-Type: " + ("contentType" in o ? o.contentType : "application/octet-stream"),
+							"",
+							o.content);
+				}
+			}
+
+			if(t.length){
+				t.push("--"+this.multipartBoundary+"--", "");
+				query = t.join("\r\n");
+			}
+		}while(false);
+
+		// kwArgs.Connection = "close";
+
 		var async = kwArgs["sync"] ? false : true;
 
+		var preventCache = kwArgs["preventCache"] ||
+			(this.preventCache == true && kwArgs["preventCache"] != false);
 		var useCache = kwArgs["useCache"] == true ||
 			(this.useCache == true && kwArgs["useCache"] != false );
 
-		if(useCache){
+		// preventCache is browser-level (add query string junk), useCache
+		// is for the local cache. If we say preventCache, then don't attempt
+		// to look in the cache, but if useCache is true, we still want to cache
+		// the response
+		if(!preventCache && useCache){
 			var cachedHttp = getFromCache(url, query, kwArgs.method);
 			if(cachedHttp){
 				doLoad(kwArgs, cachedHttp, url, query, false);
@@ -462,25 +570,32 @@ dojo.io.XMLHTTPTransport = new function(){
 
 		// build a handler function that calls back to the handler obj
 		if(async){
-			http.onreadystatechange = function(){
-				if(4==http.readyState){
-					if(received){ return; } // Opera 7.6 is foo-bar'd
-					received = true;
-					doLoad(kwArgs, http, url, query, useCache);
-				}
-			}
+			// FIXME: setting up this callback handler leaks on IE!!!
+			this.inFlight.push({
+				"req":		kwArgs,
+				"http":		http,
+				"url":		url,
+				"query":	query,
+				"useCache":	useCache
+			});
+			this.startWatchingInFlight();
 		}
 
 		if(kwArgs.method.toLowerCase() == "post"){
 			// FIXME: need to hack in more flexible Content-Type setting here!
 			http.open("POST", url, async);
 			setHeaders(http, kwArgs);
-			http.setRequestHeader("Content-Type", kwArgs["contentType"] || "application/x-www-form-urlencoded");
+			http.setRequestHeader("Content-Type", kwArgs.multipart ? ("multipart/form-data; boundary=" + this.multipartBoundary) : 
+				(kwArgs.contentType || "application/x-www-form-urlencoded"));
 			http.send(query);
 		}else{
 			var tmpUrl = url;
 			if(query != "") {
-				tmpUrl += (url.indexOf("?") > -1 ? "&" : "?") + query;
+				tmpUrl += (tmpUrl.indexOf("?") > -1 ? "&" : "?") + query;
+			}
+			if(preventCache) {
+				tmpUrl += (dojo.string.endsWithAny(tmpUrl, "?", "&")
+					? "" : (tmpUrl.indexOf("?") > -1 ? "&" : "?")) + "dojo.preventCache=" + new Date().valueOf();
 			}
 			http.open(kwArgs.method.toUpperCase(), tmpUrl, async);
 			setHeaders(http, kwArgs);
@@ -489,6 +604,10 @@ dojo.io.XMLHTTPTransport = new function(){
 
 		if( !async ) {
 			doLoad(kwArgs, http, url, query, useCache);
+		}
+
+		kwArgs.abort = function(){
+			return http.abort();
 		}
 
 		return;

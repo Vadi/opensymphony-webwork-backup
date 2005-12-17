@@ -1,4 +1,14 @@
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */// FIXME: not yet functional
+/*
+	Copyright (c) 2004-2005, The Dojo Foundation
+	All Rights Reserved.
+
+	Licensed under the Academic Free License version 2.1 or above OR the
+	modified BSD license. For more information on Dojo licensing, see:
+
+		http://dojotoolkit.org/community/licensing.shtml
+*/
+
+// FIXME: not yet functional
 
 dojo.provide("dojo.widget.SvgButton");
 
@@ -61,7 +71,7 @@ dojo.widget.SvgButton = function(){
 	}
 }
 
-dj_inherits(dojo.widget.SvgButton, dojo.widget.DomButton);
+dojo.inherits(dojo.widget.SvgButton, dojo.widget.DomButton);
 
 // FIXME
 dojo.widget.SvgButton.prototype.shapeString = function(x, y, textSize, label, shape) {
