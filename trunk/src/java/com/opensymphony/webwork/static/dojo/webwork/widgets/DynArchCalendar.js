@@ -142,7 +142,7 @@ webwork.widgets.HTMLDynArchCalendar = function() {
 }
 
 // is this needed as well as dojo.widget.Widget.call(this);
-dojo.inherits((webwork.widgets.HTMLDynArchCalendar, dojo.widget.DomWidget);
+dojo.inherits(webwork.widgets.HTMLDynArchCalendar, dojo.widget.DomWidget);
 
 // make it a tag
 dojo.widget.tags.addParseTreeHandler("dojo:dynarchcalendar");

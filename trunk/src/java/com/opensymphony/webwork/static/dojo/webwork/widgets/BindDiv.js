@@ -148,7 +148,7 @@ webwork.widgets.HTMLBindDiv = function() {
 	}
 
 }
-dojo.inherits((webwork.widgets.HTMLBindDiv, webwork.widgets.HTMLBind);
+dojo.inherits(webwork.widgets.HTMLBindDiv, webwork.widgets.HTMLBind);
 
 // make it a tag
 dojo.widget.tags.addParseTreeHandler("dojo:BindDiv");
