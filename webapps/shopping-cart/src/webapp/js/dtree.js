@@ -1,7 +1,7 @@
 /*--------------------------------------------------|
 | dTree 2.05 | www.destroydrop.com/javascript/tree/ |
 |---------------------------------------------------|
-| Copyright (c) 2002-2003 Geir Landrö               |
+| Copyright (c) 2002-2003 Geir Landrï¿½               |
 |                                                   |
 | This script can be used freely as long as all     |
 | copyright messages are intact.                    |
@@ -41,20 +41,20 @@ function dTree(objName) {
 		inOrder					: false
 	}
 	this.icon = {
-		root				: '/images/dtree/base.gif',
-		folder			: '/images/dtree/folder.gif',
-		folderOpen	: '/images/dtree/folderopen.gif',
-		node				: '/images/dtree/page.gif',
-		empty				: '/images/dtree/empty.gif',
-		line				: '/images/dtree/line.gif',
-		join				: '/images/dtree/join.gif',
-		joinBottom	: '/images/dtree/joinbottom.gif',
-		plus				: '/images/dtree/plus.gif',
-		plusBottom	: '/images/dtree/plusbottom.gif',
-		minus				: '/images/dtree/minus.gif',
-		minusBottom	: '/images/dtree/minusbottom.gif',
-		nlPlus			: '/images/dtree/nolines_plus.gif',
-		nlMinus			: '/images/dtree/nolines_minus.gif'
+		root				: '/shopping-cart/images/dtree/base.gif',
+		folder			: '/shopping-cart/images/dtree/folder.gif',
+		folderOpen	: '/shopping-cart/images/dtree/folderopen.gif',
+		node				: '/shopping-cart/images/dtree/page.gif',
+		empty				: '/shopping-cart/images/dtree/empty.gif',
+		line				: '/shopping-cart/images/dtree/line.gif',
+		join				: '/shopping-cart/images/dtree/join.gif',
+		joinBottom	: '/shopping-cart/images/dtree/joinbottom.gif',
+		plus				: '/shopping-cart/images/dtree/plus.gif',
+		plusBottom	: '/shopping-cart/images/dtree/plusbottom.gif',
+		minus				: '/shopping-cart/images/dtree/minus.gif',
+		minusBottom	: '/shopping-cart/images/dtree/minusbottom.gif',
+		nlPlus			: '/shopping-cart/images/dtree/nolines_plus.gif',
+		nlMinus			: '/shopping-cart/images/dtree/nolines_minus.gif'
 	};
 	this.obj = objName;
 	this.aNodes = [];
