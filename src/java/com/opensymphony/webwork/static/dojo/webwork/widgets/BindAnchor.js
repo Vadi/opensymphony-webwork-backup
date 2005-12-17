@@ -66,7 +66,7 @@ webwork.widgets.HTMLBindAnchor = function() {
 }
 
 // complete the inheritance process
-dojo.inherits((webwork.widgets.HTMLBindAnchor, webwork.widgets.HTMLBind);
+dojo.inherits(webwork.widgets.HTMLBindAnchor, webwork.widgets.HTMLBind);
 
 // make it a tag
 dojo.widget.tags.addParseTreeHandler("dojo:BindAnchor");
