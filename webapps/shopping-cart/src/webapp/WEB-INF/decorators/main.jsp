@@ -39,6 +39,7 @@
         dojo.require("webwork.widgets.BindDiv");
         dojo.require("webwork.widgets.BindButton");
         dojo.require("webwork.widgets.BindAnchor");
+        dojo.hostenv.writeIncludes();
 
         dojo.event.connect (window, "onload" , function() {
             if (!NiftyCheck())
