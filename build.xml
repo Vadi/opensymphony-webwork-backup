@@ -54,64 +54,11 @@
         <ivy-report todir="${dist.docs}/dependencies" graph="false"/>
     </target>
 
-    <macrodef name="webapp">
-        <attribute name="name"/>
-        <sequential>
-            <mkdir dir="${dist}/webapps"/>
-            <mkdir dir="${dist}/webapps/@{name}/src"/>
-            <compile srcdir="webapps/@{name}/src/java" destdir="webapps/@{name}/build/java" classpath="${build.java}"/>
-            <war file="${dist}/webapps/@{name}.war" basedir="webapps/@{name}/src/webapp"
-                 webxml="webapps/@{name}/src/webapp/WEB-INF/web.xml">
-                <classes dir="webapps/@{name}/build/java"/>
-            </war>
-            <copy todir="${dist}/webapps/@{name}/src">
-                <fileset dir="webapps/@{name}/src" includes="**/**"/>
-            </copy>
-        </sequential>
-    </macrodef>
-
     <target name="predist" depends="jar">
         <!-- grab the README.txt file -->
         <copy file="${src}/etc/README.txt" todir="${dist}"/>
-
-        <!-- prepare each tutorial/example -->
-        <webapp name="starter"/>
-        <webapp name="sandbox"/>
-        <webapp name="ajax"/>
-        <webapp name="shopping-cart"/>
-        <webapp name="portlet"/>
-
-        <!-- copy over elements required to build the final wars -->
-        <copy file="webapps/build.xml" todir="${dist}/webapps"/>
     </target>
 
-
-    <macrodef name="build_deployable_war">
-        <attribute name="warname"/>
-        <sequential>
-	<ant dir="${dist}/webapps/" target="build" inheritAll="true">
-	     <property name="webapp" value="@{warname}"/>
-	</ant>
-	</sequential>
-    </macrodef>
-    
-    <target name="deployable_wars" depends="predist">
-  	<echo>
-Build all deployable webapps, after the build is finished, 
-the fully-built wars file can be found in the dist directory:
-	${basedir}/dist/webapps/dist
-	
-You may deploy those files to any servlet or portlet container.
-        </echo>
-  	<build_deployable_war warname="starter"/>
-  	<build_deployable_war warname="sandbox"/>
-  	<build_deployable_war warname="ajax"/>
-  	<build_deployable_war warname="shopping-cart"/>
-  	<build_deployable_war warname="portlet"/>
-    </target>
-
-
-    
     <target name="xdoclet-taglib" depends="init">
         <taskdef
             name="xdoclet"
@@ -178,7 +125,6 @@ You may deploy those files to any servlet or portlet container.
     </target>
 
     <!-- overridden targets -->
-
     <target name="jar" depends="compile">
         <mkdir dir="${build}"/>
 
@@ -203,46 +149,4 @@ You may deploy those files to any servlet or portlet container.
             <entry key="skip.ivy" value="true"/>
         </propertyfile>
     </target>
-
-    <target name="clean" depends="common.clean">
-        <delete dir="webapps/base/build"/>
-        <delete dir="webapps/sandbox/build"/>
-        <delete dir="webapps/starter/build"/>
-        <delete dir="webapps/ajax/build"/>
-        <delete dir="webapps/shopping-cart/build"/>
-        <delete dir="webapps/portlet/build"/>
-    </target>
-
-    <!-- other targets -->
-
-    <!--
-        Cameron Braid : Disabled at the moment
-
-        <target name='dojo-profile'>
-            <property name="dojo.dir" value='../dojo'/>
-            <ant dir="${dojo.dir}/buildscripts" target="release" inheritall="false">
-                <property name="docless" value="true"/>
-                <property name="nostrip" value="true"/>
-                <property name="profileFile" value="${basedir}/dojo.profile.js"/>
-            </ant>
-
-            <sync todir="${src.java}/com/opensymphony/webwork/static/dojo/src" includeEmptyDirs="no" verbose="yes">
-                <fileset dir="${dojo.dir}/release/dojo/src">
-                    <exclude name="**/*.js"/>
-                    <exclude name="api/**"/>
-                    <exclude name="tests/**"/>
-                    <exclude name="Makefile"/>
-                    <exclude name="README.TXT"/>
-                </fileset>
-            </sync>
-
-            <copy todir="${src.java}/com/opensymphony/webwork/static/dojo" preservelastmodified="true">
-                <fileset dir="${dojo.dir}/release/dojo">
-                    <exclude name="src/**"/>
-                    <exclude name="api/**"/>
-                    <exclude name="tests/**"/>
-                </fileset>
-            </copy>
-        </target>
-    -->
 </project>

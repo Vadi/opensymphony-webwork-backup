@@ -13,6 +13,7 @@
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/docs/chinese" />
       <excludeFolder url="file://$MODULE_DIR$/docs/wikidocs" />
+      <excludeFolder url="file://$MODULE_DIR$/webapps" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -291,15 +292,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jfree/jfreechart.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jfree/jcommon.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
