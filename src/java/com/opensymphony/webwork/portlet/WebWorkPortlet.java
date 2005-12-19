@@ -28,6 +28,7 @@ import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.portlet.context.PortletContext;
+import com.opensymphony.webwork.portlet.util.PortalContainer;
 import com.opensymphony.webwork.portlet.util.PortletMessaging;
 import com.opensymphony.webwork.util.AttributeMap;
 import com.opensymphony.webwork.views.JspSupportServlet;
@@ -168,17 +169,19 @@ public class WebWorkPortlet extends GenericPortlet implements WebWorkPortletStat
 
         try {
 
-            ///////////////////////////For OpenSessionInXWorkInterceptor in WebWork Interceptor/////////////////////
+            ///////////////////////////For OpenSessionInXWorkInterceptor in
+            // WebWork Interceptor/////////////////////
             try {
-                // javax.servlet.http.HttpServletRequestWrapper requestWrapper = (javax.servlet.http.HttpServletRequestWrapper) request;
+                // javax.servlet.http.HttpServletRequestWrapper requestWrapper =
+                // (javax.servlet.http.HttpServletRequestWrapper) request;
                 // PortletContext.getContext().setServletContext(requestWrapper.getSession().getServletContext());
 
                 HttpServlet servlet = JspSupportServlet.jspSupportServlet;
-                if(servlet != null)
+                if (servlet != null)
                     PortletContext.getContext().setServletContext(servlet.getServletContext());
 
             } catch (Exception e) {
-                PortletContext.getContext().setServletConfig( ((PortletConfigImpl) getPortletConfig()).getServletConfig());
+                PortletContext.getContext().setServletConfig(((PortletConfigImpl) getPortletConfig()).getServletConfig());
             }
 
             /*
@@ -199,8 +202,10 @@ public class WebWorkPortlet extends GenericPortlet implements WebWorkPortletStat
                 int beginPIdx = nameAction.indexOf("?");
                 int beginPEIdx = nameAction.indexOf("=");
 
-                // TODO: Problem, right now only support one parameter after xxx.action?????
-                // actionXURL=actionURL+"?wwXAction=./" + "xxxx.action?a=a&b=b&c=c
+                // TODO: Problem, right now only support one parameter after
+                // xxx.action?????
+                // actionXURL=actionURL+"?wwXAction=./" +
+                // "xxxx.action?a=a&b=b&c=c
                 // Right now only support xxxx.action?a=a
                 if (beginPIdx >= 0 && beginPEIdx > 0) {
                     cheatKey = nameAction.substring(beginPIdx + 1, beginPEIdx);
@@ -253,10 +258,10 @@ public class WebWorkPortlet extends GenericPortlet implements WebWorkPortletStat
     }
 
     private HashMap createContextMap(Map requestMap, Map parameterMap, Map sessionMap, Map applicationMap, PortletRequest request,
-                                     PortletResponse response, String cheatKey, String cheatValue) {
+            PortletResponse response, String cheatKey, String cheatValue) {
         HashMap extraContext = new HashMap();
 
-        String[] cheatValues = {cheatValue};
+        String[] cheatValues = { cheatValue };
         if (!"".equals(cheatKey) && !"".equals(cheatValue))
             parameterMap.put(cheatKey, cheatValues);
 
@@ -269,7 +274,8 @@ public class WebWorkPortlet extends GenericPortlet implements WebWorkPortletStat
         extraContext.put(PORTLET_RESPONSE, response);
         extraContext.put(PORTLET_CONTEXT, getPortletContext());
 
-//        extraContext.put(ComponentInterceptor.COMPONENT_MANAGER, request.getAttribute("DefaultComponentManager"));
+        //        extraContext.put(ComponentInterceptor.COMPONENT_MANAGER,
+        // request.getAttribute("DefaultComponentManager"));
 
         // helpers to get access to request/session/application scope
         extraContext.put("request", requestMap);
@@ -288,15 +294,31 @@ public class WebWorkPortlet extends GenericPortlet implements WebWorkPortletStat
     }
 
     private Map getApplicationMap(PortletRequest request) {
+
         Map result = new HashMap();
         PortalContext context = request.getPortalContext();
         if (context == null) {
             return result;
         }
 
+        boolean isJetSpeed = (PortalContainer.JETSPEED_PORTAL == PortalContainer.get());
         Enumeration propNames = context.getPropertyNames();
         while (propNames.hasMoreElements()) {
             String key = (String) propNames.nextElement();
+            if (key == null)
+                continue;
+
+            /*
+             * Fixed for JetSpeed 2.0 (It's JetSpeed's bug!!)
+             * supported.portletmode & supported.windowstate in
+             * PortalContext.getProperty(key) are not the string object, but in
+             * PortalContext.getProperty(key) method will cast the object to
+             * string, and will throw ClassCastException
+             */
+            if (isJetSpeed & key != null & key.startsWith("supported.")) {
+                continue;
+            }
+
             Object value = request.getPortalContext().getProperty(key);
             result.put(key, value);
         }
