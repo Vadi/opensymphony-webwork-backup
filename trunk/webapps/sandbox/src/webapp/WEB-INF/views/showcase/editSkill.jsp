@@ -28,6 +28,6 @@
     <ww:textfield label="%{getText('skill.description')}" name="currentSkill.description"/>
     <ww:submit name="%{#submitType}" value="%{getText('save')}" />
 </ww:form>
-<p><a href="<ww:url action="list"/>">Back to Skill List</a></p>
+<p><a href="<ww:url action="list"/>"><ww:text name="skill.backtolist"/></a></p>
 </body>
 </html>
