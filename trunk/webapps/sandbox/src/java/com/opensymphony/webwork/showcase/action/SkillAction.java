@@ -56,6 +56,8 @@ import com.opensymphony.webwork.showcase.model.Skill;
 import com.opensymphony.xwork.Preparable;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 /**
  * SkillAction.
  *
@@ -84,7 +86,7 @@ public class SkillAction extends AbstractCRUDAction implements Preparable {
 
     public void setSkillDao(SkillDao skillDao) {
         if (log.isDebugEnabled()) {
-        	log.debug("SkillAction - [setSkillDao]: skillDao injected.");
+            log.debug("SkillAction - [setSkillDao]: skillDao injected.");
         }
         this.skillDao = skillDao;
     }

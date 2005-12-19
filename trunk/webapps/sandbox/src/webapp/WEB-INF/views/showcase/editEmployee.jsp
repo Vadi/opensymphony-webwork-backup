@@ -25,7 +25,7 @@
 <h1><ww:property value="#title"/></h1>
 
 <ww:action id="skillAction" namespace="/showcase/skill" name="list"/>
-<ww:form action="save">
+<ww:form name="editForm" action="save">
     <ww:textfield label="Employee Id" name="currentEmployee.empId"/>
     <ww:textfield label="First Name" name="currentEmployee.firstName"/>
     <ww:textfield label="Last Name" name="currentEmployee.lastName"/>
@@ -33,8 +33,8 @@
     <ww:textfield label="Salary" name="currentEmployee.salary"/>
     <ww:checkbox fieldValue="true" label="Married" name="currentEmployee.married"/>
     <ww:combobox list="availablePositions" label="Position" name="currentEmployee.position"/>
-    <ww:select list="#skillAction.availableItems" label="Main Skill" name="currentEmployee.mainSkill"/>
-    <ww:select list="#skillAction.availableItems" label="Other Skills" name="currentEmployee.otherSkills" multiple="true"/>
+    <ww:select list="#skillAction.availableItems" listKey="name" label="Main Skill" name="currentEmployee.mainSkill.name"/>
+    <ww:select list="#skillAction.availableItems" listKey="name" listValue="description" label="Other Skills" name="selectedSkills" multiple="true"/>
     <ww:password label="Password" name="currentEmployee.password"/>
     <ww:radio list="availableLevels" name="currentEmployee.level"/>
     <ww:textarea label="Comment" name="currentEmployee.comment" cols="50" rows="3"/>
