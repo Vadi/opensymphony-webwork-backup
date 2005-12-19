@@ -53,12 +53,15 @@ package com.opensymphony.webwork.showcase.action;
 import com.opensymphony.webwork.showcase.dao.Dao;
 import com.opensymphony.webwork.showcase.dao.EmployeeDao;
 import com.opensymphony.webwork.showcase.model.Employee;
+import com.opensymphony.webwork.showcase.model.Skill;
 import com.opensymphony.webwork.showcase.application.TestDataProvider;
 import com.opensymphony.xwork.Preparable;
 import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
  * EmployeeAction.
@@ -128,6 +131,17 @@ public class EmployeeAction extends AbstractCRUDAction implements Preparable {
         if (preFetched != null) {
             setCurrentEmployee(preFetched);
         }
+    }
+
+    public String execute() throws Exception {
+        if (getCurrentEmployee() != null && getCurrentEmployee().getOtherSkills()!=null) {
+            setSelectedSkills(new ArrayList());
+            Iterator it = getCurrentEmployee().getOtherSkills().iterator();
+            while (it.hasNext()) {
+                getSelectedSkills().add(((Skill) it.next()).getName());
+            }
+        }
+        return super.execute();
     }
 
     public String save() throws Exception {

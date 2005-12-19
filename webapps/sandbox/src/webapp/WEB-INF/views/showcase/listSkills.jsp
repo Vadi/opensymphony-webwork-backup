@@ -25,6 +25,7 @@
     </ww:iterator>
 </table>
 <!-- Although namescape not correctly specified, the following link should find the right action -->
+<p><a href="<ww:url action="edit" includeParams="false"/>">Create new Skill</a></p>
 <p><a href="<ww:url action="showcase" includeParams="false"/>">Back to Showcase Startpage</a></p>
 </body>
 </html>
