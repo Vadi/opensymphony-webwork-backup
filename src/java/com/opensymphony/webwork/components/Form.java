@@ -74,6 +74,7 @@ public class Form extends ClosingUIBean {
 
         String actionURL = com.opensymphony.webwork.portlet.context.PortletContext.getContext().getActionURL();
         boolean isPortlet = (actionURL != null && !"".equals(actionURL));
+        boolean isAjax = "ajax".equalsIgnoreCase(this.theme);
 
         // calculate the action and namespace
         String namespace = determineNamespace(this.namespace, getStack(), request);
@@ -98,7 +99,7 @@ public class Form extends ClosingUIBean {
 
         final ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
         if (actionConfig != null) {
-            if (isPortlet) {
+            if (isPortlet & !isAjax) {
                 addParameter("action", actionURL);
                 addParameter("wwAction", action);
                 addParameter("isPortlet", "Portlet");
@@ -129,12 +130,10 @@ public class Form extends ClosingUIBean {
         } else if (action != null) {
             String result = UrlHelper.buildUrl(action, request, response, null);
 
-            //Add Portlet Support. -- Added by Henry Hu
-            if (isPortlet) {
+            if (isPortlet & !isAjax) {
                 addParameter("action", actionURL);
                 addParameter("wwAction", action);
                 addParameter("isPortlet", "Portlet");
-                //////Fix End///////////
             } else {
                 addParameter("action", result);
             }
