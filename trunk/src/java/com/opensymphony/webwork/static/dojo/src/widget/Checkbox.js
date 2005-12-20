@@ -22,7 +22,7 @@ dojo.widget.Checkbox = function(){
 dojo.inherits(dojo.widget.Checkbox, dojo.widget.Widget);
 
 dojo.lang.extend(dojo.widget.Checkbox, {
-	widgetType: "Checkbox",
+	widgetType: "Checkbox"
 });
 
 dojo.requireAfterIf("html", "dojo.widget.html.Checkbox");

@@ -12,38 +12,7 @@ dojo.provide("dojo.event.browser");
 dojo.require("dojo.event");
 
 dojo_ie_clobber = new function(){
-	this.clobberArr = ['data', 
-		'onload', 'onmousedown', 'onmouseup', 
-		'onmouseover', 'onmouseout', 'onmousemove', 
-		'onclick', 'ondblclick', 'onfocus', 
-		'onblur', 'onkeypress', 'onkeydown', 
-		'onkeyup', 'onsubmit', 'onreset',
-		'onselect', 'onchange', 'onselectstart', 
-		'ondragstart', 'oncontextmenu'];
-
-	this.exclusions = [];
-	
-	this.clobberList = {};
 	this.clobberNodes = [];
-
-	this.addClobberAttr = function(type){
-		if(dojo.render.html.ie){
-			if(this.clobberList[type]!="set"){
-				this.clobberArr.push(type);
-				this.clobberList[type] = "set"; 
-			}
-		}
-	}
-
-	this.addExclusionID = function(id){
-		this.exclusions.push(id);
-	}
-
-	if(dojo.render.html.ie){
-		for(var x=0; x<this.clobberArr.length; x++){
-			this.clobberList[this.clobberArr[x]] = "set";
-		}
-	}
 
 	function nukeProp(node, prop){
 		// try{ node.removeAttribute(prop); 	}catch(e){ /* squelch */ }
@@ -54,29 +23,16 @@ dojo_ie_clobber = new function(){
 	}
 
 	this.clobber = function(nodeRef){
-		for(var x=0; x< this.exclusions.length; x++){
-			try{
-				var tn = document.getElementById(this.exclusions[x]);
-				tn.parentNode.removeChild(tn);
-			}catch(e){
-				// this is fired on unload, so squelch
-			}
-		}
-
 		var na;
 		var tna;
 		if(nodeRef){
 			tna = nodeRef.getElementsByTagName("*");
 			na = [nodeRef];
 			for(var x=0; x<tna.length; x++){
-				if(!djConfig.ieClobberMinimal){
+				// if we're gonna be clobbering the thing, at least make sure
+				// we aren't trying to do it twice
+				if(tna[x]["__doClobber__"]){
 					na.push(tna[x]);
-				}else{
-					// if we're gonna be clobbering the thing, at least make sure
-					// we aren't trying to do it twice
-					if(tna[x]["__doClobber__"]){
-						na.push(tna[x]);
-					}
 				}
 			}
 		}else{
@@ -87,26 +43,19 @@ dojo_ie_clobber = new function(){
 		var basis = {};
 		for(var i = na.length-1; i>=0; i=i-1){
 			var el = na[i];
-			if(djConfig.ieClobberMinimal){
-				if(el["__clobberAttrs__"]){
-					for(var j=0; j<el.__clobberAttrs__.length; j++){
-						nukeProp(el, el.__clobberAttrs__[j]);
-					}
-					nukeProp(el, "__clobberAttrs__");
-					nukeProp(el, "__doClobber__");
+			if(el["__clobberAttrs__"]){
+				for(var j=0; j<el.__clobberAttrs__.length; j++){
+					nukeProp(el, el.__clobberAttrs__[j]);
 				}
-			}else{
-				for(var p = this.clobberArr.length-1; p>=0; p=p-1){
-					var ta = this.clobberArr[p];
-					nukeProp(el, ta);
-				}
+				nukeProp(el, "__clobberAttrs__");
+				nukeProp(el, "__doClobber__");
 			}
 		}
 		na = null;
 	}
 }
 
-if((dojo.render.html.ie)&&((!dojo.hostenv.ie_prevent_clobber_)||(djConfig.ieClobberMinimal))){
+if(dojo.render.html.ie){
 	window.onunload = function(){
 		dojo_ie_clobber.clobber();
 		try{
@@ -131,46 +80,23 @@ dojo.event.browser = new function(){
 		}
 	}
 
-	this.addClobberAttr = function(type){
-		dojo_ie_clobber.addClobberAttr(type);
-	}
-
-	this.addClobberAttrs = function(){
-		for(var x=0; x<arguments.length; x++){
-			this.addClobberAttr(arguments[x]);
-		}
-	}
-
 	this.addClobberNode = function(node){
-		if(djConfig.ieClobberMinimal){
-			if(!node["__doClobber__"]){
-				node.__doClobber__ = true;
-				dojo_ie_clobber.clobberNodes.push(node);
-				// this might not be the most efficient thing to do, but it's
-				// much less error prone than other approaches which were
-				// previously tried and failed
-				node.__clobberAttrs__ = [];
-			}
+		if(!node["__doClobber__"]){
+			node.__doClobber__ = true;
+			dojo_ie_clobber.clobberNodes.push(node);
+			// this might not be the most efficient thing to do, but it's
+			// much less error prone than other approaches which were
+			// previously tried and failed
+			node.__clobberAttrs__ = [];
 		}
 	}
 
 	this.addClobberNodeAttrs = function(node, props){
 		this.addClobberNode(node);
-		if(djConfig.ieClobberMinimal){
-			for(var x=0; x<props.length; x++){
-				node.__clobberAttrs__.push(props[x]);
-			}
-		}else{
-			this.addClobberAttrs.apply(this, props);
+		for(var x=0; x<props.length; x++){
+			node.__clobberAttrs__.push(props[x]);
 		}
 	}
-
-	/*
-	this.eventAroundAdvice = function(methodInvocation){
-		var evt = this.fixEvent(methodInvocation.args[0]);
-		return methodInvocation.proceed();
-	}
-	*/
 
 	this.removeListener = function(node, evtName, fp, capture){
 		if(!capture){ var capture = false; }
@@ -224,7 +150,8 @@ dojo.event.browser = new function(){
 	}
 
 	this.isEvent = function(obj){
-		// FIXME: event detection hack ... could test for additional attributes if necessary
+		// FIXME: event detection hack ... could test for additional attributes
+		// if necessary
 		return (typeof Event != "undefined")&&(obj.eventPhase);
 		// Event does not support instanceof in Opera, otherwise:
 		//return (typeof Event != "undefined")&&(obj instanceof Event);

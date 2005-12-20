@@ -67,6 +67,6 @@ dojo.lang.extend(dojo.storage.StorageProvider, {
 
 	remove: function(key, value, namespace){
 		dojo.unimplemented("dojo.storage.StorageProvider.set");
-	},
+	}
 
 });

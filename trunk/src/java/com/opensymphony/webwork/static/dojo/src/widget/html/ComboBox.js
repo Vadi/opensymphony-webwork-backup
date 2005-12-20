@@ -33,7 +33,6 @@ dojo.widget.html.ComboBox = function(){
 	this.cbTableNode = null;
 	this.searchTimer = null;
 	this.searchDelay = 100;
-	this.timeoutWrapperName = null;
 	this.dataUrl = "";
 	// mode can also be "remote" for JSON-returning live search or "html" for
 	// dumber live search
@@ -225,13 +224,7 @@ dojo.lang.extend(dojo.widget.html.ComboBox, {
 		if((this._prev_key_backspace)&&(!this.textInputNode.value.length)){
 			this.hideResultList();
 		}else{
-			var _this = this;
-			if(!this.timeoutWrapperName){
-				this.timeoutWrapperName = dojo.event.nameAnonFunc(function(){
-					_this.startSearchFromInput();
-				}, dj_global);
-			}
-			this.searchTimer = setTimeout(this.timeoutWrapperName+"()", this.searchDelay);
+			this.searchTimer = setTimeout(dojo.lang.hitch(this, this.startSearchFromInput), this.searchDelay);
 		}
 	},
 

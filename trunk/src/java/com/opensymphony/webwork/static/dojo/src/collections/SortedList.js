@@ -30,15 +30,6 @@ dojo.collections.SortedList = function(dictionary){
 		q.sort(sorter);
 	};
 
-	if (dictionary){
-		var e = dictionary.getIterator();
-		while (!e.atEnd) {
-			q[q.length] = items[e.key] = new dojo.collections.DictionaryEntry(e.key, e.value);
-			e.moveNext();
-		}
-		q.sort(sorter);
-	}
-
 	this.count = q.length;
 	this.add = function(k,v){
 		if (!items[k]) {
@@ -136,4 +127,13 @@ dojo.collections.SortedList = function(dictionary){
 	this.setByIndex = function(i,o){
 		items[q[i].key].value = o;
 	};
+
+	if (dictionary){
+		var e = dictionary.getIterator();
+		while (!e.atEnd) {
+			q[q.length] = items[e.key] = new dojo.collections.DictionaryEntry(e.key, e.value);
+			e.moveNext();
+		}
+		q.sort(sorter);
+	}
 }

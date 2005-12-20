@@ -348,7 +348,7 @@ dojo.regexp.realNumber = function(flags) {
   @param flags  An object.
     flags.signed  The leading plus-or-minus sign.  Can be true, false, or [true, false].
       Default is [true, false], (i.e. will match if it is signed or unsigned).
-    flags.symbol  A currency symbol such as Yen "¥", Pound "£", or the Euro sign "€".  
+    flags.symbol  A currency symbol such as Yen "ï¿½", Pound "ï¿½", or the Euro sign "ï¿½".  
       Default is "$".  For more than one symbol use an array, e.g. ["$", ""], makes $ optional.
     flags.placement  The symbol can come "before" the number or "after".  Default is "before".
     flags.separator  The character used as the thousands separator. The default is ",".

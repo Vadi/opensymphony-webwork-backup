@@ -10,8 +10,15 @@ Getting Started
 ---------------
 
 To use Dojo in your application, download one of the pre-built editions from the
-Dojo website, http://dojotoolkit.org . Once you have unzipped the archive in
-your website root, include Dojo in your pages with:
+Dojo website, http://dojotoolkit.org. Once you have downloaded the file you
+will need to unzip the archive in your website root. At a minimum, you will
+need to extract:
+
+    src/ (folder)
+    dojo.js
+    iframe_history.html
+
+To begin using dojo, include dojo in your pages by using:
 
     <script type="text/javascript" src="/path/to/dojo.js"></script>
 

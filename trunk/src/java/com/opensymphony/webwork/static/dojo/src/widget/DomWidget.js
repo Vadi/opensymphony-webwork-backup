@@ -426,52 +426,57 @@ dojo.lang.extend(dojo.widget.DomWidget, {
 				this.templateNode = ts["node"];
 			}
 		}
+		var matches = false;
 		var node = null;
+		var tstr = new String(this.templateString); 
 		// attempt to clone a template node, if there is one
 		if((!this.templateNode)&&(this.templateString)){
-			// some special matching fun (this is a first pass, but could end up being useful for i8n)...
-			var matches = this.templateString.match(/\$\{([^\}]+)\}/g);
+			matches = this.templateString.match(/\$\{([^\}]+)\}/g);
 			if(matches) {
+				// if we do property replacement, don't create a templateNode
+				// to clone from.
 				var hash = this.strings || {};
+				// FIXME: should this hash of default replacements be cached in
+				// templateString?
 				for(var key in dojo.widget.defaultStrings) {
 					if(dojo.lang.isUndefined(hash[key])) {
 						hash[key] = dojo.widget.defaultStrings[key];
 					}
 				}
+				// FIXME: this is a lot of string munging. Can we make it faster?
 				for(var i = 0; i < matches.length; i++) {
 					var key = matches[i];
 					key = key.substring(2, key.length-1);
-					if(hash[key]) {
-						if(dojo.lang.isFunction(hash[key])) {
-							var value = hash[key].call(this, key, this.templateString)
-						} else {
-							var value = hash[key];
-						}
-						this.templateString = this.templateString.replace(matches[i], value);
+					var kval = (key.substring(0, 5) == "this.") ? this[key.substring(5)] : hash[key];
+					var value;
+					if((kval)||(dojo.lang.isString(kval))){
+						value = (dojo.lang.isFunction(kval)) ? kval.call(this, key, this.templateString) : kval;
+						tstr = tstr.replace(matches[i], value);
 					}
 				}
+			}else{
+				// otherwise, we are required to instantiate a copy of the template
+				// string if one is provided.
+				
+				// FIXME: need to be able to distinguish here what should be done
+				// or provide a generic interface across all DOM implementations
+				// FIMXE: this breaks if the template has whitespace as its first 
+				// characters
+				// node = this.createNodesFromText(this.templateString, true);
+				// this.templateNode = node[0].cloneNode(true); // we're optimistic here
+				this.templateNode = this.createNodesFromText(this.templateString, true)[0];
+				ts.node = this.templateNode;
 			}
-
-			// otherwise, we are required to instantiate a copy of the template
-			// string if one is provided.
-			
-			// FIXME: need to be able to distinguish here what should be done
-			// or provide a generic interface across all DOM implementations
-			// FIMXE: this breaks if the template has whitespace as its first 
-			// characters
-			// node = this.createNodesFromText(this.templateString, true);
-			// this.templateNode = node[0].cloneNode(true); // we're optimistic here
-			this.templateNode = this.createNodesFromText(this.templateString, true)[0];
-			ts.node = this.templateNode;
 		}
-		if(!this.templateNode){ 
+		if((!this.templateNode)&&(!matches)){ 
 			dojo.debug("weren't able to create template!");
 			return false;
+		}else if(!matches){
+			node = this.templateNode.cloneNode(true);
+			if(!node){ return false; }
+		}else{
+			node = this.createNodesFromText(tstr, true)[0];
 		}
-
-		// dojo.debug("toc0: ", new Date()-start, "ms");
-		var node = this.templateNode.cloneNode(true);
-		if(!node){ return false; }
 
 		// recurse through the node, looking for, and attaching to, our
 		// attachment points which should be defined on the template node.

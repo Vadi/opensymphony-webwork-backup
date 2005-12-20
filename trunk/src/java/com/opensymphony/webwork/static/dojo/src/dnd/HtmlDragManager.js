@@ -242,34 +242,56 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 		// it. If so, do all the actions that need doing.
 		var dtp = this.currentDropTargetPoints;
 		if((!this.nestedTargets)&&(dtp)&&(this.isInsideBox(e, dtp))){
-			if (this.dropAcceptable){ this.currentDropTarget.onDragMove(e); }
+			if(this.dropAcceptable){
+				this.currentDropTarget.onDragMove(e, this.dragObjects);
+			}
 		}else{
 			// FIXME: need to fix the event object!
-			if(this.currentDropTarget){
-				this.currentDropTarget.onDragOut(e);
-			}
+			// see if we can find a better drop target
+			var bestBox = this.findBestTarget(e);
 
-			this.currentDropTarget = null;
-			this.currentDropTargetPoints = null;
-			this.dropAcceptable = false;
-
-			// check the mouse position to see if we're in a drop target
-			dojo.lang.forEach(this.dropTargetDimensions, function(tmpDA){
-				// FIXME: is there a way to shortcut this?
-				if( ((!_this.currentDropTarget)||(_this.nestedTargets))&&
-					(_this.isInsideBox(e, tmpDA))){
-					_this.currentDropTarget = tmpDA[2];
-					_this.currentDropTargetPoints = tmpDA;
-					if(!_this.nestedTargets){
-						return "break";
-					}
+			if(bestBox.target == null){
+				if(this.currentDropTarget){
+					this.currentDropTarget.onDragOut(e);
+					this.currentDropTarget = null;
+					this.currentDropTargetPoints = null;
 				}
-			});
-			e.dragObjects = this.dragObjects;
-			if(this.currentDropTarget){
-				this.dropAcceptable = this.currentDropTarget.onDragOver(e);
+				this.dropAcceptable = false;
+				return;
 			}
+
+			if(this.currentDropTarget != bestBox.target){
+				if(this.currentDropTarget){
+					this.currentDropTarget.onDragOut(e);
+				}
+				this.currentDropTarget = bestBox.target;
+				this.currentDropTargetPoints = bestBox.points;
+				e.dragObjects = this.dragObjects;
+				this.dropAcceptable = this.currentDropTarget.onDragOver(e);
+
+			}else{
+				if(this.dropAcceptable){
+					this.currentDropTarget.onDragMove(e, this.dragObjects);
+				}
+			}
+
 		}
+	},
+    
+	findBestTarget: function(e) {
+		var _this = this;
+		var bestBox = new Object();
+		bestBox.target = null;
+		bestBox.points = null;
+		dojo.lang.forEach(this.dropTargetDimensions, function(tmpDA) {
+			if(_this.isInsideBox(e, tmpDA)){
+				bestBox.target = tmpDA[2];
+				bestBox.points = tmpDA;
+				if(!_this.nestedTargets){ return "break"; }
+			}
+		});
+
+		return bestBox;
 	},
 
 	isInsideBox: function(e, coords){

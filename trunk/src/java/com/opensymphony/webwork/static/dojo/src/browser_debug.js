@@ -12,63 +12,46 @@ dojo.hostenv.loadedUris.push("../src/bootstrap1.js");
 dojo.hostenv.loadedUris.push("../src/hostenv_browser.js");
 dojo.hostenv.loadedUris.push("../src/bootstrap2.js");
 
-dojo.hostenv.getDepsForEval = function(contents){
-	// FIXME: should probably memoize this!
-	if(!contents){ contents = ""; return []; }
-
-	// if we get the contents of the file from Rhino, it might not be a JS
-	// string, but rather a Java string, which will cause the replace() method
-	// to bomb.
-	contents = new String(contents);
+function removeComments(contents){
+	contents = new String((!contents) ? "" : contents);
 	// clobber all comments
 	contents = contents.replace( /^(.*?)\/\/(.*)$/mg , "$1");
 	contents = contents.replace( /(\n)/mg , "__DOJONEWLINE");
 	contents = contents.replace( /\/\*(.*?)\*\//g , "");
-	contents = contents.replace( /__DOJONEWLINE/mg , "\n");
-	// print(contents);
+	return contents.replace( /__DOJONEWLINE/mg , "\n");
+}
+
+dojo.hostenv.getRequiresAndProvides = function(contents){
+	// FIXME: should probably memoize this!
+	if(!contents){ return []; }
+
 	// check to see if we need to load anything else first. Ugg.
 	var deps = [];
 	var tmp;
-	var testExps = [
-		/dojo.hostenv.loadModule\(.*?\)/mg,
-		/dojo.hostenv.require\(.*?\)/mg,
-		/dojo.require\(.*?\)/mg,
-		/dojo.requireIf\([\w\W]*?\)/mg,
-		/dojo.hostenv.conditionalLoadModule\([\w\W]*?\)/mg
-	];
-	for(var i=0; i<testExps.length; i++){
-		tmp = contents.match(testExps[i]);
-		if(tmp){
-			for(var x=0; x<tmp.length; x++){ deps.push(tmp[x]); }
-		}
+	RegExp.lastIndex = 0;
+	var testExp = /dojo.(hostenv.loadModule|hosetnv.require|require|requireIf|hostenv.conditionalLoadModule|hostenv.startPackage|hostenv.provide|provide)\([\w\W]*?\)/mg;
+	while((tmp = testExp.exec(contents)) != null){
+		deps.push(tmp[0]);
 	}
-
 	return deps;
 }
 
-dojo.hostenv.getProvidesForEval = function(contents){
-	if(!contents){ contents = ""; }
+dojo.hostenv.getDelayRequiresAndProvides = function(contents){
+	// FIXME: should probably memoize this!
+	if(!contents){ return []; }
+
 	// check to see if we need to load anything else first. Ugg.
-	var mods = [[], []];
-	var tre;
+	var deps = [];
 	var tmp;
-	var testExps = [
-		/dojo.hostenv.startPackage\((.*?)\)/mg,
-		/dojo.hostenv.provide\((.*?)\)/mg,
-		/dojo.provide\((.*?)\)/mg
-	];
-	for(var i=0; i<testExps.length; i++){
-		tre = testExps[i];
-		tmp = tre.exec(contents);
-		while(tre.lastIndex > 0){
-			mods[0].push(tmp[0]);
-			mods[1].push(tmp[1].substr(1, tmp[1].length-2));
-			tmp = tre.exec(contents);
-		}
+	RegExp.lastIndex = 0;
+	var testExp = /dojo.(requireAfterIf|requireAfter)\([\w\W]*?\)/mg;
+	while((tmp = testExp.exec(contents)) != null){
+		deps.push(tmp[0]);
 	}
-	return mods;
+	return deps;
 }
 
+/*
 dojo.getNonExistantDescendants = function(objpath){
 	var ret = [];
 	// fast path for no periods
@@ -92,6 +75,7 @@ dojo.getNonExistantDescendants = function(objpath){
 	}
 	return ret;
 }
+*/
 
 dojo.clobberLastObject = function(objpath){
 	if(objpath.indexOf('.') == -1){
@@ -134,31 +118,14 @@ dojo.hostenv.loadUri = function(uri){
 	if(dojo.hostenv.loadedUris[uri]){
 		return;
 	}
-	var contents = this.getText(uri, null, true);
-	if(!contents){ 
-		dojo.debug("fail:", uri);
-		return 0;
-	}
-	// dojo.debug(uri);
 	try{
-		// FIXME: need to get a list of the "provided" objects here and remove
-		// after requires[] is eval()'d
-		var requires = dojo.hostenv.getDepsForEval(contents);
-		var ptemp = dojo.hostenv.getProvidesForEval(contents);
-		var provides = ptemp[0];
-		var providesObjs = ptemp[1];
-		// alert(provides);
-		for(var x=0; x<providesObjs.length; x++){
-			removals = 	zip(
-							removals.concat(
-								dojo.getNonExistantDescendants(providesObjs[x])
-							)
-						);
-		}
-		eval(provides.join(";"));
+		var text = this.getText(uri, null, true);
+		var requires = dojo.hostenv.getRequiresAndProvides(text);
 		eval(requires.join(";"));
 		dojo.hostenv.loadedUris.push(uri);
 		dojo.hostenv.loadedUris[uri] = true;
+		var delayRequires = dojo.hostenv.getDelayRequiresAndProvides(text);
+		eval(delayRequires.join(";"));
 	}catch(e){ 
 		alert(e);
 	}

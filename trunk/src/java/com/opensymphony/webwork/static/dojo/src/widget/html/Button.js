@@ -22,15 +22,17 @@ dojo.lang.extend(dojo.widget.html.Button, {
 	templatePath: dojo.uri.dojoUri("src/widget/templates/HtmlButtonTemplate.html"),
 	templateCssPath: dojo.uri.dojoUri("src/widget/templates/HtmlButtonTemplate.css"),
 
-	label: "undefined",
+	label: "",
 	labelNode: null,
 	containerNode: null,
 
 	postCreate: function(args, frag){
 		this.labelNode = this.containerNode;
+		/*
 		if(this.label != "undefined"){
 			this.domNode.appendChild(document.createTextNode(this.label));
 		}
+		*/
 	},
 	
 	onMouseOver: function(e){
