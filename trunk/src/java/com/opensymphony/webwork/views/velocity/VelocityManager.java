@@ -200,7 +200,7 @@ public class VelocityManager {
 
         if (toolboxManager != null && ctx != null) {
             ChainedContext chained = new ChainedContext(context, req, res, ctx);
-            chained.setToolbox(toolboxManager.getToolboxContext(null));
+            chained.setToolbox(toolboxManager.getToolboxContext(chained));
             return chained;
         } else {
             return context;
