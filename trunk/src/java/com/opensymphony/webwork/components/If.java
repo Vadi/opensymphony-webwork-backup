@@ -43,7 +43,7 @@ import java.io.Writer;
  * @see Else
  * @see ElseIf
  *
- * @ww.tag name="if" tld-body-content="JSP" description="If tag"
+ * @ww.tag name="if" tld-body-content="JSP" description="If tag" tld-tag-class="com.opensymphony.webwork.views.jsp.IfTag"
  */
 public class If extends Component {
     public static final String ANSWER = "webwork.if.answer";
