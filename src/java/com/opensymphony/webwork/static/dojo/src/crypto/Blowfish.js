@@ -8,6 +8,7 @@
 		http://dojotoolkit.org/community/licensing.shtml
 */
 
+dojo.require("dojo.crypto");
 dojo.provide("dojo.crypto.Blowfish");
 
 /*	Blowfish
@@ -27,6 +28,7 @@ dojo.crypto.Blowfish = new function(){
 	var POW8=Math.pow(2,8);
 	var POW16=Math.pow(2,16);
 	var POW24=Math.pow(2,24);
+	var iv=null;	//	CBC mode initialization vector
 	var boxes={
 		p:[
 			0x243f6a88, 0x85a308d3, 0x13198a2e, 0x03707344, 0xa4093822, 0x299f31d0, 0x082efa98, 0xec4e6c89, 
@@ -334,17 +336,79 @@ dojo.crypto.Blowfish = new function(){
 	}
 ////////////////////////////////////////////////////////////////////////////
 //	PUBLIC FUNCTIONS
+//	0.2: Only supporting ECB mode for now.
 ////////////////////////////////////////////////////////////////////////////
-	this.outputTypes={ Base64:0,Hex:1,String:2,Raw:3 };
-	this.encrypt = function(plaintext, key, outputType){
-		var out=outputType||this.outputTypes.Base64;
+	this.getIV=function(outputType){
+		var out=outputType||dojo.crypto.outputTypes.Base64;
+		switch(out){
+			case dojo.crypto.outputTypes.Hex:{
+				var s=[];
+				for(var i=0; i<iv.length; i++)
+					s.push((iv[i]).toString(16));
+				return s.join("");
+			}
+			case dojo.crypto.outputTypes.String:{
+				return iv.join("");
+			}
+			case dojo.crypto.outputTypes.Raw:{
+				return iv;
+			}
+			default:{
+				return toBase64(iv);
+			}
+		}
+	};
+	this.setIV=function(data, inputType){
+		var ip=inputType||dojo.crypto.outputTypes.Base64;
+		var ba=null;
+		switch(ip){
+			case dojo.crypto.outputTypes.String:{
+				ba=[];
+				for (var i=0; i<data.length; i++){
+					ba.push(data.charCodeAt(i));
+				}
+				break;
+			}
+			case dojo.crypto.outputTypes.Hex:{
+				ba=[];
+				var i=0;
+				while (i+1<data.length){
+					ba.push(parseInt(data.substr(i,2),16));
+					i+=2;
+				}
+				break;
+			}
+			case dojo.crypto.outputTypes.Raw:{
+				ba=data;
+				break;
+			}
+			default:{
+				ba=fromBase64(data);
+				break;
+			}
+		}
+		//	make it a pair of words now
+		iv={};
+		iv.left=ba[0]*POW24|ba[1]*POW16|ba[2]*POW8|ba[3];
+		iv.right=ba[4]*POW24|ba[5]*POW16|ba[6]*POW8|ba[7];
+	}
+	this.encrypt = function(plaintext, key, ao){
+		var out=dojo.crypto.outputTypes.Base64;
+		var mode=dojo.crypto.cipherModes.EBC;
+		if (ao){
+			if (ao.outputType) out=ao.outputType;
+			if (ao.cipherMode) mode=ao.cipherMode;
+		}
+
 		var bx = init(key);
-		var padding = 8-(plaintext.length & 7);
+		var padding = 8-(plaintext.length&7);
 		for (var i=0; i<padding; i++) plaintext+=String.fromCharCode(padding);
 		var cipher=[];
 		var count=plaintext.length >> 3;
 		var pos=0;
 		var o={};
+		var isCBC=(mode==dojo.crypto.cipherTypes.CBC);
+		var vector={left:iv.left||null, right:iv.right||null};
 		for(var i=0; i<count; i++){
 			o.left=plaintext.charCodeAt(pos)*POW24
 				|plaintext.charCodeAt(pos+1)*POW16
@@ -355,7 +419,17 @@ dojo.crypto.Blowfish = new function(){
 				|plaintext.charCodeAt(pos+6)*POW8
 				|plaintext.charCodeAt(pos+7);
 
+			if(isCBC){
+				o.left=xor(o.left, vector.left);
+				o.right=xor(o.right, vector.right);
+			}
+
 			eb(o, bx);	//	encrypt the block
+
+			if(isCBC){
+				vector.left=o.left;
+				vector.right=o.right;
+			}
 
 			cipher.push((o.left>>24)&0xff); 
 			cipher.push((o.left>>16)&0xff); 
@@ -368,33 +442,37 @@ dojo.crypto.Blowfish = new function(){
 			pos+=8;
 		}
 		switch(out){
-			case this.outputTypes.Hex:{
+			case dojo.crypto.outputTypes.Hex:{
 				var s=[];
 				for(var i=0; i<cipher.length; i++)
 					s.push((cipher[i]).toString(16));
 				return s.join("");
 			}
-			case this.outputTypes.String:{
+			case dojo.crypto.outputTypes.String:{
 				return cipher.join("");
 			}
-			case this.outputTypes.Raw:{
+			case dojo.crypto.outputTypes.Raw:{
 				return cipher;
 			}
 			default:{
-				var t=toBase64(cipher);
-				return t;
+				return toBase64(cipher);
 			}
 		}
 	};
 
-	this.decrypt = function(ciphertext, key, inputType){
-		var ip = inputType||this.outputTypes.Base64;
+	this.decrypt = function(ciphertext, key, ao){
+		var ip=dojo.crypto.outputTypes.Base64;
+		var mode=dojo.crypto.cipherModes.EBC;
+		if (ao){
+			if (ao.outputType) ip=ao.outputType;
+			if (ao.cipherMode) mode=ao.cipherMode;
+		}
 		var bx = init(key);
 		var pt=[];
 	
 		var c=null;
 		switch(ip){
-			case this.outputTypes.Hex:{
+			case dojo.crypto.outputTypes.Hex:{
 				c=[];
 				var i=0;
 				while (i+1<ciphertext.length){
@@ -403,14 +481,14 @@ dojo.crypto.Blowfish = new function(){
 				}
 				break;
 			}
-			case this.outputTypes.String:{
+			case dojo.crypto.outputTypes.String:{
 				c=[];
 				for (var i=0; i<ciphertext.length; i++){
 					c.push(ciphertext.charCodeAt(i));
 				}
 				break;
 			}
-			case this.outputTypes.Raw:{
+			case dojo.crypto.outputTypes.Raw:{
 				c=ciphertext;	//	should be a byte array
 				break;
 			}
@@ -423,11 +501,25 @@ dojo.crypto.Blowfish = new function(){
 		var count=c.length >> 3;
 		var pos=0;
 		var o={};
+		var isCBC=(mode==dojo.crypto.cipherTypes.CBC);
+		var vector={left:iv.left||null, right:iv.right||null};
 		for(var i=0; i<count; i++){
 			o.left=c[pos]*POW24|c[pos+1]*POW16|c[pos+2]*POW8|c[pos+3];
 			o.right=c[pos+4]*POW24|c[pos+5]*POW16|c[pos+6]*POW8|c[pos+7];
 
+			if(isCBC){
+				var left=o.left;
+				var right=o.right;
+			}
+
 			db(o, bx);	//	decrypt the block
+
+			if(isCBC){
+				o.left=xor(o.left, vector.left);
+				o.right=xor(o.right, vector.right);
+				vector.left=left;
+				vector.right=right;
+			}
 
 			pt.push((o.left>>24)&0xff);
 			pt.push((o.left>>16)&0xff);

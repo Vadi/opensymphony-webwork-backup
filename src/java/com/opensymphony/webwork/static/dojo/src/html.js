@@ -140,7 +140,7 @@ dojo.html.getViewportWidth = function(){
 		w = window.innerWidth;
 	}
 
-	if(document.documentElement && document.documentElement.clientWidth){
+	if(dojo.exists(document, "documentElement.clientWidth")){
 		// IE6 Strict
 		var w2 = document.documentElement.clientWidth;
 		// this lets us account for scrollbars
@@ -163,7 +163,7 @@ dojo.html.getViewportHeight = function(){
 		return window.innerHeight;
 	}
 
-	if (document.documentElement && document.documentElement.clientHeight){
+	if (dojo.exists(document, "documentElement.clientHeight")){
 		// IE6 Strict
 		return document.documentElement.clientHeight;
 	}
@@ -188,7 +188,7 @@ dojo.html.getScrollOffset = function(){
 
 	if(window.pageYOffset){
 		ret = [window.pageXOffset, window.pageYOffset];
-	} else if(document.documentElement && document.documentElement.scrollTop){
+	}else if(dojo.exists(document, "documentElement.scrollTop")){
 		ret = [document.documentElement.scrollLeft, document.documentElement.scrollTop];
 	} else if(document.body){
 		ret = [document.body.scrollLeft, document.body.scrollTop];
@@ -207,8 +207,8 @@ dojo.html.getParentOfType = function(node, type){
 dojo.html.getParentByType = function(node, type) {
 	var parent = node;
 	type = type.toLowerCase();
-	while(parent.nodeName.toLowerCase()!=type){
-		if((!parent)||(parent==(document["body"]||document["documentElement"]))){
+	while((parent)&&(parent.nodeName.toLowerCase()!=type)){
+		if(parent==(document["body"]||document["documentElement"])){
 			return null;
 		}
 		parent = parent.parentNode;
@@ -233,7 +233,7 @@ dojo.html.getAttribute = function(node, attr){
 	if((v)&&(typeof v == 'string')&&(v!="")){ return v; }
 
 	// try returning the attributes value, if we couldn't get it as a string
-	if(v && typeof v == 'object' && v.value){ return v.value; }
+	if(v && v.value){ return v.value; }
 
 	// this should work on Opera 7, but it's a little on the crashy side
 	if((node.getAttributeNode)&&(node.getAttributeNode(ta))){
@@ -251,8 +251,7 @@ dojo.html.getAttribute = function(node, attr){
  *	attribute in question.
  */
 dojo.html.hasAttribute = function(node, attr){
-	var v = dojo.html.getAttribute(node, attr);
-	return v ? true : false;
+	return dojo.html.getAttribute(node, attr) ? true : false;
 }
 	
 /**
@@ -261,12 +260,24 @@ dojo.html.hasAttribute = function(node, attr){
  * is found;
  */
 dojo.html.getClass = function(node){
+  if(!node){ return ""; }
+  var cs = "";
 	if(node.className){
-		return node.className;
+		cs = node.className;
 	}else if(dojo.html.hasAttribute(node, "class")){
-		return dojo.html.getAttribute(node, "class");
+		cs = dojo.html.getAttribute(node, "class");
 	}
-	return "";
+	return dojo.string.trim(cs);
+}
+
+/**
+ * Returns an array of CSS classes currently assigned
+ * directly to the node in question. Returns an empty array if no classes
+ * are found;
+ */
+dojo.html.getClasses = function(node) {
+	var c = dojo.html.getClass(node);
+	return (c == "") ? [] : c.split(/\s+/g);
 }
 
 /**
@@ -275,11 +286,7 @@ dojo.html.getClass = function(node){
  * styles, only classes directly applied to the node.
  */
 dojo.html.hasClass = function(node, classname){
-	var classes = dojo.html.getClass(node).split(/\s+/g);
-	for(var x=0; x<classes.length; x++){
-		if(classname == classes[x]){ return true; }
-	}
-	return false;
+	return dojo.lang.inArray(dojo.html.getClasses(node), classname);
 }
 
 /**
@@ -289,10 +296,8 @@ dojo.html.hasClass = function(node, classname){
  * false; indicating success or failure of the operation, respectively.
  */
 dojo.html.prependClass = function(node, classStr){
-	if(!node){ return null; }
-	if(dojo.html.hasAttribute(node,"class")||node.className){
-		classStr += " " + (node.className||dojo.html.getAttribute(node, "class"));
-	}
+	if(!node){ return false; }
+	classStr += " " + dojo.html.getClass(node);
 	return dojo.html.setClass(node, classStr);
 }
 
@@ -301,13 +306,11 @@ dojo.html.prependClass = function(node, classStr){
  *	passed &node;. Returns &true; or &false; indicating success or failure.
  */
 dojo.html.addClass = function(node, classStr){
-	if (!node) { throw new Error("addClass: node does not exist"); }
+	if (!node) { return false; }
 	if (dojo.html.hasClass(node, classStr)) {
 	  return false;
 	}
-	if(dojo.html.hasAttribute(node,"class")||node.className){
-		classStr = (node.className||dojo.html.getAttribute(node, "class")) + " " + classStr;
-	}
+	classStr = dojo.string.trim(dojo.html.getClass(node) + " " + classStr);
 	return dojo.html.setClass(node, classStr);
 }
 
@@ -343,7 +346,7 @@ dojo.html.removeClass = function(node, classStr, allowPartialMatches){
 	var classStr = dojo.string.trim(new String(classStr));
 
 	try{
-		var cs = String( node.className ).split(" ");
+		var cs = dojo.html.getClasses(node);
 		var nca	= [];
 		if(allowPartialMatches){
 			for(var i = 0; i<cs.length; i++){
@@ -358,7 +361,7 @@ dojo.html.removeClass = function(node, classStr, allowPartialMatches){
 				}
 			}
 		}
-		node.className = nca.join(" ");
+		dojo.html.setClass(node, nca.join(" "));
 	}catch(e){
 		dojo.debug("dojo.html.removeClass() failed", e);
 	}
@@ -394,73 +397,40 @@ dojo.html.getElementsByClass = function(classStr, parent, nodeType, classMatchTy
 	var reClass = new RegExp("(\\s|^)((" + classes.join(")|(") + "))(\\s|$)");
 
 	// FIXME: doesn't have correct parent support!
-	if(false && document.evaluate) { // supports dom 3 xpath
-		var xpath = "//" + (nodeType || "*") + "[contains(";
-		if(classMatchType != dojo.html.classMatchType.ContainsAny){
-			xpath += "concat(' ',@class,' '), ' " +
-				classes.join(" ') and contains(concat(' ',@class,' '), ' ") +
-				" ')]";
-		}else{
-			xpath += "concat(' ',@class,' '), ' " +
-				classes.join(" ')) or contains(concat(' ',@class,' '), ' ") +
-				" ')]";
-		}
-		//dojo.debug("xpath: " + xpath);
+	if(!nodeType){ nodeType = "*"; }
+	var candidateNodes = parent.getElementsByTagName(nodeType);
 
-		var xpathResult = document.evaluate(xpath, parent, null,
-			XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+	outer:
+	for(var i = 0; i < candidateNodes.length; i++) {
+		var node = candidateNodes[i];
+		var nodeClasses = dojo.html.getClasses(node);
+		if(nodeClasses.length == 0) { continue outer; }
+		var matches = 0;
 
-		outer:
-		for(var node = null, i = 0; node = xpathResult.snapshotItem(i); i++){
-			if(classMatchType != dojo.html.classMatchType.IsOnly){
-				nodes.push(node);
-			}else{
-				if(!dojo.html.getClass(node)){ continue outer; }
-
-				var nodeClasses = dojo.html.getClass(node).split(/\s+/g);
-				for(var j = 0; j < nodeClasses.length; j++) {
-					if( !nodeClasses[j].match(reClass) ) {
-						continue outer;
-					}
-				}
-				nodes.push(node);
-			}
-		}
-	}else{
-		if(!nodeType){ nodeType = "*"; }
-		var candidateNodes = parent.getElementsByTagName(nodeType);
-
-		outer:
-		for(var i = 0; i < candidateNodes.length; i++) {
-			var node = candidateNodes[i];
-			if( !dojo.html.getClass(node) ) { continue outer; }
-			var nodeClasses = dojo.html.getClass(node).split(/\s+/g);
-			var matches = 0;
-
-			for(var j = 0; j < nodeClasses.length; j++) {
-				if( reClass.test(nodeClasses[j]) ) {
-					if( classMatchType == dojo.html.classMatchType.ContainsAny ) {
-						nodes.push(node);
-						continue outer;
-					} else {
-						matches++;
-					}
+		for(var j = 0; j < nodeClasses.length; j++) {
+			if( reClass.test(nodeClasses[j]) ) {
+				if( classMatchType == dojo.html.classMatchType.ContainsAny ) {
+					nodes.push(node);
+					continue outer;
 				} else {
-					if( classMatchType == dojo.html.classMatchType.IsOnly ) {
-						continue outer;
-					}
+					matches++;
+				}
+			} else {
+				if( classMatchType == dojo.html.classMatchType.IsOnly ) {
+					continue outer;
 				}
 			}
+		}
 
-			if( matches == classes.length ) {
-				if( classMatchType == dojo.html.classMatchType.IsOnly && matches == nodeClasses.length ) {
-					nodes.push(node);
-				} else if( classMatchType == dojo.html.classMatchType.ContainsAll ) {
-					nodes.push(node);
-				}
+		if( matches == classes.length ) {
+			if( classMatchType == dojo.html.classMatchType.IsOnly && matches == nodeClasses.length ) {
+				nodes.push(node);
+			} else if( classMatchType == dojo.html.classMatchType.ContainsAll ) {
+				nodes.push(node);
 			}
 		}
 	}
+	
 	return nodes;
 }
 dojo.html.getElementsByClassName = dojo.html.getElementsByClass;
@@ -657,17 +627,6 @@ if(!dojo.evalObjPath("dojo.dom.createNodesFromText")){
 	}
 }
 
-dojo.html.getAncestorsByTag = function(node, tag, returnFirstHit){
-	tag = tag.toLowerCase();
-	return dojo.dom.getAncestors(node, function(el) {
-		return el.tagName && (el.tagName.toLowerCase() == tag);
-	}, returnFirstHit);
-}
-
-dojo.html.getFirstAncestorByTag = function(node, tag){
-	return dojo.html.getAncestorsByTag(node, tag, true);
-}
-
 dojo.html.isVisible = function(node){
 	// FIXME: this should also look at visibility!
 	return dojo.style.getComputedStyle(node||this.domNode, "display") != "none";
@@ -675,7 +634,7 @@ dojo.html.isVisible = function(node){
 
 dojo.html.show  = function(node){
 	if(node.style){
-		node.style.display = dojo.lang.inArray(node.tagName.toLowerCase(), ['tr', 'td', 'th']) ? "" : "block";
+		node.style.display = dojo.lang.inArray(['tr', 'td', 'th'], node.tagName.toLowerCase()) ? "" : "block";
 	}
 }
 

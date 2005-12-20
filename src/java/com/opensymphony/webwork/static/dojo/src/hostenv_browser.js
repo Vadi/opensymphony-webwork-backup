@@ -70,10 +70,6 @@ if(typeof window == 'undefined'){
 				break;
 			}
 		}
-		if(djConfig["debugAtAllCosts"]){
-			document.write("<scr"+"ipt type='text/javascript' src='"+djConfig["baseRelativePath"]+"src/browser_debug.js"+"'></scr"+"ipt>");
-		}
-
 	}
 
 	var dr = dojo.render;

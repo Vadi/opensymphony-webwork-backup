@@ -8,7 +8,7 @@
 		http://dojotoolkit.org/community/licensing.shtml
 */
 
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.dnd.HtmlDragAndDrop");
+dojo.provide("dojo.dnd.HtmlDragAndDrop");
 dojo.provide("dojo.dnd.HtmlDragSource");
 dojo.provide("dojo.dnd.HtmlDropTarget");
 dojo.provide("dojo.dnd.HtmlDragObject");
@@ -20,6 +20,7 @@ dojo.require("dojo.html");
 dojo.require("dojo.lang");
 
 dojo.dnd.HtmlDragSource = function(node, type){
+	node = dojo.byId(node);
 	if(node){
 		this.domNode = node;
 		this.dragObject = node;
@@ -37,6 +38,7 @@ dojo.lang.extend(dojo.dnd.HtmlDragSource, {
 		return new dojo.dnd.HtmlDragObject(this.dragObject, this.type);
 	},
 	setDragHandle: function(node){
+		node = dojo.byId(node);
 		dojo.dnd.dragManager.unregisterDragSource(this);
 		this.domNode = node;
 		dojo.dnd.dragManager.registerDragSource(this);
@@ -47,6 +49,7 @@ dojo.lang.extend(dojo.dnd.HtmlDragSource, {
 });
 
 dojo.dnd.HtmlDragObject = function(node, type){
+	node = dojo.byId(node);
 	this.type = type;
 	this.domNode = node;
 }
@@ -58,7 +61,7 @@ dojo.lang.extend(dojo.dnd.HtmlDragObject, {
 	 * content of the node. This node is then set to opaque and drags around as
 	 * the intermediate representation.
 	 */
-	onDragStart: function (e){
+	onDragStart: function(e){
 		dojo.html.clearSelection();
 		
 		this.scrollOffset = {
@@ -96,7 +99,7 @@ dojo.lang.extend(dojo.dnd.HtmlDragObject, {
 	},
 	
 	/** Moves the node to follow the mouse */
-	onDragMove: function (e) {
+	onDragMove: function(e){
 		this.dragClone.style.top = this.dragOffset.top + e.clientY + "px";
 		this.dragClone.style.left = this.dragOffset.left + e.clientX + "px";
 	},
@@ -143,6 +146,7 @@ dojo.lang.extend(dojo.dnd.HtmlDragObject, {
 
 dojo.dnd.HtmlDropTarget = function(node, types){
 	if (arguments.length == 0) { return; }
+	node = dojo.byId(node);
 	this.domNode = node;
 	dojo.dnd.DropTarget.call(this);
 	this.acceptedTypes = types || [];
@@ -151,7 +155,7 @@ dojo.inherits(dojo.dnd.HtmlDropTarget, dojo.dnd.DropTarget);
 
 dojo.lang.extend(dojo.dnd.HtmlDropTarget, {  
 	onDragOver: function(e){
-		if (!dojo.lang.inArray(this.acceptedTypes, "*")) { // wildcard
+		if(!dojo.lang.inArray(this.acceptedTypes, "*")){ // wildcard
 			for (var i = 0; i < e.dragObjects.length; i++) {
 				if (!dojo.lang.inArray(this.acceptedTypes,
 					e.dragObjects[i].type)) { return false; }
@@ -176,7 +180,7 @@ dojo.lang.extend(dojo.dnd.HtmlDropTarget, {
 		return true;
 	},
 	
-	_getNodeUnderMouse: function (e) {
+	_getNodeUnderMouse: function(e){
 		var mousex = e.pageX || e.clientX + dojo.html.body().scrollLeft;
 		var mousey = e.pageY || e.clientY + dojo.html.body().scrollTop;
 
@@ -191,10 +195,10 @@ dojo.lang.extend(dojo.dnd.HtmlDropTarget, {
 		return -1;
 	},
 	
-	onDragMove: function(e) {
+	onDragMove: function(e){
 		var i = this._getNodeUnderMouse(e);
 		
-		if (!this.dropIndicator) {
+		if(!this.dropIndicator){
 			this.dropIndicator = document.createElement("div");
 			with (this.dropIndicator.style) {
 				position = "absolute";
@@ -207,7 +211,7 @@ dojo.lang.extend(dojo.dnd.HtmlDropTarget, {
 			}
 		}
 
-		with (this.dropIndicator.style) {
+		with(this.dropIndicator.style){
 			if (i < 0) {
 				if (this.childBoxes.length) {
 					top = ((dojo.html.gravity(this.childBoxes[0].node, e) & dojo.html.gravity.NORTH)

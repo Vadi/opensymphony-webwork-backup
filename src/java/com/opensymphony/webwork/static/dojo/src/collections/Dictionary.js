@@ -14,13 +14,6 @@ dojo.require("dojo.collections.Collections");
 dojo.collections.Dictionary = function(dictionary){
 	var items = {};
 	this.count = 0;
-	if (dictionary){
-		var e = dictionary.getIterator();
-		while (!e.atEnd) {
-			 this.add(e.key, e.value);
-			 e.moveNext();
-		}
-	}
 
 	this.add = function(k,v){
 		items[k] = new dojo.collections.DictionaryEntry(k,v);
@@ -72,4 +65,12 @@ dojo.collections.Dictionary = function(dictionary){
 		delete items[k];
 		this.count--;
 	};
+
+	if (dictionary){
+		var e = dictionary.getIterator();
+		while (!e.atEnd) {
+			 this.add(e.key, e.value);
+			 e.moveNext();
+		}
+	}
 };

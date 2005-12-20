@@ -99,7 +99,7 @@ dojo.lang.extend(dojo.animation.Animation, {
 		if(typeof this.handler == "function") { this.handler(e); }
 		if(typeof this.onPlay == "function") { this.onPlay(e); }
 
-		if(this._animSequence) { this._animSequence.setCurrent(this); }
+		if(this._animSequence) { this._animSequence._setCurrent(this); }
 
 		//dojo.lang.hitch(this, cycle)();
 		this._cycle();
@@ -199,7 +199,7 @@ dojo.lang.extend(dojo.animation.Animation, {
 						this._startRepeatCount = 0;
 					}
 					if( this._animSequence ) {
-						this._animSequence.playNext();
+						this._animSequence._playNext();
 					}
 				}
 			}
@@ -320,7 +320,7 @@ dojo.lang.extend(dojo.animation.AnimationSequence, {
 		}
 	},
 
-	setCurrent: function(anim) {
+	_setCurrent: function(anim) {
 		for(var i = 0; i < this._anims.length; i++) {
 			if( this._anims[i] == anim ) {
 				this._currAnim = i;
@@ -329,7 +329,7 @@ dojo.lang.extend(dojo.animation.AnimationSequence, {
 		}
 	},
 
-	playNext: function() {
+	_playNext: function() {
 		if( this._currAnim == -1 || this._anims.length == 0 ) { return; }
 		this._currAnim++;
 		if( this._anims[this._currAnim] ) {

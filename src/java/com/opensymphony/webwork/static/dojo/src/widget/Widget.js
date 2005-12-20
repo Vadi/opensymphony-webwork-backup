@@ -240,7 +240,7 @@ dojo.lang.extend(dojo.widget.Widget, {
 						// that these event handlers should execute in the
 						// context of the widget, so that the "this" pointer
 						// takes correctly.
-						var tn = dojo.event.nameAnonFunc(new Function(args[x]), this);
+						var tn = dojo.lang.nameAnonFunc(new Function(args[x]), this);
 						dojo.event.connect(this, x, this, tn);
 					}else if(dojo.lang.isArray(this[x])){ // typeof [] == "object"
 						this[x] = args[x].split(";");

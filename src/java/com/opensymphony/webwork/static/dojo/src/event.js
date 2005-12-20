@@ -12,21 +12,18 @@ dojo.require("dojo.lang");
 dojo.provide("dojo.event");
 
 dojo.event = new function(){
-
 	this.canTimeout = dojo.lang.isFunction(dj_global["setTimeout"])||dojo.lang.isAlien(dj_global["setTimeout"]);
-
-	this.nameAnonFunc = dojo.lang.nameAnonFunc;
 
 	this.createFunctionPair = function(obj, cb) {
 		var ret = [];
 		if(typeof obj == "function"){
-			ret[1] = dojo.event.nameAnonFunc(obj, dj_global);
+			ret[1] = dojo.lang.nameAnonFunc(obj, dj_global);
 			ret[0] = dj_global;
 			return ret;
 		}else if((typeof obj == "object")&&(typeof cb == "string")){
 			return [obj, cb];
 		}else if((typeof obj == "object")&&(typeof cb == "function")){
-			ret[1] = dojo.event.nameAnonFunc(cb, obj);
+			ret[1] = dojo.lang.nameAnonFunc(cb, obj);
 			ret[0] = obj;
 			return ret;
 		}
@@ -34,36 +31,6 @@ dojo.event = new function(){
 	}
 
 	// FIXME: where should we put this method (not here!)?
-	this.matchSignature = function(args, signatureArr){
-
-		var end = Math.min(args.length, signatureArr.length);
-
-		for(var x=0; x<end; x++){
-			// FIXME: this is naive comparison, can we do better?
-			if(compareTypes){
-				if((typeof args[x]).toLowerCase() != (typeof signatureArr[x])){
-					return false;
-				}
-			}else{
-				if((typeof args[x]).toLowerCase() != signatureArr[x].toLowerCase()){
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	// FIXME: where should we put this method (not here!)?
-	this.matchSignatureSets = function(args){
-		for(var x=1; x<arguments.length; x++){
-			if(this.matchSignature(args, arguments[x])){
-				return true;
-			}
-		}
-		return false;
-	}
-
 	function interpolateArgs(args){
 		var ao = {
 			srcObj: dj_global,
@@ -100,13 +67,13 @@ dojo.event = new function(){
 					ao.adviceType = "after";
 					ao.srcObj = args[0];
 					ao.srcFunc = args[1];
-					var tmpName  = dojo.event.nameAnonFunc(args[2], ao.adviceObj);
+					var tmpName  = dojo.lang.nameAnonFunc(args[2], ao.adviceObj);
 					ao.adviceObj[tmpName] = args[2];
 					ao.adviceFunc = tmpName;
 				}else if((typeof args[0] == "function")&&(typeof args[1] == "object")&&(typeof args[2] == "string")){
 					ao.adviceType = "after";
 					ao.srcObj = dj_global;
-					var tmpName  = dojo.event.nameAnonFunc(args[0], ao.srcObj);
+					var tmpName  = dojo.lang.nameAnonFunc(args[0], ao.srcObj);
 					ao.srcObj[tmpName] = args[0];
 					ao.srcFunc = tmpName;
 					ao.adviceObj = args[1];
@@ -210,16 +177,16 @@ dojo.event = new function(){
 		return this.connect.apply(this, args);
 	}
 
-	this.kwConnectImpl_ = function(kwArgs, disconnect){
+	this._kwConnectImpl = function(kwArgs, disconnect){
 		var fn = (disconnect) ? "disconnect" : "connect";
 		if(typeof kwArgs["srcFunc"] == "function"){
 			kwArgs.srcObj = kwArgs["srcObj"]||dj_global;
-			var tmpName  = dojo.event.nameAnonFunc(kwArgs.srcFunc, kwArgs.srcObj);
+			var tmpName  = dojo.lang.nameAnonFunc(kwArgs.srcFunc, kwArgs.srcObj);
 			kwArgs.srcFunc = tmpName;
 		}
 		if(typeof kwArgs["adviceFunc"] == "function"){
 			kwArgs.adviceObj = kwArgs["adviceObj"]||dj_global;
-			var tmpName  = dojo.event.nameAnonFunc(kwArgs.adviceFunc, kwArgs.adviceObj);
+			var tmpName  = dojo.lang.nameAnonFunc(kwArgs.adviceFunc, kwArgs.adviceObj);
 			kwArgs.adviceFunc = tmpName;
 		}
 		return dojo.event[fn](	(kwArgs["type"]||kwArgs["adviceType"]||"after"),
@@ -236,7 +203,7 @@ dojo.event = new function(){
 	}
 
 	this.kwConnect = function(kwArgs){
-		return this.kwConnectImpl_(kwArgs, false);
+		return this._kwConnectImpl(kwArgs, false);
 
 	}
 
@@ -248,7 +215,7 @@ dojo.event = new function(){
 	}
 
 	this.kwDisconnect = function(kwArgs){
-		return this.kwConnectImpl_(kwArgs, true);
+		return this._kwConnectImpl(kwArgs, true);
 	}
 }
 
@@ -266,7 +233,6 @@ dojo.event.MethodInvocation = function(join_point, obj, args) {
 }
 
 dojo.event.MethodInvocation.prototype.proceed = function() {
-	// dojo.hostenv.println("in MethodInvocation.proceed()");
 	this.around_index++;
 	if(this.around_index >= this.jp_.around.length){
 		return this.jp_.object[this.jp_.methodname].apply(this.jp_.object, this.args);
@@ -333,220 +299,190 @@ dojo.event.MethodJoinPoint.getForMethod = function(obj, methname) {
 			return joinpoint.run.apply(joinpoint, args); 
 		}
 	}
-	// dojo.hostenv.println("returning joinpoint");
 	return joinpoint;
 }
 
-dojo.event.MethodJoinPoint.prototype.unintercept = function() {
-	this.object[this.methodname] = this.methodfunc;
-}
+dojo.lang.extend(dojo.event.MethodJoinPoint, {
+	unintercept: function() {
+		this.object[this.methodname] = this.methodfunc;
+	},
 
-dojo.event.MethodJoinPoint.prototype.run = function() {
-	// FIXME: need to add support here for rates!
+	run: function() {
+		var obj = this.object||dj_global;
+		var args = arguments;
 
-	// dojo.hostenv.println("in run()");
-	var obj = this.object||dj_global;
-	var args = arguments;
-
-	// optimization. We only compute once the array version of the arguments
-	// pseudo-arr in order to prevent building it each time advice is unrolled.
-	var aargs = [];
-	// NOTE: alex: I think this is safe since we apply() these args anyway, so
-	// primitive types will be copied at the call boundary anyway, and
-	// references to objects would be mutable anyway.
-	for(var x=0; x<args.length; x++){
-		aargs[x] = args[x];
-	}
-	/*
-	try{
-		if((dojo.render.html.ie)&&(aargs.length == 1)&&(aargs[0])&&(!dojo.lang.isUndefined(aargs[0]["clientX"]))){
-			aargs[0] = document.createEventObject(aargs[0]);
-		}
-	}catch(e){ }
-	*/
-
-	var unrollAdvice  = function(marr){ 
-		if(!marr){
-			dojo.debug("Null argument to unrollAdvice()");
-			return;
-		}
-	  
-		// dojo.hostenv.println("in unrollAdvice()");
-		var callObj = marr[0]||dj_global;
-		var callFunc = marr[1];
-		
-		if(!callObj[callFunc]){
-			throw new Error ("function \"" + callFunc + "\" does not exist on \"" + callObj + "\"");
-		}
-		
-		var aroundObj = marr[2]||dj_global;
-		var aroundFunc = marr[3];
-		var msg = marr[6];
-		var undef;
-
-		var to = {
-			args: [],
-			jp_: this,
-			object: obj,
-			proceed: function(){
-				return callObj[callFunc].apply(callObj, to.args);
-			}
-		};
-		to.args = aargs;
-
-		var delay = parseInt(marr[4]);
-		var hasDelay = ((!isNaN(delay))&&(marr[4]!==null)&&(typeof marr[4] != "undefined"));
-		if(marr[5]){
-			var rate = parseInt(marr[5]);
-			var cur = new Date();
-			var timerSet = false;
-			if((marr["last"])&&((cur-marr.last)<=rate)){
-				// this should only happen if we don't otherwise deliver the event
-				if(dojo.event.canTimeout){
-					// FIXME: how much overhead does this all add?
-					if(marr["delayTimer"]){
-						// dojo.debug("clearing:", marr.delayTimer);
-						clearTimeout(marr.delayTimer);
-					}
-					// dojo.debug("setting delay");
-					var tod = parseInt(rate*2); // is rate*2 naive?
-					var mcpy = dojo.lang.shallowCopy(marr);
-					marr.delayTimer = setTimeout(function(){
-						// FIXME: on IE at least, event objects from the
-						// browser can go out of scope. How (or should?) we
-						// deal with it?
-						mcpy[5] = 0;
-						unrollAdvice(mcpy);
-					}, tod);
-					// dojo.debug("setting:", marr.delayTimer);
-				}
-				return;
-			}else{
-				marr.last = cur;
-			}
-		}
-
-		// FIXME: need to enforce rates for a connection here!
-
-		/*
-		// FIXME: how slow is this? Is there a better/faster way to get this
-		// done?
-		// FIXME: is it necessaray to make this copy every time that
-		// unrollAdvice gets called? Would it be better/possible to handle it
-		// in run() where we make args in the first place?
+		// optimization. We only compute once the array version of the arguments
+		// pseudo-arr in order to prevent building it each time advice is unrolled.
+		var aargs = [];
 		for(var x=0; x<args.length; x++){
-			to.args[x] = args[x];
+			aargs[x] = args[x];
 		}
-		*/
 
-		if(aroundFunc){
-			// NOTE: around advice can't delay since we might otherwise depend
-			// on execution order!
-			aroundObj[aroundFunc].call(aroundObj, to);
-		}else{
-			// var tmjp = dojo.event.MethodJoinPoint.getForMethod(obj, methname);
-			if((hasDelay)&&((dojo.render.html)||(dojo.render.svg))){  // FIXME: the render checks are grotty!
-				dj_global["setTimeout"](function(){
+		var unrollAdvice  = function(marr){ 
+			if(!marr){
+				dojo.debug("Null argument to unrollAdvice()");
+				return;
+			}
+		  
+			var callObj = marr[0]||dj_global;
+			var callFunc = marr[1];
+			
+			if(!callObj[callFunc]){
+				dojo.raise("function \"" + callFunc + "\" does not exist on \"" + callObj + "\"");
+			}
+			
+			var aroundObj = marr[2]||dj_global;
+			var aroundFunc = marr[3];
+			var msg = marr[6];
+			var undef;
+
+			var to = {
+				args: [],
+				jp_: this,
+				object: obj,
+				proceed: function(){
+					return callObj[callFunc].apply(callObj, to.args);
+				}
+			};
+			to.args = aargs;
+
+			var delay = parseInt(marr[4]);
+			var hasDelay = ((!isNaN(delay))&&(marr[4]!==null)&&(typeof marr[4] != "undefined"));
+			if(marr[5]){
+				var rate = parseInt(marr[5]);
+				var cur = new Date();
+				var timerSet = false;
+				if((marr["last"])&&((cur-marr.last)<=rate)){
+					if(dojo.event.canTimeout){
+						if(marr["delayTimer"]){
+							clearTimeout(marr.delayTimer);
+						}
+						var tod = parseInt(rate*2); // is rate*2 naive?
+						var mcpy = dojo.lang.shallowCopy(marr);
+						marr.delayTimer = setTimeout(function(){
+							// FIXME: on IE at least, event objects from the
+							// browser can go out of scope. How (or should?) we
+							// deal with it?
+							mcpy[5] = 0;
+							unrollAdvice(mcpy);
+						}, tod);
+					}
+					return;
+				}else{
+					marr.last = cur;
+				}
+			}
+
+			// FIXME: need to enforce rates for a connection here!
+
+			if(aroundFunc){
+				// NOTE: around advice can't delay since we might otherwise depend
+				// on execution order!
+				aroundObj[aroundFunc].call(aroundObj, to);
+			}else{
+				// var tmjp = dojo.event.MethodJoinPoint.getForMethod(obj, methname);
+				if((hasDelay)&&((dojo.render.html)||(dojo.render.svg))){  // FIXME: the render checks are grotty!
+					dj_global["setTimeout"](function(){
+						if(msg){
+							callObj[callFunc].call(callObj, to); 
+						}else{
+							callObj[callFunc].apply(callObj, args); 
+						}
+					}, delay);
+				}else{ // many environments can't support delay!
 					if(msg){
 						callObj[callFunc].call(callObj, to); 
 					}else{
 						callObj[callFunc].apply(callObj, args); 
 					}
-				}, delay);
-			}else{ // many environments can't support delay!
-				if(msg){
-					callObj[callFunc].call(callObj, to); 
-				}else{
-					callObj[callFunc].apply(callObj, args); 
 				}
 			}
 		}
-	}
 
-	if(this.before.length>0){
-		dojo.lang.forEach(this.before, unrollAdvice, true);
-	}
-
-	var result;
-	if(this.around.length>0){
-		var mi = new dojo.event.MethodInvocation(this, obj, args);
-		result = mi.proceed();
-	}else if(this.methodfunc){
-		// dojo.hostenv.println("calling: "+this.methodname)
-		result = this.object[this.methodname].apply(this.object, args);
-	}
-
-	if(this.after.length>0){
-		dojo.lang.forEach(this.after, unrollAdvice, true);
-	}
-
-	return (this.methodfunc) ? result : null;
-}
-
-dojo.event.MethodJoinPoint.prototype.getArr = function(kind){
-	var arr = this.after;
-	// FIXME: we should be able to do this through props or Array.in()
-	if((typeof kind == "string")&&(kind.indexOf("before")!=-1)){
-		arr = this.before;
-	}else if(kind=="around"){
-		arr = this.around;
-	}
-	return arr;
-}
-
-dojo.event.MethodJoinPoint.prototype.kwAddAdvice = function(args){
-	this.addAdvice(	args["adviceObj"], args["adviceFunc"], 
-					args["aroundObj"], args["aroundFunc"], 
-					args["adviceType"], args["precedence"], 
-					args["once"], args["delay"], args["rate"], 
-					args["adviceMsg"]);
-}
-
-dojo.event.MethodJoinPoint.prototype.addAdvice = function(	thisAdviceObj, thisAdvice, 
-															thisAroundObj, thisAround, 
-															advice_kind, precedence, 
-															once, delay, rate, asMessage){
-	var arr = this.getArr(advice_kind);
-	if(!arr){
-		dojo.raise("bad this: " + this);
-	}
-
-	var ao = [thisAdviceObj, thisAdvice, thisAroundObj, thisAround, delay, rate, asMessage];
-	
-	if(once){
-		if(this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr) >= 0){
-			return;
+		if(this.before.length>0){
+			dojo.lang.forEach(this.before, unrollAdvice, true);
 		}
-	}
 
-	if(precedence == "first"){
-		arr.unshift(ao);
-	}else{
-		arr.push(ao);
-	}
-}
-
-dojo.event.MethodJoinPoint.prototype.hasAdvice = function(thisAdviceObj, thisAdvice, advice_kind, arr){
-	if(!arr){ arr = this.getArr(advice_kind); }
-	var ind = -1;
-	for(var x=0; x<arr.length; x++){
-		if((arr[x][0] == thisAdviceObj)&&(arr[x][1] == thisAdvice)){
-			ind = x;
+		var result;
+		if(this.around.length>0){
+			var mi = new dojo.event.MethodInvocation(this, obj, args);
+			result = mi.proceed();
+		}else if(this.methodfunc){
+			result = this.object[this.methodname].apply(this.object, args);
 		}
-	}
-	return ind;
-}
 
-dojo.event.MethodJoinPoint.prototype.removeAdvice = function(thisAdviceObj, thisAdvice, advice_kind, once){
-	var arr = this.getArr(advice_kind);
-	var ind = this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr);
-	if(ind == -1){
-		return false;
+		if(this.after.length>0){
+			dojo.lang.forEach(this.after, unrollAdvice, true);
+		}
+
+		return (this.methodfunc) ? result : null;
+	},
+
+	getArr: function(kind){
+		var arr = this.after;
+		// FIXME: we should be able to do this through props or Array.in()
+		if((typeof kind == "string")&&(kind.indexOf("before")!=-1)){
+			arr = this.before;
+		}else if(kind=="around"){
+			arr = this.around;
+		}
+		return arr;
+	},
+
+	kwAddAdvice: function(args){
+		this.addAdvice(	args["adviceObj"], args["adviceFunc"], 
+						args["aroundObj"], args["aroundFunc"], 
+						args["adviceType"], args["precedence"], 
+						args["once"], args["delay"], args["rate"], 
+						args["adviceMsg"]);
+	},
+
+	addAdvice: function(	thisAdviceObj, thisAdvice, 
+							thisAroundObj, thisAround, 
+							advice_kind, precedence, 
+							once, delay, rate, asMessage){
+		var arr = this.getArr(advice_kind);
+		if(!arr){
+			dojo.raise("bad this: " + this);
+		}
+
+		var ao = [thisAdviceObj, thisAdvice, thisAroundObj, thisAround, delay, rate, asMessage];
+		
+		if(once){
+			if(this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr) >= 0){
+				return;
+			}
+		}
+
+		if(precedence == "first"){
+			arr.unshift(ao);
+		}else{
+			arr.push(ao);
+		}
+	},
+
+	hasAdvice: function(thisAdviceObj, thisAdvice, advice_kind, arr){
+		if(!arr){ arr = this.getArr(advice_kind); }
+		var ind = -1;
+		for(var x=0; x<arr.length; x++){
+			if((arr[x][0] == thisAdviceObj)&&(arr[x][1] == thisAdvice)){
+				ind = x;
+			}
+		}
+		return ind;
+	},
+
+	removeAdvice: function(thisAdviceObj, thisAdvice, advice_kind, once){
+		var arr = this.getArr(advice_kind);
+		var ind = this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr);
+		if(ind == -1){
+			return false;
+		}
+		while(ind != -1){
+			arr.splice(ind, 1);
+			if(once){ break; }
+			ind = this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr);
+		}
+		return true;
 	}
-	while(ind != -1){
-		arr.splice(ind, 1);
-		if(once){ break; }
-		ind = this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr);
-	}
-	return true;
-}
+});

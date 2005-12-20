@@ -42,7 +42,6 @@ dojo.math.bernstein = function (t,n,i) {
  *
  * @return A random number from a Gaussian distribution
  */
- // FIXME: this doesn't always range from -1 to 1 (fails ant test sometimes!)
 dojo.math.gaussianRandom = function () {
 	var k = 2;
 	do {

@@ -49,8 +49,8 @@ var dojo;
 if(dj_undef("dojo")){ dojo = {}; }
 
 dojo.version = {
-	major: 0, minor: 2, patch: 0, flag: "",
-	revision: Number("$Rev: 2495 $".match(/[0-9]+/)[0]),
+	major: 0, minor: 2, patch: 1, flag: "",
+	revision: Number("$Rev: 2555 $".match(/[0-9]+/)[0]),
 	toString: function() {
 		with (dojo.version) {
 			return major + "." + minor + "." + patch + flag + " (" + revision + ")";
@@ -719,10 +719,6 @@ if(typeof window == 'undefined'){
 				break;
 			}
 		}
-		if(djConfig["debugAtAllCosts"]){
-			document.write("<scr"+"ipt type='text/javascript' src='"+djConfig["baseRelativePath"]+"src/browser_debug.js"+"'></scr"+"ipt>");
-		}
-
 	}
 
 	var dr = dojo.render;
@@ -1099,6 +1095,17 @@ dojo.setModulePrefix = function(module, prefix){
 
 // stub
 dojo.profile = { start: function(){}, end: function(){}, dump: function(){} };
+
+// determine if an object supports a given method
+// useful for longer api chains where you have to test each object in the chain
+dojo.exists = function(obj, name){
+	var p = name.split(".");
+	for(var i = 0; i < p.length; i++){
+	if(!(obj[p[i]])) return false;
+		obj = obj[p[i]];
+	}
+	return true;
+}
 
 dojo.provide("dojo.lang");
 dojo.provide("dojo.AdapterRegistry");
@@ -2147,12 +2154,10 @@ dojo.uri = new function() {
 			var uriobj = new dojo.uri.Uri(uri.toString());
 
 			if (relobj.path == "" && relobj.scheme == null &&
-				relobj.authority == null && relobj.query == null)
-			{
+				relobj.authority == null && relobj.query == null) {
 				if (relobj.fragment != null) { uriobj.fragment = relobj.fragment; }
 				relobj = uriobj;
-			}
-			else if (relobj.scheme == null) {
+			} else if (relobj.scheme == null) {
 				relobj.scheme = uriobj.scheme;
 			
 				if (relobj.authority == null) {
@@ -2168,8 +2173,8 @@ dojo.uri = new function() {
 								if (j == segs.length - 1) { segs[j] = ""; }
 								else { segs.splice(j, 1); j--; }
 							} else if (j > 0 && !(j == 1 && segs[0] == "") &&
-								segs[j] == ".." && segs[j-1] != "..")
-							{
+								segs[j] == ".." && segs[j-1] != "..") {
+
 								if (j == segs.length - 1) { segs.splice(j, 1); segs[j - 1] = ""; }
 								else { segs.splice(j - 1, 2); j -= 2; }
 							}
@@ -2210,7 +2215,7 @@ dojo.uri = new function() {
 			this.port = r[7] || null;
 		}
 	
-		this.toString = function () { return this.uri; }
+		this.toString = function(){ return this.uri; }
 	}
 };
 
@@ -2525,7 +2530,6 @@ dojo.math.bernstein = function (t,n,i) {
  *
  * @return A random number from a Gaussian distribution
  */
- // FIXME: this doesn't always range from -1 to 1 (fails ant test sometimes!)
 dojo.math.gaussianRandom = function () {
 	var k = 2;
 	do {
@@ -3633,7 +3637,7 @@ dojo.html.getViewportWidth = function(){
 		w = window.innerWidth;
 	}
 
-	if(document.documentElement && document.documentElement.clientWidth){
+	if(dojo.exists(document, "documentElement.clientWidth")){
 		// IE6 Strict
 		var w2 = document.documentElement.clientWidth;
 		// this lets us account for scrollbars
@@ -3656,7 +3660,7 @@ dojo.html.getViewportHeight = function(){
 		return window.innerHeight;
 	}
 
-	if (document.documentElement && document.documentElement.clientHeight){
+	if (dojo.exists(document, "documentElement.clientHeight")){
 		// IE6 Strict
 		return document.documentElement.clientHeight;
 	}
@@ -3681,7 +3685,7 @@ dojo.html.getScrollOffset = function(){
 
 	if(window.pageYOffset){
 		ret = [window.pageXOffset, window.pageYOffset];
-	} else if(document.documentElement && document.documentElement.scrollTop){
+	}else if(dojo.exists(document, "documentElement.scrollTop")){
 		ret = [document.documentElement.scrollLeft, document.documentElement.scrollTop];
 	} else if(document.body){
 		ret = [document.body.scrollLeft, document.body.scrollTop];
@@ -3700,8 +3704,8 @@ dojo.html.getParentOfType = function(node, type){
 dojo.html.getParentByType = function(node, type) {
 	var parent = node;
 	type = type.toLowerCase();
-	while(parent.nodeName.toLowerCase()!=type){
-		if((!parent)||(parent==(document["body"]||document["documentElement"]))){
+	while((parent)&&(parent.nodeName.toLowerCase()!=type)){
+		if(parent==(document["body"]||document["documentElement"])){
 			return null;
 		}
 		parent = parent.parentNode;
@@ -3726,7 +3730,7 @@ dojo.html.getAttribute = function(node, attr){
 	if((v)&&(typeof v == 'string')&&(v!="")){ return v; }
 
 	// try returning the attributes value, if we couldn't get it as a string
-	if(v && typeof v == 'object' && v.value){ return v.value; }
+	if(v && v.value){ return v.value; }
 
 	// this should work on Opera 7, but it's a little on the crashy side
 	if((node.getAttributeNode)&&(node.getAttributeNode(ta))){
@@ -3744,8 +3748,7 @@ dojo.html.getAttribute = function(node, attr){
  *	attribute in question.
  */
 dojo.html.hasAttribute = function(node, attr){
-	var v = dojo.html.getAttribute(node, attr);
-	return v ? true : false;
+	return dojo.html.getAttribute(node, attr) ? true : false;
 }
 	
 /**
@@ -3754,12 +3757,24 @@ dojo.html.hasAttribute = function(node, attr){
  * is found;
  */
 dojo.html.getClass = function(node){
+  if(!node){ return ""; }
+  var cs = "";
 	if(node.className){
-		return node.className;
+		cs = node.className;
 	}else if(dojo.html.hasAttribute(node, "class")){
-		return dojo.html.getAttribute(node, "class");
+		cs = dojo.html.getAttribute(node, "class");
 	}
-	return "";
+	return dojo.string.trim(cs);
+}
+
+/**
+ * Returns an array of CSS classes currently assigned
+ * directly to the node in question. Returns an empty array if no classes
+ * are found;
+ */
+dojo.html.getClasses = function(node) {
+	var c = dojo.html.getClass(node);
+	return (c == "") ? [] : c.split(/\s+/g);
 }
 
 /**
@@ -3768,11 +3783,7 @@ dojo.html.getClass = function(node){
  * styles, only classes directly applied to the node.
  */
 dojo.html.hasClass = function(node, classname){
-	var classes = dojo.html.getClass(node).split(/\s+/g);
-	for(var x=0; x<classes.length; x++){
-		if(classname == classes[x]){ return true; }
-	}
-	return false;
+	return dojo.lang.inArray(dojo.html.getClasses(node), classname);
 }
 
 /**
@@ -3782,10 +3793,8 @@ dojo.html.hasClass = function(node, classname){
  * false; indicating success or failure of the operation, respectively.
  */
 dojo.html.prependClass = function(node, classStr){
-	if(!node){ return null; }
-	if(dojo.html.hasAttribute(node,"class")||node.className){
-		classStr += " " + (node.className||dojo.html.getAttribute(node, "class"));
-	}
+	if(!node){ return false; }
+	classStr += " " + dojo.html.getClass(node);
 	return dojo.html.setClass(node, classStr);
 }
 
@@ -3794,13 +3803,11 @@ dojo.html.prependClass = function(node, classStr){
  *	passed &node;. Returns &true; or &false; indicating success or failure.
  */
 dojo.html.addClass = function(node, classStr){
-	if (!node) { throw new Error("addClass: node does not exist"); }
+	if (!node) { return false; }
 	if (dojo.html.hasClass(node, classStr)) {
 	  return false;
 	}
-	if(dojo.html.hasAttribute(node,"class")||node.className){
-		classStr = (node.className||dojo.html.getAttribute(node, "class")) + " " + classStr;
-	}
+	classStr = dojo.string.trim(dojo.html.getClass(node) + " " + classStr);
 	return dojo.html.setClass(node, classStr);
 }
 
@@ -3836,7 +3843,7 @@ dojo.html.removeClass = function(node, classStr, allowPartialMatches){
 	var classStr = dojo.string.trim(new String(classStr));
 
 	try{
-		var cs = String( node.className ).split(" ");
+		var cs = dojo.html.getClasses(node);
 		var nca	= [];
 		if(allowPartialMatches){
 			for(var i = 0; i<cs.length; i++){
@@ -3851,7 +3858,7 @@ dojo.html.removeClass = function(node, classStr, allowPartialMatches){
 				}
 			}
 		}
-		node.className = nca.join(" ");
+		dojo.html.setClass(node, nca.join(" "));
 	}catch(e){
 		dojo.debug("dojo.html.removeClass() failed", e);
 	}
@@ -3887,73 +3894,40 @@ dojo.html.getElementsByClass = function(classStr, parent, nodeType, classMatchTy
 	var reClass = new RegExp("(\\s|^)((" + classes.join(")|(") + "))(\\s|$)");
 
 	// FIXME: doesn't have correct parent support!
-	if(false && document.evaluate) { // supports dom 3 xpath
-		var xpath = "//" + (nodeType || "*") + "[contains(";
-		if(classMatchType != dojo.html.classMatchType.ContainsAny){
-			xpath += "concat(' ',@class,' '), ' " +
-				classes.join(" ') and contains(concat(' ',@class,' '), ' ") +
-				" ')]";
-		}else{
-			xpath += "concat(' ',@class,' '), ' " +
-				classes.join(" ')) or contains(concat(' ',@class,' '), ' ") +
-				" ')]";
-		}
-		//dojo.debug("xpath: " + xpath);
+	if(!nodeType){ nodeType = "*"; }
+	var candidateNodes = parent.getElementsByTagName(nodeType);
 
-		var xpathResult = document.evaluate(xpath, parent, null,
-			XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+	outer:
+	for(var i = 0; i < candidateNodes.length; i++) {
+		var node = candidateNodes[i];
+		var nodeClasses = dojo.html.getClasses(node);
+		if(nodeClasses.length == 0) { continue outer; }
+		var matches = 0;
 
-		outer:
-		for(var node = null, i = 0; node = xpathResult.snapshotItem(i); i++){
-			if(classMatchType != dojo.html.classMatchType.IsOnly){
-				nodes.push(node);
-			}else{
-				if(!dojo.html.getClass(node)){ continue outer; }
-
-				var nodeClasses = dojo.html.getClass(node).split(/\s+/g);
-				for(var j = 0; j < nodeClasses.length; j++) {
-					if( !nodeClasses[j].match(reClass) ) {
-						continue outer;
-					}
-				}
-				nodes.push(node);
-			}
-		}
-	}else{
-		if(!nodeType){ nodeType = "*"; }
-		var candidateNodes = parent.getElementsByTagName(nodeType);
-
-		outer:
-		for(var i = 0; i < candidateNodes.length; i++) {
-			var node = candidateNodes[i];
-			if( !dojo.html.getClass(node) ) { continue outer; }
-			var nodeClasses = dojo.html.getClass(node).split(/\s+/g);
-			var matches = 0;
-
-			for(var j = 0; j < nodeClasses.length; j++) {
-				if( reClass.test(nodeClasses[j]) ) {
-					if( classMatchType == dojo.html.classMatchType.ContainsAny ) {
-						nodes.push(node);
-						continue outer;
-					} else {
-						matches++;
-					}
+		for(var j = 0; j < nodeClasses.length; j++) {
+			if( reClass.test(nodeClasses[j]) ) {
+				if( classMatchType == dojo.html.classMatchType.ContainsAny ) {
+					nodes.push(node);
+					continue outer;
 				} else {
-					if( classMatchType == dojo.html.classMatchType.IsOnly ) {
-						continue outer;
-					}
+					matches++;
+				}
+			} else {
+				if( classMatchType == dojo.html.classMatchType.IsOnly ) {
+					continue outer;
 				}
 			}
+		}
 
-			if( matches == classes.length ) {
-				if( classMatchType == dojo.html.classMatchType.IsOnly && matches == nodeClasses.length ) {
-					nodes.push(node);
-				} else if( classMatchType == dojo.html.classMatchType.ContainsAll ) {
-					nodes.push(node);
-				}
+		if( matches == classes.length ) {
+			if( classMatchType == dojo.html.classMatchType.IsOnly && matches == nodeClasses.length ) {
+				nodes.push(node);
+			} else if( classMatchType == dojo.html.classMatchType.ContainsAll ) {
+				nodes.push(node);
 			}
 		}
 	}
+	
 	return nodes;
 }
 dojo.html.getElementsByClassName = dojo.html.getElementsByClass;
@@ -4150,17 +4124,6 @@ if(!dojo.evalObjPath("dojo.dom.createNodesFromText")){
 	}
 }
 
-dojo.html.getAncestorsByTag = function(node, tag, returnFirstHit){
-	tag = tag.toLowerCase();
-	return dojo.dom.getAncestors(node, function(el) {
-		return el.tagName && (el.tagName.toLowerCase() == tag);
-	}, returnFirstHit);
-}
-
-dojo.html.getFirstAncestorByTag = function(node, tag){
-	return dojo.html.getAncestorsByTag(node, tag, true);
-}
-
 dojo.html.isVisible = function(node){
 	// FIXME: this should also look at visibility!
 	return dojo.style.getComputedStyle(node||this.domNode, "display") != "none";
@@ -4168,7 +4131,7 @@ dojo.html.isVisible = function(node){
 
 dojo.html.show  = function(node){
 	if(node.style){
-		node.style.display = dojo.lang.inArray(node.tagName.toLowerCase(), ['tr', 'td', 'th']) ? "" : "block";
+		node.style.display = dojo.lang.inArray(['tr', 'td', 'th'], node.tagName.toLowerCase()) ? "" : "block";
 	}
 }
 
@@ -4747,7 +4710,7 @@ dojo.lang.extend(dojo.animation.Animation, {
 		if(typeof this.handler == "function") { this.handler(e); }
 		if(typeof this.onPlay == "function") { this.onPlay(e); }
 
-		if(this._animSequence) { this._animSequence.setCurrent(this); }
+		if(this._animSequence) { this._animSequence._setCurrent(this); }
 
 		//dojo.lang.hitch(this, cycle)();
 		this._cycle();
@@ -4847,7 +4810,7 @@ dojo.lang.extend(dojo.animation.Animation, {
 						this._startRepeatCount = 0;
 					}
 					if( this._animSequence ) {
-						this._animSequence.playNext();
+						this._animSequence._playNext();
 					}
 				}
 			}
@@ -4968,7 +4931,7 @@ dojo.lang.extend(dojo.animation.AnimationSequence, {
 		}
 	},
 
-	setCurrent: function(anim) {
+	_setCurrent: function(anim) {
 		for(var i = 0; i < this._anims.length; i++) {
 			if( this._anims[i] == anim ) {
 				this._currAnim = i;
@@ -4977,7 +4940,7 @@ dojo.lang.extend(dojo.animation.AnimationSequence, {
 		}
 	},
 
-	playNext: function() {
+	_playNext: function() {
 		if( this._currAnim == -1 || this._anims.length == 0 ) { return; }
 		this._currAnim++;
 		if( this._anims[this._currAnim] ) {
@@ -5012,21 +4975,18 @@ dojo.require("dojo.lang");
 dojo.provide("dojo.event");
 
 dojo.event = new function(){
-
 	this.canTimeout = dojo.lang.isFunction(dj_global["setTimeout"])||dojo.lang.isAlien(dj_global["setTimeout"]);
-
-	this.nameAnonFunc = dojo.lang.nameAnonFunc;
 
 	this.createFunctionPair = function(obj, cb) {
 		var ret = [];
 		if(typeof obj == "function"){
-			ret[1] = dojo.event.nameAnonFunc(obj, dj_global);
+			ret[1] = dojo.lang.nameAnonFunc(obj, dj_global);
 			ret[0] = dj_global;
 			return ret;
 		}else if((typeof obj == "object")&&(typeof cb == "string")){
 			return [obj, cb];
 		}else if((typeof obj == "object")&&(typeof cb == "function")){
-			ret[1] = dojo.event.nameAnonFunc(cb, obj);
+			ret[1] = dojo.lang.nameAnonFunc(cb, obj);
 			ret[0] = obj;
 			return ret;
 		}
@@ -5034,36 +4994,6 @@ dojo.event = new function(){
 	}
 
 	// FIXME: where should we put this method (not here!)?
-	this.matchSignature = function(args, signatureArr){
-
-		var end = Math.min(args.length, signatureArr.length);
-
-		for(var x=0; x<end; x++){
-			// FIXME: this is naive comparison, can we do better?
-			if(compareTypes){
-				if((typeof args[x]).toLowerCase() != (typeof signatureArr[x])){
-					return false;
-				}
-			}else{
-				if((typeof args[x]).toLowerCase() != signatureArr[x].toLowerCase()){
-					return false;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	// FIXME: where should we put this method (not here!)?
-	this.matchSignatureSets = function(args){
-		for(var x=1; x<arguments.length; x++){
-			if(this.matchSignature(args, arguments[x])){
-				return true;
-			}
-		}
-		return false;
-	}
-
 	function interpolateArgs(args){
 		var ao = {
 			srcObj: dj_global,
@@ -5100,13 +5030,13 @@ dojo.event = new function(){
 					ao.adviceType = "after";
 					ao.srcObj = args[0];
 					ao.srcFunc = args[1];
-					var tmpName  = dojo.event.nameAnonFunc(args[2], ao.adviceObj);
+					var tmpName  = dojo.lang.nameAnonFunc(args[2], ao.adviceObj);
 					ao.adviceObj[tmpName] = args[2];
 					ao.adviceFunc = tmpName;
 				}else if((typeof args[0] == "function")&&(typeof args[1] == "object")&&(typeof args[2] == "string")){
 					ao.adviceType = "after";
 					ao.srcObj = dj_global;
-					var tmpName  = dojo.event.nameAnonFunc(args[0], ao.srcObj);
+					var tmpName  = dojo.lang.nameAnonFunc(args[0], ao.srcObj);
 					ao.srcObj[tmpName] = args[0];
 					ao.srcFunc = tmpName;
 					ao.adviceObj = args[1];
@@ -5210,16 +5140,16 @@ dojo.event = new function(){
 		return this.connect.apply(this, args);
 	}
 
-	this.kwConnectImpl_ = function(kwArgs, disconnect){
+	this._kwConnectImpl = function(kwArgs, disconnect){
 		var fn = (disconnect) ? "disconnect" : "connect";
 		if(typeof kwArgs["srcFunc"] == "function"){
 			kwArgs.srcObj = kwArgs["srcObj"]||dj_global;
-			var tmpName  = dojo.event.nameAnonFunc(kwArgs.srcFunc, kwArgs.srcObj);
+			var tmpName  = dojo.lang.nameAnonFunc(kwArgs.srcFunc, kwArgs.srcObj);
 			kwArgs.srcFunc = tmpName;
 		}
 		if(typeof kwArgs["adviceFunc"] == "function"){
 			kwArgs.adviceObj = kwArgs["adviceObj"]||dj_global;
-			var tmpName  = dojo.event.nameAnonFunc(kwArgs.adviceFunc, kwArgs.adviceObj);
+			var tmpName  = dojo.lang.nameAnonFunc(kwArgs.adviceFunc, kwArgs.adviceObj);
 			kwArgs.adviceFunc = tmpName;
 		}
 		return dojo.event[fn](	(kwArgs["type"]||kwArgs["adviceType"]||"after"),
@@ -5236,7 +5166,7 @@ dojo.event = new function(){
 	}
 
 	this.kwConnect = function(kwArgs){
-		return this.kwConnectImpl_(kwArgs, false);
+		return this._kwConnectImpl(kwArgs, false);
 
 	}
 
@@ -5248,7 +5178,7 @@ dojo.event = new function(){
 	}
 
 	this.kwDisconnect = function(kwArgs){
-		return this.kwConnectImpl_(kwArgs, true);
+		return this._kwConnectImpl(kwArgs, true);
 	}
 }
 
@@ -5266,7 +5196,6 @@ dojo.event.MethodInvocation = function(join_point, obj, args) {
 }
 
 dojo.event.MethodInvocation.prototype.proceed = function() {
-	// dojo.hostenv.println("in MethodInvocation.proceed()");
 	this.around_index++;
 	if(this.around_index >= this.jp_.around.length){
 		return this.jp_.object[this.jp_.methodname].apply(this.jp_.object, this.args);
@@ -5333,223 +5262,193 @@ dojo.event.MethodJoinPoint.getForMethod = function(obj, methname) {
 			return joinpoint.run.apply(joinpoint, args); 
 		}
 	}
-	// dojo.hostenv.println("returning joinpoint");
 	return joinpoint;
 }
 
-dojo.event.MethodJoinPoint.prototype.unintercept = function() {
-	this.object[this.methodname] = this.methodfunc;
-}
+dojo.lang.extend(dojo.event.MethodJoinPoint, {
+	unintercept: function() {
+		this.object[this.methodname] = this.methodfunc;
+	},
 
-dojo.event.MethodJoinPoint.prototype.run = function() {
-	// FIXME: need to add support here for rates!
+	run: function() {
+		var obj = this.object||dj_global;
+		var args = arguments;
 
-	// dojo.hostenv.println("in run()");
-	var obj = this.object||dj_global;
-	var args = arguments;
-
-	// optimization. We only compute once the array version of the arguments
-	// pseudo-arr in order to prevent building it each time advice is unrolled.
-	var aargs = [];
-	// NOTE: alex: I think this is safe since we apply() these args anyway, so
-	// primitive types will be copied at the call boundary anyway, and
-	// references to objects would be mutable anyway.
-	for(var x=0; x<args.length; x++){
-		aargs[x] = args[x];
-	}
-	/*
-	try{
-		if((dojo.render.html.ie)&&(aargs.length == 1)&&(aargs[0])&&(!dojo.lang.isUndefined(aargs[0]["clientX"]))){
-			aargs[0] = document.createEventObject(aargs[0]);
-		}
-	}catch(e){ }
-	*/
-
-	var unrollAdvice  = function(marr){ 
-		if(!marr){
-			dojo.debug("Null argument to unrollAdvice()");
-			return;
-		}
-	  
-		// dojo.hostenv.println("in unrollAdvice()");
-		var callObj = marr[0]||dj_global;
-		var callFunc = marr[1];
-		
-		if(!callObj[callFunc]){
-			throw new Error ("function \"" + callFunc + "\" does not exist on \"" + callObj + "\"");
-		}
-		
-		var aroundObj = marr[2]||dj_global;
-		var aroundFunc = marr[3];
-		var msg = marr[6];
-		var undef;
-
-		var to = {
-			args: [],
-			jp_: this,
-			object: obj,
-			proceed: function(){
-				return callObj[callFunc].apply(callObj, to.args);
-			}
-		};
-		to.args = aargs;
-
-		var delay = parseInt(marr[4]);
-		var hasDelay = ((!isNaN(delay))&&(marr[4]!==null)&&(typeof marr[4] != "undefined"));
-		if(marr[5]){
-			var rate = parseInt(marr[5]);
-			var cur = new Date();
-			var timerSet = false;
-			if((marr["last"])&&((cur-marr.last)<=rate)){
-				// this should only happen if we don't otherwise deliver the event
-				if(dojo.event.canTimeout){
-					// FIXME: how much overhead does this all add?
-					if(marr["delayTimer"]){
-						// dojo.debug("clearing:", marr.delayTimer);
-						clearTimeout(marr.delayTimer);
-					}
-					// dojo.debug("setting delay");
-					var tod = parseInt(rate*2); // is rate*2 naive?
-					var mcpy = dojo.lang.shallowCopy(marr);
-					marr.delayTimer = setTimeout(function(){
-						// FIXME: on IE at least, event objects from the
-						// browser can go out of scope. How (or should?) we
-						// deal with it?
-						mcpy[5] = 0;
-						unrollAdvice(mcpy);
-					}, tod);
-					// dojo.debug("setting:", marr.delayTimer);
-				}
-				return;
-			}else{
-				marr.last = cur;
-			}
-		}
-
-		// FIXME: need to enforce rates for a connection here!
-
-		/*
-		// FIXME: how slow is this? Is there a better/faster way to get this
-		// done?
-		// FIXME: is it necessaray to make this copy every time that
-		// unrollAdvice gets called? Would it be better/possible to handle it
-		// in run() where we make args in the first place?
+		// optimization. We only compute once the array version of the arguments
+		// pseudo-arr in order to prevent building it each time advice is unrolled.
+		var aargs = [];
 		for(var x=0; x<args.length; x++){
-			to.args[x] = args[x];
+			aargs[x] = args[x];
 		}
-		*/
 
-		if(aroundFunc){
-			// NOTE: around advice can't delay since we might otherwise depend
-			// on execution order!
-			aroundObj[aroundFunc].call(aroundObj, to);
-		}else{
-			// var tmjp = dojo.event.MethodJoinPoint.getForMethod(obj, methname);
-			if((hasDelay)&&((dojo.render.html)||(dojo.render.svg))){  // FIXME: the render checks are grotty!
-				dj_global["setTimeout"](function(){
+		var unrollAdvice  = function(marr){ 
+			if(!marr){
+				dojo.debug("Null argument to unrollAdvice()");
+				return;
+			}
+		  
+			var callObj = marr[0]||dj_global;
+			var callFunc = marr[1];
+			
+			if(!callObj[callFunc]){
+				dojo.raise("function \"" + callFunc + "\" does not exist on \"" + callObj + "\"");
+			}
+			
+			var aroundObj = marr[2]||dj_global;
+			var aroundFunc = marr[3];
+			var msg = marr[6];
+			var undef;
+
+			var to = {
+				args: [],
+				jp_: this,
+				object: obj,
+				proceed: function(){
+					return callObj[callFunc].apply(callObj, to.args);
+				}
+			};
+			to.args = aargs;
+
+			var delay = parseInt(marr[4]);
+			var hasDelay = ((!isNaN(delay))&&(marr[4]!==null)&&(typeof marr[4] != "undefined"));
+			if(marr[5]){
+				var rate = parseInt(marr[5]);
+				var cur = new Date();
+				var timerSet = false;
+				if((marr["last"])&&((cur-marr.last)<=rate)){
+					if(dojo.event.canTimeout){
+						if(marr["delayTimer"]){
+							clearTimeout(marr.delayTimer);
+						}
+						var tod = parseInt(rate*2); // is rate*2 naive?
+						var mcpy = dojo.lang.shallowCopy(marr);
+						marr.delayTimer = setTimeout(function(){
+							// FIXME: on IE at least, event objects from the
+							// browser can go out of scope. How (or should?) we
+							// deal with it?
+							mcpy[5] = 0;
+							unrollAdvice(mcpy);
+						}, tod);
+					}
+					return;
+				}else{
+					marr.last = cur;
+				}
+			}
+
+			// FIXME: need to enforce rates for a connection here!
+
+			if(aroundFunc){
+				// NOTE: around advice can't delay since we might otherwise depend
+				// on execution order!
+				aroundObj[aroundFunc].call(aroundObj, to);
+			}else{
+				// var tmjp = dojo.event.MethodJoinPoint.getForMethod(obj, methname);
+				if((hasDelay)&&((dojo.render.html)||(dojo.render.svg))){  // FIXME: the render checks are grotty!
+					dj_global["setTimeout"](function(){
+						if(msg){
+							callObj[callFunc].call(callObj, to); 
+						}else{
+							callObj[callFunc].apply(callObj, args); 
+						}
+					}, delay);
+				}else{ // many environments can't support delay!
 					if(msg){
 						callObj[callFunc].call(callObj, to); 
 					}else{
 						callObj[callFunc].apply(callObj, args); 
 					}
-				}, delay);
-			}else{ // many environments can't support delay!
-				if(msg){
-					callObj[callFunc].call(callObj, to); 
-				}else{
-					callObj[callFunc].apply(callObj, args); 
 				}
 			}
 		}
-	}
 
-	if(this.before.length>0){
-		dojo.lang.forEach(this.before, unrollAdvice, true);
-	}
-
-	var result;
-	if(this.around.length>0){
-		var mi = new dojo.event.MethodInvocation(this, obj, args);
-		result = mi.proceed();
-	}else if(this.methodfunc){
-		// dojo.hostenv.println("calling: "+this.methodname)
-		result = this.object[this.methodname].apply(this.object, args);
-	}
-
-	if(this.after.length>0){
-		dojo.lang.forEach(this.after, unrollAdvice, true);
-	}
-
-	return (this.methodfunc) ? result : null;
-}
-
-dojo.event.MethodJoinPoint.prototype.getArr = function(kind){
-	var arr = this.after;
-	// FIXME: we should be able to do this through props or Array.in()
-	if((typeof kind == "string")&&(kind.indexOf("before")!=-1)){
-		arr = this.before;
-	}else if(kind=="around"){
-		arr = this.around;
-	}
-	return arr;
-}
-
-dojo.event.MethodJoinPoint.prototype.kwAddAdvice = function(args){
-	this.addAdvice(	args["adviceObj"], args["adviceFunc"], 
-					args["aroundObj"], args["aroundFunc"], 
-					args["adviceType"], args["precedence"], 
-					args["once"], args["delay"], args["rate"], 
-					args["adviceMsg"]);
-}
-
-dojo.event.MethodJoinPoint.prototype.addAdvice = function(	thisAdviceObj, thisAdvice, 
-															thisAroundObj, thisAround, 
-															advice_kind, precedence, 
-															once, delay, rate, asMessage){
-	var arr = this.getArr(advice_kind);
-	if(!arr){
-		dojo.raise("bad this: " + this);
-	}
-
-	var ao = [thisAdviceObj, thisAdvice, thisAroundObj, thisAround, delay, rate, asMessage];
-	
-	if(once){
-		if(this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr) >= 0){
-			return;
+		if(this.before.length>0){
+			dojo.lang.forEach(this.before, unrollAdvice, true);
 		}
-	}
 
-	if(precedence == "first"){
-		arr.unshift(ao);
-	}else{
-		arr.push(ao);
-	}
-}
-
-dojo.event.MethodJoinPoint.prototype.hasAdvice = function(thisAdviceObj, thisAdvice, advice_kind, arr){
-	if(!arr){ arr = this.getArr(advice_kind); }
-	var ind = -1;
-	for(var x=0; x<arr.length; x++){
-		if((arr[x][0] == thisAdviceObj)&&(arr[x][1] == thisAdvice)){
-			ind = x;
+		var result;
+		if(this.around.length>0){
+			var mi = new dojo.event.MethodInvocation(this, obj, args);
+			result = mi.proceed();
+		}else if(this.methodfunc){
+			result = this.object[this.methodname].apply(this.object, args);
 		}
-	}
-	return ind;
-}
 
-dojo.event.MethodJoinPoint.prototype.removeAdvice = function(thisAdviceObj, thisAdvice, advice_kind, once){
-	var arr = this.getArr(advice_kind);
-	var ind = this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr);
-	if(ind == -1){
-		return false;
+		if(this.after.length>0){
+			dojo.lang.forEach(this.after, unrollAdvice, true);
+		}
+
+		return (this.methodfunc) ? result : null;
+	},
+
+	getArr: function(kind){
+		var arr = this.after;
+		// FIXME: we should be able to do this through props or Array.in()
+		if((typeof kind == "string")&&(kind.indexOf("before")!=-1)){
+			arr = this.before;
+		}else if(kind=="around"){
+			arr = this.around;
+		}
+		return arr;
+	},
+
+	kwAddAdvice: function(args){
+		this.addAdvice(	args["adviceObj"], args["adviceFunc"], 
+						args["aroundObj"], args["aroundFunc"], 
+						args["adviceType"], args["precedence"], 
+						args["once"], args["delay"], args["rate"], 
+						args["adviceMsg"]);
+	},
+
+	addAdvice: function(	thisAdviceObj, thisAdvice, 
+							thisAroundObj, thisAround, 
+							advice_kind, precedence, 
+							once, delay, rate, asMessage){
+		var arr = this.getArr(advice_kind);
+		if(!arr){
+			dojo.raise("bad this: " + this);
+		}
+
+		var ao = [thisAdviceObj, thisAdvice, thisAroundObj, thisAround, delay, rate, asMessage];
+		
+		if(once){
+			if(this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr) >= 0){
+				return;
+			}
+		}
+
+		if(precedence == "first"){
+			arr.unshift(ao);
+		}else{
+			arr.push(ao);
+		}
+	},
+
+	hasAdvice: function(thisAdviceObj, thisAdvice, advice_kind, arr){
+		if(!arr){ arr = this.getArr(advice_kind); }
+		var ind = -1;
+		for(var x=0; x<arr.length; x++){
+			if((arr[x][0] == thisAdviceObj)&&(arr[x][1] == thisAdvice)){
+				ind = x;
+			}
+		}
+		return ind;
+	},
+
+	removeAdvice: function(thisAdviceObj, thisAdvice, advice_kind, once){
+		var arr = this.getArr(advice_kind);
+		var ind = this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr);
+		if(ind == -1){
+			return false;
+		}
+		while(ind != -1){
+			arr.splice(ind, 1);
+			if(once){ break; }
+			ind = this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr);
+		}
+		return true;
 	}
-	while(ind != -1){
-		arr.splice(ind, 1);
-		if(once){ break; }
-		ind = this.hasAdvice(thisAdviceObj, thisAdvice, advice_kind, arr);
-	}
-	return true;
-}
+});
 
 dojo.require("dojo.event");
 dojo.provide("dojo.event.topic");
@@ -5622,38 +5521,7 @@ dojo.provide("dojo.event.browser");
 dojo.require("dojo.event");
 
 dojo_ie_clobber = new function(){
-	this.clobberArr = ['data', 
-		'onload', 'onmousedown', 'onmouseup', 
-		'onmouseover', 'onmouseout', 'onmousemove', 
-		'onclick', 'ondblclick', 'onfocus', 
-		'onblur', 'onkeypress', 'onkeydown', 
-		'onkeyup', 'onsubmit', 'onreset',
-		'onselect', 'onchange', 'onselectstart', 
-		'ondragstart', 'oncontextmenu'];
-
-	this.exclusions = [];
-	
-	this.clobberList = {};
 	this.clobberNodes = [];
-
-	this.addClobberAttr = function(type){
-		if(dojo.render.html.ie){
-			if(this.clobberList[type]!="set"){
-				this.clobberArr.push(type);
-				this.clobberList[type] = "set"; 
-			}
-		}
-	}
-
-	this.addExclusionID = function(id){
-		this.exclusions.push(id);
-	}
-
-	if(dojo.render.html.ie){
-		for(var x=0; x<this.clobberArr.length; x++){
-			this.clobberList[this.clobberArr[x]] = "set";
-		}
-	}
 
 	function nukeProp(node, prop){
 		// try{ node.removeAttribute(prop); 	}catch(e){ /* squelch */ }
@@ -5664,29 +5532,16 @@ dojo_ie_clobber = new function(){
 	}
 
 	this.clobber = function(nodeRef){
-		for(var x=0; x< this.exclusions.length; x++){
-			try{
-				var tn = document.getElementById(this.exclusions[x]);
-				tn.parentNode.removeChild(tn);
-			}catch(e){
-				// this is fired on unload, so squelch
-			}
-		}
-
 		var na;
 		var tna;
 		if(nodeRef){
 			tna = nodeRef.getElementsByTagName("*");
 			na = [nodeRef];
 			for(var x=0; x<tna.length; x++){
-				if(!djConfig.ieClobberMinimal){
+				// if we're gonna be clobbering the thing, at least make sure
+				// we aren't trying to do it twice
+				if(tna[x]["__doClobber__"]){
 					na.push(tna[x]);
-				}else{
-					// if we're gonna be clobbering the thing, at least make sure
-					// we aren't trying to do it twice
-					if(tna[x]["__doClobber__"]){
-						na.push(tna[x]);
-					}
 				}
 			}
 		}else{
@@ -5697,26 +5552,19 @@ dojo_ie_clobber = new function(){
 		var basis = {};
 		for(var i = na.length-1; i>=0; i=i-1){
 			var el = na[i];
-			if(djConfig.ieClobberMinimal){
-				if(el["__clobberAttrs__"]){
-					for(var j=0; j<el.__clobberAttrs__.length; j++){
-						nukeProp(el, el.__clobberAttrs__[j]);
-					}
-					nukeProp(el, "__clobberAttrs__");
-					nukeProp(el, "__doClobber__");
+			if(el["__clobberAttrs__"]){
+				for(var j=0; j<el.__clobberAttrs__.length; j++){
+					nukeProp(el, el.__clobberAttrs__[j]);
 				}
-			}else{
-				for(var p = this.clobberArr.length-1; p>=0; p=p-1){
-					var ta = this.clobberArr[p];
-					nukeProp(el, ta);
-				}
+				nukeProp(el, "__clobberAttrs__");
+				nukeProp(el, "__doClobber__");
 			}
 		}
 		na = null;
 	}
 }
 
-if((dojo.render.html.ie)&&((!dojo.hostenv.ie_prevent_clobber_)||(djConfig.ieClobberMinimal))){
+if(dojo.render.html.ie){
 	window.onunload = function(){
 		dojo_ie_clobber.clobber();
 		try{
@@ -5741,46 +5589,23 @@ dojo.event.browser = new function(){
 		}
 	}
 
-	this.addClobberAttr = function(type){
-		dojo_ie_clobber.addClobberAttr(type);
-	}
-
-	this.addClobberAttrs = function(){
-		for(var x=0; x<arguments.length; x++){
-			this.addClobberAttr(arguments[x]);
-		}
-	}
-
 	this.addClobberNode = function(node){
-		if(djConfig.ieClobberMinimal){
-			if(!node["__doClobber__"]){
-				node.__doClobber__ = true;
-				dojo_ie_clobber.clobberNodes.push(node);
-				// this might not be the most efficient thing to do, but it's
-				// much less error prone than other approaches which were
-				// previously tried and failed
-				node.__clobberAttrs__ = [];
-			}
+		if(!node["__doClobber__"]){
+			node.__doClobber__ = true;
+			dojo_ie_clobber.clobberNodes.push(node);
+			// this might not be the most efficient thing to do, but it's
+			// much less error prone than other approaches which were
+			// previously tried and failed
+			node.__clobberAttrs__ = [];
 		}
 	}
 
 	this.addClobberNodeAttrs = function(node, props){
 		this.addClobberNode(node);
-		if(djConfig.ieClobberMinimal){
-			for(var x=0; x<props.length; x++){
-				node.__clobberAttrs__.push(props[x]);
-			}
-		}else{
-			this.addClobberAttrs.apply(this, props);
+		for(var x=0; x<props.length; x++){
+			node.__clobberAttrs__.push(props[x]);
 		}
 	}
-
-	/*
-	this.eventAroundAdvice = function(methodInvocation){
-		var evt = this.fixEvent(methodInvocation.args[0]);
-		return methodInvocation.proceed();
-	}
-	*/
 
 	this.removeListener = function(node, evtName, fp, capture){
 		if(!capture){ var capture = false; }
@@ -5834,7 +5659,8 @@ dojo.event.browser = new function(){
 	}
 
 	this.isEvent = function(obj){
-		// FIXME: event detection hack ... could test for additional attributes if necessary
+		// FIXME: event detection hack ... could test for additional attributes
+		// if necessary
 		return (typeof Event != "undefined")&&(obj.eventPhase);
 		// Event does not support instanceof in Opera, otherwise:
 		//return (typeof Event != "undefined")&&(obj instanceof Event);
@@ -9093,7 +8919,7 @@ dojo.lang.extend(dojo.storage.StorageProvider, {
 
 	remove: function(key, value, namespace){
 		dojo.unimplemented("dojo.storage.StorageProvider.set");
-	},
+	}
 
 });
 
@@ -9199,88 +9025,11 @@ dojo.hostenv.moduleLoaded("dojo.storage.*");
 
 dojo.provide("dojo.crypto");
 
-dojo.crypto.toBase64 = function (data){
-	if (typeof(data) == "string") data = this.toByteArray(data) ;
-	var base64Enc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/', '=' ];
-	var PADDING_CHAR = 64;		// index of padding char
-	var output = [] ;			// total output
-	var oc = 0;					// index accumulator for output
-	var len	= data.length;
-	for (var i = 0; i < len;) {
-		var now  = data[i++] << 16;	
-		now |= data[i++] << 8;	
-		now |= data[i++];	
-		output[oc++] = base64Enc[now >>> 18 & 63]; 	// 23..18
-		output[oc++] = base64Enc[now >>> 12 & 63]; 	// 17..12
-		output[oc++] = base64Enc[now >>> 6  & 63]; 	// 11..6
-		output[oc++] = base64Enc[now        & 63]; 	// 5..0
-	}
-	var padAmount = i - len;
-	if (padAmount > 0)  oc -= padAmount; 
-	padAmount = Math.abs(padAmount);	// how much to pad
-	while (padAmount-- > 0) output[oc++] = base64Enc[PADDING_CHAR];
-	return output.join("");
-}
+//	enumerations for use in crypto code. Note that 0 == default, for the most part.
+dojo.crypto.cipherModes={ ECB:0, CBC:1, PCBC:2, CFB:3, OFB:4, CTR:5 };
+dojo.crypto.outputTypes={ Base64:0,Hex:1,String:2,Raw:3 };
 
-dojo.crypto.fromBase64 = function (data){
-	if (typeof(data) == "string") data = data.split("") ;
-	var base64Dec = { 'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9, 'K':10, 'L':11, 'M':12, 'N':13, 'O':14, 'P':15, 'Q':16, 'R':17, 'S':18, 'T':19, 'U':20, 'V':21, 'W':22, 'X':23, 'Y':24, 'Z':25, 'a':26, 'b':27, 'c':28, 'd':29, 'e':30, 'f':31, 'g':32, 'h':33, 'i':34, 'j':35, 'k':36, 'l':37, 'm':38, 'n':39, 'o':40, 'p':41, 'q':42, 'r':43, 's':44, 't':45, 'u':46, 'v':47, 'w':48, 'x':49, 'y':50, 'z':51, '0':52, '1':53, '2':54, '3':55, '4':56, '5':57, '6':58, '7':59, '8':60, '9':61, '+':62, '/':63, '=':64 };
-	var PADDING_CHAR = 64;		// index of padding char
-	var output = [] ;			// total output
-	var oc = 0;					// index accumulator for input
-	var len = data.length;		// 0..len-1
-	while (data[--len] == base64Dec[PADDING_CHAR]) { /* nothing */ };
-	for (var i = 0; i < len; /* nothing */ ) {	
-		var now = base64Dec[data[i++]] << 18;	// 23..18
-		now    |= base64Dec[data[i++]] << 12;	// 17..12
-		now    |= base64Dec[data[i++]] << 6;	// 11..5
-		now    |= base64Dec[data[i++]];		// 5..0
-		output[oc++] = now >>> 16 & 255; 	// 23..16
-		output[oc++] = now >>> 8  & 255; 	// 15..8
-		output[oc++] = now        & 255; 	// 7..0
-	}
-	return output ;
-}
-
-dojo.crypto.toByteArray = function(data){
-	var bin=[] ;
-	for (var i=0; i<data.length; i++){
-		bin.push(data.charCodeAt(i));
-	}
-	return bin;
-}
-
-dojo.crypto.fromByteArray = function(data){
-	var s=[];
-	for (var i=0; i<data.length; i++){
-		s.push(String.fromCharCode(data[i]));
-	}
-	return s.join("");
-}
-
-dojo.crypto.toDWordArray = function(data){
-	var chrsz=8 ;
-	var bin=[] ;
-	var mask=(1<<chrsz)-1;
-	for (var i=0; i<data.length*chrsz; i+=chrsz){
-		bin[i>>5]|=(data.charCodeAt(i/chrsz)&mask)<<(i%32);
-	}
-	return bin;
-}
-
-dojo.crypto.fromDWordArray = function(data){
-	var chrsz=8;
-	var s=[];
-	var mask = (1 << chrsz) - 1;
-	for (var i=0; i<data.length*32; i+=chrsz){
-		s.push(String.fromCharCode((data[i>>5]>>>(i%32))&mask));
-	}
-	while(s[s.length-1] == "\x00"){
-		s.pop();
-	}
-	return s.join("");
-}
-
+dojo.require("dojo.crypto");
 dojo.provide("dojo.crypto.MD5");
 
 /*	Return to a port of Paul Johnstone's MD5 implementation
@@ -9438,14 +9187,13 @@ dojo.crypto.MD5 = new function(){
 	}
 
 	//	Public functions
-	this.outputTypes={ Base64:0,Hex:1,String:2 };
 	this.compute=function(data,outputType){
-		var out=outputType||this.outputTypes.Base64;
+		var out=outputType||dojo.crypto.outputTypes.Base64;
 		switch(out){
-			case this.outputTypes.Hex:{
+			case dojo.crypto.outputTypes.Hex:{
 				return toHex(core(toWord(data),data.length*chrsz));
 			}
-			case this.outputTypes.String:{
+			case dojo.crypto.outputTypes.String:{
 				return toString(core(toWord(data),data.length*chrsz));
 			}
 			default:{
@@ -9454,12 +9202,12 @@ dojo.crypto.MD5 = new function(){
 		}
 	};
 	this.getHMAC=function(data,key,outputType){
-		var out=outputType||this.outputTypes.Base64;
+		var out=outputType||dojo.crypto.outputTypes.Base64;
 		switch(out){
-			case this.outputTypes.Hex:{
+			case dojo.crypto.outputTypes.Hex:{
 				return toHex(hmac(data,key));
 			}
-			case this.outputTypes.String:{
+			case dojo.crypto.outputTypes.String:{
 				return toString(hmac(data,key));
 			}
 			default:{
@@ -9490,20 +9238,22 @@ dojo.collections.DictionaryEntry = function(k,v){
 dojo.collections.Iterator = function(a){
 	var obj = a;
 	var position = 0;
-	this.current = null;
-	this.atEnd = false;
+	this.atEnd = (position>=obj.length-1);
+	this.current = obj[position];
 	this.moveNext = function(){
-		if(this.atEnd){
-			dojo.raise("dojo.collections.Iterator.moveNext: iterator is at end position.");
-		}
-		this.current = obj[position];
-		if(++position == obj.length){
+		if(++position>=obj.length){
 			this.atEnd = true;
 		}
+		if(this.atEnd){
+			return false;
+		}
+		this.current=obj[position];
+		return true;
 	}
 	this.reset = function(){
 		position = 0;
 		this.atEnd = false;
+		this.current = obj[position];
 	}
 }
 
@@ -9511,27 +9261,32 @@ dojo.collections.DictionaryIterator = function(obj){
 	var arr = [] ;	//	Create an indexing array
 	for (var p in obj) arr.push(obj[p]) ;	//	fill it up
 	var position = 0 ;
-	this.current = null ;
-	this.entry = null ;
-	this.key = null ;
-	this.value = null ;
-	this.atEnd = false ;
+	this.atEnd = (position>=arr.length-1);
+	this.current = arr[position]||null ;
+	this.entry = this.current||null ;
+	this.key = (this.entry)?this.entry.key:null ;
+	this.value = (this.entry)?this.entry.value:null ;
 	this.moveNext = function() { 
+		if (++position>=arr.length) {
+			this.atEnd = true ;
+		}
 		if(this.atEnd){
-			dojo.raise("dojo.collections.Iterator.moveNext: iterator is at end position.");
+			return false;
 		}
 		this.entry = this.current = arr[position] ;
 		if (this.entry) {
 			this.key = this.entry.key ;
 			this.value = this.entry.value ;
 		}
-		if (++position == arr.length) {
-			this.atEnd = true ;
-		}
+		return true;
 	} ;
 	this.reset = function() { 
 		position = 0 ; 
 		this.atEnd = false ;
+		this.current = arr[position]||null ;
+		this.entry = this.current||null ;
+		this.key = (this.entry)?this.entry.key:null ;
+		this.value = (this.entry)?this.entry.value:null ;
 	} ;
 };
 
@@ -10084,34 +9839,56 @@ dojo.lang.extend(dojo.dnd.HtmlDragManager, {
 		// it. If so, do all the actions that need doing.
 		var dtp = this.currentDropTargetPoints;
 		if((!this.nestedTargets)&&(dtp)&&(this.isInsideBox(e, dtp))){
-			if (this.dropAcceptable){ this.currentDropTarget.onDragMove(e); }
+			if(this.dropAcceptable){
+				this.currentDropTarget.onDragMove(e, this.dragObjects);
+			}
 		}else{
 			// FIXME: need to fix the event object!
-			if(this.currentDropTarget){
-				this.currentDropTarget.onDragOut(e);
-			}
+			// see if we can find a better drop target
+			var bestBox = this.findBestTarget(e);
 
-			this.currentDropTarget = null;
-			this.currentDropTargetPoints = null;
-			this.dropAcceptable = false;
-
-			// check the mouse position to see if we're in a drop target
-			dojo.lang.forEach(this.dropTargetDimensions, function(tmpDA){
-				// FIXME: is there a way to shortcut this?
-				if( ((!_this.currentDropTarget)||(_this.nestedTargets))&&
-					(_this.isInsideBox(e, tmpDA))){
-					_this.currentDropTarget = tmpDA[2];
-					_this.currentDropTargetPoints = tmpDA;
-					if(!_this.nestedTargets){
-						return "break";
-					}
+			if(bestBox.target == null){
+				if(this.currentDropTarget){
+					this.currentDropTarget.onDragOut(e);
+					this.currentDropTarget = null;
+					this.currentDropTargetPoints = null;
 				}
-			});
-			e.dragObjects = this.dragObjects;
-			if(this.currentDropTarget){
-				this.dropAcceptable = this.currentDropTarget.onDragOver(e);
+				this.dropAcceptable = false;
+				return;
 			}
+
+			if(this.currentDropTarget != bestBox.target){
+				if(this.currentDropTarget){
+					this.currentDropTarget.onDragOut(e);
+				}
+				this.currentDropTarget = bestBox.target;
+				this.currentDropTargetPoints = bestBox.points;
+				e.dragObjects = this.dragObjects;
+				this.dropAcceptable = this.currentDropTarget.onDragOver(e);
+
+			}else{
+				if(this.dropAcceptable){
+					this.currentDropTarget.onDragMove(e, this.dragObjects);
+				}
+			}
+
 		}
+	},
+    
+	findBestTarget: function(e) {
+		var _this = this;
+		var bestBox = new Object();
+		bestBox.target = null;
+		bestBox.points = null;
+		dojo.lang.forEach(this.dropTargetDimensions, function(tmpDA) {
+			if(_this.isInsideBox(e, tmpDA)){
+				bestBox.target = tmpDA[2];
+				bestBox.points = tmpDA;
+				if(!_this.nestedTargets){ return "break"; }
+			}
+		});
+
+		return bestBox;
 	},
 
 	isInsideBox: function(e, coords){
@@ -10146,7 +9923,7 @@ dojo.dnd.dragManager = new dojo.dnd.HtmlDragManager();
 	dojo.event.connect(window, "scrollBy",	dm, "scrollBy");
 })();
 
-/* Copyright (c) 2004-2005 The Dojo Foundation, Licensed under the Academic Free License version 2.1 or above */dojo.provide("dojo.dnd.HtmlDragAndDrop");
+dojo.provide("dojo.dnd.HtmlDragAndDrop");
 dojo.provide("dojo.dnd.HtmlDragSource");
 dojo.provide("dojo.dnd.HtmlDropTarget");
 dojo.provide("dojo.dnd.HtmlDragObject");
@@ -10158,6 +9935,7 @@ dojo.require("dojo.html");
 dojo.require("dojo.lang");
 
 dojo.dnd.HtmlDragSource = function(node, type){
+	node = dojo.byId(node);
 	if(node){
 		this.domNode = node;
 		this.dragObject = node;
@@ -10175,6 +9953,7 @@ dojo.lang.extend(dojo.dnd.HtmlDragSource, {
 		return new dojo.dnd.HtmlDragObject(this.dragObject, this.type);
 	},
 	setDragHandle: function(node){
+		node = dojo.byId(node);
 		dojo.dnd.dragManager.unregisterDragSource(this);
 		this.domNode = node;
 		dojo.dnd.dragManager.registerDragSource(this);
@@ -10185,6 +9964,7 @@ dojo.lang.extend(dojo.dnd.HtmlDragSource, {
 });
 
 dojo.dnd.HtmlDragObject = function(node, type){
+	node = dojo.byId(node);
 	this.type = type;
 	this.domNode = node;
 }
@@ -10196,7 +9976,7 @@ dojo.lang.extend(dojo.dnd.HtmlDragObject, {
 	 * content of the node. This node is then set to opaque and drags around as
 	 * the intermediate representation.
 	 */
-	onDragStart: function (e){
+	onDragStart: function(e){
 		dojo.html.clearSelection();
 		
 		this.scrollOffset = {
@@ -10234,7 +10014,7 @@ dojo.lang.extend(dojo.dnd.HtmlDragObject, {
 	},
 	
 	/** Moves the node to follow the mouse */
-	onDragMove: function (e) {
+	onDragMove: function(e){
 		this.dragClone.style.top = this.dragOffset.top + e.clientY + "px";
 		this.dragClone.style.left = this.dragOffset.left + e.clientX + "px";
 	},
@@ -10281,6 +10061,7 @@ dojo.lang.extend(dojo.dnd.HtmlDragObject, {
 
 dojo.dnd.HtmlDropTarget = function(node, types){
 	if (arguments.length == 0) { return; }
+	node = dojo.byId(node);
 	this.domNode = node;
 	dojo.dnd.DropTarget.call(this);
 	this.acceptedTypes = types || [];
@@ -10289,7 +10070,7 @@ dojo.inherits(dojo.dnd.HtmlDropTarget, dojo.dnd.DropTarget);
 
 dojo.lang.extend(dojo.dnd.HtmlDropTarget, {  
 	onDragOver: function(e){
-		if (!dojo.lang.inArray(this.acceptedTypes, "*")) { // wildcard
+		if(!dojo.lang.inArray(this.acceptedTypes, "*")){ // wildcard
 			for (var i = 0; i < e.dragObjects.length; i++) {
 				if (!dojo.lang.inArray(this.acceptedTypes,
 					e.dragObjects[i].type)) { return false; }
@@ -10314,7 +10095,7 @@ dojo.lang.extend(dojo.dnd.HtmlDropTarget, {
 		return true;
 	},
 	
-	_getNodeUnderMouse: function (e) {
+	_getNodeUnderMouse: function(e){
 		var mousex = e.pageX || e.clientX + dojo.html.body().scrollLeft;
 		var mousey = e.pageY || e.clientY + dojo.html.body().scrollTop;
 
@@ -10329,10 +10110,10 @@ dojo.lang.extend(dojo.dnd.HtmlDropTarget, {
 		return -1;
 	},
 	
-	onDragMove: function(e) {
+	onDragMove: function(e){
 		var i = this._getNodeUnderMouse(e);
 		
-		if (!this.dropIndicator) {
+		if(!this.dropIndicator){
 			this.dropIndicator = document.createElement("div");
 			with (this.dropIndicator.style) {
 				position = "absolute";
@@ -10345,7 +10126,7 @@ dojo.lang.extend(dojo.dnd.HtmlDropTarget, {
 			}
 		}
 
-		with (this.dropIndicator.style) {
+		with(this.dropIndicator.style){
 			if (i < 0) {
 				if (this.childBoxes.length) {
 					top = ((dojo.html.gravity(this.childBoxes[0].node, e) & dojo.html.gravity.NORTH)
@@ -10897,7 +10678,7 @@ dojo.lang.extend(dojo.widget.Widget, {
 						// that these event handlers should execute in the
 						// context of the widget, so that the "this" pointer
 						// takes correctly.
-						var tn = dojo.event.nameAnonFunc(new Function(args[x]), this);
+						var tn = dojo.lang.nameAnonFunc(new Function(args[x]), this);
 						dojo.event.connect(this, x, this, tn);
 					}else if(dojo.lang.isArray(this[x])){ // typeof [] == "object"
 						this[x] = args[x].split(";");
@@ -11828,52 +11609,57 @@ dojo.lang.extend(dojo.widget.DomWidget, {
 				this.templateNode = ts["node"];
 			}
 		}
+		var matches = false;
 		var node = null;
+		var tstr = new String(this.templateString); 
 		// attempt to clone a template node, if there is one
 		if((!this.templateNode)&&(this.templateString)){
-			// some special matching fun (this is a first pass, but could end up being useful for i8n)...
-			var matches = this.templateString.match(/\$\{([^\}]+)\}/g);
+			matches = this.templateString.match(/\$\{([^\}]+)\}/g);
 			if(matches) {
+				// if we do property replacement, don't create a templateNode
+				// to clone from.
 				var hash = this.strings || {};
+				// FIXME: should this hash of default replacements be cached in
+				// templateString?
 				for(var key in dojo.widget.defaultStrings) {
 					if(dojo.lang.isUndefined(hash[key])) {
 						hash[key] = dojo.widget.defaultStrings[key];
 					}
 				}
+				// FIXME: this is a lot of string munging. Can we make it faster?
 				for(var i = 0; i < matches.length; i++) {
 					var key = matches[i];
 					key = key.substring(2, key.length-1);
-					if(hash[key]) {
-						if(dojo.lang.isFunction(hash[key])) {
-							var value = hash[key].call(this, key, this.templateString)
-						} else {
-							var value = hash[key];
-						}
-						this.templateString = this.templateString.replace(matches[i], value);
+					var kval = (key.substring(0, 5) == "this.") ? this[key.substring(5)] : hash[key];
+					var value;
+					if((kval)||(dojo.lang.isString(kval))){
+						value = (dojo.lang.isFunction(kval)) ? kval.call(this, key, this.templateString) : kval;
+						tstr = tstr.replace(matches[i], value);
 					}
 				}
+			}else{
+				// otherwise, we are required to instantiate a copy of the template
+				// string if one is provided.
+				
+				// FIXME: need to be able to distinguish here what should be done
+				// or provide a generic interface across all DOM implementations
+				// FIMXE: this breaks if the template has whitespace as its first 
+				// characters
+				// node = this.createNodesFromText(this.templateString, true);
+				// this.templateNode = node[0].cloneNode(true); // we're optimistic here
+				this.templateNode = this.createNodesFromText(this.templateString, true)[0];
+				ts.node = this.templateNode;
 			}
-
-			// otherwise, we are required to instantiate a copy of the template
-			// string if one is provided.
-			
-			// FIXME: need to be able to distinguish here what should be done
-			// or provide a generic interface across all DOM implementations
-			// FIMXE: this breaks if the template has whitespace as its first 
-			// characters
-			// node = this.createNodesFromText(this.templateString, true);
-			// this.templateNode = node[0].cloneNode(true); // we're optimistic here
-			this.templateNode = this.createNodesFromText(this.templateString, true)[0];
-			ts.node = this.templateNode;
 		}
-		if(!this.templateNode){ 
+		if((!this.templateNode)&&(!matches)){ 
 			dojo.debug("weren't able to create template!");
 			return false;
+		}else if(!matches){
+			node = this.templateNode.cloneNode(true);
+			if(!node){ return false; }
+		}else{
+			node = this.createNodesFromText(tstr, true)[0];
 		}
-
-		// dojo.debug("toc0: ", new Date()-start, "ms");
-		var node = this.templateNode.cloneNode(true);
-		if(!node){ return false; }
 
 		// recurse through the node, looking for, and attaching to, our
 		// attachment points which should be defined on the template node.

@@ -8,6 +8,7 @@
 		http://dojotoolkit.org/community/licensing.shtml
 */
 
+dojo.require("dojo.crypto");
 dojo.provide("dojo.crypto.MD5");
 
 /*	Return to a port of Paul Johnstone's MD5 implementation
@@ -165,14 +166,13 @@ dojo.crypto.MD5 = new function(){
 	}
 
 	//	Public functions
-	this.outputTypes={ Base64:0,Hex:1,String:2 };
 	this.compute=function(data,outputType){
-		var out=outputType||this.outputTypes.Base64;
+		var out=outputType||dojo.crypto.outputTypes.Base64;
 		switch(out){
-			case this.outputTypes.Hex:{
+			case dojo.crypto.outputTypes.Hex:{
 				return toHex(core(toWord(data),data.length*chrsz));
 			}
-			case this.outputTypes.String:{
+			case dojo.crypto.outputTypes.String:{
 				return toString(core(toWord(data),data.length*chrsz));
 			}
 			default:{
@@ -181,12 +181,12 @@ dojo.crypto.MD5 = new function(){
 		}
 	};
 	this.getHMAC=function(data,key,outputType){
-		var out=outputType||this.outputTypes.Base64;
+		var out=outputType||dojo.crypto.outputTypes.Base64;
 		switch(out){
-			case this.outputTypes.Hex:{
+			case dojo.crypto.outputTypes.Hex:{
 				return toHex(hmac(data,key));
 			}
-			case this.outputTypes.String:{
+			case dojo.crypto.outputTypes.String:{
 				return toString(hmac(data,key));
 			}
 			default:{

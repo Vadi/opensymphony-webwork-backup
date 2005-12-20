@@ -42,12 +42,10 @@ dojo.uri = new function() {
 			var uriobj = new dojo.uri.Uri(uri.toString());
 
 			if (relobj.path == "" && relobj.scheme == null &&
-				relobj.authority == null && relobj.query == null)
-			{
+				relobj.authority == null && relobj.query == null) {
 				if (relobj.fragment != null) { uriobj.fragment = relobj.fragment; }
 				relobj = uriobj;
-			}
-			else if (relobj.scheme == null) {
+			} else if (relobj.scheme == null) {
 				relobj.scheme = uriobj.scheme;
 			
 				if (relobj.authority == null) {
@@ -63,8 +61,8 @@ dojo.uri = new function() {
 								if (j == segs.length - 1) { segs[j] = ""; }
 								else { segs.splice(j, 1); j--; }
 							} else if (j > 0 && !(j == 1 && segs[0] == "") &&
-								segs[j] == ".." && segs[j-1] != "..")
-							{
+								segs[j] == ".." && segs[j-1] != "..") {
+
 								if (j == segs.length - 1) { segs.splice(j, 1); segs[j - 1] = ""; }
 								else { segs.splice(j - 1, 2); j -= 2; }
 							}
@@ -105,6 +103,6 @@ dojo.uri = new function() {
 			this.port = r[7] || null;
 		}
 	
-		this.toString = function () { return this.uri; }
+		this.toString = function(){ return this.uri; }
 	}
 };
