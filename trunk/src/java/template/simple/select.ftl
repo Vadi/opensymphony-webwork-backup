@@ -31,16 +31,17 @@
 </#if>
 <@ww.iterator value="parameters.list">
         <#if parameters.listKey?exists>
-            <#assign itemKey = stack.findString(parameters.listKey)/>
+            <#assign itemKey = stack.findValue(parameters.listKey)/>
         <#else>
-            <#assign itemKey = stack.findString('top')/>
+            <#assign itemKey = stack.findValue('top')/>
         </#if>
+        <#assign itemKeyStr = itemKey.toString() />
         <#if parameters.listValue?exists>
             <#assign itemValue = stack.findString(parameters.listValue)/>
         <#else>
             <#assign itemValue = stack.findString('top')/>
         </#if>
-    <option value="${itemKey?html}"<#rt/>
+    <option value="${itemKeyStr?html}"><#rt/>
         <#if tag.contains(parameters.nameValue, itemKey) == true>
  selected="selected"<#rt/>
         </#if>
