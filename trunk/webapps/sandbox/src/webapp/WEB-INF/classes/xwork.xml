@@ -11,7 +11,7 @@
         </interceptors>
 
         <global-results>
-            <result name="success" type="freemarker">error.ftl</result>
+            <result name="error" type="freemarker">error.ftl</result>
         </global-results>
 
         <global-exception-mappings>
