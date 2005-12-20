@@ -41,7 +41,7 @@
         <#else>
             <#assign itemValue = stack.findString('top')/>
         </#if>
-    <option value="${itemKeyStr?html}"><#rt/>
+    <option value="${itemKeyStr?html}"<#rt/>
         <#if tag.contains(parameters.nameValue, itemKey) == true>
  selected="selected"<#rt/>
         </#if>
