@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.showcase;
 
 import com.opensymphony.xwork.ActionSupport;
+import com.opensymphony.xwork.Action;
 
 import java.util.Random;
 
