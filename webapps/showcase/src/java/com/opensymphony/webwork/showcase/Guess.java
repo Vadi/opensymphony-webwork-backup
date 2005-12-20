@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.sandbox;
+package com.opensymphony.webwork.showcase;
 
 import com.opensymphony.xwork.ActionSupport;
 
@@ -13,7 +13,7 @@ public class Guess extends ActionSupport {
         int tries = 5;
 
         while (answer != guess && tries > 0) {
-            pause(SUCCESS);
+            pause(Action.SUCCESS);
 
             if (guess > answer) {
                 addFieldError("guess", "Too high!");
@@ -30,7 +30,7 @@ public class Guess extends ActionSupport {
             addActionMessage("You ran out of tries, the answer was " + answer);
         }
 
-        return SUCCESS;
+        return Action.SUCCESS;
     }
 
     public void setGuess(int guess) {

@@ -161,11 +161,6 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/jcommon.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/jfree/jcommon.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/jfreechart.jar" />
       <url>jar://$MODULE_DIR$/../../lib/jfree/jfreechart.jar!/</url>
     </containerElement>
