@@ -1,9 +1,0 @@
-hello:
-<hr/>
-
-#wwform ("action=test")
-    #wwtextfield ("label=Some text" "name=foo")
-    #wwselect ("label=test" "name=foo" "list=%{{1, 2, 3}}")
-    #wwsubmit ("value=Submit")
-#end
-
