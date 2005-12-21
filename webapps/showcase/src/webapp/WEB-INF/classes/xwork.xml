@@ -27,20 +27,20 @@
         <default-interceptor-ref name="crudStack"/>
 
         <action name="list" class="com.opensymphony.webwork.showcase.action.SkillAction" method="list">
-            <result>listSkills.jsp</result>
+            <result>/empmanager/listSkills.jsp</result>
             <interceptor-ref name="basicStack"/>
         </action>
         <action name="edit" class="com.opensymphony.webwork.showcase.action.SkillAction" method="execute">
-            <result>editSkill.jsp</result>
+            <result>/empmanager/editSkill.jsp</result>
             <interceptor-ref name="params" />
             <interceptor-ref name="basicStack"/>
         </action>
         <action name="save" class="com.opensymphony.webwork.showcase.action.SkillAction" method="save">
-            <result name="input">editSkill.jsp</result>
+            <result name="input">/empmanager/editSkill.jsp</result>
             <result type="redirect">edit.action?skillName=${currentSkill.name}</result>
         </action>
         <action name="delete" class="com.opensymphony.webwork.showcase.action.SkillAction" method="delete">
-            <result name="error">editSkill.jsp</result>
+            <result name="error">/empmanager/editSkill.jsp</result>
             <result type="redirect">edit.action?skillName=${currentSkill.name}</result>
         </action>
     </package>
@@ -49,17 +49,17 @@
         <default-interceptor-ref name="crudStack"/>
 
         <action name="list" class="com.opensymphony.webwork.showcase.action.EmployeeAction" method="list">
-            <result>listEmployees.jsp</result>
+            <result>/empmanager/listEmployees.jsp</result>
         </action>
         <action name="edit" class="com.opensymphony.webwork.showcase.action.EmployeeAction" method="execute">
-            <result>editEmployee.jsp</result>
+            <result>/empmanager/editEmployee.jsp</result>
         </action>
         <action name="save" class="com.opensymphony.webwork.showcase.action.EmployeeAction" method="save">
-            <result name="error">editEmployee.jsp</result>
+            <result name="error">/empmanager/editEmployee.jsp</result>
             <result type="redirect">edit.action?empId=${currentEmployee.empId}</result>
         </action>
         <action name="delete" class="com.opensymphony.webwork.showcase.action.EmployeeAction" method="delete">
-            <result name="error">editEmployee.jsp</result>
+            <result name="error">/empmanager/editEmployee.jsp</result>
             <result type="redirect">edit.action?empId=${currentEmployee.empId}</result>
         </action>
     </package>
