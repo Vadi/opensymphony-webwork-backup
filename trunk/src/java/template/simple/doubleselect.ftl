@@ -38,9 +38,9 @@
 
 <@ww.iterator value="parameters.list">
     <#if parameters.listKey?exists>
-        <#assign itemKey = stack.findString(parameters.listKey)/>
+        <#assign itemKey = stack.findValue(parameters.listKey)/>
     <#else>
-        <#assign itemKey = stack.findString('top')/>
+        <#assign itemKey = stack.findValue('top')/>
     </#if>
     <#if parameters.listValue?exists>
         <#assign itemValue = stack.findString(parameters.listValue)/>
@@ -50,9 +50,9 @@
     <#assign doubleItemCount = 0/>
     <@ww.iterator value="${parameters.doubleList}">
         <#if parameters.doubleListKey?exists>
-            <#assign doubleItemKey = stack.findString(parameters.doubleListKey)/>
+            <#assign doubleItemKey = stack.findValue(parameters.doubleListKey)/>
         <#else>
-            <#assign doubleItemKey = stack.findString('top')/>
+            <#assign doubleItemKey = stack.findValue('top')/>
         </#if>
         <#if parameters.doubleListValue?exists>
             <#assign doubleItemValue = stack.findString(parameters.doubleListValue)/>

@@ -3,9 +3,9 @@
     <@ww.iterator value="parameters.list">
         <#assign itemCount = itemCount + 1/>
         <#if parameters.listKey?exists>
-            <#assign itemKey = stack.findString(parameters.listKey)/>
+            <#assign itemKey = stack.findValue(parameters.listKey)/>
         <#else>
-            <#assign itemKey = stack.findString('top')/>
+            <#assign itemKey = stack.findValue('top')/>
         </#if>
         <#if parameters.listValue?exists>
             <#assign itemValue = stack.findString(parameters.listValue)/>
