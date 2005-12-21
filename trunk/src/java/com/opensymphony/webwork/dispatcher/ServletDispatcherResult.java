@@ -16,19 +16,47 @@ import javax.servlet.jsp.PageContext;
 
 
 /**
- * Includes or forwards a view. There are three possible ways the result can be executed: <ul>
+ * <!-- START SNIPPET: description -->
+ *
+ * Includes or forwards to a view (usually a jsp). Behind the scenes WebWork
+ * will use a RequestDispatcher, where the target servlet/JSP receives the same
+ * request/response objects as the original servlet/JSP. Therefore, you can pass
+ * data between them using request.setAttribute() - the WebWork action is
+ * available.
  * <p/>
+ * There are three possible ways the result can be executed: <ul>
  * <li>If we are in the scope of a JSP (a PageContext is available), PageContext's
  * {@link PageContext#include(String) include} method is called.</li>
- * <p/>
  * <li>If there is no PageContext and we're not in any sort of include (there is no
  * "javax.servlet.include.servlet_path" in the request attributes), then a call to
  * {@link RequestDispatcher#forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse) forward}
  * is made.</li>
- * <p/>
  * <li>Otherwise, {@link RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse) include}
  * is called.</li></ul>
- * <p/>
+ * <!-- END SNIPPET: description -->
+ *
+ * <b>This result type takes the following parameters:</b>
+ *
+ * <!-- START SNIPPET: params -->
+ *
+ * <ul>
+ *
+ * <li><b>location</b> - the location to go to after execution (ex. jsp)</li>
+ *
+ * <li><b>parse (optional)</b> - true by default. If set to false, the location param will not be parsed for Ognl expressions.</li>
+ *
+ * </ul>
+ *
+ * <!-- END SNIPPET: params -->
+ *
+ * <b>Example:</b>
+ *
+ * <pre><!-- START SNIPPET: example -->
+ * &lt;result name="success" type="dispatcher"&gt;
+ *   &lt;param name="location"&gt;foo.jsp&lt;/param&gt;
+ * &lt;/result&gt;
+ * <!-- END SNIPPET: example --></pre>
+ *
  * This result follows the same rules from {@link WebWorkResultSupport}.
  *
  * @author Patrick Lightbody
