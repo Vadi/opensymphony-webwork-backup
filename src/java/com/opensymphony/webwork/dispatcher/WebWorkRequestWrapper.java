@@ -25,6 +25,12 @@ public class WebWorkRequestWrapper extends HttpServletRequestWrapper {
     }
 
     public Object getAttribute(String s) {
+        if (s != null && s.startsWith("javax.servlet")) {
+            // don't bother with the standard javax.servlet attributes, we can short-circuit this
+            // see WW-953 and the forums post linked in that issue for more info
+            return super.getAttribute(s);
+        }
+
         Object attribute = super.getAttribute(s);
 
         boolean alreadyIn = true;
