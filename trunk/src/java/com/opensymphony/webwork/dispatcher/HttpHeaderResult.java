@@ -18,7 +18,37 @@ import java.util.Map;
 
 
 /**
+ * <!-- START SNIPPET: description -->
+ *
  * A custom Result type for evaluating HTTP headers against the ValueStack.
+ * 
+ * <!-- END SNIPPET: description -->
+ * <p/>
+ * <b>This result type takes the following parameters:</b>
+ *
+ * <!-- START SNIPPET: params -->
+ *
+ * <ul>
+ *
+ * <li><b>status</b> - the http servlet response status code that should be set on a response.</li>
+ *
+ * <li><b>parse</b> - true by default. If set to false, the headers param will not be parsed for Ognl expressions.</li>
+ *
+ * <li><b>headers</b> - header values.</li>
+ *
+ * </ul>
+ *
+ * <!-- END SNIPPET: params -->
+ *
+ * <b>Example:</b>
+ *
+ * <pre><!-- START SNIPPET: example -->
+ * &lt;result name="success" type="httpheader"&gt;
+ *   &lt;param name="status"&gt;204&lt;/param&gt;
+ *   &lt;param name="headers.a"&gt;a custom header value&lt;/param&gt;
+ *   &lt;param name="headers.b"&gt;another custom header value&lt;/param&gt;
+ * &lt;/result&gt;
+ * <!-- END SNIPPET: example --></pre>
  *
  * @author Jason Carreira
  */

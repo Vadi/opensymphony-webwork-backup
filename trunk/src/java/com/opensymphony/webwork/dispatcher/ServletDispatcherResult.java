@@ -48,7 +48,7 @@ import javax.servlet.jsp.PageContext;
  *
  * <ul>
  *
- * <li><b>location (default)</b> - the location to go to after execution (ex. jsp)</li>
+ * <li><b>location (default)</b> - the location to go to after execution (ex. jsp).</li>
  *
  * <li><b>parse</b> - true by default. If set to false, the location param will not be parsed for Ognl expressions.</li>
  *
