@@ -1,0 +1,43 @@
+<components>
+    <component>
+        <scope>request</scope>
+        <class>org.hibernate.auction.persistence.components.PersistenceManagerImpl</class>
+        <enabler>org.hibernate.auction.persistence.components.PersistenceManagerAware</enabler>
+    </component>
+
+    <component>
+        <scope>application</scope>
+        <class>org.hibernate.auction.persistence.components.HibernateSessionFactoryImpl</class>
+        <enabler>org.hibernate.auction.persistence.components.HibernateSessionFactoryAware</enabler>
+    </component>
+
+    <component>
+        <scope>request</scope>
+        <class>org.hibernate.auction.dao.CategoryDAO</class>
+        <enabler>org.hibernate.auction.dao.CategoryDAOAware</enabler>
+    </component>
+
+    <component>
+        <scope>request</scope>
+        <class>org.hibernate.auction.dao.CommentDAO</class>
+        <enabler>org.hibernate.auction.dao.CommentDAOAware</enabler>
+    </component>
+
+    <component>
+        <scope>request</scope>
+        <class>org.hibernate.auction.dao.ItemDAO</class>
+        <enabler>org.hibernate.auction.dao.ItemDAOAware</enabler>
+    </component>
+
+    <component>
+        <scope>request</scope>
+        <class>org.hibernate.auction.dao.HibernateUserDAO</class>
+        <enabler>org.hibernate.auction.dao.UserDAOAware</enabler>
+    </component>
+
+    <component>
+        <scope>request</scope>
+        <class>org.hibernate.auction.dao.LocalizedTextDAO</class>
+        <enabler>org.hibernate.auction.dao.LocalizedTextDAOAware</enabler>
+    </component>
+</components>

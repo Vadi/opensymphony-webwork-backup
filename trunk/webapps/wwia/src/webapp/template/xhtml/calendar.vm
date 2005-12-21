@@ -1,0 +1,10 @@
+#parse("/template/xhtml/controlheader.vm")
+#set ($parameters.size = 10)
+#parse("/template/simple/text.vm")
+<script language="JavaScript">
+var cal_${parameters.name} = new calendar2(document.forms['$parameters.form.name'].elements['$parameters.name']);
+cal_${parameters.name}.year_scroll = true;
+cal_${parameters.name}.time_comp = false;
+</script>
+<a href="javascript:cal_${parameters.name}.popup();"><img src="${req.contextPath}/shared/images/cal.gif" border="0"/></a>
+#parse("/template/xhtml/controlfooter.vm")

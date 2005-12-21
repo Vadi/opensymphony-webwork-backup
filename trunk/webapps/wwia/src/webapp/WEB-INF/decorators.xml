@@ -1,0 +1,15 @@
+<decorators defaultdir="/decorators">
+    <excludes>
+        <pattern>/config-browser/*</pattern>
+        <pattern>/shared/*</pattern>    
+    </excludes>
+    <decorator name="none" page="none.jsp">
+        <pattern>/login*</pattern>
+    </decorator>
+    <decorator name="main" page="main.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+    <decorator name="localized" page="localized.jsp">
+        <pattern>/*/localized/*</pattern>
+    </decorator>
+</decorators>
