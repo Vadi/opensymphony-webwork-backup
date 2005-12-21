@@ -7,46 +7,49 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Implements an XWork Result that takes an InputStream object available from a chained
- * Action and redirects it to the browser.
+ * <!-- START SNIPPET: description -->
  *
+ * A custom Result type for send raw data (via an InputStream) directly to the
+ * HttpServletResponse. Very useful for allowing users to download content.
+ *
+ * <!-- END SNIPPET: description -->
  * <p/>
+ * <b>This result type takes the following parameters:</b>
  *
- * The following declaration must be added to the xwork.xml file after the &lt;package&gt;
- * element:
- *
- * <p/>
- *
- * <pre>
- * &lt;result-types&gt;
- * &lt;result-type name="stream" class="com.opensymphony.webwork.dispatcher.StreamResult"/&gt;
- * &lt;/result-types&gt;
- * </pre>
- *
- * <p/>
- *
- * To use the stream result type add the following as part of the action declaration:
- *
- * <p/>
- *
- * <pre>
- * &lt;result name="success" type="stream"&gt;
- * &lt;param name="contentType"&gt;image/jpeg&lt/param&gt;
- * &lt;param name="inputName"&gt;imageStream&lt/param&gt;
- * &lt;param name="contentDisposition"&gt;filename="document.pdf"&lt/param&gt;
- * &lt;param name="bufferSize"&gt;1024&lt/param&gt;
- * &lt;/result&gt;
- * </pre>
- *
- * <p/>
+ * <!-- START SNIPPET: params -->
  *
  * <ul>
- * <li>contentType - the stream mime-type as sent to the web browser</li>
- * <li>contentLength - the stream length in bytes (the browser displays a progress bar)</li>
- * <li>contentDispostion - the content disposition header value for specifing the file name (default = "inline", values are typically <i>filename="document.pdf"</i></li>
- * <li>inputName - the name of the InputStream property from the chained action (default = "inputStream")</li>
- * <li>bufferSize - the size of the buffer to copy from input to output (defaul = 1024)</li>
+ *
+ * <li><b>contentType</b> - the stream mime-type as sent to the web browser
+ * (default = <code>text/plain</code>).</li>
+ *
+ * <li><b>contentLength</b> - the stream length in bytes (the browser displays a
+ * progress bar).</li>
+ *
+ * <li><b>contentDispostion</b> - the content disposition header value for
+ * specifing the file name (default = <code>inline</code>, values are typically
+ * <i>filename="document.pdf"</i>.</li>
+ *
+ * <li><b>inputName</b> - the name of the InputStream property from the chained
+ * action (default = <code>inputStream</code>).</li>
+ *
+ * <li><b>bufferSize</b> - the size of the buffer to copy from input to output
+ * (default = <code>1024</code>).</li>
+ *
  * </ul>
+ *
+ * <!-- END SNIPPET: params -->
+ *
+ * <b>Example:</b>
+ *
+ * <pre><!-- START SNIPPET: example -->
+ * &lt;result name="success" type="stream"&gt;
+ *   &lt;param name="contentType"&gt;image/jpeg&lt/param&gt;
+ *   &lt;param name="inputName"&gt;imageStream&lt/param&gt;
+ *   &lt;param name="contentDisposition"&gt;filename="document.pdf"&lt/param&gt;
+ *   &lt;param name="bufferSize"&gt;1024&lt/param&gt;
+ * &lt;/result&gt;
+ * <!-- END SNIPPET: example --></pre>
  *
  * @author mcrawford
  */
