@@ -16,9 +16,46 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Calls the {@link HttpServletResponse#sendRedirect(String) sendRedirect} method to the location specified. <p>
+ * <!-- START SNIPPET: description -->
+ *
+ * Calls the {@link HttpServletResponse#sendRedirect(String) sendRedirect}
+ * method to the location specified. The response is told to redirect the
+ * browser to the specified location (a new request from the client). The
+ * consequence of doing this means that the action (action instance, action
+ * errors, field errors, etc) that was just executed is lost and no longer
+ * available. This is because actions are built on a single-thread model. The
+ * only way to pass data is through the session or with web parameters
+ * (url?name=value) which can be OGNL expressions.
+ *
+ * <!-- END SNIPPET: description -->
  * <p/>
+ * <b>This result type takes the following parameters:</b>
+ *
+ * <!-- START SNIPPET: params -->
+ *
+ * <ul>
+ *
+ * <li><b>location (default)</b> - the location to go to after execution.</li>
+ *
+ * <li><b>parse</b> - true by default. If set to false, the location param will 
+ * not be parsed for Ognl expressions.</li>
+ *
+ * </ul>
+ *
+ * <p>
  * This result follows the same rules from {@link WebWorkResultSupport}.
+ * </p>
+ *
+ * <!-- END SNIPPET: params -->
+ *
+ * <b>Example:</b>
+ *
+ * <pre><!-- START SNIPPET: example -->
+ * &lt;result name="success" type="redirect"&gt;
+ *   &lt;param name="location"&gt;foo.jsp&lt;/param&gt;
+ *   &lt;param name="parse"&gt;false&lt;/param&gt;
+ * &lt;/result&gt;
+ * <!-- END SNIPPET: example --></pre>
  *
  * @author Patrick Lightbody
  */
