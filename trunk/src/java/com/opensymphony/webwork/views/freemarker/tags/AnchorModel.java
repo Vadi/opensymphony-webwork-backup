@@ -1,21 +1,21 @@
 package com.opensymphony.webwork.views.freemarker.tags;
 
 import com.opensymphony.webwork.components.Component;
-import com.opensymphony.webwork.components.Href;
+import com.opensymphony.webwork.components.Anchor;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @see Href
+ * @see Anchor
  */
-public class HrefModel extends TagModel {
-    public HrefModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+public class AnchorModel extends TagModel {
+    public AnchorModel(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         super(stack, req, res);
     }
 
     protected Component getBean() {
-        return new Href(stack, req, res);
+        return new Anchor(stack, req, res);
     }
 }

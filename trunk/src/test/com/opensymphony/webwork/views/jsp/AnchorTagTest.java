@@ -4,10 +4,8 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
-import com.opensymphony.webwork.views.jsp.ui.HrefTag;
+import com.opensymphony.webwork.views.jsp.ui.AnchorTag;
 import com.opensymphony.webwork.views.jsp.ui.WebWorkBodyContent;
-import com.mockobjects.servlet.MockJspWriter;
-import com.mockobjects.servlet.MockBodyContent;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -19,9 +17,9 @@ import java.io.StringWriter;
  * @author Mike Porter
  * @version $Revision$
  */
-public class HrefTagTest extends AbstractUITagTest {
+public class AnchorTagTest extends AbstractUITagTest {
     private StringWriter writer = new StringWriter();
-    private HrefTag tag;
+    private AnchorTag tag;
 
     public void testActionURL() {
         tag.setHref("TestAction.action");
@@ -59,7 +57,7 @@ public class HrefTagTest extends AbstractUITagTest {
         request.setServerName("localhost");
         request.setServerPort(80);
 
-        tag = new HrefTag();
+        tag = new AnchorTag();
         tag.setPageContext(pageContext);
         JspWriter jspWriter = new WebWorkMockJspWriter(writer);
         pageContext.setJspWriter(jspWriter);

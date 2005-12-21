@@ -55,18 +55,18 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$
  * @since 2.2
  *
- * @ww.tag name="href" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.HrefTag"
+ * @ww.tag name="a" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.AnchorTag"
  * description="Render a HTML href element that when clicked calls a URL via remote XMLHttpRequest"
   */
-public class Href extends RemoteCallUIBean {
+public class Anchor extends RemoteCallUIBean {
     final public static String OPEN_TEMPLATE = "a";
     final public static String TEMPLATE = "a-close";
-    final public static String COMPONENT_NAME = Href.class.getName();
+    final public static String COMPONENT_NAME = Anchor.class.getName();
 
     protected String notifyTopics;
     protected String preInvokeJS;
 
-    public Href(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
+    public Anchor(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
     }
 
@@ -95,7 +95,7 @@ public class Href extends RemoteCallUIBean {
     }
 
     /**
-     * @ww.tagattribute required="true" type="String"
+     * @ww.tagattribute required="false" type="String"
      * description="The id to assign the component"
      */
     public void setId(String id) {

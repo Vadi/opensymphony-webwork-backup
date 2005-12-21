@@ -27,7 +27,7 @@ public class WebWorkModels {
     protected FileModel file;
     protected FormModel form;
     protected HiddenModel hidden;
-    protected HrefModel a;
+    protected AnchorModel a;
     protected I18nModel i18n;
     protected IncludeModel include;
     protected LabelModel label;
@@ -231,17 +231,17 @@ public class WebWorkModels {
         return action;
     }
 
-    public HrefModel getA() {
+    public AnchorModel getA() {
         if (a == null) {
-            a = new HrefModel(stack, req, res);
+            a = new AnchorModel(stack, req, res);
         }
 
         return a;
     }
 
-    public HrefModel getHref() {
+    public AnchorModel getHref() {
         if (a == null) {
-            a = new HrefModel(stack, req, res);
+            a = new AnchorModel(stack, req, res);
         }
 
         return a;

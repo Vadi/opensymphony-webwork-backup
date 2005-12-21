@@ -4,21 +4,15 @@
  */
 package com.opensymphony.webwork.views.velocity;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.StringTokenizer;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.util.VelocityWebWorkUtil;
+import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
+import com.opensymphony.webwork.views.util.ContextUtil;
+import com.opensymphony.webwork.views.velocity.components.*;
+import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.VelocityContext;
@@ -29,49 +23,14 @@ import org.apache.velocity.tools.view.ToolboxManager;
 import org.apache.velocity.tools.view.context.ChainedContext;
 import org.apache.velocity.tools.view.servlet.ServletToolboxManager;
 
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.WebWorkConstants;
-import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.util.VelocityWebWorkUtil;
-import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
-import com.opensymphony.webwork.views.util.ContextUtil;
-import com.opensymphony.webwork.views.velocity.components.ADirective;
-import com.opensymphony.webwork.views.velocity.components.ActionDirective;
-import com.opensymphony.webwork.views.velocity.components.ApplyDecoratorDirective;
-import com.opensymphony.webwork.views.velocity.components.BeanDirective;
-import com.opensymphony.webwork.views.velocity.components.CheckBoxDirective;
-import com.opensymphony.webwork.views.velocity.components.CheckBoxListDirective;
-import com.opensymphony.webwork.views.velocity.components.ComboBoxDirective;
-import com.opensymphony.webwork.views.velocity.components.ComponentDirective;
-import com.opensymphony.webwork.views.velocity.components.DatePickerDirective;
-import com.opensymphony.webwork.views.velocity.components.DecoratorParamDirective;
-import com.opensymphony.webwork.views.velocity.components.DivDirective;
-import com.opensymphony.webwork.views.velocity.components.DoubleSelectDirective;
-import com.opensymphony.webwork.views.velocity.components.FileDirective;
-import com.opensymphony.webwork.views.velocity.components.FormDirective;
-import com.opensymphony.webwork.views.velocity.components.HiddenDirective;
-import com.opensymphony.webwork.views.velocity.components.HrefDirective;
-import com.opensymphony.webwork.views.velocity.components.I18nDirective;
-import com.opensymphony.webwork.views.velocity.components.IncludeDirective;
-import com.opensymphony.webwork.views.velocity.components.LabelDirective;
-import com.opensymphony.webwork.views.velocity.components.PanelDirective;
-import com.opensymphony.webwork.views.velocity.components.ParamDirective;
-import com.opensymphony.webwork.views.velocity.components.PasswordDirective;
-import com.opensymphony.webwork.views.velocity.components.PropertyDirective;
-import com.opensymphony.webwork.views.velocity.components.PushDirective;
-import com.opensymphony.webwork.views.velocity.components.RadioDirective;
-import com.opensymphony.webwork.views.velocity.components.SelectDirective;
-import com.opensymphony.webwork.views.velocity.components.SetDirective;
-import com.opensymphony.webwork.views.velocity.components.SubmitDirective;
-import com.opensymphony.webwork.views.velocity.components.TabbedPanelDirective;
-import com.opensymphony.webwork.views.velocity.components.TextAreaDirective;
-import com.opensymphony.webwork.views.velocity.components.TextDirective;
-import com.opensymphony.webwork.views.velocity.components.TextFieldDirective;
-import com.opensymphony.webwork.views.velocity.components.TokenDirective;
-import com.opensymphony.webwork.views.velocity.components.URLDirective;
-import com.opensymphony.webwork.views.velocity.components.WebTableDirective;
-import com.opensymphony.xwork.ObjectFactory;
-import com.opensymphony.xwork.util.OgnlValueStack;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 
 /**
@@ -548,7 +507,6 @@ public class VelocityManager {
         addDirective(sb, ApplyDecoratorDirective.class);
         addDirective(sb, DecoratorParamDirective.class);
 
-        addDirective(sb, ADirective.class);
         addDirective(sb, ActionDirective.class);
         addDirective(sb, BeanDirective.class);
         addDirective(sb, CheckBoxDirective.class);
@@ -561,7 +519,7 @@ public class VelocityManager {
         addDirective(sb, FileDirective.class);
         addDirective(sb, FormDirective.class);
         addDirective(sb, HiddenDirective.class);
-        addDirective(sb, HrefDirective.class);
+        addDirective(sb, AnchorDirective.class);
         addDirective(sb, I18nDirective.class);
         addDirective(sb, IncludeDirective.class);
         addDirective(sb, LabelDirective.class);
