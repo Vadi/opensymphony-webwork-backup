@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: rene
-  Date: 17.12.2005
-  Time: 13:52:15
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib uri="/webwork" prefix="ww" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -18,7 +11,8 @@
 <html>
 <head>
     <title><ww:property value="#title"/></title>
-    <link href="<%=request.getContextPath()%>/webwork/jscalendar/calendar-blue.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="<%=request.getContextPath()%>/webwork/jscalendar/calendar-blue.css" rel="stylesheet" type="text/css"
+          media="all"/>
 </head>
 
 <body>
@@ -33,8 +27,10 @@
     <ww:textfield label="Salary" name="currentEmployee.salary"/>
     <ww:checkbox fieldValue="true" label="Married" name="currentEmployee.married"/>
     <ww:combobox list="availablePositions" label="Position" name="currentEmployee.position"/>
-    <ww:select list="#skillAction.availableItems" listKey="name" label="Main Skill" name="currentEmployee.mainSkill.name"/>
-    <ww:select list="#skillAction.availableItems" listKey="name" listValue="description" label="Other Skills" name="selectedSkills" multiple="true"/>
+    <ww:select list="#skillAction.availableItems" listKey="name" label="Main Skill"
+               name="currentEmployee.mainSkill.name"/>
+    <ww:select list="#skillAction.availableItems" listKey="name" listValue="description" label="Other Skills"
+               name="selectedSkills" multiple="true"/>
     <ww:password label="Password" name="currentEmployee.password"/>
     <ww:radio list="availableLevels" name="currentEmployee.level"/>
     <ww:textarea label="Comment" name="currentEmployee.comment" cols="50" rows="3"/>
