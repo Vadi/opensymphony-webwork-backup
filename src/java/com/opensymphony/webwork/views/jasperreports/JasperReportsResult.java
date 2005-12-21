@@ -35,25 +35,69 @@ import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
- * Genreates a JasperReports report using the specified format or PDF if no format is specified.
- * The following parameters are required:
+ * <!-- START SNIPPET: description -->
+ *
+ * Generates a JasperReports report using the specified format or PDF if no
+ * format is specified.
+ *
+ * <!-- END SNIPPET: description -->
+ * <p />
+ * <b>This result type takes the following parameters:</b>
+ *
+ * <!-- START SNIPPET: params -->
+ *
  * <ul>
- * <li>location - the location where the compiled jasper report definition is (foo.jasper), relative from current URL</li>
- * <li>dataSource - the Ognl expression used to retrieve the datasource from the value stack (usually a List)</li>
+ *
+ * <li><b>location (default)</b> - the location where the compiled jasper report
+ * definition is (foo.jasper), relative from current URL.</li>
+ *
+ * <li><b>dataSource (required)</b> - the Ognl expression used to retrieve the
+ * datasource from the value stack (usually a List).</li>
+ *
+ * <li><b>parse</b> - true by default. If set to false, the location param will
+ * not be parsed for Ognl expressions.</li>
+ *
+ * <li><b>format</b> - the format in which the report should be generated. Valid
+ * values can be found in {@link JasperReportConstants}. If no format is
+ * specified, PDF will be used.</li>
+ *
+ * <li><b>contentDisposition</b> - disposition (defaults to "inline", values are
+ * typically <i>filename="document.pdf"</i>).</li>
+ *
+ * <li><b>documentName</b> - name of the document (will generate the http header
+ * <code>Content-disposition = X; filename=X.[format]</code>).</li>
+ *
+ * <li><b>delimiter</b> - the delimiter used when generating CSV reports. By
+ * default, the character used is ",".</li>
+ *
+ * <li><b>imageServletUrl</b> - name of the url that, when prefixed with the
+ * context page, can return report images.</li>
+ *
  * </ul>
- * <p/>
- * Three optional parameter can also be specified:
- * <ul>
- * <li>format: the format in which the report should be generated. Valid values can be found
- * in {@link JasperReportConstants}. If no format is specified, PDF will be used.</li>
- * <li>contentDisposition: disposition (defaults to "inline", values are typically <i>filename="document.pdf"</i>)</li>
- * <li>documentName: name of the document (will generate the http header Content-disposition = X; filename=X.[format])</li>
- * <li>delimiter: the delimiter used when generating CSV reports. By default, the character used is ",".</li>
- * <li>imageServletUrl: name of the url that, when prefixed with the context page, can return report images.</li>
- * </ul>
- * <p/>
+ *
+ * <p>
  * This result follows the same rules from {@link WebWorkResultSupport}.
- * Specifically, all three parameters will be parsed if the "parse" parameter is not set to false.
+ * Specifically, all parameters will be parsed if the "parse" parameter is not 
+ * set to false.
+ * </p>
+ * <!-- END SNIPPET: params -->
+ *
+ * <b>Example:</b>
+ *
+ * <pre><!-- START SNIPPET: example1 -->
+ * &lt;result name="success" type="jasper"&gt;
+ *   &lt;param name="location"&gt;foo.jasper&lt;/param&gt;
+ *   &lt;param name="dataSource"&gt;mySource&lt;/param&gt;
+ *   &lt;param name="format"&gt;CSV&lt;/param&gt;
+ * &lt;/result&gt;
+ * <!-- END SNIPPET: example1 --></pre>
+ * or for pdf
+ * <pre><!-- START SNIPPET: example2 -->
+ * &lt;result name="success" type="jasper"&gt;
+ *   &lt;param name="location"&gt;foo.jasper&lt;/param&gt;
+ *   &lt;param name="dataSource"&gt;mySource&lt;/param&gt;
+ * &lt;/result&gt;
+ * <!-- END SNIPPET: example2 --></pre>
  *
  * @author Patrick Lightbody
  * @author Rainer Hermanns
