@@ -6,6 +6,8 @@
 
     <include file="xwork-continuations.xml"/>
 
+    <include file="xwork-tags.xml"/>
+
     <package name="default" extends="webwork-default">
         <interceptors>
             <interceptor-stack name="crudStack">

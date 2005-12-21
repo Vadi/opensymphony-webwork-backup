@@ -1,4 +1,4 @@
-<%@ taglib uri="webwork" prefix="ww" %>
+<%@ taglib uri="/webwork" prefix="ww" %>
 <html>
 <head>
     <title>Showcase</title>
@@ -11,11 +11,12 @@
 
 <p>
     <ul>
-        <li><ww:url id="url" value="/continuations/guess.action"/><ww:a href="%{url}">Continuations example</ww:a></li>
-        <li><a href="showcase/skill/list.action">List available Skills</a></li>
-        <li><a href="showcase/skill/edit.action">Create/Edit Skill</a></li>
-        <li><a href="showcase/employee/list.action">List available Employees</a></li>
-        <li><a href="showcase/employee/edit.action">Create/Edit Employee</a></li>
+        <li><ww:url id="url" namespace="/continuations" action="guess"/><ww:a href="%{url}">Continuations example</ww:a></li>
+        <li><ww:url id="url" namespace="/tags/ui" action="example" method="input"/><ww:a href="%{url}">UI Tags example</ww:a></li>
+        <li><a href="skill/list.action">List available Skills</a></li>
+        <li><a href="skill/edit.action">Create/Edit Skill</a></li>
+        <li><a href="employee/list.action">List available Employees</a></li>
+        <li><a href="employee/edit.action">Create/Edit Employee</a></li>
     </ul>
 </p>
 </body>

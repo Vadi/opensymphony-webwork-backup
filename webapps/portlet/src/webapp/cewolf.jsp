@@ -2,7 +2,7 @@
 <head>
 <title>Cewolf Taglib DEMO</title>
 <%@ taglib uri="/WEB-INF/tld/cewolf.tld" prefix="cewolf"%>
-<%@ taglib uri="webwork" prefix="ww"%>
+<%@ taglib uri="/webwork" prefix="ww"%>
 </head>
 
 <body bgcolor="#E5E5E5" text="#000000" link="#006699" vlink="#5493B4">

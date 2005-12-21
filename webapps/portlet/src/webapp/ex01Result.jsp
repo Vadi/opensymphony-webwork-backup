@@ -1,4 +1,4 @@
-<%@ taglib uri="webwork" prefix="ww"%>
+<%@ taglib uri="/webwork" prefix="ww"%>
 <html>
 <head>
 <title><ww:text name="heading_jsp" /></title>

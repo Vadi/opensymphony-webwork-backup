@@ -1,4 +1,4 @@
-<%@ taglib prefix="ww" uri="webwork" %>
+<%@ taglib prefix="ww" uri="/webwork" %>
 <!--// START SNIPPET: common-include-->
 <script language="JavaScript" type="text/javascript">
     // Dojo configuration
