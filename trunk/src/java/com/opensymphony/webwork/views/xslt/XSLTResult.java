@@ -104,6 +104,13 @@ import java.util.regex.Pattern;
  * compared to matchingPattern and processed only if there's a match.
  * </p>
  *
+ * <pre>
+ * &lt;result name="success" type="xslt"&gt;
+ *   &lt;param name="location"&gt;foo.xslt&lt;/param&gt;
+ *   &lt;param name="matchingPattern"&gt;^/result/[^/*]$&lt;/param&gt;
+ *   &lt;param name="excludingPattern"&gt;.*(hugeCollection).*&lt;/param&gt;
+ * &lt;/result&gt;</pre>
+ *
  * <!-- END SNIPPET: description -->
  *
  * <b>This result type takes the following parameters:</b>
@@ -140,11 +147,7 @@ import java.util.regex.Pattern;
  * <b>Example:</b>
  *
  * <pre><!-- START SNIPPET: example -->
- * &lt;result name="success" type="xslt"&gt;
- *   &lt;param name="location"&gt;foo.xslt&lt;/param&gt;
- *   &lt;param name="matchingPattern"&gt;^/result/[^/*]$&lt;/param&gt;
- *   &lt;param name="excludingPattern"&gt;.*(hugeCollection).*&lt;/param&gt;
- * &lt;/result&gt;
+ * &lt;result name="success" type="xslt"&gt;foo.xslt&lt;/result&gt;
  * <!-- END SNIPPET: example --></pre>
  *
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
