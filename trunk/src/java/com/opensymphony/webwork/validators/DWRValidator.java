@@ -91,7 +91,7 @@ public class DWRValidator {
 
     public static class ValidatorActionProxy extends DefaultActionProxy {
         protected ValidatorActionProxy(String namespace, String actionName, Map extraContext) throws Exception {
-            super(namespace, actionName, extraContext, false);
+            super(namespace, actionName, extraContext, false, true);
         }
 
         protected void prepare() throws Exception {

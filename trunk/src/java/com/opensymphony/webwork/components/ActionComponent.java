@@ -205,7 +205,7 @@ public class ActionComponent extends Component {
         OgnlValueStack stack = getStack();
         // execute at this point, after params have been set
         try {
-            proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, createExtraContext(), executeResult);
+            proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, actionName, createExtraContext(), executeResult, true);
             if (null != methodName) {
                 proxy.setMethod(methodName);
             }
