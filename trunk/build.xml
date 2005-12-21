@@ -51,12 +51,43 @@
 
     <target name="reports" depends="common.reports">
         <mkdir dir="${dist.docs}/dependencies"/>
+<!--
         <ivy-report todir="${dist.docs}/dependencies" graph="false"/>
+-->
     </target>
 
-    <target name="predist" depends="jar">
+    <macrodef name="webapp">
+        <attribute name="name"/>
+        <sequential>
+            <mkdir dir="${dist}/webapps"/>
+            <mkdir dir="${dist}/webapps/@{name}/src"/>
+            <compile srcdir="webapps/@{name}/src/java" destdir="webapps/@{name}/build/java" classpath="${build.java}"/>
+            <war file="${dist}/webapps/@{name}.war" basedir="webapps/@{name}/src/webapp"
+                 webxml="webapps/@{name}/src/webapp/WEB-INF/web.xml">
+                <classes dir="webapps/@{name}/build/java"/>
+            </war>
+            <copy todir="${dist}/webapps/@{name}/src">
+                <fileset dir="webapps/@{name}/src" includes="**/**"/>
+            </copy>
+        </sequential>
+    </macrodef>
+
+    <target name="predist">
         <!-- grab the README.txt file -->
         <copy file="${src}/etc/README.txt" todir="${dist}"/>
+
+        <!-- prepare each tutorial/example -->
+        <webapp name="starter"/>
+        <webapp name="showcase"/>
+        <webapp name="ajax"/>
+        <webapp name="shopping-cart"/>
+        <webapp name="portlet"/>
+<!--
+        <webapp name="wwia"/>
+-->
+
+        <!-- copy over elements required to build the final wars -->
+        <copy file="webapps/build.xml" todir="${dist}/webapps"/>
     </target>
 
     <target name="xdoclet-taglib" depends="init">
@@ -149,4 +180,49 @@
             <entry key="skip.ivy" value="true"/>
         </propertyfile>
     </target>
+
+    <target name="clean" depends="common.clean">
+        <delete dir="webapps/base/build"/>
+        <delete dir="webapps/showcase/build"/>
+        <delete dir="webapps/starter/build"/>
+        <delete dir="webapps/ajax/build"/>
+        <delete dir="webapps/shopping-cart/build"/>
+        <delete dir="webapps/portlet/build"/>
+<!--
+        <delete dir="webapps/wwia/build"/>
+-->
+    </target>
+
+    <!-- other targets -->
+
+    <!--
+        Cameron Braid : Disabled at the moment
+
+        <target name='dojo-profile'>
+            <property name="dojo.dir" value='../dojo'/>
+            <ant dir="${dojo.dir}/buildscripts" target="release" inheritall="false">
+                <property name="docless" value="true"/>
+                <property name="nostrip" value="true"/>
+                <property name="profileFile" value="${basedir}/dojo.profile.js"/>
+            </ant>
+
+            <sync todir="${src.java}/com/opensymphony/webwork/static/dojo/src" includeEmptyDirs="no" verbose="yes">
+                <fileset dir="${dojo.dir}/release/dojo/src">
+                    <exclude name="**/*.js"/>
+                    <exclude name="api/**"/>
+                    <exclude name="tests/**"/>
+                    <exclude name="Makefile"/>
+                    <exclude name="README.TXT"/>
+                </fileset>
+            </sync>
+
+            <copy todir="${src.java}/com/opensymphony/webwork/static/dojo" preservelastmodified="true">
+                <fileset dir="${dojo.dir}/release/dojo">
+                    <exclude name="src/**"/>
+                    <exclude name="api/**"/>
+                    <exclude name="tests/**"/>
+                </fileset>
+            </copy>
+        </target>
+    -->
 </project>
