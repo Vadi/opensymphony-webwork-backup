@@ -17,6 +17,10 @@
     <orderEntry type="module" module-name="WebWork" />
     <orderEntryProperties />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ACTIVE_VCS_NAME" value="CVS" />
+    <option name="USE_PROJECT_VCS" value="false" />
+  </component>
   <component name="WebModuleBuildComponent">
     <setting name="EXPLODED_URL" value="file://$MODULE_DIR$/build/exploded" />
     <setting name="EXPLODED_ENABLED" value="false" />
