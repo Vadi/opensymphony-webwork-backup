@@ -24,6 +24,50 @@ import java.util.Locale;
 
 
 /**
+ * <!-- START SNIPPET: description -->
+ *
+ * Renders a view using the Freemarker template engine.  Alternatively, the
+ * {@link com.opensymphony.webwork.dispatcher.ServletDispatcherResult
+ * dispatcher} result type can be used in conjunction Webwork's {@link
+ * FreemarkerServlet}.
+ * <p>
+ * The FreemarkarManager class configures the template loaders so that the
+ * template location can be either
+ * </p>
+ *
+ * <ul>
+ *
+ * <li>relative to the web root folder. eg <code>/WEB-INF/views/home.ftl</code>
+ * </li>
+ * 
+ * <li>a classpath resuorce. eg <code>com/company/web/views/home.ftl</code></li>
+ *
+ * </ul>
+ *
+ * <!-- END SNIPPET: description -->
+ *
+ * <b>This result type takes the following parameters:</b>
+ *
+ * <!-- START SNIPPET: params -->
+ *
+ * <ul>
+ *
+ * <li><b>location (default)</b> - the location of the template to process</li>
+ *
+ * <li><b>parse</b> - true by default. If set to false, the location param will 
+ * not be parsed for Ognl expressions.</li>
+ *
+ * <li><b>contentType</b> - defaults to "text/html" unless specified.</li>
+ *
+ * </ul>
+ *
+ * <!-- END SNIPPET: params -->
+ *
+ * <b>Example:</b>
+ *
+ * <pre><!-- START SNIPPET: example -->
+ * &lt;result name="success" type="freemarker"&gt;foo.ftl&lt;/result&gt;
+ * <!-- END SNIPPET: example --></pre>
  * @author CameronBraid
  */
 public class FreemarkerResult extends WebWorkResultSupport {
