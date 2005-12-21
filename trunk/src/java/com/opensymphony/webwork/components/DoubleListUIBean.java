@@ -48,6 +48,12 @@ public abstract class DoubleListUIBean extends ListUIBean {
 
         if (formName != null) {
             addParameter("formName", findString(formName));
+        } else {
+            // ok, let's look it up
+            Component form = findAncestor(Form.class);
+            if (form != null) {
+                addParameter("formName", form.getParameters().get("name"));
+            }
         }
 
         Class valueClazz = getValueClassType();
