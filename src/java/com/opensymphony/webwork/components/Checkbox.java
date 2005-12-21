@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * &lt;ww:checkbox label="checkbox test" name="checkboxField1" value="aBoolean" fieldValue="true"/&gt;
  *
  * Velocity:
- * #tag( Checkbox "label=checkbox test" "name=checkboxField1" "value=aBoolean" "fieldValue=true" )
+ * #tag( Checkbox "label=checkbox test" "name=checkboxField1" "value=aBoolean" )
  *
  * Resulting HTML (simple template, aBoolean == true):
  * &lt;input type="checkbox" name="checkboxField1" value="true" checked="checked" /&gt;
@@ -50,6 +50,8 @@ public class Checkbox extends UIBean {
     protected void evaluateExtraParams() {
         if (fieldValue != null) {
             addParameter("fieldValue", findString(fieldValue));
+        } else {
+            addParameter("fieldValue", "true");
         }
     }
 
@@ -58,8 +60,8 @@ public class Checkbox extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="true"
-     * description="The actual HTML value attribute of the checkbox"
+     * @ww.tagattribute required="false"
+     * description="The actual HTML value attribute of the checkbox, defaults to 'true'."
       */
     public void setFieldValue(String fieldValue) {
         this.fieldValue = fieldValue;
