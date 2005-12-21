@@ -1,16 +1,16 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.components.Component;
-import com.opensymphony.webwork.components.Href;
+import com.opensymphony.webwork.components.Anchor;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @see Href
+ * @see Anchor
  */
-public class HrefTag extends AbstractClosingTag {
+public class AnchorTag extends AbstractClosingTag {
     protected String href;
     protected String errorText;
     protected String showErrorTransportText;
@@ -19,13 +19,13 @@ public class HrefTag extends AbstractClosingTag {
     protected String preInvokeJS;
 
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
-        return new Href(stack, req, res);
+        return new Anchor(stack, req, res);
     }
 
     protected void populateParams() {
         super.populateParams();
 
-        Href link = (Href) component;
+        Anchor link = (Anchor) component;
         link.setHref(href);
         link.setErrorText(errorText);
         link.setShowErrorTransportText(showErrorTransportText);

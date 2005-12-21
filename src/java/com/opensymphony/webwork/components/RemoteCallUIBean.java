@@ -1,14 +1,13 @@
 package com.opensymphony.webwork.components;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.portlet.context.PortletContext;
 import com.opensymphony.webwork.portlet.util.PortalContainer;
-import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.util.OgnlValueStack;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * RemoteCallUIBean is superclass for all components dealing with remote calls.
@@ -44,7 +43,7 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
             String actionUrl = PortletContext.getContext().getActionURL();
 
             if (!TextUtils.stringSet(actionUrl)) {
-                addParameter("href", UrlHelper.buildUrl(hrefValue, request, response, null));
+                addParameter("href", hrefValue);
             } else {
 
                 String actionExtension = (String) Configuration.get("webwork.action.extension");

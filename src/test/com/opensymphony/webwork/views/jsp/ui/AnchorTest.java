@@ -12,14 +12,14 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
  * @author Ian Roughley<a href="mailto:ian@fdar.com">&lt;ian@fdar.com&gt;</a>
  * @version $Id$
  */
-public class HrefTest extends AbstractUITagTest {
+public class AnchorTest extends AbstractUITagTest {
 
 
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
 
-        HrefTag tag = new HrefTag();
+        AnchorTag tag = new AnchorTag();
         tag.setPageContext(pageContext);
 
         tag.setId("mylink");
@@ -33,7 +33,7 @@ public class HrefTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        verify(HrefTest.class.getResource("href-1.txt"));
+        verify(AnchorTest.class.getResource("href-1.txt"));
     }
 
 }

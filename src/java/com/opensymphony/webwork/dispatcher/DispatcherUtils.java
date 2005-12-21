@@ -162,6 +162,12 @@ public class DispatcherUtils {
 
             String id = request.getParameter(XWorkContinuationConfig.CONTINUE_PARAM);
             if (id != null) {
+                // remove the continue key from the params - we don't want to bother setting
+                // on the value stack since we know it won't work. Besides, this breaks devMode!
+                Map params = (Map) extraContext.get(ActionContext.PARAMETERS);
+                params.remove(XWorkContinuationConfig.CONTINUE_PARAM);
+
+                // and now put the key in the context to be picked up later by XWork
                 extraContext.put(XWorkContinuationConfig.CONTINUE_KEY, id);
             }
 

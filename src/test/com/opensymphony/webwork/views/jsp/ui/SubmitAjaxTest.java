@@ -28,7 +28,7 @@ public class SubmitAjaxTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        verify(HrefTest.class.getResource("submit-ajax-1.txt"));
+        verify(AnchorTest.class.getResource("submit-ajax-1.txt"));
     }
 
 }
