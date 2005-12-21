@@ -23,7 +23,7 @@
         <mkdir dir="${basedir}/dist"/>
         <copy file="${basedir}/${webapp}.war" todir="dist" overwrite="yes"/>
         <war update="yes" file="${basedir}/dist/${webapp}.war">
-            <zipfileset file="${basedir}/../webwork.jar" prefix="WEB-INF/lib"/>
+            <zipfileset file="${basedir}/../../build/webwork.jar" prefix="WEB-INF/lib"/>
 
             <!-- only these configurations are needed for now. Also, these are probably more than
                  needed, but we're just picking a single set of jars that each webapp can use -->
@@ -31,10 +31,13 @@
             <zipfileset dir="${basedir}/../lib/default" prefix="WEB-INF/lib" includes="*.jar"/>
             <zipfileset dir="${basedir}/../lib/fileupload" prefix="WEB-INF/lib" includes="*.jar"/>
             <zipfileset dir="${basedir}/../lib/freemarker" prefix="WEB-INF/lib" includes="*.jar"/>
-            <zipfileset dir="${basedir}/../lib/portlet" prefix="WEB-INF/lib" includes="*.jar"/>
-            <zipfileset dir="${basedir}/../lib/quickstart" prefix="WEB-INF/lib" includes="log4j*.jar"/>
+        	<!-- DO NOT need pluto.jar & portlet-api.jar in WEB-INF/lib to run portlet in Portal Server -->
+            <!-- zipfileset dir="${basedir}/../../lib/portlet" prefix="WEB-INF/lib" includes="*.jar"/ -->
             <zipfileset dir="${basedir}/../lib/sitemesh" prefix="WEB-INF/lib" includes="*.jar"/>
-            <zipfileset dir="${basedir}/../lib/spring" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib/spring" prefix="WEB-INF/lib" includes="*.jar" excludes="commons-logging.jar"/>
+            <zipfileset dir="${basedir}/../lib/velocity" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib/quickstart" prefix="WEB-INF/lib" includes="log4j.jar"/>
+            <zipfileset dir="${basedir}/../lib/jfree" prefix="WEB-INF/lib" includes="*.jar"/>
         </war>
     </target>
 </project>
