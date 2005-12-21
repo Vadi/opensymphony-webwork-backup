@@ -59,13 +59,7 @@
     <macrodef name="webapp">
         <attribute name="name"/>
         <sequential>
-            <mkdir dir="${dist}/webapps"/>
             <mkdir dir="${dist}/webapps/@{name}/src"/>
-            <compile srcdir="webapps/@{name}/src/java" destdir="webapps/@{name}/build/java" classpath="${build.java}"/>
-            <war file="${dist}/webapps/@{name}.war" basedir="webapps/@{name}/src/webapp"
-                 webxml="webapps/@{name}/src/webapp/WEB-INF/web.xml">
-                <classes dir="webapps/@{name}/build/java"/>
-            </war>
             <copy todir="${dist}/webapps/@{name}/src">
                 <fileset dir="webapps/@{name}/src" includes="**/**"/>
             </copy>
@@ -82,9 +76,7 @@
         <webapp name="ajax"/>
         <webapp name="shopping-cart"/>
         <webapp name="portlet"/>
-<!--
         <webapp name="wwia"/>
--->
 
         <!-- copy over elements required to build the final wars -->
         <copy file="webapps/build.xml" todir="${dist}/webapps"/>
@@ -172,7 +164,6 @@
                 <attribute name="Implementation-Version" value="${version}"/>
             </manifest>
         </jar>
-        <copy file="${build}/${name}-${version}.jar" tofile="${build}/webwork.jar"/>
     </target>
 
     <target name="dist" depends="common.dist" description="generate distribution zip file">
