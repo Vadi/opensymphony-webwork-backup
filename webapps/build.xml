@@ -1,0 +1,40 @@
+<project name="webwork-webapps" default="help" basedir=".">
+    <property file="../build.properties"/>
+
+    <target name="help">
+        <echo>
+            To build a webapp, simply run:
+
+            ant build -Dwebapp=XXX
+
+            ... Where XXX is the name of the webapp you want to build.
+            After the build is finished, the fully-built war file can
+            be found in the dist directory. You may deploy this file
+            to any servlet container.
+
+            For example:
+
+            ant build -Dwebapp=sandbox
+        </echo>
+    </target>
+
+    <target name="build">
+        <delete dir="${basedir}/tmp"/>
+        <mkdir dir="${basedir}/dist"/>
+        <copy file="${basedir}/${webapp}.war" todir="dist" overwrite="yes"/>
+        <war update="yes" file="${basedir}/dist/${webapp}.war">
+            <zipfileset file="${basedir}/../webwork.jar" prefix="WEB-INF/lib"/>
+
+            <!-- only these configurations are needed for now. Also, these are probably more than
+                 needed, but we're just picking a single set of jars that each webapp can use -->
+            <zipfileset dir="${basedir}/../lib/ajax" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib/default" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib/fileupload" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib/freemarker" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib/portlet" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib/quickstart" prefix="WEB-INF/lib" includes="log4j*.jar"/>
+            <zipfileset dir="${basedir}/../lib/sitemesh" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../lib/spring" prefix="WEB-INF/lib" includes="*.jar"/>
+        </war>
+    </target>
+</project>
