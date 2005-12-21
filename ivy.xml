@@ -39,6 +39,7 @@
         <conf name="xslt"/>
         <conf name="tiger"/>
         <conf name="cewolf"/>
+        <conf name="hibernate"/>
     </configurations>
     <publications>
         <artifact name="webwork" type="jar" conf="default"/>
@@ -131,5 +132,7 @@
         <!-- cewolf -->
         <dependency org="cewolf" name="cewolf" rev="0.12.0" conf="cewolf->*"/>
 
+        <!-- hibernate -->
+        <dependency org="hibernate" name="hibernate" rev="3.0.5" conf="hibernate->default"/>
     </dependencies>
 </ivy-module>
