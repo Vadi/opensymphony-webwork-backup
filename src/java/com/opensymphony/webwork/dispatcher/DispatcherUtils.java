@@ -171,7 +171,7 @@ public class DispatcherUtils {
                 extraContext.put(XWorkContinuationConfig.CONTINUE_KEY, id);
             }
 
-            ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, extraContext);
+            ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy(namespace, name, extraContext, true, false);
             proxy.setMethod(method);
             request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, proxy.getInvocation().getStack());
 

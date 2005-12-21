@@ -108,7 +108,7 @@ public class TokenInterceptorTest extends TestCase {
     }
 
     protected ActionProxy buildProxy(String actionName) throws Exception {
-        return ActionProxyFactory.getFactory().createActionProxy("", actionName, extraContext, true);
+        return ActionProxyFactory.getFactory().createActionProxy("", actionName, extraContext, true, true);
     }
 
     protected void tearDown() throws Exception {
