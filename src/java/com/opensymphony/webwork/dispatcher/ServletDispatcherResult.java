@@ -24,15 +24,22 @@ import javax.servlet.jsp.PageContext;
  * data between them using request.setAttribute() - the WebWork action is
  * available.
  * <p/>
- * There are three possible ways the result can be executed: <ul>
+ * There are three possible ways the result can be executed:
+ *  
+ * <ul>
+ *
  * <li>If we are in the scope of a JSP (a PageContext is available), PageContext's
  * {@link PageContext#include(String) include} method is called.</li>
+ *
  * <li>If there is no PageContext and we're not in any sort of include (there is no
  * "javax.servlet.include.servlet_path" in the request attributes), then a call to
  * {@link RequestDispatcher#forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse) forward}
  * is made.</li>
+ * 
  * <li>Otherwise, {@link RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse) include}
- * is called.</li></ul>
+ * is called.</li>
+ * 
+ * </ul>
  * <!-- END SNIPPET: description -->
  *
  * <b>This result type takes the following parameters:</b>
