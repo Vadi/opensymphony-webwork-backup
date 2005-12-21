@@ -52,7 +52,7 @@ import java.util.Locale;
  *
  * <ul>
  *
- * <li><b>location (default)</b> - the location of the template to process</li>
+ * <li><b>location (default)</b> - the location of the template to process.</li>
  *
  * <li><b>parse</b> - true by default. If set to false, the location param will 
  * not be parsed for Ognl expressions.</li>
