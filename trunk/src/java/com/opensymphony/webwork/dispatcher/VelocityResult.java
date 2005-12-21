@@ -29,10 +29,39 @@ import java.io.Writer;
 
 
 /**
- * Using the Servlet container's {@link JspFactory}, this result mocks a JSP execution environment
- * and then displays a Velocity template that will be streamed directly to the servlet output. <p>
+ * <!-- START SNIPPET: description -->
+ *
+ * Using the Servlet container's {@link JspFactory}, this result mocks a JSP
+ * execution environment and then displays a Velocity template that will be
+ * streamed directly to the servlet output.
+ *
+ * <!-- END SNIPPET: description -->
  * <p/>
+ * <b>This result type takes the following parameters:</b>
+ *
+ * <!-- START SNIPPET: params -->
+ *
+ * <ul>
+ *
+ * <li><b>location (default)</b> - the location of the template to process.</li>
+ *
+ * <li><b>parse</b> - true by default. If set to false, the location param will 
+ * not be parsed for Ognl expressions.</li>
+ *
+ * </ul>
+ * <p>
  * This result follows the same rules from {@link WebWorkResultSupport}.
+ * </p>
+ *
+ * <!-- END SNIPPET: params -->
+ *
+ * <b>Example:</b>
+ *
+ * <pre><!-- START SNIPPET: example -->
+ * &lt;result name="success" type="velocity"&gt;
+ *   &lt;param name="location"&gt;foo.vm&lt;/param&gt;
+ * &lt;/result&gt;
+ * <!-- END SNIPPET: example --></pre>
  *
  * @author <a href="mailto:matt@indigoegg.com">Matt Ho</a>
  */
