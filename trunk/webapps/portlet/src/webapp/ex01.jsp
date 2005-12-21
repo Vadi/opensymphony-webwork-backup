@@ -1,4 +1,4 @@
-<%@ taglib uri="webwork" prefix="ww"%>
+<%@ taglib uri="/webwork" prefix="ww"%>
 <html>
 <head><title>Please input your information (JSP Version)</title>
 <meta name="help-path" content="/help/help1_2.html"/>  

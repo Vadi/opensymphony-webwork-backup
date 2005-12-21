@@ -1,4 +1,4 @@
-<%@ taglib prefix="ww" uri="webwork" %>
+<%@ taglib prefix="ww" uri="/webwork" %>
 
 <input type="checkbox" <webwork:if test="parameters['nameValue']">checked="checked"</webwork:if>
    name="<webwork:property value="parameters['name']"/>"

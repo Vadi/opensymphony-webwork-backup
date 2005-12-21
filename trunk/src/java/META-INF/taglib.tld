@@ -7,7 +7,7 @@
    <jsp-version>1.2</jsp-version>
    <short-name>WebWork Taglib</short-name>
 
-   <uri>webwork</uri>
+   <uri>/webwork</uri>
 
    <display-name>WebWork Taglib</display-name>
    <description><![CDATA[WebWork JSP Taglib]]></description>
@@ -4030,10 +4030,10 @@
 
       <attribute>
          <name>fieldValue</name>
-         <required>true</required>
+         <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[The actual HTML value attribute of the checkbox]]></description>
+           <description><![CDATA[The actual HTML value attribute of the checkbox, defaults to 'true'.]]></description>
 
       </attribute>
       <attribute>
