@@ -15,6 +15,11 @@
 		<link rel="stylesheet" type="text/css" href='<ww:property value="%{siteCss}" />'>
 	</head>
 	<body>
+	
+	   
+	   <!-- START SNIPPET: nonFieldValidatorsExample -->
+	
+	
 		<ww:if test="hasActionErrors()">
 			<ww:iterator value="getActionErrors()" status="iteratorStatus">
 			 	<ul>
@@ -29,6 +34,10 @@
 			<ww:textfield name="someTextRetypeAgain" label="Retype Some Text Again" />
 			<ww:submit label="Submit" />
 		</ww:form>
+		
+		
+		<!--  END SNIPPET: nonFieldValidatorsExample -->
+		
 		
 		<ww:include value="footer.jsp" />
 	</body>
