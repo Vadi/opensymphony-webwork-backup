@@ -62,8 +62,8 @@
         </copy>
 
         <!-- compile the sources -->
-        <mkdir dir="${basedir}/${webapp}/WEB-INF/classes"/>
-        <compile srcdir="${basedir}/${webapp}/src/java" destdir="${basedir}/${webapp}/WEB-INF/classes"/>
+        <mkdir dir="${basedir}/tmp/WEB-INF/classes"/>
+        <compile srcdir="${basedir}/${webapp}/src/java" destdir="${basedir}/tmp/WEB-INF/classes"/>
 
         <!-- war up the app -->
         <war file="${basedir}/dist/${webapp}.war" webxml="tmp/WEB-INF/web.xml">
@@ -80,6 +80,7 @@
             <zipfileset dir="${basedir}/../lib/velocity" prefix="WEB-INF/lib" includes="*.jar"/>
             <zipfileset dir="${basedir}/../lib/quickstart" prefix="WEB-INF/lib" includes="log4j.jar"/>
             <zipfileset dir="${basedir}/../lib/jfree" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/.." prefix="WEB-INF/lib" includes="${name}-${version}.jar"/>
         </war>
     </target>
 </project>
