@@ -11,6 +11,9 @@
 <#if parameters.name?exists>
  name="${parameters.name?html}"<#rt/>
 </#if>
+<#if parameters.nameValue?exists>
+ value="<@ww.property value="parameters.nameValue"/>"<#rt/>
+</#if>
 <#if parameters.cssClass?exists>
  class="${parameters.cssClass?html}"<#rt/>
 </#if>
