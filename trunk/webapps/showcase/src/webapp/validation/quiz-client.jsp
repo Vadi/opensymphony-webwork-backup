@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Validation - Basic</title>
-    <link rel="stylesheet" href="<ww:url value="/webwork/xhtml/styles.css"/>" type="text/css"/>
+    <ww:head/>
 </head>
 
 <body>

@@ -1,3 +1,9 @@
+<tr>
+    <td colspan="2"><div <#rt/>
+<#if parameters.align?exists>
+    align="${parameters.align?html}"<#t/>
+</#if>
+><#t/>
 <button type="submit" dojoType="BindButton"<#rt/>
 <#if parameters.form?exists && parameters.form.id?exists>
  formId="${parameters.form.id}"<#rt/>
@@ -31,3 +37,4 @@
 </#if>
 <#include "/${parameters.templateDir}/simple/scripting-events.ftl"/>
 />
+<#include "/${parameters.templateDir}/xhtml/controlfooter.ftl" />

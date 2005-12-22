@@ -26,6 +26,7 @@ public class WebWorkModels {
     protected DoubleSelectModel doubleselect;
     protected FileModel file;
     protected FormModel form;
+    protected HeadModel head;
     protected HiddenModel hidden;
     protected AnchorModel a;
     protected I18nModel i18n;
@@ -111,6 +112,14 @@ public class WebWorkModels {
         return form;
     }
 
+    public HeadModel getHead() {
+        if (head == null) {
+            head = new HeadModel(stack, req, res);
+        }
+
+        return head;
+    }
+
     public HiddenModel getHidden() {
         if (hidden == null) {
             hidden = new HiddenModel(stack, req, res);
@@ -118,7 +127,6 @@ public class WebWorkModels {
 
         return hidden;
     }
-
     public LabelModel getLabel() {
         if (label == null) {
             label = new LabelModel(stack, req, res);

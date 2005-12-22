@@ -2,16 +2,17 @@
 <html>
 <head>
     <title>Validation - Basic</title>
-    <link rel="stylesheet" href="<ww:url value="/webwork/xhtml/styles.css"/>" type="text/css"/>
+    <ww:head theme="ajax"/>
 </head>
 
 <body>
 
+<div id='two' style="border: 1px solid yellow;"><b>initial content</b></div>
 <ww:form method="post" validate="true" theme="ajax">
     <ww:textfield label="Name" name="name"/>
     <ww:textfield label="Age" name="age"/>
     <ww:textfield label="Favorite color" name="answer"/>
-    <ww:submit/>
+    <ww:submit resultDivId="two"/>
 </ww:form>
 
 </body>

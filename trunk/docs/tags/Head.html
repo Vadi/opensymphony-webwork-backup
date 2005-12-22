@@ -1,22 +1,22 @@
 
 <html>
 <head>
-<title>&lt;ww:checkbox /&gt;</title>
+<title>&lt;ww:head /&gt;</title>
 </head>
 
 <body>
 
-<h1>Tag Name: &lt;ww:checkbox /&gt;</h1>
+<h1>Tag Name: &lt;ww:head /&gt;</h1>
 
 <h2>Description</h2>
 <p>
 
-Render a checkbox input field
+Render a chunk of HEAD for your HTML file
 
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Renders an HTML input element of type checkbox, populated by the specified property from the OgnlValueStack. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> JSP: &lt;ww:checkbox label="checkbox test" name="checkboxField1" value="aBoolean" fieldValue="true"/&gt; Velocity: #tag( Checkbox "label=checkbox test" "name=checkboxField1" "value=aBoolean" ) Resulting HTML (simple template, aBoolean == true): &lt;input type="checkbox" name="checkboxField1" value="true" checked="checked" /&gt; <!-- END SNIPPET: example --> </pre>
+<!-- START SNIPPET: javadoc --> Renders parts of the HEAD section for an HTML file. This is useful as some themes require certain CSS and JavaScript includes. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:head/&gt; <!-- END SNIPPET: example --> </pre>
 </p>
 
 <h2>Attributes</h2>
@@ -31,24 +31,6 @@ Render a checkbox input field
 <th align="left" valign="top"><h4>Default</h4></th>
 <th align="left" valign="top"><h4>Type</h4></th>
 <th align="left" valign="top"><h4>Description</h4></th>
-
-</tr>
-
-<tr>
-<!-- Attribute name -->
-<td align="left" valign="top">fieldValue</td>
-
-<!-- Required -->
-<td align="left" valign="top">false</td>
-
-<!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
-
-<!-- Type -->
-<td align="left" valign="top">Object/String</td>
-
-<!-- Description -->
-<td align="left" valign="top">The actual HTML value attribute of the checkbox, defaults to 'true'.</td>
 
 </tr>
 
