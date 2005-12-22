@@ -17,29 +17,13 @@
     <link href="<ww:url value='/css/niftyPrint.css'/>" rel="stylesheet" type="text/css" media="print"/>
     <link href="<ww:url value='/css/dtree.css'/>" rel="stylesheet" type="text/css" media="all"/>
     <link href="<ww:url value='/css/cart.css'/>" rel="stylesheet" type="text/css" media="all"/>
-    <script language="JavaScript" type="text/javascript">
-        // Dojo configuration
-        djConfig = {
-            baseRelativePath: "<ww:url includeParams="none" value="/webwork/dojo/"/>",
-            isDebug: false,
-            debugAtAllCosts: true // not needed, but allows the Venkman debugger to work with the includes
-        };
-    </script>
 
-    <script language="JavaScript" type="text/javascript"
-            src="<ww:url includeParams="none" value="/webwork/dojo/dojo.js" />"></script>
     <script language="JavaScript" type="text/javascript" src="<ww:url value='/js/nifty.js'/>"></script>
     <script language="JavaScript" type="text/javascript" src="<ww:url value='/js/dtree.js'/>"></script>
 
-    <script language="JavaScript" type="text/javascript">
-        dojo.require("dojo.io.BrowserIO");
-        dojo.require("dojo.event.topic");
+    <ww:head theme="ajax" />
 
-        dojo.require("webwork.widgets.Bind");
-        dojo.require("webwork.widgets.BindDiv");
-        dojo.require("webwork.widgets.BindButton");
-        dojo.require("webwork.widgets.BindAnchor");
-        dojo.hostenv.writeIncludes();
+    <script language="JavaScript" type="text/javascript">
 
         dojo.event.connect (window, "onload" , function() {
             if (!NiftyCheck())
@@ -108,7 +92,7 @@
                             dojo.event.topic.publish("categorySelected", "" + data);
                         },
                         error: function(type, error){
-                            alert( "Error selecting cateogory : " + error.message );
+                            alert( "Error selecting category : " + error.message );
                         },
                         mimetype: "text/plain"
                         });
