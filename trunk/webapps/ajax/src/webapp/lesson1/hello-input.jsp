@@ -7,7 +7,7 @@
 <body>
 
 <ww:form action="hello" validate="true">
-    <ww:textfield label="Name" name="name"/>
+    <ww:textfield label="Name" name="name" required="true"/>
     <ww:submit value="Say Hello"/>
 </ww:form>
 
