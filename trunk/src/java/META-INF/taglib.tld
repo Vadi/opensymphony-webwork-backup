@@ -20,6 +20,14 @@
       <description><![CDATA[Render a chunk of HEAD for your HTML file]]></description>
 
       <attribute>
+         <name>calendarcss</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The jscalendar css theme to use]]></description>
+
+      </attribute>
+      <attribute>
          <name>theme</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
