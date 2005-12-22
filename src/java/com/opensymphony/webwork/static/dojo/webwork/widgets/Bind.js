@@ -94,7 +94,7 @@ webwork.widgets.HTMLBind = function() {
 			load: self.load,
 			error: self.error,
 			useCache: self.useCache
-		};
+        };
 
 		// the formId can either be a id or a form refrence
 		if (self.formId != "") {
@@ -117,7 +117,13 @@ webwork.widgets.HTMLBind = function() {
 			args.mimetype = "text/javascript";
 		}
 
-		dojo.io.bind(args);
+        try {
+            dojo.io.bind(args);
+        } catch (e) {
+            dojo.debug("EXCEPTION: " + e);
+
+        }
+
     }
     
     this.load = function(type, data) {
