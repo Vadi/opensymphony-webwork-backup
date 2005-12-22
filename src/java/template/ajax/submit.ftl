@@ -11,9 +11,6 @@
 <#if parameters.name?exists>
  name="${parameters.name?html}"<#rt/>
 </#if>
-<#if parameters.nameValue?exists>
- value="<@ww.property value="parameters.nameValue"/>"<#rt/>
-</#if>
 <#if parameters.cssClass?exists>
  class="${parameters.cssClass?html}"<#rt/>
 </#if>
@@ -36,5 +33,5 @@
  listenTopics="${parameters.listenTopics}"<#rt/>
 </#if>
 <#include "/${parameters.templateDir}/simple/scripting-events.ftl"/>
-/>
+><#if parameters.nameValue?exists><@ww.property value="parameters.nameValue"/><#rt/></#if></button></div>
 <#include "/${parameters.templateDir}/xhtml/controlfooter.ftl" />
