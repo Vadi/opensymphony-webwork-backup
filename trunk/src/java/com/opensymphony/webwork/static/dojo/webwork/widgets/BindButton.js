@@ -23,7 +23,7 @@ webwork.widgets.HTMLBindButton = function() {
 	this.widgetType = "BindButton";
 	this.templatePath = dojo.uri.dojoUri("webwork/widgets/BindButton.html");
 
-	// dom node in the template that will contain the remote content
+    // dom node in the template that will contain the remote content
 	this.attachBtn = null;
 
     //a snippet of js to invode before binding
@@ -42,6 +42,7 @@ webwork.widgets.HTMLBindButton = function() {
 
     this.execute = function() {
         var executeConnect = true;
+
         //If the user provided some preInvokeJS invoke it and store the results into the
         //executeConnect var to determine if the connect should occur
 		if (self.preInvokeJS != "") {
@@ -49,7 +50,12 @@ webwork.widgets.HTMLBindButton = function() {
             executeConnect = eval(this.preInvokeJS);
 		}
         if (executeConnect) {
-            this.bind();
+            try {
+                this.bind();
+            } catch (e) {
+                dojo.debug("EXCEPTION: " + e);
+
+            }
         }
     }
 }

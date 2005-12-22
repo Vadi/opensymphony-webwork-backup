@@ -517,11 +517,13 @@ public abstract class UIBean extends Component {
             addParameter("id", form.getParameters().get("id") + "_" + escape(name));
         }
 
-        if (form != null && name != null) {
+        if (form != null ) {
             addParameter("form", form.getParameters());
 
-            List tags = (List) form.getParameters().get("tagNames");
-            tags.add(name);
+            if ( name != null ) {
+                List tags = (List) form.getParameters().get("tagNames");
+                tags.add(name);
+            }
         }
 
         evaluateExtraParams();
