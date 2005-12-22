@@ -149,7 +149,7 @@ public class URL extends Component {
 
         String result;
         if (value == null && action != null) {
-            result = determineActionURL(action, namespace, method, req, res, parameters);
+            result = determineActionURL(action, namespace, method, req, res, parameters, scheme, includeContext, encode);
         } else {
             result = UrlHelper.buildUrl(value, req, res, parameters, scheme, includeContext, encode);
         }
