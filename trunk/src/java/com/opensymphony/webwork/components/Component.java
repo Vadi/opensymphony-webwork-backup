@@ -179,13 +179,14 @@ public class Component {
      * Renders an action URL by consulting the {@link com.opensymphony.webwork.dispatcher.mapper.ActionMapper}.
      */
     protected String determineActionURL(String action, String namespace, String method,
-                                      HttpServletRequest req, HttpServletResponse res, Map parameters) {
+                                        HttpServletRequest req, HttpServletResponse res, Map parameters, String scheme,
+                                        boolean includeContext, boolean encodeResult) {
         String finalAction = findString(action);
         String finalNamespace = determineNamespace(namespace, getStack(), req);
         ActionMapping mapping = new ActionMapping(finalAction, finalNamespace, method, parameters);
         ActionMapper mapper = ActionMapperFactory.getMapper();
         String uri = mapper.getUriFromActionMapping(mapping);
-        return UrlHelper.buildUrl(uri, req, res, parameters);
+        return UrlHelper.buildUrl(uri, req, res, parameters, scheme, includeContext, encodeResult);
     }
 
     /**
