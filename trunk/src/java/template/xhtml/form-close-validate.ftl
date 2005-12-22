@@ -29,7 +29,7 @@
                 errors = true;
             }
             <#elseif validator.validatorType = "url">
-            if (field.value != null && field.value.match(/^(file|http):\\/\\/\\S+\\.(com|net|org|info|edu|mil|gov|biz|ws|us|tv|cc)$/i))) {
+            if (field.value != null && field.value.match(/^(file|http):\\/\\/\\S+\\.(com|net|org|info|edu|mil|gov|biz|ws|us|tv|cc)$/i)) {
                 addError(field, error);
                 errors = true;
             }
