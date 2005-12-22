@@ -40,7 +40,7 @@ import java.io.Writer;
  *
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @author tmjee
- * @ww.tag name="elseif" tld-body-content="JSP" description="Elseif tag"
+ * @ww.tag name="elseif" tld-body-content="JSP" description="Elseif tag"  tld-tag-class="com.opensymphony.webwork.views.jsp.ElseIfTag"
  */
 public class ElseIf extends Component {
     public ElseIf(OgnlValueStack stack) {
