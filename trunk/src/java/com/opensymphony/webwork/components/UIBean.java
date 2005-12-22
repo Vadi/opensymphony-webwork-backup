@@ -229,6 +229,7 @@ import java.util.Iterator;
  * 
  * @author Patrick Lightbody
  * @author Rene Gielen
+ * @author Rainer Hermanns
  * @version $Revision$
  * @since 2.2
  */
