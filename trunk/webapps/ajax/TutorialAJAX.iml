@@ -136,6 +136,46 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/antlr.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/hibernate/antlr.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/asm.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/hibernate/asm.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/cglib.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/hibernate/cglib.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/commons-collections.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/hibernate/commons-collections.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/commons-logging.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/hibernate/commons-logging.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/dom4j.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/hibernate/dom4j.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/ehcache.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/hibernate/ehcache.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/hibernate.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/hibernate/hibernate.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-beanutils.jar" />
       <url>jar://$MODULE_DIR$/../../lib/jasperreports/commons-beanutils.jar!/</url>
     </containerElement>
