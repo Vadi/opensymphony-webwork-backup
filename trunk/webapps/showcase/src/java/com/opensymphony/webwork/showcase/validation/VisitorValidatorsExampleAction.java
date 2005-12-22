@@ -8,6 +8,9 @@ package com.opensymphony.webwork.showcase.validation;
  * @author tm_jee
  * @version $Date$ $Id$
  */
+
+// START SNIPPET: visitorValidatorsExample
+
 public class VisitorValidatorsExampleAction extends AbstractValidationActionSupport {
 
 	private User user;
@@ -20,3 +23,6 @@ public class VisitorValidatorsExampleAction extends AbstractValidationActionSupp
 		this.user = user;
 	}
 }
+
+
+// END SNIPPET: visitorValidatorsExample

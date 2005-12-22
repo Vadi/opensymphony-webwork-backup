@@ -4,6 +4,7 @@
   		"-//OpenSymphony Group//XWork Validator 1.0//EN" 
   		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
   		
+<!-- START SNIPPET: visitorValidatorsExample -->
 
 <validators>
 	<field name="user">
@@ -15,4 +16,5 @@
 	</field>
 </validators>
 
+<!--  END SNIPPET: visitorValidatorExample -->
 

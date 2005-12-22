@@ -8,6 +8,9 @@ package com.opensymphony.webwork.showcase.validation;
  * @author tm_jee
  * @version $Date$ $Id$
  */
+
+// START SNIPPET: nonFieldValidatorsExample
+
 public class NonFieldValidatorsExampleAction extends AbstractValidationActionSupport {
 	
 	private String someText;
@@ -33,6 +36,9 @@ public class NonFieldValidatorsExampleAction extends AbstractValidationActionSup
 		this.someTextRetypeAgain = someTextRetypeAgain;
 	}
 }
+
+
+// END SNIPPET: nonFieldValidatorsExample
 
 
 
