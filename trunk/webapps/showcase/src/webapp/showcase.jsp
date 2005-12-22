@@ -22,7 +22,6 @@
         <li><ww:url id="url" namespace="/validation" action="quizBasic" method="input"/><ww:a href="%{url}">Validation (basic)</ww:a></li>
         <li><ww:url id="url" namespace="/validation" action="quizClient" method="input"/><ww:a href="%{url}">Validation (client)</ww:a></li>
         <li><ww:url id="url" namespace="/validation" action="quizAjax" method="input"/><ww:a href="%{url}">Validation (ajax)</ww:a></li>
-        <li><ww:url id="url" namespace="/tags/ui" action="example" method="input"/><ww:a href="%{url}">UI Tags example</ww:a></li>
         <li><ww:url id="url" namespace="/skill" action="list"/><ww:a href="%{url}">List available Skills</ww:a></li>
         <li><ww:url id="url" namespace="/skill" action="edit"/><ww:a href="%{url}">Create/Edit Skill</ww:a></li>
         <li><ww:url id="url" namespace="/employee" action="list"/><ww:a href="%{url}">List available Employees</ww:a></li>
