@@ -518,6 +518,7 @@ public class VelocityManager {
         addDirective(sb, DoubleSelectDirective.class);
         addDirective(sb, FileDirective.class);
         addDirective(sb, FormDirective.class);
+        addDirective(sb, HeadDirective.class);
         addDirective(sb, HiddenDirective.class);
         addDirective(sb, AnchorDirective.class);
         addDirective(sb, I18nDirective.class);
