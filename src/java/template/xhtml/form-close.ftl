@@ -14,10 +14,30 @@
         // validator name: ${validator.validatorType}
         if (form.elements['${validator.fieldName}']) {
             field = form.elements['${validator.fieldName}'];
-
-            <#if validator.validatorType = "requiredstring">
-            if (field.value == null || field.value == "" || field.value.match("\W+")) {
-                addError(field, "${validator.defaultMessage}");
+            var error = "${validator.defaultMessage}";
+            <#if validator.validatorType = "required">
+            if (field.value == "") {
+                addError(field, error);
+                errors = true;
+            }
+            <#elseif validator.validatorType = "requiredstring">
+            if (field.value != null && (field.value == "" || field.value.match("\W+"))) {
+                addError(field, error);
+                errors = true;
+            }
+            <#elseif validator.validatorType = "email">
+            if (field.value != null && field.value.match(/\\b(^(\\S+@).+((\\.com)|(\\.net)|(\\.org)|(\\.info)|(\\.edu)|(\\.mil)|(\\.gov)|(\\.biz)|(\\.ws)|(\\.us)|(\\.tv)|(\\.cc)|(\\..{2,2}))$)\\b/gi)) {
+                addError(field, error);
+                errors = true;
+            }
+            <#elseif validator.validatorType = "url">
+            if (field.value != null && field.value.match(/^(file|http):\\/\\/\\S+\\.(com|net|org|info|edu|mil|gov|biz|ws|us|tv|cc)$/i))) {
+                addError(field, error);
+                errors = true;
+            }
+            <#elseif validator.validatorType = "int">
+            if (field.value != null && (parseInt(field.value) < ${validator.min} || parseInt(field.value) > ${validator.max})) {
+                addError(field, error);
                 errors = true;
             }
             </#if>
