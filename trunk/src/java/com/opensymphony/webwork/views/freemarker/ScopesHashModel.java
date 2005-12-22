@@ -92,4 +92,12 @@ public class ScopesHashModel extends SimpleHash {
 
         return null;
     }
+
+    public void put(String string, boolean b) {
+        super.put(string, b);
+    }
+
+    public void put(String string, Object object) {
+        super.put(string, object);
+    }
 }

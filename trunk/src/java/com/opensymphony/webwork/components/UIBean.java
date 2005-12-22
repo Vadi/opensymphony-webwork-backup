@@ -8,12 +8,19 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.validator.ActionValidatorManager;
+import com.opensymphony.xwork.validator.Validator;
+import com.opensymphony.xwork.validator.FieldValidator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
+import java.util.List;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * UIBean is the standard superclass of all webwork UI componentns.
@@ -510,8 +517,11 @@ public abstract class UIBean extends Component {
             addParameter("id", form.getParameters().get("id") + "_" + escape(name));
         }
 
-        if (form != null) {
+        if (form != null && name != null) {
             addParameter("form", form.getParameters());
+
+            List tags = (List) form.getParameters().get("tagNames");
+            tags.add(name);
         }
 
         evaluateExtraParams();
