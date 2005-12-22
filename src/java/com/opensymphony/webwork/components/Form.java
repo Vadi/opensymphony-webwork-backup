@@ -8,9 +8,17 @@ import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.validator.ActionValidatorManager;
+import com.opensymphony.xwork.validator.Validator;
+import com.opensymphony.xwork.validator.FieldValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * <!-- START SNIPPET: javadoc -->
@@ -98,6 +106,7 @@ public class Form extends ClosingUIBean {
         }
 
         final ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
+        String actionName = action;
         if (actionConfig != null) {
             if (isPortlet & !isAjax) {
                 addParameter("action", actionURL);
@@ -114,6 +123,16 @@ public class Form extends ClosingUIBean {
                 ActionMapping mapping = new ActionMapping(action, namespace, actionMethod, parameters);
                 String result = UrlHelper.buildUrl(ActionMapperFactory.getMapper().getUriFromActionMapping(mapping), request, response, null);
                 addParameter("action", result);
+
+                // let's try to get the actual action class and name
+                // this can be used for getting the list of validators
+                addParameter("actionName", actionName);
+                try {
+                    Class clazz = ObjectFactory.getObjectFactory().getClassInstance(actionConfig.getClassName());
+                    addParameter("actionClass", clazz);
+                } catch (ClassNotFoundException e) {
+                    // this is OK, we'll just move on
+                }
             }
 
             addParameter("namespace", namespace);
@@ -178,7 +197,36 @@ public class Form extends ClosingUIBean {
         if (validate != null) {
             addParameter("validate", findValue(validate, Boolean.class));
         }
+
+        // keep a collection of the tag names for anything special the templates might want to do (such as pure client
+        // side validation)
+        if (!parameters.containsKey("tagNames")) {
+            // we have this if check so we don't do this twice (on open and close of the template)
+            addParameter("tagNames", new ArrayList());
+        }
     }
+
+    public List getValidators(String name) {
+        Class actionClass = (Class) getParameters().get("actionClass");
+        if (actionClass == null) {
+            return Collections.EMPTY_LIST;
+        }
+
+        List all = ActionValidatorManager.getValidators(actionClass, (String) getParameters().get("actionName"));
+        List validators = new ArrayList();
+        for (Iterator iterator = all.iterator(); iterator.hasNext();) {
+            Validator validator = (Validator) iterator.next();
+            if (validator instanceof FieldValidator) {
+                FieldValidator fieldValidator = (FieldValidator) validator;
+                if (fieldValidator.getFieldName().equals(name)) {
+                    validators.add(fieldValidator);
+                }
+            }
+        }
+
+        return validators;
+    }
+
 
     /**
      * @ww.tagattribute required="false"
