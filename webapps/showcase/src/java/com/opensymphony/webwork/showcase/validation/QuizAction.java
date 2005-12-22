@@ -5,6 +5,7 @@ import com.opensymphony.xwork.ActionSupport;
 /**
  * @author Patrick Lightbody (plightbo at gmail dot com)
  */
+// START SNIPPET: quizAction 
 public class QuizAction extends ActionSupport {
     String name;
     int age;
@@ -34,3 +35,4 @@ public class QuizAction extends ActionSupport {
         this.answer = answer;
     }
 }
+// END SNIPPET: quizAction
