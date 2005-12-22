@@ -11,8 +11,7 @@
 <html>
 <head>
     <title><ww:property value="#title"/></title>
-    <link href="<%=request.getContextPath()%>/webwork/jscalendar/calendar-blue.css" rel="stylesheet" type="text/css"
-          media="all"/>
+    <ww:head/>
 </head>
 
 <body>
