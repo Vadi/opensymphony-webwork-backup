@@ -36,6 +36,7 @@
         <conf name="xslt"/>
         <conf name="portlet"/>
         <conf name="spring"/>
+        <conf name="pico"/>
         <conf name="xslt"/>
         <conf name="tiger"/>
         <conf name="cewolf"/>
@@ -122,6 +123,12 @@
 
         <!-- spring -->
         <dependency org="opensymphony" name="xwork" rev="1.1+" conf="spring->spring"/>
+
+        <!-- pico -->
+        <dependency org="picocontainer" name="picocontainer" rev="1.2-RC-2" conf="pico->*"/>
+        <dependency org="picocontainer" name="picocontainer-gems" rev="1.2-RC-2" conf="pico->*"/>
+        <dependency org="nanocontainer" name="nanocontainer" rev="1.0-RC-3" conf="pico->*"/>
+        <dependency org="nanocontainer" name="nanocontainer-nanowar" rev="1.0-RC-3" conf="pico->*"/>
 
         <!-- xslt -->
         <dependency org="w3c" name="dom" rev="3.0" conf="xslt->*"/>
