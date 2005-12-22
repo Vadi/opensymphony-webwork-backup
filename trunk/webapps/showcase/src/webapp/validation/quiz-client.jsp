@@ -1,4 +1,7 @@
 <%@ taglib prefix="ww" uri="/webwork" %>
+
+<!-- START SNIPPET: clientValidation -->
+
 <html>
 <head>
     <title>Validation - Basic</title>
@@ -7,8 +10,6 @@
 
 <body>
 
-<!-- START SNIPPET: clientValidation -->
-
 <ww:form method="post" validate="true">
     <ww:textfield label="Name" name="name"/>
     <ww:textfield label="Age" name="age"/>
@@ -16,8 +17,8 @@
     <ww:submit/>
 </ww:form>
 
-<!--  END SNIPPET: clientValidation -->
-
-
 </body>
 </html>
+
+<!--  END SNIPPET: clientValidation -->
+
