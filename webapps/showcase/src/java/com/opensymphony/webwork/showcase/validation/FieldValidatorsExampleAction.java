@@ -11,6 +11,9 @@ import java.util.Random;
  * @author tm_jee
  * @version $Date$ $Id$
  */
+
+// START SNIPPET: fieldValidatorsExample
+
 public class FieldValidatorsExampleAction extends AbstractValidationActionSupport {
 	
 	private String requiredValidatorField = null;
@@ -78,4 +81,5 @@ public class FieldValidatorsExampleAction extends AbstractValidationActionSuppor
 }
 
 
+// END SNIPPET: fieldValidatorsExample
 

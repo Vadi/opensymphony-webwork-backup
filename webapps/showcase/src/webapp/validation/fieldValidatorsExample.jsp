@@ -16,6 +16,8 @@
 	</head>
 	<body>
 	
+	<!-- START SNIPPET: fieldValidatorsExample -->
+	
 		<ww:form action="submitFieldValidatorsExamples" namespace="/validation" method="POST">
 			<ww:textfield label="Required Validator Field" name="requiredValidatorField" />
 			<ww:textfield label="Required String Validator Field" name="requiredStringValidatorField" />
@@ -27,6 +29,9 @@
 			<ww:textfield label="Field Expression Validator Field" name="fieldExpressionValidatorField" />
 			<ww:submit label="Submit" />
 		</ww:form>
+		
+    <!-- END SNIPPET: fieldValidatorsExample --> -->
+		
 		
 		<ww:include value="footer.jsp" />
 	</body>
