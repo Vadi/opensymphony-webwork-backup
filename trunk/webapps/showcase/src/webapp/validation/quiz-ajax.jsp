@@ -1,4 +1,7 @@
 <%@ taglib prefix="ww" uri="/webwork" %>
+
+<!-- START SNIPPET: ajaxValidation -->
+
 <html>
 <head>
     <title>Validation - Basic</title>
@@ -17,3 +20,5 @@
 
 </body>
 </html>
+
+<!-- END SNIPPET: ajaxValidation -->
