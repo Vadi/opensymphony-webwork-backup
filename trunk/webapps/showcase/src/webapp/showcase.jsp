@@ -1,3 +1,9 @@
+<%-- 
+	showcase.jsp
+	
+	@version $Date$ $Id$
+--%>
+
 <%@ taglib uri="/webwork" prefix="ww" %>
 <html>
 <head>
@@ -21,6 +27,7 @@
         <li><ww:url id="url" namespace="/skill" action="edit"/><ww:a href="%{url}">Create/Edit Skill</ww:a></li>
         <li><ww:url id="url" namespace="/employee" action="list"/><ww:a href="%{url}">List available Employees</ww:a></li>
         <li><ww:url id="url" namespace="/employee" action="edit"/><ww:a href="%{url}">Create/Edit Employee</ww:a></li>
+        <li><ww:url id="url" namespace="/validation" action="list"/><ww:a href="%{url}">Validation Examples</ww:a></li>
     </ul>
 </p>
 </body>
