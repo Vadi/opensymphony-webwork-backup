@@ -36,7 +36,7 @@ import java.util.Map;
  *
  * @author Rick Salsa (rsal@mb.sympatico.ca)
  * @author tmjee
- * @ww.tag name="else" bodycontent="JSP" description="Else tag"
+ * @ww.tag name="else" bodycontent="JSP" description="Else tag"  tld-tag-class="com.opensymphony.webwork.views.jsp.ElseTag"
  */
 public class Else extends Component {
     public Else(OgnlValueStack stack) {

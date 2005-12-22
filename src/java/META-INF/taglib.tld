@@ -2534,6 +2534,39 @@
    </tag>
    <tag>
 
+      <name>sort</name>
+      <tag-class>com.opensymphony.webwork.views.jsp.iterator.SortIteratorTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[Sort a List using a Comparator both passed in as the tag attribute.]]></description>
+
+      <attribute>
+         <name>comparator</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The comparator to use]]></description>
+
+      </attribute>
+      <attribute>
+         <name>source</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The iterable source to sort]]></description>
+
+      </attribute>
+      <attribute>
+         <name>id</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id of the tag element.]]></description>
+
+      </attribute>
+
+   </tag>
+   <tag>
+
       <name>hidden</name>
       <tag-class>com.opensymphony.webwork.views.jsp.ui.HiddenTag</tag-class>
       <body-content>JSP</body-content>
@@ -3349,7 +3382,7 @@
    <tag>
 
       <name>else</name>
-      <tag-class>com.opensymphony.webwork.components.Else</tag-class>
+      <tag-class>com.opensymphony.webwork.views.jsp.ElseTag</tag-class>
       <description><![CDATA[Else tag]]></description>
 
       <attribute>
@@ -4242,6 +4275,55 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[id for referencing element. For UI and form tags it will be used as HTML id attribute]]></description>
+
+      </attribute>
+
+   </tag>
+   <tag>
+
+      <name>generator</name>
+      <tag-class>com.opensymphony.webwork.views.jsp.iterator.IteratorGeneratorTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[Generate an iterator for a iterable source.]]></description>
+
+      <attribute>
+         <name>count</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[the max number entries to be in the iterator]]></description>
+
+      </attribute>
+      <attribute>
+         <name>separator</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[the separator to be used in separating the <i>val</i> into entries of the iterator]]></description>
+
+      </attribute>
+      <attribute>
+         <name>val</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[the source to be parsed into an iterator]]></description>
+
+      </attribute>
+      <attribute>
+         <name>converter</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[the converter to convert the String entry parsed from <i>val</i> into an object]]></description>
+
+      </attribute>
+      <attribute>
+         <name>id</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[the id to store the resultant iterator into page context, if such id is supplied]]></description>
 
       </attribute>
 
@@ -6209,6 +6291,29 @@
    </tag>
    <tag>
 
+      <name>tabbedpane</name>
+      <tag-class>com.opensymphony.webwork.views.jsp.ui.TabbedPaneTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[This tag is deprecated. Use tabbed panel instead.]]></description>
+
+      <attribute>
+         <name>contentName</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+      </attribute>
+      <attribute>
+         <name>id</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id of the tag element.]]></description>
+
+      </attribute>
+
+   </tag>
+   <tag>
+
       <name>tabbedPanel</name>
       <tag-class>com.opensymphony.webwork.views.jsp.ui.TabbedPanelTag</tag-class>
       <body-content>JSP</body-content>
@@ -6442,8 +6547,57 @@
    </tag>
    <tag>
 
+      <name>subset</name>
+      <tag-class>com.opensymphony.webwork.views.jsp.iterator.SubsetIteratorTag</tag-class>
+      <body-content>JSP</body-content>
+      <description><![CDATA[Takes an iterator and outputs a subset of it]]></description>
+
+      <attribute>
+         <name>count</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Indicate the number of entries to be in the resulting subset iterator]]></description>
+
+      </attribute>
+      <attribute>
+         <name>source</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Indicate the source of which the resulting subset iterator is to be derived base on]]></description>
+
+      </attribute>
+      <attribute>
+         <name>start</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Indicate the starting index (eg. first entry is 0) of entries in the source to be available as the first entry in the resulting subset iterator]]></description>
+
+      </attribute>
+      <attribute>
+         <name>decider</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Extension to plug-in a decider to determine if that particular entry is to be included in the resulting subset iterator]]></description>
+
+      </attribute>
+      <attribute>
+         <name>id</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The id of the tag element.]]></description>
+
+      </attribute>
+
+   </tag>
+   <tag>
+
       <name>elseif</name>
-      <tag-class>com.opensymphony.webwork.components.ElseIf</tag-class>
+      <tag-class>com.opensymphony.webwork.views.jsp.ElseIfTag</tag-class>
       <body-content>JSP</body-content>
       <description><![CDATA[Elseif tag]]></description>
 
