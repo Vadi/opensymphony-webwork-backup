@@ -21,7 +21,7 @@
     <script language="JavaScript" type="text/javascript" src="<ww:url value='/js/nifty.js'/>"></script>
     <script language="JavaScript" type="text/javascript" src="<ww:url value='/js/dtree.js'/>"></script>
 
-    <ww:head theme="ajax" />
+    <ww:head theme="ajax"/>
 
     <script language="JavaScript" type="text/javascript">
 
@@ -84,11 +84,11 @@
 
                  function changeCategory(category) {
                      var serverUrl = "<ww:url value="/catalog/remote/setActiveCategory.action"/>?categoryId=" + category;
-//                        alert("Url: " + serverUrl);
+//                        dojo.debug("Url: " + serverUrl);
                         dojo.io.bind({
                         url: serverUrl,
                         load: function(type, data, event) {
-//                            alert("Got response: data= " + data + " event = " + event);
+//                            dojo.debug("Got response: data= " + data + " event = " + event);
                             dojo.event.topic.publish("categorySelected", "" + data);
                         },
                         error: function(type, error){
