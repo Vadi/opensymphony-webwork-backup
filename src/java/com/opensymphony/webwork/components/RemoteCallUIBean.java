@@ -4,6 +4,7 @@ import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.portlet.context.PortletContext;
 import com.opensymphony.webwork.portlet.util.PortalContainer;
+import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Rene Gielen
  * @author Ian Roughley
+ * @author Rainer Hermanns
  * @version $Revision$
  * @since 2.2
  */
@@ -34,16 +36,12 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
 
         if (href != null) {
 
-            // Fix: This code was added to help with Portlet suppoort.
-            //Modified by Henry Hu @12/9/2005 mail: hu_pengfei@yahoo.com.cn
-            //Original Code is:
-            //addParameter("href", UrlHelper.buildUrl(findString(href), request, response, null));
-
             String hrefValue = findString(href);
             String actionUrl = PortletContext.getContext().getActionURL();
 
             if (!TextUtils.stringSet(actionUrl)) {
-                addParameter("href", hrefValue);
+                // This is needed for portal and DOJO ajax stuff!
+                addParameter("href", UrlHelper.buildUrl(hrefValue, request, response, null));
             } else {
 
                 String actionExtension = (String) Configuration.get("webwork.action.extension");
