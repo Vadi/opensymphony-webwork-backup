@@ -12,6 +12,7 @@ import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.webwork.views.util.ResourceUtil;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.LocaleProvider;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import freemarker.template.*;
 
@@ -199,13 +200,16 @@ public class FreemarkerResult extends WebWorkResultSupport {
     }
 
     /**
-     * Returns the locale used for the
-     * {@link Configuration#getTemplate(String, Locale)} call.
-     * The base implementation simply returns the locale setting of the
-     * configuration. Override this method to provide different behaviour,
+     * Returns the locale used for the {@link Configuration#getTemplate(String, Locale)} call. The base implementation
+     * simply returns the locale setting of the action (assuming the action implements {@link LocaleProvider}) or, if
+     * the action does not the configuration's locale is returned. Override this method to provide different behaviour,
      */
     protected Locale deduceLocale() {
-        return configuration.getLocale();
+        if (invocation.getAction() instanceof LocaleProvider) {
+            return ((LocaleProvider) invocation.getAction()).getLocale();
+        } else {
+            return configuration.getLocale();
+        }
     }
 
     /**
