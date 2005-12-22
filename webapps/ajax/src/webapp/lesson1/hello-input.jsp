@@ -12,7 +12,5 @@
     <ww:submit value="Say Hello"/>
 </ww:form>
 
-<form action="hello.jsp"><button type="submit">Huhu</button></form>
-
 </body>
 </html>
