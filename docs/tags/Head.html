@@ -16,7 +16,7 @@ Render a chunk of HEAD for your HTML file
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Renders parts of the HEAD section for an HTML file. This is useful as some themes require certain CSS and JavaScript includes. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:head/&gt; <!-- END SNIPPET: example --> </pre>
+<!-- START SNIPPET: javadoc --> Renders parts of the HEAD section for an HTML file. This is useful as some themes require certain CSS and JavaScript includes.<p/> If, for example, your page has ajax components integrated, without having the default theme set to ajax, you might want to use the head tag with <pre>theme="ajax"</pre> so that the typical ajax header setup will be included in the page.<p/> The tag also includes the option to set a custom datepicker theme if needed. See calendarcss parameter for description for details.<p/> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example1 --> &lt;head&gt; &lt;title&gt;My page&lt;/title&gt; &lt;ww:head/&gt; &lt;/head&gt; <!-- END SNIPPET: example1 --> </pre> <pre> <!-- START SNIPPET: example2 --> &lt;head&gt; &lt;title&gt;My page&lt;/title&gt; &lt;ww:head theme="ajax" calendarcss="calendar-green"/&gt; &lt;/head&gt; <!-- END SNIPPET: example2 --> </pre>
 </p>
 
 <h2>Attributes</h2>
