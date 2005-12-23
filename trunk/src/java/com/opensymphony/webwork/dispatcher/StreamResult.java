@@ -52,6 +52,7 @@ import java.io.OutputStream;
  * <!-- END SNIPPET: example --></pre>
  *
  * @author mcrawford
+ * @author Rainer Hermanns
  */
 public class StreamResult extends WebWorkResultSupport {
     protected String contentType = "text/plain";
@@ -134,11 +135,14 @@ public class StreamResult extends WebWorkResultSupport {
      * @see com.opensymphony.xwork.Result#execute(com.opensymphony.xwork.ActionInvocation)
      */
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
-        // Find the inputstream from the invocation variable stack
-        InputStream oInput = (InputStream) invocation.getStack().findValue(conditionalParse(inputName, invocation));
+
+        InputStream oInput = null;
         OutputStream oOutput = null;
 
-        try {
+        try{
+            // Find the inputstream from the invocation variable stack
+            oInput = (InputStream) invocation.getStack().findValue(conditionalParse(inputName, invocation));
+
             // Find the Response in context
             HttpServletResponse oResponse = (HttpServletResponse) invocation.getInvocationContext().get(HTTP_RESPONSE);
 
