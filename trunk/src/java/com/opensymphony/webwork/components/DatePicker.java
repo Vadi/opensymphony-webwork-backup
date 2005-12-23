@@ -9,14 +9,16 @@ import java.util.Locale;
 
 /**
  * <!-- START SNIPPET: javadoc -->
+ *
  * Renders datepicker element.</p>
  *
- * Implementation was changed in WebWork 2.2 to use <a href="http://www.dynarch.com/projects/calendar/">jscalendar</a> instead of
- * non locale aware tigracalendar. Check locale and format settings if you used the old widget in your applications.
- * Be sure to include proper stylesheet as described below if you don't want the calender widget to look transparent.</p>
+ * Implementation was changed in WebWork 2.2 to use <a href="http://www.dynarch.com/projects/calendar/">jscalendar</a>
+ * instead of non locale aware tigracalendar. Check locale and format settings if you used the old widget in your
+ * applications. Be sure to include proper stylesheet as described below if you don't want the calender widget to look
+ * transparent.</p>
  *
- * <b>Important:</b> Be sure to set the id attributs if not used within a &lt;ww:form /&gt; tag,
- * as it takes care of setting the id for you, being required to copy selected date to text input element.</p>
+ * <b>Important:</b> Be sure to set the id attributs if not used within a &lt;ww:form /&gt; tag, as it takes care of
+ * setting the id for you, being required to copy selected date to text input element.</p>
  *
  * Following a reference for the format parameter (copied from jscalendar documentation):
  * <table border=0><tr><td valign=top ></td></tr>
@@ -47,6 +49,7 @@ import java.util.Locale;
  * <tr><td valign=top ><tt>%Y</tt> </td><td valign=top >year including the century ( ex. 1979 )</td></tr>
  * <tr><td valign=top ><tt>%%</tt> </td><td valign=top >a literal <tt>%</tt> character
  * </td></tr></table><p>
+ *
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
@@ -62,25 +65,28 @@ import java.util.Locale;
  * <!-- END SNIPPET: expl1 -->
  * </pre>
  * <p/>
+ *
  * <!-- START SNIPPET: expldesc2 -->
+ *
  * If you use this jscalendar based datepicker widget, you might want to use one of the standard stylesheets provided
- * with jscalendar (all distribution stylesheets are included in webwork jar). For example, to activate the
- * calendar-blue style, include the following in your stylesheet definition:
+ * with jscalendar (all distribution stylesheets are included in webwork jar). The easiest way to do so is to place the
+ * &lt;ww:head/&gt; tag in the head of your html page, as it takes care of including calendar css.
+ * Otherwise, to manually activate the calendar-blue style, include the following in your stylesheet definition:
+ *
  * <!-- END SNIPPET: expldesc2 -->
  * <pre>
  * <!-- START SNIPPET: expl2 -->
- * &lt;link href="&lt;%= request.getContextPath() %&gt;/webwork/jscalendar/calendar-blue.css" rel="stylesheet" type="text/css" media="all"/&gt;
+ * &lt;link href="&lt;ww:url value="/webwork/jscalendar/calendar-blue.css" /&gt;" rel="stylesheet" type="text/css" media="all"/&gt;
  * <!-- END SNIPPET: expl2 -->
  * </pre>
  *
  * @author Patrick Lightbody
  * @author Rene Gielen
  * @version $Revision$
- * @since 2.2
- *
  * @ww.tag name="datepicker" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.DatePickerTag"
  * description="Render datepicker"
-  */
+ * @since 2.2
+ */
 public class DatePicker extends TextField {
 
     final public static String TEMPLATE = "datepicker";
@@ -125,32 +131,32 @@ public class DatePicker extends TextField {
     }
 
     /**
-     * @ww.tagattribute required="false" type="String" default="The language of the current Locale"
-     * description="The language to use for the widget texts and localization presets."
+     * @ww.tagattribute required="false" type="String" default="The language of the current Locale" description="The
+     * language to use for the widget texts and localization presets."
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
     /**
-     * @ww.tagattribute required="false" type="String" default="Dateformat specified by language preset (%Y/%m/%d for en)"
-     * description="The format to use for date field."
+     * @ww.tagattribute required="false" type="String" default="Dateformat specified by language preset (%Y/%m/%d for
+     * en)" description="The format to use for date field."
      */
     public void setFormat(String format) {
         this.format = format;
     }
 
     /**
-     * @ww.tagattribute required="false" type="String" default="false"
-     * description="Whether time selector is to be shown. Valid values are &quot;true&quot;, &quot;false&quot;, &quot;24&quot; and &quot;12&quot;."
+     * @ww.tagattribute required="false" type="String" default="false" description="Whether time selector is to be
+     * shown. Valid values are &quot;true&quot;, &quot;false&quot;, &quot;24&quot; and &quot;12&quot;."
      */
     public void setShowstime(String showstime) {
         this.showstime = showstime;
     }
 
     /**
-     * @ww.tagattribute required="false" type="Boolean" default="true"
-     * description="Whether to use selected value after single or double click."
+     * @ww.tagattribute required="false" type="Boolean" default="true" description="Whether to use selected value after
+     * single or double click."
      */
     public void setSingleclick(String singleclick) {
         this.singleclick = singleclick;
