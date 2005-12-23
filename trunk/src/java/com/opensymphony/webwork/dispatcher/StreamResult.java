@@ -136,6 +136,7 @@ public class StreamResult extends WebWorkResultSupport {
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
         // Find the inputstream from the invocation variable stack
         InputStream oInput = (InputStream) invocation.getStack().findValue(conditionalParse(inputName, invocation));
+        OutputStream oOutput = null;
 
         try {
             // Find the Response in context
@@ -155,7 +156,7 @@ public class StreamResult extends WebWorkResultSupport {
             }
 
             // Get the outputstream
-            OutputStream oOutput = oResponse.getOutputStream();
+            oOutput = oResponse.getOutputStream();
 
             // Copy input to output
             byte[] oBuff = new byte[bufferSize];
@@ -169,6 +170,7 @@ public class StreamResult extends WebWorkResultSupport {
         }
         finally {
             if (oInput != null) oInput.close();
+            if (oOutput != null) oOutput.close();
         }
     }
 
