@@ -50,6 +50,10 @@ Calendar._MN = new Array
  "Novembro",
  "Dezembro");
 
+// First day of the week. "0" means display Sunday first, "1" means display
+// Monday first, etc.
+Calendar._FD = 1;
+
 // short month names
 // [No changes using default values]
 
