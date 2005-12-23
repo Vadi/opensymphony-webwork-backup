@@ -8,4 +8,10 @@
         </create>
         <convert converter="bean" match="com.opensymphony.xwork.ValidationAwareSupport"/>
     </allow>
+
+    <signatures>
+        <![CDATA[
+        com.opensymphony.webwork.validators.DWRValidator.doPost(String, String, Map<String, String>);
+        ]]>
+    </signatures>
 </dwr>
