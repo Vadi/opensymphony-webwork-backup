@@ -120,7 +120,7 @@ Calendar._TT["TODAY"] = "Сегодня";
 Calendar._TT["TIME_PART"] = "(Shift-)клик или нажать и двигать";
 
 // date formats
-Calendar._TT["DEF_DATE_FORMAT"] = "%d/%m/%Y";
+Calendar._TT["DEF_DATE_FORMAT"] = "%d.%m.%Y";
 Calendar._TT["TT_DATE_FORMAT"] = "%e %b, %a";
 
 Calendar._TT["WK"] = "нед";
