@@ -30,8 +30,15 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  *    
  *    &lt;!-- example 2 --&gt;
  *    &lt;ww:fielderror&gt;
- *         &lt;ww:param&gt;%{'field1'}&lt;/ww:param&gt;
- *         &lt;ww:param&gt;%{'field2'}&lt;/ww:param&gt;
+ *         &lt;ww:param&gt;field1&lt;/ww:param&gt;
+ *         &lt;ww:param&gt;field2&lt;/ww:param&gt;
+ *    &lt;/ww:fielderror&gt;
+ *    
+ *    OR
+ *    
+ *    &lt;ww:fielderror&gt;
+ *    		&lt;ww:param value="%{'field1'}" /&gt;
+ *    		&lt;ww:param value="%{'field2'}" /&gt;
  *    &lt;/ww:fielderror&gt;
  *    
  * 
@@ -52,7 +59,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * 
  * @author tm_jee
  * @version $Date$ $Id$
- * @ww.tag name="fielderror" tld-body-content="empty" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.FieldErrorTag"
+ * @ww.tag name="fielderror" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.FieldErrorTag"
  * description="Render field error (all or partial depending on param tag nested)if they exists"
  */
 public class FieldError extends UIBean implements UnnamedParametric {

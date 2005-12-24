@@ -6,7 +6,7 @@
 <#if (fieldErrorFieldNames?size > 0) >
 	<#list fieldErrorFieldNames as fieldErrorFieldName>
 		<#list eKeys as eKey>
-		<#if eKey = fieldErrorFieldName>
+		<#if (eKey = fieldErrorFieldName)>
 			<#assign haveMatchedErrorField=true>
 			<#assign eValue = fieldErrors[fieldErrorFieldName]>
 			<#if (haveMatchedErrorField && (!doneStartUlTag))>
