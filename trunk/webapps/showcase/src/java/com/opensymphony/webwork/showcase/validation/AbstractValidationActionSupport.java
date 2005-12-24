@@ -13,12 +13,10 @@ import com.opensymphony.xwork.ActionSupport;
 public abstract class AbstractValidationActionSupport extends ActionSupport {
 	
 	public String submit() throws Exception {
-		System.out.println("************************* HIT SUCCESS");
 		return "success";
 	}
 	
 	public String input() throws Exception {
-		System.out.println("************************* HIT SHOW");
 		return "input";
 	}
 }
