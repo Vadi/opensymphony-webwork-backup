@@ -38,6 +38,18 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * <!-- END SNIPPET: example -->
  * </pre>
  * 
+ * 
+ * <p/> <b>Description</b><p/>
+ * 
+ * 
+ * <!-- START SNIPPET: description -->
+ * 
+ * Example 1: display all field errors<p/>
+ * Example 2: display field errors only for 'field1' and 'field2'<p/>
+ * 
+ * <!-- END SNIPPET: description -->
+ * 
+ * 
  * @author tm_jee
  * @version $Date$ $Id$
  * @ww.tag name="fielderror" tld-body-content="empty" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.FieldErrorTag"
