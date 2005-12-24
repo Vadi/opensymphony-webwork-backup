@@ -11,12 +11,29 @@
 	<head>
 		<title>Showcase - Validation - Field Validators Example</title>
 		<ww:url id="siteCss" includeContext="true" value="/validation/validationExamplesStyles.css" />
-		<link rel="stylesheet" type="text/css" href='<ww:property value="%{siteCss}" />'>
+		<ww:head />
+		<!--  link rel="stylesheet" type="text/css" href='<ww:property value="%{siteCss}" />'-->
 		</style>
 	</head>
 	<body>
 	
 	<!-- START SNIPPET: fieldValidatorsExample -->
+	
+		<h3>All Field Errors Will Appear Here</h3>
+		<ww:fielderror />
+		<hr/>
+		
+		<h3>Field Error due to 'Required String Validator Field' Will Appear Here</h3>
+		<ww:fielderror>
+			<ww:param value="%{'requiredStringValidatorField'}" />
+		</ww:fielderror>
+		<hr/>
+		
+		<h3>Field Error due to 'String Length Validator Field' Will Appear Here</h3>
+		<ww:fielderror>
+			<ww:param>stringLengthValidatorField</ww:param>
+		</ww:fielderror>
+		<hr/>
 	
 		<ww:form action="submitFieldValidatorsExamples" namespace="/validation" method="POST">
 			<ww:textfield label="Required Validator Field" name="requiredValidatorField" />
@@ -30,7 +47,7 @@
 			<ww:submit label="Submit" />
 		</ww:form>
 		
-    <!-- END SNIPPET: fieldValidatorsExample --> -->
+    <!-- END SNIPPET: fieldValidatorsExample -->
 		
 		
 		<ww:include value="footer.jsp" />
