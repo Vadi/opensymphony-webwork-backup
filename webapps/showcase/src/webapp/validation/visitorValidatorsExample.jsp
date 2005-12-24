@@ -11,11 +11,14 @@
 <html>
 <head><title>Showcase - Validation - VisitorValidatorsExample </title>
 		<ww:url id="siteCss" value="/validation/validationExamplesStyles.css" includeContext="true" />
-		<link rel="stylesheet" type="text/css" href='<ww:property value="%{siteCss}" />'>
+		<ww:head />
+		<!-- link rel="stylesheet" type="text/css" href='<ww:property value="%{siteCss}" />' -->
 </head>
 <body>
 
 	<!-- START SNIPPET: visitorValidatorsExample -->
+	
+	<ww:fielderror />
 
 	<ww:form method="POST" action="submitVisitorValidatorsExamples" namespace="/validation">
 		<ww:textfield name="user.name" label="User Name" />

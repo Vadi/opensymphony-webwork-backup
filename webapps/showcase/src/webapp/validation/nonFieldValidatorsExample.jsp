@@ -12,21 +12,14 @@
 	<head>
 		<title>Showcase - Validation - Non Field Validator Example</title>
 		<ww:url id="siteCss" value="/validation/validationExamplesStyles.css" includeContext="true" />
-		<link rel="stylesheet" type="text/css" href='<ww:property value="%{siteCss}" />'>
+		<ww:head />
+		<!-- link rel="stylesheet" type="text/css" href='<ww:property value="%{siteCss}" />'-->
 	</head>
 	<body>
 	
 	   
 	   <!-- START SNIPPET: nonFieldValidatorsExample -->
-	
-	
-		<ww:if test="hasActionErrors()">
-			<ww:iterator value="getActionErrors()" status="iteratorStatus">
-			 	<ul>
-					<li><span class="errorMessage"><ww:property value="top" /></span></li>
-				</ul>
-			</ww:iterator>
-		</ww:if>
+		<ww:actionerror />
 	
 		<ww:form method="POST" action="submitNonFieldValidatorsExamples" namespace="/validation">
 			<ww:textfield name="someText" label="Some Text" />
