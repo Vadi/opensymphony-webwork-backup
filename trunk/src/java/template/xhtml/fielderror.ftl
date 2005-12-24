@@ -13,7 +13,9 @@
 				<ul>
 				<#assign doneStartUlTag=true>
 			</#if>
-			<li><span class="errorMessage">${eValue}</span></li>			
+			<#list eValue as eEachValue>
+				<li><span class="errorMessage">${eEachValue}</span></li>
+			</#list>			
 		</#if>
 		</#list>
 	</#list>
@@ -26,7 +28,9 @@
 		<ul>
 			<#list eKeys as eKey>
 				<#assign eValue = fieldErrors[eKey]>
-				<li><span class="errorMessage">${eValue}</span></li>
+				<#list eValue as eEachValue>
+					<li><span class="errorMessage">${eEachValue}</span></li>
+				</#list>
 			</#list>
 		</ul>
 	</#if>
