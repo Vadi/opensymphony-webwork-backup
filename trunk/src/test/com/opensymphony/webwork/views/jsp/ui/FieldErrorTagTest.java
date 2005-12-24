@@ -4,12 +4,13 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
-import com.opensymphony.webwork.views.jsp.FieldErrorTag;
 import com.opensymphony.webwork.views.jsp.ParamTag;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionSupport;
@@ -179,10 +180,16 @@ public class FieldErrorTagTest extends AbstractUITagTest {
 		
 		public Map getFieldErrors() {
 			if (haveFieldErrors) {
+				List err1 = new ArrayList();
+				err1.add("field error message number 1");
+				List err2 = new ArrayList();
+				err2.add("field error message number 2");
+				List err3 = new ArrayList();
+				err3.add("field error message number 3");
 				Map fieldErrors = new LinkedHashMap();
-				fieldErrors.put("field1", "field error message number 1");
-				fieldErrors.put("field2", "field error message number 2");
-				fieldErrors.put("field3", "field error message number 3");
+				fieldErrors.put("field1", err1);
+				fieldErrors.put("field2", err2);
+				fieldErrors.put("field3", err3);
 				return fieldErrors;
 			}
 			else {
