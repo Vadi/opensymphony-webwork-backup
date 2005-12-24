@@ -23,7 +23,7 @@
 	</package>
 
 
-	<package name="validationExamples" extends="webwork-default" namespace="/validation">
+	<package name="validationExamples" extends="webwork-default" namespace="/validation" >
 
 		<action name="list">
 			<result>index.jsp</result>
