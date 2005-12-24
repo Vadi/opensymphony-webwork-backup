@@ -26,13 +26,13 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * <!-- START SNIPPET: example -->
  * 
  *    &lt;!-- example 1 --&gt;
- *    &lt;fielderror /&gt;
+ *    &lt;ww:fielderror /&gt;
  *    
  *    &lt;!-- example 2 --&gt;
- *    &lt;fielderror&gt;
- *         &lt;param&gt;%{'field1'}&lt;/param&gt;
- *         &lt;param&gt;%{'field2'}&lt;/param&gt;
- *    &lt;/fielderror&gt;
+ *    &lt;ww:fielderror&gt;
+ *         &lt;ww:param&gt;%{'field1'}&lt;/ww:param&gt;
+ *         &lt;ww:param&gt;%{'field2'}&lt;/ww:param&gt;
+ *    &lt;/ww:fielderror&gt;
  *    
  * 
  * <!-- END SNIPPET: example -->

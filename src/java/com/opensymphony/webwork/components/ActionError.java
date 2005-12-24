@@ -21,7 +21,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * <pre>
  * <!-- START SNIPPET: example -->
  * 
- *    &lt;actionerror /&gt;
+ *    &lt;ww:actionerror /&gt;
  * 
  * <!-- END SNIPPET: example -->
  * </pre>
