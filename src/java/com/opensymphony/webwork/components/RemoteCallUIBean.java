@@ -26,6 +26,9 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
     protected String errorText;
     protected String showErrorTransportText;
     protected String afterLoading;
+    
+    // ww-1048 build url using UrlHelper for href attribute if this is true.
+    protected boolean buildUrlForHrefAttribute = true;
 
     public RemoteCallUIBean(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -40,8 +43,13 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
             String actionUrl = PortletContext.getContext().getActionURL();
 
             if (!TextUtils.stringSet(actionUrl)) {
-                // This is needed for portal and DOJO ajax stuff!
-                addParameter("href", UrlHelper.buildUrl(hrefValue, request, response, null));
+            	if (buildUrlForHrefAttribute) {
+            		// This is needed for portal and DOJO ajax stuff!
+            		addParameter("href", UrlHelper.buildUrl(hrefValue, request, response, null));
+            	}
+            	else {
+            		addParameter("href", hrefValue);
+            	}
             } else {
 
                 String actionExtension = (String) Configuration.get("webwork.action.extension");
@@ -77,7 +85,7 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
                         sb.append(actionUrl).append("?wwLink=").append(hrefValue);
                     }
                 }
-
+                
                 addParameter("href", sb.toString());
             }
 
@@ -135,5 +143,9 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
      */
     public void setAfterLoading(String afterLoading) {
         this.afterLoading = afterLoading;
+    }
+    
+    public void setBuildUrlForHrefAttribute(boolean buildUrlForHrefAttribute) {
+    	this.buildUrlForHrefAttribute = buildUrlForHrefAttribute;
     }
 }
