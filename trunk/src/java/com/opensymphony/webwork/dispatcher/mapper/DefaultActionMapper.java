@@ -119,6 +119,7 @@ import java.util.Map;
  * </pre>
  *
  * @author Patrick Lightbody
+ * @author tm_jee
  */
 public class DefaultActionMapper implements ActionMapper {
 
@@ -192,7 +193,6 @@ public class DefaultActionMapper implements ActionMapper {
             mapping.setName(name.substring(0, exclamation));
             mapping.setMethod(name.substring(exclamation + 1));
         }
-
         return mapping;
     }
 
@@ -200,8 +200,13 @@ public class DefaultActionMapper implements ActionMapper {
         String namespace, name;
         int lastSlash = uri.lastIndexOf("/");
         if (lastSlash == -1) {
-            namespace = "";
+            namespace = ""; 
             name = uri;
+        } else if (lastSlash == 0) {
+            // ww-1046, assume it is the root namespace, it will fallback to default
+        	// namespace anyway if not found in root namespace.
+        	namespace = "/";
+        	name = uri.substring(lastSlash + 1);
         } else {
             namespace = uri.substring(0, lastSlash);
             name = uri.substring(lastSlash + 1);
