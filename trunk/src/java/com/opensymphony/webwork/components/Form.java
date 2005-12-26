@@ -22,6 +22,7 @@ import java.util.Iterator;
 
 /**
  * <!-- START SNIPPET: javadoc -->
+ * 
  * Renders HTML an input form.<p/>
  *
  * The remote form allows the form to be submitted without the page being refreshed. The results from the form
@@ -32,7 +33,9 @@ import java.util.Iterator;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
+ * 
  * &lt;ww:form ... /&gt;
+ * 
  * <!-- END SNIPPET: example -->
  * </pre>
  *
