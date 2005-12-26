@@ -11,7 +11,10 @@
 
     <signatures>
         <![CDATA[
-        com.opensymphony.webwork.validators.DWRValidator.doPost(String, String, Map<String, String>);
+        import java.util.Map;
+        import com.opensymphony.webwork.validators.DWRValidator;
+
+        DWRValidator.doPost(String, String, Map<String, String>);
         ]]>
     </signatures>
 </dwr>
