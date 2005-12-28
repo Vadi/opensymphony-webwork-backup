@@ -60,9 +60,9 @@ public class Checkbox extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false"
-     * description="The actual HTML value attribute of the checkbox, defaults to 'true'."
-      */
+     * The actual HTML value attribute of the checkbox.
+     * @ww.tagattribute required="false" default="'true'"
+     */
     public void setFieldValue(String fieldValue) {
         this.fieldValue = fieldValue;
     }
