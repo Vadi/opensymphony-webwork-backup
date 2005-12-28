@@ -27,10 +27,6 @@ public class AnchorTag extends AbstractClosingTag {
 
         Anchor link = (Anchor) component;
         
-        // ww-1048, anchor tag *SHOULD NOT* build url using UrlHelper, this conflicts
-        // with what the URL tag does.
-        link.setBuildUrlForHrefAttribute(false);
-        
         link.setHref(href);
         link.setErrorText(errorText);
         link.setShowErrorTransportText(showErrorTransportText);

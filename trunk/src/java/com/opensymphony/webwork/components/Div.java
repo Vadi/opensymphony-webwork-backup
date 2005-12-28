@@ -1,9 +1,14 @@
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.util.TextUtils;
+import com.opensymphony.webwork.views.util.UrlHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <!-- START SNIPPET: javadoc -->
@@ -36,6 +41,8 @@ import javax.servlet.http.HttpServletResponse;
  * description="Render HTML div providing content from remote call via AJAX"
   */
 public class Div extends RemoteCallUIBean {
+    private static final Log LOG = LogFactory.getLog(Div.class);
+
     public static final String TEMPLATE = "div";
     public static final String TEMPLATE_CLOSE = "div-close";
     public static final String COMPONENT_NAME = Div.class.getName();
@@ -78,6 +85,13 @@ public class Div extends RemoteCallUIBean {
 
         if (listenTopics != null) {
             addParameter("listenTopics", findString(listenTopics));
+        }
+
+        if (href != null) {
+
+            // This is needed for portal and DOJO ajax stuff!
+            addParameter("href", null);
+            addParameter("href", UrlHelper.buildUrl(findString(href), request, response, null));
         }
     }
 
