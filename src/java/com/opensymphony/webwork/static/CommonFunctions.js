@@ -58,7 +58,9 @@ function TabContent( htmlId, remote ) {
         }
         if (self.isRemote==true && visibleTabId==self.elementId) {
             var rel = window['tab_contents_update_'+self.elementId];
-            rel.bind();
+            // FIXME: if the first tab is a remote tab, rel is null on initial loading...
+            if (rel)
+                rel.bind();
         }
     }
 
