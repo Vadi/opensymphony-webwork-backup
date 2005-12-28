@@ -58,7 +58,7 @@
 <td align="left" valign="top"><XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="type"><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="type"/></XDtMethod:ifHasMethodTag><XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="type">Object/String</XDtMethod:ifDoesntHaveMethodTag></td>
 
 <!-- Description -->
-<td align="left" valign="top"><XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="description"><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="description"/></XDtMethod:ifHasMethodTag><XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="description">None</XDtMethod:ifDoesntHaveMethodTag></td>
+<td align="left" valign="top"><XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="description"><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="description"/></XDtMethod:ifHasMethodTag><XDtMethod:ifDoesntHaveMethodTag tagName="ww:tagattribute" paramName="description"><XDtMethod:methodComment no-comment-signs="true"/></XDtMethod:ifDoesntHaveMethodTag></td>
 
 </tr>
 </XDtMethod:ifHasMethodTag>

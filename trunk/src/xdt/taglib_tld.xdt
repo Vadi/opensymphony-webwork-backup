@@ -186,7 +186,10 @@
         <XDtMethod:ifHasMethodTag tagName="ww.tagattribute" paramName="description">
          <description><![CDATA[<XDtMethod:methodTagValue tagName="ww.tagattribute" paramName="description"/>]]></description>
         </XDtMethod:ifHasMethodTag>
-        </XDtConfig:ifConfigParamGreaterOrEquals>  
+        <XDtMethod:ifDoesntHaveMethodTag tagName="ww.tagattribute" paramName="description">
+         <description><![CDATA[<XDtMethod:methodComment no-comment-signs="true"/>]]></description>
+        </XDtMethod:ifDoesntHaveMethodTag>
+        </XDtConfig:ifConfigParamGreaterOrEquals>
          <name><XDtMethod:propertyName/></name>
         <XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="required">
          <required><XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="required" values="true,false,yes,no"/></required>
@@ -207,6 +210,9 @@
           <XDtMethod:ifHasMethodTag tagName="ww:tagattribute" paramName="description">
            <description><![CDATA[<XDtMethod:methodTagValue tagName="ww:tagattribute" paramName="description"/>]]></description>
           </XDtMethod:ifHasMethodTag>
+          <XDtMethod:ifDoesntHaveMethodTag tagName="ww.tagattribute" paramName="description">
+           <description><![CDATA[<XDtMethod:methodComment no-comment-signs="true"/>]]></description>
+          </XDtMethod:ifDoesntHaveMethodTag>
         </XDtConfig:ifConfigParamEquals>
 
         <XDtConfig:ifConfigParamGreaterOrEquals paramName="Jspversion" value="2.0">
