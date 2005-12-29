@@ -14,25 +14,48 @@ import java.util.ResourceBundle;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * <p>Gets a resource bundle and place it on the value stack. This allows
+ * 
+ * Gets a resource bundle and place it on the value stack. This allows
  * the text tag to access messages from any bundle, and not just the bundle
- * associated with the current action.</p>
+ * associated with the current action.
+ * 
  * <!-- END SNIPPET: javadoc -->
- *
+ * 
+ * <p/>
+ * 
  * <!-- START SNIPPET: params-->
+ * 
  * <ul>
  * 		<li>name* - the resource bundle's name (eg foo/bar/customBundle)</li>
  * </ul>
+ * 
  * <!-- END SNIPPET: params -->
- *
- * <pre>
+ * 
+ * <p/>
+ * 
  * Example:
+ * 
+ * <pre>
  * <!-- START SNIPPET: example -->
+ * 
  * &lt;ww:i18n name="myCustomBundle"&gt;
  *    The i18n value for key aaa.bbb.ccc in myCustomBundle is &lt;ww:property value="text('aaa.bbb.ccc')" /&gt;
  * &lt;/ww:i18n&gt;
+ * 
  * <!-- END SNIPPET: example -->
+ * </pre>
+ * 
+ * 
  * <pre>
+ * <!-- START SNIPPET: i18nExample -->
+ * 
+ * &lt;ww:i18n name="some.package.bundle" &gt;
+ *      &lt;ww:text name="some.key" /&gt;
+ * &lt;/ww:i18n&gt;
+ * 
+ * <!-- END SNIPPET: i18nExample -->
+ * </pre>
+ * 
  *
  * @author Rickard �berg (rickard@dreambean.com)
  * @author Rene Gielen
