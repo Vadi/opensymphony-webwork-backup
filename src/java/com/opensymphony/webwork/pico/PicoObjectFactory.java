@@ -9,6 +9,13 @@
 package com.opensymphony.webwork.pico;
 
 import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.Result;
+import com.opensymphony.xwork.validator.Validator;
+import com.opensymphony.xwork.interceptor.Interceptor;
+import com.opensymphony.xwork.config.entities.ActionConfig;
+import com.opensymphony.xwork.config.entities.InterceptorConfig;
+import com.opensymphony.xwork.config.entities.ResultConfig;
+import com.opensymphony.xwork.config.ConfigurationException;
 import org.nanocontainer.nanowar.ActionsContainerFactory;
 import org.picocontainer.MutablePicoContainer;
 import org.picocontainer.defaults.ObjectReference;
@@ -67,10 +74,24 @@ public class PicoObjectFactory extends ObjectFactory {
         return actionsContainerFactory.getActionClass(className);
     }
 
+    public Object buildAction(String actionName, String namespace, ActionConfig config, Map extraContext) throws Exception {
+        return super.buildAction(actionName, namespace, config, extraContext);
+    }
+
+    public Interceptor buildInterceptor(InterceptorConfig interceptorConfig, Map interceptorRefParams) throws ConfigurationException {
+        return super.buildInterceptor(interceptorConfig, interceptorRefParams);
+    }
+
+    public Result buildResult(ResultConfig resultConfig, Map extraContext) throws Exception {
+        return super.buildResult(resultConfig, extraContext);
+    }
+
+    public Validator buildValidator(String className, Map params, Map extraContext) throws Exception {
+        return super.buildValidator(className, params, extraContext);
+    }
+
     /**
      * Instantiates an action using the PicoContainer found in the request scope.
-     * 
-     * @see com.opensymphony.xwork.ObjectFactory#buildBean(java.lang.Class)
      */
     public Object buildBean(Class actionClass) throws Exception {
         MutablePicoContainer actionsContainer = actionsContainerFactory.getActionsContainer((HttpServletRequest) objectReference.get());
@@ -84,14 +105,6 @@ public class PicoObjectFactory extends ObjectFactory {
         return action;
     }
 
-    /**
-     * As {@link ObjectFactory#buildBean(java.lang.String)}does not delegate to
-     * {@link ObjectFactory#buildBean(java.lang.Class)} but directly calls
-     * <code>clazz.newInstance()</code>, overwrite this method to call
-     * <code>buildBean()</code>
-     *
-     * @see com.opensymphony.xwork.ObjectFactory#buildBean(java.lang.String)
-     */
     public Object buildBean(String className) throws Exception {
         Class actionClass = actionsContainerFactory.getActionClass(className);
         return buildBean(actionClass);

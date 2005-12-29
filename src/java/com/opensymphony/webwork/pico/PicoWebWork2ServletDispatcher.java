@@ -8,15 +8,13 @@
  *****************************************************************************/
 package com.opensymphony.webwork.pico;
 
+import com.opensymphony.webwork.dispatcher.ServletDispatcher;
+import com.opensymphony.xwork.ActionProxyFactory;
+import org.nanocontainer.nanowar.ServletRequestContainerLauncher;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.nanocontainer.nanowar.ServletRequestContainerLauncher;
-
-import com.opensymphony.webwork.dispatcher.ServletDispatcher;
-import com.opensymphony.xwork.ActionProxyFactory;
-import com.opensymphony.xwork.DefaultActionProxyFactory;
 
 /**
  * Extension to the standard WebWork2 ServletDispatcher that instantiates 
@@ -25,6 +23,7 @@ import com.opensymphony.xwork.DefaultActionProxyFactory;
  * <p/>
  * To use, replace the WebWork ServletDispatcher in web.xml with this.
  *
+ * @deprecated Use {@link PicoFilterDispatcher}
  * @author <a href="mailto:joe@thoughtworks.net">Joe Walnes</a>
  */
 public class PicoWebWork2ServletDispatcher extends ServletDispatcher {
