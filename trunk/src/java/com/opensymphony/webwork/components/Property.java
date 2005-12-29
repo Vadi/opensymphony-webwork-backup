@@ -11,19 +11,29 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * <p>Used to get the property of a <i>value</i>, which will default to the top of
- * the stack if none is specified.</p>
+ * 
+ * Used to get the property of a <i>value</i>, which will default to the top of
+ * the stack if none is specified.
+ * 
  * <!-- END SNIPPET: javadoc -->
+ * 
+ * <p/>
+ * 
  *
  * <!-- START SNIPPET: params -->
+ * 
  * <ul>
  *      <li>default (String) - The default value to be used if <u>value</u> attribute is null</li>
  *      <li>escape (Boolean) - Escape HTML. Default to true</li>
  *      <li>value (Object) - value to be displayed</li>
  * </ul>
+ * 
  * <!-- END SNIPPET: params -->
  *
+ *
+ * <pre>
  * <!-- START SNIPPET: example -->
+ * 
  * <ww:push value="myBean">
  *     <!-- Example 1: -->
  *     <ww:property value="myBeanProperty" />
@@ -31,14 +41,28 @@ import org.apache.commons.logging.LogFactory;
  *     <!-- Example 2: -->
  *     <ww:property value="myBeanProperty" default="a default value" />
  * </ww:push>
+ * 
  * <!-- END SNIPPET: example -->
- *
+ * </pre>
+ * 
  * <pre>
  * <!-- START SNIPPET: exampledescription -->
+ * 
  * Example 1 prints the result of myBean's getMyBeanProperty() method.
  * Example 2 prints the result of myBean's getMyBeanProperty() method and if it is null, print 'a default value' instead.
+ * 
  * <!-- END SNIPPET: exampledescription -->
  * </pre>
+ * 
+ * 
+ * <pre>
+ * <!-- START SNIPPET: i18nExample -->
+ * 
+ * &lt;ww:property value="getText('some.key')" /&gt;
+ * 
+ * <!-- END SNIPPET: i18nExample -->
+ * </pre>
+ *
  *
  * @author Patrick Lightbody
  * @author Cameron Braid
