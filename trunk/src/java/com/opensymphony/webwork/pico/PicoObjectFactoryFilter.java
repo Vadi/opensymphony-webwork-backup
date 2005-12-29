@@ -8,26 +8,20 @@
  *****************************************************************************/
 package com.opensymphony.webwork.pico;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-
+import com.opensymphony.xwork.ObjectFactory;
 import org.picocontainer.defaults.ObjectReference;
 import org.picocontainer.gems.adapters.ThreadLocalReference;
 
-import com.opensymphony.xwork.ObjectFactory;
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * Filter which initialises a PicoObjectFactory as the XWork ObjectFactory
  * and passes to it the HttpServletRequest.
  * 
  * @author Jonas Engman
+ * @deprecated Use {@link PicoFilterDispatcher}
  */
 public class PicoObjectFactoryFilter implements Filter {
 
