@@ -254,7 +254,12 @@ public class DefaultActionMapper implements ActionMapper {
     public String getUriFromActionMapping(ActionMapping mapping) {
         StringBuffer uri = new StringBuffer();
 
-        uri.append(mapping.getNamespace()).append("/").append(mapping.getName());
+        uri.append(mapping.getNamespace());
+        if(!"/".equals(mapping.getNamespace())) {
+            uri.append("/");
+        }
+        uri.append(mapping.getName());
+        
         if (null != mapping.getMethod() && !"".equals(mapping.getMethod())) {
             uri.append("!").append(mapping.getMethod());
         }
