@@ -49,6 +49,9 @@ public class WebWorkModels {
     protected WebTableModel table;
     protected PropertyModel property;
     protected IteratorModel iterator;
+    protected ActionErrorModel actionError;
+    protected ActionMessageModel actionMessage;
+    protected FieldErrorModel fieldError;
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         this.stack = stack;
@@ -333,5 +336,29 @@ public class WebWorkModels {
         }
 
         return iterator;
+    }
+
+    public ActionErrorModel getActionError() {
+        if (actionError == null) {
+            actionError = new ActionErrorModel(stack, req, res);
+        }
+
+        return actionError;
+    }
+
+    public ActionMessageModel getActionMessage() {
+        if (actionMessage == null) {
+            actionMessage = new ActionMessageModel(stack, req, res);
+        }
+
+        return actionMessage;
+    }
+
+    public FieldErrorModel getFieldError() {
+        if (fieldError == null) {
+            fieldError = new FieldErrorModel(stack, req, res);
+        }
+
+        return fieldError;
     }
 }

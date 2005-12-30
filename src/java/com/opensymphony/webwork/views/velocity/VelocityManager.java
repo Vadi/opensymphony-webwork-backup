@@ -540,6 +540,9 @@ public class VelocityManager {
         addDirective(sb, TokenDirective.class);
         addDirective(sb, URLDirective.class);
         addDirective(sb, WebTableDirective.class);
+        addDirective(sb, ActionErrorDirective.class);
+        addDirective(sb, ActionMessageDirective.class);
+        addDirective(sb, FieldErrorDirective.class);
 
         String directives = sb.toString();
 
