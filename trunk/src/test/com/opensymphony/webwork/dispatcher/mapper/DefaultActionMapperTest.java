@@ -140,4 +140,58 @@ public class DefaultActionMapperTest extends TestCase {
 		assertEquals(actionMapping.getName(), "someName");
 	}
 	
+	
+	public void testGetUriFromActionMapper1() throws Exception {
+		DefaultActionMapper mapper = new DefaultActionMapper();
+		ActionMapping actionMapping = new ActionMapping();
+		actionMapping.setMethod("myMethod");
+		actionMapping.setName("myActionName");
+		actionMapping.setNamespace("/myNamespace");
+		String uri = mapper.getUriFromActionMapping(actionMapping);
+		
+		assertEquals("/myNamespace/myActionName!myMethod.action", uri);
+	}
+	
+	public void testGetUriFromActionMapper2() throws Exception {
+		DefaultActionMapper mapper = new DefaultActionMapper();
+		ActionMapping actionMapping = new ActionMapping();
+		actionMapping.setMethod("myMethod");
+		actionMapping.setName("myActionName");
+		actionMapping.setNamespace("/");
+		String uri = mapper.getUriFromActionMapping(actionMapping);
+		
+		assertEquals("/myActionName!myMethod.action", uri);
+	}
+	
+	public void testGetUriFromActionMapper3() throws Exception {
+		DefaultActionMapper mapper = new DefaultActionMapper();
+		ActionMapping actionMapping = new ActionMapping();
+		actionMapping.setMethod("myMethod");
+		actionMapping.setName("myActionName");
+		actionMapping.setNamespace("");
+		String uri = mapper.getUriFromActionMapping(actionMapping);
+		
+		assertEquals("/myActionName!myMethod.action", uri);
+	}
+	
+	
+	public void testGetUriFromActionMapper4() throws Exception {
+		DefaultActionMapper mapper = new DefaultActionMapper();
+		ActionMapping actionMapping = new ActionMapping();
+		actionMapping.setName("myActionName");
+		actionMapping.setNamespace("");
+		String uri = mapper.getUriFromActionMapping(actionMapping);
+		
+		assertEquals("/myActionName.action", uri);
+	}
+	
+	public void testGetUriFromActionMapper5() throws Exception {
+		DefaultActionMapper mapper = new DefaultActionMapper();
+		ActionMapping actionMapping = new ActionMapping();
+		actionMapping.setName("myActionName");
+		actionMapping.setNamespace("/");
+		String uri = mapper.getUriFromActionMapping(actionMapping);
+		
+		assertEquals("/myActionName.action", uri);
+	}
 }
