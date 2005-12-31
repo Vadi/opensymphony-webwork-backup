@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * <!-- START SNIPPET: javadoc -->
  *
- * Create a list ( &lt;ul&gt; and &lt;li&gt; ) of action messages if they exists.
+ * Render action messages if they exists, specific rendering layout depends on the 
+ * theme itself.
  *
  * <!-- END SNIPPET: javadoc -->
  *
@@ -20,11 +21,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
+ * 
  *    &lt;ww:actionmessage /&gt;
+ *    
  * <!-- END SNIPPET: example -->
  * </pre>
  *
- * @author tm_jee
  * @author tm_jee
  * @version $Date$ $Id$
  * @ww.tag name="actionmessage" tld-body-content="empty" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.ActionMessageTag"
