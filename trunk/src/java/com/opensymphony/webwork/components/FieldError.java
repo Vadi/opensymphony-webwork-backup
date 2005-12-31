@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * <!-- START SNIPPET: javadoc -->
  *
- * Create a list ( &lt;ul&gt; and &lt;li&gt; ) of action messages if they exists.
+ * Render field errors if they exists. Specific layout depends on the particular theme.
  *
  * <!-- END SNIPPET: javadoc -->
  *
@@ -23,6 +23,7 @@ import java.util.List;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
+ * 
  *    &lt;!-- example 1 --&gt;
  *    &lt;ww:fielderror /&gt;
  *
@@ -38,6 +39,7 @@ import java.util.List;
  *    		&lt;ww:param value="%{'field1'}" /&gt;
  *    		&lt;ww:param value="%{'field2'}" /&gt;
  *    &lt;/ww:fielderror&gt;
+ *    
  * <!-- END SNIPPET: example -->
  * </pre>
  *

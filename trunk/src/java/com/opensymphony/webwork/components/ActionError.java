@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * <!-- START SNIPPET: javadoc -->
  *
- * Create a list ( &lt;ul&gt; and &lt;li&gt; ) of action errors if they exists.
+ * Render action errors if they exists the specific layout of the rendering depends on 
+ * the theme itself.
  *
  * <!-- END SNIPPET: javadoc -->
  *
@@ -20,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
+ * 
  *    &lt;ww:actionerror /&gt;
+ *    
  * <!-- END SNIPPET: example -->
  * </pre>
  *
