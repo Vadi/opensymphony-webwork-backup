@@ -23,6 +23,9 @@ import javax.servlet.http.HttpServletResponse;
  * <!-- START SNIPPET: example -->
  * 
  *    &lt;ww:actionerror /&gt;
+ *    &lt;ww:form .... &gt;>
+ *       ....
+ *    &lt;/ww:form&gt;
  *    
  * <!-- END SNIPPET: example -->
  * </pre>

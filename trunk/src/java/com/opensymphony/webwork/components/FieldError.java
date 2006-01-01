@@ -32,6 +32,9 @@ import java.util.List;
  *         &lt;ww:param&gt;field1&lt;/ww:param&gt;
  *         &lt;ww:param&gt;field2&lt;/ww:param&gt;
  *    &lt;/ww:fielderror&gt;
+ *    &lt;ww:form .... &gt;>
+ *       ....
+ *    &lt;/ww:form&gt;
  *
  *    OR
  *
@@ -39,6 +42,9 @@ import java.util.List;
  *    		&lt;ww:param value="%{'field1'}" /&gt;
  *    		&lt;ww:param value="%{'field2'}" /&gt;
  *    &lt;/ww:fielderror&gt;
+ *    &lt;ww:form .... &gt;>
+ *       ....
+ *    &lt;/ww:form&gt;
  *    
  * <!-- END SNIPPET: example -->
  * </pre>
@@ -46,12 +52,16 @@ import java.util.List;
  *
  * <p/> <b>Description</b><p/>
  *
- *
+ * 
+ * <pre>
  * <!-- START SNIPPET: description -->
  *
- * Example 1: display all field errors<p/> Example 2: display field errors only for 'field1' and 'field2'<p/>
+ * Example 1: display all field errors<p/> 
+ * Example 2: display field errors only for 'field1' and 'field2'<p/>
  *
  * <!-- END SNIPPET: description -->
+ * </pre>
+ *
  *
  * @author tm_jee
  * @version $Date$ $Id$
