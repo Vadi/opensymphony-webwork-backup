@@ -17,6 +17,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    
+    
+<!-- SNIPPET START: dwr -->
 
     <servlet>
         <servlet-name>dwr</servlet-name>
@@ -27,6 +30,10 @@
         <servlet-name>dwr</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
+    
+<!-- END SNIPPET: dwr -->  
+
+  
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
