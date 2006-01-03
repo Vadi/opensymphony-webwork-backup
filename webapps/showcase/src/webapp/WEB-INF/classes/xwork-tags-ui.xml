@@ -7,5 +7,8 @@
             <result>example.jsp</result>
             <result name="input">example.jsp</result>
         </action>
+        <action name="exampleSubmit" class="com.opensymphony.webwork.showcase.UITagExample" method="submit">
+        	<result>exampleSubmited.jsp</result>
+        </action>
     </package>
 </xwork>

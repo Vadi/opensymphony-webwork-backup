@@ -2,6 +2,7 @@ package com.opensymphony.webwork.showcase;
 
 import com.opensymphony.xwork.ActionSupport;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.io.File;
@@ -21,6 +22,19 @@ public class UITagExample extends ActionSupport {
     File picture;
     String pictureContentType;
     String pictureFileName;
+    String favouriteLanguage;
+    
+    List favouriteLanguages = new ArrayList();
+    
+    public UITagExample() {
+    	favouriteLanguages.add(new Language("EnglishKey", "English Language"));
+    	favouriteLanguages.add(new Language("FrenchKey", "French Language"));
+    	favouriteLanguages.add(new Language("SpanishKey", "Spanish Language"));
+    }
+    
+    public List getFavouriteLanguages() {
+    	return favouriteLanguages;
+    }
 
     public String execute() throws Exception {
         return SUCCESS;
@@ -100,5 +114,36 @@ public class UITagExample extends ActionSupport {
 
     public void setPictureFileName(String pictureFileName) {
         this.pictureFileName = pictureFileName;
+    }
+    
+    public void setFavouriteLanguage(String favouriteLanguage) {
+    	this.favouriteLanguage = favouriteLanguage;
+    }
+    
+    public String getFavouriteLanguage() {
+    	return favouriteLanguage;
+    }
+    
+    public String doSubmit() {
+    	return SUCCESS;
+    }
+    
+    
+    
+    
+    
+    // === inner class 
+    public static class Language {
+    	String description;
+    	String key;
+    	
+    	public Language(String key, String description) {
+    		this.key = key;
+    		this.description = description;
+    	}
+    	
+    	public String getKey() { return key; }
+    	public String getDescription() { return description; }
+    	
     }
 }
