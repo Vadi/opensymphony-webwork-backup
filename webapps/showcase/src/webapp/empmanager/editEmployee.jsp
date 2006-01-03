@@ -17,7 +17,7 @@
 <body>
 <h1><ww:property value="#title"/></h1>
 
-<ww:action id="skillAction" namespace="/showcase/skill" name="list"/>
+<ww:action id="skillAction" namespace="/skill" name="list"/>
 <ww:form name="editForm" action="save">
     <ww:textfield label="Employee Id" name="currentEmployee.empId"/>
     <ww:textfield label="First Name" name="currentEmployee.firstName"/>
