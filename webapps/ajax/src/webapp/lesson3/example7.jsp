@@ -78,7 +78,7 @@ Remote DIV that is not connected to any remote links:
 A Remote link that doesn't trigger any remote DIV updates<br/>
 
 <ww:a
-        id="link1"
+        id="link3"
         theme="ajax"
         href="%{remoteLink}"
         showErrorTransportText="true"
