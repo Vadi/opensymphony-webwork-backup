@@ -83,8 +83,6 @@ A Remote link that doesn't trigger any remote DIV updates<br/>
         href="%{remoteLink}"
         showErrorTransportText="true"
         errorText="An Error ocurred">Update
-    <ww:param name="'Test1'" value="'TestValue1'"/>
-    <ww:param name="Test2" value="TestValue2"/>
 </ww:a>
 <br/><br/>
 
