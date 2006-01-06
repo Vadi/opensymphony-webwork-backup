@@ -1,6 +1,11 @@
 <!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.1.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+
 <xwork>
     <include file="webwork-default.xml"/>
+    
+    <include file="xwork-tmjee.xml" />
 
     <include file="config-browser.xml"/>
 
@@ -65,3 +70,6 @@
     </package>
 
 </xwork>
+
+<!-- END SNIPPET: xworkSample -->
+
