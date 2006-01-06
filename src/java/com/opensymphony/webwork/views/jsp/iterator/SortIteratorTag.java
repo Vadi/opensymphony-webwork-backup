@@ -37,16 +37,16 @@ import java.util.Comparator;
  * USAGE 1:
  * <pre>
  * &lt;ww:sort comparator="myComparator" source="myList"&gt;
- * 		&lt;ww:iterator&gt;
- * 			&lt;!-- do something with each sorted elements --&gt;
- * 			&lt;ww:property value="..." /&gt;
+ * 	&lt;ww:iterator&gt;
+ * 		&lt;!-- do something with each sorted elements --&gt;
+ * 		&lt;ww:property value="..." /&gt;
  *      &lt;/ww:iterator&gt;
  * &lt;/ww:sort&gt;
  * </pre>
  *
  * USAGE 2:
  * <pre>
- * &lt;ww:sort id="mySortedList comparator="myComparator" source="myList" /&gt;
+ * &lt;ww:sort id="mySortedList" comparator="myComparator" source="myList" /&gt;
  *
  * &lt;%
  *    Iterator sortedIterator = (Iterator) pageContext.getAttribute("mySortedList");
