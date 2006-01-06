@@ -43,7 +43,7 @@ import java.util.Comparator;
  *
  * USAGE 1:
  * &lt;ww:sort comparator="myComparator" source="myList"&gt;
- * 	&lt;ww:iterator&gt;
+ *      &lt;ww:iterator&gt;
  * 		&lt;!-- do something with each sorted elements --&gt;
  * 		&lt;ww:property value="..." /&gt;
  *      &lt;/ww:iterator&gt;
