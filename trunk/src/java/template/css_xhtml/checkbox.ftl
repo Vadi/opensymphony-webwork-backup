@@ -4,10 +4,10 @@ that for checkboxes we do not want the label field to show up as checkboxes hand
 lables
 -->
 <#assign hasFieldErrors = fieldErrors?exists && fieldErrors[parameters.name]?exists/>
-<div <#rt/><#if parameters.id?exists>id="wwgrp_${parameters.id}"<#rt/></#if>>
+<div <#rt/><#if parameters.id?exists>id="wwgrp_${parameters.id}"<#rt/></#if> class="wwgrp">
 
 <#if hasFieldErrors>
-<div <#rt/><#if parameters.id?exists>id="wwerr_${parameters.id}"<#rt/></#if>>
+<div <#rt/><#if parameters.id?exists>id="wwerr_${parameters.id}"<#rt/></#if> class="wwerr">
 <#list fieldErrors[parameters.name] as error>
     <div<#rt/>
     <#if parameters.id?exists>
@@ -20,7 +20,7 @@ lables
 </div><#t/>
 </#if>
 
-<div <#rt/><#if parameters.id?exists>id="wwctrl_${parameters.id}"<#rt/></#if>>
+<div <#rt/><#if parameters.id?exists>id="wwctrl_${parameters.id}"<#rt/></#if> class="wwctrl">
 
 <#if parameters.required?default(false)>
         <span class="required">*</span><#t/>
