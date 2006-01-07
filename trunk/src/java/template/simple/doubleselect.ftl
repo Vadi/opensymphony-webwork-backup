@@ -59,7 +59,9 @@
         <#else>
             <#assign doubleItemValue = stack.findString('top')/>
         </#if>
-    ${parameters.name}Group[${itemCount}][${doubleItemCount}] = new Option("${doubleItemKey}", "${doubleItemValue}");
+<#--    ${parameters.name}Group[${itemCount}][${doubleItemCount}] = new Option("${doubleItemKey}", "${doubleItemValue}");  -->
+    ${parameters.name}Group[${itemCount}][${doubleItemCount}] = new Option("${doubleItemValue}", "${doubleItemKey}");
+
         <#assign doubleItemCount = doubleItemCount + 1/>
     </@ww.iterator>
     <#assign itemCount = itemCount + 1/>
