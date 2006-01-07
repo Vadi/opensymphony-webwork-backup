@@ -119,8 +119,8 @@
                 <interceptor-ref name="exception"/>
                 <interceptor-ref name="alias"/>
                 <interceptor-ref name="params"/>
-                <interceptor-ref name="prepare"/>
                 <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="prepare"/>
                 <interceptor-ref name="i18n"/>
                 <interceptor-ref name="chain"/>
                 <interceptor-ref name="model-driven"/>
@@ -150,8 +150,8 @@
             <interceptor-stack name="defaultStack">
                 <interceptor-ref name="exception"/>
                 <interceptor-ref name="alias"/>
-                <interceptor-ref name="prepare"/>
                 <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="prepare"/>
                 <interceptor-ref name="i18n"/>
                 <interceptor-ref name="chain"/>
                 <interceptor-ref name="model-driven"/>
