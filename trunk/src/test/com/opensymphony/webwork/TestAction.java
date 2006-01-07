@@ -20,6 +20,7 @@ import java.util.Map;
 public class TestAction extends ActionSupport {
 
     private Collection collection;
+    private Collection collection2;
     private Map map;
     private String foo;
     private String result;
@@ -27,6 +28,7 @@ public class TestAction extends ActionSupport {
     private String[] array;
     private String[][] list;
     private List list2;
+    private List list3;
 
     public Collection getCollection() {
         return collection;
@@ -92,6 +94,22 @@ public class TestAction extends ActionSupport {
         this.list2 = list2;
     }
 
+    public void setList3(List list) {
+    	this.list3 = list;
+    }
+    
+    public List getList3() {
+    	return this.list3;
+    }
+    
+    public Collection getCollection2() {
+    	return this.collection2;
+    }
+    
+    public void setCollection2(Collection collection) {
+    	this.collection2 = collection;
+    }
+    
     public String execute() throws Exception {
         if (result == null) {
             result = Action.SUCCESS;
