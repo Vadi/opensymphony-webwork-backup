@@ -265,6 +265,7 @@ public class PropertyTagTest extends WebWorkTestCase {
 
 
     protected void setUp() throws Exception {
+        super.setUp();
         ActionContext.getContext().setValueStack(stack);
         request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
     }
