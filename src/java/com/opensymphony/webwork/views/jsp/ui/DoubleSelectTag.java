@@ -15,11 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @see DoubleSelect
  */
 public class DoubleSelectTag extends AbstractDoubleListTag {
-    protected String emptyOption;
-    protected String headerKey;
-    protected String headerValue;
-    protected String multiple;
-    protected String size;
+    
 
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new DoubleSelect(stack, req, res);
@@ -34,25 +30,6 @@ public class DoubleSelectTag extends AbstractDoubleListTag {
         doubleSelect.setHeaderValue(headerValue);
         doubleSelect.setMultiple(multiple);
         doubleSelect.setSize(size);
-    }
-
-    public void setEmptyOption(String emptyOption) {
-        this.emptyOption = emptyOption;
-    }
-
-    public void setHeaderKey(String headerKey) {
-        this.headerKey = headerKey;
-    }
-
-    public void setHeaderValue(String headerValue) {
-        this.headerValue = headerValue;
-    }
-
-    public void setMultiple(String multiple) {
-        this.multiple = multiple;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
+        
     }
 }

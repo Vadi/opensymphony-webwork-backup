@@ -59,7 +59,6 @@
         <#else>
             <#assign doubleItemValue = stack.findString('top')/>
         </#if>
-<#--    ${parameters.name}Group[${itemCount}][${doubleItemCount}] = new Option("${doubleItemKey}", "${doubleItemValue}");  -->
     ${parameters.name}Group[${itemCount}][${doubleItemCount}] = new Option("${doubleItemValue}", "${doubleItemKey}");
 
         <#assign doubleItemCount = doubleItemCount + 1/>
@@ -82,18 +81,24 @@
     <#assign itemCount = itemCount + 1/>
 </@ww.iterator>
     ${parameters.name}Redirect(${redirectTo});
-
     function ${parameters.name}Redirect(x) {
+    	var selected = false;
         for (m = ${parameters.name}Temp.options.length - 1; m >= 0; m--) {
             ${parameters.name}Temp.options[m] = null;
         }
 
         for (i = 0; i < ${parameters.name}Group[x].length; i++) {
             ${parameters.name}Temp.options[i] = new Option(${parameters.name}Group[x][i].text, ${parameters.name}Group[x][i].value);
+            <#if parameters.doubleNameValue?exists>
+            	if (${parameters.name}Temp.options[i].value == '${parameters.doubleNameValue}') {
+            		${parameters.name}Temp.options[i].selected = true;
+            		selected = true;
+            	}
+            </#if>
         }
 
-        if (${parameters.name}Temp.options.length > 0) {
-            ${parameters.name}Temp.options[0].selected = true;
+        if ((${parameters.name}Temp.options.length > 0) && (! selected)) {
+           	${parameters.name}Temp.options[0].selected = true;
         }
     }
 </script>

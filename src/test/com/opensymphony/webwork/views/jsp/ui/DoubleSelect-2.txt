@@ -3,7 +3,7 @@
     <td>
 <select name="foo" onmousedown="window.status='onmousedown';" onmouseup="window.status='onmouseup';" onmouseover="window.status='onmouseover';" onmousemove="window.status='onmousemove';" onmouseout="window.status='onmouseout';" onchange="fooRedirect(this.options.selectedIndex)">
     <option value="BE">Belgium</option>
-    <option value="FR">France</option>
+    <option value="FR" selected="selected">France</option>
 </select>
 <br/>
 <select name="region">
@@ -20,7 +20,7 @@
     fooGroup[1][1] = new Option("Bordeaux", "BOR");
 
     var fooTemp = document.inputForm.region;
-    fooRedirect(0);
+    fooRedirect(1);
 
     function fooRedirect(x) {
     	var selected = false;
@@ -30,6 +30,10 @@
 
         for (i = 0; i < fooGroup[x].length; i++) {
             fooTemp.options[i] = new Option(fooGroup[x][i].text, fooGroup[x][i].value);
+            	if (fooTemp.options[i].value == 'BOR') {
+            		fooTemp.options[i].selected = true;
+            		selected = true;
+            	}
         }
 
         if ((fooTemp.options.length > 0)  && (! selected)) {

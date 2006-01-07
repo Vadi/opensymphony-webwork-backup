@@ -52,6 +52,7 @@ public class WebWorkModels {
     protected ActionErrorModel actionError;
     protected ActionMessageModel actionMessage;
     protected FieldErrorModel fieldError;
+    protected OptionTransferSelectModel optionTransferSelectModel;
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         this.stack = stack;
@@ -360,5 +361,12 @@ public class WebWorkModels {
         }
 
         return fieldError;
+    }
+    
+    public OptionTransferSelectModel getOptionSelectModel() {
+    	if (optionTransferSelectModel == null) {
+    		optionTransferSelectModel = new OptionTransferSelectModel(stack, req, res);
+    	}
+    	return optionTransferSelectModel;
     }
 }
