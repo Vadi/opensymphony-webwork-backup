@@ -16,7 +16,7 @@ Render field error (all or partial depending on param tag nested)if they exists
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Create a list ( &lt;ul&gt; and &lt;li&gt; ) of action messages if they exists. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;!-- example 1 --&gt; &lt;ww:fielderror /&gt; &lt;!-- example 2 --&gt; &lt;ww:fielderror&gt; &lt;ww:param&gt;field1&lt;/ww:param&gt; &lt;ww:param&gt;field2&lt;/ww:param&gt; &lt;/ww:fielderror&gt; OR &lt;ww:fielderror&gt; &lt;ww:param value="%{'field1'}" /&gt; &lt;ww:param value="%{'field2'}" /&gt; &lt;/ww:fielderror&gt; <!-- END SNIPPET: example --> </pre> <p/> <b>Description</b><p/> <!-- START SNIPPET: description --> Example 1: display all field errors<p/> Example 2: display field errors only for 'field1' and 'field2'<p/> <!-- END SNIPPET: description -->
+<!-- START SNIPPET: javadoc --> Render field errors if they exists. Specific layout depends on the particular theme. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;!-- example 1 --&gt; &lt;ww:fielderror /&gt; &lt;!-- example 2 --&gt; &lt;ww:fielderror&gt; &lt;ww:param&gt;field1&lt;/ww:param&gt; &lt;ww:param&gt;field2&lt;/ww:param&gt; &lt;/ww:fielderror&gt; &lt;ww:form .... &gt;> .... &lt;/ww:form&gt; OR &lt;ww:fielderror&gt; &lt;ww:param value="%{'field1'}" /&gt; &lt;ww:param value="%{'field2'}" /&gt; &lt;/ww:fielderror&gt; &lt;ww:form .... &gt;> .... &lt;/ww:form&gt; <!-- END SNIPPET: example --> </pre> <p/> <b>Description</b><p/> <pre> <!-- START SNIPPET: description --> Example 1: display all field errors<p/> Example 2: display field errors only for 'field1' and 'field2'<p/> <!-- END SNIPPET: description --> </pre>
 </p>
 
 <h2>Attributes</h2>
