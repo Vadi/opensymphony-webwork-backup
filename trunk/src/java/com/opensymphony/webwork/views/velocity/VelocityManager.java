@@ -543,6 +543,7 @@ public class VelocityManager {
         addDirective(sb, ActionErrorDirective.class);
         addDirective(sb, ActionMessageDirective.class);
         addDirective(sb, FieldErrorDirective.class);
+        addDirective(sb, OptionTransferSelectDirective.class);
 
         String directives = sb.toString();
 

@@ -26,7 +26,7 @@
 <#if parameters.headerKey?exists && parameters.headerValue?exists>
     <option value="${parameters.headerKey?html}">${parameters.headerValue?html}</option>
 </#if>
-<#if parameters.emptyOption?exists>
+<#if parameters.emptyOption?default(false)>
     <option value=""></option>
 </#if>
 <@ww.iterator value="parameters.list">

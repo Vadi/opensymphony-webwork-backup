@@ -19,13 +19,42 @@
     <ww:checkboxlist label="Friends" list="{'Patrick', 'Jason', 'Jay', 'Toby', 'Rene'}" name="friends"/>
     <ww:checkbox label="Age 18+" name="legalAge"/>
     <ww:doubleselect label="State" name="region" list="{'North', 'South'}"
+    				 value="'South'" doubleValue="'Florida'"
                      doubleList="top == 'North' ? {'Oregon', 'Washington'} : {'Texas', 'Florida'}" 
                      doubleName="state"
                      headerKey="-1" 
                      headerValue="---------- Please Select ----------"
                      emptyOption="true"
                      />
+    <ww:doubleselect label="Favourite Vehical" name="favouriteVehicalType" 
+    				 list="vehicalTypeList" listKey="key" listValue="description" 
+    				 value="'MotorcycleKey'" doubleValue="'YamahaKey'"
+    				 doubleList="vehicalSpecificList"
+    				 doubleListKey="key" doubleListValue="description"
+    				 doubleName="favouriteVehicalSpecific" headerKey="-1"
+    				 headerValue="---------- Please Select ----------"
+    				 emptyOption="true"
+    				 /> 
     <ww:file label="Picture" name="picture"/>
+    <ww:optiontransferselect 
+    	label="Favourite Cartoons Characters"
+		name="leftSideCartoonCharacters" 
+		leftTitle="Left Title"
+		rightTitle="Right Title"
+		list="{'Popeye', 'He-Man', 'Spiderman'}" 
+		multiple="true"
+		headerKey="headerKey"
+		headerValue="--- Please Select ---"
+		emptyOption="true"
+		doubleList="{'Superman', 'Mickey Mouse', 'Donald Duck'}" 
+		doubleName="rightSideCartoonCharacters"
+		doubleHeaderKey="doubleHeaderKey"
+		doubleHeaderValue="--- Please Select ---" 
+		doubleEmptyOption="true"
+		doubleMultiple="true"
+	/>
+    
+    
     
     <ww:submit/>
 </ww:form>

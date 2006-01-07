@@ -515,7 +515,7 @@ public abstract class UIBean extends Component {
                 addParameter("id", id);
             }
         } else if (form != null) {
-            addParameter("id", form.getParameters().get("id") + "_" + escape(name));
+            addParameter("id", form.getParameters().get("id") + "_" +escape(name));
         }
 
         if (form != null ) {
@@ -529,7 +529,7 @@ public abstract class UIBean extends Component {
 
         evaluateExtraParams();
     }
-
+    
     protected String escape(String name) {
         // escape any possible values that can make the ID painful to work with in JavaScript
         if (name != null) {
