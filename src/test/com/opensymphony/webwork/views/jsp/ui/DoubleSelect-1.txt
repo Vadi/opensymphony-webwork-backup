@@ -13,11 +13,11 @@
     for (i = 0; i < (2 + 0); i++)
     fooGroup[i] = new Array();
 
-    fooGroup[0][0] = new Option("AN", "Antwerp");
-    fooGroup[0][1] = new Option("GN", "Gent");
-    fooGroup[0][2] = new Option("BRG", "Brugge");
-    fooGroup[1][0] = new Option("PA", "Paris");
-    fooGroup[1][1] = new Option("BOR", "Bordeaux");
+    fooGroup[0][0] = new Option("Antwerp", "AN");
+    fooGroup[0][1] = new Option("Gent", "GN");
+    fooGroup[0][2] = new Option("Brugge", "BRG");
+    fooGroup[1][0] = new Option("Paris", "PA");
+    fooGroup[1][1] = new Option("Bordeaux", "BOR");
 
     var fooTemp = document.inputForm.region;
     fooRedirect(0);
