@@ -3,10 +3,10 @@
 	This will be done if ActionSupport is used.
 -->
 <#assign hasFieldErrors = fieldErrors?exists && fieldErrors[parameters.name]?exists/>
-<div <#rt/><#if parameters.id?exists>id="wwgrp_${parameters.id}"<#rt/></#if>>
+<div <#rt/><#if parameters.id?exists>id="wwgrp_${parameters.id}"<#rt/></#if> class="wwgrp">
 	
 <#if hasFieldErrors>
-<div <#rt/><#if parameters.id?exists>id="wwerr_${parameters.id}"<#rt/></#if>>
+<div <#rt/><#if parameters.id?exists>id="wwerr_${parameters.id}"<#rt/></#if> class="wwerr">
 <#list fieldErrors[parameters.name] as error>
     <div<#rt/>
     <#if parameters.id?exists>
@@ -19,7 +19,7 @@
 </div><#t/>
 </#if>
 
-<div <#rt/><#if parameters.id?exists>id="wwctrl_${parameters.id}"<#rt/></#if>>
+<div <#rt/><#if parameters.id?exists>id="wwctrl_${parameters.id}"<#rt/></#if> class="wwctrl">
 
 <#if parameters.label?exists>
     <label <#t/>
