@@ -1,4 +1,6 @@
-function clearErrorRows(table) {
+function clearErrorMessages(form) {
+    var table = form.childNodes[1];
+
     // clear out any rows with an "errorFor" attribute
     var rows = table.rows;
     var rowsToDelete = new Array();

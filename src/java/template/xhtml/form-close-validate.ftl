@@ -2,7 +2,7 @@
 <script>
     function validateForm_${parameters.id}() {
         form = document.getElementById("${parameters.id}");
-        clearErrorRows(form.childNodes[1]);
+        clearErrorMessages(form);
         clearErrorLabels(form);
 
         var errors = false;
