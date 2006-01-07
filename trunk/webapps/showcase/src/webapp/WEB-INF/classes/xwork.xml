@@ -5,8 +5,6 @@
 <xwork>
     <include file="webwork-default.xml"/>
     
-    <include file="xwork-tmjee.xml" />
-
     <include file="config-browser.xml"/>
 
     <include file="xwork-continuations.xml"/>

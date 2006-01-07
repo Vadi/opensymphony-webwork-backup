@@ -16,6 +16,11 @@
             <result>quiz-success.jsp</result>
         </action>
 
+        <action name="quizClientCss" class="com.opensymphony.webwork.showcase.validation.QuizAction">
+            <result name="input">quiz-client-css.jsp</result>
+            <result>quiz-success.jsp</result>
+        </action>
+
         <action name="quizAjax" class="com.opensymphony.webwork.showcase.validation.QuizAction">
             <result name="input">quiz-ajax.jsp</result>
             <result>quiz-success.jsp</result>
