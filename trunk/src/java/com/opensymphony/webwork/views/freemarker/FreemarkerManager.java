@@ -181,11 +181,7 @@ public class FreemarkerManager {
     }
 
     protected BeansWrapper getObjectWrapper() {
-        BeansWrapper beansWrapper = new WebWorkBeanWrapper();
-        beansWrapper.setSimpleMapWrapper(false);
-
-
-        return beansWrapper;
+        return new WebWorkBeanWrapper();
     }
 
     /**
