@@ -1,6 +1,9 @@
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.WebWorkConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -72,6 +75,8 @@ public class Head extends UIBean {
                 }
             }
         }
+
+        addParameter("encoding", Configuration.get(WebWorkConstants.WEBWORK_I18N_ENCODING));
     }
 
     public String getCalendarcss() {
