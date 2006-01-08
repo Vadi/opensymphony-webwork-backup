@@ -1,3 +1,13 @@
+<#--
+START SNIPPET: supported-validators
+Only the following validators are supported:
+* required validator
+* requiredstring validator
+* email validator
+* url validator
+* int validator
+END SNIPPET: supported-validators
+-->
 <#if parameters.validate?exists>
 <script>
     function validateForm_${parameters.id}() {
