@@ -26,6 +26,7 @@
 <#assign url = url + "&amp;detailView=">
 <!-- Set all to false -->
 <#assign detailsSelected = false>
+<#assign exceptionsSelected = false>
 <#assign interceptorsSelected = false>
 <#assign propertiesSelected = false>
 <#assign validatorsSelected = false>
@@ -33,6 +34,8 @@
 
 <#if detailView == "results">
 	<#assign detailsSelected = true>
+<#elseif detailView == "exceptions">
+	<#assign exceptionsSelected = true>
 <#elseif detailView == "interceptors">
 	<#assign interceptorsSelected = true>
 <#elseif detailView == "properties">
@@ -43,6 +46,7 @@
 
 <@startTabs/>
 	<#call tab name="Results" url="${url}results" isSelected="${detailsSelected?string}"/>
+	<#call tab name="Exception Mappings" url="${url}exceptions" isSelected="${exceptionsSelected?string}"/>
 	<#call tab name="Interceptors" url="${url}interceptors" isSelected="${interceptorsSelected?string}"/>
 	<#call tab name="Properties" url="${url}properties" isSelected="${propertiesSelected?string}"/>
 	<#call tab name="Validators" url="${url}validators" isSelected="${validatorsSelected?string}"/>
@@ -65,6 +69,23 @@
     	</#list>
     </table>
     
+<#elseif exceptionsSelected>	<!-- Action exception mappings -->
+    <table width="100%">
+        <tr><th>Name</th><th>Exception Class Name</th><th>Result</th><th>Parameters</th></tr>
+        <#list config.exceptionMappings as e>
+        	<tr <#if e_index%2 gt 0>class="b"<#else>class="a"</#if>>
+    			<td>${e.name}</td>
+    			<td>${e.exceptionClassName}</td>
+    			<td>${e.result}</td>
+    		    <td>
+    		        <#list e.params.keySet() as p>
+    			        ${p} = ${e.params[p]}<br>
+    		        </#list>
+    		    </td>
+    		</tr>
+    	</#list>
+    </table>
+
 <#elseif interceptorsSelected>	<!-- Action interceptors -->
     <table width="100%">
         <tr><th>Name</th><th>Type</th></tr>
