@@ -1,13 +1,57 @@
-*** IMPORTANT ***
+Thanks for trying out WebWork: Java's most cutting edge web development
+platform. WebWork is brought to you by the OpenSymphony team. You can
+find out more about WebWork and OpenSymphony at
+http://www.opensymphony.com.
 
-The documentation found in the docs directory are a snapshot of the documentation
-written to date. WebWork 2.2 is code complete and each new beta is simply additional
-documentation. To find the very latest 2.2 documentation, you'll need to go to the
-wiki, located at:
+=== Getting started ===
+We think the best way to get started with any technology is to try it
+out right away. That's why we've made WebWork the easiest web
+development platform to get started with. You can use the QuickStart
+feature (read the docs on QuickStart to learn how you can use this
+important tool with your own projects):
+
+ * Open a command prompt to the root directory of this distribution
+ * Using a Java 5 JDK, execute:
+           java -jar webwork-2.2.jar quickstart:showcase
+ * Open your browser to the URL:
+           http://localhost:8080/showcase
+ * Feel free to edit any of the sources (.java, .jsp, etc) in:
+           webapps/showcase
+ * Reload your browser to see the changes right away
+
+=== Getting help ===
+To get help from the WebWork developers and community, please read the
+instructions at the following URL:
+
+http://www.opensymphony.com/webwork/userForums.action
+
+=== Documentation ===
+The documentation can be found in HTML and PDF format in the docs
+directory:
+
+ * HTML format: docs/Documentation.html
+ * PDF format: docs/docs.pdf
+ * Javadocs: docs/api/index.html
+
+This documentation has been generated from the WebWork wiki at the time
+of this release. If you are looking for the absolute latest
+documentation, please visit the wiki at:
 
 http://wiki.opensymphony.com/display/WW/Documentation
 
-Please contribute to the documentation effort if you can.
+Note that these docs could include information about features not
+included in this release, so take care when referencing the wiki.
 
-Patrick and the WebWork team
-December 2, 2005
+=== Building ===
+If you'd like to build your own version of WebWork, we've included
+everything you need in this distribution. The ant script, build.xml,
+contains a "jar" task that you can launch to create your own webwork
+jar. The only thing you must do before hand is set up the proper jars
+in the ANT_HOME/lib directory. These jars are:
+
+ * lib/bootstrap/clover-license.jar
+ * lib/build/clover.jar
+ * lib/build/junit.jar
+
+Once you've copied these three jars in to the ANT_HOME/lib directory,
+simply run "ant jar" to create your own version of WebWork.
