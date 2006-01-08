@@ -7,6 +7,7 @@ import javax.servlet.*;
 import java.io.IOException;
 
 /**
+ * <!-- SNIPPET START: description -->
  * Special filter designed to work with the {@link FilterDispatcher} and allow
  * for easier integration with SiteMesh. Normally, ordering your filters to have
  * SiteMesh go first, and then {@link FilterDispatcher} go second is perfectly fine.
@@ -24,6 +25,7 @@ import java.io.IOException;
  * <li>SiteMesh filter</li>
  * <li>{@link FilterDispatcher}</li>
  * </ul>
+ * <!-- SNIPPET END: description -->
  *
  * @author Patrick Lightbody
  * @see FilterDispatcher
