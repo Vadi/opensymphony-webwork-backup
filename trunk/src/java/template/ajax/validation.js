@@ -1,10 +1,9 @@
 var webworkValidator = new ValidationClient("$!base/validation");
 webworkValidator.onErrors = function(input, errors) {
 
-	var table = input.parentNode.parentNode.parentNode;
 	var form = input.form;
 
-	clearErrorRows(table);
+	clearErrorMessages(form);
 	clearErrorLabels(form);
 
     if (errors.fieldErrors) {
