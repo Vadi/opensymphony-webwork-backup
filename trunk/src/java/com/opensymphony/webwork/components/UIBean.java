@@ -550,6 +550,13 @@ public abstract class UIBean extends Component {
         return String.class;
     }
 
+    public void addFormParameter(String key, Object value) {
+        Form form = (Form) findAncestor(Form.class);
+        if (form != null) {
+            form.addParameter(key, value);
+        }
+    }
+
     /**
      * @ww.tagattribute required="false"
      * description="The theme (other than default) to use for renedring the element"
