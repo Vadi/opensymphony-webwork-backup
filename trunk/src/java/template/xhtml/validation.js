@@ -1,5 +1,9 @@
 function clearErrorMessages(form) {
+
     var table = form.childNodes[1];
+    if( typeof table == "undefined" ) {
+        table = form.childNodes[0];
+    }
 
     // clear out any rows with an "errorFor" attribute
     var rows = table.rows;
