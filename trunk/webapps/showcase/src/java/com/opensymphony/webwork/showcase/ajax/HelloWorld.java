@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.tutorial.ajax;
+package com.opensymphony.webwork.showcase.ajax;
 
 import com.opensymphony.xwork.ActionSupport;
 

@@ -5,7 +5,7 @@
 <head>
     <title>Ajax examples - tabbled panel</title>
 
-    <jsp:include page="../commonInclude.jsp"/>
+    <jsp:include page="/ajax/commonInclude.jsp"/>
     <link rel="stylesheet" type="text/css" href="<ww:url value="/webwork/tabs.css"/>">
     <link rel="stylesheet" type="text/css" href="<ww:url value="/webwork/niftycorners/niftyCorners.css"/>">
     <link rel="stylesheet" type="text/css" href="<ww:url value="/webwork/niftycorners/niftyPrint.css"/>" media="print">

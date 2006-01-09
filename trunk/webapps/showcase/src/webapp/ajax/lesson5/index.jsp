@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Tabbed Panes</title>
-    <%@ include file="../commonInclude.jsp" %>
+    <%@ include file="/ajax/commonInclude.jsp" %>
 </head>
 
 <body>

@@ -1,8 +1,8 @@
 <%@ taglib prefix="ww" uri="/webwork" %>
 <html>
 <head>
-    <title>AJAX-based based validation</title>
-    <%@ include file="../commonInclude.jsp" %>
+    <title>AJAX-based remote link tag</title>
+    <%@ include file="/ajax/commonInclude.jsp" %>
 </head>
 
 <body>
@@ -12,9 +12,12 @@
 <p>
     <ol>
         <li>
-            <a href="helloDefault.action">AJAX Validation</a>
+            <a href="example7.jsp">Link and DIV example</a>
         </li>
+
     </ol>
+
+
 </p>
 
 </body>

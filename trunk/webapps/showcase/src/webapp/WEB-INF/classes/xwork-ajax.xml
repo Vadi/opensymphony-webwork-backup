@@ -3,8 +3,6 @@
 <xwork>
     <include file="webwork-default.xml"/>
 
-    <include file="config-browser.xml"/>
-
     <package name="ajax" extends="webwork-default">
         <action name="hello" class="com.opensymphony.webwork.showcase.ajax.HelloWorld">
             <result name="input">hello-input.jsp</result>
@@ -17,15 +15,15 @@
 
         <!-- Ajax Component examples -->
         <action name="AjaxTest" class="com.opensymphony.webwork.showcase.ajax.AjaxTestAction">
-            <result name="success">AjaxResult.jsp</result>
+            <result name="success">/ajax/AjaxResult.jsp</result>
         </action>
 
         <action name="AjaxRemoteLink" class="com.opensymphony.webwork.showcase.ajax.AjaxTestAction">
-            <result name="success">AjaxResult2.js</result>
+            <result name="success">/ajax/AjaxResult2.js</result>
         </action>
 
         <action name="AjaxRemoteForm" class="com.opensymphony.webwork.showcase.ajax.AjaxTestAction">
-            <result name="success">AjaxResult3.jsp</result>
+            <result name="success">/ajax/AjaxResult3.jsp</result>
         </action>
     </package>
 </xwork>
