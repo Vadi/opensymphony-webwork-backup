@@ -12,7 +12,7 @@
 <p>
     <ol>
         <li>
-            <a href="helloDefault.action">A simple DIV that refreshes only once</a>
+            <a href="helloDefault.action">AJAX Validation</a>
         </li>
     </ol>
 </p>
