@@ -248,7 +248,6 @@
       <module fileurl="file://$PROJECT_DIR$/webapps/shopping-cart/ShoppingCart.iml" filepath="$PROJECT_DIR$/webapps/shopping-cart/ShoppingCart.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/showcase/Showcase.iml" filepath="$PROJECT_DIR$/webapps/showcase/Showcase.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/starter/Starter.iml" filepath="$PROJECT_DIR$/webapps/starter/Starter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/webapps/ajax/TutorialAJAX.iml" filepath="$PROJECT_DIR$/webapps/ajax/TutorialAJAX.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebWork.iml" filepath="$PROJECT_DIR$/WebWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/../xwork/XWork.iml" filepath="$PROJECT_DIR$/../xwork/XWork.iml" />
     </modules>
