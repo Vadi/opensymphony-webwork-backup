@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * includes.<p/>
  *
  * If, for example, your page has ajax components integrated, without having the default theme set to ajax, you might
- * want to use the head tag with <pre>theme="ajax"</pre> so that the typical ajax header setup will be included in the
+ * want to use the head tag with <b>theme="ajax"</b> so that the typical ajax header setup will be included in the
  * page.<p/>
  *
  * The tag also includes the option to set a custom datepicker theme if needed. See calendarcss parameter for
