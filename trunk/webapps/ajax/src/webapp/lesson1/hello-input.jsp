@@ -7,9 +7,9 @@
 
 <body>
 
-<ww:form action="hello" validate="true" theme="ajax">
-    <ww:textfield label="Name" name="name" required="true" theme="ajax"/>
-    <ww:submit value="Say Hello" theme="ajax"/>
+<ww:form action="hello" validate="true" theme="ajax" name="hello" id="helloFormId">
+    <ww:textfield label="Name" name="name" id="name" required="true" theme="ajax"/>
+    <ww:submit value="Say Hello" theme="ajax" resultDivId="helloFormId"/>
 </ww:form>
 
 </body>
