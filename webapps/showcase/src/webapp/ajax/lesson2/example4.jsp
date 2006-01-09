@@ -4,19 +4,21 @@
 <html>
 <head>
     <title>Ajax Examples</title>
-    <jsp:include page="../commonInclude.jsp"/>
+    <jsp:include page="/ajax/commonInclude.jsp"/>
 </head>
 
 <body>
 
 <ww:div
-        id="twoseconds"
+        id="fiveseconds"
         cssStyle="border: 1px solid yellow;"
         href="/AjaxTest.action"
         theme="ajax"
-        delay="2000"
-        updateFreq="%{#parameters.period}"
-        errorText="There was an error">Initial Content</ww:div>
+        delay="1000"
+        updateFreq="5000"
+        errorText="There was an error"
+        loadingText="reloading">loading now</ww:div>
+
 
 </body>
 </html>

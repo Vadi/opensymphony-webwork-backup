@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>AJAX-based form submitting</title>
-    <%@ include file="../commonInclude.jsp" %>
+    <%@ include file="/ajax/commonInclude.jsp" %>
 </head>
 
 <body>

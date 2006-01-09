@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Ajax Examples</title>
-    <jsp:include page="../commonInclude.jsp"/>
+    <jsp:include page="/ajax/commonInclude.jsp"/>
 </head>
 
 <body>
