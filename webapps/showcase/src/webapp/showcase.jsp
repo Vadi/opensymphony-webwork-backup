@@ -17,6 +17,9 @@
 
 <p>
 	<ul>
+        <!-- config-browser -->
+        <li><ww:url id="url" namespace="/config-browser" action="index"/><ww:a href="%{url}">Configuration browser (Great for development!)</ww:a></li>
+
 		<!-- continuation -->
 		<li><ww:url id="url" namespace="/continuations" action="guess"/><ww:a href="%{url}">Continuations Example</ww:a></li>
 		
