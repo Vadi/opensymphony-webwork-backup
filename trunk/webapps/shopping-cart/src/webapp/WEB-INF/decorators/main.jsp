@@ -121,13 +121,13 @@
             <div class="wrapper">
                 <h2 class="accessibility">Navigation</h2>
                 <ul class="clearfix">
-                    <li><strong><a href="home.html">Home</a></strong></li>
-                    <li><a href="articles.html">Articles</a></li>
+                    <li><strong><a href="">Home</a></strong></li>
+                    <li><a href="#" onclick="alert('No content yet, just an example');">Articles</a></li>
 
-                    <li><a href="archive.html">Archive</a></li>
-                    <li><a href="photos.html">Photos</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li class="last"><a href="contact.html">Contact</a></li>
+                    <li><a href="#" onclick="alert('No content yet, just an example');">Archive</a></li>
+                    <li><a href="#" onclick="alert('No content yet, just an example');">Photos</a></li>
+                    <li><a href="#" onclick="alert('No content yet, just an example');">About</a></li>
+                    <li class="last"><a href="#" onclick="alert('No content yet, just an example');">Contact</a></li>
                 </ul>
             </div>
             <hr/>
