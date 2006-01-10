@@ -10,13 +10,15 @@
 <body>
 
 <ww:div
-        id="twoseconds"
+        id="once"
+        theme="ajax"
         cssStyle="border: 1px solid yellow;"
         href="/AjaxTest.action"
-        theme="ajax"
-        delay="2000"
-        updateFreq="%{#parameters.period}"
-        errorText="There was an error">Initial Content</ww:div>
+        delay="5000"
+        loadingText="loading...">
+    Initial Content</ww:div>
+
+<ww:include value="../footer.jsp"/>
 
 </body>
 </html>

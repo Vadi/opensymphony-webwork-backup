@@ -1,16 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="ww" uri="/webwork" %>
 <html>
-<head><title>Ajax Index</title></head>
+<head><title>AJAX Examples</title></head>
 
 <body>
-Lessons:
 <ul>
-    <li><a href="lesson1">lesson 1</a> - validation</li>
-    <li><a href="lesson2">lesson 2</a> - remote div tag</li>
-    <li><a href="lesson3">lesson 3</a> - remote link tag</li>
-    <li><a href="lesson5">lesson 5</a> - tabbed panel</li>
-    <li><a href="lesson6">lesson 6</a> - remote forms</li>
+    <li><a href="remotediv">Remote div tag</a></li>
+    <li><a href="remotelink">Remote link tag</a></li>
+    <li><a href="tabbedpanel">Tabbed panel</a></li>
+    <li><a href="remoteforms">Remote forms</a></li>
+    <li><a href=".."><i>Back to Showcase</i></a></li>
 </ul>
 </body>
 </html>

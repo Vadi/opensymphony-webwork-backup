@@ -10,15 +10,15 @@
 <body>
 
 <ww:div
-        id="fiveseconds"
+        id="error"
         cssStyle="border: 1px solid yellow;"
-        href="/AjaxTest.action"
+        href="/AjaxNoUrl.jsp"
         theme="ajax"
         delay="1000"
-        updateFreq="5000"
-        errorText="There was an error"
+        showErrorTransportText="true"
         loadingText="reloading">loading now</ww:div>
 
+<ww:include value="../footer.jsp"/>
 
 </body>
 </html>

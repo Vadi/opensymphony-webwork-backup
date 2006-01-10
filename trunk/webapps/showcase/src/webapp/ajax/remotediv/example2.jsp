@@ -19,6 +19,7 @@
             loadingText="loading...">Initial Content
     </ww:div>
 
+<ww:include value="../footer.jsp"/>
 
 </body>
 </html>
