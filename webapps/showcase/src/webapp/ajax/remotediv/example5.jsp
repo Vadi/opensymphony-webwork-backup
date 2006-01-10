@@ -10,13 +10,15 @@
 <body>
 
 <ww:div
-        id="once"
-        theme="ajax"
+        id="error"
         cssStyle="border: 1px solid yellow;"
-        href="/AjaxTest.action"
-        delay="5000"
-        loadingText="loading...">
-    Initial Content</ww:div>
+        href="/AjaxNoUrl.jsp"
+        theme="ajax"
+        delay="1000"
+        errorText="Could not contact server"
+        loadingText="reloading">loading now</ww:div>
+
+<ww:include value="../footer.jsp"/>
 
 </body>
 </html>

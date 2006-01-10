@@ -8,7 +8,7 @@
 
     <script language="JavaScript" type="text/javascript">
         function doSomething() {
-            // stuff to manipulate form
+            alert('you can manipulate the form before it gets submitted');
             return true;
         }
     </script>
@@ -90,6 +90,8 @@ Remote form replacing the forms content after running a function:<br/>
     <ww:submit value="GO3" theme="ajax" resultDivId="theForm6" preInvokeJS="doSomething();"/>
 
 </ww:form>
+
+<ww:include value="../footer.jsp"/>
 
 </body>
 </html>

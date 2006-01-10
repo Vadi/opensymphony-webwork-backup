@@ -1,4 +1,4 @@
-<#if parameters.resultDivId?exists>
+<#if parameters.resultDivId?exists || parameters.onLoadJS?exists>
 <#include "/${parameters.templateDir}/ajax/submit-ajax.ftl" />
 ${tag.addFormParameter("ajaxSubmit", "false")}
 <#else>

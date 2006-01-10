@@ -9,8 +9,6 @@
 
 <body>
 
-A simple DIV's that cannot contact the server and displays the transport error message:<br/>
-
 One Component:
 <ww:div
         id="one"
@@ -85,6 +83,8 @@ A Remote link that doesn't trigger any remote DIV updates<br/>
         errorText="An Error ocurred">Update
 </ww:a>
 <br/><br/>
+
+<ww:include value="../footer.jsp"/>
 
 </body>
 </html>

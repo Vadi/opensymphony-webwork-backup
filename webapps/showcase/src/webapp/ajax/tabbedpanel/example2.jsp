@@ -46,5 +46,7 @@
         </tr>
     </table>
 
+<ww:include value="../footer.jsp"/>
+
 </body>
 </html>
