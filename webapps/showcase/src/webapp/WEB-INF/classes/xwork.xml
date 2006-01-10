@@ -12,6 +12,8 @@
     <include file="xwork-tags.xml"/>
     
     <include file="xwork-validation.xml" />
+    
+    <include file="xwork-actionchaining.xml" />
 
     <include file="xwork-ajax.xml" />
 
