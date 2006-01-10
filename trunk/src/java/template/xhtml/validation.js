@@ -36,6 +36,7 @@ function clearErrorLabels(form) {
             var label = cells[0].getElementsByTagName("label")[0];
             if (label) {
                 label.setAttribute("class", "label");
+                label.setAttribute("className", "label"); //ie hack cause ie does not support setAttribute
             }
         }
     }
@@ -55,6 +56,7 @@ function addError(e, errorText) {
         td.valign = "top";
         td.colSpan = 2;
         span.setAttribute("class", "errorMessage");
+        span.setAttribute("className", "errorMessage"); //ie hack cause ie does not support setAttribute
         span.appendChild(error);
         td.appendChild(span);
         tr.appendChild(td);
@@ -64,6 +66,7 @@ function addError(e, errorText) {
         // updat the label too
         var label = row.cells[0].getElementsByTagName("label")[0];
         label.setAttribute("class", "errorLabel");
+        label.setAttribute("className", "errorLabel"); //ie hack cause ie does not support setAttribute
     } catch (e) {
         alert(e);
     }
