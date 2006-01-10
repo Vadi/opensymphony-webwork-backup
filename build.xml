@@ -73,10 +73,8 @@
         <!-- prepare each tutorial/example -->
         <webapp name="starter"/>
         <webapp name="showcase"/>
-        <webapp name="ajax"/>
         <webapp name="shopping-cart"/>
         <webapp name="portlet"/>
-        <webapp name="wwia"/>
 
         <!-- copy over elements required to build the final wars -->
         <copy file="webapps/build.xml" todir="${dist}/webapps"/>
