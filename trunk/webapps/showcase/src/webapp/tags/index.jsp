@@ -9,7 +9,7 @@
 
 <ul>
 	<li><ww:url id="url" value="/tags/non-ui/" /><ww:a href="%{url}">Non UI Tags Examples</ww:a></li>
-	<li><ww:url id="url" namespace="/tags/ui" action="example" method="input"/><ww:a href="%{url}">UI Tags Example</ww:a></li>
+	<li><ww:url id="url" value="/tags/ui" /><ww:a href="%{url}">UI Tags Example</ww:a></li>
 </ul>
 
 </body>

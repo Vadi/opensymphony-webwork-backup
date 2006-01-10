@@ -34,6 +34,10 @@
 
         <!-- ajax -->
         <li><ww:url id="url" value="/ajax"/><ww:a href="%{url}">AJAX Examples</ww:a></li>
+        
+        <!-- action chaining -->
+		<li><ww:url id="url" namespace="actionchaining" action="actionChain1" method="input" /><ww:a href="%{url}">Action Chaining Example</ww:a></li>
+		
 	</ul>
 </p>
 
