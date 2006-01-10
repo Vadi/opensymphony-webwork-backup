@@ -60,7 +60,7 @@
         <dependency org="xjavadoc" name="xjavadoc" rev="1.1" conf="build->*"/>
 
         <!-- default -->
-        <dependency org="opensymphony" name="xwork" rev="1.1+" conf="default->default"/>
+        <dependency org="opensymphony" name="xwork" rev="1.1" conf="default->default"/>
         <dependency org="apache" name="commons-logging" rev="1.0.4" conf="default->default"/>
 
         <!-- default -->
