@@ -1,0 +1,46 @@
+<html>
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            WebWork : WebWork Tutorial - Example 4
+                                                    </span>
+				    </div>
+				    <p class="paragraph"><h2 style="margin: 4px 0px 4px 0px;" class="heading2"><a name="WebWorkTutorial-Example4-Thesampledescription"> The sample description</a></h2>
+This demo will use the cutomized UI component in display script(vm, jsp or freemarker), and last will be rendered in webwork displayed as portal portlet.</p><h2 class="heading2"><a name="WebWorkTutorial-Example4-Thesampleinclude"> The sample include </a></h2>
+<ul class="star">
+<li> one view files: ex04.vm</li>
+<li> one UI component template files: datefield.vm</li>
+<li> generated html page in portal server</li>
+</ul>
+<h2 class="heading2"><a name="WebWorkTutorial-Example4-Hereisthesamplelist"> Here is the sample list</a></h2>
+
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>ex04.vm</b></div><div class="codeContent">
+<pre><span class="xml&#45;tag">&lt;html&gt;</span> &#10;<span class="xml&#45;tag">&lt;head&gt;</span> &#10;<span class="xml&#45;tag">&lt;title&gt;</span>&#87;ebWork Tutorial &#45; Example 4<span class="xml&#45;tag">&lt;/title&gt;</span> &#10;<span class="xml&#45;tag">&lt;meta name=<span class="xml&#45;quote">&quot;help&#45;path&quot;</span> content=<span class="xml&#45;quote">&quot;/help/help4.html&quot;</span>/&gt;</span> &#10;<span class="xml&#45;tag">&lt;/head&gt;</span> &#10;<span class="xml&#45;tag">&lt;body&gt;</span> &#10;<span class="xml&#45;tag">&lt;p&gt;</span>Custom Component Example:<span class="xml&#45;tag">&lt;/p&gt;</span> &#10;#wwcomponent (<span class="xml&#45;quote">&quot;template=components/datefield.vm&quot;</span>)
+      #wwparam (&quot;name=label&quot; &quot;value=%{'Date'}&quot;)
+      #wwparam (&quot;name=name&quot; &quot;value=%{'mydatefield'}&quot;)
+      #wwparam (&quot;name=mysize&quot; &quot;value=%{'3'}&quot;)
+      #wwparam (&quot;name=yearsize&quot; &quot;value=%{'6'}&quot;)&#10;#end&#10;<span class="xml&#45;tag">&lt;br/&gt;</span>&#10;<span class="xml&#45;tag">&lt;br/&gt;</span>&#10;<span class="xml&#45;tag">&lt;/body&gt;</span> &#10;<span class="xml&#45;tag">&lt;/html&gt;</span></pre>
+</div></div><p class="paragraph"><h3 class="heading3"><a name="WebWorkTutorial-Example4-datefield.vminjavaclasspath%2CthiswillbeusedascustomizedUIcomponent"> datefield.vm in java class path, this will be used as customized UI component</a></h3>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>template\xhtml\components\datefield.vm </b></div><div class="codeContent">
+<pre>#set ($name = $parameters.name)
+#set ($label = $parameters.label)
+#set ($size = $parameters.mysize)
+#set ($yearsize = $parameters.yearsize)
+$label:
+&lt;input type=&quot;text&quot; name=&quot;${name}.day&quot; size=&quot;$size&quot; /&gt; /
+&lt;input type=&quot;text&quot; name=&quot;${name}.month&quot; size=&quot;$size&quot; /&gt; /
+&lt;input type=&quot;text&quot; name=&quot;${name}.year&quot; size=&quot;$yearsize&quot; /&gt; (dd/mm/yyyy)</pre>
+</div></div></p><div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>ex04.vm with customized UI component datefield.vm generated html page in Portal Server</b></div><div class="codeContent">
+<pre>Date:&#10;<span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;text&quot;</span> name=<span class="xml&#45;quote">&quot;mydatefield.day&quot;</span> size=<span class="xml&#45;quote">&quot;3&quot;</span> /&gt;</span> / &#10;<span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;text&quot;</span> name=<span class="xml&#45;quote">&quot;mydatefield.month&quot;</span> size=<span class="xml&#45;quote">&quot;3&quot;</span> /&gt;</span> / &#10;<span class="xml&#45;tag">&lt;input type=<span class="xml&#45;quote">&quot;text&quot;</span> name=<span class="xml&#45;quote">&quot;mydatefield.year&quot;</span> size=<span class="xml&#45;quote">&quot;6&quot;</span> /&gt;</span> (dd/mm/yyyy)<span class="xml&#45;tag">&lt;br/&gt;</span></pre>
+</div></div>
+
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

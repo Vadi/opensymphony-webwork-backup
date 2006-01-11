@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>WebWork Tutorial - Example 2 Result (Velocity Version)</title>
+<meta name="help-path" content="/help/help2.html"/>
+</head>
+<body>
+<p>UI Form Tags Example result using Velocity:</p>
+<ul>
+       <li>checkbox: $!checkbox</li>
+       <li>file: $!file</li>
+       <li>hidden: $!hidden</li>
+       <li>password: $!password</li>
+       <li>radio: $!radio</li>
+       <li>select: $!select</li>
+       <li>textarea: $!textarea</li>
+       <li>textfield: $!textfield</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Getting Started
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h1><a name="GettingStarted-Preface">Preface</a></h1>
+<p>WebWork is a popular, easy-to-use MVC framework, for more information on the WebWork project, please visit <a href="WebWork.html" title="WebWork">WebWork</a>. <br/>
+This site is geared towards developers that have an understanding towards certain technologies.  Before diving into how Webwork works and running demos, it is recommended that you review the concepts below:</p>
+<ul class="alternate" type="square">
+	<li>Java</li>
+	<li>Servlets, JSP, and Tag Libraries</li>
+	<li>JavaBeans</li>
+	<li>HTML and HTTP</li>
+	<li>Web Containers (ex. Tomcat)</li>
+	<li>XML</li>
+</ul>
+
+
+<h1><a name="GettingStarted-DistributionDownloadandInformationResources">Distribution Download and Information Resources <a name="GettingStarted-Website%26downloads"></a></a></h1>
+
+<h2><a name="GettingStarted-DownloadWebworkDistribution">Download Webwork Distribution</a></h2>
+<p>You can download the full WebWork distribution <a href="https://webwork.dev.java.net/servlets/ProjectDocumentList?folderID=4007&amp;expandFolder=4007&amp;folderID=0" title="Visit page outside Confluence">here</a>. It contains the webwork.jar file as well as full documentation, sources, all <a href="Dependencies.html" title="Dependencies">required and optional dependent libraries</a> and examples. For more information on how to build WebWork from source or even checkout from CVS, please refer to <a href="Building Webwork.html" title="Building WebWork">Building Webwork</a>.</p>
+
+<h2><a name="GettingStarted-InformationandProjectResources">Information and Project Resources</a></h2>
+<p>This site is set up with many features.  Here are links to help you around:</p>
+
+<ul class="alternate" type="square">
+	<li><a href="https://webwork.dev.java.net/servlets/ProjectDocumentList" title="Visit page outside Confluence">Download Webwork</a> - download Webwork Distribution</li>
+	<li><a href="http://forums.opensymphony.com/category.jspa?categoryID=5" title="Visit page outside Confluence">Join the WebWork Forums</a> - The forums are full of active developers, contributors, and power users - often even available for chat. This is the best and quickest way to get a question answered.</li>
+	<li><a href="https://webwork.dev.java.net/servlets/ProjectMailingListList" title="Visit page outside Confluence">Subscribe to Mailing List or browse Mail Archive</a> or <a href="mailto:users@webwork.dev.java.net" title="Send mail to post a question">post a question</a>. All posts from the forum are posted to the mailing lists, as well as your posts to the list will make it to the forum.</li>
+	<li><a href="https://webwork.dev.java.net/source/browse/webwork" title="Visit page outside Confluence">CVS</a> - Browse CVS and source at java.net</li>
+	<li><a href="http://wiki.opensymphony.com/display/WW/WebWork" title="Visit page outside Confluence">Webwork Wiki</a> - Powered by <a href="http://www.atlassian.com/software/confluence/default.jsp?clicked=footer" title="Visit page outside Confluence">Confluence</a>, the professional J2EE wiki</li>
+	<li><a href="http://jira.opensymphony.com/secure/BrowseProject.jspa?id=10030" title="Visit page outside Confluence">Webwork Bugs &amp; Issues</a> - Powered by <a href="http://www.atlassian.com/software/jira" title="Visit page outside Confluence">JIRA:Bug &amp; Issue Traking System</a></li>
+	<li><a href="http://www.opensymphony.com" title="Visit page outside Confluence">OpenSymphony Home</a></li>
+</ul>
+
+
+<h1><a name="GettingStarted-DistributionQuickstart">Distribution Quickstart</a></h1>
+
+<h2><a name="GettingStarted-Overview">Overview</a></h2>
+
+<p>The distribution contains the following directory layout:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>docs/
+lib/
+src/
+src/java/template/
+webapps/
+README.txt
+build.properties
+build.xml
+webwork-(VERSION)-src.jar
+webwork-(VERSION).jar
+webwork.jar
+</pre>
+</div></div>
+
+<p>The docs directory contains the current Javadocs, the full user documentation including the document you are reading, taglib documentation, as well as Clover, JUnit and dependency reports for the build.</p>
+
+<p>The lib directory contains the required as well as the optional dependencies for Webwork, organized in subdirectories to represent different optional configurations and thereby induced <a href="Dependencies.html" title="Dependencies">Dependencies</a>:</p>
+
+<div class="preformatted"><div class="preformattedContent">
+<pre>lib/
+      ajax/
+      build/
+      default/
+      fileupload/
+      fileupload-cos/
+      fileupload-pell/
+      freemarker/
+      jasperreports/
+      jfree/
+      portlet/
+      quickstart/
+      sitemesh/
+      spring/
+      velocity/
+      xslt/
+</pre>
+</div></div>
+
+<p>Note that none of the optional packages are required to use Webwork.  If you wish to use certain features such as JasperReports and FreeMarker results, you must include the optional packages.</p>
+
+<p>Webwork also comes packaged with all the source files and the templates for the JSP tags.</p>
+
+<h2><a name="GettingStarted-RunningdemoswithQuickStart">Running demos with QuickStart<a name="GettingStarted-Runningdemos"></a></a></h2>
+
+<p>WebWork provides a quick way to get started called QuickStart. QuickStart is essentially a combination of a few technologies, including the possibility to run web applications such as the provided examples out of the box with a stripped <a href="http://jetty.mortbay.org/jetty/" title="Visit page outside Confluence">Jetty</a> container.</p>
+
+<p>With that, running the demos is as easy as can be. You just need to call</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">java -jar webwork.jar quickstart:&lt;application-name&gt;</pre>
+</div></div>
+<p>from the distribution's top directory, whereby &lt;application-name&gt; is to be replaced by one of the subdirectory names under webapps/, representing the various supplied demo applications. So if you want to start the shopping cart example, just type on your commandline</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">java -jar webwork.jar quickstart:shopping-cart</pre>
+</div></div>
+<p>The packaged examples are:</p>
+<table class='confluenceTable'>
+<tr>
+<td class='confluenceTd'>ajax</td>
+<td class='confluenceTd'>Demonstration of the AJAX Features of WebWork</td>
+</tr>
+<tr>
+<td class='confluenceTd'>portlet</td>
+<td class='confluenceTd'>Demonstration of WebWork porlet integration (to be deployed in a Portal Server)</td>
+</tr>
+<tr>
+<td class='confluenceTd'>shopping-cart</td>
+<td class='confluenceTd'>Nice example application demostrating various aspects of WebWork</td>
+</tr>
+<tr>
+<td class='confluenceTd'>showcase</td>
+<td class='confluenceTd'>Demonstration of tag features and some best practices</td>
+</tr>
+<tr>
+<td class='confluenceTd'>starter</td>
+<td class='confluenceTd'>Web application template, meant as an easy starting point for developing applications with WebWork</td>
+</tr>
+<tr>
+<td class='confluenceTd'>wwia</td>
+<td class='confluenceTd'>The Ceveat Emptor example from "WebWork in Action" book</td>
+</tr>
+</table>
+
+<p>Read <a href="Quickstart.html" title="QuickStart">Quickstart</a> documentation to learn more about how it works and how you can utilize it for your own applications.</p>
+
+
+<h2><a name="GettingStarted-RunningDemoswithYourFavoriteWebcontainer">Running Demos with Your Favorite Webcontainer <a name="GettingStarted-Runningdemos"></a></a></h2>
+<p>TODO: Review / comment lastest changes</p>
+
+<p>In order to run webwork applications and demos, you need to have a servlet/jsp engine. If you don't, we suggest you learn about <a href="http://jakarta.apache.org/tomcat/" title="Visit page outside Confluence">Apache Tomcat</a>, which is a free Servlet container from the Apache Jakarta Project, or Resin, from <a href="http://www.caucho.com/" title="Visit page outside Confluence">Caucho Technology</a>, which is free for non-comercial use.  Once you a Servlet container setup, you can install the webwork example applications (*.war) and any other demos by placing the .war file inside the containers webapp directory.  Example of location with tomcat:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;TOMCAT_HOME&gt;/webapps/webwork-example.war</pre>
+</div></div>
+<p>After the war file is in the correct location, start your web container and access your application through a web browser with the following url.</p>
+
+<p>*<a href="http://*??HOST:PORT??*/webwork-example*" title="Visit page outside Confluence">&#104;ttp://*??HOST:PORT??*/webwork-example*</a></p>
+
+<h1><a name="GettingStarted-YourfirstWebWorkApplication">Your first WebWork Application <a name="GettingStarted-Installing"></a></a></h1>
+
+<h2><a name="GettingStarted-UsingtheStarterTemplate">Using the Starter Template</a></h2>
+<p>The distribution contains a simple webapp called <tt>starter</tt> in meant as a template for your webapplications. Just copy <tt>starter</tt> directory to a newly named destination and edit the configuration files as needed.</p>
+
+<h2><a name="GettingStarted-SettingupfromScratch">Setting up from Scratch</a></h2>
+
+<h3><a name="GettingStarted-StructureofyourWebapplication">Structure of your Webapplication</a></h3>
+
+<p>The following illustrates how your web application should be set up.  Copy the webwork-(VERSION).jar, all the *.jar files in /lib/core and any necessary optional *.jar files in /lib/optional to your webapp/lib directory.  If you need to customize your own templates (how HTML is rendered from webwork UI tags), copy the /src/java/template directory into your webapp/ directory.  Your webapp should look similar to this:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">/mywebapp/
+/mywebapp/template/
+/mywebapp/META-INF/
+/mywebapp/WEB-INF/
+/mywebapp/WEB-INF/classes/
+/mywebapp/WEB-INF/lib/
+/mywebapp/WEB-INF/lib/CORE&amp;OPTIONAL *.jar
+/mywebapp/WEB-INF/web.xml</pre>
+</div></div>
+
+<h3><a name="GettingStarted-MinimumSetofLibrariesandConfigFiles">Minimum Set of Libraries and Config Files</a></h3>
+
+<p>The following files are a minium requirement for your application.</p>
+<table class='confluenceTable'>
+<tr>
+<th class='confluenceTh'>Filename</th>
+<th class='confluenceTh'>Description</th>
+</tr>
+<tr>
+<td class='confluenceTd'>webwork.jar</td>
+<td class='confluenceTd'>WebWork library itself, found in distribution root directory</td>
+</tr>
+<tr>
+<td class='confluenceTd'>xwork.jar</td>
+<td class='confluenceTd'>XWork library on which WebWork is built</td>
+</tr>
+<tr>
+<td class='confluenceTd'>oscore.jar</td>
+<td class='confluenceTd'>OSCore, a general-utility library from OpenSymphony</td>
+</tr>
+<tr>
+<td class='confluenceTd'>ongl.jar</td>
+<td class='confluenceTd'>Object Graph Navigation Language (OGNL), the expression language used<br/>
+throughout WebWork</td>
+</tr>
+<tr>
+<td class='confluenceTd'>commons-logging.jar</td>
+<td class='confluenceTd'>Commons logging, which WebWork uses to support transparently logging to<br/>
+either Log4J or JDK 1.4+</td>
+</tr>
+<tr>
+<td class='confluenceTd'>javamail by sun </td>
+<td class='confluenceTd'> for mail </td>
+</tr>
+<tr>
+<td class='confluenceTd'>rife-continuations by rife</td>
+<td class='confluenceTd'> for continuations feature </td>
+</tr>
+<tr>
+<td class='confluenceTd'>web.xml</td>
+<td class='confluenceTd'>J2EE web application configuration file that defines the servlets, JSP tag<br/>
+libraries, and so on for your web application</td>
+</tr>
+<tr>
+<td class='confluenceTd'>xwork.xml</td>
+<td class='confluenceTd'>WebWork configuration file that defines the actions, results, and interceptors<br/>
+for your application</td>
+</tr>
+</table>
+
+<p>The library files (*.jar) needs to be copied to your /mywebapp/WEB-INF/lib/ directory. If you need optional functionalities inducing dependencies to optional jars, they need to be copied to this directory, too.</p>
+
+<h3><a name="GettingStarted-web.xml%3A">web.xml:</a></h3>
+
+<p>Create the following <tt>web.xml</tt> file in <tt>[webapp]/WEB-INF</tt>. If you already have a <tt>web.xml</tt> file, just add the content of the &lt;web-app&gt; tag below to your existing &lt;web-app&gt; tag.</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;?xml version=<span class="code-quote">"1.0"</span>?&gt;</span>
+&lt;!DOCTYPE web-app PUBLIC <span class="code-quote">"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"</span>
+<span class="code-quote">"http://java.sun.com/dtd/web-app_2_3.dtd"</span>&gt;
+
+<span class="code-tag">&lt;web-app&gt;</span>
+  <span class="code-tag">&lt;display-name&gt;</span>My WebWork Application<span class="code-tag">&lt;/display-name&gt;</span>
+  <span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.FilterDispatcher<span class="code-tag">&lt;/filter-class&gt;</span>
+  <span class="code-tag">&lt;/filter&gt;</span>
+
+  <span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+  <span class="code-tag">&lt;/filter-mapping&gt;</span>
+
+  <span class="code-tag">&lt;listener&gt;</span>
+    <span class="code-tag">&lt;listener-class&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="code-tag">&lt;/listener-class&gt;</span>
+  <span class="code-tag">&lt;/listener&gt;</span>
+
+  <span class="code-tag">&lt;taglib&gt;</span>
+    <span class="code-tag">&lt;taglib-uri&gt;</span>/webwork<span class="code-tag">&lt;/taglib-uri&gt;</span>
+    <span class="code-tag">&lt;taglib-location&gt;</span>/WEB-INF/lib/webwork.jar<span class="code-tag">&lt;/taglib-location&gt;</span>
+  <span class="code-tag">&lt;/taglib&gt;</span>
+<span class="code-tag">&lt;/web-app&gt;</span></pre>
+</div></div>
+
+<p>This registers <tt>FilterDispatcher</tt> to induce webwork functionality in your requests. The ContextLoaderListener will take care of setting up <a href="Spring.html" title="Spring">Spring</a> as your IoC container for WebWork. The taglib entry will help you use <a href="Tags.html" title="Tags">Tags</a> in your JSP pages.</p>
+
+<blockquote><p>Read more: <a href="web.xml.html" title="web.xml">web.xml</a></p></blockquote>
+
+<h3><a name="GettingStarted-xwork.xml%3A">xwork.xml:</a></h3>
+
+<p>Create the following file <tt>xwork.xml</tt> in <tt>[webapp]/WEB-INF/classes/</tt>.</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&lt;!DOCTYPE xwork PUBLIC <span class="code-quote">"-//OpenSymphony Group//XWork 1.0//EN"</span> 
+<span class="code-quote">"http://www.opensymphony.com/xwork/xwork-1.0.dtd"</span>&gt;
+
+<span class="code-tag">&lt;xwork&gt;</span>
+	<span class="code-tag"><span class="code-comment">&lt;!-- Include webwork defaults (from WebWork JAR). --&gt;</span></span>
+	<span class="code-tag">&lt;include file=<span class="code-quote">"webwork-default.xml"</span> /&gt;</span>
+	
+	<span class="code-tag"><span class="code-comment">&lt;!-- Configuration for the default package. --&gt;</span></span>
+	<span class="code-tag">&lt;package name=<span class="code-quote">"default"</span> extends=<span class="code-quote">"webwork-default"</span>&gt;</span>
+	<span class="code-tag">&lt;/package&gt;</span>
+<span class="code-tag">&lt;/xwork&gt;</span></pre>
+</div></div>
+
+<p>For now, this xwork.xml does only two things:</p>
+
+<ul>
+	<li>It informs WebWork that it should import the configuration information from <tt>webwork-default.xml</tt>. (This file is located at the root of the <tt>webwork.jar</tt>, so it is sure to be found.)</li>
+</ul>
+
+
+<ul>
+	<li>It defines a default package (with the &lt;package&gt; section) where WebWork elements like actions, results and interceptors are registered.</li>
+</ul>
+
+
+<blockquote><p>Read more: <a href="xwork.xml.html" title="xwork.xml">xwork.xml</a></p></blockquote>
+
+
+<h2><a name="GettingStarted-BasicConcepts">Basic Concepts</a></h2>
+<p>We will briefly cover the three main components on a WebWork2 based application, the configuration the action classes, and the views. Especially the example in this section should be helpful to seasoned Java developers with previous experience in MVC frameworks.</p>
+
+<h3><a name="GettingStarted-Actions">Actions</a></h3>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;action name=<span class="code-quote">"saveForm"</span> class=<span class="code-quote">"com.acme.FormAction"</span> method=<span class="code-quote">"processForm"</span>&gt;</span></pre>
+</div></div>
+
+<p>Actions are the basic "unit-of-work" in WebWork, they define, well, actions. An action will usually be a request, (and usually a button click, or form submit). The main action element (tag is too synonymous with JSP) has two parts, the friendly name (referenced in the URL, i.e. <b>saveForm.action</b>) and the corresponding "handler" class.</p>
+
+<p>The method parameter tells WebWork which method to call based upon this action. If you leave the method parameter blank, WebWork will call the method <b>execute()</b> from the Action Interface by default. Since every Action must implment the Action Interface, this method will always be available.</p>
+
+<h3><a name="GettingStarted-Results">Results</a></h3>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;result name=<span class="code-quote">"missing-data"</span> type=<span class="code-quote">"dispatcher"</span>&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"location"</span>&gt;</span>/form.jsp<span class="code-tag">&lt;/param&gt;</span>
+<span class="code-tag">&lt;/result&gt;</span></pre>
+</div></div>
+
+<p>Result tags tell WebWork what to do next after the action has been called. There are a standard set of result codes built-in to WebWork, (in the Action interface) they include:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-object">String</span> SUCCESS = <span class="code-quote">"success"</span>;
+<span class="code-object">String</span> NONE    = <span class="code-quote">"none"</span>;
+<span class="code-object">String</span> ERROR   = <span class="code-quote">"error"</span>;
+<span class="code-object">String</span> INPUT   = <span class="code-quote">"input"</span>;
+<span class="code-object">String</span> LOGIN   = <span class="code-quote">"login"</span>;</pre>
+</div></div>
+
+<p>You can extend these as you see fit. Most of the time you will have either <b>SUCCESS</b> or <b>ERROR</b>, with <b>SUCCESS</b> moving on to the next page in your application;</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"dispatcher"</span>&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"location"</span>&gt;</span>/thank_you.jsp<span class="code-tag">&lt;/param&gt;</span>
+<span class="code-tag">&lt;/result&gt;</span></pre>
+</div></div>
+
+<p>…and <b>ERROR</b> moving on to an error page, or the preceding page;</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;result name=<span class="code-quote">"error"</span> type=<span class="code-quote">"dispatcher"</span>&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"location"</span>&gt;</span>/error.jsp<span class="code-tag">&lt;/param&gt;</span>
+<span class="code-tag">&lt;/result&gt;</span></pre>
+</div></div>
+
+<p>You can stack as many result tags within a single action tag as you wish.</p>
+
+<p>For further reading on Result types, see <a href="Result Types.html" title="Result Types">Result Types</a>.</p>
+
+
+<h2><a name="GettingStarted-Interceptors">Interceptors</a></h2>
+<p>Interceptors allow you to define code to be executed before and/or after the execution of an action. Interceptors can be a powerful tool when writing web applications. Some of the most common implementations of an Interceptor might be:</p>
+
+<ul>
+	<li>Security Checking (ensuring the user is logged in)</li>
+	<li>Trace Logging (logging every action)</li>
+	<li>Bottleneck Checking (start a timer before and after every action, to check bottlenecks in your application)</li>
+</ul>
+
+
+<p>You can also group Interceptors together to create "stacks". If you wanted to do a login check, security check, and logging all before an Action call, this could easily be done with an interceptor stack.</p>
+
+<p>For further reading on interceptor configuration, as well as a discussion of WebWork's builtin interceptors, see <a href="Interceptors.html" title="Interceptors">Interceptors</a><br clear="all" /></p>
+
+<h2><a name="GettingStarted-ActionClasses">Action Classes</a></h2>
+<p>The action classes do what they say, they handle the action. They are called by the actions specified in the <b>xwork.xml</b> file and initiated by the user in the "views".  To turn your class into an action class, you simply need to extend the class <b>ActionSupport</b> or implement the <b>Action</b> interface. </p>
+
+<p>Here is what our <b>saveForm</b> action looks like in its Java form:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">package</span> com.acme;
+<span class="code-keyword">import</span> com.opensymphony.xwork.*;
+
+<span class="code-keyword">public</span> class FormAction <span class="code-keyword">extends</span> ActionSupport {
+    
+    <span class="code-keyword">private</span> FormBean myFormBean = <span class="code-keyword">new</span> FormBean();
+
+    <span class="code-keyword">public</span> void setFormBean(FormBean inBean) {
+        myFormBean = inBean;
+    }
+
+    <span class="code-keyword">public</span> FormBean getFormBean() {
+        <span class="code-keyword">return</span> myFormBean;
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">String</span> execute() {
+
+        FormParameters formParams = <span class="code-keyword">this</span>.getFormBean();
+        checkBizRules(formParams);
+        <span class="code-keyword">this</span>.saveParamsToDb(formParams);
+
+        <span class="code-keyword">return</span> SUCCESS;
+    }
+...
+}</pre>
+</div></div>
+
+<h2><a name="GettingStarted-Views">Views</a></h2>
+<p>WebWork supports JSP, Velocity, and FreeMarker for your application presentation layer. For this example, we will use a JSP file.  The appropriate presentation layer is denoted by the result type specified.  For JSPs, the result type is the name mapped to the <b>com.opensymphony.webwork.dispatcher.ServletDispatcherResult</b>.  Typically, this is "dispatcher".</p>
+
+<p>WebWork comes packaged with a tag library (taglibs). You can use these taglibs as components in your JSP file. Here is an section of our <b>form.jsp</b> page:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-html"><span class="code-tag">&lt;%@ taglib prefix=<span class="code-quote">"ww"</span> uri=<span class="code-quote">"webwork"</span> %&gt;</span>
+<span class="code-tag">&lt;html&gt;</span>
+<span class="code-tag">&lt;head&gt;</span><span class="code-tag">&lt;title&gt;</span>Webwork Form Example<span class="code-tag">&lt;/title&gt;</span><span class="code-tag">&lt;/head&gt;</span>
+<span class="code-tag">&lt;body&gt;</span>
+
+<span class="code-tag">&lt;ww:form name=<span class="code-quote">"'myForm'"</span> action=<span class="code-quote">"'saveForm.action'"</span> method=<span class="code-quote">"'POST'"</span>&gt;</span>
+    <span class="code-tag">&lt;table&gt;</span>
+
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"'First Name'"</span> name=<span class="code-quote">"'formBean.firstName'"</span> value=<span class="code-quote">"formBean.firstName"</span>/&gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"'Last Name'"</span> name=<span class="code-quote">"'formBean.lastName'"</span> value=<span class="code-quote">"formBean.lastName"</span>/&gt;</span>
+
+    <span class="code-tag">&lt;/table&gt;</span>
+    <span class="code-tag">&lt;input type=<span class="code-quote">"submit"</span> value=<span class="code-quote">"Save Form"</span>/&gt;</span>
+<span class="code-tag">&lt;/ww:form&gt;</span>
+<span class="code-tag">&lt;/body&gt;</span></pre>
+</div></div>
+
+<p>The process of events will go as follows:</p>
+<ol>
+	<li>WebWork will take notice since the URI ends in <b>.action</b> (defined in our <b>web.xml</b> files)</li>
+	<li>WebWork will look up the action <b>saveForm</b> in its action hierarchy and call any Interceptors that we might have defined.</li>
+	<li>WebWork will translate <b>saveForm</b> and decide we would like to call the method <b>processForm</b> in our class <b>com.acme.FormAction</b> as defined in our <b>xwork.xml</b> file.</li>
+	<li>Our method will process successfully and give WebWork the <b>SUCCESS</b> return parameter.</li>
+	<li>WebWork will translate the <b>SUCCESS</b> return parameter into the location <b>thank_you.jsp</b> (as defined in <b>xwork.xml</b>) and redirect us accordingly.</li>
+</ol>
+
+
+
+
+<p>Onward to <a href="Documentation.html#Documentation-Configuration" title="Configuration on Documentation">Configuration</a> or the <a href="Documentation.html#Documentation-Tutorial" title="Tutorial on Documentation">Webwork Tutorial</a></p>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

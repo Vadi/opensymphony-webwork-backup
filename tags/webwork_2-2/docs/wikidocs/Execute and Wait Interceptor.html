@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Execute and Wait Interceptor
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    
+<p> The ExecuteAndWaitInterceptor is great for running long-lived actions in the background while showing the user a nice
+ progress meter. This also prevents the HTTP request from timing out when the action takes more than 5 or 10 minutes.</p>
+
+<p> <p/> Using this interceptor is pretty straight forward. Assuming that you are including webwork-default.xml, this
+ interceptor is already configured but is not part of any of the default stacks. Because of the nature of this
+ interceptor, it must be the <b>last</b> interceptor in the stack.</p>
+
+<p> <p/> This interceptor works on a per-session basis. That means that the same action name (myLongRunningAction, in the
+ above example) cannot be run more than once at a time in a given session. On the initial request or any subsequent
+ requests (before the action has completed), the <b>wait</b> result will be returned. <b>The wait result is
+ responsible for issuing a subsequent request back to the action, giving the effect of a self-updating progress
+ meter</b>.</p>
+
+<p> <p/> If no "wait" result is found, WebWork will automatically generate a wait result on the fly. This result is
+ written in FreeMarker and cannot run unless FreeMarker is installed. If you don't wish to deploy with FreeMarker, you
+ must provide your own wait result. This is generally a good thing to do anyway, as the default wait page is very
+ plain.</p>
+
+<p> <p/>Whenever the wait result is returned, the <b>action that is currently running in the background will be placed on
+ top of the stack</b>. This allows you to display progress data, such as a count, in the wait page. By making the wait
+ page automatically reload the request to the action (which will be short-circuited by the interceptor), you can give
+ the appearance of an automatic progress meter.</p>
+
+<p> <p/><b>Important</b>: Because the action will be running in a seperate thread, you can't use ActionContext because it
+ is a ThreadLocal. This means if you need to access, for example, session data, you need to implement SessionAware
+ rather than calling ActionContext.getSesion().</p>
+
+<p> <p/>The thread kicked off by this interceptor will be named in the form <b><u>actionName</u>BrackgroundProcess</b>.
+ For example, the <i>search</i> action would run as a thread named <i>searchBackgroundProcess</i>.</p>
+
+
+<h1><a name="ExecuteandWaitInterceptor-Parameters">Parameters</a></h1>
+
+
+<p> <ul></p>
+
+<p> <li>threadPriority (optional) - the priority to assign the thread</li></p>
+
+<p> </ul></p>
+
+
+<h1><a name="ExecuteandWaitInterceptor-ExtendingtheInterceptor">Extending the Interceptor</a></h1>
+
+
+<p> If you wish to make special preparations before and/or after the invocation of the background thread, you can extend
+ the BackgroundProcess class and implement the beforeInvocation() and afterInvocation() methods. This may be useful
+ for obtaining and releasing resources that the background process will need to execute successfully. To use your
+ background process extension, extend ExecuteAndWaitInterceptor and implement the getNewBackgroundProcess() method.</p>
+
+
+<h1><a name="ExecuteandWaitInterceptor-Examples">Examples</a></h1>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;action name=<span class="code-quote">"someAction"</span> class=<span class="code-quote">"com.examples.SomeAction"</span>&gt;</span>
+    <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"completeStack"</span>/&gt;</span>
+    <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"execAndWait"</span>/&gt;</span>
+    <span class="code-tag">&lt;result name=<span class="code-quote">"success"</span>&gt;</span>longRunningAction-wait.jsp<span class="code-tag">&lt;/result&gt;</span>
+    <span class="code-tag">&lt;result name=<span class="code-quote">"success"</span>&gt;</span>longRunningAction-success.jsp<span class="code-tag">&lt;/result&gt;</span>
+<span class="code-tag">&lt;/action&gt;</span>
+
+<span class="code-tag">&lt;%@ taglib prefix=<span class="code-quote">"ww"</span> uri=<span class="code-quote">"/webwork"</span> %&gt;</span>
+<span class="code-tag">&lt;html&gt;</span>
+  <span class="code-tag">&lt;head&gt;</span>
+    <span class="code-tag">&lt;title&gt;</span>Please wait<span class="code-tag">&lt;/title&gt;</span>
+    <span class="code-tag">&lt;meta http-equiv=<span class="code-quote">"refresh"</span> content=<span class="code-quote">"5;url=&lt;ww:url includeParams="</span>all<span class="code-quote">" /&gt;</span>"</span>/&gt;
+  <span class="code-tag">&lt;/head&gt;</span>
+  <span class="code-tag">&lt;body&gt;</span>
+    Please wait while we process your request.
+    Click <span class="code-tag">&lt;a href=<span class="code-quote">"&lt;ww:url includeParams="</span>all<span class="code-quote">" /&gt;</span>"</span>&gt;<span class="code-tag">&lt;/a&gt;</span> if this page does not reload automatically.
+  <span class="code-tag">&lt;/body&gt;</span>
+<span class="code-tag">&lt;/html&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

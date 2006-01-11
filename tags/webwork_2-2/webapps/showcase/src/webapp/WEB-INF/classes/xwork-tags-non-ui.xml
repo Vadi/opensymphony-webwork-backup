@@ -1,0 +1,22 @@
+<!DOCTYPE xwork PUBLIC 
+	"-//OpenSymphony Group//XWork 1.0//EN" 
+	"http://www.opensymphony.com/xwork/xwork-1.1.dtd">
+	
+<xwork>
+	
+	<include file="webwork-default.xml" />
+	
+	<!-- ================================== -->
+	<!-- === Package for ActionTag Demo === -->
+	<!-- ================================== -->
+	
+	<package name="actionTag" extends="webwork-default" namespace="/tags/non-ui/actionTag">
+		<action name="showActionTagDemo" class="com.opensymphony.webwork.showcase.tag.nonui.actiontag.ActionTagDemo" method="show">
+			<result>/tags/non-ui/actionTag/showActionTagDemo.jsp</result>
+		</action>
+		<action name="includePage" class="com.opensymphony.webwork.showcase.tag.nonui.actiontag.ActionTagDemo" method="doInclude">
+			<result>/tags/non-ui/actionTag/includedPage.jsp</result>
+		</action>
+	</package>
+</xwork>
+

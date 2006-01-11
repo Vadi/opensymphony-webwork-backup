@@ -1,0 +1,7 @@
+<?xml version="1.0" standalone="yes"?>
+<instances>
+   <instance>
+      <instance-name>WWPortletInstance</instance-name>
+      <component-ref>WebWorkPortlet</component-ref>
+   </instance>
+</instances>
