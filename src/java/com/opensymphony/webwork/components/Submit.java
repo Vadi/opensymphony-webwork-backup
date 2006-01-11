@@ -113,7 +113,7 @@ import javax.servlet.http.HttpServletResponse;
  * &lt;/script&gt;
  *
  * &lt;ww:form id="frm1" action="newPersonWithXMLResult" theme="ajax"  &gt;
- *     &lt;ww:textfield label="'Name'" name="'person.name'" value="person.name" size="20" required="true" /&gt;
+ *     &lt;ww:textfield label="Name" name="person.name" value="person.name" size="20" required="true" /&gt;
  *     &lt;ww:submit id="submitBtn" value="Save" theme="ajax"  cssClass="primary"  onLoadJS="doGreatThings(data, type)" /&gt; 
  * &lt;/ww:form&gt;
  * <!-- END SNIPPET: ajxExample3 -->

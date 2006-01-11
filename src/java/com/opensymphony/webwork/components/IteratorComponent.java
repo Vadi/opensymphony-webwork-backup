@@ -55,9 +55,9 @@ import java.util.Iterator;
  * <!-- END SNIPPET: example2description -->
  * <pre>
  * <!-- START SNIPPET: example2code -->
- * &lt;ww:bean name="'com.opensymphony.webwork.example.IteratorExample'" id="it"&gt;
- *   &lt;ww:param name="'day'" value="'foo'"/&gt;
- *   &lt;ww:param name="'day'" value="'bar'"/&gt;
+ * &lt;ww:bean name="com.opensymphony.webwork.example.IteratorExample" id="it"&gt;
+ *   &lt;ww:param name="day" value="'foo'"/&gt;
+ *   &lt;ww:param name="day" value="'bar'"/&gt;
  * &lt;/ww:bean&gt;
  * <p/>
  * &lt;table border="0" cellspacing="0" cellpadding="1"&gt;
