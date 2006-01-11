@@ -32,6 +32,21 @@
             <role>Docmentation</role>
         </person>
         <person>
+            <name>Rene Gielen</name>
+            <email></email>
+            <role>Docmentation, Development, etc</role>
+        </person>
+        <person>
+            <name>tm_jee</name>
+            <email></email>
+            <role>Docmentation, Development, etc</role>
+        </person>
+        <person>
+            <name>Rainer Hermanns</name>
+            <email></email>
+            <role>Portlet, AJAX, etc</role>
+        </person>
+        <person>
             <name>Bob Lee</name>
             <email></email>
             <role>Misc</role>
@@ -65,12 +80,12 @@
 
     <releases>
         <release>
-            <version>2.2 Beta 4</version>
-            <date>12/2/2005</date>
+            <version>2.2</version>
+            <date>1/10/2005</date>
             <jiraId>21320</jiraId>
             <downloads>
                 <download>
-                    <url>https://webwork.dev.java.net/files/documents/693/24953/webwork-2.2-beta-4.zip</url>
+                    <url>https://webwork.dev.java.net/files/documents/693/27236/webwork-2.2.zip</url>
                     <name>Full release</name>
                 </download>
             </downloads>
