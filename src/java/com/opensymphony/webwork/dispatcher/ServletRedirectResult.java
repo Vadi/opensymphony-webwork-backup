@@ -90,7 +90,7 @@ public class ServletRedirectResult extends WebWorkResultSupport {
             if (!finalLocation.startsWith("/")) {
                 String namespace = ActionMapperFactory.getMapper().getMapping(request).getNamespace();
 
-                if ((namespace != null) && (namespace.length() > 0)) {
+                if ((namespace != null) && (namespace.length() > 0) && (!"/".equals(namespace))) {
                     finalLocation = namespace + "/" + finalLocation;
                 } else {
                     finalLocation = "/" + finalLocation;
