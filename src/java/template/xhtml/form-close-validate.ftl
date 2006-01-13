@@ -38,12 +38,12 @@ END SNIPPET: supported-validators
                 errors = true;
             }
             <#elseif validator.validatorType = "email">
-            if (field.value != null && field.value.match(/\\b(^(\\S+@).+((\\.com)|(\\.net)|(\\.org)|(\\.info)|(\\.edu)|(\\.mil)|(\\.gov)|(\\.biz)|(\\.ws)|(\\.us)|(\\.tv)|(\\.cc)|(\\..{2,2}))$)\\b/gi)) {
+            if (field.value != null && field.value.match("/\\b(^(\\S+@).+((\\.com)|(\\.net)|(\\.org)|(\\.info)|(\\.edu)|(\\.mil)|(\\.gov)|(\\.biz)|(\\.ws)|(\\.us)|(\\.tv)|(\\.cc)|(\\.aero)|(\\.arpa)|(\\.coop)|(\\.int)|(\\.jobs)|(\\.museum)|(\\.name)|(\\.pro)|(\\.travel)|(\\.nato)|(\\..{2,2}))$)\\b/gi")) {
                 addError(field, error);
                 errors = true;
             }
             <#elseif validator.validatorType = "url">
-            if (field.value != null && field.value.match(/^(file|http):\\/\\/\\S+\\.(com|net|org|info|edu|mil|gov|biz|ws|us|tv|cc)$/i)) {
+            if (field.value != null && field.value.match("/^(file|http):\\/\\/\\S+\\.(com|net|org|info|edu|mil|gov|biz|ws|us|tv|cc|aero|arpa|coop|int|jobs|museum|name|pro|travel|nato)$/i")) {
                 addError(field, error);
                 errors = true;
             }
