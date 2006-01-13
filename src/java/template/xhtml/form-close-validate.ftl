@@ -43,7 +43,7 @@ END SNIPPET: supported-validators
                 errors = true;
             }
             <#elseif validator.validatorType = "url">
-            if (field.value != null && field.value.length > 0 && field.value.match(/^(file:\/\/\S+|(ftp|http|https):\/\/\S+\.(com|net|org|info|edu|mil|gov|biz|ws|us|tv|cc|aero|arpa|coop|int|jobs|museum|name|pro|travel|nato|.{2,2}))$/ig) == null) {
+            if (field.value != null && field.value.length > 0 && field.value.match(/^((file:\/\/\S+)|(ftp|http|https):\/\/\S+\.(com|net|org|info|edu|mil|gov|biz|ws|us|tv|cc|aero|arpa|coop|int|jobs|museum|name|pro|travel|nato|.{2,2}))$/ig) == null) {
                 addError(field, error);
                 errors = true;
             }
