@@ -49,10 +49,10 @@ public class WebWorkModels {
     protected WebTableModel table;
     protected PropertyModel property;
     protected IteratorModel iterator;
-    protected ActionErrorModel actionError;
-    protected ActionMessageModel actionMessage;
-    protected FieldErrorModel fieldError;
-    protected OptionTransferSelectModel optionTransferSelectModel;
+    protected ActionErrorModel actionerror;
+    protected ActionMessageModel actionmessage;
+    protected FieldErrorModel fielderror;
+    protected OptionTransferSelectModel optiontransferselect;
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         this.stack = stack;
@@ -339,34 +339,34 @@ public class WebWorkModels {
         return iterator;
     }
 
-    public ActionErrorModel getActionError() {
-        if (actionError == null) {
-            actionError = new ActionErrorModel(stack, req, res);
+    public ActionErrorModel getActionerror() {
+        if (actionerror == null) {
+            actionerror = new ActionErrorModel(stack, req, res);
         }
 
-        return actionError;
+        return actionerror;
     }
 
-    public ActionMessageModel getActionMessage() {
-        if (actionMessage == null) {
-            actionMessage = new ActionMessageModel(stack, req, res);
+    public ActionMessageModel getActionmessage() {
+        if (actionmessage == null) {
+            actionmessage = new ActionMessageModel(stack, req, res);
         }
 
-        return actionMessage;
+        return actionmessage;
     }
 
-    public FieldErrorModel getFieldError() {
-        if (fieldError == null) {
-            fieldError = new FieldErrorModel(stack, req, res);
+    public FieldErrorModel getFielderror() {
+        if (fielderror == null) {
+            fielderror = new FieldErrorModel(stack, req, res);
         }
 
-        return fieldError;
+        return fielderror;
     }
     
-    public OptionTransferSelectModel getOptionSelectModel() {
-    	if (optionTransferSelectModel == null) {
-    		optionTransferSelectModel = new OptionTransferSelectModel(stack, req, res);
+    public OptionTransferSelectModel getOptiontransferselect() {
+    	if (optiontransferselect == null) {
+    		optiontransferselect = new OptionTransferSelectModel(stack, req, res);
     	}
-    	return optionTransferSelectModel;
+    	return optiontransferselect;
     }
 }
