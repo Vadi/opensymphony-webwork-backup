@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpUtils;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * <!-- START SNIPPET: javadoc -->
@@ -125,10 +127,10 @@ public class URL extends Component {
                         query = query.substring(0, idx - 1);
                     }
 
-                    parameters.putAll(HttpUtils.parseQueryString(query));
+                    mergeRequestParameters(parameters, HttpUtils.parseQueryString(query));  
                 }
             } else if (ALL.equalsIgnoreCase(includeParams)) {
-                parameters.putAll(req.getParameterMap());
+                mergeRequestParameters(parameters, req.getParameterMap());
             } else if (value == null && !NONE.equalsIgnoreCase(includeParams)) {
                 LOG.warn("Unknown value for includeParams parameter to URL tag: " + includeParams);
             }
@@ -153,7 +155,6 @@ public class URL extends Component {
         } else {
             result = UrlHelper.buildUrl(value, req, res, parameters, scheme, includeContext, encode);
         }
-
 
         String id = getId();
 
@@ -236,5 +237,23 @@ public class URL extends Component {
      */
     public void setIncludeContext(boolean includeContext) {
         this.includeContext = includeContext;
+    }
+
+    /**
+     * Merge request parameters into current parameters. If a parameter is
+     * already present, than the request parameter will not override its value.
+     * 
+     * @param parameters component parameters
+     * @param contextParameters request parameters
+     */
+    protected void mergeRequestParameters(Map parameters, Map contextParameters){
+        for (Iterator iterator = contextParameters.entrySet().iterator(); iterator.hasNext();) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            Object key = entry.getKey();
+            
+            if (!parameters.containsKey(key)) {
+                parameters.put(key, entry.getValue());
+            }
+        }
     }
 }
