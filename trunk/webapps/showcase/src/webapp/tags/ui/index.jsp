@@ -1,3 +1,7 @@
+<%--
+  ~ Copyright (c) 2006, Your Corporation. All Rights Reserved.
+  --%>
+
 <%@taglib uri="/webwork" prefix="ww" %>
 
 <html>
