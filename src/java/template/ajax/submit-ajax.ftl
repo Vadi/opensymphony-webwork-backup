@@ -8,7 +8,7 @@
 <#if parameters.form?exists && parameters.form.id?exists>
  formId="${parameters.form.id}"<#rt/>
 </#if>
-<#if parameters.name?exists> f
+<#if parameters.name?exists>
  name="${parameters.name?html}"<#rt/>
 </#if>
 <#if parameters.nameValue?exists>
