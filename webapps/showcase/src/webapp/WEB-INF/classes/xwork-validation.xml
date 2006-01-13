@@ -77,7 +77,24 @@
 			<result name="input">/validation/visitorValidatorsExample.jsp</result>
 			<result>/validation/successVisitorValidatorsExample.jsp</result>
 		</action>
-		
-	</package>
+
+
+
+		<!-- ========================== -->
+		<!-- === Visitor Validators === -->
+		<!-- ========================== -->
+
+		<action name="clientSideValidationExample" class="com.opensymphony.webwork.showcase.validation.FieldValidatorsExampleAction" method="input">
+			<result name="input">/validation/clientSideValidationExample.jsp</result>
+		</action>
+
+		<action name="submitClientSideValidationExample" class="com.opensymphony.webwork.showcase.validation.FieldValidatorsExampleAction" method="submit">
+			<result name="input">/validation/clientSideValidationExample.jsp</result>
+			<result>/validation/successClientSideValidationExample.jsp</result>
+		</action>
+
+
+
+    </package>
 </xwork>
 	

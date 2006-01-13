@@ -21,6 +21,7 @@ public class FieldValidatorsExampleAction extends AbstractValidationActionSuppor
 	private Integer integerValidatorField = null;
 	private Date dateValidatorField = null;
 	private String emailValidatorField = null;
+	private String urlValidatorField = null;
 	private String stringLengthValidatorField = null;
 	private String regexValidatorField = null;
 	private String fieldExpressionValidatorField = null;
@@ -78,6 +79,14 @@ public class FieldValidatorsExampleAction extends AbstractValidationActionSuppor
 			String fieldExpressionValidatorField) {
 		this.fieldExpressionValidatorField = fieldExpressionValidatorField;
 	}
+
+    public String getUrlValidatorField() {
+        return urlValidatorField;
+    }
+
+    public void setUrlValidatorField(String urlValidatorField) {
+        this.urlValidatorField = urlValidatorField;
+    }
 }
 
 
