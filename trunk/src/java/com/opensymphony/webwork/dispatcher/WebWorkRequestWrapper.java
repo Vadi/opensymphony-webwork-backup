@@ -33,7 +33,7 @@ public class WebWorkRequestWrapper extends HttpServletRequestWrapper {
 
         Object attribute = super.getAttribute(s);
 
-        boolean alreadyIn = true;
+        boolean alreadyIn = false;
         Boolean b = (Boolean) ActionContext.getContext().get("__requestWrapper.getAttribute");
         if (b != null) {
             alreadyIn = b.booleanValue();
@@ -41,7 +41,7 @@ public class WebWorkRequestWrapper extends HttpServletRequestWrapper {
 
         // note: we don't let # come through or else a request for
         // #attr.foo or #request.foo could cause an endless loop
-        if (alreadyIn && attribute == null && s.indexOf("#") == -1) {
+        if (!alreadyIn && attribute == null && s.indexOf("#") == -1) {
             try {
                 // If not found, then try the ValueStack
                 ActionContext.getContext().put("__requestWrapper.getAttribute", Boolean.TRUE);
