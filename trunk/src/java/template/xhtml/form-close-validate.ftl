@@ -22,7 +22,6 @@ END SNIPPET: supported-validators
         // validator name: ${validator.validatorType}
         if (form.elements['${validator.fieldName}']) {
             field = form.elements['${validator.fieldName}'];
-            var error = "${validator.defaultMessage}";
             <#if validator.messageKey?has_content>
             var error = "${action.getText(validator.getMessageKey())}";
             <#else>
