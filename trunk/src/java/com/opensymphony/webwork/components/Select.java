@@ -7,12 +7,15 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Render an HTML input tag of type password.</p>
+ * 
+ * Render an HTML input tag of type select. 
+ * 
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
  * <pre>
  * <!-- START SNIPPET: example -->
+ * 
  * &lt;ww:select label="Pets"
  *        name="petIds"
  *        list="petDao.pets"
@@ -33,16 +36,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * // The month id (01, 02, ...) returned by the getSelectedMonth() call
  * // against the stack will be auto-selected
+ * 
  * <!-- END SNIPPET: example -->
  * </pre>
+ * 
  * <p/>
+ * 
  * <!-- START SNIPPET: exnote -->
+ * 
  * Note: For any of the tags that use lists (select probably being the most ubiquitous), which uses the OGNL list
  * notation (see the "months" example above), it should be noted that the map key created (in the months example,
  * the '01', '02', etc.) is typed. '1' is a char, '01' is a String, "1" is a String. This is important since if
  * the value returned by your "value" attribute is NOT the same type as the key in the "list" attribute, they
  * WILL NOT MATCH, even though their String values may be equivalent. If they don't match, nothing in your list
  * will be auto-selected.<p/>
+ * 
  * <!-- END SNIPPET: exnote -->
  *
  * @author Patrick Lightbody
