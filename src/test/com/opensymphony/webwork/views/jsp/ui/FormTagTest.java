@@ -7,6 +7,7 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.components.Form;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 import com.opensymphony.xwork.ActionContext;
@@ -18,6 +19,8 @@ import com.opensymphony.xwork.config.ConfigurationManager;
  *
  * @author Jason Carreira
  *         Created Apr 3, 2003 10:28:58 AM
+ *         
+ * @version $Date$ $Id$
  */
 public class FormTagTest extends AbstractUITagTest {
 
@@ -108,6 +111,16 @@ public class FormTagTest extends AbstractUITagTest {
 
         verify(FormTag.class.getResource("Formtag-3.txt"));
     }
+    
+    
+    public void testFormShouldNotLookUpAncestorForTheme() throws Exception {
+    	Form form1 = new Form(stack, request, response);
+    	Form form2 = new Form(stack, request, response);
+    	
+    	// should not get stack overflow here.
+    	form2.getTheme();
+    }
+    
 
     public void testFormWithNoAction() throws Exception {
         request.setupGetServletPath("/");
