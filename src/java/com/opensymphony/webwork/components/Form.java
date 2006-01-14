@@ -1,5 +1,7 @@
 package com.opensymphony.webwork.components;
 
+import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.views.util.UrlHelper;
@@ -43,7 +45,7 @@ import java.util.Iterator;
  * @author Patrick Lightbody
  * @author Ian Roughley
  * @author Rene Gielen
- * @version $Revision$
+ * @version $Date$ $Id$
  * @since 2.2
  *
  * @ww.tag name="form" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.FormTag"
@@ -63,6 +65,9 @@ public class Form extends ClosingUIBean {
 
     public Form(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
+        // WW-1083: skip looking up ancestor for theme if it is a form so we 
+        // don't get an infinite recursion
+        skipAncestorFormThemeSearch = true; 
     }
 
     protected boolean evaluateNameValue() {
@@ -77,6 +82,7 @@ public class Form extends ClosingUIBean {
         return TEMPLATE;
     }
 
+    
     /*
     * Revised for Portlet actionURL as form action, and add wwAction as hidden
     * field. Refer to template.simple/form.vm
