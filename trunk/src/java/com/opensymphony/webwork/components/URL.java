@@ -15,14 +15,25 @@ import java.util.Map;
 
 /**
  * <!-- START SNIPPET: javadoc -->
+ * 
  * <p>This tag is used to create a URL.</p>
  *
  * <p>You can use the "param" tag inside the body to provide
  * additional request parameters.</p>
+ * 
+ * <b>NOTE:</b>
+ * <p>When includeParams is 'all' or 'get', the parameter defined in param tag will take
+ * precedence and will not be overriden if they exists in the parameter submitted. For 
+ * example, in Example 3 below, if there is a id parameter in the url where the page this
+ * tag is included like http://<host>:<port>/<context>/editUser.action?id=3333&name=John
+ * the generated url will be http://<host>:<port>/context>/editUser.action?id=22&name=John
+ * cause the parameter defined in the param tag will take precedence.</p>
+ * 
  * <!-- END SNIPPET: javadoc -->
  *
  *
  * <!-- START SNIPPET: params -->
+ * 
  * <ul>
  *      <li>action (String) - (value or action choose either one, if both exist value takes precedence) action's name (alias) <li>
  *      <li>value (String) - (value or action choose either one, if both exist value takes precedence) the url itself</li>
@@ -37,19 +48,28 @@ import java.util.Map;
  *      </li>
  *      <li>includeContext (Boolean) - determine wheather to include the web app context path. Default is true.</li>
  * </ul>
+ * 
  * <!-- END SNIPPET: params -->
- *
  *
  * <p/> <b>Examples</b>
  * <pre>
  * <!-- START SNIPPET: example -->
+ * 
+ * &lt;-- Example 1 --&gt;
  * &lt;ww:url value="editGadget.action"&gt;
  *     &lt;ww:param name="id" value="%{selected}" /&gt;
  * &lt;/ww:url&gt;
  *
+ * &lt;-- Example 2 --&gt;
  * &lt;ww:url action="editGadget"&gt;
  *     &lt;ww:param name="id" value="%{selected}" /&gt;
  * &lt;/ww:url&gt;
+ * 
+ * &lt;-- Example 3--&gt;
+ * &lt;ww:url includeParams="get"  &gt;
+ *     &lt:param name="id" value="%{'22'}" /&gt;
+ * &lt;/ww:url&gt;
+ * 
  * <!-- END SNIPPET: example -->
  * </pre>
  *
@@ -171,7 +191,6 @@ public class URL extends Component {
                 throw new RuntimeException("IOError: " + e.getMessage(), e);
             }
         }
-
         return super.end(writer, body);
     }
 

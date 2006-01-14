@@ -10,10 +10,10 @@ import java.io.StringWriter;
 
 
 /**
- * DOCUMENT ME!
+ * URLTag testcase.
  *
  * @author Brock Bulger (brockman_bulger@hotmail.com)
- * @version $Revision$
+ * @version $Date$ $Id$
  */
 public class URLTagTest extends AbstractUITagTest {
     private StringWriter writer = new StringWriter();
@@ -82,6 +82,29 @@ public class URLTagTest extends AbstractUITagTest {
             fail();
         }
     }
+    
+    public void testParamPrecedence() throws Exception {
+    	request.setRequestURI("/context/someAction.action");
+    	request.setQueryString("id=22&name=John");
+    	
+    	URLTag urlTag = new URLTag();
+    	urlTag.setPageContext(pageContext);
+    	urlTag.setIncludeParams("get");
+    	urlTag.setEncode("%{false}");
+    	
+    	ParamTag paramTag = new ParamTag();
+    	paramTag.setPageContext(pageContext);
+    	paramTag.setName("id");
+    	paramTag.setValue("%{'33'}");
+    	
+    	urlTag.doStartTag();
+    	paramTag.doStartTag();
+    	paramTag.doEndTag();
+    	urlTag.doEndTag();
+    	
+    	assertEquals(writer.getBuffer().toString(), "/context/someAction.action?name=John&amp;id=33");
+    }
+    
 
     protected void setUp() throws Exception {
         super.setUp();
