@@ -37,6 +37,10 @@ Calendar._DN = new Array
 Calendar._SDN_len = 2;
 Calendar._SMN_len = 3;
 
+// First day of the week. "0" means display Sunday first, "1" means display
+// Monday first, etc.
+Calendar._FD = 1;
+
 // full month names
 Calendar._MN = new Array
 ("januari",
@@ -51,10 +55,6 @@ Calendar._MN = new Array
  "oktober",
  "november",
  "december");
-
-// First day of the week. "0" means display Sunday first, "1" means display
-// Monday first, etc.
-Calendar._FD = 1;
 
 // tooltips
 Calendar._TT = {};
@@ -89,9 +89,12 @@ Calendar._TT["SUN_FIRST"] = "Visa söndag först";
 Calendar._TT["CLOSE"] = "Stäng";
 Calendar._TT["TODAY"] = "Idag";
 Calendar._TT["TIME_PART"] = "(Skift-)klicka eller drag för att ändra tid";
+Calendar._TT["DAY_FIRST"] = "Visa %s först";
+Calendar._TT["WEEKEND"] = "0,6";
 
 // date formats
 Calendar._TT["DEF_DATE_FORMAT"] = "%Y-%m-%d";
 Calendar._TT["TT_DATE_FORMAT"] = "%A %d %b %Y";
 
 Calendar._TT["WK"] = "vecka";
+Calendar._TT["TIME"] = "tid:";
