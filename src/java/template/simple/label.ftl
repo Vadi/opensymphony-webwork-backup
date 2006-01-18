@@ -11,6 +11,9 @@
 <#if parameters.cssClass?exists>
  class="${parameters.cssClass?html}"<#rt/>
 </#if>
+<#if parameters.title?exists>
+ title="${parameters.title?html}"<#rt/>
+</#if>
 <#if parameters.for?exists>
  for="${parameters.for?html}"<#rt/>
 </#if>

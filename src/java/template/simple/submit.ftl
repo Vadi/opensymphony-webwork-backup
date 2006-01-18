@@ -11,4 +11,7 @@
 <#if parameters.cssStyle?exists>
  style="${parameters.cssStyle?html}"<#rt/>
 </#if>
+<#if parameters.title?exists>
+ title="${parameters.title?html}"<#rt/>
+</#if>
 />

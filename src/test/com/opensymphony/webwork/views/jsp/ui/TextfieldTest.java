@@ -28,6 +28,7 @@ public class TextfieldTest extends AbstractUITagTest {
         tag.setLabel("mylabel");
         tag.setName("foo");
         tag.setValue("bar");
+        tag.setTitle("mytitle");
 
         testAction.addFieldError("foo", "bar error message");
         tag.doStartTag();

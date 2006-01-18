@@ -30,6 +30,7 @@ public class FileTest extends AbstractUITagTest {
         tag.setAccept("*.txt");
         tag.setValue("%{foo}");
         tag.setSize("10");
+        tag.setTitle("mytitle");
 
         tag.doStartTag();
         tag.doEndTag();

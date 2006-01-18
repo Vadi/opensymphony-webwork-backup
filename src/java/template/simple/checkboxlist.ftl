@@ -19,6 +19,9 @@
         <#if parameters.disabled?default(false)>
  disabled="disabled"<#rt/>
         </#if>
+        <#if parameters.title?exists>
+ title="${parameters.title?html}"<#rt/>
+        </#if>
         <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
 />
 <label for="${parameters.name?html}-${itemCount}" class="checkboxLabel">${itemValue?html}</label>

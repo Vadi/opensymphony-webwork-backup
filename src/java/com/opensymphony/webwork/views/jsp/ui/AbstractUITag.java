@@ -16,6 +16,7 @@ import com.opensymphony.webwork.views.jsp.ComponentTagSupport;
 public abstract class AbstractUITag extends ComponentTagSupport {
     protected String cssClass;
     protected String cssStyle;
+    protected String title;
     protected String disabled;
     protected String label;
     protected String labelPosition;
@@ -48,6 +49,7 @@ public abstract class AbstractUITag extends ComponentTagSupport {
         uiBean.setCssClass(cssClass);
         uiBean.setCssClass(cssClass);
         uiBean.setCssStyle(cssStyle);
+        uiBean.setTitle(title);
         uiBean.setDisabled(disabled);
         uiBean.setLabel(label);
         uiBean.setLabelPosition(labelPosition);
@@ -79,6 +81,10 @@ public abstract class AbstractUITag extends ComponentTagSupport {
 
     public void setCssStyle(String cssStyle) {
         this.cssStyle = cssStyle;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setDisabled(String disabled) {

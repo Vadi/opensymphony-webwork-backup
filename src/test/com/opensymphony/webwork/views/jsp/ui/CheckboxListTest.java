@@ -88,6 +88,7 @@ public class CheckboxListTest extends AbstractUITagTest {
         tag.setListKey("top[0]");
         tag.setListValue("top[1]");
         tag.setOnchange("alert('foo');");
+        tag.setTitle("mytitle");
 
         tag.doStartTag();
         tag.doEndTag();
