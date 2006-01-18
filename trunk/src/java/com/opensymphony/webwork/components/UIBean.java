@@ -88,6 +88,12 @@ import java.util.Iterator;
  *          <td>define html style attribute</td>
  *       </tr>
  *       <tr>
+ *          <td>title</td>
+ *          <td>simple</td>
+ *          <td>String</td>
+ *          <td>define html title attribute</td>
+ *       </tr>
+ *       <tr>
  *          <td>disabled</td>
  *          <td>simple</td>
  *          <td>String</td>
@@ -262,6 +268,7 @@ public abstract class UIBean extends Component {
     protected String required;
     protected String tabindex;
     protected String value;
+    protected String title;
 
     // HTML scripting events attributes
     protected String onclick;
@@ -478,6 +485,10 @@ public abstract class UIBean extends Component {
             addParameter("cssStyle", findString(cssStyle));
         }
 
+        if (title != null) {
+            addParameter("title", findString(title));
+        }
+
         // see if the value was specified as a parameter already
         if (parameters.containsKey("value")) {
             parameters.put("nameValue", parameters.get("value"));
@@ -592,6 +603,14 @@ public abstract class UIBean extends Component {
      */
     public void setCssStyle(String cssStyle) {
         this.cssStyle = cssStyle;
+    }
+
+    /**
+     * @ww.tagattribute required="false"
+     * description="Set the html title attribute on rendered html element"
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**

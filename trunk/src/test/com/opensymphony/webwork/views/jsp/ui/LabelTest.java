@@ -22,6 +22,7 @@ public class LabelTest extends AbstractUITagTest {
         tag.setPageContext(pageContext);
         tag.setLabel("mylabel");
         tag.setName("myname");
+        tag.setTitle("mytitle");
         tag.setValue("%{foo}");
 
         tag.doStartTag();

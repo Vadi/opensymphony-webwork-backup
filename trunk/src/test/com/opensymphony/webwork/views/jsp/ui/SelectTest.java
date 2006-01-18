@@ -49,6 +49,7 @@ public class SelectTest extends AbstractUITagTest {
         tag.setListKey("name");
         tag.setListValue("bigDecimal");
         tag.setMultiple("true");
+        tag.setTitle("mytitle");
         tag.setOnmousedown("alert('onmousedown');");
         tag.setOnmousemove("alert('onmousemove');");
         tag.setOnmouseout("alert('onmouseout');");

@@ -25,6 +25,7 @@ public class TextareaTest extends AbstractUITagTest {
         tag.setValue("%{foo}");
         tag.setRows("30");
         tag.setCols("20");
+        tag.setTitle("mytitle");
         tag.setDisabled("true");
         tag.setTabindex("5");
         tag.setOnchange("alert('goodbye');");

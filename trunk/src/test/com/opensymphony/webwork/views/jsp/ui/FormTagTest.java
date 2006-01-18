@@ -36,6 +36,7 @@ public class FormTagTest extends AbstractUITagTest {
         tag.setMethod("POST");
         tag.setAction("myAction");
         tag.setEnctype("myEncType");
+        tag.setTitle("mytitle");
 
         tag.doStartTag();
         tag.doEndTag();

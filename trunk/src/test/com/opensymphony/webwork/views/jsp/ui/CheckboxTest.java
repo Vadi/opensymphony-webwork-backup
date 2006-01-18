@@ -29,6 +29,7 @@ public class CheckboxTest extends AbstractUITagTest {
         tag.setName("foo");
         tag.setFieldValue("baz");
         tag.setOnfocus("test();");
+        tag.setTitle("mytitle");
 
         tag.doStartTag();
         tag.doEndTag();
@@ -49,6 +50,7 @@ public class CheckboxTest extends AbstractUITagTest {
         tag.setFieldValue("baz");
         tag.setOndblclick("test();");
         tag.setOnclick("test();");
+        tag.setTitle("mytitle");
 
         tag.doStartTag();
         tag.doEndTag();
@@ -65,6 +67,7 @@ public class CheckboxTest extends AbstractUITagTest {
         tag.setLabel("mylabel");
         tag.setName("foo");
         tag.setFieldValue("baz");
+        tag.setTitle("mytitle");
 
         tag.doStartTag();
         tag.doEndTag();
