@@ -46,6 +46,31 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/clover-license.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/bootstrap/clover-license.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/commons-cli.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/bootstrap/commons-cli.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/commons-httpclient.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/bootstrap/commons-httpclient.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/commons-logging.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/bootstrap/commons-logging.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/ivy-1.1.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/bootstrap/ivy-1.1.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/clover.jar" />
       <url>jar://$MODULE_DIR$/../../lib/build/clover.jar!/</url>
     </containerElement>
@@ -78,6 +103,21 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/mockobjects-jdk1.3.jar" />
       <url>jar://$MODULE_DIR$/../../lib/build/mockobjects-jdk1.3.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/xdoclet-web-module.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/build/xdoclet-web-module.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/xdoclet.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/build/xdoclet.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/xjavadoc.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/build/xjavadoc.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -206,8 +246,33 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/jcommon.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/jfree/jcommon.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/jfreechart.jar" />
       <url>jar://$MODULE_DIR$/../../lib/jfree/jfreechart.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/nanocontainer-nanowar.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/pico/nanocontainer-nanowar.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/nanocontainer.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/pico/nanocontainer.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/picocontainer-gems.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/pico/picocontainer-gems.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/picocontainer.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/pico/picocontainer.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -281,18 +346,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/asm-attrs.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/spring/asm-attrs.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/asm.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/spring/asm.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/cglib.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/spring/cglib.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/cglib-nodep.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/spring/cglib-nodep.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -328,6 +383,11 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/spring-web.jar" />
       <url>jar://$MODULE_DIR$/../../lib/spring/spring-web.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/xwork-tiger.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/tiger/xwork-tiger.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />

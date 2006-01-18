@@ -127,7 +127,7 @@ public class Main {
                 return;
             }
 
-            launch("com.opensymphony.webwork.QuickStart", programArgs, urls);
+            launch("com.opensymphony.webwork.quickstart.QuickStart", programArgs, urls);
             return;
         }
 
