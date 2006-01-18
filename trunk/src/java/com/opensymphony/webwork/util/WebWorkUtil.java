@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -106,7 +107,11 @@ public class WebWorkUtil {
     }
 
     public String urlEncode(String s) {
-        return URLEncoder.encode(s);
+        try {
+            return URLEncoder.encode(s, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return s;
+        }
     }
 
     public String buildUrl(String url) {

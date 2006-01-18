@@ -2,7 +2,9 @@ package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
+import com.opensymphony.webwork.util.WebWorkUtil;
 import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
@@ -115,7 +117,7 @@ public class Include extends Component {
                     urlBuf.append('=');
 
                     try {
-                        urlBuf.append(URLEncoder.encode(values.get(i).toString()));
+                        urlBuf.append(URLEncoder.encode(values.get(i).toString(), "UTF-8"));
                     } catch (Exception e) {
                     	_log.warn("unable to url-encode "+values.get(i).toString()+", it will be ignored");
                     }
