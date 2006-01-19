@@ -68,7 +68,9 @@
         <tr>
             <td align="top">
                 <ww:tabbedPanel id="testremote">
-                    <ww:panel remote="true" href="/AjaxTest.action" id="r1" theme="ajax" tabName="remote one"></ww:panel>
+                    <ww:panel remote="true" href="/AjaxTest.action" id="r1" theme="ajax" tabName="remote one">
+                        <ww:action name="AjaxTest" executeResult="true" />
+                    </ww:panel>
                     <ww:panel remote="true" href="/AjaxTest.action" id="r2" theme="ajax" tabName="remote two"></ww:panel>
                     <ww:panel remote="true" href="/AjaxTest.action" id="r3" theme="ajax" tabName="remote three"></ww:panel>
                 </ww:tabbedPanel>
