@@ -12,8 +12,8 @@
 		${p}
 	</#list></td></tr>
 	
-	<tr><td>Default location:</td><td> <a href="${base}${namespace}/${actionName}.action">
-		${base}${namespace}/${actionName}.action
+	<tr><td>Default location:</td><td> <a href="${base}${namespace}/${actionName}.${extension}">
+		${base}${namespace}/${actionName}.${extension}
 	</a>
 	</td></tr>
 </table>

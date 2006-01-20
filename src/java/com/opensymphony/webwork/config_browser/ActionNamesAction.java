@@ -2,6 +2,8 @@ package com.opensymphony.webwork.config_browser;
 
 import com.opensymphony.xwork.ActionSupport;
 import com.opensymphony.xwork.config.entities.ActionConfig;
+import com.opensymphony.webwork.config.Configuration;
+import com.opensymphony.webwork.WebWorkConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -12,11 +14,13 @@ import java.util.TreeSet;
  * ActionNamesAction
  *
  * @author Jason Carreira Created Aug 11, 2003 9:35:15 PM
+ * @author Rainer Hermanns
  */
 public class ActionNamesAction extends ActionSupport {
     private Set actionNames;
     private String namespace = "";
     private Set namespaces;
+    private String extension;
     private static Log log = LogFactory.getLog(ActionNamesAction.class);
 
     public Set getActionNames() {
@@ -37,6 +41,16 @@ public class ActionNamesAction extends ActionSupport {
 
     public Set getNamespaces() {
         return namespaces;
+    }
+
+    public String getExtension() {
+        if ( extension == null) {
+            extension = (String) Configuration.get(WebWorkConstants.WEBWORK_ACTION_EXTENSION);
+            if ( extension.equals("")) {
+                extension = "action";
+            }
+        }
+        return extension;
     }
 
     public String execute() throws Exception {
