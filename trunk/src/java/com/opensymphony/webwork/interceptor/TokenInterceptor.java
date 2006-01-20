@@ -99,7 +99,7 @@ public class TokenInterceptor implements Interceptor {
     }
 
     /**
-     * Determines what to do if an invalida token is provided. If the action implements {@link ValidationAware}
+     * Determines what to do if an invalid token is provided. If the action implements {@link ValidationAware}
      *
      * @param invocation the action invocation where the invalid token failed
      * @return the return code to indicate should be processed
