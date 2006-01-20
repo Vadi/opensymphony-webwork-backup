@@ -37,7 +37,7 @@ public class UrlHelper {
      */
     private static final int DEFAULT_HTTPS_PORT = 443;
 
-    private static final String AMP = "&";
+    private static final String AMP = "&amp;";
 
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params) {
         return buildUrl(action, request, response, params, null, true, true);
@@ -163,12 +163,12 @@ public class UrlHelper {
                     }
 
                     if (i < (values.length - 1)) {
-                        link.append("&amp;");
+                        link.append(AMP);
                     }
                 }
 
                 if (iter.hasNext()) {
-                    link.append("&amp;");
+                    link.append(AMP);
                 }
             }
         }
