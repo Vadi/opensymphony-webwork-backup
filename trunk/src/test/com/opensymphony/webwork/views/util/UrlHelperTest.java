@@ -11,15 +11,42 @@ import com.opensymphony.webwork.config.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.HashMap;
 
 
 /**
+ * Test case for UrlHelper.
+ * 
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
- * @version $Id$
+ * @author tm_jee
+ * @version $Date$ $Id$
  */
 public class UrlHelperTest extends WebWorkTestCase {
+	
+	
+	public void testBuildParametersStringWithUrlHavingSomeExistingParameters() throws Exception {
+		String expectedUrl = "http://localhost:8080/myContext/myPage.jsp?initParam=initValue&amp;param1=value1&amp;param2=value2";
+		
+		Map parameters = new LinkedHashMap();
+		parameters.put("param1", "value1");
+		parameters.put("param2", "value2");
+		
+		StringBuffer url = new StringBuffer("http://localhost:8080/myContext/myPage.jsp?initParam=initValue");
+		
+		UrlHelper.buildParametersString(parameters, url);
+		
+		System.out.println(expectedUrl);
+		System.out.println(url);
+		
+		assertEquals(
+		   expectedUrl, url.toString());
+	}
+	
+	
 
     public void testBuildWithRootContext() {
         String expectedUrl = "/MyAction.action";
