@@ -38,7 +38,7 @@ public class FormTag extends AbstractClosingTag {
         form.setMethod(method);
         form.setNamespace(namespace);
         form.setValidate(validate);
-        form.setOnselect(onsubmit);
+        form.setOnsubmit(onsubmit);
     }
 
     public void setAction(String action) {
