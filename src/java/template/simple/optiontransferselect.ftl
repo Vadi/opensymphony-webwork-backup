@@ -1,5 +1,5 @@
 <#if !stack.findValue("#optiontransferselect_js_included")?exists>
-	<script language="javascript" src="<@ww.url value="/webwork/optiontransferselect/optiontransferselect.js" />"></script>
+	<script language="javascript" src="<@ww.url value="/webwork/optiontransferselect/optiontransferselect.js" encode='false' />"></script>
 	<#assign temporaryVariable = stack.setValue("#optiontransferselect_js_included", "true") />
 </#if>
 <TABLE BORDER="0">
