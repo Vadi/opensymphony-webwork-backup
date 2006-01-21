@@ -3,6 +3,8 @@ START SNIPPET: supported-validators
 Only the following validators are supported:
 * required validator
 * requiredstring validator
+* stringlength validator
+* regex validator
 * email validator
 * url validator
 * int validator
@@ -30,6 +32,27 @@ END SNIPPET: supported-validators
             }
             <#elseif validator.validatorType = "requiredstring">
             if (field.value != null && (field.value == "" || field.value.match("\W+"))) {
+                addError(field, error);
+                errors = true;
+            }
+            <#elseif validator.validatorType = "stringlength">
+            if (field.value != null) {
+                var value = field.value;
+                <#if validator.trim>
+                    //trim field value
+                    while (value.substring(0,1) == ' ')
+                        value = value.substring(1, value.length);
+                    while (value.substring(value.length-1, value.length) == ' ')
+                        value = value.substring(0, value.length-1);
+                </#if>
+                if((${validator.minLength} > -1 && value.length < ${validator.minLength}) ||
+                        (${validator.maxLength} > -1 && value.length > ${validator.maxLength})) {
+                    addError(field, error);
+                    errors = true;
+                }
+            }
+            <#elseif validator.validatorType = "regex">
+            if (field.value != null && !field.value.match("${validator.expression?js_string}")) {
                 addError(field, error);
                 errors = true;
             }
