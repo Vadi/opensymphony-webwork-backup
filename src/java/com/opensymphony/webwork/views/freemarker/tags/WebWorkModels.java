@@ -23,6 +23,7 @@ public class WebWorkModels {
     protected ComponentModel component;
     protected DatePickerModel datepicker;
     protected DivModel div;
+    protected DebugModel debug;
     protected DoubleSelectModel doubleselect;
     protected FileModel file;
     protected FormModel form;
@@ -106,6 +107,14 @@ public class WebWorkModels {
         }
 
         return file;
+    }
+
+    public DebugModel getDebug() {
+        if (debug == null) {
+            debug = new DebugModel(stack, req, res);
+        }
+
+        return debug;
     }
 
     public FormModel getForm() {
