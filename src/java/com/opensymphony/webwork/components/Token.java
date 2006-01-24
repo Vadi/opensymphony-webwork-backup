@@ -26,6 +26,7 @@ import java.util.Map;
  *
  * @author Patrick Lightbody
  * @author Rene Gielen
+ * @author Rainer Hermanns
  * @version $Revision$
  * @since 2.2
  *
@@ -35,8 +36,9 @@ import java.util.Map;
  * @ww.tag name="token" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.TokenTag"
  * description="Stop double-submission of forms"
  */
-    public class Token extends UIBean {
-    final public static String TEMPLATE = "token";
+public class Token extends UIBean {
+    
+    public static final String TEMPLATE = "token";
 
     public Token(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -92,7 +94,7 @@ import java.util.Map;
         Object myToken = context.get(name);
 
         if (myToken == null) {
-            myToken = TokenHelper.setToken(name, request);
+            myToken = TokenHelper.setToken(name);
             context.put(name, myToken);
         }
 

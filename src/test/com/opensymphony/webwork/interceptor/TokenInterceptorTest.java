@@ -54,7 +54,7 @@ public class TokenInterceptorTest extends TestCase {
 
         ActionProxy proxy = buildProxy(getActionName());
         setToken(request);
-        request.setSession(null);
+        ActionContext.getContext().getSession().clear();
         assertEquals(TokenInterceptor.INVALID_TOKEN_CODE, proxy.execute());
     }
 
@@ -69,7 +69,7 @@ public class TokenInterceptorTest extends TestCase {
     }
 
     protected String setToken(HttpServletRequest request) {
-        String token = TokenHelper.setToken(request);
+        String token = TokenHelper.setToken();
         setToken(token);
 
         return token;

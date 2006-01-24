@@ -1734,6 +1734,22 @@
 
       </attribute>
       <attribute>
+         <name>portletMode</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The portlet mode to display after the form submit]]></description>
+
+      </attribute>
+      <attribute>
+         <name>windowState</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The window state to display after the form submit]]></description>
+
+      </attribute>
+      <attribute>
          <name>openTemplate</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -6381,6 +6397,30 @@
 
       </attribute>
       <attribute>
+         <name>portletMode</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The resulting portlet mode]]></description>
+
+      </attribute>
+      <attribute>
+         <name>windowState</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[]]></description>
+
+      </attribute>
+      <attribute>
+         <name>portletUrlType</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Specifies if this should be a portlet render or action url]]></description>
+
+      </attribute>
+      <attribute>
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -8676,100 +8716,4 @@
 
    </tag>
 
-   <tag>
-		<name>tree</name>
-        <tag-class>com.opensymphony.webwork.views.jsp.ui.TreeTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-            <name>id</name>
-            <required>false</required>
-            <rtexprvalue>false</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>label</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>toggle</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>openAll</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>treeSelectedTopic</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>treeExpandedTopic</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>treeCollapsedTopic</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>rootNode</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>childCollectionProperty</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>nodeTitleProperty</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>nodeIdProperty</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>theme</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>template</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-
-    <tag>
-		<name>treenode</name>
-		<tag-class>com.opensymphony.webwork.views.jsp.ui.TreeNodeTag</tag-class>
-		<body-content>JSP</body-content>
-		<attribute>
-            <name>id</name>
-            <required>false</required>
-            <rtexprvalue>false</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>label</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>theme</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>template</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
 </taglib>

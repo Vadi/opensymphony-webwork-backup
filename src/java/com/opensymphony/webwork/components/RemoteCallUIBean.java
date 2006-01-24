@@ -1,10 +1,5 @@
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.util.TextUtils;
-import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.portlet.context.PortletContext;
-import com.opensymphony.webwork.portlet.util.PortalContainer;
-import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,17 +11,17 @@ import javax.servlet.http.HttpServletResponse;
  * @author Rene Gielen
  * @author Ian Roughley
  * @author Rainer Hermanns
+ * @author Nils-Helge Garli
  * @version $Revision$
  * @since 2.2
  */
-
 public abstract class RemoteCallUIBean extends ClosingUIBean {
 
     protected String href;
     protected String errorText;
     protected String showErrorTransportText;
     protected String afterLoading;
-    
+
     public RemoteCallUIBean(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
     }
@@ -35,52 +30,7 @@ public abstract class RemoteCallUIBean extends ClosingUIBean {
         super.evaluateExtraParams();
 
         if (href != null) {
-
-            String hrefValue = findString(href);
-            String actionUrl = PortletContext.getContext().getActionURL();
-
-            if (!TextUtils.stringSet(actionUrl)) {
-                addParameter("href", hrefValue);
-            } else {
-
-                String actionExtension = (String) Configuration.get("webwork.action.extension");
-
-                if (actionExtension == null || "".equals(actionExtension)) {
-                    actionExtension = ".action";
-                } else {
-                    actionExtension = "." + actionExtension;
-                }
-
-                boolean isWebWorkAction = hrefValue.indexOf(actionExtension) >= 0;
-                StringBuffer sb = new StringBuffer();
-                if (isWebWorkAction) {
-
-                    if (PortalContainer.LIFERAY_PORTAL == PortalContainer.get()) {
-                        int catIndex = actionUrl.lastIndexOf("&#p_");
-                        String liferay_actionUrl = actionUrl.substring(0, (catIndex == -1) ? actionUrl.length() : catIndex);
-                        sb.append(liferay_actionUrl).append("&wwXAction=").append(hrefValue);
-                    }else if(PortalContainer.JBOSS_PORTAL == PortalContainer.get()){
-                        sb.append(actionUrl).append("&wwXAction=").append(hrefValue);
-                    }else {
-                        sb.append(actionUrl).append("?wwXAction=").append(hrefValue);
-                    }
-
-                } else {
-                    if (PortalContainer.LIFERAY_PORTAL == PortalContainer.get()) {
-                        int catIndex = actionUrl.lastIndexOf("&#p_");
-                        String liferay_actionUrl = actionUrl.substring(0, (catIndex == -1) ? actionUrl.length() : catIndex);
-                        sb.append(liferay_actionUrl).append("&wwLink=").append(hrefValue);
-                    }else if(PortalContainer.JBOSS_PORTAL == PortalContainer.get()){
-                        sb.append(actionUrl).append("&wwLink=").append(hrefValue);
-                    }else {
-                        sb.append(actionUrl).append("?wwLink=").append(hrefValue);
-                    }
-                }
-
-                addParameter("href", sb.toString());
-            }
-
-
+            addParameter("href", findString(href));
         }
 
         if (showErrorTransportText != null) {

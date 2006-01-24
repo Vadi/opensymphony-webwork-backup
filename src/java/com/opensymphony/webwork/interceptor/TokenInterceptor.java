@@ -4,17 +4,16 @@
  */
 package com.opensymphony.webwork.interceptor;
 
-import com.opensymphony.webwork.ServletActionContext;
+import java.util.Map;
+
 import com.opensymphony.webwork.util.TokenHelper;
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ValidationAware;
 import com.opensymphony.xwork.interceptor.Interceptor;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import javax.servlet.http.HttpServletRequest;
-
 
 /**
  * <!-- START SNIPPET: description -->
@@ -69,6 +68,8 @@ import javax.servlet.http.HttpServletRequest;
  * </pre>
  *
  * @author Jason Carreira
+ * @author Rainer Hermanns
+ * @author Nils-Helge Garli
  * @see TokenSessionStoreInterceptor
  * @see TokenHelper
  */
@@ -87,10 +88,10 @@ public class TokenInterceptor implements Interceptor {
             LOG.debug("Intercepting invocation to check for valid transaction token.");
         }
 
-        HttpServletRequest request = ServletActionContext.getRequest();
+        Map session = ActionContext.getContext().getSession();
 
-        synchronized (request.getSession(true)) {
-            if (!TokenHelper.validToken(request)) {
+        synchronized (session) {
+            if (!TokenHelper.validToken()) {
                 return handleInvalidToken(invocation);
             }
 
@@ -99,7 +100,7 @@ public class TokenInterceptor implements Interceptor {
     }
 
     /**
-     * Determines what to do if an invalid token is provided. If the action implements {@link ValidationAware}
+     * Determines what to do if an invalida token is provided. If the action implements {@link ValidationAware}
      *
      * @param invocation the action invocation where the invalid token failed
      * @return the return code to indicate should be processed

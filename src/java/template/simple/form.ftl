@@ -33,7 +33,3 @@
  title="${parameters.title?html}"<#rt/>
 </#if>
 >
-<#-- Add portlet support -->
-<#if parameters.isPortlet?exists>
- <input type="hidden" name="wwAction" value="${parameters.wwAction?html}"/><#rt/>
-</#if>

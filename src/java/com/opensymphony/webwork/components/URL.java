@@ -1,5 +1,7 @@
 package com.opensymphony.webwork.components;
 
+import com.opensymphony.webwork.portlet.context.PortletActionContext;
+import com.opensymphony.webwork.portlet.util.PortletUrlHelper;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
@@ -73,10 +75,11 @@ import java.util.Map;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
- * @author Rickard �berg (rickard@dreambean.com)
+ * @author Rickard Öberg (rickard@dreambean.com)
  * @author Patrick Lightbody
  * @author Ian Roughley
  * @author Rene Gielen
+ * @author Rainer Hermanns
  * @version $Revision$
  * @since 2.2
  *
@@ -112,6 +115,9 @@ public class URL extends Component {
     protected String method;
     protected boolean encode = true;
     protected boolean includeContext = true;
+    protected String portletMode;
+    protected String windowState;
+    protected String portletUrlType;
 
     public URL(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         super(stack);
@@ -171,9 +177,19 @@ public class URL extends Component {
 
         String result;
         if (value == null && action != null) {
-            result = determineActionURL(action, namespace, method, req, res, parameters, scheme, includeContext, encode);
+            if(PortletActionContext.isPortletRequest()) {
+                result = PortletUrlHelper.buildUrl(action, namespace, parameters, portletUrlType, portletMode, windowState);
+            }
+            else {
+                result = determineActionURL(action, namespace, method, req, res, parameters, scheme, includeContext, encode);
+            }
         } else {
-            result = UrlHelper.buildUrl(value, req, res, parameters, scheme, includeContext, encode);
+            if(PortletActionContext.isPortletRequest()) {
+                result = PortletUrlHelper.buildResourceUrl(value, parameters);
+            }
+            else {
+                result = UrlHelper.buildUrl(value, req, res, parameters, scheme, includeContext, encode);
+            }
         }
 
         String id = getId();
@@ -256,6 +272,33 @@ public class URL extends Component {
      */
     public void setIncludeContext(boolean includeContext) {
         this.includeContext = includeContext;
+    }
+    
+    /**
+     * @ww.tagattribute required="false"
+     * description="The resulting portlet mode"
+     * @param portletMode
+     */
+    public void setPortletMode(String portletMode) {
+        this.portletMode = portletMode;
+    }
+
+    /**
+     * @ww.tagattribute required="false"
+     * description="The resulting portlet window state
+     * @param windowState
+     */
+    public void setWindowState(String windowState) {
+        this.windowState = windowState;
+    }
+
+    /**
+     * @ww.tagattribute required="false"
+     * description="Specifies if this should be a portlet render or action url"
+     * @param portletUrlType
+     */
+    public void setPortletUrlType(String portletUrlType) {
+        this.portletUrlType = portletUrlType;
     }
 
     /**

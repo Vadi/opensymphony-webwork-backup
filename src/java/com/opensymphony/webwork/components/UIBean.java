@@ -8,9 +8,6 @@ import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.validator.ActionValidatorManager;
-import com.opensymphony.xwork.validator.Validator;
-import com.opensymphony.xwork.validator.FieldValidator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -18,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
 import java.util.List;
-import java.util.Collections;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * UIBean is the standard superclass of all webwork UI componentns.

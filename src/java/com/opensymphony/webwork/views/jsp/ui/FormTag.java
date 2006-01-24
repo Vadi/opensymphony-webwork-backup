@@ -4,12 +4,12 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.opensymphony.webwork.components.Component;
 import com.opensymphony.webwork.components.Form;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -23,6 +23,8 @@ public class FormTag extends AbstractClosingTag {
     protected String namespace;
     protected String validate;
     protected String onsubmit;
+    protected String portletMode;
+    protected String windowState;
 
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Form(stack, req, res);
@@ -30,7 +32,6 @@ public class FormTag extends AbstractClosingTag {
 
     protected void populateParams() {
         super.populateParams();
-
         Form form = ((Form) component);
         form.setAction(action);
         form.setTarget(target);
@@ -39,7 +40,10 @@ public class FormTag extends AbstractClosingTag {
         form.setNamespace(namespace);
         form.setValidate(validate);
         form.setOnsubmit(onsubmit);
+        form.setPortletMode(portletMode);
+        form.setWindowState(windowState);
     }
+
 
     public void setAction(String action) {
         this.action = action;
@@ -67,5 +71,13 @@ public class FormTag extends AbstractClosingTag {
 
     public void setOnsubmit(String onsubmit) {
         this.onsubmit = onsubmit;
+    }
+
+    public void setPortletMode(String portletMode) {
+        this.portletMode = portletMode;
+    }
+
+    public void setWindowState(String windowState) {
+        this.windowState = windowState;
     }
 }
