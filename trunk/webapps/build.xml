@@ -78,8 +78,9 @@
             <zipfileset dir="${basedir}/../lib/sitemesh" prefix="WEB-INF/lib" includes="*.jar"/>
             <zipfileset dir="${basedir}/../lib/spring" prefix="WEB-INF/lib" includes="*.jar" excludes="commons-logging.jar"/>
             <zipfileset dir="${basedir}/../lib/velocity" prefix="WEB-INF/lib" includes="*.jar"/>
-            <zipfileset dir="${basedir}/../lib/quickstart" prefix="WEB-INF/lib" includes="log4j.jar"/>
+            <zipfileset dir="${basedir}/../lib/quickstart" prefix="WEB-INF/lib" includes="log4j.jar, commons-lang.jar"/>
             <zipfileset dir="${basedir}/../lib/jfree" prefix="WEB-INF/lib" includes="*.jar"/>
+            <zipfileset dir="${basedir}/../build" prefix="WEB-INF/lib" includes="${name}-${version}.jar"/>
             <zipfileset dir="${basedir}/.." prefix="WEB-INF/lib" includes="${name}-${version}.jar"/>
         </war>
     </target>
