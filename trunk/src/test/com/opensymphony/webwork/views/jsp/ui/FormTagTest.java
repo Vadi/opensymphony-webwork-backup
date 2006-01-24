@@ -7,11 +7,14 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.components.ActionComponent;
 import com.opensymphony.webwork.components.Form;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
+import com.opensymphony.webwork.views.jsp.ActionTag;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.config.ConfigurationManager;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
@@ -114,16 +117,128 @@ public class FormTagTest extends AbstractUITagTest {
         verify(FormTag.class.getResource("Formtag-3.txt"));
     }
     
-    
-    public void testFormShouldNotLookUpAncestorForTheme() throws Exception {
-    	Form form1 = new Form(stack, request, response);
-    	Form form2 = new Form(stack, request, response);
+    public void testFormTagForStackOverflowException1() throws Exception {
+    	request.setRequestURI("/requestUri");
     	
-    	// should not get stack overflow here.
-    	form2.getTheme();
+    	FormTag form1 = new FormTag();
+    	form1.setPageContext(pageContext);
+    	form1.doStartTag();
+    	
+    	assertEquals(form1.getComponent().getComponentStack().size(), 1);
+    	
+    	ActionTag tag = new ActionTag();
+    	tag.setPageContext(pageContext);
+    	tag.setName("testAction");
+    	tag.doStartTag();
+    	
+    	assertEquals(tag.getComponent().getComponentStack().size(), 2);
+    	
+    	tag.doEndTag();
+    	
+    	assertEquals(form1.getComponent().getComponentStack().size(), 1);
+    	
+    	form1.doEndTag();
+    	
+    	assertNull(form1.getComponent()); // component is removed after end tag
     }
     
+    public void testFormTagForStackOverflowException2() throws Exception {
+    	request.setRequestURI("/requestUri");
+    	
+    	FormTag form1 = new FormTag();
+    	form1.setPageContext(pageContext);
+    	form1.doStartTag();
+    	
+    	assertEquals(form1.getComponent().getComponentStack().size(), 1);
+    	
+    	FormTag form2 = new FormTag();
+    	form2.setPageContext(pageContext);
+    	form2.doStartTag();
 
+    	assertEquals(form2.getComponent().getComponentStack().size(), 2);
+    	
+    	ActionTag tag = new ActionTag();
+    	tag.setPageContext(pageContext);
+    	tag.setName("testAction");
+    	tag.doStartTag();
+    	
+    	assertEquals(tag.getComponent().getComponentStack().size(), 3);
+    	
+    	tag.doEndTag();
+
+    	assertEquals(form2.getComponent().getComponentStack().size(), 2);
+    	
+    	form2.doEndTag();
+    	
+    	assertEquals(form1.getComponent().getComponentStack().size(), 1);
+
+    	form1.doEndTag();
+    	
+    	assertNull(form1.getComponent()); // component is removed after end tag
+    }
+    
+    
+    public void testFormTagForStackOverflowException3() throws Exception {
+    	request.setRequestURI("/requestUri");
+    	
+    	FormTag form1 = new FormTag();
+    	form1.setPageContext(pageContext);
+    	form1.doStartTag();
+    	
+    	assertEquals(form1.getComponent().getComponentStack().size(), 1);
+    	
+    	FormTag form2 = new FormTag();
+    	form2.setPageContext(pageContext);
+    	form2.doStartTag();
+    	
+    	assertEquals(form2.getComponent().getComponentStack().size(), 2);
+    	
+    	FormTag form3 = new FormTag();
+    	form3.setPageContext(pageContext);
+    	form3.doStartTag();
+
+    	assertEquals(form3.getComponent().getComponentStack().size(), 3);
+    	
+    	ActionTag tag = new ActionTag();
+    	tag.setPageContext(pageContext);
+    	tag.setName("testAction");
+    	tag.doStartTag();
+    	
+    	assertEquals(tag.getComponent().getComponentStack().size(), 4);
+    	
+    	tag.doEndTag();
+    	
+    	assertEquals(form3.getComponent().getComponentStack().size(), 3);
+
+    	form3.doEndTag();
+    	
+    	assertEquals(form2.getComponent().getComponentStack().size(), 2);
+    	
+    	form2.doEndTag();
+    	
+    	assertEquals(form1.getComponent().getComponentStack().size(), 1);
+
+    	form1.doEndTag();
+    	
+    	assertNull(form1.getComponent()); // component is removed after end tag
+    }
+    
+    
+    public void testFormComponentIsRemoved() throws Exception {
+    	request.setRequestURI("/requestUri");
+    	
+    	FormTag form = new FormTag();
+    	form.setPageContext(pageContext);
+    	form.doStartTag();
+    	
+    	assertEquals(form.getComponent().getComponentStack().size(), 1);
+    	
+    	form.doEndTag();
+    	
+    	assertNull(form.getComponent());
+    }
+    
+    
     public void testFormWithNoAction() throws Exception {
         request.setupGetServletPath("/");
         request.setupGetContextPath("/");

@@ -54,7 +54,7 @@ public class Component {
         return stack;
     }
 
-    protected Stack getComponentStack() {
+    public Stack getComponentStack() {
         Stack componentStack = (Stack) stack.getContext().get(COMPONENT_STACK);
         if (componentStack == null) {
             componentStack = new Stack();
@@ -86,13 +86,19 @@ public class Component {
         return false;
     }
 
-    public Component findAncestor(Class clazz) {
+    protected Component findAncestor(Class clazz) {
         Stack componentStack = getComponentStack();
-        for (int i = componentStack.size() - 1; i >= 0; i--) {
-            Component component = (Component) componentStack.get(i);
-            if (clazz.isAssignableFrom(component.getClass()) && component != this) {
-                return component;
-            }
+        int currPosition = componentStack.search(this);
+        if (currPosition >= 0) {
+        	int start = componentStack.size() - currPosition - 1;
+        	
+        	//for (int i = componentStack.size() - 2; i >= 0; i--) {
+        	for (int i = start; i >=0; i--) {
+            	Component component = (Component) componentStack.get(i);
+            	if (clazz.isAssignableFrom(component.getClass()) && component != this) {
+            		return component;
+            	}
+        	}
         }
 
         return null;

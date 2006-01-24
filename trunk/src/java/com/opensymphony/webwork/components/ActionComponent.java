@@ -118,7 +118,7 @@ public class ActionComponent extends Component {
             getStack().setValue("#attr['" + getId() + "']", proxy.getAction());
         }
 
-        return false;
+        return super.end(writer, "");
     }
 
     private Map createExtraContext() {

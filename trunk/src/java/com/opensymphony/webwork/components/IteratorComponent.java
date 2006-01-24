@@ -221,6 +221,7 @@ public class IteratorComponent extends Component {
                 }
             }
 
+            super.end(writer, "");
             return false;
         }
     }

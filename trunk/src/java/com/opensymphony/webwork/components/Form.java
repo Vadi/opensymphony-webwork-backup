@@ -65,9 +65,6 @@ public class Form extends ClosingUIBean {
 
     public Form(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
-        // WW-1083: skip looking up ancestor for theme if it is a form so we 
-        // don't get an infinite recursion
-        skipAncestorFormThemeSearch = true; 
     }
 
     protected boolean evaluateNameValue() {

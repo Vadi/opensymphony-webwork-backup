@@ -72,7 +72,7 @@ public class ElseIf extends Component {
             stack.getContext().put(If.ANSWER, answer);
         }
 
-        return false;
+        return super.end(writer, "");
     }
 
     /**
