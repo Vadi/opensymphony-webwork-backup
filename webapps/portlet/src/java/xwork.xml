@@ -1,96 +1,170 @@
-<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
-
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE xwork PUBLIC
+    "-//OpenSymphony Group//XWork 1.0//EN"
+    "http://www.opensymphony.com/xwork/xwork-1.1.dtd">
+<!--
+	Copyright 2004 BEKK Consulting
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+-->
 <xwork>
-	<include file="webwork-portlet-default.xml" />
+	<include file="webwork-default.xml" />
 
-	<package name="default" extends="webwork-default">
-		<interceptors>
-			<interceptor-stack name="standard-interceptors">
-				<interceptor-ref name="static-params" />
-				<interceptor-ref name="params" />
-				<interceptor-ref name="conversionError" />
-			</interceptor-stack>
-		</interceptors>
+	<package name="view" extends="webwork-portlet-default"
+		namespace="/view">
+		<action name="index"
+			class="com.opensymphony.xwork.ActionSupport">
+			<result name="success">/WEB-INF/view/index.jsp</result>
+		</action>
 
-		<default-interceptor-ref name="defaultStack" />
-
-		<global-results>
-			<result name="error" type="dispatcher">
-				<param name="location">/error.jsp</param>
-			</result>
-		</global-results>
-
-		<!-- System Setup Services -->
-		<action name="edit" class="com.test.EditAction">
-			<result name="success">
-				<param name="location">/edit/editResult.vm</param>
+		<action name="formExample"
+			class="com.opensymphony.webwork.portlet.example.FormExample" method="input">
+			<result name="input">
+				/WEB-INF/view/formExampleInput.jsp
 			</result>
 		</action>
 
-		<!-- Business Function Services -->
-		<action name="hello" class="com.test.HelloAction">
+		<action name="processFormExample"
+			class="com.opensymphony.webwork.portlet.example.FormExample">
+			<result name="input">
+				/WEB-INF/view/formExampleInput.jsp
+			</result>
 			<result name="success">
-				<param name="location">/ex01Result.vm</param>
+				/WEB-INF/view/formExample.jsp
 			</result>
 		</action>
 
-		<action name="jsp_hello" class="com.test.HelloAction">
-			<result name="success">
-				<param name="location">/ex01Result.jsp</param>
+		<action name="validationExample"
+			class="com.opensymphony.webwork.portlet.example.FormExample" method="input">
+			<result name="input">
+				/WEB-INF/view/formExampleInputValidation.jsp
 			</result>
 		</action>
 
-		<action name="ftl_hello" class="com.test.HelloAction">
+		<action name="processValidationExample"
+			class="com.opensymphony.webwork.portlet.example.FormExample">
 			<result name="success">
-				<param name="location">/ex01Result.ftl</param>
+				/WEB-INF/view/formExample.jsp
 			</result>
-		</action>
-
-		<action name="formProcessing" class="com.test.FormProcessingAction">
-			<result name="input" type="dispatcher">
-				<param name="location">ex02.vm</param>
-			</result>
-			<result name="success" type="dispatcher">
-				<param name="location">ex02Success.vm</param>
+			<result name="input">
+				/WEB-INF/view/formExampleInputValidation.jsp
 			</result>
 			<interceptor-ref name="validationWorkflowStack" />
 		</action>
 
-		<action name="ftl_formProcessing" class="com.test.FormProcessingAction">
-			<result name="input" type="dispatcher">
-				<param name="location">ex02.ftl</param>
+		<action name="tokenExample"
+			class="com.opensymphony.xwork.ActionSupport" method="input">
+			<result name="input">
+				/WEB-INF/view/tokenExampleInput.jsp
 			</result>
-			<result name="success" type="dispatcher">
-				<param name="location">ex02Success.ftl</param>
-			</result>
-			<interceptor-ref name="validationWorkflowStack" />
 		</action>
 
-		<action name="registerSupport" class="com.test.RegisterActionSupport">
-			<result name="success" type="dispatcher">
-				<param name="location">/registerResult.vm</param>
+		<action name="processTokenExample"
+			class="com.opensymphony.xwork.ActionSupport">
+			<result name="input">
+				/WEB-INF/view/tokenExampleInput.jsp
 			</result>
-			<result name="input" type="dispatcher">
-				<param name="location">/registerSupport.vm</param>
+			<result name="invalid.token">
+				/WEB-INF/view/tokenExampleInput.jsp
 			</result>
-			<interceptor-ref name="validationWorkflowStack" />
-		</action>
-
-		<action name="ftl_registerSupport" class="com.test.RegisterActionSupport">
-			<result name="success" type="dispatcher">
-				<param name="location">/registerResult.ftl</param>
-			</result>
-			<result name="input" type="dispatcher">
-				<param name="location">/registerSupport.ftl</param>
-			</result>
-			<interceptor-ref name="validationWorkflowStack" />
-		</action>
-
-		<action name="cewolf" class="com.test.CewolfAction">
 			<result name="success">
-				<param name="location">/cewolf.jsp</param>
+				/WEB-INF/view/tokenExample.jsp
+			</result>
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
+		</action>
+
+		<action name="springExample" class="springAction">
+			<result name="success">
+				/WEB-INF/view/springExample.jsp
 			</result>
 		</action>
 
+		<action name="ajaxExample"
+			class="com.opensymphony.xwork.ActionSupport">
+			<result name="success">
+				/WEB-INF/view/ajaxExample.jsp
+			</result>
+		</action>
+
+		<action name="ajaxData"
+			class="com.opensymphony.xwork.ActionSupport">
+			<result name="success">/WEB-INF/view/ajaxData.jsp</result>
+		</action>
+
+		<action name="freeMarkerExample"
+			class="com.opensymphony.xwork.ActionSupport" method="input">
+			<result type="freemarker" name="input">
+				/WEB-INF/view/freeMarkerExampleInput.ftl
+			</result>
+		</action>
+
+		<action name="processFreeMarkerExample"
+			class="com.opensymphony.webwork.portlet.example.FormExample">
+			<result type="freemarker" name="success">
+				/WEB-INF/view/freeMarkerExample.ftl
+			</result>
+		</action>
+
+	</package>
+
+	<package name="edit" extends="webwork-portlet-default"
+		namespace="/edit">
+		<action name="index"
+			class="com.opensymphony.xwork.ActionSupport">
+			<result name="success">/WEB-INF/edit/index.jsp</result>
+		</action>
+		<action name="test"
+			class="com.opensymphony.xwork.ActionSupport">
+			<result name="success">/WEB-INF/edit/test.jsp</result>
+		</action>
+		<action name="formExampleEdit"
+			class="com.opensymphony.webwork.portlet.example.FormExample" method="input">
+			<result name="input">
+				/WEB-INF/edit/formExampleInput.jsp
+			</result>
+		</action>
+
+		<action name="processFormExampleEdit"
+			class="com.opensymphony.webwork.portlet.example.FormExample">
+			<result name="input">
+				/WEB-INF/edtt/formExampleInput.jsp
+			</result>
+			<result name="success">
+				/edit/processFormExampleForward.action?firstName=${firstName}&amp;lastName=${lastName}
+			</result>
+		</action>
+
+		<action name="processFormExampleForward"
+			class="com.opensymphony.webwork.portlet.example.FormExample">
+			<result name="success">
+				/WEB-INF/edit/formExample.jsp
+			</result>
+		</action>
+	</package>
+
+	<package name="editTest" extends="edit" namespace="/edit/dummy/test">
+		<action name="testAction"
+			class="com.opensymphony.xwork.ActionSupport">
+			<result name="success">/WEB-INF/edit/namespaceTest.jsp</result>
+		</action>
+	</package>
+
+	<package name="help" extends="webwork-portlet-default"
+		namespace="/help">
+		<action name="index"
+			class="com.opensymphony.xwork.ActionSupport">
+			<result name="success">/WEB-INF/help/index.jsp</result>
+		</action>
 	</package>
 </xwork>

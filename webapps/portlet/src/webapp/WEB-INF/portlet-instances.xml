@@ -1,7 +1,11 @@
 <?xml version="1.0" standalone="yes"?>
 <instances>
    <instance>
-      <instance-name>WWPortletInstance</instance-name>
-      <component-ref>WebWorkPortlet</component-ref>
+      <instance-name>PortletWorkPortletInstance</instance-name>
+      <component-ref>PortletWork</component-ref>
+   </instance>
+   <instance>
+      <instance-name>PortletWorkPortlet2Instance</instance-name>
+      <component-ref>PortletWork2</component-ref>
    </instance>
 </instances>
