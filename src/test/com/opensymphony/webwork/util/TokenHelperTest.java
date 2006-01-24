@@ -59,3 +59,4 @@ public class TokenHelperTest extends TestCase {
         ActionContext.setContext(null);
     }
 }
+
