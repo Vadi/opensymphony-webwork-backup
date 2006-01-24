@@ -9,11 +9,11 @@
 		<parent-ref>default</parent-ref>
 		<properties />
 		<page>
-			<page-name>PortletWork Example</page-name>
+			<page-name>WebWorkPortlet Example</page-name>
 			<properties />
 			<window>
-				<window-name>PortletWorkWindow</window-name>
-				<instance-ref>PortletWorkInstance</instance-ref>
+				<window-name>WebWorkWindow</window-name>
+				<instance-ref>WebWorkPortletInstance</instance-ref>
 				<region>center</region>
 				<height>0</height>
 			</window>
@@ -22,8 +22,8 @@
 	<deployment>
 		<if-exists>overwrite</if-exists>
 		<instance>
-			<instance-name>PortletWorkInstance</instance-name>
-			<component-ref>portletwork-example.PortletWork</component-ref>
+			<instance-name>WebWorkPortletInstance</instance-name>
+			<component-ref>webwork-portlet.WebWorkPortlet</component-ref>
 		</instance>
 	</deployment>
 </deployments>
