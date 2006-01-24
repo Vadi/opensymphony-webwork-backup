@@ -4,6 +4,8 @@
 </head>
 
 <body>
+
+There are ${peopleCount} people... 
 <table>
     <tr>
         <th>ID</th>

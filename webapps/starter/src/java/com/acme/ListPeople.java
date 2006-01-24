@@ -26,4 +26,9 @@ public class ListPeople extends ActionSupport {
     public List getPeople() {
         return people;
     }
+
+    public int getPeopleCount() {
+        return people.size();
+    }
+    
 }

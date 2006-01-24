@@ -5,6 +5,7 @@
 
     <package name="default" extends="webwork-default">
         <action name="listPeople" class="com.acme.ListPeople">
+            <interceptor-ref name="validationWorkflowStack"/>
             <result type="freemarker">listPeople.ftl</result>
         </action>
 

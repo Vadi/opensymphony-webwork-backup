@@ -67,6 +67,7 @@ public class ActionTagTest extends AbstractTagTest {
             tag.addParameter("foo", "myFoo");
             tag.doEndTag();
 
+            assertEquals(stack.size(), ActionContext.getContext().getValueStack().size());
             assertEquals("myFoo", stack.findValue("#testAction.foo"));
             assertEquals(stackSize, stack.size());
 
