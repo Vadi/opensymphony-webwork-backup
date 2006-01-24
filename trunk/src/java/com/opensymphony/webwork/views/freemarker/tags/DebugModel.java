@@ -5,7 +5,7 @@ package com.opensymphony.webwork.views.freemarker.tags;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.webwork.components.Component;
-import com.opensymphony.webwork.views.jsp.ui.Debug;
+import com.opensymphony.webwork.components.Debug;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
