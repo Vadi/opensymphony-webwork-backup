@@ -39,9 +39,6 @@ public class UrlHelperTest extends WebWorkTestCase {
 		
 		UrlHelper.buildParametersString(parameters, url);
 		
-		System.out.println(expectedUrl);
-		System.out.println(url);
-		
 		assertEquals(
 		   expectedUrl, url.toString());
 	}
