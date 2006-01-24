@@ -1,8 +1,6 @@
 /*
- * Created on Nov 22, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
  */
 package com.opensymphony.webwork.portlet.context;
 
@@ -22,9 +20,6 @@ import com.opensymphony.xwork.ActionContext;
 
 /**
  * @author Nils-Helge Garli
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
  */
 public class PreparatorServlet extends HttpServlet implements WebWorkStatics {
 

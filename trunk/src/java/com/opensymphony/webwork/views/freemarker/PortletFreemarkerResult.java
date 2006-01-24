@@ -1,9 +1,6 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2006 by OpenSymphony
  * All rights reserved.
- */
-/*
- * Created on 15/04/2004
  */
 package com.opensymphony.webwork.views.freemarker;
 
@@ -83,11 +80,11 @@ public class PortletFreemarkerResult extends WebWorkResultSupport {
     }
 
     /**
-     * @param location2
-     * @param invocation2
+     * @param location
+     * @param invocation
      */
     private void executeActionResult(String location,
-            ActionInvocation invocation) {
+                                     ActionInvocation invocation) {
         ActionResponse res = PortletActionContext.getActionResponse();
         // View is rendered outside an action...uh oh...
         res.setRenderParameter("action", "freemarkerDirect");
@@ -105,7 +102,7 @@ public class PortletFreemarkerResult extends WebWorkResultSupport {
      * @throws TemplateModelException
      */
     private void executeRenderResult(String location,
-            ActionInvocation invocation) throws TemplateException, IOException,
+                                     ActionInvocation invocation) throws TemplateException, IOException,
             TemplateModelException, PortletException {
         prepareServletActionContext();
         this.location = location;
@@ -233,7 +230,7 @@ public class PortletFreemarkerResult extends WebWorkResultSupport {
      * before the template is processed. By default does nothing. A typical
      * action to perform here is to inject application-specific objects into the
      * model root
-     * 
+     *
      * @return true to process the template, false to suppress template
      *         processing.
      */
