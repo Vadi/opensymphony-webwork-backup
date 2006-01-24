@@ -1,15 +1,15 @@
+<?xml version="1.0" standalone="yes"?>
 <!--
   ~ Copyright (c) 2002-2006 by OpenSymphony
   ~ All rights reserved.
   -->
-<?xml version="1.0" standalone="yes"?>
 <instances>
    <instance>
-      <instance-name>PortletWorkPortletInstance</instance-name>
-      <component-ref>PortletWork</component-ref>
+      <instance-name>WebWorkPortletInstance</instance-name>
+      <component-ref>WebWorkPortlet</component-ref>
    </instance>
    <instance>
-      <instance-name>PortletWorkPortlet2Instance</instance-name>
-      <component-ref>PortletWork2</component-ref>
+      <instance-name>WebWorkPortlet2Instance</instance-name>
+      <component-ref>WebWorkPortlet2</component-ref>
    </instance>
 </instances>

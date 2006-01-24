@@ -1,15 +1,15 @@
+<portlet-app>
 <!--
   ~ Copyright (c) 2002-2006 by OpenSymphony
   ~ All rights reserved.
   -->
-<portlet-app>
    <portlet>
-      <portlet-name>PortletWork</portlet-name>
+      <portlet-name>WebWorkPortlet</portlet-name>
       <security>
       </security>
    </portlet>
    <portlet>
-      <portlet-name>PortletWork2</portlet-name>
+      <portlet-name>WebWorkPortlet2</portlet-name>
       <security>
       </security>
    </portlet>
