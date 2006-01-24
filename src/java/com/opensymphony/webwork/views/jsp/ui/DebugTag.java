@@ -4,6 +4,7 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.components.Component;
+import com.opensymphony.webwork.components.Debug;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;

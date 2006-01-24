@@ -1,4 +1,4 @@
-package com.opensymphony.webwork.views.jsp.ui;
+package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlUtil;
@@ -27,6 +27,7 @@ import java.util.Map;
  *
  * @author Patrick Lightbody
  * @author Rene Gielen
+ * @author Rainer Hermanns
  * @version $Revision$
  * @since 2.2
  *
