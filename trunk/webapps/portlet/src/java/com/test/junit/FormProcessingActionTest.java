@@ -41,7 +41,7 @@ public class FormProcessingActionTest extends TestCase {
         try {
             FormProcessingAction action = execute();
             System.out.println(action.getFile());
-            assertEquals("file1", action.getFile());
+            assertEquals("file", action.getFile());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -54,6 +54,7 @@ public class WebWorkModels {
     protected ActionMessageModel actionmessage;
     protected FieldErrorModel fielderror;
     protected OptionTransferSelectModel optiontransferselect;
+    protected TreeModel treeModel;
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         this.stack = stack;
@@ -377,5 +378,12 @@ public class WebWorkModels {
     		optiontransferselect = new OptionTransferSelectModel(stack, req, res);
     	}
     	return optiontransferselect;
+    }
+
+    public TreeModel getTreeModel() {
+        if (treeModel == null) {
+            treeModel = new TreeModel(stack,req, res);
+        }
+        return treeModel;
     }
 }
