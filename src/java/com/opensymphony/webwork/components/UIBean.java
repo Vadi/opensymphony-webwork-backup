@@ -244,7 +244,6 @@ public abstract class UIBean extends Component {
 
     protected HttpServletRequest request;
     protected HttpServletResponse response;
-    protected boolean skipAncestorFormThemeSearch = false;
 
     public UIBean(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack);
@@ -369,7 +368,7 @@ public abstract class UIBean extends Component {
             theme = findString(this.theme);
         }
 
-        if ( (!skipAncestorFormThemeSearch) && (theme == null || theme.equals(""))) {
+        if ( theme == null || theme.equals("") ) {
             Form form = (Form) findAncestor(Form.class);
             if (form != null) {
                 theme = form.getTheme();
