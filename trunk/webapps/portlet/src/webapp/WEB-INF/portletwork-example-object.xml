@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2006, Your Corporation. All Rights Reserved.
+  -->
+
+<deployments>
+	<deployment>
+		<if-exists>overwrite</if-exists>
+		<parent-ref>default</parent-ref>
+		<properties />
+		<page>
+			<page-name>PortletWork Example</page-name>
+			<properties />
+			<window>
+				<window-name>PortletWorkWindow</window-name>
+				<instance-ref>PortletWorkInstance</instance-ref>
+				<region>center</region>
+				<height>0</height>
+			</window>
+		</page>
+	</deployment>
+	<deployment>
+		<if-exists>overwrite</if-exists>
+		<instance>
+			<instance-name>PortletWorkInstance</instance-name>
+			<component-ref>portletwork-example.PortletWork</component-ref>
+		</instance>
+	</deployment>
+</deployments>

@@ -1,0 +1,22 @@
+<!--
+  ~ Copyright (c) 2006, Your Corporation. All Rights Reserved.
+  -->
+
+<pages>
+   <portal-name>default</portal-name>
+   <page>
+      <page-name>portletwork-example</page-name>
+      <window>
+         <window-name>PortletWorkWindow</window-name>
+         <instance-ref>portletwork-example.PortletWork.PortletWorkPortletInstance</instance-ref>
+         <region>left</region>
+         <height>0</height>
+      </window>
+      <window>
+         <window-name>PortletWorkWindow2</window-name>
+         <instance-ref>portletwork-example.PortletWork2.PortletWorkPortlet2Instance</instance-ref>
+         <region>right</region>
+         <height>0</height>
+      </window>
+   </page>
+</pages>

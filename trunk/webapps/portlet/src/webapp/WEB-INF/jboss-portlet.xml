@@ -1,6 +1,11 @@
 <portlet-app>
    <portlet>
-      <portlet-name>WebWorkPortlet</portlet-name>
+      <portlet-name>PortletWork</portlet-name>
+      <security>
+      </security>
+   </portlet>
+   <portlet>
+      <portlet-name>PortletWork2</portlet-name>
       <security>
       </security>
    </portlet>
