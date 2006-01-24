@@ -67,9 +67,14 @@ END SNIPPET: supported-validators
                 errors = true;
             }
             <#elseif validator.validatorType = "int">
-            if (field.value != null && (parseInt(field.value) < ${validator.min} || parseInt(field.value) > ${validator.max})) {
-                addError(field, error);
-                errors = true;
+            if (field.value != null) {
+                if (<#if validator.min?exists>parseInt(field.value) <
+                     ${validator.min}<#else>false</#if> ||
+                        <#if validator.max?exists>parseInt(field.value) >
+                           ${validator.max}<#else>false</#if>) {
+                    addError(field, error);
+                    errors = true;
+                }
             }
             </#if>
         }
