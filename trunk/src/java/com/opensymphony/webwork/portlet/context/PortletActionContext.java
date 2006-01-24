@@ -1,49 +1,116 @@
 /*
- * Copyright (c) 2005 Opensymphony. All Rights Reserved.
+ * Copyright 2004 BEKK Consulting
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package com.opensymphony.webwork.portlet.context;
 
-import com.opensymphony.webwork.portlet.WebWorkPortletStatics;
-import com.opensymphony.xwork.ActionContext;
-
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletSession;
 import java.util.Map;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+
+import com.opensymphony.webwork.portlet.PortletActionConstants;
+import com.opensymphony.xwork.ActionContext;
+
+
 /**
- * PorletActionContext only in WebWork Framework scope.
- *
- * @author <a href="mailto:hu_pengfei@yahoo.com.cn">Henry Hu </a>
- * @since 2005-7-18
+ * PortletActionContext. Insert description.
+ * 
+ * @author Nils-Helge Garli
+ * @version $Revision$ $Date$
  */
-public class PortletActionContext extends ActionContext implements WebWorkPortletStatics {
+public class PortletActionContext implements PortletActionConstants {
 
-
-    public PortletActionContext(Map context) {
-        super(context);
+    public static PortletConfig getPortletConfig() {
+        return (PortletConfig) getContext().get(PORTLET_CONFIG);
     }
 
-    public static PortletRequest getPortletRequest() {
-        return (PortletRequest) ActionContext.getContext().get(PORTLET_REQUEST);
+    public static RenderRequest getRenderRequest() {
+        if (!isRender()) {
+            throw new IllegalStateException(
+                    "RenderRequest cannot be obtained in event phase");
+        }
+        return (RenderRequest) getContext().get(REQUEST);
     }
 
-    public static PortletResponse getPortletResponse() {
-        return (PortletResponse) ActionContext.getContext().get(PORTLET_RESPONSE);
+    public static RenderResponse getRenderResponse() {
+        if (!isRender()) {
+            throw new IllegalStateException(
+                    "RenderResponse cannot be obtained in event phase");
+        }
+        return (RenderResponse) getContext().get(RESPONSE);
     }
 
-    public static PortletContext getPortletContext() {
-        return (PortletContext) ActionContext.getContext().get(PORTLET_CONTEXT);
+    public static ActionRequest getActionRequest() {
+        if (!isEvent()) {
+            throw new IllegalStateException(
+                    "ActionRequest cannot be obtained in render phase");
+        }
+        return (ActionRequest) getContext().get(REQUEST);
     }
 
-    public static Map getApplicationContextScopeSession() {
-        return (Map) ActionContext.getContext().get(APPLICATION_SCOPE_SESSION);
+    public static ActionResponse getActionResponse() {
+        if (!isEvent()) {
+            throw new IllegalStateException(
+                    "ActionResponse cannot be obtained in render phase");
+        }
+        return (ActionResponse) getContext().get(RESPONSE);
+    }
+    
+    public static String getPortletNamespace() {
+        return (String)getContext().get(PORTLET_NAMESPACE);
     }
 
-    public static PortletSession getPortletSession() {
-        return getPortletRequest().getPortletSession();
+    public static PortletRequest getRequest() {
+        return (PortletRequest) getContext().get(REQUEST);
     }
 
+    public static PortletResponse getResponse() {
+        return (PortletResponse) getContext().get(RESPONSE);
+    }
+
+    public static Integer getPhase() {
+        return (Integer) getContext().get(PHASE);
+    }
+
+    public static boolean isRender() {
+        return PortletActionConstants.RENDER_PHASE.equals(getPhase());
+    }
+
+    public static boolean isEvent() {
+        return PortletActionConstants.EVENT_PHASE.equals(getPhase());
+    }
+
+    private static ActionContext getContext() {
+        return ActionContext.getContext();
+    }
+    
+    public static boolean isPortletRequest() {
+        return getRequest() != null;
+    }
+
+    public static String getDefaultActionForMode() {
+        return (String)getContext().get(DEFAULT_ACTION_FOR_MODE);
+    }
+
+    public static Map getModeNamespaceMap() {
+        return (Map)getContext().get(MODE_NAMESPACE_MAP);
+    }
 
 }

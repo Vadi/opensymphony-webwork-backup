@@ -175,4 +175,18 @@
 
         <default-interceptor-ref name="defaultStack"/>
     </package>
+    <package name="webwork-portlet-default" extends="webwork-default">
+
+	   <result-types>
+			<result-type name="dispatcher" class="com.opensymphony.webwork.portlet.result.PortletResult" default="true"/>
+			<result-type name="freemarker" class="com.opensymphony.webwork.views.freemarker.PortletFreemarkerResult"/>
+	   </result-types>
+
+	   <action name="renderDirect" class="com.opensymphony.webwork.portlet.dispatcher.DirectRenderFromEventAction">
+	   		<result name="success">${location}</result>
+	   </action>
+	   <action name="freemarkerDirect" class="com.opensymphony.webwork.portlet.dispatcher.DirectRenderFromEventAction">
+	   		<result type="freemarker" name="success">${location}</result>
+	   </action>
+	</package>
 </xwork>

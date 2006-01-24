@@ -63,14 +63,16 @@ import java.util.Map;
  * </pre>
  *
  * @author Jason Carreira
+ * @author Rainer Hermanns
+ * @author Nils-Helge Garli
  */
 public class TokenSessionStoreInterceptor extends TokenInterceptor {
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
         ActionContext ac = invocation.getInvocationContext();
 
         HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
-        String tokenName = TokenHelper.getTokenName(request);
-        String token = TokenHelper.getToken(tokenName, request);
+        String tokenName = TokenHelper.getTokenName();
+        String token = TokenHelper.getToken(tokenName);
 
         Map params = ac.getParameters();
         params.remove(tokenName);
@@ -104,8 +106,8 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
         // we know the token name and token must be there
         ActionContext ac = invocation.getInvocationContext();
         HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
-        String key = TokenHelper.getTokenName(request);
-        String token = TokenHelper.getToken(key, request);
+        String key = TokenHelper.getTokenName();
+        String token = TokenHelper.getToken(key);
         InvocationSessionStore.storeInvocation(key, token, invocation);
 
         return invocation.invoke();

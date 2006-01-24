@@ -43,13 +43,6 @@ public class VelocityManager {
     private static VelocityManager instance;
     public static final String WEBWORK = "webwork";
 
-    /*
-     * Add for Portlet -- In order to get the Portlet actionURL&actionXURL in VM result,
-     * add this attribute in the Context. By Henry Hu - mail: hu_pengfei@yahoo.com.cn
-     * */
-    public static final String ACTION_URL = "actionURL";
-    public static final String ACTION_XURL = "actionXURL";
-
     /**
      * the parent JSP tag
      */
@@ -139,15 +132,6 @@ public class VelocityManager {
         }
         context.put(WEBWORK, new VelocityWebWorkUtil(context, stack, req, res));
 
-        /*
-         * Add actiontURl/actionXURL in the OGNL context for VM result to
-         * retrieve. -- Add for Portlet by Henry Hu - mail: hu_pengfei@yahoo.com.cn
-         */
-        String actionURL = com.opensymphony.webwork.portlet.context.PortletContext.getContext().getActionURL();
-        String actionXURL = actionURL + "?wwXAction=";
-        context.put(ACTION_URL, actionURL);
-        context.put(ACTION_XURL, actionXURL);
-        ////////////////////////////////////
 
         ServletContext ctx = null;
         try {
@@ -503,9 +487,6 @@ public class VelocityManager {
 
         // components
         StringBuffer sb = new StringBuffer();
-
-        addDirective(sb, ApplyDecoratorDirective.class);
-        addDirective(sb, DecoratorParamDirective.class);
 
         addDirective(sb, ActionDirective.class);
         addDirective(sb, BeanDirective.class);

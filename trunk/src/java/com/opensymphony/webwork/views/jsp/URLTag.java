@@ -30,6 +30,9 @@ public class URLTag extends ComponentTagSupport {
     protected String method;
     protected String encode;
     protected String includeContext;
+    protected String portletMode;
+    protected String windowState;
+    protected String portletUrlType;
 
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new URL(stack, req, res);
@@ -45,6 +48,9 @@ public class URLTag extends ComponentTagSupport {
         url.setMethod(method);
         url.setNamespace(namespace);
         url.setAction(action);
+        url.setPortletMode(portletMode);
+        url.setPortletUrlType(portletUrlType);
+        url.setWindowState(windowState);
 
         if (encode != null) {
             url.setEncode(Boolean.valueOf(encode).booleanValue());
@@ -84,5 +90,14 @@ public class URLTag extends ComponentTagSupport {
 
     public void setValue(String value) {
         this.value = value;
+    }
+    public void setPortletMode(String portletMode) {
+        this.portletMode = portletMode;
+    }
+    public void setPortletUrlType(String portletUrlType) {
+        this.portletUrlType = portletUrlType;
+    }
+    public void setWindowState(String windowState) {
+        this.windowState = windowState;
     }
 }
