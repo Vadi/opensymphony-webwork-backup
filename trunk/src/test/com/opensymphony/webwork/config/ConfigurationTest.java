@@ -41,6 +41,16 @@ public class ConfigurationTest extends WebWorkTestCase {
         assertEquals("This is another test message", LocalizedTextUtil.findDefaultText("default.testmessage2", Locale.getDefault()));
     }
 
+    public void testReplaceDefaultMessages() {
+        LocalizedTextUtil.clearDefaultResourceBundles();
+        LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
+        assertEquals("The form has already been processed or no token was supplied, please try again.", LocalizedTextUtil.findDefaultText("webwork.messages.invalid.token", Locale.getDefault()));
+        Configuration.reset();
+
+        assertEquals("testmessages,testmessages2", Configuration.getString(WebWorkConstants.WEBWORK_CUSTOM_I18N_RESOURCES));
+        assertEquals("Replaced message for token tag", LocalizedTextUtil.findDefaultText("webwork.messages.invalid.token", Locale.getDefault()));
+    }
+
     public void testSetConfiguration() {
         Configuration.setConfiguration(new TestConfiguration());
 

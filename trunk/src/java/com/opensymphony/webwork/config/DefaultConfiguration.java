@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
  * Default implementation of Configuration - creates and delegates to other configurations by using an internal
  * {@link DelegatingConfiguration}.
  *
- * @author Rickard Öberg
+ * @author Rickard ï¿½berg
  * @author Jason Carreira
  * @author Bill Lynch (docs)
  */
@@ -74,6 +74,8 @@ public class DefaultConfiguration extends Configuration {
 
         // Add addtional list of i18n global resource bundles
         try {
+
+            LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
             StringTokenizer bundleFiles = new StringTokenizer((String) config.getImpl(WebWorkConstants.WEBWORK_CUSTOM_I18N_RESOURCES), ", ");
 
             while (bundleFiles.hasMoreTokens()) {
