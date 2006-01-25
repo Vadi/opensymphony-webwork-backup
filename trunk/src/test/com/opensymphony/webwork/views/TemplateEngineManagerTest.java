@@ -24,16 +24,25 @@ public class TemplateEngineManagerTest extends TestCase {
                 return null;
             }
         });
-        TemplateEngine engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo"));
+        TemplateEngine engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo"), null);
         assertTrue(engine instanceof JspTemplateEngine);
-        engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo.vm"));
+        engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo.vm"), null);
         assertTrue(engine instanceof VelocityTemplateEngine);
     }
 
+    public void testTemplateTypeOverrides() {
+        TemplateEngine engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo"), "ftl");
+        assertTrue(engine instanceof FreemarkerTemplateEngine);
+        engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo.vm"), "ftl");
+        assertTrue(engine instanceof VelocityTemplateEngine);
+        engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo.ftl"), "");
+        assertTrue(engine instanceof FreemarkerTemplateEngine);
+    }
+
     public void testTemplateTypeUsesDefaultWhenNotSetInConfiguration() {
-        TemplateEngine engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo"));
+        TemplateEngine engine = TemplateEngineManager.getTemplateEngine(new Template("/template", "simple", "foo"), null);
         Template template = new Template("/template", "simple", "foo." + TemplateEngineManager.DEFAULT_TEMPLATE_TYPE);
-        TemplateEngine defaultTemplateEngine = TemplateEngineManager.getTemplateEngine(template);
+        TemplateEngine defaultTemplateEngine = TemplateEngineManager.getTemplateEngine(template, null);
         assertTrue(engine.getClass().equals(defaultTemplateEngine.getClass()));
     }
 

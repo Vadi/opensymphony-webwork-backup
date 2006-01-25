@@ -33,16 +33,20 @@ public class TemplateEngineManager {
      * this extension will be used to look up the appropriate TemplateEngine. If it does not have an extension, it will
      * look for a Configuration setting "webwork.ui.templateSuffix" for the extension, and if that is not set, it
      * will fall back to "ftl" as the default.
+     *
+     * @param template               Template used to determine which TemplateEngine to return
+     * @param templateTypeOverride Overrides the default template type
+     * @return boolean
      */
-    public static TemplateEngine getTemplateEngine(Template template) {
+    public static TemplateEngine getTemplateEngine(Template template, String templateTypeOverride) {
         String templateType = DEFAULT_TEMPLATE_TYPE;
         String templateName = template.toString();
         if (templateName.indexOf(".") > 0) {
             templateType = templateName.substring(templateName.indexOf(".") + 1);
-        } else {
-            if (Configuration.isSet(DEFAULT_TEMPLATE_TYPE_CONFIG_KEY)) {
-                templateType = (String) Configuration.get(DEFAULT_TEMPLATE_TYPE_CONFIG_KEY);
-            }
+        } else if (templateTypeOverride !=null && templateTypeOverride.length() > 0) {
+            templateType = templateTypeOverride;
+        } else if (Configuration.isSet(DEFAULT_TEMPLATE_TYPE_CONFIG_KEY)) {
+            templateType = (String) Configuration.get(DEFAULT_TEMPLATE_TYPE_CONFIG_KEY);
         }
         return (TemplateEngine) MANAGER.templateEngines.get(templateType);
     }

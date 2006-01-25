@@ -66,8 +66,17 @@ public class ContextUtil {
         // configuration implementation does
         boolean altSyntax = "true".equals(Configuration.getString(WebWorkConstants.WEBWORK_TAG_ALTSYNTAX));
         return altSyntax ||(
-                (context.containsKey("useAltSyntax") && 
+                (context.containsKey("useAltSyntax") &&
                         context.get("useAltSyntax") != null &&
-                        "true".equals(context.get("useAltSyntax").toString())? true : false));
+                        "true".equals(context.get("useAltSyntax").toString())));
+    }
+
+    /**
+     * Returns a String for overriding the default templateSuffix if templateSuffix is on the stack
+     * @param context stack's context
+     * @return String
+     */
+    public static String getTemplateSuffix(Map context) {
+        return context.containsKey("templateSuffix") ? (String) context.get("templateSuffix") : null;
     }
 }
