@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TreeNodeTag
- * <p/>
- * Created : Dec 12, 2005 3:57:32 PM
- *
+ * @see TreeNode
  * @author Jason Carreira <jcarreira@eplus.com>
  */
 public class TreeNodeTag extends AbstractClosingTag {
