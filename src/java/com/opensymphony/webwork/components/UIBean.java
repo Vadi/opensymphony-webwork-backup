@@ -6,6 +6,7 @@ import com.opensymphony.webwork.components.template.TemplateEngineManager;
 import com.opensymphony.webwork.components.template.TemplateRenderingContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
@@ -243,7 +244,11 @@ public abstract class UIBean extends Component {
         super(stack);
         this.request = request;
         this.response = response;
+        this.templateSuffix = ContextUtil.getTemplateSuffix(stack.getContext());
     }
+
+    // The templateSuffic to use, overrides the default one if not null.
+    protected String templateSuffix;
 
     // The template to use, overrides the default one.
     protected String template;
@@ -316,7 +321,7 @@ public abstract class UIBean extends Component {
     }
 
     protected void mergeTemplate(Writer writer, Template template) throws Exception {
-        final TemplateEngine engine = TemplateEngineManager.getTemplateEngine(template);
+        final TemplateEngine engine = TemplateEngineManager.getTemplateEngine(template, templateSuffix);
         if (engine == null) {
             throw new ConfigurationException("Unable to find a TemplateEngine for template " + template);
         }
@@ -493,7 +498,7 @@ public abstract class UIBean extends Component {
                     if (value != null) {
                         addParameter("nameValue", findValue(value, valueClazz));
                     } else if (name != null) {
-                        String expr = name.toString();
+                        String expr = name;
                         if (altSyntax()) {
                             expr = "%{" + expr + "}";
                         }
@@ -504,7 +509,7 @@ public abstract class UIBean extends Component {
                     if (value != null) {
                         addParameter("nameValue", findValue(value));
                     } else if (name != null) {
-                        addParameter("nameValue", findValue(name.toString()));
+                        addParameter("nameValue", findValue(name));
                     }
                 }
             }
