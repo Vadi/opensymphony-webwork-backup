@@ -91,6 +91,20 @@ Remote form replacing the forms content after running a function:<br/>
 
 </ww:form>
 
+A form with no remote submit (so should not be ajaxified):<br/>
+<ww:form
+        id='theForm7'
+        cssStyle="border: 1px solid green;"
+        action='/AjaxRemoteForm.action'
+        method='post'
+        theme="ajax">
+
+    <input type='text' name='data' value='WebWork User'>
+
+    <ww:submit value="Go AWAY" resultDivId="theForm7" />
+
+</ww:form>
+
 <ww:include value="../footer.jsp"/>
 
 </body>
