@@ -25,6 +25,8 @@ public class IteratorTag extends ComponentTagSupport {
     }
 
     protected void populateParams() {
+    	super.populateParams();
+    	
         IteratorComponent tag = (IteratorComponent) getComponent();
         tag.setStatus(statusAttr);
         tag.setValue(value);

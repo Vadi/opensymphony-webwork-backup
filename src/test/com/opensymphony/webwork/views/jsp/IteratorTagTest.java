@@ -12,17 +12,81 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 /**
+ * Test Case for Iterator Tag 
+ * 
  * @author $Author$
- * @version $Revision$
+ * @version $Date$ $Id$
  */
 public class IteratorTagTest extends AbstractUITagTest {
 
     IteratorTag tag;
 
+    
+    public void testIteratingWithIdSpecified() throws Exception {
+    	List list = new ArrayList();
+    	list.add("one");
+    	list.add("two");
+    	list.add("three");
+    	list.add("four");
+    	list.add("five");
+    	
+    	Foo foo = new Foo();
+    	foo.setList(list);
+    	
+    	stack.push(foo);
+    	
+    	tag.setValue("list");
+    	tag.setId("myId");
+    	
+    	// one
+    	int result = tag.doStartTag();
+    	assertEquals(result, TagSupport.EVAL_BODY_INCLUDE);
+    	assertEquals(stack.peek(), "one");
+    	assertEquals(stack.getContext().get("myId"), "one");
+    	
+
+    	tag.doInitBody();
+    	
+    	// two
+    	result = tag.doAfterBody();
+    	assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
+    	assertEquals(stack.peek(), "two");
+    	assertEquals(stack.getContext().get("myId"), "two");
+    	
+    	
+    	// three
+    	result = tag.doAfterBody();
+    	assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
+    	assertEquals(stack.peek(), "three");
+    	assertEquals(stack.getContext().get("myId"), "three");
+    	
+    	
+    	// four
+    	result = tag.doAfterBody();
+    	assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
+    	assertEquals(stack.peek(), "four");
+    	assertEquals(stack.getContext().get("myId"), "four");
+    	
+    	
+    	// five
+    	result = tag.doAfterBody();
+    	assertEquals(result, TagSupport.EVAL_BODY_AGAIN);
+    	assertEquals(stack.peek(), "five");
+    	assertEquals(stack.getContext().get("myId"), "five");
+    	
+    	
+    	result = tag.doAfterBody();
+    	assertEquals(result, TagSupport.SKIP_BODY);
+    	
+    	result = tag.doEndTag();
+    	assertEquals(result, TagSupport.EVAL_PAGE);
+    }
+    
 
     public void testArrayIterator() {
         Foo foo = new Foo();

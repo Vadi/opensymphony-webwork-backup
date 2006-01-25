@@ -22,7 +22,7 @@ import java.util.Iterator;
  * <li>value (Object) - the source to iterate over, must be iteratable, else an the object itself will be put into a
  * newly created List (see MakeIterator#convert(Object)</li>
  *
- * <li>id (String) - if specified the current iteration object will be place with this id in both request and page
+ * <li>id (String) - if specified the current iteration object will be place with this id in webwork stack's context
  * scope</li>
  *
  * </ul>
@@ -53,8 +53,11 @@ import java.util.Iterator;
  * colours:</p>
  *
  * <!-- END SNIPPET: example2description -->
+ * 
+ * 
  * <pre>
  * <!-- START SNIPPET: example2code -->
+ * 
  * &lt;ww:bean name="com.opensymphony.webwork.example.IteratorExample" id="it"&gt;
  *   &lt;ww:param name="day" value="'foo'"/&gt;
  *   &lt;ww:param name="day" value="'bar'"/&gt;
@@ -76,6 +79,7 @@ import java.util.Iterator;
  *   &lt;/tr&gt;
  * &lt;/ww:iterator&gt;
  * &lt;/table&gt;
+ * 
  * <!-- END SNIPPET: example2code -->
  * </pre>
  *
@@ -89,6 +93,7 @@ import java.util.Iterator;
  *
  * <pre>
  * <!-- START SNIPPET: example3code -->
+ * 
  * 	&lt;webwork:iterator value="groupDao.groups" status="groupStatus"&gt;
  * 		&lt;tr class="&lt;webwork:if test="#groupStatus.odd == true "&gt;odd&lt;/webwork:if&gt;&lt;webwork:else&gt;even&lt;/webwork:else&gt;"&gt;
  * 			&lt;td&gt;&lt;webwork:property value="name" /&gt;&lt;/td&gt;
@@ -100,6 +105,7 @@ import java.util.Iterator;
  * 			&lt;/td&gt;
  * 		&lt;/tr&gt;
  * 	&lt;/webwork:iterator&gt;
+ * 
  * <!-- END SNIPPET: example3code -->
  * </pre>
  * <p>
@@ -115,6 +121,7 @@ import java.util.Iterator;
  *
  * <pre>
  * <!-- START SNIPPET: example4code -->
+ * 
  * 		&lt;ww:action name="entries" id="entries"/&gt;
  * 		&lt;ww:iterator value="#entries.entries" &gt;
  * 			&lt;ww:property value="name" /&gt;
@@ -125,6 +132,7 @@ import java.util.Iterator;
  * 				&lt;/ww:action&gt;
  * 			&lt;/push&gt;
  * 		&lt;/ww:iterator&gt;
+ * 
  * <!-- END SNIPPET: example4code -->
  * </pre>
  *
@@ -168,10 +176,11 @@ public class IteratorComponent extends Component {
             stack.push(currentValue);
 
             String id = getId();
-
+            
             if ((id != null) && (currentValue != null)) {
                 //pageContext.setAttribute(id, currentValue);
                 //pageContext.setAttribute(id, currentValue, PageContext.REQUEST_SCOPE);
+            	stack.getContext().put(id, currentValue);
             }
 
             // Status object
@@ -202,6 +211,7 @@ public class IteratorComponent extends Component {
             if ((id != null) && (currentValue != null)) {
                 //pageContext.setAttribute(id, currentValue);
                 //pageContext.setAttribute(id, currentValue, PageContext.REQUEST_SCOPE);
+            	stack.getContext().put(id, currentValue);
             }
 
             // Update status
