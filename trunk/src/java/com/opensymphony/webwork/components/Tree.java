@@ -10,11 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
 
 /**
- * Tree
- * <p/>
+ * <!-- START SNIPPET: javadoc -->
+ *
+ * Renders a tree widget with AJAX support.<p/>
+ *
+ * <!-- END SNIPPET: javadoc -->
+ *
+ * <p/> <b>Examples</b>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * &lt;tree .../&gt;
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ *
  * Created : Oct 27, 2005 3:56:23 PM
  *
  * @author Jason Carreira <jcarreira@eplus.com>
+ *
+ * @ww.tag name="text" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.TreeTag"
+ * description="Render a tree widget."
  */
 public class Tree extends ClosingUIBean {
     private static final String TEMPLATE = "tree-close";
@@ -98,6 +113,10 @@ public class Tree extends ClosingUIBean {
         return toggle;
     }
 
+    /**
+     * The toggle property.
+     * @ww.tagattribute required="false"
+     */
     public void setToggle(String toggle) {
         this.toggle = toggle;
     }
@@ -106,6 +125,10 @@ public class Tree extends ClosingUIBean {
         return treeSelectedTopic;
     }
 
+    /**
+     * The treeSelectedTopic property.
+     * @ww.tagattribute required="false"
+     */
     public void setTreeSelectedTopic(String treeSelectedTopic) {
         this.treeSelectedTopic = treeSelectedTopic;
     }
@@ -114,6 +137,10 @@ public class Tree extends ClosingUIBean {
         return treeExpandedTopic;
     }
 
+    /**
+     * The treeExpandedTopic property.
+     * @ww.tagattribute required="false"
+     */
     public void setTreeExpandedTopic(String treeExpandedTopic) {
         this.treeExpandedTopic = treeExpandedTopic;
     }
@@ -122,6 +149,10 @@ public class Tree extends ClosingUIBean {
         return treeCollapsedTopic;
     }
 
+    /**
+     * The treeCollapsedTopic property.
+     * @ww.tagattribute required="false"
+     */
     public void setTreeCollapsedTopic(String treeCollapsedTopic) {
         this.treeCollapsedTopic = treeCollapsedTopic;
     }
@@ -130,6 +161,10 @@ public class Tree extends ClosingUIBean {
         return openAll;
     }
 
+    /**
+     * The openAll property.
+     * @ww.tagattribute required="false" type="boolean" default="false"
+     */
     public void setOpenAll(String openAll) {
         this.openAll = openAll;
     }
@@ -138,6 +173,10 @@ public class Tree extends ClosingUIBean {
         return rootNodeAttr;
     }
 
+    /**
+     * The rootNode property.
+     * @ww.tagattribute required="false"
+     */
     public void setRootNode(String rootNode) {
         this.rootNodeAttr = rootNode;
     }
@@ -146,6 +185,10 @@ public class Tree extends ClosingUIBean {
         return childCollectionProperty;
     }
 
+    /**
+     * The childCollectionProperty property.
+     * @ww.tagattribute required="false"
+     */
     public void setChildCollectionProperty(String childCollectionProperty) {
         this.childCollectionProperty = childCollectionProperty;
     }
@@ -154,6 +197,10 @@ public class Tree extends ClosingUIBean {
         return nodeTitleProperty;
     }
 
+    /**
+     * The nodeTitleProperty property.
+     * @ww.tagattribute required="false"
+     */
     public void setNodeTitleProperty(String nodeTitleProperty) {
         this.nodeTitleProperty = nodeTitleProperty;
     }
@@ -162,6 +209,10 @@ public class Tree extends ClosingUIBean {
         return nodeIdProperty;
     }
 
+    /**
+     * The nodeIdProperty property.
+     * @ww.tagattribute required="false"
+     */
     public void setNodeIdProperty(String nodeIdProperty) {
         this.nodeIdProperty = nodeIdProperty;
     }

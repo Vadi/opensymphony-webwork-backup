@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TreeTag
- * <p/>
- * Created : Dec 12, 2005 3:47:37 PM
- *
+ * @see Tree
  * @author Jason Carreira <jcarreira@eplus.com>
  */
 public class TreeTag extends AbstractUITag {
