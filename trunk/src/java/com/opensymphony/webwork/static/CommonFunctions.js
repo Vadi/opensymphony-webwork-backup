@@ -69,4 +69,25 @@ function TabContent( htmlId, remote ) {
 
 }
 
+/**
+ * Checks whether the current form include an ajax-ified submit button, if so
+ * we return true (otherwise false).
+ *
+ * @param form the HTML form element to check
+ */
+function isAjaxFormSubmit( form ) {
+    // we check whether this exists
+    //      <INPUT type="submit" dojoattachevent="onClick: execute" dojoattachpoint="attachBtn" />
+    var thisForm = document.getElementById(form.id);
+    for( i=0; i<thisForm.elements.length; i++ ) {
+        var field = thisForm.elements[i];
+        if( field.type.toLowerCase()=='submit' ) {
+            if( field.hasAttribute("dojoattachpoint") && field.getAttribute("dojoattachpoint")=="attachBtn" ) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 /**  end tabbed component functions ******************************************************************/
