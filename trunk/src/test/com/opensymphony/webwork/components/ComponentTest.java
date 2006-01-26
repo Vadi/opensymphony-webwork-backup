@@ -5,17 +5,45 @@
 package com.opensymphony.webwork.components;
 
 import java.util.Iterator;
+import java.util.Locale;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 import java.util.Stack;
 
+import javax.servlet.jsp.tagext.TagSupport;
+
+import com.opensymphony.util.TextUtils;
+import com.opensymphony.webwork.TestConfigurationProvider;
+import com.opensymphony.webwork.views.jsp.AbstractTagTest;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
+import com.opensymphony.webwork.views.jsp.ActionTag;
+import com.opensymphony.webwork.views.jsp.BeanTag;
+import com.opensymphony.webwork.views.jsp.ElseIfTag;
+import com.opensymphony.webwork.views.jsp.ElseTag;
+import com.opensymphony.webwork.views.jsp.I18nTag;
+import com.opensymphony.webwork.views.jsp.IfTag;
+import com.opensymphony.webwork.views.jsp.IteratorTag;
+import com.opensymphony.webwork.views.jsp.PropertyTag;
+import com.opensymphony.webwork.views.jsp.PushTag;
+import com.opensymphony.webwork.views.jsp.SetTag;
+import com.opensymphony.webwork.views.jsp.TextTag;
+import com.opensymphony.webwork.views.jsp.URLTag;
+import com.opensymphony.webwork.views.jsp.iterator.AppendIteratorTag;
+import com.opensymphony.webwork.views.jsp.iterator.MergeIteratorTag;
+import com.opensymphony.webwork.views.jsp.ui.AnchorTag;
+import com.opensymphony.webwork.views.jsp.ui.TextFieldTag;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.config.ConfigurationManager;
+import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 /**
- * Test case for method findAncestor(Class) in Component.
+ * Test case for method findAncestor(Class) in Component and some commons
+ * test cases for Component in general.
  * 
  * @author tm_jee
  * @version $Date$ $Id$
  */
-public class ComponentTest extends AbstractUITagTest {
+public class ComponentTest extends AbstractTagTest {
 
 	public void testFindAncestorTest() throws Exception {
     	Property property = new Property(stack);
@@ -81,4 +109,368 @@ public class ComponentTest extends AbstractUITagTest {
     		property.getComponentStack().pop();
     	}
     }
+	
+	// Action Component
+	public void testActionComponentDisposeItselfFromComponentStack() throws Exception {
+		ConfigurationManager.clearConfigurationProviders();
+        ConfigurationManager.addConfigurationProvider(new TestConfigurationProvider());
+        ConfigurationManager.getConfiguration().reload();
+
+        ActionContext actionContext = new ActionContext(context);
+        actionContext.setValueStack(stack);
+        ActionContext.setContext(actionContext);
+        
+		request.setupGetServletPath(TestConfigurationProvider.TEST_NAMESPACE + "/" + "foo.action");
+		try {
+			TextFieldTag t = new TextFieldTag();
+			t.setName("textFieldName");
+			t.setPageContext(pageContext);
+			t.doStartTag();
+		
+			ActionTag tag = new ActionTag();
+			tag.setPageContext(pageContext);
+			tag.setName(TestConfigurationProvider.TEST_NAMESPACE_ACTION);
+			tag.setId(TestConfigurationProvider.TEST_NAMESPACE_ACTION);
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+		
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	
+	// AppendInterator
+	public void testAppendIteratorDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		AppendIteratorTag tag = new AppendIteratorTag();
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	// Bean 
+	public void testBeanComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		BeanTag tag = new BeanTag();
+		tag.setName("com.opensymphony.webwork.util.Counter");
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+	
+	
+	// ElseIf
+	public void testElseIfComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		ElseIfTag tag = new ElseIfTag();
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	// Else
+	public void testElseComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		ElseTag tag = new ElseTag();
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	// If
+	public void testIfComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		IfTag tag = new IfTag();
+		tag.setTest("false");
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	// Iterator
+	public void testIteratorComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		IteratorTag tag = new IteratorTag();
+		tag.setValue("{1,2}");
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			int endIt = tag.doAfterBody();
+			while(TagSupport.EVAL_BODY_AGAIN == endIt) {
+				assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+				endIt = tag.doAfterBody();
+			}
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	// MergeIterator
+	public void testMergeIteratorComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		MergeIteratorTag tag = new MergeIteratorTag();
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	// Property
+	public void testPropertyComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		PropertyTag tag = new PropertyTag();
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	// Push
+	public void testPushComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		PushTag tag = new PushTag();
+		tag.setValue("'aaaa'");
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	// Set
+	public void testSetComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		SetTag tag = new SetTag();
+		tag.setName("name");
+		tag.setValue("'value'");
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	// Text
+	public void testTextComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		TextTag tag = new TextTag();
+		tag.setName("some.i18n.key");
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	public void testI18nComponentDisposeItselfFromComponentStack() throws Exception {
+		stack.getContext().put(ActionContext.LOCALE, Locale.getDefault());
+		
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		ResourceBundle bundle = ResourceBundle.getBundle("com.opensymphony.webwork.components.tempo");
+		LocalizedTextUtil.addDefaultResourceBundle("com.opensymphony.webwork.components.temp");
+		
+		I18nTag tag = new I18nTag();
+		tag.setName("com.opensymphony.webwork.components.tempo");
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	// URL
+	public void testURLComponentDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		URLTag tag = new URLTag();
+		tag.setPageContext(pageContext);
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
 }

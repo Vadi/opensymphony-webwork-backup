@@ -167,9 +167,8 @@ public class IteratorComponent extends Component {
         if (value == null) {
             value = "top";
         }
-
         iterator = MakeIterator.convert(findValue(value));
-
+        
         // get the first
         if ((iterator != null) && iterator.hasNext()) {
             Object currentValue = iterator.next();
@@ -192,6 +191,7 @@ public class IteratorComponent extends Component {
 
             return true;
         } else {
+        	super.end(writer, "");
             return false;
         }
     }
@@ -230,7 +230,6 @@ public class IteratorComponent extends Component {
                     stack.getContext().put(statusAttr, oldStatus);
                 }
             }
-
             super.end(writer, "");
             return false;
         }
