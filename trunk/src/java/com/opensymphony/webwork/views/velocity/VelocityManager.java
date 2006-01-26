@@ -495,6 +495,7 @@ public class VelocityManager {
         addDirective(sb, ComboBoxDirective.class);
         addDirective(sb, ComponentDirective.class);
         addDirective(sb, DatePickerDirective.class);
+        addDirective(sb, DebugDirective.class);
         addDirective(sb, DivDirective.class);
         addDirective(sb, DoubleSelectDirective.class);
         addDirective(sb, FileDirective.class);
