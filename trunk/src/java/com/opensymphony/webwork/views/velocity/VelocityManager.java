@@ -520,6 +520,8 @@ public class VelocityManager {
         addDirective(sb, TextDirective.class);
         addDirective(sb, TextFieldDirective.class);
         addDirective(sb, TokenDirective.class);
+        addDirective(sb, TreeDirective.class);
+        addDirective(sb, TreeNodeDirective.class);
         addDirective(sb, URLDirective.class);
         addDirective(sb, WebTableDirective.class);
         addDirective(sb, ActionErrorDirective.class);
