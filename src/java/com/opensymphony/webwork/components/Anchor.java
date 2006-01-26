@@ -90,10 +90,6 @@ public class Anchor extends RemoteCallUIBean {
     public void evaluateExtraParams() {
         super.evaluateExtraParams();
 
-        /*
-        Moved the portlet related codes to Super Class RemoteCallUIBean -- Henry Hu  mail:hu_pengfei@yahoo.com.cn
-        */
-
         if (notifyTopics != null) {
             addParameter("notifyTopics", findString(notifyTopics));
         }
