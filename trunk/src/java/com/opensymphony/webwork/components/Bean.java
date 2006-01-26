@@ -14,8 +14,8 @@ import java.io.Writer;
  * <p>Instantiates a class that conforms to the JavaBeans specification. This tag has a body which can contain
  * a number of {@link Param} elements to set any mutator methods on that class.</p>
  * <p/>
- * <p>If the id attribute is set on the BeanTag, it will place the instantiated bean into the PageContext and the
- * ActionContext.</p>
+ * <p>If the id attribute is set on the BeanTag, it will place the instantiated bean into the
+ * stack's Context.</p>
  * <p/>
  * <!-- END SNIPPET: javadoc -->
  *
