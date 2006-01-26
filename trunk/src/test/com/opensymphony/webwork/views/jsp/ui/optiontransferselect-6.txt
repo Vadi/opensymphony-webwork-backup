@@ -2,32 +2,32 @@
 <td align="right" valign="top"></td> 
 <td>
 <script language="javascript" src="/webwork/optiontransferselect/optiontransferselect.js"></script>
-<TABLE BORDER="0">
-<TR>
-<TD>
-	<label for="leftTitle">Title Left</label><BR/>
+<table border="0">
+<tr>
+<td>
+	<label for="leftTitle">Title Left</label><br/>
 	<select name="collection" size="20" id="id" multiple="multiple">
     	<option value="Header Key">Header Value</option>
     	<option value=""></option>
     	<option value="Left1">Left1</option>
     	<option value="Left2" selected="selected">Left2</option>
     	<option value="Left3">Left3</option>
-	</select> </TD>
-<TD VALIGN="MIDDLE" ALIGN="CENTER">
-	<INPUT TYPE="button" CLASS="buttonCssClass" STYLE="buttonCssStyle"
-			VALUE="Left" ONCLICK="moveSelectedOptions(document.getElementById('doubleId'), document.getElementById('id'), false, 'Double Header Key', '')" /><BR/><BR/>
-	<INPUT TYPE="button" CLASS="buttonCssClass" STYLE="buttonCssStyle"
-			VALUE="Right" ONCLICK="moveSelectedOptions(document.getElementById('id'), document.getElementById('doubleId'), false, 'Header Key', '')" /><BR/><BR/>
-	<INPUT TYPE="button" CLASS="buttonCssClass" STYLE="buttonCssStyle"
-			VALUE="All Left" ONCLICK="moveAllOptions(document.getElementById('doubleId'), document.getElementById('id'), false, 'Double Header Key', '')" /><BR/><BR/>
-	<INPUT TYPE="button" CLASS="buttonCssClass" STYLE="buttonCssStyle"
-			VALUE="All Right" ONCLICK="moveAllOptions(document.getElementById('id'), document.getElementById('doubleId'), false, 'Header Key', '')" /><BR/><BR/>	
-	<INPUT TYPE="button" CLASS="buttonCssClass" STYLE="buttonCssStyle"
-			VALUE="Select All" ONCLICK="selectAllOptionsExceptSome(document.getElementById('id'), 'key', 'Header Key');selectAllOptionsExceptSome(document.getElementById('doubleId'), 'key', 'Double Header Key');" /><BR/><BR/>
+	</select> </td>
+<td valign="middle" align="center">
+	<input type="button" class="buttonCssClass" style="buttonCssStyle"
+			value="Left" onclick="moveSelectedOptions(document.getElementById('doubleId'), document.getElementById('id'), false, 'Double Header Key', '')" /><br/><br/>
+	<input type="button" class="buttonCssClass" style="buttonCssStyle"
+			value="Right" onclick="moveSelectedOptions(document.getElementById('id'), document.getElementById('doubleId'), false, 'Header Key', '')" /><br/><br/>
+	<input type="button" class="buttonCssClass" style="buttonCssStyle"
+			value="All Left" onclick="moveAllOptions(document.getElementById('doubleId'), document.getElementById('id'), false, 'Double Header Key', '')" /><br/><br/>
+	<input type="button" class="buttonCssClass" style="buttonCssStyle"
+			value="All Right" onclick="moveAllOptions(document.getElementById('id'), document.getElementById('doubleId'), false, 'Header Key', '')" /><br/><br/>	
+	<input type="button" class="buttonCssClass" style="buttonCssStyle"
+			value="Select All" onclick="selectAllOptionsExceptSome(document.getElementById('id'), 'key', 'Header Key');selectAllOptionsExceptSome(document.getElementById('doubleId'), 'key', 'Double Header Key');" /><br/><br/>
 		
-</TD>
-<TD>
-	<label for="rightTitle">Title Right</label><BR/>
+</td>
+<td>
+	<label for="rightTitle">Title Right</label><br/>
 <select 
 	name="list2"
 	size="20"		
@@ -39,8 +39,8 @@
     	<option value="Right2" selected="selected">Right2</option>
     	<option value="Right3">Right3</option>
 </select>
-</TD>
-</TR>
-<TABLE>
+</td>
+</tr>
+</table>
 </td>
 </tr>
