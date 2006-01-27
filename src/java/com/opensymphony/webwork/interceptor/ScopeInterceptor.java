@@ -1,6 +1,5 @@
 package com.opensymphony.webwork.interceptor;
 
-import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
@@ -10,9 +9,6 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
@@ -206,18 +202,17 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
     }
 
     protected void after(ActionInvocation invocation, String result) throws Exception {
-        HttpSession ses = ServletActionContext.getRequest().getSession();
+        Map ses = ActionContext.getContext().getSession();
         unlock(ses);
     }
 
 
     protected void before(ActionInvocation invocation) throws Exception {
         invocation.addPreResultListener(this);
-        HttpServletRequest request = ServletActionContext.getRequest();
-        HttpSession ses = request.getSession(true);
+        Map ses = ActionContext.getContext().getSession();
         lock(ses, invocation);
         String key = getKey(invocation);
-        ServletContext app = ServletActionContext.getServletContext();
+        Map app = ActionContext.getContext().getApplication();
         final OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
         if (LOG.isDebugEnabled()) {
@@ -227,7 +222,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
         if (application != null)
             for (int i = 0; i < application.length; i++) {
                 String string = application[i];
-                Object attribute = app.getAttribute(key + string);
+                Object attribute = app.get(key + string);
                 if (attribute != null) {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("application scoped variable set " + string + " = " + String.valueOf(attribute));
@@ -237,7 +232,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
                 }
             }
 
-        if (request.getParameter(sessionReset) != null) {
+        if (ActionContext.getContext().getParameters().get(sessionReset) != null) {
             return;
         }
 
@@ -248,7 +243,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
         if (session != null && (!"start".equals(type)))
             for (int i = 0; i < session.length; i++) {
                 String string = session[i];
-                Object attribute = ses.getAttribute(key + string);
+                Object attribute = ses.get(key + string);
                 if (attribute != null) {
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("session scoped variable set " + string + " = " + String.valueOf(attribute));
@@ -263,9 +258,9 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
     }
 
     public void beforeResult(ActionInvocation invocation, String resultCode) {
-        HttpSession ses = ServletActionContext.getRequest().getSession();
+        Map ses = ActionContext.getContext().getSession();
         String key = getKey(invocation);
-        ServletContext app = ServletActionContext.getServletContext();
+        Map app = ActionContext.getContext().getApplication();
         final OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
         if (application != null)
@@ -277,7 +272,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
                 }
 
                 //if( value != null)
-                app.setAttribute(key + string, nullConvert(value));
+                app.put(key + string, nullConvert(value));
             }
 
         boolean ends = "end".equals(type);
@@ -286,7 +281,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
             for (int i = 0; i < session.length; i++) {
                 String string = session[i];
                 if (ends) {
-                    ses.removeAttribute(key + string);
+                    ses.remove(key + string);
                 } else {
                     Object value = stack.findValue(string);
 
@@ -296,7 +291,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
 
                     // Null value should be scoped too
                     //if( value != null)
-                    ses.setAttribute(key + string, nullConvert(value));
+                    ses.put(key + string, nullConvert(value));
                 }
             }
         }
@@ -335,7 +330,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
 
     public String intercept(ActionInvocation invocation) throws Exception {
         String result = null;
-        HttpSession ses = ServletActionContext.getRequest().getSession();
+        Map ses = ActionContext.getContext().getSession();
 
         before(invocation);
         try {
