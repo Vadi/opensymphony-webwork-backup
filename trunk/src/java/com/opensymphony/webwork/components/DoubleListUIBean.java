@@ -1,5 +1,7 @@
 package com.opensymphony.webwork.components;
 
+import java.util.Map;
+
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -103,12 +105,17 @@ public abstract class DoubleListUIBean extends ListUIBean {
             addParameter("doubleList", doubleList);
         }
         
+        Object tmpDoubleList = findValue(doubleList);
         if (doubleListKey != null) {
             addParameter("doubleListKey", doubleListKey);
+        }else if (tmpDoubleList instanceof Map) {
+        	addParameter("doubleListKey", "key");
         }
         
         if (doubleListValue != null) {
             addParameter("doubleListValue", doubleListValue);
+        }else if (tmpDoubleList instanceof Map) {
+        	addParameter("doubleListValue", "value");
         }
 
 

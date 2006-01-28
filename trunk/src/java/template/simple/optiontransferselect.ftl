@@ -220,7 +220,7 @@
             <#assign doubleItemKey = stack.findValue('top') />
         </#if>
         <#assign doubleItemKeyStr = doubleItemKey.toString() />
-        <#if parameters.listValue?exists>
+        <#if parameters.doubleListValue?exists>
             <#assign doubleItemValue = stack.findString(parameters.doubleListValue) />
         <#else>
             <#assign doubleItemValue = stack.findString('top') />
