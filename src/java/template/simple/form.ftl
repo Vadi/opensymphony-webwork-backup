@@ -1,3 +1,10 @@
+<#if (parameters.validate?default(false) == false)>
+	<#if parameters.onsubmit?exists>
+		${tag.addParameter('onsubmit', "${parameters.onsubmit}; customOnsubmit(); return true;") }
+	<#else>
+		${tag.addParameter('onsubmit', "customOnsubmit(); return true;") }	
+	</#if>
+</#if>
 <form<#rt/>
 <#if parameters.namespace?exists && parameters.validate?exists>
  namespace="${parameters.namespace?html}"<#rt/>

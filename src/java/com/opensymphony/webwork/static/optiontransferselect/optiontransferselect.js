@@ -99,12 +99,12 @@ function selectUnselectMatchingOptions(obj,regex,which,only) {
 				}
 			}
 			else {
-			if (re.test(obj.options[i].text)) {
-				obj.options[i].selected = selected1;
+				if (re.test(obj.options[i].text)) {
+					obj.options[i].selected = selected1;
 				}
-			else {
-				if (only == true) {
-					obj.options[i].selected = selected2;
+				else {
+					if (only == true) {
+						obj.options[i].selected = selected2;
 					}
 				}
 			}

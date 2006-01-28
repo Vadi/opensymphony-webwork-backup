@@ -4,8 +4,16 @@
  */
 package com.opensymphony.webwork.components;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -61,6 +69,8 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * description="Renders an input form"
  */
 public class OptionTransferSelect extends DoubleListUIBean {
+	
+	private static final Log _log = LogFactory.getLog(OptionTransferSelect.class);
 
 	private static final String TEMPLATE = "optiontransferselect";
 	
@@ -183,6 +193,47 @@ public class OptionTransferSelect extends DoubleListUIBean {
 		// selectAllLabel
 		addParameter("selectAllLabel",
 				selectAllLabel != null ? findValue(selectAllLabel, String.class) : "<*>");
+		
+		
+		
+		
+		// inform the form component our select tag infos, so they know how to select 
+		// its elements upon onsubmit
+		Form formAncestor = (Form) findAncestor(Form.class);
+		if (formAncestor != null) {
+			// key -> select tag id, value -> headerKey (if exists)
+			Map formOptiontransferselectIds = (Map) formAncestor.getParameters().get("optiontransferselectIds");
+			Map formOptiontransferselectDoubleIds = (Map) formAncestor.getParameters().get("optiontransferselectDoubleIds");
+
+			// init lists
+			if (formOptiontransferselectIds == null) {
+				formOptiontransferselectIds = new LinkedHashMap();
+			}
+			if (formOptiontransferselectDoubleIds == null) {
+				formOptiontransferselectDoubleIds = new LinkedHashMap();
+			}
+			
+			
+			// id
+			String tmpId = (String) getParameters().get("id");
+			String tmpHeaderKey = (String) getParameters().get("headerKey");
+			if (tmpId != null && (! formOptiontransferselectIds.containsKey(tmpId))) {
+				formOptiontransferselectIds.put(tmpId, tmpHeaderKey);
+			}
+			
+			// doubleId
+			String tmpDoubleId = (String) getParameters().get("doubleId");
+			String tmpDoubleHeaderKey = (String) getParameters().get("doubleHeaderKey");
+			if (tmpDoubleId != null && (! formOptiontransferselectDoubleIds.containsKey(tmpDoubleId))) {
+				formOptiontransferselectDoubleIds.put(tmpDoubleId, tmpDoubleHeaderKey);
+			}
+			
+			formAncestor.getParameters().put("optiontransferselectIds", formOptiontransferselectIds);
+			formAncestor.getParameters().put("optiontransferselectDoubleIds", formOptiontransferselectDoubleIds);
+		}
+		else {
+			_log.warn("form enclosing optiontransferselect "+this+" not found, auto select upon form submit of optiontransferselect will not work");
+		}
 	}
 	
 	
