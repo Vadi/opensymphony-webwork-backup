@@ -220,20 +220,19 @@ public class DefaultActionMapper implements ActionMapper {
     }
 
     String dropExtension(String name) {
-    	List extensions = getExtensions();
-        if (extensions == null) {
-            return name;
-        } else {
+    		List extensions = getExtensions();
+		if (extensions == null) {
+		    return name;
+		}
         	Iterator it = extensions.iterator();
         	while (it.hasNext()) {
         		String extension = "." + (String) it.next();
         		if ( name.endsWith(extension)) {
         			name = name.substring(0, name.length() - extension.length());
-        			break;
+        			return name;
         		}
         	}
         	return null;
-        }
     }
 
     /**
