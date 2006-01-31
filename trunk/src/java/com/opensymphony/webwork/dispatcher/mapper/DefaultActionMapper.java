@@ -6,7 +6,11 @@ import com.opensymphony.webwork.util.PrefixTrie;
 import com.opensymphony.webwork.WebWorkConstants;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -154,7 +158,7 @@ public class DefaultActionMapper implements ActionMapper {
                 public void execute(String key, ActionMapping mapping) {
                     String location = key.substring(REDIRECT_ACTION_PREFIX.length());
                     ServletRedirectResult redirect = new ServletRedirectResult();
-                    String extension = getExtension();
+                    String extension = getDefaultExtension();
                     if (extension != null) {
                         location += "." + extension;
                     }
@@ -216,23 +220,45 @@ public class DefaultActionMapper implements ActionMapper {
     }
 
     String dropExtension(String name) {
-        String extension = getExtension();
-        if (extension == null) {
+    	List extensions = getExtensions();
+        if (extensions == null) {
             return name;
+        } else {
+        	Iterator it = extensions.iterator();
+        	while (it.hasNext()) {
+        		String extension = "." + (String) it.next();
+        		if ( name.endsWith(extension)) {
+        			name = name.substring(0, name.length() - extension.length());
+        			break;
+        		}
+        	}
+        	return null;
         }
-
-        extension = "." + extension;
-        return name.endsWith(extension)
-                ? name.substring(0, name.length() - extension.length())
-                : null;
     }
 
     /**
      * Returns null if no extension is specified.
      */
-    static String getExtension() {
-        String extension = (String) Configuration.get(WebWorkConstants.WEBWORK_ACTION_EXTENSION);
-        return extension.equals("") ? null : extension;
+    static String getDefaultExtension() {
+        List extensions = getExtensions();
+        if (extensions == null) {
+        	return null;
+        } else {
+        	return (String) extensions.get(0);
+        }
+    }
+    
+    /**
+     * Returns null if no extension is specified.
+     */
+    static List getExtensions() {
+        String extensions = (String) Configuration.get(WebWorkConstants.WEBWORK_ACTION_EXTENSION);
+       
+        if (extensions.equals("")) {
+        	return null;
+        } else {
+        	return Arrays.asList(extensions.split(","));        	
+        } 
     }
 
     String getUri(HttpServletRequest request) {
@@ -264,7 +290,7 @@ public class DefaultActionMapper implements ActionMapper {
             uri.append("!").append(mapping.getMethod());
         }
 
-        String extension = getExtension();
+        String extension = getDefaultExtension();
         if (extension != null) {
             uri.append(".").append(extension);
         }
