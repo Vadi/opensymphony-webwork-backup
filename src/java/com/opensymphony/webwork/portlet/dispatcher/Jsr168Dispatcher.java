@@ -75,14 +75,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
 
     private Locale locale = null;
 
-    private static final int NO_ACTION_YET_PERFORMED = 1;
-
-    private static final int RE_RENDER = 2;
-
-    private static final int NEW_REQUEST = 3;
-
-    private static final int EVENT = 4;
-
     public void init(PortletConfig cfg) throws PortletException {
         super.init(cfg);
         LOG.debug("Creating portlet instance with hashcode = " + hashCode());
