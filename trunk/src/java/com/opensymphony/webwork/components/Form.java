@@ -251,12 +251,12 @@ public class Form extends ClosingUIBean {
             // name/id: cut out anything between / and . should be the id and
             // name
             if (id == null) {
-                slash = result.lastIndexOf('/');
-                int dot = result.indexOf('.', slash);
+                slash = action.lastIndexOf('/');
+                int dot = action.indexOf('.', slash);
                 if (dot != -1) {
-                    id = result.substring(slash + 1, dot);
+                    id = action.substring(slash + 1, dot);
                 } else {
-                    id = result.substring(slash + 1);
+                    id = action.substring(slash + 1);
                 }
                 addParameter("id", escape(id));
             }
