@@ -3,6 +3,7 @@ package com.opensymphony.webwork.components;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
 import com.opensymphony.webwork.util.WebWorkUtil;
+import com.opensymphony.webwork.RequestUtils;
 import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -159,7 +160,7 @@ public class Include extends Component {
             String uri = (String) request.getAttribute("javax.servlet.include.servlet_path");
 
             if (uri == null) {
-                uri = hrequest.getServletPath();
+                uri = RequestUtils.getServletPath(hrequest);
             }
 
             returnValue = uri.substring(0, uri.lastIndexOf('/')) + '/' + relativePath;

@@ -4,6 +4,7 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import com.opensymphony.webwork.RequestUtils;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
 import com.opensymphony.webwork.dispatcher.DispatcherUtils;
@@ -80,7 +81,7 @@ public class TagUtils {
                 // let's just go with a default guess that the namespace is the last the path minus the
                 // last part (/foo/bar/baz.xyz -> /foo/bar)
 
-                String path = request.getServletPath();
+                String path = RequestUtils.getServletPath(request);
                 return path.substring(0, path.lastIndexOf("/"));
             }
         } else {

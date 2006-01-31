@@ -8,6 +8,7 @@
  */
 package com.opensymphony.webwork.views.freemarker;
 
+import com.opensymphony.webwork.RequestUtils;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import freemarker.template.*;
@@ -177,7 +178,7 @@ public class FreemarkerServlet extends HttpServlet {
             return path;
         }
 
-        path = request.getServletPath();
+        path = RequestUtils.getServletPath(request);
 
         if (path != null) {
             return path;

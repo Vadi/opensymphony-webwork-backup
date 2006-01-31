@@ -3,6 +3,8 @@ package com.opensymphony.webwork.dispatcher.mapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.opensymphony.webwork.RequestUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -40,7 +42,7 @@ public class RestfulActionMapper implements ActionMapper {
     protected static final Log LOG = LogFactory.getLog(RestfulActionMapper.class);
 
     public ActionMapping getMapping(HttpServletRequest request) {
-        String uri = request.getServletPath();
+        String uri = RequestUtils.getServletPath(request);
 
         int nextSlash = uri.indexOf('/', 1);
         if (nextSlash == -1) {

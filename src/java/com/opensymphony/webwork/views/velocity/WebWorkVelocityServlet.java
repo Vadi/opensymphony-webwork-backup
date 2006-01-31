@@ -4,6 +4,7 @@
  */
 package com.opensymphony.webwork.views.velocity;
 
+import com.opensymphony.webwork.RequestUtils;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
@@ -57,7 +58,7 @@ public class WebWorkVelocityServlet extends VelocityServlet {
         String servletPath = (String) httpServletRequest.getAttribute("javax.servlet.include.servlet_path");
 
         if (servletPath == null) {
-            servletPath = httpServletRequest.getServletPath();
+            servletPath = RequestUtils.getServletPath(httpServletRequest);
         }
 
         return getTemplate(servletPath, getEncoding());
