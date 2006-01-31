@@ -39,5 +39,9 @@
 		</td>
 	</tr>
 </table>
+
+#wwurl ("id=url" "value=index.jsp")
+#wwa("href=${url}")Back to index.jsp#end
+
 </body>
 </html>
