@@ -11,6 +11,14 @@
         	<result>exampleSubmited.jsp</result>
         	<result name="input">example.jsp</result>
         </action>
+        <action name="exampleVelocity" class="com.opensymphony.webwork.showcase.UITagExample">
+            <result type="velocity">example.vm</result>
+            <result name="input" type="velocity">example.vm</result>
+        </action>
+        <action name="exampleSubmitVelocity" class="com.opensymphony.webwork.showcase.UITagExample" method="submit">
+        	<result type="velocity">exampleSubmited.vm</result>
+        	<result name="input" type="velocity">example.vm</result>
+        </action>
         <action name="lotsOfOptiontransferselect" class="com.opensymphony.webwork.showcase.LotsOfOptiontransferselectAction" method="input">
         	<result>lotsOfOptiontransferselect.jsp</result>
         </action>
