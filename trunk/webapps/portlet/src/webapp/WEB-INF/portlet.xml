@@ -1,7 +1,7 @@
 <portlet-app version="1.0" xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd">
-  <portlet>
+xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd" id="webwork-portlet">
+  <portlet id="WebWorkPortlet">
     <description xml:lang="EN">WebWork2 Test Portlet</description>
     <portlet-name>WebWorkPortlet</portlet-name>
     <display-name xml:lang="EN">WebWork2 Test Portlet</display-name>
@@ -58,7 +58,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd http:
     </portlet-info>
   </portlet>
   
-  <portlet>
+  <portlet id="WebWorkPortlet2">
     <description xml:lang="EN">WebWork2 Test Portlet2</description>
     <portlet-name>WebWorkPortlet2</portlet-name>
     <display-name xml:lang="EN">WebWork2 Test Portlet2</display-name>
