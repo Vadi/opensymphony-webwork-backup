@@ -6,6 +6,10 @@
 
 <body>
 
+#wwurl ("id=url" "value=index.jsp")
+<a href="${url}">Back to index.jsp</a>!
+
+
 #wwform ("action=exampleSubmitVelocity" "method=post" "enctype=multipart/form-data")
     #wwtextfield ("label=Name" "name=name")
     #wwdatepicker ("label=Birthday" "name=birthday")
@@ -20,6 +24,8 @@
     #wwoptiontransferselect ("label=Favourite Cartoons Characters" "name=leftSideCartoonCharacters" "leftTitle=Left Title" "rightTitle=Right Title" "list={'Popeye', 'He-Man', 'Spiderman'}" "multiple=true" "headerKey=headerKey" "headerValue=--- Please Select ---" "emptyOption=true" "doubleList={'Superman', 'Mickey Mouse', 'Donald Duck'}" "doubleName=rightSideCartoonCharacters" "doubleHeaderKey=doubleHeaderKey" "doubleHeaderValue=--- Please Select ---" "doubleEmptyOption=true" "doubleMultiple=true" )
     #wwsubmit()
 #end
+
+#wwa("href=${url}")Back to index.jsp#end
 
 </body>
 </html>
