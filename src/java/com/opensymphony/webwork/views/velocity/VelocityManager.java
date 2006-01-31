@@ -66,6 +66,8 @@ public class VelocityManager {
      * Names of contexts that will be chained on every request
      */
     private String[] chainedContextNames;
+    
+    private Properties velocityProperties;
 
     protected VelocityManager() {
         init();
@@ -86,7 +88,7 @@ public class VelocityManager {
                 try {
                     log.info("Instantiating VelocityManager!, " + classname);
                     // singleton instances shouldn't be built accessing request or session-specific context data
-                    instance = (VelocityManager) ObjectFactory.getObjectFactory().buildBean(Class.forName(classname), null);
+                    instance = (VelocityManager) ObjectFactory.getObjectFactory().buildBean(classname, null);
                 } catch (Exception e) {
                     log.fatal("Fatal exception occurred while trying to instantiate a VelocityManager instance, " + classname, e);
                     instance = new VelocityManager();
@@ -219,6 +221,7 @@ public class VelocityManager {
 
         // now apply our systemic defaults, then allow user to override
         applyDefaultConfiguration(context, properties);
+        
 
         String defaultUserDirective = properties.getProperty("userdirective");
 
@@ -291,6 +294,15 @@ public class VelocityManager {
                 }
             }
         }
+        
+        // overide with programmatically set properties
+        if (this.velocityProperties != null) {
+        	Iterator keys = this.velocityProperties.keySet().iterator();
+        	while (keys.hasNext()) {
+        		String key = (String) keys.next();
+        		properties.setProperty(key, this.velocityProperties.getProperty(key));
+			}
+        }
 
         String userdirective = properties.getProperty("userdirective");
 
@@ -302,6 +314,7 @@ public class VelocityManager {
 
         properties.setProperty("userdirective", userdirective);
 
+        
         // for debugging purposes, allows users to dump out the properties that have been configured
         if (log.isDebugEnabled()) {
             log.debug("Initializing Velocity with the following properties ...");
@@ -414,6 +427,11 @@ public class VelocityManager {
         Properties p = loadConfiguration(context);
 
         VelocityEngine velocityEngine = new VelocityEngine();
+        
+        //	Set the velocity attribute for the servlet context
+        //  if this is not set the webapp loader WILL NOT WORK
+        velocityEngine.setApplicationAttribute(ServletContext.class.getName(),
+                context);
 
         try {
             velocityEngine.init(p);
@@ -575,4 +593,18 @@ public class VelocityManager {
         }
         return string;
     }
+
+	/**
+	 * @return the velocityProperties
+	 */
+	public Properties getVelocityProperties() {
+		return velocityProperties;
+	}
+
+	/**
+	 * @param velocityProperties the velocityProperties to set
+	 */
+	public void setVelocityProperties(Properties velocityProperties) {
+		this.velocityProperties = velocityProperties;
+	}
 }
