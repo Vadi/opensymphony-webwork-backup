@@ -13,13 +13,14 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * @author tm_jee
+ * @author Rainer Hermanns
  * @version $Date$ $Id$
  * @see OptionTransferSelect
  */
 public class OptionTransferSelectDirective extends AbstractDirective {
 
 	public String getBeanName() {
-		return "optiontrasferselect";
+		return "optiontransferselect";
 	}
 
 	protected Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
