@@ -21,7 +21,7 @@
             ant build-portlet
 
             You can use the 'container' system property to target a specific container, e.g. '-Dcontainer=exo'.
-            Supported containers are exo, gridsphere, jboss-portal-2.0, jboss-portal-2.2 and jetspeed2.
+            Supported containers are exo, gridsphere, liferay-3.6.1, jboss-portal-2.0, jboss-portal-2.2 and jetspeed2.
             For IBM WebSphere Portal 5.1, no container property is required.
 
             For example:
@@ -117,7 +117,7 @@
 	</target>
 
 	<target name="prepare-portlet">
-		<property name="webapp" value="portlet"/>
+		<property name="webapp" value="portlet" />
 		<!-- prepare -->
 		<delete dir="${basedir}/tmp" />
 		<mkdir dir="${basedir}/tmp" />
@@ -134,18 +134,18 @@
 
 	<target name="prepare-portlet-deploy" if="container">
 		<!-- Prepare descriptors and potential extra jars -->
-		<property name="deploy.src.dir" value="${basedir}/portlet/src/etc"/>
+		<property name="deploy.src.dir" value="${basedir}/portlet/src/etc" />
 		<antcall target="prepare-${container}" />
 	</target>
 
 	<target name="prepare-exo">
-		<copy file="${deploy.src.dir}/exo/web.xml" tofile="tmp/WEB-INF/web.xml" overwrite="true"/>
+		<copy file="${deploy.src.dir}/exo/web.xml" tofile="tmp/WEB-INF/web.xml" overwrite="true" />
 	</target>
 
 	<target name="prepare-jboss-portal-2.2">
 		<copy todir="tmp/WEB-INF/">
 			<fileset dir="${deploy.src.dir}/jbossportal2.2">
-				<include name="*.*"/>
+				<include name="*.*" />
 			</fileset>
 		</copy>
 	</target>
@@ -153,7 +153,7 @@
 	<target name="prepare-jboss-portal-2.0">
 		<copy todir="tmp/WEB-INF/" overwrite="true">
 			<fileset dir="${deploy.src.dir}/jbossportal2.0">
-				<include name="*.*"/>
+				<include name="*.*" />
 			</fileset>
 		</copy>
 	</target>
@@ -161,7 +161,7 @@
 	<target name="prepare-jetspeed2">
 		<copy todir="tmp/WEB-INF/" overwrite="true">
 			<fileset dir="${deploy.src.dir}/jetspeed2">
-				<include name="*.*"/>
+				<include name="*.*" />
 			</fileset>
 		</copy>
 	</target>
@@ -169,13 +169,21 @@
 	<target name="prepare-gridsphere">
 		<copy todir="tmp/WEB-INF/" overwrite="true">
 			<fileset dir="${deploy.src.dir}/gridsphere">
-				<include name="*.xml"/>
-				<include name="*.txt"/>
+				<include name="*.xml" />
+				<include name="*.txt" />
 			</fileset>
 		</copy>
 		<copy todir="tmp/WEB-INF/lib/" overwrite="true">
 			<fileset dir="${deploy.src.dir}/gridsphere">
-				<include name="*.jar"/>
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="prepare-liferay-3.6.1">
+		<copy todir="tmp/WEB-INF/" overwrite="true">
+			<fileset dir="${deploy.src.dir}/liferay3.6.1">
+				<include name="*.xml" />
 			</fileset>
 		</copy>
 	</target>

@@ -1,5 +1,5 @@
 <%@ taglib prefix="ww" uri="/webwork" %>
-<H2>Welcome to the PortletWork 2.2 example application, running on WebWork 2.2.1</H2>
+<H2>Welcome to the WebWork 2.2.1 example portlet</H2>
 <p/>
 Here you'll find examples of what is possible with the PortletWork framework.
 <ul>
@@ -9,6 +9,7 @@ Here you'll find examples of what is possible with the PortletWork framework.
 <li><a href="<ww:url action="springExample"/>">Spring integration</li>
 <li><a href="<ww:url action="ajaxExample"/>">Ajax</a></li>
 <li><a href="<ww:url action="freeMarkerExample"/>">FreeMarker</a></li>
+<li><a href="<ww:url action="chartExample"/>">Chart example</a></li>
 <li><a href="<ww:url action="index" portletMode="edit"/>">Go to edit mode and see what's there</a></li>
 <li><a href="<ww:url action="index" portletMode="help"/>">Go to help mode and see what's there</a></li>
 </ul>
