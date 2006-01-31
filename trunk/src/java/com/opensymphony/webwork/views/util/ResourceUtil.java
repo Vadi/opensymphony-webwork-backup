@@ -2,6 +2,8 @@ package com.opensymphony.webwork.views.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.opensymphony.webwork.RequestUtils;
+
 /**
  * User: plightbo
  * Date: May 15, 2005
@@ -9,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class ResourceUtil {
     public static String getResourceBase(HttpServletRequest req) {
-        String path = req.getServletPath();
+        String path = RequestUtils.getServletPath(req);
         if (path == null || "".equals(path)) {
             return "";
         }

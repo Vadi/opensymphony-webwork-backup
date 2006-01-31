@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.util.ClassLoaderUtil;
+import com.opensymphony.webwork.RequestUtils;
 import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.config.Configuration;
@@ -153,8 +154,9 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
 
         if (mapping == null) {
             // there is no action in this request, should we look for a static resource?
-            if (request.getServletPath().startsWith("/webwork")) {
-                String name = request.getServletPath().substring("/webwork".length());
+            String servletPath = RequestUtils.getServletPath(request); 
+            if (servletPath.startsWith("/webwork")) {
+                String name = servletPath.substring("/webwork".length());
                 findStaticResource(name, response);
             } else {
                 // this is a normal request, let it pass through
