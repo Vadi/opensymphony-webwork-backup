@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @author Rainer Hermanns
  * @see DoubleSelect
  */
 public class DoubleSelectDirective extends AbstractDirective {
@@ -16,6 +17,6 @@ public class DoubleSelectDirective extends AbstractDirective {
     }
 
     public String getBeanName() {
-        return "double";
+        return "doubleselect";
     }
 }
