@@ -11,9 +11,9 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ObjectFactory;
-import com.opensymphony.xwork.validator.ActionValidatorManager;
 import com.opensymphony.xwork.validator.Validator;
 import com.opensymphony.xwork.validator.FieldValidator;
+import com.opensymphony.xwork.validator.ActionValidatorManagerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -270,7 +270,7 @@ public class Form extends ClosingUIBean {
             return Collections.EMPTY_LIST;
         }
 
-        List all = ActionValidatorManager.getValidators(actionClass, (String) getParameters().get("actionName"));
+        List all = ActionValidatorManagerFactory.getInstance().getValidators(actionClass, (String) getParameters().get("actionName"));
         List validators = new ArrayList();
         for (Iterator iterator = all.iterator(); iterator.hasNext();) {
             Validator validator = (Validator) iterator.next();
