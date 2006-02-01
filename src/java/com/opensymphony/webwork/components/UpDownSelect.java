@@ -51,7 +51,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  *      moveDownLabel="Move Down" 
  *      selectAllLabel="Select All" /&gt;
  * 
- * <!-- END SNIPPTE: example -->
+ * <!-- END SNIPPET: example -->
  * </pre>
  * 
  * 
