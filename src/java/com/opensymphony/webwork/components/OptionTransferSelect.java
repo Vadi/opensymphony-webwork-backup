@@ -22,7 +22,8 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * 
  * Create a option transfer select component which is basically two &lt;select ...&gt;
  * tag with buttons in the middle of them allowing options in each of the 
- * &lt;select ...&gt; to be moved between themselves.
+ * &lt;select ...&gt; to be moved between themselves. Will auto-select all its 
+ * elements upon its containing form submision.
  * 
  * <!-- END SNIPPET: javadoc -->
  * 
@@ -230,6 +231,7 @@ public class OptionTransferSelect extends DoubleListUIBean {
 			
 			formAncestor.getParameters().put("optiontransferselectIds", formOptiontransferselectIds);
 			formAncestor.getParameters().put("optiontransferselectDoubleIds", formOptiontransferselectDoubleIds);
+			
 		}
 		else {
 			_log.warn("form enclosing optiontransferselect "+this+" not found, auto select upon form submit of optiontransferselect will not work");
