@@ -31,25 +31,25 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * 
  * &lt;!-- Example 1: simple example --&gt;
  * &lt;ww:updownselect 
- *		list="#{'england':'England', 'america':'America', 'germany':'Germany'}" 
- *		name="prioritisedFavouriteCountries" 
- *		headerKey="-1" 
- *		headerValue="--- Please Order Them Accordingly ---" 
- *		emptyOption="true" /&gt;
+ * list="#{'england':'England', 'america':'America', 'germany':'Germany'}" 
+ * name="prioritisedFavouriteCountries" 
+ * headerKey="-1" 
+ * headerValue="--- Please Order Them Accordingly ---" 
+ * emptyOption="true" /&gt;
  *
  * &lt;!-- Example 2: more complex example --&gt;
  * &lt;ww:updownselect 
- *		list="defaultFavouriteCartoonCharacters" 
- *		name="prioritisedFavouriteCartoonCharacters" 
- *		headerKey="-1" 
- *		headerValue="--- Please Order ---" 
- *		emptyOption="true" 
- *		allowMoveUp="true" 
- *      allowMoveDown="true" 
- *      allowSelectAll="true" 
- *      moveUpLabel="Move Up"
- *      moveDownLabel="Move Down" 
- *      selectAllLabel="Select All" /&gt;
+ * list="defaultFavouriteCartoonCharacters" 
+ * name="prioritisedFavouriteCartoonCharacters" 
+ * headerKey="-1" 
+ * headerValue="--- Please Order ---" 
+ * emptyOption="true" 
+ * allowMoveUp="true" 
+ * allowMoveDown="true" 
+ * allowSelectAll="true" 
+ * moveUpLabel="Move Up"
+ * moveDownLabel="Move Down" 
+ * selectAllLabel="Select All" /&gt;
  * 
  * <!-- END SNIPPET: example -->
  * </pre>
