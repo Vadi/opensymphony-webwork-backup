@@ -35,6 +35,28 @@ var containingForm = document.getElementById("${parameters.id}");
 			});
 	</#list>
 </#if>
+
+
+<#--
+	Enable auto-select of all elements of updownselect tag upon its containing form
+	submission
+-->
+<#if (parameters.updownselectIds?if_exists?size > 0)>
+	<#assign tmpIds = parameters.updownselectIds.keySet() />
+	<#list tmpIds as tmpId>
+		dojo.event.connect(containingForm, "onsubmit", 
+			function(evt) {
+				var selectObj = document.getElementById("${tmpId}");
+				selectAllOptions(selectObj);
+				selectUnselectMatchingOptions(selectObj, null, "unselect", false, "key");
+				<#if parameters.updownselectIds.get(tmpId)?exists>
+					<#assign tmpHeaderKey = parameters.updownselectIds.get(tmpId) />
+					selectUnselectMatchingOptions(selectObj, "${tmpHeaderKey}", "unselect", false, "key");
+				</#if>
+			});
+	</#list>
+</#if>
+
 </script>
 
 </table>

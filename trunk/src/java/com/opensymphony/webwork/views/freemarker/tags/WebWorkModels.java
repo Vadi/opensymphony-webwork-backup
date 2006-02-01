@@ -1,5 +1,6 @@
 package com.opensymphony.webwork.views.freemarker.tags;
 
+import com.opensymphony.webwork.components.UpDownSelect;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +56,8 @@ public class WebWorkModels {
     protected FieldErrorModel fielderror;
     protected OptionTransferSelectModel optiontransferselect;
     protected TreeModel treeModel;
+    protected UpDownSelectModel updownselect;
+    
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         this.stack = stack;
@@ -380,10 +383,17 @@ public class WebWorkModels {
     	return optiontransferselect;
     }
 
-    public TreeModel getTreeModel() {
+    public TreeModel getTree() {
         if (treeModel == null) {
             treeModel = new TreeModel(stack,req, res);
         }
         return treeModel;
+    }
+    
+    public UpDownSelectModel getUpdownselect() {
+    	if (updownselect == null)  {
+    		updownselect = new UpDownSelectModel(stack, req, res);
+    	}
+    	return updownselect;
     }
 }

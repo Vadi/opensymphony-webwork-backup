@@ -546,6 +546,7 @@ public class VelocityManager {
         addDirective(sb, ActionMessageDirective.class);
         addDirective(sb, FieldErrorDirective.class);
         addDirective(sb, OptionTransferSelectDirective.class);
+        addDirective(sb, UpDownSelectDirective.class);
 
         String directives = sb.toString();
 
