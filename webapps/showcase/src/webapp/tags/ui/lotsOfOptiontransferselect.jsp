@@ -55,7 +55,29 @@
 		name="favouriteCountries" 
 		list="defaultFavouriteCountries" 
 		doubleName="notFavouriteCountries" 
-		doubleList="defaultNotFavouriteCountries" /> 
+		doubleList="defaultNotFavouriteCountries"
+		  /> 
+		
+		
+	<ww:updownselect 
+		list="defaultFavouriteCartoonCharacters" 
+		name="prioritisedFavouriteCartoonCharacters" 
+		headerKey="-1" 
+		headerValue="--- Please Order ---" 
+		emptyOption="true" />	
+		
+	<ww:updownselect
+		list="defaultFavouriteCars"
+		name="prioritisedFavouriteCars" 
+		headerKey="-10" 
+		headerValue="--- Please Order ---" />
+		
+	<ww:updownselect 
+	    list="defaultFavouriteCountries"
+	    name="prioritisedFavouriteCountries" 
+	    emptyOption="true" 
+	    value="{'england', 'brazil'}" />	
+		
 		
 	<ww:submit value="Submit It" />
 </ww:form>

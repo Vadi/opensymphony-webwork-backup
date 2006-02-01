@@ -71,6 +71,30 @@
 			</ww:iterator>
 		</td>
 	</tr>
+	<tr>
+		<td>Prioritised Favourite Cartoon Characters:</td>
+		<td>
+			<ww:iterator value="prioritisedFavouriteCartoonCharacters" status="stat">
+				<ww:property value="%{#stat.count}" />.<ww:property />&nbsp;
+			</ww:iterator>
+		</td>
+	</tr>
+	<tr>
+		<td>Prioritised Favourite Cars:</td>
+		<td>
+			<ww:iterator value="prioritisedFavouriteCars" status="stat">
+				<ww:property value="%{#stat.count}" />.<ww:property />&nbsp;
+			</ww:iterator>
+		</td>	
+	</tr>
+	<tr>
+		<td>Prioritised Favourite Countries</td>
+		<td>
+			<ww:iterator value="prioritisedFavouriteCountries" status="stat">
+				<ww:property value="%{#stat.count}" />.<ww:property />&nbsp;
+			</ww:iterator>
+		</td>
+	</tr>
 	</table>
 
 </body>
