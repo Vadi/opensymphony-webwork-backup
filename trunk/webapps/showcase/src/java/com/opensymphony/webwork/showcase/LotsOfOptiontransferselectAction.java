@@ -28,6 +28,10 @@ public class LotsOfOptiontransferselectAction extends ActionSupport {
 	private List _favouriteCountriesKeys;
 	private List _notFavouriteCountriesKeys;
 	
+	private List _prioritisedFavouriteCartoonCharacters;
+	private List _prioritisedFavouriteCars;
+	private List _prioritisedFavouriteCountries;
+	
 	
 	
 	// Cartoon Characters
@@ -168,6 +172,29 @@ public class LotsOfOptiontransferselectAction extends ActionSupport {
 	
 	public void setNotFavouriteCountries(List notFavouriteCountries) {
 		_notFavouriteCountriesKeys = notFavouriteCountries;
+	}
+	
+	
+	public List getPrioritisedFavouriteCartoonCharacters() {
+		return _prioritisedFavouriteCartoonCharacters;
+	}
+	public void setPrioritisedFavouriteCartoonCharacters(List prioritisedFavouriteCartoonCharacters) {
+		_prioritisedFavouriteCartoonCharacters = prioritisedFavouriteCartoonCharacters;
+	}
+	
+	public List getPrioritisedFavouriteCars() {
+		return _prioritisedFavouriteCars;
+	}
+	public void setPrioritisedFavouriteCars(List prioritisedFavouriteCars) {
+		_prioritisedFavouriteCars = prioritisedFavouriteCars;
+	}
+	
+	
+	public List getPrioritisedFavouriteCountries() {
+		return _prioritisedFavouriteCountries;
+	}
+	public void setPrioritisedFavouriteCountries(List prioritisedFavouriteCountries) {
+		_prioritisedFavouriteCountries = prioritisedFavouriteCountries;
 	}
 	
 	
