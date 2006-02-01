@@ -1,7 +1,10 @@
-<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
 
 <!--  START SNIPPET: quizValidators -->
-
+<!--
+    Add the following DOCTYPE declaration as first line of your XXX-validation.xml file:
+    <!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+-->
 <validators>
     <field name="name">
         <field-validator type="requiredstring">
