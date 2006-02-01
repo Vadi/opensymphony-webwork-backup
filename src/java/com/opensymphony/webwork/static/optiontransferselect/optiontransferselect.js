@@ -20,19 +20,29 @@
 
 // HISTORY
 // ------------------------------------------------------------------
-// Jan 1, 2005: (tm_jee) moveSelectedOptions(from, to) accept a 5th argument
-//              that function exactly like the fourth (regexp)
-// Jan 1, 2005: (tm_jee) added unSelectMatchingOptionsBasedOnKey
-// Jan 1, 2005: (tm_jee) alter selectUnselectMatchingOptions(obj,regexp,which,only)
-//              accept a 5th string agrument ('key' or 'text'). If key regexp
-//              is matched on <option> tag value attribute else the normal way,
-//              the text of <option></option>
-// Jan 1, 2005: (tm_jee) alter selectUnselectMatchingOptions(obj,regexp,which,only)
-//              when it is in 'key' mode to auto-unselect <option> with value of 
-//              empty string.
-// Jan 1, 2005: (tm_jee) added selectAllOptionsExceptSome(obj, keyOrText, regexp)
-//              to select all the options of a select except those defined in regexp
-//              that match the key/text
+// Jan 31, 2005: (tm_jee) alter selectAllOptions(obj) to ignore those option whose key
+//               is empty.
+// Jan 31, 2005: (tm_jee) added moveOptionUp(obj, regexp) to move obj up except when
+//               obj's option's key is empty or if it matches the regexp
+// Jan 31, 2005: (tm_jee) added moveOptionDown(obj, regexp) to move obj down except when
+//               obj's option's key is empty or if it matches the regexp
+// Jan 31, 2005: (tm_jee) altered moveOptionUp(obj) to ignore moving obj's option
+//               up if its key is empty
+// Jan 31, 2005: (tm_jee) altered moveOptionDown(obj) to ignore moving obj's option
+//               down if its key is empty
+// Jan 1, 2005:  (tm_jee) moveSelectedOptions(from, to) accept a 5th argument
+//               that function exactly like the fourth (regexp)
+// Jan 1, 2005:  (tm_jee) added unSelectMatchingOptionsBasedOnKey
+// Jan 1, 2005:  (tm_jee) alter selectUnselectMatchingOptions(obj,regexp,which,only)
+//               accept a 5th string agrument ('key' or 'text'). If key regexp
+//               is matched on <option> tag value attribute else the normal way,
+//               the text of <option></option>
+// Jan 1, 2005:  (tm_jee) alter selectUnselectMatchingOptions(obj,regexp,which,only)
+//               when it is in 'key' mode to auto-unselect <option> with value of 
+//               empty string.
+// Jan 1, 2005:  (tm_jee) added selectAllOptionsExceptSome(obj, keyOrText, regexp)
+//               to select all the options of a select except those defined in regexp
+//               that match the key/text
 //
 // April 20, 2005: Fixed the removeSelectedOptions() function to 
 //                 correctly handle single selects
@@ -183,7 +193,9 @@ function sortSelect(obj) {
 function selectAllOptions(obj) {
 	if (!hasOptions(obj)) { return; }
 	for (var i=0; i<obj.options.length; i++) {
-		obj.options[i].selected = true;
+		if (! obj.options[i].value == '') {
+				obj.options[i].selected = true;
+			}
 		}
 	}
 	
@@ -337,6 +349,44 @@ function swapOptions(obj,i,j) {
 	o[j].selected = i_selected;
 	}
 	
+// --------------------------------------------------------------------
+// moveOptionUp(select_object, regexp)
+//  Move selected option in  a select list up one except if the key of the option
+//  matches regexp or is empty
+// --------------------------------------------------------------------	
+function moveOptionUp(obj, re) {
+	var re = RegExp(re);
+	if (!hasOptions(obj)) { return; }
+	for (i=0; i<obj.options.length; i++) {
+		if (obj.options[i].selected && (!re.test(obj.options[i].value)) && (!obj.options[i].value == '')) {
+			if (i != 0 && !obj.options[i-1].selected) {
+				swapOptions(obj,i,i-1);
+				obj.options[i-1].selected = true;
+				}
+			}
+		}
+	}
+	
+// ---------------------------------------------------------------------
+// moveOptionDown(select_obj, regexp)
+//  Move selected option in a select list down one except if the key of the option
+//  matches regexp or is empty
+// ---------------------------------------------------------------------	
+function moveOptionDown(obj, re) {
+	var re = RegExp(re);
+	if (!hasOptions(obj)) { return; }
+	for (i=obj.options.length-1; i>=0; i--) {
+		if (obj.options[i].selected && (!re.test(obj.options[i].value)) && (!obj.options[i].value == '')) {
+			if (i != (obj.options.length-1) && ! obj.options[i+1].selected) {
+				swapOptions(obj,i,i+1);
+				obj.options[i+1].selected = true;
+				}
+			}
+		}
+	}
+	
+	
+	
 // -------------------------------------------------------------------
 // moveOptionUp(select_object)
 //  Move selected option in a select list up one
@@ -344,7 +394,7 @@ function swapOptions(obj,i,j) {
 function moveOptionUp(obj) {
 	if (!hasOptions(obj)) { return; }
 	for (i=0; i<obj.options.length; i++) {
-		if (obj.options[i].selected) {
+		if (obj.options[i].selected && (! obj.options[i].value == '')) {
 			if (i != 0 && !obj.options[i-1].selected) {
 				swapOptions(obj,i,i-1);
 				obj.options[i-1].selected = true;
@@ -360,7 +410,7 @@ function moveOptionUp(obj) {
 function moveOptionDown(obj) {
 	if (!hasOptions(obj)) { return; }
 	for (i=obj.options.length-1; i>=0; i--) {
-		if (obj.options[i].selected) {
+		if (obj.options[i].selected && (!obj.options[i].value == '')) {
 			if (i != (obj.options.length-1) && ! obj.options[i+1].selected) {
 				swapOptions(obj,i,i+1);
 				obj.options[i+1].selected = true;

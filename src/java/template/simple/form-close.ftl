@@ -2,6 +2,10 @@
 
 <script>
 	function customOnsubmit() {
+	
+	<#--
+	   Code that will auto-select optiontransferselect elements upon containing form submission
+	-->
 	<#if (parameters.optiontransferselectIds?if_exists?size > 0)>
 		<#assign selectTagIds = parameters.optiontransferselectIds.keySet()/>
 		<#list selectTagIds as tmpId>
@@ -15,7 +19,6 @@
 			</#if>
 		</#list>
 	</#if>
-	
 	<#if (parameters.optiontransferselectDoubleIds?if_exists?size > 0) >		
 		<#assign doubleSelectTagIds = parameters.optiontransferselectDoubleIds.keySet()/>
 		<#list doubleSelectTagIds as tmpDoubleId>
@@ -29,6 +32,25 @@
 			</#if>		
 		</#list>
 	</#if>
+	
+	
+	
+	<#--
+	   Code that will auto select updownselect elements upon its containing form submission
+	-->
+	<#if (parameters.updownselectIds?if_exists?size > 0)>
+		<#assign updownselectTagIds = parameters.updownselectIds.keySet() />
+		<#list updownselectTagIds as tmpUpdownselectTagId>
+			var updownselectObj = document.getElementById("${tmpUpdownselectTagId}");
+			selectAllOptions(updownselectObj);
+			selectUnselectMatchingOptions(updownselectObj, null, "unselect", false, "key");
+			<#if parameters.updownselectIds.get(tmpUpdownselectTagId)?exists>
+				<#assign updownselectHeaderKey = parameters.updownselectIds.get(tmpUpdownselectTagId) />
+				selectUnselectMatchingOptions(updownselectObj, "${updownselectHeaderKey}", "unselect", false, "key");
+			</#if>
+		</#list>
+	</#if>
+	
 	}
 </script>
 
