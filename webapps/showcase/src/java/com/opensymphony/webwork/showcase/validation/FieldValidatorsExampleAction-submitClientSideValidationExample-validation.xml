@@ -19,7 +19,13 @@
 	<field name="requiredStringValidatorField">
 		<field-validator type="requiredstring">
 			<param name="trim">true</param>
-			<message><![CDATA[ required and must be string ]]></message>
+            <message key="i18n.nothing.here"><![CDATA[ required and must be string ]]></message>
+		</field-validator>
+	</field>
+	<field name="requiredStringValidatorField">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+            <message key="i18n.requiredstring"><![CDATA[ required and must be string ]]></message>
 		</field-validator>
 	</field>
 	<field name="integerValidatorField">
