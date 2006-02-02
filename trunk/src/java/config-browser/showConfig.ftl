@@ -11,7 +11,7 @@
 	<tr><td>Parameters:</td><td> <#list config.params?keys as p>
 		${p}
 	</#list></td></tr>
-	
+
 	<tr><td>Default location:</td><td> <a href="${base}${namespace}/${actionName}.${extension}">
 		${base}${namespace}/${actionName}.${extension}
 	</a>
@@ -68,7 +68,7 @@
     		</tr>
     	</#list>
     </table>
-    
+
 <#elseif exceptionsSelected>	<!-- Action exception mappings -->
     <table width="100%">
         <tr><th>Name</th><th>Exception Class Name</th><th>Result</th><th>Parameters</th></tr>
@@ -89,7 +89,7 @@
 <#elseif interceptorsSelected>	<!-- Action interceptors -->
     <table width="100%">
         <tr><th>Name</th><th>Type</th></tr>
-        <#list config.interceptors as i>    		
+        <#list config.interceptors as i>
         	<tr <#if i_index%2 gt 0>class="b"<#else>class="a"</#if>>
     			<td>${action.stripPackage(i.class)}</td>
     			<td>${i.class.name}</td>
@@ -107,7 +107,10 @@
     	</#list>
     </table>
 <#else>
-    <@ww.action name="showValidators" clazz="${config.className}" context="${namespace}" executeResult="true"/>
+    <@ww.action name="showValidators" executeResult="true">
+        <@ww.param name="clazz" value="'${config.className}'"/>
+        <@ww.param name="context" value="'${namespace}'"/>
+    </@ww.action>
 </#if>
 
 <#call endPage>
