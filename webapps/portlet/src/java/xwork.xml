@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE xwork PUBLIC
-    "-//OpenSymphony Group//XWork 1.0//EN"
-    "http://www.opensymphony.com/xwork/xwork-1.1.dtd">
+    "-//OpenSymphony Group//XWork 1.1.1//EN"
+    "http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
 <!--
    Copyright (c) 2002-2006 by OpenSymphony
    All rights reserved.
