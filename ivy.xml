@@ -75,7 +75,7 @@
         <dependency org="freemarker" name="freemarker" rev="2.3.4" conf="freemarker->default"/>
 
         <!-- velocity -->
-        <dependency org="apache" name="velocity" rev="1.4" />
+        <dependency org="apache" name="velocity" rev="1.4" conf="velocity->*"/>
         <dependency org="apache" name="velocity-tools" rev="1.1" conf="velocity->view"/>
         <dependency org="commons-collections" name="commons-collections" rev="2.1.1" conf="velocity->*"/>
 
