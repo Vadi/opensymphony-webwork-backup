@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.util.ClassLoaderUtil;
@@ -30,9 +34,8 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * User: patrick
- * Date: Jun 24, 2005
- * Time: 2:11:59 PM
+ * @author patrick
+ * @author Rainer Hermanns
  */
 public class DispatcherUtils {
     private static final Log LOG = LogFactory.getLog(DispatcherUtils.class);
