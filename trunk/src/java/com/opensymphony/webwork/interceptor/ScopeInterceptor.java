@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 /**
  * <!-- START SNIPPET: description -->
@@ -104,6 +105,7 @@ import java.util.Map;
  *     &lt;interceptor-ref name="hibernate"/&gt;
  *     &lt;interceptor-ref name="scope"&gt;
  *         &lt;param name="session"&gt;filter,orderBy&lt;/param&gt;
+ *         &lt;param name="autoCreateSession"&gt;true&lt;/param&gt;
  *     &lt;/interceptor-ref&gt;
  *     &lt;result name="success"&gt;good_result.ftl&lt;/result&gt;
  * &lt;/action&gt;
@@ -111,6 +113,7 @@ import java.util.Map;
  * </pre>
  *
  * @author Mike Mosiewicz
+ * @author Rainer Hermanns
  */
 public class ScopeInterceptor implements Interceptor, PreResultListener {
 
@@ -120,6 +123,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
     String[] session = null;
     String key;
     String type = null;
+    boolean autoCreateSession = true;
     String sessionReset = "session.reset";
     boolean reset = false;
 
@@ -134,6 +138,12 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
     public void setSession(String s) {
         if (s != null) {
             session = s.split(" *, *");
+        }
+    }
+
+    public void setAutoCreateSession(String value) {
+        if (value != null && value.length() > 0) {
+            this.autoCreateSession = Boolean.valueOf(value);
         }
     }
 
@@ -166,7 +176,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
         if (o == NULL) {
             return null;
         }
-        
+
         return o;
     }
 
@@ -203,14 +213,24 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
 
     protected void after(ActionInvocation invocation, String result) throws Exception {
         Map ses = ActionContext.getContext().getSession();
-        unlock(ses);
+        if ( ses != null) {
+            unlock(ses);
+        }
     }
 
 
     protected void before(ActionInvocation invocation) throws Exception {
         invocation.addPreResultListener(this);
         Map ses = ActionContext.getContext().getSession();
-        lock(ses, invocation);
+        if (ses == null && autoCreateSession) {
+            ses = new HashMap();
+            ActionContext.getContext().setSession(ses);
+        }
+
+        if ( ses != null) {
+            lock(ses, invocation);
+        }
+
         String key = getKey(invocation);
         Map app = ActionContext.getContext().getApplication();
         final OgnlValueStack stack = ActionContext.getContext().getValueStack();
@@ -240,7 +260,12 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
             return;
         }
 
-        if (session != null && (!"start".equals(type)))
+        if (ses == null) {
+            LOG.debug("No HttpSession created... Cannot set session scoped variables");
+            return;
+        }
+
+        if (session != null && (!"start".equals(type))) {
             for (int i = 0; i < session.length; i++) {
                 String string = session[i];
                 Object attribute = ses.get(key + string);
@@ -251,6 +276,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
                     stack.setValue(string, nullConvert(attribute));
                 }
             }
+        }
     }
 
     public void setKey(String key) {
@@ -258,7 +284,6 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
     }
 
     public void beforeResult(ActionInvocation invocation, String resultCode) {
-        Map ses = ActionContext.getContext().getSession();
         String key = getKey(invocation);
         Map app = ActionContext.getContext().getApplication();
         final OgnlValueStack stack = ActionContext.getContext().getValueStack();
@@ -277,25 +302,31 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
 
         boolean ends = "end".equals(type);
 
-        if (session != null) {
-            for (int i = 0; i < session.length; i++) {
-                String string = session[i];
-                if (ends) {
-                    ses.remove(key + string);
-                } else {
-                    Object value = stack.findValue(string);
+        Map ses = ActionContext.getContext().getSession();
+        if (ses != null) {
 
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("session scoped variable saved " + string + " = " + String.valueOf(value));
+            if (session != null) {
+                for (int i = 0; i < session.length; i++) {
+                    String string = session[i];
+                    if (ends) {
+                        ses.remove(key + string);
+                    } else {
+                        Object value = stack.findValue(string);
+
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("session scoped variable saved " + string + " = " + String.valueOf(value));
+                        }
+
+                        // Null value should be scoped too
+                        //if( value != null)
+                        ses.put(key + string, nullConvert(value));
                     }
-
-                    // Null value should be scoped too
-                    //if( value != null)
-                    ses.put(key + string, nullConvert(value));
                 }
             }
+            unlock(ses);
+        } else {
+            LOG.debug("No HttpSession created... Cannot save session scoped variables.");
         }
-        unlock(ses);
         if (LOG.isDebugEnabled()) {
             LOG.debug("scope interceptor after (before result)");
         }
@@ -331,13 +362,14 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
     public String intercept(ActionInvocation invocation) throws Exception {
         String result = null;
         Map ses = ActionContext.getContext().getSession();
-
         before(invocation);
         try {
             result = invocation.invoke();
             after(invocation, result);
         } finally {
-            unlock(ses);
+            if (ses != null) {
+                unlock(ses);
+            }
         }
 
         return result;
