@@ -143,7 +143,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
 
     public void setAutoCreateSession(String value) {
         if (value != null && value.length() > 0) {
-            this.autoCreateSession = Boolean.valueOf(value);
+            this.autoCreateSession = new Boolean(value).booleanValue();
         }
     }
 
