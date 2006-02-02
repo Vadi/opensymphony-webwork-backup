@@ -4,23 +4,9 @@
     <include file="webwork-default.xml"/>
 
     <package name="default" extends="webwork-default">
-        <action name="listPeople" class="com.acme.ListPeople">
+        <!--action name="listPeople" class="com.opensymphony.webwork.showcase.person.ListPeople">
             <interceptor-ref name="validationWorkflowStack"/>
             <result type="freemarker">listPeople.ftl</result>
-        </action>
-
-        <!-- our JasperReports example -->
-        <action name="jasperList" class="com.acme.action.JasperAction">
-            <result name="success" type="jasper">
-                <param name="location">/jasper/sample_report.jasper</param>
-                <param name="dataSource">myList</param>
-            </result>
-        </action>
-
-        
-        <action name="newPerson" class="com.acme.CreatePerson">
-            <result type="redirect">listPeople.action</result>
-            <result name="input" type="freemarker">newPerson.ftl</result>
-        </action>
+        </action-->
     </package>
 </xwork>
