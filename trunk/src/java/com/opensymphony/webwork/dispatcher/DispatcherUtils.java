@@ -15,9 +15,7 @@ import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
-import com.opensymphony.xwork.util.LocalizedTextUtil;
-import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.util.XWorkContinuationConfig;
+import com.opensymphony.xwork.util.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -93,6 +91,23 @@ public class DispatcherUtils {
                 ObjectFactory.setObjectFactory(objectFactory);
             } catch (Exception e) {
                 LOG.error("Could not load ObjectFactory named " + className + ". Using default ObjectFactory.", e);
+            }
+        }
+
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_OBJECTTYPEDETERMINER)) {
+            String className = (String) Configuration.get(WebWorkConstants.WEBWORK_OBJECTTYPEDETERMINER);
+            if (className.equals("tiger")) {
+                // note: this class name needs to be in string form so we don't put hard
+                //       dependencies on xwork-tiger, since it isn't technically required.
+                className = "com.opensymphony.xwork.util.GenericsObjectTypeDeterminer";
+            }
+
+            try {
+                Class clazz = ClassLoaderUtil.loadClass(className, DispatcherUtils.class);
+                ObjectTypeDeterminer objectTypeDeterminer = (ObjectTypeDeterminer) clazz.newInstance();
+                ObjectTypeDeterminerFactory.setInstance(objectTypeDeterminer);
+            } catch (Exception e) {
+                LOG.error("Could not load ObjectTypeDeterminer named " + className + ". Using default ObjectTypeDeterminer.", e);
             }
         }
 
