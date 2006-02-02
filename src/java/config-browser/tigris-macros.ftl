@@ -69,10 +69,13 @@
   		<p>
 			<strong>${caption}</strong></p>
 			${message}
-			<#foreach e in errors>
-				<#call error(e)>
-			</#foreach>
-		</p>
+            <#if errors?exists>
+                <@ww.iterator id="e" value="errors">
+                    <#assign e = stack.findString('top') />
+                    <#call error(e)>
+                </@ww.iterator>
+            </#if>
+        </p>
 	</div>
 </#macro>
 
