@@ -29,6 +29,9 @@
 		<!-- crud -->
 		<li><ww:url id="url" value="/empmanager"/><ww:a href="%{url}">CRUD Examples</ww:a></li>
 		
+		<!-- person manager sample -->
+		<li><ww:url id="url" value="/person"/><ww:a href="%{url}">PersonManager Sample</ww:a></li>
+
         <!-- validation -->
         <li><ww:url id="url" value="/validation"/><ww:a href="%{url}">Validation Examples</ww:a></li>
 

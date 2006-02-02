@@ -9,4 +9,6 @@
     <bean id="skillDao" class="com.opensymphony.webwork.showcase.dao.SkillDao"/>
     <bean id="employeeDao" class="com.opensymphony.webwork.showcase.dao.EmployeeDao"/>
 
+    <bean id="personManager" class="com.opensymphony.webwork.showcase.person.PersonManager"/>
+    
 </beans>
