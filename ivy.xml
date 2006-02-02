@@ -40,6 +40,7 @@
         <conf name="xslt"/>
         <conf name="tiger"/>
         <conf name="cewolf"/>
+        <conf name="velocity"/>
         <conf name="hibernate"/>
     </configurations>
     <publications>
@@ -75,8 +76,9 @@
         <dependency org="freemarker" name="freemarker" rev="2.3.4" conf="freemarker->default"/>
 
         <!-- velocity -->
-        <dependency org="apache" name="velocity" rev="1.4" conf="velocity->velocity-dep"/>
+        <dependency org="apache" name="velocity" rev="1.4" />
         <dependency org="apache" name="velocity-tools" rev="1.1" conf="velocity->view"/>
+        <dependency org="commons-collections" name="commons-collections" rev="2.1.1" conf="velocity->default"/>
 
         <!-- fileupload -->
         <dependency org="apache" name="commons-fileupload" rev="1.1" conf="fileupload->default"/>
@@ -111,7 +113,7 @@
         <dependency org="poi" name="poi" rev="2.5.1" conf="jasperreports->default"/>
         <dependency org="commons-beanutils" name="commons-beanutils" rev="1.7.0" conf="jasperreports->default"/>
         <dependency org="commons-digester" name="commons-digester" rev="1.7" conf="jasperreports->default"/>
-        <dependency org="commons-collections" name="commons-collections" rev="2.1.1" conf="jasperreports->default"/>
+        <dependency org="commons-collections" name="commons-collections" rev="2.1.1" conf="jasperreports->default;velocity->default"/>
 
         <!-- jfree -->
         <dependency org="jfree" name="jcommon" rev="1.0.0" conf="jfree->default"/>
@@ -121,7 +123,6 @@
         <dependency org="jfree" name="jcommon" rev="1.0.0" conf="xslt->default"/>
 
         <!-- portlet -->
-        <dependency org="org.apache.pluto" name="pluto" rev="1.0.1-rc4" conf="portlet->default"/>
         <dependency org="portlet-api" name="portlet-api" rev="1.0" conf="portlet->default"/>
 
         <!-- spring -->
