@@ -6,6 +6,8 @@ import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.interceptor.Interceptor;
 import com.opensymphony.xwork.interceptor.PreResultListener;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.dispatcher.SessionMap;
+import com.opensymphony.webwork.ServletActionContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -223,7 +225,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
         invocation.addPreResultListener(this);
         Map ses = ActionContext.getContext().getSession();
         if (ses == null && autoCreateSession) {
-            ses = new HashMap();
+            ses = new SessionMap(ServletActionContext.getRequest());
             ActionContext.getContext().setSession(ses);
         }
 
