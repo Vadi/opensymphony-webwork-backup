@@ -7,6 +7,8 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
+import java.util.Map;
+
 
 /**
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
@@ -17,6 +19,34 @@ public class CheckboxTest extends AbstractUITagTest {
     public CheckboxTest() {
     }
 
+    /**
+     * Initialize a map of {@link com.opensymphony.webwork.views.jsp.AbstractUITagTest.PropertyHolder} for generic tag
+     * property testing. Will be used when calling {@link #verifyGenericProperties(com.opensymphony.webwork.views.jsp.ui.AbstractUITag,
+     * String, String[])} as properties to verify.<p/> This implementation extends testdata from AbstractUITag.
+     *
+     * @return A Map of PropertyHolders values bound to {@link com.opensymphony.webwork.views.jsp.AbstractUITagTest.PropertyHolder#getName()}
+     *         as key.
+     */
+    protected Map initializedGenericTagTestProperties() {
+        Map result = super.initializedGenericTagTestProperties();
+        new PropertyHolder("value", "true").addToMap(result);
+        return result;
+    }
+
+    public void testGenericSimple() throws Exception {
+        CheckboxTag tag = new CheckboxTag();
+        verifyGenericProperties(tag, "simple", null);
+    }
+
+    public void testGenericXhtml() throws Exception {
+        CheckboxTag tag = new CheckboxTag();
+        verifyGenericProperties(tag, "xhtml", null);
+    }
+
+    public void testGenericAjax() throws Exception {
+        CheckboxTag tag = new CheckboxTag();
+        verifyGenericProperties(tag, "ajax", null);
+    }
 
     public void testChecked() throws Exception {
         TestAction testAction = (TestAction) action;
