@@ -1,0 +1,34 @@
+*.ipr
+*.iws
+*.iml
+*.log
+build
+dist
+bin
+test*
+cache
+logs
+velocity.log
+webapps
+.classpath
+.project
+build-*
+Test Plan.jmx
+Test Plan.jtl
+Test Plan2.jmx
+Test_Results.jtl
+Test Plan.jmx
+Test Plan.jtl
+Test Plan2.jmx
+Test Plan.jmx
+Test Plan2.jmx
+Test Plan.jmx
+Test Plan.jtl
+Test Plan2.jmx
+.compatibility
+.j2ee
+.runtime
+.websettings
+release.properties
+ivyrep.properties
+.settings
