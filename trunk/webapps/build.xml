@@ -3,29 +3,33 @@
 
 	<target name="help">
 		<echo>
-            To build a webapp, simply run:
+            o To create a new webapp structure, simply run
 
-            ant build -Dwebapp=XXX
+                 ant new
+            
+            o To build a webapp, simply run:
 
-            ... Where XXX is the name of the webapp you want to build.
-            After the build is finished, the fully-built war file can
-            be found in the dist directory. You may deploy this file
-            to any servlet container.
+                 ant build -Dwebapp=XXX
 
-            For example:
+              ... Where XXX is the name of the webapp you want to build.
+              After the build is finished, the fully-built war file can
+              be found in the dist directory. You may deploy this file
+              to any servlet container.
 
-            ant build -Dwebapp=sandbox
+                 For example:
 
-            To build a portlet webapp, simply run:
+                 ant build -Dwebapp=sandbox
 
-            ant build-portlet
+            o To build a portlet webapp, simply run:
 
-            You can use the 'container' system property to target a specific container, e.g. '-Dcontainer=exo'.
-            Supported containers are exo, gridsphere, liferay-3.6.1, jboss-portal-2.0, jboss-portal-2.2 and jetspeed2.
-            For IBM WebSphere Portal 5.1, no container property is required.
+                 ant build-portlet
 
-            For example:
-            ant build-portlet -Dcontainer=jboss-portal-2.2
+              You can use the 'container' system property to target a specific container, e.g. '-Dcontainer=exo'.
+              Supported containers are exo, gridsphere, liferay-3.6.1, jboss-portal-2.0, jboss-portal-2.2 and jetspeed2.
+              For IBM WebSphere Portal 5.1 and Apache Pluto 1.0.1, no container property is required.
+
+                 For example:
+                 ant build-portlet -Dcontainer=jboss-portal-2.2
         </echo>
 	</target>
 
