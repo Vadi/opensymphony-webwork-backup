@@ -179,8 +179,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
     /**
      * @see javax.portlet.Portlet#processAction(javax.portlet.ActionRequest,
      *      javax.portlet.ActionResponse)
-     * @see #serviceAction(PortletRequest, PortletResponse, String, String, Map,
-     *      Map, Map, Map, Integer)
      */
     public void processAction(ActionRequest request, ActionResponse response)
             throws PortletException, IOException {
@@ -200,8 +198,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
     /**
      * @see javax.portlet.Portlet#render(javax.portlet.RenderRequest,
      *      javax.portlet.RenderResponse)
-     * @see #serviceAction(PortletRequest, PortletResponse, String, String, Map,
-     *      Map, Map, Map, Integer)
      */
     public void render(RenderRequest request, RenderResponse response)
             throws PortletException, IOException {
@@ -238,7 +234,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
      * @param applicationMap a Map of all servlet context attributes.
      * @param request the HttpServletRequest object.
      * @param response the HttpServletResponse object.
-     * @param servletConfig the ServletConfig object.
+     * @param portletConfig the PortletConfig object.
      * @param phase The portlet phase (render or action, see
      *        {@link PortletActionConstants})
      * @return a HashMap representing the <tt>Action</tt> context.
@@ -279,18 +275,16 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
      * Loads the action and executes it. This method first creates the action
      * context from the given parameters then loads an <tt>ActionProxy</tt>
      * from the given action name and namespace. After that, the action is
-     * executed and output channels throught the response object. Errors are
-     * also sent back to the user via the
-     * {@link #sendError(HttpServletRequest,HttpServletResponse,int,Exception)}
-     * method.
+     * executed and output channels throught the response object. 
      * 
      * @param request the HttpServletRequest object.
      * @param response the HttpServletResponse object.
-     * @param namespace the namespace or context of the action.
-     * @param actionName the name of the action to execute.
+     * @param mapping the action mapping.
      * @param requestMap a Map of request attributes.
      * @param parameterMap a Map of request parameters.
      * @param sessionMap a Map of all session attributes.
+     * @param applicationMap a Map of all application attributes.
+     * @param portletNamespace the namespace or context of the action.
      * @param phase The portlet phase (render or action, see
      *        {@link PortletActionConstants})
      * @param applicationMap a Map of all application attributes.
@@ -348,7 +342,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
     }
 
     /**
-     * @return
+     * @return request UID
      */
     private String generateRequestUID() {
         return Long.toString(System.currentTimeMillis());
