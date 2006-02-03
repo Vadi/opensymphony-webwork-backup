@@ -8,6 +8,7 @@ import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 
 
 /**
@@ -62,4 +63,35 @@ public class RadioTest extends AbstractUITagTest {
 
         verify(RadioTag.class.getResource("Radio-1.txt"));
     }
+
+    public void testGenericSimple() throws Exception {
+        RadioTag tag = new RadioTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "simple", new String[]{"id","value"});
+    }
+
+    public void testGenericXhtml() throws Exception {
+        RadioTag tag = new RadioTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "xhtml", new String[]{"id","value"});
+    }
+
+    public void testGenericAjax() throws Exception {
+        RadioTag tag = new RadioTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "ajax", new String[]{"id","value"});
+    }
+
+    private void prepareTagGeneric(RadioTag tag) {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+        testAction.setList(new String[][]{
+                {"hello", "world"},
+                {"foo", "bar"}
+        });
+        tag.setList("list");
+        tag.setListKey("top[0]");
+        tag.setListValue("top[1]");
+    }
+
 }
