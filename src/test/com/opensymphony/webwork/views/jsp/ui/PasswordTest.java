@@ -29,4 +29,20 @@ public class PasswordTest extends AbstractUITagTest {
 
         verify(PasswordTag.class.getResource("Password-1.txt"));
     }
+
+    public void testGenericSimple() throws Exception {
+        PasswordTag tag = new PasswordTag();
+        verifyGenericProperties(tag, "simple", new String[]{"value"});
+    }
+
+    public void testGenericXhtml() throws Exception {
+        PasswordTag tag = new PasswordTag();
+        verifyGenericProperties(tag, "xhtml", new String[]{"value"});
+    }
+
+    public void testGenericAjax() throws Exception {
+        PasswordTag tag = new PasswordTag();
+        verifyGenericProperties(tag, "ajax", new String[]{"value"});
+    }
+
 }
