@@ -71,6 +71,7 @@
         <copy file="${src}/etc/README.txt" todir="${dist}"/>
 
         <!-- prepare each tutorial/example -->
+        <webapp name="blank"/>
         <webapp name="starter"/>
         <webapp name="showcase"/>
         <webapp name="shopping-cart"/>
@@ -173,6 +174,7 @@
 
     <target name="clean" depends="common.clean">
         <delete dir="webapps/base/build"/>
+        <delete dir="webapps/blank/build"/>
         <delete dir="webapps/showcase/build"/>
         <delete dir="webapps/starter/build"/>
         <delete dir="webapps/ajax/build"/>
