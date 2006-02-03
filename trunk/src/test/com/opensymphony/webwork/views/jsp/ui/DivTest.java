@@ -15,6 +15,21 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 public class DivTest extends AbstractUITagTest {
 
 
+    public void testGenericSimple() throws Exception {
+        DivTag tag = new DivTag();
+        verifyGenericProperties(tag, "simple", new String[]{"value","tabindex","disabled"});
+    }
+
+    public void testGenericXhtml() throws Exception {
+        DivTag tag = new DivTag();
+        verifyGenericProperties(tag, "xhtml", new String[]{"value","tabindex","disabled"});
+    }
+
+    public void testGenericAjax() throws Exception {
+        DivTag tag = new DivTag();
+        verifyGenericProperties(tag, "ajax", new String[]{"value","tabindex","disabled"});
+    }
+
     public void testSimple() throws Exception {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("bar");
