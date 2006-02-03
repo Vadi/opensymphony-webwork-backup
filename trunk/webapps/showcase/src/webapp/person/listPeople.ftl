@@ -19,5 +19,7 @@ There are ${peopleCount} people...
     </tr>
 </#list>
 </table>
+
+<a href="editPerson.action">Edit people</a>
 </body>
 </html>

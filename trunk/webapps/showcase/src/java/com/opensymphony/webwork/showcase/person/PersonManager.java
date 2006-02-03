@@ -2,6 +2,8 @@ package com.opensymphony.webwork.showcase.person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * User: plightbo
@@ -9,7 +11,7 @@ import java.util.List;
  * Time: 6:27:07 PM
  */
 public class PersonManager {
-    private List people = new ArrayList();
+    private Set people = new HashSet();
     private static long COUNT = 0;
 
     public void createPerson(Person person) {
@@ -17,7 +19,11 @@ public class PersonManager {
         people.add(person);
     }
 
-    public List getPeople() {
+    public void updatePerson(Person person) {
+        people.add(person);
+    }
+
+    public Set getPeople() {
         return people;
     }
 }

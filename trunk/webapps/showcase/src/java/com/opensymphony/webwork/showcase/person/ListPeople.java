@@ -3,6 +3,7 @@ package com.opensymphony.webwork.showcase.person;
 import com.opensymphony.xwork.ActionSupport;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * User: plightbo
@@ -11,14 +12,14 @@ import java.util.List;
  */
 public class ListPeople extends ActionSupport {
     PersonManager personManager;
-    List people;
+    List people = new ArrayList();
 
     public void setPersonManager(PersonManager personManager) {
         this.personManager = personManager;
     }
 
     public String execute() {
-        people = personManager.getPeople();
+        people.addAll(personManager.getPeople());
 
         return SUCCESS;
     }
@@ -30,5 +31,5 @@ public class ListPeople extends ActionSupport {
     public int getPeopleCount() {
         return people.size();
     }
-    
+
 }

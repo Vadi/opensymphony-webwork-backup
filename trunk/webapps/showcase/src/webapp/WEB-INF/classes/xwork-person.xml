@@ -21,5 +21,14 @@
             <result type="redirect">listPeople.action</result>
             <result name="input" type="freemarker">newPerson.ftl</result>
         </action>
+
+        <action name="editPerson" class="com.opensymphony.webwork.showcase.person.EditPerson">
+            <result>editPeople.jsp</result>
+        </action>
+
+        <action name="doEditPerson" class="com.opensymphony.webwork.showcase.person.EditPerson" method="save">
+            <result name="error">editPeople.jsp</result>
+            <result type="redirect">listPeople.action</result>
+        </action>
     </package>
 </xwork>
