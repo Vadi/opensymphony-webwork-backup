@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
  * @author tm_jee
+ * @author Rene Gielen
  * @version $Id$
  */
 public class SelectTest extends AbstractUITagTest {
@@ -178,4 +179,35 @@ public class SelectTest extends AbstractUITagTest {
 
         verify(SelectTag.class.getResource("Select-1.txt"));
     }
+
+    public void testGenericSimple() throws Exception {
+        SelectTag tag = new SelectTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "simple", new String[]{"value"});
+    }
+
+    public void testGenericXhtml() throws Exception {
+        SelectTag tag = new SelectTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "xhtml", new String[]{"value"});
+    }
+
+    public void testGenericAjax() throws Exception {
+        SelectTag tag = new SelectTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "ajax", new String[]{"value"});
+    }
+
+    private void prepareTagGeneric(SelectTag tag) {
+        TestAction testAction = (TestAction) action;
+        ArrayList collection = new ArrayList();
+        collection.add("foo");
+        collection.add("bar");
+        collection.add("baz");
+
+        testAction.setCollection(collection);
+
+        tag.setList("collection");
+    }
+
 }
