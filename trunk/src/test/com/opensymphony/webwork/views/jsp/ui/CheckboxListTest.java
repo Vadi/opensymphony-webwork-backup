@@ -37,19 +37,19 @@ public class CheckboxListTest extends AbstractUITagTest {
     public void testGenericSimple() throws Exception {
         CheckboxListTag tag = new CheckboxListTag();
         prepareTagGeneric(tag);
-        verifyGenericProperties(tag, "simple", new String[]{"tabindex","cssClass","cssStyle"});
+        verifyGenericProperties(tag, "simple", new String[]{"tabindex","cssClass","cssStyle","id"});
     }
 
     public void testGenericXhtml() throws Exception {
         CheckboxListTag tag = new CheckboxListTag();
         prepareTagGeneric(tag);
-        verifyGenericProperties(tag, "xhtml", new String[]{"tabindex","cssClass","cssStyle"});
+        verifyGenericProperties(tag, "xhtml", new String[]{"tabindex","cssClass","cssStyle","id"});
     }
 
     public void testGenericAjax() throws Exception {
         CheckboxListTag tag = new CheckboxListTag();
         prepareTagGeneric(tag);
-        verifyGenericProperties(tag, "ajax", new String[]{"tabindex","cssClass","cssStyle"});
+        verifyGenericProperties(tag, "ajax", new String[]{"tabindex","cssClass","cssStyle","id"});
     }
 
     private void prepareTagGeneric(CheckboxListTag tag) {

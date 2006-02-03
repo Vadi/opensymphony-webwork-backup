@@ -7,6 +7,8 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
+import java.util.Map;
+
 
 /**
  * User: plightbo
@@ -37,4 +39,35 @@ public class FileTest extends AbstractUITagTest {
 
         verify(TextFieldTag.class.getResource("File-1.txt"));
     }
+
+    /**
+     * Initialize a map of {@link com.opensymphony.webwork.views.jsp.AbstractUITagTest.PropertyHolder} for generic tag
+     * property testing. Will be used when calling {@link #verifyGenericProperties(com.opensymphony.webwork.views.jsp.ui.AbstractUITag,
+     * String, String[])} as properties to verify.<p/> This implementation extends testdata from AbstractUITag.
+     *
+     * @return A Map of PropertyHolders values bound to {@link com.opensymphony.webwork.views.jsp.AbstractUITagTest.PropertyHolder#getName()}
+     *         as key.
+     */
+    protected Map initializedGenericTagTestProperties() {
+        Map result = super.initializedGenericTagTestProperties();
+        new PropertyHolder("accept", "someAccepted").addToMap(result);
+        new PropertyHolder("size", "101").addToMap(result);
+        return result;
+    }
+
+    public void testGenericSimple() throws Exception {
+        FileTag tag = new FileTag();
+        verifyGenericProperties(tag, "simple", null);
+    }
+
+    public void testGenericXhtml() throws Exception {
+        FileTag tag = new FileTag();
+        verifyGenericProperties(tag, "xhtml", null);
+    }
+
+    public void testGenericAjax() throws Exception {
+        FileTag tag = new FileTag();
+        verifyGenericProperties(tag, "ajax", null);
+    }
+
 }
