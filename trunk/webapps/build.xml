@@ -95,7 +95,49 @@
 		</war>
 	</target>
 
-	<target name="build-portlet" depends="prepare-portlet,prepare-portlet-deploy" description="Builds the portlet application. You can use the 'container' system property to target a specific container, e.g. '-Dcontainer=exo'. Supported containers are exo, gridsphere, jboss-portal-2.0, jboss-portal-2.2 and jetspeed2">
+    <target name="new" description="Create a new webapp project with the specified name and packages">
+        <echo level="info">
+            +=============================================================+
+            |              -- Create a new web application  --            |
+            +=============================================================+
+        </echo>
+        <echo/>
+
+        <!-- Prompt the user for input -->
+        <input message="Enter the name of your new application [myapp]?" addproperty="new.app.name"
+            defaultvalue="myapp"/>
+
+        <echo level="info">Creating '${new.app.name}' web application...</echo>
+        <copy todir="${new.app.name}">
+            <fileset dir="${basedir}/blank">
+                <exclude name="tmp/**"/>
+                <exclude name="build/**"/>
+                <include name="**"/>
+                <exclude name=".#**"/>
+                <exclude name="*.iml"/>
+                <exclude name="CVS/**"/>
+                <exclude name="**/CVS"/>
+            </fileset>
+        </copy>
+
+        <!-- Copy the IDEA project file(s) -->
+        <copy file="blank/blank.iml" tofile="${new.app.name}/${new.app.name}.iml"/>
+        <replace dir="${new.app.name}" value="${new.app.name}" token="blank">
+            <include name="${new.app.name}.i*"/>
+        </replace>
+
+        <echo level="info">
+            +=============================================================+
+            |    -- Your Web Application was created successfully! --     |
+            |                                                             |
+            | Now you should be able to cd to your application and run:   |
+            | > ant build -Dwebapp=${new.app.name}                        |
+            +=============================================================+
+</echo>
+    </target>
+
+
+    <target name="build-portlet" depends="prepare-portlet,prepare-portlet-deploy" description="Builds the portlet application. You can use the 'container' system property to target a specific container, e.g. '-Dcontainer=exo'. Supported containers are exo, gridsphere, jboss-portal-2.0, jboss-portal-2.2 and jetspeed2">
 		<!-- war up the app -->
 		<war file="${basedir}/dist/webwork-portlet.war" webxml="tmp/WEB-INF/web.xml">
 			<zipfileset dir="tmp" prefix="" />
