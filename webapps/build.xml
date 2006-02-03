@@ -91,7 +91,7 @@
 			<zipfileset dir="${basedir}/../lib/freemarker" prefix="WEB-INF/lib" includes="*.jar" />
 			<zipfileset dir="${basedir}/../lib/sitemesh" prefix="WEB-INF/lib" includes="*.jar" />
 			<zipfileset dir="${basedir}/../lib/portlet" prefix="WEB-INF/lib" includes="*.jar" />
-			<zipfileset dir="${basedir}/../lib/jsaperreports" prefix="WEB-INF/lib" excludes="commons-collections.jar" />
+			<zipfileset dir="${basedir}/../lib/jasperreports" prefix="WEB-INF/lib" excludes="commons-collections.jar" />
 			<zipfileset dir="${basedir}/../lib/spring" prefix="WEB-INF/lib" includes="*.jar" excludes="commons-logging.jar" />
 			<zipfileset dir="${basedir}/../lib/velocity" prefix="WEB-INF/lib" includes="velocity*.jar" />
 			<zipfileset dir="${basedir}/../lib/quickstart" prefix="WEB-INF/lib" includes="log4j.jar, commons-io.jar, commons-lang.jar, commons-collections.jar" />
