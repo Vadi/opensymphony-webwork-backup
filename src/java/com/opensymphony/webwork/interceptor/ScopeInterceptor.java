@@ -13,7 +13,6 @@ import org.apache.commons.logging.LogFactory;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  * <!-- START SNIPPET: description -->
