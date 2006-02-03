@@ -45,9 +45,11 @@ public class ActionNamesAction extends ActionSupport {
 
     public String getExtension() {
         if ( extension == null) {
-            extension = (String) Configuration.get(WebWorkConstants.WEBWORK_ACTION_EXTENSION);
-            if ( extension.equals("")) {
+            String ext = (String) Configuration.get(WebWorkConstants.WEBWORK_ACTION_EXTENSION);
+            if ( ext == null || ext.equals("")) {
                 extension = "action";
+            } else {
+                extension = ext;
             }
         }
         return extension;
