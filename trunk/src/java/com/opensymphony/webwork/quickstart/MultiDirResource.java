@@ -11,7 +11,6 @@ public class MultiDirResource extends Resource {
     MultiWebApplicationContext ctx;
     File[] files;
     String uri;
-    boolean simple = false;
 
     public MultiDirResource(MultiWebApplicationContext ctx, String uri, List pathPriority, Map paths) {
         this.ctx = ctx;
@@ -36,9 +35,6 @@ public class MultiDirResource extends Resource {
         }
 
         this.files = (File[]) files.toArray(new File[files.size()]);
-        if (this.files.length == 1) {
-            this.simple = true;
-        }
     }
 
     public void release() {
@@ -47,7 +43,7 @@ public class MultiDirResource extends Resource {
     public boolean exists() {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 return true;
             }
         }
@@ -58,7 +54,7 @@ public class MultiDirResource extends Resource {
     public boolean isDirectory() {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 return file.isDirectory();
             }
         }
@@ -69,7 +65,7 @@ public class MultiDirResource extends Resource {
     public long lastModified() {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 return file.lastModified();
             }
         }
@@ -80,7 +76,7 @@ public class MultiDirResource extends Resource {
     public long length() {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 return file.length();
             }
         }
@@ -91,7 +87,7 @@ public class MultiDirResource extends Resource {
     public URL getURL() {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 try {
                     return file.toURL();
                 } catch (MalformedURLException e) {
@@ -106,7 +102,7 @@ public class MultiDirResource extends Resource {
     public File getFile() throws IOException {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 return file;
             }
         }
@@ -117,7 +113,7 @@ public class MultiDirResource extends Resource {
     public String getName() {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 return file.getName();
             }
         }
@@ -128,7 +124,7 @@ public class MultiDirResource extends Resource {
     public InputStream getInputStream() throws IOException {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 return new FileInputStream(file);
             }
         }
@@ -139,7 +135,7 @@ public class MultiDirResource extends Resource {
     public OutputStream getOutputStream() throws IOException, SecurityException {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 return new FileOutputStream(file);
             }
         }
@@ -150,7 +146,7 @@ public class MultiDirResource extends Resource {
     public boolean delete() throws SecurityException {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 return file.delete();
             }
         }
@@ -166,7 +162,7 @@ public class MultiDirResource extends Resource {
         HashSet set = new HashSet();
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            if (simple || file.exists()) {
+            if (file.exists()) {
                 String[] files = file.list();
                 for (int j = 0; j < files.length; j++) {
                     String s = files[j];
