@@ -17,6 +17,8 @@
 
     <include file="xwork-ajax.xml" />
 
+    <include file="xwork-fileupload.xml" />
+
     <include file="xwork-person.xml" />
 
     <package name="default" extends="webwork-default">
