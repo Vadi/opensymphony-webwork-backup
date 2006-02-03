@@ -232,8 +232,8 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
      * @param parameterMap a Map of all request parameters.
      * @param sessionMap a Map of all session attributes.
      * @param applicationMap a Map of all servlet context attributes.
-     * @param request the HttpServletRequest object.
-     * @param response the HttpServletResponse object.
+     * @param request the PortletRequest object.
+     * @param response the PortletResponse object.
      * @param portletConfig the PortletConfig object.
      * @param phase The portlet phase (render or action, see
      *        {@link PortletActionConstants})
@@ -275,7 +275,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
      * Loads the action and executes it. This method first creates the action
      * context from the given parameters then loads an <tt>ActionProxy</tt>
      * from the given action name and namespace. After that, the action is
-     * executed and output channels throught the response object. 
+     * executed and output channels throught the response object.
      * 
      * @param request the HttpServletRequest object.
      * @param response the HttpServletResponse object.
