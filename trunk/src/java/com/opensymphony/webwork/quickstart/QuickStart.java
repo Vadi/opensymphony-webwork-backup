@@ -3,15 +3,8 @@ package com.opensymphony.webwork.quickstart;
 import com.opensymphony.webwork.util.classloader.CompilingClassLoader;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import org.mortbay.http.SocketListener;
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.servlet.WebApplicationContext;
-import org.mortbay.util.FileResource;
-import org.mortbay.util.JarResource;
-import org.mortbay.util.Resource;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -157,7 +150,7 @@ public class QuickStart {
         }
 
         public Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
-            if (name.startsWith("java.") || name.startsWith("sun.")) {
+            if (name.startsWith("java.") || name.startsWith("sun.") || name.startsWith("com.sun.")) {
                 return super.loadClass(name, resolve);
             }
 
