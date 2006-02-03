@@ -44,7 +44,7 @@
         <person>
             <name>Rainer Hermanns</name>
             <email></email>
-            <role>Portlet, AJAX, etc</role>
+            <role>Development, Portlet, AJAX, etc</role>
         </person>
         <person>
             <name>Bob Lee</name>
@@ -55,6 +55,11 @@
             <name>Gabe Zimmerman</name>
             <email></email>
             <role>Type conversion</role>
+        </person>
+        <person>
+            <name>Nils-Helge Garli</name>
+            <email></email>
+            <role>Portlet integration</role>
         </person>
         <person>
             <name>Henry Hu</name>
