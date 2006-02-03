@@ -8,6 +8,8 @@
 	<include file="webwork-default.xml" />
 
 	<package name="fileupload" extends="webwork-default" namespace="/fileupload">
+        
+        <default-action-ref name="upload"/>
 
         <action name="upload" class="com.opensymphony.webwork.showcase.fileupload.FileUploadAction" method="input">
 			<result>upload.jsp</result>

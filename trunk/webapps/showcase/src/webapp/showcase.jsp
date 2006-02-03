@@ -26,6 +26,9 @@
 		<!-- tags -->
 		<li><ww:url id="url" value="/tags"/><ww:a href="%{url}">Tags Examples</ww:a></li>
 		
+		<!-- fileupload -->
+		<li><ww:url id="url" namespace="/fileupload" action="upload" /><ww:a href="%{url}">File Upload Example</ww:a></li>
+
 		<!-- crud -->
 		<li><ww:url id="url" value="/empmanager"/><ww:a href="%{url}">CRUD Examples</ww:a></li>
 		
