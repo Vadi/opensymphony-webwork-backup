@@ -10,6 +10,7 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 import freemarker.template.TransformControl;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -17,6 +18,37 @@ import java.util.HashMap;
  * @version $Id$
  */
 public class TextfieldTest extends AbstractUITagTest {
+
+    /**
+     * Initialize a map of {@link com.opensymphony.webwork.views.jsp.AbstractUITagTest.PropertyHolder} for generic tag
+     * property testing. Will be used when calling {@link #verifyGenericProperties(com.opensymphony.webwork.views.jsp.ui.AbstractUITag,
+     * String, String[])} as properties to verify.<p/> This implementation extends testdata from AbstractUITag.
+     *
+     * @return A Map of PropertyHolders values bound to {@link com.opensymphony.webwork.views.jsp.AbstractUITagTest.PropertyHolder#getName()}
+     *         as key.
+     */
+    protected Map initializedGenericTagTestProperties() {
+        Map result = super.initializedGenericTagTestProperties();
+        new PropertyHolder("maxlength", "10").addToMap(result);
+        new PropertyHolder("readonly", "true", "readonly=\"readonly\"").addToMap(result);
+        new PropertyHolder("size", "12").addToMap(result);
+        return result;
+    }
+
+    public void testGenericSimple() throws Exception {
+        TextFieldTag tag = new TextFieldTag();
+        verifyGenericProperties(tag, "simple", null);
+    }
+
+    public void testGenericXhtml() throws Exception {
+        TextFieldTag tag = new TextFieldTag();
+        verifyGenericProperties(tag, "xhtml", null);
+    }
+
+    public void testGenericAjax() throws Exception {
+        TextFieldTag tag = new TextFieldTag();
+        verifyGenericProperties(tag, "ajax", null);
+    }
 
     public void testErrors() throws Exception {
         TestAction testAction = (TestAction) action;
