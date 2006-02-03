@@ -9,6 +9,7 @@ import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 
 /**
@@ -18,6 +19,54 @@ import java.util.Collection;
  * @version $Date$ $Id$
  */
 public class CheckboxListTest extends AbstractUITagTest {
+
+    /**
+     * Initialize a map of {@link com.opensymphony.webwork.views.jsp.AbstractUITagTest.PropertyHolder} for generic tag
+     * property testing. Will be used when calling {@link #verifyGenericProperties(com.opensymphony.webwork.views.jsp.ui.AbstractUITag,
+     * String, String[])} as properties to verify.<p/> This implementation extends testdata from AbstractUITag.
+     *
+     * @return A Map of PropertyHolders values bound to {@link com.opensymphony.webwork.views.jsp.AbstractUITagTest.PropertyHolder#getName()}
+     *         as key.
+     */
+    protected Map initializedGenericTagTestProperties() {
+        Map result = super.initializedGenericTagTestProperties();
+        new PropertyHolder("value", "hello").addToMap(result);
+        return result;
+    }
+
+    public void testGenericSimple() throws Exception {
+        CheckboxListTag tag = new CheckboxListTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "simple", new String[]{"tabindex","cssClass","cssStyle"});
+    }
+
+    public void testGenericXhtml() throws Exception {
+        CheckboxListTag tag = new CheckboxListTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "xhtml", new String[]{"tabindex","cssClass","cssStyle"});
+    }
+
+    public void testGenericAjax() throws Exception {
+        CheckboxListTag tag = new CheckboxListTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "ajax", new String[]{"tabindex","cssClass","cssStyle"});
+    }
+
+    private void prepareTagGeneric(CheckboxListTag tag) {
+        TestAction testAction = (TestAction) action;
+        Collection collection = new ArrayList(2);
+        collection.add("hello");
+        collection.add("foo");
+        testAction.setCollection(collection);
+        testAction.setList(new String[][]{
+                {"hello", "world"},
+                {"foo", "bar"},
+        });
+        tag.setName("collection");
+        tag.setList("list");
+        tag.setListKey("top[0]");
+        tag.setListValue("top[1]");
+    }
 
     public void testMultiple() throws Exception {
         TestAction testAction = (TestAction) action;
@@ -44,9 +93,9 @@ public class CheckboxListTest extends AbstractUITagTest {
 
         verify(CheckboxListTag.class.getResource("CheckboxList-2.txt"));
     }
-    
+
     public void testMultipleWithDisabledOn() throws Exception {
-    	TestAction testAction = (TestAction) action;
+        TestAction testAction = (TestAction) action;
         Collection collection = new ArrayList(2);
         collection.add("hello");
         collection.add("foo");
@@ -95,9 +144,9 @@ public class CheckboxListTest extends AbstractUITagTest {
 
         verify(CheckboxListTag.class.getResource("CheckboxList-1.txt"));
     }
-    
+
     public void testSimpleWithDisableOn() throws Exception {
-    	TestAction testAction = (TestAction) action;
+        TestAction testAction = (TestAction) action;
         testAction.setFoo("hello");
         testAction.setList(new String[][]{
                 {"hello", "world"},
