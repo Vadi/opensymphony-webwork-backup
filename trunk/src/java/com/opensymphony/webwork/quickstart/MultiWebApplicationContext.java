@@ -6,6 +6,7 @@ import org.mortbay.util.JarResource;
 import org.mortbay.util.FileResource;
 
 import java.io.IOException;
+import java.io.File;
 import java.net.URLClassLoader;
 import java.net.URL;
 import java.lang.reflect.Constructor;
@@ -63,7 +64,12 @@ public class MultiWebApplicationContext extends WebApplicationContext {
         // still haven't found what we're looking for?
         // Alright, let's just hack this to work in IDEA
         if (uriInContext.equals("/webwork")) {
-            return FileResource.newResource("src/java/META-INF/taglib.tld");
+            // we do this check to support both "quickstart:showcase" and "quickstart" (using quickstart.xml)
+            if (new File("../../src/java/META-INF/taglib.tld").exists()) {
+                return FileResource.newResource("../../src/java/META-INF/taglib.tld");
+            } else {
+                return FileResource.newResource("src/java/META-INF/taglib.tld");
+            }
         }
 
         MultiDirResource resource = newResolver(uriInContext);
