@@ -16,7 +16,7 @@ Render a select element
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Render an HTML input tag of type password.</p> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:select label="Pets" name="petIds" list="petDao.pets" listKey="id" listValue="name" multiple="true" size="3" required="true" /&gt; &lt;ww:select label="Months" name="months" headerKey="-1" headerValue="Select Month" list="#{'01':'Jan', '02':'Feb', [...]}" value="selectedMonth" required="true" /&gt; // The month id (01, 02, ...) returned by the getSelectedMonth() call // against the stack will be auto-selected <!-- END SNIPPET: example --> </pre> <p/> <!-- START SNIPPET: exnote --> Note: For any of the tags that use lists (select probably being the most ubiquitous), which uses the OGNL list notation (see the "months" example above), it should be noted that the map key created (in the months example, the '01', '02', etc.) is typed. '1' is a char, '01' is a String, "1" is a String. This is important since if the value returned by your "value" attribute is NOT the same type as the key in the "list" attribute, they WILL NOT MATCH, even though their String values may be equivalent. If they don't match, nothing in your list will be auto-selected.<p/> <!-- END SNIPPET: exnote -->
+<!-- START SNIPPET: javadoc --> Render an HTML input tag of type select. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:select label="Pets" name="petIds" list="petDao.pets" listKey="id" listValue="name" multiple="true" size="3" required="true" /&gt; &lt;ww:select label="Months" name="months" headerKey="-1" headerValue="Select Month" list="#{'01':'Jan', '02':'Feb', [...]}" value="selectedMonth" required="true" /&gt; // The month id (01, 02, ...) returned by the getSelectedMonth() call // against the stack will be auto-selected <!-- END SNIPPET: example --> </pre> <p/> <!-- START SNIPPET: exnote --> Note: For any of the tags that use lists (select probably being the most ubiquitous), which uses the OGNL list notation (see the "months" example above), it should be noted that the map key created (in the months example, the '01', '02', etc.) is typed. '1' is a char, '01' is a String, "1" is a String. This is important since if the value returned by your "value" attribute is NOT the same type as the key in the "list" attribute, they WILL NOT MATCH, even though their String values may be equivalent. If they don't match, nothing in your list will be auto-selected.<p/> <!-- END SNIPPET: exnote -->
 </p>
 
 <h2>Attributes</h2>
@@ -247,6 +247,24 @@ Render a select element
 
 <!-- Description -->
 <td align="left" valign="top">The css style definitions for element ro use</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">title</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Set the html title attribute on rendered html element</td>
 
 </tr>
 
