@@ -28,17 +28,22 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class QuickStart {
     public static void main(String[] args) throws FileNotFoundException, MalformedURLException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        if (args.length != 3 && args.length != 1) {
-            System.err.println("QuickStart must be invoked with three argumenets:");
+        if (args.length != 3 && args.length != 0) {
+            System.err.println("QuickStart must be either invoked with three arguments or no arguments:");
             System.err.println("[contextPath] [webapp] [sources]");
             System.err.println("");
             System.err.println("Ex: java -jar webwork.jar \\");
-            System.err.println("    quickstart /sandbox webapps/sandbox/src/webapp webapps/sandbox/src/java");
+            System.err.println("    quickstart /sandbox sandbox/src/webapp sandbox/src/java");
+            System.err.println("");
+            System.err.println("OR");
+            System.err.println("");
+            System.err.println("Ex: java -jar webwork.jar quickstart");
+            System.err.println(" Where a 'quickstart.xml' file exists in your working directory");
             return;
         }
 
         Configuration c;
-        if (args.length == 1) {
+        if (args.length == 0) {
             XStream xstream = new XStream(new DomDriver());
             xstream.alias("configuration", Configuration.class);
             xstream.alias("extendsConfig", String.class);
@@ -47,7 +52,18 @@ public class QuickStart {
             xstream.alias("dir", String.class);
             xstream.alias("path", String.class);
             xstream.alias("webDir", Mapping.class);
-            File config = new File(args[0] + "/quickstart.xml");
+            File config = new File("quickstart.xml");
+            if (!config.exists()) {
+                // uh oh, time to stop
+                System.err.println("Could not find quickstart.xml!");
+                System.err.println("Tip: quickstart.xml must exist in your working directory");
+                System.err.println("");
+                System.err.println("Alternatively, if you your deployment is simple, try launching");
+                System.err.println("QuickStart using the simple command line options rather than");
+                System.err.println("Relying on quickstart.xml existing");
+                return;
+            }
+
             c = (Configuration) xstream.fromXML(new FileReader(config));
             c.resolveDirs(config.getParent());
             c.resolveExtensions(config.getParent(), xstream);
