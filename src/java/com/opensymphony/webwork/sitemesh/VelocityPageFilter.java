@@ -2,6 +2,7 @@ package com.opensymphony.webwork.sitemesh;
 
 import com.opensymphony.module.sitemesh.Decorator;
 import com.opensymphony.module.sitemesh.Page;
+import com.opensymphony.module.sitemesh.HTMLPage;
 import com.opensymphony.module.sitemesh.filter.PageFilter;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.velocity.VelocityManager;
@@ -55,6 +56,12 @@ public class VelocityPageFilter extends PageFilter {
 
             // put the page in the context
             context.put("page", page);
+            if (page instanceof HTMLPage) {
+                HTMLPage htmlPage = ((HTMLPage) page);
+                context.put("head", htmlPage.getHead());
+            }
+            context.put("title",page.getTitle());
+            context.put("body",page.getBody());
 
             // finally, render it
             PrintWriter writer = res.getWriter();
