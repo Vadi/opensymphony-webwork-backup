@@ -6,6 +6,7 @@ package com.opensymphony.webwork.showcase.jasper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
 
@@ -55,9 +56,11 @@ public class JasperAction extends ActionSupport {
            * If you don't have to compile the report, you just setup your data source (eg. a List), and skip this
            */
         try {
+            String reportSource = ServletActionContext.getServletContext().getRealPath("/jasper/sample_report.jrxml");
+            File parent = new File(reportSource).getParentFile();
             JasperCompileManager.compileReportToFile(
-                    ServletActionContext.getServletContext().getRealPath("/jasper/sample_report.jrxml"),
-                    ServletActionContext.getServletContext().getRealPath("/jasper/sample_report.jasper"));
+                    reportSource,
+                    new File(parent, "sample_report.jasper").getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
