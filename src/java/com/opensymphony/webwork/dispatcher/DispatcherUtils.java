@@ -104,6 +104,9 @@ public class DispatcherUtils {
                 //       dependencies on xwork-tiger, since it isn't technically required.
                 className = "com.opensymphony.xwork.util.GenericsObjectTypeDeterminer";
             }
+            else if (className.equals("notiger")) {
+                className = "com.opensymphony.xwork.util.ObjectTypeDeterminer";
+            }
 
             try {
                 Class clazz = ClassLoaderUtil.loadClass(className, DispatcherUtils.class);
