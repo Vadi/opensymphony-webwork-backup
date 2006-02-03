@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
+import com.opensymphony.webwork.TestAction;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionSupport;
 
@@ -203,7 +204,29 @@ public class UpDownSelectTagTest extends AbstractUITagTest {
 		verify(UpDownSelectTagTest.class.getResource("updownselecttag-11.txt"));
 	}
 	
-	
+    public void testGenericSimple() throws Exception {
+        UpDownSelectTag tag = new UpDownSelectTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "simple", new String[]{"value"});
+    }
+
+    public void testGenericXhtml() throws Exception {
+        UpDownSelectTag tag = new UpDownSelectTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "xhtml", new String[]{"value"});
+    }
+
+    public void testGenericAjax() throws Exception {
+        UpDownSelectTag tag = new UpDownSelectTag();
+        prepareTagGeneric(tag);
+        verifyGenericProperties(tag, "ajax", new String[]{"value"});
+    }
+
+    private void prepareTagGeneric(UpDownSelectTag tag) {
+        tag.setList("myMap");
+    }
+
+
 	
 	// ===============================
 	public Action getAction() {
