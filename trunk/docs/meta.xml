@@ -85,6 +85,17 @@
 
     <releases>
         <release>
+            <version>2.2.1</version>
+            <date>02/03/2006</date>
+            <jiraId>21591</jiraId>
+            <downloads>
+                <download>
+                    <url>https://webwork.dev.java.net/files/documents/693/28623/webwork-2.2.1.zip</url>
+                    <name>Full release</name>
+                </download>
+            </downloads>
+        </release>
+        <release>
             <version>2.2</version>
             <date>1/10/2006</date>
             <jiraId>21320</jiraId>
