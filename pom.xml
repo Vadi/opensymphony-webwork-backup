@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.opensymphony</groupId>
     <artifactId>webwork</artifactId>
-    <version>2.2.1</version>
+    <version>@VERSION@</version>
     <packaging>jar</packaging>
     <name>WebWork</name>
     <description>

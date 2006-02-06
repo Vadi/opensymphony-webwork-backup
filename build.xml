@@ -146,6 +146,14 @@
         </copy>
     </target>
 
+    <target name="mavenrep" depends="jar">
+        <!-- webwork -->
+        <filter token="VERSION" value="${version}"/>
+        <copy file="pom.xml" tofile="/opt/repository/ibiblio.org/opensymphony/poms/${name}-${version}-SNAPSHOT.pom" filtering="yes"/>
+        <copy file="${build}/${name}-${version}.jar" tofile="/opt/repository/ibiblio.org/opensymphony/jars/${name}-${version}-SNAPSHOT.jar"/>
+        <copy file="${build}/${name}-src-${version}.jar" tofile="/opt/repository/ibiblio.org/opensymphony/jars/${name}-src-${version}-SNAPSHOT.jar"/>
+    </target>
+
     <!-- overridden targets -->
     <target name="jar" depends="compile">
         <mkdir dir="${build}"/>
@@ -157,7 +165,7 @@
                 <attribute name="Implementation-Version" value="${version}"/>
             </manifest>
         </jar>
-        <jar basedir="${src.java}" jarfile="${build}/${name}-${version}-src.jar">
+        <jar basedir="${src.java}" jarfile="${build}/${name}-src-${version}.jar">
             <zipgroupfileset file="lib/source/xwork-src.jar"/>
             <manifest>
                 <attribute name="Implementation-Title" value="${fullname}"/>
