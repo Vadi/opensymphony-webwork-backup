@@ -54,6 +54,9 @@ public class WebWorkSpringObjectFactory extends SpringObjectFactory implements O
             type = AutowireCapableBeanFactory.AUTOWIRE_CONSTRUCTOR;
         }
         this.setAutowireStrategy(type);
+        
+        boolean useClassCache = "true".equals(Configuration.getString(WebWorkConstants.WEBWORK_OBJECTFACTORY_SPRING_USE_CLASS_CACHE));
+        this.setUseClassCache(useClassCache);
 
         log.info("... initialized WebWork-Spring integration successfully");
     }
