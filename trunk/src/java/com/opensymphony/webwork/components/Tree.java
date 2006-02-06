@@ -28,7 +28,7 @@ import java.io.Writer;
  *
  * @author Jason Carreira <jcarreira@eplus.com>
  *
- * @ww.tag name="text" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.TreeTag"
+ * @ww.tag name="tree" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.TreeTag"
  * description="Render a tree widget."
  */
 public class Tree extends ClosingUIBean {
