@@ -47,6 +47,7 @@ public final class WebWorkConstants {
     public static final String WEBWORK_MULTIPART_PARSER = "webwork.multipart.parser";
 
     public static final String WEBWORK_OBJECTFACTORY_SPRING_AUTOWIRE = "webwork.objectFactory.spring.autoWire";
+    public static final String WEBWORK_OBJECTFACTORY_SPRING_USE_CLASS_CACHE = "webwork.objectFactory.spring.useClassCache";
 
     public static final String WEBWORK_XSLT_NOCACHE = "webwork.xslt.nocache";
 
