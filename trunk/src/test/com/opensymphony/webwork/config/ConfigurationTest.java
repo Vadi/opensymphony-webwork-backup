@@ -32,7 +32,7 @@ public class ConfigurationTest extends WebWorkTestCase {
         assertEquals("de", locale.getLanguage());
 
         int count = getKeyCount();
-        assertEquals(24, count);
+        assertEquals(25, count);
     }
 
     public void testDefaultResourceBundlesLoaded() {
