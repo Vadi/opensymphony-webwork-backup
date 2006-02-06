@@ -342,7 +342,7 @@
         <copy file="${build}/${name}-${version}.jar"
               tofile="${ivyrep.path}/opensymphony/${name}/${name}-${version}-${TIME}.jar"/>
         <copy file="${build}/${name}-${version}-src.jar"
-              tofile="${ivyrep.path}/opensymphony/${name}/${name}-${version}-${TIME}-src.jar"/>
+              tofile="${ivyrep.path}/opensymphony/${name}/${name}-${version}-src-${TIME}.jar"/>
         <echo>svn add (jar)</echo>
         <exec executable="svn">
             <arg value="add"/>
@@ -350,7 +350,7 @@
         </exec>
         <exec executable="svn">
             <arg value="add"/>
-            <arg value="${ivyrep.path}/opensymphony/${name}/${name}-${version}-${TIME}-src.jar"/>
+            <arg value="${ivyrep.path}/opensymphony/${name}/${name}-${version}-src-${TIME}.jar"/>
         </exec>
 
         <antcall target="ivyrep.copy-ivy"/>
