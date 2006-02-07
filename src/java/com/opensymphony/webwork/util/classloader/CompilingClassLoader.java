@@ -68,7 +68,7 @@ public class CompilingClassLoader extends ReloadingClassLoader implements ClassB
         fam = new FilesystemAlterationMonitor();
 
         // FIXME keep reference for accessing errors/warnings
-        fam.addListener(new CompilingListener(
+        listener = new CompilingListener(
                 reader,
                 compiler,
                 transactionalStore
@@ -77,7 +77,9 @@ public class CompilingClassLoader extends ReloadingClassLoader implements ClassB
                 super.reload();
                 CompilingClassLoader.this.reload();
             }
-        }, repository);
+        };
+
+        fam.addListener(listener, repository);
         thread = new Thread(fam);
         fam.doRun();
         thread.start();

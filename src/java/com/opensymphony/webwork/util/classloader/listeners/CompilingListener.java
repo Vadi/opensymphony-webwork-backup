@@ -30,6 +30,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 
 public class CompilingListener implements FilesystemAlterationListener {
@@ -39,6 +40,7 @@ public class CompilingListener implements FilesystemAlterationListener {
     private final Collection created = new ArrayList();
     private final Collection changed = new ArrayList();
     private final Collection deleted = new ArrayList();
+    File pRepository;
 
     private final JavaCompiler compiler;
     private final ResourceReader reader;
@@ -60,6 +62,7 @@ public class CompilingListener implements FilesystemAlterationListener {
     }
 
     public void onStart(final File pRepository) {
+        this.pRepository = pRepository;
         created.clear();
         changed.clear();
         deleted.clear();
@@ -67,6 +70,7 @@ public class CompilingListener implements FilesystemAlterationListener {
     }
 
     public void onStop(final File pRepository) {
+        this.pRepository = pRepository;
         log.debug("resources " +
                 created.size() + " created, " +
                 changed.size() + " changed, " +
@@ -159,5 +163,26 @@ public class CompilingListener implements FilesystemAlterationListener {
 
     protected void reload() {
         log.debug("reload");
+    }
+
+    public List getForgetters() {
+        ArrayList list = new ArrayList();
+        for (Iterator iterator = changed.iterator(); iterator.hasNext();) {
+            File file = (File) iterator.next();
+            String name = ReloadingClassLoader.clazzName(pRepository, file);
+            list.add(name);
+        }
+        for (Iterator iterator = created.iterator(); iterator.hasNext();) {
+            File file = (File) iterator.next();
+            String name = ReloadingClassLoader.clazzName(pRepository, file);
+            list.add(name);
+        }
+        for (Iterator iterator = deleted.iterator(); iterator.hasNext();) {
+            File file = (File) iterator.next();
+            String name = ReloadingClassLoader.clazzName(pRepository, file);
+            list.add(name);
+        }
+
+        return list;
     }
 }
