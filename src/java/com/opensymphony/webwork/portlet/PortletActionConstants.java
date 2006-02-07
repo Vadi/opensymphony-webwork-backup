@@ -16,10 +16,18 @@ public interface PortletActionConstants {
 	 * init parameters.
 	 */
 	String DEFAULT_ACTION_NAME = "default";
-    /**
+	
+	/**
+	 * Action name parameter name
+	 */
+	String ACTION_PARAM = "webwork.portlet.action"; 
+	
+	String MODE_PARAM = "webwork.portlet.mode";
+	
+	/**
      * Key used for looking up and storing the portlet phase
      */
-    String PHASE = PortletActionConstants.class.getName() + ".phase";
+    String PHASE = "webwork.portlet.phase";
 
     /**
      * Constant used for the render phase (
@@ -37,24 +45,24 @@ public interface PortletActionConstants {
      * Key used for looking up and storing the
      * {@link javax.portlet.PortletRequest}
      */
-    String REQUEST = "no.bekk.portletwork.request";
+    String REQUEST = "webwork.portlet.request";
 
     /**
      * Key used for looking up and storing the
      * {@link javax.portlet.PortletResponse}
      */
-    String RESPONSE = "no.bekk.portletwork.response";
+    String RESPONSE = "webwork.portlet.response";
     
     /**
      * Key used for looking up and storing the action that was invoked in the event phase.
      */
-    String EVENT_ACTION = PortletActionConstants.class.getName() + ".eventAction";
+    String EVENT_ACTION = "webwork.portlet.eventAction";
 
     /**
      * Key used for looking up and storing the
      * {@link javax.portlet.PortletConfig}
      */
-    String PORTLET_CONFIG = "no.bekk.portletwork.config";
+    String PORTLET_CONFIG = "webwork.portlet.config";
 
     /**
      * Name of the action used as error handler
@@ -64,11 +72,11 @@ public interface PortletActionConstants {
     /**
      * Key used to store the exception used in the error handler
      */
-    String EXCEPTION_KEY = "no.bekk.portletwork.exception";
+    String EXCEPTION_KEY = "webwork.portlet.exception";
     
-    String PORTLET_NAMESPACE = PortletActionConstants.class.getName() + ".portletNamespace";
+    String PORTLET_NAMESPACE = "webwork.portlet.portletNamespace";
     
-    String MODE_NAMESPACE_MAP = PortletActionConstants.class.getName() + ".modeNamespaceMap";
+    String MODE_NAMESPACE_MAP = "webwork.portlet.modeNamespaceMap";
     
-    String DEFAULT_ACTION_FOR_MODE = PortletActionConstants.class.getName() + ".defaultActionForMode";
+    String DEFAULT_ACTION_FOR_MODE = "webwork.portlet.defaultActionForMode";
 }

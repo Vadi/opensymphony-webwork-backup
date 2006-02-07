@@ -107,9 +107,9 @@ public class PortletResultTest extends MockObjectTestCase {
         Mock mockRequest = mock(ActionRequest.class);
         Mock mockResponse = mock(ActionResponse.class);
         
-        Constraint[] params = new Constraint[]{eq("action"), eq("testView")};
+        Constraint[] params = new Constraint[]{eq(PortletActionConstants.ACTION_PARAM), eq("testView")};
         mockResponse.expects(once()).method("setRenderParameter").with(params);
-        params = new Constraint[]{eq("portletwork.mode"), eq(PortletMode.VIEW.toString())};
+        params = new Constraint[]{eq(PortletActionConstants.MODE_PARAM), eq(PortletMode.VIEW.toString())};
         mockResponse.expects(once()).method("setRenderParameter").with(params);
         mockRequest.stubs().method("getPortletMode").will(returnValue(PortletMode.VIEW));
         ActionContext ctx = ActionContext.getContext();
@@ -133,11 +133,11 @@ public class PortletResultTest extends MockObjectTestCase {
         Mock mockRequest = mock(ActionRequest.class);
         Mock mockResponse = mock(ActionResponse.class);
         
-        Constraint[] params = new Constraint[]{eq("action"), eq("renderDirect")};
+        Constraint[] params = new Constraint[]{eq(PortletActionConstants.ACTION_PARAM), eq("renderDirect")};
         mockResponse.expects(once()).method("setRenderParameter").with(params);
         params = new Constraint[]{eq("location"), eq("/WEB-INF/pages/testJsp.jsp")};
         mockResponse.expects(once()).method("setRenderParameter").with(params);
-        params = new Constraint[]{eq("portletwork.mode"), eq(PortletMode.VIEW.toString())};
+        params = new Constraint[]{eq(PortletActionConstants.MODE_PARAM), eq(PortletMode.VIEW.toString())};
         mockResponse.expects(once()).method("setRenderParameter").with(params);
         mockRequest.stubs().method("getPortletMode").will(returnValue(PortletMode.VIEW));
         
@@ -161,13 +161,13 @@ public class PortletResultTest extends MockObjectTestCase {
         Mock mockRequest = mock(ActionRequest.class);
         Mock mockResponse = mock(ActionResponse.class);
         
-        Constraint[] params = new Constraint[]{eq("action"), eq("testView")};
+        Constraint[] params = new Constraint[]{eq(PortletActionConstants.ACTION_PARAM), eq("testView")};
         mockResponse.expects(once()).method("setRenderParameter").with(params);
         params = new Constraint[]{eq("testParam1"), eq("testValue1")};
         mockResponse.expects(once()).method("setRenderParameter").with(params);
         params = new Constraint[]{eq("testParam2"), eq("testValue2")};
         mockResponse.expects(once()).method("setRenderParameter").with(params);
-        params = new Constraint[]{eq("portletwork.mode"), eq(PortletMode.VIEW.toString())};
+        params = new Constraint[]{eq(PortletActionConstants.MODE_PARAM), eq(PortletMode.VIEW.toString())};
         mockResponse.expects(once()).method("setRenderParameter").with(params);
         mockRequest.stubs().method("getPortletMode").will(returnValue(PortletMode.VIEW));
         

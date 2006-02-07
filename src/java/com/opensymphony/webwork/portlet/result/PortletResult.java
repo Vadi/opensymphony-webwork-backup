@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
+import com.opensymphony.webwork.portlet.PortletActionConstants;
 import com.opensymphony.webwork.portlet.context.PortletActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 
@@ -102,13 +103,13 @@ public class PortletResult extends WebWorkResultSupport {
             // View is rendered with a view action...luckily...
             finalLocation = finalLocation.substring(0, finalLocation
                     .lastIndexOf("."));
-            res.setRenderParameter("action", finalLocation);
+            res.setRenderParameter(PortletActionConstants.ACTION_PARAM, finalLocation);
         } else {
             // View is rendered outside an action...uh oh...
-            res.setRenderParameter("action", "renderDirect");
+            res.setRenderParameter(PortletActionConstants.ACTION_PARAM, "renderDirect");
             res.setRenderParameter("location", finalLocation);
         }
-        res.setRenderParameter("portletwork.mode", PortletActionContext
+        res.setRenderParameter(PortletActionConstants.MODE_PARAM, PortletActionContext
                 .getRequest().getPortletMode().toString());
     }
 
