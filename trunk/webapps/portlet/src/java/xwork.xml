@@ -104,9 +104,15 @@
 
 		<action name="processFreeMarkerExample"
 			class="com.opensymphony.webwork.portlet.example.FormExample">
-			<result type="freemarker" name="success">
-				/WEB-INF/view/freeMarkerExample.ftl
-			</result>
+			<result name="success">/view/processFreeMarkerView.action?firstName=${firstName}&amp;lastName=${lastName}</result>
+		</action>
+		
+		<action name="processFreeMarkerView" class="com.opensymphony.webwork.portlet.example.FormExample">
+			<result type="freemarker" name="success">/WEB-INF/view/freeMarkerExample.ftl</result>
+		</action>
+		
+		<action name="velocityHelloWorld" class="com.opensymphony.xwork.ActionSupport">
+			<result type="velocity" name="success">/WEB-INF/view/helloWorld.vm</result>
 		</action>
 
 	</package>
