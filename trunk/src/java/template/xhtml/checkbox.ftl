@@ -18,6 +18,7 @@
             <tr>
                 <td valign="middle"><#include "/${parameters.templateDir}/simple/checkbox.ftl" /></td>
                 <td width="100%" valign="middle"><#rt/>
+<#if parameters.label?exists>
                     <label<#t/>
 <#if parameters.id?exists>
  for="${parameters.id?html}"<#rt/>
@@ -28,6 +29,7 @@
  class="checkboxLabel"<#rt/>
 </#if>
 >${parameters.label?html}</label><#rt/>
+</#if>
                 </td><#lt/>
             </tr>
         </table>
