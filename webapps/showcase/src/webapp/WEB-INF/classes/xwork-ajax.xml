@@ -15,5 +15,13 @@
         <action name="AjaxRemoteForm" class="com.opensymphony.webwork.showcase.ajax.AjaxTestAction">
             <result name="success">/ajax/AjaxResult3.jsp</result>
         </action>
+
+        <action name="Test1" class="com.opensymphony.xwork.ActionSupport">
+            <result name="success">/ajax/remoteforms/test2.jsp</result>
+        </action>
+
+        <action name="Test2" class="com.opensymphony.xwork.ActionSupport">
+            <result name="success">/ajax/remoteforms/test3.jsp</result>
+        </action>
     </package>
 </xwork>
