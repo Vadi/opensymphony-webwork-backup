@@ -8,21 +8,21 @@ var unselectedOverClass = "tab_default tab_unselected tab_unselected_over";
 var selectedClass = "tab_default tab_selected";
 var selectedContentsClass = "tab_contents_header";
 
- function mouseIn(tab) {
+function mouseIn(tab) {
     var className = tab.className;
     if (className.indexOf('unselected') > -1) {
         className = unselectedOverClass;
         tab.className = className;
     }
- }
+}
 
- function mouseOut(tab) {
+function mouseOut(tab) {
     var className = tab.className;
     if (className.indexOf('unselected') > -1) {
         className = unselectedClass;
         tab.className = className;
     }
- }
+}
 
 /*
  * An object that represents a tabbed page.
@@ -79,10 +79,14 @@ function isAjaxFormSubmit( form ) {
     // we check whether this exists
     //      <INPUT type="submit" dojoattachevent="onClick: execute" dojoattachpoint="attachBtn" />
     var thisForm = document.getElementById(form.id);
+    var matchUrl = /\s+dojoAttachPoint/;
+    if( thisForm.innerHTML.match(matchUrl) ) {
+        return false;
+    }
     for( i=0; i<thisForm.elements.length; i++ ) {
         var field = thisForm.elements[i];
         if( field.type.toLowerCase()=='submit' ) {
-            if( field.hasAttribute("dojoattachpoint") && field.getAttribute("dojoattachpoint")=="attachBtn" ) {
+            if( field.hasAttribute("dojoAttachPoint") && field.getAttribute("dojoAttachPoint")=="attachBtn" ) {
                 return false;
             }
         }
