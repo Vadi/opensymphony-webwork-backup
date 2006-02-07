@@ -325,8 +325,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
             proxy.execute();
             if (PortletActionConstants.EVENT_PHASE.equals(phase)) {
                 // Store the executed action in the session for retrieval in the
-                // render
-                // phase.
+                // render phase.
                 ActionResponse actionResp = (ActionResponse) response;
                 request.getPortletSession().setAttribute(EVENT_ACTION, proxy);
                 actionResp.setRenderParameter(EVENT_ACTION, "true");
@@ -372,7 +371,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         if (resetAction(request)) {
             mapping = (ActionMapping) actionMap.get(request.getPortletMode());
         } else {
-            String actionPath = request.getParameter("action");
+            String actionPath = request.getParameter(ACTION_PARAM);
             if (StringUtils.isEmpty(actionPath)) {
                 mapping = (ActionMapping) actionMap.get(request
                         .getPortletMode());
@@ -488,7 +487,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
     private boolean resetAction(PortletRequest request) {
         boolean reset = false;
         Map paramMap = request.getParameterMap();
-        String[] modeParam = (String[]) paramMap.get("portletwork.mode");
+        String[] modeParam = (String[]) paramMap.get(MODE_PARAM);
         if (modeParam != null && modeParam.length == 1) {
             String originatingMode = modeParam[0];
             String currentMode = request.getPortletMode().toString();

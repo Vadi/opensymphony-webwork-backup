@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
+import com.opensymphony.webwork.portlet.PortletActionConstants;
 import com.opensymphony.webwork.portlet.context.PortletActionContext;
 import com.opensymphony.webwork.views.util.ResourceUtil;
 import com.opensymphony.xwork.ActionContext;
@@ -87,9 +88,9 @@ public class PortletFreemarkerResult extends WebWorkResultSupport {
                                      ActionInvocation invocation) {
         ActionResponse res = PortletActionContext.getActionResponse();
         // View is rendered outside an action...uh oh...
-        res.setRenderParameter("action", "freemarkerDirect");
+        res.setRenderParameter(PortletActionConstants.ACTION_PARAM, "freemarkerDirect");
         res.setRenderParameter("location", location);
-        res.setRenderParameter("portletwork.mode", PortletActionContext
+        res.setRenderParameter(PortletActionConstants.MODE_PARAM, PortletActionContext
                 .getRequest().getPortletMode().toString());
 
     }

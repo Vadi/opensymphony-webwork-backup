@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.opensymphony.webwork.portlet.PortletActionConstants;
 import com.opensymphony.webwork.portlet.context.PortletActionContext;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -84,7 +85,7 @@ public class PortletUrlHelper {
             action = sb.append(action).toString();
             LOG.debug("Resulting actionPath: " + action);
         }
-        params.put("action", new String[] { action });
+        params.put(PortletActionConstants.ACTION_PARAM, new String[] { action });
 
         PortletURL url = null;
         if ("action".equalsIgnoreCase(type)) {
@@ -95,7 +96,7 @@ public class PortletUrlHelper {
             url = response.createRenderURL();
         }
 
-        params.put("portletwork.mode", portletMode);
+        params.put(PortletActionConstants.MODE_PARAM, portletMode);
         url.setParameters(ensureParamsAreStringArrays(params));
 
         if ("HTTPS".equalsIgnoreCase(scheme)) {

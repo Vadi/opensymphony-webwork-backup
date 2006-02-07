@@ -91,9 +91,9 @@ public class Jsr168DispatcherTest extends MockObjectTestCase implements PortletA
         PortletMode mode = PortletMode.VIEW;
 
         Map requestParams = new HashMap();
-        requestParams.put("action", new String[]{"/view/testAction"});
+        requestParams.put(PortletActionConstants.ACTION_PARAM, new String[]{"/view/testAction"});
         requestParams.put(EVENT_ACTION, new String[]{"true"});
-        requestParams.put("portletwork.mode", new String[]{mode.toString()});
+        requestParams.put(PortletActionConstants.MODE_PARAM, new String[]{mode.toString()});
         
         Map sessionMap = new HashMap();
         
@@ -131,8 +131,8 @@ public class Jsr168DispatcherTest extends MockObjectTestCase implements PortletA
         initParams.put("viewNamespace", "/view");
         
         Map requestParams = new HashMap();
-        requestParams.put("action", new String[]{"/view/testAction"});
-        requestParams.put("portletwork.mode", new String[]{mode.toString()});
+        requestParams.put(PortletActionConstants.ACTION_PARAM, new String[]{"/view/testAction"});
+        requestParams.put(PortletActionConstants.MODE_PARAM, new String[]{mode.toString()});
         
         initPortletConfig(initParams, new HashMap());
         initRequest(requestParams, new HashMap(), new HashMap(), new HashMap(), PortletMode.VIEW, WindowState.NORMAL, true, null);
@@ -236,9 +236,9 @@ public class Jsr168DispatcherTest extends MockObjectTestCase implements PortletA
         PortletMode mode = PortletMode.EDIT;
 
         Map requestParams = new HashMap();
-        requestParams.put("action", new String[]{"/view/testAction"});
+        requestParams.put(PortletActionConstants.ACTION_PARAM, new String[]{"/view/testAction"});
         requestParams.put(EVENT_ACTION, new String[]{"false"});
-        requestParams.put("portletwork.mode", new String[]{PortletMode.VIEW.toString()});
+        requestParams.put(PortletActionConstants.MODE_PARAM, new String[]{PortletMode.VIEW.toString()});
         
         Map sessionMap = new HashMap();
         
