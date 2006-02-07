@@ -10,15 +10,15 @@
 <body>
 
 Default Editor configuration:<br/>
-<ww:form action="AjaxRemoteForm" method="post">
-    <ww:textarea name="data" theme="ajax" cols="10" rows="50"/>
+<ww:form id="form1" action="AjaxRemoteForm" method="post">
+    <ww:textarea name="data" theme="ajax" cols="50" rows="10"/>
     <ww:submit value="Submit"/>
 </ww:form>
 <br/>
 
 Configured Editor configuration:<br/>
-<ww:form action="AjaxRemoteForm" method="post">
-    <ww:textarea name="data" theme="ajax" cols="10" rows="50">
+<ww:form id="form2" action="AjaxRemoteForm" method="post">
+    <ww:textarea name="data" theme="ajax" cols="50" rows="10">
         <ww:param name="editorControls">textGroup;|;justifyGroup;|;listGroup;indentGroup</ww:param>
     </ww:textarea>
     <ww:submit value="Submit"/>
