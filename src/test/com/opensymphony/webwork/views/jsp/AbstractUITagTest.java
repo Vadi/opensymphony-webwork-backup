@@ -28,6 +28,8 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
 
     private static final Log LOG = LogFactory.getLog(AbstractUITagTest.class);
 
+    static final String FREEMARKER_ERROR_EXPECTATION = "Java backtrace for programmers:";
+
     /**
      * Simple helper class for generic tag property testing mechanism. Basically it holds a property name, a property
      * value and an output to be expected in tag output when property was accordingly set.
@@ -205,6 +207,8 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
             if (LOG.isInfoEnabled()) {
                 LOG.info("AbstractUITagTest - [verifyGenericProperties]: Tag output is " + writerString);
             }
+
+            assertTrue("Freemarker error detected in tag output: " + writerString, writerString.indexOf(FREEMARKER_ERROR_EXPECTATION) == -1);
 
             it = propertiesToTest.values().iterator();
             while (it.hasNext()) {
