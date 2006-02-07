@@ -17,6 +17,9 @@ package com.opensymphony.webwork.util.classloader.stores;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import com.opensymphony.webwork.util.classloader.ReloadingClassLoader;
+
+import java.util.HashSet;
 
 
 /**
@@ -27,10 +30,13 @@ public final class ResourceStoreClassLoader extends ClassLoader {
     private final static Log log = LogFactory.getLog(ResourceStoreClassLoader.class);
 
     private final ResourceStore store;
+    private ReloadingClassLoader rcl;
     private final ClassLoader parent;
+    private HashSet forgetList = new HashSet();
 
-    public ResourceStoreClassLoader(final ClassLoader pParent, final ResourceStore pStore) {
+    public ResourceStoreClassLoader(ReloadingClassLoader rcl, final ClassLoader pParent, final ResourceStore pStore) {
         super(pParent);
+        this.rcl = rcl;
         parent = pParent;
         store = pStore;
     }
@@ -46,24 +52,35 @@ public final class ResourceStoreClassLoader extends ClassLoader {
         return null;
     }
 
-    protected synchronized Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
-        Class clazz = findLoadedClass(name);
+    public Class find(String name) {
+        if (forgetList.contains(name)) {
+            return null;
+        }
+        
+        return findLoadedClass(name);
+    }
 
+    protected synchronized Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
+        Class clazz = rcl.findInPreviousDelegates(name);
         if (clazz == null) {
-            clazz = fastFindClass(name);
+            clazz = findLoadedClass(name);
 
             if (clazz == null) {
+                clazz = fastFindClass(name);
 
-                final ClassLoader parent = getParent();
-                if (parent != null) {
-                    clazz = parent.loadClass(name);
-                    log.debug("loaded from parent: " + name);
+                if (clazz == null) {
+
+                    final ClassLoader parent = getParent();
+                    if (parent != null) {
+                        clazz = parent.loadClass(name);
+                        log.debug("loaded from parent: " + name);
+                    } else {
+                        throw new ClassNotFoundException(name);
+                    }
+
                 } else {
-                    throw new ClassNotFoundException(name);
+                    log.debug("loaded from store: " + name);
                 }
-
-            } else {
-                log.debug("loaded from store: " + name);
             }
         }
 
@@ -80,5 +97,9 @@ public final class ResourceStoreClassLoader extends ClassLoader {
             throw new ClassNotFoundException(name);
         }
         return clazz;
+    }
+
+    public void forget(String name) {
+        forgetList.add(name);
     }
 }

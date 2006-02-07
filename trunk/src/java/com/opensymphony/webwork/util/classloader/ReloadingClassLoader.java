@@ -16,6 +16,7 @@
 package com.opensymphony.webwork.util.classloader;
 
 import com.opensymphony.webwork.util.classloader.listeners.ReloadingListener;
+import com.opensymphony.webwork.util.classloader.listeners.CompilingListener;
 import com.opensymphony.webwork.util.classloader.monitor.FilesystemAlterationMonitor;
 import com.opensymphony.webwork.util.classloader.readers.FileResourceReader;
 import com.opensymphony.webwork.util.classloader.readers.ResourceReader;
@@ -28,9 +29,7 @@ import org.apache.commons.logging.LogFactory;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @author tcurdt
@@ -42,8 +41,11 @@ public class ReloadingClassLoader extends ClassLoader {
     private final ClassLoader parent;
     private final ResourceStore store;
     private final Collection reloadingListeners = new HashSet();
+    private final List previousDelegates = new ArrayList();
+    protected CompilingListener listener;
 
-    private ClassLoader delegate;
+
+    private ResourceStoreClassLoader delegate;
 
     protected final ResourceReader reader;
     protected final File repository;
@@ -63,7 +65,7 @@ public class ReloadingClassLoader extends ClassLoader {
         reader = new FileResourceReader(repository);
         store = pStore;
 
-        delegate = new ResourceStoreClassLoader(parent, store);
+        delegate = new ResourceStoreClassLoader(this, parent, store);
     }
 
     public void start() {
@@ -91,6 +93,18 @@ public class ReloadingClassLoader extends ClassLoader {
         }
     }
 
+    public Class findInPreviousDelegates(String name) {
+        for (Iterator iterator = previousDelegates.iterator(); iterator.hasNext();) {
+            ResourceStoreClassLoader cl = (ResourceStoreClassLoader) iterator.next();
+            Class c = cl.find(name);
+            if (c != null) {
+                return c;
+            }
+        }
+
+        return null;
+    }
+
     public void addListener(final ReloadingClassLoaderListener pListener) {
         synchronized (reloadingListeners) {
             reloadingListeners.add(pListener);
@@ -106,7 +120,14 @@ public class ReloadingClassLoader extends ClassLoader {
     protected void reload() {
         log.debug("reloading");
 
-        delegate = new ResourceStoreClassLoader(parent, store);
+        // first, ask the listener who changed and remove those from the delegate
+        for (Iterator iterator = listener.getForgetters().iterator(); iterator.hasNext();) {
+            String name = (String) iterator.next();
+            delegate.forget(name);
+        }
+
+        previousDelegates.add(delegate);
+        delegate = new ResourceStoreClassLoader(this, parent, store);
 
         notifyReloadingListeners(true);
     }
