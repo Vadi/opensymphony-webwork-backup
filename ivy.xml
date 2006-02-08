@@ -37,6 +37,7 @@
         <conf name="portlet"/>
         <conf name="spring"/>
         <conf name="pico"/>
+        <conf name="plexus"/>
         <conf name="xslt"/>
         <conf name="tiger"/>
         <conf name="cewolf"/>
@@ -132,6 +133,11 @@
         <dependency org="picocontainer" name="picocontainer-gems" rev="1.2-RC-2" conf="pico->*"/>
         <dependency org="nanocontainer" name="nanocontainer" rev="1.0-RC-3" conf="pico->*"/>
         <dependency org="nanocontainer" name="nanocontainer-nanowar" rev="1.0-RC-3" conf="pico->*"/>
+
+        <!-- plexus -->
+        <dependency org="org.codehaus.plexus" name="plexus-container-default" rev="1.0-alpha-9" conf="plexus->*"/>
+        <dependency org="org.codehaus.plexus" name="plexus-utils" rev="1.0.4" conf="plexus->*"/>
+        <dependency org="classworlds" name="classworlds" rev="1.1" conf="plexus->*"/>
 
         <!-- xslt -->
         <dependency org="w3c" name="dom" rev="3.0" conf="xslt->*"/>
