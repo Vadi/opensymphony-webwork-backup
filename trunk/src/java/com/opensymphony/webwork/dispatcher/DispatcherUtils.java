@@ -83,6 +83,10 @@ public class DispatcherUtils {
                 // note: this class name needs to be in string form so we don't put hard
                 //       dependencies on spring, since it isn't technically required.
                 className = "com.opensymphony.webwork.spring.WebWorkSpringObjectFactory";
+            } else if (className.equals("plexus")) {
+                // note: this class name needs to be in string form so we don't put hard
+                //       dependencies on spring, since it isn't technically required.
+                className = "com.opensymphony.webwork.plexus.PlexusObjectFactory";
             }
 
             try {
