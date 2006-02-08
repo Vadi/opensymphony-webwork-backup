@@ -140,7 +140,7 @@ public class Text extends Component implements Param.UnnamedParametric {
                     stack.getContext().put(getId(), msg);
                 }
             } catch (IOException e) {
-                LOG.error("Could not write out URL tag", e);
+                LOG.error("Could not write out Text tag", e);
             }
         }
 
