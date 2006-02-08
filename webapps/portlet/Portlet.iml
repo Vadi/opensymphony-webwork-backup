@@ -73,6 +73,16 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/jmock-cglib.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/build/jmock-cglib.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/jmock.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/build/jmock.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/junit.jar" />
       <url>jar://$MODULE_DIR$/../../lib/build/junit.jar!/</url>
     </containerElement>
@@ -238,11 +248,6 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/poi.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/jasperreports/poi.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/jcommon.jar" />
       <url>jar://$MODULE_DIR$/../../lib/jfree/jcommon.jar!/</url>
     </containerElement>
@@ -270,6 +275,21 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/picocontainer.jar" />
       <url>jar://$MODULE_DIR$/../../lib/pico/picocontainer.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/classworlds.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/plexus/classworlds.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/plexus-container-default.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/plexus/plexus-container-default.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/plexus-utils.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/plexus/plexus-utils.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -335,6 +355,11 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/org.mortbay.jetty.jar" />
       <url>jar://$MODULE_DIR$/../../lib/quickstart/org.mortbay.jetty.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/xstream.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/quickstart/xstream.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
