@@ -28,7 +28,9 @@
                 <interceptor-ref name="defaultStack" />
             </interceptor-stack>
         </interceptors>
-
+		
+		<default-action-ref name="showcase"/>
+		
         <action name="showcase">
             <result>showcase.jsp</result>
         </action>
