@@ -84,12 +84,6 @@
 		<url-pattern>/WebWorkPortlet/*</url-pattern>
 	</servlet-mapping>
 	<taglib>
-		<taglib-uri>/webwork</taglib-uri>
-		<taglib-location>
-			/WEB-INF/lib/webwork-2.2.1.jar
-		</taglib-location>
-	</taglib>
-	<taglib>
 		<taglib-uri>/cewolf</taglib-uri>
 		<taglib-location>/WEB-INF/tld/cewolf.tld</taglib-location>
 	</taglib>
