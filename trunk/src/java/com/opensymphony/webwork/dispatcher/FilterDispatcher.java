@@ -245,6 +245,9 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
                 if (is != null) {
                     try {
                         copy(is, response.getOutputStream());
+                        //This is added here to prevent static content from being downloaded every subsequent
+                        //request. For status codes 304 browsers should not subsequently request a  download
+                        response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
                     } finally {
                         is.close();
                     }
