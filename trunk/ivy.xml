@@ -135,7 +135,7 @@
         <dependency org="nanocontainer" name="nanocontainer-nanowar" rev="1.0-RC-3" conf="pico->*"/>
 
         <!-- plexus -->
-        <dependency org="org.codehaus.plexus" name="plexus-container-default" rev="1.0-alpha-9" conf="plexus->*"/>
+        <dependency org="org.codehaus.plexus" name="plexus-container-default" rev="1.0-alpha-10-20060215.043012-4" conf="plexus->*"/>
         <dependency org="org.codehaus.plexus" name="plexus-utils" rev="1.0.4" conf="plexus->*"/>
         <dependency org="classworlds" name="classworlds" rev="1.1" conf="plexus->*"/>
 
