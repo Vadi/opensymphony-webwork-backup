@@ -246,6 +246,10 @@ public class FreemarkerManager {
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
 
         configuration.setObjectWrapper(getObjectWrapper());
+        
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_I18N_ENCODING)) {
+        	configuration.setDefaultEncoding(Configuration.getString(WebWorkConstants.WEBWORK_I18N_ENCODING));
+        }
 
         loadSettings(servletContext, configuration);
 
