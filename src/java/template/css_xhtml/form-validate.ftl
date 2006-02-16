@@ -3,6 +3,6 @@
     <#if parameters.onsubmit?exists>
         ${tag.addParameter('onsubmit', "${parameters.onsubmit}; customOnsubmit(); return validateForm_${parameters.id}();")}
     <#else>
-        ${tag.addParameter('onsubmit', "return customOnsubmit(); validateForm_${parameters.id}();")}
+        ${tag.addParameter('onsubmit', "customOnsubmit(); return validateForm_${parameters.id}();")}
     </#if>
 </#if>
