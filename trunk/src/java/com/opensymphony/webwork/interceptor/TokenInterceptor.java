@@ -11,6 +11,7 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ValidationAware;
 import com.opensymphony.xwork.interceptor.Interceptor;
+import com.opensymphony.xwork.interceptor.MethodFilterInterceptor;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -70,22 +71,19 @@ import org.apache.commons.logging.LogFactory;
  * @author Jason Carreira
  * @author Rainer Hermanns
  * @author Nils-Helge Garli
+ * @author <a href='mailto:the_mindstorm[at]evolva[dot]ro'>Alexandru Popescu</a>
  * @see TokenSessionStoreInterceptor
  * @see TokenHelper
  */
-public class TokenInterceptor implements Interceptor {
+public class TokenInterceptor extends MethodFilterInterceptor {
     public static final String INVALID_TOKEN_CODE = "invalid.token";
-    private static final Log LOG = LogFactory.getLog(TokenInterceptor.class);
 
-    public void destroy() {
-    }
-
-    public void init() {
-    }
-
-    public String intercept(ActionInvocation invocation) throws Exception {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Intercepting invocation to check for valid transaction token.");
+    /**
+     * @see com.opensymphony.xwork.interceptor.MethodFilterInterceptor#doIntercept(com.opensymphony.xwork.ActionInvocation)
+     */
+    protected String doIntercept(ActionInvocation invocation) throws Exception {
+        if (log.isDebugEnabled()) {
+            log.debug("Intercepting invocation to check for valid transaction token.");
         }
 
         Map session = ActionContext.getContext().getSession();
@@ -115,7 +113,7 @@ public class TokenInterceptor implements Interceptor {
         if (action instanceof ValidationAware) {
             ((ValidationAware) action).addActionError(errorMessage);
         } else {
-            LOG.warn(errorMessage);
+            log.warn(errorMessage);
         }
 
         return INVALID_TOKEN_CODE;
