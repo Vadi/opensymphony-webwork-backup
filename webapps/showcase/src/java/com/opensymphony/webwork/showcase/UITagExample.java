@@ -4,6 +4,7 @@ import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.interceptor.ServletRequestAware;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionSupport;
+import com.opensymphony.xwork.Validateable;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Patrick Lightbody (plightbo at gmail dot com)
  */
-public class UITagExample extends ActionSupport {
+public class UITagExample extends ActionSupport implements Validateable {
 	
     String name;
     Date birthday;
@@ -42,6 +43,8 @@ public class UITagExample extends ActionSupport {
     List favouriteLanguages = new ArrayList();
     List vehicalTypeList = new ArrayList();
     Map vehicalSpecificMap = new HashMap();
+    
+    String thoughts;
     
     public UITagExample() {
     	favouriteLanguages.add(new Language("EnglishKey", "English Language"));
@@ -207,6 +210,17 @@ public class UITagExample extends ActionSupport {
     public String getFavouriteLanguage() {
     	return favouriteLanguage;
     }
+    
+    
+    public void setThoughts(String thoughts) {
+    	this.thoughts = thoughts;
+    }
+    
+    public String getThoughts() {
+    	return this.thoughts;
+    }
+    
+    
     
     public String doSubmit() {
     	return SUCCESS;
