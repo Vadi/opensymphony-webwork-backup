@@ -58,7 +58,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	}
 	
 	protected String stringFromDocument(Document document) throws TransformerConfigurationException, TransformerException {
-		document.normalizeDocument();
+		//document.normalizeDocument();
 		StringWriter writer = new StringWriter();
 		String result = null;
 		try {
@@ -82,7 +82,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	}
 	
 	protected void writeDocumentToStream(Document document, OutputStream out) throws TransformerConfigurationException, TransformerException {
-		document.normalizeDocument();
+		//document.normalizeDocument();
 		TransformerFactory factory = TransformerFactory.newInstance();
 		Transformer transformer = factory.newTransformer();
 		transformer.transform(new DOMSource(document), new StreamResult(out));
