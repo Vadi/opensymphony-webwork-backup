@@ -249,7 +249,7 @@
       <module fileurl="file://$PROJECT_DIR$/webapps/showcase/Showcase.iml" filepath="$PROJECT_DIR$/webapps/showcase/Showcase.iml" />
       <module fileurl="file://$PROJECT_DIR$/webapps/starter/Starter.iml" filepath="$PROJECT_DIR$/webapps/starter/Starter.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebWork.iml" filepath="$PROJECT_DIR$/WebWork.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../xwork/XWork.iml" filepath="$PROJECT_DIR$/../xwork/XWork.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../xwork/XWork.iml" filepath="$xwork$/XWork.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="false" project-jdk-name="1.4" />
@@ -281,6 +281,8 @@
     <option name="INSTRUMENT_CLASSES" value="true" />
     <option name="COPY_FORMS_RUNTIME_TO_OUTPUT" value="true" />
   </component>
-  <UsedPathMacros />
+  <UsedPathMacros>
+    <macro name="xwork" />
+  </UsedPathMacros>
 </project>
 

@@ -46,31 +46,6 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/clover-license.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/bootstrap/clover-license.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-cli.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/bootstrap/commons-cli.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-httpclient.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/bootstrap/commons-httpclient.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-logging.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/bootstrap/commons-logging.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/ivy-1.1.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/bootstrap/ivy-1.1.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/clover.jar" />
       <url>jar://$MODULE_DIR$/../../lib/build/clover.jar!/</url>
     </containerElement>
@@ -161,11 +136,6 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xwork.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/default/xwork.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/cos.jar" />
       <url>jar://$MODULE_DIR$/../../lib/fileupload-cos/cos.jar!/</url>
     </containerElement>
@@ -251,6 +221,11 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/poi.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/jasperreports/poi.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/jcommon.jar" />
       <url>jar://$MODULE_DIR$/../../lib/jfree/jcommon.jar!/</url>
     </containerElement>
@@ -293,11 +268,6 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/plexus-utils.jar" />
       <url>jar://$MODULE_DIR$/../../lib/plexus/plexus-utils.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/pluto.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/portlet/pluto.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -371,6 +341,11 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/xwork-src.jar" />
+      <url>jar://$MODULE_DIR$/../../lib/source/xwork-src.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/cglib-nodep.jar" />
       <url>jar://$MODULE_DIR$/../../lib/spring/cglib-nodep.jar!/</url>
     </containerElement>
@@ -411,11 +386,6 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xwork-tiger.jar" />
-      <url>jar://$MODULE_DIR$/../../lib/tiger/xwork-tiger.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-collections.jar" />
       <url>jar://$MODULE_DIR$/../../lib/velocity/commons-collections.jar!/</url>
     </containerElement>
@@ -442,102 +412,97 @@
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/clover.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/build/clover.jar!/</url>
+      <url>jar://$xwork$/lib/build/clover.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/dom4j.jar" />
+      <url>jar://$xwork$/lib/build/dom4j.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/junit.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/build/junit.jar!/</url>
+      <url>jar://$xwork$/lib/build/junit.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/mockobjects-alt-jdk1.3.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/build/mockobjects-alt-jdk1.3.jar!/</url>
+      <url>jar://$xwork$/lib/build/mockobjects-alt-jdk1.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/mockobjects-core.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/build/mockobjects-core.jar!/</url>
+      <url>jar://$xwork$/lib/build/mockobjects-core.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/mockobjects-jdk1.3.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/build/mockobjects-jdk1.3.jar!/</url>
+      <url>jar://$xwork$/lib/build/mockobjects-jdk1.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-logging.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/default/commons-logging.jar!/</url>
+      <url>jar://$xwork$/lib/default/commons-logging.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/javamail.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/default/javamail.jar!/</url>
+      <url>jar://$xwork$/lib/default/javamail.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/ognl.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/default/ognl.jar!/</url>
+      <url>jar://$xwork$/lib/default/ognl.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/oscore.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/default/oscore.jar!/</url>
+      <url>jar://$xwork$/lib/default/oscore.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/rife-continuations.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/default/rife-continuations.jar!/</url>
+      <url>jar://$xwork$/lib/default/rife-continuations.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/asm-attrs.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/spring/asm-attrs.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/asm.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/spring/asm.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/cglib.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/spring/cglib.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/cglib-nodep.jar" />
+      <url>jar://$xwork$/lib/spring/cglib-nodep.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-attributes-api.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/spring/commons-attributes-api.jar!/</url>
+      <url>jar://$xwork$/lib/spring/commons-attributes-api.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-logging.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/spring/commons-logging.jar!/</url>
+      <url>jar://$xwork$/lib/spring/commons-logging.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/spring-aop.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/spring/spring-aop.jar!/</url>
+      <url>jar://$xwork$/lib/spring/spring-aop.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/spring-beans.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/spring/spring-beans.jar!/</url>
+      <url>jar://$xwork$/lib/spring/spring-beans.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/spring-context.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/spring/spring-context.jar!/</url>
+      <url>jar://$xwork$/lib/spring/spring-context.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/spring-core.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/spring/spring-core.jar!/</url>
+      <url>jar://$xwork$/lib/spring/spring-core.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/spring-web.jar" />
-      <url>jar://$MODULE_DIR$/../../../xwork/lib/spring/spring-web.jar!/</url>
+      <url>jar://$xwork$/lib/spring/spring-web.jar!/</url>
     </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/webapp/WEB-INF/web.xml" optional="false" version="2.3" />
     <webroots>
