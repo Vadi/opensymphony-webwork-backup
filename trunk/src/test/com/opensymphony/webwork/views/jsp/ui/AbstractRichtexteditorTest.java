@@ -20,7 +20,7 @@ import junit.framework.TestCase;
  * @author tm_jee
  * @version $Date$ $Id$
  */
-public class AbstractRichtexteditorTest extends TestCase {
+public abstract class AbstractRichtexteditorTest extends TestCase {
 	
 	protected MockActionInvocation invocation;
 	protected MockHttpServletResponse response;
