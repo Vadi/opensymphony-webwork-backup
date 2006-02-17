@@ -283,6 +283,10 @@ public abstract class UIBean extends Component {
     protected String onkeyup;
     protected String onselect;
     protected String onchange;
+    
+    // javascript tooltip attribute
+    protected String tooltip;
+    
 
     public boolean end(Writer writer, String body) {
         evaluateParams();
@@ -486,6 +490,7 @@ public abstract class UIBean extends Component {
         if (title != null) {
             addParameter("title", findString(title));
         }
+        
 
         // see if the value was specified as a parameter already
         if (parameters.containsKey("value")) {
@@ -535,6 +540,16 @@ public abstract class UIBean extends Component {
                 List tags = (List) form.getParameters().get("tagNames");
                 tags.add(name);
             }
+        }
+        
+        if (tooltip != null) {
+        	addParameter("tooltip", findString(tooltip));
+        	if (form != null) { // inform the containing form that we need tooltip javascript included
+        		form.addParameter("hasTooltip", Boolean.TRUE);
+        	}
+        	else {
+        		LOG.warn("No ancestor Form not found, javascript based tooltip will not work, however standard HTML tooltip using alt and title attribute will still work ");
+        	}
         }
 
         evaluateExtraParams();
@@ -786,5 +801,13 @@ public abstract class UIBean extends Component {
      */
     public void setOnchange(String onchange) {
         this.onchange = onchange;
+    }
+    
+    /**
+     * @ww.tagattribute required="false"
+     * description="Set the tooltip of this particular component"
+     */
+    public void setTooltip(String tooltip) {
+    	this.tooltip = tooltip;
     }
 }

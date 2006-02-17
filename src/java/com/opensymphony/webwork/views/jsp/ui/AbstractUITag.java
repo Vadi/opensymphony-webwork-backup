@@ -40,6 +40,7 @@ public abstract class AbstractUITag extends ComponentTagSupport {
     protected String onkeyup;
     protected String onselect;
     protected String onchange;
+    protected String tooltip;
 
 
     protected void populateParams() {
@@ -73,6 +74,7 @@ public abstract class AbstractUITag extends ComponentTagSupport {
         uiBean.setOnkeyup(onkeyup);
         uiBean.setOnselect(onselect);
         uiBean.setOnchange(onchange);
+        uiBean.setTooltip(tooltip);
     }
 
     public void setCssClass(String cssClass) {
@@ -184,5 +186,9 @@ public abstract class AbstractUITag extends ComponentTagSupport {
 
     public void setOnchange(String onchange) {
         this.onchange = onchange;
+    }
+    
+    public void setTooltip(String tooltip) {
+    	this.tooltip = tooltip;
     }
 }

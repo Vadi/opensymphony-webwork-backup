@@ -54,3 +54,9 @@
 	}
 </script>
 
+<#-- 
+ Code that will add javascript needed for tooltips
+-->
+<#if parameters.hasTooltip?default(false)>
+	<script language="JavaScript" type="text/javascript" src="<@ww.url value='/webwork/tooltip/wz_tooltip.js' encode='false' />"></script>
+</#if>
