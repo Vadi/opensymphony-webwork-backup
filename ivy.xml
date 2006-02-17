@@ -42,6 +42,7 @@
         <conf name="tiger"/>
         <conf name="cewolf"/>
         <conf name="hibernate"/>
+        <conf name="tiles"/>
     </configurations>
     <publications>
         <artifact name="webwork" type="jar" conf="default"/>
@@ -74,6 +75,10 @@
 
         <!-- freemarker -->
         <dependency org="freemarker" name="freemarker" rev="2.3.4" conf="freemarker->default"/>
+
+        <!-- tiles -->
+        <dependency org="org.apache.tiles" name="tiles-core" rev="0.2-20060215" conf="tiles->default"/>
+        <dependency org="commons-digester" name="commons-digester" rev="1.7" conf="tiles->default"/>
 
         <!-- velocity -->
         <dependency org="apache" name="velocity" rev="1.4" conf="velocity->*"/>
