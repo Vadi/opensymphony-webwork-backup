@@ -19,13 +19,17 @@ public class RequestUtils {
     public static final String getServletPath(HttpServletRequest request) {
         String servletPath = request.getServletPath();
         
-        if (!"".equals(servletPath)) {
+        if (null != servletPath && !"".equals(servletPath)) {
             return servletPath;
         }
         
         String requestUri = request.getRequestURI();
         int startIndex = request.getContextPath().equals("") ? 0 : request.getContextPath().length();
-        int endIndex = request.getPathInfo() == null ? requestUri.length() : requestUri.indexOf(request.getPathInfo());
+        int endIndex = request.getPathInfo() == null ? requestUri.length() : requestUri.lastIndexOf(request.getPathInfo());
+        
+        if (startIndex > endIndex) { // this should not happen
+            endIndex = startIndex;
+        }
         
         return requestUri.substring(startIndex, endIndex);
     }
