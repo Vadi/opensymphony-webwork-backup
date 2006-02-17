@@ -83,7 +83,9 @@ public class PlexusObjectFactory extends ObjectFactory implements ObjectFactoryI
         try {
             return pc.lookup(className);
         } catch (Exception e) {
-            return super.buildBean(className, extraContext);
+            Object o = super.buildBean(className, extraContext);
+            pc.autowire(o);
+            return o;
         }
     }
 }
