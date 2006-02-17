@@ -3,27 +3,30 @@
     <package name="webwork-default">
         <result-types>
             <result-type name="chain" class="com.opensymphony.xwork.ActionChainResult"/>
-            <result-type name="dispatcher" class="com.opensymphony.webwork.dispatcher.ServletDispatcherResult"
-                         default="true"/>
+            <result-type name="dispatcher" class="com.opensymphony.webwork.dispatcher.ServletDispatcherResult" default="true"/>
             <result-type name="freemarker" class="com.opensymphony.webwork.views.freemarker.FreemarkerResult"/>
             <result-type name="httpheader" class="com.opensymphony.webwork.dispatcher.HttpHeaderResult"/>
             <result-type name="jasper" class="com.opensymphony.webwork.views.jasperreports.JasperReportsResult"/>
             <result-type name="redirect" class="com.opensymphony.webwork.dispatcher.ServletRedirectResult"/>
-            <result-type name="redirect-action"
-                         class="com.opensymphony.webwork.dispatcher.ServletActionRedirectResult"/>
+            <result-type name="redirect-action" class="com.opensymphony.webwork.dispatcher.ServletActionRedirectResult"/>
             <result-type name="stream" class="com.opensymphony.webwork.dispatcher.StreamResult"/>
             <result-type name="velocity" class="com.opensymphony.webwork.dispatcher.VelocityResult"/>
             <result-type name="xslt" class="com.opensymphony.webwork.views.xslt.XSLTResult"/>
+            
+            <!-- Results necessary when using 'browse server' and 'upload' feature of Richtexteditor -->
+            <result-type name="richtexteditorGetFolders" class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorGetFoldersResult" />
+            <result-type name="richtexteditorGetFoldersAndFiles" class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorGetFoldersAndFilesResult" />
+            <result-type name="richtexteditorCreateFolder" class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorCreateFolderResult" />
+            <result-type name="richtexteditorFileUpload" class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorFileUploadResult" />
+            
         </result-types>
 
         <interceptors>
             <interceptor name="alias" class="com.opensymphony.xwork.interceptor.AliasInterceptor"/>
-            <interceptor name="autowiring"
-                         class="com.opensymphony.xwork.spring.interceptor.ActionAutowiringInterceptor"/>
+            <interceptor name="autowiring" class="com.opensymphony.xwork.spring.interceptor.ActionAutowiringInterceptor"/>
             <interceptor name="chain" class="com.opensymphony.xwork.interceptor.ChainingInterceptor"/>
             <interceptor name="component" class="com.opensymphony.xwork.interceptor.component.ComponentInterceptor"/>
-            <interceptor name="conversionError"
-                         class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
+            <interceptor name="conversionError" class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
             <interceptor name="external-ref" class="com.opensymphony.xwork.interceptor.ExternalReferencesInterceptor"/>
             <interceptor name="execAndWait" class="com.opensymphony.webwork.interceptor.ExecuteAndWaitInterceptor"/>
             <interceptor name="exception" class="com.opensymphony.xwork.interceptor.ExceptionMappingInterceptor"/>
@@ -36,12 +39,10 @@
             <interceptor name="static-params" class="com.opensymphony.xwork.interceptor.StaticParametersInterceptor"/>
             <interceptor name="scope" class="com.opensymphony.webwork.interceptor.ScopeInterceptor"/>
             <interceptor name="servlet-config" class="com.opensymphony.webwork.interceptor.ServletConfigInterceptor"/>
-            <interceptor name="sessionAutowiring"
-                         class="com.opensymphony.webwork.spring.interceptor.SessionContextAutowiringInterceptor"/>
+            <interceptor name="sessionAutowiring" class="com.opensymphony.webwork.spring.interceptor.SessionContextAutowiringInterceptor"/>
             <interceptor name="timer" class="com.opensymphony.xwork.interceptor.TimerInterceptor"/>
             <interceptor name="token" class="com.opensymphony.webwork.interceptor.TokenInterceptor"/>
-            <interceptor name="token-session"
-                         class="com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"/>
+            <interceptor name="token-session" class="com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"/>
             <interceptor name="validation" class="com.opensymphony.xwork.validator.ValidationInterceptor"/>
             <interceptor name="workflow" class="com.opensymphony.xwork.interceptor.DefaultWorkflowInterceptor"/>
 
@@ -158,10 +159,10 @@
                 <interceptor-ref name="params"/>
                 <interceptor-ref name="conversionError"/>
                 <interceptor-ref name="validation">
-                    <param name="excludeMethods">input,back,cancel</param>
+                    <param name="excludeMethods">input,back,cancel,browse</param>
                 </interceptor-ref>
                 <interceptor-ref name="workflow">
-                    <param name="excludeMethods">input,back,cancel</param>
+                    <param name="excludeMethods">input,back,cancel,browse</param>
                 </interceptor-ref>
             </interceptor-stack>
 
