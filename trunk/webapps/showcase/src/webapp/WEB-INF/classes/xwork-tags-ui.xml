@@ -26,5 +26,29 @@
         	<result name="input">lotsOfOptiontransferselect.jsp</result>
         	<result>lotsOfOptiontransferselectSubmit.jsp</result>
         </action>
+        <action name="lotsOfRichtexteditor" class="com.opensymphony.webwork.showcase.LotsOfRichtexteditorAction" method="input">
+        	<result>lotsOfRichtexteditor.jsp</result>
+        </action>
+        <action name="lotsOfRichtexteditorSubmit" class="com.opensymphony.webwork.showcase.LotsOfRichtexteditorAction" method="submit">
+        	<result name="input">lotsOfRichtexteditor.jsp</result>
+			<result>lotsOfRichtexteditorSubmit.jsp</result>        
+        </action>
+    </package>
+    
+    
+    
+    <package name="richtexteditor-browse" extends="webwork-default" namespace="/webwork/richtexteditor/editor/filemanager/browser/default/connectors/jsp">
+    	<action name="connector" class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" method="browse">
+    		<result name="getFolders" type="richtexteditorGetFolders" >aaa</result>
+    		<result name="getFoldersAndFiles" type="richtexteditorGetFoldersAndFiles" >bbb</result>
+    		<result name="createFolder" type="richtexteditorCreateFolder">ccc</result>
+    		<result name="fileUpload" type="richtexteditorFileUpload">ddd</result>
+    	</action>
+    </package>
+    
+    <package name="richtexteditor-upload" extends="webwork-default" namespace="/webwork/richtexteditor/editor/filemanager/upload">
+		<action name="uploader" class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" method="upload">
+			<result name="richtexteditorFileUpload" />
+		</action>    
     </package>
 </xwork>

@@ -6,16 +6,13 @@ package com.opensymphony.webwork.components;
 
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.views.jsp.AbstractTagTest;
-import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 import com.opensymphony.webwork.views.jsp.ActionTag;
 import com.opensymphony.webwork.views.jsp.BeanTag;
 import com.opensymphony.webwork.views.jsp.ElseIfTag;
@@ -30,8 +27,9 @@ import com.opensymphony.webwork.views.jsp.TextTag;
 import com.opensymphony.webwork.views.jsp.URLTag;
 import com.opensymphony.webwork.views.jsp.iterator.AppendIteratorTag;
 import com.opensymphony.webwork.views.jsp.iterator.MergeIteratorTag;
-import com.opensymphony.webwork.views.jsp.ui.AnchorTag;
+import com.opensymphony.webwork.views.jsp.ui.RichTextEditorTag;
 import com.opensymphony.webwork.views.jsp.ui.TextFieldTag;
+import com.opensymphony.webwork.views.jsp.ui.UpDownSelectTag;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
@@ -473,4 +471,56 @@ public class ComponentTest extends AbstractTagTest {
 		}
 	}
 	
+	
+	// updownselect
+	public void testUpDownSelectDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		UpDownSelectTag tag = new UpDownSelectTag();
+		tag.setId("myId");
+		tag.setPageContext(pageContext);
+		tag.setName("updownselectName");
+		tag.setList("{}");
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
+	
+	
+	// richtexteditor
+	public void testRichTextEditorDisposeItselfFromComponentStack() throws Exception {
+		TextFieldTag t = new TextFieldTag();
+		t.setPageContext(pageContext);
+		t.setName("textFieldName");
+		
+		RichTextEditorTag tag = new RichTextEditorTag();
+		tag.setId("myId");
+		tag.setPageContext(pageContext);
+		tag.setName("myRichtTextEditor");
+		
+		try {
+			t.doStartTag();
+			tag.doStartTag();
+			assertEquals(tag.getComponent().getComponentStack().peek(), tag.getComponent());
+			tag.doEndTag();
+			assertEquals(t.getComponent().getComponentStack().peek(), t.getComponent());
+			t.doEndTag();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail(e.toString());
+		}
+	}
 }

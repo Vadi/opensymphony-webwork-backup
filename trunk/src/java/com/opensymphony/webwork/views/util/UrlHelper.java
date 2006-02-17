@@ -42,8 +42,12 @@ public class UrlHelper {
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params) {
         return buildUrl(action, request, response, params, null, true, true);
     }
-
+    
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params, String scheme, boolean includeContext, boolean encodeResult) {
+    	return buildUrl(action, request, response, params, scheme, true, true, false);
+    }
+
+    public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params, String scheme, boolean includeContext, boolean encodeResult, boolean forceAddSchemeHostAndPort) {
         StringBuffer link = new StringBuffer();
 
         boolean changedScheme = false;
@@ -62,8 +66,23 @@ public class UrlHelper {
         } catch (Exception ex) {
         }
 
-        // only append scheme if it is different to the current scheme
-        if ((scheme != null) && !scheme.equals(request.getScheme())) {
+        // only append scheme if it is different to the current scheme *OR*
+        // if we explicity want it to be appended by having forceAddSchemeHostAndPort = true
+        if (forceAddSchemeHostAndPort) {
+        	String reqScheme = request.getScheme();
+        	changedScheme = true;
+        	link.append(scheme != null ? scheme : reqScheme);
+        	link.append("://");
+        	link.append(request.getServerName());
+        	
+        	if ((scheme.equals("http") && (httpPort != DEFAULT_HTTP_PORT)) || (scheme.equals("https") && httpsPort != DEFAULT_HTTPS_PORT))
+            {
+                link.append(":");
+                link.append(scheme.equals("http") ? httpPort : httpsPort);
+            }
+        }
+        else if (  
+           (scheme != null) && !scheme.equals(request.getScheme())) {
             changedScheme = true;
             link.append(scheme);
             link.append("://");

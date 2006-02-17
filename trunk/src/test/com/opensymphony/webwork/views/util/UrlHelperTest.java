@@ -28,6 +28,39 @@ import java.util.HashMap;
 public class UrlHelperTest extends WebWorkTestCase {
 	
 	
+	
+	public void testForceAddSchemeHostAndPort() throws Exception {
+		String expectedUrl = "http://localhost/contextPath/path1/path2/myAction.action";
+		
+		Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
+		mockHttpServletRequest.expectAndReturn("getScheme", "http");
+		mockHttpServletRequest.expectAndReturn("getServerName", "localhost");
+        mockHttpServletRequest.expectAndReturn("getContextPath", "/contextPath");
+
+        Mock mockHttpServletResponse = new Mock(HttpServletResponse.class);
+        mockHttpServletResponse.expectAndReturn("encodeURL", expectedUrl, expectedUrl);
+		
+		String result = UrlHelper.buildUrl("/path1/path2/myAction.action", (HttpServletRequest) mockHttpServletRequest.proxy(), (HttpServletResponse)mockHttpServletResponse.proxy(), null, "http", true, true, true);
+		assertEquals(expectedUrl, result);
+	}
+	
+	public void testDoNotForceAddSchemeHostAndPort() throws Exception {
+		String expectedUrl = "/contextPath/path1/path2/myAction.action";
+		
+		Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
+		mockHttpServletRequest.expectAndReturn("getScheme", "http");
+		mockHttpServletRequest.expectAndReturn("getServerName", "localhost");
+        mockHttpServletRequest.expectAndReturn("getContextPath", "/contextPath");
+
+        Mock mockHttpServletResponse = new Mock(HttpServletResponse.class);
+        mockHttpServletResponse.expectAndReturn("encodeURL", expectedUrl, expectedUrl);
+		
+		String result = UrlHelper.buildUrl("/path1/path2/myAction.action", (HttpServletRequest)mockHttpServletRequest.proxy(), (HttpServletResponse)mockHttpServletResponse.proxy(), null, "http", true, true, false);
+		
+		assertEquals(expectedUrl, result);
+	}
+	
+	
 	public void testBuildParametersStringWithUrlHavingSomeExistingParameters() throws Exception {
 		String expectedUrl = "http://localhost:8080/myContext/myPage.jsp?initParam=initValue&amp;param1=value1&amp;param2=value2";
 		
@@ -50,6 +83,7 @@ public class UrlHelperTest extends WebWorkTestCase {
 
         Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
         mockHttpServletRequest.expectAndReturn("getContextPath", "/");
+        mockHttpServletRequest.expectAndReturn("getScheme", "http");
 
         Mock mockHttpServletResponse = new Mock(HttpServletResponse.class);
         mockHttpServletResponse.expectAndReturn("encodeURL", expectedUrl, expectedUrl);
@@ -65,6 +99,7 @@ public class UrlHelperTest extends WebWorkTestCase {
     public void testBuildUrlCorrectlyAddsAmp() {
         String expectedString = "my.actionName?foo=bar&amp;hello=world";
         Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
+        mockHttpServletRequest.expectAndReturn("getScheme", "http");
         Mock mockHttpServletResponse = new Mock(HttpServletResponse.class);
         mockHttpServletResponse.expectAndReturn("encodeURL", expectedString, expectedString);
 
@@ -80,6 +115,7 @@ public class UrlHelperTest extends WebWorkTestCase {
     public void testBuildUrlWithStringArray() {
         String expectedString = "my.actionName?foo=bar&amp;hello=earth&amp;hello=mars";
         Mock mockHttpServletRequest = new Mock(HttpServletRequest.class);
+        mockHttpServletRequest.expectAndReturn("getScheme", "http");
         Mock mockHttpServletResponse = new Mock(HttpServletResponse.class);
         mockHttpServletResponse.expectAndReturn("encodeURL", expectedString, expectedString);
 

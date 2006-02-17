@@ -36,6 +36,8 @@
 			</ww:iterator>
 		</td>
 	</tr>
+	<ww:label label="Thoughts" name="thoughts" />
+	
 </table>
 </body>
 </html>
