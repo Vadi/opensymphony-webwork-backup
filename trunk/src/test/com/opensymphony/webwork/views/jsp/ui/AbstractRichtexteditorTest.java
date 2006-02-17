@@ -9,6 +9,7 @@ import java.io.InputStream;
 
 import com.mockobjects.servlet.MockHttpServletResponse;
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 import com.opensymphony.xwork.MockActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -57,6 +58,6 @@ public abstract class AbstractRichtexteditorTest extends TestCase {
 		//System.out.println("*** result1 (p)="+result1);
 		//System.out.println("*** result2 (p)="+result2);
 		
-		assertEquals(result1.trim(), result2.trim());
+		assertEquals(AbstractUITagTest.normalize(result2.trim(), false), AbstractUITagTest.normalize(result1.trim(), false));
 	}
 }

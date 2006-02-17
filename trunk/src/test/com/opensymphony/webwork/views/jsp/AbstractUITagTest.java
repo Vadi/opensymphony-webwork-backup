@@ -203,7 +203,7 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
             }
             tag.doStartTag();
             tag.doEndTag();
-            String writerString = normalize(writer.toString());
+            String writerString = normalize(writer.toString(), true);
             if (LOG.isInfoEnabled()) {
                 LOG.info("AbstractUITagTest - [verifyGenericProperties]: Tag output is " + writerString);
             }
@@ -262,8 +262,8 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
          * compare the trimmed values of each buffer and make sure they're equivalent.  however, let's make sure to
          * normalize the strings first to account for line termination differences between platforms.
          */
-        String writerString = normalize(writer.toString());
-        String bufferString = normalize(buffer.toString());
+        String writerString = normalize(writer.toString(), true);
+        String bufferString = normalize(buffer.toString(), true);
 
         assertEquals(bufferString, writerString);
     }
@@ -297,8 +297,8 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
          * compare the trimmed values of each buffer and make sure they're equivalent.  however, let's make sure to
          * normalize the strings first to account for line termination differences between platforms.
          */
-        String writerString = normalize(writer.toString());
-        String bufferString = normalize(buffer.toString());
+        String writerString = normalize(writer.toString(), true);
+        String bufferString = normalize(buffer.toString(), true);
 
         assertEquals(bufferString, writerString);
     }
@@ -319,16 +319,17 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
      * space, tab, \r, and \n characters are converted to a single space character
      *
      * @param obj the object to be normalized.  normalize will perform its operation on obj.toString().trim() ;
+     * @param appendSpace
      * @return the normalized string
      */
-    private String normalize(Object obj) {
+    public static String normalize(Object obj, boolean appendSpace) {
         StringTokenizer st = new StringTokenizer(obj.toString().trim(), " \t\r\n");
         StringBuffer buffer = new StringBuffer(128);
 
         while (st.hasMoreTokens()) {
             buffer.append(st.nextToken());
 
-            if (st.hasMoreTokens()) {
+            if (appendSpace && st.hasMoreTokens()) {
                 buffer.append(" ");
             }
         }
