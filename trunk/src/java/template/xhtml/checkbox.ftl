@@ -13,13 +13,18 @@
 </#list>
 </#if>
 <tr>
-    <td valign="top" colspan="2">
-        <table width="100%" border="0" cellpadding="0" cellspacing="0">
-            <tr>
-                <td valign="middle"><#include "/${parameters.templateDir}/simple/checkbox.ftl" /></td>
-                <td width="100%" valign="middle"><#rt/>
-<#if parameters.label?exists>
-                    <label<#t/>
+	<td valign="top" align="right">
+		<#if parameters.required?default(false)>
+        	<span class="required">*</span><#t/>
+		</#if>
+		<#if parameters.tooltip?exists>
+      		<img src='<@ww.url value="/webwork/tooltip/tooltip.gif" />' alt="${parameters.tooltip}" title="${parameters.tooltip}" onmouseover="return escape('${parameters.tooltip?js_string}');" />
+		</#if>
+	</td>
+    <td valign="top" align="left">
+                	
+                	<#include "/${parameters.templateDir}/simple/checkbox.ftl" />
+<#if parameters.label?exists> <label<#t/>
 <#if parameters.id?exists>
  for="${parameters.id?html}"<#rt/>
 </#if>
@@ -30,7 +35,4 @@
 </#if>
 >${parameters.label?html}</label><#rt/>
 </#if>
-                </td><#lt/>
-            </tr>
-        </table>
-    <#include "/${parameters.templateDir}/xhtml/controlfooter.ftl" /><#nt/>
+ <#include "/${parameters.templateDir}/xhtml/controlfooter.ftl" /><#nt/>

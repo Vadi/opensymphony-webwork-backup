@@ -40,7 +40,11 @@
 <#if parameters.required?default(false)>
         <span class="required">*</span><#t/>
 </#if>
-        ${parameters.label?html}:</label><#t/>
+${parameters.label?html}:<#t/>
+<#if parameters.tooltip?exists>
+      <img src='<@ww.url value="/webwork/tooltip/tooltip.gif" />' alt="${parameters.tooltip}" title="${parameters.tooltip}" onmouseover="return escape('${parameters.tooltip?js_string}');" />
+</#if>  
+</label><#t/>
 </#if>
     </td><#lt/>
 <#-- add the extra row -->
