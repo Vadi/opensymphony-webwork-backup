@@ -7,12 +7,164 @@ package com.opensymphony.webwork.components;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.CreateFolderResult;
+import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.FileUploadResult;
+import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.Folder;
+import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.FoldersAndFiles;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
+ * <!-- START SNIPPET: javadoc -->
+ * 
+ * Create a Rich Text Editor based on FCK editor (www.fckeditor.net). 
+ * 
+ * <!-- END SNIPPET: javadoc -->
+ * 
+ * <p/>
+ * 
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * 
+ * &lt;ww:richtexteditor 
+ *			toolbarCanCollapse="false"
+ *			width="700"
+ *			label="Description 1" 
+ *			name="description1" 
+ *			value="Some Content I keyed In In The Tag Itself"
+ *			/&gt;
+ * 
+ * 
+ * <!-- END SNIPPET: example -->
+ * </pre>
+ * 
+ * 
+ * <!-- START SNIPPET: serversidebrowsing -->
+ * 
+ * It is possible to have a rich text editor do server side browsing  
+ * when for example the image button is clicked. To integrate this functionality with 
+ * webwork, one need to defined the following action definition typically in xwork.xml
+ * 
+ * <pre>
+ *   &lt;package name="richtexteditor-browse" extends="webwork-default" namespace="/webwork/richtexteditor/editor/filemanager/browser/default/connectors/jsp"&gt;
+ *   	&lt;action name="connector" class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" method="browse">
+ *   		&lt;result name="getFolders" type="richtexteditorGetFolders" /&gt;
+ *   		&lt;result name="getFoldersAndFiles" type="richtexteditorGetFoldersAndFiles" /&gt;
+ *   		&lt;result name="createFolder" type="richtexteditorCreateFolder" /&gt;
+ *   		&lt;result name="fileUpload" type="richtexteditorFileUpload" /&gt;
+ *   	&lt;/action&gt;
+ *   &lt;/package&gt;
+ * </pre>
+ * 
+ * By default whenever a browse command is triggered (eg. by clicking on the 'image' button and then
+ * 'browse server' button, the url '/webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?&Type=Image&Connector=connectors/jsp/connector.action'.
+ * The page browser.html which comes with FCK Editor will trigger the url 
+ * '/webwork/richtexteditor/editor/filemanager/browser/default/connectors/jsp/connector.action' which will
+ * caused the webwork's DefaultRichtexteditorConnector to be executed. The trigerring url could be
+ * changed by altering the 'imageBrowseURL'. There 3 types of such related url, namely 'imageBrowseURL', 
+ * 'linkBrowseURL' and 'flashBrowseURL'. It is recomended that the default one being used. One could change the
+ * Connector parameter instead. For example
+ * 
+ * <pre>
+ * /webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?&Type=Image&Connector=connectors/jsp/connector.action
+ * </pre>
+ * 
+ * could be changed to 
+ * 
+ * <pre>
+ * /webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?&Type=Image&Connector=myLittlePath/myConnector.action
+ * </pre>
+ * 
+ * In this case the action will need to have a namespace of '/webwork/richtexteditor/editor/filemanager/browser/default/myLittlePath'
+ * and action name of 'myConnector'
+ * 
+ * <p/>
+ * 
+ * By default the action method that needs to be defined in xwork.xml needs to be 'browse'. If this needs
+ * to be something else say, myBrowse, the following could be used
+ * 
+ * <pre>
+ *   public String myBrowse() {
+ *       browse();
+ *   }
+ * </pre>
+ * 
+ * <!-- START SNIPPET: serversidebrowsing -->
+ * 
+ * <p/>
+ * 
+ * 
+ * <!-- START SNIPPET: serversideuploading -->
+ * 
+ * It is possible for the richtexteditor to do server side uploading as well. For example when clicking
+ * on the 'Image' button and then the 'Upload' tab and then selecting a file from client local
+ * machine and the clicking 'Send it to the server'. To integrate this functionality with 
+ * webwork, one need to defined the following action definition typically in xwork.xml
+ * 
+ * <pre>
+ *   &lt;package name="richtexteditor-upload" extends="webwork-default" namespace="/webwork/richtexteditor/editor/filemanager/upload"&gt;
+ *		&lt;action name="uploader" class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" method="upload"&gt;
+ *			&lt;result name="richtexteditorFileUpload" /&gt;
+ *		&lt;/action&gt;    
+ *   &lt;/package&gt;
+ * </pre>
+ * 
+ * By default whenever an upload command is triggered, a '/webwork/static/richtexteditor/editor/filemanager/upload/uploader.action?Type=Image'
+ * will be issued. This could be changed by setting the imageUploadURL attribute of the tag. 
+ * When this link is issued, the webwork action will get executed. There's 3 such related upload url
+ * namely, 'imageUploadURL', 'linkUploadURL' and 'flashUploadURL'. It is recomended that the default 
+ * one being used. However one could change the url, but need to include the Type parameter. For example
+ * 
+ * <pre>
+ * /webwork/static/richtexteditor/editor/filemanager/upload/uploader.action?Type=Image
+ * </pre>
+ * 
+ * could be changed to 
+ * 
+ * <pre>
+ * /webwork/static/richtexteditor/editor/filemanager/upload/aDifferentUploader.action?Type=Image
+ * </pre>
+ * 
+ * In this case the action will need to have a namespace of '/webwork/static/richtexteditor/editor/filemanager/upload'
+ * and action name of 'aDifferentUploader'
+ * 
+ * By default the action method that needs to be defined in xwork.xml needs to be 'upload'. If this needs
+ * to be something else say, myUpload, the following could be used
+ * 
+ * <pre>
+ *   public String myUpload() {
+ *       upload();
+ *   }
+ * </pre>
+ * 
+ * <!-- END SNIPPET: serversideuploading -->
+ * 
+ * 
+ * <!-- START SNIPPET: richtexteditoraction -->
+ * 
+ * The webwork that handles the server-side browsing and uploading needs to extends from 
+ * AbstractRichtexteditorConnector.
+ * 
+ * There are four abstract methods need to be implemented, namely 
+ * 
+ * <p/>
+ * 
+ * <pre>
+ *  protected abstract String calculateServerPath(String serverPath, String folderPath, String type) throws Exception;
+ *  protected abstract Folder[] getFolders(String virtualFolderPath, String type) throws Exception;
+ *  protected abstract FoldersAndFiles getFoldersAndFiles(String virtualFolderPath, String type) throws Exception;
+ *  protected abstract CreateFolderResult createFolder(String virtualFolderPath, String type, String newFolderName) throws Exception;
+ *  protected abstract FileUploadResult fileUpload(String virtualFolderPath, String type, String filename, String contentType, java.io.File newFile) throws Exception;
+ *  protected abstract void unknownCommand(String command, String virtualFolderPath, String type, String filename, String contentType, java.io.File newFile) throws Exception;
+ * </pre>
+ * 
+ * <!-- END SNIPPET: richtexteditoraction -->
+ * 
+ * 
  * 
  * @author tm_jee
  * @version $Date$ $Id$
+ * @see AbstractRichtexteditorConnector
  * 
  * @ww.tag name="richtexteditor" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.RichTextEditorTag"
  * description="Render a rich text editor element"
