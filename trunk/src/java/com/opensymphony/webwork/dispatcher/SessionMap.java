@@ -15,7 +15,7 @@ import java.util.*;
  * attributes. The {@link #entrySet()} method enumerates over all session attributes and creates a Set of entries.
  * Note, this will occur lazily - only when the entry set is asked for.
  *
- * @author <a href="mailto:rickard@middleware-company.com">Rickard Öberg</a>
+ * @author <a href="mailto:rickard@middleware-company.com">Rickard ï¿½berg</a>
  * @author Bill Lynch (docs)
  */
 public class SessionMap extends AbstractMap implements Serializable {
@@ -44,12 +44,18 @@ public class SessionMap extends AbstractMap implements Serializable {
      * Removes all attributes from the session as well as clears entries in this map.
      */
     public void clear() {
-        if (session == null) {
+        if (session == null ) {
             return;
         }
 
         synchronized (session) {
-            entries = null;
+            if (entries != null ) {
+                for ( Iterator iter = entries.iterator(); iter.hasNext(); ) {
+                    Object key = iter.next();
+                    session.removeAttribute(key.toString());
+                }
+                entries = null;
+            }
         }
     }
 
