@@ -43,7 +43,7 @@ public abstract class AbstractRichtexteditorConnector extends ActionSupport impl
 	protected String _currentFolder;
 	protected String _serverPath = "/webwork/richtexteditor/data/";
 	protected String _newFolderName;
-	protected String _actualServerPath = "/com/opensymphony/webwork/static/richtexteditor/data/";
+	
 	
 	
 	public String browse() throws Exception {
@@ -154,9 +154,6 @@ public abstract class AbstractRichtexteditorConnector extends ActionSupport impl
 	
 	public String getServerPath() { return _serverPath; }
 	public void setServerPath(String serverPath) { _serverPath = serverPath; }
-	
-	public String getActualServerPath() { return _actualServerPath; }
-	public void setActualServerPath(String actualServerPath) { _actualServerPath = actualServerPath; }
 	
 	
 	

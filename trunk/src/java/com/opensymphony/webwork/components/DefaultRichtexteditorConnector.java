@@ -11,13 +11,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tools.ant.taskdefs.Mkdir;
 
 import com.opensymphony.util.ClassLoaderUtil;
 import com.opensymphony.util.FileManager;
@@ -34,11 +38,18 @@ import com.opensymphony.webwork.views.util.UrlHelper;
  * @author tm_jee
  * @version $Date$ $Id$
  */
-public class DefaultRichtexteditorConnector extends AbstractRichtexteditorConnector {
+public class DefaultRichtexteditorConnector extends AbstractRichtexteditorConnector implements ServletContextAware {
 
 	private static final Log _log = LogFactory.getLog(DefaultRichtexteditorConnector.class);
 	
 	private static final long serialVersionUID = -3792445192115623052L;
+	
+	protected String _actualServerPath = "/com/opensymphony/webwork/static/richtexteditor/data/";
+	
+	
+	public String getActualServerPath() { return _actualServerPath; }
+	public void setActualServerPath(String actualServerPath) { _actualServerPath = actualServerPath; }
+	
 	
 	protected String calculateServerPath(String serverPath, String folderPath, String type) throws Exception {
 		//return UrlHelper.buildUrl(serverPath, _request, _response, null, _request.getScheme(), true, true, true);
@@ -46,10 +57,15 @@ public class DefaultRichtexteditorConnector extends AbstractRichtexteditorConnec
 	}
 	
 	protected String calculateActualServerPath(String actualServerPath, String type, String folderPath) throws Exception {
-		String tmp = ClassLoaderUtil.getResource(actualServerPath, DefaultRichtexteditorConnector.class).toString();
-		
-		// return tmp + folderPath;
-		return tmp+type+folderPath;
+		String path = "file://"+servletContext.getRealPath("/WEB-INF/classes"+actualServerPath);
+		makeDirIfNotExists(path);
+		path = path.endsWith("/") ? path : path+"/";
+		return path+type+folderPath;
+	}
+	
+	private ServletContext servletContext;
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
 	}
 
 	protected Folder[] getFolders(String virtualFolderPath, String type) throws Exception {
