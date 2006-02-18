@@ -145,15 +145,22 @@ webwork.widgets.HTMLBind = function() {
                     }catch(e){
                         dojo.debug("auto-build-widgets error: "+e);
                     }
+                    //moved here to support WW-1193
+                    if (self.onLoad != "") {
+                        eval(self.onLoad);
+                    }
+
                 }, 0);
 
 				dojo.debug("received html <a onclick=\"var e = document.getElementById('" + d + "'); e.style.display = (e.style.display=='none')?'block':'none';return false;\" href='#'>showHide</a><textarea style='display:none; width:98%;height:200px' id='" + d + "'>" + data + "</textarea>");
 			}
-    	}
+    	} else {
+            //moved here to support WW-1193
+            if (self.onLoad != "") {
+                eval(self.onLoad);
+            }
+        }
     	
-    	if (self.onLoad != "") {
-    		eval(self.onLoad);
-    	}
 
 		// notify our listeners
 		if (self.notifyTopics != "") {
