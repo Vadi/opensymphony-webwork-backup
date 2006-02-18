@@ -58,12 +58,6 @@ public class DispatcherUtils {
         DispatcherUtils.instance = instance;
     }
 
-    // set from the webwork.i18n.encoding property in webwork.properties
-    protected String encoding = null;
-
-    // set from webwork.locale property in webwork.properties
-    protected Locale locale = null;
-
     protected boolean devMode = false;
 
     // used to get WebLogic to play nice
@@ -135,14 +129,6 @@ public class DispatcherUtils {
         if (Configuration.isSet(WebWorkConstants.WEBWORK_CONTINUATIONS_PACKAGE)) {
             String pkg = Configuration.getString(WebWorkConstants.WEBWORK_CONTINUATIONS_PACKAGE);
             ObjectFactory.setContinuationPackage(pkg);
-        }
-
-        if (Configuration.isSet(WebWorkConstants.WEBWORK_I18N_ENCODING)) {
-            encoding = Configuration.getString(WebWorkConstants.WEBWORK_I18N_ENCODING);
-        }
-
-        if (Configuration.isSet(WebWorkConstants.WEBWORK_LOCALE)) {
-            locale = localeFromString(Configuration.getString(WebWorkConstants.WEBWORK_LOCALE));
         }
 
         // test wether param-access workaround needs to be enabled
@@ -269,6 +255,13 @@ public class DispatcherUtils {
         extraContext.put(ActionContext.PARAMETERS, new HashMap(parameterMap));
         extraContext.put(ActionContext.SESSION, sessionMap);
         extraContext.put(ActionContext.APPLICATION, applicationMap);
+
+        Locale locale = null;
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_LOCALE)) {
+            locale = localeFromString(Configuration.getString(WebWorkConstants.WEBWORK_LOCALE));
+        }
+
+
         extraContext.put(ActionContext.LOCALE, (locale == null) ? request.getLocale() : locale);
         extraContext.put(ActionContext.DEV_MODE, Boolean.valueOf(devMode));
 
@@ -381,6 +374,17 @@ public class DispatcherUtils {
     }
 
     public void prepare(HttpServletRequest request, HttpServletResponse response) {
+        String encoding = null;
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_I18N_ENCODING)) {
+            encoding = Configuration.getString(WebWorkConstants.WEBWORK_I18N_ENCODING);
+        }
+
+        Locale locale = null;
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_LOCALE)) {
+            locale = localeFromString(Configuration.getString(WebWorkConstants.WEBWORK_LOCALE));
+        }
+
+
         if (encoding != null) {
             try {
                 request.setCharacterEncoding(encoding);
