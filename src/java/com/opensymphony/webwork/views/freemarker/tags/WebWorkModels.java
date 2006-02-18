@@ -57,6 +57,7 @@ public class WebWorkModels {
     protected OptionTransferSelectModel optiontransferselect;
     protected TreeModel treeModel;
     protected UpDownSelectModel updownselect;
+    protected RichTextEditorModel richtexteditorModel;
     
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
@@ -395,5 +396,12 @@ public class WebWorkModels {
     		updownselect = new UpDownSelectModel(stack, req, res);
     	}
     	return updownselect;
+    }
+    
+    public RichTextEditorModel getRichtexteditor() {
+    	if (richtexteditorModel == null) {
+    		richtexteditorModel = new RichTextEditorModel(stack, req, res);
+    	}
+    	return richtexteditorModel;
     }
 }
