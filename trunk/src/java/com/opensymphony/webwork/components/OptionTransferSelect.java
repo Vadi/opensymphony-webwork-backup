@@ -34,8 +34,8 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * 
  * NOTE: The id and doubleId need not be supplied as they will generated provided
  * that the optiontransferselect tag is being used in a form tag. The generated id 
- * and doubleId will be <form_id>_<optiontransferselect_doubleName> and 
- * <form_id>_<optiontransferselect_doubleName> respectively.
+ * and doubleId will be &lt;form_id&gt;_&lt;optiontransferselect_doubleName&gt; and 
+ * &lt;form_id&gt;_&lt;optiontransferselect_doubleName&gt; respectively.
  * 
  * <!-- END SNIPPET: notice -->
  * 
