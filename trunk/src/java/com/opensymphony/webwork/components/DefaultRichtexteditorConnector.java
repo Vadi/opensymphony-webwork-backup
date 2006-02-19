@@ -11,25 +11,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.tools.ant.taskdefs.Mkdir;
 
-import com.opensymphony.util.ClassLoaderUtil;
-import com.opensymphony.util.FileManager;
-import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.CreateFolderResult;
-import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.File;
-import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.FileUploadResult;
-import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.Folder;
-import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.FoldersAndFiles;
 import com.opensymphony.webwork.util.ServletContextAware;
 import com.opensymphony.webwork.views.util.UrlHelper;
 
