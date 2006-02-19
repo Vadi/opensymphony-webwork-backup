@@ -46,8 +46,11 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * webwork, one need to defined the following action definition typically in xwork.xml
  * 
  * <pre>
- *   &lt;package name="richtexteditor-browse" extends="webwork-default" namespace="/webwork/richtexteditor/editor/filemanager/browser/default/connectors/jsp"&gt;
- *   	&lt;action name="connector" class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" method="browse">
+ *   &lt;package name="richtexteditor-browse" extends="webwork-default" 
+ *   namespace="/webwork/richtexteditor/editor/filemanager/browser/default/connectors/jsp"&gt;
+ *   	&lt;action name="connector" 
+ *      class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" 
+ *      method="browse">
  *   		&lt;result name="getFolders" type="richtexteditorGetFolders" /&gt;
  *   		&lt;result name="getFoldersAndFiles" type="richtexteditorGetFoldersAndFiles" /&gt;
  *   		&lt;result name="createFolder" type="richtexteditorCreateFolder" /&gt;
@@ -66,13 +69,15 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * Connector parameter instead. For example
  * 
  * <pre>
- * /webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?&Type=Image&Connector=connectors/jsp/connector.action
+ * /webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?
+ * &Type=Image&Connector=connectors/jsp/connector.action
  * </pre>
  * 
  * could be changed to 
  * 
  * <pre>
- * /webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?&Type=Image&Connector=myLittlePath/myConnector.action
+ * /webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?
+ * &Type=Image&Connector=myLittlePath/myConnector.action
  * </pre>
  * 
  * In this case the action will need to have a namespace of '/webwork/richtexteditor/editor/filemanager/browser/default/myLittlePath'
@@ -102,8 +107,11 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * webwork, one need to defined the following action definition typically in xwork.xml
  * 
  * <pre>
- *   &lt;package name="richtexteditor-upload" extends="webwork-default" namespace="/webwork/richtexteditor/editor/filemanager/upload"&gt;
- *		&lt;action name="uploader" class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" method="upload"&gt;
+ *   &lt;package name="richtexteditor-upload" extends="webwork-default" 
+ *   namespace="/webwork/richtexteditor/editor/filemanager/upload"&gt;
+ *		&lt;action name="uploader" 
+ *       class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" 
+ *       method="upload"&gt;
  *			&lt;result name="richtexteditorFileUpload" /&gt;
  *		&lt;/action&gt;    
  *   &lt;/package&gt;
@@ -150,12 +158,20 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * <p/>
  * 
  * <pre>
- *  protected abstract String calculateServerPath(String serverPath, String folderPath, String type) throws Exception;
- *  protected abstract Folder[] getFolders(String virtualFolderPath, String type) throws Exception;
- *  protected abstract FoldersAndFiles getFoldersAndFiles(String virtualFolderPath, String type) throws Exception;
- *  protected abstract CreateFolderResult createFolder(String virtualFolderPath, String type, String newFolderName) throws Exception;
- *  protected abstract FileUploadResult fileUpload(String virtualFolderPath, String type, String filename, String contentType, java.io.File newFile) throws Exception;
- *  protected abstract void unknownCommand(String command, String virtualFolderPath, String type, String filename, String contentType, java.io.File newFile) throws Exception;
+ *  protected abstract String calculateServerPath(String serverPath, String folderPath, 
+ *        String type) throws Exception;
+ *  protected abstract Folder[] getFolders(String virtualFolderPath, String type) 
+ *        throws Exception;
+ *  protected abstract FoldersAndFiles getFoldersAndFiles(String virtualFolderPath, 
+ *        String type) throws Exception;
+ *  protected abstract CreateFolderResult createFolder(String virtualFolderPath, 
+ *        String type, String newFolderName) throws Exception;
+ *  protected abstract FileUploadResult fileUpload(String virtualFolderPath, 
+ *        String type, String filename, String contentType, java.io.File newFile) 
+ *        throws Exception;
+ *  protected abstract void unknownCommand(String command, String virtualFolderPath, 
+ *        String type, String filename, String contentType, java.io.File newFile) 
+ *        throws Exception;
  * </pre>
  * 
  * <!-- END SNIPPET: richtexteditoraction -->
@@ -697,7 +713,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="String" default="/webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?Type=Flash&Connector=connectors/jsp/connector.action"
+	 * @ww.tagattribute required="false" type="String" default="/webwork/static/ richtexteditor/ editor/filemanager/ browser/default/browser.html? Type=Flash& Connector=connectors/jsp/connector.action"
 	 * description="Sets the URL of the page called when the user clicks the 'Browse Server' button in the "Flash" dialog window.
 	 * In this way, you can create your custom Flash Browser that is well integrated with your system."
 	 */
@@ -710,7 +726,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default="/webwork/static/richtexteditor/editor/filemanager/upload/uploader.action?Type=Flash" 
+	 * @ww.tagattribute required="false" type="string" default="/webwork/static/ richtexteditor/ editor/filemanager/ upload/uploader.action? Type=Flash" 
 	 * description="Sets the URL of the upload handler called when the user clicks the 'Send it to server' button in the "Flash" dialog window.<BR>
 	 * In this way, you can create your custom Flash Uploader that is well integrated with your system."
 	 */
@@ -723,7 +739,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default="000000,993300,333300,003300,003366,000080,333399,333333,800000,FF6600,808000,808080,008080,0000FF,666699,808080,FF0000,FF9900,99CC00,339966,33CCCC,3366FF,800080,999999,FF00FF,FFCC00,FFFF00,00FF00,00FFFF,00CCFF,993366,C0C0C0,FF99CC,FFCC99,FFFF99,CCFFCC,CCFFFF,99CCFF,CC99FF,FFFFFF"
+	 * @ww.tagattribute required="false" type="string" default="000000, 993300, 333300, 003300, 003366, 000080, 333399, 333333, 800000, FF6600, 808000, 808080, 008080, 0000FF, 666699, 808080, FF0000, FF9900, 99CC00, 339966, 33CCCC, 3366FF, 800080, 999999, FF00FF, FFCC00, FFFF00, 00FF00, 00FFFF, 00CCFF, 993366, C0C0C0, FF99CC, FFCC99, FFFF99, CCFFCC, CCFFFF, 99CCFF, CC99FF, FFFFFF"
 	 * description="Sets the colors that must be shown in the colors panels (in the toolbar)."
 	 */
 	public void setFontColors(String fontColors) {
@@ -735,7 +751,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default="p;div;pre;address;h1;h2;h3;h4;h5;h6"
+	 * @ww.tagattribute required="false" type="string" default="p; div; pre; address; h1; h2; h3; h4; h5; h6"
 	 * description="Sets the list of formats to be shown in the "Format" toolbar command."
 	 */
 	public void setFontFormats(String fontFormats) {
@@ -747,7 +763,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default="Arial;Comic Sans MS;Courier New;Tahoma;Times New Roman;Verdana"
+	 * @ww.tagattribute required="false" type="string" default="Arial; Comic Sans MS; Courier New; Tahoma; Times New Roman; Verdana"
 	 * description="Sets the list of fonts to be shown in the "Font" toolbar command."
 	 */
 	public void setFontNames(String fontNames) {
@@ -759,7 +775,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default="1/xx-small;2/x-small;3/small;4/medium;5/large;6/x-large;7/xx-large"
+	 * @ww.tagattribute required="false" type="string" default="1/xx-small; 2/x-small; 3/small; 4/medium; 5/large; 6/x-large; 7/xx-large"
 	 * description="Sets the list of font sizes to be shown in the "Size" toolbar command."
 	 */
 	public void setFontSizes(String fontSizes) {
@@ -870,7 +886,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default="/webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?&Type=Image&Connector=connectors/jsp/connector.action"
+	 * @ww.tagattribute required="false" type="string" default="/webwork/static/ richtexteditor/ editor/filemanager/ browser/default/browser.html? Type=Image& Connector=connectors/jsp/connector.action"
 	 * description="Sets the URL of the page called when the user clicks the 'Browse Server' button in the 'Image' dialog window.
 	 * In this way, you can create your custom Image Browser that is well integrated with your system."
 	 */
@@ -883,7 +899,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default="/webwork/static/richtexteditor/editor/filemanager/upload/uploader.action?Type=Image"
+	 * @ww.tagattribute required="false" type="string" default="/webwork/static/ richtexteditor/ editor/filemanager/ upload/uploader.action? Type=Image"
 	 * description="Sets the URL of the upload handler called when the user clicks the 'Send it to server' button in the 'Image' dialog window.
 	 * In this way, you can create your custom Image Uploader that is well integrated with your system."
 	 */
@@ -896,7 +912,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default="/webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?Type=File&Connector=connectors/jsp/connector.action"
+	 * @ww.tagattribute required="false" type="string" default="/webwork/static/ richtexteditor/ editor/filemanager/ browser/default/browser.html? Type=File& Connector=connectors/jsp/connector.action"
 	 * description="Sets the URL of the page called when the user clicks the 'Browse Server' button in the 'Link' dialog window.
 	 * In this way, you can create your custom File Browser that is well integrated with your system."
 	 */
@@ -909,7 +925,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default="/webwork/static/richtexteditor/editor/filemanager/upload/uploader.action?Type=File"
+	 * @ww.tagattribute required="false" type="string" default="/webwork/static/ richtexteditor/ editor/filemanager/ upload/uploader.action? Type=File"
 	 * description="Sets the URL of the upload handler called when the user clicks the 'Send it to server' button in the 'Link' dialog window.
 	 * In this way, you can create your custom Link Uploader that is well integrated with your system."
 	 */
@@ -971,7 +987,7 @@ public class RichTextEditor extends UIBean {
 
 	/**
 	 * @ww.tagattribute required="false" type="string" default="0"
-	 * description="Set the number of spaces (&amp;nbsp;) to be inserted when the user hits the 'tab' key.
+	 * description="Set the number of spaces (&amp;nbsp) to be inserted when the user hits the 'tab' key.
 	 * This is an Internet Explorer only feature. Other browsers insert spaces automatically by default."
 	 */
 	public void setTabSpaces(String tabSpaces) {
@@ -1176,7 +1192,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default=".(php|php3|php5|phtml|asp|aspx|ascx|jsp|cfm|cfc|pl|bat|exe|dll|reg|cgi)$"
+	 * @ww.tagattribute required="false" type="string" default=".(php| php3| php5| phtml| asp| aspx| ascx| jsp| cfm| cfc| pl| bat| exe| dll| reg| cgi)$"
 	 * description="regexp for denied link upload file format"
 	 */
 	public void setLinkUploadDeniedExtension(String linkUploadDeniedExtension) {
@@ -1188,7 +1204,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string' default="['regular_smile.gif','sad_smile.gif','wink_smile.gif','teeth_smile.gif','confused_smile.gif','tounge_smile.gif','embaressed_smile.gif','omg_smile.gif','whatchutalkingabout_smile.gif','angry_smile.gif','angel_smile.gif','shades_smile.gif','devil_smile.gif','cry_smile.gif','lightbulb.gif','thumbs_down.gif','thumbs_up.gif','heart.gif','broken_heart.gif','kiss.gif','envelope.gif']"
+	 * @ww.tagattribute required="false" type="string' default="['regular_smile.gif', 'sad_smile.gif', 'wink_smile.gif', 'teeth_smile.gif', 'confused_smile.gif', 'tounge_smile.gif', 'embaressed_smile.gif', 'omg_smile.gif', 'whatchutalkingabout_smile.gif', 'angry_smile.gif', 'angel_smile.gif', 'shades_smile.gif', 'devil_smile.gif', 'cry_smile.gif', 'lightbulb.gif', 'thumbs_down.gif', 'thumbs_up.gif', 'heart.gif', 'broken_heart.gif', 'kiss.gif', 'envelope.gif']"
 	 * description="js array of smilies files to be included"
 	 */
 	public void setSmileyImages(String smileyImages) {
@@ -1200,7 +1216,7 @@ public class RichTextEditor extends UIBean {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" type="string" default="/webwork/static/richtexteditor/editor/images/smiley/msn/"
+	 * @ww.tagattribute required="false" type="string" default="/webwork/static/ richtexteditor/editor/ images/smiley/msn/"
 	 * description="path where smilies are located"
 	 */
 	public void setSmileyPath(String smileyPath) {
