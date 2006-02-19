@@ -440,15 +440,19 @@ import java.util.List;
  * <pre>
  * <!-- START SNIPPET: tooltipexample -->
  * 
- * <!-- Example 1: -->
- * <ww:form tooltipAboveMousePointer="true" .... >
- *     <ww:textfield label="Customer Name" tooltip="Enter the customer name" .... />
- * </ww:form>
+ * &lt;!-- Example 1: --&gt;
+ * &lt;ww:form tooltipAboveMousePointer="true" .... &gt;
+ *   ....
+ *     &gt;ww:textfield label="Customer Name" tooltip="Enter the customer name" .... /&gt;
+ *   ....
+ * &lt;/ww:form&gt;
  * 
- * <!-- Example 2: -->
- * <ww:form tooltipAboveMousePointer="true" tooltipLeftOfMousePointer="true" ...>
- *     <ww:textfield label="Address" tooltip="Enter your address" tooltipLeftOfMousePointer="false" />
- * </ww:form>
+ * &lt;!-- Example 2: --&gt;
+ * &lt;ww:form tooltipAboveMousePointer="true" tooltipLeftOfMousePointer="true" ...&gt;
+ *   ....
+ *     &lt;ww:textfield label="Address" tooltip="Enter your address" tooltipLeftOfMousePointer="false" /&gt;
+ *   ....
+ * &lt;/ww:form&gt;
  * 
  * 
  * 
