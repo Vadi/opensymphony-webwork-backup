@@ -19,6 +19,13 @@ import com.opensymphony.xwork.ActionInvocation;
 
 
 /**
+ * <!-- START SNIPPET: javadoc -->
+ * 
+ * WebWork's result, creating the apropriate result (in xml form) and write it out
+ * to the response stream corresponding to a 'CreateFolder' command from the 
+ * Rich Text Editor.
+ * 
+ * <!-- END SNIPPET: javadoc -->
  * 
  * @author tm_jee
  * @version $Date$ $Id$
@@ -29,8 +36,21 @@ public class RichtexteditorCreateFolderResult extends AbstractRichtexteditorResu
 
 	private static final long serialVersionUID = 9024490340530057673L;
 
+	/**
+	 * <!-- START SNIPPET: execute -->
+	 * 
+	 * Write the result (in xml form) to the response stream corresponding to 
+	 * the Rich Text Editor's 'CreateFolder' command
+	 * 
+	 * <!-- END SNIPPET: execute -->
+	 * 
+	 * @param invocation
+	 */
 	public void execute(ActionInvocation invocation) throws Exception {
 		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/xml; charset=UTF-8");
+		response.setHeader("Cache-Control","no-cache");
+		
 		OutputStream os = response.getOutputStream();
 		
 		CreateFolderResult createFolderResult = richtexteditorCreateFolderResult(invocation);

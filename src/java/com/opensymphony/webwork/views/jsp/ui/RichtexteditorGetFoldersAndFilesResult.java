@@ -20,6 +20,14 @@ import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.Folde
 import com.opensymphony.xwork.ActionInvocation;
 
 /**
+ * <!-- START SNIPPET: javadoc -->
+ * 
+ * WebWork's result, creating the appropriate result (in xml form) and write to 
+ * the response stream corresponding to the Rich Text Editor's 'GetFoldersAndFiles' 
+ * command
+ * 
+ * <!-- END SNIPPET: javadoc -->
+ * 
  * @author tm_jee
  * @version $Date$ $Id$
  */
@@ -29,9 +37,22 @@ public class RichtexteditorGetFoldersAndFilesResult extends AbstractRichtextedit
 	
 	private static final long serialVersionUID = -8405656868125936172L;
 
+	/**
+	 * <!-- START SNIPPET: execute -->
+	 * 
+	 * Write the result (in xml form) to the response stream corresponding to 
+	 * the Rich Text Editor's 'GetFoldersAndFiles' command.
+	 * 
+	 * <!-- END SNIPPET: execute -->
+	 * 
+	 * @param invocation
+	 */
 	public void execute(ActionInvocation invocation) throws Exception {
 		
 		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/xml; charset=UTF-8");
+		response.setHeader("Cache-Control","no-cache");
+		
 		OutputStream os = response.getOutputStream();
 		
 		Document document = buildDocument();
