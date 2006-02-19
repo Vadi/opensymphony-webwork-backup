@@ -443,7 +443,7 @@ import java.util.List;
  * &lt;!-- Example 1: --&gt;
  * &lt;ww:form tooltipAboveMousePointer="true" .... &gt;
  *   ....
- *     &gt;ww:textfield label="Customer Name" tooltip="Enter the customer name" .... /&gt;
+ *     &lt;ww:textfield label="Customer Name" tooltip="Enter the customer name" .... /&gt;
  *   ....
  * &lt;/ww:form&gt;
  * 
