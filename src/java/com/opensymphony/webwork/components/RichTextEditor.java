@@ -89,7 +89,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  *   }
  * </pre>
  * 
- * <!-- START SNIPPET: serversidebrowsing -->
+ * <!-- END SNIPPET: serversidebrowsing -->
  * 
  * <p/>
  * 
