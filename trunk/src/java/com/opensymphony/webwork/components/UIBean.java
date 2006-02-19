@@ -412,6 +412,50 @@ import java.util.List;
  * 
  * <!-- END SNIPPET: tooltipattributes -->
  * 
+ * 
+ * <!-- START SNIPPET: tooltipdescription -->
+ * 
+ * Every Form UI component (in xhtml / css_xhtml or any others that extends of them) could
+ * have tooltip assigned to a them. The Form component's tooltip related attribute once 
+ * defined will be applicable to all form UI component that is created under it unless
+ * explicitly overriden by having the Form UI component itself defined that tooltip attribute. 
+ * 
+ * <p/>
+ * 
+ * In Example 1, the textfield will inherit the tooltipAboveMousePointer attribte from 
+ * its containing form. In other words, although it doesn't defined a tooltipAboveMousePointer
+ * attribute, it will have that attribute defined as true inherited from its containing form.
+ * 
+ * <p/>
+ * 
+ * In Example 2, the the textfield will inherite both the tooltipAboveMousePointer and 
+ * tooltipLeftOfMousePointer attribute from its containing form but tooltipLeftOfMousePointer
+ * attribute is overriden at the textfield itself. Hence, the textfield actually will 
+ * have tooltipAboveMousePointer defined as true, inherited from its containing form and 
+ * tooltipLeftOfMousePointer defined as false, due to overriden at the textfield itself.
+ * 
+ * <!-- END SNIPPET: tooltipdescription -->
+ * 
+ * 
+ * <pre>
+ * <!-- START SNIPPET: tooltipexample -->
+ * 
+ * <!-- Example 1: -->
+ * <ww:form tooltipAboveMousePointer="true" .... >
+ *     <ww:textfield label="Customer Name" tooltip="Enter the customer name" .... />
+ * </ww:form>
+ * 
+ * <!-- Example 2: -->
+ * <ww:form tooltipAboveMousePointer="true" tooltipLeftOfMousePointer="true" ...>
+ *     <ww:textfield label="Address" tooltip="Enter your address" tooltipLeftOfMousePointer="false" />
+ * </ww:form>
+ * 
+ * 
+ * 
+ * <!-- END SNIPPET: tooltipexample -->
+ * </pre>
+ * 
+ * 
  * @author Patrick Lightbody
  * @author Rene Gielen
  * @author Rainer Hermanns
