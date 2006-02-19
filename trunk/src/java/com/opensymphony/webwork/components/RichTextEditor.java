@@ -150,7 +150,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * 
  * <!-- START SNIPPET: richtexteditoraction -->
  * 
- * The webwork that handles the server-side browsing and uploading needs to extends from 
+ * The webwork action that handles the server-side browsing and uploading needs to extends from 
  * AbstractRichtexteditorConnector.
  * 
  * There are four abstract methods need to be implemented, namely 
