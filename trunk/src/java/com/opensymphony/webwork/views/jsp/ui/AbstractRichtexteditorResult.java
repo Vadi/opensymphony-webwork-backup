@@ -33,6 +33,21 @@ import com.opensymphony.xwork.Result;
  * Abstract result for all Rich Text Editor results. It contains common methods
  * that might come in handy to its subclass. 
  * 
+ * Configuration of result necessary in xwork.xml (is already there by default) are
+ * as follows:
+ * 
+ * <pre>
+ *  &lt;!-- Results necessary when using 'browse server' and 'upload' feature of Richtexteditor --&gt;
+ *  &lt;result-type name="richtexteditorGetFolders" 
+ *                  class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorGetFoldersResult" /&gt;
+ *  &lt;result-type name="richtexteditorGetFoldersAndFiles" 
+ *                  class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorGetFoldersAndFilesResult" /&gt;
+ *  &lt;result-type name="richtexteditorCreateFolder" 
+ *                  class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorCreateFolderResult" /&gt;
+ *  &lt;result-type name="richtexteditorFileUpload" 
+ *                  class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorFileUploadResult" /&gt;
+ * </pre>
+ * 
  * <!-- END SNIPPET: javadoc -->
  * 
  * @author tm_jee
