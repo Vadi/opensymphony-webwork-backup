@@ -158,7 +158,20 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * <p/>
  * 
  * <pre>
- *  
+ *  protected abstract String calculateServerPath(String serverPath, String folderPath, 
+ *        String type) throws Exception;
+ *  protected abstract Folder[] getFolders(String virtualFolderPath, String type) 
+ *        throws Exception;
+ *  protected abstract FoldersAndFiles getFoldersAndFiles(String virtualFolderPath, 
+ *        String type) throws Exception;
+ *  protected abstract CreateFolderResult createFolder(String virtualFolderPath, 
+ *        String type, String newFolderName) throws Exception;
+ *  protected abstract FileUploadResult fileUpload(String virtualFolderPath, 
+ *        String type, String filename, String contentType, java.io.File newFile) 
+ *        throws Exception;
+ *  protected abstract void unknownCommand(String command, String virtualFolderPath, 
+ *        String type, String filename, String contentType, java.io.File newFile) 
+ *        throws Exception;
  * </pre>
  * 
  * <!-- END SNIPPET: richtexteditoraction -->
