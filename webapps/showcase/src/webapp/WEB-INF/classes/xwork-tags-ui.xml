@@ -33,16 +33,19 @@
         	<result name="input">lotsOfRichtexteditor.jsp</result>
 			<result>lotsOfRichtexteditorSubmit.jsp</result>        
         </action>
+        <action name="tooltipExample">
+        	<result>tooltipExample.jsp</result>
+        </action>
     </package>
     
     
     
     <package name="richtexteditor-browse" extends="webwork-default" namespace="/webwork/richtexteditor/editor/filemanager/browser/default/connectors/jsp">
     	<action name="connector" class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" method="browse">
-    		<result name="getFolders" type="richtexteditorGetFolders" >aaa</result>
-    		<result name="getFoldersAndFiles" type="richtexteditorGetFoldersAndFiles" >bbb</result>
-    		<result name="createFolder" type="richtexteditorCreateFolder">ccc</result>
-    		<result name="fileUpload" type="richtexteditorFileUpload">ddd</result>
+    		<result name="getFolders" type="richtexteditorGetFolders" />
+    		<result name="getFoldersAndFiles" type="richtexteditorGetFoldersAndFiles" />
+    		<result name="createFolder" type="richtexteditorCreateFolder" />
+    		<result name="fileUpload" type="richtexteditorFileUpload" />
     	</action>
     </package>
     
