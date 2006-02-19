@@ -666,6 +666,492 @@ Render a submit button
 
 <tr>
 <!-- Attribute name -->
+<td align="left" valign="top">tooltip</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top"></td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Set the tooltip of this particular component</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipIcon</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">/webwork/static/tooltip/tooltip.gif</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">The url to the tooltip icon</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipAboveMousePointer</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">false</td>
+
+<!-- Type -->
+<td align="left" valign="top">boolean</td>
+
+<!-- Description -->
+<td align="left" valign="top">Places the tooltip above the mousepointer. Additionally applied the tooltipOffseY allows to set the vertical distance from the mousepointer.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipBgColor</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">#e6ecff</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Background color of the tooltip.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipBgImg</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">none</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Background image.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipBorderColor</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">#003399</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Background color of the tooltip</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipBorderWidth</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">1</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Width of tooltip border.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipDelay</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">500</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Tooltip shows up after the specified timeout (miliseconds). A behavior similar to that of OS based tooltips.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipFixCoordinate</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">none</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Fixes the tooltip to the co-ordinates specified within the square brackets. Useful for example if combined with tooltipSticky attribute, eg. [200, 2400]</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipFontColor</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">#000066</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Font color.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipFontFace</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">arial,helvetica,sans-serif</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Font face/family eg. verdana,geneva,sans-serif</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipFontSize</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">11px</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Font size + unit eg. 30px</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipFontWeight</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">normal</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Font weight. either normal or bold</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipLeftOfMousePointer</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">false</td>
+
+<!-- Type -->
+<td align="left" valign="top">boolean</td>
+
+<!-- Description -->
+<td align="left" valign="top">Tooltip positioned on the left side of the mousepointer</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipOffsetX</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">12</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Horizontal offset from mouse-pointer.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipOffsetY</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">15</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Vertical offset from mouse-pointer.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipOpacity</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">100</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Transparency of tooltip. Opacity is the opposite of transparency. Value must be a number between 0 (fully transparent) and 100 (opaque, no transparency). Not (yet) supported by Opera.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipPadding</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">3</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Inner spacing, ie. the spacing between border and content, for instance text or image(s)</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipShadowColor</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">#cccccc</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Creates shadow with the specified color.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipShadowWidth</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">5</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Creates shodow with the specified width (offset).</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipStatic</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">false</td>
+
+<!-- Type -->
+<td align="left" valign="top">boolean</td>
+
+<!-- Description -->
+<td align="left" valign="top">Like OS-based tooltips, the tooltip doesn't follow the movements of the mouse pointer.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipStayAppearTime</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">0</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Specifies a time span in miliseconds after which the tooltip disappears, even if the mousepointer is still on the concerned HTML element, with value <=0 it acts as if no time span is defined</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipSticky</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">false</td>
+
+<!-- Type -->
+<td align="left" valign="top">boolean</td>
+
+<!-- Description -->
+<td align="left" valign="top">The tooltip stays fixed on its inital position until anohter tooltip is activated, or the user clicks on the document.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipTextAlign</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">left</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Aligns the text of both the title and the body of the tooltip. Either right, left or justify</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipTitle</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">none</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Title</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipTitleColor</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">#ffffff</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Color of the title text</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">tooltipWidth</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">300</td>
+
+<!-- Type -->
+<td align="left" valign="top">String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Width of tooltip</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
 <td align="left" valign="top">id</td>
 
 <!-- Required -->
