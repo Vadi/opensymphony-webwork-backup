@@ -41,9 +41,7 @@
         <span class="required">*</span><#t/>
 </#if>
 ${parameters.label?html}:<#t/>
-<#if parameters.tooltip?exists>
-      <img src='<@ww.url value="/webwork/tooltip/tooltip.gif" />' alt="${parameters.tooltip}" title="${parameters.tooltip}" onmouseover="return escape('${parameters.tooltip?js_string}');" />
-</#if>  
+<#include "/${parameters.templateDir}/xhtml/tooltip.ftl" /> 
 </label><#t/>
 </#if>
     </td><#lt/>

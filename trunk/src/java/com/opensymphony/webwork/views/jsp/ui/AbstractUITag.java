@@ -12,6 +12,7 @@ import com.opensymphony.webwork.views.jsp.ComponentTagSupport;
  * Abstract base class for all UI tags.
  *
  * @author Matt Ho <a href="mailto:matt@enginegreen.com">&lt;matt@enginegreen.com&gt;</a>
+ * @author tm_jee
  */
 public abstract class AbstractUITag extends ComponentTagSupport {
     protected String cssClass;
@@ -40,7 +41,35 @@ public abstract class AbstractUITag extends ComponentTagSupport {
     protected String onkeyup;
     protected String onselect;
     protected String onchange;
+    
+    // tooltip attributes
     protected String tooltip;
+    protected String tooltipIcon;
+    protected String tooltipAboveMousePointer;
+    protected String tooltipBgColor;
+    protected String tooltipBgImg;
+    protected String tooltipBorderWidth;
+    protected String tooltipBorderColor;
+    protected String tooltipDelay;
+    protected String tooltipFixCoordinate;
+    protected String tooltipFontColor;
+    protected String tooltipFontFace;
+    protected String tooltipFontSize;
+    protected String tooltipFontWeight;
+    protected String tooltipLeftOfMousePointer;
+    protected String tooltipOffsetX;
+    protected String tooltipOffsetY;
+    protected String tooltipOpacity;
+    protected String tooltipPadding;
+    protected String tooltipShadowColor;
+    protected String tooltipShadowWidth;
+    protected String tooltipStatic;
+    protected String tooltipSticky;
+    protected String tooltipStayAppearTime;
+    protected String tooltipTextAlign;
+    protected String tooltipTitle;
+    protected String tooltipTitleColor;
+    protected String tooltipWidth;
 
 
     protected void populateParams() {
@@ -75,6 +104,32 @@ public abstract class AbstractUITag extends ComponentTagSupport {
         uiBean.setOnselect(onselect);
         uiBean.setOnchange(onchange);
         uiBean.setTooltip(tooltip);
+        uiBean.setTooltipIcon(tooltipIcon);
+        uiBean.setTooltipAboveMousePointer(tooltipAboveMousePointer);
+        uiBean.setTooltipBgColor(tooltipBgColor);
+        uiBean.setTooltipBgImg(tooltipBgImg);
+        uiBean.setTooltipBorderWidth(tooltipBorderWidth);
+        uiBean.setTooltipBorderColor(tooltipBorderColor);
+        uiBean.setTooltipDelay(tooltipDelay);
+        uiBean.setTooltipFixCoordinate(tooltipFixCoordinate);
+        uiBean.setTooltipFontColor(tooltipFontColor);
+        uiBean.setTooltipFontFace(tooltipFontFace);
+        uiBean.setTooltipFontSize(tooltipFontSize);
+        uiBean.setTooltipFontWeight(tooltipFontWeight);
+        uiBean.setTooltipLeftOfMousePointer(tooltipLeftOfMousePointer);
+        uiBean.setTooltipOffsetX(tooltipOffsetX);
+        uiBean.setTooltipOffsetY(tooltipOffsetY);
+        uiBean.setTooltipOpacity(tooltipOpacity);
+        uiBean.setTooltipPadding(tooltipPadding);
+        uiBean.setTooltipShadowColor(tooltipShadowColor);
+        uiBean.setTooltipShadowWidth(tooltipShadowWidth);
+        uiBean.setTooltipStatic(tooltipStatic);
+        uiBean.setTooltipSticky(tooltipSticky);
+        uiBean.setTooltipStayAppearTime(tooltipStayAppearTime);
+        uiBean.setTooltipTextAlign(tooltipTextAlign);
+        uiBean.setTooltipTitle(tooltipTitle);
+        uiBean.setTooltipTitleColor(tooltipTitleColor);
+        uiBean.setTooltipWidth(tooltipWidth);
     }
 
     public void setCssClass(String cssClass) {
@@ -191,4 +246,108 @@ public abstract class AbstractUITag extends ComponentTagSupport {
     public void setTooltip(String tooltip) {
     	this.tooltip = tooltip;
     }
+
+	public void setTooltipAboveMousePointer(String tooltipAboveMousePointer) {
+		this.tooltipAboveMousePointer = tooltipAboveMousePointer;
+	}
+
+	public void setTooltipBgColor(String tooltipBgColor) {
+		this.tooltipBgColor = tooltipBgColor;
+	}
+
+	public void setTooltipBgImg(String tooltipBgImg) {
+		this.tooltipBgImg = tooltipBgImg;
+	}
+
+	public void setTooltipBorderColor(String tooltipBorderColor) {
+		this.tooltipBorderColor = tooltipBorderColor;
+	}
+
+	public void setTooltipBorderWidth(String tooltipBorderWidth) {
+		this.tooltipBorderWidth = tooltipBorderWidth;
+	}
+
+	public void setTooltipDelay(String tooltipDelay) {
+		this.tooltipDelay = tooltipDelay;
+	}
+
+	public void setTooltipFixCoordinate(String tooltipFixCoordinate) {
+		this.tooltipFixCoordinate = tooltipFixCoordinate;
+	}
+
+	public void setTooltipFontColor(String tooltipFontColor) {
+		this.tooltipFontColor = tooltipFontColor;
+	}
+
+	public void setTooltipFontFace(String tooltipFontFace) {
+		this.tooltipFontFace = tooltipFontFace;
+	}
+
+	public void setTooltipFontSize(String tooltipFontSize) {
+		this.tooltipFontSize = tooltipFontSize;
+	}
+
+	public void setTooltipFontWeight(String tooltipFontWeight) {
+		this.tooltipFontWeight = tooltipFontWeight;
+	}
+
+	public void setTooltipIcon(String tooltipIcon) {
+		this.tooltipIcon = tooltipIcon;
+	}
+
+	public void setTooltipLeftOfMousePointer(String tooltipLeftOfMousePointer) {
+		this.tooltipLeftOfMousePointer = tooltipLeftOfMousePointer;
+	}
+
+	public void setTooltipOffsetX(String tooltipOffsetX) {
+		this.tooltipOffsetX = tooltipOffsetX;
+	}
+
+	public void setTooltipOffsetY(String tooltipOffsetY) {
+		this.tooltipOffsetY = tooltipOffsetY;
+	}
+
+	public void setTooltipOpacity(String tooltipOpacity) {
+		this.tooltipOpacity = tooltipOpacity;
+	}
+
+	public void setTooltipPadding(String tooltipPadding) {
+		this.tooltipPadding = tooltipPadding;
+	}
+
+	public void setTooltipShadowColor(String tooltipShadowColor) {
+		this.tooltipShadowColor = tooltipShadowColor;
+	}
+
+	public void setTooltipShadowWidth(String tooltipShadowWidth) {
+		this.tooltipShadowWidth = tooltipShadowWidth;
+	}
+
+	public void setTooltipStatic(String tooltipStatic) {
+		this.tooltipStatic = tooltipStatic;
+	}
+
+	public void setTooltipStayAppearTime(String tooltipStayAppearTime) {
+		this.tooltipStayAppearTime = tooltipStayAppearTime;
+	}
+
+	public void setTooltipSticky(String tooltipSticky) {
+		this.tooltipSticky = tooltipSticky;
+	}
+
+	public void setTooltipTextAlign(String tooltipTextAlign) {
+		this.tooltipTextAlign = tooltipTextAlign;
+	}
+
+	public void setTooltipTitle(String tooltipTitle) {
+		this.tooltipTitle = tooltipTitle;
+	}
+
+	public void setTooltipTitleColor(String tooltipTitleColor) {
+		this.tooltipTitleColor = tooltipTitleColor;
+	}
+
+	public void setTooltipWidth(String tooltipWidth) {
+		this.tooltipWidth = tooltipWidth;
+	}
 }

@@ -56,6 +56,6 @@
  Code that will add javascript needed for tooltips
 --><#t/>
 <#if parameters.hasTooltip?default(false)><#t/>
-	<!-- javascript that is needed for tooltips -->
-	<script language="JavaScript" type="text/javascript" src="<@ww.url value='/webwork/tooltip/wz_tooltip.js' encode='false' />"></script>
+	<#lt/><!-- javascript that is needed for tooltips -->
+	<#lt/><script language="JavaScript" type="text/javascript" src="<@ww.url value='/webwork/tooltip/wz_tooltip.js' encode='false' />"></script>
 </#if><#t/>
