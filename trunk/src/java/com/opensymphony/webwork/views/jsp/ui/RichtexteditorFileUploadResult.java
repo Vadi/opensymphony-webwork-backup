@@ -16,6 +16,14 @@ import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.FileU
 import com.opensymphony.xwork.ActionInvocation;
 
 /**
+ * <!-- START SNIPPET: javadoc -->
+ * 
+ * WebWork's result, creating the appropriate result (in javascript form) and write to 
+ * the response stream corresponding to a 'FileUpload' command from the 
+ * Rich Text Editor.
+ * 
+ * <!-- END SNIPPET: javadoc -->
+ * 
  * @author tm_jee
  * @version $Date$ $Id$
  */
@@ -26,6 +34,14 @@ public class RichtexteditorFileUploadResult extends AbstractRichtexteditorResult
 	private static final Log _log = LogFactory.getLog(RichtexteditorFileUploadResult.class);
 	
 	
+	/**
+	 * <!-- START SNIPPET: execute -->
+	 * 
+	 * Write the result (in javascript form) to the response stream corresponding to 
+	 * the Rich Text Editor's 'FileUpload' command.
+	 * 
+	 * <!-- END SNIPPET: execute -->
+	 */
 	public void execute(ActionInvocation invocation) throws Exception {
 		
 		HttpServletResponse response = ServletActionContext.getResponse();
