@@ -8,6 +8,7 @@ Only the following validators are supported:
 * email validator
 * url validator
 * int validator
+* double validator
 END SNIPPET: supported-validators
 -->
 <#if parameters.validate?exists>
