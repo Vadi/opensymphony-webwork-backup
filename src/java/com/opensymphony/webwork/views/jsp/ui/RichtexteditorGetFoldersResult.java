@@ -28,7 +28,16 @@ import com.opensymphony.xwork.ActionInvocation;
  * An example of the response would be as follows:
  * 
  * <pre>
- * 
+ * &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+ * &lt;Connector command="GetFolders" resourceType="File"&gt;
+ *   &lt;CurrentFolder path="/Samples/Docs/" url="/UserFiles/File/Samples/Docs/" /&gt;
+ *   &lt;Folders&gt;
+ *     &lt;Folder name="Documents" /&gt;
+ *     &lt;Folder name="Files" /&gt;
+ *     &lt;Folder name="Other Files" /&gt;
+ *     &lt;Folder name="Related" /&gt;
+ *  &lt;/Folders&gt;
+ * &lt;/Connector&gt;
  * </pre>
  * 
  * <!-- END SNIPPET: javadoc -->
