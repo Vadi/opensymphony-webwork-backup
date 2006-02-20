@@ -76,6 +76,17 @@ END SNIPPET: supported-validators
                     errors = true;
                 }
             }
+            <#elseif validator.validatorType = "double">
+            if (field.value != null) {
+                var value = parseFloat(field.value);
+                if (<#if validator.minInclusive?exists>value < ${validator.minInclusive}<#else>false</#if> ||
+                        <#if validator.maxInclusive?exists>value > ${validator.maxInclusive}<#else>false</#if> ||
+                        <#if validator.minExclusive?exists>value <= ${validator.minExclusive}<#else>false</#if> ||
+                        <#if validator.maxExclusive?exists>value >= ${validator.maxExclusive}<#else>false</#if>) {
+                    addError(field, error);
+                    errors = true;
+                }
+            }
             </#if>
         }
         </#list>
