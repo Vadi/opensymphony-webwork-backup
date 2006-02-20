@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.components;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +13,7 @@ import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.Creat
 import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.FileUploadResult;
 import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.Folder;
 import com.opensymphony.webwork.components.AbstractRichtexteditorConnector.FoldersAndFiles;
+import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
@@ -329,10 +332,16 @@ public class RichTextEditor extends UIBean {
 		if (autoDetectLanguage != null) {
 			addParameter("autoDetectLanguage", ((Boolean)findValue(autoDetectLanguage, Boolean.class)).booleanValue() ? "true" : "false");
 		}
+		else {
+			addParameter("autoDetectLanguage", "false"); // unless explicitly specified, else 'false' cause we need it this way so defaultLanguage will work
+		}
 		
 		// defaultLanguage
 		if (defaultLanguage != null) {
 			addParameter("defaultLanguage", findString(defaultLanguage));
+		}
+		else {
+			addParameter("defaultLanguage", getRichTextEditorJsLang());
 		}
 		
 		// contentLangDirection
@@ -543,6 +552,10 @@ public class RichTextEditor extends UIBean {
 	}
 	
 	
+	protected String getRichTextEditorJsLang() {
+		Locale locale = ActionContext.getContext().getLocale();
+		return locale == null ? "enlll" : (locale.getLanguage().toLowerCase());
+	}
 	
 	
 
