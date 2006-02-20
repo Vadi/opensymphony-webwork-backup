@@ -11,7 +11,7 @@ Only the following validators are supported:
 * double validator
 END SNIPPET: supported-validators
 -->
-<#if parameters.validate?exists>
+<#if parameters.validate?default(false) == true>
 <script>
     function validateForm_${parameters.id}() {
         form = document.getElementById("${parameters.id}");
