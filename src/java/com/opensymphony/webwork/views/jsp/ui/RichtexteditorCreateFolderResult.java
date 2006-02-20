@@ -25,6 +25,18 @@ import com.opensymphony.xwork.ActionInvocation;
  * to the response stream corresponding to a 'CreateFolder' command from the 
  * Rich Text Editor.
  * 
+ * <p/>
+ * 
+ * An example of the response would be as follows:
+ * 
+ * <pre>
+ * &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+ * &lt;Connector command="CreateFolder" resourceType="File"&gt;
+ *   &lt;CurrentFolder path="/Samples/Docs/" url="/UserFiles/File/Samples/Docs/" /&gt;
+ *   &lt;Error number="0" /&gt;
+ * &lt;/Connector&gt;
+ * </pre>
+ * 
  * <!-- END SNIPPET: javadoc -->
  * 
  * @author tm_jee

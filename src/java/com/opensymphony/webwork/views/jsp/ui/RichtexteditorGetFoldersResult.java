@@ -23,6 +23,14 @@ import com.opensymphony.xwork.ActionInvocation;
  * WebWork's result, creating the appropriate result (in xml form) and write to the 
  * response stream corresponding the the Rich Text Editor's 'GetFolders' command.
  * 
+ * <p/>
+ * 
+ * An example of the response would be as follows:
+ * 
+ * <pre>
+ * 
+ * </pre>
+ * 
  * <!-- END SNIPPET: javadoc -->
  * 
  * @author tm_jee
