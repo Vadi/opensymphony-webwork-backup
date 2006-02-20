@@ -22,6 +22,16 @@ import com.opensymphony.xwork.ActionInvocation;
  * the response stream corresponding to a 'FileUpload' command from the 
  * Rich Text Editor.
  * 
+ * <p/>
+ * 
+ * An example of the response would be as follows:
+ * 
+ * <pre>
+ * &lt;script type="text/javascript"&gt;
+ *      window.parent.frames['frmUpload'].OnUploadCompleted(0) ;
+ * &lt;/script&gt;
+ * </pre>
+ * 
  * <!-- END SNIPPET: javadoc -->
  * 
  * @author tm_jee

@@ -26,6 +26,30 @@ import com.opensymphony.xwork.ActionInvocation;
  * the response stream corresponding to the Rich Text Editor's 'GetFoldersAndFiles' 
  * command
  * 
+ * <p/>
+ * 
+ * An example of the response would be as follows:
+ * 
+ * <pre>
+ * &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+ * &lt;Connector command="GetFoldersAndFiles" resourceType="File"&gt;
+ *   &lt;CurrentFolder path="/Samples/Docs/" url="/UserFiles/File/Samples/Docs/" /&gt;
+ *   &lt;Folders&gt;
+ *     &lt;Folder name="Documents" /&gt;
+ *     &lt;Folder name="Files" /&gt;
+ *     &lt;Folder name="Other Files" /&gt;
+ *     &lt;Folder name="Related" /&gt;
+ *   &lt;/Folders&gt;
+ *   &lt;Files&gt;
+ *     &lt;File name="XML Definition.doc" size="14" /&gt;
+ *     &lt;File name="Samples.txt" size="5" /&gt;
+ *     &lt;File name="Definition.txt" size="125" /&gt;
+ *     &lt;File name="External Resources.drw" size="840" /&gt;
+ *     &lt;File name="Todo.txt" size="2" /&gt;
+ *   &lt;/Files&gt;
+ * &lt;/Connector&gt;
+ * </pre>
+ * 
  * <!-- END SNIPPET: javadoc -->
  * 
  * @author tm_jee
