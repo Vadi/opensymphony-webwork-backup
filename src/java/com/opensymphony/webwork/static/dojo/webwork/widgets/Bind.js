@@ -142,6 +142,11 @@ webwork.widgets.HTMLBind = function() {
                         var xmlParser = new dojo.xml.Parse();
                         var frag  = xmlParser.parseElement(div, null, true);
                         dojo.widget.getParser().createComponents(frag);
+                        // eval any scripts being returned
+                        var script = div.getElementsByTagName('script');
+                        for (var i=0; i<script.length; i++) {
+                            eval(script.innerHTML); 
+                        }
                     }catch(e){
                         dojo.debug("auto-build-widgets error: "+e);
                     }
