@@ -11,6 +11,8 @@
 	oFCKeditor_myId.CheckBrowser = 'true' ;
 	oFCKeditor_myId.DisplayError = 'true' ;
 	oFCKeditor_myId.Value = 'This Is Some Text From The Stack' ;
+	oFCKeditor_myId.Config['AutoDetectLanguage'] = 'false' ;
+	oFCKeditor_myId.Config['DefaultLanguage'] = 'en' ;
 	oFCKeditor_myId.Create() ;
 </script>
 </td>

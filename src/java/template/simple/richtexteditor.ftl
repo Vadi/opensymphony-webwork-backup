@@ -8,7 +8,7 @@
 	<#if parameters.basePath?exists><#t/>
 		oFCKeditor_${parameters.id}.BasePath = '${parameters.basePath}' ;
 	<#else><#t/>
-		oFCKeditor_${parameters.id}.BasePath = '<@ww.url value="/webwork/richtexteditor/" />';
+		oFCKeditor_${parameters.id}.BasePath = '<@ww.url value="/webwork/richtexteditor/" />' ;
 	</#if><#t/>
 	<#-- height --><#t/>
 	<#if parameters.height?exists><#t/>
