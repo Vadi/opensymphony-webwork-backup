@@ -165,7 +165,7 @@ public class Submit extends UIBean {
                 name = "action:" + findString(action);
 
                 if (method != null) {
-                    name += findString(method);
+                    name += "!" + findString(method);
                 }
             } else {
                 name = "method:" + findString(method);

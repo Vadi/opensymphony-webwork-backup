@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Graph extends SubGraph {
     private Set links;
-    public static Map nodeMap = new TreeMap();
+    public static Map nodeMap = new LinkedHashMap();
 
     public Graph() {
         super("");

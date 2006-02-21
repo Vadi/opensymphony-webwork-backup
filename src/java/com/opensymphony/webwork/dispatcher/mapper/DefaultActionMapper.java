@@ -143,7 +143,15 @@ public class DefaultActionMapper implements ActionMapper {
 
             put(ACTION_PREFIX, new ParameterAction() {
                 public void execute(String key, ActionMapping mapping) {
-                    mapping.setName(key.substring(ACTION_PREFIX.length()));
+                    String name = key.substring(ACTION_PREFIX.length());
+                    int bang = name.indexOf('!');
+                    if (bang != -1) {
+                        String method = name.substring(bang + 1);
+                        mapping.setMethod(method);
+                        name = name.substring(0, bang);
+                    }
+                    
+                    mapping.setName(name);
                 }
             });
 
