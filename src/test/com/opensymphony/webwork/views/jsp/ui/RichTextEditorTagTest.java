@@ -4,7 +4,10 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import java.util.Locale;
+
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
+import com.opensymphony.xwork.ActionContext;
 
 /**
  * RichTextEditor test case.
@@ -118,4 +121,18 @@ public class RichTextEditorTagTest extends AbstractUITagTest {
 		verify(RichTextEditorTagTest.class.getResource("richtexteditor-3.txt"));
 	}
 	
+    public void testChangeLocale() throws Exception {
+        ActionContext.getContext().setLocale(Locale.FRENCH);
+        
+        RichTextEditorTag tag = new RichTextEditorTag();
+        tag.setPageContext(pageContext);
+        tag.setLabel("myLabel");
+        tag.setId("myId");
+        tag.setName("myName");
+        
+        tag.doStartTag();
+        tag.doEndTag();
+        
+        verify(RichTextEditorTagTest.class.getResource("richtexteditor-4.txt"));
+    }
 }
