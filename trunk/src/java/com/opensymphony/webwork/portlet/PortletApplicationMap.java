@@ -14,35 +14,29 @@ import java.util.Set;
 import javax.portlet.PortletContext;
 
 /**
+ * Portlet specific {@link java.util.Map} implementation representing the
+ * {@link javax.portlet.PortletContext} of a Portlet.
+ * 
  * @author Nils-Helge Garli
  */
 public class PortletApplicationMap extends AbstractMap implements Serializable {
-	//~ Instance fields
-	// ////////////////////////////////////////////////////////
 
 	PortletContext context;
 
 	Set entries;
 
-	//~ Constructors
-	// ///////////////////////////////////////////////////////////
-
 	/**
-	 * Creates a new map object given the servlet context.
+	 * Creates a new map object given the {@link PortletContext}.
 	 * 
-	 * @param ctx
-	 *            the servlet context
+	 * @param ctx The portlet context.
 	 */
 	public PortletApplicationMap(PortletContext ctx) {
 		this.context = ctx;
 	}
 
-	//~ Methods
-	// ////////////////////////////////////////////////////////////////
-
 	/**
 	 * Removes all entries from the Map and removes all attributes from the
-	 * servlet context.
+	 * portlet context.
 	 */
 	public void clear() {
 		entries = null;
@@ -55,17 +49,17 @@ public class PortletApplicationMap extends AbstractMap implements Serializable {
 	}
 
 	/**
-	 * Creates a Set of all servlet context attributes as well as context init
+	 * Creates a Set of all portlet context attributes as well as context init
 	 * parameters.
 	 * 
-	 * @return a Set of all servlet context attributes as well as context init
+	 * @return a Set of all portlet context attributes as well as context init
 	 *         parameters.
 	 */
 	public Set entrySet() {
 		if (entries == null) {
 			entries = new HashSet();
 
-			// Add servlet context attributes
+			// Add portlet context attributes
 			Enumeration enumeration = context.getAttributeNames();
 
 			while (enumeration.hasMoreElements()) {
@@ -102,7 +96,7 @@ public class PortletApplicationMap extends AbstractMap implements Serializable {
 				});
 			}
 
-			// Add servlet context init params
+			// Add portlet context init params
 			enumeration = context.getInitParameterNames();
 
 			while (enumeration.hasMoreElements()) {
@@ -144,12 +138,12 @@ public class PortletApplicationMap extends AbstractMap implements Serializable {
 	}
 
 	/**
-	 * Returns the servlet context attribute or init parameter based on the
+	 * Returns the portlet context attribute or init parameter based on the
 	 * given key. If the entry is not found, <tt>null</tt> is returned.
 	 * 
 	 * @param key
 	 *            the entry key.
-	 * @return the servlet context attribute or init parameter or <tt>null</tt>
+	 * @return the portlet context attribute or init parameter or <tt>null</tt>
 	 *         if the entry is not found.
 	 */
 	public Object get(Object key) {
@@ -162,7 +156,7 @@ public class PortletApplicationMap extends AbstractMap implements Serializable {
 	}
 
 	/**
-	 * Sets a servlet context attribute given a attribute name and value.
+	 * Sets a portlet context attribute given a attribute name and value.
 	 * 
 	 * @param key
 	 *            the name of the attribute.
@@ -178,7 +172,7 @@ public class PortletApplicationMap extends AbstractMap implements Serializable {
 	}
 
 	/**
-	 * Removes the specified servlet context attribute.
+	 * Removes the specified portlet context attribute.
 	 * 
 	 * @param key
 	 *            the attribute to remove.
