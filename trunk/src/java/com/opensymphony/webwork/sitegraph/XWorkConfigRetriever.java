@@ -17,10 +17,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Initializes and retrieves XWork config elements
@@ -31,7 +28,7 @@ public class XWorkConfigRetriever {
     private static String configDir;
     private static String[] views;
     private static boolean isXWorkStarted = false;
-    private static Map viewCache = new TreeMap();
+    private static Map viewCache = new LinkedHashMap();
 
     /**
      * Returns a Map of all action names/configs
@@ -171,6 +168,6 @@ public class XWorkConfigRetriever {
         XWorkConfigRetriever.configDir = configDir;
         XWorkConfigRetriever.views = views;
         isXWorkStarted = false;
-        viewCache = new TreeMap();
+        viewCache = new LinkedHashMap();
     }
 }
