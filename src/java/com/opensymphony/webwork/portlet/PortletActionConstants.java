@@ -22,6 +22,9 @@ public interface PortletActionConstants {
 	 */
 	String ACTION_PARAM = "webwork.portlet.action"; 
 	
+	/**
+	 * Key for parameter holding the last executed portlet mode.
+	 */
 	String MODE_PARAM = "webwork.portlet.mode";
 	
 	/**
@@ -70,13 +73,20 @@ public interface PortletActionConstants {
     String ERROR_ACTION = "errorHandler";
 
     /**
-     * Key used to store the exception used in the error handler
+     * Key for the portlet namespace stored in the 
+     * {@link com.opensymphony.webwork.portlet.context.PortletActionContext}.
      */
-    String EXCEPTION_KEY = "webwork.portlet.exception";
-    
     String PORTLET_NAMESPACE = "webwork.portlet.portletNamespace";
     
+    /**
+     * Key for the mode-to-namespace map stored in the 
+     * {@link com.opensymphony.webwork.portlet.context.PortletActionContext}.
+     */
     String MODE_NAMESPACE_MAP = "webwork.portlet.modeNamespaceMap";
     
+    /**
+     * Key for the default action name for the portlet, stored in the 
+     * {@link com.opensymphony.webwork.portlet.context.PortletActionContext}.
+     */
     String DEFAULT_ACTION_FOR_MODE = "webwork.portlet.defaultActionForMode";
 }

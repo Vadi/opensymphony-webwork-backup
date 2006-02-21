@@ -16,10 +16,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * PortletRequestMap. Insert description.
+ * A simple implementation of the {@link java.util.Map} interface to handle a collection of request attributes.
  * 
  * @author Nils-Helge Garli
- * @version $Revision$ $Date$
  */
 public class PortletRequestMap extends AbstractMap {
 
@@ -29,6 +28,11 @@ public class PortletRequestMap extends AbstractMap {
 
     private PortletRequest request = null;
 
+    /**
+     * Saves the request to use as the backing for getting and setting values
+     *
+     * @param request the portlet request.
+     */
     public PortletRequestMap(PortletRequest request) {
         this.request = request;
         if(LOG.isDebugEnabled()) {
@@ -56,9 +60,9 @@ public class PortletRequestMap extends AbstractMap {
     }
 
     /**
-     * Returns a Set of attributes from the http request.
+     * Returns a Set of attributes from the portlet request.
      * 
-     * @return a Set of attributes from the http request.
+     * @return a Set of attributes from the portlet request.
      */
     public Set entrySet() {
         if (entries == null) {

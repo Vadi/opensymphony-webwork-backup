@@ -17,10 +17,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * PortletSessionMap. Insert description.
+ * A simple implementation of the {@link java.util.Map} interface to handle a collection of portlet session
+ * attributes. The {@link #entrySet()} method enumerates over all session attributes and creates a Set of entries.
+ * Note, this will occur lazily - only when the entry set is asked for.
  * 
  * @author Nils-Helge Garli
- * @version $Revision$ $Date$
  */
 public class PortletSessionMap extends AbstractMap {
     
@@ -30,6 +31,11 @@ public class PortletSessionMap extends AbstractMap {
 
     private Set            entries = null;
 
+    /**
+     * Creates a new session map given a portlet request. 
+     *
+     * @param request the portlet request object.
+     */
     public PortletSessionMap(PortletRequest request) {
         this.session = request.getPortletSession();
         if(LOG.isDebugEnabled()) {

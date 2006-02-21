@@ -19,8 +19,6 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -50,13 +48,69 @@ import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
 
 /**
+ * <!-- START SNIPPET: javadoc -->
+ * <p>
  * WebWork2 JSR-168 portlet dispatcher. Similar to the WW2 Servlet dispatcher,
- * but adjusted to a portal environment. For information about WebWork2, go to
- * <a
- * href="http://www.opensymphony.com/webwork2">http://www.opensymphony.com/webwork2
- * </a>
+ * but adjusted to a portal environment. The portlet is configured through the <tt>portlet.xml</tt>
+ * descriptor. Examples and descriptions follow below:
+ * </p>
+ * <!-- END SNIPPET: javadoc --> 
  * 
  * @author <a href="nils-helge.garli@bekk.no">Nils-Helge Garli </a>
+ * 
+ * <p><b>Init parameters</b></p>
+ * <!-- START SNIPPET: params -->
+ * <ul>
+ * 	<li>portletNamespace - Base namespace of portlet in the xwork configuration. This namespace is
+ * 		prepended to all action lookups</li>
+ *  <li>viewNamespace - Base namespace in the xwork configuration for the <tt>view</tt> portlet mode</li>
+ *  <li>editNamespace - Base namespace in the xwork configuration for the <tt>edit</tt> portlet mode</li>
+ *  <li>helpNamespace - Base namespace in the xwork configuration for the <tt>help</tt> portlet mode</li>
+ *  <li>defaultViewAction - Default action to invoke in the <tt>view</tt> portlet mode if no action is
+ * 		specified</li>
+ *  <li>defaultEditAction - Default action to invoke in the <tt>edit</tt> portlet mode if no action is
+ * 		specified</li>
+ *  <li>defaultHelpAction - Default action to invoke in the <tt>help</tt> portlet mode if no action is
+ * 		specified</li>
+ * </ul>
+ * <!-- END SNIPPET: params -->
+ * <p><b>Example:</b></p>
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * 
+ * &lt;init-param&gt;
+ *     &lt;!-- The view mode namespace. Maps to a namespace in the xwork config file --&gt;
+ *     &lt;name&gt;viewNamespace&lt;/name&gt;
+ *     &lt;value&gt;/view&lt;/value&gt;
+ * &lt;/init-param&gt;
+ * &lt;init-param&gt;
+ *    &lt;!-- The default action to invoke in view mode --&gt;
+ *	  &lt;name&gt;defaultViewAction&lt;/name&gt;
+ *    &lt;value&gt;index&lt;/value&gt;
+ * &lt;/init-param&gt;
+ * &lt;init-param&gt;
+ *     &lt;!-- The view mode namespace. Maps to a namespace in the xwork config file --&gt;
+ *     &lt;name&gt;editNamespace&lt;/name&gt;
+ *     &lt;value&gt;/edit&lt;/value&gt;
+ * &lt;/init-param&gt;
+ * &lt;init-param&gt;
+ *     &lt;!-- The default action to invoke in view mode --&gt;
+ *     &lt;name&gt;defaultEditAction&lt;/name&gt;
+ *	   &lt;value&gt;index&lt;/value&gt;
+ * &lt;/init-param&gt;
+ * &lt;init-param&gt;
+ *     &lt;!-- The view mode namespace. Maps to a namespace in the xwork config file --&gt;
+ *     &lt;name&gt;helpNamespace&lt;/name&gt;
+ *     &lt;value&gt;/help&lt;/value&gt;
+ * &lt;/init-param&gt;
+ * &lt;init-param&gt;
+ *     &lt;!-- The default action to invoke in view mode --&gt;
+ *     &lt;name&gt;defaultHelpAction&lt;/name&gt;
+ *     &lt;value&gt;index&lt;/value&gt;
+ * &lt;/init-param&gt;
+ *   
+ * <!-- END SNIPPET: example -->
+ * </pre>
  */
 public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         PortletActionConstants {
@@ -75,6 +129,9 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
 
     private Locale locale = null;
 
+    /**
+     * Initialize the portlet with the init parameters from <tt>portlet.xml</tt>
+     */
     public void init(PortletConfig cfg) throws PortletException {
         super.init(cfg);
         LOG.debug("Creating portlet instance with hashcode = " + hashCode());
@@ -177,6 +234,8 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
     }
 
     /**
+     * Service an action from the <tt>even</tt> phase.
+     * 
      * @see javax.portlet.Portlet#processAction(javax.portlet.ActionRequest,
      *      javax.portlet.ActionResponse)
      */
@@ -196,6 +255,8 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
     }
 
     /**
+     * Service an action from the <tt>render</tt> phase.
+     * 
      * @see javax.portlet.Portlet#render(javax.portlet.RenderRequest,
      *      javax.portlet.RenderResponse)
      */
@@ -218,7 +279,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
     }
 
     /**
-     *  
+     *  Reset the action context.
      */
     private void resetActionContext() {
         ActionContext.setContext(null);
@@ -341,13 +402,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
     }
 
     /**
-     * @return request UID
-     */
-    private String generateRequestUID() {
-        return Long.toString(System.currentTimeMillis());
-    }
-
-    /**
      * Returns a Map of all application attributes. Copies all attributes from
      * the {@link PortletActionContext}into an {@link ApplicationMap}.
      * 
@@ -393,6 +447,11 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         return mapping;
     }
 
+    /**
+     * Get the namespace part of the action path.
+     * @param actionPath Full path to action
+     * @return The namespace part.
+     */
     String getNamespace(String actionPath) {
         int idx = actionPath.lastIndexOf('/');
         String namespace = "";
@@ -402,6 +461,11 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         return namespace;
     }
 
+    /**
+     * Get the action name part of the action path.
+     * @param actionPath Full path to action
+     * @return The action name.
+     */
     String getActionName(String actionPath) {
         int idx = actionPath.lastIndexOf('/');
         String action = actionPath;
@@ -484,6 +548,14 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         return new Locale(language, country, localeStr);
     }
 
+    /**
+     * Check to see if the action parameter is valid for the current portlet mode. If the portlet
+     * mode has been changed with the portal widgets, the action name is invalid, since the
+     * action name belongs to the previous executing portlet mode. If this method evaluates to 
+     * <code>true</code> the <code>default&lt;Mode&gt;Action</code> is used instead.
+     * @param request The portlet request.
+     * @return <code>true</code> if the action should be reset.
+     */
     private boolean resetAction(PortletRequest request) {
         boolean reset = false;
         Map paramMap = request.getParameterMap();
