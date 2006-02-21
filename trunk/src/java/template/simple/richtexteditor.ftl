@@ -33,7 +33,7 @@
 	<#-- value --><#t/>
 	<@ww.set name="tmpVal" value="parameters.nameValue" /><#t/>
 	<#if (stack.findValue('#tmpVal')?has_content)><#t/>
-		oFCKeditor_${parameters.id}.Value = '<@ww.property value="parameters.nameValue" />' ;
+		oFCKeditor_${parameters.id}.Value = '<@ww.property escape="false" value="parameters.nameValue" />' ;
 	</#if><#t/>
 	<#-- customConfigurationsPath --><#t/>
 	<#if parameters.customConfigurationsPath?exists><#t/>
