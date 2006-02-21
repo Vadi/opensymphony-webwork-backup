@@ -44,7 +44,7 @@ public class UrlHelper {
     }
     
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params, String scheme, boolean includeContext, boolean encodeResult) {
-    	return buildUrl(action, request, response, params, scheme, true, true, false);
+    	return buildUrl(action, request, response, params, scheme, includeContext, encodeResult, false);
     }
 
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params, String scheme, boolean includeContext, boolean encodeResult, boolean forceAddSchemeHostAndPort) {
