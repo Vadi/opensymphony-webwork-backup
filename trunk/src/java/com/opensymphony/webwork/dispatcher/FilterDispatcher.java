@@ -154,9 +154,14 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
 
         if (mapping == null) {
             // there is no action in this request, should we look for a static resource?
-            String servletPath = RequestUtils.getServletPath(request); 
-            if (servletPath.startsWith("/webwork")) {
-                String name = servletPath.substring("/webwork".length());
+            String resourcePath = RequestUtils.getServletPath(request);
+            
+            if ("".equals(resourcePath) && null != request.getPathInfo()) {
+                resourcePath = request.getPathInfo();
+            }
+            
+            if (resourcePath.startsWith("/webwork")) {
+                String name = resourcePath.substring("/webwork".length());
                 findStaticResource(name, response);
             } else {
                 // this is a normal request, let it pass through
