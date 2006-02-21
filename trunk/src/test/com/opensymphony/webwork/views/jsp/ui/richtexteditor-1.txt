@@ -4,7 +4,9 @@
 <script type="text/javascript" src="/webwork/richtexteditor/fckeditor.js"></script>
 <script>
 	var oFCKeditor_myId = new FCKeditor( 'myName' ) ;
-	oFCKeditor_myId.BasePath = '/webwork/richtexteditor/';
+	oFCKeditor_myId.BasePath = '/webwork/richtexteditor/' ;
+	oFCKeditor_myId.Config['AutoDetectLanguage'] = 'false' ;
+	oFCKeditor_myId.Config['DefaultLanguage'] = 'en' ; 
 	oFCKeditor_myId.Create() ;
 </script>
 </td>
