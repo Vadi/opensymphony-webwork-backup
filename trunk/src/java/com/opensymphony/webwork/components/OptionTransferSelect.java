@@ -132,10 +132,10 @@ public class OptionTransferSelect extends DoubleListUIBean {
         	addParameter("doubleSize", "15");
         }
         if (multiple == null || multiple.trim().length() <= 0) {
-        	addParameter("multiple", "multiple");
+        	addParameter("multiple", Boolean.TRUE);
         }
         if (doubleMultiple == null || doubleMultiple.trim().length() <= 0) {
-        	addParameter("doubleMultiple", "multiple");
+        	addParameter("doubleMultiple", Boolean.TRUE);
         }
         
         

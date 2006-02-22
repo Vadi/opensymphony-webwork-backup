@@ -21,7 +21,7 @@
 <#if parameters.title?exists>
  title="${parameters.title?html}"<#rt/>
 </#if>
-<#if parameters.multiple?exists>
+<#if parameters.multiple?default(false)>
  multiple="multiple"<#rt/>
 </#if>
 <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />

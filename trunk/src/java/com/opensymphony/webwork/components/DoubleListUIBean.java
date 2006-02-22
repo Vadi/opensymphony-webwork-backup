@@ -86,7 +86,7 @@ public abstract class DoubleListUIBean extends ListUIBean {
         
         
         if (doubleMultiple != null) {
-        	addParameter("doubleMultiple", findString(doubleMultiple));
+        	addParameter("doubleMultiple", findValue(doubleMultiple, Boolean.class));
         }
         
         if (doubleSize != null) {
@@ -94,7 +94,7 @@ public abstract class DoubleListUIBean extends ListUIBean {
         }
         
         if (doubleDisabled != null) {
-        	addParameter("doubleDisbled", findString(doubleDisabled));
+        	addParameter("doubleDisbled", findValue(doubleDisabled, Boolean.class));
         }
 
         if (doubleName != null) {

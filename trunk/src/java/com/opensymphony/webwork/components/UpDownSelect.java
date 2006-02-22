@@ -94,7 +94,7 @@ public class UpDownSelect extends Select {
 			addParameter("size", "5");
 		}
 		if (multiple == null || multiple.trim().length() <= 0) {
-			addParameter("multiple", "true");
+			addParameter("multiple", Boolean.TRUE);
 		}
 		
 		
