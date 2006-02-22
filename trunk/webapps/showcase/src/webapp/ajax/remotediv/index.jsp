@@ -37,6 +37,10 @@
                 message</a>
         </li>
 
+        <li>
+            <a href="example7.jsp">A div that calls the server, and JS in the resulting page is executed</a>
+        </li>
+
     </ol>
 
 
