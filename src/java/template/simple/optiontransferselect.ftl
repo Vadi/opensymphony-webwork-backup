@@ -151,7 +151,7 @@
 	<#if parameters.doubleDisabled?default(false)><#t/>
 	disabled="disabled"
 	</#if><#t/>
-	<#if parameters.doubleMultiple?exists><#t/>
+	<#if parameters.doubleMultiple?default(false)><#t/>
 	multiple="multiple"
 	</#if><#t/>
 	<#if parameters.doubleTabindex?exists><#t/>

@@ -197,6 +197,38 @@ public class SelectTest extends AbstractUITagTest {
         prepareTagGeneric(tag);
         verifyGenericProperties(tag, "ajax", new String[]{"value"});
     }
+    
+    public void testMultipleOn() throws Exception {
+    	SelectTag tag = new SelectTag();
+    	tag.setPageContext(pageContext);
+    	tag.setLabel("media1");
+    	tag.setId("myId");
+    	tag.setEmptyOption("true");
+    	tag.setName("myName");
+    	tag.setMultiple("true");
+    	tag.setList("{'aaa','bbb'}");
+    	
+    	tag.doStartTag();
+    	tag.doEndTag();
+    	
+    	verify(SelectTag.class.getResource("Select-5.txt"));
+    }
+    
+    public void testMultipleOff() throws Exception {
+    	SelectTag tag = new SelectTag();
+    	tag.setPageContext(pageContext);
+    	tag.setLabel("media2");
+    	tag.setId("myId");
+    	tag.setEmptyOption("true");
+    	tag.setName("myName");
+    	tag.setMultiple("false");
+    	tag.setList("{'aaa','bbb'}");
+    	
+    	tag.doStartTag();
+    	tag.doEndTag();
+    	
+    	verify(SelectTag.class.getResource("Select-6.txt"));
+    }
 
     private void prepareTagGeneric(SelectTag tag) {
         TestAction testAction = (TestAction) action;
@@ -209,5 +241,5 @@ public class SelectTest extends AbstractUITagTest {
 
         tag.setList("collection");
     }
-
+    
 }
