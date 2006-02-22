@@ -23,5 +23,9 @@
         <action name="Test2" class="com.opensymphony.xwork.ActionSupport">
             <result name="success">/ajax/remoteforms/test3.jsp</result>
         </action>
+
+        <action name="Test3" class="com.opensymphony.xwork.ActionSupport">
+            <result name="success">/ajax/testjs.jsp</result>
+        </action>
     </package>
 </xwork>
