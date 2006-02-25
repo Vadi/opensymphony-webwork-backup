@@ -195,8 +195,7 @@ public class UrlHelper {
 
     /**
      * Translates any script expressions using {@link com.opensymphony.xwork.util.TextParseUtil#translateVariables} and
-     * encodes the URL using {@link java.net.URLEncoder#encode} with the encoding of UTF-8 (as recommended by the w3c
-     * and pointed out in issue WW-747).
+     * encodes the URL using {@link java.net.URLEncoder#encode} with the encoding specified in the configuration.
      *
      * @param input
      * @return the translated and encoded string
@@ -205,8 +204,15 @@ public class UrlHelper {
         OgnlValueStack valueStack = ServletActionContext.getContext().getValueStack();
         String output = TextParseUtil.translateVariables(input, valueStack);
 
+        final String encoding;
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_I18N_ENCODING)) {
+            encoding = Configuration.getString(WebWorkConstants.WEBWORK_I18N_ENCODING);
+        } else {
+            encoding = "UTF-8";
+        }
+
         try {
-            return URLEncoder.encode(output, "UTF-8");
+            return URLEncoder.encode(output, encoding);
         } catch (UnsupportedEncodingException e) {
             LOG.warn("Could not encode URL parameter '" + input + "', returning value un-encoded");
             return output;
