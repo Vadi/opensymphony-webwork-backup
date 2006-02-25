@@ -28,6 +28,7 @@
             <interceptor name="chain" class="com.opensymphony.xwork.interceptor.ChainingInterceptor"/>
             <interceptor name="component" class="com.opensymphony.xwork.interceptor.component.ComponentInterceptor"/>
             <interceptor name="conversionError" class="com.opensymphony.webwork.interceptor.WebWorkConversionErrorInterceptor"/>
+            <interceptor name="createSession" class="com.opensymphony.webwork.interceptor.CreateSessionInterceptor" />
             <interceptor name="external-ref" class="com.opensymphony.xwork.interceptor.ExternalReferencesInterceptor"/>
             <interceptor name="execAndWait" class="com.opensymphony.webwork.interceptor.ExecuteAndWaitInterceptor"/>
             <interceptor name="exception" class="com.opensymphony.xwork.interceptor.ExceptionMappingInterceptor"/>
