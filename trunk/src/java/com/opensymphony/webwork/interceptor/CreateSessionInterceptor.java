@@ -22,6 +22,16 @@ import com.opensymphony.xwork.interceptor.AroundInterceptor;
  *
  * <p/> <u>Interceptor parameters:</u>
  *
+ *
+ * <!-- START SNIPPET: extending -->
+ * 
+ * <ul>
+ * 	<li>none</li>
+ * </ul>
+ * 
+ * <!-- END SNIPPET: extending -->
+ *
+ *
  * <!-- START SNIPPET: parameters -->
  *
  * <ul>
