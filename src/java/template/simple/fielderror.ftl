@@ -1,38 +1,39 @@
-<#assign eKeys = fieldErrors.keySet()>
-<#assign eKeysSize = eKeys.size()>
-<#assign doneStartUlTag=false>
-<#assign doneEndUlTag=false>
-<#assign haveMatchedErrorField=false>
-<#if (fieldErrorFieldNames?size > 0) >
-	<#list fieldErrorFieldNames as fieldErrorFieldName>
-		<#list eKeys as eKey>
-		<#if (eKey = fieldErrorFieldName)>
-			<#assign haveMatchedErrorField=true>
-			<#assign eValue = fieldErrors[fieldErrorFieldName]>
-			<#if (haveMatchedErrorField && (!doneStartUlTag))>
+<#if fieldErrors?exists><#t/>
+<#assign eKeys = fieldErrors.keySet()><#t/>
+<#assign eKeysSize = eKeys.size()><#t/>
+<#assign doneStartUlTag=false><#t/>
+<#assign doneEndUlTag=false><#t/>
+<#assign haveMatchedErrorField=false><#t/>
+<#if (fieldErrorFieldNames?size > 0) ><#t/>
+	<#list fieldErrorFieldNames as fieldErrorFieldName><#t/>
+		<#list eKeys as eKey><#t/>
+		<#if (eKey = fieldErrorFieldName)><#t/>
+			<#assign haveMatchedErrorField=true><#t/>
+			<#assign eValue = fieldErrors[fieldErrorFieldName]><#t/>
+			<#if (haveMatchedErrorField && (!doneStartUlTag))><#t/>
 				<ul>
-				<#assign doneStartUlTag=true>
-			</#if>
-			<#list eValue as eEachValue>
+				<#assign doneStartUlTag=true><#t/>
+			</#if><#t/>
+			<#list eValue as eEachValue><#t/>
 				<li><span class="errorMessage">${eEachValue}</span></li>
-			</#list>			
-		</#if>
-		</#list>
-	</#list>
-	<#if (haveMatchedErrorField && (!doneEndUlTag))>
+			</#list><#t/>			
+		</#if><#t/>
+		</#list><#t/>
+	</#list><#t/>
+	<#if (haveMatchedErrorField && (!doneEndUlTag))><#t/>
 		</ul>
-		<#assign doneEndUlTag=true>
-	</#if>
-<#else>	
-	<#if (eKeysSize > 0)>
+		<#assign doneEndUlTag=true><#t/>
+	</#if><#t/>
+<#else><#t/>	
+	<#if (eKeysSize > 0)><#t/>
 		<ul>
-			<#list eKeys as eKey>
-				<#assign eValue = fieldErrors[eKey]>
-				<#list eValue as eEachValue>
+			<#list eKeys as eKey><#t/>
+				<#assign eValue = fieldErrors[eKey]><#t/>
+				<#list eValue as eEachValue><#t/>
 					<li><span class="errorMessage">${eEachValue}</span></li>
-				</#list>
-			</#list>
+				</#list><#t/>
+			</#list><#t/>
 		</ul>
-	</#if>
-</#if>
-
+	</#if><#t/>
+</#if><#t/>
+</#if><#t/>

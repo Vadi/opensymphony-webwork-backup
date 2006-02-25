@@ -164,6 +164,23 @@ public class FieldErrorTagTest extends AbstractUITagTest {
 		verify(FieldErrorTagTest.class.getResource("fielderror-2.txt"));
 	}
 	
+	public void testWithNullFieldErrors() throws Exception {
+		FieldErrorTag tag = new FieldErrorTag();
+		((InternalAction)action).setHaveFieldErrors(false);
+		((InternalAction)action).setReturnNullForFieldErrors(true);
+		tag.setPageContext(pageContext);
+		tag.doStartTag();
+			ParamTag pTag1 = new ParamTag();
+			pTag1.setPageContext(pageContext);
+			pTag1.setValue("%{'field2'}");
+			pTag1.doStartTag();
+			pTag1.doEndTag();
+			
+		tag.doEndTag();
+		
+		verify(FieldErrorTagTest.class.getResource("fielderror-2.txt"));
+	}
+	
 	
 	public Action getAction() {
 		return new InternalAction();
@@ -173,9 +190,14 @@ public class FieldErrorTagTest extends AbstractUITagTest {
 	public class InternalAction extends ActionSupport {
 		
 		private boolean haveFieldErrors = false;
+		private boolean returnNullForFieldErrors = false;
 		
 		public void setHaveFieldErrors(boolean haveFieldErrors) {
 			this.haveFieldErrors = haveFieldErrors;
+		}
+		
+		public void setReturnNullForFieldErrors(boolean returnNullForFieldErrors) {
+			this.returnNullForFieldErrors = returnNullForFieldErrors;
 		}
 		
 		public Map getFieldErrors() {
@@ -191,6 +213,9 @@ public class FieldErrorTagTest extends AbstractUITagTest {
 				fieldErrors.put("field2", err2);
 				fieldErrors.put("field3", err3);
 				return fieldErrors;
+			}
+			else if (returnNullForFieldErrors) {
+				return null;
 			}
 			else {
 				return Collections.EMPTY_MAP;
