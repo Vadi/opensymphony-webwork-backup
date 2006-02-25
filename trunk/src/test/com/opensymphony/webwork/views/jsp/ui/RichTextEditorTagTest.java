@@ -13,7 +13,7 @@ import com.opensymphony.xwork.ActionContext;
  * RichTextEditor test case.
  * 
  * @author tm_jee
- * @verison $Date$ $Id$
+ * @version $Date$ $Id$
  */
 public class RichTextEditorTagTest extends AbstractUITagTest {
 
@@ -23,7 +23,8 @@ public class RichTextEditorTagTest extends AbstractUITagTest {
 		tag.setLabel("myLabel");
 		tag.setId("myId");
 		tag.setName("myName");
-		
+        tag.setDefaultLanguage("en");
+
 		tag.doStartTag();
 		tag.doEndTag();
 		
@@ -114,7 +115,8 @@ public class RichTextEditorTagTest extends AbstractUITagTest {
 		tag.setCheckBrowser("true");
 		tag.setDisplayError("true");
 		tag.setValue("%{#mySomeText}");
-		
+        tag.setDefaultLanguage("en");
+
 		tag.doStartTag();
 		tag.doEndTag();
 		
