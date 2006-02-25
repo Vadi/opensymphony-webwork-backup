@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.util.TokenHelper;
@@ -27,7 +31,7 @@ import java.util.Map;
  * @author Patrick Lightbody
  * @author Rene Gielen
  * @author Rainer Hermanns
- * @version $Revision$
+ * @version $Date$ $Id$
  * @since 2.2
  *
  * @see com.opensymphony.webwork.interceptor.TokenInterceptor
