@@ -29,6 +29,13 @@ import org.apache.commons.logging.LogFactory;
  * <b>Note:</b> To set a token in your form, you should use the <b>token tag</b>. This tag is required and must be used
  * in the forms that submit to actions protected by this interceptor. Any request that does not provide a token (using
  * the token tag) will be processed as a request with an invalid token.
+ * 
+ * <b>Internationalization Note:</b> The following key could be used to internationalized the action errors generated
+ * by this token interceptor
+ * 
+ * <ul>
+ *    <li>webwork.messages.invalid.token</li>
+ * </ul>
  *
  * <!-- END SNIPPET: description -->
  *
