@@ -18,6 +18,7 @@ import java.util.Map;
  * @author Jason Carreira
  * @author Rainer Hermanns
  * @author Nils-Helge Garli
+ * @author Claus Ibson
  */
 public class TokenHelper {
 
@@ -51,11 +52,30 @@ public class TokenHelper {
     public static String setToken(String tokenName) {
         Map session = ActionContext.getContext().getSession();
         String token = GUID.generateGUID();
-        session.put(tokenName, token);
+        try {
+        	session.put(tokenName, token);
+        }
+        catch(IllegalStateException e) {
+        	// WW-1182 explain to user what the problem is
+        	String msg = "Error creating HttpSession due response is commited to client. You can use the CreateSessionInterceptor or create the HttpSession from your action before the result is rendered to the client: " + e.getMessage();
+        	LOG.error(msg, e);
+        	IllegalArgumentException t = new IllegalArgumentException(msg, e);
+        	throw t;
+        }
 
         return token;
     }
 
+    
+    /**
+     * Gets a transaction token into the session using the default token name.
+     * 
+     * @return token
+     */
+    public static String getToken() {
+    	return getToken(DEFAULT_TOKEN_NAME);
+    }
+    
     /**
      * Gets the Token value from the params in the ServletActionContext using the given name
      *
@@ -116,12 +136,16 @@ public class TokenHelper {
         String tokenName = getTokenName();
 
         if (tokenName == null) {
+        	if (LOG.isDebugEnabled())
+        		LOG.debug("no token name found -> Invalid token ");
             return false;
         }
 
         String token = getToken(tokenName);
 
         if (token == null) {
+        	if (LOG.isDebugEnabled()) 
+        		LOG.debug("no token found for token name "+tokenName+" -> Invalid token ");
             return false;
         }
 
