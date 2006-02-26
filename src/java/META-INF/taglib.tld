@@ -11351,6 +11351,14 @@
 
       </attribute>
       <attribute>
+         <name>anchor</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The anchor for this URL]]></description>
+
+      </attribute>
+      <attribute>
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
