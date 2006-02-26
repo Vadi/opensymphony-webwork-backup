@@ -22,6 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * User: patrick
@@ -60,7 +61,7 @@ public class FreeMarkerPageFilter extends PageFilter {
 
             // get the configuration and template
             Configuration config = fmm.getConfiguration(servletContext);
-            Template template = config.getTemplate(decorator.getPage());
+            Template template = config.getTemplate(decorator.getPage(), getLocale(ctx.getActionInvocation(), config)); // WW-1181
 
             // get the main hash
             SimpleHash model = fmm.buildTemplateModel(ctx.getValueStack(), null, servletContext, req, res, config.getObjectWrapper());
@@ -83,6 +84,19 @@ public class FreeMarkerPageFilter extends PageFilter {
         }
     }
 
+    /**
+     * Returns the locale used for the {@link Configuration#getTemplate(String, Locale)} call. The base implementation
+     * simply returns the locale setting of the action (assuming the action implements {@link LocaleProvider}) or, if
+     * the action does not the configuration's locale is returned. Override this method to provide different behaviour,
+     */
+    protected Locale getLocale(ActionInvocation invocation, Configuration configuration) {
+        if (invocation.getAction() instanceof LocaleProvider) {
+            return ((LocaleProvider) invocation.getAction()).getLocale();
+        } else {
+            return configuration.getLocale();
+        }
+    }
+    
     static class DummyActionInvocation implements ActionInvocation {
         ActionSupport action;
 
