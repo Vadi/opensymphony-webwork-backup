@@ -470,4 +470,12 @@ public class DispatcherUtils {
     public static boolean isPortletSupportActive() {
         return portletSupportActive;
     }
+
+    /**
+     * This method is just used for the unit tests to pass.
+     * @param value
+     */
+    public static void setPortletSupportActive(boolean value) {
+        DispatcherUtils.portletSupportActive = value;
+    }
 }

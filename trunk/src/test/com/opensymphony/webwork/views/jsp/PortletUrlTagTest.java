@@ -44,6 +44,7 @@ import com.opensymphony.webwork.components.URL;
 import com.opensymphony.webwork.portlet.PortletActionConstants;
 import com.opensymphony.webwork.portlet.util.PortletUrlHelper;
 import com.opensymphony.webwork.views.jsp.ParamTag;
+import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -127,7 +128,8 @@ public class PortletUrlTagTest extends MockObjectTestCase {
 		ActionContext ctx = new ActionContext(contextMap);
 		ctx.setValueStack(stack);
 		ActionContext.setContext(ctx);
-	}
+        DispatcherUtils.setPortletSupportActive(true);
+    }
 
 	public void testEnsureParamsAreStringArrays() {
 		Map params = new HashMap();
