@@ -15,6 +15,7 @@
  */
 package com.opensymphony.webwork.views.jsp;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -81,6 +82,8 @@ public class PortletUrlTagTest extends MockObjectTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		
+		mockPortletApiAvailable();
+		
 		stack = new OgnlValueStack();
 
 		
@@ -128,10 +131,24 @@ public class PortletUrlTagTest extends MockObjectTestCase {
 		ActionContext ctx = new ActionContext(contextMap);
 		ctx.setValueStack(stack);
 		ActionContext.setContext(ctx);
-        DispatcherUtils.setPortletSupportActive(true);
     }
 
-	public void testEnsureParamsAreStringArrays() {
+	/**
+     * 
+     */
+    private void mockPortletApiAvailable() {
+        try {
+            Field field = DispatcherUtils.class.getDeclaredField("portletSupportActive");
+            field.setAccessible(true);
+            field.set(null, Boolean.TRUE);
+        }
+        catch(Exception e) {
+            
+        }
+        
+    }
+
+    public void testEnsureParamsAreStringArrays() {
 		Map params = new HashMap();
 		params.put("param1", "Test1");
 		params.put("param2", new String[] { "Test2" });
