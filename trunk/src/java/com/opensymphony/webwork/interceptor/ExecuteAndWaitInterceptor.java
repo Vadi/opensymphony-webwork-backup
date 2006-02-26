@@ -42,6 +42,13 @@ import java.util.Map;
  * page automatically reload the request to the action (which will be short-circuited by the interceptor), you can give
  * the appearance of an automatic progress meter.
  *
+ * <p/>This interceptor also supports using an initial wait delay. An initial delay is a time in milliseconds we let the
+ * server wait before the wait page is shown to the user. During the wait this interceptor will wake every 100 millis
+ * to check if the background process is done premature, thus if the job for some reason doesn't take to long the wait
+ * page is not shown to the user.
+ * <br/> This is useful for e.g. search actions that have a wide span of execution time. Using a delay time of 2000
+ * millis we ensure the user is presented fast search results immediately and for the slow results a wait page is used.
+ *
  * <p/><b>Important</b>: Because the action will be running in a seperate thread, you can't use ActionContext because it
  * is a ThreadLocal. This means if you need to access, for example, session data, you need to implement SessionAware
  * rather than calling ActionContext.getSesion().
@@ -57,7 +64,9 @@ import java.util.Map;
  *
  * <ul>
  *
- * <li>threadPriority (optional) - the priority to assign the thread</li>
+ * <li>threadPriority (optional) - the priority to assign the thread. Default is <code>Thread.NORM_PRIORITY</code>.</li>
+ * <li>delay (optional) - an initial delay in millis to wait before the wait page is shown (returning <code>wait</code> as result code). Default is no initial delay.</li>
+ * <li>delaySleepInterval (optional) - only used with delay. Used for waking up at certain intervals to check if the background process is already done. Default is 100 millis.</li>
  *
  * </ul>
  *
@@ -98,16 +107,53 @@ import java.util.Map;
  *     Click &lt;a href="&lt;ww:url includeParams="all" /&gt;">&lt;/a&gt; if this page does not reload automatically.
  *   &lt;/body&gt;
  * &lt;/html&gt;
- * <!-- END SNIPPET: example -->
  * </pre>
  *
+ * <p/> <u>Example code2:</u>
+ * This example will wait 2 second (2000 millis) before the wait page is shown to the user. Therefore
+ * if the long process didn't last long anyway the user isn't shown a wait page.
+ *
+ * <pre>
+ * &lt;action name="someAction" class="com.examples.SomeAction"&gt;
+ *     &lt;interceptor-ref name="completeStack"/&gt;
+ *     &lt;interceptor-ref name="execAndWait"&gt;
+ *         &lt;param name="delay"&gt;2000&lt;param&gt;
+ *     &lt;interceptor-ref&gt;
+ *     &lt;result name="wait"&gt;longRunningAction-wait.jsp&lt;/result&gt;
+ *     &lt;result name="success"&gt;longRunningAction-success.jsp&lt;/result&gt;
+ * &lt;/action&gt;
+ * </pre>
+ *
+ * <p/> <u>Example code3:</u>
+ * This example will wait 1 second (1000 millis) before the wait page is shown to the user.
+ * And at every 50 millis this interceptor will check if the background process is done, if so
+ * it will return before the 1 second has elapsed, and the user isn't shown a wait page.
+ *
+ * <pre>
+ * &lt;action name="someAction" class="com.examples.SomeAction"&gt;
+ *     &lt;interceptor-ref name="completeStack"/&gt;
+ *     &lt;interceptor-ref name="execAndWait"&gt;
+ *         &lt;param name="delay"&gt;1000&lt;param&gt;
+ *         &lt;param name="delaySleepInterval"&gt;50&lt;param&gt;
+ *     &lt;interceptor-ref&gt;
+ *     &lt;result name="wait"&gt;longRunningAction-wait.jsp&lt;/result&gt;
+ *     &lt;result name="success"&gt;longRunningAction-success.jsp&lt;/result&gt;
+ * &lt;/action&gt;
+ * </pre>
+ *
+ * <!-- END SNIPPET: example -->
+ *
  * @author <a href="plightbo@gmail.com">Pat Lightbody</a>
+ * @author Rainer Hermanns
+ * @author Claus Ibsen
  */
 public class ExecuteAndWaitInterceptor implements Interceptor {
     private static final Log LOG = LogFactory.getLog(ExecuteAndWaitInterceptor.class);
 
     public static final String KEY = "__execWait";
-    private static final String WAIT = "wait";
+    public static final String WAIT = "wait";
+    protected int delay;
+    protected int delaySleepInterval = 100; // default sleep 100 millis before checking if background process is done
 
     private int threadPriority = Thread.NORM_PRIORITY;
 
@@ -130,6 +176,7 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
             if (bp == null) {
                 bp = getNewBackgroundProcess(name, actionInvocation, threadPriority);
                 session.put(KEY + name, bp);
+                performInitialDelay(bp); // first time let some time pass before showing wait page
             }
 
             if (!bp.isDone()) {
@@ -165,8 +212,60 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
     public void destroy() {
     }
 
+    /**
+     * Performs the initial delay.
+     * <p/>
+     * When this interceptor is executed for the first time this methods handles any provided initial delay.
+     * An initial delay is a time in miliseconds we let the server wait before we continue.
+     * <br/> During the wait this interceptor will wake every 100 millis to check if the background
+     * process is done premature, thus if the job for some reason doesn't take to long the wait
+     * page is not shown to the user.
+     *
+     * @param bp the background process
+     * @throws InterruptedException is thrown by Thread.sleep
+     */
+    protected void performInitialDelay(BackgroundProcess bp) throws InterruptedException {
+        if (delay <= 0 || delaySleepInterval <= 0) {
+            return;
+        }
+
+        int steps = delay / delaySleepInterval;
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Delaying for " + delay + " millis. (using " + steps + " steps)");
+        }
+        int step;
+        for (step = 0; step < steps && !bp.isDone(); step++) {
+            Thread.sleep(delaySleepInterval);
+        }
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Sleeping ended after " + step + " steps and the background process is " + (bp.isDone() ? " done" : " not done"));
+        }
+    }
+
+    /**
+     * Sets the thread priority of the background process.
+     *
+     * @param threadPriority the priority from <code>Thread.XXX</code>
+     */
     public void setThreadPriority(int threadPriority) {
         this.threadPriority = threadPriority;
     }
 
+    /**
+     * Sets the initial delay in millis (msec).
+     *
+     * @param delay in millis. (0 for not used)
+     */
+    public void setDelay(int delay) {
+        this.delay = delay;
+    }
+
+    /**
+     * Sets the sleep interval in millis (msec) when performing the initial delay.
+     *
+     * @param delaySleepInterval in millis (0 for not used)
+     */
+    public void setDelaySleepInterval(int delaySleepInterval) {
+        this.delaySleepInterval = delaySleepInterval;
+    }
 }
