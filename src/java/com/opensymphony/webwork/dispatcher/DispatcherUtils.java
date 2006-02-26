@@ -42,6 +42,8 @@ public class DispatcherUtils {
 
     private static DispatcherUtils instance;
 
+    private static boolean portletSupportActive;
+
     public static void initialize(ServletContext servletContext) {
         synchronized (DispatcherUtils.class) {
             if (instance == null) {
@@ -139,6 +141,15 @@ public class DispatcherUtils {
             paramsWorkaroundEnabled = "true".equals(Configuration.get(WebWorkConstants.WEBWORK_DISPATCHER_PARAMETERSWORKAROUND));
         } else {
             LOG.debug("Parameter access work-around disabled.");
+        }
+
+        // Check wether portlet support is active or not by trying to get "javax.portlet.PortletRequest"
+        try {
+            Class clazz = ClassLoaderUtil.loadClass("javax.portlet.PortletRequest", DispatcherUtils.class);
+
+            LOG.warn("Found portlet-api. Activating webwork's portlet support");
+        } catch (Exception e) {
+            LOG.warn("Could not load portlet-api, disabling webwork's portlet support.");
         }
     }
     
@@ -449,5 +460,14 @@ public class DispatcherUtils {
         } catch (IOException e1) {
             // we're already sending an error, not much else we can do if more stuff breaks
         }
+    }
+
+    /**
+     * Returns <tt>true</tt>, if portlet support is active, <tt>false</tt> otherwise.
+     *
+     * @return <tt>true</tt>, if portlet support is active, <tt>false</tt> otherwise.
+     */
+    public static boolean isPortletSupportActive() {
+        return portletSupportActive;
     }
 }
