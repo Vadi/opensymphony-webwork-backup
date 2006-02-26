@@ -60,19 +60,41 @@ import com.opensymphony.xwork.util.LocalizedTextUtil;
  * 
  * <p><b>Init parameters</b></p>
  * <!-- START SNIPPET: params -->
- * <ul>
- * 	<li>portletNamespace - Base namespace of portlet in the xwork configuration. This namespace is
- * 		prepended to all action lookups</li>
- *  <li>viewNamespace - Base namespace in the xwork configuration for the <tt>view</tt> portlet mode</li>
- *  <li>editNamespace - Base namespace in the xwork configuration for the <tt>edit</tt> portlet mode</li>
- *  <li>helpNamespace - Base namespace in the xwork configuration for the <tt>help</tt> portlet mode</li>
- *  <li>defaultViewAction - Default action to invoke in the <tt>view</tt> portlet mode if no action is
- * 		specified</li>
- *  <li>defaultEditAction - Default action to invoke in the <tt>edit</tt> portlet mode if no action is
- * 		specified</li>
- *  <li>defaultHelpAction - Default action to invoke in the <tt>help</tt> portlet mode if no action is
- * 		specified</li>
- * </ul>
+ * <table>
+ * <tr>
+ * 	<th>Name</th><th>Description</th><th>Default value</th>
+ * </tr>
+ * <tr>
+ * 	<td>portletNamespace</td><td>The namespace for the portlet in the xwork configuration. This 
+ * 		namespace is prepended to all action lookups, and makes it possible to host multiple 
+ * 		portlets in the same portlet application. If this parameter is set, the complete namespace 
+ * 		will be <tt>/portletNamespace/modeNamespace/actionName</tt></td><td>The default namespace</td>
+ * </tr>
+ * <tr>
+ *  <td>viewNamespace</td><td>Base namespace in the xwork configuration for the <tt>view</tt> portlet 
+ * 		mode</td><td>The default namespace</td>
+ * </tr>
+ * <tr>
+ *  <td>editNamespace</td><td>Base namespace in the xwork configuration for the <tt>edit</tt> portlet 
+ * 		mode</td><td>The default namespace</td>
+ * </tr>
+ * <tr>
+ *  <td>helpNamespace</td><td>Base namespace in the xwork configuration for the <tt>help</tt> portlet 
+ * 		mode</td><td>The default namespace</td>
+ * </tr>
+ * <tr>
+ *  <td>defaultViewAction</td><td>Default action to invoke in the <tt>view</tt> portlet mode if no action is
+ * 		specified</td><td><tt>default</tt></td>
+ * </tr>
+ * <tr>
+ *  <td>defaultEditAction</td><td>Default action to invoke in the <tt>edit</tt> portlet mode if no action is
+ * 		specified</td><td><tt>default</tt></td>
+ * </tr>
+ * <tr>
+ *  <td>defaultHelpAction</td><td>Default action to invoke in the <tt>help</tt> portlet mode if no action is
+ * 		specified</td><td><tt>default</tt></td>
+ * </tr>
+ * </table>
  * <!-- END SNIPPET: params -->
  * <p><b>Example:</b></p>
  * <pre>
@@ -312,6 +334,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         extraContext.put(ActionContext.APPLICATION, applicationMap);
         extraContext.put(ActionContext.LOCALE, request.getLocale());
 
+        extraContext.put("webwork.portlet.context", getPortletContext());
         extraContext.put(REQUEST, request);
         extraContext.put(RESPONSE, response);
         extraContext.put(PORTLET_CONFIG, portletConfig);
