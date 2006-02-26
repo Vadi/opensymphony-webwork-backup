@@ -550,10 +550,13 @@ public abstract class UIBean extends Component {
     public boolean end(Writer writer, String body) {
         evaluateParams();
         try {
-            super.end(writer, body);
+            super.end(writer, body, false);
             mergeTemplate(writer, buildTemplateName(template, getDefaultTemplate()));
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+        	popComponentStack();
         }
 
         return false;

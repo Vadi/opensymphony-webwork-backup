@@ -71,19 +71,33 @@ public class Component {
     }
 
     /**
+     * <b>NOTE:</b> will pop component stack.
      * @return true if the body should be evaluated again
      */
     public boolean end(Writer writer, String body) {
-        assert(body != null);
+        return end(writer, body, true);
+    }
+    
+    /**
+     * <b>NOTE:</b> Will pop component stack or not depends on <code>popComponentStack</code> parameter.
+     * @return true if the body should be evaluated again
+     */
+    protected boolean end(Writer writer, String body, boolean popComponentStack) {
+    	assert(body != null);
 
         try {
             writer.write(body);
         } catch (IOException e) {
             throw new RuntimeException("IOError: " + e.getMessage(), e);
         }
-        getComponentStack().pop();
-
+        if (popComponentStack) {
+        	popComponentStack();
+        }
         return false;
+    }
+    
+    protected void popComponentStack() {
+    	getComponentStack().pop();
     }
 
     protected Component findAncestor(Class clazz) {
