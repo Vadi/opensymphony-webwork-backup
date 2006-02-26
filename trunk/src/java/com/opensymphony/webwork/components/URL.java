@@ -119,6 +119,7 @@ public class URL extends Component {
     protected String portletMode;
     protected String windowState;
     protected String portletUrlType;
+    protected String anchor;
 
     public URL(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         super(stack);
@@ -191,6 +192,9 @@ public class URL extends Component {
             else {
                 result = UrlHelper.buildUrl(value, req, res, parameters, scheme, includeContext, encode);
             }
+        }
+        if ( anchor != null && anchor.length() > 0 ) {
+            result += '#' + anchor;
         }
 
         String id = getId();
@@ -301,6 +305,16 @@ public class URL extends Component {
     public void setPortletUrlType(String portletUrlType) {
         this.portletUrlType = portletUrlType;
     }
+
+    /**
+     * @ww.tagattribute required="false"
+     * description="The anchor for this URL"
+     * @param anchor
+     */
+    public void setAnchor(String anchor) {
+        this.anchor = anchor;
+    }
+
 
     /**
      * Merge request parameters into current parameters. If a parameter is
