@@ -61,22 +61,47 @@ public class BackgroundProcess implements Serializable {
     protected void afterInvocation() throws Exception {
     }
 
+    /**
+     * Retrieves the action.
+     *
+     * @return  the action.
+     */
     public Object getAction() {
         return action;
     }
 
+    /**
+     * Retrieves the action invocation.
+     * 
+     * @return the action invocation
+     */
     public ActionInvocation getInvocation() {
         return invocation;
     }
 
+    /**
+     * Gets the result of the background process.
+     * 
+     * @return  the result; <tt>null</tt> if not done.
+     */
     public String getResult() {
         return result;
     }
 
+    /**
+     * Gets the exception if any was thrown during the execution of the background process.
+     * 
+     * @return the exception or <tt>null</tt> if no exception was thrown.
+     */
     public Exception getException() {
         return exception;
     }
 
+    /**
+     * Returns the status of the background process.
+     * 
+     * @return <tt>true</tt> if finished, <tt>false</tt> otherwise
+     */
     public boolean isDone() {
         return done;
     }
