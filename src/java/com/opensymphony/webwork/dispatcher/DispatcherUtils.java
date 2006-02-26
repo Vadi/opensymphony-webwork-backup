@@ -471,11 +471,4 @@ public class DispatcherUtils {
         return portletSupportActive;
     }
 
-    /**
-     * This method is just used for the unit tests to pass.
-     * @param value
-     */
-    public static void setPortletSupportActive(boolean value) {
-        DispatcherUtils.portletSupportActive = value;
-    }
 }
