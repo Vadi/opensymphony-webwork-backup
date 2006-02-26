@@ -28,6 +28,14 @@
 
       </attribute>
       <attribute>
+         <name>debug</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Set to true, to enable debugging mode for AJAX themes]]></description>
+
+      </attribute>
+      <attribute>
          <name>theme</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -10238,6 +10246,47 @@
    </tag>
    <tag>
 
+      <name>date</name>
+      <tag-class>com.opensymphony.webwork.views.jsp.DateTag</tag-class>
+      <body-content>empty</body-content>
+      <description><![CDATA[Render a formatted date.]]></description>
+
+      <attribute>
+         <name>format</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+
+           <description><![CDATA[ Date or DateTime format pattern]]></description>
+
+      </attribute>
+      <attribute>
+         <name>nice</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Wether to print out the date nicely]]></description>
+
+      </attribute>
+      <attribute>
+         <name>name</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[ Name of resource property to fetch]]></description>
+
+      </attribute>
+      <attribute>
+         <name>id</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[id for referencing element. For UI and form tags it will be used as HTML id attribute]]></description>
+
+      </attribute>
+
+   </tag>
+   <tag>
+
       <name>a</name>
       <tag-class>com.opensymphony.webwork.views.jsp.ui.AnchorTag</tag-class>
       <body-content>JSP</body-content>
@@ -16602,7 +16651,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set the number of spaces (&amp;nbsp;) to be inserted when the user hits the 'tab' key. This is an Internet Explorer only feature. Other browsers insert spaces automatically by default.]]></description>
+           <description><![CDATA[Set the number of spaces (&amp;nbsp) to be inserted when the user hits the 'tab' key. This is an Internet Explorer only feature. Other browsers insert spaces automatically by default.]]></description>
 
       </attribute>
       <attribute>
