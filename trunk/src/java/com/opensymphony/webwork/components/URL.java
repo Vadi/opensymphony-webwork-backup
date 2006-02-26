@@ -3,6 +3,7 @@ package com.opensymphony.webwork.components;
 import com.opensymphony.webwork.portlet.context.PortletActionContext;
 import com.opensymphony.webwork.portlet.util.PortletUrlHelper;
 import com.opensymphony.webwork.views.util.UrlHelper;
+import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -177,14 +178,14 @@ public class URL extends Component {
 
         String result;
         if (value == null && action != null) {
-            if(PortletActionContext.isPortletRequest()) {
+            if(DispatcherUtils.isPortletSupportActive() && PortletActionContext.isPortletRequest()) {
                 result = PortletUrlHelper.buildUrl(action, namespace, parameters, portletUrlType, portletMode, windowState);
             }
             else {
                 result = determineActionURL(action, namespace, method, req, res, parameters, scheme, includeContext, encode);
             }
         } else {
-            if(PortletActionContext.isPortletRequest()) {
+            if(DispatcherUtils.isPortletSupportActive() && PortletActionContext.isPortletRequest()) {
                 result = PortletUrlHelper.buildResourceUrl(value, parameters);
             }
             else {

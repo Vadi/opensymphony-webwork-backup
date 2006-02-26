@@ -2,6 +2,7 @@ package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
+import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.webwork.portlet.context.PortletActionContext;
 import com.opensymphony.webwork.portlet.util.PortletUrlHelper;
 import com.opensymphony.webwork.views.util.UrlHelper;
@@ -102,7 +103,7 @@ public class Form extends ClosingUIBean {
             action = findString(this.action);
         }
 
-        if (PortletActionContext.isPortletRequest()) {
+        if (DispatcherUtils.isPortletSupportActive() && PortletActionContext.isPortletRequest()) {
             evaluateExtraParamsPortletRequest(namespace, action);
         } else {
             String namespace = determineNamespace(this.namespace, getStack(),
