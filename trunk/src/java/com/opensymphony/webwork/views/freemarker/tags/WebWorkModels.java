@@ -22,6 +22,7 @@ public class WebWorkModels {
     protected CheckboxListModel checkboxlist;
     protected ComboBoxModel comboBox;
     protected ComponentModel component;
+    protected DateModel date;
     protected DatePickerModel datepicker;
     protected DivModel div;
     protected DebugModel debug;
@@ -199,6 +200,14 @@ public class WebWorkModels {
         }
 
         return textfield;
+    }
+
+    public DateModel getDate() {
+        if (date == null) {
+            date = new DateModel(stack, req, res);
+        }
+
+        return date;
     }
 
     public DatePickerModel getDatepicker() {
