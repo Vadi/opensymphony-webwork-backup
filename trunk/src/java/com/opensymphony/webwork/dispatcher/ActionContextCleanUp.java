@@ -4,7 +4,12 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <!-- SNIPPET START: description -->
@@ -32,18 +37,48 @@ import java.io.IOException;
  * @since 2.2
  */
 public class ActionContextCleanUp implements Filter {
+
+    private static final Log LOG = LogFactory.getLog(ActionContextCleanUp.class);
+
     private static final String CLEANUP_PRESENT = "__cleanup_present";
 
+    protected FilterConfig filterConfig;
+
+    public FilterConfig getFilterConfig() {
+        return filterConfig;
+    }
+
     public void init(FilterConfig filterConfig) throws ServletException {
+        this.filterConfig = filterConfig;
+        DispatcherUtils.initialize(filterConfig.getServletContext());
     }
 
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
+
+        // prepare the request no matter what - this ensures that the proper character encoding
+        // is used before invoking the mapper (see WW-9127)
+        DispatcherUtils du = DispatcherUtils.getInstance();
+        du.prepare(request, response);
+
+
+        ServletContext servletContext = filterConfig.getServletContext();
         try {
-            req.setAttribute(CLEANUP_PRESENT, Boolean.TRUE);
-            chain.doFilter(req, res);
+            request = du.wrapRequest(request, servletContext);
+        } catch (IOException e) {
+            String message = "Could not wrap servlet request with MultipartRequestWrapper!";
+            LOG.error(message, e);
+            throw new ServletException(message, e);
+        }
+
+        try {
+            request.setAttribute(CLEANUP_PRESENT, Boolean.TRUE);
+            chain.doFilter(request, response);
         } finally {
-            req.setAttribute(CLEANUP_PRESENT, Boolean.FALSE);
-            cleanUp(req);
+            request.setAttribute(CLEANUP_PRESENT, Boolean.FALSE);
+            cleanUp(request);
         }
     }
 
