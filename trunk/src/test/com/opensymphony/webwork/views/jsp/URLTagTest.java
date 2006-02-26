@@ -82,6 +82,24 @@ public class URLTagTest extends AbstractUITagTest {
             fail();
         }
     }
+
+    public void testAnchor() {
+        request.setScheme("https");
+        request.setServerName("localhost");
+        request.setServerPort(443);
+
+        tag.setValue("list-members.action");
+        tag.setAnchor("test");
+
+        try {
+            tag.doStartTag();
+            tag.doEndTag();
+            assertEquals("list-members.action#test", writer.toString());
+        } catch (JspException ex) {
+            ex.printStackTrace();
+            fail();
+        }
+    }
     
     public void testParamPrecedence() throws Exception {
     	request.setRequestURI("/context/someAction.action");
@@ -103,6 +121,29 @@ public class URLTagTest extends AbstractUITagTest {
     	urlTag.doEndTag();
     	
     	assertEquals(writer.getBuffer().toString(), "/context/someAction.action?name=John&amp;id=33");
+    }
+
+    public void testParamPrecedenceWithAnchor() throws Exception {
+    	request.setRequestURI("/context/someAction.action");
+    	request.setQueryString("id=22&name=John");
+
+    	URLTag urlTag = new URLTag();
+    	urlTag.setPageContext(pageContext);
+    	urlTag.setIncludeParams("get");
+    	urlTag.setEncode("%{false}");
+        urlTag.setAnchor("testAnchor");
+
+        ParamTag paramTag = new ParamTag();
+    	paramTag.setPageContext(pageContext);
+    	paramTag.setName("id");
+    	paramTag.setValue("%{'33'}");
+
+    	urlTag.doStartTag();
+    	paramTag.doStartTag();
+    	paramTag.doEndTag();
+    	urlTag.doEndTag();
+
+    	assertEquals(writer.getBuffer().toString(), "/context/someAction.action?name=John&amp;id=33#testAnchor");
     }
     
 
