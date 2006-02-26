@@ -44,15 +44,17 @@ import javax.servlet.http.HttpServletResponse;
  * </pre>
  *
  * @author Patrick Lightbody
+ * @author Rainer Hermanns
  * @author Rene Gielen
  * @ww.tag name="head" tld-body-content="empty" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.HeadTag"
  * description="Render a chunk of HEAD for your HTML file"
  * @since 2.2
  */
 public class Head extends UIBean {
-    final public static String TEMPLATE = "head";
+    public static final String TEMPLATE = "head";
 
     private String calendarcss = "calendar-blue.css";
+    private boolean debug;
 
     public Head(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -89,4 +91,17 @@ public class Head extends UIBean {
     public void setCalendarcss(String calendarcss) {
         this.calendarcss = calendarcss;
     }
+
+    public boolean isDebug() {
+        return debug;
+    }
+
+    /**
+     * @ww.tagattribute required="false" description="Set to true, to enable debugging mode for AJAX themes"
+     */
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
+
 }
