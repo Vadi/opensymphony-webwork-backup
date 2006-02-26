@@ -3,7 +3,7 @@
     // Dojo configuration
     djConfig = {
         baseRelativePath: "<@ww.url includeParams='none' value='/webwork/dojo/' encode='false'/>",
-        isDebug: false,
+        isDebug: ${parameters.debug},
         bindEncoding: "${parameters.encoding}",
         debugAtAllCosts: true // not needed, but allows the Venkman debugger to work with the includes
     };

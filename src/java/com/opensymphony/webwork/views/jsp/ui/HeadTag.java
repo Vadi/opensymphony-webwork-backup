@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class HeadTag extends AbstractUITag {
 
     private String calendarcss;
+    private String debug;
 
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Head(stack, req, res);
@@ -23,6 +24,9 @@ public class HeadTag extends AbstractUITag {
         if (calendarcss != null) {
         	((Head) component).setCalendarcss(calendarcss);
         }
+        if (debug != null) {
+        	((Head) component).setDebug(Boolean.valueOf(debug).booleanValue());
+        }
     }
 
     public String getCalendarcss() {
@@ -31,5 +35,9 @@ public class HeadTag extends AbstractUITag {
 
     public void setCalendarcss(String calendarcss) {
         this.calendarcss = calendarcss;
+    }
+
+    public void setDebug(String debug) {
+        this.debug = debug;
     }
 }
