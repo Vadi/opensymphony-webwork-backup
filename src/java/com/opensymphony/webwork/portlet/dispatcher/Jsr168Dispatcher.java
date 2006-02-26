@@ -60,39 +60,41 @@ import com.opensymphony.xwork.util.LocalizedTextUtil;
  * 
  * <p><b>Init parameters</b></p>
  * <!-- START SNIPPET: params -->
- * <table>
+ * <table class="confluenceTable">
  * <tr>
- * 	<th>Name</th><th>Description</th><th>Default value</th>
+ * 	<th class="confluenceTh">Name</th>
+ * <th class="confluenceTh">Description</th>
+ * <th class="confluenceTh">Default value</th>
  * </tr>
  * <tr>
- * 	<td>portletNamespace</td><td>The namespace for the portlet in the xwork configuration. This 
+ * 	<td class="confluenceTd">portletNamespace</td><td class="confluenceTd">The namespace for the portlet in the xwork configuration. This 
  * 		namespace is prepended to all action lookups, and makes it possible to host multiple 
  * 		portlets in the same portlet application. If this parameter is set, the complete namespace 
- * 		will be <tt>/portletNamespace/modeNamespace/actionName</tt></td><td>The default namespace</td>
+ * 		will be <tt>/portletNamespace/modeNamespace/actionName</tt></td><td class="confluenceTd">The default namespace</td>
  * </tr>
  * <tr>
- *  <td>viewNamespace</td><td>Base namespace in the xwork configuration for the <tt>view</tt> portlet 
- * 		mode</td><td>The default namespace</td>
+ *  <td class="confluenceTd">viewNamespace</td><td class="confluenceTd">Base namespace in the xwork configuration for the <tt>view</tt> portlet 
+ * 		mode</td><td class="confluenceTd">The default namespace</td>
  * </tr>
  * <tr>
- *  <td>editNamespace</td><td>Base namespace in the xwork configuration for the <tt>edit</tt> portlet 
- * 		mode</td><td>The default namespace</td>
+ *  <td class="confluenceTd">editNamespace</td><td class="confluenceTd">Base namespace in the xwork configuration for the <tt>edit</tt> portlet 
+ * 		mode</td><td class="confluenceTd">The default namespace</td>
  * </tr>
  * <tr>
- *  <td>helpNamespace</td><td>Base namespace in the xwork configuration for the <tt>help</tt> portlet 
- * 		mode</td><td>The default namespace</td>
+ *  <td class="confluenceTd">helpNamespace</td><td class="confluenceTd">Base namespace in the xwork configuration for the <tt>help</tt> portlet 
+ * 		mode</td><td class="confluenceTd">The default namespace</td>
  * </tr>
  * <tr>
- *  <td>defaultViewAction</td><td>Default action to invoke in the <tt>view</tt> portlet mode if no action is
- * 		specified</td><td><tt>default</tt></td>
+ *  <td class="confluenceTd">defaultViewAction</td><td class="confluenceTd">Default action to invoke in the <tt>view</tt> portlet mode if no action is
+ * 		specified</td><td class="confluenceTd"><tt>default</tt></td>
  * </tr>
  * <tr>
- *  <td>defaultEditAction</td><td>Default action to invoke in the <tt>edit</tt> portlet mode if no action is
- * 		specified</td><td><tt>default</tt></td>
+ *  <td class="confluenceTd">defaultEditAction</td><td class="confluenceTd">Default action to invoke in the <tt>edit</tt> portlet mode if no action is
+ * 		specified</td><td class="confluenceTd"><tt>default</tt></td>
  * </tr>
  * <tr>
- *  <td>defaultHelpAction</td><td>Default action to invoke in the <tt>help</tt> portlet mode if no action is
- * 		specified</td><td><tt>default</tt></td>
+ *  <td class="confluenceTd">defaultHelpAction</td><td class="confluenceTd">Default action to invoke in the <tt>help</tt> portlet mode if no action is
+ * 		specified</td><td class="confluenceTd"><tt>default</tt></td>
  * </tr>
  * </table>
  * <!-- END SNIPPET: params -->
