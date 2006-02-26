@@ -512,6 +512,7 @@ public class VelocityManager {
         addDirective(sb, CheckBoxListDirective.class);
         addDirective(sb, ComboBoxDirective.class);
         addDirective(sb, ComponentDirective.class);
+        addDirective(sb, DateDirective.class);
         addDirective(sb, DatePickerDirective.class);
         addDirective(sb, DebugDirective.class);
         addDirective(sb, DivDirective.class);
