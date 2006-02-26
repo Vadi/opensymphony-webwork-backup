@@ -27,7 +27,7 @@ lables
 </#if>
 
 <#include "/${parameters.templateDir}/simple/checkbox.ftl" />
-<label<#rt/>
+<#if parameters.label?exists> <label<#t/>
 <#if parameters.id?exists>
  for="${parameters.id?html}"<#rt/>
 </#if>
@@ -37,4 +37,5 @@ lables
  class="checkboxLabel"<#rt/>
 </#if>
 >${parameters.label?html}</label><#rt/>
+</#if>
 <#include "/${parameters.templateDir}/css_xhtml/controlfooter.ftl" /><#nt/>
