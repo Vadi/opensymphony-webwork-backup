@@ -83,7 +83,7 @@ import java.util.Map;
  * &lt;action name="someAction" class="com.examples.SomeAction"&gt;
  *     &lt;interceptor-ref name="completeStack"/&gt;
  *     &lt;interceptor-ref name="execAndWait"/&gt;
- *     &lt;result name="success"&gt;longRunningAction-wait.jsp&lt;/result&gt;
+ *     &lt;result name="wait"&gt;longRunningAction-wait.jsp&lt;/result&gt;
  *     &lt;result name="success"&gt;longRunningAction-success.jsp&lt;/result&gt;
  * &lt;/action&gt;
  *
@@ -107,6 +107,7 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
     private static final Log LOG = LogFactory.getLog(ExecuteAndWaitInterceptor.class);
 
     public static final String KEY = "__execWait";
+    private static final String WAIT = "wait";
 
     private int threadPriority = Thread.NORM_PRIORITY;
 
@@ -134,18 +135,18 @@ public class ExecuteAndWaitInterceptor implements Interceptor {
             if (!bp.isDone()) {
                 actionInvocation.getStack().push(bp.getAction());
                 Map results = proxy.getConfig().getResults();
-                if (!results.containsKey("wait")) {
-                    LOG.warn("ExecuteAndWait interceptor detected that no result named 'wait' is available. " +
-                            "Defaulting to a plain built-in wait page. It is highly recommend you provided " +
-                            "provide an action-specific or global result named 'wait'! This requires FreeMarker " +
-                            "support and won't work if you don't have it installed");
+                if (!results.containsKey(WAIT)) {
+                    LOG.warn("ExecuteAndWait interceptor has detected that no result named 'wait' is available. " +
+                            "Defaulting to a plain built-in wait page. It is highly recommend you " +
+                            "provide an action-specific or global result named '" + WAIT +
+                            "'! This requires FreeMarker support and won't work if you don't have it installed");
                     // no wait result? hmm -- let's try to do dynamically put it in for you!
-                    ResultConfig rc = new ResultConfig("wait", "com.opensymphony.webwork.views.freemarker.FreemarkerResult",
+                    ResultConfig rc = new ResultConfig(WAIT, "com.opensymphony.webwork.views.freemarker.FreemarkerResult",
                             Collections.singletonMap("location", "com/opensymphony/webwork/interceptor/wait.ftl"));
-                    results.put("wait", rc);
+                    results.put(WAIT, rc);
                 }
 
-                return "wait";
+                return WAIT;
             } else {
                 session.remove(KEY + name);
                 actionInvocation.getStack().push(bp.getAction());
