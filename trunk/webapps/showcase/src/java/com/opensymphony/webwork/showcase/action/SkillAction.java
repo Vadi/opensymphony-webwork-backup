@@ -56,8 +56,6 @@ import com.opensymphony.webwork.showcase.model.Skill;
 import com.opensymphony.xwork.Preparable;
 import org.apache.log4j.Logger;
 
-import java.util.List;
-
 /**
  * SkillAction.
  *
