@@ -26,8 +26,8 @@
       <#if parameters.tooltipDelay?exists><#t/>
       	<#t/>this.T_DELAY=${parameters.tooltipDelay};<#t/>
       </#if><#t/>
-      <#if parameters.tooltipFixCoordinate?exists><#t/>
-      	<#t/>this.T_FIX=${parameters.tooltipFixCoordinate};<#t/>
+      <#if parameters.tooltipFixCoordinateX?exists && parameters.tooltipFixCoordinateY?exists><#t/>
+      	<#t/>this.T_FIX=[${parameters.tooltipFixCoordinateX}, ${parameters.tooltipFixCoordinateY}];<#t/>
       </#if><#t/>
       <#if parameters.tooltipFontColor?exists><#t/>
       	<#t/>this.T_FONTCOLOR='${parameters.tooltipFontColor}';<#t/>

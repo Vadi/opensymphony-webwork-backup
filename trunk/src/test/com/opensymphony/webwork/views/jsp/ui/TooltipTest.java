@@ -4,8 +4,12 @@
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
+import com.mockobjects.servlet.MockBodyContent;
+import com.mockobjects.servlet.MockJspWriter;
 import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
+import com.opensymphony.webwork.views.jsp.ParamTag;
+import com.opensymphony.webwork.views.jsp.WebWorkMockBodyContent;
 import com.opensymphony.xwork.config.ConfigurationManager;
 
 /**
@@ -37,33 +41,37 @@ public class TooltipTest extends AbstractUITagTest {
 		
 		
 		tag.setTooltip("myTooltip");
-		tag.setTooltipIcon("/webwork/tooltip/myTooltip.gif");
-		tag.setTooltipAboveMousePointer("true");
-		tag.setTooltipBgColor("#ffffff");
-		tag.setTooltipBgImg("/webwork/tooltip/myBgImg.gif");
-		tag.setTooltipBorderWidth("10");
-		tag.setTooltipBorderColor("#eeeeee");
-		tag.setTooltipDelay("2000");
-		tag.setTooltipFixCoordinate("[300, 300]");
-		tag.setTooltipFontColor("#dddddd");
-		tag.setTooltipFontFace("San-Serif,Verdana");
-		tag.setTooltipFontSize("20");
-		tag.setTooltipFontWeight("bold");
-		tag.setTooltipLeftOfMousePointer("true");
-		tag.setTooltipOffsetX("10");
-		tag.setTooltipOffsetY("20");
-		tag.setTooltipOpacity("90");
-		tag.setTooltipPadding("30");
-		tag.setTooltipShadowColor("#cccccc");
-		tag.setTooltipShadowWidth("40");
-		tag.setTooltipStatic("true");
-		tag.setTooltipSticky("true");
-		tag.setTooltipStayAppearTime("3000");
-		tag.setTooltipTextAlign("right");
-		tag.setTooltipTitle("MyTitle");
-		tag.setTooltipTitleColor("#bbbbbb");
-		tag.setTooltipWidth("600");
-		
+		tag.setTooltipConfig(
+				"#{" +
+				"'tooltipIcon':'/webwork/tooltip/myTooltip.gif', " +
+				"'tooltipAboveMousePointer':'true', " +
+				"'tooltipBgColor':'#ffffff', " +
+				"'tooltipBgImg':'/webwork/tooltip/myBgImg.gif', " +
+				"'tooltipBorderWidth':'10', " +
+				"'tooltipBorderColor':'#eeeeee', " +
+				"'tooltipDelay':'2000', " +
+				"'tooltipFixCoordinateX':'300', " +
+				"'tooltipFixCoordinateY':'300', " +
+				"'tooltipFontColor':'#dddddd', " +
+				"'tooltipFontFace':'San-Serif,Verdana', " +
+				"'tooltipFontSize':'20', "+
+				"'tooltipFontWeight':'bold', " +
+				"'tooltipLeftOfMousePointer':'true', " +
+				"'tooltipOffsetX':'10', " +
+				"'tooltipOffsetY':'20', " +
+				"'tooltipOpacity':'90', " +
+				"'tooltipPadding':'30', " +
+				"'tooltipShadowColor':'#cccccc', " +
+				"'tooltipShadowWidth':'40', " +
+				"'tooltipStatic':'true', " +
+				"'tooltipSticky':'true', " +
+				"'tooltipStayAppearTime':'3000', " +
+				"'tooltipTextAlign':'right', " +
+				"'tooltipTitle':'MyTitle', " +
+				"'tooltipTitleColor':'#bbbbbb', " +
+				"'tooltipWidth':'600' " +
+				"}"
+		);
 		
 		formTag.doStartTag();
 		tag.doStartTag();
@@ -84,32 +92,37 @@ public class TooltipTest extends AbstractUITagTest {
 		formTag.setId("myFormId");
 		formTag.setAction("testAction");
 		
-		formTag.setTooltipIcon("/webwork/tooltip/formMyTooltip.gif");
-		formTag.setTooltipAboveMousePointer("false");
-		formTag.setTooltipBgColor("#aaaaaa");
-		formTag.setTooltipBgImg("/webwork/tooltip/formMyBgImg.gif");
-		formTag.setTooltipBorderWidth("11");
-		formTag.setTooltipBorderColor("#bbbbbb");
-		formTag.setTooltipDelay("2001");
-		formTag.setTooltipFixCoordinate("[301, 301]");
-		formTag.setTooltipFontColor("#cccccc");
-		formTag.setTooltipFontFace("Verdana,San-Serif");
-		formTag.setTooltipFontSize("21");
-		formTag.setTooltipFontWeight("normal");
-		formTag.setTooltipLeftOfMousePointer("false");
-		formTag.setTooltipOffsetX("11");
-		formTag.setTooltipOffsetY("21");
-		formTag.setTooltipOpacity("91");
-		formTag.setTooltipPadding("31");
-		formTag.setTooltipShadowColor("#cccccc");
-		formTag.setTooltipShadowWidth("41");
-		formTag.setTooltipStatic("false");
-		formTag.setTooltipSticky("false");
-		formTag.setTooltipStayAppearTime("3001");
-		formTag.setTooltipTextAlign("left");
-		formTag.setTooltipTitle("FormMyTitle");
-		formTag.setTooltipTitleColor("#dddddd");
-		formTag.setTooltipWidth("601");
+		formTag.setTooltipConfig(
+				"#{ " +
+				"'tooltipIcon':'/webwork/tooltip/formMyTooltip.gif', " +
+				"'tooltipAboveMousePointer':'false', " +
+				"'tooltipBgColor':'#aaaaaa', " +
+				"'tooltipBgImg':'/webwork/tooltip/formMyBgImg.gif', " +
+				"'tooltipBorderWidth':'11', " +
+				"'tooltipBorderColor':'#bbbbbb', " +
+				"'tooltipDelay':'2001', " +
+				"'tooltipFixCoordinateX':'301', " +
+				"'tooltipFixCoordinateY':'301', " +
+				"'tooltipFontColor':'#cccccc', " +
+				"'tooltipFontFace':'Verdana,San-Serif', " +
+				"'tooltipFontSize':'21', " +
+				"'tooltipFontWeight':'normal', " +
+				"'tooltipLeftOfMousePointer':'false', " +
+				"'tooltipOffsetX':'11', " +
+				"'tooltipOffsetY':'21', " +
+				"'tooltipOpacity':'91', " +
+				"'tooltipPadding':'31', " +
+				"'tooltipShadowColor':'#cccccc', " +
+				"'tooltipShadowWidth':'41', " +
+				"'tooltipStatic':'false', " +
+				"'tooltipSticky':'false', " +
+				"'tooltipStayAppearTime':'3001', " +
+				"'tooltipTextAlign':'left', " +
+				"'tooltipTitle':'FormMyTitle', " +
+				"'tooltipTitleColor':'#dddddd', " +
+				"'tooltipWidth':'601' " +
+				"}"
+		);
 		
 		
 		TextFieldTag tag = new TextFieldTag();
@@ -127,7 +140,7 @@ public class TooltipTest extends AbstractUITagTest {
 		verify(TooltipTest.class.getResource("tooltip-2.txt"));
 	}
 	
-	public void testWithFormOverridingSome() throws Exception {
+	public void testWithPartialFormOverriding() throws Exception {
 		
 		ConfigurationManager.clearConfigurationProviders();
 		ConfigurationManager.addConfigurationProvider(new TestConfigurationProvider());
@@ -138,32 +151,37 @@ public class TooltipTest extends AbstractUITagTest {
 		formTag.setId("myFormId");
 		formTag.setAction("testAction");
 		
-		formTag.setTooltipIcon("/webwork/tooltip/formMyTooltip.gif");
-		formTag.setTooltipAboveMousePointer("false");
-		formTag.setTooltipBgColor("#aaaaaa");
-		formTag.setTooltipBgImg("/webwork/tooltip/formMyBgImg.gif");
-		formTag.setTooltipBorderWidth("11");
-		formTag.setTooltipBorderColor("#bbbbbb");
-		formTag.setTooltipDelay("2001");
-		formTag.setTooltipFixCoordinate("[301, 301]");
-		formTag.setTooltipFontColor("#cccccc");
-		formTag.setTooltipFontFace("Verdana,San-Serif");
-		formTag.setTooltipFontSize("21");
-		formTag.setTooltipFontWeight("normal");
-		formTag.setTooltipLeftOfMousePointer("false");
-		formTag.setTooltipOffsetX("11");
-		formTag.setTooltipOffsetY("21");
-		formTag.setTooltipOpacity("91");
-		formTag.setTooltipPadding("31");
-		formTag.setTooltipShadowColor("#cccccc");
-		formTag.setTooltipShadowWidth("41");
-		formTag.setTooltipStatic("false");
-		formTag.setTooltipSticky("false");
-		formTag.setTooltipStayAppearTime("3001");
-		formTag.setTooltipTextAlign("left");
-		formTag.setTooltipTitle("FormMyTitle");
-		formTag.setTooltipTitleColor("#dddddd");
-		formTag.setTooltipWidth("601");
+		formTag.setTooltipConfig(
+				"#{ " +
+				"'tooltipIcon':'/webwork/tooltip/formMyTooltip.gif', " +
+				"'tooltipAboveMousePointer':'false', " +
+				"'tooltipBgColor':'#aaaaaa', " +
+				"'tooltipBgImg':'/webwork/tooltip/formMyBgImg.gif', " +
+				"'tooltipBorderWidth':'11', " +
+				"'tooltipBorderColor':'#bbbbbb', " +
+				"'tooltipDelay':'2001', " +
+				"'tooltipFixCoordinateX':'301', " +
+				"'tooltipFixCoordinateY':'301', " +
+				"'tooltipFontColor':'#cccccc', " +
+				"'tooltipFontFace':'Verdana,San-Serif', " +
+				"'tooltipFontSize':'21', " +
+				"'tooltipFontWeight':'normal', " +
+				"'tooltipLeftOfMousePointer':'false', " +
+				"'tooltipOffsetX':'11', " +
+				"'tooltipOffsetY':'21', " +
+				"'tooltipOpacity':'91', " +
+				"'tooltipPadding':'31', " +
+				"'tooltipShadowColor':'#cccccc', " +
+				"'tooltipShadowWidth':'41', " +
+				"'tooltipStatic':'false', " +
+				"'tooltipSticky':'false', " +
+				"'tooltipStayAppearTime':'3001', " +
+				"'tooltipTextAlign':'left', " +
+				"'tooltipTitle':'FormMyTitle', " +
+				"'tooltipTitleColor':'#dddddd', " +
+				"'tooltipWidth':'601' " +
+				"}"
+		);
 		
 		
 		TextFieldTag tag = new TextFieldTag();
@@ -172,11 +190,14 @@ public class TooltipTest extends AbstractUITagTest {
 		tag.setId("myId");
 		
 		tag.setTooltip("myTooltip");
-		tag.setTooltipIcon("/webwork/tooltip/myTooltip.gif");
-		tag.setTooltipAboveMousePointer("true");
-		tag.setTooltipBgColor("#ffffff");
-		tag.setTooltipBgImg("/webwork/tooltip/myBgImg.gif");
-		
+		tag.setTooltipConfig(
+				"#{ " +
+				"'tooltipIcon':'/webwork/tooltip/myTooltip.gif', " +
+				"'tooltipAboveMousePointer':'true', " +
+				"'tooltipBgColor':'#ffffff', " +
+				"'tooltipBgImg':'/webwork/tooltip/myBgImg.gif' " +
+				"}"
+		);
 		
 		formTag.doStartTag();
 		tag.doStartTag();
@@ -185,4 +206,161 @@ public class TooltipTest extends AbstractUITagTest {
 		
 		verify(TooltipTest.class.getResource("tooltip-3.txt"));
 	}
+	
+	
+	public void testUsingParamValueToSetConfigurations() throws Exception {
+		ConfigurationManager.clearConfigurationProviders();
+		ConfigurationManager.addConfigurationProvider(new TestConfigurationProvider());
+		
+		FormTag formTag = new FormTag();
+		formTag.setName("myForm");
+		formTag.setPageContext(pageContext);
+		formTag.setId("myFormId");
+		formTag.setAction("testAction");
+		
+		
+		ParamTag formParamTag = new ParamTag();
+		formParamTag.setPageContext(pageContext);
+		formParamTag.setName("tooltipConfig");
+		formParamTag.setValue(
+				"#{ " +
+				"'tooltipIcon':'/webwork/tooltip/formMyTooltip.gif', " +
+				"'tooltipAboveMousePointer':'false', " +
+				"'tooltipBgColor':'#aaaaaa', " +
+				"'tooltipBgImg':'/webwork/tooltip/formMyBgImg.gif', " +
+				"'tooltipBorderWidth':'11', " +
+				"'tooltipBorderColor':'#bbbbbb', " +
+				"'tooltipDelay':'2001', " +
+				"'tooltipFixCoordinateX':'301', " +
+				"'tooltipFixCoordinateY':'301', " +
+				"'tooltipFontColor':'#cccccc', " +
+				"'tooltipFontFace':'Verdana,San-Serif', " +
+				"'tooltipFontSize':'21', " +
+				"'tooltipFontWeight':'normal', " +
+				"'tooltipLeftOfMousePointer':'false', " +
+				"'tooltipOffsetX':'11', " +
+				"'tooltipOffsetY':'21', " +
+				"'tooltipOpacity':'91', " +
+				"'tooltipPadding':'31', " +
+				"'tooltipShadowColor':'#cccccc', " +
+				"'tooltipShadowWidth':'41', " +
+				"'tooltipStatic':'false', " +
+				"'tooltipSticky':'false', " +
+				"'tooltipStayAppearTime':'3001', " +
+				"'tooltipTextAlign':'left', " +
+				"'tooltipTitle':'FormMyTitle', " +
+				"'tooltipTitleColor':'#dddddd', " +
+				"'tooltipWidth':'601' " +
+				"}"
+		);
+		
+		
+		TextFieldTag tag = new TextFieldTag();
+		tag.setPageContext(pageContext);
+		tag.setLabel("MyLabel");
+		tag.setId("myId");
+		tag.setTooltip("myTooltip");
+		
+		ParamTag textFieldParamTag = new ParamTag();
+		textFieldParamTag.setPageContext(pageContext);
+		textFieldParamTag.setName("tooltipConfig");
+		textFieldParamTag.setValue(
+				"#{ " +
+				"'tooltipIcon':'/webwork/tooltip/myTooltip.gif', " +
+				"'tooltipAboveMousePointer':'true', " +
+				"'tooltipBgColor':'#ffffff', " +
+				"'tooltipBgImg':'/webwork/tooltip/myBgImg.gif' " +
+				"}"
+		);
+		
+		formTag.doStartTag();
+		formParamTag.doStartTag();
+		formParamTag.doEndTag();
+		tag.doStartTag();
+		textFieldParamTag.doStartTag();
+		textFieldParamTag.doEndTag();
+		tag.doEndTag();
+		formTag.doEndTag();
+		
+		verify(TooltipTest.class.getResource("tooltip-3.txt"));
+	}
+	
+	
+	public void testUsingParamBodyValueToSetConfigurations() throws Exception {
+		ConfigurationManager.clearConfigurationProviders();
+		ConfigurationManager.addConfigurationProvider(new TestConfigurationProvider());
+		
+		FormTag formTag = new FormTag();
+		formTag.setName("myForm");
+		formTag.setPageContext(pageContext);
+		formTag.setId("myFormId");
+		formTag.setAction("testAction");
+		
+		
+		ParamTag formParamTag = new ParamTag();
+		formParamTag.setPageContext(pageContext);
+		formParamTag.setName("tooltipConfig");
+		WebWorkMockBodyContent bodyContent = new WebWorkMockBodyContent(new MockJspWriter());
+		bodyContent.setString(
+				"tooltipIcon = /webwork/tooltip/formMyTooltip.gif | " +
+				"tooltipAboveMousePointer = false | " +
+				"tooltipBgColor = #aaaaaa| " +
+				"tooltipBgImg = /webwork/tooltip/formMyBgImg.gif | " +
+				"tooltipBorderWidth = 11 | " +
+				"tooltipBorderColor = #bbbbbb| " +
+				"tooltipDelay = 2001 | " +
+				"tooltipFixCoordinateX = 301| " +
+				"tooltipFixCoordinateY = 301| " +
+				"tooltipFontColor = #cccccc | " +
+				"tooltipFontFace = Verdana,San-Serif | " +
+				"tooltipFontSize = 21 | " +
+				"tooltipFontWeight = normal | " +
+				"tooltipLeftOfMousePointer = false | " +
+				"tooltipOffsetX = 11 | " +
+				"tooltipOffsetY = 21| " +
+				"tooltipOpacity = 91| " +
+				"tooltipPadding = 31| " +
+				"tooltipShadowColor = #cccccc| " +
+				"tooltipShadowWidth = 41| " +
+				"tooltipStatic = false | " +
+				"tooltipSticky = false| " +
+				"tooltipStayAppearTime = 3001| " +
+				"tooltipTextAlign = left| " +
+				"tooltipTitle = FormMyTitle| " +
+				"tooltipTitleColor = #dddddd| " +
+				"tooltipWidth = 601 "
+		);
+		formParamTag.setBodyContent(bodyContent);
+		
+		TextFieldTag tag = new TextFieldTag();
+		tag.setPageContext(pageContext);
+		tag.setLabel("MyLabel");
+		tag.setId("myId");
+		tag.setTooltip("myTooltip");
+		
+		
+		ParamTag textFieldParamTag = new ParamTag();
+		textFieldParamTag.setPageContext(pageContext);
+		textFieldParamTag.setName("tooltipConfig");
+		WebWorkMockBodyContent bodyContent2 = new WebWorkMockBodyContent(new MockJspWriter());
+		bodyContent2.setString(
+				"tooltipIcon = /webwork/tooltip/myTooltip.gif | " +
+				"tooltipAboveMousePointer = true | " +
+				"tooltipBgColor = #ffffff | " +
+				"tooltipBgImg = /webwork/tooltip/myBgImg.gif " 
+		);
+		textFieldParamTag.setBodyContent(bodyContent2);
+		
+		formTag.doStartTag();
+		formParamTag.doStartTag();
+		formParamTag.doEndTag();
+		tag.doStartTag();
+		textFieldParamTag.doStartTag();
+		textFieldParamTag.doEndTag();
+		tag.doEndTag();
+		formTag.doEndTag();
+		
+		verify(TooltipTest.class.getResource("tooltip-3.txt"));
+	}
+	
 }
