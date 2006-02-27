@@ -13,13 +13,18 @@ import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.util.TextParseUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * UIBean is the standard superclass of all webwork UI componentns.
@@ -519,32 +524,7 @@ public abstract class UIBean extends Component {
     
     // javascript tooltip attribute
     protected String tooltip;
-    protected String tooltipIcon;
-    protected String tooltipAboveMousePointer;
-    protected String tooltipBgColor;
-    protected String tooltipBgImg;
-    protected String tooltipBorderWidth;
-    protected String tooltipBorderColor;
-    protected String tooltipDelay;
-    protected String tooltipFixCoordinate;
-    protected String tooltipFontColor;
-    protected String tooltipFontFace;
-    protected String tooltipFontSize;
-    protected String tooltipFontWeight;
-    protected String tooltipLeftOfMousePointer;
-    protected String tooltipOffsetX;
-    protected String tooltipOffsetY;
-    protected String tooltipOpacity;
-    protected String tooltipPadding;
-    protected String tooltipShadowColor;
-    protected String tooltipShadowWidth;
-    protected String tooltipStatic;
-    protected String tooltipSticky;
-    protected String tooltipStayAppearTime;
-    protected String tooltipTextAlign;
-    protected String tooltipTitle;
-    protected String tooltipTitleColor;
-    protected String tooltipWidth;
+    protected String tooltipConfig;
     
 
     public boolean end(Writer writer, String body) {
@@ -804,212 +784,43 @@ public abstract class UIBean extends Component {
             }
         }
         
+
         
-        // tooltips
+        
+        
+        // tooltip & tooltipConfig
+        if (tooltipConfig != null) {
+    		addParameter("tooltipConfig", findValue(tooltipConfig));
+    	}
         if (tooltip != null) {
         	addParameter("tooltip", findString(tooltip));
         	
-        	// it only makes sense to have tooltipIcon if a tooltip attribute is 
-        	// actually specified
-        	if (tooltipIcon != null) {
-        		addParameter("tooltipIcon", findString(tooltipIcon));
+        	Map tooltipConfigMap = getTooltipConfig(this);
+        	
+        	
+        	if (tooltipConfigMap.containsKey("tooltipIcon")) {
+        		addParameter("tooltipIcon", tooltipConfigMap.get("tooltipIcon"));
         	}
         	
         	if (form != null) { // inform the containing form that we need tooltip javascript included
         		form.addParameter("hasTooltip", Boolean.TRUE);
         		
-        		// javascript tooltip functionality only works when we have an ancestor form and can 
-        		// include the appropriate javascript, so it makes sense to have the logic here, only if 
-        		// an ancestor form exists
-        		if (tooltipIcon != null) {
-        			addParameter("tooltipIcon", findString(tooltipIcon));
-        		}
-        		else if (form.tooltipIcon != null) {
-        			addParameter("tooltipIcon", findString(form.tooltipIcon));
-        		}
+        		// tooltipConfig defined in component itseilf will take precedence
+        		// over those defined in the containing form
+        		Map overallTooltipConfigMap = getTooltipConfig(form);
+        		overallTooltipConfigMap.putAll(tooltipConfigMap); // override parent form's tooltip config
         		
-        	    if (tooltipAboveMousePointer != null) {
-        	    	addParameter("tooltipAboveMousePointer", ((Boolean)findValue(tooltipAboveMousePointer, Boolean.class)).booleanValue() ? "true" : "false");
-        	    }
-        	    else if (form.tooltipAboveMousePointer != null) {
-        	    	addParameter("tooltipAboveMousePointer", ((Boolean)findValue(form.tooltipAboveMousePointer, Boolean.class)).booleanValue() ? "true" : "false");
-        	    }
-        	    
-        	    if (tooltipBgColor != null) {
-        	    	addParameter("tooltipBgColor", findString(tooltipBgColor));
-        	    }
-        	    else if (form.tooltipBgColor != null) {
-        	    	addParameter("tooltipBgColor", findString(form.tooltipBgColor));
-        	    }
-        	    
-        	    if (tooltipBgImg != null) {
-        	    	addParameter("tooltipBgImg", findString(tooltipBgImg));
-        	    }
-        	    else if (form.tooltipBgImg != null) {
-        	    	addParameter("tooltipBgImg", findString(form.tooltipBgImg));
-        	    }
-        	    
-        	    if (tooltipBorderWidth != null) {
-        	    	addParameter("tooltipBorderWidth", findString(tooltipBorderWidth));
-        	    }
-        	    else if (form.tooltipBorderWidth != null) {
-        	    	addParameter("tooltipBorderWidth", findString(form.tooltipBorderWidth));
-        	    }
-        	    
-        	    if (tooltipBorderColor != null) {
-        	    	addParameter("tooltipBorderColor", findString(tooltipBorderColor));
-        	    }
-        	    else if (form.tooltipBorderColor != null) {
-        	    	addParameter("tooltipBorderColor", findString(form.tooltipBorderColor));
-        	    }
-        	    
-        	    if (tooltipDelay != null) {
-        	    	addParameter("tooltipDelay", findString(tooltipDelay));
-        	    }
-        	    else if (form.tooltipDelay != null) {
-        	    	addParameter("tooltipDelay", findString(form.tooltipDelay));
-        	    }
-        	    
-        	    if (tooltipFixCoordinate != null) {
-        	    	addParameter("tooltipFixCoordinate", findString(tooltipFixCoordinate));
-        	    }
-        	    else if (form.tooltipFixCoordinate != null) {
-        	    	addParameter("tooltipFixCoordinate", findString(form.tooltipFixCoordinate));
-        	    }
-        	    
-        	    if (tooltipFontColor != null) {
-        	    	addParameter("tooltipFontColor", findString(tooltipFontColor));
-        	    }
-        	    else if (form.tooltipFontColor != null) {
-        	    	addParameter("tooltipFontColor", findString(form.tooltipFontColor));
-        	    }
-        	    
-        	    if (tooltipFontFace != null) {
-        	    	addParameter("tooltipFontFace", findString(tooltipFontFace));
-        	    }
-        	    else if (form.tooltipFontFace != null) {
-        	    	addParameter("tooltipFontFace", findString(form.tooltipFontFace));
-        	    }
-        	    
-        	    if (tooltipFontSize != null) {
-        	    	addParameter("tooltipFontSize", findString(tooltipFontSize));
-        	    }
-        	    else if (form.tooltipFontSize != null) {
-        	    	addParameter("tooltipFontSize", findString(form.tooltipFontSize));
-        	    }
-        	    
-        	    if (tooltipFontWeight != null) {
-        	    	addParameter("tooltipFontWeight", findString(tooltipFontWeight));
-        	    }
-        	    else if (form.tooltipFontWeight != null) {
-        	    	addParameter("tooltipFontWeight", findString(form.tooltipFontWeight));
-        	    }
-        	    
-        	    if (tooltipLeftOfMousePointer != null) {
-        	    	addParameter("tooltipLeftOfMousePointer", ((Boolean)findValue(tooltipLeftOfMousePointer, Boolean.class)).booleanValue() ? "true" : "false");
-        	    }
-        	    else if (form.tooltipLeftOfMousePointer != null) {
-        	    	addParameter("tooltipLeftOfMousePointer", ((Boolean)findValue(form.tooltipLeftOfMousePointer, Boolean.class)).booleanValue() ? "true" : "false");
-        	    }
-        	    
-        	    if (tooltipOffsetX != null) {
-        	    	addParameter("tooltipOffsetX", findString(tooltipOffsetX));
-        	    }
-        	    else if (form.tooltipOffsetX != null) {
-        	    	addParameter("tooltipOffsetX", findString(form.tooltipOffsetX));
-        	    }
-        	    
-        	    if (tooltipOffsetY != null) {
-        	    	addParameter("tooltipOffsetY", findString(tooltipOffsetY));
-        	    }
-        	    else if (form.tooltipOffsetY != null) {
-        	    	addParameter("tooltipOffsetY", findString(form.tooltipOffsetY));
-        	    }
-        	    
-        	    if (tooltipOpacity != null) {
-        	    	addParameter("tooltipOpacity", findString(tooltipOpacity));
-        	    }
-        	    else if (form.tooltipOpacity != null) {
-        	    	addParameter("tooltipOpacity", findString(form.tooltipOpacity));
-        	    }
-        	    
-        	    if (tooltipPadding != null) {
-        	    	addParameter("tooltipPadding", findString(tooltipPadding));
-        	    }
-        	    else if (form.tooltipPadding != null) {
-        	    	addParameter("tooltipPadding", findString(form.tooltipPadding));
-        	    }
-        	    
-        	    if (tooltipShadowColor != null) {
-        	    	addParameter("tooltipShadowColor", findString(tooltipShadowColor));
-        	    }
-        	    else if (form.tooltipShadowColor != null) {
-        	    	addParameter("tooltipShadowColor", findString(form.tooltipShadowColor));
-        	    }
-        	    
-        	    if (tooltipShadowWidth != null) {
-        	    	addParameter("tooltipShadowWidth", findString(tooltipShadowWidth));
-        	    }
-        	    else if (form.tooltipShadowWidth != null) {
-        	    	addParameter("tooltipShadowWidth", findString(form.tooltipShadowWidth));
-        	    }
-        	    
-        	    if (tooltipStatic != null) {
-        	    	addParameter("tooltipStatic", ((Boolean)findValue(tooltipStatic, Boolean.class)).booleanValue() ? "true" : "false");
-        	    }
-        	    else if (form.tooltipStatic != null) {
-        	    	addParameter("tooltipStatic", ((Boolean)findValue(form.tooltipStatic, Boolean.class)).booleanValue() ? "true" : "false");
-        	    }
-        	    
-        	    if (tooltipSticky != null) {
-        	    	addParameter("tooltipSticky", ((Boolean)findValue(tooltipSticky, Boolean.class)).booleanValue() ? "true" : "false");
-        	    }
-        	    else if (form.tooltipSticky != null) {
-        	    	addParameter("tooltipSticky", ((Boolean)findValue(form.tooltipSticky, Boolean.class)).booleanValue() ? "true" : "false");
-        	    }
-        	    
-        	    if (tooltipStayAppearTime != null) {
-        	    	addParameter("tooltipStayAppearTime", findString(tooltipStayAppearTime));
-        	    }
-        	    else if (form.tooltipStayAppearTime != null) {
-        	    	addParameter("tooltipStayAppearTime", findString(form.tooltipStayAppearTime));
-        	    }
-        	    
-        	    if (tooltipTextAlign != null) {
-        	    	addParameter("tooltipTextAlign", findString(tooltipTextAlign));
-        	    }
-        	    else if (form.tooltipTextAlign != null) {
-        	    	addParameter("tooltipTextAlign", findString(form.tooltipTextAlign));
-        	    }
-        	    
-        	    if (tooltipTitle != null) {
-        	    	addParameter("tooltipTitle", findString(tooltipTitle));
-        	    }
-        	    else if (form.tooltipTitle != null) {
-        	    	addParameter("tooltipTitle", findString(form.tooltipTitle));
-        	    }
-        	    
-        	    if (tooltipTitleColor != null) {
-        	    	addParameter("tooltipTitleColor", findString(tooltipTitleColor));
-        	    }
-        	    else if (form.tooltipTitleColor != null) {
-        	    	addParameter("tooltipTitleColor", findString(form.tooltipTitleColor));
-        	    }
-        	    
-        	    if (tooltipWidth != null) {
-        	    	addParameter("tooltipWidth", findString(tooltipWidth));
-        	    }
-        	    else if (form.tooltipWidth != null) {
-        	    	addParameter("tooltipWidth", findString(form.tooltipWidth));
-        	    }
-        		
+        		for (Iterator i = overallTooltipConfigMap.entrySet().iterator(); i.hasNext(); ) {
+        			Map.Entry entry = (Map.Entry) i.next();
+        			addParameter((String) entry.getKey(), entry.getValue());
+        		}
         	}
         	else {
         		LOG.warn("No ancestor Form not found, javascript based tooltip will not work, however standard HTML tooltip using alt and title attribute will still work ");
         	}
         }
-
         evaluateExtraParams();
+       
     }
     
     protected String escape(String name) {
@@ -1031,13 +842,49 @@ public abstract class UIBean extends Component {
     protected Class getValueClassType() {
         return String.class;
     }
-
+    
     public void addFormParameter(String key, Object value) {
         Form form = (Form) findAncestor(Form.class);
         if (form != null) {
             form.addParameter(key, value);
         }
     }
+    
+    protected Map getTooltipConfig(UIBean component) {
+    	Object tooltipConfigObj = component.getParameters().get("tooltipConfig");
+    	Map tooltipConfig = new LinkedHashMap();
+    	
+    	if (tooltipConfigObj instanceof Map) {
+    		// we get this if its configured using 
+    		// 1] UI component's tooltipConfig attribute  OR
+    		// 2] <param name="tooltip" value="" /> param tag value attribute
+    		
+    		tooltipConfig = new LinkedHashMap((Map)tooltipConfigObj);
+    	}
+    	else if (tooltipConfigObj instanceof String) {
+    		
+    		// we get this if its configured using 
+    		// <param name="tooltipConfig"> ... </param> tag's body
+    		String tooltipConfigStr = (String) tooltipConfigObj;
+    		String[] tooltipConfigArray = tooltipConfigStr.split("\\|");
+    		
+    		for (int a=0; a<tooltipConfigArray.length; a++) {
+    			String[] configEntry = ((String)tooltipConfigArray[a].trim()).split("=");
+    			String key = configEntry[0].trim();
+    			String value = null;
+    			if (configEntry.length > 1) {
+    				value = configEntry[1].trim();
+    				tooltipConfig.put(key, value.toString());
+    			}
+    			else {
+    				LOG.warn("component "+component+" tooltip config param "+key+" have no value defined, skipped");
+    			}
+    		}
+    	}
+    	return tooltipConfig;
+    }
+    
+    
 
     /**
      * @ww.tagattribute required="false"
@@ -1269,211 +1116,10 @@ public abstract class UIBean extends Component {
     }
 
     /**
-     * @ww.tagattribute required="false" type="String" default="/webwork/static/tooltip/tooltip.gif"
-     * description="The url to the tooltip icon"
+     * @ww.tagattribute required="false" type="String" default=""
+     * description="Set the tooltip configuration"
      */
-    public void setTooltipIcon(String icon) {
-    	this.tooltipIcon = icon;
+    public void setTooltipConfig(String tooltipConfig) {
+    	this.tooltipConfig = tooltipConfig;
     }
-    
-    
-    /**
-     * @ww.tagattribute required="false" type="boolean" default="false"
-     * description="Places the tooltip above the mousepointer. Additionally applied the tooltipOffseY allows to set the vertical distance from the mousepointer."
-     */
-	public void setTooltipAboveMousePointer(String tooltipAboveMousePointer) {
-		this.tooltipAboveMousePointer = tooltipAboveMousePointer;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="#e6ecff"
-     * description="Background color of the tooltip."
-	 */
-	public void setTooltipBgColor(String tooltipBgColor) {
-		this.tooltipBgColor = tooltipBgColor;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="none"
-     * description="Background image."
-     */
-	public void setTooltipBgImg(String tooltipBgImg) {
-		this.tooltipBgImg = tooltipBgImg;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="#003399"
-     * description="Background color of the tooltip"
-	 */
-	public void setTooltipBorderColor(String tooltipBorderColor) {
-		this.tooltipBorderColor = tooltipBorderColor;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="1"
-     * description="Width of tooltip border."
-	 */
-	public void setTooltipBorderWidth(String tooltipBorderWidth) {
-		this.tooltipBorderWidth = tooltipBorderWidth;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="500"
-     * description="Tooltip shows up after the specified timeout (miliseconds). A behavior similar to that of OS based tooltips."
-	 */
-	public void setTooltipDelay(String tooltipDelay) {
-		this.tooltipDelay = tooltipDelay;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="none"
-     * description="Fixes the tooltip to the co-ordinates specified within the square brackets. Useful for example if combined with tooltipSticky attribute, eg. [200, 2400]"
-	 */
-	public void setTooltipFixCoordinate(String tooltipFixCoordinate) {
-		this.tooltipFixCoordinate = tooltipFixCoordinate;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="#000066"
-     * description="Font color."
-	 */
-	public void setTooltipFontColor(String tooltipFontColor) {
-		this.tooltipFontColor = tooltipFontColor;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="arial,helvetica,sans-serif"
-     * description="Font face/family eg. verdana,geneva,sans-serif"
-	 */
-	public void setTooltipFontFace(String tooltipFontFace) {
-		this.tooltipFontFace = tooltipFontFace;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="11px"
-     * description="Font size + unit eg. 30px"
-	 */
-	public void setTooltipFontSize(String tooltipFontSize) {
-		this.tooltipFontSize = tooltipFontSize;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="normal"
-     * description="Font weight. either normal or bold"
-	 */
-	public void setTooltipFontWeight(String tooltipFontWeight) {
-		this.tooltipFontWeight = tooltipFontWeight;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="boolean" default="false"
-     * description="Tooltip positioned on the left side of the mousepointer"
-	 */
-	public void setTooltipLeftOfMousePointer(String tooltipLeftOfMousePointer) {
-		this.tooltipLeftOfMousePointer = tooltipLeftOfMousePointer;
-	}
-
-	/**12
-	 * @ww.tagattribute required="false" type="String" default="12"
-     * description="Horizontal offset from mouse-pointer."
-	 */
-	public void setTooltipOffsetX(String tooltipOffsetX) {
-		this.tooltipOffsetX = tooltipOffsetX;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" default="15"
-     * description="Vertical offset from mouse-pointer." 
-	 */
-	public void setTooltipOffsetY(String tooltipOffsetY) {
-		this.tooltipOffsetY = tooltipOffsetY;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="100"
-     * description="Transparency of tooltip. Opacity is the opposite of transparency. Value must be a number between 0 (fully transparent) and 100 (opaque, no transparency). Not (yet) supported by Opera."
-	 */
-	public void setTooltipOpacity(String tooltipOpacity) {
-		this.tooltipOpacity = tooltipOpacity;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="3"
-     * description="Inner spacing, ie. the spacing between border and content, for instance text or image(s)"
-	 */
-	public void setTooltipPadding(String tooltipPadding) {
-		this.tooltipPadding = tooltipPadding;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="#cccccc"
-     * description="Creates shadow with the specified color."
-	 */
-	public void setTooltipShadowColor(String tooltipShadowColor) {
-		this.tooltipShadowColor = tooltipShadowColor;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="5"
-     * description="Creates shodow with the specified width (offset)."
-	 */
-	public void setTooltipShadowWidth(String tooltipShadowWidth) {
-		this.tooltipShadowWidth = tooltipShadowWidth;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="boolean" default="false"
-     * description="Like OS-based tooltips, the tooltip doesn't follow the movements of the mouse pointer."
-	 */
-	public void setTooltipStatic(String tooltipStatic) {
-		this.tooltipStatic = tooltipStatic;
-	}
-	
-	/**
-	 * @ww.tagattribute required="false" type="String" default="0"
-     * description="Specifies a time span in miliseconds after which the tooltip disappears, even if the mousepointer is still on the concerned HTML element, with value <=0 it acts as if no time span is defined"
-	 */
-	public void setTooltipStayAppearTime(String tooltipStayAppearTime) {
-		this.tooltipStayAppearTime = tooltipStayAppearTime;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="boolean" default="false"
-     * description="The tooltip stays fixed on its inital position until anohter tooltip is activated, or the user clicks on the document."
-	 */
-	public void setTooltipSticky(String tooltipSticky) {
-		this.tooltipSticky = tooltipSticky;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="left"
-     * description="Aligns the text of both the title and the body of the tooltip. Either right, left or justify"
-	 */
-	public void setTooltipTextAlign(String tooltipTextAlign) {
-		this.tooltipTextAlign = tooltipTextAlign;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="none"
-     * description="Title"
-	 */
-	public void setTooltipTitle(String tooltipTitle) {
-		this.tooltipTitle = tooltipTitle;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="#ffffff"
-     * description="Color of the title text"
-	 */
-	public void setTooltipTitleColor(String tooltipTitleColor) {
-		this.tooltipTitleColor = tooltipTitleColor;
-	}
-
-	/**
-	 * @ww.tagattribute required="false" type="String" default="300"
-     * description="Width of tooltip"
-	 */
-	public void setTooltipWidth(String tooltipWidth) {
-		this.tooltipWidth = tooltipWidth;
-	}
 }

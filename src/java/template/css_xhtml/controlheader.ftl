@@ -36,7 +36,7 @@
         <span class="required">*</span><#t/>
 </#if>
         ${parameters.label?html}:
-<#include "/${parameters.templateDir}/css_xhtml/tooltip.ftl" />
+<#include "/${parameters.templateDir}/xhtml/tooltip.ftl" />
 	</label><#t/>
 </#if>
     <#lt/>
