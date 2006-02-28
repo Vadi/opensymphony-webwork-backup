@@ -59,8 +59,7 @@ public class TokenHelper {
         	// WW-1182 explain to user what the problem is
         	String msg = "Error creating HttpSession due response is commited to client. You can use the CreateSessionInterceptor or create the HttpSession from your action before the result is rendered to the client: " + e.getMessage();
         	LOG.error(msg, e);
-        	IllegalArgumentException t = new IllegalArgumentException(msg, e);
-        	throw t;
+        	throw new IllegalArgumentException(msg);
         }
 
         return token;
