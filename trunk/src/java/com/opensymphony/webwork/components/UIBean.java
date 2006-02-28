@@ -300,10 +300,16 @@ import java.util.Map;
  *   	<td>Tooltip shows up after the specified timeout (miliseconds). A behavior similar to that of OS based tooltips.</td>
  *   </tr>
  *   <tr>
- *   	<td>tooltipFixCoordinate</td>
+ *   	<td>tooltipFixCoordinateX</td>
  *   	<td>String</td>
  *   	<td>not specified</td>
- *   	<td>Fixes the tooltip to the co-ordinates specified within the square brackets. Useful for example if combined with tooltipSticky attribute, eg. [200, 2400]</td>
+ *   	<td>Fixes the tooltip to the X co-ordinates specified. Useful for example if combined with tooltipSticky attribute.</td>
+ *   </tr>
+ *   <tr>
+ *   	<td>tooltipFixCoordinateY</td>
+ *   	<td>String</td>
+ *   	<td>not specified</td>
+ *   	<td>Fixes the tooltip to the Y co-ordinates specified. Useful for example if combined with tooltipSticky attribute.</td>
  *   </tr>
  *   <tr>
  *   	<td>tooltipFontColor</td>
@@ -439,6 +445,13 @@ import java.util.Map;
  * have tooltipAboveMousePointer defined as true, inherited from its containing form and 
  * tooltipLeftOfMousePointer defined as false, due to overriden at the textfield itself.
  * 
+ * <p/>
+ * 
+ * Example 3, 4 and 5 shows different way of setting the tooltipConfig attribute.<br/>
+ * <b>Example 3:</b>Set tooltip config through body of param tag<br/>
+ * <b>Example 4:</b>Set tooltip config through value attribute of param tag<br/>
+ * <b>Example 5:</b>Set tooltip config through tooltipConfig attribute of component tag<br/> 
+ * 
  * <!-- END SNIPPET: tooltipdescription -->
  * 
  * 
@@ -446,20 +459,59 @@ import java.util.Map;
  * <!-- START SNIPPET: tooltipexample -->
  * 
  * &lt;!-- Example 1: --&gt;
- * &lt;ww:form tooltipAboveMousePointer="true" .... &gt;
+ * &lt;ww:form 
+ * 			tooltipConfig="#{'tooltipAboveMousePointer':'true', 
+ *                           'tooltipBgColor='#eeeeee'}" .... &gt;
  *   ....
  *     &lt;ww:textfield label="Customer Name" tooltip="Enter the customer name" .... /&gt;
  *   ....
  * &lt;/ww:form&gt;
  * 
  * &lt;!-- Example 2: --&gt;
- * &lt;ww:form tooltipAboveMousePointer="true" tooltipLeftOfMousePointer="true" ...&gt;
+ * &lt;ww:form 
+ *         tooltipConfig="#{'tooltipAboveMousePointer':'true', 
+ *          				 'tooltipLeftOfMousePointer':'true'}" ... &gt;
  *   ....
- *     &lt;ww:textfield label="Address" tooltip="Enter your address" tooltipLeftOfMousePointer="false" /&gt;
+ *     &lt;ww:textfield label="Address" 
+ *          tooltip="Enter your address" 
+ *          tooltipConfig="#{'tooltipLeftOfMousePointer':'false'}" /&gt;
  *   ....
  * &lt;/ww:form&gt;
  * 
  * 
+ * &lt;-- Example 3: --&gt;
+ * &lt;ww:textfield 
+ *        label="Customer Name" 
+ *	      tooltip="One of our customer Details'"&gt;
+ *        &lt;ww:param name="tooltipConfig"&gt;
+ *             tooltipWidth = 150 |
+ *             tooltipAboveMousePointer = false |
+ *             tooltipLeftOfMousePointer = false  
+ *        &lt;/ww:param&gt;
+ * &lt;/ww:textfield&gt;
+ * 
+ * 
+ * &lt;-- Example 4: --&gt;
+ * &lt;ww:textfield 
+ *	        label="Customer Address" 
+ *	        tooltip="Enter The Customer Address" &gt;
+ *	        &lt;ww:param 
+ *              name="tooltipConfig" 
+ *              value="#{'tooltipStatic':'true',
+ *                       'tooltipSticky':'true',
+ *                       'tooltipAboveMousePointer':'false',
+ *                       'tooltipLeftOfMousePointer':'false'}"  /&gt;
+ * &lt;/ww:textfield&gt;
+ * 
+ * 
+ * &lt;-- Example 5: --&gt;
+ * &lt;ww:textfield 
+ *          label="Customer Telephone Number" 
+ *          tooltip="Enter customer Telephone Number" 
+ *          tooltipConfig="#{'tooltipBgColor':'#cccccc',
+ *                           'tooltipFontColor':'#eeeeee',
+ *                           'tooltipAboveMousePointer':'false',
+ *                           'tooltipLeftOfMousePointer':'false'}" /&lt;
  * 
  * <!-- END SNIPPET: tooltipexample -->
  * </pre>
