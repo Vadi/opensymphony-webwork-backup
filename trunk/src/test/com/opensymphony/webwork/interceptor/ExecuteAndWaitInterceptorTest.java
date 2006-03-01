@@ -1,6 +1,7 @@
 /*
- * Copyright (c) 2006, Your Corporation. All Rights Reserved.
- */
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+*/
 
 package com.opensymphony.webwork.interceptor;
 
