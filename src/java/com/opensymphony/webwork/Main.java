@@ -211,7 +211,9 @@ public class Main {
         }
 
         public Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
-            if (name.startsWith("java.") || name.startsWith("sun.") || name.startsWith("com.sun.")) {
+            if (name.startsWith("org.xml.") || name.startsWith("org.w3c.")
+                    || name.startsWith("java.") || name.startsWith("javax.")
+                    || name.startsWith("sun.") || name.startsWith("com.sun.")) {
                 return super.loadClass(name, resolve);
             }
 
