@@ -72,6 +72,7 @@ public class QuickStart {
             c.setSources(sources);
             ArrayList classDirs = new ArrayList();
             classDirs.add(args[1] + "/WEB-INF/classes");
+            classDirs.add(args[2]);
             c.setClassDirs(classDirs);
             ArrayList libs = new ArrayList();
             libs.add("lib");
@@ -150,7 +151,9 @@ public class QuickStart {
         }
 
         public Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
-            if (name.startsWith("java.") || name.startsWith("sun.") || name.startsWith("com.sun.")) {
+            if (name.startsWith("org.xml.") || name.startsWith("org.w3c.")
+                    || name.startsWith("java.") || name.startsWith("javax.")
+                    || name.startsWith("sun.") || name.startsWith("com.sun.")) {
                 return super.loadClass(name, resolve);
             }
 
