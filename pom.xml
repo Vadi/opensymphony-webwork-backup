@@ -149,6 +149,12 @@
         </dependency>
 
         <dependency>
+            <groupId>freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.4</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
@@ -180,14 +186,6 @@
             <groupId>dwr</groupId>
             <artifactId>dwr</artifactId>
             <version>1.1-beta-3</version>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Freemarker -->
-        <dependency>
-            <groupId>freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.4</version>
             <optional>true</optional>
         </dependency>
 
@@ -273,6 +271,20 @@
                     <artifactId>gnujaxp</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- Tiles -->
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-core</artifactId>
+            <version>0.2-SNAPSHOT</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.7</version>
+            <optional>true</optional>
         </dependency>
 
         <!-- Portlet -->
