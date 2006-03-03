@@ -77,7 +77,7 @@
         <dependency org="freemarker" name="freemarker" rev="2.3.4" conf="freemarker->default"/>
 
         <!-- tiles -->
-        <dependency org="org.apache.tiles" name="tiles-core" rev="0.2-20060215" conf="tiles->default"/>
+        <dependency org="org.apache.tiles" name="tiles-core" rev="0.2-SNAPSHOT" conf="tiles->default"/>
         <dependency org="commons-digester" name="commons-digester" rev="1.7" conf="tiles->default"/>
 
         <!-- velocity -->
