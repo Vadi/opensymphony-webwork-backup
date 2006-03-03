@@ -9,8 +9,9 @@
 
 <p>
     <ul>
-        <li>ContentType: <ww:property value="contentType" /></li>
-        <li>FileName: <ww:property value="fileName" /></li>
+        <li>ContentType: <ww:property value="uploadContentType" /></li>
+        <li>FileName: <ww:property value="uploadFileName" /></li>
+        <li>File: <ww:property value="upload" /></li>
         <li>Caption:<ww:property value="caption" /></li>
     </ul>
 </p>

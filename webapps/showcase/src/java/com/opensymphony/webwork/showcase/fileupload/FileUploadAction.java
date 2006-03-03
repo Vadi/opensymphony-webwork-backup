@@ -4,6 +4,8 @@
 
 package com.opensymphony.webwork.showcase.fileupload;
 
+import java.io.File;
+
 /**
  * <code>FileUploadAction</code>
  *
@@ -14,23 +16,32 @@ public class FileUploadAction {
 
 
     private String contentType;
+    private File upload;
     private String fileName;
     private String caption;
+    
+    
+    public String getUploadFileName() {
+    	return fileName;
+    }
+    public void setUploadFileName(String fileName) {
+    	this.fileName = fileName;
+    }
 
-    public String getContentType() {
+    public String getUploadContentType() {
         return contentType;
     }
 
-    public void setContentType(String contentType) {
+    public void setUploadContentType(String contentType) {
         this.contentType = contentType;
     }
 
-    public String getFileName() {
-        return fileName;
+    public File getUpload() {
+        return upload;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setUpload(File upload) {
+        this.upload = upload;
     }
 
     public String getCaption() {
