@@ -2,12 +2,21 @@ package com.opensymphony.webwork.showcase;
 
 import com.opensymphony.xwork.ActionSupport;
 import com.opensymphony.xwork.Action;
+import com.opensymphony.xwork.Preparable;
 
 import java.util.Random;
 
 // START SNIPPET: example
-public class Guess extends ActionSupport {
+public class Guess extends ActionSupport implements Preparable {
     int guess;
+
+    public void prepare() throws Exception {
+        // We clear the error message state before the action.
+        // That is because with continuations, the original (or cloned) action is being
+        //  executed, which will still have the old errors and potentially cause problems,
+        //  such as with the workflow interceptor
+        clearErrorsAndMessages();
+    }
 
     public String execute() throws Exception {
         int answer = new Random().nextInt(100) + 1;
