@@ -41,7 +41,6 @@ public class ReloadingClassLoader extends ClassLoader {
     private final ClassLoader parent;
     private final ResourceStore store;
     private final Collection reloadingListeners = new HashSet();
-    private final List previousDelegates = new ArrayList();
     protected CompilingListener listener;
 
 
@@ -65,7 +64,7 @@ public class ReloadingClassLoader extends ClassLoader {
         reader = new FileResourceReader(repository);
         store = pStore;
 
-        delegate = new ResourceStoreClassLoader(this, parent, store);
+        delegate = new ResourceStoreClassLoader(parent, store);
     }
 
     public void start() {
@@ -93,18 +92,6 @@ public class ReloadingClassLoader extends ClassLoader {
         }
     }
 
-    public Class findInPreviousDelegates(String name) {
-        for (Iterator iterator = previousDelegates.iterator(); iterator.hasNext();) {
-            ResourceStoreClassLoader cl = (ResourceStoreClassLoader) iterator.next();
-            Class c = cl.find(name);
-            if (c != null) {
-                return c;
-            }
-        }
-
-        return null;
-    }
-
     public void addListener(final ReloadingClassLoaderListener pListener) {
         synchronized (reloadingListeners) {
             reloadingListeners.add(pListener);
@@ -120,14 +107,7 @@ public class ReloadingClassLoader extends ClassLoader {
     protected void reload() {
         log.debug("reloading");
 
-        // first, ask the listener who changed and remove those from the delegate
-        for (Iterator iterator = listener.getForgetters().iterator(); iterator.hasNext();) {
-            String name = (String) iterator.next();
-            delegate.forget(name);
-        }
-
-        previousDelegates.add(delegate);
-        delegate = new ResourceStoreClassLoader(this, parent, store);
+        delegate = new ResourceStoreClassLoader(parent, store);
 
         notifyReloadingListeners(true);
     }

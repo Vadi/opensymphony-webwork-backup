@@ -164,25 +164,4 @@ public class CompilingListener implements FilesystemAlterationListener {
     protected void reload() {
         log.debug("reload");
     }
-
-    public List getForgetters() {
-        ArrayList list = new ArrayList();
-        for (Iterator iterator = changed.iterator(); iterator.hasNext();) {
-            File file = (File) iterator.next();
-            String name = ReloadingClassLoader.clazzName(pRepository, file);
-            list.add(name);
-        }
-        for (Iterator iterator = created.iterator(); iterator.hasNext();) {
-            File file = (File) iterator.next();
-            String name = ReloadingClassLoader.clazzName(pRepository, file);
-            list.add(name);
-        }
-        for (Iterator iterator = deleted.iterator(); iterator.hasNext();) {
-            File file = (File) iterator.next();
-            String name = ReloadingClassLoader.clazzName(pRepository, file);
-            list.add(name);
-        }
-
-        return list;
-    }
 }
