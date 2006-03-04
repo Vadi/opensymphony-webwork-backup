@@ -79,6 +79,7 @@ public class Head extends UIBean {
         }
 
         addParameter("encoding", Configuration.get(WebWorkConstants.WEBWORK_I18N_ENCODING));
+        addParameter("debug", new Boolean(debug).toString());
     }
 
     public String getCalendarcss() {
