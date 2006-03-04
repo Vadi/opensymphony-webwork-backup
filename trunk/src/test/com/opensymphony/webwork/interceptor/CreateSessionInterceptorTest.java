@@ -12,7 +12,7 @@ import org.jmock.core.matcher.InvokeOnceMatcher;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkTestCase;
-import com.opensymphony.xwork.MockActionInvocation;
+import com.opensymphony.xwork.mock.MockActionInvocation;
 
 /**
  * Test case for CreateSessionInterceptor.
@@ -26,12 +26,12 @@ public class CreateSessionInterceptorTest extends WebWorkTestCase {
 		Mock httpServletRequestMock = new Mock(HttpServletRequest.class);
 		httpServletRequestMock.expects(new InvokeOnceMatcher()).method("getSession").with(new IsEqual(Boolean.TRUE));
 		HttpServletRequest request = (HttpServletRequest) httpServletRequestMock.proxy();
-		
+
 		ServletActionContext.setRequest(request);
-		
+
 		CreateSessionInterceptor interceptor = new CreateSessionInterceptor();
 		interceptor.intercept(new MockActionInvocation());
-		
+
 		httpServletRequestMock.verify();
 	}
 }

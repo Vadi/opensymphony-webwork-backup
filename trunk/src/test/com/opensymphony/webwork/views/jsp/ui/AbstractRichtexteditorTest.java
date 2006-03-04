@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2006 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.views.jsp.ui;
@@ -10,7 +10,7 @@ import java.io.InputStream;
 import com.mockobjects.servlet.MockHttpServletResponse;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
-import com.opensymphony.xwork.MockActionInvocation;
+import com.opensymphony.xwork.mock.MockActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import junit.framework.TestCase;
