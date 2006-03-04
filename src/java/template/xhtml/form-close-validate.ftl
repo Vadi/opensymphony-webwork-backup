@@ -57,6 +57,11 @@ END SNIPPET: supported-validators
                 addError(field, error);
                 errors = true;
             }
+            <#elseif validator.validatorType = "stringregex">
+			if (field.value != null && !field.value.match(/${validator.regex}/)) {
+				addError(field, error);
+				errors = true;
+			}
             <#elseif validator.validatorType = "email">
             if (field.value != null && field.value.length > 0 && field.value.match(/^\S+@\S+\.(com|net|org|info|edu|mil|gov|biz|ws|us|tv|cc|aero|arpa|coop|int|jobs|museum|name|pro|travel|nato|.{2,2})$/gi) == null) {
                 addError(field, error);
