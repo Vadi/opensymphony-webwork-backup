@@ -60,16 +60,16 @@
             <div class="wrapper">
                 <h2 class="accessibility">Navigation</h2>
                 <ul class="clearfix">
-                    <li><strong><a href="<ww:url action="showcase" namespace="/" />">Home</a></strong></li>
-                    <li><a href="<ww:url action="index" namespace="/config-browser" />">Config Browser</a></li>
+                    <li><strong><a href="<ww:url action="showcase" namespace="/"  includeParams="none" />">Home</a></strong></li>
+                    <li><a href="<ww:url action="index" namespace="/config-browser" includeParams="none" />">Config Browser</a></li>
                     <li><a href="<ww:url action="guess" namespace="/continuations" />">Continuations</a></li>
                     <li><a href="<ww:url value="/tags/index.jsp"/>">Tags</a></li>
-                    <li><a href="<ww:url action="upload" namespace="/fileupload" />">File Upload</a></li>
+                    <li><a href="<ww:url action="upload" namespace="/fileupload" includeParams="none"/>">File Upload</a></li>
                     <li><a href="<ww:url value="/empmanager/index.jsp"/>">CRUD</a></li>
                     <li><a href="<ww:url value="/person/index.jsp"/>">Person Manager</a></li>
                     <li><a href="<ww:url value="/validation/index.jsp"/>">Validation</a></li>
                     <li><a href="<ww:url value="/ajax/index.jsp"/>">AJAX</a></li>
-                    <li><a href="<ww:url action="actionChain1!input" namespace="/actionchaining" />">Action Chaining</a></li>
+                    <li><a href="<ww:url action="actionChain1!input" namespace="/actionchaining"  includeParams="none" />">Action Chaining</a></li>
                     <li><a href="<ww:url value="/wait/index.jsp"/>">Execute & Wait</a></li>
                     <li><a href="<ww:url value="/token/index.jsp"/>">Token</a></li>
                     <li class="last"><a href="<ww:url value="/help.jsp"/>">Help</a></li>
