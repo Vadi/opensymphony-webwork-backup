@@ -248,6 +248,12 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
             for (int i = 0; i < pathPrefixes.length; i++) {
                 InputStream is = findInputStream(name, pathPrefixes[i]);
                 if (is != null) {
+                    // set the content-type header
+                    String contentType = getContentType(name);
+                    if (contentType != null) {
+                        response.setContentType(contentType);
+                    }
+
                     try {
                         copy(is, response.getOutputStream());
                     } finally {
@@ -259,6 +265,28 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         }
 
         response.sendError(HttpServletResponse.SC_NOT_FOUND);
+    }
+
+    private String getContentType(String name) {
+        // NOT using the code provided activation.jar to avoid adding yet another dependency
+        // this is generally OK, since these are the main files we server up
+        if (name.endsWith(".js")) {
+            return "text/javascript";
+        } else if (name.endsWith(".css")) {
+            return "text/css";
+        } else if (name.endsWith(".html")) {
+            return "text/html";
+        } else if (name.endsWith(".txt")) {
+            return "text/plain";
+        } else if (name.endsWith(".gif")) {
+            return "image/gif";
+        } else if (name.endsWith(".jpg") || name.endsWith(".jpeg")) {
+            return "image/jpeg";
+        } else if (name.endsWith(".png")) {
+            return "image/png";
+        } else {
+            return null;
+        }
     }
 
     protected void copy(InputStream input, OutputStream output) throws IOException {
