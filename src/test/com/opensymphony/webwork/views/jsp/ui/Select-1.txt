@@ -1,6 +1,6 @@
 <tr>
-    <td align="right" valign="top"><label class="label">mylabel:</label></td>
-    <td><select name="foo">
+    <td align="right" valign="top"><label for="foo" class="label">mylabel:</label></td>
+    <td><select name="foo" id="foo">
     <option value="headerKey">headerValue</option>
     <option value=""></option>
     <option value="hello" selected="selected">world</option>

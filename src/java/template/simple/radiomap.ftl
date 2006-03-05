@@ -9,7 +9,7 @@
     <#else>
         <#assign itemValue = stack.findString('top')/>
     </#if>
-<input type="radio" name="${parameters.name?html}" id="${parameters.name?html}${itemKey?html}"<#rt/>
+<input type="radio" name="${parameters.name?html}" id="${parameters.id?html}${itemKey?html}"<#rt/>
 <#if tag.contains(parameters.nameValue, itemKey)>
  checked="checked"<#rt/>
 </#if>
@@ -33,7 +33,7 @@
 </#if>
 <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
 /><#rt/>
-<label for="${parameters.name?html}${itemKey?html}"><#rt/>
+<label for="${parameters.id?html}${itemKey?html}"><#rt/>
     ${itemValue}<#t/>
 </label>
 </@ww.iterator>
