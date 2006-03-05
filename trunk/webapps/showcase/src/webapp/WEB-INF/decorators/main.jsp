@@ -13,7 +13,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title><decorator:title default="CSS Template"/></title>
+    <title><decorator:title default="WebWork Showcase"/></title>
     <link href="<ww:url value='/styles/main.css'/>" rel="stylesheet" type="text/css" media="all"/>
     <link href="<ww:url value='/webwork/niftycorners/niftyCorners.css'/>" rel="stylesheet" type="text/css"/>
     <link href="<ww:url value='/webwork/niftycorners/niftyPrint.css'/>" rel="stylesheet" type="text/css" media="print"/>
