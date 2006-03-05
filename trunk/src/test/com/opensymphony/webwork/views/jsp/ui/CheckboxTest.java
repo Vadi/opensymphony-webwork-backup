@@ -67,6 +67,46 @@ public class CheckboxTest extends AbstractUITagTest {
         verify(CheckboxTag.class.getResource("Checkbox-1.txt"));
     }
 
+    public void testCheckedWithTopLabelPosition() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("true");
+
+        CheckboxTag tag = new CheckboxTag();
+        tag.setPageContext(pageContext);
+        tag.setId("someId");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
+        tag.setFieldValue("baz");
+        tag.setOnfocus("test();");
+        tag.setTitle("mytitle");
+        tag.setLabelPosition("top");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(CheckboxTag.class.getResource("Checkbox-4.txt"));
+    }
+
+    public void testCheckedWithLeftLabelPosition() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("true");
+
+        CheckboxTag tag = new CheckboxTag();
+        tag.setPageContext(pageContext);
+        tag.setId("someId");
+        tag.setLabel("mylabel");
+        tag.setName("foo");
+        tag.setFieldValue("baz");
+        tag.setOnfocus("test();");
+        tag.setTitle("mytitle");
+        tag.setLabelPosition("left");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(CheckboxTag.class.getResource("Checkbox-5.txt"));
+    }
+
     public void testCheckedWithError() throws Exception {
         TestAction testAction = (TestAction) action;
         testAction.setFoo("true");
