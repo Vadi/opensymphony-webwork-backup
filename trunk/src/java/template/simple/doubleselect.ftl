@@ -73,10 +73,10 @@
 <#assign itemCount = startCount/>
 <#assign redirectTo = 0/>
 <@ww.iterator value="parameters.list">
-    <#if parameters.listValue?exists>
-        <#assign itemValue = stack.findString(parameters.listValue)/>
+    <#if parameters.listKey?exists>
+        <#assign itemKey = stack.findValue(parameters.listKey)/>
     <#else>
-        <#assign itemValue = stack.findString('top')/>
+        <#assign itemKey = stack.findValue('top')/>
     </#if>
     <#if tag.contains(parameters.nameValue, itemKey)>
         <#assign redirectTo = itemCount/>
