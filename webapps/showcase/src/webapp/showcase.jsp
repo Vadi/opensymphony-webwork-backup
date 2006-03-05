@@ -8,6 +8,7 @@
 <html>
 <head>
     <title>Showcase</title>
+    <ww:head theme="simple"/>
 </head>
 
 <body>
@@ -45,7 +46,10 @@
 		<li><ww:url id="url" namespace="actionchaining" action="actionChain1" method="input" /><ww:a href="%{url}">Action Chaining Example</ww:a></li>
 
         <!-- execute and wait -->
-        <li><ww:url id="url" value="/wait"/><ww:a href="%{url}">Execute and Wait Examples</ww:a></li>          
+        <li><ww:url id="url" value="/wait"/><ww:a href="%{url}">Execute and Wait Examples</ww:a></li>
+
+        <!-- token -->
+        <li><ww:url id="url" value="/token"/><ww:a href="%{url}">Token Examples (double post)</ww:a></li>
     </ul>
 </p>
 

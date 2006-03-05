@@ -21,8 +21,10 @@
 
     <include file="xwork-person.xml" />
 
-    <include file="xwork-wait.xml" />    
+    <include file="xwork-wait.xml" />
 
+    <include file="xwork-token.xml" />
+    
     <package name="default" extends="webwork-default">
         <interceptors>
             <interceptor-stack name="crudStack">
