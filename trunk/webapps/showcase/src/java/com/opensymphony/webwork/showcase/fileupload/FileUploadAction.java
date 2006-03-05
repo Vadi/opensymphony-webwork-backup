@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.showcase.fileupload;
 
+import com.opensymphony.xwork.ActionSupport;
+
 import java.io.File;
 
 /**
@@ -13,7 +15,7 @@ import java.io.File;
  * @author tm_jee
  * @version $Id$
  */
-public class FileUploadAction {
+public class FileUploadAction extends ActionSupport {
 
 
     private String contentType;
@@ -58,12 +60,12 @@ public class FileUploadAction {
         this.caption = caption;
     }
 
-    public String input() {
-        return "success";
+    public String input() throws Exception {
+        return SUCCESS;
     }
 
-    public String upload() {
-        return "success";
+    public String upload() throws Exception  {
+        return SUCCESS;
     }
 
 }
