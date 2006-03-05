@@ -5,6 +5,8 @@ import com.opensymphony.webwork.portlet.util.PortletUrlHelper;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.xwork.util.XWorkContinuationConfig;
+import com.opensymphony.xwork.ActionContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -155,8 +157,10 @@ public class URL extends Component {
                         query = query.substring(0, idx - 1);
                     }
 
-                    mergeRequestParameters(parameters, HttpUtils.parseQueryString(query));  
+                    mergeRequestParameters(parameters, HttpUtils.parseQueryString(query));
                 }
+            } else if (NONE.equalsIgnoreCase(includeParams)) {
+                ActionContext.getContext().put(XWorkContinuationConfig.CONTINUE_KEY, null);
             } else if (ALL.equalsIgnoreCase(includeParams)) {
                 mergeRequestParameters(parameters, req.getParameterMap());
             } else if (value == null && !NONE.equalsIgnoreCase(includeParams)) {
