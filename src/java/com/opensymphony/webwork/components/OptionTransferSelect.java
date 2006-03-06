@@ -214,6 +214,11 @@ public class OptionTransferSelect extends DoubleListUIBean {
 		// its elements upon onsubmit
 		Form formAncestor = (Form) findAncestor(Form.class);
 		if (formAncestor != null) {
+			
+			// inform ancestor form that we are having a customOnsubmit (see form-close.ftl [simple theme])
+			enableAncestorFormCustomOnsubmit();
+			
+			
 			// key -> select tag id, value -> headerKey (if exists)
 			Map formOptiontransferselectIds = (Map) formAncestor.getParameters().get("optiontransferselectIds");
 			Map formOptiontransferselectDoubleIds = (Map) formAncestor.getParameters().get("optiontransferselectDoubleIds");

@@ -44,6 +44,31 @@ public class FormTagTest extends AbstractUITagTest {
 
         verify(FormTag.class.getResource("Formtag-1.txt"));
     }
+    
+    public void testFormWithCustomOnsubmitEnabled() throws Exception {
+    	
+    	FormTag tag = new FormTag();
+    	tag.setPageContext(pageContext);
+    	tag.setName("myForm");
+    	tag.setMethod("POST");
+        tag.setAction("myAction");
+        tag.setEnctype("myEncType");
+        tag.setTitle("mytitle");
+        tag.setOnsubmit("submitMe()");
+        
+        UpDownSelectTag t = new UpDownSelectTag();
+        t.setPageContext(pageContext);
+        t.setName("myUpDownSelectTag");
+        t.setList("{}");
+        
+        tag.doStartTag();
+        t.doStartTag();
+        t.doEndTag();
+        tag.doEndTag();
+    	
+        verify(FormTag.class.getResource("Formtag-2.txt"));
+    }
+    
 
     /**
      * Testing that this: <p>
