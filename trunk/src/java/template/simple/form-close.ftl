@@ -1,5 +1,7 @@
 </form>
 
+
+<#if parameters.customOnsubmitEnabled?default(false)>
 <script>
 	function customOnsubmit() {
 	<#-- 
@@ -51,6 +53,8 @@
 	</#if><#t/>
 	}
 </script>
+</#if>
+
 
 <#-- 
  Code that will add javascript needed for tooltips

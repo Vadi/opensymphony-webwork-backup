@@ -124,6 +124,10 @@ public class UpDownSelect extends Select {
 		// auto select all options upon it submission
 		Form ancestorForm = (Form) findAncestor(Form.class);
 		if (ancestorForm != null) {
+			
+			// inform form ancestor that we are using a custom onsubmit
+			enableAncestorFormCustomOnsubmit();
+			
 			Map m = (Map) ancestorForm.getParameters().get("updownselectIds");
 			if (m == null) {
 				// map with key -> id ,  value -> headerKey
