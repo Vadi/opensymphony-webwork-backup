@@ -12,49 +12,60 @@ package com.opensymphony.webwork;
  * @version $Id$
  */
 import junit.framework.TestCase;
-import com.mockobjects.dynamic.Mock;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.easymock.MockControl;
+
 public class RequestUtilsTest extends TestCase {
 
+    private MockControl control;
+    private HttpServletRequest requestMock;
+
     public void testGetServletPathWithServletPathSet() throws Exception {
-        Mock requestMock = new Mock(HttpServletRequest.class);
-        requestMock.expectAndReturn("getServletPath", "/mycontext/");
-        assertEquals("/mycontext/", RequestUtils.getServletPath((HttpServletRequest) requestMock.proxy()));
+        control.expectAndReturn(requestMock.getServletPath(), "/mycontext/");
+        control.replay();
+        assertEquals("/mycontext/", RequestUtils.getServletPath(requestMock));
+        control.verify();
     }
 
     public void testGetServletPathWithRequestURIAndEmptyContextPath() throws Exception {
-        Mock requestMock = new Mock(HttpServletRequest.class);
-        requestMock.expectAndReturn("getServletPath", null);
-        requestMock.expectAndReturn("getRequestURI", "/mycontext/test.jsp");
-        requestMock.expectAndReturn("getContextPath", "");
-        requestMock.expectAndReturn("getContextPath", "");
-        requestMock.expectAndReturn("getPathInfo", "test.jsp");
-        requestMock.expectAndReturn("getPathInfo", "test.jsp");
-        assertEquals("/mycontext/", RequestUtils.getServletPath((HttpServletRequest) requestMock.proxy()));
+        control.expectAndReturn(requestMock.getServletPath(), null);
+        control.expectAndReturn(requestMock.getRequestURI(), "/mycontext/test.jsp");
+        control.expectAndReturn(requestMock.getContextPath(), "");
+        control.expectAndReturn(requestMock.getPathInfo(), "test.jsp");
+        control.expectAndReturn(requestMock.getPathInfo(), "test.jsp");
+        control.replay();
+        assertEquals("/mycontext/", RequestUtils.getServletPath(requestMock));
+        control.verify();
     }
 
     public void testGetServletPathWithRequestURIAndContextPathSet() throws Exception {
-        Mock requestMock = new Mock(HttpServletRequest.class);
-        requestMock.expectAndReturn("getServletPath", null);
-        requestMock.expectAndReturn("getRequestURI", "/servlet/mycontext/test.jsp");
-        requestMock.expectAndReturn("getContextPath", "/servlet");
-        requestMock.expectAndReturn("getContextPath", "/servlet");
-        requestMock.expectAndReturn("getPathInfo", "test.jsp");
-        requestMock.expectAndReturn("getPathInfo", "test.jsp");
-        assertEquals("/mycontext/", RequestUtils.getServletPath((HttpServletRequest) requestMock.proxy()));
+        control.expectAndReturn(requestMock.getServletPath(), null);
+        control.expectAndReturn(requestMock.getRequestURI(), "/servlet/mycontext/test.jsp");
+        control.expectAndReturn(requestMock.getContextPath(), "/servlet");
+        control.expectAndReturn(requestMock.getContextPath(), "/servlet");
+        control.expectAndReturn(requestMock.getPathInfo(), "test.jsp");
+        control.expectAndReturn(requestMock.getPathInfo(), "test.jsp");
+        control.replay();
+        assertEquals("/mycontext/", RequestUtils.getServletPath(requestMock));
+        control.verify();
     }
 
     public void testGetServletPathWithRequestURIAndContextPathSetButNoPatchInfo() throws Exception {
-        Mock requestMock = new Mock(HttpServletRequest.class);
-        requestMock.expectAndReturn("getServletPath", null);
-        requestMock.expectAndReturn("getRequestURI", "/servlet/mycontext/");
-        requestMock.expectAndReturn("getContextPath", "/servlet");
-        requestMock.expectAndReturn("getContextPath", "/servlet");
-        requestMock.expectAndReturn("getPathInfo", null);
-        requestMock.expectAndReturn("getPathInfo", null);
-        assertEquals("/mycontext/", RequestUtils.getServletPath((HttpServletRequest) requestMock.proxy()));
+        control.expectAndReturn(requestMock.getServletPath(), null);
+        control.expectAndReturn(requestMock.getRequestURI(), "/servlet/mycontext/");
+        control.expectAndReturn(requestMock.getContextPath(), "/servlet");
+        control.expectAndReturn(requestMock.getContextPath(), "/servlet");
+        control.expectAndReturn(requestMock.getPathInfo(), null);
+        control.replay();
+        assertEquals("/mycontext/", RequestUtils.getServletPath(requestMock));
+        control.verify();
+    }
+
+    protected void setUp() {
+        control = MockControl.createControl(HttpServletRequest.class);
+        requestMock = (HttpServletRequest) control.getMock();
     }
 
 }
