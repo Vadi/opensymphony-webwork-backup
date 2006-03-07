@@ -146,7 +146,7 @@ public class DispatcherUtils {
         // Check wether portlet support is active or not by trying to get "javax.portlet.PortletRequest"
         try {
             Class clazz = ClassLoaderUtil.loadClass("javax.portlet.PortletRequest", DispatcherUtils.class);
-
+            portletSupportActive = true;
             LOG.warn("Found portlet-api. Activating webwork's portlet support");
         } catch (Exception e) {
             LOG.warn("Could not load portlet-api, disabling webwork's portlet support.");
