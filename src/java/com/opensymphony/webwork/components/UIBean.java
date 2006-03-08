@@ -4,17 +4,15 @@
  */
 package com.opensymphony.webwork.components;
 
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.components.template.Template;
 import com.opensymphony.webwork.components.template.TemplateEngine;
 import com.opensymphony.webwork.components.template.TemplateEngineManager;
 import com.opensymphony.webwork.components.template.TemplateRenderingContext;
 import com.opensymphony.webwork.config.Configuration;
-import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.util.TextParseUtil;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,9 +27,9 @@ import java.util.Map;
 /**
  * UIBean is the standard superclass of all webwork UI componentns.
  * It defines common webwork and html properties all UI components should present for usage.
- * 
+ *
  * <!-- START SNIPPET: templateRelatedAttributes -->
- * 
+ *
  * <table border="1">
  *    <thead>
  *       <tr>
@@ -62,13 +60,13 @@ import java.util.Map;
  *       </td>
  *    </tbody>
  * </table>
- * 
+ *
  * <!-- END SNIPPET: templateRelatedAttributes -->
- * 
+ *
  * <p/>
- * 
+ *
  * <!-- START SNIPPET: generalAttributes -->
- * 
+ *
  * <table border="1">
  *    <thead>
  *       <tr>
@@ -141,13 +139,13 @@ import java.util.Map;
  *       </tr>
  *    </tbody>
  * </table>
- * 
+ *
  * <!-- END SNIPPET: generalAttributes -->
- * 
+ *
  * <p/>
- * 
+ *
  * <!-- START SNIPPET: javascriptRelatedAttributes -->
- * 
+ *
  * <table border="1">
  *    <thead>
  *       <tr>
@@ -238,13 +236,13 @@ import java.util.Map;
  *       </tr>
  *    </tbody>
  * </table>
- * 
+ *
  * <!-- END SNIPPET: javascriptRelatedAttributes -->
- * 
+ *
  * <p/>
- * 
+ *
  * <!-- START SNIPPET: tooltipattributes -->
- * 
+ *
  * <table border="1">
  *  <tr>
  *     <td>Attribute</td>
@@ -412,7 +410,7 @@ import java.util.Map;
  *   	<td>String</td>
  *   	<td>#ffffff</td>
  *   	<td>Color of the title text</td>
- *   </tr>   
+ *   </tr>
  *   <tr>
  *    	<td>tooltipWidth</td>
  *    	<td>String</td>
@@ -420,103 +418,103 @@ import java.util.Map;
  *    	<td>Width of tooltip</td>
  *    </tr>
  * </table>
- * 
+ *
  * <!-- END SNIPPET: tooltipattributes -->
- * 
- * 
+ *
+ *
  * <!-- START SNIPPET: tooltipdescription -->
- * 
+ *
  * Every Form UI component (in xhtml / css_xhtml or any others that extends of them) could
- * have tooltip assigned to a them. The Form component's tooltip related attribute once 
+ * have tooltip assigned to a them. The Form component's tooltip related attribute once
  * defined will be applicable to all form UI component that is created under it unless
- * explicitly overriden by having the Form UI component itself defined that tooltip attribute. 
- * 
+ * explicitly overriden by having the Form UI component itself defined that tooltip attribute.
+ *
  * <p/>
- * 
- * In Example 1, the textfield will inherit the tooltipAboveMousePointer attribte from 
+ *
+ * In Example 1, the textfield will inherit the tooltipAboveMousePointer attribte from
  * its containing form. In other words, although it doesn't defined a tooltipAboveMousePointer
  * attribute, it will have that attribute defined as true inherited from its containing form.
- * 
+ *
  * <p/>
- * 
- * In Example 2, the the textfield will inherite both the tooltipAboveMousePointer and 
+ *
+ * In Example 2, the the textfield will inherite both the tooltipAboveMousePointer and
  * tooltipLeftOfMousePointer attribute from its containing form but tooltipLeftOfMousePointer
- * attribute is overriden at the textfield itself. Hence, the textfield actually will 
- * have tooltipAboveMousePointer defined as true, inherited from its containing form and 
+ * attribute is overriden at the textfield itself. Hence, the textfield actually will
+ * have tooltipAboveMousePointer defined as true, inherited from its containing form and
  * tooltipLeftOfMousePointer defined as false, due to overriden at the textfield itself.
- * 
+ *
  * <p/>
- * 
+ *
  * Example 3, 4 and 5 shows different way of setting the tooltipConfig attribute.<br/>
  * <b>Example 3:</b>Set tooltip config through body of param tag<br/>
  * <b>Example 4:</b>Set tooltip config through value attribute of param tag<br/>
- * <b>Example 5:</b>Set tooltip config through tooltipConfig attribute of component tag<br/> 
- * 
+ * <b>Example 5:</b>Set tooltip config through tooltipConfig attribute of component tag<br/>
+ *
  * <!-- END SNIPPET: tooltipdescription -->
- * 
- * 
+ *
+ *
  * <pre>
  * <!-- START SNIPPET: tooltipexample -->
- * 
+ *
  * &lt;!-- Example 1: --&gt;
- * &lt;ww:form 
- * 			tooltipConfig="#{'tooltipAboveMousePointer':'true', 
+ * &lt;ww:form
+ * 			tooltipConfig="#{'tooltipAboveMousePointer':'true',
  *                           'tooltipBgColor='#eeeeee'}" .... &gt;
  *   ....
  *     &lt;ww:textfield label="Customer Name" tooltip="Enter the customer name" .... /&gt;
  *   ....
  * &lt;/ww:form&gt;
- * 
+ *
  * &lt;!-- Example 2: --&gt;
- * &lt;ww:form 
- *         tooltipConfig="#{'tooltipAboveMousePointer':'true', 
+ * &lt;ww:form
+ *         tooltipConfig="#{'tooltipAboveMousePointer':'true',
  *          				 'tooltipLeftOfMousePointer':'true'}" ... &gt;
  *   ....
- *     &lt;ww:textfield label="Address" 
- *          tooltip="Enter your address" 
+ *     &lt;ww:textfield label="Address"
+ *          tooltip="Enter your address"
  *          tooltipConfig="#{'tooltipLeftOfMousePointer':'false'}" /&gt;
  *   ....
  * &lt;/ww:form&gt;
- * 
- * 
+ *
+ *
  * &lt;-- Example 3: --&gt;
- * &lt;ww:textfield 
- *        label="Customer Name" 
+ * &lt;ww:textfield
+ *        label="Customer Name"
  *	      tooltip="One of our customer Details'"&gt;
  *        &lt;ww:param name="tooltipConfig"&gt;
  *             tooltipWidth = 150 |
  *             tooltipAboveMousePointer = false |
- *             tooltipLeftOfMousePointer = false  
+ *             tooltipLeftOfMousePointer = false
  *        &lt;/ww:param&gt;
  * &lt;/ww:textfield&gt;
- * 
- * 
+ *
+ *
  * &lt;-- Example 4: --&gt;
- * &lt;ww:textfield 
- *	        label="Customer Address" 
+ * &lt;ww:textfield
+ *	        label="Customer Address"
  *	        tooltip="Enter The Customer Address" &gt;
- *	        &lt;ww:param 
- *              name="tooltipConfig" 
+ *	        &lt;ww:param
+ *              name="tooltipConfig"
  *              value="#{'tooltipStatic':'true',
  *                       'tooltipSticky':'true',
  *                       'tooltipAboveMousePointer':'false',
  *                       'tooltipLeftOfMousePointer':'false'}"  /&gt;
  * &lt;/ww:textfield&gt;
- * 
- * 
+ *
+ *
  * &lt;-- Example 5: --&gt;
- * &lt;ww:textfield 
- *          label="Customer Telephone Number" 
- *          tooltip="Enter customer Telephone Number" 
+ * &lt;ww:textfield
+ *          label="Customer Telephone Number"
+ *          tooltip="Enter customer Telephone Number"
  *          tooltipConfig="#{'tooltipBgColor':'#cccccc',
  *                           'tooltipFontColor':'#eeeeee',
  *                           'tooltipAboveMousePointer':'false',
  *                           'tooltipLeftOfMousePointer':'false'}" /&lt;
- * 
+ *
  * <!-- END SNIPPET: tooltipexample -->
  * </pre>
- * 
- * 
+ *
+ *
  * @author Patrick Lightbody
  * @author Rene Gielen
  * @author Rainer Hermanns
@@ -573,11 +571,11 @@ public abstract class UIBean extends Component {
     protected String onkeyup;
     protected String onselect;
     protected String onchange;
-    
+
     // javascript tooltip attribute
     protected String tooltip;
     protected String tooltipConfig;
-    
+
 
     public boolean end(Writer writer, String body) {
         evaluateParams();
@@ -784,7 +782,7 @@ public abstract class UIBean extends Component {
         if (title != null) {
             addParameter("title", findString(title));
         }
-        
+
 
         // see if the value was specified as a parameter already
         if (parameters.containsKey("value")) {
@@ -837,33 +835,33 @@ public abstract class UIBean extends Component {
                 tags.add(name);
             }
         }
-        
 
-        
-        
-        
+
+
+
+
         // tooltip & tooltipConfig
         if (tooltipConfig != null) {
     		addParameter("tooltipConfig", findValue(tooltipConfig));
     	}
         if (tooltip != null) {
         	addParameter("tooltip", findString(tooltip));
-        	
+
         	Map tooltipConfigMap = getTooltipConfig(this);
-        	
-        	
+
+
         	if (tooltipConfigMap.containsKey("tooltipIcon")) {
         		addParameter("tooltipIcon", tooltipConfigMap.get("tooltipIcon"));
         	}
-        	
+
         	if (form != null) { // inform the containing form that we need tooltip javascript included
         		form.addParameter("hasTooltip", Boolean.TRUE);
-        		
+
         		// tooltipConfig defined in component itseilf will take precedence
         		// over those defined in the containing form
         		Map overallTooltipConfigMap = getTooltipConfig(form);
         		overallTooltipConfigMap.putAll(tooltipConfigMap); // override parent form's tooltip config
-        		
+
         		for (Iterator i = overallTooltipConfigMap.entrySet().iterator(); i.hasNext(); ) {
         			Map.Entry entry = (Map.Entry) i.next();
         			addParameter((String) entry.getKey(), entry.getValue());
@@ -874,9 +872,9 @@ public abstract class UIBean extends Component {
         	}
         }
         evaluateExtraParams();
-       
+
     }
-    
+
     protected String escape(String name) {
         // escape any possible values that can make the ID painful to work with in JavaScript
         if (name != null) {
@@ -896,42 +894,40 @@ public abstract class UIBean extends Component {
     protected Class getValueClassType() {
         return String.class;
     }
-    
+
     public void addFormParameter(String key, Object value) {
         Form form = (Form) findAncestor(Form.class);
         if (form != null) {
             form.addParameter(key, value);
         }
     }
-    
+
     protected void enableAncestorFormCustomOnsubmit() {
     	Form form = (Form) findAncestor(Form.class);
-    	if (form != null) {
+    	if (form != null && (form.getParameters().containsKey("validate")) && ((Boolean) form.getParameters().get("validate")).booleanValue()) {
     		form.addParameter("customOnsubmitEnabled", Boolean.TRUE);
-    	}
-    	else {
+    	} else {
     		LOG.warn("Cannot find an Ancestor form, custom onsubmit is NOT enabled");
     	}
     }
-    
+
     protected Map getTooltipConfig(UIBean component) {
     	Object tooltipConfigObj = component.getParameters().get("tooltipConfig");
     	Map tooltipConfig = new LinkedHashMap();
-    	
+
     	if (tooltipConfigObj instanceof Map) {
-    		// we get this if its configured using 
+    		// we get this if its configured using
     		// 1] UI component's tooltipConfig attribute  OR
     		// 2] <param name="tooltip" value="" /> param tag value attribute
-    		
+
     		tooltipConfig = new LinkedHashMap((Map)tooltipConfigObj);
-    	}
-    	else if (tooltipConfigObj instanceof String) {
-    		
-    		// we get this if its configured using 
+    	} else if (tooltipConfigObj instanceof String) {
+
+    		// we get this if its configured using
     		// <param name="tooltipConfig"> ... </param> tag's body
     		String tooltipConfigStr = (String) tooltipConfigObj;
     		String[] tooltipConfigArray = tooltipConfigStr.split("\\|");
-    		
+
     		for (int a=0; a<tooltipConfigArray.length; a++) {
     			String[] configEntry = ((String)tooltipConfigArray[a].trim()).split("=");
     			String key = configEntry[0].trim();
@@ -947,8 +943,8 @@ public abstract class UIBean extends Component {
     	}
     	return tooltipConfig;
     }
-    
-    
+
+
 
     /**
      * @ww.tagattribute required="false"
@@ -1170,7 +1166,7 @@ public abstract class UIBean extends Component {
     public void setOnchange(String onchange) {
         this.onchange = onchange;
     }
-    
+
     /**
      * @ww.tagattribute required="false" type="String" default=""
      * description="Set the tooltip of this particular component"

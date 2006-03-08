@@ -55,6 +55,7 @@ public class FormTagTest extends AbstractUITagTest {
         tag.setEnctype("myEncType");
         tag.setTitle("mytitle");
         tag.setOnsubmit("submitMe()");
+        tag.setValidate("true");
         
         UpDownSelectTag t = new UpDownSelectTag();
         t.setPageContext(pageContext);
