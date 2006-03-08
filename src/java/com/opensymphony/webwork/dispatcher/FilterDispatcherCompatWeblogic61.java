@@ -17,11 +17,11 @@ import javax.servlet.http.HttpSession;
  * <p/>
  * This class properly handles the weblogic.jar handling
  * of servlet filters.  There is one serious incompatibility, and
- * that is that while {@link FilterConfig#init(FilterConfig)}
+ * that is that while {@link FilterDispatcher#init(FilterConfig)}
  * throws a {@link ServletException}, this class's method
  * {@link #setFilterConfig(FilterConfig)} does not throw
  * the exception.  Since {@link #setFilterConfig(FilterConfig)}
- * invokes {@link FilterConfig#init(FilterConfig)}, the setter
+ * invokes {@link FilterDispatcher#init(FilterConfig)}, the setter
  * must "swallow" the exception.  This it does by logging the
  * exception as an error.
  *
