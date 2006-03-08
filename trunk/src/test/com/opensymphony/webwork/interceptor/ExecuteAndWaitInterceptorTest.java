@@ -18,6 +18,7 @@ import com.opensymphony.xwork.config.ConfigurationProvider;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.PackageConfig;
 import com.opensymphony.xwork.config.entities.ResultConfig;
+import com.opensymphony.xwork.config.entities.InterceptorMapping;
 import com.opensymphony.xwork.interceptor.ParametersInterceptor;
 
 import javax.servlet.http.HttpSession;
@@ -189,9 +190,10 @@ public class ExecuteAndWaitInterceptorTest extends WebWorkTestCase {
             results.put(ExecuteAndWaitInterceptor.WAIT, new ResultConfig(ExecuteAndWaitInterceptor.WAIT, MockResult.class, null));
 
             // interceptors
+            waitInterceptor = new ExecuteAndWaitInterceptor();
             List interceptors = new ArrayList();
-            interceptors.add(new ParametersInterceptor());
-            interceptors.add(waitInterceptor = new ExecuteAndWaitInterceptor());
+            interceptors.add(new InterceptorMapping("params", new ParametersInterceptor()));
+            interceptors.add(new InterceptorMapping("execAndWait", waitInterceptor));
 
             ActionConfig ac = new ActionConfig(null, ExecuteAndWaitDelayAction.class, null, results, interceptors);
             wait.addActionConfig("action1", ac);
