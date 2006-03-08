@@ -23,6 +23,7 @@ function clearErrorMessages(form) {
     for (var i = 0; i < rowsToDelete.length; i++) {
         var r = rowsToDelete[i];
         table.deleteRow(r.rowIndex);
+        //table.removeChild(rowsToDelete[i]); 
     }
 }
 

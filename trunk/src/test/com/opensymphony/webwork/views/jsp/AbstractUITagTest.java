@@ -329,9 +329,11 @@ public abstract class AbstractUITagTest extends AbstractTagTest {
         while (st.hasMoreTokens()) {
             buffer.append(st.nextToken());
 
+            /*
             if (appendSpace && st.hasMoreTokens()) {
-                buffer.append(" ");
+                buffer.append("");
             }
+            */
         }
 
         return buffer.toString();

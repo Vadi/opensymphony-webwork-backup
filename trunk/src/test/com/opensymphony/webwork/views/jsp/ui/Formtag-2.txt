@@ -21,14 +21,14 @@
 
 <script>
 	function customOnsubmit() {
-	
+
 		// Code that will auto select updownselect elements upon its containing form submission
 			var updownselectObj = document.getElementById("myAction_myUpDownSelectTag");
 			selectAllOptions(updownselectObj);
 			selectUnselectMatchingOptions(updownselectObj, null, "unselect", false, "key");
 	}
 </script>
-<script> 
+<script>
     function validateForm_myAction() {
         form = document.getElementById("myAction");
         clearErrorMessages(form);

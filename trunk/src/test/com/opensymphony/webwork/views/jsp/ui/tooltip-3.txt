@@ -1,5 +1,5 @@
 <form id="myFormId" name="myForm" onsubmit="customOnsubmit(); return true;" action="/testAction.action">
-<table class="wwFormTable">
+ <table class="wwFormTable"> 
 <tr>
     <td align="right" valign="top"><label for="myId" class="label">MyLabel:
       <img 
@@ -11,6 +11,5 @@
 </tr>
 </table>
 </form>
-
 <!-- javascript that is needed for tooltips -->
 <script language="JavaScript" type="text/javascript" src="/webwork/tooltip/wz_tooltip.js"></script>
