@@ -1,4 +1,5 @@
-<form id="myAction" name="myForm" onsubmit="submitMe(); customOnsubmit(); return true;" action="myAction" method="POST" enctype="myEncType" title="mytitle">
+<script src="/webwork/xhtml/validation.js"></script>
+<form namespace="" id="myAction" name="myForm" onsubmit="submitMe(); customOnsubmit(); return validateForm_myAction();" action="myAction" method="POST" enctype="myEncType" title="mytitle">
 <table class="wwFormTable"> <tr>
     <td align="right" valign="top"></td>
     <td>	<script language="javascript" src="/webwork/optiontransferselect/optiontransferselect.js"></script>
@@ -26,4 +27,12 @@
 			selectAllOptions(updownselectObj);
 			selectUnselectMatchingOptions(updownselectObj, null, "unselect", false, "key");
 	}
+</script>
+<script> 
+    function validateForm_myAction() {
+        form = document.getElementById("myAction");
+        clearErrorMessages(form);
+        clearErrorLabels(form);
+        var errors = false;
+        return !errors; }
 </script>
