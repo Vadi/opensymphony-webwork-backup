@@ -38,7 +38,7 @@
         <ivy-retrieve/>
     </target>
 
-    <target name="javadocs">
+    <target name="javadocs" depends="common.init">
         <!-- first, unzip the xwork-src jar so we can generate unified javadocs -->
         <unjar src="${lib}/source/xwork-src.jar" dest="${build}/xwork-src"/>
         <antcall target="common.javadocs"/>
