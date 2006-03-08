@@ -33,7 +33,7 @@ public class XWorkConfigRetriever {
     /**
      * Returns a Map of all action names/configs
      *
-     * @return
+     * @return Map of all action names/configs
      */
     public static Map getActionConfigs() {
         if (!isXWorkStarted)
@@ -63,10 +63,10 @@ public class XWorkConfigRetriever {
     }
 
     /**
-     * Return a Map of the action names for this namespace
+     * Return a Set of the action names for this namespace.
      *
      * @param namespace
-     * @return
+     * @return Set of the action names for this namespace.
      */
     public static Set getActionNames(String namespace) {
         Set actionNames = Collections.EMPTY_SET;
@@ -81,11 +81,11 @@ public class XWorkConfigRetriever {
     }
 
     /**
-     * Returns the ActionConfig for this action name at this namespace
+     * Returns the ActionConfig for this action name at this namespace.
      *
      * @param namespace
      * @param actionName
-     * @return
+     * @return The ActionConfig for this action name at this namespace.
      */
     public static ActionConfig getActionConfig(String namespace, String actionName) {
         ActionConfig config = null;

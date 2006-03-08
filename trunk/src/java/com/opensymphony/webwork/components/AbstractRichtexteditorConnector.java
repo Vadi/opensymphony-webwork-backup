@@ -244,7 +244,7 @@ public abstract class AbstractRichtexteditorConnector extends ActionSupport impl
 	 * 
 	 * @param virtualFolderPath 
 	 * @param type
-	 * @return
+	 * @return An array of Folders
 	 * @throws Exception
 	 */
 	protected abstract Folder[] getFolders(String virtualFolderPath, String type) throws Exception;
@@ -265,7 +265,7 @@ public abstract class AbstractRichtexteditorConnector extends ActionSupport impl
 	 * 
 	 * @param virtualFolderPath
 	 * @param type
-	 * @return
+	 * @return FoldersAndFiles
 	 * @throws Exception
 	 */
 	protected abstract FoldersAndFiles getFoldersAndFiles(String virtualFolderPath, String type) throws Exception;
@@ -290,7 +290,7 @@ public abstract class AbstractRichtexteditorConnector extends ActionSupport impl
 	 * @param virtualFolderPath
 	 * @param type
 	 * @param newFolderName
-	 * @return
+	 * @return CreateFolderResult
 	 * @throws Exception
 	 */
 	protected abstract CreateFolderResult createFolder(String virtualFolderPath, String type, String newFolderName) throws Exception;
@@ -317,7 +317,7 @@ public abstract class AbstractRichtexteditorConnector extends ActionSupport impl
 	 * @param filename
 	 * @param contentType
 	 * @param newFile
-	 * @return
+	 * @return FileUploadResult
 	 * @throws Exception
 	 */
 	protected abstract FileUploadResult fileUpload(String virtualFolderPath, String type, String filename, String contentType, java.io.File newFile) throws Exception;

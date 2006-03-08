@@ -14,9 +14,9 @@ import java.util.List;
 /**
  * A bean that takes several iterators and outputs them in sequence
  *
- * @author Rickard �berg (rickard@middleware-company.com)
+ * @author Rickard Öberg (rickard@middleware-company.com)
  * @version $Revision$
- * @see AppendIterator
+ * @see com.opensymphony.webwork.components.AppendIterator
  * @see com.opensymphony.webwork.views.jsp.iterator.AppendIteratorTag
  */
 public class AppendIteratorFilter extends IteratorFilterSupport implements Iterator, Action {

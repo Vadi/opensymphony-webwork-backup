@@ -58,7 +58,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	/**
 	 * Build an xml <code>Document</code>
 	 * 
-	 * @return
+	 * @return An XML Document
 	 * @throws ParserConfigurationException
 	 */
 	protected Document buildDocument() throws ParserConfigurationException {
@@ -86,7 +86,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	 * @param type
 	 * @param folderPath
 	 * @param serverPath
-	 * @return
+	 * @return A common xml structure for all xml based result.
 	 */
 	protected Element buildCommonResponseXml(Document document, String command, String type, String folderPath, String serverPath)  {
 		Element connectorElement = document.createElement("Connector");
@@ -107,7 +107,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	 * Convert a <code>Document<code> to its string representation.
 	 * 
 	 * @param document
-	 * @return
+	 * @return The documents String representation.
 	 * @throws TransformerConfigurationException
 	 * @throws TransformerException
 	 */
@@ -162,7 +162,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	 * </ul>
 	 * 
 	 * @param invocation
-	 * @return
+	 * @return The command send by the Rich Text Editor.
 	 */
 	protected String getCommand(ActionInvocation invocation) {
 		return (String) invocation.getStack().getContext().get("__richtexteditorCommand");
@@ -178,7 +178,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	 * </ul>
 	 * 
 	 * @param invocation
-	 * @return
+	 * @return The type send by the Rich Text Editor.
 	 */
 	protected String getType(ActionInvocation invocation) {
 		return (String) invocation.getStack().getContext().get("__richtexteditorType");
@@ -188,7 +188,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	 * Get the folder path send by the Rich Text Editor.
 	 * 
 	 * @param invocation
-	 * @return
+	 * @return The folder path send by the Rich Text Editor.
 	 */
 	protected String getFolderPath(ActionInvocation invocation) {
 		return (String) invocation.getStack().getContext().get("__richtexteditorFolderPath");
@@ -199,7 +199,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	 * decendant through AbstractRichtexteditorConnector#calculate#calculateServerPath(String, String String)
 	 * 
 	 * @param invocation
-	 * @return
+	 * @return The server path calculated from AbstractRichtexteditoConnector
 	 * @see com.opensymphony.webwork.components.AbstractRichtexteditorConnector#calculateServerPath(String, String, String)
 	 */
 	protected String getServerPath(ActionInvocation invocation) {
@@ -212,7 +212,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	 * valid if it is a 'GetFolder' command.
 	 * 
 	 * @param invocation
-	 * @return
+	 * @return The <code>Folder[]</code> computed from AbstractRichtexteditorConnector
 	 * @see com.opensymphony.webwork.components.AbstractRichtexteditorConnector#getFolders(String, String)
 	 */
 	protected Folder[] richtexteditorFolders(ActionInvocation invocation) {
@@ -225,7 +225,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	 * valid if it is a 'GetFoldersAndFiles' command.
 	 * 
 	 * @param invocation
-	 * @return
+	 * @return The <code>FoldersAndFiles</code> computed from AbstractRichtexteditorConnector
 	 * @see com.opensymphony.webwork.components.AbstractRichtexteditorConnector#getFoldersAndFiles(String, String)
 	 */
 	protected FoldersAndFiles richtexteditorFoldersAndFiles(ActionInvocation invocation) {
@@ -239,7 +239,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	 * valid if it is a 'CreateFolder' command.
 	 * 
 	 * @param invocation
-	 * @return
+	 * @return The <code>CreateFolderResult</code> computed from AbstractRichtexteditorConnector
 	 * @see com.opensymphony.webwork.components.AbstractRichtexteditorConnector#createFolder(String, String, String)
 	 */
 	protected CreateFolderResult richtexteditorCreateFolderResult(ActionInvocation invocation) {
@@ -252,7 +252,7 @@ public abstract class AbstractRichtexteditorResult implements Result {
 	 * Only valid if it is a 'FileUpload' command
 	 * 
 	 * @param invocation
-	 * @return
+	 * @return The <code>FileUploadResult</code> computed from AbstractRichtexteditorConnector
 	 * @see com.opensymphony.webwork.components.AbstractRichtexteditorConnector#fileUpload(String, String, String, String, java.io.File)
 	 */
 	protected FileUploadResult richtexteditorFileUploadResult(ActionInvocation invocation) {
