@@ -14,6 +14,7 @@ import com.opensymphony.xwork.config.ConfigurationProvider;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.PackageConfig;
 import com.opensymphony.xwork.config.entities.ResultConfig;
+import com.opensymphony.xwork.config.entities.InterceptorMapping;
 import com.opensymphony.xwork.interceptor.ParametersInterceptor;
 
 import java.util.ArrayList;
@@ -73,13 +74,13 @@ public class TestConfigurationProvider implements ConfigurationProvider {
 
         results.put(Action.SUCCESS, successConfig);
 
-        interceptors.add(new ParametersInterceptor());
+        interceptors.add(new InterceptorMapping("params", new ParametersInterceptor()));
 
         ActionConfig testActionConfig = new ActionConfig(null, TestAction.class, null, results, interceptors);
         defaultPackageConfig.addActionConfig(TEST_ACTION_NAME, testActionConfig);
 
         interceptors = new ArrayList();
-        interceptors.add(new TokenInterceptor());
+        interceptors.add(new InterceptorMapping("token", new TokenInterceptor()));
 
         results = new HashMap();
 
@@ -87,7 +88,7 @@ public class TestConfigurationProvider implements ConfigurationProvider {
         defaultPackageConfig.addActionConfig(TOKEN_ACTION_NAME, tokenActionConfig);
 
         interceptors = new ArrayList();
-        interceptors.add(new TokenSessionStoreInterceptor());
+        interceptors.add(new InterceptorMapping("token-session", new TokenSessionStoreInterceptor()));
 
         results = new HashMap();
 
