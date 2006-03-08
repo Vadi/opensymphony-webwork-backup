@@ -99,6 +99,8 @@ public class TestConfigurationProvider implements ConfigurationProvider {
 
         results.put(Action.SUCCESS, successConfig);
 
+        // empty results for token session unit test
+        results = new HashMap();
         ActionConfig tokenSessionActionConfig = new ActionConfig(null, TestAction.class, null, results, interceptors);
         defaultPackageConfig.addActionConfig(TOKEN_SESSION_ACTION_NAME, tokenSessionActionConfig);
 
