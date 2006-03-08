@@ -7,7 +7,7 @@
 
 <body>
 
-<ww:form action="exampleSubmit" method="post">
+<ww:form action="exampleSubmit" method="post" enctype="multipart/form-data">
     <ww:textfield 
     		label="Name" 
     		name="name" 
