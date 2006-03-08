@@ -32,7 +32,7 @@ END SNIPPET: supported-validators
                 errors = true;
             }
             <#elseif validator.validatorType = "requiredstring">
-            if (field.value != null && (field.value == "" || field.value.match("\W+"))) {
+            if (field.value != null && (field.value == "" || field.value.replace(/^\s+|\s+$/g,"").length == 0)) {
                 addError(field, error);
                 errors = true;
             }
