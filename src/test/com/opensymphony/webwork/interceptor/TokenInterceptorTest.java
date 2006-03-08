@@ -39,14 +39,9 @@ public class TokenInterceptorTest extends TestCase {
     WebWorkMockHttpServletRequest request;
 
 
-    public void testNoTokenInParams() {
-        try {
-            ActionProxy proxy = buildProxy(getActionName());
-            assertEquals(TokenInterceptor.INVALID_TOKEN_CODE, proxy.execute());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+    public void testNoTokenInParams() throws Exception {
+        ActionProxy proxy = buildProxy(getActionName());
+        assertEquals(TokenInterceptor.INVALID_TOKEN_CODE, proxy.execute());
     }
 
     public void testNoTokenInSession() throws Exception {
@@ -62,6 +57,17 @@ public class TokenInterceptorTest extends TestCase {
         ActionProxy proxy = buildProxy(getActionName());
         setToken(request);
         assertEquals(Action.SUCCESS, proxy.execute());
+    }
+
+    public void testCAllExecute2Times() throws Exception {
+        ActionProxy proxy = buildProxy(getActionName());
+        setToken(request);
+        assertEquals(Action.SUCCESS, proxy.execute());
+
+        ActionProxy proxy2 = buildProxy(getActionName());
+        // must not call setToken
+        // double post will result in a invalid.token return code
+        assertEquals(TokenInterceptor.INVALID_TOKEN_CODE, proxy2.execute());
     }
 
     protected String getActionName() {

@@ -169,6 +169,7 @@ public class ExecuteAndWaitInterceptorTest extends WebWorkTestCase {
     }
 
     protected void tearDown() throws Exception {
+        ConfigurationManager.clearConfigurationProviders();
         ConfigurationManager.destroyConfiguration();
         ActionContext.setContext(null);
     }
@@ -176,6 +177,7 @@ public class ExecuteAndWaitInterceptorTest extends WebWorkTestCase {
     private class WaitConfigurationProvider implements ConfigurationProvider {
 
         public void destroy() {
+            waitInterceptor.destroy();
         }
 
         public boolean needsReload() {
