@@ -11,3 +11,5 @@ mockobjects-alt-jdk1.3.jar
 xdoclet-web-module.jar
 xdoclet.jar
 xjavadoc.jar
+easymockclassextension.jar
+easymock.jar
