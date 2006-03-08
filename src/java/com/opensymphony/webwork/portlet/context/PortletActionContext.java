@@ -28,7 +28,8 @@ public class PortletActionContext implements PortletActionConstants {
 
     /**
      * Get the PortletConfig of the portlet that is executing.
-     * @return
+     *
+     * @return The PortletConfig of the executing portlet.
      */
     public static PortletConfig getPortletConfig() {
         return (PortletConfig) getContext().get(PORTLET_CONFIG);
@@ -36,6 +37,7 @@ public class PortletActionContext implements PortletActionConstants {
 
     /**
      * Get the RenderRequest. Can only be invoked in the render phase.
+     *
      * @return The current RenderRequest.
      * @throws IllegalStateException If the method is invoked in the wrong phase.
      */
@@ -49,6 +51,7 @@ public class PortletActionContext implements PortletActionConstants {
 
     /**
      * Get the RenderResponse. Can only be invoked in the render phase.
+     *
      * @return The current RenderResponse.
      * @throws IllegalStateException If the method is invoked in the wrong phase.
      */
@@ -62,6 +65,7 @@ public class PortletActionContext implements PortletActionConstants {
 
     /**
      * Get the ActionRequest. Can only be invoked in the event phase.
+     *
      * @return The current ActionRequest.
      * @throws IllegalStateException If the method is invoked in the wrong phase.
      */
@@ -75,6 +79,7 @@ public class PortletActionContext implements PortletActionConstants {
 
     /**
      * Get the ActionRequest. Can only be invoked in the event phase.
+     *
      * @return The current ActionRequest.
      * @throws IllegalStateException If the method is invoked in the wrong phase.
      */
@@ -89,6 +94,7 @@ public class PortletActionContext implements PortletActionConstants {
     /**
      * Get the action namespace of the portlet. Used to organize actions for multiple portlets in
      * the same portlet application.
+     *
      * @return The portlet namespace as defined in <code>portlet.xml</code> and <code>xwork.xml</code>
      */
     public static String getPortletNamespace() {
@@ -97,6 +103,7 @@ public class PortletActionContext implements PortletActionConstants {
 
     /**
      * Get the current PortletRequest.
+     *
      * @return The current PortletRequest.
      */
     public static PortletRequest getRequest() {
@@ -105,6 +112,7 @@ public class PortletActionContext implements PortletActionConstants {
 
     /**
      * Get the current PortletResponse
+     *
      * @return The current PortletResponse.
      */
     public static PortletResponse getResponse() {
@@ -113,6 +121,7 @@ public class PortletActionContext implements PortletActionConstants {
 
     /**
      * Get the phase that the portlet is executing in.
+     *
      * @return {@link PortletActionConstants#RENDER_PHASE} in render phase, and
      * {@link PortletActionConstants#EVENT_PHASE} in the event phase.
      */
@@ -143,6 +152,7 @@ public class PortletActionContext implements PortletActionConstants {
     
     /**
      * Check to see if the current request is a portlet request.
+     *
      * @return <code>true</code> if the current request is a portlet request.
      */
     public static boolean isPortletRequest() {
@@ -151,6 +161,7 @@ public class PortletActionContext implements PortletActionConstants {
 
     /**
      * Get the default action name for the current mode.
+     *
      * @return The default action name for the current portlet mode.
      */
     public static String getDefaultActionForMode() {
@@ -159,6 +170,7 @@ public class PortletActionContext implements PortletActionConstants {
 
     /**
      * Get the namespace to mode mappings.
+     * 
      * @return The map of the namespaces for each mode.
      */
     public static Map getModeNamespaceMap() {

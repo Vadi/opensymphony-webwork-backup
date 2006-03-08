@@ -45,6 +45,16 @@ public class PortletUrlHelper {
 
     private static final String AMP = "&";
 
+    /**
+     *
+     * @param action
+     * @param namespace
+     * @param params
+     * @param type
+     * @param mode
+     * @param state
+     * @return The URL String.
+     */
     public static String buildUrl(String action, String namespace, Map params,
             String type, String mode, String state) {
         return buildUrl(action, namespace, params, null, type, mode, state,
@@ -123,7 +133,7 @@ public class PortletUrlHelper {
 
     /**
      * @param namespace
-     * @return
+     * @return prepended namespace
      */
     private static String prependNamespace(String namespace, String portletMode) {
         StringBuffer sb = new StringBuffer();
@@ -158,7 +168,7 @@ public class PortletUrlHelper {
      * servlet.
      * 
      * @param value
-     * @return
+     * @return encoded url to non webwork action resources.
      */
     public static String buildResourceUrl(String value, Map params) {
         StringBuffer sb = new StringBuffer();
@@ -185,6 +195,12 @@ public class PortletUrlHelper {
         return resp.encodeURL(req.getContextPath() + sb.toString());
     }
 
+    /**
+     * Builds the paramter String.
+     *
+     * @param params
+     * @param link
+     */
     public static void buildParametersString(Map params, StringBuffer link) {
         if ((params != null) && (params.size() > 0)) {
             if (link.toString().indexOf("?") == -1) {
@@ -281,7 +297,7 @@ public class PortletUrlHelper {
 
     /**
      * @param portletReq
-     * @param url
+     * @param windowState
      */
     private static WindowState getWindowState(RenderRequest portletReq,
             String windowState) {
@@ -301,8 +317,7 @@ public class PortletUrlHelper {
 
     /**
      * @param portletReq
-     * @param url
-     * @throws JspException
+     * @param portletMode
      */
     private static PortletMode getPortletMode(RenderRequest portletReq,
             String portletMode) {

@@ -373,7 +373,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
      * @param portletNamespace the namespace or context of the action.
      * @param phase The portlet phase (render or action, see
      *        {@link PortletActionConstants})
-     * @param applicationMap a Map of all application attributes.
      */
     public void serviceAction(PortletRequest request, PortletResponse response,
             ActionMapping mapping, Map requestMap, Map parameterMap,

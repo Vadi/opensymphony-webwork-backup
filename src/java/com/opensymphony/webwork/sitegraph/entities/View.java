@@ -16,7 +16,7 @@ public interface View {
     /**
      * Name of view file
      *
-     * @return
+     * @return The name of the view file.
      */
     public String getName();
 

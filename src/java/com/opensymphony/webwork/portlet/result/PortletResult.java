@@ -32,8 +32,8 @@ import com.opensymphony.xwork.ActionInvocation;
  * Result type that includes a JSP to render.
  * 
  * @author Nils-Helge Garli
+ * @author Rainer Hermanns
  * @version $Revision$
- *  
  */
 public class PortletResult extends WebWorkResultSupport {
 
@@ -66,6 +66,8 @@ public class PortletResult extends WebWorkResultSupport {
     }
 
     /**
+     * Executes the regular servlet result.
+     *
      * @param finalLocation
      * @param actionInvocation
      */
@@ -86,7 +88,10 @@ public class PortletResult extends WebWorkResultSupport {
     }
 
     /**
-     *  
+     * Executes the action result.
+     *
+     * @param finalLocation
+     * @param invocation
      */
     protected void executeActionResult(String finalLocation,
             ActionInvocation invocation) {
@@ -114,7 +119,10 @@ public class PortletResult extends WebWorkResultSupport {
     }
 
     /**
-     * @param string
+     * Converts the query params to render params.
+     *
+     * @param response
+     * @param queryParams
      */
     protected static void convertQueryParamsToRenderParams(
             ActionResponse response, String queryParams) {
@@ -128,7 +136,11 @@ public class PortletResult extends WebWorkResultSupport {
     }
 
     /**
-     *  
+     * Executes the render result.
+     *
+     * @param finalLocation
+     * @throws PortletException
+     * @throws IOException
      */
     protected void executeRenderResult(final String finalLocation) throws PortletException, IOException {
         LOG.debug("Executing result in Render phase");
@@ -171,11 +183,18 @@ public class PortletResult extends WebWorkResultSupport {
         }.include(dispatcher, req, res);
     }
 
+    /**
+     * Sets the content type.
+     *
+     * @param contentType The content type to set.
+     */
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
 
     /**
+     * Sets the title.
+     *
      * @param title The title to set.
      */
     public void setTitle(String title) {
