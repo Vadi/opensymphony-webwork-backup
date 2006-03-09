@@ -4,12 +4,15 @@
  */
 package com.opensymphony.webwork.interceptor;
 
+import com.opensymphony.util.ClassLoaderUtil;
 import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ValidationAwareSupport;
 import com.opensymphony.xwork.mock.MockActionInvocation;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
@@ -75,7 +78,9 @@ public class FileUploadInterceptorTest extends WebWorkTestCase {
 
         // when file is not of allowed types
         ValidationAwareSupport validation = new ValidationAwareSupport();
-        File file = new File("build" + File.separator + "test" + File.separator + "log4j.properties"); // use log4j.properties in build/test folder
+        
+        URL url = ClassLoaderUtil.getResource("log4j.properties", FileUploadInterceptorTest.class);
+        File file = new File(new URI(url.toString()));
         assertTrue("log4j.properties should be in src/test folder", file.exists());
         boolean notOk = interceptor.acceptFile(file, "text/html", "inputName", validation, Locale.getDefault());
 
