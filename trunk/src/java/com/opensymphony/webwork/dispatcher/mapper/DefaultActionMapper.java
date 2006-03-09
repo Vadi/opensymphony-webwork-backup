@@ -184,16 +184,7 @@ public class DefaultActionMapper implements ActionMapper {
 
         parseNameAndNamespace(uri, mapping);
 
-        // handle special parameter prefixes.
-        Map parameterMap = request.getParameterMap();
-        for (Iterator iterator = parameterMap.keySet().iterator(); iterator.hasNext();) {
-            String key = (String) iterator.next();
-            ParameterAction parameterAction = (ParameterAction) prefixTrie.get(key);
-            if (parameterAction != null) {
-                parameterAction.execute(key, mapping);
-                break;
-            }
-        }
+        handleSpecialParameters(request, mapping);
 
         if (mapping.getName() == null) {
             return null;
@@ -209,17 +200,30 @@ public class DefaultActionMapper implements ActionMapper {
         return mapping;
     }
 
+    private static void handleSpecialParameters(HttpServletRequest request, ActionMapping mapping) {
+        // handle special parameter prefixes.
+        Map parameterMap = request.getParameterMap();
+        for (Iterator iterator = parameterMap.keySet().iterator(); iterator.hasNext();) {
+            String key = (String) iterator.next();
+            ParameterAction parameterAction = (ParameterAction) prefixTrie.get(key);
+            if (parameterAction != null) {
+                parameterAction.execute(key, mapping);
+                break;
+            }
+        }
+    }
+
     void parseNameAndNamespace(String uri, ActionMapping mapping) {
         String namespace, name;
         int lastSlash = uri.lastIndexOf("/");
         if (lastSlash == -1) {
-            namespace = ""; 
+            namespace = "";
             name = uri;
         } else if (lastSlash == 0) {
             // ww-1046, assume it is the root namespace, it will fallback to default
-        	// namespace anyway if not found in root namespace.
-        	namespace = "/";
-        	name = uri.substring(lastSlash + 1);
+            // namespace anyway if not found in root namespace.
+            namespace = "/";
+            name = uri.substring(lastSlash + 1);
         } else {
             namespace = uri.substring(0, lastSlash);
             name = uri.substring(lastSlash + 1);
