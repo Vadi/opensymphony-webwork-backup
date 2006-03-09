@@ -75,7 +75,7 @@ public class FileUploadInterceptorTest extends WebWorkTestCase {
 
         // when file is not of allowed types
         ValidationAwareSupport validation = new ValidationAwareSupport();
-        File file = new File("build\\\\test\\\\log4j.properties"); // use log4j.properties in build/test folder
+        File file = new File("build" + File.separator + "test" + File.separator + "log4j.properties"); // use log4j.properties in build/test folder
         assertTrue("log4j.properties should be in src/test folder", file.exists());
         boolean notOk = interceptor.acceptFile(file, "text/html", "inputName", validation, Locale.getDefault());
 
