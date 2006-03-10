@@ -200,7 +200,7 @@ public class DefaultActionMapper implements ActionMapper {
         return mapping;
     }
 
-    private static void handleSpecialParameters(HttpServletRequest request, ActionMapping mapping) {
+    public static void handleSpecialParameters(HttpServletRequest request, ActionMapping mapping) {
         // handle special parameter prefixes.
         Map parameterMap = request.getParameterMap();
         for (Iterator iterator = parameterMap.keySet().iterator(); iterator.hasNext();) {
