@@ -904,7 +904,7 @@ public abstract class UIBean extends Component {
 
     protected void enableAncestorFormCustomOnsubmit() {
     	Form form = (Form) findAncestor(Form.class);
-    	if (form != null || ((form.getParameters().containsKey("validate")) && ((Boolean) form.getParameters().get("validate")).booleanValue())) {
+    	if (form != null) {
     		form.addParameter("customOnsubmitEnabled", Boolean.TRUE);
     	} else {
     		LOG.warn("Cannot find an Ancestor form, custom onsubmit is NOT enabled");
