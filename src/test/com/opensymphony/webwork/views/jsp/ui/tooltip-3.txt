@@ -11,5 +11,10 @@
 </tr>
 </table>
 </form>
+
+<script>
+	function customOnsubmit() { }
+</script>
+
 <!-- javascript that is needed for tooltips -->
 <script language="JavaScript" type="text/javascript" src="/webwork/tooltip/wz_tooltip.js"></script>
