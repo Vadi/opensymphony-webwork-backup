@@ -1,7 +1,6 @@
 </form>
 
 
-<#if parameters.customOnsubmitEnabled?default(false)>
 <script>
 	function customOnsubmit() {
 	<#-- 
@@ -53,7 +52,6 @@
 	</#if><#t/>
 	}
 </script>
-</#if>
 
 
 <#-- 

@@ -1,5 +1,5 @@
-<#if (parameters.validate?default(false) == false)>
-	<#if parameters.onsubmit?exists>
+<#if (parameters.validate?default(false) == false)><#rt/>
+	<#if parameters.onsubmit?exists><#rt/>
 		${tag.addParameter('onsubmit', "${parameters.onsubmit}; customOnsubmit(); return true;") }
 	<#else>
 		${tag.addParameter('onsubmit', "customOnsubmit(); return true;") }	
