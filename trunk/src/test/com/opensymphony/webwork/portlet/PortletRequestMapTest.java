@@ -5,9 +5,16 @@
 package com.opensymphony.webwork.portlet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletSession;
 
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
@@ -62,6 +69,59 @@ public class PortletRequestMapTest extends MockObjectTestCase {
         PortletRequestMap map = new PortletRequestMap((PortletRequest)mockRequest.proxy());
         map.clear();
         mockRequest.verify();
+    }
+    
+    public void testRemove() {
+        Mock mockRequest = mock(PortletRequest.class);
+        
+        PortletRequest req = (PortletRequest)mockRequest.proxy();
+        
+        
+        mockRequest.expects(once()).method("getAttribute").with(eq("dummyKey")).will(returnValue("dummyValue"));
+        
+        mockRequest.expects(once()).method("removeAttribute").with(eq("dummyKey"));
+        
+        PortletRequestMap map = new PortletRequestMap(req);
+        Object ret = map.remove("dummyKey");
+        assertEquals("dummyValue", ret);
+    }
+    
+    public void testEntrySet() {
+        Mock mockRequest = mock(PortletRequest.class);
+        
+        PortletRequest req = (PortletRequest)mockRequest.proxy();
+        
+        Enumeration names = new Enumeration() {
+
+            List keys = Arrays.asList(new Object[]{"key1", "key2"});
+            Iterator it = keys.iterator();
+            
+            public boolean hasMoreElements() {
+                return it.hasNext();
+            }
+
+            public Object nextElement() {
+                return it.next();
+            }
+            
+        };
+        
+        mockRequest.stubs().method("getAttributeNames").will(returnValue(names));
+        mockRequest.stubs().method("getAttribute").with(eq("key1")).will(returnValue("value1"));
+        mockRequest.stubs().method("getAttribute").with(eq("key2")).will(returnValue("value2"));
+        
+        PortletRequestMap map = new PortletRequestMap(req);
+        Set entries = map.entrySet();
+        
+        assertEquals(2, entries.size());
+        Iterator it = entries.iterator();
+        Map.Entry entry = (Map.Entry)it.next();
+        assertEquals("key2", entry.getKey());
+        assertEquals("value2", entry.getValue());
+        entry = (Map.Entry)it.next();
+        assertEquals("key1", entry.getKey());
+        assertEquals("value1", entry.getValue());
+        
     }
     
 }
