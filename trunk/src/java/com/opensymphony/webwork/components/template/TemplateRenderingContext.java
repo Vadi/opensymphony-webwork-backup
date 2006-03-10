@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.components.template;
 
 import com.opensymphony.webwork.components.UIBean;
@@ -7,8 +11,7 @@ import java.io.Writer;
 import java.util.Map;
 
 /**
- * TemplateRenderingContext
- * Date: Sep 28, 2004 2:30:28 PM
+ * Context used when rendering templates.
  *
  * @author jcarreira
  */
@@ -19,6 +22,15 @@ public class TemplateRenderingContext {
     UIBean tag;
     Writer writer;
 
+    /**
+     * Constructor
+     *
+     * @param template  the template.
+     * @param writer    the writer.
+     * @param stack     OGNL value stack.
+     * @param params    parameters to this template.
+     * @param tag       the tag UI component.
+     */
     public TemplateRenderingContext(Template template, Writer writer, OgnlValueStack stack, Map params, UIBean tag) {
         this.template = template;
         this.writer = writer;

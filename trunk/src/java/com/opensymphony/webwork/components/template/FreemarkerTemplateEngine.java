@@ -1,6 +1,6 @@
 /*
- * Created on 3/03/2005
- *
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
  */
 package com.opensymphony.webwork.components.template;
 
@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Freemarker based template engine.
+ *
  * @author CameronBraid
  */
 public class FreemarkerTemplateEngine extends BaseTemplateEngine {

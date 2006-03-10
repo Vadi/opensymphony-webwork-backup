@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.components.template;
 
 import com.opensymphony.webwork.ServletActionContext;
@@ -13,8 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * JspTemplateEngine
- * Date: Sep 28, 2004 12:01:59 PM
+ * JSP based template engine.
  *
  * @author jcarreira
  */
