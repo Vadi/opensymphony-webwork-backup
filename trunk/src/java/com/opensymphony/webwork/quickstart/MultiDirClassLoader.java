@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.quickstart;
 
 import java.net.URLClassLoader;
@@ -7,9 +11,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * User: patrick
- * Date: Aug 25, 2005
- * Time: 10:18:00 AM
+ * Integration with Jetty.
+ *
+ * @author patrick
  */
 public class MultiDirClassLoader extends URLClassLoader {
     private ClassLoader parent;

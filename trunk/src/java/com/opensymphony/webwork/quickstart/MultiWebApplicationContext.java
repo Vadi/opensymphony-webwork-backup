@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.quickstart;
 
 import org.mortbay.jetty.servlet.WebApplicationContext;
@@ -13,6 +17,9 @@ import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.List;
 
+/**
+ * Integration to Jetty.
+ */
 public class MultiWebApplicationContext extends WebApplicationContext {
     private List pathPriority;
     private Map paths;

@@ -1,9 +1,13 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.quickstart;
 
 /**
- * User: patrick
- * Date: Oct 19, 2005
- * Time: 9:50:34 AM
+ * Used for mapping configuration for the QuickStart application.
+ *
+ * @author patrick
  */
 public class Mapping {
     String path;

@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.quickstart;
 
 import org.mortbay.http.SocketListener;
@@ -7,6 +11,9 @@ import org.mortbay.jetty.servlet.WebApplicationContext;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * To start a Jetty server used by the QuickStart application.
+ */
 public class JettyServer {
     public static void startServer(int port, String context, List pathPriority, Map paths, String resolver) throws Exception {
         try {

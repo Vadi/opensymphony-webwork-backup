@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.quickstart;
 
 import com.opensymphony.webwork.util.classloader.CompilingClassLoader;
@@ -15,9 +19,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * User: plightbo
- * Date: Aug 7, 2005
- * Time: 7:14:01 PM
+ * The QuickStart main program.
+ *
+ * @author plightbo
  */
 public class QuickStart {
     public static void main(String[] args) throws FileNotFoundException, MalformedURLException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {

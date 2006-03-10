@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.quickstart;
 
 import org.mortbay.util.Resource;
@@ -7,6 +11,9 @@ import java.util.*;
 import java.net.URL;
 import java.net.MalformedURLException;
 
+/**
+ * Integration to Jetty.
+ */
 public class MultiDirResource extends Resource {
     MultiWebApplicationContext ctx;
     File[] files;

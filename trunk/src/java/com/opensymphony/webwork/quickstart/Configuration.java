@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.quickstart;
 
 import com.thoughtworks.xstream.XStream;
@@ -17,7 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * User: patrick Date: Aug 30, 2005 Time: 9:35:16 AM
+ * Configuration for the QuickStart program.
+ * @author patrick
  */
 public class Configuration implements Serializable {
     String ideaConfig;
