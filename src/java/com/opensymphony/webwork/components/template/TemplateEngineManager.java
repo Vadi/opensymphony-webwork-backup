@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.components.template;
 
 import com.opensymphony.webwork.config.Configuration;
@@ -14,6 +18,8 @@ public class TemplateEngineManager {
     public static final String DEFAULT_TEMPLATE_TYPE_CONFIG_KEY = "webwork.ui.templateSuffix";
 
     private static final TemplateEngineManager MANAGER = new TemplateEngineManager();
+
+    /** The default template extenstion is <code>ftl</code>. */
     public static final String DEFAULT_TEMPLATE_TYPE = "ftl";
 
     Map templateEngines = new HashMap();
@@ -24,6 +30,13 @@ public class TemplateEngineManager {
         templateEngines.put("jsp", new JspTemplateEngine());
     }
 
+    /**
+     * Registers the given template engine.
+     * <p/>
+     * Will add the engine to the existing list of known engines.
+     * @param templateExtension  filename extension (eg. .jsp, .ftl, .vm).
+     * @param templateEngine     the engine.
+     */
     public static void registerTemplateEngine(String templateExtension, TemplateEngine templateEngine) {
         MANAGER.templateEngines.put(templateExtension, templateEngine);
     }
@@ -36,7 +49,7 @@ public class TemplateEngineManager {
      *
      * @param template               Template used to determine which TemplateEngine to return
      * @param templateTypeOverride Overrides the default template type
-     * @return boolean
+     * @return the engine.
      */
     public static TemplateEngine getTemplateEngine(Template template, String templateTypeOverride) {
         String templateType = DEFAULT_TEMPLATE_TYPE;

@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.components.template;
 
 import com.opensymphony.webwork.ServletActionContext;
@@ -17,8 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * VelocityTemplateEngine renders Velocity templates
- * Date: Sep 28, 2004 12:01:09 PM
+ * Velocity based template engine.
  *
  * @author jcarreira
  */

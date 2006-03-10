@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) 2002-2006 by OpenSymphony
+ *  All rights reserved.
+ */
 package com.opensymphony.webwork.components.template;
 
 import com.opensymphony.util.ClassLoaderUtil;
@@ -11,8 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * BaseTemplateEngine
- * Date: Sep 28, 2004 3:47:22 PM
+ * Base class for template engines.
  *
  * @author jcarreira
  */
