@@ -5,9 +5,10 @@
 </head>
 
 <body>
-    <br/><i>We are processing your request. Please wait.</i>
-    <br/><i>We are processing your request. Please wait.</i>
-    <br/><i>We are processing your request. Please wait.</i>
+    <p style="border: 1px solid silver; padding: 5px; background: #ffd; text-align: center;">
+        We are processing your request. Please wait.
+    </p>
+
     <p/>
     You can click this link to <a href="<ww:url includeParams="all"/>">refresh</a>.
 
