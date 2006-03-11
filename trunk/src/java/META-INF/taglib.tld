@@ -1533,6 +1533,14 @@
 
       </attribute>
       <attribute>
+         <name>type</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The type of submit to use. Valid values are input, button and image.]]></description>
+
+      </attribute>
+      <attribute>
          <name>theme</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>

@@ -8,6 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * <!-- START SNIPPET: javadoc -->
  * Render a submit button. The submit tag is used together with the form tag to provide asynchronous form submissions.
+ * The submit can have three different types of rendering:
+ * <ul>
+ * <li>input: renders as html &lt;input type="submit"...&gt;</li>
+ * <li>image: renders as html &lt;input type="image"...&gt;</li>
+ * <li>button: renders as html &lt;button type="submit"...&gt;</li>
+ * </ul>
+ * Please note that the button type has advantages by adding the possibility to seperate the submitted value from the
+ * text shown on the button face, but has issues with Microsoft Internet Explorer at least up to 6.0
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
@@ -18,7 +26,20 @@ import javax.servlet.http.HttpServletResponse;
  * <!-- END SNIPPET: example -->
  * </pre>
  * 
- * 
+ * <pre>
+ * <!-- START SNIPPET: example2 -->
+ * Render an image submit:
+ * &lt;ww:submit type="image" value="%{'Submit'}" label="Submit the form" src="submit.gif"/&gt;
+ * <!-- END SNIPPET: example2 -->
+ * </pre>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example3 -->
+ * Render an button submit:
+ * &lt;ww:submit type="button" value="%{'Submit'}" label="Submit the form"/&gt;
+ * <!-- END SNIPPET: example3 -->
+ * </pre>
+ *
  * <!-- START SNIPPET: ajaxJavadoc -->
  * <B>THE FOLLOWING IS ONLY VALID WHEN AJAX IS CONFIGURED</B>
  * <ul>
@@ -130,6 +151,10 @@ import javax.servlet.http.HttpServletResponse;
 public class Submit extends UIBean {
     final public static String TEMPLATE = "submit";
 
+    static final String SUBMITTYPE_INPUT = "input";
+    static final String SUBMITTYPE_BUTTON = "button";
+    static final String SUBMITTYPE_IMAGE = "image";
+
     protected String action;
     protected String method;
     protected String align;
@@ -138,6 +163,8 @@ public class Submit extends UIBean {
     protected String notifyTopics;
     protected String listenTopics;
     protected String preInvokeJS;
+    protected String type;
+    protected String src;
 
     public Submit(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -152,11 +179,25 @@ public class Submit extends UIBean {
             align = "right";
         }
 
+        String submitType = SUBMITTYPE_INPUT;
+        if (type != null && (SUBMITTYPE_BUTTON.equalsIgnoreCase(type) || SUBMITTYPE_IMAGE.equalsIgnoreCase(type)) ) {
+        	submitType = type;
+        }
+        addParameter("type", submitType);
+
         if (value == null) {
             value = "Submit";
         }
 
         super.evaluateParams();
+
+        if (!SUBMITTYPE_INPUT.equals(submitType) && (label == null)) {
+            addParameter("label", getParameters().get("nameValue"));
+        }
+
+        if (null != src) {
+            addParameter("src", findString(src));
+        }
 
         if (action != null || method != null) {
             String name;
@@ -195,69 +236,94 @@ public class Submit extends UIBean {
         if (preInvokeJS != null) {
             addParameter("preInvokeJS", findString(preInvokeJS));
         }
+
     }
 
     /**
+     * Set action attribute.
      * @ww.tagattribute required="false" type="String"
-     * description="Set action attribute"
      */
     public void setAction(String action) {
         this.action = action;
     }
 
     /**
+     * Set method attribute.
      * @ww.tagattribute required="false" type="String"
-     * description="Set method attribute"
      */
     public void setMethod(String method) {
         this.method = method;
     }
 
     /**
+     * HTML align attribute.
      * @ww.tagattribute required="false" type="String"
-     * description="HTML align attribute"
      */
     public void setAlign(String align) {
         this.align = align;
     }
 
     /**
+     * The id of the HTML element to place the result (this can the the form's id or any id on the page.
      * @ww.tagattribute required="false"  type="String"
-     * description="The id of the HTML element to place the result (this can the the form's id or any id on the page"
      */
     public void setResultDivId(String resultDivId) {
         this.resultDivId = resultDivId;
     }
 
     /**
+     * Javascript code that will be executed after the form has been submitted. The format is onLoadJS='yourMethodName(data,type)'. NOTE: the words data and type must be left like that if you want the event type and the returned data.
      * @ww.tagattribute required="false" type="String"
-     * description="Javascript code that will be executed after the form has been submitted. The format is onLoadJS='yourMethodName(data,type)'. NOTE: the words data and type must be left like that if you want the event type and the returned data."
      */
     public void setOnLoadJS(String onLoadJS) {
         this.onLoadJS = onLoadJS;
     }
 
     /**
+     * Topic names to post an event to after the form has been submitted.
      * @ww.tagattribute required="false" type="String"
-     * description=" Topic names to post an event to after the form has been submitted"
      */
     public void setNotifyTopics(String notifyTopics) {
         this.notifyTopics = notifyTopics;
     }
 
     /**
+     * Set listenTopics attribute.
      * @ww.tagattribute required="false" type="String"
-     * description="Set listenTopics attribute"
      */
     public void setListenTopics(String listenTopics) {
         this.listenTopics = listenTopics;
     }
 
     /**
+     * Javascript code that will be executed before invokation. The format is preInvokeJS='yourMethodName(data,type)'.
      * @ww.tagattribute required="false" type="String"
-     * description="Javascript code that will be executed before invokation. The format is preInvokeJS='yourMethodName(data,type)'."
      */
     public void setPreInvokeJS(String preInvokeJS) {
         this.preInvokeJS = preInvokeJS;
+    }
+
+    /**
+     * The type of submit to use. Valid values are <i>input</i>, <i>button</i> and <i>image</i>.
+     * @ww.tagattribute required="false" type="String" default="input"
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     * Supply a submit button text apart from submit value. Will have no effect for <i>input</i> type submit, since button text will always be the value parameter. For the type <i>image</i>, alt parameter will be set to this value.
+     * @ww.tagattribute required="false"
+     */
+    public void setLabel(String label) {
+        super.setLabel(label);
+    }
+
+    /**
+     * Supply an image src for <i>image</i> type submit button. Will have no effect for types <i>input</i> and <i>button</i>.
+     * @ww.tagattribute required="false"
+     */
+    public void setSrc(String src) {
+        this.src = src;
     }
 }

@@ -23,6 +23,8 @@ public class SubmitTag extends AbstractUITag {
     protected String notifyTopics;
     protected String listenTopics;
     protected String preInvokeJS;
+    protected String type;
+    protected String src;
 
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Submit(stack, req, res);
@@ -40,6 +42,8 @@ public class SubmitTag extends AbstractUITag {
         submit.setNotifyTopics(notifyTopics);
         submit.setListenTopics(listenTopics);
         submit.setPreInvokeJS(preInvokeJS);
+        submit.setType(type);
+        submit.setSrc(src);
     }
 
     public void setAction(String action) {
@@ -72,5 +76,21 @@ public class SubmitTag extends AbstractUITag {
 
     public void setPreInvokeJS(String preInvokeJS) {
         this.preInvokeJS = preInvokeJS;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 }
