@@ -117,6 +117,8 @@ public class ServletConfigInterceptorTest extends WebWorkTestCase {
 
     public void testPrincipalAware() throws Exception {
         MockHttpServletRequest req = new MockHttpServletRequest();
+        req.setUserPrincipal(null);
+        req.setRemoteUser("Santa");
 
         MyPrincipalAction action = new MyPrincipalAction();
         MockActionInvocation mai = createActionInvocation(action);
@@ -125,6 +127,13 @@ public class ServletConfigInterceptorTest extends WebWorkTestCase {
         assertNull(action.getProxy());
         interceptor.intercept(mai);
         assertNotNull(action.getProxy());
+
+        PrincipalProxy proxy = action.getProxy();
+        assertEquals(proxy.getRequest(), req);
+        assertNull(proxy.getUserPrincipal());
+        assertTrue(! proxy.isRequestSecure());
+        assertTrue(! proxy.isUserInRole("no.role"));
+        assertEquals("Santa", proxy.getRemoteUser());
     }
 
     public void testServletContextAware() throws Exception {
