@@ -62,6 +62,33 @@ public class PlainTextResultTest extends TestCase {
 		}
 	}
 	
+	public void testPlainTextWithEncoding() throws Exception {
+		PlainTextResult result = new PlainTextResult();
+		result.setLocation("/someJspFile.jsp");
+		result.setCharSet("UTF-8");
+		
+		response.setExpectedContentType("text/plain; charset=UTF-8");
+		response.setExpectedHeader("Content-Disposition", "inline");
+		InputStream jspResourceInputStream = 
+			ClassLoaderUtil.getResourceAsStream(
+				"com/opensymphony/webwork/dispatcher/someJspFile.jsp", 
+				PlainTextResultTest.class);
+		
+		
+		try {
+			servletContext.setResourceAsStream(jspResourceInputStream);
+			result.execute(invocation);
+			
+			String r = AbstractUITagTest.normalize(stringWriter.getBuffer().toString(), true);
+			String e = AbstractUITagTest.normalize(
+					readAsString("com/opensymphony/webwork/dispatcher/someJspFile.jsp"), true);
+			assertEquals(r, e);
+		}
+		finally {
+			jspResourceInputStream.close();
+		}
+	}
+	
 	protected String readAsString(String resource) throws Exception {
 		InputStream is = null;
 		try {

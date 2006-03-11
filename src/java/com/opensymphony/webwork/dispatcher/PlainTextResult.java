@@ -6,6 +6,8 @@ package com.opensymphony.webwork.dispatcher;
 
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.spi.CharsetProvider;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +30,9 @@ import com.opensymphony.xwork.ActionInvocation;
  * 
  * <ul>
  * 	<li>location = location of the file (jsp/html) to be displayed as plain text.</li>
+ *  <li>charSet = character set to be used. This character set will be used to set the
+ *  response type (eg. Content-Type=text/plain; charset=UTF-8) and when reading 
+ *  using a Reader. Some example of charSet would be UTF-8, ISO-8859-1 etc. 
  * </ul>
  * 
  * <!-- END SNIPPET: params -->
@@ -38,6 +43,14 @@ import com.opensymphony.xwork.ActionInvocation;
  * 
  * &lt;action name="displayJspRawContent" &gt;
  *   &lt;result type="plaintext"&gt;/myJspFile.jsp&lt;result&gt;
+ * &lt;/action&gt;
+ * 
+ * 
+ * &lt;action name="displayJspRawContent" &gt;
+ *   &lt;result type="plaintext"&gt;
+ *      &lt;param name="location"&gt;/myJspFile.jsp&lt;/param&gt;
+ *      &lt;parma name="charSet"&gt;UTF-8&lt;/param&gt;
+ *   &lt;result&gt;
  * &lt;/action&gt;
  * 
  * <!-- END SNIPPET: example -->
@@ -54,18 +67,54 @@ public class PlainTextResult extends WebWorkResultSupport {
 	
 	public static final int BUFFER_SIZE = 1024;
 	
+	private String charSet;
+	
+	
+	public String getCharSet() {
+		return charSet;
+	}
+	public void setCharSet(String charSet) {
+		this.charSet = charSet;
+	}
+	
+	
+	
 	protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
+		
+		// verify charset 
+		Charset charset = null;
+		if (charSet != null) {
+			if (Charset.isSupported(charSet)) {
+				charset = Charset.forName(charSet);
+			}
+			else {
+				_log.warn("charset ["+charSet+"] is not recongnized ");
+				charset = null;
+			}
+		}
 		
 		HttpServletResponse response = (HttpServletResponse) invocation.getInvocationContext().get(HTTP_RESPONSE);
 		ServletContext servletContext = (ServletContext) invocation.getInvocationContext().get(SERVLET_CONTEXT);
 
-		response.setContentType("text/plain");
+		
+		if (charset != null) {
+			response.setContentType("text/plain; charset="+charSet);
+		}
+		else {
+			response.setContentType("text/plain");
+		}
 		response.setHeader("Content-Disposition", "inline");
+		
 		
 		PrintWriter writer = response.getWriter();
 		InputStreamReader reader = null;
 		try {
-			reader = new InputStreamReader(servletContext.getResourceAsStream(location));
+			if (charset != null) {
+				reader = new InputStreamReader(servletContext.getResourceAsStream(location), charset);
+			}
+			else {
+				reader = new InputStreamReader(servletContext.getResourceAsStream(location));
+			}
 			if (reader == null) {
 				_log.warn("resource at location ["+location+"] cannot be obtained (return null) from ServletContext !!! ");
 			}
