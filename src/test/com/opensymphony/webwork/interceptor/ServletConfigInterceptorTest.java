@@ -7,7 +7,6 @@ package com.opensymphony.webwork.interceptor;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.webwork.util.ServletContextAware;
-import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.mock.MockActionInvocation;
 import org.easymock.MockControl;
@@ -116,24 +115,21 @@ public class ServletConfigInterceptorTest extends WebWorkTestCase {
     }
 
     public void testPrincipalAware() throws Exception {
-        MockHttpServletRequest req = new MockHttpServletRequest();
-        req.setUserPrincipal(null);
-        req.setRemoteUser("Santa");
+        MockControl control = MockControl.createControl(PrincipalAware.class);
+        control.setDefaultMatcher(MockControl.ALWAYS_MATCHER); // less strick match is needed for this unit test to be conducted using mocks
+        PrincipalAware mock = (PrincipalAware) control.getMock();
 
-        MyPrincipalAction action = new MyPrincipalAction();
-        MockActionInvocation mai = createActionInvocation(action);
-        mai.getInvocationContext().put(WebWorkStatics.HTTP_REQUEST, req);
+        MockActionInvocation mai = createActionInvocation(mock);
 
-        assertNull(action.getProxy());
+        MockServletContext ctx = new MockServletContext();
+        mai.getInvocationContext().put(WebWorkStatics.SERVLET_CONTEXT, ctx);
+
+        mock.setPrincipalProxy(null); // we can do this because of ALWAYS_MATCHER
+        control.setVoidCallable();
+
+        control.replay();
         interceptor.intercept(mai);
-        assertNotNull(action.getProxy());
-
-        PrincipalProxy proxy = action.getProxy();
-        assertEquals(proxy.getRequest(), req);
-        assertNull(proxy.getUserPrincipal());
-        assertTrue(! proxy.isRequestSecure());
-        assertTrue(! proxy.isUserInRole("no.role"));
-        assertEquals("Santa", proxy.getRemoteUser());
+        control.verify();
     }
 
     public void testServletContextAware() throws Exception {
@@ -172,23 +168,6 @@ public class ServletConfigInterceptorTest extends WebWorkTestCase {
         super.tearDown();
         interceptor.destroy();
         interceptor = null;
-    }
-
-    private class MyPrincipalAction implements Action, PrincipalAware {
-
-        private PrincipalProxy proxy;
-
-        public String execute() throws Exception {
-            return SUCCESS;
-        }
-
-        public void setPrincipalProxy(PrincipalProxy proxy) {
-            this.proxy = proxy;
-        }
-
-        public PrincipalProxy getProxy() {
-            return proxy;
-        }
     }
 
 }
