@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2005 Opensymphony. All Rights Reserved.
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
  */
 package com.opensymphony.webwork.spring;
 
@@ -16,9 +17,12 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.servlet.ServletContext;
 
 /**
- * User: plightbo
- * Date: Sep 20, 2005
- * Time: 6:41:14 PM
+ * WebWork object factory that integrates with Spring.
+ * <p/>
+ * Spring should be loaded using a web context listener
+ * <code>org.springframework.web.context.ContextLoaderListener</code> defined in <code>web.xml</code>.
+ *
+ * @author plightbo
  */
 public class WebWorkSpringObjectFactory extends SpringObjectFactory implements ObjectFactoryInitializable {
     private static final Log log = LogFactory.getLog(WebWorkSpringObjectFactory.class);
