@@ -9,7 +9,7 @@ import java.util.*;
 
 
 /**
- * MakeIterator
+ * MakeIterator.
  * <p/>
  * Taken from WebWork 1.x by:
  *

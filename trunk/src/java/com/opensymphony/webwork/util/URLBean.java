@@ -13,9 +13,9 @@ import java.util.Map;
 
 
 /**
- * User: plightbo
- * Date: Nov 16, 2003
- * Time: 4:13:11 PM
+ * A bean that can generate a URL.
+ *
+ * @author plightbo
  */
 public class URLBean {
 

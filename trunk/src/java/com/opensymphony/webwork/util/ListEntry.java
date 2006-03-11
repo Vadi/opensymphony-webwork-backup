@@ -2,14 +2,11 @@
  * Copyright (c) 2002-2003 by OpenSymphony
  * All rights reserved.
  */
-/*
- * Created on 6/09/2003
- *
- */
 package com.opensymphony.webwork.util;
 
-
 /**
+ * Entry in a list.
+ *
  * @author CameronBraid
  */
 public class ListEntry {

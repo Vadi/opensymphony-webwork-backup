@@ -3,10 +3,13 @@ package com.opensymphony.webwork.util;
 import javax.servlet.ServletContext;
 
 /**
- * User: plightbo
- * Date: Sep 20, 2005
- * Time: 6:38:34 PM
+ * Used to pass ServletContext init parameters to various
+ * frameworks such as Spring, Plexus and Portlet.
+ *
+ * @author plightbo
  */
 public interface ObjectFactoryInitializable {
+
     void init(ServletContext servletContext);
+
 }
