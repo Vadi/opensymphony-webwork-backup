@@ -13,9 +13,18 @@ import java.util.Set;
 
 
 /**
- * User: plightbo
- * Date: Nov 13, 2003
- * Time: 6:29:49 PM
+ * A Map that holds 4 levels of scope.
+ * <p/>
+ * The scopes are the ones known in the web world.:
+ * <ul>
+ *   <li>Page scope</li>
+ *   <li>Request scope</li>
+ *   <li>Session scope</li>
+ *   <li>Application scope</li>
+ * </ul>
+ * A object is searched in the order above, starting from page and ending at application scope.
+ *
+ * @author plightbo
  */
 public class AttributeMap implements Map {
 

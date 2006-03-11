@@ -132,8 +132,18 @@ public class SubsetIteratorFilter extends IteratorFilterSupport implements Itera
     }
     
     // inner class ---------------------------------------------------
+    /**
+     * A decider determines if the given element should be added to the list or not.
+     */
     public static interface Decider {
-    	boolean decide(Object element) throws Exception;
+
+        /**
+         * Should the object be added to the list?
+         * @param element  the object
+         * @return true to add.
+         * @throws Exception can be thrown.
+         */
+        boolean decide(Object element) throws Exception;
     }
     
     // protected -----------------------------------------------------
