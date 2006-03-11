@@ -1,9 +1,15 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork;
 
 /**
- * This class provides a central location for framework constants.
+ * This class provides a central location for framework constants related to
+ * webwork configurations.
  *
  * @author Onyeje Bose (digi9ten@yahoo.com)
+ * @version $Date$ $Id$
  */
 public final class WebWorkConstants {
 
