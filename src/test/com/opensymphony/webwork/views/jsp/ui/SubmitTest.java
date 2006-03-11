@@ -51,6 +51,74 @@ public class SubmitTest extends AbstractUITagTest {
         verify(TextFieldTag.class.getResource("Submit-1.txt"));
     }
 
+    public void testButtonSimple() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        SubmitTag tag = new SubmitTag();
+        tag.setPageContext(pageContext);
+        tag.setType("button");
+        tag.setName("myname");
+        tag.setValue("%{foo}");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(TextFieldTag.class.getResource("Submit-3.txt"));
+    }
+
+    public void testButtonWithLabel() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        SubmitTag tag = new SubmitTag();
+        tag.setPageContext(pageContext);
+        tag.setLabel("mylabel");
+        tag.setType("button");
+        tag.setAlign("left");
+        tag.setName("myname");
+        tag.setValue("%{foo}");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(TextFieldTag.class.getResource("Submit-4.txt"));
+    }
+
+    public void testImageSimple() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        SubmitTag tag = new SubmitTag();
+        tag.setPageContext(pageContext);
+        tag.setType("image");
+        tag.setName("myname");
+        tag.setValue("%{foo}");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(TextFieldTag.class.getResource("Submit-5.txt"));
+    }
+
+    public void testImageWithSrc() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        SubmitTag tag = new SubmitTag();
+        tag.setPageContext(pageContext);
+        tag.setType("image");
+        tag.setName("myname");
+        tag.setLabel("mylabel");
+        tag.setValue("%{foo}");
+        tag.setSrc("some.gif");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(TextFieldTag.class.getResource("Submit-6.txt"));
+    }
+
     /**
      * Initialize a map of {@link com.opensymphony.webwork.views.jsp.AbstractUITagTest.PropertyHolder} for generic tag
      * property testing. Will be used when calling {@link #verifyGenericProperties(com.opensymphony.webwork.views.jsp.ui.AbstractUITag,
