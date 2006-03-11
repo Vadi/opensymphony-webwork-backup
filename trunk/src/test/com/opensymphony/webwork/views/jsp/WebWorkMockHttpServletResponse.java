@@ -16,11 +16,13 @@ import java.util.Locale;
  * WebWorkMockHttpServletResponse
  *
  * @author Jason Carreira
- *         Created May 21, 2003 10:46:53 AM
+ * @author tm_jee
+ * @version $Date$ $Id$
  */
 public class WebWorkMockHttpServletResponse extends MockHttpServletResponse {
     private Locale locale;
-
+    private PrintWriter writer;
+    
     public Locale getLocale() {
         return locale;
     }
@@ -30,7 +32,14 @@ public class WebWorkMockHttpServletResponse extends MockHttpServletResponse {
     }
 
     public PrintWriter getWriter() throws IOException {
-        return new PrintWriter(new ByteArrayOutputStream());
+    	if (writer == null)
+    		return new PrintWriter(new ByteArrayOutputStream());
+    	else 
+    		return writer;
+    }
+    
+    public void setWriter(PrintWriter writer) {
+    	this.writer = writer;
     }
 
     public String encodeURL(String s) {

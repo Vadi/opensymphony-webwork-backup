@@ -13,6 +13,7 @@
             <result-type name="tiles" class="com.opensymphony.webwork.views.tiles.TilesResult"/>
             <result-type name="velocity" class="com.opensymphony.webwork.dispatcher.VelocityResult"/>
             <result-type name="xslt" class="com.opensymphony.webwork.views.xslt.XSLTResult"/>
+            <result-type name="plaintext" class="com.opensymphony.webwork.dispatcher.PlainTextResult" />
             
             <!-- Results necessary when using 'browse server' and 'upload' feature of Richtexteditor -->
             <result-type name="richtexteditorGetFolders" class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorGetFoldersResult" />

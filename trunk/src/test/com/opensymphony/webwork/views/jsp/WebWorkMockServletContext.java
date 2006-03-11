@@ -18,7 +18,8 @@ import java.util.*;
  * WebWorkMockServletContext
  *
  * @author Jason Carreira
- *         Created Jun 6, 2003 12:32:10 AM
+ * @author tm_jee
+ * @version $Date$ $Id$
  */
 public class WebWorkMockServletContext implements ServletContext {
 
@@ -26,6 +27,7 @@ public class WebWorkMockServletContext implements ServletContext {
     String servletInfo;
     Map initParams = new HashMap();
     Map attributes = new HashMap();
+    InputStream resourceAsStream;
 
     public void setInitParameter(String name, String value) {
         initParams.put(name, value);
@@ -64,7 +66,14 @@ public class WebWorkMockServletContext implements ServletContext {
     }
 
     public InputStream getResourceAsStream(String s) {
+    	if (resourceAsStream != null) {
+    		return resourceAsStream;
+    	}
         return null;
+    }
+    
+    public void setResourceAsStream(InputStream is) {
+    	this.resourceAsStream = is;
     }
 
     public RequestDispatcher getRequestDispatcher(String s) {
