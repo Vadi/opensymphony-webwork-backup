@@ -42,15 +42,15 @@ import com.opensymphony.xwork.ActionInvocation;
  * <!-- START SNIPPET: example -->
  * 
  * &lt;action name="displayJspRawContent" &gt;
- *   &lt;result type="plaintext"&gt;/myJspFile.jsp&lt;result&gt;
+ *   &lt;result type="plaintext"&gt;/myJspFile.jsp&lt;/result&gt;
  * &lt;/action&gt;
  * 
  * 
  * &lt;action name="displayJspRawContent" &gt;
  *   &lt;result type="plaintext"&gt;
  *      &lt;param name="location"&gt;/myJspFile.jsp&lt;/param&gt;
- *      &lt;parma name="charSet"&gt;UTF-8&lt;/param&gt;
- *   &lt;result&gt;
+ *      &lt;param name="charSet"&gt;UTF-8&lt;/param&gt;
+ *   &lt;/result&gt;
  * &lt;/action&gt;
  * 
  * <!-- END SNIPPET: example -->
