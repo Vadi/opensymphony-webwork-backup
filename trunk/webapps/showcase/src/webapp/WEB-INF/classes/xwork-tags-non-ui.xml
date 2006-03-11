@@ -17,6 +17,15 @@
 		<action name="includePage" class="com.opensymphony.webwork.showcase.tag.nonui.actiontag.ActionTagDemo" method="doInclude">
 			<result>/tags/non-ui/actionTag/includedPage.jsp</result>
 		</action>
+		<action name="includePage2">
+			<result>/tags/non-ui/actionTag/includedPage2.jsp</result>
+		</action>
+		<action name="includePage3">
+			<result>/tags/non-ui/actionTag/includedPage3.jsp</result>
+		</action>
+		<action name="lookAtSource">
+			<result type="plaintext">/tags/non-ui/actionTag/showActionTagDemo.jsp</result>
+		</action>
 	</package>
 	
 	<!-- ==================================== -->
