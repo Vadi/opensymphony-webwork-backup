@@ -147,9 +147,13 @@ public class DispatcherUtils {
         try {
             Class clazz = ClassLoaderUtil.loadClass("javax.portlet.PortletRequest", DispatcherUtils.class);
             portletSupportActive = true;
-            LOG.warn("Found portlet-api. Activating webwork's portlet support");
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Found portlet-api. Activating webwork's portlet support");
+            }
         } catch (Exception e) {
-            LOG.warn("Could not load portlet-api, disabling webwork's portlet support.");
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Could not load portlet-api, disabling webwork's portlet support.");
+            }
         }
     }
     
