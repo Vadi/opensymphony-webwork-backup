@@ -1,17 +1,18 @@
 /*
- * Copyright (c) 2002-2004 by OpenSymphony
+ * Copyright (c) 2002-2006 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.dispatcher.multipart;
 
-import org.apache.commons.fileupload.DefaultFileItem;
-import org.apache.commons.fileupload.DiskFileUpload;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItem;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -34,26 +35,24 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
      * @param maxSize        maximum size post allowed
      * @param saveDir        the directory to save off the file
      * @param servletRequest the request containing the multipart
+     * @throws java.io.IOException  is thrown if encoding fails.
      */
     public JakartaMultiPartRequest(HttpServletRequest servletRequest, String saveDir, int maxSize)
             throws IOException {
-        DiskFileUpload upload = new DiskFileUpload();
-        // we must store all uploads on disk because the ww multipart API is missing streaming
-        // capabilities
-        upload.setSizeThreshold(0);
-        upload.setSizeMax(maxSize);
-        upload.setHeaderEncoding(servletRequest.getCharacterEncoding()); 
+        DiskFileItemFactory fac = new DiskFileItemFactory();
+        fac.setSizeThreshold(0);
         if (saveDir != null) {
-            upload.setRepositoryPath(saveDir);
+            fac.setRepository(new File(saveDir));
         }
 
         // Parse the request
         try {
-            List items = upload.parseRequest(servletRequest);
+            ServletFileUpload upload = new ServletFileUpload(fac);
+            List items = upload.parseRequest(createRequestContext(servletRequest));
 
             for (int i = 0; i < items.size(); i++) {
                 FileItem item = (FileItem) items.get(i);
-                log.debug("Found item " + item.getFieldName());
+                if (log.isDebugEnabled()) log.debug("Found item " + item.getFieldName());
                 if (item.isFormField()) {
                     log.debug("Item is a normal form field");
                     List values;
@@ -75,7 +74,7 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
                     }
                     params.put(item.getFieldName(), values);
                 } else if (item.getSize() == 0) {
-                    log.debug("Item is a file upload of 0 size, ignoring");
+                    log.warn("Item is a file upload of 0 size, ignoring");
                 } else {
                     log.debug("Item is a file upload");
 
@@ -125,26 +124,11 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
 
         List fileList = new ArrayList(items.size());
         for (int i = 0; i < items.size(); i++) {
-            DefaultFileItem fileItem = (DefaultFileItem) items.get(i);
+            DiskFileItem fileItem = (DiskFileItem) items.get(i);
             fileList.add(fileItem.getStoreLocation());
         }
 
         return (File[]) fileList.toArray(new File[fileList.size()]);
-    }
-
-    /**
-     * Returns the canonical name of the given file
-     */
-    private String getCanonicalName(String filename) {
-        int forwardSlash = filename.lastIndexOf("/");
-        int backwardSlash = filename.lastIndexOf("\\");
-        if (forwardSlash != -1 && forwardSlash > backwardSlash) {
-            filename = filename.substring(forwardSlash + 1, filename.length());
-        } else if (backwardSlash != -1 && backwardSlash >= forwardSlash) {
-            filename = filename.substring(backwardSlash + 1, filename.length());
-        }
-
-        return filename;
     }
 
     public String[] getFileNames(String fieldName) {
@@ -156,7 +140,7 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
 
         List fileNames = new ArrayList(items.size());
         for (int i = 0; i < items.size(); i++) {
-            DefaultFileItem fileItem = (DefaultFileItem) items.get(i);
+            DiskFileItem fileItem = (DiskFileItem) items.get(i);
             fileNames.add(getCanonicalName(fileItem.getName()));
         }
 
@@ -172,7 +156,7 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
 
         List fileNames = new ArrayList(items.size());
         for (int i = 0; i < items.size(); i++) {
-            DefaultFileItem fileItem = (DefaultFileItem) items.get(i);
+            DiskFileItem fileItem = (DiskFileItem) items.get(i);
             fileNames.add(fileItem.getStoreLocation().getName());
         }
 
@@ -204,4 +188,49 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
     public List getErrors() {
         return errors;
     }
+
+    /**
+     * Returns the canonical name of the given file.
+     *
+     * @param filename  the given file
+     * @return the canonical name of the given file
+     */
+    private String getCanonicalName(String filename) {
+        int forwardSlash = filename.lastIndexOf("/");
+        int backwardSlash = filename.lastIndexOf("\\");
+        if (forwardSlash != -1 && forwardSlash > backwardSlash) {
+            filename = filename.substring(forwardSlash + 1, filename.length());
+        } else if (backwardSlash != -1 && backwardSlash >= forwardSlash) {
+            filename = filename.substring(backwardSlash + 1, filename.length());
+        }
+
+        return filename;
+    }
+
+    /**
+     * Creates a RequestContext needed by Jakarta Commons Upload.
+     *
+     * @param req  the request.
+     * @return a new request context.
+     */
+    private RequestContext createRequestContext(final HttpServletRequest req) {
+        return new RequestContext() {
+            public String getCharacterEncoding() {
+                return req.getCharacterEncoding();
+            }
+
+            public String getContentType() {
+                return req.getContentType();
+            }
+
+            public int getContentLength() {
+                return req.getContentLength();
+            }
+
+            public InputStream getInputStream() throws IOException {
+                return req.getInputStream();
+            }
+        };
+    }
+
 }
