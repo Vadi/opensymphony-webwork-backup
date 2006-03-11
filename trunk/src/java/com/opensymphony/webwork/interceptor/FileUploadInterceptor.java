@@ -38,6 +38,7 @@ import java.util.*;
  *
  * <p/> You can get access to these files by merely providing setters in your action that correspond to any of the three
  * patterns above, such as setDocument(File document), setDocumentContentType(String contentType), etc.
+ * <br/>See the example code section.
  *
  * <p/> This interceptor will add several field errors, assuming that the action implements {@link ValidationAware}.
  * These error messages are based on several i18n values stored in webwork-messages.properties, a default i18n file
@@ -89,13 +90,47 @@ import java.util.*;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;action name="someAction" class="com.examples.SomeAction"&gt;
+ * &lt;action name="doUpload" class="com.examples.UploadAction"&gt;
  *     &lt;interceptor-ref name="fileUpload"/&gt;
  *     &lt;interceptor-ref name="basicStack"/&gt;
  *     &lt;result name="success"&gt;good_result.ftl&lt;/result&gt;
  * &lt;/action&gt;
- * <!-- END SNIPPET: example -->
  * </pre>
+ *
+ * And then you need to set encoding <code>multipart/form-data</code> in the form where the user selects the file to upload.
+ * <pre>
+ *   &lt;ww:form action="doUpload" method="post" enctype="multipart/form-data"&gt;
+ *       &lt;ww:file name="upload" label="File"/&gt;
+ *       &lt;ww:submit/&gt;
+ *   &lt;/ww:form&gt;
+ * </pre>
+ *
+ * And then in your action code you'll have access to the File object if you provide setters according to the
+ * naming convention documented in the start.
+ *
+ * <pre>
+ *    public com.examples.UploadAction implemements Action {
+ *       private File file;
+ *       private String contentType;
+ *       private String filename;
+ *
+ *       public void setUpload(File file) {
+ *          this.file = file;
+ *       }
+ *
+ *       public void setUploadContentType(String contentType) {
+ *          this.contentType = contentType;
+ *       }
+ *
+ *       public void setUploadFileName(String filename) {
+ *          this.filename = filename;
+ *       }
+ *
+ *       ...
+ *  }
+ * </pre>
+ * <!-- END SNIPPET: example -->
+ *
  */
 public class FileUploadInterceptor implements Interceptor {
     protected static final Log log = LogFactory.getLog(FileUploadInterceptor.class);
