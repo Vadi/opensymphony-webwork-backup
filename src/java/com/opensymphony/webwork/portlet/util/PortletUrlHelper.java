@@ -26,9 +26,13 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 
 /**
- * UrlHelper
+ * Helper class for creating Portlet URLs. Portlet URLs are fundamentally different from regular
+ * servlet URLs since they never target the application itself; all requests go through the portlet
+ * container and must therefore be programatically constructed using the 
+ * {@link javax.portlet.RenderResponse#createActionURL()} and 
+ * {@link javax.portlet.RenderResponse#createRenderURL()} APIs.
  * 
- * @author Jason Carreira Created Apr 19, 2003 9:32:19 PM
+ * @author Nils-Helge Garli
  */
 public class PortletUrlHelper {
     private static final Log LOG = LogFactory.getLog(PortletUrlHelper.class);
@@ -196,81 +200,6 @@ public class PortletUrlHelper {
     }
 
     /**
-     * Builds the paramter String.
-     *
-     * @param params
-     * @param link
-     */
-    public static void buildParametersString(Map params, StringBuffer link) {
-        if ((params != null) && (params.size() > 0)) {
-            if (link.toString().indexOf("?") == -1) {
-                link.append("?");
-            } else {
-                link.append(AMP);
-            }
-
-            // Set params
-            Iterator iter = params.entrySet().iterator();
-
-            String[] valueHolder = new String[1];
-
-            while (iter.hasNext()) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                String name = (String) entry.getKey();
-                Object value = entry.getValue();
-
-                String[] values;
-
-                if (value instanceof String[]) {
-                    values = (String[]) value;
-                } else {
-                    valueHolder[0] = value.toString();
-                    values = valueHolder;
-                }
-
-                for (int i = 0; i < values.length; i++) {
-                    if (values[i] != null) {
-                        link.append(name);
-                        link.append('=');
-                        link.append(translateAndEncode(values[i]));
-                    }
-
-                    if (i < (values.length - 1)) {
-                        link.append("&amp;");
-                    }
-                }
-
-                if (iter.hasNext()) {
-                    link.append("&amp;");
-                }
-            }
-        }
-    }
-
-    /**
-     * Translates any script expressions using
-     * {@link com.opensymphony.xwork.util.TextParseUtil#translateVariables}and
-     * encodes the URL using {@link java.net.URLEncoder#encode}with the
-     * encoding of UTF-8 (as recommended by the w3c and pointed out in issue
-     * WW-747).
-     * 
-     * @param input
-     * @return the translated and encoded string
-     */
-    public static String translateAndEncode(String input) {
-        OgnlValueStack valueStack = ActionContext.getContext().getValueStack();
-        String output = TextParseUtil.translateVariables(input, valueStack);
-
-        try {
-            return URLEncoder.encode(output, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            LOG.warn("Could not encode URL parameter '" + input
-                    + "', returning value un-encoded");
-            return output;
-        }
-    }
-
-    /**
      * Will ensure that all entries in <code>params</code> are String arrays,
      * as requried by the setParameters on the PortletURL.
      * 
@@ -312,6 +241,9 @@ public class PortletUrlHelper {
                 state = WindowState.MINIMIZED;
             }
         }
+        if(state == null) {
+            state = WindowState.NORMAL;
+        }
         return state;
     }
 
@@ -332,6 +264,9 @@ public class PortletUrlHelper {
             } else if ("help".equalsIgnoreCase(portletMode)) {
                 mode = PortletMode.HELP;
             }
+        }
+        if(mode == null) {
+            mode = PortletMode.VIEW;
         }
         return mode;
     }
