@@ -21,7 +21,7 @@
 	<ww:label label="Favourite Vehical Type" name="favouriteVehicalType" />
 	<ww:label label="Favourite Vehical Specific" name="favouriteVehicalSpecific" />
 	<tr>
-		<td>Favourite Cartoon Characters (Left):</td>
+		<td><label class="label">Favourite Cartoon Characters (Left):</label></td>
 		<td>
 			<ww:iterator value="leftSideCartoonCharacters" status="stat">
 				<ww:property value="%{#stat.count}" />.<ww:property value="top" />&nbsp;
@@ -29,7 +29,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>Favourite Cartoon Characters (Right):</td>
+		<td><label class="label">Favourite Cartoon Characters (Right):</label></td>
 		<td>
 			<ww:iterator value="rightSideCartoonCharacters" status="stat">
 				<ww:property value="%{#stat.count}" />.<ww:property value="top" />&nbsp;
