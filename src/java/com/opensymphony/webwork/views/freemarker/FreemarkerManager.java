@@ -2,9 +2,6 @@
  * Copyright (c) 2002-2003 by OpenSymphony
  * All rights reserved.
  */
-/*
- * Created on 18/04/2004
- */
 package com.opensymphony.webwork.views.freemarker;
 
 import com.opensymphony.util.FileManager;
@@ -44,6 +41,7 @@ import java.util.Properties;
  * Static Configuration Manager for the FreemarkerResult's configuration
  *
  * @author CameronBraid
+ * @version $Date$ $Id$
  */
 public class FreemarkerManager {
 
@@ -239,7 +237,7 @@ public class FreemarkerManager {
      * @param servletContext
      */
     protected freemarker.template.Configuration createConfiguration(ServletContext servletContext) throws TemplateException {
-        freemarker.template.Configuration configuration = freemarker.template.Configuration.getDefaultConfiguration();
+    	freemarker.template.Configuration configuration = new freemarker.template.Configuration();
 
         configuration.setTemplateLoader(getTemplateLoader(servletContext));
 
