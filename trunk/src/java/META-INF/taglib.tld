@@ -1473,7 +1473,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set action attribute]]></description>
+           <description><![CDATA[Set action attribute.]]></description>
 
       </attribute>
       <attribute>
@@ -1481,7 +1481,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set method attribute]]></description>
+           <description><![CDATA[Set method attribute.]]></description>
 
       </attribute>
       <attribute>
@@ -1489,7 +1489,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[HTML align attribute]]></description>
+           <description><![CDATA[HTML align attribute.]]></description>
 
       </attribute>
       <attribute>
@@ -1497,7 +1497,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[The id of the HTML element to place the result (this can the the form's id or any id on the page]]></description>
+           <description><![CDATA[The id of the HTML element to place the result (this can the the form's id or any id on the page.]]></description>
 
       </attribute>
       <attribute>
@@ -1513,7 +1513,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[ Topic names to post an event to after the form has been submitted]]></description>
+           <description><![CDATA[Topic names to post an event to after the form has been submitted.]]></description>
 
       </attribute>
       <attribute>
@@ -1521,7 +1521,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[Set listenTopics attribute]]></description>
+           <description><![CDATA[Set listenTopics attribute.]]></description>
 
       </attribute>
       <attribute>
@@ -1537,7 +1537,23 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[The type of submit to use. Valid values are input, button and image.]]></description>
+           <description><![CDATA[The type of submit to use. Valid values are <i>input</i>, <i>button</i> and <i>image</i>.]]></description>
+
+      </attribute>
+      <attribute>
+         <name>label</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Label expression used for rendering a element specific label]]></description>
+
+      </attribute>
+      <attribute>
+         <name>src</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Supply an image src for <i>image</i> type submit button. Will have no effect for types <i>input</i> and <i>button</i>.]]></description>
 
       </attribute>
       <attribute>
@@ -1586,14 +1602,6 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[Set the html disabled attribute on rendered html element]]></description>
-
-      </attribute>
-      <attribute>
-         <name>label</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[Label expression used for rendering a element specific label]]></description>
 
       </attribute>
       <attribute>
