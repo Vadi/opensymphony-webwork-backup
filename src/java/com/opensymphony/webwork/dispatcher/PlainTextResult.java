@@ -7,7 +7,6 @@ package com.opensymphony.webwork.dispatcher;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
-import java.nio.charset.spi.CharsetProvider;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -29,8 +28,8 @@ import com.opensymphony.xwork.ActionInvocation;
  * <!-- START SNIPPET: params -->
  * 
  * <ul>
- * 	<li>location = location of the file (jsp/html) to be displayed as plain text.</li>
- *  <li>charSet = character set to be used. This character set will be used to set the
+ * 	<li>location (default) = location of the file (jsp/html) to be displayed as plain text.</li>
+ *  <li>charSet (optional) = character set to be used. This character set will be used to set the
  *  response type (eg. Content-Type=text/plain; charset=UTF-8) and when reading 
  *  using a Reader. Some example of charSet would be UTF-8, ISO-8859-1 etc. 
  * </ul>
@@ -88,7 +87,7 @@ public class PlainTextResult extends WebWorkResultSupport {
 				charset = Charset.forName(charSet);
 			}
 			else {
-				_log.warn("charset ["+charSet+"] is not recongnized ");
+				_log.warn("charset ["+charSet+"] is not recognized ");
 				charset = null;
 			}
 		}
@@ -135,5 +134,4 @@ public class PlainTextResult extends WebWorkResultSupport {
 			}
 		}
 	}
-
 }
