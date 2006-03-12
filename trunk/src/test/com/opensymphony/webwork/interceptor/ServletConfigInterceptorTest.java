@@ -8,6 +8,7 @@ import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.webwork.util.ServletContextAware;
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.mock.MockActionInvocation;
 import org.easymock.MockControl;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -132,6 +133,29 @@ public class ServletConfigInterceptorTest extends WebWorkTestCase {
         control.verify();
     }
 
+    public void testPrincipalProxy() throws Exception {
+        // uni test that does not use mock, but an Action so we also get code coverage for the PrincipalProxy class
+        MockHttpServletRequest req = new MockHttpServletRequest();
+        req.setUserPrincipal(null);
+        req.setRemoteUser("Santa");
+
+        MyPrincipalAction action = new MyPrincipalAction();
+        MockActionInvocation mai = createActionInvocation(action);
+        mai.getInvocationContext().put(WebWorkStatics.HTTP_REQUEST, req);
+
+        assertNull(action.getProxy());
+        interceptor.intercept(mai);
+        assertNotNull(action.getProxy());
+
+        PrincipalProxy proxy = action.getProxy();
+        assertEquals(proxy.getRequest(), req);
+        assertNull(proxy.getUserPrincipal());
+        assertTrue(! proxy.isRequestSecure());
+        assertTrue(! proxy.isUserInRole("no.role"));
+        assertEquals("Santa", proxy.getRemoteUser());
+
+    }
+
     public void testServletContextAware() throws Exception {
         MockControl control = MockControl.createControl(ServletContextAware.class);
         ServletContextAware mock = (ServletContextAware) control.getMock();
@@ -168,6 +192,23 @@ public class ServletConfigInterceptorTest extends WebWorkTestCase {
         super.tearDown();
         interceptor.destroy();
         interceptor = null;
+    }
+
+    private class MyPrincipalAction implements Action, PrincipalAware {
+
+        private PrincipalProxy proxy;
+
+        public String execute() throws Exception {
+            return SUCCESS;
+        }
+
+        public void setPrincipalProxy(PrincipalProxy proxy) {
+            this.proxy = proxy;
+        }
+
+        public PrincipalProxy getProxy() {
+            return proxy;
+        }
     }
 
 }
