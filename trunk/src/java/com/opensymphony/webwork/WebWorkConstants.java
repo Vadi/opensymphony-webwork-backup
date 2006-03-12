@@ -60,4 +60,6 @@ public final class WebWorkConstants {
     public static final String WEBWORK_CUSTOM_PROPERTIES = "webwork.custom.properties";
     public static final String WEBWORK_CUSTOM_I18N_RESOURCES = "webwork.custom.i18n.resources";
     public static final String WEBWORK_MAPPER_CLASS = "webwork.mapper.class";
+
+    public static final String WEBWORK_PORTLET_CONTEXT = "webwork.portlet.context";
 }
