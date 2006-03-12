@@ -58,6 +58,7 @@ import com.opensymphony.xwork.util.LocalizedTextUtil;
  * <!-- END SNIPPET: javadoc --> 
  * 
  * @author <a href="nils-helge.garli@bekk.no">Nils-Helge Garli </a>
+ * @author Rainer Hermanns
  * 
  * <p><b>Init parameters</b></p>
  * <!-- START SNIPPET: params -->
@@ -188,16 +189,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         if ("true".equalsIgnoreCase(Configuration
                 .getString(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD))) {
             FileManager.setReloadingConfigs(true);
-        }
-
-        String encoding = null;
-        if (Configuration.isSet(WebWorkConstants.WEBWORK_I18N_ENCODING)) {
-            encoding = Configuration.getString(WebWorkConstants.WEBWORK_I18N_ENCODING);
-        }
-
-        Locale locale = null;
-        if (Configuration.isSet(WebWorkConstants.WEBWORK_LOCALE)) {
-            locale = LocalizedTextUtil.localeFromString(Configuration.getString(WebWorkConstants.WEBWORK_LOCALE), null);
         }
 
         if (Configuration.isSet(WebWorkConstants.WEBWORK_OBJECTFACTORY)) {
@@ -344,7 +335,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         }
         extraContext.put(ActionContext.LOCALE, locale);
 
-        extraContext.put("webwork.portlet.context", getPortletContext());
+        extraContext.put(WebWorkConstants.WEBWORK_PORTLET_CONTEXT, getPortletContext());
         extraContext.put(REQUEST, request);
         extraContext.put(RESPONSE, response);
         extraContext.put(PORTLET_CONFIG, portletConfig);
