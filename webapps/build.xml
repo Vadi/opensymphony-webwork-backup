@@ -88,7 +88,6 @@
 			<zipfileset dir="${basedir}/../lib/ajax" prefix="WEB-INF/lib" includes="*.jar" />
 			<zipfileset dir="${basedir}/../lib/default" prefix="WEB-INF/lib" includes="*.jar" />
 			<zipfileset dir="${basedir}/../lib/fileupload" prefix="WEB-INF/lib" includes="*.jar" />
-			<zipfileset dir="${basedir}/../lib/freemarker" prefix="WEB-INF/lib" includes="*.jar" />
 			<zipfileset dir="${basedir}/../lib/sitemesh" prefix="WEB-INF/lib" includes="*.jar" />
 			<zipfileset dir="${basedir}/../lib/portlet" prefix="WEB-INF/lib" includes="*.jar" />
 			<zipfileset dir="${basedir}/../lib/jasperreports" prefix="WEB-INF/lib" excludes="commons-collections.jar" />
