@@ -35,7 +35,6 @@ public class EditPerson extends ActionSupport {
      * @return {@link #SUCCESS}
      */
     public String execute() throws Exception {
-        System.out.println("personManager.getPeople(): " + personManager.getPeople());
         persons.addAll(personManager.getPeople());
         return SUCCESS;
     }
