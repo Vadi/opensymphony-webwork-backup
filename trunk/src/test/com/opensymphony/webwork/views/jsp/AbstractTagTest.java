@@ -24,9 +24,9 @@ import java.util.Map;
 
 
 /**
- * AbstractTagTest
- * User: jcarreira
- * Created: Oct 17, 2003 10:24:34 PM
+ * Base class to extend for unit testing UI Tags.
+ *
+ * @author jcarreira
  */
 public abstract class AbstractTagTest extends WebWorkTestCase {
     protected Action action;
