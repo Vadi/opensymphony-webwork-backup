@@ -12,7 +12,8 @@
         <action name="jasperList" class="com.opensymphony.webwork.showcase.jasper.JasperAction">
             <result name="success" type="jasper">
                 <param name="location">/jasper/sample_report.jasper</param>
-                <param name="dataSource">myList</param>
+                <param name="dataSource">people</param>
+                <param name="documentName">peoplereport</param>
             </result>
         </action>
 
