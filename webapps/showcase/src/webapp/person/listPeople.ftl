@@ -20,6 +20,10 @@ There are ${peopleCount} people...
 </#list>
 </table>
 
-<a href="editPerson.action">Edit people</a>
+<ul>
+    <li><a href="editPerson.action">Edit people</a></li>
+    <li><a href="newPerson!input.action">Create</a> a new person</li>
+    <li><a href="jasperList.action">Jasper Report</a> all people as PDF export</li>
+</ul>
 </body>
 </html>
