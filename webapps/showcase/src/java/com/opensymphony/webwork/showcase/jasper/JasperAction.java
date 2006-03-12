@@ -4,15 +4,14 @@
  */
 package com.opensymphony.webwork.showcase.jasper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 import java.io.File;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
 
-import com.opensymphony.webwork.showcase.person.Person;
 import com.opensymphony.xwork.ActionSupport;
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.showcase.person.PersonManager;
 
 /**
  * @author Philip Luppens
@@ -20,7 +19,11 @@ import com.opensymphony.webwork.ServletActionContext;
  */
 public class JasperAction extends ActionSupport {
 
-    private List myList;
+    private PersonManager personManager;
+
+    public void setPersonManager(PersonManager personManager) {
+        this.personManager = personManager;
+    }
 
     /*
       * (non-Javadoc)
@@ -28,25 +31,6 @@ public class JasperAction extends ActionSupport {
       * @see com.opensymphony.xwork.ActionSupport#execute()
       */
     public String execute() throws Exception {
-
-        // create some imaginary persons
-        Person p1 = new Person(new Long(1), "Patrick", "Lightbuddie");
-        Person p2 = new Person(new Long(2), "Jason", "Carrora");
-        Person p3 = new Person(new Long(3), "Alexandru", "Papesco");
-        Person p4 = new Person(new Long(4), "Jay", "Boss");
-        Person p5 = new Person(new Long(5), "Rainer", "Hermanos");
-
-        /*
-           * store everything in a list - normally, this should be coming from a
-           * database but for the sake of simplicity, I left that out
-           */
-        myList = new ArrayList();
-        myList.add(p1);
-        myList.add(p2);
-        myList.add(p3);
-        myList.add(p4);
-        myList.add(p5);
-
 
         /*
            * Here we compile our xml jasper template to a jasper file.
@@ -70,10 +54,10 @@ public class JasperAction extends ActionSupport {
     }
 
     /**
-     * @return Returns the myList.
+     * @return Returns the people.
      */
-    public List getMyList() {
-        return myList;
+    public Set getPeople() {
+        return personManager.getPeople();
     }
 
 }
