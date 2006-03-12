@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2006, Your Corporation. All Rights Reserved.
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
  */
-
 package com.opensymphony.webwork.components;
 
 import org.apache.commons.logging.Log;
@@ -65,7 +65,7 @@ public class Date extends Text {
 
     /**
      * @ww.tagattribute required="false" rtexprvalue="false"
-     * description=" Date or DateTime format pattern"
+     * description="Date or DateTime format pattern"
      */
     public void setFormat(String format) {
         this.format = format;
@@ -91,11 +91,23 @@ public class Date extends Text {
         return null;
     }
 
+    /**
+     * Calculates the difference in time from now to the given date, and outputs it nicely.
+     * <p/>
+     * An example:
+     * <br/>Now = 2006/03/12 13:38:00, date = 2006/03/12 15:50:00 will output "in 1 hour, 12 minutes".
+     *
+     * @param tp    text provider
+     * @param date  the date
+     * @return the date nicely
+     */
     public String formatTime(TextProvider tp, java.util.Date date) {
+        java.util.Date now = new java.util.Date();
         StringBuffer sb = new StringBuffer();
         List args = new ArrayList();
-        long secs = (new java.util.Date().getTime() - date.getTime()) / 1000;
+        long secs = Math.abs((now.getTime() - date.getTime()) / 1000);
         long mins = secs / 60;
+        long sec = secs % 60;
         int min = (int) mins % 60;
         long hours = mins / 60;
         int hour = (int) hours % 24;
@@ -103,41 +115,40 @@ public class Date extends Text {
         int day = days % 365;
         int years = days / 365;
 
-        if (Math.abs(secs) < 60) {
-            args.add(new Long(secs));
+        if (years > 0) {
+            args.add(new Long(years));
+            args.add(new Long(day));
             args.add(sb);
             args.add(null);
-            sb.append(tp.getText(DATETAG_PROPERTY_SECONDS, DATETAG_DEFAULT_SECONDS, args));
-
-        } else if (hours == 0) {
-            args.add(new Long(min));
+            sb.append(tp.getText(DATETAG_PROPERTY_YEARS, DATETAG_DEFAULT_YEARS, args));
+        } else if (day > 0) {
+            args.add(new Long(day));
+            args.add(new Long(hour));
             args.add(sb);
             args.add(null);
-            sb.append(tp.getText(DATETAG_PROPERTY_MINUTES, DATETAG_DEFAULT_MINUTES, args));
-
-        } else if (days == 0) {
+            sb.append(tp.getText(DATETAG_PROPERTY_DAYS, DATETAG_DEFAULT_DAYS, args));
+        } else if (hour > 0) {
             args.add(new Long(hour));
             args.add(new Long(min));
             args.add(sb);
             args.add(null);
             sb.append(tp.getText(DATETAG_PROPERTY_HOURS, DATETAG_DEFAULT_HOURS, args));
-        } else if (years == 0) {
-            args.add(new Long(days));
-            args.add(new Long(hour));
+        } else if (min > 0) {
+            args.add(new Long(min));
+            args.add(new Long(sec));
             args.add(sb);
             args.add(null);
-            sb.append(tp.getText(DATETAG_PROPERTY_DAYS, DATETAG_DEFAULT_DAYS, args));
+            sb.append(tp.getText(DATETAG_PROPERTY_MINUTES, DATETAG_DEFAULT_MINUTES, args));
         } else {
-            args.add(new Object[]{new Long(years)});
-            args.add(new Object[]{new Long(day)});
+            args.add(new Long(sec));
             args.add(sb);
             args.add(null);
-
-            sb.append(tp.getText(DATETAG_PROPERTY_YEARS, DATETAG_DEFAULT_YEARS, args));
+            sb.append(tp.getText(DATETAG_PROPERTY_SECONDS, DATETAG_DEFAULT_SECONDS, args));
         }
+
         args.clear();
         args.add(sb.toString());
-        if (date.before(new java.util.Date())) {
+        if (date.before(now)) {
             //looks like this date is passed
             return tp.getText(DATETAG_PROPERTY_PAST, DATETAG_DEFAULT_PAST, args);
         } else {
@@ -166,11 +177,11 @@ public class Date extends Text {
                     if (format == null) {
                         String globalFormat = null;
 
-                        //if the format is not specified, fall back using the defined
-                        // property DATETAG_PROPERTY
+                        //if the format is not specified, fall back using the defined property DATETAG_PROPERTY
                         globalFormat = tp.getText(DATETAG_PROPERTY);
 
-                        if (globalFormat != null) {
+                        // if tp.getText can not find the property then the returned string is the same as input = DATETAG_PROPERTY
+                        if (globalFormat != null && !DATETAG_PROPERTY.equals(globalFormat)) {
                             msg = new SimpleDateFormat(globalFormat, ActionContext.getContext().getLocale()).format(date);
                         } else {
                             msg = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, ActionContext.getContext().getLocale()).format(date);
@@ -196,15 +207,4 @@ public class Date extends Text {
         return super.end(writer, "");
     }
 
-    public void addParameter(String key, Object value) {
-        addParameter(value);
-    }
-
-    public void addParameter(Object value) {
-        if (values.isEmpty()) {
-            values = new ArrayList(4);
-        }
-
-        values.add(value);
-    }
 }
