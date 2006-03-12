@@ -273,11 +273,11 @@ public class DispatcherUtils {
 
         Locale locale = null;
         if (Configuration.isSet(WebWorkConstants.WEBWORK_LOCALE)) {
-            locale = localeFromString(Configuration.getString(WebWorkConstants.WEBWORK_LOCALE));
+            locale = LocalizedTextUtil.localeFromString(Configuration.getString(WebWorkConstants.WEBWORK_LOCALE), request.getLocale());
         }
 
 
-        extraContext.put(ActionContext.LOCALE, (locale == null) ? request.getLocale() : locale);
+        extraContext.put(ActionContext.LOCALE, locale);
         extraContext.put(ActionContext.DEV_MODE, Boolean.valueOf(devMode));
 
         extraContext.put(WebWorkStatics.HTTP_REQUEST, request);
@@ -295,37 +295,6 @@ public class DispatcherUtils {
         extraContext.put("attr", attrMap);
 
         return extraContext;
-    }
-
-    /**
-     * Builds a {@link java.util.Locale} from a String of the form en_US_foo into a Locale
-     * with language "en", country "US" and variant "foo". This will parse the output of
-     * {@link java.util.Locale#toString()}.
-     * todo move this to LocalizedTextUtil in xwork 1.0.6
-     */
-    public Locale localeFromString(String localeStr) {
-        if ((localeStr == null) || (localeStr.trim().length() == 0) || (localeStr.equals("_"))) {
-            return null;
-        }
-        int index = localeStr.indexOf('_');
-        if (index < 0) {
-            return new Locale(localeStr, "");
-        }
-        String language = localeStr.substring(0, index);
-        if (index == localeStr.length()) {
-            return new Locale(language, "");
-        }
-        localeStr = localeStr.substring(index + 1);
-        index = localeStr.indexOf('_');
-        if (index < 0) {
-            return new Locale(language, localeStr);
-        }
-        String country = localeStr.substring(0, index);
-        if (index == localeStr.length()) {
-            return new Locale(language, country);
-        }
-        localeStr = localeStr.substring(index + 1);
-        return new Locale(language, country, localeStr);
     }
 
     /**
@@ -396,7 +365,7 @@ public class DispatcherUtils {
 
         Locale locale = null;
         if (Configuration.isSet(WebWorkConstants.WEBWORK_LOCALE)) {
-            locale = localeFromString(Configuration.getString(WebWorkConstants.WEBWORK_LOCALE));
+            locale = LocalizedTextUtil.localeFromString(Configuration.getString(WebWorkConstants.WEBWORK_LOCALE), request.getLocale());
         }
 
 
