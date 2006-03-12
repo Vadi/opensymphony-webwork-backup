@@ -103,18 +103,13 @@ public class UITagExample extends ActionSupport implements Validateable {
     	this.favouriteVehicalSpecific = favouriteVehicalSpecific;
     }
     
-    
-    
-    
-    
     public List getVehicalTypeList() {
     	return vehicalTypeList;
     }
     
     public List getVehicalSpecificList() {
     	OgnlValueStack stack = ServletActionContext.getValueStack(ServletActionContext.getRequest());
-    	VehicalType vehicalType = (VehicalType) stack.findValue("top");
-    	System.out.println("vehicalType.getKey()"+vehicalType.getKey());
+    	String vehicalType = (String) stack.findValue("favouriteVehicalType");
     	List l = (List) vehicalSpecificMap.get(vehicalType);
     	return l;
     }
