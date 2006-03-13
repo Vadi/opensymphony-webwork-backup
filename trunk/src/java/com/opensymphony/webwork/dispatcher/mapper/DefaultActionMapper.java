@@ -1,14 +1,12 @@
 package com.opensymphony.webwork.dispatcher.mapper;
 
+import com.opensymphony.webwork.RequestUtils;
+import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.ServletRedirectResult;
 import com.opensymphony.webwork.util.PrefixTrie;
-import com.opensymphony.webwork.RequestUtils;
-import com.opensymphony.webwork.WebWorkConstants;
 
 import javax.servlet.http.HttpServletRequest;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -303,7 +301,7 @@ public class DefaultActionMapper implements ActionMapper {
         }
 
         String extension = getDefaultExtension();
-        if (extension != null) {
+        if ( extension != null && uri.indexOf( "." + extension + '?') == -1  ) {
             uri.append(".").append(extension);
         }
 
