@@ -284,6 +284,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         LOG.debug("Entering render");
         LOG.debug("Namespace for portlet is: " + response.getNamespace());
         resetActionContext();
+        response.setTitle(getTitle(request));
         try {
             // Check to see if an event set the render to be included directly
             serviceAction(request, response, getActionMapping(request),
