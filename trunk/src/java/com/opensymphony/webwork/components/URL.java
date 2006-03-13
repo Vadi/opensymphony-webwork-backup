@@ -150,7 +150,7 @@ public class URL extends Component {
                 includeParams = findString(this.includeParams);
             }
 
-            if ((includeParams == null && value == null) || GET.equalsIgnoreCase(includeParams)) {
+            if ((includeParams == null && value == null && action == null) || GET.equalsIgnoreCase(includeParams)) {
                 // Parse the query string to make sure that the parameters come from the query, and not some posted data
                 String query = req.getQueryString();
 
