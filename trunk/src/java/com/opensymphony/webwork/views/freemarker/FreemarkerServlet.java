@@ -59,7 +59,7 @@ public class FreemarkerServlet extends HttpServlet {
     }
 
     /**
-     * This method is called from {@link #process(HttpServletRequest, HttpServletResponse)} to obtain the
+     * This method is called from process() to obtain the
      * FreeMarker object wrapper object that this result will use
      * for adapting objects into
      * template models.. This is a hook that allows you
