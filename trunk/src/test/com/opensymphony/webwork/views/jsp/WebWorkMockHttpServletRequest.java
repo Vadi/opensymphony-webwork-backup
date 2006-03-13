@@ -8,6 +8,7 @@ import com.mockobjects.servlet.MockHttpServletRequest;
 import junit.framework.AssertionFailedError;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.RequestDispatcher;
 import java.util.*;
 
 
@@ -30,6 +31,7 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
     private String serverName;
     private int serverPort;
     private String encoding;
+    private String requestDispatherString;
 
 
     public void setAttribute(String s, Object o) {
@@ -97,6 +99,18 @@ public class WebWorkMockHttpServletRequest extends MockHttpServletRequest {
 
     public String getQueryString() {
         return queryString;
+    }
+
+    public RequestDispatcher getRequestDispatcher(String string) {
+        this.requestDispatherString = string;
+        return super.getRequestDispatcher(string);
+    }
+
+    /**
+     * Get's the source string that was used in the last getRequestDispatcher method call.
+     */
+    public String getRequestDispatherString() {
+        return requestDispatherString;
     }
 
     public void setRequestURI(String requestURI) {
