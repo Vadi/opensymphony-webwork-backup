@@ -7,6 +7,7 @@ package com.opensymphony.webwork.portlet.dispatcher;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.ListResourceBundle;
 import java.util.Locale;
 import java.util.Map;
 
@@ -15,11 +16,12 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
-import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 
 import junit.textui.TestRunner;
 
@@ -28,6 +30,7 @@ import org.jmock.cglib.MockObjectTestCase;
 import org.jmock.core.Constraint;
 
 import com.opensymphony.webwork.portlet.PortletActionConstants;
+import com.opensymphony.webwork.portlet.context.ServletContextHolderListener;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
@@ -66,6 +69,12 @@ public class Jsr168DispatcherTest extends MockObjectTestCase implements PortletA
     	mockConfig.stubs().method("getPortletContext").will(returnValue(mockCtx.proxy()));
     	mockCtx.stubs().method("getInitParameterNames").will(returnValue(Collections.enumeration(initParams.keySet())));
     	setupStub(initParams, mockCtx, "getInitParameter");
+    	
+    	mockConfig.stubs().method("getResourceBundle").will(returnValue(new ListResourceBundle() {
+            protected Object[][] getContents() {
+                return new String[][]{{"javax.portlet.title", "MyTitle"}};
+            }
+        }));
     }
 
     private void setupActionFactory(String namespace, String actionName, String result, OgnlValueStack stack) {
@@ -87,6 +96,10 @@ public class Jsr168DispatcherTest extends MockObjectTestCase implements PortletA
     public void testRender_ok() {
         final Mock mockResponse = mock(RenderResponse.class);
         mockResponse.stubs().method(ANYTHING);
+        final Mock servletContext = mock(ServletContext.class);
+        servletContext.stubs().method(ANYTHING);
+        ServletContextEvent event = new ServletContextEvent((ServletContext)servletContext.proxy());
+        new ServletContextHolderListener().contextInitialized(event);
         String actionName = "testAction";
         PortletMode mode = PortletMode.VIEW;
 
