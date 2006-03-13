@@ -323,7 +323,24 @@
     <!-- =================================================================== -->
     <target name="fixcrlf" description="Fixed CR/LF problems">
         <echo>Running fixcrlf....</echo>
-        <fixcrlf eol="lf" srcdir="${basedir}/src"
+         <fixcrlf eol="lf" srcdir="${basedir}/src"
+                 includes="**/*.sh,
+                      **/*.properties,
+                      **/*.sql,
+                      **/*.script,
+                      **/*.java,
+                      **/*.css,
+                      **/*.js,
+                      **/*.jsp,
+                      **/*.ftl,
+                      **/*.txt,
+                      **/*.vm,
+                      **/*.xml,
+                      **/*.dtd,
+                      **/*.xsl,
+                      **/*.xslt,
+                      **/*.html" />
+        <fixcrlf eol="lf" srcdir="${basedir}/webapps"
                  includes="**/*.sh,
                       **/*.properties,
                       **/*.sql,
