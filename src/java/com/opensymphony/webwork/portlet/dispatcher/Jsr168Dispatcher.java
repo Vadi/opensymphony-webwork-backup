@@ -156,7 +156,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
      */
     public void init(PortletConfig cfg) throws PortletException {
         super.init(cfg);
-        LOG.debug("Creating portlet instance with hashcode = " + hashCode());
+        LOG.debug("Initializin portlet " + getPortletName());
         // For testability
         if (factory == null) {
             factory = ActionProxyFactory.getFactory();
@@ -220,8 +220,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
                         + ". Using default ObjectFactory.", e);
             }
         }
-        LOG.debug("Init complete. The maps has hashcodes " + modeMap.hashCode()
-                + ", " + actionMap.hashCode());
     }
 
     private void parseModeConfig(PortletConfig portletConfig,
@@ -282,7 +280,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
             throws PortletException, IOException {
 
         LOG.debug("Entering render");
-        LOG.debug("Namespace for portlet is: " + response.getNamespace());
         resetActionContext();
         response.setTitle(getTitle(request));
         try {
@@ -383,9 +380,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
                 sessionMap, applicationMap, request, response,
                 getPortletConfig(), phase);
         PortletMode mode = request.getPortletMode();
-        LOG.debug("Thread serving action is "
-                + Thread.currentThread().getName());
-        LOG.debug("ActionContext in use is " + ActionContext.getContext());
         String actionName = mapping.getName();
         String namespace = mapping.getNamespace();
         try {
@@ -406,7 +400,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
                             action.getInvocation().getAction());
                 }
             }
-            LOG.debug("Executing action proxy");
             proxy.execute();
             if (PortletActionConstants.EVENT_PHASE.equals(phase)) {
                 // Store the executed action in the session for retrieval in the
@@ -461,11 +454,8 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
                     namespace = actionPath.substring(0, idx);
                     action = actionPath.substring(idx + 1);
                 }
-                LOG.debug("Action: " + action + ", Namespace: " + namespace);
                 mapping.setName(action);
                 mapping.setNamespace(namespace);
-                LOG.debug("Action (from mapping): " + mapping.getName()
-                        + ", Namespace: " + mapping.getNamespace());
             }
         }
         return mapping;
