@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.util;
 
 import ognl.DefaultTypeConverter;
@@ -13,7 +17,14 @@ import java.util.Map;
  * <p/> Type converters do not have to use this class. It is merely a helper base class, although it is recommended that
  * you use this class as it provides the common type conversion contract required for all web-based type conversion.
  *
+ * <p/> There's a hook (fall back method) called <code>performFallbackConversion</code> of which 
+ * could be used to perform some fallback conversion if <code>convertValue</code> method of this 
+ * failed. By default it just ask its super class (Ognl's DefaultTypeConverter) to do the conversion.
+ *
  * <!-- END SNIPPET: javadoc -->
+ * 
+ * @version $Date$ $Id$
+ * 
  */
 public abstract class WebWorkTypeConverter extends DefaultTypeConverter {
     public Object convertValue(Map context, Object o, Class toClass) {
@@ -24,9 +35,24 @@ public abstract class WebWorkTypeConverter extends DefaultTypeConverter {
         } else if (o instanceof String) {
             return convertFromString(context, new String[]{(String) o}, toClass);
         } else {
-            return super.convertValue(context, o, toClass);
+        	return performFallbackConversion(context, o, toClass);
         }
     }
+    
+    /**
+     * Hook to perform a fallback conversion if every default options failed. By default
+     * this will ask Ognl's DefaultTypeConverter (of which this class extends) to 
+     * perform the conversion.
+     * 
+     * @param context
+     * @param o
+     * @param toClass
+     * @return
+     */
+    protected Object performFallbackConversion(Map context, Object o, Class toClass) {
+    	return super.convertValue(context, o, toClass);
+    }
+    
 
     /**
      * Converts one or more String values to the specified class.
