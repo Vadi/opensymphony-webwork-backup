@@ -2,10 +2,8 @@ package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
-import com.opensymphony.webwork.util.WebWorkUtil;
 import com.opensymphony.webwork.RequestUtils;
 import com.opensymphony.webwork.WebWorkConstants;
-import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import org.apache.commons.logging.Log;
