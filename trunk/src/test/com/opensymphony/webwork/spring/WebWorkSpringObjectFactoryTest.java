@@ -19,6 +19,7 @@ import javax.servlet.ServletContext;
  * Unit test for {@link WebWorkSpringObjectFactory}.
  *
  * @author Claus Ibsen
+ * @version $Date$ $Id$
  */
 public class WebWorkSpringObjectFactoryTest extends TestCase {
 
@@ -27,6 +28,8 @@ public class WebWorkSpringObjectFactoryTest extends TestCase {
         WebWorkSpringObjectFactory fac = new WebWorkSpringObjectFactory();
         ServletContext msc = (ServletContext) new MockServletContext();
         fac.init(msc);
+        
+        assertEquals(AutowireCapableBeanFactory.AUTOWIRE_BY_NAME, fac.getAutowireStrategy());
     }
 
     public void testWithSpringContext() throws Exception {
