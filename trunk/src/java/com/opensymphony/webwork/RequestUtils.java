@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author <a href='mailto:the_mindstorm[at]evolva[dot]ro'>Alexandru Popescu</a>
  */
 public class RequestUtils {
+
     /**
      * Retrieves the current request servlet path.
      * Deals with differences between servlet specs (2.2 vs 2.3+)
@@ -16,7 +21,7 @@ public class RequestUtils {
      * @param request the request
      * @return the servlet path
      */
-    public static final String getServletPath(HttpServletRequest request) {
+    public static String getServletPath(HttpServletRequest request) {
         String servletPath = request.getServletPath();
         
         if (null != servletPath && !"".equals(servletPath)) {
@@ -33,4 +38,5 @@ public class RequestUtils {
         
         return requestUri.substring(startIndex, endIndex);
     }
+    
 }
