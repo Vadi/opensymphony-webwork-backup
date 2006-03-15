@@ -37,11 +37,14 @@
 
 <body id="page-home">
 
+<ww:action id="dateAction" name="date" namespace="/" executeResult="false" />
+
 <div id="page">
     <div id="outer-header">
         <div id="header" class="clearfix">
             <div id="branding">
                 <h1 class="title">WebWork Showcase</h1>
+                <ww:property value="#dateAction.date" />
             </div><!-- end branding -->
 
             <div id="search">

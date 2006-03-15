@@ -38,6 +38,10 @@
         <action name="showcase">
             <result>showcase.jsp</result>
         </action>
+
+        <action name="date" class="com.opensymphony.webwork.showcase.DateAction">
+        </action>
+
     </package>
 
     <package name="skill" extends="default" namespace="/skill">
