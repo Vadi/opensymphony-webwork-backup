@@ -19,8 +19,6 @@ public class DebugTagTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        System.out.println(writer.toString());
-
         assertNotNull(writer.toString());
         assertTrue("There should be at alot of debug data", writer.toString().length() > 5000);
     }
