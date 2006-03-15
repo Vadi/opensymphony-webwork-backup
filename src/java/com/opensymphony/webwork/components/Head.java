@@ -1,7 +1,10 @@
+/*
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.WebWorkConstants;
 
@@ -20,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * The tag also includes the option to set a custom datepicker theme if needed. See calendarcss parameter for
  * description for details.<p/>
+ *
+ * If you use the ajax theme you can turn a debug flag on by setting the debug parameter to <tt>true</tt>.
  *
  * <!-- END SNIPPET: javadoc -->
  *
@@ -41,6 +46,15 @@ import javax.servlet.http.HttpServletResponse;
  *   &lt;ww:head theme="ajax" calendarcss="calendar-green"/&gt;
  * &lt;/head&gt;
  * <!-- END SNIPPET: example2 -->
+ * </pre>
+ *
+ * <pre>
+ * <!-- START SNIPPET: example3 -->
+ * &lt;head&gt;
+ *   &lt;title&gt;My page&lt;/title&gt;
+ *   &lt;ww:head theme="ajax" debug="true"/&gt;
+ * &lt;/head&gt;
+ * <!-- END SNIPPET: example3 -->
  * </pre>
  *
  * @author Patrick Lightbody
@@ -79,7 +93,7 @@ public class Head extends UIBean {
         }
 
         addParameter("encoding", Configuration.get(WebWorkConstants.WEBWORK_I18N_ENCODING));
-        addParameter("debug", new Boolean(debug).toString());
+        addParameter("debug", Boolean.valueOf(debug).toString());
     }
 
     public String getCalendarcss() {
