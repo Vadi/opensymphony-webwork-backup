@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2006 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.dispatcher.multipart;
@@ -7,6 +7,7 @@ package com.opensymphony.webwork.dispatcher.multipart;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.WebWorkRequestWrapper;
 import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -25,9 +26,10 @@ import java.util.*;
  * Webwork ships with three implementations,
  * {@link com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest}, and
  * {@link com.opensymphony.webwork.dispatcher.multipart.CosMultiPartRequest} and
- * {@link com.opensymphony.webwork.dispatcher.multipart.JakartaMultiPartRequest}. The Pell implementation
- * is the default. The <tt>webwork.multipart.parser</tt> property should be set to <tt>pell</tt> for
- * the Pell implementation and <tt>cos</tt> for the Jason Hunter implementation. <p>
+ * {@link com.opensymphony.webwork.dispatcher.multipart.JakartaMultiPartRequest}. The Jakarta implementation
+ * is the default. The <tt>webwork.multipart.parser</tt> property should be set to <tt>jakarta</tt> for the
+ * Jakarta implementation, <tt>pell</tt> for the Pell implementation and <tt>cos</tt> for the Jason Hunter
+ * implementation. <p>
  * <p/>
  * The files are uploaded when the object is instantiated. If there are any errors they are logged using
  * {@link #addError(String)}. An action handling a multipart form should first check {@link #hasErrors()}
@@ -56,11 +58,11 @@ public class MultiPartRequestWrapper extends WebWorkRequestWrapper {
         } else {
             String parser = Configuration.getString(WebWorkConstants.WEBWORK_MULTIPART_PARSER);
 
-            // If it's not set, use Pell
+            // If it's not set, use Jakarta
             if (parser.equals("")) {
                 log.warn("Property webwork.multipart.parser not set." +
-                        " Using com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest");
-                parser = "com.opensymphony.webwork.dispatcher.multipart.PellMultiPartRequest";
+                        " Using com.opensymphony.webwork.dispatcher.multipart.JakartaMultiPartRequest");
+                parser = "com.opensymphony.webwork.dispatcher.multipart.JakartaMultiPartRequest";
             }
             // legacy support for old style property values
             else if (parser.equals("pell")) {
@@ -74,7 +76,7 @@ public class MultiPartRequestWrapper extends WebWorkRequestWrapper {
             try {
                 Class baseClazz = com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest.class;
 
-                Class clazz = Class.forName(parser);
+                Class clazz = ClassLoaderUtils.loadClass(parser, MultiPartRequestWrapper.class);
 
                 // make sure it extends MultiPartRequest
                 if (!baseClazz.isAssignableFrom(clazz)) {
@@ -85,7 +87,7 @@ public class MultiPartRequestWrapper extends WebWorkRequestWrapper {
 
                 // get the constructor
                 Constructor ctor = clazz.getDeclaredConstructor(new Class[]{
-                        Class.forName("javax.servlet.http.HttpServletRequest"),
+                        ClassLoaderUtils.loadClass("javax.servlet.http.HttpServletRequest", MultiPartRequestWrapper.class),
                         java.lang.String.class, int.class
                 });
 
@@ -109,7 +111,7 @@ public class MultiPartRequestWrapper extends WebWorkRequestWrapper {
             } catch (IllegalAccessException e) {
                 addError("Access errror for " + parser + ": " + e);
             } catch (InvocationTargetException e) {
-                // This is a wrapper for any exceptions thrown by the ctor called from newInstance
+                // This is a wrapper for any exceptions thrown by the constructor called from newInstance
                 addError(e.getTargetException().toString());
             }
         }
