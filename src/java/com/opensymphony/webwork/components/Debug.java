@@ -1,6 +1,9 @@
+/*
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.components;
 
-import com.opensymphony.webwork.components.UIBean;
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
@@ -15,13 +18,19 @@ import java.util.Map;
 /**
  * <!-- START SNIPPET: javadoc -->
  * <p>Renders an debug tag.</P>
+ *
+ * The debug information contain mostly stack information:
+ * <ul>
+ *    <li>Value Stack Contents</li>
+ *    <li>Stack Context</li>
+ * </ul>
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
  *
  * <pre>
  * <!-- START SNIPPET: example -->
- * &lt;ww:debug ... /&gt;
+ * &lt;ww:debug/&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
  *
