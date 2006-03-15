@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2005 Opensymphony. All Rights Reserved.
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
  * @see Debug
  */
 public class DebugTag extends AbstractUITag {
+
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Debug(stack, req, res);
     }
+    
 }
