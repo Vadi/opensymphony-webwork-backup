@@ -28,9 +28,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.text.SimpleDateFormat;
 
 /**
  * Master filter for WebWork that handles four distinct responsibilities:
@@ -155,11 +154,11 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         if (mapping == null) {
             // there is no action in this request, should we look for a static resource?
             String resourcePath = RequestUtils.getServletPath(request);
-            
+
             if ("".equals(resourcePath) && null != request.getPathInfo()) {
                 resourcePath = request.getPathInfo();
             }
-            
+
             if (resourcePath.startsWith("/webwork")) {
                 String name = resourcePath.substring("/webwork".length());
                 findStaticResource(name, response);
@@ -253,6 +252,18 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
                     if (contentType != null) {
                         response.setContentType(contentType);
                     }
+
+                    // set heading information for caching static content
+                    SimpleDateFormat df = new SimpleDateFormat("E, d MMM yyyy HH:mm:ss");
+                    final Calendar lastModifiedCal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+                    final String lastModified = df.format(lastModifiedCal.getTime());
+                    Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+                    response.setHeader("Date",df.format(cal.getTime())+" GMT");
+                    cal.add(Calendar.DAY_OF_MONTH,1);
+                    response.setHeader("Expires",df.format(cal.getTime())+" GMT");
+                    response.setHeader("Retry-After",df.format(cal.getTime())+" GMT");
+                    response.setHeader("Cache-Control","public");
+                    response.setHeader("Last-Modified",lastModified+" GMT");
 
                     try {
                         copy(is, response.getOutputStream());
