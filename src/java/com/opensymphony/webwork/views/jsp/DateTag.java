@@ -10,7 +10,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
 /**
  * @see Date
  */
-public class DateTag extends TextTag {
+public class DateTag extends ComponentTagSupport {
 
     protected String name;
     protected String format;
@@ -22,14 +22,11 @@ public class DateTag extends TextTag {
 
     protected void populateParams() {
         super.populateParams();
+        Date d = (Date)component;
+        d.setName(name);
+        d.setFormat(format);
+        d.setNice(nice);
 
-        ((Date) component).setName(name);
-        ((Date) component).setFormat(format);
-        ((Date) component).setNice(nice);
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setFormat(String format) {
@@ -38,5 +35,9 @@ public class DateTag extends TextTag {
 
     public void setNice(boolean nice) {
         this.nice = nice;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
