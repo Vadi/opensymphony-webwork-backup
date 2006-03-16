@@ -35,16 +35,16 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * A utility class whereby FilterDispatcher delegate most of its tasks to. A static 
- * singleton that gets initlialized upon the call to it's 
+ * A utility class whereby FilterDispatcher delegate most of its tasks to. A static
+ * singleton that gets initlialized upon the call to it's
  * <code>initalize(ServletContext)</code>
  * method
- * 
+ *
  * @author patrick
  * @author Rainer Hermanns
  * @author tm_jee
  * @version $Date$ $Id$
- * 
+ *
  * @see com.opensymphony.webwork.dispatcher.FilterDispatcher
  */
 public class DispatcherUtils {
@@ -78,7 +78,7 @@ public class DispatcherUtils {
     protected DispatcherUtils(ServletContext servletContext) {
         init(servletContext);
     }
-    
+
     protected void cleanup() {
     	ObjectFactory objectFactory = ObjectFactory.getObjectFactory();
     	if (objectFactory == null) {
@@ -182,7 +182,7 @@ public class DispatcherUtils {
             }
         }
     }
-    
+
     /**
      * Loads the action and executes it. This method first creates the action context from the given
      * parameters then loads an <tt>ActionProxy</tt> from the given action name and namespace. After that,
@@ -396,7 +396,7 @@ public class DispatcherUtils {
         }
 
 
-        if (encoding != null) {
+        if (encoding != null && !MultiPartRequest.isMultiPart(request)) {
             try {
                 request.setCharacterEncoding(encoding);
             } catch (Exception e) {
