@@ -29,7 +29,7 @@ public class DateTagTest extends AbstractTagTest {
         tag.setFormat(format);
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals(formatted + "myDate", writer.toString());
+        assertEquals(formatted, writer.toString());
     }
 
     public void testDefaultFormat() throws Exception {
@@ -42,12 +42,12 @@ public class DateTagTest extends AbstractTagTest {
         tag.setNice(false);
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals(formatted + "myDate", writer.toString());
+        assertEquals(formatted, writer.toString());
     }
 
     public void testSetId() throws Exception {
         // TODO: there is a bug in Date component using setId, so this test will fail until fixed
-/*        String format = "yyyy/MM/dd hh:mm:ss";
+        String format = "yyyy/MM/dd hh:mm:ss";
         Date now = new Date();
         String formatted = new SimpleDateFormat(format).format(now);
         context.put("myDate", now);
@@ -58,7 +58,7 @@ public class DateTagTest extends AbstractTagTest {
         tag.setId("myId");
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals(formatted, context.get("myId"));*/
+        assertEquals(formatted, context.get("myId"));
     }
 
     public void testFutureNiceHour() throws Exception {
@@ -73,7 +73,7 @@ public class DateTagTest extends AbstractTagTest {
         tag.setNice(true);
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals("in one hour" + "myDate", writer.toString());
+        assertEquals("in one hour", writer.toString());
     }
 
     public void testPastNiceHour() throws Exception {
@@ -88,7 +88,7 @@ public class DateTagTest extends AbstractTagTest {
         tag.setNice(true);
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals("one hour ago" + "myDate", writer.toString());
+        assertEquals("one hour ago", writer.toString());
     }
 
     public void testFutureNiceHourMinSec() throws Exception {
@@ -104,7 +104,7 @@ public class DateTagTest extends AbstractTagTest {
         tag.setNice(true);
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals("in 2 hours, 33 minutes" + "myDate", writer.toString());
+        assertEquals("in 2 hours, 33 minutes", writer.toString());
     }
 
     public void testPastNiceHourMin() throws Exception {
@@ -120,7 +120,7 @@ public class DateTagTest extends AbstractTagTest {
         tag.setNice(true);
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals("4 hours, 55 minutes ago" + "myDate", writer.toString());
+        assertEquals("4 hours, 55 minutes ago", writer.toString());
     }
 
     public void testFutureLessOneMin() throws Exception {
@@ -135,7 +135,7 @@ public class DateTagTest extends AbstractTagTest {
         tag.setNice(true);
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals("in an instant" + "myDate", writer.toString());
+        assertEquals("in an instant", writer.toString());
     }
 
     public void testFutureLessOneHour() throws Exception {
@@ -150,7 +150,7 @@ public class DateTagTest extends AbstractTagTest {
         tag.setNice(true);
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals("in 36 minutes" + "myDate", writer.toString());
+        assertEquals("in 36 minutes", writer.toString());
     }
 
     public void testFutureLessOneYear() throws Exception {
@@ -165,7 +165,7 @@ public class DateTagTest extends AbstractTagTest {
         tag.setNice(true);
         tag.doStartTag();
         tag.doEndTag();
-        assertEquals("in 40 days" + "myDate", writer.toString());
+        assertEquals("in 40 days", writer.toString());
     }
 
     public void testFutureTwoYears() throws Exception {
@@ -192,8 +192,8 @@ public class DateTagTest extends AbstractTagTest {
         tag.setNice(true);
         tag.doStartTag();
         tag.doEndTag();
-
-        assertEquals("myDate", writer.toString());
+        //should return a blank
+        assertEquals("", writer.toString());
     }
 
     protected void setUp() throws Exception {
