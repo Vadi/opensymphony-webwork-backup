@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
  * frameworks such as Spring, Plexus and Portlet.
  *
  * @author plightbo
+ * @version $Date$ $Id$
  */
 public interface ObjectFactoryInitializable {
 

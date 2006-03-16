@@ -4,6 +4,11 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
+import org.springframework.mock.web.MockServletContext;
+
+import com.opensymphony.webwork.util.ObjectFactoryDestroyable;
+import com.opensymphony.xwork.ObjectFactory;
+
 import junit.framework.TestCase;
 
 /**
@@ -38,5 +43,29 @@ public class FilterDispatcherTest extends TestCase {
 		assertEquals(result4[1], "foo/bar/package2/");
 		assertEquals(result4[2], "foo/bar/package3/");
 		assertEquals(result4[3], "foo/bar/package4/");
+	}
+	
+	public void testDestroy() throws Exception {
+		DispatcherUtils.initialize(new MockServletContext());
+		
+		FilterDispatcher filterDispatcher = new FilterDispatcher();
+		InnerDestroyableObjectFactory destroyedObjectFactory = new InnerDestroyableObjectFactory();
+		ObjectFactory.setObjectFactory(destroyedObjectFactory);
+		
+		assertFalse(destroyedObjectFactory.destroyed);
+		filterDispatcher.destroy();
+		assertTrue(destroyedObjectFactory.destroyed);
+	}
+	
+	
+	// === inner class ========
+	
+	class InnerDestroyableObjectFactory extends ObjectFactory implements ObjectFactoryDestroyable {
+		public boolean destroyed = false;
+		
+		public void destroy() {
+			destroyed = true;
+		}
+		
 	}
 }

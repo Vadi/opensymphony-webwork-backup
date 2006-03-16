@@ -14,6 +14,7 @@ import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequestWrapper;
 import com.opensymphony.webwork.util.AttributeMap;
+import com.opensymphony.webwork.util.ObjectFactoryDestroyable;
 import com.opensymphony.webwork.util.ObjectFactoryInitializable;
 import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.ConfigurationException;
@@ -34,8 +35,17 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
+ * A utility class whereby FilterDispatcher delegate most of its tasks to. A static 
+ * singleton that gets initlialized upon the call to it's 
+ * <code>initalize(ServletContext)</code>
+ * method
+ * 
  * @author patrick
  * @author Rainer Hermanns
+ * @author tm_jee
+ * @version $Date$ $Id$
+ * 
+ * @see com.opensymphony.webwork.dispatcher.FilterDispatcher
  */
 public class DispatcherUtils {
     private static final Log LOG = LogFactory.getLog(DispatcherUtils.class);
@@ -67,6 +77,22 @@ public class DispatcherUtils {
 
     protected DispatcherUtils(ServletContext servletContext) {
         init(servletContext);
+    }
+    
+    protected void cleanup() {
+    	ObjectFactory objectFactory = ObjectFactory.getObjectFactory();
+    	if (objectFactory == null) {
+    		LOG.warn("Object Factory is null, something is seriously wrong, no clean up will be performed");
+    	}
+    	if (objectFactory instanceof ObjectFactoryDestroyable) {
+    		try {
+    			((ObjectFactoryDestroyable)objectFactory).destroy();
+    		}
+    		catch(Exception e) {
+    			// catch any exception that may occured during destroy() and log it
+    			LOG.error("exception occurred while destroying ObjectFactory ["+objectFactory+"]", e);
+    		}
+    	}
     }
 
     protected void init(ServletContext servletContext) {
