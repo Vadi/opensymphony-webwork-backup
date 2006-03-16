@@ -102,6 +102,10 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     protected FilterConfig filterConfig;
     protected String[] pathPrefixes;
 
+    private SimpleDateFormat df = new SimpleDateFormat("E, d MMM yyyy HH:mm:ss");
+    private final Calendar lastModifiedCal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+    private final String lastModified = df.format(lastModifiedCal.getTime());
+
     public FilterConfig getFilterConfig() {
         return filterConfig;
     }
@@ -254,9 +258,6 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
                     }
 
                     // set heading information for caching static content
-                    SimpleDateFormat df = new SimpleDateFormat("E, d MMM yyyy HH:mm:ss");
-                    final Calendar lastModifiedCal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-                    final String lastModified = df.format(lastModifiedCal.getTime());
                     Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
                     response.setHeader("Date",df.format(cal.getTime())+" GMT");
                     cal.add(Calendar.DAY_OF_MONTH,1);
