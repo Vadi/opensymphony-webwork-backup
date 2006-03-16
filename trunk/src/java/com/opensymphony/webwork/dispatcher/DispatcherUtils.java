@@ -393,6 +393,8 @@ public class DispatcherUtils {
         Locale locale = null;
         if (Configuration.isSet(WebWorkConstants.WEBWORK_LOCALE)) {
             locale = LocalizedTextUtil.localeFromString(Configuration.getString(WebWorkConstants.WEBWORK_LOCALE), request.getLocale());
+        } else {
+            locale = request.getLocale();
         }
 
 
