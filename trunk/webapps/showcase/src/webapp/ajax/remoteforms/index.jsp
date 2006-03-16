@@ -24,7 +24,7 @@ Remote form replacing another div:<br/>
 <ww:form
         id='theForm2'
         cssStyle="border: 1px solid green;"
-        action='/AjaxRemoteForm.action'
+        action='AjaxRemoteForm'
         method='post'
         theme="ajax">
 
@@ -39,7 +39,7 @@ Remote form replacing the forms content:<br/>
 <ww:form
         id='theForm3'
         cssStyle="border: 1px solid green;"
-        action='/AjaxRemoteForm.action'
+        action='AjaxRemoteForm'
         method='post'
         theme="ajax">
 
@@ -53,7 +53,7 @@ Remote form evaluating suplied JS on completion:<br/>
 <ww:form
         id='theForm4'
         cssStyle="border: 1px solid green;"
-        action='/AjaxRemoteForm.action'
+        action='AjaxRemoteForm'
         method='post'
         theme="ajax">
 
@@ -67,7 +67,7 @@ Remote form replacing the forms content after confirming results:<br/>
 <ww:form
         id='theForm5'
         cssStyle="border: 1px solid green;"
-        action='/AjaxRemoteForm.action'
+        action='AjaxRemoteForm'
         method='post'
         theme="ajax">
 
@@ -81,7 +81,7 @@ Remote form replacing the forms content after running a function:<br/>
 <ww:form
         id='theForm6'
         cssStyle="border: 1px solid green;"
-        action='/AjaxRemoteForm.action'
+        action='AjaxRemoteForm'
         method='post'
         theme="ajax">
 
@@ -95,7 +95,7 @@ A form with no remote submit (so should not be ajaxified):<br/>
 <ww:form
         id='theForm7'
         cssStyle="border: 1px solid green;"
-        action='/AjaxRemoteForm.action'
+        action='AjaxRemoteForm'
         method='post'
         theme="ajax">
 
