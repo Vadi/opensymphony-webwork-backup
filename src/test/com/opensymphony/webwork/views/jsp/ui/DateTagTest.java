@@ -45,8 +45,30 @@ public class DateTagTest extends AbstractTagTest {
         assertEquals(formatted, writer.toString());
     }
 
+    public void testCustomFormatAndComponent() throws Exception {
+        String format = "yyyy/MM/dd hh:mm:ss";
+        Date now = new Date();
+        String formatted = new SimpleDateFormat(format).format(now);
+        context.put("myDate", now);
+
+        tag.setName("myDate");
+        tag.setFormat(format);
+        tag.setNice(false);
+
+        tag.doStartTag();
+
+        // component test must be done between start and end tag
+        com.opensymphony.webwork.components.Date component = (com.opensymphony.webwork.components.Date) tag.getComponent();
+        assertEquals("myDate", component.getName());
+        assertEquals(format, component.getFormat());
+        assertEquals(false, component.isNice());
+
+        tag.doEndTag();
+
+        assertEquals(formatted, writer.toString());
+    }
+
     public void testSetId() throws Exception {
-        // TODO: there is a bug in Date component using setId, so this test will fail until fixed
         String format = "yyyy/MM/dd hh:mm:ss";
         Date now = new Date();
         String formatted = new SimpleDateFormat(format).format(now);
