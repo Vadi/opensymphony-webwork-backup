@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DivTag extends AbstractClosingTag {
     protected String href;
     protected String updateFreq;
-    protected String delay;
+    protected String delay="1";
     protected String loadingText;
     protected String errorText;
     protected String showErrorTransportText;
