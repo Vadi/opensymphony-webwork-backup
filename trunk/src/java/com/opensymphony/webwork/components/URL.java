@@ -168,7 +168,7 @@ public class URL extends Component {
                 ActionContext.getContext().put(XWorkContinuationConfig.CONTINUE_KEY, null);
             } else if (ALL.equalsIgnoreCase(includeParams)) {
                 mergeRequestParameters(parameters, req.getParameterMap());
-            } else if (value == null && !NONE.equalsIgnoreCase(includeParams)) {
+            } else if (value == null && !NONE.equalsIgnoreCase(includeParams) && includeParams != null) {
                 LOG.warn("Unknown value for includeParams parameter to URL tag: " + includeParams);
             }
         } catch (Exception e) {
