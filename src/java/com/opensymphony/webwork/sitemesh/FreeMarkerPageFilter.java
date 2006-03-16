@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+ */
+
 package com.opensymphony.webwork.sitemesh;
 
 import com.opensymphony.module.sitemesh.Decorator;
@@ -25,9 +30,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 /**
- * User: patrick
- * Date: Aug 31, 2005
- * Time: 2:52:33 PM
+ * @author patrick
  */
 public class FreeMarkerPageFilter extends PageFilter {
     private static final Log LOG = LogFactory.getLog(FreeMarkerPageFilter.class);
@@ -74,6 +77,7 @@ public class FreeMarkerPageFilter extends PageFilter {
             }
             model.put("title",page.getTitle());
             model.put("body",page.getBody());
+            model.put("page.properties", new SimpleHash(page.getProperties()));
 
             // finally, render it
             template.process(model, res.getWriter());
