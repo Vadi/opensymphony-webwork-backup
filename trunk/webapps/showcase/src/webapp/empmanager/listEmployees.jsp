@@ -20,7 +20,7 @@
         </tr>
     </ww:iterator>
 </table>
-<p><a href="<ww:url action="edit" includeParams="false"/>">Create new Employee</a></p>
-<p><a href="<ww:url action="showcase" namespace="/" includeParams="false"/>">Back to Showcase Startpage</a></p>
+<p><a href="<ww:url action="edit" includeParams="none"/>">Create new Employee</a></p>
+<p><a href="<ww:url action="showcase" namespace="/" includeParams="none"/>">Back to Showcase Startpage</a></p>
 </body>
 </html>
