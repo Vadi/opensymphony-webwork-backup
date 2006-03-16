@@ -111,6 +111,11 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     }
 
     public void destroy() {
+    	DispatcherUtils du = DispatcherUtils.getInstance(); // should not be null as it is initialized in init(FilterConfig)
+    	if (du == null) {
+    		LOG.warn("something is seriously wrong, DispatcherUtil is not initialized (null) ");
+    	}
+    	du.cleanup();
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {
