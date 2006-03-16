@@ -8,3 +8,6 @@
     alert('This JavaScript currently being evaluated is in the result...');
 </script>
 Show me some text also
+<script language="JavaScript" type="text/javascript">
+    alert('And some more text for fun!');
+</script>

@@ -143,12 +143,7 @@ webwork.widgets.HTMLBind = function() {
                         var frag  = xmlParser.parseElement(div, null, true);
                         dojo.widget.getParser().createComponents(frag);
                         // eval any scripts being returned
-                        var scripts;
-                        if (document.all) {
-                            scripts = dojo.dom.createDocumentFromText(data,"text/html").getElementsByTagName("script");
-                        } else {
-                            scripts = div.getElementsByTagName('script');
-                        }
+                        var scripts = div.getElementsByTagName('script');
                         for (var i=0; i<scripts.length; i++) {
                             eval(scripts[i].innerHTML);
                         }
