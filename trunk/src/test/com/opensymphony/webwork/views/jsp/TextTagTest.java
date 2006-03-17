@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2006 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.views.jsp;
@@ -23,8 +23,9 @@ import java.util.Locale;
 
 /**
  * TextTagTest
- * User: jcarreira
- * Created: Oct 17, 2003 2:15:36 PM
+ *
+ * @author jcarreira
+ * @author Rainer Hermanns
  */
 public class TextTagTest extends AbstractTagTest {
 
@@ -42,6 +43,24 @@ public class TextTagTest extends AbstractTagTest {
     public void testExpressionsEvaluated() throws Exception {
         String key = "expressionKey";
         String value = "Foo is " + fooValue;
+        tag.setName(key);
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals(value, writer.toString());
+    }
+
+    public void testCorrectI18NKey() throws Exception {
+        String key = "foo.bar.baz";
+        String value = "This should start with foo";
+        tag.setName(key);
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals(value, writer.toString());
+    }
+
+    public void testCorrectI18NKey2() throws Exception {
+        String key = "bar.baz";
+        String value = "No foo here";
         tag.setName(key);
         tag.doStartTag();
         tag.doEndTag();
