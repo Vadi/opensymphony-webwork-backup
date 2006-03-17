@@ -5453,7 +5453,7 @@
       <name>doubleselect</name>
       <tag-class>com.opensymphony.webwork.views.jsp.ui.DoubleSelectTag</tag-class>
       <body-content>JSP</body-content>
-      <description><![CDATA[Render a double select element]]></description>
+      <description><![CDATA[Renders two HTML select elements with second one changing displayed values depending on selected entry of first one.]]></description>
 
       <attribute>
          <name>doubleList</name>
