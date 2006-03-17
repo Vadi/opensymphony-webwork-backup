@@ -36,4 +36,4 @@
  ${tag.addParameter("ajaxSubmit", "true")}
  onSubmit="return isAjaxFormSubmit(this);"
 >
-<table class="wwFormTable">
+<table class="${parameters.cssClass?default('wwFormTable')?html}">
