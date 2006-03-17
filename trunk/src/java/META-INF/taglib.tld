@@ -6636,6 +6636,14 @@
 
       </attribute>
       <attribute>
+         <name>name</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The date value to format]]></description>
+
+      </attribute>
+      <attribute>
          <name>id</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
