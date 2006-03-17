@@ -11,12 +11,12 @@
 <h2>Description</h2>
 <p>
 
-Render a double select element
+Renders two HTML select elements with second one changing displayed values depending on selected entry of first one.
 
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Renders two HTML select elements to represent eg. "available|selected" type input. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:doubleselect label="doubleselect test1" list="{'one','two'}" doubleList="top == 'one' ? {'apple', 'orange'} : {'monkey', 'chicken'}" /&gt; &lt;ww:doubleselect label="doubleselect test2" list="#{1:'one', 2:'two'}" doubleList="top == 1 ? {'apple', 'orange'} : {'monkey', 'chicken'}" /&gt; <!-- END SNIPPET: example --> </pre>
+<!-- START SNIPPET: javadoc --> Renders two HTML select elements with second one changing displayed values depending on selected entry of first one. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:doubleselect label="doubleselect test1" name="menu" list="{'fruit','other'}" doubleName="dishes" doubleList="menu == 'fruit' ? {'apple', 'orange'} : {'monkey', 'chicken'}" /&gt; &lt;ww:doubleselect label="doubleselect test2" name="menu" list="#{'fruit':'Nice Fruits', 'other':'Other Dishes'}" doubleName="dishes" doubleList="menu == 'fruit' ? {'apple', 'orange'} : {'monkey', 'chicken'}" /&gt; <!-- END SNIPPET: example --> </pre>
 </p>
 
 <h2>Attributes</h2>

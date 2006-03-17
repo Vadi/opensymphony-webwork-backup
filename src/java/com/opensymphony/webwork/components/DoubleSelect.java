@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * <!-- START SNIPPET: javadoc -->
- * Renders two HTML select elements to represent eg. "available|selected" type input.
+ * Renders two HTML select elements with second one changing displayed values depending on selected entry of first one.
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2.2
  *
  * @ww.tag name="doubleselect" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.DoubleSelectTag"
- * description="Render a double select element"
+ * description="Renders two HTML select elements with second one changing displayed values depending on selected entry of first one."
  */
 public class DoubleSelect extends DoubleListUIBean {
     final public static String TEMPLATE = "doubleselect";
