@@ -308,6 +308,42 @@ public class FormTagTest extends AbstractUITagTest {
         verify(FormTag.class.getResource("Formtag-4.txt"));
     }
 
+    public void testFormWithStaticAction() throws Exception {
+        request.setupGetServletPath("/");
+        request.setupGetContextPath("/");
+        request.setRequestURI("/foo.jsp");
+
+        FormTag tag = new FormTag();
+        tag.setPageContext(pageContext);
+        tag.setAction("test.html");
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(FormTag.class.getResource("Formtag-7.txt"));
+    }
+
+    public void testFormWithActionAndExtension() throws Exception {
+        request.setupGetServletPath("/BLA");
+        String oldConfiguration = (String) Configuration.get(WebWorkConstants.WEBWORK_ACTION_EXTENSION);
+        Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, "jspa");
+
+        FormTag tag = new FormTag();
+        tag.setPageContext(pageContext);
+        tag.setAction("/testNamespace/testNamespaceAction.jspa");
+        tag.setMethod("POST");
+        tag.setName("myForm");
+
+        tag.doStartTag();
+        tag.doEndTag();
+        Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, oldConfiguration);
+
+        verify(FormTag.class.getResource("Formtag-8.txt"));
+
+        // set it back to the default
+        Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, "action");
+
+    }
+
     protected void setUp() throws Exception {
         super.setUp();
         ConfigurationManager.clearConfigurationProviders();

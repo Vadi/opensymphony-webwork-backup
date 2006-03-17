@@ -294,15 +294,24 @@ public class DefaultActionMapper implements ActionMapper {
         if(!"/".equals(mapping.getNamespace())) {
             uri.append("/");
         }
-        uri.append(mapping.getName());
-        
+        String name = mapping.getName();
+        String params = "";
+        if ( name.indexOf('?') != -1) {
+            params = name.substring(name.indexOf('?'));
+            name = name.substring(0, name.indexOf('?'));
+        }
+        uri.append(name);
+
         if (null != mapping.getMethod() && !"".equals(mapping.getMethod())) {
             uri.append("!").append(mapping.getMethod());
         }
 
         String extension = getDefaultExtension();
-        if ( extension != null && uri.indexOf( "." + extension + '?') == -1  ) {
+        if ( extension != null && uri.indexOf( '.' + extension) == -1  ) {
             uri.append(".").append(extension);
+            if ( params.length() > 0) {
+                uri.append(params);
+            }
         }
 
         return uri.toString();

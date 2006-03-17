@@ -194,4 +194,60 @@ public class DefaultActionMapperTest extends TestCase {
 		
 		assertEquals("/myActionName.action", uri);
 	}
+
+    //
+    public void testGetUriFromActionMapper6() throws Exception {
+        DefaultActionMapper mapper = new DefaultActionMapper();
+        ActionMapping actionMapping = new ActionMapping();
+        actionMapping.setMethod("myMethod");
+        actionMapping.setName("myActionName?test=bla");
+        actionMapping.setNamespace("/myNamespace");
+        String uri = mapper.getUriFromActionMapping(actionMapping);
+
+        assertEquals("/myNamespace/myActionName!myMethod.action?test=bla", uri);
+    }
+
+    public void testGetUriFromActionMapper7() throws Exception {
+        DefaultActionMapper mapper = new DefaultActionMapper();
+        ActionMapping actionMapping = new ActionMapping();
+        actionMapping.setMethod("myMethod");
+        actionMapping.setName("myActionName?test=bla");
+        actionMapping.setNamespace("/");
+        String uri = mapper.getUriFromActionMapping(actionMapping);
+
+        assertEquals("/myActionName!myMethod.action?test=bla", uri);
+    }
+
+    public void testGetUriFromActionMapper8() throws Exception {
+        DefaultActionMapper mapper = new DefaultActionMapper();
+        ActionMapping actionMapping = new ActionMapping();
+        actionMapping.setMethod("myMethod");
+        actionMapping.setName("myActionName?test=bla");
+        actionMapping.setNamespace("");
+        String uri = mapper.getUriFromActionMapping(actionMapping);
+
+        assertEquals("/myActionName!myMethod.action?test=bla", uri);
+    }
+
+
+    public void testGetUriFromActionMapper9() throws Exception {
+        DefaultActionMapper mapper = new DefaultActionMapper();
+        ActionMapping actionMapping = new ActionMapping();
+        actionMapping.setName("myActionName?test=bla");
+        actionMapping.setNamespace("");
+        String uri = mapper.getUriFromActionMapping(actionMapping);
+
+        assertEquals("/myActionName.action?test=bla", uri);
+    }
+
+    public void testGetUriFromActionMapper10() throws Exception {
+        DefaultActionMapper mapper = new DefaultActionMapper();
+        ActionMapping actionMapping = new ActionMapping();
+        actionMapping.setName("myActionName?test=bla");
+        actionMapping.setNamespace("/");
+        String uri = mapper.getUriFromActionMapping(actionMapping);
+
+        assertEquals("/myActionName.action?test=bla", uri);
+    }
+
 }
