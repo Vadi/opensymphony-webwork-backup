@@ -16,7 +16,7 @@ Render a formatted date.
 </p>
 
 <p>
-<code>Date</code>
+<!-- START SNIPPET: javadoc --> Format Date object in different ways. <p> The date tag will allow you to format a Date in a quick and easy way. You can specify a <b>custom format</b> (eg. "dd/MM/yyyy hh:mm"), you can generate <b>easy readable notations</b> (like "in 2 hours, 14 minutes"), or you can just fall back on a <b>predefined format</b> with key 'webwork.date.format' in your properties file. If that key is not defined, it will finally fall back to the default Locale.MEDIUM formatting. <b>Note</b>: If the requested Date object isn't found on the stack, a blank will be returned. </p> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:date name="person.birthday" format="dd/MM/yyyy" /&gt; &lt;ww:date name="person.birthday" nice="true" /&gt; &lt;ww:date name="person.birthday" /&gt; <!-- END SNIPPET: example --> </pre> <code>Date</code>
 </p>
 
 <h2>Attributes</h2>
@@ -48,7 +48,7 @@ Render a formatted date.
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top"> Date or DateTime format pattern</td>
+<td align="left" valign="top">Date or DateTime format pattern</td>
 
 </tr>
 
@@ -67,24 +67,6 @@ Render a formatted date.
 
 <!-- Description -->
 <td align="left" valign="top">Wether to print out the date nicely</td>
-
-</tr>
-
-<tr>
-<!-- Attribute name -->
-<td align="left" valign="top">name</td>
-
-<!-- Required -->
-<td align="left" valign="top"><b>true</b></td>
-
-<!-- Default -->
-<td align="left" valign="top">&nbsp;</td>
-
-<!-- Type -->
-<td align="left" valign="top">Object/String</td>
-
-<!-- Description -->
-<td align="left" valign="top"> Name of resource property to fetch</td>
 
 </tr>
 
