@@ -1,7 +1,7 @@
 <form id="myFormId" name="myForm" onsubmit="customOnsubmit(); return true;" action="/testAction.action">
  <table class="wwFormTable"> 
 <tr>
-    <td align="right" valign="top"><label for="myId" class="label">MyLabel:
+    <td class="tdLabel"><label for="myId" class="label">MyLabel:
       <img 
       	src='/webwork/tooltip/myTooltip.gif' 
       	alt="myTooltip" 
