@@ -1,5 +1,5 @@
 <tr>
-    <td align="right" valign="top"></td>
+    <td class="tdLabel"></td>
     <td>
 <script type="text/javascript" src="/webwork/jscalendar/calendar.js"></script>
 <script type="text/javascript" src="/webwork/jscalendar/lang/calendar-en.js"></script>

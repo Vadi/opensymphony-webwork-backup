@@ -1,7 +1,7 @@
 <script src="/webwork/xhtml/validation.js"></script>
 <form namespace="" id="myAction" name="myForm" onsubmit="submitMe(); customOnsubmit(); return validateForm_myAction();" action="myAction" method="POST" enctype="myEncType" title="mytitle">
 <table class="wwFormTable"> <tr>
-    <td align="right" valign="top"></td>
+    <td class="tdLabel"></td>
     <td>	<script language="javascript" src="/webwork/optiontransferselect/optiontransferselect.js"></script>
 <table>
 <tr><td>

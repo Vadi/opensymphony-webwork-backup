@@ -1,5 +1,5 @@
 <tr>
-<td align="right" valign="top"><label for="myId" class="label">myLabel:</label></td>
+<td class="tdLabel"><label for="myId" class="label">myLabel:</label></td>
 <td>
 <script type="text/javascript" src="/webwork/richtexteditor/fckeditor.js"></script>
 <script>

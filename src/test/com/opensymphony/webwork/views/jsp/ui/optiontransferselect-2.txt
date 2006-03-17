@@ -1,5 +1,5 @@
 <tr> 
-<td align="right" valign="top"></td> 
+<td class="tdLabel"></td>
 <td>
 <script language="javascript" src="/webwork/optiontransferselect/optiontransferselect.js"></script>
 <table border="0">

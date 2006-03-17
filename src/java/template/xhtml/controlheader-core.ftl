@@ -24,7 +24,7 @@
 <#if parameters.labelposition?default("") == 'top'>
     <td align="left" valign="top" colspan="2"><#rt/>
 <#else>
-    <td align="right" valign="top"><#rt/>
+    <td class="tdLabel"><#rt/>
 </#if>
 <#if parameters.label?exists>
     <label <#t/>
