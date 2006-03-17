@@ -61,7 +61,6 @@ public class DatePickerTagTest extends AbstractUITagTest {
     }
 
     public void testSingleclick() throws Exception {
-        // TODO: There is a bug in DatePickerTag using singleclick as true
         tag.setSingleclick("true");
 
         tag.doStartTag();
