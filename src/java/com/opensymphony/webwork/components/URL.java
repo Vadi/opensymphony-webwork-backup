@@ -150,7 +150,11 @@ public class URL extends Component {
                 includeParams = findString(this.includeParams);
             }
 
-            if ((includeParams == null && value == null && action == null) || GET.equalsIgnoreCase(includeParams)) {
+            if (NONE.equalsIgnoreCase(includeParams)) {
+                ActionContext.getContext().put(XWorkContinuationConfig.CONTINUE_KEY, null);
+            } else if (ALL.equalsIgnoreCase(includeParams)) {
+                mergeRequestParameters(parameters, req.getParameterMap());
+            } else if (GET.equalsIgnoreCase(includeParams) || (includeParams == null && value == null && action == null)) {
                 // Parse the query string to make sure that the parameters come from the query, and not some posted data
                 String query = req.getQueryString();
 
@@ -164,13 +168,9 @@ public class URL extends Component {
 
                     mergeRequestParameters(parameters, HttpUtils.parseQueryString(query));
                 }
-            } else if (NONE.equalsIgnoreCase(includeParams)) {
-                ActionContext.getContext().put(XWorkContinuationConfig.CONTINUE_KEY, null);
-            } else if (ALL.equalsIgnoreCase(includeParams)) {
-                mergeRequestParameters(parameters, req.getParameterMap());
-            } else if (value == null && !NONE.equalsIgnoreCase(includeParams) && includeParams != null) {
+            } else if (includeParams != null) {
                 LOG.warn("Unknown value for includeParams parameter to URL tag: " + includeParams);
-            }
+            }            
         } catch (Exception e) {
             LOG.warn("Unable to put request parameters (" + req.getQueryString() + ") into parameter map.", e);
         }
