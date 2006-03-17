@@ -10,7 +10,7 @@
 <ww:form action="exampleSubmit" method="post" enctype="multipart/form-data">
     <ww:textfield 
     		label="Name" 
-    		name="name" 
+    		name="name"
     		tooltip="Enter your Name here" />
     		
     <ww:datepicker 
@@ -62,7 +62,7 @@
     		name="region" list="{'North', 'South'}"
     		value="'South'" 
     		doubleValue="'Florida'"
-            doubleList="top == 'North' ? {'Oregon', 'Washington'} : {'Texas', 'Florida'}" 
+            doubleList="region == 'North' ? {'Oregon', 'Washington'} : {'Texas', 'Florida'}" 
             doubleName="state"
             headerKey="-1" 
             headerValue="---------- Please Select ----------"
