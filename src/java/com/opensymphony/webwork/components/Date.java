@@ -277,10 +277,10 @@ public class Date extends Component {
 		return name;
 	}
 
-	/**
-	 * @param name
-	 *            The name to set.
-	 */
+    /**
+     * @ww.tagattribute required="true" type="String"
+     *                  description="The date value to format"
+     */
 	public void setName(String name) {
 		this.name = name;
 	}
