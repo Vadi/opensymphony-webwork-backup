@@ -77,7 +77,9 @@ public class FileUploadInterceptorTest extends WebWorkTestCase {
         assertTrue(validation.hasErrors());
         List errors = (List) validation.getFieldErrors().get("inputName");
         assertEquals(1, errors.size());
-        assertEquals("Could not upload file.", errors.get(0));
+        String msg = (String) errors.get(0);
+        assertTrue(msg.startsWith("Error uploading:"));
+        assertTrue(msg.indexOf("inputName") > 0);
     }
 
     public void testAcceptFileWithMaxSize() throws Exception {

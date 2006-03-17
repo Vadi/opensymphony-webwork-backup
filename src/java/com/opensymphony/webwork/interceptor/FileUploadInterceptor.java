@@ -266,11 +266,12 @@ public class FileUploadInterceptor implements Interceptor {
 
         // If it's null the upload failed
         if (file == null) {
+            String errMsg = getTextMessage("webwork.messages.error.uploading", new Object[]{inputName}, locale);
             if (validation != null) {
-                validation.addFieldError(inputName, "Could not upload file.");
+                validation.addFieldError(inputName, errMsg);
             }
 
-            log.error(getTextMessage("webwork.messages.error.uploading", new Object[]{inputName}, locale));
+            log.error(errMsg);
         } else if (maximumSize != null && maximumSize.longValue() < file.length()) {
             String errMsg = getTextMessage("webwork.messages.error.file.too.large", new Object[]{inputName, file.getName(), "" + file.length()}, locale);
             if (validation != null) {
