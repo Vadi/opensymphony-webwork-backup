@@ -108,6 +108,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -414,6 +422,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -663,6 +679,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -909,6 +933,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -1292,6 +1324,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -1621,6 +1661,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -1947,6 +1995,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -2296,6 +2352,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -2550,6 +2614,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -2909,6 +2981,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -3188,6 +3268,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -3526,6 +3614,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -3907,6 +4003,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -4169,6 +4273,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -4870,6 +4982,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -5148,6 +5268,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -5704,6 +5832,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -5982,6 +6118,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -6291,6 +6435,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -6472,7 +6624,7 @@
          <required>false</required>
          <rtexprvalue>false</rtexprvalue>
 
-           <description><![CDATA[ Date or DateTime format pattern]]></description>
+           <description><![CDATA[Date or DateTime format pattern]]></description>
 
       </attribute>
       <attribute>
@@ -6481,14 +6633,6 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[Wether to print out the date nicely]]></description>
-
-      </attribute>
-      <attribute>
-         <name>name</name>
-         <required>true</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[ Name of resource property to fetch]]></description>
 
       </attribute>
       <attribute>
@@ -6642,6 +6786,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -6899,6 +7051,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -7288,6 +7448,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -7577,6 +7745,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -7847,6 +8023,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -8195,6 +8379,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -8441,6 +8633,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -8770,6 +8970,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -9104,6 +9312,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -9353,6 +9569,14 @@
 
       </attribute>
       <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
+
+      </attribute>
+      <attribute>
          <name>name</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -9599,6 +9823,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -10011,6 +10243,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>
@@ -10700,6 +10940,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[define label position of form element (top/left)]]></description>
+
+      </attribute>
+      <attribute>
+         <name>requiredposition</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[define required position of required form element (left|right)]]></description>
 
       </attribute>
       <attribute>

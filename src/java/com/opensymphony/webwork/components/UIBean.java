@@ -114,6 +114,12 @@ import java.util.Map;
  *          <td>define label position of form element (top/left), default to left</td>
  *       </tr>
  *       <tr>
+ *          <td>requiredposition</td>
+ *          <td>xhtml</td>
+ *          <td>String</td>
+ *          <td>define required label position of form element (left/right), default to right</td>
+ *       </tr>
+ *       <tr>
  *          <td>name</td>
  *          <td>simple</td>
  *          <td>String</td>
@@ -550,6 +556,7 @@ public abstract class UIBean extends Component {
     protected String disabled;
     protected String label;
     protected String labelPosition;
+    protected String requiredposition;
     protected String name;
     protected String required;
     protected String tabindex;
@@ -701,6 +708,10 @@ public abstract class UIBean extends Component {
 
         if (labelPosition != null) {
             addParameter("labelposition", findString(labelPosition));
+        }
+
+        if (requiredposition != null) {
+            addParameter("requiredposition", findString(requiredposition));
         }
 
         if (required != null) {
@@ -1021,6 +1032,14 @@ public abstract class UIBean extends Component {
      */
     public void setLabelposition(String labelPosition) {
         this.labelPosition = labelPosition;
+    }
+
+    /**
+     * @ww.tagattribute required="false"
+     * description="define required position of required form element (left|right)"
+     */
+    public void setRequiredposition(String requiredposition) {
+        this.requiredposition = requiredposition;
     }
 
     /**

@@ -37,10 +37,14 @@
         class="label"<#t/>
 </#if>
     ><#t/>
-<#if parameters.required?default(false)>
+<#if parameters.required?default(false) && parameters.requiredposition?default("right") != 'right'>
         <span class="required">*</span><#t/>
 </#if>
-${parameters.label?html}:<#t/>
+${parameters.label?html}<#t/>
+<#if parameters.required?default(false) && parameters.requiredposition?default("right") == 'right'>
+ <span class="required">*</span><#t/>
+</#if>
+:<#t/>
 <#include "/${parameters.templateDir}/xhtml/tooltip.ftl" /> 
 </label><#t/>
 </#if>

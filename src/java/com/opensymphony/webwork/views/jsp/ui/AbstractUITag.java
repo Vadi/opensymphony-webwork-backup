@@ -21,6 +21,7 @@ public abstract class AbstractUITag extends ComponentTagSupport {
     protected String disabled;
     protected String label;
     protected String labelPosition;
+    protected String requiredposition;
     protected String name;
     protected String required;
     protected String tabindex;
@@ -57,7 +58,8 @@ public abstract class AbstractUITag extends ComponentTagSupport {
         uiBean.setTitle(title);
         uiBean.setDisabled(disabled);
         uiBean.setLabel(label);
-        uiBean.setLabelPosition(labelPosition);
+        uiBean.setLabelposition(labelPosition);
+        uiBean.setRequiredposition(requiredposition);
         uiBean.setName(name);
         uiBean.setRequired(required);
         uiBean.setTabindex(tabindex);
@@ -102,15 +104,19 @@ public abstract class AbstractUITag extends ComponentTagSupport {
         this.label = label;
     }
 
+    /**
+     * @deprecated please use {@link #setLabelposition} instead
+     */
     public void setLabelPosition(String labelPosition) {
         this.labelPosition = labelPosition;
     }
 
-    /**
-     * @deprecated please use {@link #setLabelPosition} instead
-     */
     public void setLabelposition(String labelPosition) {
         this.labelPosition = labelPosition;
+    }
+
+    public void setRequiredposition(String requiredPosition) {
+        this.requiredposition = requiredPosition;
     }
 
     public void setName(String name) {
