@@ -125,7 +125,7 @@ public class DatePicker extends TextField {
         }
 
         if (singleclick != null) {
-            addParameter("singleclick", findValue(singleclick, Boolean.class));
+            addParameter("singleclick", findString(singleclick));
         }
 
     }
