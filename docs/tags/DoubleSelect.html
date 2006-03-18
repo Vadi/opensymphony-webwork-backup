@@ -16,7 +16,7 @@ Renders two HTML select elements with second one changing displayed values depen
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Renders two HTML select elements with second one changing displayed values depending on selected entry of first one. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:doubleselect label="doubleselect test1" name="menu" list="{'fruit','other'}" doubleName="dishes" doubleList="menu == 'fruit' ? {'apple', 'orange'} : {'monkey', 'chicken'}" /&gt; &lt;ww:doubleselect label="doubleselect test2" name="menu" list="#{'fruit':'Nice Fruits', 'other':'Other Dishes'}" doubleName="dishes" doubleList="menu == 'fruit' ? {'apple', 'orange'} : {'monkey', 'chicken'}" /&gt; <!-- END SNIPPET: example --> </pre>
+<!-- START SNIPPET: javadoc --> Renders two HTML select elements with second one changing displayed values depending on selected entry of first one. <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;ww:doubleselect label="doubleselect test1" name="menu" list="{'fruit','other'}" doubleName="dishes" doubleList="top == 'fruit' ? {'apple', 'orange'} : {'monkey', 'chicken'}" /&gt; &lt;ww:doubleselect label="doubleselect test2" name="menu" list="#{'fruit':'Nice Fruits', 'other':'Other Dishes'}" doubleName="dishes" doubleList="top == 'fruit' ? {'apple', 'orange'} : {'monkey', 'chicken'}" /&gt; <!-- END SNIPPET: example --> </pre>
 </p>
 
 <h2>Attributes</h2>
@@ -606,7 +606,7 @@ Renders two HTML select elements with second one changing displayed values depen
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">Set the header key of the second list</td>
+<td align="left" valign="top">Set the header key of the second list. Must not be empty! "'-1'" and "''" is correct, "" is bad.</td>
 
 </tr>
 
@@ -678,7 +678,7 @@ Renders two HTML select elements with second one changing displayed values depen
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">Iterable source to populate from.</td>
+<td align="left" valign="top">Iterable source to populate from. If the list is a Map (key, value), the Map key will become the option "value" parameter and the Map value will become the option body.</td>
 
 </tr>
 
@@ -732,7 +732,7 @@ Renders two HTML select elements with second one changing displayed values depen
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">The theme (other than default) to use for renedring the element</td>
+<td align="left" valign="top">The theme (other than default) to use for rendering the element</td>
 
 </tr>
 
@@ -750,7 +750,7 @@ Renders two HTML select elements with second one changing displayed values depen
 <td align="left" valign="top">Object/String</td>
 
 <!-- Description -->
-<td align="left" valign="top">The template (other than default) to use for renedring the element</td>
+<td align="left" valign="top">The template (other than default) to use for rendering the element</td>
 
 </tr>
 

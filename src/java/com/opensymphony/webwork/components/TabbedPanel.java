@@ -133,8 +133,8 @@ public class TabbedPanel extends ClosingUIBean {
     }
 
     /**
+     * The id to assign to the component.
      * @ww.tagattribute required="true" type="String"
-     * description="The id to assign to the component."
      */
     public void setId(String id) {
         // This is required to override tld generation attributes to required=true

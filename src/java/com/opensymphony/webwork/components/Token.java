@@ -86,8 +86,8 @@ public class Token extends UIBean {
     }
 
     /**
-     * @deprecated Templates should use $parameters from now on, not $tag.
      * This will be removed in a future version of WebWork.
+     * @deprecated Templates should use $parameters from now on, not $tag.
      */
     public String getTokenNameField() {
         return TokenHelper.TOKEN_NAME_FIELD;

@@ -65,32 +65,32 @@ public class TextArea extends UIBean {
     }
 
     /**
+     * HTML cols attribute
      * @ww.tagattribute required="false" type="Integer"
-     * description="HTML cols attribute"
      */
     public void setCols(String cols) {
         this.cols = cols;
     }
 
     /**
+     * Whether the textarea is readonly
      * @ww.tagattribute required="false" type="Boolean" default="false"
-     * description="Whether the textarea is readonly"
      */
     public void setReadonly(String readonly) {
         this.readonly = readonly;
     }
 
     /**
+     * HTML rows attribute
      * @ww.tagattribute required="false" type="Integer"
-     * description="HTML rows attribute"
      */
     public void setRows(String rows) {
         this.rows = rows;
     }
 
     /**
+     * HTML wrap attribute
      * @ww.tagattribute required="false" type="String"
-     * description="HTML wrap attribute"
      */
     public void setWrap(String wrap) {
         this.wrap = wrap;

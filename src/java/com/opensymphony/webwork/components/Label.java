@@ -66,8 +66,8 @@ public class Label extends UIBean {
     }
 
     /**
+     * HTML for attribute
      * @ww.tagattribute required="false"
-     * description="HTML for attribute"
      */
     public void setFor(String forAttr) {
         this.forAttr = forAttr;

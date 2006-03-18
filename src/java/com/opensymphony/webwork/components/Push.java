@@ -129,8 +129,8 @@ public class Push extends Component {
     }
 
     /**
+     * Value to push on stack
      * @ww.tagattribute required="true"
-     * description="Value to push on stack"
      */
     public void setValue(String value) {
         this.value = value;

@@ -114,8 +114,8 @@ public class I18n extends Component {
     }
 
     /**
+     * Name of ressource bundle to use (eg foo/bar/customBundle)
      * @ww.tagattribute required="true" default="String"
-     * description="Name of ressource bundle to use (eg foo/bar/customBundle)"
      */
     public void setName(String name) {
         this.name = name;

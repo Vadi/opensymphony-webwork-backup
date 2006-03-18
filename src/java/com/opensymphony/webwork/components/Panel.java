@@ -86,24 +86,24 @@ public class Panel extends Div {
     }
 
     /**
+     * The text of the tab to display in the header tab list
      * @ww.tagattribute required="true"
-     * description="The text of the tab to display in the header tab list"
      */
     public void setTabName(String tabName) {
         this.tabName = tabName;
     }
 
     /**
+     * Set subscribeTopicName attribute
      * @ww.tagattribute required="false"
-     * description="Set subscribeTopicName attribute"
      */
     public void setSubscribeTopicName(String subscribeTopicName) {
         this.subscribeTopicName = subscribeTopicName;
     }
 
     /**
+     * determines whether this is a remote panel (ajax) or a local panel (content loaded into visible/hidden containers)
      * @ww.tagattribute required="false" type="Boolean" default="false"
-     * description="determines whether this is a remote panel (ajax) or a local panel (content loaded into visible/hidden containers)"
      */
     public void setRemote(String remote) {
         this.remote = remote;

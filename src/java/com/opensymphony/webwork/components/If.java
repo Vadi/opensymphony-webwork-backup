@@ -52,8 +52,8 @@ public class If extends Component {
     String test;
 
     /**
+     * Expression to determine if body of tag is to be displayed
      * @ww.tagattribute required="true" type="Boolean"
-     * description="Expression to determine if body of tag is to be displayed"
      */
     public void setTest(String test) {
         this.test = test;

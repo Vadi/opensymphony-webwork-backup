@@ -148,8 +148,8 @@ public class AppendIterator extends Component implements UnnamedParametric {
 	}
 
     /**
+     * the id of which if supplied will have the resultant appended iterator stored under in the stack's context
      * @ww.tagattribute required="false"
-     * description="the id of which if supplied will have the resultant appended iterator stored under in the stack's context"
      */
     public void setId(String id) {
         super.setId(id);

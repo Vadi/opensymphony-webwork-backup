@@ -126,8 +126,8 @@ public class Bean extends Component {
     }
 
     /**
+     * the class name of the bean to be instantiated (must respect JavaBean specification)
      * @ww.tagattribute required="true" type="String"
-     * description="the class name of the bean to be instantiated (must respect JavaBean specification)"
      */
     public void setName(String name) {
         this.name = name;

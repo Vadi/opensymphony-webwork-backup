@@ -94,25 +94,24 @@ public abstract class ListUIBean extends UIBean {
     }
 
     /**
-     * If the list is a Map (key, value), the Map key will become the option "value" parameter and the Map value will become the option body.
+     * Iterable source to populate from. If the list is a Map (key, value), the Map key will become the option "value" parameter and the Map value will become the option body.
      * @ww.tagattribute required="true"
-     * description="Iterable source to populate from."
      */
     public void setList(Object list) {
         this.list = list;
     }
 
     /**
+     * Property of list objects to get field value from
      * @ww.tagattribute required="false"
-     * description="Property of list objects to get field value from"
      */
     public void setListKey(String listKey) {
         this.listKey = listKey;
     }
 
     /**
+     * Property of list objects to get field content from
      * @ww.tagattribute required="false"
-     * description="Property of list objects to get field content from"
       */
     public void setListValue(String listValue) {
         this.listValue = listValue;

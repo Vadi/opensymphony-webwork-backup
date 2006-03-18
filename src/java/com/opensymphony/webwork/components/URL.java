@@ -136,7 +136,7 @@ public class URL extends Component {
 
     public boolean start(Writer writer) {
         boolean result = super.start(writer);
-        
+
         if (value != null) {
             value = findString(value);
         }
@@ -170,7 +170,7 @@ public class URL extends Component {
                 }
             } else if (includeParams != null) {
                 LOG.warn("Unknown value for includeParams parameter to URL tag: " + includeParams);
-            }            
+            }
         } catch (Exception e) {
             LOG.warn("Unable to put request parameters (" + req.getQueryString() + ") into parameter map.", e);
         }
@@ -225,100 +225,96 @@ public class URL extends Component {
     }
 
     /**
+     * The includeParams attribute may have the value 'none', 'get' or 'all'.
      * @ww.tagattribute required="false" default="get"
-     * description="The includeParams attribute may have the value 'none', 'get' or 'all'."
      */
     public void setIncludeParams(String includeParams) {
         this.includeParams = includeParams;
     }
 
     /**
+     * Set scheme attribute
      * @ww.tagattribute required="false"
-     * description="Set scheme attribute"
      */
     public void setScheme(String scheme) {
         this.scheme = scheme;
     }
 
     /**
+     * The target value to use, if not using action
      * @ww.tagattribute required="false"
-     * description="The target value to use, if not using action"
      */
     public void setValue(String value) {
         this.value = value;
     }
 
     /**
+     * The action generate url for, if not using value
      * @ww.tagattribute required="false"
-     * description="The action generate url for, if not using value"
      */
     public void setAction(String action) {
         this.action = action;
     }
 
     /**
+     * The namespace to use
      * @ww.tagattribute required="false"
-     * description="The namespace to use"
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
 
     /**
+     * The method of action to use
      * @ww.tagattribute required="false"
-     * description="The method of action to use"
      */
     public void setMethod(String method) {
         this.method = method;
     }
 
     /**
+     * whether to encode parameters
      * @ww.tagattribute required="false" type="Boolean" default="true"
-     * description="whether to encode parameters"
      */
     public void setEncode(boolean encode) {
         this.encode = encode;
     }
 
     /**
+     * whether actual context should be included in url
      * @ww.tagattribute required="false" type="Boolean" default="true"
-     * description="whether actual context should be included in url"
      */
     public void setIncludeContext(boolean includeContext) {
         this.includeContext = includeContext;
     }
     
     /**
+     * The resulting portlet mode
      * @ww.tagattribute required="false"
-     * description="The resulting portlet mode"
-     * @param portletMode
      */
     public void setPortletMode(String portletMode) {
         this.portletMode = portletMode;
     }
 
     /**
+     * The resulting portlet window state
      * @ww.tagattribute required="false"
-     * description="The resulting portlet window state
-     * @param windowState
      */
     public void setWindowState(String windowState) {
         this.windowState = windowState;
     }
 
     /**
+     * Specifies if this should be a portlet render or action url
      * @ww.tagattribute required="false"
-     * description="Specifies if this should be a portlet render or action url"
-     * @param portletUrlType
      */
     public void setPortletUrlType(String portletUrlType) {
         this.portletUrlType = portletUrlType;
     }
 
     /**
+     * The anchor for this URL
      * @ww.tagattribute required="false"
-     * description="The anchor for this URL"
-     * @param anchor
      */
     public void setAnchor(String anchor) {
         this.anchor = anchor;

@@ -86,24 +86,24 @@ public class Property extends Component {
     private boolean escape = true;
 
     /**
+     * The default value to be used if <u>value</u> attribute is null
      * @ww.tagattribute required="false" type="String"
-     * description="The default value to be used if <u>value</u> attribute is null"
      */
     public void setDefault(String defaultValue) {
         this.defaultValue = defaultValue;
     }
 
     /**
+     * Whether to escape HTML
      * @ww.tagattribute required="false" type="Boolean" default="true"
-     * description="Whether to escape HTML"
      */
     public void setEscape(boolean escape) {
         this.escape = escape;
     }
 
     /**
+     * value to be displayed
      * @ww.tagattribute required="false" type="Object" default="&lt;top of stack&gt;"
-     * description="value to be displayed"
      */
     public void setValue(String value) {
         this.value = value;

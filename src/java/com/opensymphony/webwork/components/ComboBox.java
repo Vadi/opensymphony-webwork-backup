@@ -68,8 +68,8 @@ public class ComboBox extends TextField {
     }
 
     /**
+     * Iteratable source to populate from. If this is missing, the select widget is simply not displayed.
      * @ww.tagattribute required="true"
-     * description="Iteratable source to populate from. If this is missing, the select widget is simply not displayed."
       */
     public void setList(String list) {
         this.list = list;

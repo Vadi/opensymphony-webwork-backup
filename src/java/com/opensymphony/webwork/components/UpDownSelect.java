@@ -146,8 +146,8 @@ public class UpDownSelect extends Select {
 		return allowMoveUp;
 	}
 	/**
+     * Whether move up button should be displayed
 	 * @ww.tagattribute required="false" type="Boolean" default="true"
-     * description="Whether move up button should be displayed"
 	 */
 	public void setAllowMoveUp(String allowMoveUp) {
 		this.allowMoveUp = allowMoveUp;
@@ -159,8 +159,8 @@ public class UpDownSelect extends Select {
 		return allowMoveDown;
 	}
 	/**
+     * Whether move down button should be displayed
 	 * @ww.tagattribute required="false" type="Boolean" default="true"
-     * description="Whether move down button should be displayed"
 	 */
 	public void setAllowMoveDown(String allowMoveDown) {
 		this.allowMoveDown = allowMoveDown;
@@ -172,8 +172,8 @@ public class UpDownSelect extends Select {
 		return allowSelectAll;
 	}
 	/**
+     * Whether or not select all button should be displayed
 	 * @ww.tagattribute required="false" type="Boolean" default="true"
-     * description="Whether or not select all button should be displayed"
 	 */
 	public void setAllowSelectAll(String allowSelectAll) {
 		this.allowSelectAll = allowSelectAll;
@@ -184,8 +184,8 @@ public class UpDownSelect extends Select {
 		return moveUpLabel;
 	}
 	/**
+     * Text to display on the move up button
 	 * @ww.tagattribute required="false" type="String" default="^"
-     * description="Text to display on the move up button"
 	 */
 	public void setMoveUpLabel(String moveUpLabel) {
 		this.moveUpLabel = moveUpLabel;
@@ -197,8 +197,8 @@ public class UpDownSelect extends Select {
 		return moveDownLabel;
 	}
 	/**
+     * Text to display on the move down button
 	 * @ww.tagattribute required="false" type="String" default="v"
-     * description="Text to display on the move down button"
 	 */
 	public void setMoveDownLabel(String moveDownLabel) {
 		this.moveDownLabel = moveDownLabel;
@@ -210,8 +210,8 @@ public class UpDownSelect extends Select {
 		return selectAllLabel;
 	}
 	/**
+     * Text to display on the select all button
 	 * @ww.tagattribute required="false" type="String" default="*"
-     * description="Text to display on the select all button"
 	 */
 	public void setSelectAllLabel(String selectAllLabel) {
 		this.selectAllLabel = selectAllLabel;

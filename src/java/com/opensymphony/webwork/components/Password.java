@@ -52,17 +52,17 @@ public class Password extends TextField {
     }
 
     /**
+     * Whether to show input
      * @ww.tagattribute required="false" type="Boolean" default="false"
-     * description="Whether to show input"
      */
     public void setShowPassword(String showPassword) {
         this.showPassword = showPassword;
     }
 
     /**
-     * @deprecated use {@link #setShowPassword(String)}
+     * Deprecated. Use showPassword instead.
      * @ww.tagattribute required="false" rtexprvalue="true"
-     * description="Deprecated. Use showPassword instead."
+     * @deprecated use {@link #setShowPassword(String)}
      */
     public void setShow(String showPassword) {
         this.showPassword = showPassword;

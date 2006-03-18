@@ -102,8 +102,8 @@ public class Text extends Component implements Param.UnnamedParametric {
     }
 
     /**
+     *  Name of resource property to fetch
      * @ww.tagattribute required="true"
-     * description=" Name of resource property to fetch"
      */
     public void setName(String name) {
         this.name = name;

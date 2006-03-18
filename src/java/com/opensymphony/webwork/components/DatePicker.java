@@ -131,32 +131,32 @@ public class DatePicker extends TextField {
     }
 
     /**
-     * @ww.tagattribute required="false" type="String" default="The language of the current Locale" description="The
-     * language to use for the widget texts and localization presets."
+     * The language to use for the widget texts and localization presets.
+     * @ww.tagattribute required="false" type="String" default="The language of the current Locale"
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
     /**
-     * @ww.tagattribute required="false" type="String" default="Dateformat specified by language preset (%Y/%m/%d for
-     * en)" description="The format to use for date field."
+     * The format to use for date field.
+     * @ww.tagattribute required="false" type="String" default="Dateformat specified by language preset (%Y/%m/%d for en)"
      */
     public void setFormat(String format) {
         this.format = format;
     }
 
     /**
-     * @ww.tagattribute required="false" type="String" default="false" description="Whether time selector is to be
-     * shown. Valid values are &quot;true&quot;, &quot;false&quot;, &quot;24&quot; and &quot;12&quot;."
+     * Whether time selector is to be shown. Valid values are &quot;true&quot;, &quot;false&quot;, &quot;24&quot; and &quot;12&quot;.
+     * @ww.tagattribute required="false" type="String" default="false"
      */
     public void setShowstime(String showstime) {
         this.showstime = showstime;
     }
 
     /**
-     * @ww.tagattribute required="false" type="Boolean" default="true" description="Whether to use selected value after
-     * single or double click."
+     * Whether to use selected value after single or double click.
+     * @ww.tagattribute required="false" type="Boolean" default="true"
      */
     public void setSingleclick(String singleclick) {
         this.singleclick = singleclick;

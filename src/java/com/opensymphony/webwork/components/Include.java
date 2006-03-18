@@ -139,8 +139,8 @@ public class Include extends Component {
     }
 
     /**
+     * The jsp/servlet output to include
      * @ww.tagattribute required="true" type="String"
-     * description="The jsp/servlet output to include"
      */
     public void setValue(String value) {
         this.value = value;

@@ -223,7 +223,7 @@ public class Form extends ClosingUIBean {
      * Constructs the action url adapted to a portal environment.
      * @param action The action to create the URL for.
      */
-    private void evaluateExtraParamsPortletRequest(String namepsace, String action) {
+    private void evaluateExtraParamsPortletRequest(String namespace, String action) {
 
         if (this.action != null) {
             // if it isn't specified, we'll make somethig up
@@ -288,73 +288,72 @@ public class Form extends ClosingUIBean {
 
 
     /**
+     * HTML onsubmit attribute
      * @ww.tagattribute required="false"
-     * description="HTML onsubmit attribute"
      */
     public void setOnsubmit(String onsubmit) {
         this.onsubmit = onsubmit;
     }
 
     /**
+     * Set action nane to submit to, without .action suffix
      * @ww.tagattribute required="false" default="current action"
-     * description="Set action nane to submit to, without .action suffix"
      */
     public void setAction(String action) {
         this.action = action;
     }
 
     /**
+     * HTML form target attribute
      * @ww.tagattribute required="false"
-     * description="HTML form target attribute"
      */
     public void setTarget(String target) {
         this.target = target;
     }
 
     /**
+     * HTML form enctype attribute
      * @ww.tagattribute required="false"
-     * description="HTML form enctype attribute"
      */
     public void setEnctype(String enctype) {
         this.enctype = enctype;
     }
 
     /**
+     * HTML form method attribute
      * @ww.tagattribute required="false"
-     * description="HTML form method attribute"
      */
     public void setMethod(String method) {
         this.method = method;
     }
 
     /**
+     * namespace for action to submit to
      * @ww.tagattribute required="false" default="current namespace"
-     * description="namespace for action to submit to"
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
 
     /**
+     * Whether client side/remote validation should be performed. Only useful with theme xhtml/ajax
      * @ww.tagattribute required="false" type="Boolean" default="false"
-     * description="Whether client side/remote validation should be performed. Only usefull with theme xhtml/ajax"
      */
     public void setValidate(String validate) {
         this.validate = validate;
     }
 
     /**
-     * @ww.tagattribute required="false" description="The portlet mode to
-     *                  display after the form submit"
+     * The portlet mode to display after the form submit
+     * @ww.tagattribute required="false"
      */
     public void setPortletMode(String portletMode) {
         this.portletMode = portletMode;
     }
 
     /**
-     * @ww.tagattribute required="false" description="The window state to
-     *                  display after the form submit"
-     * @param windowState
+     * The window state to display after the form submit
+     * @ww.tagattribute required="false"
      */
     public void setWindowState(String windowState) {
         this.windowState = windowState;
