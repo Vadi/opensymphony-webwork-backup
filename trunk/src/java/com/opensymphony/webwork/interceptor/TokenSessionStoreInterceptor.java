@@ -25,6 +25,12 @@ import java.util.Map;
  * complete, and then instead of returning the <i>invalid.token</i> code, it will attempt to display the same response
  * that the original, valid action invocation would have displayed if no multiple requests were submitted in the first
  * place.
+ * 
+ * <p/>
+ * 
+ * <b>NOTE:</b> As this method extends off MethodFilterInterceptor, it is capable of
+ * deciding if it is applicable only to selective methods in the action class. See
+ * <code>MethodFilterInterceptor</code> for more info.
  *
  * <!-- END SNIPPET: description -->
  *
@@ -54,17 +60,31 @@ import java.util.Map;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
+ * 
  * &lt;action name="someAction" class="com.examples.SomeAction"&gt;
  *     &lt;interceptor-ref name="token-session/&gt;
  *     &lt;interceptor-ref name="basicStack"/&gt;
  *     &lt;result name="success"&gt;good_result.ftl&lt;/result&gt;
  * &lt;/action&gt;
+ * 
+ * &lt;-- In this case, myMethod of the action class will not 
+ *        get checked for invalidity of token --&gt;
+ * &lt;action name="someAction" class="com.examples.SomeAction"&gt;
+ *     &lt;interceptor-ref name="token-session&gt;
+ *         &lt;param name="excludeMethods"&gt;myMethod&lt;/param&gt;
+ *     &lt;/interceptor-ref name="token-session&gt;
+ *     &lt;interceptor-ref name="basicStack"/&gt;
+ *     &lt;result name="success"&gt;good_result.ftl&lt;/result&gt;
+ * &lt;/action&gt;
+ * 
  * <!-- END SNIPPET: example -->
  * </pre>
  *
  * @author Jason Carreira
  * @author Rainer Hermanns
  * @author Nils-Helge Garli
+ * 
+ * @version $Date$ $Id$
  */
 public class TokenSessionStoreInterceptor extends TokenInterceptor {
     protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
