@@ -74,7 +74,7 @@
 
             <!-- Sample WebWork Inversion of Control stack
                  Note: WebWork's IoC is deprecated - please
-                 look at alternatives such as Sprint -->
+                 look at alternatives such as Spring -->
             <interceptor-stack name="componentStack">
                 <interceptor-ref name="component"/>
                 <interceptor-ref name="basicStack"/>
@@ -140,9 +140,9 @@
 
             <!-- A complete stack with all the common interceptors in place.
                  Generally, this stack should be the one you use, though it
-                 may may do more than you need. Also, the ordering can be
+                 may do more than you need. Also, the ordering can be
                  switched around (ex: if you wish to have your servlet-related
-                 objects applied before prepare() is called, you'd need
+                 objects applied before prepare() is called, you'd need to move
                  servlet-config interceptor up.
 
                  This stack also excludes from the normal validation and workflow
