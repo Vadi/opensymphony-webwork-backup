@@ -81,6 +81,11 @@
             <email>m.bogaert at memenco dot com</email>
             <role>Bugfixing, UI templates, Velocity</role>
         </person>
+        <person>
+            <name>Claus Ibsen</name>
+            <email></email>
+            <role>Unit tests, Bugfixing</role>
+        </person>
     </developers>
 
     <releases>
