@@ -116,16 +116,16 @@ public class Param extends Component {
     }
 
     /**
+     * Name of Parameter to set
      * @ww.tagattribute required="false" type="String"
-     * description="Name of Parameter to set"
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
+     * Value expression for Parameter to set
      * @ww.tagattribute required="false" default="The value of evaluating provided name against stack"
-     * description="Value expression for Parameter to set"
      */
     public void setValue(String value) {
         this.value = value;
