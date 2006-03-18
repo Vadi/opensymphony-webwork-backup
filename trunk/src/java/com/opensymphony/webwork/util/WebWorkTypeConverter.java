@@ -47,7 +47,7 @@ public abstract class WebWorkTypeConverter extends DefaultTypeConverter {
      * @param context
      * @param o
      * @param toClass
-     * @return
+     * @return The fallback conversion
      */
     protected Object performFallbackConversion(Map context, Object o, Class toClass) {
     	return super.convertValue(context, o, toClass);
