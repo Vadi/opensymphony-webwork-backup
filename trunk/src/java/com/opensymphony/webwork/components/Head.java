@@ -101,7 +101,8 @@ public class Head extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false" description="The jscalendar css theme to use" default="calendar-blue.css"
+     * The jscalendar css theme to use" default="calendar-blue.css
+     * @ww.tagattribute required="false"
      */
     public void setCalendarcss(String calendarcss) {
         this.calendarcss = calendarcss;
@@ -112,7 +113,8 @@ public class Head extends UIBean {
     }
 
     /**
-     * @ww.tagattribute required="false" description="Set to true, to enable debugging mode for AJAX themes"
+     * Set to true to enable debugging mode for AJAX themes
+     * @ww.tagattribute required="false"
      */
     public void setDebug(boolean debug) {
         this.debug = debug;

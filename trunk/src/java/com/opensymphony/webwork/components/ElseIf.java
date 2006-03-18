@@ -76,8 +76,8 @@ public class ElseIf extends Component {
     }
 
     /**
-     * @ww.tagattribute required="true" type="Boolean" description="Expression to determine if body of tag is to be
-     * displayed"
+     * Expression to determine if body of tag is to be displayed
+     * @ww.tagattribute required="true" type="Boolean"
      */
     public void setTest(String test) {
         this.test = test;

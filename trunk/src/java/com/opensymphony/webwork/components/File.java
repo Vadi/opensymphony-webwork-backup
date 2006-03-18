@@ -74,16 +74,16 @@ public class File extends UIBean {
     }
 
     /**
+     * HTML accept attribute to indicate accepted file mimetypes
      * @ww.tagattribute required="false"
-     * description="HTML accept attribute to indicate accepted file mimetypes"
      */
     public void setAccept(String accept) {
         this.accept = accept;
     }
 
     /**
+     * HTML size attribute
      * @ww.tagattribute required="false" type="Integer"
-     * description="HTML size attribute"
      */
     public void setSize(String size) {
         this.size = size;

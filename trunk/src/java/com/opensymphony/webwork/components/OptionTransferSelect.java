@@ -262,8 +262,8 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	}
 
 	/**
+     * set Add To Left button label
 	 * @ww.tagattribute required="false"
-     * description="set Add To Left button label"
 	 */
 	public void setAddAllToLeftLabel(String addAllToLeftLabel) {
 		this.addAllToLeftLabel = addAllToLeftLabel;
@@ -274,8 +274,8 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	}
 
 	/**
+     * set Add All To Right button label
 	 * @ww.tagattribute required="false"
-     * description="set Add All To Right button label"
 	 */
 	public void setAddAllToRightLabel(String addAllToRightLabel) {
 		this.addAllToRightLabel = addAllToRightLabel;
@@ -286,8 +286,8 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	}
 
 	/**
+     * set Add To Left button label
 	 * @ww.tagattribute required="false"
-     * description="set Add To Left button label"
 	 */
 	public void setAddToLeftLabel(String addToLeftLabel) {
 		this.addToLeftLabel = addToLeftLabel;
@@ -298,8 +298,8 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	}
 
 	/**
+     * set Add To Right button label
 	 * @ww.tagattribute required="false"
-     * description="set Add To Right button label"
 	 */
 	public void setAddToRightLabel(String addToRightLabel) {
 		this.addToRightLabel = addToRightLabel;
@@ -310,8 +310,8 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	}
 
 	/**
+     * enable Add All To Left button
 	 * @ww.tagattribute required="false"
-     * description="enable Add All To Left button"
 	 */
 	public void setAllowAddAllToLeft(String allowAddAllToLeft) {
 		this.allowAddAllToLeft = allowAddAllToLeft;
@@ -322,8 +322,8 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	}
 
 	/**
+     * enable Add All To Right button
 	 * @ww.tagattribute required="false"
-     * description="enable Add All To Right button"
 	 */
 	public void setAllowAddAllToRight(String allowAddAllToRight) {
 		this.allowAddAllToRight = allowAddAllToRight;
@@ -334,8 +334,8 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	}
 
 	/**
+     * enable Add To Left button
 	 * @ww.tagattribute required="false"
-     * description="enable Add To Left button"
 	 */
 	public void setAllowAddToLeft(String allowAddToLeft) {
 		this.allowAddToLeft = allowAddToLeft;
@@ -346,9 +346,8 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	}
 
 	/**
+     * enable Add To Right button
 	 * @ww.tagattribute required="false"
-     * description="enable Add To Right button"
-	 * @param allowAddToRight
 	 */
 	public void setAllowAddToRight(String allowAddToRight) {
 		this.allowAddToRight = allowAddToRight;
@@ -359,8 +358,8 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	}
 
 	/**
+     * set Left title
 	 * @ww.tagattribute required="false"
-     * description="set Left title"
 	 */
 	public void setLeftTitle(String leftTitle) {
 		this.leftTitle = leftTitle;
@@ -371,8 +370,8 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	}
 
 	/**
+     * set Right title
 	 * @ww.tagattribute required="false"
-     * description="set Right title"
 	 */
 	public void setRightTitle(String rightTitle) {
 		this.rightTitle = rightTitle;
@@ -380,49 +379,53 @@ public class OptionTransferSelect extends DoubleListUIBean {
 	
 	
 	/**
+     * enable Select All button
 	 * @ww.tagattribute required="false"
-     * description="enable Select All button"
 	 */
 	public void setAllowSelectAll(String allowSelectAll) {
 		this.allowSelectAll = allowSelectAll;
 	}
-	public String getAllowSelectAll() {
+
+    public String getAllowSelectAll() {
 		return this.allowSelectAll;
 	}
 	
 	
 	/**
+     * set Select All button label
 	 * @ww.tagattribute required="false"
-     * description="set Select All button label"
 	 */
 	public void setSelectAllLabel(String selectAllLabel) {
 		this.selectAllLabel = selectAllLabel;
 	}
-	public String getSelectAllLabel() { 
+
+    public String getSelectAllLabel() {
 		return this.selectAllLabel;
 	}
-	
-	
-	/**
+
+
+    /**
+     * set buttons css class
 	 * @ww.tagattribute required="false"
-     * description="set buttons css class"
 	 */
 	public void setButtonCssClass(String buttonCssClass) {
 		this.buttonCssClass = buttonCssClass;
 	}
-	public String getButtonCssClass() {
+
+    public String getButtonCssClass() {
 		return buttonCssClass;
 	}
 	
 	
 	/**
+     * set button css style
 	 * @ww.tagattribute required="false"
-     * description="set button css style"
 	 */
 	public void setButtonCssStyle(String buttonCssStyle) {
 		this.buttonCssStyle = buttonCssStyle;
 	}
-	public String getButtonCssStyle() {
+
+    public String getButtonCssStyle() {
 		return this.buttonCssStyle;
 	}
 }

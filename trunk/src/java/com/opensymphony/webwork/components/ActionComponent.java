@@ -228,40 +228,40 @@ public class ActionComponent extends Component {
     }
 
     /**
+     * the id (if speficied) to put the action under stack's context.
      * @ww.tagattribute required="false" type="String"
-     * description="the id (if speficied) to put the action under stack's context."
      */
     public void setId(String id) {
         super.setId(id);
     }
 
     /**
+     * name of the action to be executed (without the extension suffix eg. .action)
      * @ww.tagattribute required="true" type="String"
-     * description="name of the action to be executed (without the extension suffix eg. .action)"
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
+     * namespace for action to call
      * @ww.tagattribute required="false" type="String" default="namespace from where tag is used"
-     * description="namespace for action to call"
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
 
     /**
+     * whether the result of this action (probably a view) should be executed/rendered
      * @ww.tagattribute required="false" type="Boolean" default="false"
-     * description="whether the result of this action (probably a view) should be executed/rendered"
      */
     public void setExecuteResult(boolean executeResult) {
         this.executeResult = executeResult;
     }
 
     /**
+     * whether the request parameters are to be included when the action is invoked
      * @ww.tagattribute required="false" type="Boolean" default="false"
-     * description="whether the request parameters are to be included when the action is invoked"
      */
     public void setIgnoreContextParams(boolean ignoreContextParams) {
         this.ignoreContextParams = ignoreContextParams;

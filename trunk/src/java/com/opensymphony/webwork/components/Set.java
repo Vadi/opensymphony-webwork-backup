@@ -92,24 +92,24 @@ public class Set extends Component {
     }
 
     /**
+     * The name of the new variable that is assigned the value of <i>value</i>
      * @ww.tagattribute required="true" type="String"
-     * description="The name of the new variable that is assigned the value of <i>value</i>"
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
+     * The scope in which to assign the variable. Can be <b>application</b>, <b>session</b>, <b>request</b>, <b>page</b>, or <b>action</b>.
      * @ww.tagattribute required="false" type="String" default="action"
-     * description="The scope in which to assign the variable. Can be <b>application</b>, <b>session</b>, <b>request</b>, <b>page</b>, or <b>action</b>."
      */
     public void setScope(String scope) {
         this.scope = scope;
     }
 
     /**
+     * The value that is assigned to the variable named <i>name</i>
      * @ww.tagattribute required="false"
-     * description="The value that is assigned to the variable named <i>name</i>"
      */
     public void setValue(String value) {
         this.value = value;

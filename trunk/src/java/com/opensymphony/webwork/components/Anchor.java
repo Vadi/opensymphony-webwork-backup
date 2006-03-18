@@ -100,24 +100,24 @@ public class Anchor extends RemoteCallUIBean {
     }
 
     /**
-     * @ww.tagattribute required="false" type="String" description="The id to assign the component"
+     * The id to assign the component
+     * @ww.tagattribute required="false" type="String"
      */
     public void setId(String id) {
         super.setId(id);
     }
 
     /**
-     * @ww.tagattribute required="false" description="Topic names to post an event to after the remote call has been
-     * made"
+     * Topic names to post an event to after the remote call has been made
+     * @ww.tagattribute required="false"
      */
     public void setNotifyTopics(String notifyTopics) {
         this.notifyTopics = notifyTopics;
     }
 
     /**
-     * @ww.tagattribute required="false" type="String" description="A javascript snippet that will be invoked prior to
-     * the execution of the target href. If provided must return true or false. True indicates to continue executing
-     * target, false says do not execute link target. Possible uses are for confirm dialogs."
+     * A javascript snippet that will be invoked prior to the execution of the target href. If provided must return true or false. True indicates to continue executing target, false says do not execute link target. Possible uses are for confirm dialogs.
+     * @ww.tagattribute required="false" type="String"
      */
     public void setPreInvokeJS(String preInvokeJS) {
         this.preInvokeJS = preInvokeJS;

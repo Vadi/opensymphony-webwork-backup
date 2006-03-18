@@ -186,8 +186,8 @@ public class WebTable extends GenericUIBean {
     }
 
     /**
+     * The name of model to use
      * @ww.tagattribute required="true" type="String"
-     * description="The name of model to use"
      */
     public void setModelName(String modelName) {
         this.modelName = modelName;
@@ -226,8 +226,8 @@ public class WebTable extends GenericUIBean {
     }
 
     /**
+     * Index of column to sort data by
      * @ww.tagattribute required="false" type="Integer"
-     * description="Index of column to sort data by"
      */
     public void setSortColumn(int sortColumn) {
         this.sortColumn = sortColumn;
@@ -246,8 +246,8 @@ public class WebTable extends GenericUIBean {
     }
 
     /**
+     * Set sort order. Allowed values are NONE, ASC and DESC
      * @ww.tagattribute required="false" type="String" default="NONE"
-     * description="Set sort order. Allowed values are NONE, ASC and DESC"
      */
     public void setSortOrder(String sortOrder) {
         if (sortOrder.equals(SortableTableModel.NONE)) {
@@ -274,8 +274,8 @@ public class WebTable extends GenericUIBean {
     }
 
     /**
+     * Whether the table should be sortable. Requires that model implements com.opensymphony.webwork.components.table.SortableTableModel if set to true.
      * @ww.tagattribute required="false" type="Boolean" default="false"
-     * description="Whether the table should be sortable. Requires that model implements com.opensymphony.webwork.components.table.SortableTableModel if set to true."
      */
     public void setSortable(boolean sortable) {
         sortableAttr = sortable;

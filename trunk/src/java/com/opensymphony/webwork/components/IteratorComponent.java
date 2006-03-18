@@ -236,16 +236,16 @@ public class IteratorComponent extends Component {
     }
 
     /**
-     * @ww.tagattribute required="false" type="Boolean" default="false" description="if specified, an instanceof
-     * IteratorStatus will be pushed into stack upon each iteration"
+     * if specified, an instanceof IteratorStatus will be pushed into stack upon each iteration
+     * @ww.tagattribute required="false" type="Boolean" default="false"
      */
     public void setStatus(String status) {
         this.statusAttr = status;
     }
 
     /**
-     * @ww.tagattribute required="false" description="the iteratable source to iterate over, else an the object itself
-     * will be put into a newly created List"
+     * the iteratable source to iterate over, else an the object itself will be put into a newly created List
+     * @ww.tagattribute required="false"
      */
     public void setValue(String value) {
         this.value = value;

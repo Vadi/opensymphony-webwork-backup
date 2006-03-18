@@ -101,41 +101,40 @@ public class Select extends ListUIBean {
     }
 
     /**
+     * Whether or not to add an empty (--) option after the header option
      * @ww.tagattribute required="false" type="Boolean" default="false"
-     * description="Whether or not to add an empty (--) option after the header option"
      */
     public void setEmptyOption(String emptyOption) {
         this.emptyOption = emptyOption;
     }
 
     /**
-     * Cannot be empty! "'-1'" and "''" is correct, "" is bad.
+     * Key for first item in list. Must not be empty! "'-1'" and "''" is correct, "" is bad.
      * @ww.tagattribute required="false"
-     * description="Key for first item in list"
      */
     public void setHeaderKey(String headerKey) {
         this.headerKey = headerKey;
     }
 
     /**
+     * Value expression for first item in list
      * @ww.tagattribute required="false"
-     * description="Value expression for first item in list"
      */
     public void setHeaderValue(String headerValue) {
         this.headerValue = headerValue;
     }
 
     /**
+     * Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute. Passing a Collection may work too? Haven't tested this.
      * @ww.tagattribute required="false"  type="Boolean" default="false"
-     * description="Creates a multiple select. The tag will pre-select multiple values if the values are passed as an Array (of appropriate types) via the value attribute. Passing a Collection may work too? Haven't tested this."
      */
     public void setMultiple(String multiple) {
         this.multiple = multiple;
     }
 
     /**
+     * Size of the element box (# of elements to show)
      * @ww.tagattribute required="false" type="Integer"
-     * description=" Size of the element box (# of elements to show)"
      */
     public void setSize(String size) {
         this.size = size;

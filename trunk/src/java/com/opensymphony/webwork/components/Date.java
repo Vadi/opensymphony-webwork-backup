@@ -124,10 +124,8 @@ public class Date extends Component {
 	 * it nicely. <p/> An example: <br/>Now = 2006/03/12 13:38:00, date =
 	 * 2006/03/12 15:50:00 will output "in 1 hour, 12 minutes".
 	 *
-	 * @param tp
-	 *            text provider
-	 * @param date
-	 *            the date
+	 * @param tp text provider
+	 * @param date the date
 	 * @return the date nicely
 	 */
 	public String formatTime(TextProvider tp, java.util.Date date) {
@@ -149,46 +147,39 @@ public class Date extends Component {
 			args.add(new Long(day));
 			args.add(sb);
 			args.add(null);
-			sb.append(tp.getText(DATETAG_PROPERTY_YEARS, DATETAG_DEFAULT_YEARS,
-					args));
+			sb.append(tp.getText(DATETAG_PROPERTY_YEARS, DATETAG_DEFAULT_YEARS, args));
 		} else if (day > 0) {
 			args.add(new Long(day));
 			args.add(new Long(hour));
 			args.add(sb);
 			args.add(null);
-			sb.append(tp.getText(DATETAG_PROPERTY_DAYS, DATETAG_DEFAULT_DAYS,
-					args));
+			sb.append(tp.getText(DATETAG_PROPERTY_DAYS, DATETAG_DEFAULT_DAYS, args));
 		} else if (hour > 0) {
 			args.add(new Long(hour));
 			args.add(new Long(min));
 			args.add(sb);
 			args.add(null);
-			sb.append(tp.getText(DATETAG_PROPERTY_HOURS, DATETAG_DEFAULT_HOURS,
-					args));
+			sb.append(tp.getText(DATETAG_PROPERTY_HOURS, DATETAG_DEFAULT_HOURS, args));
 		} else if (min > 0) {
 			args.add(new Long(min));
 			args.add(new Long(sec));
 			args.add(sb);
 			args.add(null);
-			sb.append(tp.getText(DATETAG_PROPERTY_MINUTES,
-					DATETAG_DEFAULT_MINUTES, args));
+			sb.append(tp.getText(DATETAG_PROPERTY_MINUTES, DATETAG_DEFAULT_MINUTES, args));
 		} else {
 			args.add(new Long(sec));
 			args.add(sb);
 			args.add(null);
-			sb.append(tp.getText(DATETAG_PROPERTY_SECONDS,
-					DATETAG_DEFAULT_SECONDS, args));
+			sb.append(tp.getText(DATETAG_PROPERTY_SECONDS, DATETAG_DEFAULT_SECONDS, args));
 		}
 
 		args.clear();
 		args.add(sb.toString());
 		if (date.before(now)) {
 			// looks like this date is passed
-			return tp
-					.getText(DATETAG_PROPERTY_PAST, DATETAG_DEFAULT_PAST, args);
+			return tp.getText(DATETAG_PROPERTY_PAST, DATETAG_DEFAULT_PAST, args);
 		} else {
-			return tp.getText(DATETAG_PROPERTY_FUTURE, DATETAG_DEFAULT_FUTURE,
-					args);
+			return tp.getText(DATETAG_PROPERTY_FUTURE, DATETAG_DEFAULT_FUTURE, args);
 		}
 	}
 
@@ -255,16 +246,16 @@ public class Date extends Component {
 	}
 
 	/**
-	 * @ww.tagattribute required="false" rtexprvalue="false" description="Date
-	 *                  or DateTime format pattern"
+     * Date or DateTime format pattern
+	 * @ww.tagattribute required="false" rtexprvalue="false"
 	 */
 	public void setFormat(String format) {
 		this.format = format;
 	}
 
 	/**
+     * Whether to print out the date nicely
 	 * @ww.tagattribute required="false" type="Boolean" default="false"
-	 *                  description="Wether to print out the date nicely"
 	 */
 	public void setNice(boolean nice) {
 		this.nice = nice;
@@ -278,8 +269,8 @@ public class Date extends Component {
 	}
 
     /**
+     * The date value to format
      * @ww.tagattribute required="true" type="String"
-     *                  description="The date value to format"
      */
 	public void setName(String name) {
 		this.name = name;

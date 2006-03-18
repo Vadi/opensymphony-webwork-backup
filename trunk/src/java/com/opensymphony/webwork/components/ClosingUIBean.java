@@ -28,8 +28,8 @@ public abstract class ClosingUIBean extends UIBean {
     public abstract String getDefaultOpenTemplate();
 
     /**
+     * Set template to use for opening the rendered html.
      * @ww.tagattribute required="false"
-     * description="Set template to use for opening the rendered html."
      */
     public void setOpenTemplate(String openTemplate) {
         this.openTemplate = openTemplate;

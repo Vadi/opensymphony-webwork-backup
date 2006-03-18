@@ -96,32 +96,32 @@ public class Div extends RemoteCallUIBean {
     }
 
     /**
+     * How often to re-fetch the content (in milliseconds)
      * @ww.tagattribute required="false" type="Integer" default="0"
-     * description="How often to re-fetch the content (in milliseconds)"
      */
     public void setUpdateFreq(String updateFreq) {
         this.updateFreq = updateFreq;
     }
 
     /**
+     * How long to wait before fetching the content (in milliseconds)
      * @ww.tagattribute required="false" type="Integer" default="0"
-     * description="How long to wait before fetching the content (in milliseconds)"
      */
     public void setDelay(String delay) {
         this.delay = delay;
     }
 
     /**
+     * The text to display to the user while the new content is being fetched (especially good if the content will take awhile)
      * @ww.tagattribute required="false" rtexprvalue="true"
-     * description="The text to display to the user while the new content is being fetched (especially good if the content will take awhile)"
      */
     public void setLoadingText(String loadingText) {
         this.loadingText = loadingText;
     }
 
     /**
+     * Topic name to listen to (comma delimited), that will cause the DIV's content to be re-fetched
      * @ww.tagattribute required="false"
-     * description="Topic name to listen to (comma delimited), that will cause the DIV's content to be re-fetched"
      */
     public void setListenTopics(String listenTopics) {
         this.listenTopics = listenTopics;
