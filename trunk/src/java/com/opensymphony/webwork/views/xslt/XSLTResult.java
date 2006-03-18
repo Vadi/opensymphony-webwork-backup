@@ -94,7 +94,21 @@ import java.util.regex.Pattern;
  * though you have relatively simple stylesheet execution takes a tremendous
  * amount of time. To help you to deal with that obstacle of Xalan you may
  * attach regexp filters to elements paths (xpath). 
- * </p> 
+ * </p>
+ *
+ * <p>
+ * <b>Note:</b> In your .xsl file the root match must be named <tt>result</tt>.
+ * <br/>This example will output the username by using <tt>getUsername</tt> on your
+ * action class:
+ * <pre>
+ * &lt;xsl:template match="result"&gt;
+ *   &lt;html&gt;
+ *   &lt;body&gt;
+ *   Hello &lt;xsl:value-of select="username"/&gt; how are you?
+ *   &lt;/body&gt;
+ *   &lt;html&gt;
+ * &lt;xsl:template/&gt;
+ * </pre>
  *
  * <p>
  * In the following example the XSLT result would only walk through action's
@@ -160,20 +174,19 @@ public class XSLTResult implements Result {
     private static final Log log = LogFactory.getLog(XSLTResult.class);
     public static final String DEFAULT_PARAM = "location";
 
+    private static final Object LOCK = new Object(); // lock in synchronized code
 
     protected boolean noCache = false;
-    private Map templatesCache;
-    private String location;
-    private boolean parse;
-    private Pattern matchingPattern = null;
-    private Pattern excludingPattern = null;
-
+    protected Map templatesCache;
+    protected String location;
+    protected boolean parse;
+    protected Pattern matchingPattern = null;
+    protected Pattern excludingPattern = null;
 
     public XSLTResult() {
         templatesCache = new HashMap();
         noCache = Configuration.getString(WebWorkConstants.WEBWORK_XSLT_NOCACHE).trim().equalsIgnoreCase("true");
     }
-
 
     public void setLocation(String location) {
         this.location = location;
@@ -192,11 +205,22 @@ public class XSLTResult implements Result {
     }
 
     public void execute(ActionInvocation invocation) throws Exception {
-        long startTime = System.currentTimeMillis();
+        long startTime = -1;
+
+        if (log.isDebugEnabled()) {
+            startTime = System.currentTimeMillis();
+        }
 
         if (parse) {
             OgnlValueStack stack = ActionContext.getContext().getValueStack();
             location = TextParseUtil.translateVariables(location, stack);
+        }
+
+        if (location == null || location.trim().length() == 0) {
+            String msg = "Location paramter is empty. " +
+                "Check the <param name=\"location\"> tag specified for this action.";
+            log.error(msg);
+            throw new IllegalArgumentException(msg);
         }
 
         try {
@@ -212,6 +236,7 @@ public class XSLTResult implements Result {
 
             if (mimeType == null) {
                 // guess (this is a servlet, so text/html might be the best guess)
+                log.debug("Not possible to determine MineType from media-type, using text/html then");
                 mimeType = "text/html";
             }
 
@@ -221,18 +246,19 @@ public class XSLTResult implements Result {
 
             // Transform the source XML to System.out.
             PrintWriter out = response.getWriter();
-
-            transformer.transform(xmlSource, new StreamResult(out));
-
-            out.close(); // ...and flush...
+            try {
+                transformer.transform(xmlSource, new StreamResult(out));
+            } finally {
+                out.close(); // ...and flush...
+            }
 
             if (log.isDebugEnabled()) {
-                log.debug("Time:" + (System.currentTimeMillis() - startTime) + "ms");
+                log.debug("Time: " + (System.currentTimeMillis() - startTime) + "ms");
             }
 
             writer.flush();
         } catch (Exception e) {
-            log.error("Unable to render XSLT Template, '" + location + "'", e);
+            log.error("Unable to render XSLT Template with location=[" + location + "]", e);
             throw e;
         }
     }
@@ -251,17 +277,14 @@ public class XSLTResult implements Result {
         Templates templates = (Templates) templatesCache.get(path);
 
         if (noCache || (templates == null)) {
-            synchronized (templatesCache) {
+            synchronized (LOCK) {
                 URL resource = ServletActionContext.getServletContext().getResource(path);
 
                 if (resource == null) {
                     throw new TransformerException("Stylesheet " + path + " not found in resources.");
                 }
 
-                if (
-                    // This may result in the template being put into the cache multiple times
-                    // if concurrent requests are made, but that's ok.
-                        log.isDebugEnabled()) {
+                if (log.isDebugEnabled()) {
                     // This may result in the template being put into the cache multiple times
                     // if concurrent requests are made, but that's ok.
                     log.debug("Preparing new XSLT stylesheet: " + path);
