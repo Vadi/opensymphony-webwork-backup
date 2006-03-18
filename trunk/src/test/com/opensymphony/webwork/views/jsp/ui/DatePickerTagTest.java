@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.views.jsp.ui;
 
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
-import com.opensymphony.webwork.components.DatePicker;
 import com.opensymphony.xwork.ActionContext;
 
 import java.util.Locale;
