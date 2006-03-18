@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2006 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.config;
@@ -13,10 +13,9 @@ import java.util.Locale;
 
 
 /**
- * ConfigurationTest
+ * Unit test for {@link ConfigurationTest}.
  *
  * @author Jason Carreira
- *         Created Apr 9, 2003 10:42:30 PM
  */
 public class ConfigurationTest extends WebWorkTestCase {
 
@@ -32,7 +31,7 @@ public class ConfigurationTest extends WebWorkTestCase {
         assertEquals("de", locale.getLanguage());
 
         int count = getKeyCount();
-        assertEquals(25, count);
+        assertEquals(26, count);
     }
 
     public void testDefaultResourceBundlesLoaded() {
