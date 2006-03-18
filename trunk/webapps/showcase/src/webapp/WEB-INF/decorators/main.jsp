@@ -74,6 +74,7 @@
                     <li><a href="<ww:url action="actionChain1!input" namespace="/actionchaining"  includeParams="none" />">Action Chaining</a></li>
                     <li><a href="<ww:url value="/wait/index.jsp"/>">Execute & Wait</a></li>
                     <li><a href="<ww:url value="/token/index.jsp"/>">Token</a></li>
+                    <li><a href="<ww:url value="/filedownload/index.jsp"/>">File Download</a></li>
                     <li class="last"><a href="<ww:url value="/help.jsp"/>">Help</a></li>
                 </ul>
             </div>

@@ -25,6 +25,8 @@
 
     <include file="xwork-token.xml" />
     
+    <include file="xwork-filedownload.xml" />
+
     <package name="default" extends="webwork-default">
         <interceptors>
             <interceptor-stack name="crudStack">

@@ -28,7 +28,7 @@
 		<li><ww:url id="url" value="/tags"/><ww:a href="%{url}">Tags Examples</ww:a></li>
 		
 		<!-- fileupload -->
-		<li><ww:url id="url" namespace="/fileupload" action="upload" /><ww:a href="%{url}">File Upload Example</ww:a></li>
+		<li><ww:url id="url" namespace="/fileupload" action="upload"/><ww:a href="%{url}">File Upload Example</ww:a></li>
 
 		<!-- crud -->
 		<li><ww:url id="url" value="/empmanager"/><ww:a href="%{url}">CRUD Examples</ww:a></li>
@@ -50,6 +50,9 @@
 
         <!-- token -->
         <li><ww:url id="url" value="/token"/><ww:a href="%{url}">Token Examples (double post)</ww:a></li>
+
+        <!-- filedownload -->
+        <li><ww:url id="url" value="/filedownload"/><ww:a href="%{url}">File Download Example</ww:a></li>
     </ul>
 </p>
 
