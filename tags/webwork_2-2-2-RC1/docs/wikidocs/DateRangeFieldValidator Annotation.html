@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>WebWork - 
+        DateRangeFieldValidator Annotation
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h1><a name="DateRangeFieldValidatorAnnotation-DateRangeFieldValidatorAnnotation"></a>DateRangeFieldValidator Annotation</h1>
+
+<table bgcolor='#ffffe0' cellpadding='0' cellspacing='0' width='100%' border='0'><tr><td><div stlye='font-size:8px; text-align:center;'><center>Content pulled from external source. Click <a href='/plugins/snippet/clearCache.action?id=description&amp;url=https%3A%2F%2Fopensymphony.dev.java.net%2Fsource%2Fbrowse%2F*checkout*%2Fxwork%2Ftiger%2Fsrc%2Fjava%2Fcom%2Fopensymphony%2Fxwork%2Fvalidator%2Fannotations%2FDateRangeFieldValidator.java'>here</a> to refresh.</center></div></td></tr><tr><td><p>This validator checks that a date field has a value within a specified range.</p></td></tr></table>
+
+<h2><a name="DateRangeFieldValidatorAnnotation-Usage"></a>Usage</h2>
+
+<table bgcolor='#ffffe0' cellpadding='0' cellspacing='0' width='100%' border='0'><tr><td><div stlye='font-size:8px; text-align:center;'><center>Content pulled from external source. Click <a href='/plugins/snippet/clearCache.action?id=usage&amp;url=https%3A%2F%2Fopensymphony.dev.java.net%2Fsource%2Fbrowse%2F*checkout*%2Fxwork%2Ftiger%2Fsrc%2Fjava%2Fcom%2Fopensymphony%2Fxwork%2Fvalidator%2Fannotations%2FDateRangeFieldValidator.java'>here</a> to refresh.</center></div></td></tr><tr><td></td></tr></table>
+
+<h2><a name="DateRangeFieldValidatorAnnotation-Parameters"></a>Parameters</h2>
+
+<table bgcolor='#ffffe0' cellpadding='0' cellspacing='0' width='100%' border='0'><tr><td><div stlye='font-size:8px; text-align:center;'><center>Content pulled from external source. Click <a href='/plugins/snippet/clearCache.action?id=parameters&amp;url=https%3A%2F%2Fopensymphony.dev.java.net%2Fsource%2Fbrowse%2F*checkout*%2Fxwork%2Ftiger%2Fsrc%2Fjava%2Fcom%2Fopensymphony%2Fxwork%2Fvalidator%2Fannotations%2FDateRangeFieldValidator.java'>here</a> to refresh.</center></div></td></tr><tr><td><p><table class='confluenceTable'>
+<tr>
+<th class='confluenceTh'> Parameter </th>
+<th class='confluenceTh'> Required </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Notes </th>
+</tr>
+<tr>
+<td class='confluenceTd'>message</td>
+<td class='confluenceTd'>yes</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>field error message</td>
+</tr>
+<tr>
+<td class='confluenceTd'>key</td>
+<td class='confluenceTd'>no</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>i18n key from language specific properties file.</td>
+</tr>
+<tr>
+<td class='confluenceTd'>fieldName</td>
+<td class='confluenceTd'>no</td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'>&nbsp;</td>
+</tr>
+<tr>
+<td class='confluenceTd'>shortCircuit</td>
+<td class='confluenceTd'>no</td>
+<td class='confluenceTd'>false</td>
+<td class='confluenceTd'>If this validator should be used as shortCircuit.</td>
+</tr>
+<tr>
+<td class='confluenceTd'>type</td>
+<td class='confluenceTd'>yes</td>
+<td class='confluenceTd'>ValidatorType.FIELD</td>
+<td class='confluenceTd'>Enum value from ValidatorType. Either FIELD or SIMPLE can be used here.</td>
+</tr>
+<tr>
+<td class='confluenceTd'> min </td>
+<td class='confluenceTd'> no </td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'> Date property.  The minimum the date must be. </td>
+</tr>
+<tr>
+<td class='confluenceTd'> max </td>
+<td class='confluenceTd'> no </td>
+<td class='confluenceTd'>&nbsp;</td>
+<td class='confluenceTd'> Date property.  The maximum date can be. </td>
+</tr>
+</table></p>
+
+<p><p>If neither <em>min</em> nor <em>max</em> is set, nothing will be done.</p></p></td></tr></table>
+
+<h2><a name="DateRangeFieldValidatorAnnotation-Examples"></a>Examples</h2>
+
+<table bgcolor='#ffffe0' cellpadding='0' cellspacing='0' width='100%' border='0'><tr><td><div stlye='font-size:8px; text-align:center;'><center>Content pulled from external source. Click <a href='/plugins/snippet/clearCache.action?id=example&amp;url=https%3A%2F%2Fopensymphony.dev.java.net%2Fsource%2Fbrowse%2F*checkout*%2Fxwork%2Ftiger%2Fsrc%2Fjava%2Fcom%2Fopensymphony%2Fxwork%2Fvalidator%2Fannotations%2FDateRangeFieldValidator.java'>here</a> to refresh.</center></div></td></tr><tr><td><div class="code"><div class="codeContent">
+<pre class="code-java">&amp;#64;DateRangeFieldValidator(message = <span class="code-quote">"Default message"</span>, key = <span class="code-quote">"i18n.key"</span>, shortCircuit = <span class="code-keyword">true</span>, min = <span class="code-quote">"2005/01/01"</span>, max = <span class="code-quote">"2005/12/31"</span>)</pre>
+</div></div></td></tr></table>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
