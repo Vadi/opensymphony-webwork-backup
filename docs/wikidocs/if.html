@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <title>WebWork - 
+        if
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="/images/icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please make sure you have read the <a href="Tag Syntax.html" title="Tag Syntax">Tag Syntax</a> document and understand how tag attribute syntax works.</td></tr></table>
+
+<h1><a name="if-Description"></a>Description</h1>
+<table bgcolor='#ffffe0' cellpadding='0' cellspacing='0' width='100%' border='0'><tr><td><div stlye='font-size:8px; text-align:center;'><center>Content pulled from external source. Click <a href='/plugins/snippet/clearCache.action?id=javadoc&amp;url=https%3A%2F%2Fopensymphony.dev.java.net%2Fsource%2Fbrowse%2F*checkout*%2Fwebwork%2Fsrc%2Fjava%2Fcom%2Fopensymphony%2Fwebwork%2Fcomponents%2FIf.java'>here</a> to refresh.</center></div></td></tr><tr><td>
+<p> <p>Perform basic condition flow. 'If' tag could be used by itself or
+ with 'Else If' Tag and/or single/multiple 'Else' Tag.</p></p>
+</td></tr></table>
+
+<h1><a name="if-Parameters"></a>Parameters</h1>
+<table bgcolor='#ffffe0' cellpadding='0' cellspacing='0' width='100%' border='0'><tr><td><div stlye='font-size:8px; text-align:center;'><center>Content pulled from external source. Click <a href='/plugins/snippet/clearCache.action?id=tagattributes&amp;url=https%3A%2F%2Fopensymphony.dev.java.net%2Fsource%2Fbrowse%2F*checkout*%2Fwebwork%2Fdocs%2Ftags%2FIf.html'>here</a> to refresh.</center></div></td></tr><tr><td><p><table width="100%">
+<tr></p>
+
+<p><th align="left" valign="top"><h4>Name</h4></th>
+<th align="left" valign="top"><h4>Required</h4></th>
+<th align="left" valign="top"><h4>Default</h4></th>
+<th align="left" valign="top"><h4>Type</h4></th>
+<th align="left" valign="top"><h4>Description</h4></th></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">test</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top"><b>true</b></td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Boolean</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">Expression to determine if body of tag is to be displayed</td></p>
+
+<p></tr></p>
+
+<p><tr>
+<!-- Attribute name -->
+<td align="left" valign="top">id</td></p>
+
+<p><!-- Required -->
+<td align="left" valign="top">false</td></p>
+
+<p><!-- Default -->
+<td align="left" valign="top">&nbsp;</td></p>
+
+<p><!-- Type -->
+<td align="left" valign="top">Object/String</td></p>
+
+<p><!-- Description -->
+<td align="left" valign="top">id for referencing element. For UI and form tags it will be used as HTML id attribute</td></p>
+
+<p></tr></p>
+
+<p></table></p></td></tr></table>
+
+<h1><a name="if-Examples"></a>Examples</h1>
+<table bgcolor='#ffffe0' cellpadding='0' cellspacing='0' width='100%' border='0'><tr><td><div stlye='font-size:8px; text-align:center;'><center>Content pulled from external source. Click <a href='/plugins/snippet/clearCache.action?id=example&amp;url=https%3A%2F%2Fopensymphony.dev.java.net%2Fsource%2Fbrowse%2F*checkout*%2Fwebwork%2Fsrc%2Fjava%2Fcom%2Fopensymphony%2Fwebwork%2Fcomponents%2FIf.java'>here</a> to refresh.</center></div></td></tr><tr><td><div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:if test=<span class="code-quote">"%{false}"</span>&gt;</span>
+    <span class="code-tag">&lt;div&gt;</span>Will Not Be Executed<span class="code-tag">&lt;/div&gt;</span>
+ <span class="code-tag">&lt;/ww:if&gt;</span>
+	<span class="code-tag">&lt;ww:elseif test=<span class="code-quote">"%{true}"</span>&gt;</span>
+    <span class="code-tag">&lt;div&gt;</span>Will Be Executed<span class="code-tag">&lt;/div&gt;</span>
+ <span class="code-tag">&lt;/ww:elseif&gt;</span>
+ <span class="code-tag">&lt;ww:else&gt;</span>
+    <span class="code-tag">&lt;div&gt;</span>Will Not Be Executed<span class="code-tag">&lt;/div&gt;</span>
+ <span class="code-tag">&lt;/ww:else&gt;</span></pre>
+</div></div></td></tr></table>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

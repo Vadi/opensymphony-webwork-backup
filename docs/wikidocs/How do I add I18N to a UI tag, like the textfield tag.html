@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>WebWork - 
+         do I add I18N to a UI tag, like the textfield tag
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:textfield label=<span class="code-quote">"%{getText('i18n.label')}"</span> name=<span class="code-quote">"label1"</span> /&gt;</pre>
+</div></div>
+<p>This will get the localized text message for the key "i18n.key" and put it in the label.</p>
+
+<p>Alternatively, portion of controlheader-core.ftl in /template/xhtml could be modified (if xhtml theme is being used), as follows :&#45;</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">${parameters.label?html}:&lt;#t/&gt;</pre>
+</div></div>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;#assign mm=<span class="code-quote">"getText('"</span>+parameters.label?html+<span class="code-quote">"')"</span> /&gt;&lt;#t/&gt;
+${stack.findValue(mm)}:&lt;#t/&gt;</pre>
+</div></div>
+<p>or</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">${stack.findValue(<span class="code-quote">"getText('"</span>+parameters.label?html+<span class="code-quote">"')"</span>)}</pre>
+</div></div>
+<p>such that using text tag like following will work as well (such that the label printed will be i18n).</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:textfield label=<span class="code-quote">"i18n.label"</span> name=<span class="code-quote">"label1"</span> /&gt;</pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
