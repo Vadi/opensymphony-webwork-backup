@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.dispatcher;
 
 import com.opensymphony.xwork.ActionInvocation;
@@ -5,6 +9,9 @@ import com.opensymphony.xwork.ActionInvocation;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <!-- START SNIPPET: description -->
@@ -55,6 +62,8 @@ import java.io.OutputStream;
  * @author Rainer Hermanns
  */
 public class StreamResult extends WebWorkResultSupport {
+    protected static final Log log = LogFactory.getLog(StreamResult.class);
+
     protected String contentType = "text/plain";
     protected int contentLength;
     protected String contentDisposition = "inline";
@@ -131,17 +140,21 @@ public class StreamResult extends WebWorkResultSupport {
         this.inputName = inputName;
     }
 
-    /**
-     * @see com.opensymphony.xwork.Result#execute(com.opensymphony.xwork.ActionInvocation)
-     */
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
 
         InputStream oInput = null;
         OutputStream oOutput = null;
 
-        try{
+        try {
             // Find the inputstream from the invocation variable stack
             oInput = (InputStream) invocation.getStack().findValue(conditionalParse(inputName, invocation));
+
+            if (oInput == null) {
+                String msg = ("Can not find a java.io.InputStream with the name [" + inputName + "] in the invocation stack. " +
+                    "Check the <param name=\"inputName\"> tag specified for this action.");
+                log.error(msg);
+                throw new IllegalArgumentException(msg);
+            }
 
             // Find the Response in context
             HttpServletResponse oResponse = (HttpServletResponse) invocation.getInvocationContext().get(HTTP_RESPONSE);
@@ -162,12 +175,19 @@ public class StreamResult extends WebWorkResultSupport {
             // Get the outputstream
             oOutput = oResponse.getOutputStream();
 
+            if (log.isDebugEnabled()) {
+                log.debug("Streaming result [" + inputName + "] type=[" + contentType + "] length=[" + contentLength +
+                    "] content-disposition=[" + contentDisposition + "]");
+            }
+
             // Copy input to output
+            log.debug("Streaming to output buffer +++ START +++");
             byte[] oBuff = new byte[bufferSize];
-            int iSize = 0;
+            int iSize;
             while (-1 != (iSize = oInput.read(oBuff))) {
                 oOutput.write(oBuff, 0, iSize);
             }
+            log.debug("Streaming to output buffer +++ END +++");
 
             // Flush
             oOutput.flush();
