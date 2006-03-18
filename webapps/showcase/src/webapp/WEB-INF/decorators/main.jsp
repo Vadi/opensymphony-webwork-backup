@@ -37,14 +37,13 @@
 
 <body id="page-home">
 
-<ww:action id="dateAction" name="date" namespace="/" executeResult="false" />
 
 <div id="page">
     <div id="outer-header">
         <div id="header" class="clearfix">
             <div id="branding">
                 <h1 class="title">WebWork Showcase</h1>
-                <ww:property value="#dateAction.date" />
+                <ww:action id="dateAction" name="date" namespace="/" executeResult="true" />
             </div><!-- end branding -->
 
             <div id="search">
@@ -86,7 +85,7 @@
 
 
     <div id="footer" class="clearfix">
-        <p>&copy; Copyright 2006 OpenSymphony</p>
+        <p>&copy; Copyright 2003-<ww:property value="#dateAction.now.year + 1900" /> OpenSymphony</p>
     </div><!-- end footer -->
     <p/>
 

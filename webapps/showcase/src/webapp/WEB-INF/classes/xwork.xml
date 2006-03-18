@@ -40,6 +40,7 @@
         </action>
 
         <action name="date" class="com.opensymphony.webwork.showcase.DateAction">
+            <result name="success">/date.jsp</result>
         </action>
 
     </package>
