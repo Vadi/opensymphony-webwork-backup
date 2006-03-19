@@ -117,4 +117,9 @@ public class TestAction extends ActionSupport {
 
         return result;
     }
+
+    public String doInput() throws Exception {
+        return INPUT;
+    }
+    
 }

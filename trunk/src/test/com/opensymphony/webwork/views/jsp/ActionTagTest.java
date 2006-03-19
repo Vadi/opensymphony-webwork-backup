@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2006 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.views.jsp;
@@ -12,19 +12,20 @@ import com.opensymphony.webwork.components.ActionComponent;
 import com.opensymphony.xwork.Action;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionProxy;
+import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import java.util.Map;
 
 
 /**
- * ActionTagTest
+ * Unit test for {@link ActionTag}.
  *
  * @author Jason Carreira
  * @author tmjee ( tm_jee(at)yahoo.co.uk )
- *         Created Mar 27, 2003 9:10:27 PM
  */
 public class ActionTagTest extends AbstractTagTest {
 
@@ -86,47 +87,140 @@ public class ActionTagTest extends AbstractTagTest {
         ServletActionContext.setResponse(null);
         this.testSimple();
     }
-    
-    public void testActionWithExecuteResult() throws Exception {
-    	ActionTag tag = new ActionTag();
-    	tag.setPageContext(pageContext);
-    	tag.setNamespace("");
-    	tag.setName("testActionTagAction");
-    	tag.setExecuteResult(true);
-    	
-    	tag.doStartTag();
-    	
-    	// tag clear components on doEndTag
-    	ActionComponent component = (ActionComponent) tag.getComponent();
-    	
-    	tag.doEndTag();
 
-    	TestActionTagResult result = (TestActionTagResult) component.getProxy().getInvocation().getResult();
-    	
-    	assertTrue(stack.getContext().containsKey(ServletActionContext.PAGE_CONTEXT));
-    	assertTrue(stack.getContext().get(ServletActionContext.PAGE_CONTEXT) instanceof PageContext);
-    	assertTrue(result.isExecuted());
+    public void testActionWithExecuteResult() throws Exception {
+        ActionTag tag = new ActionTag();
+        tag.setPageContext(pageContext);
+        tag.setNamespace("");
+        tag.setName("testActionTagAction");
+        tag.setExecuteResult(true);
+
+        tag.doStartTag();
+
+        // tag clear components on doEndTag
+        ActionComponent component = (ActionComponent) tag.getComponent();
+
+        tag.doEndTag();
+
+        TestActionTagResult result = (TestActionTagResult) component.getProxy().getInvocation().getResult();
+
+        assertTrue(stack.getContext().containsKey(ServletActionContext.PAGE_CONTEXT));
+        assertTrue(stack.getContext().get(ServletActionContext.PAGE_CONTEXT) instanceof PageContext);
+        assertTrue(result.isExecuted());
     }
-    
+
     public void testActionWithoutExecuteResult() throws Exception {
-    	ActionTag tag = new ActionTag();
-    	tag.setPageContext(pageContext);
-    	tag.setNamespace("");
-    	tag.setName("testActionTagAction");
-    	tag.setExecuteResult(false);
-    	
-    	tag.doStartTag();
-    	
-    	// tag clear components on doEndTag, so we need to get it here
-    	ActionComponent component = (ActionComponent) tag.getComponent();
-    	
-    	tag.doEndTag();
-    	
-    	TestActionTagResult result = (TestActionTagResult) component.getProxy().getInvocation().getResult();
-    	
-    	assertTrue(stack.getContext().containsKey(ServletActionContext.PAGE_CONTEXT));
-    	assertTrue(stack.getContext().get(ServletActionContext.PAGE_CONTEXT) instanceof PageContext);
-    	assertNull(result); // result is never executed, hence never set into invocation
+        ActionTag tag = new ActionTag();
+        tag.setPageContext(pageContext);
+        tag.setNamespace("");
+        tag.setName("testActionTagAction");
+        tag.setExecuteResult(false);
+
+        tag.doStartTag();
+
+        // tag clear components on doEndTag, so we need to get it here
+        ActionComponent component = (ActionComponent) tag.getComponent();
+
+        tag.doEndTag();
+
+        TestActionTagResult result = (TestActionTagResult) component.getProxy().getInvocation().getResult();
+
+        assertTrue(stack.getContext().containsKey(ServletActionContext.PAGE_CONTEXT));
+        assertTrue(stack.getContext().get(ServletActionContext.PAGE_CONTEXT) instanceof PageContext);
+        assertNull(result); // result is never executed, hence never set into invocation
+    }
+
+    public void testIngoreContextParamsFalse() throws Exception {
+        ActionTag tag = new ActionTag();
+        tag.setPageContext(pageContext);
+        tag.setNamespace("");
+        tag.setName("testActionTagAction");
+        tag.setExecuteResult(false);
+        tag.setIgnoreContextParams(false);
+        ActionContext.getContext().getParameters().put("user", "Santa Claus");
+
+        tag.doStartTag();
+
+        // tag clear components on doEndTag, so we need to get it here
+        ActionComponent component = (ActionComponent) tag.getComponent();
+
+        tag.doEndTag();
+
+        // check parameters, there should be one
+        ActionInvocation ai = component.getProxy().getInvocation();
+        ActionContext ac = ai.getInvocationContext();
+        assertEquals(1, ac.getParameters().size());
+    }
+
+    public void testIngoreContextParamsTrue() throws Exception {
+        ActionTag tag = new ActionTag();
+        tag.setPageContext(pageContext);
+        tag.setNamespace("");
+        tag.setName("testActionTagAction");
+        tag.setExecuteResult(false);
+        tag.setIgnoreContextParams(true);
+        ActionContext.getContext().getParameters().put("user", "Santa Claus");
+
+        tag.doStartTag();
+
+        // tag clear components on doEndTag, so we need to get it here
+        ActionComponent component = (ActionComponent) tag.getComponent();
+
+        tag.doEndTag();
+
+        // check parameters, there should be one
+        ActionInvocation ai = component.getProxy().getInvocation();
+        ActionContext ac = ai.getInvocationContext();
+        assertEquals(0, ac.getParameters().size());
+    }
+
+    public void testNoNameDefined() throws Exception {
+        ActionTag tag = new ActionTag();
+        tag.setPageContext(pageContext);
+        tag.setNamespace("");
+        tag.setName(null);
+        tag.setExecuteResult(false);
+
+        try {
+            tag.doStartTag();
+            tag.doEndTag();
+            fail("Should have thrown RuntimeException");
+        } catch (RuntimeException e) {
+            assertEquals("tag actioncomponent, field name: Action name is required. Example: updatePerson", e.getMessage());
+        }
+    }
+
+    public void testUnknownNameDefined() throws Exception {
+        ActionTag tag = new ActionTag();
+        tag.setPageContext(pageContext);
+        tag.setNamespace("");
+        tag.setName("UNKNOWN_NAME");
+        tag.setExecuteResult(false);
+
+        tag.doStartTag();
+        tag.doEndTag();
+        // will just log it to ERROR but we run th code to test that it works somehow
+    }
+
+    public void testActionMethodWithExecuteResult() throws Exception {
+        ActionTag tag = new ActionTag();
+        tag.setPageContext(pageContext);
+        tag.setNamespace("");
+        tag.setName("testActionTagAction!input");
+        tag.setExecuteResult(true);
+
+        tag.doStartTag();
+
+        // tag clear components on doEndTag
+        ActionComponent component = (ActionComponent) tag.getComponent();
+
+        tag.doEndTag();
+
+        TestActionTagResult result = (TestActionTagResult) component.getProxy().getInvocation().getResult();
+
+        assertTrue(stack.getContext().containsKey(ServletActionContext.PAGE_CONTEXT));
+        assertTrue(stack.getContext().get(ServletActionContext.PAGE_CONTEXT) instanceof PageContext);
+        assertTrue(result.isExecuted());
     }
 
     protected void setUp() throws Exception {
