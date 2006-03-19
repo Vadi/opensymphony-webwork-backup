@@ -311,10 +311,14 @@
         <!-- give a chance for project builds to do more before the zip is made. -->
         <antcall target="predist.zip"/>
 
-        <zip zipfile="${build}/${name}-${version}.zip" basedir="${dist}">
+        <zip destfile="${build}/${name}-${version}.zip">
+					<zipfileset prefix="${name}-${version}" dir="${dist}">
             <exclude name="docs/clover/**/*"/>
             <exclude name="docs/junit/**/*"/>
+        	</zipfileset>
         </zip>
+        
+        <move file="${build}/${name}-${version}.zip" todir="${dist}" />
     </target>
 
     <target name="website" depends="javadocs, docs.impl"/>
