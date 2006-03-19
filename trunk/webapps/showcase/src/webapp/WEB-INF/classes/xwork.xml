@@ -3,6 +3,7 @@
 <!-- START SNIPPET: xworkSample -->
 
 <xwork>
+
     <include file="webwork-default.xml"/>
     
     <include file="config-browser.xml"/>
@@ -54,7 +55,7 @@
             <result>/empmanager/listSkills.jsp</result>
             <interceptor-ref name="basicStack"/>
         </action>
-        <action name="edit" class="com.opensymphony.webwork.showcase.action.SkillAction" method="execute">
+        <action name="edit" class="com.opensymphony.webwork.showcase.action.SkillAction">
             <result>/empmanager/editSkill.jsp</result>
             <interceptor-ref name="params" />
             <interceptor-ref name="basicStack"/>
@@ -75,7 +76,7 @@
         <action name="list" class="com.opensymphony.webwork.showcase.action.EmployeeAction" method="list">
             <result>/empmanager/listEmployees.jsp</result>
         </action>
-        <action name="edit" class="com.opensymphony.webwork.showcase.action.EmployeeAction" method="execute">
+        <action name="edit" class="com.opensymphony.webwork.showcase.action.EmployeeAction">
             <result>/empmanager/editEmployee.jsp</result>
         </action>
         <action name="save" class="com.opensymphony.webwork.showcase.action.EmployeeAction" method="save">
