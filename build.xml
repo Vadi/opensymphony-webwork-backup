@@ -60,6 +60,9 @@
         <attribute name="name"/>
         <sequential>
             <mkdir dir="${dist}/webapps/@{name}/src"/>
+            <copy todir="${dist}/webapps/@{name}">
+                <fileset dir="webapps/@{name}/" includes="*.iml" />
+            </copy>
             <copy todir="${dist}/webapps/@{name}/src">
                 <fileset dir="webapps/@{name}/src" includes="**/**"/>
             </copy>
