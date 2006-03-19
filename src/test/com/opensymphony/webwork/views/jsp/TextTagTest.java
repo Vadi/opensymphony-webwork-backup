@@ -198,6 +198,34 @@ public class TextTagTest extends AbstractTagTest {
         assertEquals(key, writer.toString());
     }
 
+    public void testNoNameDefined() throws Exception {
+        String msg = "tag text, field name: You must specify the i18n key. Example: welcome.header";
+        try {
+            tag.doStartTag();
+            tag.doEndTag();
+            fail("Should have thrown a RuntimeException");
+        } catch (RuntimeException e) {
+            assertEquals(msg, e.getMessage());
+        }
+    }
+
+    public void testBlankNameDefined() throws Exception {
+        tag.setName("");
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals("", writer.toString());
+    }
+
+    public void testPutId() throws Exception {
+        assertEquals(null, stack.findString("myId")); // nothing in stack
+        tag.setId("myId");
+        tag.setName("bar.baz");
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals("", writer.toString());
+        assertEquals("No foo here", stack.findString("myId")); // is in stack now
+    }
+
     /**
      * todo remove ActionContext set after LocalizedTextUtil is fixed to not use ThreadLocal
      *

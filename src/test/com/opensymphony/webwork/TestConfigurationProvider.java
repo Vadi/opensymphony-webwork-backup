@@ -108,6 +108,7 @@ public class TestConfigurationProvider implements ConfigurationProvider {
 
         Map testActionTagResults = new HashMap();
         testActionTagResults.put(Action.SUCCESS, new ResultConfig(Action.SUCCESS, TestActionTagResult.class, new HashMap()));
+        testActionTagResults.put(Action.INPUT, new ResultConfig(Action.INPUT, TestActionTagResult.class, new HashMap()));
         ActionConfig testActionTagActionConfig = new ActionConfig((String) null, TestAction.class, (Map) null, testActionTagResults, new ArrayList());
         defaultPackageConfig.addActionConfig("testActionTagAction", testActionTagActionConfig);
 
