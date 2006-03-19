@@ -154,20 +154,11 @@ public class URL extends Component {
                 ActionContext.getContext().put(XWorkContinuationConfig.CONTINUE_KEY, null);
             } else if (ALL.equalsIgnoreCase(includeParams)) {
                 mergeRequestParameters(parameters, req.getParameterMap());
+
+                // for ALL also include GET parameters
+                includeGetParameters();
             } else if (GET.equalsIgnoreCase(includeParams) || (includeParams == null && value == null && action == null)) {
-                // Parse the query string to make sure that the parameters come from the query, and not some posted data
-                String query = req.getQueryString();
-
-                if (query != null) {
-                    // Remove possible #foobar suffix
-                    int idx = query.lastIndexOf('#');
-
-                    if (idx != -1) {
-                        query = query.substring(0, idx - 1);
-                    }
-
-                    mergeRequestParameters(parameters, HttpUtils.parseQueryString(query));
-                }
+                includeGetParameters();
             } else if (includeParams != null) {
                 LOG.warn("Unknown value for includeParams parameter to URL tag: " + includeParams);
             }
@@ -177,6 +168,28 @@ public class URL extends Component {
 
 
         return result;
+    }
+
+    private void includeGetParameters() {
+        String query = extractQueryString();
+        if (query != null) {
+            mergeRequestParameters(parameters, HttpUtils.parseQueryString(query));
+        }
+    }
+
+    private String extractQueryString() {
+        // Parse the query string to make sure that the parameters come from the query, and not some posted data
+        String query = req.getQueryString();
+
+        if (query != null) {
+            // Remove possible #foobar suffix
+            int idx = query.lastIndexOf('#');
+
+            if (idx != -1) {
+                query = query.substring(0, idx);
+            }
+        }
+        return query;
     }
 
     public boolean end(Writer writer, String body) {

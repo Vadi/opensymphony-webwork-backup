@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2006 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.views.jsp;
@@ -10,80 +10,60 @@ import java.io.StringWriter;
 
 
 /**
- * URLTag testcase.
+ * Unit test for {@link URLTag}.
  *
  * @author Brock Bulger (brockman_bulger@hotmail.com)
  * @version $Date$ $Id$
  */
 public class URLTagTest extends AbstractUITagTest {
-    private StringWriter writer = new StringWriter();
+
     private URLTag tag;
 
-    public void testActionURL() {
+    public void testActionURL() throws Exception {
         tag.setValue("TestAction.action");
 
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-            assertEquals("TestAction.action", writer.toString());
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals("TestAction.action", writer.toString());
     }
 
-    public void testAddParameters() {
+    public void testAddParameters() throws Exception {
         request.setAttribute("webwork.request_uri", "/Test.action");
 
         request.setAttribute("webwork.request_uri", "/TestAction.action");
         request.setQueryString("param0=value0");
 
-        try {
-            tag.doStartTag();
-            tag.component.addParameter("param1", "value1");
-            tag.component.addParameter("param2", "value2");
-            tag.doEndTag();
-            assertEquals("/TestAction.action?param2=value2&amp;param0=value0&amp;param1=value1", writer.toString());
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
+        tag.doStartTag();
+        tag.component.addParameter("param1", "value1");
+        tag.component.addParameter("param2", "value2");
+        tag.doEndTag();
+        assertEquals("/TestAction.action?param2=value2&amp;param0=value0&amp;param1=value1", writer.toString());
     }
 
-    public void testEvaluateValue() {
+    public void testEvaluateValue() throws Exception {
         Foo foo = new Foo();
         foo.setTitle("test");
         stack.push(foo);
         tag.setValue("%{title}");
 
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-            assertEquals("test", writer.toString());
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals("test", writer.toString());
     }
 
-    public void testHttps() {
+    public void testHttps() throws Exception {
         request.setScheme("https");
         request.setServerName("localhost");
         request.setServerPort(443);
 
         tag.setValue("list-members.action");
 
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-            assertEquals("list-members.action", writer.toString());
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals("list-members.action", writer.toString());
     }
 
-    public void testAnchor() {
+    public void testAnchor() throws Exception {
         request.setScheme("https");
         request.setServerName("localhost");
         request.setServerPort(443);
@@ -91,14 +71,9 @@ public class URLTagTest extends AbstractUITagTest {
         tag.setValue("list-members.action");
         tag.setAnchor("test");
 
-        try {
-            tag.doStartTag();
-            tag.doEndTag();
-            assertEquals("list-members.action#test", writer.toString());
-        } catch (JspException ex) {
-            ex.printStackTrace();
-            fail();
-        }
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals("list-members.action#test", writer.toString());
     }
     
     public void testParamPrecedence() throws Exception {
@@ -145,7 +120,148 @@ public class URLTagTest extends AbstractUITagTest {
 
     	assertEquals(writer.getBuffer().toString(), "/context/someAction.action?name=John&amp;id=33#testAnchor");
     }
+
+    public void testPutId() throws Exception {
+        tag.setValue("/public/about");
+        assertEquals(null, stack.findString("myId")); // nothing in stack
+        tag.setId("myId");
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals("", writer.toString());
+        assertEquals("/public/about", stack.findString("myId")); // is in stack now
+    }
     
+    public void testUsingValueOnly() throws Exception {
+        tag.setValue("/public/about/team.jsp");
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals("/public/about/team.jsp", writer.toString());
+    }
+
+    public void testRequestURIActionIncludeNone() throws Exception {
+        request.setRequestURI("/public/about");
+        request.setQueryString("section=team&company=acme inc");
+
+        tag.setAction("team");
+        tag.setIncludeParams("none");
+        tag.doStartTag();
+        tag.doEndTag();
+
+        assertEquals("/team.action", writer.toString());
+    }
+
+    public void testRequestURIActionIncludeGet() throws Exception {
+        request.setRequestURI("/public/about");
+        request.setQueryString("section=team&company=acme inc");
+
+        tag.setAction("team");
+        tag.setIncludeParams("get");
+        tag.doStartTag();
+        tag.doEndTag();
+
+        assertEquals("/team.action?section=team&amp;company=acme+inc", writer.toString());
+    }
+
+    public void testRequestURINoActionIncludeNone() throws Exception {
+        request.setRequestURI("/public/about");
+        request.setQueryString("section=team&company=acme inc");
+
+        tag.setAction(null);
+        tag.setIncludeParams("none");
+        tag.doStartTag();
+        tag.doEndTag();
+
+        assertEquals("/public/about", writer.toString());
+    }
+
+    public void testNoActionIncludeGet() throws Exception {
+        request.setRequestURI("/public/about");
+        request.setQueryString("section=team&company=acme inc");
+
+        tag.setAction(null);
+        tag.setIncludeParams("get");
+        tag.doStartTag();
+        tag.doEndTag();
+
+        assertEquals("/public/about?section=team&amp;company=acme+inc", writer.toString());
+    }
+
+    public void testRequestURIActionIncludeAll() throws Exception {
+        request.setRequestURI("/public/about");
+        request.setQueryString("section=team&company=acme inc");
+
+        tag.setAction("team");
+        tag.setIncludeParams("all");
+
+        tag.doStartTag();
+
+        // include nested param tag
+        ParamTag paramTag = new ParamTag();
+        paramTag.setPageContext(pageContext);
+        paramTag.setName("year");
+        paramTag.setValue("2006");
+        paramTag.doStartTag();
+        paramTag.doEndTag();
+
+        tag.doEndTag();
+
+        assertEquals("/team.action?section=team&amp;year=2006&amp;company=acme+inc", writer.toString());
+    }
+
+    public void testRequestURINoActionIncludeAll() throws Exception {
+        request.setRequestURI("/public/about");
+        request.setQueryString("section=team&company=acme inc");
+
+        tag.setAction(null);
+        tag.setIncludeParams("all");
+
+        tag.doStartTag();
+
+        // include nested param tag
+        ParamTag paramTag = new ParamTag();
+        paramTag.setPageContext(pageContext);
+        paramTag.setName("year");
+        paramTag.setValue("2006");
+        paramTag.doStartTag();
+        paramTag.doEndTag();
+
+        tag.doEndTag();
+
+        assertEquals("/public/about?section=team&amp;year=2006&amp;company=acme+inc", writer.toString());
+    }
+
+    public void testUnknownIncludeParam() throws Exception {
+        request.setRequestURI("/public/about");
+        request.setQueryString("section=team");
+
+        tag.setIncludeParams("unknown"); // will log at WARN level
+        tag.doStartTag();
+        tag.doEndTag();
+        assertEquals("/public/about", writer.toString()); // should not add any request parameters
+    }
+
+    public void testRequestURIWithAnchor() throws Exception {
+        request.setRequestURI("/public/about");
+        request.setQueryString("company=acme inc#canada");
+
+        tag.setAction("company");
+        tag.setIncludeParams("get");
+        tag.doStartTag();
+        tag.doEndTag();
+
+        assertEquals("/company.action?company=acme+inc", writer.toString()); // will always chop anchor if using requestURI
+    }
+
+    public void testIncludeContext() throws Exception {
+        request.setupGetContext("/myapp");
+
+        tag.setIncludeContext("true");
+        tag.setAction("company");
+        tag.doStartTag();
+        tag.doEndTag();
+
+        assertEquals("/myapp/company.action", writer.toString());
+    }
 
     protected void setUp() throws Exception {
         super.setUp();
