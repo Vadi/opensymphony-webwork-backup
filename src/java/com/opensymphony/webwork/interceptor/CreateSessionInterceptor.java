@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2006 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.interceptor;
@@ -15,8 +15,10 @@ import com.opensymphony.xwork.interceptor.AroundInterceptor;
  * <!-- START SNIPPET: description -->
  *
  * This interceptor creates the HttpSession.
- * <p/> This is particular usefull when using the &lt;@ww.tokten&gt; tag in freemarker templates. The tag <b>do</b> requre that a 
- * HttpSession is already created since freemarker commits the response to the client immediately.   
+ * <p/>
+ * This is particular usefull when using the &lt;@ww.tokten&gt; tag in freemarker templates.
+ * The tag <b>do</b> require that a HttpSession is already created since freemarker commits
+ * the response to the client immediately.
  * 
  * <!-- END SNIPPET: description -->
  *
