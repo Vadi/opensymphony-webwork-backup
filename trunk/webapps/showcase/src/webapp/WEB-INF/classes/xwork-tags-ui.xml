@@ -7,7 +7,7 @@
             <result>example.jsp</result>
             <result name="input">example.jsp</result>
         </action>
-        <action name="exampleSubmit" class="com.opensymphony.webwork.showcase.UITagExample" method="submit">
+        <action name="exampleSubmit" class="com.opensymphony.webwork.showcase.UITagExample" method="doSubmit">
         	<result>exampleSubmited.jsp</result>
         	<result name="input">example.jsp</result>
         </action>
@@ -15,7 +15,7 @@
             <result type="velocity">example.vm</result>
             <result name="input" type="velocity">example.vm</result>
         </action>
-        <action name="exampleSubmitVelocity" class="com.opensymphony.webwork.showcase.UITagExample" method="submit">
+        <action name="exampleSubmitVelocity" class="com.opensymphony.webwork.showcase.UITagExample" method="doSubmit">
         	<result type="velocity">exampleSubmited.vm</result>
         	<result name="input" type="velocity">example.vm</result>
         </action>
