@@ -222,6 +222,15 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         }
     }
 
+    /**
+     * Parse the mode to namespace mappings configured in portlet.xml
+     * @param portletConfig The PortletConfig
+     * @param portletMode The PortletMode
+     * @param nameSpaceParam Name of the init parameter where the namespace for the mode
+     * is configured.
+     * @param defaultActionParam Name of the init parameter where the default action to
+     * execute for the mode is configured.
+     */
     private void parseModeConfig(PortletConfig portletConfig,
             PortletMode portletMode, String nameSpaceParam,
             String defaultActionParam) {
@@ -250,7 +259,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
     }
 
     /**
-     * Service an action from the <tt>even</tt> phase.
+     * Service an action from the <tt>event</tt> phase.
      * 
      * @see javax.portlet.Portlet#processAction(javax.portlet.ActionRequest,
      *      javax.portlet.ActionResponse)
@@ -528,6 +537,10 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         return new PortletSessionMap(request);
     }
 
+    /**
+     * Convenience method to ease testing.
+     * @param factory
+     */
     protected void setActionProxyFactory(ActionProxyFactory factory) {
         this.factory = factory;
     }
