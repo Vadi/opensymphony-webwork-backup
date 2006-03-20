@@ -1,6 +1,5 @@
 package com.opensymphony.webwork.views.freemarker.tags;
 
-import com.opensymphony.webwork.components.UpDownSelect;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +42,7 @@ public class WebWorkModels {
     protected SelectModel select;
     protected SetModel set;
     protected SubmitModel submit;
+    protected ResetModel reset;
     protected TabbedPanelModel tabbedPanel;
     protected TextAreaModel textarea;
     protected TextModel text;
@@ -184,6 +184,14 @@ public class WebWorkModels {
         }
 
         return submit;
+    }
+
+    public ResetModel getReset() {
+        if (reset == null) {
+            reset = new ResetModel(stack, req, res);
+        }
+
+        return reset;
     }
 
     public TextAreaModel getTextarea() {
