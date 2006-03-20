@@ -148,22 +148,14 @@ import javax.servlet.http.HttpServletResponse;
  * @ww.tag name="submit" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.SubmitTag"
  * description="Render a submit button"
  */
-public class Submit extends UIBean {
+public class Submit extends FormButton {
     final public static String TEMPLATE = "submit";
 
-    static final String SUBMITTYPE_INPUT = "input";
-    static final String SUBMITTYPE_BUTTON = "button";
-    static final String SUBMITTYPE_IMAGE = "image";
-
-    protected String action;
-    protected String method;
-    protected String align;
     protected String resultDivId;
     protected String onLoadJS;
     protected String notifyTopics;
     protected String listenTopics;
     protected String preInvokeJS;
-    protected String type;
     protected String src;
 
     public Submit(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
@@ -175,15 +167,6 @@ public class Submit extends UIBean {
     }
 
     public void evaluateParams() {
-        if (align == null) {
-            align = "right";
-        }
-
-        String submitType = SUBMITTYPE_INPUT;
-        if (type != null && (SUBMITTYPE_BUTTON.equalsIgnoreCase(type) || SUBMITTYPE_IMAGE.equalsIgnoreCase(type)) ) {
-        	submitType = type;
-        }
-        addParameter("type", submitType);
 
         if (value == null) {
             value = "Submit";
@@ -191,31 +174,9 @@ public class Submit extends UIBean {
 
         super.evaluateParams();
 
-        if (!SUBMITTYPE_INPUT.equals(submitType) && (label == null)) {
-            addParameter("label", getParameters().get("nameValue"));
-        }
-
         if (null != src) {
             addParameter("src", findString(src));
         }
-
-        if (action != null || method != null) {
-            String name;
-
-            if (action != null) {
-                name = "action:" + findString(action);
-
-                if (method != null) {
-                    name += "!" + findString(method);
-                }
-            } else {
-                name = "method:" + findString(method);
-            }
-            
-            addParameter("name", name);
-        }
-
-        addParameter("align", findString(align));
 
         if (null != resultDivId) {
             addParameter("resultDivId", findString(resultDivId));
@@ -240,27 +201,12 @@ public class Submit extends UIBean {
     }
 
     /**
-     * Set action attribute.
-     * @ww.tagattribute required="false" type="String"
+     * Indicate whether the concrete button supports the type "image".
+     *
+     * @return <tt>true</tt> to indicate type image is supported.
      */
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    /**
-     * Set method attribute.
-     * @ww.tagattribute required="false" type="String"
-     */
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    /**
-     * HTML align attribute.
-     * @ww.tagattribute required="false" type="String"
-     */
-    public void setAlign(String align) {
-        this.align = align;
+    protected boolean supportsImageType() {
+        return true;
     }
 
     /**
@@ -301,14 +247,6 @@ public class Submit extends UIBean {
      */
     public void setPreInvokeJS(String preInvokeJS) {
         this.preInvokeJS = preInvokeJS;
-    }
-
-    /**
-     * The type of submit to use. Valid values are <i>input</i>, <i>button</i> and <i>image</i>.
-     * @ww.tagattribute required="false" type="String" default="input"
-     */
-    public void setType(String type) {
-        this.type = type;
     }
 
     /**
