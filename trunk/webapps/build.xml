@@ -120,6 +120,7 @@
                 <include name="**"/>
                 <exclude name=".#**"/>
                 <exclude name="*.iml"/>
+                <exclude name="*.classpath"/>
                 <exclude name="CVS/**"/>
                 <exclude name="**/CVS"/>
             </fileset>
@@ -130,6 +131,11 @@
         <replace dir="${new.app.name}" value="${new.app.name}" token="blank">
             <include name="${new.app.name}.i*"/>
         </replace>
+
+        <!-- Copy the Eclipse project file(s) -->
+        <copy file="blank/.classpath" tofile="${new.app.name}/.classpath"/>
+        <replace file="${new.app.name}/.classpath" value="${basedir}/.." token="@WEBWORK_HOME@"/>
+        <replace file="${new.app.name}/.classpath" value="${version}" token="@WEBWORK_VERSION@"/>
 
         <echo level="info">
             +=============================================================+
