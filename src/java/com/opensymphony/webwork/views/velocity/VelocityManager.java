@@ -534,6 +534,7 @@ public class VelocityManager {
         addDirective(sb, SelectDirective.class);
         addDirective(sb, SetDirective.class);
         addDirective(sb, SubmitDirective.class);
+        addDirective(sb, ResetDirective.class);
         addDirective(sb, TabbedPanelDirective.class);
         addDirective(sb, TextAreaDirective.class);
         addDirective(sb, TextDirective.class);
