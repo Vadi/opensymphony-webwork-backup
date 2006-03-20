@@ -62,4 +62,5 @@ public final class WebWorkConstants {
     public static final String WEBWORK_MAPPER_CLASS = "webwork.mapper.class";
 
     public static final String WEBWORK_PORTLET_CONTEXT = "webwork.portlet.context";
+    public static final String WEBWORK_SERVE_STATIC_CONTENT = "webwork.serve.static";
 }

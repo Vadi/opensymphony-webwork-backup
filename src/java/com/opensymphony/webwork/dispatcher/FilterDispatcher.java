@@ -168,7 +168,8 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
                 resourcePath = request.getPathInfo();
             }
 
-            if (resourcePath.startsWith("/webwork")) {
+            if ("true".equals(Configuration.get(WebWorkConstants.WEBWORK_SERVE_STATIC_CONTENT)) 
+                    && resourcePath.startsWith("/webwork")) {
                 String name = resourcePath.substring("/webwork".length());
                 findStaticResource(name, response);
             } else {
