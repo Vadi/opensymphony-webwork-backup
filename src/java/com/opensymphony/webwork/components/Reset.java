@@ -48,11 +48,8 @@ import javax.servlet.http.HttpServletResponse;
  * @ww.tag name="reset" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.ui.ResetTag"
  * description="Render a reset button"
  */
-public class Reset extends UIBean {
+public class Reset extends FormButton {
     final public static String TEMPLATE = "reset";
-
-    static final String RESETTYPE_INPUT = "input";
-    static final String RESETTYPE_BUTTON = "button";
 
     protected String action;
     protected String method;
@@ -68,80 +65,27 @@ public class Reset extends UIBean {
     }
 
     public void evaluateParams() {
-        if (align == null) {
-            align = "right";
-        }
-
-        String resetType = Reset.RESETTYPE_INPUT;
-        if (type != null && (Reset.RESETTYPE_BUTTON.equalsIgnoreCase(type)) ) {
-            resetType = type;
-        }
-        addParameter("type", resetType);
 
         if (value == null) {
             value = "Reset";
         }
 
         super.evaluateParams();
-
-        if (!Reset.RESETTYPE_INPUT.equals(resetType) && (label == null)) {
-            addParameter("label", getParameters().get("nameValue"));
-        }
-
-        if (action != null || method != null) {
-            String name;
-
-            if (action != null) {
-                name = "action:" + findString(action);
-
-                if (method != null) {
-                    name += "!" + findString(method);
-                }
-            } else {
-                name = "method:" + findString(method);
-            }
-
-            addParameter("name", name);
-        }
-
-        addParameter("align", findString(align));
-
     }
 
     /**
-     * Set action attribute.
-     * @ww.tagattribute required="false" type="String"
+     * Indicate whether the concrete button supports the type "image".
+     *
+     * @return <tt>false</tt> to indicate type image is supported.
      */
-    public void setAction(String action) {
-        this.action = action;
+    protected boolean supportsImageType() {
+        return false;
     }
 
     /**
-     * Set method attribute.
-     * @ww.tagattribute required="false" type="String"
-     */
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    /**
-     * HTML align attribute.
-     * @ww.tagattribute required="false" type="String"
-     */
-    public void setAlign(String align) {
-        this.align = align;
-    }
-
-    /**
-     * The type of reset to use. Valid values are <i>input</i> and <i>button</i>.
-     * @ww.tagattribute required="false" type="String" default="input"
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    /**
-     * Supply a reset button text apart from reset value. Will have no effect for <i>input</i> type reset, since button text will always be the value parameter.
+     * Supply a reset button text apart from reset value. Will have no effect for <i>input</i> type reset, since button
+     * text will always be the value parameter.
+     *
      * @ww.tagattribute required="false"
      */
     public void setLabel(String label) {
