@@ -72,7 +72,11 @@
     <target name="predist">
         <!-- grab the README.txt file -->
         <copy file="${src}/etc/README.txt" todir="${dist}"/>
-
+				
+        <mkdir dir="${dist}/dist" />
+				<move file="${build}/${name}-nostatic-${version}.jar" todir="${dist}/dist" />
+        <move file="${build}/${name}-static-${version}.zip" todir="${dist}/dist" />
+        
         <!-- prepare each tutorial/example -->
         <webapp name="blank"/>
         <webapp name="starter"/>
@@ -174,6 +178,19 @@
                 <attribute name="Implementation-Version" value="${version}"/>
             </manifest>
         </jar>
+        <jar jarfile="${build}/${name}-nostatic-${version}.jar">
+            <fileset dir="${build.java}">
+                <exclude name="com/opensymphony/webwork/static/**/*" />
+            </fileset>
+            <manifest>
+                <attribute name="Main-Class" value="com.opensymphony.webwork.Main"/>
+                <attribute name="Implementation-Title" value="${fullname}"/>
+                <attribute name="Implementation-Version" value="${version}"/>
+            </manifest>
+        </jar>        
+        <zip destfile="${build}/${name}-static-${version}.zip">
+            <zipfileset dir="${build.java}/com/opensymphony/webwork/static" prefix="webwork" />
+        </zip>
     </target>
 
     <target name="dist" depends="common.dist" description="generate distribution zip file">

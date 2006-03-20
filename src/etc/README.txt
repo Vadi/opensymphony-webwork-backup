@@ -55,3 +55,18 @@ in the ANT_HOME/lib directory. These jars are:
 
 Once you've copied these three jars in to the ANT_HOME/lib directory,
 simply run "ant jar" to create your own version of WebWork.
+
+
+=== Distribution jars ===
+
+The distribution zip file contains in the main dir the WebWork jar, named webwork-<version>.jar.
+
+You can also find in the dist subdirectory a different WebWork packaging:
+- webwork-nostatic-<version>.jar: containing only WebWork without the static content
+- webwork-static-<version>.zip: containing the required WebWork static dependencies
+
+The webwork-static-<version>.jar content must be included in the war distribution under webwork directory,
+or a directory mapped to the URL <context_path>/webwork. 
+You must also set in your webapp webwork.properties the webwork.serve.static property to false.
+
+If these conditions are not fullfilled, WebWork may report strange errors. 
