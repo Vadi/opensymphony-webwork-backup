@@ -1,7 +1,17 @@
+/*
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.showcase.modelDriven;
 
 import java.io.Serializable;
 
+/**
+ * A model class to be used by the simple Model-Driven example. 
+ * 
+ * @author tm_jee
+ * @version $Date$ $Id$
+ */
 public class Gangster implements Serializable {
 
 	private String name;
