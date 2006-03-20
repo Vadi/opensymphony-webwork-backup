@@ -53,6 +53,9 @@
 
         <!-- filedownload -->
         <li><ww:url id="url" value="/filedownload"/><ww:a href="%{url}">File Download Example</ww:a></li>
+        
+        <!-- model-driven -->
+        <li><ww:url id="url" action="modelDriven" namespace="/modelDriven" method="input"/><ww:a href="%{url}">Model Driven Example</ww:a>
     </ul>
 </p>
 

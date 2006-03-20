@@ -5,7 +5,7 @@
 <xwork>
 
     <include file="webwork-default.xml"/>
-    
+
     <include file="config-browser.xml"/>
 
     <include file="xwork-continuations.xml"/>
@@ -25,6 +25,8 @@
     <include file="xwork-wait.xml" />
 
     <include file="xwork-token.xml" />
+    
+    <include file="xwork-model-driven.xml" />
     
     <include file="xwork-filedownload.xml" />
 
