@@ -23,6 +23,7 @@
     #wwfile ("label=Picture" "name=picture")
     #wwoptiontransferselect ("label=Favourite Cartoons Characters" "name=leftSideCartoonCharacters" "leftTitle=Left Title" "rightTitle=Right Title" "list={'Popeye', 'He-Man', 'Spiderman'}" "multiple=true" "headerKey=headerKey" "headerValue=--- Please Select ---" "emptyOption=true" "doubleList={'Superman', 'Mickey Mouse', 'Donald Duck'}" "doubleName=rightSideCartoonCharacters" "doubleHeaderKey=doubleHeaderKey" "doubleHeaderValue=--- Please Select ---" "doubleEmptyOption=true" "doubleMultiple=true" )
     #wwsubmit()
+    #wwreset()
 #end
 
 #wwa("href=${url}")Back to index.jsp#end

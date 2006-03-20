@@ -114,6 +114,7 @@
      		tooltip="Enter your thoughts here" />
      		
     <ww:submit onclick="alert('aaaa');" />
+    <ww:reset onclick="alert('bbbb');" />
 </ww:form>
     
 </body>
