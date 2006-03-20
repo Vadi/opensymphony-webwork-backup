@@ -15,6 +15,31 @@
         <th>Output</th>
     </tr>
     <tr>
+        <td><strong>Before date</strong></td>
+        <td>toString()</td>
+        <td><ww:property value="#myDate.before.toString()"/></td>
+    </tr>
+    <tr>
+        <td><strong>Past date</strong></td>
+        <td>toString()</td>
+        <td><ww:property value="#myDate.past.toString()"/></td>
+    </tr>
+    <tr>
+        <td><strong>Now date</strong></td>
+        <td>toString()</td>
+        <td><ww:property value="#myDate.now.toString()"/></td>
+    </tr>
+    <tr>
+        <td><strong>Future date</strong></td>
+        <td>toString()</td>
+        <td><ww:property value="#myDate.future.toString()"/></td>
+    </tr>
+    <tr>
+        <td><strong>After date</strong></td>
+        <td>toString()</td>
+        <td><ww:property value="#myDate.after.toString()"/></td>
+    </tr>
+    <tr>
         <td><strong>Current date</strong></td>
         <td>yyyy/MM/dd hh:mm:ss</td>
         <td><ww:date name="#myDate.now" format="yyyy/MM/dd hh:mm:ss" /></td>
@@ -48,6 +73,31 @@
         <td><strong>After date</strong></td>
         <td>nice</td>
         <td><ww:date name="#myDate.after" nice="true"/></td>
+    </tr>
+    <tr>
+        <td><strong>Past date</strong></td>
+        <td>dd/MM/yyyy hh:mm</td>
+        <td><ww:date name="#myDate.past" format="dd/MM/yyyy hh:mm"/></td>
+    </tr>
+    <tr>
+        <td><strong>Future date</strong></td>
+        <td>MM-dd-yy</td>
+        <td><ww:date name="#myDate.past" format="MM-dd-yy"/></td>
+    </tr>
+    <tr>
+        <td><strong>Future date (fallback)</strong></td>
+        <td>fallback</td>
+        <td><ww:date name="#myDate.future" /></td>
+    </tr>
+    <tr>
+        <td><strong>Past date</strong></td>
+        <td>nice</td>
+        <td><ww:date name="#myDate.past" nice="true"/></td>
+    </tr>
+    <tr>
+        <td><strong>Future date</strong></td>
+        <td>nice</td>
+        <td><ww:date name="#myDate.future" nice="true"/></td>
     </tr>
 </table>
 </body>
