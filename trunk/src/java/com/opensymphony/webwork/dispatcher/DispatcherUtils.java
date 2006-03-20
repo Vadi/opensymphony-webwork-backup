@@ -131,7 +131,7 @@ public class DispatcherUtils {
                 className = "com.opensymphony.xwork.util.GenericsObjectTypeDeterminer";
             }
             else if (className.equals("notiger")) {
-                className = "com.opensymphony.xwork.util.ObjectTypeDeterminer";
+                className = "com.opensymphony.xwork.util.DefaultObjectTypeDeterminer";
             }
 
             try {
@@ -139,7 +139,7 @@ public class DispatcherUtils {
                 ObjectTypeDeterminer objectTypeDeterminer = (ObjectTypeDeterminer) clazz.newInstance();
                 ObjectTypeDeterminerFactory.setInstance(objectTypeDeterminer);
             } catch (Exception e) {
-                LOG.error("Could not load ObjectTypeDeterminer named " + className + ". Using default ObjectTypeDeterminer.", e);
+                LOG.error("Could not load ObjectTypeDeterminer named " + className + ". Using default DefaultObjectTypeDeterminer.", e);
             }
         }
 
