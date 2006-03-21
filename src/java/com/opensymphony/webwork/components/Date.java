@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * <!-- START SNIPPET: javadoc -->
+ * 
  * Format Date object in different ways.
  * <p>
  * The date tag will allow you to format a Date in a quick and easy way.
@@ -27,11 +28,82 @@ import java.util.List;
  * <b>easy readable notations</b> (like "in 2 hours, 14 minutes"), or you can just fall back
  * on a <b>predefined format</b> with key 'webwork.date.format' in your properties file.
  *
- * If that key is not defined, it will finally fall back to the default Locale.MEDIUM
+ * If that key is not defined, it will finally fall back to the default DateFormat.MEDIUM
  * formatting.
  *
  * <b>Note</b>: If the requested Date object isn't found on the stack, a blank will be returned.
  * </p>
+ * 
+ * Configurable attributes are :-
+ * <ul>
+ *    <li>name</li>
+ *    <li>nice</li>
+ *    <li>format</li>
+ * </ul>
+ * 
+ * <p/>
+ * 
+ * Following how the date component will work, depending on the value of nice attribute 
+ * (which by default is false) and the format attribute.
+ * 
+ * <p/>
+ * 
+ * <b><u>Condition 1: With nice attribute as true</u></b>
+ * <table border="1">
+ *   <tr>
+ *      <td>i18n key</td>
+ *      <td>default</td>
+ *   </tr>	
+ *   <tr>
+ *   	<td>webwork.date.format.past</td>
+ *   	<td>{0} ago</td>
+ *   </tr>
+ *   <tr>
+ *   	<td>webwork.date.format.future</td>
+ *      <td>in {0}</td>
+ *   </tr>
+ *   <tr>
+ *   	<td>webwork.date.format.seconds</td>
+ *      <td>an instant</td>
+ *   </tr>
+ *   <tr>
+ *   	<td>webwork.date.format.minutes</td>
+ *      <td>{0,choice,1#one minute|1<{0} minutes}</td>
+ *   </tr>
+ *   <tr>
+ *   	<td>webwork.date.format.hours</td>
+ *   	<td>{0,choice,1#one hour|1<{0} hours}{1,choice,0#|1#, one minute|1<, {1} minutes}</td>
+ *   </tr>
+ *   <tr>
+ *   	<td>webwork.date.format.days</td>
+ *   	<td>{0,choice,1#one day|1<{0} days}{1,choice,0#|1#, one hour|1<, {1} hours}</td>
+ *   </tr>
+ *   <tr>
+ *   	<td>webwork.date.format.years</td>
+ *   	<td>{0,choice,1#one year|1<{0} years}{1,choice,0#|1#, one day|1<, {1} days}</td>
+ *   </tr>
+ * </table>
+ * 
+ * <p/>
+ * 
+ * <b><u>Condition 2: With nice attribute as false and format attribute is specified eg. dd/MM/yyyyy </u></b>
+ * <p>In this case the format attribute will be used.</p>
+ * 
+ * <p/>
+ * 
+ * <b><u>Condition 3: With nice attribute as false and no format attribute is specified </u></b>
+ * <table border="1">
+ *    <tr>
+ *      <td>i18n key</td>
+ *      <td>default</td>
+ *   </tr>	
+ *   <tr>
+ *   	<td>webwork.date.format</td>
+ *      <td>if one is not found DateFormat.MEDIUM format will be used</td>
+ *   </tr>
+ * </table>
+ * 
+ * 
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
