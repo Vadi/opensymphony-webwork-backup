@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  * <pre>
  * <!-- START SNIPPET: example2 -->
  * Render an button reset:
- * &lt;ww:reset type="button" value="%{'Reset'}" label="Rest the form"/&gt;
+ * &lt;ww:reset type="button" value="%{'Reset'}" label="Reset the form"/&gt;
  * <!-- END SNIPPET: example2 -->
  * </pre>
  *
