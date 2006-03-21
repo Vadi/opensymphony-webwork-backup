@@ -91,6 +91,11 @@
             <email></email>
             <role>Unit tests, Bugfixing</role>
         </person>
+        <person>
+            <name>Philip Luppens</name>
+            <email></email>
+            <role>Documentation</role>
+        </person>
     </developers>
 
     <releases>
