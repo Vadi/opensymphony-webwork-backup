@@ -183,9 +183,9 @@
 
         <!-- Ajax -->
         <dependency>
-            <groupId>dwr</groupId>
+            <groupId>uk.ltd.getahead</groupId>
             <artifactId>dwr</artifactId>
-            <version>1.1-beta-3</version>
+            <version>1.1</version>
             <optional>true</optional>
         </dependency>
 
@@ -275,7 +275,7 @@
 
         <!-- Tiles -->
         <dependency>
-            <groupId>org.apache.tiles</groupId>
+            <groupId>org.apache.struts.tiles</groupId>
             <artifactId>tiles-core</artifactId>
             <version>0.2-SNAPSHOT</version>
             <optional>true</optional>
