@@ -136,15 +136,17 @@
         <copy file="blank/.classpath" tofile="${new.app.name}/.classpath"/>
         <replace file="${new.app.name}/.classpath" value="${basedir}/.." token="@WEBWORK_HOME@"/>
         <replace file="${new.app.name}/.classpath" value="${version}" token="@WEBWORK_VERSION@"/>
+        <copy file="blank/.project" tofile="${new.app.name}/.project"/>
+        <replace file="${new.app.name}/.project" value="${new.app.name}" token="@WEBAPP_NAME@"/>
 
         <echo level="info">
             +=============================================================+
             |    -- Your Web Application was created successfully! --     |
             |                                                             |
-            | Now you should be able to cd to your application and run:   |
+            | Now you should be able to build your application with:      |
             | > ant build -Dwebapp=${new.app.name}                        |
             +=============================================================+
-</echo>
+        </echo>
     </target>
 
 
