@@ -1,4 +1,8 @@
+<#if parameters.labelposition?default("top") == 'top'>
 <div <#rt/>
+<#else>
+<span <#rt/>
+</#if>
 <#if parameters.align?exists>
     align="${parameters.align?html}"<#t/>
 </#if>
@@ -7,4 +11,9 @@
 </#if>
 ><#t/>
 <#include "/${parameters.templateDir}/simple/reset.ftl" />
-</div><#t/>
+<#if parameters.labelposition?default("top") == 'top'>
+</div> <#t/>
+<#else>
+</span> <#t/>
+</#if>
+

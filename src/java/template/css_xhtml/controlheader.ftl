@@ -19,9 +19,13 @@
 </div><#t/>
 </#if>
 
-<div <#rt/><#if parameters.id?exists>id="wwctrl_${parameters.id}"<#rt/></#if> class="wwctrl">
-
 <#if parameters.label?exists>
+<#if parameters.labelposition?default("top") == 'top'>
+<div <#rt/>
+<#else>
+<span <#rt/>
+</#if>
+<#if parameters.id?exists>id="wwlbl_${parameters.id}"<#rt/></#if> class="wwlbl">
     <label <#t/>
 <#if parameters.id?exists>
         for="${parameters.id?html}" <#t/>
@@ -38,5 +42,17 @@
         ${parameters.label?html}:
 <#include "/${parameters.templateDir}/xhtml/tooltip.ftl" />
 	</label><#t/>
+<#if parameters.labelposition?default("top") == 'top'>
+</div> <br/><#rt/>
+<#else>
+</span> <#rt/>
 </#if>
-    <#lt/>
+</#if>
+
+<#if parameters.labelposition?default("top") == 'top'>
+<div <#rt/>
+<#else>
+<span <#rt/>
+</#if>
+<#if parameters.id?exists>id="wwctrl_${parameters.id}"<#rt/></#if> class="wwctrl">
+    
