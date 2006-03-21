@@ -65,7 +65,7 @@ You can also find in the dist subdirectory a different WebWork packaging:
 - webwork-nostatic-<version>.jar: containing only WebWork without the static content
 - webwork-static-<version>.zip: containing the required WebWork static dependencies
 
-The webwork-static-<version>.jar content must be included in the war distribution under webwork directory,
+The webwork-static-<version>.zip content must be included in the war distribution under webwork directory,
 or a directory mapped to the URL <context_path>/webwork. 
 You must also set in your webapp webwork.properties the webwork.serve.static property to false.
 
