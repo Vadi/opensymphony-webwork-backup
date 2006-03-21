@@ -20,14 +20,31 @@ lables
 </div><#t/>
 </#if>
 
-<div <#rt/><#if parameters.id?exists>id="wwctrl_${parameters.id}"<#rt/></#if> class="wwctrl">
+<#if parameters.labelposition?default("top") == 'top'>
+<div <#rt/>
+<#else>
+<span <#rt/>
+</#if>
+<#if parameters.id?exists>id="wwctrl_${parameters.id}"<#rt/></#if> class="wwctrl">
 
 <#if parameters.required?default(false)>
         <span class="required">*</span><#t/>
 </#if>
 
 <#include "/${parameters.templateDir}/simple/checkbox.ftl" />
-<#if parameters.label?exists> <label<#t/>
+<#if parameters.labelposition?default("top") == 'top'>
+</div> <#rt/>
+<#else>
+</span>  <#rt/>
+</#if>
+<#if parameters.label?exists> 
+<#if parameters.labelposition?default("top") == 'top'>
+<div <#rt/>
+<#else>
+<span <#rt/>
+</#if>
+<#if parameters.id?exists>id="wwlbl_${parameters.id}"<#rt/></#if> class="wwlbl">
+<label<#t/>
 <#if parameters.id?exists>
  for="${parameters.id?html}"<#rt/>
 </#if>
