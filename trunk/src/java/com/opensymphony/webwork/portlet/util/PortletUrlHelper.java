@@ -50,13 +50,14 @@ public class PortletUrlHelper {
     private static final String AMP = "&";
 
     /**
-     *
-     * @param action
-     * @param namespace
-     * @param params
-     * @param type
-     * @param mode
-     * @param state
+     * Create a portlet URL with for the specified action and namespace.
+     * 
+     * @param action The action the URL should invoke.
+     * @param namespace The namespace of the action to invoke.
+     * @param params The parameters of the URL.
+     * @param type The type of the url, either <tt>action</tt> or <tt>render</tt>
+     * @param mode The PortletMode of the URL.
+     * @param state The WindowState of the URL.
      * @return The URL String.
      */
     public static String buildUrl(String action, String namespace, Map params,
@@ -65,6 +66,11 @@ public class PortletUrlHelper {
                 true, true);
     }
 
+    /**
+     * Create a portlet URL with for the specified action and namespace. 
+     * 
+     * @see #buildUrl(String, String, Map, String, String, String)
+     */
     public static String buildUrl(String action, String namespace, Map params,
             String scheme, String type, String portletMode, String windowState,
             boolean includeContext, boolean encodeResult) {
@@ -136,8 +142,13 @@ public class PortletUrlHelper {
     }
 
     /**
-     * @param namespace
-     * @return prepended namespace
+     * 
+     * Prepend the namespace configuration for the specified namespace and PortletMode.
+     * 
+     * @param namespace The base namespace.
+     * @param portletMode The PortletMode.
+     * 
+     * @return prepended namespace.
      */
     private static String prependNamespace(String namespace, String portletMode) {
         StringBuffer sb = new StringBuffer();
@@ -225,8 +236,12 @@ public class PortletUrlHelper {
     }
 
     /**
-     * @param portletReq
-     * @param windowState
+     * Convert the given String to a WindowState object.
+     * 
+     * @param portletReq The RenderRequest.
+     * @param windowState The WindowState as a String.
+     * @return The WindowState that mathces the <tt>windowState</tt> String, or if
+     * the Sring is blank, the current WindowState.
      */
     private static WindowState getWindowState(RenderRequest portletReq,
             String windowState) {
@@ -248,8 +263,12 @@ public class PortletUrlHelper {
     }
 
     /**
-     * @param portletReq
-     * @param portletMode
+     * Convert the given String to a PortletMode object.
+     * 
+     * @param portletReq The RenderRequest.
+     * @param portletMode The PortletMode as a String.
+     * @return The PortletMode that mathces the <tt>portletMode</tt> String, or if
+     * the Sring is blank, the current PortletMode.
      */
     private static PortletMode getPortletMode(RenderRequest portletReq,
             String portletMode) {
