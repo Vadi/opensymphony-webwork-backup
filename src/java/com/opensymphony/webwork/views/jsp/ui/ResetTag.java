@@ -1,11 +1,6 @@
 /*
- * The IT-neering.net Commercial Software License, Version 1.0
- *
- * Copyright (c) 2005 Rene Gielen. All rights reserved.
- *
- * IT-NEERING.NET PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- *
- * For more information on IT-neering.net, please see <http://it-neering.net/>.
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
  */
 package com.opensymphony.webwork.views.jsp.ui;
 
