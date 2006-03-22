@@ -14,6 +14,7 @@
             top of XWork, which provides a generic command pattern framework as well as an Inversion of Control
             container. In addition to these features, WebWork provides
             robust support for building reusable UI templates, such as form controls, UI themes, internationalization,
+            robust support for building reusable UI templates, such as form controls, UI themes, internationalization,
             dynamic form parameter mapping to JavaBeans, robust
             client and server side validation, and much more.
             <br/>
@@ -68,9 +69,9 @@
         <dependency org="xjavadoc" name="xjavadoc" rev="1.1" conf="build->*"/>
 
         <!-- default -->
-        <dependency org="opensymphony" name="xwork" rev="1.1.2+" conf="default->default"/>
+        <dependency org="opensymphony" name="xwork" rev="1.1.2" conf="default->default"/>
         <dependency org="apache" name="commons-logging" rev="1.0.4" conf="default->default"/>
-        <dependency org="opensymphony" name="xwork" rev="1.1.2+" conf="source->source"/>
+        <dependency org="opensymphony" name="xwork" rev="1.1.2" conf="source->source"/>
         <dependency org="freemarker" name="freemarker" rev="2.3.4" conf="default->default"/>
 
         <!-- ajax -->
@@ -131,7 +132,7 @@
         <dependency org="portlet-api" name="portlet-api" rev="1.0" conf="portlet->default"/>
 
         <!-- spring -->
-        <dependency org="opensymphony" name="xwork" rev="1.1.2+" conf="spring->spring"/>
+        <dependency org="opensymphony" name="xwork" rev="1.1.2" conf="spring->spring"/>
 
         <!-- pico -->
         <dependency org="picocontainer" name="picocontainer" rev="1.2-RC-2" conf="pico->*"/>
@@ -148,7 +149,7 @@
         <dependency org="w3c" name="dom" rev="3.0" conf="xslt->*"/>
 
         <!-- tiger -->
-        <dependency org="opensymphony" name="xwork-tiger" rev="1.1.2+" conf="tiger->*"/>
+        <dependency org="opensymphony" name="xwork-tiger" rev="1.1.2" conf="tiger->*"/>
 
         <!-- cewolf -->
         <dependency org="cewolf" name="cewolf" rev="0.12.0" conf="cewolf->*"/>
