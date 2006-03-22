@@ -137,7 +137,7 @@
         <replace file="${new.app.name}/.classpath" value="${basedir}/.." token="@WEBWORK_HOME@"/>
         <replace file="${new.app.name}/.classpath" value="${version}" token="@WEBWORK_VERSION@"/>
         <copy file="blank/.project" tofile="${new.app.name}/.project"/>
-        <replace file="${new.app.name}/.project" value="${new.app.name}" token="@WEBAPP_NAME@"/>
+        <replace file="${new.app.name}/.project" value="${new.app.name}" token="@PROJECT_NAME@"/>
 
         <echo level="info">
             +=============================================================+
