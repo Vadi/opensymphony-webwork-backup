@@ -91,8 +91,8 @@
         <tr><th>Name</th><th>Type</th></tr>
         <#list config.interceptors as i>
         	<tr <#if i_index%2 gt 0>class="b"<#else>class="a"</#if>>
-    			<td>${action.stripPackage(i.class)}</td>
-    			<td>${i.class.name}</td>
+    			<td>${action.stripPackage(i.interceptor.class)}</td>
+    			<td>${i.interceptor.class.name}</td>
     		</tr>
     	</#list>
     </table>
