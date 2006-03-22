@@ -8,7 +8,7 @@
 </ww:if>
 <ww:else>
     <ww:set name="submitType" value="'create'"/>
-    <ww:text id="title" name="item.edit"><ww:param><ww:text name="skill"/></ww:param></ww:text>
+    <ww:text id="title" name="item.create"><ww:param><ww:text name="skill"/></ww:param></ww:text>
 </ww:else>
 <html>
 <head><title><ww:property value="#title"/></title></head>
