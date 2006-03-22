@@ -21,7 +21,8 @@ import junit.framework.TestCase;
 public class DispatcherUtilsTest extends TestCase {
 
 	public void testDefaultResurceBundlePropertyLoaded() throws Exception {
-		DispatcherUtils.initialize(new MockServletContext());
+        Locale.setDefault(Locale.US); // force to US locale as we also have _de and _da properties
+        DispatcherUtils.initialize(new MockServletContext());
 		
 		// some i18n messages from xwork-messages.properties
 		assertEquals(

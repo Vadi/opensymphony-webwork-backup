@@ -41,6 +41,8 @@ public class ConfigurationTest extends WebWorkTestCase {
     }
 
     public void testReplaceDefaultMessages() {
+        Locale.setDefault(Locale.US); // force to US locale as we also have _de and _da properties
+        
         LocalizedTextUtil.clearDefaultResourceBundles();
         LocalizedTextUtil.addDefaultResourceBundle("com/opensymphony/webwork/webwork-messages");
         assertEquals("The form has already been processed or no token was supplied, please try again.", LocalizedTextUtil.findDefaultText("webwork.messages.invalid.token", Locale.getDefault()));
