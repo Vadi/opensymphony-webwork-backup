@@ -77,12 +77,14 @@
 
         <action name="list" class="com.opensymphony.webwork.showcase.action.EmployeeAction" method="list">
             <result>/empmanager/listEmployees.jsp</result>
+            <interceptor-ref name="basicStack"/>
         </action>
         <action name="edit" class="com.opensymphony.webwork.showcase.action.EmployeeAction">
             <result>/empmanager/editEmployee.jsp</result>
+            <interceptor-ref name="crudStack"><param name="validation.excludeMethods">execute</param></interceptor-ref>
         </action>
         <action name="save" class="com.opensymphony.webwork.showcase.action.EmployeeAction" method="save">
-            <result name="error">/empmanager/editEmployee.jsp</result>
+            <result name="input">/empmanager/editEmployee.jsp</result>
             <result type="redirect">edit.action?empId=${currentEmployee.empId}</result>
         </action>
         <action name="delete" class="com.opensymphony.webwork.showcase.action.EmployeeAction" method="delete">
