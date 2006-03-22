@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ww" uri="/webwork" %>
 <html>
 <head>
@@ -16,7 +17,7 @@
     <ww:datepicker
     		tooltip="Select Your Birthday"
     		label="Birthday"
-    		name="birthday"/>
+    		name="birthday" />
 
     <ww:textarea
     		tooltip="Enter your Biography"
