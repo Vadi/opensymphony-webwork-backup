@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2006 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.views.jsp.ui;
@@ -12,9 +12,9 @@ import java.util.HashMap;
 
 
 /**
- * User: plightbo
- * Date: Oct 16, 2003
- * Time: 10:52:57 PM
+ * Unit test for {@link SubmitTag}.
+ *
+ * @author plightbo
  */
 public class SubmitTest extends AbstractUITagTest {
 
@@ -117,6 +117,85 @@ public class SubmitTest extends AbstractUITagTest {
         tag.doEndTag();
 
         verify(TextFieldTag.class.getResource("Submit-6.txt"));
+    }
+
+    public void testSimpleThemeImageUsingActionAndMethod() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        SubmitTag tag = new SubmitTag();
+        tag.setPageContext(pageContext);
+        tag.setTheme("simple");
+        tag.setType("button");
+        tag.setName("myname");
+        tag.setLabel("mylabel");
+        tag.setAction("manager");
+        tag.setMethod("update");
+        tag.setAlign("left");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        assertEquals("<button type=\"submit\" name=\"action:manager!update\" value=\"Submit\">mylabel</button>", writer.toString().trim());
+    }
+
+    public void testSimpleThemeImageUsingActionOnly() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        SubmitTag tag = new SubmitTag();
+        tag.setPageContext(pageContext);
+        tag.setTheme("simple");
+        tag.setType("button");
+        tag.setName("myname");
+        tag.setLabel("mylabel");
+        tag.setAction("manager");
+        tag.setMethod(null); // no method
+        tag.setAlign("left");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        assertEquals("<button type=\"submit\" name=\"action:manager\" value=\"Submit\">mylabel</button>", writer.toString().trim());
+    }
+
+    public void testSimpleThemeImageUsingMethodOnly() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        SubmitTag tag = new SubmitTag();
+        tag.setPageContext(pageContext);
+        tag.setTheme("simple");
+        tag.setType("button");
+        tag.setName("myname");
+        tag.setLabel("mylabel");
+        tag.setAction(null); // no action
+        tag.setMethod("update");
+        tag.setAlign("left");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        assertEquals("<button type=\"submit\" name=\"method:update\" value=\"Submit\">mylabel</button>", writer.toString().trim());
+    }
+
+    public void testSimpleThemeInput() throws Exception {
+        TestAction testAction = (TestAction) action;
+        testAction.setFoo("bar");
+
+        SubmitTag tag = new SubmitTag();
+        tag.setPageContext(pageContext);
+        tag.setTheme("simple");
+        tag.setType("input");
+        tag.setName("myname");
+        tag.setLabel("mylabel");
+        tag.setAction(null);
+        tag.setMethod(null);
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        assertEquals("<input type=\"submit\" name=\"myname\" value=\"Submit\"/>", writer.toString().trim());
     }
 
     /**
