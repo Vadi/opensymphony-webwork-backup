@@ -11,6 +11,7 @@
         <pattern>/webwork/*</pattern>
         <pattern>/ajax/AjaxResult*</pattern>
         <pattern>/AjaxTest.action</pattern>
+        <pattern>/ajax/remoteforms/AjaxRemoteForm.action</pattern>
     </excludes>
 
     <decorator name="main" page="main.jsp">
