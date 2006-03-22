@@ -10,18 +10,13 @@ import com.opensymphony.module.sitemesh.Page;
 import com.opensymphony.module.sitemesh.HTMLPage;
 import com.opensymphony.module.sitemesh.filter.PageFilter;
 import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.xwork.*;
-import com.opensymphony.xwork.interceptor.PreResultListener;
-import com.opensymphony.xwork.util.OgnlValueStack;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleHash;
 import freemarker.template.Template;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,35 +27,15 @@ import java.util.Locale;
 /**
  * @author patrick
  */
-public class FreeMarkerPageFilter extends PageFilter {
+public class FreeMarkerPageFilter extends TemplatePageFilter {
     private static final Log LOG = LogFactory.getLog(FreeMarkerPageFilter.class);
 
-    private FilterConfig filterConfig;
-
-    public void init(FilterConfig filterConfig) {
-        super.init(filterConfig);
-        this.filterConfig = filterConfig;
-    }
-
     protected void applyDecorator(Page page, Decorator decorator,
-                                  HttpServletRequest req, HttpServletResponse res)
+                                  HttpServletRequest req, HttpServletResponse res,
+                                  ServletContext servletContext, ActionContext ctx)
             throws ServletException, IOException {
         try {
             FreemarkerManager fmm = FreemarkerManager.getInstance();
-            ServletContext servletContext = filterConfig.getServletContext();
-            ActionContext ctx = ServletActionContext.getActionContext(req);
-            if (ctx == null) {
-                // ok, one isn't associated with the request, so let's get a ThreadLocal one (which will create one if needed)
-                OgnlValueStack vs = new OgnlValueStack();
-                vs.getContext().putAll(DispatcherUtils.getInstance().createContextMap(req, res, null, servletContext));
-                ctx = new ActionContext(vs.getContext());
-                if (ctx.getActionInvocation() == null) {
-                    // put in a dummy ActionSupport so basic functionality still works
-                    ActionSupport action = new ActionSupport();
-                    vs.push(action);
-                    ctx.setActionInvocation(new DummyActionInvocation(action));
-                }
-            }
 
             // get the configuration and template
             Configuration config = fmm.getConfiguration(servletContext);
@@ -87,7 +62,7 @@ public class FreeMarkerPageFilter extends PageFilter {
             throw new ServletException(msg, e);
         }
     }
-
+    
     /**
      * Returns the locale used for the {@link Configuration#getTemplate(String, Locale)} call. The base implementation
      * simply returns the locale setting of the action (assuming the action implements {@link LocaleProvider}) or, if
@@ -100,54 +75,5 @@ public class FreeMarkerPageFilter extends PageFilter {
             return configuration.getLocale();
         }
     }
-    
-    static class DummyActionInvocation implements ActionInvocation {
-        ActionSupport action;
-
-        public DummyActionInvocation(ActionSupport action) {
-            this.action = action;
-        }
-
-        public Object getAction() {
-            return action;
-        }
-
-        public boolean isExecuted() {
-            return false;
-        }
-
-        public ActionContext getInvocationContext() {
-            return null;
-        }
-
-        public ActionProxy getProxy() {
-            return null;
-        }
-
-        public Result getResult() throws Exception {
-            return null;
-        }
-
-        public String getResultCode() {
-            return null;
-        }
-
-        public void setResultCode(String resultCode) {
-        }
-
-        public OgnlValueStack getStack() {
-            return null;
-        }
-
-        public void addPreResultListener(PreResultListener listener) {
-        }
-
-        public String invoke() throws Exception {
-            return null;
-        }
-
-        public String invokeActionOnly() throws Exception {
-            return null;
-        }
-    }
+ 
 }
