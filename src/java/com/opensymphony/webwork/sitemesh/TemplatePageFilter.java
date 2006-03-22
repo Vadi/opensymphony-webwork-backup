@@ -25,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ *  An abstract template page filter that sets up the proper contexts for
+ *  template processing.
+ * 
  * @author patrick
  */
 public abstract class TemplatePageFilter extends PageFilter {
@@ -36,11 +39,30 @@ public abstract class TemplatePageFilter extends PageFilter {
         this.filterConfig = filterConfig;
     }
 
+    /**
+     *  Applies the decorator, using the relevent contexts
+     * 
+     * @param page The page
+     * @param decorator The decorator
+     * @param req The servlet request
+     * @param res The servlet response
+     * @param servletContext The servlet context
+     * @param ctx The action context for this request, populated with the server state
+     */
     protected abstract void applyDecorator(Page page, Decorator decorator,
                                   HttpServletRequest req, HttpServletResponse res,
                                   ServletContext servletContext, ActionContext ctx)
             throws ServletException, IOException;
     
+    /**
+     *  Applies the decorator, creating the relevent contexts and delegating to
+     *  the extended applyDecorator().
+     * 
+     * @param page The page
+     * @param decorator The decorator
+     * @param req The servlet request
+     * @param res The servlet response
+     */
     protected void applyDecorator(Page page, Decorator decorator,
                                   HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
@@ -60,10 +82,14 @@ public abstract class TemplatePageFilter extends PageFilter {
             }
         }
 
+        // delegate to the actual page decorator
         applyDecorator(page, decorator, req, res, servletContext, ctx);
-   }
+    }
 
-   
+    
+    /**
+     *  Gets the L18N encoding of the system.  The default is UTF-8.
+     */
     protected String getEncoding() {
         String encoding = (String) Configuration.get(WebWorkConstants.WEBWORK_I18N_ENCODING);
         if (encoding == null) {

@@ -25,11 +25,23 @@ import java.io.IOException;
 import java.util.Locale;
 
 /**
+ *  Applies FreeMarker-based sitemesh decorators.
+ *
  * @author patrick
  */
 public class FreeMarkerPageFilter extends TemplatePageFilter {
     private static final Log LOG = LogFactory.getLog(FreeMarkerPageFilter.class);
 
+    /**
+     *  Applies the decorator, using the relevent contexts
+     * 
+     * @param page The page
+     * @param decorator The decorator
+     * @param req The servlet request
+     * @param res The servlet response
+     * @param servletContext The servlet context
+     * @param ctx The action context for this request, populated with the server state
+     */
     protected void applyDecorator(Page page, Decorator decorator,
                                   HttpServletRequest req, HttpServletResponse res,
                                   ServletContext servletContext, ActionContext ctx)
