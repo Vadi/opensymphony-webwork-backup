@@ -113,7 +113,10 @@ public class DatePicker extends TextField {
             final Locale locale = (Locale) getStack().getContext().get(ActionContext.LOCALE);
             if (locale != null) {
                 addParameter("language", locale.getLanguage());
+            } else {
+                addParameter("language", Locale.getDefault().getLanguage());
             }
+
         }
 
         if (format != null) {
