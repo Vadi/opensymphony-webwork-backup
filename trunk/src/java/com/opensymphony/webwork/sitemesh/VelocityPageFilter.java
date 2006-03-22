@@ -20,6 +20,8 @@ import java.io.PrintWriter;
 
 
 /**
+ *  Applies Velocity-based decorators
+ * 
  * User: plightbo
  * Date: Aug 31, 2005
  * Time: 10:49:51 PM
@@ -27,7 +29,16 @@ import java.io.PrintWriter;
 public class VelocityPageFilter extends TemplatePageFilter {
     private static final Log LOG = LogFactory.getLog(VelocityPageFilter.class);
 
-
+    /**
+     *  Applies the decorator, using the relevent contexts
+     * 
+     * @param page The page
+     * @param decorator The decorator
+     * @param req The servlet request
+     * @param res The servlet response
+     * @param servletContext The servlet context
+     * @param ctx The action context for this request, populated with the server state
+     */
     protected void applyDecorator(Page page, Decorator decorator,
                                   HttpServletRequest req, HttpServletResponse res,
                                   ServletContext servletContext, ActionContext ctx)
