@@ -11,14 +11,14 @@
 
 // full day names
 Calendar._DN = new Array
-("Søndag",
+("S\u00c3\u00b8ndag",
 "Mandag",
 "Tirsdag",
 "Onsdag",
 "Torsdag",
 "Fredag",
-"Lørdag",
-"Søndag");
+"L\u00c3\u00b8rdag",
+"S\u00c3\u00b8ndag");
 
 // Please note that the following array of short day names (and the same goes
 // for short month names, _SMN) isn't absolutely necessary. We give it here
@@ -34,14 +34,14 @@ Calendar._DN = new Array
 
 // short day names
 Calendar._SDN = new Array
-("Søn",
+("S\u00c3\u00b8n",
 "Man",
 "Tir",
 "Ons",
 "Tor",
 "Fre",
-"Lør",
-"Søn");
+"L\u00c3\u00b8r",
+"S\u00c3\u00b8n");
 
 // full month names
 Calendar._MN = new Array
@@ -84,31 +84,31 @@ Calendar._TT["INFO"] = "Om Kalenderen";
 Calendar._TT["ABOUT"] =
 "DHTML Date/Time Selector\n" +
 "(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" + // don't translate this this ;-)
-"For den seneste version besøg: http://www.dynarch.com/projects/calendar/\n"; +
+"For den seneste version bes\u00c3\u00b8g: http://www.dynarch.com/projects/calendar/\n"; +
 "Distribueret under GNU LGPL. Se http://gnu.org/licenses/lgpl.html for detajler." +
 "\n\n" +
 "Valg af dato:\n" +
-"- Brug \xab, \xbb knapperne for at vælge år\n" +
-"- Brug " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " knapperne for at vælge måned\n" +
-"- Hold knappen på musen nede på knapperne ovenfor for hurtigere valg.";
+"- Brug \xab, \xbb knapperne for at v\u00c3\u00a6lge \u00c3\u00a5r\n" +
+"- Brug " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " knapperne for at v\u00c3\u00a6lge m\u00c3\u00a5ned\n" +
+"- Hold knappen p\u00c3\u00a5 musen nede p\u00c3\u00a5 knapperne ovenfor for hurtigere valg.";
 Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "Valg af tid:\n" +
-"- Klik på en vilkårlig del for større værdi\n" +
-"- eller Shift-klik for for mindre værdi\n" +
-"- eller klik og træk for hurtigere valg.";
+"- Klik p\u00c3\u00a5 en vilk\u00c3\u00a5rlig del for st\u00c3\u00b8rre v\u00c3\u00a6rdi\n" +
+"- eller Shift-klik for for mindre v\u00c3\u00a6rdi\n" +
+"- eller klik og tr\u00c3\u00a6k for hurtigere valg.";
 
-Calendar._TT["PREV_YEAR"] = "Ét år tilbage (hold for menu)";
-Calendar._TT["PREV_MONTH"] = "Én måned tilbage (hold for menu)";
-Calendar._TT["GO_TODAY"] = "Gå til i dag";
-Calendar._TT["NEXT_MONTH"] = "Én måned frem (hold for menu)";
-Calendar._TT["NEXT_YEAR"] = "Ét år frem (hold for menu)";
-Calendar._TT["SEL_DATE"] = "Vælg dag";
-Calendar._TT["DRAG_TO_MOVE"] = "Træk vinduet";
+Calendar._TT["PREV_YEAR"] = "\u00c3\u2030t \u00c3\u00a5r tilbage (hold for menu)";
+Calendar._TT["PREV_MONTH"] = "\u00c3\u2030n m\u00c3\u00a5ned tilbage (hold for menu)";
+Calendar._TT["GO_TODAY"] = "G\u00c3\u00a5 til i dag";
+Calendar._TT["NEXT_MONTH"] = "\u00c3\u2030n m\u00c3\u00a5ned frem (hold for menu)";
+Calendar._TT["NEXT_YEAR"] = "\u00c3\u2030t \u00c3\u00a5r frem (hold for menu)";
+Calendar._TT["SEL_DATE"] = "V\u00c3\u00a6lg dag";
+Calendar._TT["DRAG_TO_MOVE"] = "Tr\u00c3\u00a6k vinduet";
 Calendar._TT["PART_TODAY"] = " (i dag)";
 
 // the following is to inform that "%s" is to be the first day of week
 // %s will be replaced with the day name.
-Calendar._TT["DAY_FIRST"] = "Vis %s først";
+Calendar._TT["DAY_FIRST"] = "Vis %s f\u00c3\u00b8rst";
 
 // This may be locale-dependent. It specifies the week-end days, as an array
 // of comma-separated numbers. The numbers are from 0 to 6: 0 means Sunday, 1
@@ -117,7 +117,7 @@ Calendar._TT["WEEKEND"] = "0,6";
 
 Calendar._TT["CLOSE"] = "Luk";
 Calendar._TT["TODAY"] = "I dag";
-Calendar._TT["TIME_PART"] = "(Shift-)klik eller træk for at ændre værdi";
+Calendar._TT["TIME_PART"] = "(Shift-)klik eller tr\u00c3\u00a6k for at \u00c3\u00a6ndre v\u00c3\u00a6rdi";
 
 // date formats
 Calendar._TT["DEF_DATE_FORMAT"] = "%d-%m-%Y";
