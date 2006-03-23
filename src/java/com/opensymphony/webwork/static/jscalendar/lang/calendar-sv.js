@@ -3,8 +3,8 @@
 // Calendar SV language (Swedish, svenska)
 // Author: Mihai Bazon, <mihai_bazon@yahoo.com>
 // Translation team: <sv@li.org>
-// Translator: Leonard Norrgård <leonard.norrgard@refactor.fi>
-// Last translator: Leonard Norrgård <leonard.norrgard@refactor.fi>
+// Translator: Leonard Norrg\u00e5rd <leonard.norrgard@refactor.fi>
+// Last translator: Leonard Norrg\u00e5rd <leonard.norrgard@refactor.fi>
 // Encoding: iso-latin-1
 // Distributed under the same terms as the calendar itself.
 
@@ -14,14 +14,14 @@
 
 // full day names
 Calendar._DN = new Array
-("söndag",
- "måndag",
+("s\u00f6ndag",
+ "m\u00e5ndag",
  "tisdag",
  "onsdag",
  "torsdag",
  "fredag",
- "lördag",
- "söndag");
+ "l\u00f6rdag",
+ "s\u00f6ndag");
 
 // Please note that the following array of short day names (and the same goes
 // for short month names, _SMN) isn't absolutely necessary.  We give it here
@@ -61,35 +61,35 @@ Calendar._TT = {};
 Calendar._TT["INFO"] = "Om kalendern";
 
 Calendar._TT["ABOUT"] =
-"DHTML Datum/tid-väljare\n" +
+"DHTML Datum/tid-v\u00e4ljare\n" +
 "(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" + // don't translate this this ;-)
-"För senaste version gå till: http://www.dynarch.com/projects/calendar/\n" +
-"Distribueras under GNU LGPL.  Se http://gnu.org/licenses/lgpl.html för detaljer." +
+"F\u00f6r senaste version g\u00e5 till: http://www.dynarch.com/projects/calendar/\n" +
+"Distribueras under GNU LGPL.  Se http://gnu.org/licenses/lgpl.html f\u00f6r detaljer." +
 "\n\n" +
 "Val av datum:\n" +
-"- Använd knapparna \xab, \xbb för att välja år\n" +
-"- Använd knapparna " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " för att välja månad\n" +
-"- Håll musknappen nedtryckt på någon av ovanstående knappar för snabbare val.";
+"- Anv\u00e4nd knapparna \xab, \xbb f\u00f6r att v\u00e4lja \u00e5r\n" +
+"- Anv\u00e4nd knapparna " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " f\u00f6r att v\u00e4lja m\u00e5nad\n" +
+"- H\u00e5ll musknappen nedtryckt p\u00e5 n\u00e5gon av ovanst\u00e5ende knappar f\u00f6r snabbare val.";
 Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "Val av tid:\n" +
-"- Klicka på en del av tiden för att öka den delen\n" +
-"- eller skift-klicka för att minska den\n" +
-"- eller klicka och drag för snabbare val.";
+"- Klicka p\u00e5 en del av tiden f\u00f6r att \u00f6ka den delen\n" +
+"- eller skift-klicka f\u00f6r att minska den\n" +
+"- eller klicka och drag f\u00f6r snabbare val.";
 
-Calendar._TT["PREV_YEAR"] = "Föregående år (håll för menu)";
-Calendar._TT["PREV_MONTH"] = "Föregående månad (håll för menu)";
-Calendar._TT["GO_TODAY"] = "Gå till dagens datum";
-Calendar._TT["NEXT_MONTH"] = "Följande månad (håll för menu)";
-Calendar._TT["NEXT_YEAR"] = "Följande år (håll för menu)";
-Calendar._TT["SEL_DATE"] = "Välj datum";
-Calendar._TT["DRAG_TO_MOVE"] = "Drag för att flytta";
+Calendar._TT["PREV_YEAR"] = "F\u00f6reg\u00e5ende \u00e5r (h\u00e5ll f\u00f6r menu)";
+Calendar._TT["PREV_MONTH"] = "F\u00f6reg\u00e5ende m\u00e5nad (h\u00e5ll f\u00f6r menu)";
+Calendar._TT["GO_TODAY"] = "G\u00e5 till dagens datum";
+Calendar._TT["NEXT_MONTH"] = "F\u00f6ljande m\u00e5nad (h\u00e5ll f\u00f6r menu)";
+Calendar._TT["NEXT_YEAR"] = "F\u00f6ljande \u00e5r (h\u00e5ll f\u00f6r menu)";
+Calendar._TT["SEL_DATE"] = "V\u00e4lj datum";
+Calendar._TT["DRAG_TO_MOVE"] = "Drag f\u00f6r att flytta";
 Calendar._TT["PART_TODAY"] = " (idag)";
-Calendar._TT["MON_FIRST"] = "Visa måndag först";
-Calendar._TT["SUN_FIRST"] = "Visa söndag först";
-Calendar._TT["CLOSE"] = "Stäng";
+Calendar._TT["MON_FIRST"] = "Visa m\u00e5ndag f\u00f6rst";
+Calendar._TT["SUN_FIRST"] = "Visa s\u00f6ndag f\u00f6rst";
+Calendar._TT["CLOSE"] = "St\u00e4ng";
 Calendar._TT["TODAY"] = "Idag";
-Calendar._TT["TIME_PART"] = "(Skift-)klicka eller drag för att ändra tid";
-Calendar._TT["DAY_FIRST"] = "Visa %s först";
+Calendar._TT["TIME_PART"] = "(Skift-)klicka eller drag f\u00f6r att \u00e4ndra tid";
+Calendar._TT["DAY_FIRST"] = "Visa %s f\u00f6rst";
 Calendar._TT["WEEKEND"] = "0,6";
 
 // date formats
