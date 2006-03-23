@@ -1509,30 +1509,6 @@
       <description><![CDATA[Render a submit button]]></description>
 
       <attribute>
-         <name>action</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[Set action attribute.]]></description>
-
-      </attribute>
-      <attribute>
-         <name>method</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[Set method attribute.]]></description>
-
-      </attribute>
-      <attribute>
-         <name>align</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[HTML align attribute.]]></description>
-
-      </attribute>
-      <attribute>
          <name>resultDivId</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -1573,14 +1549,6 @@
 
       </attribute>
       <attribute>
-         <name>type</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[The type of submit to use. Valid values are <i>input</i>, <i>button</i> and <i>image</i>.]]></description>
-
-      </attribute>
-      <attribute>
          <name>label</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -1594,6 +1562,38 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[Supply an image src for <i>image</i> type submit button. Will have no effect for types <i>input</i> and <i>button</i>.]]></description>
+
+      </attribute>
+      <attribute>
+         <name>action</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Set action attribute.]]></description>
+
+      </attribute>
+      <attribute>
+         <name>method</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Set method attribute.]]></description>
+
+      </attribute>
+      <attribute>
+         <name>align</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[HTML align attribute.]]></description>
+
+      </attribute>
+      <attribute>
+         <name>type</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[The type of submit to use. Valid values are <i>input</i>, <i>button</i> and <i>image</i>.]]></description>
 
       </attribute>
       <attribute>
@@ -3802,6 +3802,14 @@
       <description><![CDATA[Render a reset button]]></description>
 
       <attribute>
+         <name>label</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Supply a reset button text apart from reset value. Will have no effect for <i>input</i> type reset, since button text will always be the value parameter.]]></description>
+
+      </attribute>
+      <attribute>
          <name>action</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
@@ -3830,15 +3838,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[The type of reset to use. Valid values are <i>input</i> and <i>button</i>.]]></description>
-
-      </attribute>
-      <attribute>
-         <name>label</name>
-         <required>false</required>
-         <rtexprvalue>true</rtexprvalue>
-
-           <description><![CDATA[Supply a reset button text apart from reset value. Will have no effect for <i>input</i> type reset, since button text will always be the value parameter.]]></description>
+           <description><![CDATA[The type of submit to use. Valid values are <i>input</i>, <i>button</i> and <i>image</i>.]]></description>
 
       </attribute>
       <attribute>
