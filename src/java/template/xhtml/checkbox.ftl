@@ -43,9 +43,7 @@ ${parameters.label?html}<#t/>
 <tr>
     <td colspan="2">
         <#include "/${parameters.templateDir}/simple/checkbox.ftl" />
-    </td>
-</tr>
-</#if>
+<#else>
 <tr>
 	<td valign="top" align="right">
 <#if parameters.labelposition?default("") == 'left'>
@@ -98,6 +96,7 @@ ${parameters.label?html}<#t/>
  class="checkboxLabel"<#rt/>
 </#if>
 >${parameters.label?html}</label><#rt/>
+</#if>
 </#if>
 </#if>
  <#include "/${parameters.templateDir}/xhtml/controlfooter.ftl" /><#nt/>
