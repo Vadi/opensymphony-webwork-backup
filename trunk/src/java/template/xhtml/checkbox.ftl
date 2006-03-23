@@ -24,19 +24,30 @@
 <#else>
  class="checkboxLabel"<#rt/>
 </#if>
->${parameters.label?html}</label><#rt/>
+>
+<#if parameters.required?default(false) && parameters.requiredposition?default("right") != 'right'>
+        <span class="required">*</span><#t/>
 </#if>
+${parameters.label?html}<#t/>
+<#if parameters.required?default(false) && parameters.requiredposition?default("right") == 'right'>
+ <span class="required">*</span><#t/>
+</#if>
+:<#t/>
+<#if parameters.tooltip?exists>
+    <img src='<@ww.url value="/webwork/tooltip/tooltip.gif" />' alt="${parameters.tooltip}" title="${parameters.tooltip}" onmouseover="return escape('${parameters.tooltip?js_string}');" />
+</#if>
+</label><#t/>
+</#if>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <#include "/${parameters.templateDir}/simple/checkbox.ftl" />
     </td>
 </tr>
 </#if>
 <tr>
 	<td valign="top" align="right">
-		<#if parameters.required?default(false)>
-        	<span class="required">*</span><#t/>
-		</#if>
-		<#if parameters.tooltip?exists>
-      		<img src='<@ww.url value="/webwork/tooltip/tooltip.gif" />' alt="${parameters.tooltip}" title="${parameters.tooltip}" onmouseover="return escape('${parameters.tooltip?js_string}');" />
-		</#if>
 <#if parameters.labelposition?default("") == 'left'>
 <#if parameters.label?exists> <label<#t/>
 <#if parameters.id?exists>
@@ -47,13 +58,35 @@
 <#else>
  class="checkboxLabel"<#rt/>
 </#if>
->${parameters.label?html}</label><#rt/>
+>
+<#if parameters.required?default(false) && parameters.requiredposition?default("right") != 'right'>
+        <span class="required">*</span><#t/>
 </#if>
+${parameters.label?html}<#t/>
+<#if parameters.required?default(false) && parameters.requiredposition?default("right") == 'right'>
+ <span class="required">*</span><#t/>
+</#if>
+:<#t/>
+<#if parameters.tooltip?exists>
+    <img src='<@ww.url value="/webwork/tooltip/tooltip.gif" />' alt="${parameters.tooltip}" title="${parameters.tooltip}" onmouseover="return escape('${parameters.tooltip?js_string}');" />
+</#if>
+</label><#t/>
+</#if>
+</#if>
+<#if parameters.labelposition?default("") == 'right'>
+    <#if parameters.required?default(false)>
+        <span class="required">*</span><#t/>
+    </#if>
+    <#if parameters.tooltip?exists>
+        <img src='<@ww.url value="/webwork/tooltip/tooltip.gif" />' alt="${parameters.tooltip}" title="${parameters.tooltip}" onmouseover="return escape('${parameters.tooltip?js_string}');" />
+    </#if>
 </#if>
     </td>
     <td valign="top" align="left">
 
+<#if parameters.labelposition?default("") != 'top'>
                 	<#include "/${parameters.templateDir}/simple/checkbox.ftl" />
+</#if>                    
 <#if parameters.labelposition?default("") != 'top' && parameters.labelposition?default("") != 'left'>
 <#if parameters.label?exists> <label<#t/>
 <#if parameters.id?exists>
