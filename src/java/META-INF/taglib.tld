@@ -1513,7 +1513,7 @@
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
 
-           <description><![CDATA[The id of the HTML element to place the result (this can the the form's id or any id on the page.]]></description>
+           <description><![CDATA[The id of the HTML element to place the result (this can be the form's id or any id on the page.]]></description>
 
       </attribute>
       <attribute>
