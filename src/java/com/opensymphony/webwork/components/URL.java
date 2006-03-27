@@ -171,7 +171,7 @@ public class URL extends Component {
     }
 
     private void includeGetParameters() {
-        if(DispatcherUtils.isPortletSupportActive() && PortletActionContext.isPortletRequest()) {
+        if(!(DispatcherUtils.isPortletSupportActive() && PortletActionContext.isPortletRequest())) {
             String query = extractQueryString();
             if (query != null) {
                 mergeRequestParameters(parameters, HttpUtils.parseQueryString(query));
