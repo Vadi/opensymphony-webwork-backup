@@ -138,7 +138,7 @@ import java.util.Iterator;
  *
  * <!-- START SNIPPET: example5description -->
  * 
- * To simulate a simple loop with iterator tag, the following could be done. It does the loop 5 times.
+ * </p>To simulate a simple loop with iterator tag, the following could be done. It does the loop 5 times.
  * 
  * <!-- END SNIPPET: example5description -->
  * 
