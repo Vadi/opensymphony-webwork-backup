@@ -33,7 +33,7 @@ public abstract class AbstractAdapterElement
 	//~ Methods ////////////////////////////////////////////////////////////////
 
 	public void setAttribute(String string, String string1) throws DOMException {
-		operationNotSupported();
+		throw operationNotSupported();
 	}
 
 	protected Map getAttributeAdapters() {
@@ -54,7 +54,7 @@ public abstract class AbstractAdapterElement
 	}
 
 	public void setAttributeNS(String string, String string1, String string2) throws DOMException {
-		operationNotSupported();
+		throw operationNotSupported();
 	}
 
 	public String getAttributeNS(String string, String string1) {
@@ -62,8 +62,7 @@ public abstract class AbstractAdapterElement
 	}
 
 	public Attr setAttributeNode(Attr attr) throws DOMException {
-		operationNotSupported();
-		return null;
+		throw operationNotSupported();
 	}
 
 	public Attr getAttributeNode( String name ) {
@@ -71,15 +70,11 @@ public abstract class AbstractAdapterElement
 	}
 
 	public Attr setAttributeNodeNS(Attr attr) throws DOMException {
-		operationNotSupported();
-
-		return null;
+		throw operationNotSupported();
 	}
 
 	public Attr getAttributeNodeNS(String string, String string1) {
-		operationNotSupported();
-
-		return null;
+		throw operationNotSupported();
 	}
 
 	public String getNodeName() {
@@ -107,17 +102,31 @@ public abstract class AbstractAdapterElement
 	}
 
 	public void removeAttribute(String string) throws DOMException {
-		operationNotSupported();
+		throw operationNotSupported();
 	}
 
 	public void removeAttributeNS(String string, String string1) throws DOMException {
-		operationNotSupported();
+		throw operationNotSupported();
 	}
 
 	public Attr removeAttributeNode(Attr attr) throws DOMException {
-		operationNotSupported();
-
-		return null;
+		throw operationNotSupported();
 	}
+
+    public void setIdAttributeNode(Attr attr, boolean b) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public TypeInfo getSchemaTypeInfo() {
+        throw operationNotSupported();
+    }
+
+    public void setIdAttribute(String string, boolean b) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public void setIdAttributeNS(String string, String string1, boolean b) throws DOMException {
+        throw operationNotSupported();
+    }
 
 }

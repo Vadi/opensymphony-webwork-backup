@@ -119,6 +119,26 @@ public class ProxyElementAdapter extends ProxyNodeAdapter implements Element
 
 	// end proxied Element methods
 
-	public String toString() { return "ProxyElement for: "+element(); }
+    // unsupported DOM level 3 methods
+
+    public TypeInfo getSchemaTypeInfo() {
+        throw operationNotSupported();
+    }
+
+    public void setIdAttribute(String string, boolean b) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public void setIdAttributeNS(String string, String string1, boolean b) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public void setIdAttributeNode(Attr attr, boolean b) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    // end DOM level 3 methods
+
+    public String toString() { return "ProxyElement for: "+element(); }
 }
 

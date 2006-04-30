@@ -171,13 +171,11 @@ public abstract class AbstractAdapterNode implements AdapterNode
 	}
 
 	public void setNodeValue(String string) throws DOMException {
-		operationNotSupported();
+		throw operationNotSupported();
 	}
 
 	public String getNodeValue() throws DOMException {
-		operationNotSupported();
-
-		return null;
+		throw operationNotSupported();
 	}
 
 	public Document getOwnerDocument() {
@@ -207,7 +205,7 @@ public abstract class AbstractAdapterNode implements AdapterNode
 	}
 
 	public void setPrefix(String string) throws DOMException {
-		operationNotSupported();
+		throw operationNotSupported();
 	}
 
 	public String getPrefix() {
@@ -245,23 +243,17 @@ public abstract class AbstractAdapterNode implements AdapterNode
 	}
 
 	public boolean isSupported(String string, String string1) {
-		operationNotSupported();
-
-		return false;
+		throw operationNotSupported();
 	}
 
 	public Node appendChild(Node node) throws DOMException {
-		operationNotSupported();
-
-		return null;
+		throw operationNotSupported();
 	}
 
 	public Node cloneNode(boolean b)
 	{
 		log.trace("cloneNode");
-		operationNotSupported();
-
-		return null;
+		throw operationNotSupported();
 	}
 
 	public boolean hasAttributes() {
@@ -273,31 +265,87 @@ public abstract class AbstractAdapterNode implements AdapterNode
 	}
 
 	public Node insertBefore(Node node, Node node1) throws DOMException {
-		operationNotSupported();
-
-		return null;
+		throw operationNotSupported();
 	}
 
 	public void normalize()
 	{
 		log.trace("normalize");
-		operationNotSupported();
+		throw operationNotSupported();
 	}
 
 	public Node removeChild(Node node) throws DOMException {
-		operationNotSupported();
-
-		return null;
+		throw operationNotSupported();
 	}
 
 	public Node replaceChild(Node node, Node node1) throws DOMException {
-		operationNotSupported();
-
-		return null;
+		throw operationNotSupported();
 	}
 
-	protected void operationNotSupported() {
-		throw new RuntimeException("Operation not supported.");
+    // Begin DOM 3 methods
+
+    public boolean isDefaultNamespace(String string)
+    {
+        throw operationNotSupported();
+    }
+
+    public String lookupNamespaceURI(String string) {
+        throw operationNotSupported();
+    }
+
+    public String getNodeName() {
+        throw operationNotSupported();
+    }
+
+    public short getNodeType() {
+        throw operationNotSupported();
+    }
+
+    public String getBaseURI() {
+        throw operationNotSupported();
+    }
+
+    public short compareDocumentPosition(Node node) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public String getTextContent() throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public void setTextContent(String string) throws DOMException {
+        throw operationNotSupported();
+
+    }
+
+    public boolean isSameNode(Node node) {
+        throw operationNotSupported();
+    }
+
+    public String lookupPrefix(String string) {
+        throw operationNotSupported();
+    }
+
+    public boolean isEqualNode(Node node) {
+        throw operationNotSupported();
+    }
+
+    public Object getFeature(String string, String string1) {
+        throw operationNotSupported();
+    }
+
+    public Object setUserData(String string, Object object, UserDataHandler userDataHandler) {
+        throw operationNotSupported();
+    }
+
+    public Object getUserData(String string) {
+        throw operationNotSupported();
+    }
+
+    // End node methods
+
+    protected RuntimeException operationNotSupported() {
+		return new RuntimeException("Operation not supported.");
 	}
 
 	public String toString() { return getClass() +": "+getNodeName()+" parent="+getParentNode(); }

@@ -174,4 +174,63 @@ public class SimpleAdapterDocument extends AbstractAdapterNode implements Docume
 
 	public Node getChildAfter( Node child ) { return null; }
 	public Node getChildBefore( Node child ) { return null; }
+
+    // DOM level 3
+
+    public String getInputEncoding() {
+        throw operationNotSupported();
+    }
+
+    public String getXmlEncoding() {
+        throw operationNotSupported();
+    }
+
+    public boolean getXmlStandalone() {
+        throw operationNotSupported();
+    }
+
+    public void setXmlStandalone(boolean b) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public String getXmlVersion() {
+        throw operationNotSupported();
+    }
+
+    public void setXmlVersion(String string) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public boolean getStrictErrorChecking() {
+        throw operationNotSupported();
+    }
+
+    public void setStrictErrorChecking(boolean b) {
+        throw operationNotSupported();
+    }
+
+    public String getDocumentURI() {
+        throw operationNotSupported();
+    }
+
+    public void setDocumentURI(String string) {
+        throw operationNotSupported();
+    }
+
+    public Node adoptNode(Node node) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public DOMConfiguration getDomConfig() {
+        throw operationNotSupported();
+    }
+
+    public void normalizeDocument() {
+        throw operationNotSupported();
+    }
+
+    public Node renameNode(Node node, String string, String string1) throws DOMException {
+        return null;
+    }
+    // end DOM level 3
 }
