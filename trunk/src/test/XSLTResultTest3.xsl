@@ -9,8 +9,8 @@
                 Hello <xsl:value-of select="username"/> how are you?
                 <p/>
                 We have the following books:
-                <xsl:for-each select="books">
-                    <br/><xsl:value-of select="item/title"/> by <xsl:value-of select="item/author"/>.
+                <xsl:for-each select="books/item">
+                    <br/><xsl:value-of select="title"/> by <xsl:value-of select="author"/>.
                 </xsl:for-each>
             </body>
         </html>
