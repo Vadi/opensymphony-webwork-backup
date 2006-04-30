@@ -75,4 +75,20 @@ public class SimpleTextNode extends AbstractAdapterNode implements Node, Text
 		return getStringValue().substring(beginIndex, endIndex);
 	}
 
+
+    // DOM level 3
+
+    public boolean isElementContentWhitespace() {
+        throw operationNotSupported();
+    }
+
+    public String getWholeText() {
+        throw operationNotSupported();
+    }
+
+    public Text replaceWholeText(String string) throws DOMException {
+        throw operationNotSupported();
+    }
+    // end DOM level 3
+
 }

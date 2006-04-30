@@ -44,7 +44,19 @@ public class ProxyAttrAdapter extends ProxyNodeAdapter implements Attr
 		return (Element)getParent();
 	}
 
-	// End Proxied Attr methods
+    // DOM level 3
+
+    public TypeInfo getSchemaTypeInfo() {
+        throw operationNotSupported();
+    }
+
+    public boolean isId() {
+        throw operationNotSupported();
+    }
+
+    // end DOM level 3
+
+    // End Proxied Attr methods
 
 	public String toString() { return "ProxyAttribute for: "+attr(); }
 }

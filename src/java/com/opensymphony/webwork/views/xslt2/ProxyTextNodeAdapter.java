@@ -60,5 +60,19 @@ public class ProxyTextNodeAdapter extends ProxyNodeAdapter implements Text
 	public void setData( String data ) throws DOMException {
 		throw new UnsupportedOperationException();
 	}
+
+    // DOM level 3
+
+    public boolean isElementContentWhitespace() {
+        throw operationNotSupported();
+    }
+
+    public String getWholeText() {
+        throw operationNotSupported();
+    }
+
+    public Text replaceWholeText(String string) throws DOMException {
+        throw operationNotSupported();
+    }
 }
 
