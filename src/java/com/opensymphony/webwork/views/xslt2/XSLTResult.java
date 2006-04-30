@@ -82,7 +82,18 @@ public class XSLTResult implements Result
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public void setStylesheetLocation(String location) {
+	/**
+		@deprecated Use #setStylesheetLocation(String)
+	*/
+    public void setLocation(String location) 
+	{
+		setStylesheetLocation(location);
+	}
+
+    public void setStylesheetLocation(String location) 
+	{
+		if ( location == null )
+			throw new IllegalArgumentException("Null location");
 		System.out.println("location = "+location);
 		this.stylesheetLocation= location;
     }
