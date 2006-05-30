@@ -42,7 +42,8 @@ public class UrlHelperTest extends WebWorkTestCase {
 		
 		String result = UrlHelper.buildUrl("/path1/path2/myAction.action", (HttpServletRequest) mockHttpServletRequest.proxy(), (HttpServletResponse)mockHttpServletResponse.proxy(), null, "http", true, true, true);
 		assertEquals(expectedUrl, result);
-	}
+        mockHttpServletRequest.verify();
+    }
 	
 	public void testDoNotForceAddSchemeHostAndPort() throws Exception {
 		String expectedUrl = "/contextPath/path1/path2/myAction.action";
@@ -259,5 +260,41 @@ public class UrlHelperTest extends WebWorkTestCase {
 
         String urlString = UrlHelper.buildUrl(actionName, (HttpServletRequest) mockHttpServletRequest.proxy(), (HttpServletResponse) mockHttpServletResponse.proxy(), params, "https", true, true);
         assertEquals(expectedString, urlString);
+    }
+
+    public void testParseQuery() throws Exception {
+    	Map result = UrlHelper.parseQueryString("aaa=aaaval&bbb=bbbval&ccc=");
+
+    	assertEquals(result.get("aaa"), "aaaval");
+    	assertEquals(result.get("bbb"), "bbbval");
+    	assertEquals(result.get("ccc"), "");
+    }
+
+    public void testTranslateAndEncode() throws Exception {
+    	Object defaultI18nEncoding = Configuration.get(WebWorkConstants.WEBWORK_I18N_ENCODING);
+    	try {
+    		Configuration.set(WebWorkConstants.WEBWORK_I18N_ENCODING, "UTF-8");
+    		String result = UrlHelper.translateAndEncode("\u65b0\u805e");
+    		String expectedResult = "%E6%96%B0%E8%81%9E";
+
+    		assertEquals(result, expectedResult);
+    	}
+    	finally {
+    		Configuration.set(WebWorkConstants.WEBWORK_I18N_ENCODING, defaultI18nEncoding);
+    	}
+    }
+
+    public void testTranslateAndDecode() throws Exception {
+    	Object defaultI18nEncoding = Configuration.get(WebWorkConstants.WEBWORK_I18N_ENCODING);
+    	try {
+    		Configuration.set(WebWorkConstants.WEBWORK_I18N_ENCODING, "UTF-8");
+    		String result = UrlHelper.translateAndDecode("%E6%96%B0%E8%81%9E");
+    		String expectedResult = "\u65b0\u805e";
+
+    		assertEquals(result, expectedResult);
+    	}
+    	finally {
+    		Configuration.set(WebWorkConstants.WEBWORK_I18N_ENCODING, defaultI18nEncoding);
+    	}
     }
 }
