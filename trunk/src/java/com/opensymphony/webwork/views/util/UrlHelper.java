@@ -13,9 +13,11 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -201,21 +203,66 @@ public class UrlHelper {
      * @return the translated and encoded string
      */
     public static String translateAndEncode(String input) {
-        OgnlValueStack valueStack = ServletActionContext.getContext().getValueStack();
-        String output = TextParseUtil.translateVariables(input, valueStack);
+        String translatedInput = translateVariable(input);
+        String encoding = getEncodingFromConfiguration();
 
-        final String encoding;
+        try {
+            return URLEncoder.encode(translatedInput, encoding);
+        } catch (UnsupportedEncodingException e) {
+            LOG.warn("Could not encode URL parameter '" + input + "', returning value un-encoded");
+            return translatedInput;
+        }
+    }
+
+    public static String translateAndDecode(String input) {
+    	String translatedInput = translateVariable(input);
+    	String encoding = getEncodingFromConfiguration();
+
+        try {
+            return URLDecoder.decode(translatedInput, encoding);
+        } catch (UnsupportedEncodingException e) {
+            LOG.warn("Could not encode URL parameter '" + input + "', returning value un-encoded");
+            return translatedInput;
+        }
+    }
+
+    private static String translateVariable(String input) {
+    	OgnlValueStack valueStack = ServletActionContext.getContext().getValueStack();
+        String output = TextParseUtil.translateVariables(input, valueStack);
+        return output;
+    }
+
+    private static String getEncodingFromConfiguration() {
+    	final String encoding;
+        
         if (Configuration.isSet(WebWorkConstants.WEBWORK_I18N_ENCODING)) {
             encoding = Configuration.getString(WebWorkConstants.WEBWORK_I18N_ENCODING);
         } else {
             encoding = "UTF-8";
         }
+        return encoding;
+    }
 
-        try {
-            return URLEncoder.encode(output, encoding);
-        } catch (UnsupportedEncodingException e) {
-            LOG.warn("Could not encode URL parameter '" + input + "', returning value un-encoded");
-            return output;
-        }
+    public static Map parseQueryString(String queryString) {
+    	Map queryParams = new LinkedHashMap();
+    	if (queryString != null) {
+    		String[] params = queryString.split("&");
+    		for (int a=0; a< params.length; a++) {
+    			String[] tmpParams = params[a].split("=");
+    			String paramName = null;
+    			String paramValue = "";
+    			if (tmpParams.length > 0) {
+    				paramName = tmpParams[0];
+    			}
+    			if (tmpParams.length > 1) {
+    				paramValue = tmpParams[1];
+    			}
+    			if (paramName != null) {
+    				String translatedParamValue = translateAndDecode(paramValue);
+    				queryParams.put(paramName, translatedParamValue);
+    			}
+    		}
+    	}
+    	return queryParams;
     }
 }
