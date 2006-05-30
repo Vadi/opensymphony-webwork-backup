@@ -8,7 +8,7 @@ import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 
 import java.util.HashMap;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 
 /**
@@ -16,6 +16,27 @@ import java.util.ArrayList;
  * @version $Id$
  */
 public class RadioTest extends AbstractUITagTest {
+
+    public void testMapWithBooleanAsKey() throws Exception {
+        TestAction testAction = (TestAction) action;
+
+        HashMap map = new LinkedHashMap();
+        map.put(Boolean.TRUE, "male");
+        map.put(Boolean.FALSE, "female");
+        testAction.setMap(map);
+
+        RadioTag tag = new RadioTag();
+        tag.setPageContext(pageContext);
+        tag.setLabel("mylabel");
+        tag.setName("myname");
+        tag.setValue("%{'true'}");
+        tag.setList("map");
+
+        tag.doStartTag();
+        tag.doEndTag();
+
+        verify(RadioTag.class.getResource("Radio-3.txt"));
+    }
 
     public void testMapChecked() throws Exception {
         TestAction testAction = (TestAction) action;
