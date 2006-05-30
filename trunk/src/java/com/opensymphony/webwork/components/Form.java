@@ -34,6 +34,24 @@ import java.util.Iterator;
  * The remote form allows the form to be submitted without the page being refreshed. The results from the form
  * can be inserted into any HTML element on the page.<p/>
  *
+ * NOTE:<p/>
+ * The order / logic in determining the posting url of the generated HTML form is as follows:-
+ * <ol>
+ * 	 <li>
+ * 	 If the action attribute is not specified, then the current request will be used to
+ *   determine the posting url
+ *   </li>
+ *   <li>
+ *   If the action is given, SAF will try to obtain an ActionConfig. This will be
+ *   successfull if the action attribute is a valid action alias defined xwork.xml.
+ *   </li>
+ *   <li>
+ *   If the action is given and is not an action alias defined in xwork.xmlm SAF
+ *   will used the action attribute as if it is the posting url, separting the namespace
+ *   from it and using UrlHelper to generate the final url.
+ *   </li>
+ * </ol>
+ *
  * <!-- END SNIPPET: javadoc -->
  *
  * <p/> <b>Examples</b>
@@ -69,6 +87,7 @@ public class Form extends ClosingUIBean {
     protected String validate;
     protected String portletMode;
     protected String windowState;
+    protected String acceptcharset;
 
     public Form(OgnlValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -131,6 +150,10 @@ public class Form extends ClosingUIBean {
             addParameter("validate", findValue(validate, Boolean.class));
         }
 
+        if (acceptcharset != null) {
+            addParameter("acceptcharset", findString(acceptcharset));
+        }
+
         // keep a collection of the tag names for anything special the templates might want to do (such as pure client
         // side validation)
         if (!parameters.containsKey("tagNames")) {
@@ -158,15 +181,16 @@ public class Form extends ClosingUIBean {
             }
         }
 
+        String actionMethod = "";
+        if (action.indexOf("!") != -1) {
+            int endIdx = action.lastIndexOf("!");
+            actionMethod = action.substring(endIdx + 1, action.length());
+            action = action.substring(0, endIdx);
+        }
+
         final ActionConfig actionConfig = ConfigurationManager.getConfiguration().getRuntimeConfiguration().getActionConfig(namespace, action);
         String actionName = action;
         if (actionConfig != null) {
-            String actionMethod = "";
-            if (action.indexOf("!") != -1) {
-                int endIdx = action.lastIndexOf("!");
-                actionMethod = action.substring(endIdx + 1, action.length());
-                action = action.substring(0, endIdx);
-            }
 
             ActionMapping mapping = new ActionMapping(action, namespace, actionMethod, parameters);
             String result = UrlHelper.buildUrl(ActionMapperFactory.getMapper().getUriFromActionMapping(mapping), request, response, null);
@@ -357,5 +381,13 @@ public class Form extends ClosingUIBean {
      */
     public void setWindowState(String windowState) {
         this.windowState = windowState;
+    }
+
+    /**
+     * The accepted charsets for this form. The values may be comma or blank delimited.
+     * @a2.tagattribute required="false"
+     */
+    public void setAcceptcharset(String acceptcharset) {
+        this.acceptcharset = acceptcharset;
     }
 }
