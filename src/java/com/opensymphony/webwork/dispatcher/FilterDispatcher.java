@@ -151,10 +151,20 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
+        ServletContext servletContext = filterConfig.getServletContext();
 
         // prepare the request no matter what - this ensures that the proper character encoding
         // is used before invoking the mapper (see WW-9127)
         DispatcherUtils du = DispatcherUtils.getInstance();
+        try {
+        	// Wrap request first, just in case it is multipart/form-data
+        	// parameters might not be accessible through before encoding (ww-1278)
+            request = du.wrapRequest(request, servletContext);
+        } catch (IOException e) {
+            String message = "Could not wrap servlet request with MultipartRequestWrapper!";
+            LOG.error(message, e);
+            throw new ServletException(message, e);
+        }
         du.prepare(request, response);
 
         ActionMapper mapper = ActionMapperFactory.getMapper();
@@ -182,19 +192,11 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
 
 
         Object o = null;
-        ServletContext servletContext = filterConfig.getServletContext();
         try {
 
             setupContainer(request);
             o = beforeActionInvocation(request, servletContext);
 
-            try {
-                request = du.wrapRequest(request, servletContext);
-            } catch (IOException e) {
-                String message = "Could not wrap servlet request with MultipartRequestWrapper!";
-                LOG.error(message, e);
-                throw new ServletException(message, e);
-            }
             du.serviceAction(request, response, servletContext, mapping);
         } finally {
             afterActionInvocation(request, servletContext, o);
