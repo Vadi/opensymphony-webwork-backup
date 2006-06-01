@@ -3,7 +3,7 @@
  */
 package com.opensymphony.webwork.example;
 
-import com.opensymphony.xwork.ActionSupport;
+import junit.framework.TestCase;
 
 /**
  * <code>HomeActionTest</code>
