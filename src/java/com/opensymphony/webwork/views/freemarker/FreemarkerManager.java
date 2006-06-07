@@ -43,7 +43,7 @@ import java.util.Properties;
  *
  * Possible extension points are :-
  * <ul>
- *   <li>createConfiguration method</li>a
+ *   <li>createConfiguration method</li>
  *   <li>loadSettings method</li>
  *   <li>getTemplateLoader method</li>
  *   <li>populateContext method</li>
