@@ -968,6 +968,15 @@ public abstract class UIBean extends Component {
     public String getTemplate() {
         return template;
     }
+    
+    /**
+     * The template directory (other than default) to used to find the themes and hence the template.
+     * @ww.tagattribute required="false"
+     */
+    public void setTemplateDir(String templateDir) {
+    	this.templateDir = templateDir;
+    }
+    
 
     /**
      * The template (other than default) to use for rendering the element

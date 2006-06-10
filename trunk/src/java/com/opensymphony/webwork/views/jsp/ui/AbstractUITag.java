@@ -28,6 +28,7 @@ public abstract class AbstractUITag extends ComponentTagSupport {
     protected String value;
     protected String template;
     protected String theme;
+    protected String templateDir;
     protected String onclick;
     protected String ondblclick;
     protected String onmousedown;
@@ -66,6 +67,7 @@ public abstract class AbstractUITag extends ComponentTagSupport {
         uiBean.setValue(value);
         uiBean.setTemplate(template);
         uiBean.setTheme(theme);
+        uiBean.setTemplateDir(templateDir);
         uiBean.setOnclick(onclick);
         uiBean.setOndblclick(ondblclick);
         uiBean.setOnmousedown(onmousedown);
@@ -141,6 +143,10 @@ public abstract class AbstractUITag extends ComponentTagSupport {
 
     public void setTheme(String theme) {
         this.theme = theme;
+    }
+    
+    public void setTemplateDir(String templateDir) {
+    	this.templateDir=  templateDir;
     }
 
     public void setOnclick(String onclick) {
