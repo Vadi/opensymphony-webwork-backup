@@ -11,4 +11,13 @@
 
     <bean id="personManager" class="com.opensymphony.webwork.showcase.person.PersonManager" singleton="true"/>
     
+    <!-- Showcase's CustomFreemarkerManager example -->
+    <bean id="customFreemarkerManager" class="com.opensymphony.webwork.showcase.freemarker.CustomFreemarkerManager">
+		<constructor-arg index="0">
+			<ref bean="customFreemarkerManagerUtil" />
+		</constructor-arg>    	
+    </bean>
+    <bean id="customFreemarkerManagerUtil" class="com.opensymphony.webwork.showcase.freemarker.CustomFreemarkerManagerUtil" />
+
+    
 </beans>

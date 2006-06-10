@@ -75,6 +75,7 @@
                     <li><a href="<ww:url value="/wait/index.jsp"/>">Execute & Wait</a></li>
                     <li><a href="<ww:url value="/token/index.jsp"/>">Token</a></li>
                     <li><a href="<ww:url value="/filedownload/index.jsp"/>">File Download</a></li>
+                    <li><a href="<ww:url value="/freemarker/index.jsp" />">Freemarker</a></li>
                     <li class="last"><a href="<ww:url value="/help.jsp"/>">Help</a></li>
                 </ul>
             </div>
