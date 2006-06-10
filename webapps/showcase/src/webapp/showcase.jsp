@@ -56,6 +56,10 @@
         
         <!-- model-driven -->
         <li><ww:url id="url" action="modelDriven" namespace="/modelDriven" method="input"/><ww:a href="%{url}">Model Driven Example</ww:a>
+        
+        <!-- freemarker -->
+        <li><ww:url id="url" value="/freemarker" /><ww:a href="%{#url}">Freemarker Example</ww:a></li>
+        
     </ul>
 </p>
 
