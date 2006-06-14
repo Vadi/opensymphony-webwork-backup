@@ -13,11 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @see TreeNode
  * @author Jason Carreira <jcarreira@eplus.com>
+ * @author tm_jee
  */
 public class TreeNodeTag extends AbstractClosingTag {
-    private String label;
 
-    public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+	private static final long serialVersionUID = -230856889989903794L;
+
+	public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new TreeNode(stack,req,res);
     }
 
@@ -25,11 +27,13 @@ public class TreeNodeTag extends AbstractClosingTag {
         this.label = label;
     }
 
-    protected void populateParams() {
+    // NOTE: not necessary, label property is inherited, will be populated 
+    // by super-class
+    /*protected void populateParams() {
         if (label != null) {
             TreeNode treeNode = (TreeNode)component;
             treeNode.setLabel(label);
         }
         super.populateParams();
-    }
+    }*/
 }
