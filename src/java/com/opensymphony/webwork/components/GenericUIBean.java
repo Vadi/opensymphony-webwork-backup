@@ -39,13 +39,13 @@ import javax.servlet.http.HttpServletResponse;
  *     &lt;/ww:component&gt;
  *
  * Velocity
- *     #tag( Component "template=/my/custom/component.vm" )
+ *     #wwcomponent( "template=/my/custom/component.vm" )
  *
  *       or
  *
- *     #bodytag( Component "template=/my/custom/component.vm" )
- *       #param( "key1" "value1" )
- *       #param( "key2" "value2" )
+ *     #wwcomponent( "template=/my/custom/component.vm" )
+ *       #wwparam( "name=key1" "value=value1" )
+ *       #wwparam( "name=key2" "value=value2" )
  *     #end
  *     
  * Freemarker
