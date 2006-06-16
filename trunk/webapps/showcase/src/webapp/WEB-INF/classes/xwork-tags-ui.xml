@@ -36,8 +36,29 @@
         <action name="tooltipExample">
         	<result>tooltipExample.jsp</result>
         </action>
+        
+        <!--  START SNIPPET: treeExampleDynamicXWorkXml -->
+        
+        <action name="showDynamicTreeAction" class="com.opensymphony.webwork.showcase.ShowDynamicTreeAction">
+        	<result>/tags/ui/treeExampleDynamic.jsp</result>
+        </action>
+        
+        <!--  END SNIPPET: treeExampleDynamicXWorkXml -->
     </package>
     
+    <!--  START SNIPPET: treeExampleXWorkXml -->
+	
+	<package name="ui-tags-ajax" namespace="/tags/ui/ajax" extends="webwork-default">        
+        <!-- Actions dealing with Tree Example  -->
+        <action name="staticTreeSelectAction">
+        	<result>/tags/ui/staticTreeSelect.jsp</result>
+        </action>
+        <action name="dynamicTreeSelectAction" class="com.opensymphony.webwork.showcase.DynamicTreeSelectAction">
+        	<result>/tags/ui/dynamicTreeSelect.jsp</result>
+        </action>
+    </package>
+    
+    <!--  END SNIPPET: treeExampleXWorkXml -->
     
     
     <package name="richtexteditor-browse" extends="webwork-default" namespace="/webwork/richtexteditor/editor/filemanager/browser/default/connectors/jsp">
