@@ -41,12 +41,10 @@ import com.opensymphony.webwork.portlet.context.PortletActionContext;
 import com.opensymphony.webwork.portlet.context.ServletContextHolderListener;
 import com.opensymphony.webwork.util.AttributeMap;
 import com.opensymphony.webwork.util.ObjectFactoryInitializable;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.ActionProxy;
-import com.opensymphony.xwork.ActionProxyFactory;
-import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * <!-- START SNIPPET: javadoc -->
@@ -407,8 +405,11 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
                 ActionProxy action = (ActionProxy) request.getPortletSession()
                         .getAttribute(EVENT_ACTION);
                 if (action != null) {
-                    proxy.getInvocation().getStack().push(
-                            action.getInvocation().getAction());
+                    Action currentAction = (Action)proxy.getInvocation().getAction();
+                    OgnlValueStack stack = proxy.getInvocation().getStack();
+                    Object top = stack.pop();
+                    stack.push(action.getInvocation().getAction());
+                    stack.push(top);
                 }
             }
             proxy.execute();
