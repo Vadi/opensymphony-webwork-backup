@@ -33,6 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * <!-- SNIPPET END: description -->
  *
  * @author Patrick Lightbody
+ * @author Pete Matern
  * @see FilterDispatcher
  * @since 2.2
  */
@@ -40,7 +41,7 @@ public class ActionContextCleanUp implements Filter {
 
     private static final Log LOG = LogFactory.getLog(ActionContextCleanUp.class);
 
-    private static final String CLEANUP_PRESENT = "__cleanup_present";
+    private static final String COUNTER = "__cleanup_counter";
 
     protected FilterConfig filterConfig;
 
@@ -74,20 +75,34 @@ public class ActionContextCleanUp implements Filter {
         }
 
         try {
-            request.setAttribute(CLEANUP_PRESENT, Boolean.TRUE);
+
+            Integer count = (Integer)request.getAttribute(COUNTER);
+            if (count == null) {
+                count = new Integer(1);
+            }
+            else {
+                count = new Integer(count.intValue()+1);
+            }
+            request.setAttribute(COUNTER, count);
+
             chain.doFilter(request, response);
         } finally {
-            request.setAttribute(CLEANUP_PRESENT, Boolean.FALSE);
+
+            int counterVal = ((Integer)request.getAttribute(COUNTER)).intValue();
+            counterVal -= 1;
+            request.setAttribute(COUNTER, new Integer(counterVal));
+
             cleanUp(request);
         }
+
     }
 
     protected static void cleanUp(ServletRequest req) {
-        // should we clean up yet?
-        Boolean dontClean = (Boolean) req.getAttribute(CLEANUP_PRESENT);
-        if (dontClean != null && dontClean.booleanValue()) {
-            return;
-        }
+        // should we clean up yet
+         if (req.getAttribute(COUNTER) != null &&
+                 ((Integer)req.getAttribute(COUNTER)).intValue() > 0 ) {
+             return;
+         }
 
         // tear down the component manager if it was created
         ComponentManager componentManager = (ComponentManager) req.getAttribute(ComponentManager.COMPONENT_MANAGER_KEY);
@@ -95,7 +110,7 @@ public class ActionContextCleanUp implements Filter {
             componentManager.dispose();
         }
 
-        // always dontClean up the thread request, even if an action hasn't been executed
+        // always clean up the thread request, even if an action hasn't been executed
         ActionContext.setContext(null);
     }
 
