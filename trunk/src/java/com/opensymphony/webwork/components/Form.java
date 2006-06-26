@@ -7,14 +7,18 @@ import com.opensymphony.webwork.portlet.context.PortletActionContext;
 import com.opensymphony.webwork.portlet.util.PortletUrlHelper;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.xwork.config.ConfigurationManager;
+import com.opensymphony.xwork.config.RuntimeConfiguration;
 import com.opensymphony.xwork.config.entities.ActionConfig;
+import com.opensymphony.xwork.config.entities.InterceptorMapping;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.interceptor.MethodFilterInterceptorUtil;
 import com.opensymphony.xwork.validator.Validator;
 import com.opensymphony.xwork.validator.FieldValidator;
 import com.opensymphony.xwork.validator.ActionValidatorManagerFactory;
+import com.opensymphony.xwork.validator.ValidationInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * <!-- START SNIPPET: javadoc -->
@@ -115,6 +120,10 @@ public class Form extends ClosingUIBean {
 
         boolean isAjax = "ajax".equalsIgnoreCase(this.theme);
 
+        if (validate != null) {
+            addParameter("validate", findValue(validate, Boolean.class));
+        }
+
         // calculate the action and namespace
         String action = null;
         if (this.action != null) {
@@ -144,10 +153,6 @@ public class Form extends ClosingUIBean {
 
         if (method != null) {
             addParameter("method", findString(method));
-        }
-
-        if (validate != null) {
-            addParameter("validate", findValue(validate, Boolean.class));
         }
 
         if (acceptcharset != null) {
@@ -241,6 +246,42 @@ public class Form extends ClosingUIBean {
                 addParameter("id", escape(id));
             }
         }
+
+        // WW-1284
+        // evaluate if client-side js is to be enabled. (if validation interceptor
+        // does allow validation eg. method is not filtered out)
+        evaluateClientSideJsEnablement(actionName, namespace, actionMethod);
+    }
+
+    private void evaluateClientSideJsEnablement(String actionName, String namespace, String actionMethod) {
+
+    	// Only evaluate if Client-Side js is to be enable when validate=true
+    	Boolean validate = (Boolean) getParameters().get("validate");
+    	if (validate != null && validate.booleanValue()) {
+
+    		addParameter("performValidation", Boolean.FALSE);
+
+    		RuntimeConfiguration runtimeConfiguration = ConfigurationManager.getConfiguration().getRuntimeConfiguration();
+    		ActionConfig actionConfig = runtimeConfiguration.getActionConfig(namespace, actionName);
+
+    		if (actionConfig != null) {
+    			List interceptors = actionConfig.getInterceptors();
+    			for (Iterator i = interceptors.iterator(); i.hasNext(); ) {
+    				InterceptorMapping interceptorMapping = (InterceptorMapping) i.next();
+    				if (ValidationInterceptor.class.isInstance(interceptorMapping.getInterceptor())) {
+    					ValidationInterceptor validationInterceptor = (ValidationInterceptor) interceptorMapping.getInterceptor();
+
+    					Set excludeMethods = validationInterceptor.getExcludeMethodsSet();
+    					Set includeMethods = validationInterceptor.getIncludeMethodsSet();
+
+    					if (MethodFilterInterceptorUtil.applyMethod(excludeMethods, includeMethods, actionMethod)) {
+    						addParameter("performValidation", Boolean.TRUE);
+    					}
+    					return;
+    				}
+    			}
+    		}
+    	}
     }
 
     /**

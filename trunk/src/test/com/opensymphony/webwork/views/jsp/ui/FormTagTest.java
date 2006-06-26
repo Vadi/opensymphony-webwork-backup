@@ -7,11 +7,22 @@ package com.opensymphony.webwork.views.jsp.ui;
 import com.opensymphony.webwork.TestAction;
 import com.opensymphony.webwork.TestConfigurationProvider;
 import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.dispatcher.mapper.DefaultActionMapper;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.jsp.AbstractUITagTest;
 import com.opensymphony.webwork.views.jsp.ActionTag;
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.ObjectFactory;
+import com.opensymphony.xwork.ActionSupport;
+import com.opensymphony.xwork.validator.ValidationInterceptor;
 import com.opensymphony.xwork.config.ConfigurationManager;
+import com.opensymphony.xwork.config.RuntimeConfiguration;
+import com.opensymphony.xwork.config.entities.ActionConfig;
+import com.opensymphony.xwork.config.entities.InterceptorMapping;
+
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
 
 
 /**
@@ -85,33 +96,170 @@ public class FormTagTest extends AbstractUITagTest {
 
         verify(FormTag.class.getResource("Formtag-1.txt"));
     }
-    
-    /**
-     * This test with form tag validation enabled
+
+        /**
+     * This test with form tag validation enabled. Js validation script will appear
+     * cause action submited by the form is intercepted by validation interceptor which
+     * "include" all methods.
      */
-    public void testFormWithCustomOnsubmitEnabledWithValidateEnabled() throws Exception {
-    	
+    public void testFormWithCustomOnsubmitEnabledWithValidateEnabled1() throws Exception {
+
+    	com.opensymphony.xwork.config.Configuration originalConfiguration = ConfigurationManager.getConfiguration();
+    	ObjectFactory originalObjectFactory = ObjectFactory.getObjectFactory();
+
+    	try {
+    	// used to determined if the form action needs js validation
+    	ConfigurationManager.setConfiguration(new com.opensymphony.xwork.config.impl.DefaultConfiguration() {
+    		public RuntimeConfiguration getRuntimeConfiguration() {
+    			return new RuntimeConfiguration() {
+    				public ActionConfig getActionConfig(String namespace, String name) {
+    					ActionConfig actionConfig = new ActionConfig() {
+    						public List getInterceptors() {
+    							List interceptors = new ArrayList();
+
+    							ValidationInterceptor validationInterceptor = new ValidationInterceptor();
+    							validationInterceptor.setIncludeMethods("*");
+
+    							InterceptorMapping interceptorMapping = new InterceptorMapping();
+    							interceptorMapping.setName("validation");
+    							interceptorMapping.setInterceptor(validationInterceptor);
+    							interceptors.add(interceptorMapping);
+
+    							return interceptors;
+    						}
+    					};
+    					return actionConfig;
+    				}
+    				public Map getActionConfigs() {
+    					return null;
+    				}
+    			};
+    		}
+    	});
+
+    	// used by form tag to get "actionClass" parameter
+    	ObjectFactory.setObjectFactory(new ObjectFactory() {
+    		public Class getClassInstance(String className) throws ClassNotFoundException {
+    			if (DefaultActionMapper.class.getName().equals(className)) {
+    				return DefaultActionMapper.class;
+    			}
+    			return ActionSupport.class;
+    		}
+    	});
+
+
+
     	FormTag tag = new FormTag();
     	tag.setPageContext(pageContext);
     	tag.setName("myForm");
     	tag.setMethod("POST");
         tag.setAction("myAction");
+        tag.setAcceptcharset("UTF-8");
         tag.setEnctype("myEncType");
         tag.setTitle("mytitle");
         tag.setOnsubmit("submitMe()");
         tag.setValidate("true");
-        
+        tag.setNamespace("");
+
         UpDownSelectTag t = new UpDownSelectTag();
         t.setPageContext(pageContext);
         t.setName("myUpDownSelectTag");
         t.setList("{}");
-        
+
         tag.doStartTag();
         t.doStartTag();
         t.doEndTag();
         tag.doEndTag();
-    	
+
         verify(FormTag.class.getResource("Formtag-2.txt"));
+    	}
+    	finally {
+    		ConfigurationManager.setConfiguration(originalConfiguration);
+    		ObjectFactory.setObjectFactory(originalObjectFactory);
+    	}
+    }
+
+
+    /**
+     * This test with form tag validation enabled. Js validation script will not appear
+     * cause action submited by the form is intercepted by validation interceptor which
+     * "excludes" all methods.
+     */
+    public void testFormWithCustomOnsubmitEnabledWithValidateEnabled2() throws Exception {
+
+    	com.opensymphony.xwork.config.Configuration originalConfiguration = ConfigurationManager.getConfiguration();
+    	ObjectFactory originalObjectFactory = ObjectFactory.getObjectFactory();
+
+    	try {
+    	// used to determined if the form action needs js validation
+    	ConfigurationManager.setConfiguration(new com.opensymphony.xwork.config.impl.DefaultConfiguration() {
+    		public RuntimeConfiguration getRuntimeConfiguration() {
+    			return new RuntimeConfiguration() {
+    				public ActionConfig getActionConfig(String namespace, String name) {
+    					ActionConfig actionConfig = new ActionConfig() {
+    						public List getInterceptors() {
+    							List interceptors = new ArrayList();
+
+    							ValidationInterceptor validationInterceptor = new ValidationInterceptor();
+    							validationInterceptor.setExcludeMethods("*");
+
+    							InterceptorMapping interceptorMapping = new InterceptorMapping();
+    							interceptorMapping.setName("validation");
+    							interceptorMapping.setInterceptor(validationInterceptor);
+    							interceptors.add(interceptorMapping);
+
+    							return interceptors;
+    						}
+    					};
+    					return actionConfig;
+    				}
+    				public Map getActionConfigs() {
+    					return null;
+    				}
+    			};
+    		}
+    	});
+
+    	// used by form tag to get "actionClass" parameter
+    	ObjectFactory.setObjectFactory(new ObjectFactory() {
+    		public Class getClassInstance(String className) throws ClassNotFoundException {
+    			if (DefaultActionMapper.class.getName().equals(className)) {
+    				return DefaultActionMapper.class;
+    			}
+    			return ActionSupport.class;
+    		}
+    	});
+
+
+
+    	FormTag tag = new FormTag();
+    	tag.setPageContext(pageContext);
+    	tag.setName("myForm");
+    	tag.setMethod("POST");
+        tag.setAction("myAction");
+        tag.setAcceptcharset("UTF-8");
+        tag.setEnctype("myEncType");
+        tag.setTitle("mytitle");
+        tag.setOnsubmit("submitMe()");
+        tag.setValidate("true");
+        tag.setNamespace("");
+
+        UpDownSelectTag t = new UpDownSelectTag();
+        t.setPageContext(pageContext);
+        t.setName("myUpDownSelectTag");
+        t.setList("{}");
+
+        tag.doStartTag();
+        t.doStartTag();
+        t.doEndTag();
+        tag.doEndTag();
+
+        verify(FormTag.class.getResource("Formtag-11.txt"));
+    	}
+    	finally {
+    		ConfigurationManager.setConfiguration(originalConfiguration);
+    		ObjectFactory.setObjectFactory(originalObjectFactory);
+    	}
     }
     
 
