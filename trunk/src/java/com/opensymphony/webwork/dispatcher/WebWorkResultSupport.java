@@ -4,6 +4,12 @@
  */
 package com.opensymphony.webwork.dispatcher;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
@@ -11,6 +17,8 @@ import com.opensymphony.xwork.util.TextParseUtil;
 
 
 /**
+ * <!-- START SNIPPET: javadoc -->
+ * 
  * A base class for all WebWork action execution results.
  * The "location" param is the default parameter, meaning the most common usage of this result would be:
  * <p/>
@@ -21,7 +29,19 @@ import com.opensymphony.xwork.util.TextParseUtil;
  * {@link TextParseUtil#translateVariables(java.lang.String, com.opensymphony.xwork.util.OgnlValueStack) translateVariables}
  * method</li>
  * <li>parse - true by default. If set to false, the location param will not be parsed for expressions</li>
+ * <li>encode - false by default. If set to false, the location param will not be url encoded. This only have effect when parse is true</li>
  * </ul>
+ * 
+ * <b>NOTE:</b>
+ * The encode param will only have effect when parse is true
+ * 
+ * <p/>
+ * 
+ * <!-- END SNIPPET: javadoc -->
+ * 
+ * 
+ * <!-- START SNIPPET: example -->
+ * 
  * <p/>
  * In the xwork.xml configuration file, these would be included as:
  * <p/>
@@ -34,9 +54,13 @@ import com.opensymphony.xwork.util.TextParseUtil;
  * <p/>
  * <pre>
  *  &lt;result name="success" type="redirect" &gt;
- *      &lt;param name="<b>location</b>"&gt;foo.jsp&lt;/param&gt;
- *      &lt;param name="<b>parse</b>"&gt;false&lt;/param&gt;
+ *      &lt;param name="<b>location</b>"&gt;foo.jsp?url=${myUrl}&lt;/param&gt;
+ *      &lt;param name="<b>parse</b>"&gt;true&lt;/param&gt;
+ *      &lt;param name="<b>encode</b>"&gt;true&lt;/param&gt;
  *  &lt;/result&gt;</pre>
+ * <p/>
+ * In the above case, myUrl will be parsed against Ognl Value Stack and then 
+ * URL encoded.
  * <p/>
  * or when using the default parameter feature
  * <p/>
@@ -57,15 +81,23 @@ import com.opensymphony.xwork.util.TextParseUtil;
  * <p/>
  * Please see the {@link com.opensymphony.xwork.Result} class for more info on Results in general.
  *
+ * <!-- END SNIPPET: example -->
+ *
  * @author Jason Carreira
  * @author Bill Lynch (docs)
+ * @author tm_jee
  * @see com.opensymphony.xwork.Result
  */
 public abstract class WebWorkResultSupport implements Result, WebWorkStatics {
+	
+	private static final Log _log = LogFactory.getLog(WebWorkResultSupport.class);
+	
     public static final String DEFAULT_PARAM = "location";
 
     protected boolean parse = true;
+    protected boolean encode = false;
     protected String location;
+    
 
     /**
      * The location to go to after action execution. This could be a JSP page or another action.
@@ -88,6 +120,16 @@ public abstract class WebWorkResultSupport implements Result, WebWorkStatics {
     public void setParse(boolean parse) {
         this.parse = parse;
     }
+    
+    /**
+     * Set encode to <tt>true</tt> to indicate that the location should be url encoded. This is set to
+     * <tt>true</tt> by default
+     * 
+     * @param encode <tt>true</tt> if the location parameter should be url encode, <tt>false</tt> otherwise.
+     */
+    public void setEncode(boolean encode) {
+    	this.encode = encode;
+    }
 
     /**
      * Implementation of the <tt>execute</tt> method from the <tt>Result</tt> interface. This will call
@@ -102,10 +144,27 @@ public abstract class WebWorkResultSupport implements Result, WebWorkStatics {
     }
 
     protected String conditionalParse(String param, ActionInvocation invocation) {
-        if (parse && param != null && invocation != null) {
-            return TextParseUtil.translateVariables(param, invocation.getStack());
+    	if (parse && param != null && invocation != null) {
+            return TextParseUtil.translateVariables(param, invocation.getStack(), 
+            		new TextParseUtil.ParsedValueEvaluator() {
+						public Object evaluate(Object parsedValue) {
+							if (encode) {
+								if (parsedValue != null) {
+									try {
+										// use UTF-8 as this is the recommended encoding by W3C to 
+										// avoid incompatibilities.
+										return URLEncoder.encode(parsedValue.toString(), "UTF-8");
+									}
+									catch(UnsupportedEncodingException e) {
+										_log.warn("error while trying to encode ["+parsedValue+"]", e);
+									}
+								}
+							}
+							return parsedValue;
+						}
+            });
         } else {
-            return param;
+        	return param;
         }
     }
 
