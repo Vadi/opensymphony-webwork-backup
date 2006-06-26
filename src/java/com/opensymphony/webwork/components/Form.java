@@ -426,7 +426,7 @@ public class Form extends ClosingUIBean {
 
     /**
      * The accepted charsets for this form. The values may be comma or blank delimited.
-     * @a2.tagattribute required="false"
+     * @ww.tagattribute required="false"
      */
     public void setAcceptcharset(String acceptcharset) {
         this.acceptcharset = acceptcharset;

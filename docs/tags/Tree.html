@@ -16,7 +16,7 @@ Render a tree widget.
 </p>
 
 <p>
-<!-- START SNIPPET: javadoc --> Renders a tree widget with AJAX support.<p/> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt;tree .../&gt; <!-- END SNIPPET: example --> </pre> Created : Oct 27, 2005 3:56:23 PM
+<!-- START SNIPPET: javadoc --> Renders a tree widget with AJAX support.<p/> The id attribute is normally specified, such that it could be looked up using javascript if necessary.<p/> <!-- END SNIPPET: javadoc --> <p/> <b>Examples</b> <pre> <!-- START SNIPPET: example --> &lt-- statically --&gt; &lt;ww:tree id="..." label="..."&gt; &lt;ww:treenode id="..." label="..." /&gt; &lt;ww:treenode id="..." label="..."&gt; &lt;ww:treenode id="..." label="..." /&gt; &lt;ww:treenode id="..." label="..." /&gt; &;lt;/ww:treenode&gt; &lt;ww:treenode id="..." label="..." /&gt; &lt;/ww:tree&gt; &lt;-- dynamically --&gt; &lt;ww:tree id="..." rootNode="..." nodeIdProperty="..." nodeTitleProperty="..." childCollectionProperty="..." /&gt; <!-- END SNIPPET: example --> </pre> Created : Oct 27, 2005 3:56:23 PM
 </p>
 
 <h2>Attributes</h2>
@@ -108,24 +108,6 @@ Render a tree widget.
 
 <tr>
 <!-- Attribute name -->
-<td align="left" valign="top">openAll</td>
-
-<!-- Required -->
-<td align="left" valign="top">false</td>
-
-<!-- Default -->
-<td align="left" valign="top">false</td>
-
-<!-- Type -->
-<td align="left" valign="top">boolean</td>
-
-<!-- Description -->
-<td align="left" valign="top">The openAll property.</td>
-
-</tr>
-
-<tr>
-<!-- Attribute name -->
 <td align="left" valign="top">rootNode</td>
 
 <!-- Required -->
@@ -198,6 +180,276 @@ Render a tree widget.
 
 <tr>
 <!-- Attribute name -->
+<td align="left" valign="top">showRootGrid</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">The showRootGrid property (default true).</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">blankIconSrc</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Blank icon image source.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">expandIconSrcMinus</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Expand icon (-) image source.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">expandIconSrcPlus</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Expand Icon (+) image source.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">gridIconSrcC</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Image source for under child item child icons.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">gridIconSrcL</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Image source for last child grid.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">gridIconSrcP</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Image source for under parent item child icons.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">gridIconSrcV</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Image source for vertical line.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">gridIconSrcX</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Image source for grid for sole root item.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">gridIconSrcY</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Image source for grid for last root item.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">iconHeight</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Icon height (default 18 pixels).</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">iconWidth</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Icon width (default 19 pixels).</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">templateCssPath</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Template css path (default {contextPath}/struts/tree.css.</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">toggleDuration</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Toggle duration (default 150 ms)</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">showGrid</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">Show grid (default true).</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
 <td align="left" valign="top">openTemplate</td>
 
 <!-- Required -->
@@ -229,6 +481,24 @@ Render a tree widget.
 
 <!-- Description -->
 <td align="left" valign="top">The theme (other than default) to use for rendering the element</td>
+
+</tr>
+
+<tr>
+<!-- Attribute name -->
+<td align="left" valign="top">templateDir</td>
+
+<!-- Required -->
+<td align="left" valign="top">false</td>
+
+<!-- Default -->
+<td align="left" valign="top">&nbsp;</td>
+
+<!-- Type -->
+<td align="left" valign="top">Object/String</td>
+
+<!-- Description -->
+<td align="left" valign="top">The template directory (other than default) to used to find the themes and hence the template.</td>
 
 </tr>
 
