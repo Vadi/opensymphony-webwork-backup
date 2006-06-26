@@ -1,30 +1,59 @@
-/*
- * Copyright (c) 2002-2003 by OpenSymphony
- * All rights reserved.
- */
 package com.opensymphony.webwork.views.xslt;
 
 import org.w3c.dom.Node;
 
-
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- * @author Mike Mosiewicz
- * @author Rainer Hermanns
- *         Date: 10.10.2003
- *         Time: 19:41:49
+ * @author Pat Niemeyer (pat@pat.net)
  */
 public interface AdapterNode extends Node {
+    /**
+     * The adapter factory that created this node.
+     */
+    AdapterFactory getAdapterFactory();
 
-    Node getNextSibling(AdapterNode child);
+    /**
+     * The adapter factory that created this node.
+     */
+    void setAdapterFactory(AdapterFactory factory);
 
-    AdapterNode getParentAdapterNode();
+    /**
+     * The parent adapter node of this node. Note that our parent must be another adapter node, but our children may be any
+     * kind of Node.
+     */
+    AdapterNode getParent();
 
+    /**
+     * The parent adapter node of this node. Note that our parent must be another adapter node, but our children may be any
+     * kind of Node.
+     */
+    void setParent(AdapterNode parent);
+
+    /**
+     * The child node before the specified sibling
+     */
+    Node getChildBefore(Node thisNode);
+
+    /**
+     * The child node after the specified sibling
+     */
+    Node getChildAfter(Node thisNode);
+
+    /**
+     * The name of the Java object (property) that we are adapting
+     */
     String getPropertyName();
 
-    DOMAdapter getRootAdapter();
+    /**
+     * The name of the Java object (property) that we are adapting
+     */
+    void setPropertyName(String name);
 
-    Object getValue();
+    /**
+     * The Java object (property) that we are adapting
+     */
+    Object getPropertyValue();
 
-    int getDepth();
+    /** The Java object (property) that we are adapting */
+    void setPropertyValue(Object prop );
 }

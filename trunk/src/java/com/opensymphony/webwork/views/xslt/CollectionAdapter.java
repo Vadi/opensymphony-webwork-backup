@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.xslt;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Node;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,27 +16,29 @@ import java.util.List;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- * @author Mike Mosiewicz
- * @author Rainer Hermanns
- *         Date: 14.10.2003
- *         Time: 18:59:07
+ * @author Pat Niemeyer (pat@pat.net)
  */
-public class CollectionAdapter extends DefaultElementAdapter {
+public class CollectionAdapter extends AbstractAdapterElement {
+    //~ Instance fields ////////////////////////////////////////////////////////
 
     private Log log = LogFactory.getLog(this.getClass());
 
+    //~ Constructors ///////////////////////////////////////////////////////////
 
-    public CollectionAdapter(DOMAdapter rootAdapter, AdapterNode parent, String propertyName, Object value) {
-        super(rootAdapter, parent, propertyName, value);
+	public CollectionAdapter() { }
+
+	public CollectionAdapter(AdapterFactory rootAdapterFactory, AdapterNode parent, String propertyName, Object value) {
+        setContext(rootAdapterFactory, parent, propertyName, value);
     }
 
+    //~ Methods ////////////////////////////////////////////////////////////////
 
-    protected List buildChildrenAdapters() {
-        Collection values = (Collection) getValue();
+    protected List buildChildAdapters() {
+        Collection values = (Collection) getPropertyValue();
         List children = new ArrayList(values.size());
 
         for (Iterator i = values.iterator(); i.hasNext();) {
-            AdapterNode childAdapter = getRootAdapter().adapt(getRootAdapter(), this, "item", i.next());
+            Node childAdapter = getAdapterFactory().adaptNode( this, "item", i.next());
             if( childAdapter != null)
                 children.add(childAdapter);
 
