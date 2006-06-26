@@ -16,25 +16,35 @@ import java.io.InputStream;
 
 
 /**
+ * ServletURIResolver is a URIResolver that can retrieve resources from the servlet context using the scheme "res".
+ * e.g.
+ *
+ * A URI resolver is called when a stylesheet uses an xsl:include, xsl:import, or document() function to find the
+ * resource (file).
+ *
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- *         Date: 14.10.2003
- *         Time: 16:50:06
  */
 public class ServletURIResolver implements URIResolver {
+    //~ Static fields/initializers /////////////////////////////////////////////
 
-    protected static Log log = LogFactory.getLog(URIResolver.class);
+    private Log log = LogFactory.getLog(getClass());
     static final String protocol = "res:";
 
+    //~ Instance fields ////////////////////////////////////////////////////////
 
     private ServletContext sc;
 
+    //~ Constructors ///////////////////////////////////////////////////////////
 
     public ServletURIResolver(ServletContext sc) {
+        log.trace("ServletURIResolver: " + sc);
         this.sc = sc;
     }
 
+    //~ Methods ////////////////////////////////////////////////////////////////
 
     public Source resolve(String href, String base) throws TransformerException {
+        log.debug("ServletURIResolver resolve(): href=" + href + ", base=" + base);
         if (href.startsWith(protocol)) {
             String res = href.substring(protocol.length());
             log.debug("Resolving resource <" + res + ">");
@@ -42,12 +52,14 @@ public class ServletURIResolver implements URIResolver {
             InputStream is = sc.getResourceAsStream(res);
 
             if (is == null) {
-                throw new TransformerException("Resource " + res + " not found in resources.");
+                throw new TransformerException(
+                        "Resource " + res + " not found in resources.");
             }
 
             return new StreamSource(is);
         }
 
-        throw new TransformerException("Cannot handle procotol of resource " + href);
+        throw new TransformerException(
+                "Cannot handle procotol of resource " + href);
     }
 }

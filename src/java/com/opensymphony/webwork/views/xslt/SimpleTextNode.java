@@ -11,15 +11,20 @@ import org.w3c.dom.Text;
 
 /**
  * @author <a href="mailto:meier@meisterbohne.de">Philipp Meier</a>
- *         Date: 10.10.2003
- *         Time: 19:45:12
+ * @author Pat Niemeyer (pat@pat.net)
  */
-public class SimpleTextNode extends DefaultAdapterNode implements Text, AdapterNode {
+public class SimpleTextNode extends AbstractAdapterNode implements Node, Text {
+    //~ Constructors ///////////////////////////////////////////////////////////
 
-    public SimpleTextNode(DOMAdapter rootAdapter, AdapterNode parent, String propertyName, Object value) {
-        super(rootAdapter, parent, propertyName, value);
+    public SimpleTextNode(AdapterFactory rootAdapterFactory, AdapterNode parent, String propertyName, Object value) {
+        setContext(rootAdapterFactory, parent, propertyName, value);
     }
 
+    //~ Methods ////////////////////////////////////////////////////////////////
+
+    protected String getStringValue() {
+        return getPropertyValue().toString();
+    }
 
     public void setData(String string) throws DOMException {
         throw new RuntimeException("Operation not supported");
@@ -69,7 +74,19 @@ public class SimpleTextNode extends DefaultAdapterNode implements Text, AdapterN
         return getStringValue().substring(beginIndex, endIndex);
     }
 
-    private String getStringValue() {
-        return getValue().toString();
+    // DOM level 3
+
+    public boolean isElementContentWhitespace() {
+        throw operationNotSupported();
     }
+
+    public String getWholeText() {
+        throw operationNotSupported();
+    }
+
+    public Text replaceWholeText(String string) throws DOMException {
+        throw operationNotSupported();
+    }
+    // end DOM level 3
+
 }
