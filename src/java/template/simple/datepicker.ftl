@@ -18,7 +18,7 @@
 </#if>
         button         :    "${parameters.id}_button",
 <#if parameters.singleclick?exists>
-        singleclick    :    ${parameters.singleclick},
+        singleClick    :    ${parameters.singleclick},
 </#if>
         step           :    1
     });
