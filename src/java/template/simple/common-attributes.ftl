@@ -1,3 +1,3 @@
 <#if parameters.accesskey?exists>
- accesskey="${parameters.accesskey}"<#rt/>
+ accesskey="${parameters.accesskey?html}"<#rt/>
 </#if>
