@@ -205,6 +205,9 @@
     <#if parameters.doubleOnchange?exists><#t/>
     onchange="${parameters.doubleOnchange?html}"
     </#if><#t/>
+    <#if parameters.doubleAccesskey?exists><#t/>
+    accesskey="${parameters.doubleAccesskey}"
+    </#if><#t/>
 >
 	<#if parameters.doubleHeaderKey?exists && parameters.doubleHeaderValue?exists><#t/>
     <option value="${parameters.doubleHeaderKey?html}">${parameters.doubleHeaderValue?html}</option>

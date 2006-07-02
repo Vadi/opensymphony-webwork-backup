@@ -33,6 +33,7 @@
  title="${parameters.title?html}"<#rt/>
 </#if>
 <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
+<#include "/${parameters.templateDir}/simple/common-attributes.ftl" />
 /><#rt/>
 <label for="${parameters.id?html}${itemKeyStr?html}"><#rt/>
     ${itemValue}<#t/>
