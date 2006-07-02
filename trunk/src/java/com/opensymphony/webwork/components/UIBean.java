@@ -19,7 +19,6 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -579,6 +578,9 @@ public abstract class UIBean extends Component {
     protected String onkeyup;
     protected String onselect;
     protected String onchange;
+    
+    // common html attributes
+    protected String accesskey;
 
     // javascript tooltip attribute
     protected String tooltip;
@@ -781,6 +783,10 @@ public abstract class UIBean extends Component {
 
         if (onchange != null) {
             addParameter("onchange", findString(onchange));
+        }
+        
+        if (accesskey != null) {
+        	addParameter("accesskey", findString(accesskey));
         }
 
         if (cssClass != null) {
@@ -1195,6 +1201,14 @@ public abstract class UIBean extends Component {
      */
     public void setOnchange(String onchange) {
         this.onchange = onchange;
+    }
+    
+    /**
+     * Set the html accesskey attribute on rendered html ekement
+     * @ww.tagattribute required="false"
+     */
+    public void setAccesskey(String accesskey) {
+    	this.accesskey = accesskey;
     }
 
     /**
