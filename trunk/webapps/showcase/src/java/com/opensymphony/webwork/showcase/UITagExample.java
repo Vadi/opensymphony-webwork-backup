@@ -8,6 +8,7 @@ import com.opensymphony.xwork.Validateable;
 import com.opensymphony.xwork.util.OgnlValueStack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -109,9 +110,13 @@ public class UITagExample extends ActionSupport implements Validateable {
     
     public List getVehicalSpecificList() {
     	OgnlValueStack stack = ServletActionContext.getValueStack(ServletActionContext.getRequest());
-    	String vehicalType = (String) stack.findValue("favouriteVehicalType");
-    	List l = (List) vehicalSpecificMap.get(vehicalType);
-    	return l;
+    	Object o = stack.findValue("top");
+    	if (o instanceof VehicalType) {
+    		VehicalType vehicalType = (VehicalType) stack.findValue("top");
+    		List l = (List) vehicalSpecificMap.get(vehicalType);
+    		return l;
+    	}
+    	return Collections.EMPTY_LIST;
     }
     
     public List getFavouriteLanguages() {
