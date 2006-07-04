@@ -7,6 +7,9 @@
 </head>
 
 <body>
+<ww:actionerror/>
+<ww:actionmessage/>
+<ww:fielderror />
 
 <ww:form action="exampleSubmit" method="post" enctype="multipart/form-data">
     <ww:textfield 
