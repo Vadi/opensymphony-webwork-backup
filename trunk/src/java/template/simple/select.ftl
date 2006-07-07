@@ -51,4 +51,7 @@
         </#if>
     >${itemValue?html}</option><#lt/>
 </@ww.iterator>
+
+<#include "/${parameters.templateDir}/simple/optgroup.ftl" />
+
 </select>

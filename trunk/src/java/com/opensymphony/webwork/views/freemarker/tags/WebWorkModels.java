@@ -59,6 +59,7 @@ public class WebWorkModels {
     protected TreeModel treeModel;
     protected UpDownSelectModel updownselect;
     protected RichTextEditorModel richtexteditorModel;
+    protected OptGroupModel optGroupModel;
     
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
@@ -420,5 +421,12 @@ public class WebWorkModels {
     		richtexteditorModel = new RichTextEditorModel(stack, req, res);
     	}
     	return richtexteditorModel;
+    }
+    
+    public OptGroupModel getOptgroup() {
+    	if (optGroupModel == null) {
+    		optGroupModel = new OptGroupModel(stack, req, res);
+    	}
+    	return optGroupModel;
     }
 }
