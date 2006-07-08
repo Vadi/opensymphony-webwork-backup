@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2003 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
@@ -28,6 +32,7 @@ import java.util.Stack;
  * This class is a good extension point when building reuseable UI components.
  *
  * @author plightbo
+ * @author tm_jee
  */
 public class Component {
     private static final Log LOG = LogFactory.getLog(Component.class);
@@ -430,7 +435,9 @@ public class Component {
      * @ww.tagattribute required="false"
      */
     public void setId(String id) {
-        this.id = id;
+    	if (id != null) {
+    		this.id = findString(id);
+    	}
     }
 
     /**
