@@ -28,6 +28,7 @@ import java.util.Map;
  * Freemarker based template engine.
  *
  * @author CameronBraid
+ * @author tm_jee
  */
 public class FreemarkerTemplateEngine extends BaseTemplateEngine {
     static Class bodyContent = null;
@@ -98,6 +99,7 @@ public class FreemarkerTemplateEngine extends BaseTemplateEngine {
         SimpleHash model = freemarkerManager.buildTemplateModel(stack, action, servletContext, req, res, config.getObjectWrapper());
 
         model.put("tag", templateContext.getTag());
+        model.put("themeProperties", getThemeProps(templateContext.getTemplate()));
 
         // the BodyContent JSP writer doesn't like it when FM flushes automatically --
         // so let's just not do it (it will be flushed eventually anyway)

@@ -1,9 +1,8 @@
+<#--
 <tr>
     <td colspan="2"><div <#rt/>
-<#if parameters.align?exists>
-    align="${parameters.align?html}"<#t/>
-</#if>
-><#t/>
+-->
+<#include "/${parameters.templateDir}/${themeProperties.parent}/controlheader.ftl" />
 <button type="submit" dojoType="BindButton"<#rt/>
 <#if parameters.form?exists && parameters.form.id?exists>
  formId="${parameters.form.id}"<#rt/>
@@ -37,4 +36,6 @@
 </#if>
 <#include "/${parameters.templateDir}/simple/scripting-events.ftl"/>
 ><#if parameters.nameValue?exists><@ww.property value="parameters.nameValue"/><#rt/></#if></button></div>
-<#include "/${parameters.templateDir}/xhtml/controlfooter.ftl" />
+<#--include "/${parameters.templateDir}/xhtml/controlfooter.ftl" /-->
+<#include "/${parameters.templateDir}/${themeProperties.parent}/controlfooter.ftl" />
+

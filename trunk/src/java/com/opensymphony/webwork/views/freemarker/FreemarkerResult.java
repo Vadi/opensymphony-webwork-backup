@@ -73,7 +73,9 @@ import java.util.Locale;
  */
 public class FreemarkerResult extends WebWorkResultSupport {
 
-    protected ActionInvocation invocation;
+	private static final long serialVersionUID = -3778230771704661631L;
+	
+	protected ActionInvocation invocation;
     protected Configuration configuration;
     protected ObjectWrapper wrapper;
 
