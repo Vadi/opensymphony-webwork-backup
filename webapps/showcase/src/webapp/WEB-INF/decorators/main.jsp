@@ -14,11 +14,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title><decorator:title default="WebWork Showcase"/></title>
-    <link href="<ww:url value='/styles/main.css'/>" rel="stylesheet" type="text/css" media="all"/>
-    <link href="<ww:url value='/webwork/niftycorners/niftyCorners.css'/>" rel="stylesheet" type="text/css"/>
-    <link href="<ww:url value='/webwork/niftycorners/niftyPrint.css'/>" rel="stylesheet" type="text/css" media="print"/>
+    <link href="<ww:url value='/styles/main.css' encode='false' includeParams='none'/>" rel="stylesheet" type="text/css" media="all"/>
+    <link href="<ww:url value='/webwork/niftycorners/niftyCorners.css' encode='false' includeParams='none'/>" rel="stylesheet" type="text/css"/>
+    <link href="<ww:url value='/webwork/niftycorners/niftyPrint.css' encode='false' includeParams='none'/>" rel="stylesheet" type="text/css" media="print"/>
 
-    <script language="JavaScript" type="text/javascript" src="<ww:url value='/webwork/niftycorners/nifty.js'/>"></script>
+    <script language="JavaScript" type="text/javascript" src="<ww:url value='/webwork/niftycorners/nifty.js' encode='false' includeParams='none'/>"></script>
 
     <script language="JavaScript" type="text/javascript">
 
@@ -47,7 +47,7 @@
             </div><!-- end branding -->
 
             <div id="search">
-                <img src="<ww:url value='/images/logo-small.png'/>" alt="WebWork logo"/>
+                <img src="<ww:url value='/images/logo-small.png' encode='false' includeParams='none'/>" alt="WebWork logo"/>
             </div><!-- end search -->
 
             <hr/>
