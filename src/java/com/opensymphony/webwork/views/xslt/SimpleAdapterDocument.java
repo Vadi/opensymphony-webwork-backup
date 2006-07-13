@@ -35,47 +35,42 @@ public class SimpleAdapterDocument extends AbstractAdapterNode implements Docume
     //~ Constructors ///////////////////////////////////////////////////////////
 
     public SimpleAdapterDocument(
-        AdapterFactory adapterFactory, AdapterNode parent, String propertyName, Object value)
-    {
-        setContext( adapterFactory, parent, propertyName, value );
+            AdapterFactory adapterFactory, AdapterNode parent, String propertyName, Object value) {
+        setContext(adapterFactory, parent, propertyName, value);
 
     }
 
-    public void setPropertyValue( Object prop )
-    {
-        super.setPropertyValue( prop );
+    public void setPropertyValue(Object prop) {
+        super.setPropertyValue(prop);
         rootElement = null; // recreate the root element
     }
 
     /**
      * Lazily construct the root element adapter from the value object.
      */
-    private Element getRootElement()
-    {
-        if ( rootElement != null )
+    private Element getRootElement() {
+        if (rootElement != null)
             return rootElement;
 
         Node node = getAdapterFactory().adaptNode(
-            this, getPropertyName(), getPropertyValue() );
-        if ( node instanceof Element )
-            rootElement = (Element)node;
+                this, getPropertyName(), getPropertyValue());
+        if (node instanceof Element)
+            rootElement = (Element) node;
         else
             throw new WebWorkException(
-                "Document adapter expected to wrap an Element type.  Node is not an element:" + node );
+                    "Document adapter expected to wrap an Element type.  Node is not an element:" + node);
 
         return rootElement;
     }
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    protected List getChildAdapters()
-    {
-        return Arrays.asList( new Object[] { getRootElement() } );
+    protected List getChildAdapters() {
+        return Arrays.asList(new Object[]{getRootElement()});
     }
 
     public NodeList getChildNodes() {
-        return new NodeList()
-        {
+        return new NodeList() {
             public Node item(int i) {
                 return getRootElement();
             }
@@ -174,8 +169,13 @@ public class SimpleAdapterDocument extends AbstractAdapterNode implements Docume
         return null;
     }
 
-    public Node getChildAfter( Node child ) { return null; }
-    public Node getChildBefore( Node child ) { return null; }
+    public Node getChildAfter(Node child) {
+        return null;
+    }
+
+    public Node getChildBefore(Node child) {
+        return null;
+    }
 
     // DOM level 3
 

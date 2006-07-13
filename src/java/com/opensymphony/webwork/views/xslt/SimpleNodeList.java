@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class SimpleNodeList implements NodeList {
     //~ Instance fields ////////////////////////////////////////////////////////
-	private Log log = LogFactory.getLog(SimpleNodeList.class);
+    private Log log = LogFactory.getLog(SimpleNodeList.class);
 
     private List nodes;
 
@@ -31,24 +31,22 @@ public class SimpleNodeList implements NodeList {
 
     //~ Methods ////////////////////////////////////////////////////////////////
 
-    public int getLength()
-	{
-		if ( log.isTraceEnabled() )
-			log.trace( "getLength: " + nodes.size() );
-		return nodes.size();
-	}
+    public int getLength() {
+        if (log.isTraceEnabled())
+            log.trace("getLength: " + nodes.size());
+        return nodes.size();
+    }
 
     public Node item(int i) {
-		log.trace( "getItem: " + i );
+        log.trace("getItem: " + i);
         return (Node) nodes.get(i);
     }
 
-	public String toString()
-	{
-		StringBuffer sb = new StringBuffer( "SimpleNodeList: [" );
-		for ( int i = 0; i < getLength(); i++ )
-			sb.append( item( i ).getNodeName() + "," );
-		sb.append( "]" );
-		return sb.toString();
-	}
+    public String toString() {
+        StringBuffer sb = new StringBuffer("SimpleNodeList: [");
+        for (int i = 0; i < getLength(); i++)
+            sb.append(item(i).getNodeName() + ",");
+        sb.append("]");
+        return sb.toString();
+    }
 }

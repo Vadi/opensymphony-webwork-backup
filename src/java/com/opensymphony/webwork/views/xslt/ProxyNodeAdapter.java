@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.xslt;
 
 import org.apache.commons.logging.Log;
@@ -12,110 +16,102 @@ import org.w3c.dom.*;
  *
  * @author Pat Niemeyer (pat@pat.net)
  */
-public abstract class ProxyNodeAdapter extends AbstractAdapterNode
-{
-	private Log log = LogFactory.getLog(this.getClass());
+public abstract class ProxyNodeAdapter extends AbstractAdapterNode {
+    private Log log = LogFactory.getLog(this.getClass());
 
-	public ProxyNodeAdapter( AdapterFactory factory, AdapterNode parent, Node value )
-	{
-		setContext( factory, parent, "document"/*propname unused*/, value );
-		log.debug( "proxied node is: " + value );
-		log.debug( "node class is: " + value.getClass() );
-		log.debug( "node type is: " + value.getNodeType() );
-		log.debug( "node name is: " + value.getNodeName() );
-	}
+    public ProxyNodeAdapter(AdapterFactory factory, AdapterNode parent, Node value) {
+        setContext(factory, parent, "document"/*propname unused*/, value);
+        log.debug("proxied node is: " + value);
+        log.debug("node class is: " + value.getClass());
+        log.debug("node type is: " + value.getNodeType());
+        log.debug("node name is: " + value.getNodeName());
+    }
 
-	/**
-	 * Get the proxied Node value
-	 */
-	protected Node node() {
-		return (Node)getPropertyValue();
-	}
+    /**
+     * Get the proxied Node value
+     */
+    protected Node node() {
+        return (Node) getPropertyValue();
+    }
 
-	/**
-	 * Get and adapter to wrap the proxied node.
-	 * @param node
-	 */
-	protected Node wrap( Node node ) {
-		return getAdapterFactory().proxyNode( this, node );
-	}
-	protected NamedNodeMap wrap( NamedNodeMap nnm ) {
-		return getAdapterFactory().proxyNamedNodeMap( this, nnm );
-	}
-	//protected NodeList wrap( NodeList nl ) { }
+    /**
+     * Get and adapter to wrap the proxied node.
+     *
+     * @param node
+     */
+    protected Node wrap(Node node) {
+        return getAdapterFactory().proxyNode(this, node);
+    }
 
-	//protected Node unwrap( Node child ) {
-	//	return ((ProxyNodeAdapter)child).node();
-	//}
+    protected NamedNodeMap wrap(NamedNodeMap nnm) {
+        return getAdapterFactory().proxyNamedNodeMap(this, nnm);
+    }
+    //protected NodeList wrap( NodeList nl ) { }
 
-	// Proxied Node methods
+    //protected Node unwrap( Node child ) {
+    //	return ((ProxyNodeAdapter)child).node();
+    //}
 
-	public String getNodeName()
-	{
-		log.trace( "getNodeName" );
-		return node().getNodeName();
-	}
+    // Proxied Node methods
 
-	public String getNodeValue() throws DOMException
-	{
-		log.trace("getNodeValue");
-		return node().getNodeValue();
-	}
+    public String getNodeName() {
+        log.trace("getNodeName");
+        return node().getNodeName();
+    }
 
-	public short getNodeType()
-	{
-		if ( log.isTraceEnabled() )
-			log.trace( "getNodeType: " +getNodeName() +": "+ node().getNodeType() );
-		return node().getNodeType();
-	}
+    public String getNodeValue() throws DOMException {
+        log.trace("getNodeValue");
+        return node().getNodeValue();
+    }
 
-	public NamedNodeMap getAttributes()
-	{
-		NamedNodeMap nnm = wrap( node().getAttributes() );
-		if ( log.isTraceEnabled() )
-			log.trace( "getAttributes: " + nnm );
-		return nnm;
-	}
+    public short getNodeType() {
+        if (log.isTraceEnabled())
+            log.trace("getNodeType: " + getNodeName() + ": " + node().getNodeType());
+        return node().getNodeType();
+    }
 
-	public boolean hasChildNodes()
-	{
-		log.trace("hasChildNodes");
-		return node().hasChildNodes();
-	}
+    public NamedNodeMap getAttributes() {
+        NamedNodeMap nnm = wrap(node().getAttributes());
+        if (log.isTraceEnabled())
+            log.trace("getAttributes: " + nnm);
+        return nnm;
+    }
 
-	public boolean isSupported( String s, String s1 )
-	{
-		log.trace("isSupported");
-		// Is this ok?  What kind of features are they asking about?
-		return node().isSupported( s, s1 );
-	}
+    public boolean hasChildNodes() {
+        log.trace("hasChildNodes");
+        return node().hasChildNodes();
+    }
 
-	public String getNamespaceURI()
-	{
-		log.trace("getNamespaceURI");
-		return node().getNamespaceURI();
-	}
+    public boolean isSupported(String s, String s1) {
+        log.trace("isSupported");
+        // Is this ok?  What kind of features are they asking about?
+        return node().isSupported(s, s1);
+    }
 
-	public String getPrefix()
-	{
-		log.trace("getPrefix");
-		return node().getPrefix();
-	}
+    public String getNamespaceURI() {
+        log.trace("getNamespaceURI");
+        return node().getNamespaceURI();
+    }
 
-	public String getLocalName()
-	{
-		log.trace("getLocalName");
-		return node().getLocalName();
-	}
+    public String getPrefix() {
+        log.trace("getPrefix");
+        return node().getPrefix();
+    }
 
-	public boolean hasAttributes()
-	{
-		log.trace("hasAttributes");
-		return node().hasAttributes();
-	}
+    public String getLocalName() {
+        log.trace("getLocalName");
+        return node().getLocalName();
+    }
 
-	// End proxied Node methods
+    public boolean hasAttributes() {
+        log.trace("hasAttributes");
+        return node().hasAttributes();
+    }
 
-	public String toString() { return "ProxyNode for: "+node(); }
+    // End proxied Node methods
+
+    public String toString() {
+        return "ProxyNode for: " + node();
+    }
 }
 
