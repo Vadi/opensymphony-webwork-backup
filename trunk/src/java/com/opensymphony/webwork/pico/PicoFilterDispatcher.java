@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.pico;
 
 import com.opensymphony.webwork.dispatcher.FilterDispatcher;
+import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.xwork.ObjectFactory;
 import org.nanocontainer.nanowar.ServletRequestContainerLauncher;
 import org.picocontainer.defaults.ObjectReference;
@@ -30,7 +31,7 @@ public class PicoFilterDispatcher extends FilterDispatcher {
         try {
             containerLauncher.startContainer();
         } catch (ServletException e) {
-            throw new RuntimeException("Could not start pico container", e);
+            throw new WebWorkException("Could not start pico container", e);
         }
 
         return containerLauncher;

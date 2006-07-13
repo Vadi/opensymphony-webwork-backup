@@ -1,6 +1,7 @@
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.webwork.dispatcher.RequestMap;
 import com.opensymphony.webwork.views.jsp.TagUtils;
@@ -177,7 +178,7 @@ public class ActionComponent extends Component {
         if (actualName == null) {
             String message = "Unable to find value for name " + name;
             LOG.error(message);
-            throw new RuntimeException(message);
+            throw new WebWorkException(message);
         }
 
         // handle "name!method" convention.

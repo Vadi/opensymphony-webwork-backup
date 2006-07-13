@@ -8,6 +8,7 @@ import com.opensymphony.xwork.interceptor.PreResultListener;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -196,7 +197,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
                     locks.remove(o);
                     o.notify();
 
-                    throw new RuntimeException("Deadlock in session lock");
+                    throw new WebWorkException("Deadlock in session lock");
                 }
                 o.wait(10000);
             }

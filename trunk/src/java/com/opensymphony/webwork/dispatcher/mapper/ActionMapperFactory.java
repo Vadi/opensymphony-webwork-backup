@@ -2,6 +2,7 @@ package com.opensymphony.webwork.dispatcher.mapper;
 
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.xwork.ObjectFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,7 +38,7 @@ public class ActionMapperFactory {
             } catch (Exception e) {
                 String msg = "Could not create ActionMapper: WebWork will *not* work!";
                 LOG.fatal(msg, e);
-                throw new RuntimeException(msg, e);
+                throw new WebWorkException(msg, e);
             }
         }
     }

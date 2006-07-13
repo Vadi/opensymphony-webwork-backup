@@ -4,6 +4,7 @@
 package com.opensymphony.webwork.sitegraph;
 
 import com.opensymphony.webwork.sitegraph.renderers.DOTRenderer;
+import com.opensymphony.webwork.WebWorkException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -92,7 +93,7 @@ public class SiteGraph {
             try {
                 writer = new FileWriter(output + "/out.dot");
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new WebWorkException(e);
             }
         }
 

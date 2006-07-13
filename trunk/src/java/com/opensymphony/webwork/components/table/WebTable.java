@@ -2,6 +2,7 @@ package com.opensymphony.webwork.components.table;
 
 import com.opensymphony.webwork.components.GenericUIBean;
 import com.opensymphony.webwork.components.table.renderer.CellRenderer;
+import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,7 +82,7 @@ public class WebTable extends GenericUIBean {
                 }
             } catch (Exception e) {
                 LOG.error(e);
-                throw new RuntimeException("Error with WebTable: " + toString(e));
+                throw new WebWorkException("Error with WebTable: " + toString(e));
             }
         }
 

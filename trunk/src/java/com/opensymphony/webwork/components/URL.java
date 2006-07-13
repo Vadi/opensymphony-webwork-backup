@@ -9,6 +9,7 @@ import com.opensymphony.webwork.portlet.context.PortletActionContext;
 import com.opensymphony.webwork.portlet.util.PortletUrlHelper;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.webwork.dispatcher.DispatcherUtils;
+import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.XWorkContinuationConfig;
 import com.opensymphony.xwork.ActionContext;
@@ -235,7 +236,7 @@ public class URL extends Component {
                 writer.write(result);
             } catch (IOException e) {
                 e.printStackTrace();
-                throw new RuntimeException("IOError: " + e.getMessage(), e);
+                throw new WebWorkException("IOError: " + e.getMessage(), e);
             }
         }
         return super.end(writer, body);

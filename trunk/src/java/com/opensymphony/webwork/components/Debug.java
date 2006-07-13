@@ -6,6 +6,7 @@ package com.opensymphony.webwork.components;
 
 import com.opensymphony.xwork.util.OgnlUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.WebWorkException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,7 +67,7 @@ public class Debug extends UIBean {
             try {
                 values = OgnlUtil.getBeanMap(o);
             } catch (Exception e) {
-                throw new RuntimeException("Caught an exception while getting the property values of " + o, e);
+                throw new WebWorkException("Caught an exception while getting the property values of " + o, e);
             }
             stackValues.add(new DebugMapEntry(o.getClass().getName(), values));
         }

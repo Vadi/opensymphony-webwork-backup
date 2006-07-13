@@ -30,6 +30,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -150,7 +151,7 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
         if (dataSource == null) {
             String message = "No dataSource specified...";
             LOG.error(message);
-            throw new RuntimeException(message);
+            throw new WebWorkException(message);
         }
 
         if (LOG.isDebugEnabled()) {

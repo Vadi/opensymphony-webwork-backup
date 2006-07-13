@@ -7,6 +7,7 @@ package com.opensymphony.webwork.lifecycle;
 import com.opensymphony.xwork.interceptor.component.ComponentConfiguration;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.interceptor.component.DefaultComponentManager;
+import com.opensymphony.webwork.WebWorkException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
@@ -99,10 +100,10 @@ public class ApplicationLifecycleListener implements ServletContextListener {
             config.loadFromXml(configXml);
         } catch (IOException ioe) {
             log.error(ioe);
-            throw new RuntimeException("Unable to load component configuration");
+            throw new WebWorkException("Unable to load component configuration");
         } catch (SAXException sae) {
             log.error(sae);
-            throw new RuntimeException("Unable to load component configuration");
+            throw new WebWorkException("Unable to load component configuration");
         }
 
         return config;

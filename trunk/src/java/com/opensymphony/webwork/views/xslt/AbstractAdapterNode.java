@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Iterator;
 
+import com.opensymphony.webwork.WebWorkException;
+
 
 /**
  * AbstractAdapterNode is the base for childAdapters that expose a read-only view
@@ -25,262 +27,262 @@ import java.util.Iterator;
  */
 public abstract class AbstractAdapterNode implements AdapterNode
 {
-	//~ Static fields/initializers /////////////////////////////////////////////
+    //~ Static fields/initializers /////////////////////////////////////////////
 
-	private static final  NamedNodeMap EMPTY_NAMEDNODEMAP =
-		new NamedNodeMap() {
-			public int getLength() { return 0; }
-			public Node item( int index ) { return null;  }
-			public Node getNamedItem( String name ) { return null;   }
-			public Node removeNamedItem( String name ) throws DOMException { return null;   }
-			public Node setNamedItem( Node arg ) throws DOMException { return null;   }
-			public Node setNamedItemNS( Node arg ) throws DOMException { return null;   }
-			public Node getNamedItemNS( String namespaceURI, String localName ) { return null;   }
-			public Node removeNamedItemNS( String namespaceURI, String localName ) throws DOMException { return null;   }
-		};
+    private static final  NamedNodeMap EMPTY_NAMEDNODEMAP =
+        new NamedNodeMap() {
+            public int getLength() { return 0; }
+            public Node item( int index ) { return null;  }
+            public Node getNamedItem( String name ) { return null;   }
+            public Node removeNamedItem( String name ) throws DOMException { return null;   }
+            public Node setNamedItem( Node arg ) throws DOMException { return null;   }
+            public Node setNamedItemNS( Node arg ) throws DOMException { return null;   }
+            public Node getNamedItemNS( String namespaceURI, String localName ) { return null;   }
+            public Node removeNamedItemNS( String namespaceURI, String localName ) throws DOMException { return null;   }
+        };
 
-	//~ Instance fields ////////////////////////////////////////////////////////
+    //~ Instance fields ////////////////////////////////////////////////////////
 
-	private List childAdapters;
-	private Log log = LogFactory.getLog(this.getClass());
-	// The domain object that we are adapting
-	private Object propertyValue;
-	private String propertyName;
-	private AdapterNode parent;
-	private AdapterFactory adapterFactory;
+    private List childAdapters;
+    private Log log = LogFactory.getLog(this.getClass());
+    // The domain object that we are adapting
+    private Object propertyValue;
+    private String propertyName;
+    private AdapterNode parent;
+    private AdapterFactory adapterFactory;
 
-	//~ Constructors ///////////////////////////////////////////////////////////
+    //~ Constructors ///////////////////////////////////////////////////////////
 
-	public AbstractAdapterNode()
-	{
-		if (LogFactory.getLog(getClass()).isDebugEnabled()) {
-			LogFactory.getLog(getClass()).debug("Creating " + this);
-		}
-	}
+    public AbstractAdapterNode()
+    {
+        if (LogFactory.getLog(getClass()).isDebugEnabled()) {
+            LogFactory.getLog(getClass()).debug("Creating " + this);
+        }
+    }
 
-	//~ Methods ////////////////////////////////////////////////////////////////
+    //~ Methods ////////////////////////////////////////////////////////////////
 
-	protected void setContext(
-		AdapterFactory adapterFactory, AdapterNode parent, String propertyName, Object value )
-	{
-		setAdapterFactory( adapterFactory );
-		setParent( parent );
-		setPropertyName( propertyName );
-		setPropertyValue( value );
-	}
+    protected void setContext(
+        AdapterFactory adapterFactory, AdapterNode parent, String propertyName, Object value )
+    {
+        setAdapterFactory( adapterFactory );
+        setParent( parent );
+        setPropertyName( propertyName );
+        setPropertyValue( value );
+    }
 
-	/**
-	 * subclasses override to produce their children
-	 * @return
-	 */
-	protected List buildChildAdapters() {
-		return new ArrayList();
-	}
+    /**
+     * subclasses override to produce their children
+     * @return
+     */
+    protected List buildChildAdapters() {
+        return new ArrayList();
+    }
 
-	/**
-	 * Lazily initialize child childAdapters
-	 */
-	protected List getChildAdapters()
-	{
-		if ( childAdapters == null )
-			childAdapters = buildChildAdapters();
-		return childAdapters;
-	}
+    /**
+     * Lazily initialize child childAdapters
+     */
+    protected List getChildAdapters()
+    {
+        if ( childAdapters == null )
+            childAdapters = buildChildAdapters();
+        return childAdapters;
+    }
 
-	public Node getChildBeforeOrAfter( Node child, boolean before )
-	{
-		log.debug( "getChildBeforeOrAfter: " );
-		List adapters = getChildAdapters();
-		log.debug( "childAdapters = "+adapters );
-		log.debug( "child = "+child );
-		int index = adapters.indexOf( child );
-		if ( index < 0 )
-			throw new RuntimeException( child + " is no child of " + this );
-		int siblingIndex = before ? index - 1 : index + 1;
-		return ( ( 0 < siblingIndex ) && ( siblingIndex < adapters.size() ) ) ?
-			( (Node)adapters.get( siblingIndex ) ) : null;
-	}
+    public Node getChildBeforeOrAfter( Node child, boolean before )
+    {
+        log.debug( "getChildBeforeOrAfter: " );
+        List adapters = getChildAdapters();
+        log.debug( "childAdapters = "+adapters );
+        log.debug( "child = "+child );
+        int index = adapters.indexOf( child );
+        if ( index < 0 )
+            throw new WebWorkException( child + " is no child of " + this );
+        int siblingIndex = before ? index - 1 : index + 1;
+        return ( ( 0 < siblingIndex ) && ( siblingIndex < adapters.size() ) ) ?
+            ( (Node)adapters.get( siblingIndex ) ) : null;
+    }
 
-	public Node getChildAfter( Node child ) {
-		log.trace("getChildafter");
-		return getChildBeforeOrAfter( child, false/*after*/ );
-	}
+    public Node getChildAfter( Node child ) {
+        log.trace("getChildafter");
+        return getChildBeforeOrAfter( child, false/*after*/ );
+    }
 
-	public Node getChildBefore(Node child)
-	{
-		log.trace("getchildbefore");
-		return getChildBeforeOrAfter( child, true/*after*/ );
-	}
+    public Node getChildBefore(Node child)
+    {
+        log.trace("getchildbefore");
+        return getChildBeforeOrAfter( child, true/*after*/ );
+    }
 
-	public NodeList getElementsByTagName(String tagName)
-	{
-		if (tagName.equals("*")) {
-			return getChildNodes();
-		} else {
-			LinkedList filteredChildren = new LinkedList();
+    public NodeList getElementsByTagName(String tagName)
+    {
+        if (tagName.equals("*")) {
+            return getChildNodes();
+        } else {
+            LinkedList filteredChildren = new LinkedList();
 
-			for ( Iterator i = getChildAdapters().iterator(); i.hasNext();) {
-				Node adapterNode = (Node)i.next();
+            for ( Iterator i = getChildAdapters().iterator(); i.hasNext();) {
+                Node adapterNode = (Node)i.next();
 
-				if (adapterNode.getNodeName().equals(tagName)) {
-					filteredChildren.add(adapterNode);
-				}
-			}
+                if (adapterNode.getNodeName().equals(tagName)) {
+                    filteredChildren.add(adapterNode);
+                }
+            }
 
-			return new SimpleNodeList(filteredChildren);
-		}
-	}
+            return new SimpleNodeList(filteredChildren);
+        }
+    }
 
-	public NodeList getElementsByTagNameNS(String string, String string1) {
-		// TODO:
-		return null;
-	}
-
-
-	// Begin Node methods
-
-	public NamedNodeMap getAttributes()
-	{
-		return EMPTY_NAMEDNODEMAP;
-	}
-
-	public NodeList getChildNodes()
-	{
-		NodeList nl = new SimpleNodeList( getChildAdapters() );
-		if ( log.isDebugEnabled() )
-			log.debug("getChildNodes for tag: "
-				+getNodeName()+" num children: " + nl.getLength() );
-		return nl;
-	}
-
-	public Node getFirstChild() {
-		return (getChildNodes().getLength() > 0) ? getChildNodes().item(0) : null;
-	}
-
-	public Node getLastChild() {
-		return (getChildNodes().getLength() > 0) ? getChildNodes().item(getChildNodes().getLength() - 1) : null;
-	}
+    public NodeList getElementsByTagNameNS(String string, String string1) {
+        // TODO:
+        return null;
+    }
 
 
-	public String getLocalName() {
-		return null;
-	}
+    // Begin Node methods
 
-	public String getNamespaceURI() {
-		return null;
-	}
+    public NamedNodeMap getAttributes()
+    {
+        return EMPTY_NAMEDNODEMAP;
+    }
 
-	public void setNodeValue(String string) throws DOMException {
-		throw operationNotSupported();
-	}
+    public NodeList getChildNodes()
+    {
+        NodeList nl = new SimpleNodeList( getChildAdapters() );
+        if ( log.isDebugEnabled() )
+            log.debug("getChildNodes for tag: "
+                +getNodeName()+" num children: " + nl.getLength() );
+        return nl;
+    }
 
-	public String getNodeValue() throws DOMException {
-		throw operationNotSupported();
-	}
+    public Node getFirstChild() {
+        return (getChildNodes().getLength() > 0) ? getChildNodes().item(0) : null;
+    }
 
-	public Document getOwnerDocument() {
-		return null;
-	}
+    public Node getLastChild() {
+        return (getChildNodes().getLength() > 0) ? getChildNodes().item(getChildNodes().getLength() - 1) : null;
+    }
 
-	public Node getParentNode() {
-		log.trace("getParentNode");
-		return getParent();
-	}
 
-	public AdapterNode getParent() { return parent; }
+    public String getLocalName() {
+        return null;
+    }
 
-	public void setParent( AdapterNode parent )
-	{
-		this.parent = parent;
-	}
+    public String getNamespaceURI() {
+        return null;
+    }
 
-	public Object getPropertyValue()
-	{
-		return propertyValue;
-	}
+    public void setNodeValue(String string) throws DOMException {
+        throw operationNotSupported();
+    }
 
-	public void setPropertyValue( Object prop )
-	{
-		this.propertyValue = prop;
-	}
+    public String getNodeValue() throws DOMException {
+        throw operationNotSupported();
+    }
 
-	public void setPrefix(String string) throws DOMException {
-		throw operationNotSupported();
-	}
+    public Document getOwnerDocument() {
+        return null;
+    }
 
-	public String getPrefix() {
-		return null;
-	}
+    public Node getParentNode() {
+        log.trace("getParentNode");
+        return getParent();
+    }
 
-	public Node getNextSibling()
-	{
-		Node next = getParent().getChildAfter(this);
-		if ( log.isTraceEnabled() ) {
-			log.trace( "getNextSibling on " + getNodeName()  +": "
-				+ ((next == null ) ? "null" : next.getNodeName()) );
-		}
+    public AdapterNode getParent() { return parent; }
 
-		return getParent().getChildAfter( this );
-	}
-	public Node getPreviousSibling() {
-		return getParent().getChildBefore( this );
-	}
+    public void setParent( AdapterNode parent )
+    {
+        this.parent = parent;
+    }
 
-	public String getPropertyName() {
-		return propertyName;
-	}
-	public void setPropertyName( String name )
-	{
-		this.propertyName = name;
-	}
+    public Object getPropertyValue()
+    {
+        return propertyValue;
+    }
 
-	public AdapterFactory getAdapterFactory() {
-		return adapterFactory;
-	}
-	public void setAdapterFactory( AdapterFactory adapterFactory )
-	{
-		this.adapterFactory = adapterFactory;
-	}
+    public void setPropertyValue( Object prop )
+    {
+        this.propertyValue = prop;
+    }
 
-	public boolean isSupported(String string, String string1) {
-		throw operationNotSupported();
-	}
+    public void setPrefix(String string) throws DOMException {
+        throw operationNotSupported();
+    }
 
-	public Node appendChild(Node node) throws DOMException {
-		throw operationNotSupported();
-	}
+    public String getPrefix() {
+        return null;
+    }
 
-	public Node cloneNode(boolean b)
-	{
-		log.trace("cloneNode");
-		throw operationNotSupported();
-	}
+    public Node getNextSibling()
+    {
+        Node next = getParent().getChildAfter(this);
+        if ( log.isTraceEnabled() ) {
+            log.trace( "getNextSibling on " + getNodeName()  +": "
+                + ((next == null ) ? "null" : next.getNodeName()) );
+        }
 
-	public boolean hasAttributes() {
-		return false;
-	}
+        return getParent().getChildAfter( this );
+    }
+    public Node getPreviousSibling() {
+        return getParent().getChildBefore( this );
+    }
 
-	public boolean hasChildNodes() {
-		return false;
-	}
+    public String getPropertyName() {
+        return propertyName;
+    }
+    public void setPropertyName( String name )
+    {
+        this.propertyName = name;
+    }
 
-	public Node insertBefore(Node node, Node node1) throws DOMException {
-		throw operationNotSupported();
-	}
+    public AdapterFactory getAdapterFactory() {
+        return adapterFactory;
+    }
+    public void setAdapterFactory( AdapterFactory adapterFactory )
+    {
+        this.adapterFactory = adapterFactory;
+    }
 
-	public void normalize()
-	{
-		log.trace("normalize");
-		throw operationNotSupported();
-	}
+    public boolean isSupported(String string, String string1) {
+        throw operationNotSupported();
+    }
 
-	public Node removeChild(Node node) throws DOMException {
-		throw operationNotSupported();
-	}
+    public Node appendChild(Node node) throws DOMException {
+        throw operationNotSupported();
+    }
 
-	public Node replaceChild(Node node, Node node1) throws DOMException {
-		throw operationNotSupported();
-	}
+    public Node cloneNode(boolean b)
+    {
+        log.trace("cloneNode");
+        throw operationNotSupported();
+    }
+
+    public boolean hasAttributes() {
+        return false;
+    }
+
+    public boolean hasChildNodes() {
+        return false;
+    }
+
+    public Node insertBefore(Node node, Node node1) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public void normalize()
+    {
+        log.trace("normalize");
+        throw operationNotSupported();
+    }
+
+    public Node removeChild(Node node) throws DOMException {
+        throw operationNotSupported();
+    }
+
+    public Node replaceChild(Node node, Node node1) throws DOMException {
+        throw operationNotSupported();
+    }
 
     // Begin DOM 3 methods
 
@@ -344,9 +346,9 @@ public abstract class AbstractAdapterNode implements AdapterNode
 
     // End node methods
 
-    protected RuntimeException operationNotSupported() {
-		return new RuntimeException("Operation not supported.");
-	}
+    protected WebWorkException operationNotSupported() {
+        return new WebWorkException("Operation not supported.");
+    }
 
-	public String toString() { return getClass() +": "+getNodeName()+" parent="+getParentNode(); }
+    public String toString() { return getClass() +": "+getNodeName()+" parent="+getParentNode(); }
 }
