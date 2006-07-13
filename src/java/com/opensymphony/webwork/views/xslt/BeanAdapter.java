@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.opensymphony.webwork.WebWorkException;
+
 
 /**
  * This class is the most general type of adapter, utilizing reflective introspection to present a DOM view of all of
@@ -157,7 +159,7 @@ public class BeanAdapter extends AbstractAdapterElement {
             return props;
         } catch (IntrospectionException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error getting property descriptors for " + bean + " : " + e.getMessage());
+            throw new WebWorkException("Error getting property descriptors for " + bean + " : " + e.getMessage());
         }
     }
 }

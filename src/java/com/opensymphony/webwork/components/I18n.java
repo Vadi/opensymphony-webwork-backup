@@ -5,6 +5,7 @@ import com.opensymphony.xwork.LocaleProvider;
 import com.opensymphony.xwork.TextProviderSupport;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.WebWorkException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -99,7 +100,7 @@ public class I18n extends Component {
         } catch (Exception e) {
             String msg = "Could not find the bundle " + name;
             LOG.error(msg, e);
-            throw new RuntimeException(msg);
+            throw new WebWorkException(msg);
         }
 
         return result;

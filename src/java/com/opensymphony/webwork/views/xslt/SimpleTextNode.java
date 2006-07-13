@@ -7,6 +7,7 @@ package com.opensymphony.webwork.views.xslt;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
+import com.opensymphony.webwork.WebWorkException;
 
 
 /**
@@ -27,7 +28,7 @@ public class SimpleTextNode extends AbstractAdapterNode implements Node, Text {
     }
 
     public void setData(String string) throws DOMException {
-        throw new RuntimeException("Operation not supported");
+        throw new WebWorkException("Operation not supported");
     }
 
     public String getData() throws DOMException {
@@ -51,23 +52,23 @@ public class SimpleTextNode extends AbstractAdapterNode implements Node, Text {
     }
 
     public void appendData(String string) throws DOMException {
-        throw new RuntimeException("Operation not supported");
+        throw new WebWorkException("Operation not supported");
     }
 
     public void deleteData(int i, int i1) throws DOMException {
-        throw new RuntimeException("Operation not supported");
+        throw new WebWorkException("Operation not supported");
     }
 
     public void insertData(int i, String string) throws DOMException {
-        throw new RuntimeException("Operation not supported");
+        throw new WebWorkException("Operation not supported");
     }
 
     public void replaceData(int i, int i1, String string) throws DOMException {
-        throw new RuntimeException("Operation not supported");
+        throw new WebWorkException("Operation not supported");
     }
 
     public Text splitText(int i) throws DOMException {
-        throw new RuntimeException("Operation not supported");
+        throw new WebWorkException("Operation not supported");
     }
 
     public String substringData(int beginIndex, int endIndex) throws DOMException {

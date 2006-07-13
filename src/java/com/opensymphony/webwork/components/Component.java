@@ -11,6 +11,7 @@ import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
+import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 import org.apache.commons.logging.Log;
@@ -127,7 +128,7 @@ public class Component {
         try {
             writer.write(body);
         } catch (IOException e) {
-            throw new RuntimeException("IOError while writing the body: " + e.getMessage(), e);
+            throw new WebWorkException("IOError while writing the body: " + e.getMessage(), e);
         }
         if (popComponentStack) {
         	popComponentStack();
@@ -177,14 +178,14 @@ public class Component {
     /**
      * Evaluates the OGNL stack to find a String value.
      * <p/>
-     * If the given expression is <tt>null</tt/> a error is logged and a <code>RuntimeException</code> is thrown
+     * If the given expression is <tt>null</tt/> a error is logged and a <code>WebWorkException</code> is thrown
      * constructed with a messaged based on the given field and errorMsg paramter.
      *
      * @param expr  OGNL expression.
-     * @param field   field name used when throwing <code>RuntimeException</code>.
-     * @param errorMsg  error message used when throwing <code>RuntimeException</code>.
+     * @param field   field name used when throwing <code>WebWorkException</code>.
+     * @param errorMsg  error message used when throwing <code>WebWorkException</code>.
      * @return  the String value found.
-     * @throws RuntimeException is thrown in case of expression is <tt>null</tt>.
+     * @throws WebWorkException is thrown in case of expression is <tt>null</tt>.
      */
     protected String findString(String expr, String field, String errorMsg) {
         if (expr == null) {
@@ -195,23 +196,23 @@ public class Component {
     }
 
     /**
-     * Constructs?a <code>RuntimeException</code> based on the given information.
+     * Constructs?a <code>WebWorkException</code> based on the given information.
      * <p/>
      * A message is constructed and logged at ERROR level before being returned
-     * as a <code>RuntimeException</code>.
-     * @param field   field name used when throwing <code>RuntimeException</code>.
-     * @param errorMsg  error message used when throwing <code>RuntimeException</code>.
+     * as a <code>WebWorkException</code>.
+     * @param field   field name used when throwing <code>WebWorkException</code>.
+     * @param errorMsg  error message used when throwing <code>WebWorkException</code>.
      * @param e  the caused exception, can be <tt>null</tt>.
-     * @return  the constructed <code>RuntimeException</code>.
+     * @return  the constructed <code>WebWorkException</code>.
      */
-    protected RuntimeException fieldError(String field, String errorMsg, Exception e) {
+    protected WebWorkException fieldError(String field, String errorMsg, Exception e) {
         String msg = "tag " + getComponentName() + ", field " + field + ": " + errorMsg;
         if (e == null) {
             LOG.error(msg);
-            return new RuntimeException(msg);
+            return new WebWorkException(msg);
         } else {
             LOG.error(msg, e);
-            return new RuntimeException(msg, e);
+            return new WebWorkException(msg, e);
         }
     }
 
@@ -249,14 +250,14 @@ public class Component {
     /**
      * Evaluates the OGNL stack to find an Object value.
      * <p/>
-     * If the given expression is <tt>null</tt/> a error is logged and a <code>RuntimeException</code> is thrown
+     * If the given expression is <tt>null</tt/> a error is logged and a <code>WebWorkException</code> is thrown
      * constructed with a messaged based on the given field and errorMsg paramter.
      *
      * @param expr  OGNL expression.
-     * @param field   field name used when throwing <code>RuntimeException</code>.
-     * @param errorMsg  error message used when throwing <code>RuntimeException</code>.
+     * @param field   field name used when throwing <code>WebWorkException</code>.
+     * @param errorMsg  error message used when throwing <code>WebWorkException</code>.
      * @return  the Object found, is never <tt>null</tt>.
-     * @throws RuntimeException is thrown in case of not found in the OGNL stack, or expression is <tt>null</tt>.
+     * @throws WebWorkException is thrown in case of not found in the OGNL stack, or expression is <tt>null</tt>.
      */
     protected Object findValue(String expr, String field, String errorMsg) {
         if (expr == null) {

@@ -5,6 +5,7 @@
 package com.opensymphony.webwork.components;
 
 import com.opensymphony.xwork.util.OgnlValueStack;
+import com.opensymphony.webwork.WebWorkException;
 
 import java.io.Writer;
 
@@ -94,7 +95,7 @@ public class Param extends Component {
                 String name = findString(this.name);
 
                 if (name == null) {
-                    throw new RuntimeException("No name found for following expression: " + name);
+                    throw new WebWorkException("No name found for following expression: " + name);
                 }
 
                 Object value = findValue(this.value);

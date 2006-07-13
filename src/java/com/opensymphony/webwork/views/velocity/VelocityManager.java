@@ -6,6 +6,7 @@ package com.opensymphony.webwork.views.velocity;
 
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
@@ -438,7 +439,7 @@ public class VelocityManager {
         } catch (Exception e) {
             String gripe = "Unable to instantiate VelocityEngine!";
             log.error(gripe, e);
-            throw new RuntimeException(gripe);
+            throw new WebWorkException(gripe);
         }
 
         return velocityEngine;

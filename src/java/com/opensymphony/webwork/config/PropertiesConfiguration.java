@@ -4,6 +4,8 @@
  */
 package com.opensymphony.webwork.config;
 
+import com.opensymphony.webwork.WebWorkException;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
@@ -13,7 +15,7 @@ import java.util.Properties;
 /**
  * A class to handle configuration via a properties file.
  *
- * @author Rickard Öberg
+ * @author Rickard ï¿½berg
  * @author Jason Carreira
  * @author Bill Lynch (docs)
  */
@@ -42,7 +44,7 @@ public class PropertiesConfiguration extends Configuration {
         try {
             settings.load(settingsUrl.openStream());
         } catch (IOException e) {
-            throw new RuntimeException("Could not load " + name + ".properties:" + e);
+            throw new WebWorkException("Could not load " + name + ".properties:" + e);
         }
     }
 
