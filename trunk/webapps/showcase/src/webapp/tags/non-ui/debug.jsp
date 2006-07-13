@@ -7,6 +7,6 @@
 
 <body>
     <h4>Click on the Debug label to see the debut output</h4>
-    <ww:debug id="blabla"/>
+    <ww:debug />
 </body>
 </html>
