@@ -152,7 +152,7 @@
         <dependency org="opensymphony" name="xwork-tiger" rev="1.2+" conf="tiger->*"/>
 
         <!-- cewolf -->
-        <dependency org="cewolf" name="cewolf" rev="0.12.0" conf="cewolf->*"/>
+        <dependency org="cewolf" name="cewolf" rev="1.0" conf="cewolf->*"/>
 
         <!-- hibernate -->
         <dependency org="hibernate" name="hibernate" rev="3.0.5" conf="hibernate->default"/>
