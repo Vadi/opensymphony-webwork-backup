@@ -8,34 +8,34 @@
  </script>
 <div dojoType="Tree"   
 	<#if parameters.blankIconSrc?exists>
-	gridIconSrcT="<@ww.url value='${parameters.blankIconSrc}' encode="false" />"
+	gridIconSrcT="<@ww.url value='${parameters.blankIconSrc}' encode="false" includeParams='none'/>"
 	</#if>
 	<#if parameters.gridIconSrcL?exists>
-	gridIconSrcL="<@ww.url value='${parameters.gridIconSrcL}' encode="false" />"
+	gridIconSrcL="<@ww.url value='${parameters.gridIconSrcL}' encode="false" includeParams='none'/>"
 	</#if>
 	<#if parameters.gridIconSrcV?exists>
-	gridIconSrcV="<@ww.url value='${parameters.gridIconSrcV}' encode="false" />"
+	gridIconSrcV="<@ww.url value='${parameters.gridIconSrcV}' encode="false" includeParams='none'/>"
 	</#if>
 	<#if parameters.gridIconSrcP?exists>
-	gridIconSrcP="<@ww.url value='${parameters.gridIconSrcP}' encode="false" />"
+	gridIconSrcP="<@ww.url value='${parameters.gridIconSrcP}' encode="false" includeParams='none'/>"
 	</#if>
 	<#if parameters.gridIconSrcC?exists>
-	gridIconSrcC="<@ww.url value='${parameters.gridIconSrcC}' encode="false" />"
+	gridIconSrcC="<@ww.url value='${parameters.gridIconSrcC}' encode="false" includeParams='none'/>"
 	</#if>
 	<#if parameters.gridIconSrcX?exists>
-	gridIconSrcX="<@ww.url value='${parameters.gridIconSrcX}' encode="false" />"
+	gridIconSrcX="<@ww.url value='${parameters.gridIconSrcX}' encode="false" includeParams='none'/>"
 	</#if>
 	<#if parameters.gridIconSrcY?exists>
-	gridIconSrcY="<@ww.url value='${parameters.gridIconSrcY}' encode="false" />"
+	gridIconSrcY="<@ww.url value='${parameters.gridIconSrcY}' encode="false" includeParams='none'/>"
 	</#if>
 	<#if parameters.gridIconSrcZ?exists>
-	gridIconSrcZ="<@ww.url value='${parameters.gridIconSrcZ}' encode="false" />"
+	gridIconSrcZ="<@ww.url value='${parameters.gridIconSrcZ}' encode="false" includeParams='none'/>"
 	</#if>
 	<#if parameters.expandIconSrcPlus?exists>
-	expandIconSrcPlus="<@ww.url value='${parameters.expandIconSrcPlus}' />"
+	expandIconSrcPlus="<@ww.url value='${parameters.expandIconSrcPlus}' includeParams='none'/>"
 	</#if>
 	<#if parameters.expandIconSrcMinus?exists>
-	expandIconSrcMinus="<@ww.url value='${parameters.expandIconSrcMinus?html}' />"
+	expandIconSrcMinus="<@ww.url value='${parameters.expandIconSrcMinus?html}'includeParams='none' />"
 	</#if>
 	<#if parameters.iconWidth?exists>
 	iconWidth="<@ww.url value='${parameters.iconWidth?html}' encode="false" />"
@@ -47,7 +47,7 @@
 	toggleDuration=${parameters.toggleDuration?c}
 	</#if>
 	<#if parameters.templateCssPath?exists>
-	templateCssPath="<@ww.url value='${parameters.templateCssPath}' encode="false" />"
+	templateCssPath="<@ww.url value='${parameters.templateCssPath}' encode="false" includeParams='none'/>"
 	</#if>
 	<#if parameters.showGrid?exists>
 	showGrid="${parameters.showGrid?default(true)?string}"

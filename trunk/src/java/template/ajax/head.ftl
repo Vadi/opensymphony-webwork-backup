@@ -9,8 +9,8 @@
     };
 </script>
 <script language="JavaScript" type="text/javascript"
-        src="<@ww.url includeParams='none' value='/webwork/dojo/dojo.js' encode='false'/>"></script>
+        src="<@ww.url includeParams='none' value='/webwork/dojo/dojo.js' encode='false' includeParams='none'/>"></script>
 <script language="JavaScript" type="text/javascript"
-        src="<@ww.url includeParams='none' value='/webwork/ajax/dojoRequire.js' encode='false'/>"></script>
+        src="<@ww.url includeParams='none' value='/webwork/ajax/dojoRequire.js' encode='false' includeParams='none'/>"></script>
 <script language="JavaScript" type="text/javascript"
-        src="<@ww.url includeParams='none' value='/webwork/CommonFunctions.js' encode='false'/>"></script>
+        src="<@ww.url includeParams='none' value='/webwork/CommonFunctions.js' encode='false' includeParams='none'/>"></script>

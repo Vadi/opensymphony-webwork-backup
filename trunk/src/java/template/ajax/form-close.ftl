@@ -63,7 +63,7 @@ var containingForm = document.getElementById("${parameters.id}");
 --><#t/>
 <#if parameters.hasTooltip?default(false)><#t/>
 	<#lt/><!-- javascript that is needed for tooltips --> 
-	<#lt/><script language="JavaScript" type="text/javascript" src="<@ww.url value='/webwork/tooltip/wz_tooltip.js' encode='false' />"></script>
+	<#lt/><script language="JavaScript" type="text/javascript" src="<@ww.url value='/webwork/tooltip/wz_tooltip.js' encode='false' includeParams='none'/>"></script>
 </#if><#t/>
 
 </table>
