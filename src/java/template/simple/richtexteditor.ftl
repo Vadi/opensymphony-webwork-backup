@@ -1,5 +1,5 @@
 <#if !stack.findValue('#richtexteditor_js_included')?exists><#t/>
-	<script type="text/javascript" src="<@ww.url value='/webwork/richtexteditor/fckeditor.js' encode='false' />"></script>
+	<script type="text/javascript" src="<@ww.url value='/webwork/richtexteditor/fckeditor.js' encode='false' includeParams='none' />"></script>
 	<#assign tmpVariable = stack.setValue('#richtexteditor_js_included', 'true') /><#t/>
 </#if><#t/>
 <script>
