@@ -124,6 +124,25 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+            <repository>
+            <id>opensymphony</id>
+            <name>opensymphony</name>
+            <layout>legacy</layout>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <url>http://maven.opensymphony.com</url>
+        </repository>
+    </repositories>
+
+    
     <dependencies>
         <!-- unreferenced dependencies:
              * clover, mockobjects, xdoclet : only needed for build
@@ -372,7 +391,8 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-mock</artifactId>
             <version>1.2</version>
-            <scope>test</scope>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- nanocontainer override -->
