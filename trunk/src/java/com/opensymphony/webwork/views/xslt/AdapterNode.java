@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.xslt;
 
 import org.w3c.dom.Node;

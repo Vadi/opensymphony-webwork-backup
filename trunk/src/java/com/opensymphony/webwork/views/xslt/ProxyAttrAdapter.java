@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2006 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.views.xslt;
 
 import org.apache.commons.logging.Log;
@@ -13,36 +17,39 @@ import org.w3c.dom.*;
  * @author Pat Niemeyer (pat@pat.net)
  *
  */
-public class ProxyAttrAdapter extends ProxyNodeAdapter implements Attr
-{
-	private Log log = LogFactory.getLog(this.getClass());
+public class ProxyAttrAdapter extends ProxyNodeAdapter implements Attr {
+    private Log log = LogFactory.getLog(this.getClass());
 
-	public ProxyAttrAdapter( AdapterFactory factory, AdapterNode parent, Attr value ) {
-		super( factory, parent, value );
-	}
+    public ProxyAttrAdapter(AdapterFactory factory, AdapterNode parent, Attr value) {
+        super(factory, parent, value);
+    }
 
-	// convenience
-	protected Attr attr() {
-		return (Attr)getPropertyValue();
-	}
+    // convenience
+    protected Attr attr() {
+        return (Attr) getPropertyValue();
+    }
 
-	// Proxied Attr methods
+    // Proxied Attr methods
 
-	public String getName() {
-		return attr().getName();
-	}
-	public boolean getSpecified() {
-		return attr().getSpecified();
-	}
-	public String getValue() {
-		return attr().getValue();
-	}
-	public void setValue( String string ) throws DOMException {
-		throw new UnsupportedOperationException();
-	}
-	public Element getOwnerElement() {
-		return (Element)getParent();
-	}
+    public String getName() {
+        return attr().getName();
+    }
+
+    public boolean getSpecified() {
+        return attr().getSpecified();
+    }
+
+    public String getValue() {
+        return attr().getValue();
+    }
+
+    public void setValue(String string) throws DOMException {
+        throw new UnsupportedOperationException();
+    }
+
+    public Element getOwnerElement() {
+        return (Element) getParent();
+    }
 
     // DOM level 3
 
@@ -58,6 +65,8 @@ public class ProxyAttrAdapter extends ProxyNodeAdapter implements Attr
 
     // End Proxied Attr methods
 
-	public String toString() { return "ProxyAttribute for: "+attr(); }
+    public String toString() {
+        return "ProxyAttribute for: " + attr();
+    }
 }
 
