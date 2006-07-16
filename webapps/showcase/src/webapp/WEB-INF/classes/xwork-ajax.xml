@@ -27,5 +27,30 @@
         <action name="Test3" class="com.opensymphony.xwork.ActionSupport">
             <result name="success">/ajax/testjs.jsp</result>
         </action>
+        
+        <action name="example4">
+        	<result type="freemarker">/ajax/tabbedpanel/example4.ftl</result>
+        </action>
+        
     </package>
+    
+    <package name="ajaxNoDecorate" namespace="/nodecorate" extends="webwork-default">
+    	<!--  example 4 -->
+        <action name="panel1" class="com.opensymphony.webwork.showcase.ajax.Example4ShowPanelAction" method="panel1">
+    		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel1.ftl</result>
+    	</action>
+    	<action name="panel2">
+    		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel2.ftl</result>
+    	</action>
+    	<action name="panel3">
+    		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel3.ftl</result>
+    	</action>
+    	<action name="panel2Submit" class="com.opensymphony.webwork.showcase.ajax.Example4ShowPanelAction" method="panel2">
+    		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel2Submit.ftl</result>
+    	</action>
+    	<action name="panel3Submit" class="com.opensymphony.webwork.showcase.ajax.Example4ShowPanelAction" method="panel3">
+    		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel3Submit.ftl</result>
+    	</action>
+    </package>
+    
 </xwork>
