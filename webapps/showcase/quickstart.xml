@@ -41,11 +41,14 @@
     </sources>
 
     <!--
-    The classDirs directories can be a jar or a directory of classes
-    -->
+    The classDirs directories can be a jar or a directory of classes.
+    The WEB-INF/classes directory for each webDir (below) will automatically
+    be added if it exists.
+
     <classDirs>
         <dir>src/webapp/WEB-INF/classes</dir>
     </classDirs>
+    -->
 
     <!--
     You can specify one or more directories where your webapp files
