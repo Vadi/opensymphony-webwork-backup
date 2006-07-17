@@ -158,6 +158,20 @@ public class Configuration implements Serializable {
             String dir = mapping.getDir();
             dir = resolveDir(dir, wd);
 
+            // if the ${dir}/WEB-INF/classes dir exists and isn't already added to the classDirs, let's do it
+            // ... but make sure we put it at the front (to obey the class loading behaviors)
+            File classDir = new File(dir, "WEB-INF/classes");
+            if (classDir.exists()) {
+                String fullClassDir = getFullPath(classDir);
+                if (this.classDirs == null) {
+                    this.classDirs = new ArrayList();
+                }
+
+                if (!classDirs.contains(fullClassDir)) {
+                    classDirs.add(0, fullClassDir);
+                }
+            }
+
             if (this.mappings == null) {
                 this.mappings = new MultiHashMap();
                 this.pathPriority = new ArrayList();
@@ -185,6 +199,10 @@ public class Configuration implements Serializable {
             file = new File(dir);
         }
 
+        return getFullPath(file);
+    }
+
+    private String getFullPath(File file) {
         try {
             return file.getCanonicalPath();
         } catch (IOException e) {
