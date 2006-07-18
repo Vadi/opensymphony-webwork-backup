@@ -12,7 +12,7 @@ important tool with your own projects):
 
  * Open a command prompt to the root directory of this distribution
  * Using a Java 5 JDK, execute:
-           java -jar webwork-2.2.jar quickstart:showcase
+           java -jar webwork-2.2.3.jar quickstart:showcase
  * Open your browser to the URL:
            http://localhost:8080/showcase
  * Feel free to edit any of the sources (.java, .jsp, etc) in:
