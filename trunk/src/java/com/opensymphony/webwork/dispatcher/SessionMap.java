@@ -39,6 +39,9 @@ public class SessionMap extends AbstractMap implements Serializable {
         this.session = request.getSession(false);
     }
 
+    /**
+     * Invalidate the http session.
+     */
     public void invalidate() {
         if (session == null) {
             return;
