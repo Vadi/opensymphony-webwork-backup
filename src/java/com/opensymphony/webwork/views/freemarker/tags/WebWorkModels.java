@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
  * Provides @ww.xxx access for various tags.
  *
  * @author plightbo
+ * @author tm_jee
  */
 public class WebWorkModels {
     protected OgnlValueStack stack;
@@ -60,6 +61,9 @@ public class WebWorkModels {
     protected UpDownSelectModel updownselect;
     protected RichTextEditorModel richtexteditorModel;
     protected OptGroupModel optGroupModel;
+    protected IfModel ifModel;
+    protected ElseIfModel elseIfModel;
+    protected ElseModel elseModel;
     
 
     public WebWorkModels(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
@@ -428,5 +432,26 @@ public class WebWorkModels {
     		optGroupModel = new OptGroupModel(stack, req, res);
     	}
     	return optGroupModel;
+    }
+    
+    public IfModel getIf() {
+    	if (ifModel == null) {
+    		ifModel = new IfModel(stack, req, res);
+    	}
+    	return ifModel;
+    }
+    
+    public ElseModel getElse() {
+    	if (elseModel ==  null) {
+    		elseModel = new ElseModel(stack, req, res);
+    	}
+    	return elseModel;
+    }
+    
+    public ElseIfModel getElseif() {
+    	if (elseIfModel == null) {
+    		elseIfModel = new ElseIfModel(stack, req, res);
+    	}
+    	return elseIfModel;
     }
 }
