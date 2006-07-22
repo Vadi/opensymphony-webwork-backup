@@ -15,6 +15,8 @@
 	<li><ww:url id="url" action="showAppendTagDemo" namespace="/tags/non-ui/appendIteratorTag" /><ww:a href="%{#url}">Append Iterator Tag</ww:a>
 	<li><ww:url id="url" action="showMergeTagDemo" namespace="/tags/non-ui/mergeIteratorTag" /><ww:a href="%{#url}">Merge Iterator Demo</ww:a>
 	<li><ww:url id="url" action="showSubsetTagDemo" namespace="/tags/non-ui/subsetIteratorTag" /><ww:a href="%{#url}">Subset Tag</ww:a>
+	<li><ww:url id="url" action="testIfTagFreemarker" namespace="/tags/non-ui/ifTag" /><ww:a href="%{#url}">If Tag (freemarker)</ww:a></li>
+	<li><ww:url id="url" action="testIfTagJsp" namespace="/tags/non-ui/ifTag" /><ww:a href="%{#url}">If Tag (JSP)</ww:a></li>
 </ul>
 
 </body>
