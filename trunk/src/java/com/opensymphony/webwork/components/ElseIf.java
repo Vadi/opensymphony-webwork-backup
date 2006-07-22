@@ -60,10 +60,6 @@ public class ElseIf extends Component {
         //make the comparision
         answer = (Boolean) findValue(test, Boolean.class);
 
-        return answer != null && answer.booleanValue();
-    }
-
-    public boolean end(Writer writer, String body) {
         if (answer == null) {
             answer = Boolean.FALSE;
         }
@@ -71,7 +67,11 @@ public class ElseIf extends Component {
         if (answer.booleanValue()) {
             stack.getContext().put(If.ANSWER, answer);
         }
+        
+        return answer != null && answer.booleanValue();
+    }
 
+    public boolean end(Writer writer, String body) {
         return super.end(writer, "");
     }
 
