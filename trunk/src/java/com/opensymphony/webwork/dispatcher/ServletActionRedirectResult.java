@@ -1,5 +1,9 @@
 package com.opensymphony.webwork.dispatcher;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
@@ -8,6 +12,8 @@ import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.views.util.UrlHelper;
 
 import com.opensymphony.xwork.ActionInvocation;
+import com.opensymphony.xwork.config.entities.ActionConfig;
+import com.opensymphony.xwork.config.entities.ResultConfig;
 
 /**
  * <!-- START SNIPPET: description -->
@@ -18,6 +24,23 @@ import com.opensymphony.xwork.ActionInvocation;
  * configuration files. This means you can change your URL patterns at any point and your application will still work.
  * It is strongly recommended that if you are redirecting to another action, you use this result rather than the
  * standard redirect result.
+ * 
+ * <p/>
+ * 
+ * To pass parameters, the &lt;param&gt; ... &lt;/param&gt; tag. The following parameters will not be 
+ * passable becuase they are part of the config param for this particular result.
+ * 
+ * <ul>
+ * 	<li>actionName</li>
+ *  <li>namespace</li>
+ *  <li>method</li>
+ *  <li>encode</li>
+ *  <li>parse</li>
+ *  <li>location</li>
+ *  <li>prependServletContext</li>
+ * </ul>
+ * 
+ * See examples below for an example of how request parameters could be passed in.
  *
  * <!-- END SNIPPET: description -->
  *
@@ -60,16 +83,41 @@ import com.opensymphony.xwork.ActionInvocation;
  *         &lt;result&gt;error.jsp&lt;/result&gt;
  *     &lt;/action&gt;
  * &lt;/package&gt;
+ * 
+ * <package name="passingRequestParameters" extends="webwork-default" namespace="/passingRequestParameters">
+ * 	  <-- Pass parameters (reportType, width and height) -->
+ *    <!-- 
+ *    The redirect-action url generated will be : 
+ *    /genReport/generateReport.action?reportType=pie&width=100&height=100
+ *    -->
+ *    <action name="gatherReportInfo" class="...">
+ *       <result name="showReportResult" type="redirect-action">
+ *       	<param name="actionName">generateReport</param>
+ *          <param name="namespace=">/genReport</param>
+ *          <param name="reportType">pie</param>
+ *          <param name="width">100</param>
+ *          <param name="height">100</param>
+ *       </result>
+ *    </action>
+ * </package>
+ * 
  * <!-- END SNIPPET: example --></pre>
  *
  * @see ActionMapper
  */
 public class ServletActionRedirectResult extends ServletRedirectResult {
-    public static final String DEFAULT_PARAM = "actionName";
+	
+	private static final long serialVersionUID = -6126889518132056284L;
+
+	public static final String DEFAULT_PARAM = "actionName";
 
     protected String actionName;
     protected String namespace;
     protected String method;
+    
+    protected List prohibitedResultParam = Arrays.asList(new String[] { 
+    		DEFAULT_PARAM, "namespace", "method", "encode", "parse", "location", 
+    		"prependServletContext" });
 
     public void execute(ActionInvocation invocation) throws Exception {
         actionName = conditionalParse(actionName, invocation);
@@ -84,9 +132,25 @@ public class ServletActionRedirectResult extends ServletRedirectResult {
         else {
         	method = conditionalParse(method, invocation);
         }
-
+        
+        Map requestParameters = new HashMap();
+        ResultConfig resultConfig = (ResultConfig) invocation.getProxy().getConfig().getResults().get(
+        		invocation.getResultCode());
+        Map resultConfigParams = resultConfig.getParams();
+        for (Iterator i = resultConfigParams.entrySet().iterator(); i.hasNext(); ) {
+        	Map.Entry e = (Map.Entry) i.next();
+        	if (! prohibitedResultParam.contains(e.getKey())) {
+        		requestParameters.put(e.getKey().toString(), 
+        				e.getValue() == null ? "": 
+        					conditionalParse(e.getValue().toString(), invocation));
+        	}
+        }
+        
         ActionMapper mapper = ActionMapperFactory.getMapper();
-        location = mapper.getUriFromActionMapping(new ActionMapping(actionName, namespace, method, null));
+        StringBuffer tmpLocation = new StringBuffer(mapper.getUriFromActionMapping(new ActionMapping(actionName, namespace, method, null)));
+        UrlHelper.buildParametersString(requestParameters, tmpLocation, "&");
+        
+        location = tmpLocation.toString();
 
         super.execute(invocation);
     }
