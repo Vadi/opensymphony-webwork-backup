@@ -28,6 +28,7 @@ public class DispatcherUtilsTest extends WebWorkTestCase {
 
 	public void testDefaultResurceBundlePropertyLoaded() throws Exception {
         Locale.setDefault(Locale.US); // force to US locale as we also have _de and _da properties
+        DispatcherUtils.setInstance(null);
         DispatcherUtils.initialize(new MockServletContext());
 		
 		// some i18n messages from xwork-messages.properties
@@ -48,7 +49,8 @@ public class DispatcherUtilsTest extends WebWorkTestCase {
 		
 		Configuration.set(WebWorkConstants.WEBWORK_I18N_ENCODING, "utf-8");
 		
-		
+		DispatcherUtils.setInstance(null);
+		DispatcherUtils.initialize(new MockServletContext());
 		DispatcherUtils du = DispatcherUtils.getInstance();
 		du.prepare(req, res);
 		
@@ -62,7 +64,8 @@ public class DispatcherUtilsTest extends WebWorkTestCase {
 		req.setContentType("multipart/form-data");
 		Configuration.set(WebWorkConstants.WEBWORK_I18N_ENCODING, "utf-8");
 		
-		
+		DispatcherUtils.setInstance(null);
+		DispatcherUtils.initialize(new MockServletContext());
 		DispatcherUtils du = DispatcherUtils.getInstance();
 		du.prepare(req, res);
 		
