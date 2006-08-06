@@ -6,11 +6,17 @@ package com.opensymphony.webwork.dispatcher;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletContext;
 
+import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.WebWorkTestCase;
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-
-import junit.framework.TestCase;
 
 /**
  * Test case for DispatcherUtils.
@@ -18,7 +24,7 @@ import junit.framework.TestCase;
  * @author tm_jee
  * @version $Date$ $Id$
  */
-public class DispatcherUtilsTest extends TestCase {
+public class DispatcherUtilsTest extends WebWorkTestCase {
 
 	public void testDefaultResurceBundlePropertyLoaded() throws Exception {
         Locale.setDefault(Locale.US); // force to US locale as we also have _de and _da properties
@@ -36,4 +42,30 @@ public class DispatcherUtilsTest extends TestCase {
 				"Error uploading: some error messages");
 	}
 	
+	public void testPrepareSetEncodingProperly() throws Exception {
+		HttpServletRequest req = new MockHttpServletRequest();
+		HttpServletResponse res = new MockHttpServletResponse();
+		
+		Configuration.set(WebWorkConstants.WEBWORK_I18N_ENCODING, "utf-8");
+		
+		
+		DispatcherUtils du = DispatcherUtils.getInstance();
+		du.prepare(req, res);
+		
+		assertEquals(req.getCharacterEncoding(), "utf-8");
+	}
+	
+	public void testPrepareSetEncodingPropertyWithMultipartRequest() throws Exception {
+		MockHttpServletRequest req = new MockHttpServletRequest();
+		MockHttpServletResponse res = new MockHttpServletResponse();
+		
+		req.setContentType("multipart/form-data");
+		Configuration.set(WebWorkConstants.WEBWORK_I18N_ENCODING, "utf-8");
+		
+		
+		DispatcherUtils du = DispatcherUtils.getInstance();
+		du.prepare(req, res);
+		
+		assertEquals(req.getCharacterEncoding(), "utf-8");
+	}
 }
