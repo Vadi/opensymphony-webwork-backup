@@ -129,7 +129,29 @@ public class FreemarkerResult extends WebWorkResultSupport {
         if (preTemplateProcess(template, model)) {
             try {
                 // Process the template
-                template.process(model, getWriter());
+                // First, get the writer
+                Writer writer = null;
+                boolean useOutputStream = false;
+                try {
+                    writer = getWriter();
+                }
+                catch (IllegalStateException ise) {
+                    // Getting the writer failed, try using getOutputStream()
+                    // This can happen on some application servers such as WebLogic 8.1
+                    useOutputStream = true;
+                }
+                if (useOutputStream) {
+                    // Use a StringWriter as a buffer to write the template output to
+                    writer = new java.io.StringWriter();
+                    template.process(model, writer);
+                    // Then write the contents of the writer to the OutputStream
+                    java.io.OutputStream os = ServletActionContext.getResponse().getOutputStream();
+                    os.write(writer.toString().getBytes());
+                }
+                else {
+                    // Process the template with the normal writer since it was available
+                    template.process(model, writer);
+                }
             } finally {
                 // Give subclasses a chance to hook into postprocessing
                 postTemplateProcess(template, model);
