@@ -33,6 +33,8 @@ import java.util.StringTokenizer;
  * <p/>
  * Your action just needs a setArticleId() method, and requests such as /article/1, /article/2, etc will all map
  * to that URL pattern.
+ * <p/>
+ * <b>Note: The RestfulActionMapper is not supported if you use the (deprecated) ServletDispatcher!</b>
  *
  * @author <a href="mailto:cameron@datacodex.net">Cameron Braid</a>
  * @author <a href="mailto:jerome.bernard@xtremejava.com">Jerome Bernard</a>
