@@ -26,6 +26,8 @@ import java.util.*;
 /**
  * <!-- START SNIPPET: javadoc -->
  * <p>Include a servlet's output (result of servlet or a JSP page).</p>
+ * <p>Note: Any additional params supplied to the included page are <b>not</b> accessible within the rendered page
+ * through the &lt;ww:property...&gt; tag!</p>
  * <!-- END SNIPPET: javadoc -->
  *
  *
@@ -66,6 +68,7 @@ import java.util.*;
  * @author <a href="mailto:scott@atlassian.com">Scott Farquhar</a>
  * @author Rene Gielen
  * @author tm_jee
+ * @author Rainer Hermanns
  * @version $Revision$
  * @since 2.2
  *
@@ -197,7 +200,7 @@ public class Include extends Component {
     public void addParameter(String key, Object value) {
         // don't use the default implementation of addParameter,
         // instead, include tag requires that each parameter be a list of objects,
-        // just like the HTTP servlet interfaces are (String[]) 
+        // just like the HTTP servlet interfaces are (String[])
         if (value != null) {
             List currentValues = (List) parameters.get(key);
 
