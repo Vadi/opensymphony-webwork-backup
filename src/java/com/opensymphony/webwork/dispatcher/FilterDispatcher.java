@@ -121,7 +121,7 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
         String param = filterConfig.getInitParameter("packages");
-        String packages = "com.opensymphony.webwork.static template";
+        String packages = "com.opensymphony.webwork.static template com.opensymphony.webwork.interceptor.debugging";
         if (param != null) {
             packages = param + " " + packages;
         }

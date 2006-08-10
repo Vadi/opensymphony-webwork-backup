@@ -8,6 +8,7 @@ import com.opensymphony.webwork.ServletActionContext;
 
 import javax.servlet.jsp.PageContext;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,10 +18,10 @@ import java.util.Set;
  * <p/>
  * The scopes are the ones known in the web world.:
  * <ul>
- *   <li>Page scope</li>
- *   <li>Request scope</li>
- *   <li>Session scope</li>
- *   <li>Application scope</li>
+ * <li>Page scope</li>
+ * <li>Request scope</li>
+ * <li>Session scope</li>
+ * <li>Application scope</li>
  * </ul>
  * A object is searched in the order above, starting from page and ending at application scope.
  *
@@ -56,7 +57,7 @@ public class AttributeMap implements Map {
     }
 
     public Set entrySet() {
-        throw new UnsupportedOperationException(UNSUPPORTED);
+        return Collections.EMPTY_SET;
     }
 
     public Object get(Object key) {
@@ -75,9 +76,9 @@ public class AttributeMap implements Map {
                 return application.get(key);
             }
         } else {
-            try{
+            try {
                 return pc.findAttribute(key.toString());
-            }catch (NullPointerException npe){
+            } catch (NullPointerException npe) {
                 return null;
             }
         }
@@ -86,7 +87,7 @@ public class AttributeMap implements Map {
     }
 
     public Set keySet() {
-        throw new UnsupportedOperationException(UNSUPPORTED);
+        return Collections.EMPTY_SET;
     }
 
     public Object put(Object key, Object value) {
@@ -111,7 +112,7 @@ public class AttributeMap implements Map {
     }
 
     public Collection values() {
-        throw new UnsupportedOperationException(UNSUPPORTED);
+        return Collections.EMPTY_SET;
     }
 
     private PageContext getPageContext() {
