@@ -206,7 +206,9 @@ public class Component {
      * @return  the constructed <code>WebWorkException</code>.
      */
     protected WebWorkException fieldError(String field, String errorMsg, Exception e) {
-        String msg = "tag " + getComponentName() + ", field " + field + ": " + errorMsg;
+        String msg = "tag '" + getComponentName() + "', field '" + field + ( id != null ?"', id '" + id:"") +
+                ( parameters != null && parameters.containsKey("name")?"', name '" + parameters.get("name"):"") +
+                "': " + errorMsg;
         if (e == null) {
             LOG.error(msg);
             return new WebWorkException(msg);
