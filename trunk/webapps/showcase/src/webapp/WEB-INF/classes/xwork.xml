@@ -57,7 +57,7 @@
 
         <action name="list" class="com.opensymphony.webwork.showcase.action.SkillAction" method="list">
             <result>/empmanager/listSkills.jsp</result>
-            <interceptor-ref name="basicStack"/>
+            <interceptor-ref name="defaultStack"/>
         </action>
         <action name="edit" class="com.opensymphony.webwork.showcase.action.SkillAction">
             <result>/empmanager/editSkill.jsp</result>
