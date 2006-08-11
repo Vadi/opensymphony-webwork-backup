@@ -90,6 +90,14 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
         DispatcherUtils du = DispatcherUtils.getInstance();
         du.prepare(request, response);
 
+        try {
+            request = du.wrapRequest(request, getServletContext());
+        } catch (IOException e) {
+            String message = "Could not wrap servlet request with MultipartRequestWrapper!";
+            LOG.error(message, e);
+            throw new ServletException(message, e);
+        }
+        
         ActionMapping mapping = ActionMapperFactory.getMapper().getMapping(request);
         if (mapping == null) {
             try {
@@ -98,14 +106,6 @@ public class ServletDispatcher extends HttpServlet implements WebWorkStatics {
                 LOG.error("Could not send 404 after not finding any ActionMapping", e);
             }
             return;
-        }
-
-        try {
-            request = du.wrapRequest(request, getServletContext());
-        } catch (IOException e) {
-            String message = "Could not wrap servlet request with MultipartRequestWrapper!";
-            LOG.error(message, e);
-            throw new ServletException(message, e);
         }
 
         du.serviceAction(request, response, getServletContext(), mapping);

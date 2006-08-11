@@ -91,6 +91,7 @@ import java.text.SimpleDateFormat;
  * com.opensymphony.webwork.lifecycle.LifecycleListener} in web.xml. See the IoC docs for more information. <p/>
  *
  * @author Patrick Lightbody
+ * @author tm_jee
  * @see com.opensymphony.webwork.lifecycle.LifecycleListener
  * @see ActionMapper
  * @see ActionContextCleanUp
@@ -156,6 +157,7 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         // prepare the request no matter what - this ensures that the proper character encoding
         // is used before invoking the mapper (see WW-9127)
         DispatcherUtils du = DispatcherUtils.getInstance();
+        du.prepare(request, response);
         try {
         	// Wrap request first, just in case it is multipart/form-data
         	// parameters might not be accessible through before encoding (ww-1278)
@@ -165,7 +167,7 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
             LOG.error(message, e);
             throw new ServletException(message, e);
         }
-        du.prepare(request, response);
+        
 
         ActionMapper mapper = ActionMapperFactory.getMapper();
         ActionMapping mapping = mapper.getMapping(request);
