@@ -150,7 +150,8 @@ public class DispatcherUtils {
         }
 
         //check for configuration reloading
-        if ("true".equalsIgnoreCase(Configuration.getString(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD))) {
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD) && 
+        		"true".equalsIgnoreCase(Configuration.getString(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD))) {
             FileManager.setReloadingConfigs(true);
         }
 
