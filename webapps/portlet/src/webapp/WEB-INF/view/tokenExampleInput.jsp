@@ -18,3 +18,4 @@
 	<ww:textfield label="The value to submit" name="theValue" value=""/>
 	<ww:submit value="Submit the form"/>
 </ww:form>
+<a href="<ww:url action="index"/>"/>Back to front page</a>

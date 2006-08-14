@@ -3,3 +3,5 @@
     <@ww.textfield label="Last name" name="lastName"/>
     <@ww.submit value="Say hello!"/>
 </@ww.form>
+
+<a href="<@ww.url action="index"/>">Back to front page</a>

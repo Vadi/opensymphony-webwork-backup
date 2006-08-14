@@ -27,3 +27,5 @@
 </cewolf:chart>
 <p/>
 <cewolf:img chartid="line" renderer="/cewolf" width="400" height="300"/> <cewolf:img chartid="pie" renderer="/cewolf" width="400" height="300"/>
+
+<a href="<ww:url action="index"/>">Back to front page</a>

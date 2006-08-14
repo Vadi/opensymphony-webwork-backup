@@ -6,3 +6,4 @@
 	<ww:textfield label="Last name" name="lastName" value="%{lastName}"/>
 	<ww:submit value="Submit the form"/>
 </ww:form>
+<a href="<ww:url action="index"/>">Back to front page</a>
