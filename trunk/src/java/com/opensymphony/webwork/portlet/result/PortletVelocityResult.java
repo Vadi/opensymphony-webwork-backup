@@ -152,6 +152,8 @@ public class PortletVelocityResult extends WebWorkResultSupport {
                 contentType = contentType + ";charset=" + encoding;
             }
 
+            response.setContentType(contentType);
+
             VelocityManager velocityManager = VelocityManager.getInstance();
             Template t = getTemplate(stack,
                     velocityManager.getVelocityEngine(), invocation,
@@ -159,10 +161,9 @@ public class PortletVelocityResult extends WebWorkResultSupport {
 
             Context context = createContext(velocityManager, stack, request,
                     response, finalLocation);
+
             Writer writer = new OutputStreamWriter(response.getOutputStream(),
                     encoding);
-
-            response.setContentType(contentType);
 
             t.merge(context, writer);
 
