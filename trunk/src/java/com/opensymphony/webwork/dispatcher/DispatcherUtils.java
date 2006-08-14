@@ -22,8 +22,8 @@ import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.util.*;
-import com.opensymphony.xwork2.util.location.Location;
-import com.opensymphony.xwork2.util.location.LocationUtils;
+import com.opensymphony.xwork.util.location.Location;
+import com.opensymphony.xwork.util.location.LocationUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -445,14 +445,14 @@ public class DispatcherUtils {
                 freemarker.template.Configuration config = FreemarkerManager.getInstance().getConfiguration(ctx);
                 Template template = config.getTemplate("/com/opensymphony/webwork/dispatcher/error.ftl");
 
-                List<Throwable> chain = new ArrayList<Throwable>();
+                List chain = new ArrayList();
                 Throwable cur = e;
                 chain.add(cur);
                 while ((cur = cur.getCause()) != null) {
                     chain.add(cur);
                 }
 
-                HashMap<String,Object> data = new HashMap<String,Object>();
+                HashMap data = new HashMap();
                 data.put("exception", e);
                 data.put("unknown", Location.UNKNOWN);
                 data.put("chain", chain);
