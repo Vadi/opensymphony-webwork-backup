@@ -4,7 +4,7 @@
  */
 package com.opensymphony.webwork.portlet.dispatcher;
 
-import com.opensymphony.xwork.ActionSupport;
+import com.opensymphony.xwork.Action;
 
 /**
  * When a portlet is targetted for an <code>event</code>, the portlet will receive two 
@@ -22,7 +22,8 @@ import com.opensymphony.xwork.ActionSupport;
  * 
  * @author Nils-Helge Garli
  */
-public class DirectRenderFromEventAction extends ActionSupport {
+public class DirectRenderFromEventAction implements Action {
+    
     private String location = null;
 
     /**
@@ -41,5 +42,12 @@ public class DirectRenderFromEventAction extends ActionSupport {
      */
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    /**
+     * @see com.opensymphony.xwork.Action#execute()
+     */
+    public String execute() throws Exception {
+        return SUCCESS;
     }
 }

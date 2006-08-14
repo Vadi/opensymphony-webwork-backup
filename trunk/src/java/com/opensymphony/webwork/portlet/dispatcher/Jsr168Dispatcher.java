@@ -30,6 +30,7 @@ import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.ApplicationMap;
+import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.webwork.dispatcher.RequestMap;
 import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
@@ -148,6 +149,8 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
     private Map actionMap = new HashMap(3);
 
     private String portletNamespace = null;
+    
+    private boolean devMode = false;
 
     /**
      * Initialize the portlet with the init parameters from <tt>portlet.xml</tt>
@@ -188,6 +191,12 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
                 .getString(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD))) {
             FileManager.setReloadingConfigs(true);
         }
+        
+        if ("true".equals(Configuration.get(WebWorkConstants.WEBWORK_DEVMODE))) {
+            devMode = true;
+            Configuration.set(WebWorkConstants.WEBWORK_I18N_RELOAD, "true");
+            Configuration.set(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD, "true");
+        }
 
         if (Configuration.isSet(WebWorkConstants.WEBWORK_OBJECTFACTORY)) {
             String className = (String) Configuration
@@ -218,6 +227,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
                         + ". Using default ObjectFactory.", e);
             }
         }
+        DispatcherUtils.setPortletSupportActive(true);
     }
 
     /**
@@ -342,6 +352,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
         }
         extraContext.put(ActionContext.LOCALE, locale);
 
+        extraContext.put(ActionContext.DEV_MODE, Boolean.valueOf(devMode));
         extraContext.put(WebWorkConstants.WEBWORK_PORTLET_CONTEXT, getPortletContext());
         extraContext.put(REQUEST, request);
         extraContext.put(RESPONSE, response);
@@ -405,7 +416,6 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
                 ActionProxy action = (ActionProxy) request.getPortletSession()
                         .getAttribute(EVENT_ACTION);
                 if (action != null) {
-                    Action currentAction = (Action)proxy.getInvocation().getAction();
                     OgnlValueStack stack = proxy.getInvocation().getStack();
                     Object top = stack.pop();
                     stack.push(action.getInvocation().getAction());
