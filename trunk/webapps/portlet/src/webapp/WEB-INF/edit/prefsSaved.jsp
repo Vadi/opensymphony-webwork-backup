@@ -1,5 +1,5 @@
-<%@ taglib prefix="pw" uri="/portletwork" %>
+<%@ taglib prefix="ww" uri="/webwork" %>
 
 The preferences has been saved.
 
-<a href="<pw:url value="index.action"/>">Back</a>
+<a href="<ww:url value="index.action"/>">Back</a>
