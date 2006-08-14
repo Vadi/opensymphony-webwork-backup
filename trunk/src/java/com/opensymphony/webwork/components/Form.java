@@ -83,6 +83,8 @@ public class Form extends ClosingUIBean {
     public static final String OPEN_TEMPLATE = "form";
     public static final String TEMPLATE = "form-close";
 
+    private int sequence = 0;
+    
     protected String onsubmit;
     protected String action;
     protected String target;
@@ -377,6 +379,17 @@ public class Form extends ClosingUIBean {
         }
 
         return validators;
+    }
+    
+    /**
+     * Get a incrementing sequence unique to this <code>Form</code> component.
+     * It is used by <code>Form</code> component's child that might need a 
+     * sequence to make them unique.
+     * 
+     * @return int 
+     */
+    protected int getSequence() {
+    	return sequence++;
     }
 
 
