@@ -9,6 +9,7 @@ import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.views.freemarker.FreemarkerManager;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
 import com.opensymphony.webwork.dispatcher.multipart.MultiPartRequest;
@@ -21,6 +22,8 @@ import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.util.*;
+import com.opensymphony.xwork2.util.location.Location;
+import com.opensymphony.xwork2.util.location.LocationUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,9 +33,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
+
+import freemarker.template.Template;
 
 /**
  * A utility class whereby FilterDispatcher delegate most of its tasks to. A static
@@ -80,23 +83,23 @@ public class DispatcherUtils {
     }
 
     protected void cleanup() {
-    	ObjectFactory objectFactory = ObjectFactory.getObjectFactory();
-    	if (objectFactory == null) {
-    		LOG.warn("Object Factory is null, something is seriously wrong, no clean up will be performed");
-    	}
-    	if (objectFactory instanceof ObjectFactoryDestroyable) {
-    		try {
-    			((ObjectFactoryDestroyable)objectFactory).destroy();
-    		}
-    		catch(Exception e) {
-    			// catch any exception that may occured during destroy() and log it
-    			LOG.error("exception occurred while destroying ObjectFactory ["+objectFactory+"]", e);
-    		}
-    	}
+        ObjectFactory objectFactory = ObjectFactory.getObjectFactory();
+        if (objectFactory == null) {
+            LOG.warn("Object Factory is null, something is seriously wrong, no clean up will be performed");
+        }
+        if (objectFactory instanceof ObjectFactoryDestroyable) {
+            try {
+                ((ObjectFactoryDestroyable)objectFactory).destroy();
+            }
+            catch(Exception e) {
+                // catch any exception that may occured during destroy() and log it
+                LOG.error("exception occurred while destroying ObjectFactory ["+objectFactory+"]", e);
+            }
+        }
     }
 
     protected void init(ServletContext servletContext) {
-    	boolean reloadi18n = Boolean.valueOf((String) Configuration.get(WebWorkConstants.WEBWORK_I18N_RELOAD)).booleanValue();
+        boolean reloadi18n = Boolean.valueOf((String) Configuration.get(WebWorkConstants.WEBWORK_I18N_RELOAD)).booleanValue();
         LocalizedTextUtil.setReloadBundles(reloadi18n);
 
         if (Configuration.isSet(WebWorkConstants.WEBWORK_OBJECTFACTORY)) {
@@ -150,8 +153,8 @@ public class DispatcherUtils {
         }
 
         //check for configuration reloading
-        if (Configuration.isSet(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD) && 
-        		"true".equalsIgnoreCase(Configuration.getString(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD))) {
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD) &&
+                "true".equalsIgnoreCase(Configuration.getString(WebWorkConstants.WEBWORK_CONFIGURATION_XML_RELOAD))) {
             FileManager.setReloadingConfigs(true);
         }
 
@@ -228,11 +231,11 @@ public class DispatcherUtils {
             }
         } catch (ConfigurationException e) {
             LOG.error("Could not find action", e);
-            sendError(request, response, HttpServletResponse.SC_NOT_FOUND, e);
+            sendError(request, response, context, HttpServletResponse.SC_NOT_FOUND, e);
         } catch (Exception e) {
             String msg = "Could not execute action";
             LOG.error(msg, e);
-            throw new ServletException(msg, e);
+            sendError(request, response, context, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e);
         }
     }
 
@@ -434,19 +437,49 @@ public class DispatcherUtils {
      * @param code     the HttpServletResponse error code (see {@link javax.servlet.http.HttpServletResponse} for possible error codes).
      * @param e        the Exception that is reported.
      */
-    public void sendError(HttpServletRequest request, HttpServletResponse response, int code, Exception e) {
-        try {
-            // send a http error response to use the servlet defined error handler
-            // make the exception availible to the web.xml defined error page
-            request.setAttribute("javax.servlet.error.exception", e);
+    public void sendError(HttpServletRequest request, HttpServletResponse response, ServletContext ctx, int code, Exception e) {
+        if (devMode) {
+            response.setContentType("text/html");
 
-            // for compatibility
-            request.setAttribute("javax.servlet.jsp.jspException", e);
+            try {
+                freemarker.template.Configuration config = FreemarkerManager.getInstance().getConfiguration(ctx);
+                Template template = config.getTemplate("/com/opensymphony/webwork/dispatcher/error.ftl");
 
-            // send the error response
-            response.sendError(code, e.getMessage());
-        } catch (IOException e1) {
-            // we're already sending an error, not much else we can do if more stuff breaks
+                List<Throwable> chain = new ArrayList<Throwable>();
+                Throwable cur = e;
+                chain.add(cur);
+                while ((cur = cur.getCause()) != null) {
+                    chain.add(cur);
+                }
+
+                HashMap<String,Object> data = new HashMap<String,Object>();
+                data.put("exception", e);
+                data.put("unknown", Location.UNKNOWN);
+                data.put("chain", chain);
+                data.put("locator", new Locator());
+                template.process(data, response.getWriter());
+                response.getWriter().close();
+            } catch (Exception exp) {
+                try {
+                    response.sendError(code, "Unable to show problem report: " + exp);
+                } catch (IOException ex) {
+                    // we're already sending an error, not much else we can do if more stuff breaks
+                }
+            }
+        } else {
+            try {
+                // send a http error response to use the servlet defined error handler
+                // make the exception availible to the web.xml defined error page
+                request.setAttribute("javax.servlet.error.exception", e);
+
+                // for compatibility
+                request.setAttribute("javax.servlet.jsp.jspException", e);
+
+                // send the error response
+                response.sendError(code, e.getMessage());
+            } catch (IOException e1) {
+                // we're already sending an error, not much else we can do if more stuff breaks
+            }
         }
     }
 
@@ -465,5 +498,12 @@ public class DispatcherUtils {
      */
     public static void setPortletSupportActive(boolean portletSupportActive) {
         DispatcherUtils.portletSupportActive = portletSupportActive;
+    }
+
+   /** Simple accessor for a static method */
+    public class Locator {
+        public Location getLocation(Throwable t) {
+            return LocationUtils.getLocation(t);
+        }
     }
 }
