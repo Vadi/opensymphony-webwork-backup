@@ -170,18 +170,6 @@ public class DispatcherUtils {
             LOG.debug("Parameter access work-around disabled.");
         }
 
-        // Check wether portlet support is active or not by trying to get "javax.portlet.PortletRequest"
-        try {
-            Class clazz = ClassLoaderUtil.loadClass("javax.portlet.PortletRequest", DispatcherUtils.class);
-            portletSupportActive = true;
-            if (LOG.isInfoEnabled()) {
-                LOG.info("Found portlet-api. Activating webwork's portlet support");
-            }
-        } catch (Exception e) {
-            if (LOG.isInfoEnabled()) {
-                LOG.info("Could not load portlet-api, disabling webwork's portlet support.");
-            }
-        }
     }
 
     /**
@@ -471,4 +459,11 @@ public class DispatcherUtils {
         return portletSupportActive;
     }
 
+    /**
+     * Set the flag that portlet support is active or not.
+     * @param portletSupportActive <tt>true</tt> or <tt>false</tt>
+     */
+    public static void setPortletSupportActive(boolean portletSupportActive) {
+        DispatcherUtils.portletSupportActive = portletSupportActive;
+    }
 }
