@@ -77,7 +77,11 @@
         <!-- prepare the template project -->
         <webapp name="blank"/>
         <copy todir="${dist}/webapps/blank">
-            <fileset dir="webapps/blank/" includes="*.iml" />
+            <fileset dir="webapps/blank/">
+                <include name="blank.iml" />
+                <include name=".project" />
+                <include name=".classpath" />
+            </fileset>
         </copy>
 
         <!-- prepare each tutorial/example -->
