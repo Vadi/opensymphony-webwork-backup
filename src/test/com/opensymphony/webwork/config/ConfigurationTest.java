@@ -20,6 +20,7 @@ import java.util.Locale;
 public class ConfigurationTest extends WebWorkTestCase {
 
     public void testConfiguration() {
+        assertEquals("get", Configuration.getString(WebWorkConstants.WEBWORK_URL_INCLUDEPARAMS));
         assertEquals("12345", Configuration.getString(WebWorkConstants.WEBWORK_MULTIPART_MAXSIZE));
         assertEquals("\temp", Configuration.getString(WebWorkConstants.WEBWORK_MULTIPART_SAVEDIR));
 
