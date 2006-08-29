@@ -10,6 +10,8 @@ import com.opensymphony.webwork.portlet.util.PortletUrlHelper;
 import com.opensymphony.webwork.views.util.UrlHelper;
 import com.opensymphony.webwork.dispatcher.DispatcherUtils;
 import com.opensymphony.webwork.WebWorkException;
+import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.XWorkContinuationConfig;
 import com.opensymphony.xwork.ActionContext;
@@ -146,7 +148,9 @@ public class URL extends Component {
         // this at start so body params can override any of these they wish.
         try {
             // ww-1266
-            String includeParams = GET;
+            String includeParams =
+                    Configuration.isSet(WebWorkConstants.WEBWORK_URL_INCLUDEPARAMS) ?
+                            Configuration.getString(WebWorkConstants.WEBWORK_URL_INCLUDEPARAMS).toLowerCase() : GET;
 
             if (this.includeParams != null) {
                 includeParams = findString(this.includeParams);
