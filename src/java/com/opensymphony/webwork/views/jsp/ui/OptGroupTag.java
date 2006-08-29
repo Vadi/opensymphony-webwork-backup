@@ -22,6 +22,8 @@ public class OptGroupTag extends ComponentTagSupport {
 	private static final long serialVersionUID = 7367401003498678762L;
 
 	protected String list;
+	protected String listKey;
+	protected String listValue;
 	protected String label;
 	protected String disabled;
 	
@@ -36,6 +38,8 @@ public class OptGroupTag extends ComponentTagSupport {
 		optGroup.setList(list);
 		optGroup.setLabel(label);
 		optGroup.setDisabled(disabled);
+		optGroup.setListKey(listKey);
+		optGroup.setListValue(listValue);
 	}
 	
 	public void setList(String list) {
@@ -49,4 +53,12 @@ public class OptGroupTag extends ComponentTagSupport {
 	public void setDisabled(String disabled) {
 		this.disabled = disabled;
 	}
+
+    public void setListKey(String listKey) {
+        this.listKey = listKey;
+    }
+
+    public void setListValue(String listValue) {
+        this.listValue = listValue;
+    }
 }
