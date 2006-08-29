@@ -26,6 +26,7 @@ public final class WebWorkConstants {
 
     public static final String WEBWORK_URL_HTTP_PORT = "webwork.url.http.port";
     public static final String WEBWORK_URL_HTTPS_PORT = "webwork.url.https.port";
+    public static final String WEBWORK_URL_INCLUDEPARAMS = "webwork.url.includeParams";
 
     public static final String WEBWORK_OBJECTFACTORY = "webwork.objectFactory";
     public static final String WEBWORK_OBJECTTYPEDETERMINER = "webwork.objectTypeDeterminer";
