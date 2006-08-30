@@ -11,7 +11,7 @@
 </head>
 <body>
 <p>
-This is a simple jsp to test the If Tag. There's 18 combination being tested. 
+This is a simple jsp to test the If Tag. There's quite a few combination being tested. 
 The characters in bold an non-bold should be the same.
 </p>
 
