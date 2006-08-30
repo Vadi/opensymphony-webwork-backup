@@ -5,7 +5,7 @@
 <body>
 <p>
 This is a simple freemarker template to test the If Tag (using freemarker directive).
-There's 18 combination being tested. The characters in bold and non-bold should be the same.
+There's quite a few combination being tested. The characters in bold and non-bold should be the same.
 </p>	
 	
 	
