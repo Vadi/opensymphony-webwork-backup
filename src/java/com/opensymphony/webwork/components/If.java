@@ -76,6 +76,7 @@ public class If extends Component {
     }
 
     public boolean end(Writer writer, String body) {
+        stack.getContext().put(ANSWER, answer);
         return super.end(writer, body);
     }
 }
