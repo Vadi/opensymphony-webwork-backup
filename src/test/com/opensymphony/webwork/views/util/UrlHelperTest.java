@@ -12,6 +12,8 @@ import com.opensymphony.webwork.config.Configuration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.opensymphony.webwork.views.util.UrlHelper;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -268,6 +270,20 @@ public class UrlHelperTest extends WebWorkTestCase {
     	assertEquals(result.get("aaa"), "aaaval");
     	assertEquals(result.get("bbb"), "bbbval");
     	assertEquals(result.get("ccc"), "");
+    }
+    
+    public void testParseEmptyQuery() throws Exception {
+    	Map result = UrlHelper.parseQueryString("");
+    	
+    	assertNotNull(result);
+    	assertEquals(result.size(), 0);
+    }
+    
+    public void testParseNullQuery() throws Exception {
+    	Map result = UrlHelper.parseQueryString(null);
+    	
+    	assertNotNull(result);
+    	assertEquals(result.size(), 0);
     }
 
     public void testTranslateAndEncode() throws Exception {
