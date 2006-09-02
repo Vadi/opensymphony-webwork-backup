@@ -100,6 +100,17 @@
 
     <releases>
         <release>
+            <version>2.2.4</version>
+            <date>09/02/2006</date>
+            <jiraId>21670</jiraId>
+            <downloads>
+                <download>
+                    <url>https://webwork.dev.java.net/files/documents/693/40014/webwork-2.2.4.zip</url>
+                    <name>Full release</name>
+                </download>
+            </downloads>
+        </release>
+        <release>
             <version>2.2.3</version>
             <date>08/23/2006</date>
             <jiraId>21640</jiraId>
