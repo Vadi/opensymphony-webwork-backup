@@ -199,10 +199,50 @@
         </zip>
     </target>
 
-    <target name="dist" depends="common.dist" description="generate distribution zip file">
+    <target name="dist" depends="jar, docs, predist" description="generate distribution zip file">
+        <copy todir="${dist}">
+            <fileset dir="${build}">
+                <include name="*.jar"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${dist}/src">
+            <fileset dir="${src}"/>
+        </copy>
+
+        <mkdir dir="${dist}/lib"/>
+        <copy todir="${dist}/lib">
+            <fileset dir="${lib}">
+                <exclude name="**/no_dist/**"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${dist}">
+            <fileset dir="${basedir}">
+                <include name="build.*"/>
+                <include name="osbuild.*"/>
+                <include name="ivy*.*"/>
+                <include name="pom.*"/>
+                <include name="readme.txt"/>
+                <include name="license.txt"/>
+            </fileset>
+        </copy>
+
         <propertyfile file="${dist}/build.properties">
             <entry key="skip.ivy" value="true"/>
         </propertyfile>
+
+        <!-- give a chance for project builds to do more before the zip is made. -->
+        <antcall target="predist.zip"/>
+
+        <zip destfile="${build}/${name}-${version}.zip">
+					<zipfileset prefix="${name}-${version}" dir="${dist}">
+            <exclude name="docs/clover/**/*"/>
+            <exclude name="docs/junit/**/*"/>
+        	</zipfileset>
+        </zip>
+
+        <move file="${build}/${name}-${version}.zip" todir="${dist}" />
     </target>
 
     <target name="clean" depends="common.clean">
