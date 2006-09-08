@@ -20,6 +20,9 @@ import java.util.Map;
  * <p/> There's a hook (fall back method) called <code>performFallbackConversion</code> of which 
  * could be used to perform some fallback conversion if <code>convertValue</code> method of this 
  * failed. By default it just ask its super class (Ognl's DefaultTypeConverter) to do the conversion.
+ * 
+ * <p/> To allow WebWork to recongnize that a converison error has occurred, throw an XWorkException or 
+ * preferable a TypeConversionException.
  *
  * <!-- END SNIPPET: javadoc -->
  * 
