@@ -84,22 +84,22 @@ import com.opensymphony.xwork.config.entities.ResultConfig;
  *     &lt;/action&gt;
  * &lt;/package&gt;
  * 
- * <package name="passingRequestParameters" extends="webwork-default" namespace="/passingRequestParameters">
- * 	  <-- Pass parameters (reportType, width and height) -->
- *    <!-- 
+ * &lt;package name="passingRequestParameters" extends="webwork-default" namespace="/passingRequestParameters"&gt;
+ * 	  &lt;-- Pass parameters (reportType, width and height) --&gt;
+ *    &lt;!-- 
  *    The redirect-action url generated will be : 
  *    /genReport/generateReport.action?reportType=pie&width=100&height=100
- *    -->
- *    <action name="gatherReportInfo" class="...">
- *       <result name="showReportResult" type="redirect-action">
- *       	<param name="actionName">generateReport</param>
- *          <param name="namespace=">/genReport</param>
- *          <param name="reportType">pie</param>
- *          <param name="width">100</param>
- *          <param name="height">100</param>
- *       </result>
- *    </action>
- * </package>
+ *    --&gt;
+ *    &lt;action name="gatherReportInfo" class="..."&gt;
+ *       &lt;result name="showReportResult" type="redirect-action"&gt;
+ *       	&lt;param name="actionName"&gt;generateReport&lt;/param&gt;
+ *          &lt;param name="namespace="&gt;/genReport&lt;/param&gt;
+ *          &lt;param name="reportType"&gt;pie&lt;/param&gt;
+ *          &lt;param name="width"&gt;100&lt;/param&gt;
+ *          &lt;param name="height"&gt;100&lt;/param&gt;
+ *       &lt;/result&gt;
+ *    &lt;/action&gt;
+ * &lt;/package&gt;
  * 
  * <!-- END SNIPPET: example --></pre>
  *
