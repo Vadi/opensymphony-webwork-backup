@@ -500,10 +500,14 @@ public class DispatcherUtils {
         DispatcherUtils.portletSupportActive = portletSupportActive;
     }
 
-   /** Simple accessor for a static method */
+    /** Simple accessor for a static method */
     public class Locator {
-        public Location getLocation(Throwable t) {
-            return LocationUtils.getLocation(t);
+        public Location getLocation(Object obj) {
+            Location loc = LocationUtils.getLocation(obj);
+            if (loc == null) {
+                return Location.UNKNOWN;
+            }
+            return loc;
         }
     }
 }
