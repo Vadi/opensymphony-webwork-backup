@@ -66,11 +66,11 @@ public class SessionMap extends AbstractMap implements Serializable {
             return;
         }
         synchronized (session) {
-        	String[] attributeNames = (String[]) Collections.list(
-            		session.getAttributeNames()).toArray(new String[0]);
-            for (int a=0; a< attributeNames.length; a++) {
-            	session.removeAttribute(attributeNames[a]);
-            }
+        	entries = null;
+        	Enumeration attributeNamesEnum = session.getAttributeNames();
+        	while(attributeNamesEnum.hasMoreElements()) {
+        		session.removeAttribute((String) attributeNamesEnum.nextElement());
+        	}
         }
     }
 
