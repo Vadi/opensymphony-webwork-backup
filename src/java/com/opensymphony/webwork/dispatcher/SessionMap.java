@@ -17,6 +17,8 @@ import java.util.*;
  *
  * @author <a href="mailto:rickard@middleware-company.com">Rickard �berg</a>
  * @author Bill Lynch (docs)
+ * @author tm_jee
+ * @version $Date$ $Id$
  */
 public class SessionMap extends AbstractMap implements Serializable {
 
@@ -63,14 +65,11 @@ public class SessionMap extends AbstractMap implements Serializable {
         if (session == null ) {
             return;
         }
-
         synchronized (session) {
-            if (entries != null ) {
-                for ( Iterator iter = entries.iterator(); iter.hasNext(); ) {
-                    Object key = iter.next();
-                    session.removeAttribute(key.toString());
-                }
-                entries = null;
+        	String[] attributeNames = (String[]) Collections.list(
+            		session.getAttributeNames()).toArray(new String[0]);
+            for (int a=0; a< attributeNames.length; a++) {
+            	session.removeAttribute(attributeNames[a]);
             }
         }
     }
