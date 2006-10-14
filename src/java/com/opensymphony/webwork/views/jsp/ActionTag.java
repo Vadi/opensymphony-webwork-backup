@@ -13,12 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @see ActionComponent
+ * 
+ * @author tm_jee
+ * @version $Date$ $Id$
  */
 public class ActionTag extends ComponentTagSupport {
-    protected String name;
+	
+	private static final long serialVersionUID = 3489344114527444316L;
+	
+	protected String name;
     protected String namespace;
     protected boolean executeResult;
     protected boolean ignoreContextParams;
+    protected boolean flush;
+    
 
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new ActionComponent(stack, req, res);
@@ -32,6 +40,7 @@ public class ActionTag extends ComponentTagSupport {
         action.setNamespace(namespace);
         action.setExecuteResult(executeResult);
         action.setIgnoreContextParams(ignoreContextParams);
+        action.setFlush(flush);
         action.start(pageContext.getOut());
     }
 
@@ -54,5 +63,9 @@ public class ActionTag extends ComponentTagSupport {
 
     public void setIgnoreContextParams(boolean ignoreContextParams) {
         this.ignoreContextParams = ignoreContextParams;
+    }
+    
+    public void setFlush(boolean flush) {
+    	this.flush = flush;
     }
 }
