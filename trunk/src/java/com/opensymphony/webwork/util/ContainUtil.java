@@ -25,7 +25,7 @@ public class ContainUtil {
         }
 
         if (obj1 instanceof Map) {
-            if (((Map) obj1).containsValue(obj2)) {
+            if (((Map) obj1).containsKey(obj2)) {
                 //log.debug("obj1 is a map and contains obj2");
                 return true;
             }
