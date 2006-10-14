@@ -106,6 +106,7 @@ public class ActionComponent extends Component {
     protected String namespace;
     protected boolean executeResult;
     protected boolean ignoreContextParams;
+    protected boolean flush;
 
     public ActionComponent(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         super(stack);
@@ -116,11 +117,13 @@ public class ActionComponent extends Component {
     public boolean end(Writer writer, String body) {
         boolean end = super.end(writer, "", false);
         try {
-            try {
-                writer.flush();
-            } catch(IOException e) {
-                LOG.warn("Error while trying to flush writer ", e);
-            }
+        	if (flush) {
+        		try {
+        			writer.flush();
+        		} catch(IOException e) {
+        			LOG.warn("Error while trying to flush writer ", e);
+        		}
+        	}
             executeAction();
 
             if ((getId() != null) && (proxy != null)) {
@@ -277,5 +280,13 @@ public class ActionComponent extends Component {
      */
     public void setIgnoreContextParams(boolean ignoreContextParams) {
         this.ignoreContextParams = ignoreContextParams;
+    }
+    
+    /**
+     * whether the writer should be flush upon end of the action tag, default to true.
+     * @ww.tagattribute required="false" type="Boolean" default="true"
+     */
+    public void setFlush(boolean flush) {
+    	this.flush = flush;
     }
 }
