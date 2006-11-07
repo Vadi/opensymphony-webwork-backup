@@ -29,7 +29,7 @@ public class RadioTest extends AbstractUITagTest {
         tag.setPageContext(pageContext);
         tag.setLabel("mylabel");
         tag.setName("myname");
-        tag.setValue("%{'true'}");
+        tag.setValue("%{true}");
         tag.setList("map");
 
         tag.doStartTag();
