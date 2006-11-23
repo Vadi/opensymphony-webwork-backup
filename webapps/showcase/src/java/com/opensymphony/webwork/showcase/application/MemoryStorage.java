@@ -56,13 +56,15 @@ import com.opensymphony.webwork.showcase.exception.StorageException;
 import com.opensymphony.webwork.showcase.exception.UpdateException;
 import com.opensymphony.webwork.showcase.model.IdEntity;
 import com.opensymphony.webwork.showcase.application.Storage;
-import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * MemoryStorage.
@@ -73,8 +75,11 @@ import java.util.Map;
 
 public class MemoryStorage implements Storage {
 
-    private static final Logger log = Logger.getLogger(MemoryStorage.class);
+	private static final long serialVersionUID = -3950031281339525427L;
 
+	private static final Log log = LogFactory.getLog(MemoryStorage.class);
+    
+    
     private Map memory = new HashMap();
 
     private Map getEntityMap ( Class entityClass ) {
