@@ -263,7 +263,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
         }
 
         if (ses == null) {
-            LOG.debug("No HttpSession created... Cannot set session scoped variables");
+            LOG.warn("No HttpSession created... Cannot set session scoped variables");
             return;
         }
 
