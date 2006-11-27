@@ -32,6 +32,8 @@
     
     <include file="xwork-freemarker.xml" />
 
+	<include file="xwork-wizard.xml" />
+
     <package name="default" extends="webwork-default">
         <interceptors>
             <interceptor-stack name="crudStack">

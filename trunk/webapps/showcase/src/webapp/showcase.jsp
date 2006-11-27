@@ -60,6 +60,9 @@
         <!-- freemarker -->
         <li><ww:url id="url" value="/freemarker" /><ww:a href="%{#url}">Freemarker Example</ww:a></li>
         
+        <!--  wizard -->
+        <li><ww:url id="url" action="index" namespace="/wizard" /><ww:a href="%{url}">Wizard Example</ww:a>
+        
     </ul>
 </p>
 
