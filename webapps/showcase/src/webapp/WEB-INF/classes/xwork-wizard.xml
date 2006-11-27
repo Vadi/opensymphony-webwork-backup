@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE xwork PUBLIC 
+	"-//OpenSymphony Group//XWork 1.1.1//EN"
+	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+	
+<xwork>
+	<include file="webwork-default.xml" />
+	
+	<package name="wizard-default" extends="webwork-default" namespace="/wizard">
+		<action name="index">
+			<result>/wizard/index.jsp</result>
+		</action>
+	    <action name="start">
+	    	<interceptor-ref name="scope">
+				<param name="key">wizard</param>
+				<param name="type">start</param>
+			</interceptor-ref>
+	    	<result>/wizard/step1.jsp</result>
+	    </action>
+		<action name="forwardToStep2" class="com.opensymphony.webwork.showcase.wizard.WizardAction" method="forwardToStep2">
+			<interceptor-ref name="scope">
+				<param name="key">wizard</param>
+				<param name="session">name,age,telephone,gender,programmingLanguage,preferredLanguage,interest</param>
+			</interceptor-ref>
+			<interceptor-ref name="params" />
+			<result name="input">/wizard/step1.jsp</result>
+			<result name="success">/wizard/step2.jsp</result>
+		</action>
+		<action name="forwardToStep3" class="com.opensymphony.webwork.showcase.wizard.WizardAction" method="forwardToStep3">
+			<interceptor-ref name="scope">
+				<param name="key">wizard</param>
+				<param name="session">name,age,telephone,gender,programmingLanguage,preferredLanguage,interest</param>
+			</interceptor-ref>	
+			<interceptor-ref name="params" />
+			<result name="input">/wizard/step2.jsp</result>
+			<result name="success">/wizard/step3.jsp</result>
+		</action>
+		<action name="confirm" class="com.opensymphony.webwork.showcase.wizard.WizardAction" method="confirm">
+			<interceptor-ref name="scope">
+				<param name="key">wizard</param>
+				<param name="type">end</param>
+				<param name="session">name,age,telephone,gender,programmingLanguage,preferredLanguage,interest</param>
+			</interceptor-ref>
+			<interceptor-ref name="params" />
+			<result type="redirect-action" name="success">index</result>
+		</action>
+		<action name="backToStep2" class="com.opensymphony.webwork.showcase.wizard.WizardAction" method="backToStep2">
+			<interceptor-ref name="scope">
+				<param name="key">wizard</param>
+				<param name="session">name,age,telephone,gender,programmingLanguage,preferredLanguage,interest</param>
+			</interceptor-ref>
+			<interceptor-ref name="params" />
+			<result name="success">/wizard/step2.jsp</result>
+		</action>
+		<action name="backToStep1" class="com.opensymphony.webwork.showcase.wizard.WizardAction" method="backToStep1">
+			<interceptor-ref name="scope">
+				<param name="key">wizard</param>
+				<param name="session">name,age,telephone,gender,programmingLanguage,preferredLanguage,interest</param>
+			</interceptor-ref>
+			<interceptor-ref name="params" />
+			<result name="input">/wizard/step2.jsp</result>
+			<result name="success">/wizard/step1.jsp</result>
+		</action>
+	</package>
+</xwork>
+
+	
