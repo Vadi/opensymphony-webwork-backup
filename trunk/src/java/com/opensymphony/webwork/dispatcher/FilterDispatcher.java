@@ -317,6 +317,8 @@ public class FilterDispatcher implements Filter, WebWorkStatics {
         while (-1 != (n = input.read(buffer))) {
             output.write(buffer, 0, n);
         }
+	// some app server eg WebSphere6 doesn't like it if didn't flush (WW-1384)
+	output.flush();
     }
 
     protected InputStream findInputStream(String name, String packagePrefix) throws IOException {
