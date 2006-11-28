@@ -18,6 +18,41 @@ import java.util.Map;
  */
 public class ContainUtil {
 
+	/**
+     * Determine if <code>obj2</code> exists in <code>obj1</code>.
+     *
+     * <table borer="1">
+     *  <tr>
+     *      <td>Type Of obj1</td>
+     *      <td>Comparison type</td>
+     *  </tr>
+     *  <tr>
+     *      <td>null<td>
+     *      <td>always return false</td>
+     *  </tr>
+     *  <tr>
+     *      <td>Map</td>
+     *      <td>Map containsKey(obj2)</td>
+     *  </tr>
+     *  <tr>
+     *      <td>Collection</td>
+     *      <td>Collection contains(obj2)</td>
+     *  </tr>
+     *  <tr>
+     *      <td>Array</td>
+     *      <td>there's an array element (e) where e.equals(obj2)</td>
+     *  </tr>
+     *  <tr>
+     *      <td>Object</td>
+     *      <td>obj1.equals(obj2)</td>
+     *  </tr>
+     * </table>
+     *
+     *
+     * @param obj1
+     * @param obj2
+     * @return
+     */
     public static boolean contains(Object obj1, Object obj2) {
         if ((obj1 == null) || (obj2 == null)) {
             //log.debug("obj1 or obj2 are null.");
