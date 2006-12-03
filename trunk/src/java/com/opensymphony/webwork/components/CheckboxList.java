@@ -31,14 +31,14 @@ import javax.servlet.http.HttpServletResponse;
  * <!-- END SNIPPET: example2Description -->
  * 
  * <pre>
- * <!-- START SNIPPET: example2 -->
+ * <!-- START SNIPPET: anotherExample -->
  * &lt;ww:checkboxlist name="options" 
- *                              list="% { # {'FOO':'foo','BAR':'bar','BAZ':'baz','BOO':'boo' } }" 
- *                              value="% { {'FOO','BAZ' } }" /&gt;
+ *                              list="% { # { 'FOO':'foo','BAR':'bar','BAZ':'baz','BOO':'boo' } }" 
+ *                              value="% { { 'FOO','BAZ'  } }" /&gt;
  *                              
  * &lt;ww:checkboxlist name="options"
- *                              list="% { {'Foo','Bar','Baz' } }"
- *                              value="% { {'Foo','Bar' } }" /&gt;
+ *                              list="% { { 'Foo','Bar','Baz' } }"
+ *                              value="% { { 'Foo','Bar' } }" /&gt;
  *                              
  *  public class MyAction extends ActionSupport {
  *       public List&lt;Choice&gt; getChoices() {
@@ -63,7 +63,7 @@ import javax.servlet.http.HttpServletResponse;
  *                               listValue="% { 'displayName' }"
  *                               value="% { preSelectedChoices } " /&gt;
  *  
- * <!-- END SNIPPET: example2 -->
+ * <!-- END SNIPPET: anotherExample -->
  * </pre>
  *
  * @author Patrick Lightbody
