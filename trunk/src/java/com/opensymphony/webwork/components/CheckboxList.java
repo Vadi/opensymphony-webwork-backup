@@ -19,6 +19,52 @@ import javax.servlet.http.HttpServletResponse;
  * &lt;ww:checkboxlist name="foo" list="bar"/&gt;
  * <!-- END SNIPPET: example -->
  * </pre>
+ * 
+ * <!-- START SNIPPET: example2Description -->
+ * It is possible to select multiple checkboxes, by handling a List  into the value attribute.
+ * The List passed into the value attribute could be :-
+ * <ul>
+ *    <li>key if the list attribute is passed in is a Map</li>
+ *    <li>listKey properties if listKey attribute is used</li>
+ *    <li>entry/entries passed into the list attribute</li> 
+ * </ul>
+ * <!-- END SNIPPET: example2Description -->
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example2 -->
+ * &lt;ww:checkboxlist name="options" 
+ *                              list="%{#{'FOO':'foo','BAR':'bar','BAZ':'baz','BOO':'boo'}}" 
+ *                              value="%{{'FOO','BAZ'}}" /&gt;
+ *                              
+ * &lt;ww:checkboxlist name="options"
+ *                              list="%{{'Foo','Bar','Baz'}}"
+ *                              value="%{{'Foo','Bar'}}" /&gt;
+ *                              
+ *  public class MyAction extends ActionSupport {
+ *       public List<Choice> getChoices() {
+ *          .... 
+ *       }
+ *       ....                       
+ *       public List<String> getPreSelectedChoices() {
+ *          // returns a list of Choice.getKey(), which is a String
+ *          ....
+ *       }
+ *  }     
+ *   
+ *  public class Choice {
+ *      public String getKey() { ...}
+ *      public String getDisplayName() { ... }
+ *      ....
+ *  }
+ *  
+ *  <ww:checkboxlist name="myChoice"
+ *                               list="%{choices}"
+ *                               listKey="%{'key'}"
+ *                               listValue="%{'displayName'}"
+ *                               value="%{preSelectedChoices}" />
+ *  
+ * <!-- START SNIPPET: example2 -->
+ * </pre>
  *
  * @author Patrick Lightbody
  * @author Rene Gielen
