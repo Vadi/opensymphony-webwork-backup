@@ -4,8 +4,6 @@
 	
 <xwork>
 	
-	<include file="webwork-default.xml" />
-	
 	<!-- ================================== -->
 	<!-- === Package for ActionTag Demo === -->
 	<!-- ================================== -->

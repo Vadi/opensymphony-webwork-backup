@@ -5,8 +5,6 @@
 	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
 	
 <xwork>
-	<include file="webwork-default.xml" />
-	
 	<package name="actionchaining" extends="webwork-default" namespace="/actionchaining">
 		<action name="actionChain1" class="com.opensymphony.webwork.showcase.actionchaining.ActionChain1">
 			<result type="chain">actionChain2</result>		

@@ -3,8 +3,6 @@
 <!-- START SNIPPET: xworkSample -->
 
 <xwork>
-    <include file="webwork-default.xml"/>
-
     <package name="person" extends="webwork-default" namespace="/person">
         <action name="listPeople" class="com.opensymphony.webwork.showcase.person.ListPeople">
             <interceptor-ref name="validationWorkflowStack"/>

@@ -5,8 +5,6 @@
 	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
 
 <xwork>
-	<include file="webwork-default.xml" />
-
 	<package name="filedownload" extends="webwork-default" namespace="/filedownload">
 
         <default-action-ref name="download"/>
