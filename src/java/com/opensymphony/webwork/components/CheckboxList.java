@@ -63,7 +63,7 @@ import javax.servlet.http.HttpServletResponse;
  *                               listValue="%{'displayName'}"
  *                               value="%{preSelectedChoices}" />
  *  
- * <!-- START SNIPPET: example2 -->
+ * <!-- END SNIPPET: example2 -->
  * </pre>
  *
  * @author Patrick Lightbody
