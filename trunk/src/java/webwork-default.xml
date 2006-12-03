@@ -49,6 +49,7 @@
             <interceptor name="token-session" class="com.opensymphony.webwork.interceptor.TokenSessionStoreInterceptor"/>
             <interceptor name="validation" class="com.opensymphony.xwork.validator.ValidationInterceptor"/>
             <interceptor name="workflow" class="com.opensymphony.xwork.interceptor.DefaultWorkflowInterceptor"/>
+            <interceptor name="paramFilter" class="com.opensymphony.xwork.interceptor.ParameterFilterInterceptor" />
 
             <!-- Basic stack -->
             <interceptor-stack name="basicStack">
