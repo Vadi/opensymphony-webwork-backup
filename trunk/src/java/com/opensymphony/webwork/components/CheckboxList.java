@@ -41,11 +41,11 @@ import javax.servlet.http.HttpServletResponse;
  *                              value="%{{'Foo','Bar'}}" /&gt;
  *                              
  *  public class MyAction extends ActionSupport {
- *       public List<Choice> getChoices() {
+ *       public List&lt;Choice&gt; getChoices() {
  *          .... 
  *       }
  *       ....                       
- *       public List<String> getPreSelectedChoices() {
+ *       public List&lt;String&gt; getPreSelectedChoices() {
  *          // returns a list of Choice.getKey(), which is a String
  *          ....
  *       }
