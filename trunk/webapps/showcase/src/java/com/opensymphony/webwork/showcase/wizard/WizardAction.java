@@ -25,6 +25,9 @@ public class WizardAction extends ActionSupport {
 	private String interest;
 	
 	
+	// step 3
+	private Hobby hobby = new Hobby();
+	
 	
 	private static final long serialVersionUID = -8402905048868422544L;
 
@@ -40,7 +43,15 @@ public class WizardAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	public String forwardToStep4() throws Exception {
+		return SUCCESS;
+	}
+	
 	public String confirm() throws Exception {
+		return SUCCESS;
+	}
+	
+	public String backToStep3() throws Exception {
 		return SUCCESS;
 	}
 	
@@ -55,7 +66,13 @@ public class WizardAction extends ActionSupport {
 	
 	
 	
+	public Hobby getHobby() {
+		return hobby;
+	}
 	
+	public void setHobby(Hobby hobby) {
+		this.hobby = hobby;
+	}
 
 	public Integer getAge() {
 		return age;
