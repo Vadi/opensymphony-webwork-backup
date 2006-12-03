@@ -9,17 +9,11 @@
 </head>
 <body>
 
-	<ww:label name="name" label="Name" /><br/>
-	<ww:label name="age" label="Age" /><br/>
-	<ww:label name="telephone" label="Telephone" /><br/>
-	<ww:label name="gender" label="Gender" /><br/>
-	<ww:label name="programmingLanguage" label="Programming Language" /><br/>
-	<ww:label name="preferredLanguage" label="Preferred Language" /><br/>
-	<ww:label name="interest" label="Interest" /><br/>
-	
 	<ww:form method="POST" namespace="/wizard">
+		<ww:textfield label="hobby name" name="hobby.name" value="%{hobby.name}" />
+		<ww:textarea label="hobby description" name="hobby.description" value="%{hobby.description}" />
 		<ww:submit value="%{'Previous (Step 2)'}" action="backToStep2" />
-		<ww:submit value="%{'Confirm'}" action="confirm" />
+		<ww:submit value="%{'Next (Step 4)'}" action="forwardToStep4" />
 	</ww:form>
 
 </body>
