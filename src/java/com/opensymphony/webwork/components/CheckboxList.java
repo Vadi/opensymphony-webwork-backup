@@ -58,10 +58,10 @@ import javax.servlet.http.HttpServletResponse;
  *  }
  *  
  *  &lt;ww:checkboxlist name="myChoice"
- *                               list="%{choices} "
- *                               listKey="%{ 'key'}"
- *                               listValue="%{''displayName'}"
- *                               value="%{preSelectedChoices} " /&gt;
+ *                               list="%{choices}"
+ *                               listKey="%{'key'}"
+ *                               listValue="%{'displayName'}"
+ *                               value="%{preSelectedChoices}" /&gt;
  *  
  * <!-- END SNIPPET: anotherExample -->
  * </pre>
