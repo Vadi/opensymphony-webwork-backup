@@ -51,6 +51,8 @@
             <interceptor name="workflow" class="com.opensymphony.xwork.interceptor.DefaultWorkflowInterceptor"/>
             <interceptor name="paramFilter" class="com.opensymphony.xwork.interceptor.ParameterFilterInterceptor" />
             <interceptor name="paramRemover" class="com.opensymphony.xwork.interceptor.ParameterRemoverInterceptor" />
+            <interceptor name="sessionInvalidation" class="com.opensymphony.webwork.interceptor.SessionInvalidationInterceptor" />
+            
 
             <!-- Basic stack -->
             <interceptor-stack name="basicStack">
