@@ -89,12 +89,13 @@ public class BeanAdapter extends AbstractAdapterElement {
         if (props.length > 0) {
             for (int i = 0; i < props.length; i++) {
                 Method m = props[i].getReadMethod();
-                log.debug("Bean reading property method: " + m.getName());
 
                 if (m == null) {
                     //FIXME: write only property or indexed access
                     continue;
                 }
+                if (log.isDebugEnabled())
+                	log.debug("Bean reading property method: " + m.getName());
 
                 String propertyName = props[i].getName();
                 Object propertyValue;
