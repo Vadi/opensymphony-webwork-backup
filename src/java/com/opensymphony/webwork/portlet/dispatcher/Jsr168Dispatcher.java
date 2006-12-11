@@ -157,7 +157,7 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
      */
     public void init(PortletConfig cfg) throws PortletException {
         super.init(cfg);
-        LOG.debug("Initializin portlet " + getPortletName());
+        LOG.debug("Initializing portlet " + getPortletName());
         // For testability
         if (factory == null) {
             factory = ActionProxyFactory.getFactory();
@@ -228,6 +228,19 @@ public class Jsr168Dispatcher extends GenericPortlet implements WebWorkStatics,
             }
         }
         DispatcherUtils.setPortletSupportActive(true);
+    }
+    
+    /**
+     * @see javax.portlet.GenericPortlet#destroy()
+     */
+    public void destroy() { // WW-1395
+    	super.destroy();
+    	 DispatcherUtils dispatcherUtils = DispatcherUtils.getInstance();
+    	 if (dispatcherUtils == null) {
+    	      LOG.warn("something is seriously wrong, DispatcherUtil is not initialized (null) ");
+    	   } else {
+    	       dispatcherUtils.cleanup();
+    	   } 
     }
 
     /**
