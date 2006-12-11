@@ -14,6 +14,7 @@
             <result-type name="velocity" class="com.opensymphony.webwork.dispatcher.VelocityResult"/>
             <result-type name="xslt" class="com.opensymphony.webwork.views.xslt.XSLTResult"/>
             <result-type name="plaintext" class="com.opensymphony.webwork.dispatcher.PlainTextResult" />
+            <result-type name="flash" class="com.opensymphony.webwork.dispatcher.FlashResult" />
             
             <!-- Results necessary when using 'browse server' and 'upload' feature of Richtexteditor -->
             <result-type name="richtexteditorGetFolders" class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorGetFoldersResult" />
@@ -52,6 +53,7 @@
             <interceptor name="paramFilter" class="com.opensymphony.xwork.interceptor.ParameterFilterInterceptor" />
             <interceptor name="paramRemover" class="com.opensymphony.xwork.interceptor.ParameterRemoverInterceptor" />
             <interceptor name="sessionInvalidation" class="com.opensymphony.webwork.interceptor.SessionInvalidationInterceptor" />
+            <interceptor name="flash" class="com.opensymphony.webwork.interceptor.FlashInterceptor" />
             
 
             <!-- Basic stack -->
