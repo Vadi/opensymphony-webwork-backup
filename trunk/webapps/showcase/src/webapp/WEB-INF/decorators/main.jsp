@@ -76,7 +76,8 @@
                     <li><a href="<ww:url value="/token/index.jsp"/>">Token</a></li>
                     <li><a href="<ww:url value="/filedownload/index.jsp"/>">File Download</a></li>
                     <li><a href="<ww:url value="/freemarker/index.jsp" />">Freemarker</a></li>
-                    <li><a href="<ww:url action="index" namespace="/wizard" />">Wizard</a>
+                    <li><a href="<ww:url action="index" namespace="/wizard" />">Wizard</a></li>
+                    <li><a href="<ww:url action="start" namespace="/sessionInvalidation"/>">Session Invalidation</a></li>
                     <li class="last"><a href="<ww:url value="/help.jsp"/>">Help</a></li>
                 </ul>
             </div>
