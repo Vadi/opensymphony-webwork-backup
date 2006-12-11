@@ -82,7 +82,7 @@ public class DispatcherUtils {
         init(servletContext);
     }
 
-    protected void cleanup() {
+    public void cleanup() {
         ObjectFactory objectFactory = ObjectFactory.getObjectFactory();
         if (objectFactory == null) {
             LOG.warn("Object Factory is null, something is seriously wrong, no clean up will be performed");
