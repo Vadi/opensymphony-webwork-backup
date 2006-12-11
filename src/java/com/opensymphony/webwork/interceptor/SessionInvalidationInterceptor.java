@@ -46,7 +46,7 @@ import com.opensymphony.xwork.interceptor.AroundInterceptor;
  * <pre>
  * <!-- START SNIPPET: example -->
  * 
- * &lt;action name="logout"&gt;
+ * &lt;action name="logout" ... &gt;
  * 	&lt;intereptor-ref name="sessionInvalidate"&gt;
  * 	    &lt;param name="type"&gt;Now&lt;/param&gt;
  *     &lt;/interceptor-ref&gt;
@@ -55,11 +55,22 @@ import com.opensymphony.xwork.interceptor.AroundInterceptor;
  *   
  *  or 
  *  
- *  &lt;action name="sayByeByeNextRequestWillHaveSessionLost"&gt;
+ *  &lt;action name="sayByeByeNextRequestWillHaveSessionLost" ... &gt;
  *      &lt;interceptor-ref name="sessionInvalidate"&gt;
  *      	&lt;param name="type"&lt;NextRequest&lt;/param&gt;
  *      &lt;/interceptor-ref&gt;
  *      ....
+ *  &lt;/action&gt;
+ *  
+ *  &lt;!-- This is the next request, "sessionInvalidate"  will find the marker inserted
+ *          by the action above and invalidate the session --&gt;
+ *  &lt!-- The type="NoOperation" is just there so that the type is a valid one, and 
+ *         we don't get a warning log meessage --&gt;        
+ *  &lt;action name="nextRequest" ... &gt;
+ *  	&lt;interceptor-ref name="sessionInvalidate"&gt;
+ *  		&lt;param name="type"&gt;NoOperation&lt;/param&gt;
+ *     &lt;/interceptor-ref&gt;
+ *      ...
  *  &lt;/action&gt;
  * 
  * <!-- END SNIPPET: example -->
@@ -141,13 +152,11 @@ public class SessionInvalidationInterceptor extends AroundInterceptor {
 	 */
 	protected void before(ActionInvocation invocation) throws Exception {
 		SessionMap sessionMap = (SessionMap) invocation.getInvocationContext().get(ActionContext.SESSION);
-		if (NEXT_REQUEST.equalsIgnoreCase(type)) {
 			if (sessionMap.containsKey(key) && sessionMap.get(key).equals("true")) {
 				if (LOG.isDebugEnabled())
 					LOG.debug("found marker in session indicating this is the 'next request', session should be invalidated");
 				sessionMap.invalidate();
 				LOG.info("session invalidated");
 			}
-		}
 	}
 }
