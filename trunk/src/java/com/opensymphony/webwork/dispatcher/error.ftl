@@ -22,7 +22,7 @@
     <#else>
             <#assign tmploc = locator.getLocation(ex) />
             <#if (tmploc != unknown)>
-            <#assign rootloc = tmploc/>
+            	<#assign rootloc = tmploc/>
                 <#assign rootex = ex/>
             </#if>
     </#if>
@@ -64,6 +64,7 @@
 </table>
 </div>
 
+<#--
 <#if rootloc?exists>
     <#assign snippet = rootloc.getSnippet(2) />
     <#if (snippet?size > 0)>
@@ -84,6 +85,8 @@
         </div>
     </#if>
 </#if>
+-->
+
 
 <div id="stacktraces">
 <hr />
