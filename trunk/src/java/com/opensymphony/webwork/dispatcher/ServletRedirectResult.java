@@ -60,7 +60,10 @@ import javax.servlet.http.HttpServletResponse;
  * @author Patrick Lightbody
  */
 public class ServletRedirectResult extends WebWorkResultSupport {
-    private static final Log log = LogFactory.getLog(ServletRedirectResult.class);
+	
+	private static final long serialVersionUID = -4787182693920514194L;
+
+	private static final Log log = LogFactory.getLog(ServletRedirectResult.class);
 
     protected boolean prependServletContext = true;
 
