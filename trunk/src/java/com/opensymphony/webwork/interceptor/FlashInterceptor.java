@@ -44,6 +44,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * <!-- END SNIPPET: extending -->
  * 
  * 
+ * <pre>
  * <!-- START SNIPPET: example -->
  * &lt;!-- Usage 1: (Using only Flash interceptor)  --&gt;
  * &lt;action name="store" ...&gt;
@@ -75,6 +76,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * &lt;/action&gt;
  * 
  * <!-- END SNIPPET: example -->
+ * </pre>
  * 
  * 
  * @author tmjee

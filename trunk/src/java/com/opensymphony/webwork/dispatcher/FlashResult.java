@@ -10,10 +10,37 @@ import com.opensymphony.webwork.interceptor.FlashInterceptor;
 import com.opensymphony.xwork.ActionInvocation;
 
 /**
+ * <!-- START SNIPPET: description -->
  *  A flash result, that save the current action into the http session before 
  *  invoking <code>super.doExecute(...)</code>, which actually just do 
  *  a redirect to a specific location just as a normal {@link ServletRedirectResult}
  *  would.
+ *  <!-- END SNIPPET: description -->
+ *  
+ *  <!-- START SNIPPET: params -->
+ *  <ul>
+ *  	key - The key under which current action is stored in Http Session. Default to 
+ *              {@link FlashInterceptor#DEFAULT_KEY} which is the string '__flashAction'
+ *  </ul>
+ *  <!-- END SNIPPET: params -->
+ *  
+ *  <pre>
+ *  <!-- START SNIPPET: example -->
+ *  
+ *  &lt;action name="store"&gt;
+ * 	<result type="flash"&lt;/redirectToSomeWhere.jsp&lt;/result&gt;
+ * &lt;/action&gt;
+ * &lt;action name="retrieve"&gt;
+ * 	&lt;interceptor-ref name="flash"&gt;
+ *        &lt;param name="operation"&gt;Retrieve&lt;/param&gt;
+ *     &lt;/interceptor-ref&gt;
+ *     &lt;interceptor-ref name="defaultStack" /&gt;
+ *     &lt;result&gt;pageWhereWeNeedFlashActionStored.jsp&lt;/result&gt;
+ * &lt;/action&gt;
+ *  
+ *  <!-- END SNIPPET: example -->
+ *  </pre>
+ *  
  * 
  * @author Patrick Lightbody
  * @version $Date$ $Id$
