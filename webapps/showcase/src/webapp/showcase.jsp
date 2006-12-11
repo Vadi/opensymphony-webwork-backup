@@ -61,8 +61,10 @@
         <li><ww:url id="url" value="/freemarker" /><ww:a href="%{#url}">Freemarker Example</ww:a></li>
         
         <!--  wizard -->
-        <li><ww:url id="url" action="index" namespace="/wizard" /><ww:a href="%{url}">Wizard Example</ww:a>
+        <li><ww:url id="url" action="index" namespace="/wizard" /><ww:a href="%{url}">Wizard Example</ww:a></li>
         
+        <!--  session Invalidation -->
+        <li><ww:url id="url" action="start" namespace="/sessionInvalidation"/><ww:a href="%{url}">Session Invalidation Example</ww:a></li>
     </ul>
 </p>
 
