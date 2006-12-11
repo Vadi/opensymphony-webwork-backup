@@ -65,6 +65,10 @@
         
         <!--  session Invalidation -->
         <li><ww:url id="url" action="start" namespace="/sessionInvalidation"/><ww:a href="%{url}">Session Invalidation Example</ww:a></li>
+        
+        <!--  flash  -->
+        <li><ww:url id="url" action="start" namespace="/flash"/><ww:a href="%{url}">Session Invalidation Example</ww:a></li>
+        
     </ul>
 </p>
 
