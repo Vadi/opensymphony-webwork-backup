@@ -64,7 +64,7 @@ import com.opensymphony.xwork.interceptor.AroundInterceptor;
  *  
  *  &lt;!-- This is the next request, "sessionInvalidate"  will find the marker inserted
  *          by the action above and invalidate the session --&gt;
- *  &lt!-- The type="NoOperation" is just there so that the type is a valid one, and 
+ *  &lt;!-- The type="NoOperation" is just there so that the type is a valid one, and 
  *         we don't get a warning log meessage --&gt;        
  *  &lt;action name="nextRequest" ... &gt;
  *  	&lt;interceptor-ref name="sessionInvalidate"&gt;
