@@ -24,9 +24,23 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
+ * <!-- START SNIPPET: description -->
+ * 
  * Provides several different debugging screens to provide insight into the
  * data behind the page. The value of the 'debug' request parameter determines
- * the screen:
+ * the screen.
+ * <p/>
+ * This interceptor only is activated when devMode is enabled in
+ * webwork.properties. The 'debug' parameter is removed from the parameter list
+ * before the action is executed. All operations occur before the natural
+ * Result has a chance to execute. </p>
+ * 
+ * <!-- END SNIPPET: description -->
+ * 
+ * 
+ *  <!-- START SNIPPET: parameters -->
+ * The value of the 'debug' request parameter determines
+ * the screen.
  * <ul>
  * <li> <code>xml</code> - Dumps the parameters, context, session, and value
  * stack as an XML document.</li>
@@ -36,12 +50,17 @@ import java.util.*;
  * <li> <code>command</code> - Tests an OGNL expression and returns the
  * string result. Only used by the OGNL console.</li>
  * </ul>
- * <p/>
- * <p/>
- * This interceptor only is activated when devMode is enabled in
- * webwork.properties. The 'debug' parameter is removed from the parameter list
- * before the action is executed. All operations occur before the natural
- * Result has a chance to execute. </p>
+ *  <!-- END SNIPPET: parameters -->
+ * 
+ * <!-- START SNIPPET: extending -->
+ * There's no intended extension points
+ * <!-- END SNIPPET: extending -->
+ * 
+ * <pre>
+ * <!-- START SNIPPET: example -->
+ * 
+ * <!-- END SNIPPET: example -->
+ * </pre>
  */
 public class DebuggingInterceptor implements Interceptor {
 
