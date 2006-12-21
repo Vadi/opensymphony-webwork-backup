@@ -99,7 +99,25 @@
 	    	<result name="input">/validation/conversionValidationExample.jsp</result>
 	    </action>
 	    
-	    <action name="submitConversionvalidationExample" class="com.opensymphony.showcase.validation.ConversionValidationExample" method="submit">
+	    <action name="submitConversionValidationExample" class="com.opensymphony.webwork.showcase.validation.ConversionValidationExample" method="submit">
+	    		<interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="model-driven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="static-params"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+	    
 			<result name="input">/validation/conversionValidationExample.jsp</result>
 			<result name="success">/validation/successConversionValidationExample.jsp</result>	    
 	    </action>
