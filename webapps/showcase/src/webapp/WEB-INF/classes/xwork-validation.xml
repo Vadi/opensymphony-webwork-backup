@@ -92,6 +92,17 @@
 		</action>
 
 
+	    <!--  ========================== -->
+	    <!--  === Conversion Validator                     === -->
+	    <!--  ========================== -->
+	    <action name="conversionValidationExample" class="com.opensymphony.webwork.showcase.validation.ConversionValidationExample" method="input">
+	    	<result name="input">/validation/conversionValidationExample.jsp</result>
+	    </action>
+	    
+	    <action name="submitConversionvalidationExample" class="com.opensymphony.showcase.validation.ConversionValidationExample" method="submit">
+			<result name="input">/validation/conversionValidationExample.jsp</result>
+			<result name="success">/validation/successConversionValidationExample.jsp</result>	    
+	    </action>
 
     </package>
 </xwork>
