@@ -4,7 +4,7 @@
 
 <xwork>
 
-    <include file="webwork-default.xml"/>
+    <include file="webwork-default.xml" />
     
     <include file="config-browser.xml"/>
 
@@ -35,6 +35,9 @@
 	<include file="xwork-wizard.xml" />
 	
 	<include file="xwork-sessionInvalidation.xml" />
+	
+	<include file="xwork-flash.xml" />
+	
 
     <package name="default" extends="webwork-default">
         <interceptors>
