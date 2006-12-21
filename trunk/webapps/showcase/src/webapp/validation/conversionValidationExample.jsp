@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<ww:form name="submitConversionvalidationExample" namespace="/validation">
+<ww:form action="submitConversionValidationExample" namespace="/validation" method="POST">
 	<ww:textfield label="Age" name="age" />
 	<ww:textfield label="Bean Age" name="bean.age" />
 	<ww:submit />
