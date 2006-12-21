@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServletResponse;
  * @see URL
  */
 public class URLTag extends ComponentTagSupport {
-    protected String includeParams;
+	
+	private static final long serialVersionUID = 1834295238997573058L;
+	
+	protected String includeParams;
     protected String scheme;
     protected String value;
     protected String action;
@@ -28,6 +31,7 @@ public class URLTag extends ComponentTagSupport {
     protected String windowState;
     protected String portletUrlType;
     protected String anchor;
+    protected String escapeAmp;
 
     public Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new URL(stack, req, res);
@@ -53,6 +57,9 @@ public class URLTag extends ComponentTagSupport {
         }
         if (includeContext != null) {
             url.setIncludeContext(Boolean.valueOf(includeContext).booleanValue());
+        }
+        if (escapeAmp != null) {
+        	url.setEscapeAmp(Boolean.valueOf(escapeAmp).booleanValue());
         }
     }
 
@@ -99,5 +106,9 @@ public class URLTag extends ComponentTagSupport {
 
     public void setAnchor(String anchor) {
         this.anchor = anchor;
+    }
+    
+    public void setEscapeAmp(String escapeAmp) {
+    	this.escapeAmp = escapeAmp;
     }
 }

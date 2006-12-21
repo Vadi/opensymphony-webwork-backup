@@ -20,7 +20,6 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpUtils;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Collections;
@@ -133,6 +132,7 @@ public class URL extends Component {
     protected String windowState;
     protected String portletUrlType;
     protected String anchor;
+    protected boolean escapeAmp = true;
 
     public URL(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         super(stack);
@@ -219,7 +219,7 @@ public class URL extends Component {
                 result = PortletUrlHelper.buildUrl(action, namespace, parameters, portletUrlType, portletMode, windowState);
             }
             else {
-                result = determineActionURL(action, namespace, method, req, res, parameters, scheme, includeContext, encode);
+                result = determineActionURL(action, namespace, method, req, res, parameters, scheme, includeContext, encode, escapeAmp);
             }
         } else {
             if(DispatcherUtils.isPortletSupportActive() && PortletActionContext.isPortletRequest()) {
@@ -233,7 +233,7 @@ public class URL extends Component {
             	if (_value != null && _value.indexOf("?") > 0) {
             		_value = _value.substring(0, _value.indexOf("?"));
             	}
-                result = UrlHelper.buildUrl(_value, req, res, parameters, scheme, includeContext, encode);
+           		result = UrlHelper.buildUrl(_value, req, res, parameters, scheme, includeContext, encode, false, escapeAmp);
             }
         }
         if ( anchor != null && anchor.length() > 0 ) {
@@ -351,6 +351,14 @@ public class URL extends Component {
      */
     public void setAnchor(String anchor) {
         this.anchor = anchor;
+    }
+    
+    /**
+     * Whether to escape ampersand (&) to (&amp;) or not, default to true.
+     * @ww.tagattribute required="false"
+     */
+    public void setEscapeAmp(boolean escapeAmp) {
+    	this.escapeAmp = escapeAmp;
     }
 
 

@@ -319,13 +319,13 @@ public class Component {
      */
     protected String determineActionURL(String action, String namespace, String method,
                                         HttpServletRequest req, HttpServletResponse res, Map parameters, String scheme,
-                                        boolean includeContext, boolean encodeResult) {
+                                        boolean includeContext, boolean encodeResult, boolean escapeXml) {
         String finalAction = findString(action);
         String finalNamespace = determineNamespace(namespace, getStack(), req);
         ActionMapping mapping = new ActionMapping(finalAction, finalNamespace, method, parameters);
         ActionMapper mapper = ActionMapperFactory.getMapper();
         String uri = mapper.getUriFromActionMapping(mapping);
-        return UrlHelper.buildUrl(uri, req, res, parameters, scheme, includeContext, encodeResult);
+        return UrlHelper.buildUrl(uri, req, res, parameters, scheme, includeContext, encodeResult, false, escapeXml);
     }
 
     /**
