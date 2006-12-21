@@ -39,31 +39,31 @@ public class ContainUtilTest extends TestCase {
 	
 	public void testComplexList() throws Exception {
 		List l = new ArrayList();
-		l.add(new MyObject("tm_jee", Integer.valueOf(20)));
-		l.add(new MyObject("jenny", Integer.valueOf(22)));
+		l.add(new MyObject("tm_jee", Integer.valueOf("20")));
+		l.add(new MyObject("jenny", Integer.valueOf("22")));
 		
-		assertFalse(ContainUtil.contains(l, new MyObject("paul", Integer.valueOf(50))));
-		assertFalse(ContainUtil.contains(l, new MyObject("tm_jee", Integer.valueOf(44))));
-		assertTrue(ContainUtil.contains(l, new MyObject("tm_jee", Integer.valueOf(20))));
-		assertTrue(ContainUtil.contains(l, new MyObject("jenny", Integer.valueOf(22))));
+		assertFalse(ContainUtil.contains(l, new MyObject("paul", Integer.valueOf("50"))));
+		assertFalse(ContainUtil.contains(l, new MyObject("tm_jee", Integer.valueOf("44"))));
+		assertTrue(ContainUtil.contains(l, new MyObject("tm_jee", Integer.valueOf("20"))));
+		assertTrue(ContainUtil.contains(l, new MyObject("jenny", Integer.valueOf("22"))));
 	}
 	
 	public void testComplexMap() throws Exception {
 		Set s = new LinkedHashSet();
-		s.add(new MyObject("tm_jee", Integer.valueOf(20)));
-		s.add(new MyObject("jenny", Integer.valueOf(22)));
+		s.add(new MyObject("tm_jee", Integer.valueOf("20")));
+		s.add(new MyObject("jenny", Integer.valueOf("22")));
 		
-		assertFalse(ContainUtil.contains(s, new MyObject("paul", Integer.valueOf(50))));
-		assertFalse(ContainUtil.contains(s, new MyObject("tm_jee", Integer.valueOf(44))));
-		assertTrue(ContainUtil.contains(s, new MyObject("tm_jee", Integer.valueOf(20))));
-		assertTrue(ContainUtil.contains(s, new MyObject("jenny", Integer.valueOf(22))));
+		assertFalse(ContainUtil.contains(s, new MyObject("paul", Integer.valueOf("50"))));
+		assertFalse(ContainUtil.contains(s, new MyObject("tm_jee", Integer.valueOf("44"))));
+		assertTrue(ContainUtil.contains(s, new MyObject("tm_jee", Integer.valueOf("20"))));
+		assertTrue(ContainUtil.contains(s, new MyObject("jenny", Integer.valueOf("22"))));
 	}
 	
 	public void testObject() throws Exception {
 		assertFalse(ContainUtil.contains("aaa", "bbb"));
-		assertFalse(ContainUtil.contains(new MyObject("tm_jee", Integer.valueOf(22)), new MyObject("tmjee", Integer.valueOf(22))));
+		assertFalse(ContainUtil.contains(new MyObject("tm_jee", Integer.valueOf("22")), new MyObject("tmjee", Integer.valueOf("22"))));
 		assertTrue(ContainUtil.contains("apple", "apple"));
-		assertTrue(ContainUtil.contains(new MyObject("tm_jee", Integer.valueOf(22)), new MyObject("tm_jee", Integer.valueOf(22))));
+		assertTrue(ContainUtil.contains(new MyObject("tm_jee", Integer.valueOf("22")), new MyObject("tm_jee", Integer.valueOf("22"))));
 	}
 
 
