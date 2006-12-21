@@ -40,17 +40,74 @@ public class UrlHelper {
      */
     private static final int DEFAULT_HTTPS_PORT = 443;
 
+    /**
+     * Escaped Ampersand (&)
+     */
     private static final String AMP = "&amp;";
 
+    /**
+     * Build url based on arguments supplied, will include context path but does
+     * not encode result (append jsessionid).
+     * 
+     * @param action 
+     * @param request
+     * @param response
+     * @param params
+     * @return the build url
+     */
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params) {
         return buildUrl(action, request, response, params, null, true, true);
     }
     
+    /**
+     * Build url based on arguments supplied, will not include schema, host and 
+     * port in the created url.
+     * 
+     * @param action
+     * @param request
+     * @param response
+     * @param params
+     * @param scheme
+     * @param includeContext
+     * @param encodeResult
+     * @return the build url
+     */
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params, String scheme, boolean includeContext, boolean encodeResult) {
     	return buildUrl(action, request, response, params, scheme, includeContext, encodeResult, false);
     }
-
+    
+    /**
+     * Build url based on arguments supplied, will escape ampersand.
+     * 
+     * @param action
+     * @param request
+     * @param response
+     * @param params
+     * @param scheme
+     * @param includeContext
+     * @param encodeResult
+     * @param forceAddSchemeHostAndPort
+     * @return the build url
+     */
     public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params, String scheme, boolean includeContext, boolean encodeResult, boolean forceAddSchemeHostAndPort) {
+    	return buildUrl(action, request, response, params, scheme, includeContext, encodeResult, forceAddSchemeHostAndPort, true);
+    }
+
+    /**
+     * Build url based on arguments supplied.
+     * 
+     * @param action
+     * @param request
+     * @param response
+     * @param params
+     * @param scheme
+     * @param includeContext
+     * @param encodeResult
+     * @param forceAddSchemeHostAndPort
+     * @param escapeAmp
+     * @return the build url
+     */
+    public static String buildUrl(String action, HttpServletRequest request, HttpServletResponse response, Map params, String scheme, boolean includeContext, boolean encodeResult, boolean forceAddSchemeHostAndPort, boolean escapeAmp) {
         StringBuffer link = new StringBuffer();
 
         boolean changedScheme = false;
@@ -134,8 +191,12 @@ public class UrlHelper {
             }
         }
 
-        //if the action was not explicitly set grab the params from the request
-        buildParametersString(params, link);
+        if (escapeAmp) {
+        	buildParametersString(params, link);
+        }
+        else {
+        	buildParametersString(params, link, "&");
+        }
 
         String result;
 
