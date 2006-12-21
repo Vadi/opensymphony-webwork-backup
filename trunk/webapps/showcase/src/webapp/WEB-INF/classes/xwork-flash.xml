@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xwork PUBLIC 
+	"-//OpenSymphony Group//XWork 1.1.1//EN" 
+	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+	
+<xwork>
+	<package name="flash-default" namespace="/flash" extends="webwork-default">
+		<action name="start">
+			<result>/flash/index.jsp</result>		
+		</action>
+		<action name="flashUsingInterceptor" class="com.opensymphony.webwork.showcase.flash.FlashAction" method="flashUsingInterceptor">
+			<interceptor-ref name="flash">
+				<param name="operation">Store</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result type="redirect">/flash/afterRedirect.action</result>
+		</action>
+		<action name="flashUsingResult" class="com.opensymphony.webwork.showcase.flash.FlashAction" method="flashUsingResult">
+			<result type="flash">/flash/afterRedirect.action</result>		
+		</action>
+		<action name="afterRedirect" class="com.opensymphony.webwork.showcase.flash.FlashAction" method="afterRedirect">
+			<interceptor-ref name="flash">
+				<param name="operation">Retrieve</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result>/flash/afterRedirect.jsp</result>
+		</action>
+	</package>
+</xwork>	
+
+
