@@ -59,7 +59,7 @@ import java.util.*;
  * <pre>
  * <!-- START SNIPPET: example -->
  * &lt;action ...&gt;
- *    &lt;interceptor-ref name="debuging" /&gt;
+ *    &lt;interceptor-ref name="debugging" /&gt;
  *    ....
  * &lt;/action&gt;
  * <!-- END SNIPPET: example -->
