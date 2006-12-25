@@ -121,6 +121,18 @@
 			<result name="input">/validation/conversionValidationExample.jsp</result>
 			<result name="success">/validation/successConversionValidationExample.jsp</result>	    
 	    </action>
+	    
+	    
+	    <!-- =======================  -->
+	    <!-- === Collection Valdiator Example ===  -->
+	    <!-- ======================= -->
+	    <action name="collectionValidationExample" class="com.opensymphony.webwork.showcase.validation.CollectionValidatorExample" method="input">
+	    	<result>/validation/collectionValidatorExample.jsp</result>
+	    </action>
+	    <action name="submitCollectionValidationExample" class="com.opensymphony.webwork.showcase.validation.CollectionValidatorExample" method="submit">
+			<result name="input">/validation/collectionValidatorExample.jsp</result>
+			<result name="success">/validation/successCollectionValidatorExample.jsp</result>	    
+	    </action>
 
     </package>
 </xwork>
