@@ -12,7 +12,7 @@
 </table>
 </form>
 
-<script>
+<script type="text/javascript">
 	function customOnsubmit() { }
 </script>
 

@@ -1,8 +1,8 @@
-<script src="/webwork/xhtml/validation.js"></script>
+<script type="text/javascript" src="/webwork/xhtml/validation.js"></script>
 <form namespace="" id="myAction" name="myForm" onsubmit="submitMe(); customOnsubmit(); return validateForm_myAction();" action="/myAction.action" method="POST" enctype="myEncType" title="mytitle" accept-charset="UTF-8">
 <table class="wwFormTable"> <tr>
     <td class="tdLabel"></td>
-    <td>	<script language="javascript" src="/webwork/optiontransferselect/optiontransferselect.js"></script>
+    <td>	<script type="text/javascript" language="javascript" src="/webwork/optiontransferselect/optiontransferselect.js"></script>
 <table>
 <tr><td>
 <select name="myUpDownSelectTag" size="5" id="myAction_myUpDownSelectTag" multiple="multiple">
@@ -18,4 +18,4 @@
 </table>
 </form>
 
-<script>functioncustomOnsubmit(){//CodethatwillautoselectupdownselectelementsuponitscontainingformsubmissionvarupdownselectObj=document.getElementById("myAction_myUpDownSelectTag");selectAllOptions(updownselectObj);selectUnselectMatchingOptions(updownselectObj,null,"unselect",false,"key");}</script>
+<script type="text/javascript">functioncustomOnsubmit(){//CodethatwillautoselectupdownselectelementsuponitscontainingformsubmissionvarupdownselectObj=document.getElementById("myAction_myUpDownSelectTag");selectAllOptions(updownselectObj);selectUnselectMatchingOptions(updownselectObj,null,"unselect",false,"key");}</script>

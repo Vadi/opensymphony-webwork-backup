@@ -2,7 +2,7 @@
 	<script type="text/javascript" src="<@ww.url value='/webwork/richtexteditor/fckeditor.js' encode='false' includeParams='none' />"></script>
 	<#assign tmpVariable = stack.setValue('#richtexteditor_js_included', 'true') /><#t/>
 </#if><#t/>
-<script>
+<script type="text/javascript">
 	var oFCKeditor_${parameters.id} = new FCKeditor( '${parameters.name}' ) ;
 	<#-- basePath --><#t/>
 	<#if parameters.basePath?exists><#t/>

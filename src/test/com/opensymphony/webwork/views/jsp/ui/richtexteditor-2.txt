@@ -2,7 +2,7 @@
 <td class="tdLabel"><label for="myId" class="label">myLabel:</label></td>
 <td>
 <script type="text/javascript" src="/webwork/richtexteditor/fckeditor.js"></script>
-<script>
+<script type="text/javascript">
 	var oFCKeditor_myId = new FCKeditor( 'myName' ) ;
 	oFCKeditor_myId.BasePath = '/some/base/path/' ;
 	oFCKeditor_myId.Height	= '100%' ;
