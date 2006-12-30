@@ -1,7 +1,7 @@
 </form>
 
 
-<script>
+<script type="text/javascript">
 	function customOnsubmit() {
 	<#-- 
 	   Code that will auto-select optiontransferselect elements upon containing form submission

@@ -3,4 +3,4 @@
 </table>
 </form>
 
-<script>functioncustomOnsubmit(){}</script>
+<script type="text/javascript">functioncustomOnsubmit(){}</script>
