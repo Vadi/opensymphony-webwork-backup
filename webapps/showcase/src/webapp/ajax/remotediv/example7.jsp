@@ -12,7 +12,7 @@
 <ww:div
         id="error"
         cssStyle="border: 1px solid yellow;"
-        href="/Test3.action"
+        href="Test3.action"
         theme="ajax"
         delay="1000"
         showErrorTransportText="true"

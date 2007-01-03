@@ -3,30 +3,58 @@
 <xwork>
     <package name="ajax" extends="webwork-default">
         <action name="AjaxTest" class="com.opensymphony.webwork.showcase.ajax.AjaxTestAction">
+        	<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
             <result name="success">/ajax/AjaxResult.jsp</result>
         </action>
 
         <action name="AjaxRemoteLink" class="com.opensymphony.webwork.showcase.ajax.AjaxTestAction">
+        	<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
             <result name="success">/ajax/AjaxResult2.js</result>
         </action>
 
         <action name="AjaxRemoteForm" class="com.opensymphony.webwork.showcase.ajax.AjaxTestAction">
+        	<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
             <result name="success">/ajax/AjaxResult3.jsp</result>
         </action>
 
         <action name="Test1" class="com.opensymphony.xwork.ActionSupport">
+        	<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
             <result name="success">/ajax/remoteforms/test2.jsp</result>
         </action>
 
         <action name="Test2" class="com.opensymphony.xwork.ActionSupport">
+        	<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
             <result name="success">/ajax/remoteforms/test3.jsp</result>
         </action>
 
         <action name="Test3" class="com.opensymphony.xwork.ActionSupport">
+        	<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
             <result name="success">/ajax/testjs.jsp</result>
         </action>
         
         <action name="example4">
+        	<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
         	<result type="freemarker">/ajax/tabbedpanel/example4.ftl</result>
         </action>
         
@@ -35,18 +63,38 @@
     <package name="ajaxNoDecorate" namespace="/nodecorate" extends="webwork-default">
     	<!--  example 4 -->
         <action name="panel1" class="com.opensymphony.webwork.showcase.ajax.Example4ShowPanelAction" method="panel1">
+        	<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
     		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel1.ftl</result>
     	</action>
     	<action name="panel2">
+    		<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
     		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel2.ftl</result>
     	</action>
     	<action name="panel3">
+    		<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
     		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel3.ftl</result>
     	</action>
     	<action name="panel2Submit" class="com.opensymphony.webwork.showcase.ajax.Example4ShowPanelAction" method="panel2">
+    		<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
     		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel2Submit.ftl</result>
     	</action>
     	<action name="panel3Submit" class="com.opensymphony.webwork.showcase.ajax.Example4ShowPanelAction" method="panel3">
+    		<interceptor-ref name="paramFilter">
+        		<param name="blocked">dojo</param>
+        	</interceptor-ref>
+        	<interceptor-ref name="defaultStack" />
     		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel3Submit.ftl</result>
     	</action>
     </package>

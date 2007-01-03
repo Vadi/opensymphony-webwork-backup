@@ -10,8 +10,9 @@
         <pattern>/dojo/*</pattern>
         <pattern>/webwork/*</pattern>
         <pattern>/ajax/AjaxResult*</pattern>
-        <pattern>/AjaxTest.action</pattern>
-        <pattern>/ajax/remoteforms/AjaxRemoteForm.action</pattern>
+        <pattern>/AjaxTest.action*</pattern>
+        <pattern>/ajax/remoteforms/AjaxRemoteForm.action*</pattern>
+        <pattern>/ajax/remotediv/Test3.action*</pattern>
         <pattern>/tags/ui/ajax/*</pattern>
         <pattern>/nodecorate/*</pattern>
     </excludes>

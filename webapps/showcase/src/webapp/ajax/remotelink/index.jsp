@@ -41,14 +41,14 @@ Three Component:
 <br/><br/>
 
 Fourth Component:
-<saf:div
+<ww:div
 	   id="four"
 	   theme="ajax"
 	   cssStyle="border: 1px solid yellow;"
 	   href="/AjaxTest.action"
 	   listenTopics="myLink3_click"
 	   delay="0"
-	   updateFreq="0">Initial Content</saf:div>
+	   updateFreq="0">Initial Content</ww:div>
 <br/><br/>
 
 <ww:url id="remoteLink" value   ="/AjaxRemoteLink.action" />
@@ -96,13 +96,13 @@ A Remote link that doesn't trigger any remote DIV updates<br/>
 <br/><br/>
 
 A Remote link that will update "Fourth Component"
-<saf:a 
+<ww:a 
 		id="link4"
 		theme="ajax"
 		href="%{remoteLink}"
 		notifyTopics="myLink3_click"
 		showErrorTransportText="true"
-		errorText="An Error Ocurred">Update</saf:a>
+		errorText="An Error Ocurred">Update</ww:a>
 <br/><br/>
 
 <ww:include value="../footer.jsp"/>
