@@ -3,10 +3,8 @@
 <script language="JavaScript" type="text/javascript">
     // Dojo configuration
     djConfig = {
-        baseRelativePath: "/webwork/dojo/",
         isDebug: false,
-        bindEncoding: "ISO-8859-1",
-        debugAtAllCosts: true // not needed, but allows the Venkman debugger to work with the includes
+        bindEncoding: "ISO-8859-1"
     };
 </script>
 <script language="JavaScript" type="text/javascript"

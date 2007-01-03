@@ -2,7 +2,7 @@
     <div class="tab_contents"
          id="tab_contents_update_${parameters.id}"
     <#if parameters.remote?exists>
-            dojoType='BindDiv'
+            dojoType='webwork:BindDiv'
             <#if parameters.href?if_exists != "">href="${parameters.href}"</#if>
         <#if parameters.loadingText?if_exists != "">loadingHtml="${parameters.loadingText?html}"</#if>
             <#if parameters.errorText?if_exists != "">errorHtml="${parameters.errorText?html}"</#if>

@@ -1,4 +1,4 @@
-<a dojoType="BindAnchor" evalResult="true"<#rt/>
+<a dojoType="webwork:BindAnchor" evalResult="true"<#rt/>
 <#if parameters.id?if_exists != "">
  id="${parameters.id?html}"<#rt/>
 </#if>
