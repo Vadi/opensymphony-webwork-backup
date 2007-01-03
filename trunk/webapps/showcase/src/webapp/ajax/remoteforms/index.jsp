@@ -73,7 +73,7 @@ Remote form replacing the forms content after confirming results:<br/>
 
     <input type='text' name='data' value='WebWork User'>
 
-    <ww:submit value="GO3" theme="ajax" resultDivId="theForm5" preInvokeJS="confirm('sure?');"/>
+    <ww:submit value="GO5" theme="ajax" resultDivId="theForm5" preInvokeJS="confirm('sure?');"/>
 
 </ww:form>
 
@@ -87,7 +87,7 @@ Remote form replacing the forms content after running a function:<br/>
 
     <input type='text' name='data' value='WebWork User'>
 
-    <ww:submit value="GO3" theme="ajax" resultDivId="theForm6" preInvokeJS="doSomething();"/>
+    <ww:submit value="GO6" theme="ajax" resultDivId="theForm6" preInvokeJS="doSomething();"/>
 
 </ww:form>
 

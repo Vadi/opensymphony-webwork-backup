@@ -16,7 +16,7 @@
         <li><a href="example1.jsp">Various remote and local tabbed panels (with enclosed tabbed pannels)</a></li>
          <li>
         	<ww:url id="url" action="example4" />
-        	<ww:a href="%{#url}">Only remove tabbed panel</ww:a>
+        	<ww:a href="%{#url}">Only remote tabbed panel</ww:a>
         </li>
     </ol>
 
