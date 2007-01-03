@@ -1,4 +1,4 @@
-<div dojoType='BindDiv'
+<div dojoType='webwork:BindDiv'
 	<#if parameters.id?if_exists != "">id="${parameters.id?html}"</#if>
     <#if parameters.title?exists>title="${parameters.title?html}"</#if>
     <#if parameters.name?exists>name="${parameters.name?html}"</#if>

@@ -1,4 +1,4 @@
-<div dojoType='BindDiv'
+<div dojoType='webwork:BindDiv'
 	id="mylabel"
 	href="a"
 	loadingHtml="b"
