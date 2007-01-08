@@ -4,6 +4,7 @@
  */
 package com.opensymphony.webwork.portlet;
 
+import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -23,9 +24,11 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Nils-Helge Garli
  */
-public class PortletSessionMap extends AbstractMap {
+public class PortletSessionMap extends AbstractMap implements Serializable {
     
-    private static final Log LOG = LogFactory.getLog(PortletSessionMap.class);
+	private static final long serialVersionUID = 1627179482311266132L;
+
+	private static final Log LOG = LogFactory.getLog(PortletSessionMap.class);
 
     private PortletSession session = null;
 
