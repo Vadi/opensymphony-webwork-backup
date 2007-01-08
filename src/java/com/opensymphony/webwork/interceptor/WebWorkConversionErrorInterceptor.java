@@ -55,7 +55,10 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * @see ConversionErrorInterceptor
  */
 public class WebWorkConversionErrorInterceptor extends ConversionErrorInterceptor {
-    protected Object getOverrideExpr(ActionInvocation invocation, Object value) {
+	
+	private static final long serialVersionUID = 7203991102872573481L;
+
+	protected Object getOverrideExpr(ActionInvocation invocation, Object value) {
         OgnlValueStack stack = invocation.getStack();
 
         try {

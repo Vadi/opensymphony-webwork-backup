@@ -63,6 +63,8 @@ import com.opensymphony.xwork.interceptor.AroundInterceptor;
  */
 public class CreateSessionInterceptor extends AroundInterceptor {
 	
+	private static final long serialVersionUID = 3657994429041757752L;
+	
 	private static final Log _log = LogFactory.getLog(CreateSessionInterceptor.class);
 	
 	

@@ -10,11 +10,8 @@ import com.opensymphony.webwork.util.TokenHelper;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ValidationAware;
-import com.opensymphony.xwork.interceptor.Interceptor;
 import com.opensymphony.xwork.interceptor.MethodFilterInterceptor;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * <!-- START SNIPPET: description -->
@@ -107,7 +104,10 @@ import org.apache.commons.logging.LogFactory;
  * @version $Date$ $Id$
  */
 public class TokenInterceptor extends MethodFilterInterceptor {
-    public static final String INVALID_TOKEN_CODE = "invalid.token";
+	
+	private static final long serialVersionUID = 9021366162909706309L;
+	
+	public static final String INVALID_TOKEN_CODE = "invalid.token";
 
     /**
      * @see com.opensymphony.xwork.interceptor.MethodFilterInterceptor#doIntercept(com.opensymphony.xwork.ActionInvocation)

@@ -4,7 +4,6 @@
  */
 package com.opensymphony.webwork.interceptor;
 
-import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.util.ServletContextAware;
 import com.opensymphony.xwork.ActionContext;
@@ -90,7 +89,10 @@ import javax.servlet.ServletContext;
  * @see PrincipalAware
  */
 public class ServletConfigInterceptor extends AroundInterceptor implements WebWorkStatics {
-    protected void after(ActionInvocation dispatcher, String result) throws Exception {
+	
+	private static final long serialVersionUID = -1226074297258786788L;
+
+	protected void after(ActionInvocation dispatcher, String result) throws Exception {
     }
 
     /**

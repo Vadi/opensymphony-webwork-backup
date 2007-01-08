@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2007 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.interceptor;
 
 import com.opensymphony.xwork.ActionInvocation;
@@ -11,7 +15,10 @@ import java.io.Serializable;
  * @author <a href="jim@jimvanfleet.com">Jim Van Fleet</a>
  */
 public class BackgroundProcess implements Serializable {
-    protected Object action;
+	
+	private static final long serialVersionUID = 8146242696076042381L;
+	
+	protected Object action;
     protected ActionInvocation invocation;
     protected String result;
     protected Exception exception;

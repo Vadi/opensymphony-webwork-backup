@@ -87,7 +87,10 @@ import java.util.Map;
  * @version $Date$ $Id$
  */
 public class TokenSessionStoreInterceptor extends TokenInterceptor {
-    protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
+	
+	private static final long serialVersionUID = 7076608008805392601L;
+
+	protected String handleInvalidToken(ActionInvocation invocation) throws Exception {
         ActionContext ac = invocation.getInvocationContext();
 
         HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
@@ -124,8 +127,8 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
 
     protected String handleValidToken(ActionInvocation invocation) throws Exception {
         // we know the token name and token must be there
-        ActionContext ac = invocation.getInvocationContext();
-        HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
+        // ActionContext ac = invocation.getInvocationContext();
+        // HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
         String key = TokenHelper.getTokenName();
         String token = TokenHelper.getToken(key);
         InvocationSessionStore.storeInvocation(key, token, invocation);

@@ -133,7 +133,10 @@ import java.util.*;
  *
  */
 public class FileUploadInterceptor implements Interceptor {
-    protected static final Log log = LogFactory.getLog(FileUploadInterceptor.class);
+	
+	private static final long serialVersionUID = 3475785630497636730L;
+	
+	protected static final Log log = LogFactory.getLog(FileUploadInterceptor.class);
     private static final String DEFAULT_DELIMITER = ",";
     private static final String DEFAULT_MESSAGE = "no.message.found";
 

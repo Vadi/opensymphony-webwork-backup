@@ -119,7 +119,9 @@ import java.util.Map;
  */
 public class ScopeInterceptor implements Interceptor, PreResultListener {
 
-    private static final Log LOG = LogFactory.getLog(ScopeInterceptor.class);
+	private static final long serialVersionUID = -8587579255675690482L;
+
+	private static final Log LOG = LogFactory.getLog(ScopeInterceptor.class);
 
     String[] application = null;
     String[] session = null;
