@@ -103,15 +103,20 @@ public class MultiPartRequestWrapper extends WebWorkRequestWrapper {
                     addError(error);
                 }
             } catch (ClassNotFoundException e) {
+            	log.error(e.toString(), e);
                 addError("Class: " + parser + " not found.");
             } catch (NoSuchMethodException e) {
+            	log.error(e.toString(), e);
                 addError("Constructor error for " + parser + ": " + e);
             } catch (InstantiationException e) {
+            	log.error(e.toString(), e);
                 addError("Error instantiating " + parser + ": " + e);
             } catch (IllegalAccessException e) {
+            	log.error(e.toString(), e);
                 addError("Access errror for " + parser + ": " + e);
             } catch (InvocationTargetException e) {
                 // This is a wrapper for any exceptions thrown by the constructor called from newInstance
+            	log.error(e.toString(), e);
                 addError(e.getTargetException().toString());
             }
         }

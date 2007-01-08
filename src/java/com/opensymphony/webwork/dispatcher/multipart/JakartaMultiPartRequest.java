@@ -90,7 +90,7 @@ public class JakartaMultiPartRequest extends MultiPartRequest {
                 }
             }
         } catch (FileUploadException e) {
-            log.error(e);
+            log.error(e, e);
             errors.add(e.getMessage());
         }
     }
