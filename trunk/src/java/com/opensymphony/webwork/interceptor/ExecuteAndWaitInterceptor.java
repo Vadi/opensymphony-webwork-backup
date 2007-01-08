@@ -148,7 +148,10 @@ import java.util.Map;
  * @author Claus Ibsen
  */
 public class ExecuteAndWaitInterceptor implements Interceptor {
-    private static final Log LOG = LogFactory.getLog(ExecuteAndWaitInterceptor.class);
+	
+	private static final long serialVersionUID = -704630999325809993L;
+
+	private static final Log LOG = LogFactory.getLog(ExecuteAndWaitInterceptor.class);
 
     public static final String KEY = "__execWait";
     public static final String WAIT = "wait";
