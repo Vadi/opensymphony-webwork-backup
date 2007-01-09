@@ -154,22 +154,47 @@ public class CookieInterceptor extends AroundInterceptor {
 	private Set cookiesNameSet = Collections.EMPTY_SET;
 	private Set cookiesValueSet = Collections.EMPTY_SET;
 	
+	/**
+	 * Set the <code>cookiesName</code> which if matche will allow the cookie 
+	 * to be injected into action, could be comma-separated string.
+	 * 
+	 * @param cookiesName
+	 */
 	public void setCookiesName(String cookiesName) {
 		if (cookiesName != null)
 			this.cookiesNameSet = TextParseUtil.commaDelimitedStringToSet(cookiesName);
 	}
 	
+	/**
+	 * Set the <code>cookiesValue</code> which if matched (together with matching 
+	 * cookiesName) will caused the cookie to be injected into action, could be 
+	 * comma-separated string.
+	 * 
+	 * @param cookiesValue
+	 */
 	public void setCookiesValue(String cookiesValue) {
 		if (cookiesValue != null)
 			this.cookiesValueSet = TextParseUtil.commaDelimitedStringToSet(cookiesValue);
 	}
 	
+	/**
+	 * No operation.
+	 */
 	public void destroy() {
 	}
 
+	/**
+	 * No operation.
+	 */
 	public void init() {
 	}
 
+	/**
+	 * Inject cookies into action if they match the <code>cookiesName</code>
+	 * and <code>cookiesValue</code> configured.
+	 * 
+	 * @param invocation
+	 */
 	protected void before(ActionInvocation invocation) throws Exception {
 		
 		if (LOG.isDebugEnabled())
@@ -199,12 +224,24 @@ public class CookieInterceptor extends AroundInterceptor {
 		injectIntoCookiesAwareAction(invocation.getAction(), cookiesMap);
 	}
 	
+	/**
+	 * No operation.
+	 */
 	protected void after(ActionInvocation invocation, String result)
 			throws Exception {
 		if (LOG.isDebugEnabled())
 			LOG.debug("after interception");
 	}
 
+	/**
+	 * Hook that populate cookie value into ognl value stack (hence the action) 
+	 * if the criteria is satisfied (if the cookie value matches with those configured).
+	 * 
+	 * @param cookieName
+	 * @param cookieValue
+	 * @param cookiesMap
+	 * @param stack
+	 */
 	protected void populateCookieValueIntoStack(String cookieName, String cookieValue, Map cookiesMap, OgnlValueStack stack) {
 		if (cookiesValueSet.isEmpty() || cookiesValueSet.contains("*")) {
 			// If the interceptor is configured to accept any cookie value
@@ -232,6 +269,13 @@ public class CookieInterceptor extends AroundInterceptor {
 		}
 	}
 	
+	/**
+	 * Hook that set the <code>cookiesMap</code> into action that implements
+	 * {@link CookiesAware}.
+	 * 
+	 * @param action
+	 * @param cookiesMap
+	 */
 	protected void injectIntoCookiesAwareAction(Object action, Map cookiesMap) {
 		if (action instanceof CookiesAware) {
 			if (LOG.isDebugEnabled())
