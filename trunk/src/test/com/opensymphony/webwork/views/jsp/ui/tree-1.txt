@@ -3,17 +3,26 @@
         dojo.require("dojo.lang.*");
         dojo.require("dojo.widget.*");
         dojo.require("dojo.widget.Tree");
+        dojo.require("dojo.widget.TreeNode");
         // dojo.hostenv.writeIncludes();
         -->
  </script>
-<div dojoType="Tree"   
-		templateCssPath="/struts/tree.css"
+ 
+ <script language="JavaScript" type="text/javascript">
+ 		dojo.addOnLoad(function() { 
+ 			 		});
+ </script>
+<div dojoType="TreeBasicController" id="rootId_controller"></div>
+<div dojoType="TreeSelector" id="rootId_treeSelector"></div>
+<div dojoType="Tree" selector="rootId_treeSelector" controller="rootId_controller"      
+	templateCssPath="/struts/tree.css"
 	showGrid="false"
 	showRootGrid="false"
     id="rootId"
     toggle="fade"
     >
-    <div dojoType="TreeNode" title="Root" id="rootId_root"
+    <div dojoType="TreeNode" title="Root"
+    id="rootId_root" 
     >
 <div dojoType="TreeNode" 
 	    id="child1"

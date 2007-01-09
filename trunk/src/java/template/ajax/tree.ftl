@@ -3,10 +3,53 @@
         dojo.require("dojo.lang.*");
         dojo.require("dojo.widget.*");
         dojo.require("dojo.widget.Tree");
+        dojo.require("dojo.widget.TreeNode");
         // dojo.hostenv.writeIncludes();
         -->
  </script>
-<div dojoType="Tree"   
+ 
+ <script language="JavaScript" type="text/javascript">
+ 		dojo.addOnLoad(function() { 
+ 			<#if parameters.treeSelectedTopic?exists>
+ 			dojo.event.topic.subscribe("${parameters.id}_treeSelector/select", function(evt) {
+ 				dojo.event.topic.publish("${parameters.treeSelectedTopic?html}", evt.node.widgetId);
+ 			});
+ 			</#if>
+ 			<#if parameters.treeExpandedTopic?exists>
+ 			// for tree node expand
+ 			var ${parameters.id}_expand_listener = {
+ 				expand: function(node) {
+ 					dojo.event.topic.publish('${parameters.treeExpandedTopic?html}', node.widgetId);
+ 				}
+ 			};
+ 			dojo.event.kwConnect({
+ 				adviceType: 'after',
+ 				srcObj: dojo.widget.byId('${parameters.id}_controller'),
+ 				srcFunc: 'expand',
+ 				adviceObj: ${parameters.id}_expand_listener,
+ 				adviceFunc: 'expand'
+ 			});
+ 			</#if>
+ 			<#if parameters.treeCollapsedTopic?exists>
+ 			// for tree node collapse
+ 			var ${parameters.id}_collapse_listener = {
+ 				collapse: function(node) {
+ 					dojo.event.topic.publish('${parameters.treeCollapsedTopic?html}', node.widgetId);
+ 				}
+ 			};
+ 			dojo.event.kwConnect({
+ 				adviceType: 'after',
+ 				srcObj: dojo.widget.byId('${parameters.id}_controller'),
+ 				srcFunc: 'collapse',
+ 				adviceObj: ${parameters.id}_collapse_listener, 
+ 				adviceFunc: 'collapse'
+ 			});
+ 			</#if>
+ 		});
+ </script>
+<div dojoType="TreeBasicController" id="${parameters.id}_controller"></div>
+<div dojoType="TreeSelector" id="${parameters.id}_treeSelector"></div>
+<div dojoType="Tree" selector="${parameters.id}_treeSelector" controller="${parameters.id}_controller"      
 	<#if parameters.blankIconSrc?exists>
 	gridIconSrcT="<@ww.url value='${parameters.blankIconSrc}' encode="false" includeParams='none'/>"
 	</#if>
@@ -57,15 +100,6 @@
 	</#if>
     <#if parameters.id?exists>
     id="${parameters.id?html}"
-    </#if>
-    <#if parameters.treeSelectedTopic?exists>
-    publishSelectionTopic="${parameters.treeSelectedTopic?html}"
-    </#if>
-    <#if parameters.treeExpandedTopic?exists>
-    publishExpandedTopic="${parameters.treeExpandedTopic?html}"
-    </#if>
-    <#if parameters.treeCollapsedTopic?exists>
-    publishCollapsedTopic="${parameters.treeCollapsedTopic?html}"
     </#if>
     <#if parameters.toggle?exists>
     toggle="${parameters.toggle?html}"
