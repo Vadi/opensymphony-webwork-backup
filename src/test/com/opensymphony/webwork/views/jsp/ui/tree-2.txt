@@ -3,11 +3,19 @@
         dojo.require("dojo.lang.*");
         dojo.require("dojo.widget.*");
         dojo.require("dojo.widget.Tree");
+        dojo.require("dojo.widget.TreeNode");
         // dojo.hostenv.writeIncludes();
         -->
  </script>
-<div dojoType="Tree"   
-	    id="myTree"
+ 
+ <script language="JavaScript" type="text/javascript">
+ 		dojo.addOnLoad(function() { 
+ 			 		});
+ </script>
+<div dojoType="TreeBasicController" id="myTree_controller"></div>
+<div dojoType="TreeSelector" id="myTree_treeSelector"></div>
+<div dojoType="Tree" selector="myTree_treeSelector" controller="myTree_controller"      
+    id="myTree"
     toggle="fade"
     >
     
