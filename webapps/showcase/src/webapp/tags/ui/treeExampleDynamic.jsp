@@ -10,18 +10,29 @@
 <!-- START SNIPPET: treeExampleDynamicJsp -->
 
 <script>
-	function treeNodeSelected(nodeId) {
-		dojo.io.bind({
-			url: "<ww:url value='/tags/ui/ajax/dynamicTreeSelectAction.action' />?nodeId="+nodeId,
-			load: function(type, data, evt) {
-				var displayDiv = dojo.byId("displayId");
-				displayDiv.innerHTML = data;
+	dojo.addOnLoad(function() {
+		var obj = {
+			treeNodeSelected: function(nodeId) {
+				dojo.io.bind({
+					url: "<ww:url value='/tags/ui/ajax/dynamicTreeSelectAction.action' />?nodeId="+nodeId,
+					load: function(type, data, evt) {
+						var displayDiv = dojo.byId("displayId");
+						displayDiv.innerHTML = data;
+					},
+					mimeType: "text/html"
+				});
+			}, 
+			treeNodeExpanded: function(nodeId) {
+				alert('node '+nodeId+' expanded');
 			},
-			mimeType: "text/html"
-		});
-	};
-
-	dojo.event.topic.subscribe("treeSelected", this, "treeNodeSelected");
+			treeNodeCollapsed: function(nodeId) {
+				alert('node '+nodeId+' collapsed');
+			}
+		};
+		dojo.event.topic.subscribe("treeSelected", obj, "treeNodeSelected");
+		dojo.event.topic.subscribe("treeNodeExpanded", obj, "treeNodeExpanded");
+		dojo.event.topic.subscribe("treeNodeCollapsed", obj, "treeNodeCollapsed");
+	});
 </script>
 
 
@@ -34,7 +45,10 @@
 	childCollectionProperty="children" 
 	nodeIdProperty="id"
 	nodeTitleProperty="name"
-	treeSelectedTopic="treeSelected">
+	treeSelectedTopic="treeSelected"
+	treeExpandedTopic="treeNodeExpanded"
+	treeCollapsedTopic="treeNodeCollapsed"
+	>
 </ww:tree> 
 </div>
 
