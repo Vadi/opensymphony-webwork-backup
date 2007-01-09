@@ -54,6 +54,7 @@
             <interceptor name="paramRemover" class="com.opensymphony.xwork.interceptor.ParameterRemoverInterceptor" />
             <interceptor name="sessionInvalidation" class="com.opensymphony.webwork.interceptor.SessionInvalidationInterceptor" />
             <interceptor name="flash" class="com.opensymphony.webwork.interceptor.FlashInterceptor" />
+            <interceptor name="cookie" class="com.opensymphony.webwork.interceptor.CookieInterceptor" />
             
 
             <!-- Basic stack -->
