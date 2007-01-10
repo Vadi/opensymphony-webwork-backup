@@ -1,4 +1,4 @@
-<tr> <td class="tdLabel"></td> <td>
+<tr> <td class="tdLabel tdLeftLabel"></td> <td>
 <script type="text/javascript" language="javascript" src="/webwork/optiontransferselect/optiontransferselect.js"></script>
 <table>
 <tr><td>

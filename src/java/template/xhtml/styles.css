@@ -5,4 +5,5 @@
 .checkboxLabel {}
 .checkboxErrorLabel {color:red; }
 .required {color:red;}
-.tdLabel {text-align:right; vertical-align:top; } 
+.tdLabel { }
+.tdLeftLabel {text-align:right; vertical-align:top;}

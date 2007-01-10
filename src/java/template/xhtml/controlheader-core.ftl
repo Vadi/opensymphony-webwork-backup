@@ -22,9 +22,9 @@
 -->
 <tr>
 <#if parameters.labelposition?default("") == 'top'>
-    <td align="left" valign="top" colspan="2"><#rt/>
+    <td align="left" valign="top" colspan="2" class="tdLabel"><#rt/>
 <#else>
-    <td class="tdLabel"><#rt/>
+    <td class="tdLabel tdLeftLabel"><#rt/>
 </#if>
 <#if parameters.label?exists>
     <label <#t/>

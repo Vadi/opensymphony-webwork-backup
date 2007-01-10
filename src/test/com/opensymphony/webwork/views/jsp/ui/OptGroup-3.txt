@@ -1,5 +1,5 @@
 <tr>
-    <td class="tdLabel"><label for="mySelection" class="label">My Selection:</label></td>
+    <td class="tdLabel tdLeftLabel"><label for="mySelection" class="label">My Selection:</label></td>
     <td>
 <select name="mySelection" id="mySelection" multiple="multiple">
     <option value="ONE">one</option>
