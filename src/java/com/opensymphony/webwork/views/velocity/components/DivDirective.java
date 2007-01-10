@@ -18,4 +18,12 @@ public class DivDirective extends AbstractDirective {
     protected Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Div(stack, req, res);
     }
+    
+    /**
+     * A Div component, is really a Block element, hence overriding here to
+     * return a BLOCK.
+     */
+    public int getType() {
+        return BLOCK;
+    }
 }
