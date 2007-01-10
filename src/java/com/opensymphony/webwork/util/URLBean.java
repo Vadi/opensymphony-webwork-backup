@@ -16,6 +16,7 @@ import java.util.Map;
  * A bean that can generate a URL.
  *
  * @author plightbo
+ * @version $Date$ $Id$
  */
 public class URLBean {
 
@@ -25,8 +26,18 @@ public class URLBean {
     String page;
 
 
-    public void setPage(String page) {
+    /**
+     * Set the <code>page</code> and return itself, such that one could :-
+     * <pre>
+     *   (new URLBean()).setPage(...).addParameter(...).addParameter(...) ...
+     * </pre>
+     * 
+     * @param page
+     * @return
+     */
+    public URLBean setPage(String page) {
         this.page = page;
+        return this;
     }
 
     public void setRequest(HttpServletRequest request) {
