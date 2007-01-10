@@ -1,5 +1,5 @@
 <tr>
-    <td class="tdLabel"><label for="foo" class="label">mylabel:</label></td>
+    <td class="tdLabel tdLeftLabel"><label for="foo" class="label">mylabel:</label></td>
     <td><select name="foo" id="foo">
     <option value="headerKey">hello: headerValue</option>
     <option value=""></option>
