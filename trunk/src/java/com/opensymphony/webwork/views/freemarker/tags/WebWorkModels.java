@@ -58,6 +58,7 @@ public class WebWorkModels {
     protected FieldErrorModel fielderror;
     protected OptionTransferSelectModel optiontransferselect;
     protected TreeModel treeModel;
+    protected TreeNodeModel treeNodeModel;
     protected UpDownSelectModel updownselect;
     protected RichTextEditorModel richtexteditorModel;
     protected OptGroupModel optGroupModel;
@@ -411,6 +412,13 @@ public class WebWorkModels {
             treeModel = new TreeModel(stack,req, res);
         }
         return treeModel;
+    }
+    
+    public TreeNodeModel getTreenode() {
+    	if(treeNodeModel == null) {
+    		treeNodeModel = new TreeNodeModel(stack, req, res);
+    	}
+    	return treeNodeModel;
     }
     
     public UpDownSelectModel getUpdownselect() {
