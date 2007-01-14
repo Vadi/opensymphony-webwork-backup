@@ -5,8 +5,10 @@
  * method is expected to be implemented by client to handle validation error
  * suited to their needs
  *
+ * eg.
  * <pre>
- *  - validationClientInstance.onErrors = function(inputElement, errors) { 
+ *     var validationClientInstance = new ValidationClient(...);
+ *     validationClientInstance.onErrors = function(inputElement, errors) { 
  *          .....
  *     }
  * </pre>    
