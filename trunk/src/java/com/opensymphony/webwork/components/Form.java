@@ -47,11 +47,11 @@ import java.util.Set;
  *   determine the posting url
  *   </li>
  *   <li>
- *   If the action is given, SAF will try to obtain an ActionConfig. This will be
+ *   If the action is given, WebWork will try to obtain an ActionConfig. This will be
  *   successfull if the action attribute is a valid action alias defined xwork.xml.
  *   </li>
  *   <li>
- *   If the action is given and is not an action alias defined in xwork.xmlm SAF
+ *   If the action is given and is not an action alias defined in xwork.xml WebWork
  *   will used the action attribute as if it is the posting url, separting the namespace
  *   from it and using UrlHelper to generate the final url.
  *   </li>
