@@ -1,5 +1,4 @@
 function clearErrorMessages(form) {
-
     var table = form.childNodes[1];
     if( typeof table == "undefined" ) {
         table = form.childNodes[0];
@@ -32,21 +31,31 @@ function clearErrorLabels(form) {
     var elements = form.elements;
     for (var i = 0; i < elements.length; i++) {
         var e = elements[i];
+        
+        var label;
         var cells = e.parentNode.parentNode.cells;
-        if (cells && cells.length >= 2) {
-            var label = cells[0].getElementsByTagName("label")[0];
-            if (label) {
-                label.setAttribute("class", "label");
-                label.setAttribute("className", "label"); //ie hack cause ie does not support setAttribute
-            }
+        if (cells && cells.length >= 2) {  // when labelposition='left'
+        	label = cells[0].getElementsByTagName("label")[0];
+        }
+        else { // when labelposition='top'
+        	if (e.parentNode.parentNode) {
+				if (dojo.dom.prevElement(e.parentNode.parentNode)) {       		
+        			label = dojo.dom.prevElement(e.parentNode.parentNode).getElementsByTagName("label")[0];
+        		}
+        	}
+        }	
+        
+        if (label) {
+        	label.setAttribute("class", "label");
+        	label.setAttribute("className", "label"); //ie hack cause ie does not support setAttribute
         }
     }
-
 }
 
 function addError(e, errorText) {
     try {
         // clear out any rows with an "errorFor" of e.id
+        
         var row = e.parentNode.parentNode;
         var table = row.parentNode;
         var error = document.createTextNode(errorText);
@@ -55,19 +64,32 @@ function addError(e, errorText) {
         var span = document.createElement("span");
         td.align = "center";
         td.valign = "top";
-        td.colSpan = 2;
         span.setAttribute("class", "errorMessage");
         span.setAttribute("className", "errorMessage"); //ie hack cause ie does not support setAttribute
         span.appendChild(error);
         td.appendChild(span);
         tr.appendChild(td);
         tr.setAttribute("errorFor", e.id);;
-        table.insertBefore(tr, row);
 
         // updat the label too
-        var label = row.cells[0].getElementsByTagName("label")[0];
-        label.setAttribute("class", "errorLabel");
-        label.setAttribute("className", "errorLabel"); //ie hack cause ie does not support setAttribute
+        var label;
+        var cells = e.parentNode.parentNode.cells;
+        if (cells && cells.length >= 2) { // when labelposition='left'
+        	label = cells[0].getElementsByTagName("label")[0];
+        	 td.colSpan = 2;
+        }
+        else {
+        	if (dojo.dom.prevElement(row)) { // when labelposition='top'
+        		label = dojo.dom.prevElement(row).getElementsByTagName("label")[0];
+        	}
+        }	
+        
+        if (label) {
+        	label.setAttribute("class", "errorLabel");
+        	label.setAttribute("className", "errorLabel"); //ie hack cause ie does not support setAttribute
+        }
+        
+        table.insertBefore(tr, row);
     } catch (e) {
         alert(e);
     }

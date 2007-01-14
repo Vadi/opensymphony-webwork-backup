@@ -1,5 +1,5 @@
 <tr>
-	<td class="tdLabel tdLeftLabel">
+	<td class="tdLabel">
 		<label for="foo" class="label">mylabel:</label>
 	</td>
 	<td>
