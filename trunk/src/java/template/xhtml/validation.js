@@ -1,3 +1,7 @@
+/*
+ * <!-- START SNIPPET: ajaxValidation -->
+ */
+
 function clearErrorMessages(form) {
     var table = form.childNodes[1];
     if( typeof table == "undefined" ) {
@@ -94,3 +98,7 @@ function addError(e, errorText) {
         alert(e);
     }
 }
+
+/*
+ * <!-- END SNIPPET: ajaxValidation -->
+ */
