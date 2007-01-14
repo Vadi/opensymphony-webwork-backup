@@ -2,6 +2,7 @@
  *
  * Common code to interface with the validationServlet 
  *
+ * <!-- START SNIPPET ajaxValidation -->
  */
 
 function ValidationClient(servletUrl) {
@@ -35,3 +36,7 @@ function ValidationClient(servletUrl) {
 	
 	return this;
 }
+
+/*
+ * <!-- END SNIPPET ajaxValidation -->
+ */

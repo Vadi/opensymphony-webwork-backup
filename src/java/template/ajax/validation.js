@@ -1,3 +1,7 @@
+/*
+ * <!-- START SNIPPET: ajaxValidation -->
+ */
+
 var webworkValidator = new ValidationClient("$!base/validation");
 webworkValidator.onErrors = function(input, errors) {
 	var form = input.form;
@@ -23,3 +27,7 @@ function validate(element) {
     var actionName = element.form.attributes['name'].nodeValue;
 	webworkValidator.validate(element, namespace, actionName);
 }
+
+/*
+ *<!-- END SNIPPET: ajaxValidation -->
+ */
