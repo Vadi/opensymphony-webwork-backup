@@ -1,6 +1,5 @@
 var webworkValidator = new ValidationClient("$!base/validation");
 webworkValidator.onErrors = function(input, errors) {
-
 	var form = input.form;
 
 	clearErrorMessages(form);
