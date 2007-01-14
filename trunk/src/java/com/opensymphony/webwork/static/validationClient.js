@@ -1,8 +1,16 @@
 /**
- *
- * Common code to interface with the validationServlet 
- *
  * <!-- START SNIPPET ajaxValidation -->
+ *
+ * Common code to interface with the WebWork's ajax validation. The following
+ * method is expected to be implemented by client to handle validation error
+ * suited to their needs
+ *
+ * <pre>
+ *  - validationClientInstance.onErrors = function(inputElement, errors) { 
+ *          .....
+ *     }
+ * </pre>    
+ *
  */
 
 function ValidationClient(servletUrl) {
@@ -27,12 +35,16 @@ function ValidationClient(servletUrl) {
         }, namespace, actionName, params);
     }
     
-
-	// @param formObject - the form object that triggered the validate call
-	// @param errors - a javascript object representing the action errors and field errors
-	// client should overwrite this handler to display the new error messages
-	this.onErrors = function(inputObject, errors) {
-	}
+   /**
+	* @param formObject - the form object that triggered the validate call
+	* @param errors - a javascript object representing the action errors and field errors
+	* client should overwrite this handler to display the new error messages
+	*  <pre>
+	*     this.onErrors = function(inputObject, errors) {
+	*          .....
+	*     }
+	*  </pre>
+	*/
 	
 	return this;
 }

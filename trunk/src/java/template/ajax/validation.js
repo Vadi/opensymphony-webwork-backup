@@ -1,7 +1,30 @@
 /*
  * <!-- START SNIPPET: ajaxValidation -->
+ *
  */
 
+/**
+ * An "Ajax" theme implementation of ValidationClient, it provides function 
+ * hook that client (eg. other theme like xhtml or css_html should implement
+ * to customize handling of validation error to suit their needs, eg in an 
+ * xhtml theme, it would maybe change the &lt;tr&gt; or &lt;td&gt; to show
+ * or hide the validation messages etc.
+ * 
+ * The hooks are :-
+ * <pre>
+ * function  clearErrorMessage(form) {
+ *    .....
+ * }
+ *
+ * function clearErrorLabels(form) {
+ *    ....
+ * }
+ *
+ * function addError(fieldElement, fieldError) {
+ *   ....
+ * }
+ * <pre>
+ */
 var webworkValidator = new ValidationClient("$!base/validation");
 webworkValidator.onErrors = function(input, errors) {
 	var form = input.form;
@@ -20,6 +43,12 @@ webworkValidator.onErrors = function(input, errors) {
     }
 }
 
+/*
+ * Function that gets called when there's change on WebWork UI Components, 
+ * eg. js onchange. It delegate the functionality of validating the changed 
+ * components to an instance of ValidationClient (in this implementation 
+ * webworkValidator).
+ */
 function validate(element) {
     // mark the element as touch
     element.touched = true;
