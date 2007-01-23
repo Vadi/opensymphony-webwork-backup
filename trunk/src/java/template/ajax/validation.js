@@ -1,9 +1,6 @@
 /*
  * <!-- START SNIPPET: ajaxValidation -->
  *
- */
-
-/**
  * An "Ajax" theme implementation of ValidationClient, it provides function 
  * hook that client (eg. other theme like xhtml or css_html should implement
  * to customize handling of validation error to suit their needs, eg in an 
@@ -23,7 +20,7 @@
  * function addError(fieldElement, fieldError) {
  *   ....
  * }
- * <pre>
+ * </pre>
  */
 var webworkValidator = new ValidationClient("$!base/validation");
 webworkValidator.onErrors = function(input, errors) {
