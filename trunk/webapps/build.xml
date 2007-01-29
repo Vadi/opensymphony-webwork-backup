@@ -30,6 +30,7 @@
 
                  For example:
                  ant build-portlet -Dcontainer=jboss-portal-2.2
+                 
         </echo>
 	</target>
 
