@@ -4,14 +4,23 @@
  */
 package com.opensymphony.webwork.components.template;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
+
+import com.mockobjects.servlet.MockServletContext;
+import com.opensymphony.util.ClassLoaderUtil;
 import com.opensymphony.webwork.components.template.BaseTemplateEngine;
 import com.opensymphony.webwork.components.template.Template;
 import com.opensymphony.webwork.components.template.TemplateEngine;
 import com.opensymphony.webwork.components.template.TemplateRenderingContext;
+import com.opensymphony.webwork.views.JspSupportServlet;
 
 import junit.framework.TestCase;
 
@@ -55,6 +64,37 @@ public class BaseTemplateEngineTest extends TestCase {
 		assertNotNull(propertiesMap);
 		assertTrue(propertiesMap.size() > 0);
 	}
+	
+	
+	public void testGetPropsThroughWebAppResource() throws Exception {
+		
+		
+		final MockServletContext mockServletContext = new MockServletContext() {
+			public InputStream getResourceAsStream(String resource) {
+				if ("/template/myTheme/theme.properties".equals(resource)) {
+					return ClassLoaderUtil.getResourceAsStream("com/opensymphony/webwork/components/template/dummyWithContents.properties", BaseTemplateEngineTest.class);
+				}
+				return null;
+			}
+		};
+		
+		JspSupportServlet.jspSupportServlet = new JspSupportServlet() {
+			public ServletContext getServletContext() {
+				return mockServletContext;
+			}
+		};
+		
+		
+		Template template = new Template("template", "myTheme", "myComponent");
+		TemplateEngine templateEngine = new InnerBaseTemplateEngine("theme.properties");
+		Map propertiesMap = templateEngine.getThemeProps(template);
+		assertNotNull(propertiesMap);
+		assertEquals(propertiesMap.size(), 3);
+		assertEquals(propertiesMap.get("one"), "one");
+		assertEquals(propertiesMap.get("two"), "two");
+		assertEquals(propertiesMap.get("parent"), "css_xhtml");
+	}
+	
 	
 	public class InnerBaseTemplateEngine extends BaseTemplateEngine {
 		

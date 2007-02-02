@@ -5,6 +5,8 @@
 package com.opensymphony.webwork.components.template;
 
 import com.opensymphony.util.ClassLoaderUtil;
+import com.opensymphony.webwork.views.JspSupportServlet;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -56,6 +58,17 @@ public abstract class BaseTemplateEngine implements TemplateEngine {
                 	is = ClassLoaderUtil.getResourceAsStream(propName, getClass());
                 }
                 
+                if (is == null) {
+                	// let's try webapp's context
+                	if (JspSupportServlet.jspSupportServlet != null) {
+                		String _propName = propName.trim();
+                		if (!_propName.startsWith("/")) {
+                			_propName="/"+_propName;
+                		}
+                		is = JspSupportServlet.jspSupportServlet.getServletContext().getResourceAsStream(_propName);
+                	}
+                }
+                
                 props = new Properties();
                 
                 if (is != null) {
@@ -65,7 +78,7 @@ public abstract class BaseTemplateEngine implements TemplateEngine {
                         LOG.error("Could not load " + propName, e);
                     }
                 }
-
+                
                 themeProps.put(template.getTheme(), props);
             }
 
