@@ -95,7 +95,11 @@ public class DOTRenderer {
 
                     } else if (resultClassName.indexOf("Redirect") != -1) {
                         // check if the redirect is to an action -- if so, link it
-                        String location = getViewLocation((String) resultConfig.getParams().get("location"), namespace);
+                        String locationConfig = (String) resultConfig.getParams().get("location");
+                        if (locationConfig == null) {
+                            locationConfig = (String) resultConfig.getParams().get("actionName");
+                        }
+                        String location = getViewLocation(locationConfig, namespace);
                         if (location.endsWith((String) Configuration.get(WebWorkConstants.WEBWORK_ACTION_EXTENSION))) {
                             addTempLink(action, location, Link.TYPE_REDIRECT, resultConfig.getName());
                         } else {
