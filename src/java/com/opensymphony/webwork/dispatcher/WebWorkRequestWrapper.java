@@ -34,7 +34,9 @@ public class WebWorkRequestWrapper extends HttpServletRequestWrapper {
         Object attribute = super.getAttribute(s);
 
         boolean alreadyIn = false;
-        Boolean b = (Boolean) ActionContext.getContext().get("__requestWrapper.getAttribute");
+        //WW-1365
+        ActionContext ctx = ActionContext.getContext();
+        Boolean b = (Boolean) ctx.get("__requestWrapper.getAttribute");
         if (b != null) {
             alreadyIn = b.booleanValue();
         }
@@ -44,13 +46,13 @@ public class WebWorkRequestWrapper extends HttpServletRequestWrapper {
         if (!alreadyIn && attribute == null && s.indexOf("#") == -1) {
             try {
                 // If not found, then try the ValueStack
-                ActionContext.getContext().put("__requestWrapper.getAttribute", Boolean.TRUE);
-                OgnlValueStack stack = ActionContext.getContext().getValueStack();
+                ctx.put("__requestWrapper.getAttribute", Boolean.TRUE);
+                OgnlValueStack stack = ctx.getValueStack();
                 if (stack != null) {
                     attribute = stack.findValue(s);
                 }
             } finally {
-                ActionContext.getContext().put("__requestWrapper.getAttribute", Boolean.FALSE);
+                ctx.put("__requestWrapper.getAttribute", Boolean.FALSE);
             }
         }
         return attribute;
