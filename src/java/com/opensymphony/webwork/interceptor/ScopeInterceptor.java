@@ -1,19 +1,21 @@
 package com.opensymphony.webwork.interceptor;
 
+import java.io.Serializable;
+import java.util.IdentityHashMap;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.opensymphony.webwork.ServletActionContext;
+import com.opensymphony.webwork.WebWorkException;
+import com.opensymphony.webwork.dispatcher.SessionMap;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.ActionProxy;
 import com.opensymphony.xwork.interceptor.Interceptor;
 import com.opensymphony.xwork.interceptor.PreResultListener;
 import com.opensymphony.xwork.util.OgnlValueStack;
-import com.opensymphony.webwork.dispatcher.SessionMap;
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.webwork.WebWorkException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import java.util.IdentityHashMap;
-import java.util.Map;
 
 /**
  * <!-- START SNIPPET: description -->
@@ -166,7 +168,7 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
     }
 
 
-    private static final Object NULL = new Object() {
+    private static final Object NULL = new Serializable() {
         public String toString() {
             return "NULL";
         }
