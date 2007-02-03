@@ -233,9 +233,7 @@ public class DispatcherUtils {
             LOG.error("Could not find action", e);
             sendError(request, response, context, HttpServletResponse.SC_NOT_FOUND, e);
         } catch (Exception e) {
-            String msg = "Could not execute action";
-            LOG.error(msg, e);
-            sendError(request, response, context, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e);
+            throw new ServletException(e);
         }
     }
 
