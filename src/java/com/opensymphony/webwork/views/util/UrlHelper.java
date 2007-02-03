@@ -1,5 +1,23 @@
 package com.opensymphony.webwork.views.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
@@ -7,18 +25,6 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 import com.opensymphony.xwork.util.XWorkContinuationConfig;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 /**
@@ -310,27 +316,46 @@ public class UrlHelper {
     }
 
     public static Map parseQueryString(String queryString) {
-    	Map queryParams = new LinkedHashMap();
-    	if (queryString != null) {
-    		String[] params = queryString.split("&");
-    		for (int a=0; a< params.length; a++) {
-    			if (params[a].trim().length() > 0) {
-    				String[] tmpParams = params[a].split("=");
-    				String paramName = null;
-    				String paramValue = "";
-    				if (tmpParams.length > 0) {
-    					paramName = tmpParams[0];
-    				}
-    				if (tmpParams.length > 1) {
-    					paramValue = tmpParams[1];
-    				}
-    				if (paramName != null) {
-    					String translatedParamValue = translateAndDecode(paramValue);
-    					queryParams.put(paramName, translatedParamValue);
-    				}
-    			}
-    		}
-    	}
-    	return queryParams;
+        Map queryParams = new LinkedHashMap();
+        if(queryString != null) {
+            String[] params = queryString.split("&");
+            for(int a = 0; a < params.length; a++) {
+                if(params[a].trim().length() > 0) {
+                    String[] tmpParams = params[a].split("=");
+                    String paramName = null;
+                    String paramValue = "";
+                    if(tmpParams.length > 0) {
+                        paramName = tmpParams[0];
+                    }
+                    if(tmpParams.length > 1) {
+                        paramValue = tmpParams[1];
+                    }
+                    if(paramName != null) {
+                        String translatedParamValue = translateAndDecode(paramValue);
+                        
+                        if(queryParams.containsKey(paramName)) {
+                            // WW-1376 append new param value to existing value(s)
+                            Object currentParam = queryParams.get(paramName);
+                            if(currentParam instanceof String) {
+                                queryParams.put(paramName, new String[] {
+                                        (String) currentParam, translatedParamValue});
+                            } else {
+                                String currentParamValues[] = (String[]) currentParam;
+                                List paramList = new ArrayList(Arrays
+                                    .asList(currentParamValues));
+                                paramList.add(translatedParamValue);
+                                String newParamValues[] = new String[paramList
+                                    .size()];
+                                queryParams.put(paramName, paramList
+                                    .toArray(newParamValues));
+                            }
+                        } else {
+                            queryParams.put(paramName, translatedParamValue);
+                        }
+                    }
+                }
+            }
+        }
+        return queryParams;
     }
 }
