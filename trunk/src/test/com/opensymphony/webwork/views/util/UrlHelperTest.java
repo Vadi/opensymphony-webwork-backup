@@ -4,20 +4,19 @@
  */
 package com.opensymphony.webwork.views.util;
 
-import com.mockobjects.dynamic.Mock;
-import com.opensymphony.webwork.WebWorkTestCase;
-import com.opensymphony.webwork.WebWorkConstants;
-import com.opensymphony.webwork.config.Configuration;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.opensymphony.webwork.views.util.UrlHelper;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.HashMap;
+import com.mockobjects.dynamic.Mock;
+import com.opensymphony.webwork.WebWorkConstants;
+import com.opensymphony.webwork.WebWorkTestCase;
+import com.opensymphony.webwork.config.Configuration;
 
 
 /**
@@ -280,10 +279,36 @@ public class UrlHelperTest extends WebWorkTestCase {
     }
     
     public void testParseNullQuery() throws Exception {
-    	Map result = UrlHelper.parseQueryString(null);
-    	
-    	assertNotNull(result);
-    	assertEquals(result.size(), 0);
+        Map result = UrlHelper.parseQueryString(null);
+        
+        assertNotNull(result);
+        assertEquals(result.size(), 0);
+    }
+
+    public void testParseMultiQuery() throws Exception {
+        Map result = UrlHelper.parseQueryString("param=1&param=1&param=1");
+        
+        assertNotNull(result);
+        assertEquals(result.size(), 1);
+        String values[] = (String[]) result.get("param");
+        Arrays.sort(values);
+        assertEquals(values.length, 3);
+        assertEquals(values[0], "1");
+        assertEquals(values[1], "1");
+        assertEquals(values[2], "1");
+    }
+
+    public void testParseDuplicateQuery() throws Exception {
+        Map result = UrlHelper.parseQueryString("param=1&param=2&param=3");
+        
+        assertNotNull(result);
+        assertEquals(result.size(), 1);
+        String values[] = (String[]) result.get("param");
+        Arrays.sort(values);
+        assertEquals(values.length, 3);
+        assertEquals(values[0], "1");
+        assertEquals(values[1], "2");
+        assertEquals(values[2], "3");
     }
 
     public void testTranslateAndEncode() throws Exception {
