@@ -135,16 +135,17 @@ public class UrlHelper {
         // only append scheme if it is different to the current scheme *OR*
         // if we explicity want it to be appended by having forceAddSchemeHostAndPort = true
         if (forceAddSchemeHostAndPort) {
-        	String reqScheme = request.getScheme();
-        	changedScheme = true;
-        	link.append(scheme != null ? scheme : reqScheme);
-        	link.append("://");
-        	link.append(request.getServerName());
-        	
-        	if ((scheme.equals("http") && (httpPort != DEFAULT_HTTP_PORT)) || (scheme.equals("https") && httpsPort != DEFAULT_HTTPS_PORT))
-            {
-                link.append(":");
-                link.append(scheme.equals("http") ? httpPort : httpsPort);
+            String reqScheme = request.getScheme();
+            changedScheme = true;
+            link.append(scheme != null ? scheme : reqScheme);
+            link.append("://");
+            link.append(request.getServerName());
+            if(scheme != null) {
+                if((scheme.equals("http") && (httpPort != DEFAULT_HTTP_PORT))
+                    || (scheme.equals("https") && httpsPort != DEFAULT_HTTPS_PORT)) {
+                    link.append(":");
+                    link.append(scheme.equals("http") ? httpPort : httpsPort);
+                }
             }
         }
         else if (  
