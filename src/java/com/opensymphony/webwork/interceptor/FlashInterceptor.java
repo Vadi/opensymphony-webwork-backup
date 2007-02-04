@@ -65,7 +65,7 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  * 
  * &lt;!-- Usage 2: (Using Flash Interceptor and Flash Result) --&gt;
  * &lt;action name="store"&gt;
- * 	<result type="flash"&lt;/redirectToSomeWhere.jsp&lt;/result&gt;
+ * 	&lt;result type="flash"&gt;redirectToSomeWhere.jsp&lt;/result&gt;
  * &lt;/action&gt;
  * &lt;action name="retrieve"&gt;
  * 	&lt;interceptor-ref name="flash"&gt;
