@@ -11,37 +11,29 @@ import com.opensymphony.xwork.ActionSupport;
  */
 public class TabbedWizardAction extends ActionSupport {
 
+	private static final long serialVersionUID = -8498743970943114246L;
+	
 	private String name;
 	private String age;
 	private String gender;
 	private String favouriteColor;
 	
 	public String input() throws Exception {
-		print();
 		return SUCCESS;
 	}
 	
 	public String saveTabOne() throws Exception {
-		print();
 		return SUCCESS;
 	}
 	
 	public String saveTabTwo() throws Exception {
-		print();
 		return SUCCESS;
 	}
 	
 	public String end() throws Exception {
-		print();
 		return SUCCESS;
 	}
 	
-	void print() {
-		System.out.println("*** name="+name);
-		System.out.println("*** age="+age);
-		System.out.println("*** gender="+gender);
-		System.out.println("*** favouriteColor="+favouriteColor);
-	}
 
 	public String getAge() {
 		return age;
