@@ -251,7 +251,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
      *
      * @return true to process the template, false to suppress template processing.
      */
-    protected boolean preTemplateProcess(Template template, TemplateModel model) throws IOException {
+    protected boolean preTemplateProcess(Template template, TemplateModel model) throws IOException, TemplateException {
         Object attrContentType = template.getCustomAttribute("content_type");
 
         if (attrContentType != null) {
