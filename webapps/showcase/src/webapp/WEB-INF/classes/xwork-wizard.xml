@@ -77,6 +77,47 @@
 			<result name="input">/wizard/step2.jsp</result>
 			<result name="success">/wizard/step1.jsp</result>
 		</action>
+		
+		
+		
+		
+		<action name="startTabbedWizard" class="com.opensymphony.webwork.showcase.wizard.TabbedWizardAction" method="input">
+			<interceptor-ref name="scope">
+				<param name="key">tabbedWizard</param>
+				<param name="session">name,age,gender,favouriteColor</param>
+				<param name="type">start</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result>/wizard/tabbedPanel.jsp</result>
+		</action>
+		
+		<action name="saveTabOne" class="com.opensymphony.webwork.showcase.wizard.TabbedWizardAction" method="saveTabOne">
+			<interceptor-ref name="scope">
+				<param name="key">tabbedWizard</param>
+				<param name="session">name,age,gender,favouriteColor</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result>/wizard/tabbedPanel.jsp</result>
+		</action>
+		
+		<action name="saveTabTwo" class="com.opensymphony.webwork.showcase.wizard.TabbedWizardAction" method="saveTabTwo">
+			<interceptor-ref name="scope">
+				<param name="key">tabbedWizard</param>
+				<param name="session">name,age,gender,favouriteColor</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result>/wizard/tabbedPanel.jsp</result>
+		</action>
+		
+		<action name="endTabbedWizard" class="com.opensymphony.webwork.showcase.wizard.TabbedWizardAction" method="end">
+			<interceptor-ref name="scope">
+				<param name="key">tabbedWizard</param>
+				<param name="session">name,age,gender,favouriteColor</param>
+				<param name="type">end</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result type="redirect">/wizard/tabbedPanel.jsp</result>
+		</action>
 	</package>
 </xwork>
 

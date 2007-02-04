@@ -11,6 +11,8 @@
 
 	<ww:url id="url" action="start" namespace="/wizard" />	
 	<ww:a href="%{#url}">Wizard Example</ww:a>
+	<ww:url id="url" action="startTabbedWizard" namespace="wizard" />
+	<ww:a href="%{#url}">Tabbed Panel Wizard Example</ww:a>
 	
 </body>
 </html>
