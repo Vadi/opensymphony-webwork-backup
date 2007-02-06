@@ -84,11 +84,10 @@ public class Set extends Component {
             stack.setValue("#request['" + name + "']", o);
         } else if ("page".equalsIgnoreCase(scope)) {
             stack.setValue("#attr['" + name + "']", o, false);
-        } else {
-            //WW-796: SetTag "scope" attribute do not put the object to stack if the scope is given.
-            stack.getContext().put(name, o);
-            stack.setValue("#attr['" + name + "']", o, false);
         }
+        //WW-796: SetTag "scope" attribute do not put the object to stack if the scope is given.
+        stack.getContext().put(name, o);
+
 
         return super.end(writer, body);
     }
