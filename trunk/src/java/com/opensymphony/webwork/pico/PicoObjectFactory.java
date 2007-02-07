@@ -8,20 +8,23 @@
  *****************************************************************************/
 package com.opensymphony.webwork.pico;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.nanocontainer.nanowar.ActionsContainerFactory;
+import org.picocontainer.MutablePicoContainer;
+import org.picocontainer.defaults.DefaultPicoContainer;
+import org.picocontainer.defaults.ObjectReference;
+
 import com.opensymphony.xwork.ObjectFactory;
 import com.opensymphony.xwork.Result;
-import com.opensymphony.xwork.validator.Validator;
-import com.opensymphony.xwork.interceptor.Interceptor;
+import com.opensymphony.xwork.config.ConfigurationException;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.InterceptorConfig;
 import com.opensymphony.xwork.config.entities.ResultConfig;
-import com.opensymphony.xwork.config.ConfigurationException;
-import org.nanocontainer.nanowar.ActionsContainerFactory;
-import org.picocontainer.MutablePicoContainer;
-import org.picocontainer.defaults.ObjectReference;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import com.opensymphony.xwork.interceptor.Interceptor;
+import com.opensymphony.xwork.validator.Validator;
 
 /**
  * <p>
@@ -99,8 +102,9 @@ public class PicoObjectFactory extends ObjectFactory {
 
         if (action == null) {
             // The action wasn't registered. Attempt to instantiate it.
-            actionsContainer.registerComponentImplementation(actionClass);
-            action = actionsContainer.getComponentInstance(actionClass);
+            MutablePicoContainer container = new DefaultPicoContainer(actionsContainer);
+            container.registerComponentImplementation(actionClass);
+            action = container.getComponentInstance(actionClass);
         }
         return action;
     }
