@@ -130,7 +130,18 @@
     </build>
 
     <repositories>
-            <repository>
+        <repository>
+            <id>apache.snapshots</id>
+            <name>Apache Maven Repository (Snapshots and Test Builds)</name>
+            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
             <id>opensymphony</id>
             <name>opensymphony</name>
             <layout>legacy</layout>
@@ -329,7 +340,7 @@
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-container-default</artifactId>
-            <version>1.0-alpha-10-SNAPSHOT</version>
+            <version>1.0-alpha-10</version>
             <optional>true</optional>
         </dependency>
 
