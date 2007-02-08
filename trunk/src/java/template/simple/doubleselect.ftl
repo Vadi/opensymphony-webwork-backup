@@ -1,16 +1,16 @@
 <#include "/${parameters.templateDir}/simple/select.ftl" />
 <#assign startCount = 0/>
-<#if parameters.headerKey?exists && parameters.headerValue?exists>
+<#if parameters.doubleHeaderKey?exists && parameters.doubleHeaderValue?exists>
     <#assign startCount = startCount + 1/>
 </#if>
-<#if parameters.emptyOption?exists>
+<#if parameters.doubleEmptyOption?exists>
     <#assign startCount = startCount + 1/>
 </#if>
 
 <br/>
 <select<#rt/>
  name="${parameters.doubleName?default("")?html}"<#rt/>
-<#if parameters.disabled?default(false)>
+<#if parameters.doubleDisabled?default(false)>
  disabled="disabled"<#rt/>
 </#if>
 <#if parameters.doubleTabindex?exists>
@@ -19,25 +19,69 @@
 <#if parameters.doubleId?exists>
  id="${parameters.doubleId?html}"<#rt/>
 </#if>
-<#if parameters.cssClass?exists>
- class="${parameters.cssClass?html}"<#rt/>
+<#if parameters.doubleCssClass?exists>
+ class="${parameters.doubleCssClass?html}"<#rt/>
 </#if>
-<#if parameters.cssStyle?exists>
- style="${parameters.cssStyle?html}"<#rt/>
+<#if parameters.doubleCssStyle?exists>
+ style="${parameters.doubleCssStyle?html}"<#rt/>
 </#if>
-<#if parameters.title?exists>
- title="${parameters.title?html}"<#rt/>
+<#if parameters.doubleTitle?exists>
+ title="${parameters.doubleTitle?html}"<#rt/>
 </#if>
-<#if parameters.multiple?default(false)>
+<#if parameters.doubleMultiple?default(false)>
  multiple="multiple"<#rt/>
 </#if>
+
+<#if parameters.doubleOnblur?exists>
+ onblur="${parameters.doubleOnblur?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnchange?exists>
+ onchange="${parameters.doubleOnchange?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnclick?exists>
+ onclick="${parameters.doubleOnclick?html}"<#rt/>
+</#if>
+<#if parameters.doubleOndblclick?exists>
+ ondblclick="${parameters.doubleOndblclick?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnfocus?exists>
+ onfocus="${parameters.doubleOnfocus?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnblur?exists>
+ onblur="${parameters.doubleOnblur?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnkeydown?exists>
+ onkeydown="${parameters.doubleOnkeydown?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnkeypress?exists>
+ onkeypress="${parameters.doubleOnkeypress?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnkeyup?exists>
+ onkeyup="${parameters.doubleOnkeyup?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnmousedown?exists>
+ onkeyup="${parameters.doubleOnmousedown?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnmousemove?exists>
+ onmousemove="${parameters.doubleOnmousemove?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnmouseout?exists>
+onmouseout="${parameters.doubleOnmouseout?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnmouseup?exists>
+ onmouseup="${parameters.doubleOnmouseup?html}"<#rt/>
+</#if>
+<#if parameters.doubleOnselect?exists>
+ onselect="${parameters.doubleOnselect?html}"<#rt/>
+</#if>
+
 >
 </select>
 <script type="text/javascript">
 <#assign itemCount = startCount/>
-    var ${parameters.name}Group = new Array(${parameters.listSize} + ${startCount});
+    var ${parameters.id}Group = new Array(${parameters.listSize} + ${startCount});
     for (i = 0; i < (${parameters.listSize} + ${startCount}); i++)
-    ${parameters.name}Group[i] = new Array();
+    ${parameters.id}Group[i] = new Array();
 
 <@ww.iterator value="parameters.list">
     <#if parameters.listKey?exists>
@@ -63,13 +107,13 @@
         <#else>
             <#assign doubleItemValue = stack.findString('top')/>
         </#if>
-    ${parameters.name}Group[${itemCount}][${doubleItemCount}] = new Option("${doubleItemValue}", "${doubleItemKeyStr}");
+    ${parameters.id}Group[${itemCount}][${doubleItemCount}] = new Option("${doubleItemValue}", "${doubleItemKeyStr}");
         <#assign doubleItemCount = doubleItemCount + 1/>
     </@ww.iterator>
     <#assign itemCount = itemCount + 1/>
 </@ww.iterator>
 
-    var ${parameters.name}Temp = document.${parameters.formName}.${parameters.doubleName};
+    var ${parameters.id}Temp = document.${parameters.formName}.${parameters.doubleName};
 <#assign itemCount = startCount/>
 <#assign redirectTo = 0/>
 <@ww.iterator value="parameters.list">
@@ -83,25 +127,26 @@
     </#if>
     <#assign itemCount = itemCount + 1/>
 </@ww.iterator>
-    ${parameters.name}Redirect(${redirectTo});
-    function ${parameters.name}Redirect(x) {
+    ${parameters.id}Redirect(${redirectTo});
+    function ${parameters.id}Redirect(x) {
     	var selected = false;
-        for (m = ${parameters.name}Temp.options.length - 1; m >= 0; m--) {
-            ${parameters.name}Temp.options[m] = null;
+        for (m = ${parameters.id}Temp.options.length - 1; m >= 0; m--) {
+            ${parameters.id}Temp.options[m] = null;
         }
 
-        for (i = 0; i < ${parameters.name}Group[x].length; i++) {
-            ${parameters.name}Temp.options[i] = new Option(${parameters.name}Group[x][i].text, ${parameters.name}Group[x][i].value);
+        for (i = 0; i < ${parameters.id}Group[x].length; i++) {
+            ${parameters.id}Temp.options[i] = new Option(${parameters.id}Group[x][i].text, ${parameters.id}Group[x][i].value);
             <#if parameters.doubleNameValue?exists>
-            	if (${parameters.name}Temp.options[i].value == '${parameters.doubleNameValue}') {
-            		${parameters.name}Temp.options[i].selected = true;
+            	if (${parameters.id}Temp.options[i].value == '${parameters.doubleNameValue}') {
+            		${parameters.id}Temp.options[i].selected = true;
             		selected = true;
             	}
             </#if>
         }
 
-        if ((${parameters.name}Temp.options.length > 0) && (! selected)) {
-           	${parameters.name}Temp.options[0].selected = true;
+        if ((${parameters.id}Temp.options.length > 0) && (! selected)) {
+           	${parameters.id}Temp.options[0].selected = true;
         }
+        eval(${parameters.doubleOnchange?html});
     }
 </script>
