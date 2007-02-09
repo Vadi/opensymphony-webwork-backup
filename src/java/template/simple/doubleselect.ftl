@@ -1,9 +1,9 @@
 <#include "/${parameters.templateDir}/simple/select.ftl" />
 <#assign startCount = 0/>
-<#if parameters.doubleHeaderKey?exists && parameters.doubleHeaderValue?exists>
+<#if parameters.headerKey?exists && parameters.headerValue?exists>
     <#assign startCount = startCount + 1/>
 </#if>
-<#if parameters.doubleEmptyOption?exists>
+<#if parameters.emptyOption?exists>
     <#assign startCount = startCount + 1/>
 </#if>
 
@@ -147,6 +147,5 @@ onmouseout="${parameters.doubleOnmouseout?html}"<#rt/>
         if ((${parameters.id}Temp.options.length > 0) && (! selected)) {
            	${parameters.id}Temp.options[0].selected = true;
         }
-        eval(${parameters.doubleOnchange?html});
     }
 </script>
