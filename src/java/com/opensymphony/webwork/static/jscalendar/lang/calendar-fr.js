@@ -48,32 +48,32 @@ Calendar._SDN = new Array
 // full month names
 Calendar._MN = new Array
 ("Janvier",
- "Février",
+ "F\u00e9vrier",
  "Mars",
  "Avril",
  "Mai",
  "Juin",
  "Juillet",
- "Août",
+ "Ao\u00fbt",
  "Septembre",
  "Octobre",
  "Novembre",
- "Décembre");
+ "D\u00e9cembre");
 
 // short month names
 Calendar._SMN = new Array
 ("Jan",
- "Fev",
+ "F\u00e9v",
  "Mar",
  "Avr",
  "Mai",
  "Juin",
  "Juil",
- "Aout",
+ "Ao\u00fbt",
  "Sep",
  "Oct",
  "Nov",
- "Dec");
+ "D\u00e9c");
 
 // First day of the week. "0" means display Sunday first, "1" means display
 // Monday first, etc.
@@ -86,26 +86,26 @@ Calendar._TT["INFO"] = "A propos du calendrier";
 Calendar._TT["ABOUT"] =
 "DHTML Date/Heure Selecteur\n" +
 "(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" + // don't translate this this ;-)
-"Pour la derniere version visitez : http://www.dynarch.com/projects/calendar/\n" +
-"Distribué par GNU LGPL.  Voir http://gnu.org/licenses/lgpl.html pour les details." +
+"Pour la derni\u00e8re version visitez : http://www.dynarch.com/projects/calendar/\n" +
+"Distribu\u00e9 par GNU LGPL.  Voir http://gnu.org/licenses/lgpl.html pour les d\u00e9tails." +
 "\n\n" +
 "Selection de la date :\n" +
-"- Utiliser les bouttons \xab, \xbb  pour selectionner l\'annee\n" +
-"- Utiliser les bouttons " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " pour selectionner les mois\n" +
-"- Garder la souris sur n'importe quels boutons pour une selection plus rapide";
+"- Utiliser les boutons \xab, \xbb  pour s\u00e9lectionner l\'ann\u00e9e\n" +
+"- Utiliser les boutons " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " pour s\u00e9lectionner les mois\n" +
+"- Garder la souris sur n'importe quels boutons pour une s\u00e9lection plus rapide";
 Calendar._TT["ABOUT_TIME"] = "\n\n" +
-"Selection de l\'heure :\n" +
-"- Cliquer sur heures ou minutes pour incrementer\n" +
-"- ou Maj-clic pour decrementer\n" +
-"- ou clic et glisser-deplacer pour une selection plus rapide";
+"S\u00e9lection de l\'heure :\n" +
+"- Cliquer sur heures ou minutes pour augmenter\n" +
+"- ou Maj-clic pour diminuer\n" +
+"- ou clic et glisser-d\u00e9placer pour une selection plus rapide";
 
-Calendar._TT["PREV_YEAR"] = "Année préc. (maintenir pour menu)";
-Calendar._TT["PREV_MONTH"] = "Mois préc. (maintenir pour menu)";
+Calendar._TT["PREV_YEAR"] = "Ann\u00e9e pr\u00e9c. (maintenir pour menu)";
+Calendar._TT["PREV_MONTH"] = "Mois pr\u00e9c. (maintenir pour menu)";
 Calendar._TT["GO_TODAY"] = "Atteindre la date du jour";
 Calendar._TT["NEXT_MONTH"] = "Mois suiv. (maintenir pour menu)";
-Calendar._TT["NEXT_YEAR"] = "Année suiv. (maintenir pour menu)";
-Calendar._TT["SEL_DATE"] = "Sélectionner une date";
-Calendar._TT["DRAG_TO_MOVE"] = "Déplacer";
+Calendar._TT["NEXT_YEAR"] = "Ann\u00e9e suiv. (maintenir pour menu)";
+Calendar._TT["SEL_DATE"] = "S\u00e9lectionner une date";
+Calendar._TT["DRAG_TO_MOVE"] = "D\u00e9placer";
 Calendar._TT["PART_TODAY"] = " (Aujourd'hui)";
 
 // the following is to inform that "%s" is to be the first day of week
