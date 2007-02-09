@@ -968,17 +968,18 @@ public abstract class UIBean extends Component {
      * @param form
      */
     protected void populateComponentHtmlId(Form form) {
-    	if (id != null) {
+    	if(id != null) {
             // this check is needed for backwards compatibility with 2.1.x
-            if (altSyntax()) {
+            if(altSyntax()) {
                 addParameter("id", findString(id));
             } else {
                 addParameter("id", id);
             }
-        } else if (form != null) {
-            addParameter("id", form.getParameters().get("id") + "_" + escape(name));
+        } else if(form != null) {
+            addParameter("id", form.getParameters().get("id") + "_"
+                + escape(name == null ? null : findString(name)));
         } else {
-            addParameter("id", escape(name));
+            addParameter("id", escape(name == null ? null : findString(name)));
         }
     }
 

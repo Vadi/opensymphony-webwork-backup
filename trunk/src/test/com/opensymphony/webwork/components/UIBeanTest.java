@@ -49,4 +49,20 @@ public class UIBeanTest extends WebWorkTestCase {
 		
 		assertEquals("formId_txtFldName", txtFld.getParameters().get("id"));
 	}
+
+        public void testPopulateComponentHtmlId3() throws Exception {
+                OgnlValueStack stack = new OgnlValueStack();
+                MockHttpServletRequest req = new MockHttpServletRequest();
+                MockHttpServletResponse res = new MockHttpServletResponse();
+                
+                Form form = new Form(stack, req, res);
+                form.getParameters().put("id", "formId");
+                
+                TextField txtFld = new TextField(stack, req, res);
+                txtFld.setName("%{1 + 1}");
+                
+                txtFld.populateComponentHtmlId(form);
+                
+                assertEquals("formId_2", txtFld.getParameters().get("id"));
+        }
 }
