@@ -1,3 +1,6 @@
+</table>
+</form>
+
 <script type="text/javascript">
 
 <#-- 
@@ -65,6 +68,3 @@ var containingForm = document.getElementById("${parameters.id}");
 	<#lt/><!-- javascript that is needed for tooltips --> 
 	<#lt/><script language="JavaScript" type="text/javascript" src="<@ww.url value='/webwork/tooltip/wz_tooltip.js' encode='false' includeParams='none'/>"></script>
 </#if><#t/>
-
-</table>
-</form>
