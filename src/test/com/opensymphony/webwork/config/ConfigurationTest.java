@@ -16,6 +16,7 @@ import java.util.Locale;
  * Unit test for {@link ConfigurationTest}.
  *
  * @author Jason Carreira
+ * @version $Date$ $Id$
  */
 public class ConfigurationTest extends WebWorkTestCase {
 
@@ -32,7 +33,7 @@ public class ConfigurationTest extends WebWorkTestCase {
         assertEquals("de", locale.getLanguage());
 
         int count = getKeyCount();
-        assertEquals(28, count);
+        assertEquals(29, count);
     }
 
     public void testDefaultResourceBundlesLoaded() {

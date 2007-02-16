@@ -34,6 +34,8 @@ import java.util.Stack;
  *
  * @author plightbo
  * @author tm_jee
+ * 
+ * @version $Date$ $Id$
  */
 public class Component {
     private static final Log LOG = LogFactory.getLog(Component.class);

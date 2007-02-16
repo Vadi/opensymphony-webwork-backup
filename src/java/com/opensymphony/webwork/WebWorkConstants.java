@@ -9,6 +9,7 @@ package com.opensymphony.webwork;
  * webwork configurations.
  *
  * @author Onyeje Bose (digi9ten@yahoo.com)
+ * @author tmjee
  * @version $Date$ $Id$
  */
 public final class WebWorkConstants {
@@ -64,4 +65,7 @@ public final class WebWorkConstants {
 
     public static final String WEBWORK_PORTLET_CONTEXT = "webwork.portlet.context";
     public static final String WEBWORK_SERVE_STATIC_CONTENT = "webwork.serve.static";
+    
+    public static final String WEBWORK_FREEMARKER_SITEMESH_APPLY_DECORATOR_TRANSFORM = "webwork.freemarker.sitemesh.applyDecoratorTransform";
+
 }
