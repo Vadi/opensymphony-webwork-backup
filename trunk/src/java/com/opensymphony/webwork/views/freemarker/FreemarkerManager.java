@@ -8,6 +8,7 @@ import com.opensymphony.util.FileManager;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.views.JspSupportServlet;
 import com.opensymphony.webwork.views.freemarker.tags.WebWorkModels;
+import com.opensymphony.webwork.views.sitemesh.SitemeshModel;
 import com.opensymphony.webwork.views.util.ContextUtil;
 import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.xwork.ObjectFactory;
@@ -323,6 +324,11 @@ public class FreemarkerManager {
         ScopesHashModel model = buildScopesHashModel(servletContext, request, response, wrapper, stack);
         populateContext(model, stack, action, request, response);
         model.put("ww", new WebWorkModels(stack, request, response));
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_FREEMARKER_SITEMESH_APPLY_DECORATOR_TRANSFORM)) {
+        	if ("true".equals(Configuration.get(WebWorkConstants.WEBWORK_FREEMARKER_SITEMESH_APPLY_DECORATOR_TRANSFORM))) {
+        		model.put("sitemesh", new SitemeshModel(stack, request, response));
+        	}
+        }
         return model;
     }
 }
