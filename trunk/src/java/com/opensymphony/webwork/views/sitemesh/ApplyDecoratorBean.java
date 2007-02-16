@@ -41,6 +41,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 /**
+ * START SNIPPET: javadoc 
+ * 
  * This is the WebWork component that implements Freemarker's ApplyDecorator
  * Transform. To use this Freemarker Transform, it needs to be enabled in
  * webwork.properties (which is enabled by default)
@@ -49,10 +51,71 @@ import freemarker.template.TemplateException;
  * webwork.freemarker.sitemesh.applyDecoratorTransform = true
  * </pre>
  * 
- * An example of usage would be as follows:-
+ * An example of usage would be as follows:- <p/>
  * 
+ * In Sitemesh's decorators.xml
  * <pre>
- *    &lt;@sitemesh.applydecorator name=&quot;decoratorName&quot; page=&quot;/pages/pageToBeDecorated.ftl&quot; /&gt;
+ *   <decorators defaultdir="/WEB-INF/decorators">
+ *   	....
+ *      <decorator name="panel" page="/panelDecorator.ftl" />
+ *   </decorators>
+ * </pre>
+ * 
+ * Decorator (panelDecorator.ftl)<p/>
+ * <pre>
+ *  <table border="1">
+ *    <tr>
+ *    	<td>${title}</td>
+ *    </tr>
+ *    <tr>
+ *      <td>${body}</td>
+ *    </tr>
+ *  </table>
+ * </pre>
+ * 
+ * Freemarker page that uses decorator <p/>
+ * <pre>
+ * 	 <html> 
+ *    <head>
+ *       <title>some title</title>
+ *    </head>
+ *    <body>
+ *      <h1>some body title</h1>
+ *      &lt;@sitemesh.applydecorator name=&quot;panel&quot; page=&quot;/pages/pageToBeDecorated.ftl&quot; /&gt;
+ *    </body>
+ *   </html>
+ * </pre>
+ * 
+ * 
+ * An example of pageToBeDecorated.ftl<p/>
+ * <pre>
+ *  <html>
+ *    <head>
+ *       <title>Panel Title</title>
+ *    </head>
+ *    <body>
+ *       Panel Content
+ *    </body>
+ *  </html>
+ * </pre>
+ * 
+ * 
+ * The nett outcome would be:-
+ * <pre>
+ *   <html>
+ *     <title>some title</title>
+ *   </html>
+ *   <body>
+ *     <h1>some body title</h1>
+ *     <table border="1">
+ *       <tr>
+ *       	<td>Panel Title</td>
+ *       </tr>
+ *       <tr>
+ *          <td>Panel Content</td>
+ *       </tr>
+ *     </table>
+ *   </body>
  * </pre>
  * 
  * The following are method hooks available to its subclass
@@ -67,6 +130,8 @@ import freemarker.template.TemplateException;
  * 	<li>deduceLocale(ActionInvocation invocation, Configuration freemarkerConfiguration) - deduce the Locale from invocation else use the Locale supplied by Freemarker</li>
  * 	<li>createModel() - create a Freemarker model for the template</li>
  * </ul>
+ * 
+ * END SNIPPET: javadoc
  * 
  * @author tmjee
  * @version $Date$ $Id$
