@@ -15,12 +15,16 @@
         <pattern>/ajax/remotediv/Test3.action*</pattern>
         <pattern>/tags/ui/ajax/*</pattern>
         <pattern>/nodecorate/*</pattern>
+        <pattern>/sitemesh/useFreemarkerApplyDecoratorTag.action</pattern>
     </excludes>
 
     <decorator name="main" page="main.jsp">
         <pattern>/*</pattern>
     </decorator>
-    <!--<decorator name="panel" page="panel.jsp"/>-->
+    <decorator name="panel" page="panel.ftl" />
+    <decorator name="panelDec" page="panel.dec" />
+    <decorator name="panelJsp" page="panel.jsp" />
+    
     <!--<decorator name="dashedBox" page="dashedBox.jsp"/>-->
     <!--<decorator name="printable" page="printable.jsp"/>-->
 </decorators>
