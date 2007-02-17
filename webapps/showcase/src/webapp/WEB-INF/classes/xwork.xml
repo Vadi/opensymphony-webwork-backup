@@ -38,6 +38,7 @@
 	
 	<include file="xwork-flash.xml" />
 	
+	<include file="xwork-sitemesh.xml" />
 
     <package name="default" extends="webwork-default">
         <interceptors>

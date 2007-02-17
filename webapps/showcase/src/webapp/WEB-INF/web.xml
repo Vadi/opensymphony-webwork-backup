@@ -40,6 +40,27 @@
     </listener>
 
 
+	<servlet>
+		<servlet-name>jspSupportServlet</servlet-name>
+		<servlet-class>com.opensymphony.webwork.views.JspSupportServlet</servlet-class>
+		<load-on-startup>10</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>freemarkerServlet</servlet-name>
+		<servlet-class>com.opensymphony.module.sitemesh.freemarker.FreemarkerDecoratorServlet</servlet-class>
+		<init-param>
+			<param-name>TemplatePath</param-name>
+			<param-value>/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>default_encoding</param-name>
+			<param-value>ISO-8859-1</param-value>
+		</init-param>
+		<load-on-startup>11</load-on-startup>
+	</servlet>
+
+
     <!-- SNIPPET START: dwr -->
 
     <servlet>
@@ -57,6 +78,13 @@
     </servlet-mapping>
 
     <!-- END SNIPPET: dwr -->
+    
+    
+    <servlet-mapping>
+    	<servlet-name>freemarkerServlet</servlet-name>
+    	<url-pattern>*.dec</url-pattern>
+    </servlet-mapping>
+    
 
     <!-- SNIPPET START: example.velocity.filter.chain
         <filter>
