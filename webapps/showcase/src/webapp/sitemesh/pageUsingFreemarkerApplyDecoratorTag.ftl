@@ -12,7 +12,7 @@
 		
 		<hr/>
 		
-		<@sitemesh.applydecorator name="panel" page="/sitemesh/panel1.ftl" />
+		<@page.applyDecorator name="panel" page="/sitemesh/panel1.ftl" />
 		
 	</body>
 </html>
