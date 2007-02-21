@@ -41,7 +41,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 /**
- * START SNIPPET: javadoc 
+ * <!-- START SNIPPET: javadoc -->
  * 
  * This is the WebWork component that implements Freemarker's ApplyDecorator
  * Transform. To use this Freemarker Transform, it needs to be enabled in
@@ -118,7 +118,7 @@ import freemarker.template.TemplateException;
  *   &lt;/html&gt;
  * </pre>
  * 
- * The following are method hooks available to its subclass
+ * The following are method hooks available to ApplyDecoratorBean and its subclass
  * <ul>
  * 	<li>getFreemarkerTemplate(String templatePath) - create a Freemarker Template based on the template path given </li>
  * 	<li>parsePageFromContent(String content) - returns a Sitemesh Page object based on the content as the to-be-decorated-page</li>
@@ -131,7 +131,7 @@ import freemarker.template.TemplateException;
  * 	<li>createModel() - create a Freemarker model for the template</li>
  * </ul>
  * 
- * END SNIPPET: javadoc
+ * <!-- END SNIPPET: javadoc -->
  * 
  * @author tmjee
  * @version $Date$ $Id$
