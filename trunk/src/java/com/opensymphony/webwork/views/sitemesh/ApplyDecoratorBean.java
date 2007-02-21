@@ -55,67 +55,67 @@ import freemarker.template.TemplateException;
  * 
  * In Sitemesh's decorators.xml
  * <pre>
- *   <decorators defaultdir="/WEB-INF/decorators">
+ *   &lt;decorators defaultdir="/WEB-INF/decorators"&gt;
  *   	....
- *      <decorator name="panel" page="/panelDecorator.ftl" />
- *   </decorators>
+ *      &lt;decorator name="panel" page="/panelDecorator.ftl" /&gt;
+ *   &lt;/decorators*gt;
  * </pre>
  * 
  * Decorator (panelDecorator.ftl)<p/>
  * <pre>
- *  <table border="1">
- *    <tr>
- *    	<td>${title}</td>
- *    </tr>
- *    <tr>
- *      <td>${body}</td>
- *    </tr>
- *  </table>
+ *  &lt;table border="1"&gt;
+ *    &lt;tr&gt;
+ *    	&lt;td&gt;${title}&lt;/td&gt;
+ *    &lt;/tr&gt;
+ *    &lt;tr&gt;
+ *      &lt;td&gt;${body}&lt;/td&gt;
+ *    &lt;/tr&gt;
+ *  &lt;/table&gt;
  * </pre>
  * 
  * Freemarker page that uses decorator <p/>
  * <pre>
- * 	 <html> 
- *    <head>
- *       <title>some title</title>
- *    </head>
- *    <body>
- *      <h1>some body title</h1>
+ * 	 &lt;html&gt; 
+ *    &lt;head&gt;
+ *       &lt;title&gt;some title&lt;/title&gt;
+ *    &lt;/head&gt;
+ *    &lt;body&gt;
+ *      &lt;h1&gt;some body title&lt;/h1&gt;
  *      &lt;@sitemesh.applydecorator name=&quot;panel&quot; page=&quot;/pages/pageToBeDecorated.ftl&quot; /&gt;
- *    </body>
- *   </html>
+ *    &lt;/body&gt;
+ *   &lt;/html&gt;
  * </pre>
  * 
  * 
  * An example of pageToBeDecorated.ftl<p/>
  * <pre>
- *  <html>
- *    <head>
- *       <title>Panel Title</title>
- *    </head>
- *    <body>
+ *  &lt;html&gt;
+ *    &lt;head&gt;
+ *       &lt;title&gt;Panel Title&lt;/title&gt;
+ *    &lt;/head&gt;
+ *    &lt;body&gt;
  *       Panel Content
- *    </body>
- *  </html>
+ *    &lt;/body&gt;
+ *  &lt;/html&gt;
  * </pre>
  * 
  * 
  * The nett outcome would be:-
  * <pre>
- *   <html>
- *     <title>some title</title>
- *   </html>
- *   <body>
- *     <h1>some body title</h1>
- *     <table border="1">
- *       <tr>
- *       	<td>Panel Title</td>
- *       </tr>
- *       <tr>
- *          <td>Panel Content</td>
- *       </tr>
- *     </table>
- *   </body>
+ *   &lt;html&gt;
+ *     &lt;title&gt;some title&l/title&gt;
+ *   &lt;body&gt;
+ *     &lt;h1&gt;some body title&lt;/h1&gt;
+ *     &lt;table border="1"&gt;
+ *       &lt;tr&gt;
+ *       	&lt;td&gt;Panel Title&lt;/td&gt;
+ *       &lt;/tr&gt;
+ *       &lt;tr&gt;
+ *          &lt;td&gt;Panel Content&lt;/td&gt;
+ *       &lt;/tr&gt;
+ *     &lt;/table&gt;
+ *   &lt;/body&gt;
+ *   &lt;/html&gt;
  * </pre>
  * 
  * The following are method hooks available to its subclass
