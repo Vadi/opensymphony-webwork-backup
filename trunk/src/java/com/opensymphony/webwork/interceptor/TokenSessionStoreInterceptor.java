@@ -107,12 +107,15 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
             if (savedInvocation != null) {
                 // set the valuestack to the request scope
                 OgnlValueStack stack = savedInvocation.getStack();
+                Map context = stack.getContext();
                 request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
 
                 Result result = savedInvocation.getResult();
 
                 if ((result != null) && (savedInvocation.getProxy().getExecuteResult())) {
-                    result.execute(savedInvocation);
+                    synchronized (context) {
+                        result.execute(savedInvocation);
+                    }
                 }
 
                 // turn off execution of this invocations result
