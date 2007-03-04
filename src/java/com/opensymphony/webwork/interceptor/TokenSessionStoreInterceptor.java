@@ -4,6 +4,11 @@
  */
 package com.opensymphony.webwork.interceptor;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.util.InvocationSessionStore;
 import com.opensymphony.webwork.util.TokenHelper;
@@ -11,9 +16,6 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.Result;
 import com.opensymphony.xwork.util.OgnlValueStack;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 
 /**
@@ -94,6 +96,7 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
         ActionContext ac = invocation.getInvocationContext();
 
         HttpServletRequest request = (HttpServletRequest) ac.get(ServletActionContext.HTTP_REQUEST);
+        HttpServletResponse response = (HttpServletResponse) ac.get(ServletActionContext.HTTP_RESPONSE);
         String tokenName = TokenHelper.getTokenName();
         String token = TokenHelper.getToken(tokenName);
 
@@ -110,8 +113,10 @@ public class TokenSessionStoreInterceptor extends TokenInterceptor {
                 Map context = stack.getContext();
                 request.setAttribute(ServletActionContext.WEBWORK_VALUESTACK_KEY, stack);
 
+                ActionContext savedContext = savedInvocation.getInvocationContext();
+                savedContext.getContextMap().put(ServletActionContext.HTTP_REQUEST, request);
+                savedContext.getContextMap().put(ServletActionContext.HTTP_RESPONSE, response);
                 Result result = savedInvocation.getResult();
-
                 if ((result != null) && (savedInvocation.getProxy().getExecuteResult())) {
                     synchronized (context) {
                         result.execute(savedInvocation);
