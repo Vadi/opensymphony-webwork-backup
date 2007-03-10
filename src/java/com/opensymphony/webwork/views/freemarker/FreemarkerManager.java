@@ -147,7 +147,7 @@ public class FreemarkerManager {
         return config;
     }
 
-    public ScopesHashModel buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper, OgnlValueStack stack) {
+    protected ScopesHashModel buildScopesHashModel(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response, ObjectWrapper wrapper, OgnlValueStack stack) {
         ScopesHashModel model = new ScopesHashModel(wrapper, servletContext, request, stack);
 
         // Create hash model wrapper for servlet context (the application)
