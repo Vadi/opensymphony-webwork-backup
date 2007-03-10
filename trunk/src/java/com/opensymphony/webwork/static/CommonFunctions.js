@@ -62,8 +62,11 @@ function TabContent( htmlId, remote ) {
             //  so don't try to call a method that doesn't exist.  This is only
             //  for IE, and the workaround is to use a <ww:action name="" executeResults="true" />
             //  as the content of the DIV.
-            if (rel.bind)
-                rel.bind();
+            if (rel) { // prevent error on first load where rel might be undefined
+           		if (rel.bind) {
+               		rel.bind();
+               	}
+             }
         }
     }
 
