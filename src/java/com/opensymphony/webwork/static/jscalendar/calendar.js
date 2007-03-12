@@ -1789,8 +1789,10 @@ Date.prototype.print = function (str) {
 
 	return str;
 };
-
-Date.prototype.__msh_oldSetFullYear = Date.prototype.setFullYear;
+// WW-1429: added an if check to make sure no infinte recurrsion in an ajax-div tag.
+if (Date.prototype.__msh_oldSetFullYear == null) {
+	Date.prototype.__msh_oldSetFullYear = Date.prototype.setFullYear;
+}
 Date.prototype.setFullYear = function(y) {
 	var d = new Date(this);
 	d.__msh_oldSetFullYear(y);
