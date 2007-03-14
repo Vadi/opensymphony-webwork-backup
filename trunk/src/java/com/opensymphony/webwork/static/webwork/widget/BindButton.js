@@ -31,12 +31,18 @@ dojo.widget.defineWidget(
 			}
 			
 			this.extraArgs.id = this.attachBtn.id;
+			//args.id = this.attachBtn.id;
+			
 			webwork.Util.passThroughArgs(this.extraArgs, this.attachBtn);
+			//webwork.Util.passThroughArgs(args, this.attachBtn);
 			webwork.Util.passThroughWidgetTagContent(this, frag, this.attachBtn);
 		},
 		postCreate: function() {
 			webwork.widget.BindButton.superclass.postCreate.call(this, null);
 		},
+		
+		// a hook / callback called before a button make an xhr call (bind).
+		beforeBind: function() {},
 		
 		execute: function() {
         	var executeConnect = true;
@@ -49,6 +55,8 @@ dojo.widget.defineWidget(
 			}
         	if (executeConnect) {
             	try {
+            		// give people a chance to hook things in before we actually bind()
+            	    this.beforeBind();
                		this.bind();
             	} catch (e) {
                 	dojo.debug("EXCEPTION: " + e);
