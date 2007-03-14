@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Ajax Examples</title>
+    <title>Ajax Examples - Example 1</title>
     <jsp:include page="/ajax/commonInclude.jsp"/>
 
     <script language="JavaScript" type="text/javascript">

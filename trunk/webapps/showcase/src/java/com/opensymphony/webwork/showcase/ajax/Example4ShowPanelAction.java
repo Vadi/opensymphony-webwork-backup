@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2007 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.showcase.ajax;
 
 import java.text.SimpleDateFormat;
@@ -5,6 +9,9 @@ import java.util.Date;
 
 import com.opensymphony.xwork.ActionSupport;
 
+/**
+ * @version $Date$ $Id$
+ */
 public class Example4ShowPanelAction extends ActionSupport {
 
 	private String name;

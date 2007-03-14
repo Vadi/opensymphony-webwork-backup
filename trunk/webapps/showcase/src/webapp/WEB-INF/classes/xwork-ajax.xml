@@ -97,6 +97,20 @@
         	<interceptor-ref name="defaultStack" />
     		<result type="freemarker">/ajax/tabbedpanel/nodecorate/panel3Submit.ftl</result>
     	</action>
+    	
+    	
+    	<action name="GetGreetingAndCurrentTime" class="com.opensymphony.webwork.showcase.ajax.MultipleRemoteButtonExampleAction">
+    		<result>/ajax/remoteforms/greetingAndCurrentTime.jsp</result>
+    	</action>
+    	<action name="button1" class="com.opensymphony.webwork.showcase.ajax.MultipleRemoteButtonExampleAction" method="executeButton1">
+    		<result>/ajax/remoteforms/greetingAndCurrentTime.jsp</result>
+    	</action>
+    	<action name="button2" class="com.opensymphony.webwork.showcase.ajax.MultipleRemoteButtonExampleAction" method="executeButton2">
+    		<result>/ajax/remoteforms/greetingAndCurrentTime.jsp</result>
+    	</action>
+    	<action name="button3" class="com.opensymphony.webwork.showcase.ajax.MultipleRemoteButtonExampleAction" method="executeButton3">
+    		<result>/ajax/remoteforms/greetingAndCurrentTime.jsp</result>
+    	</action>
     </package>
     
 </xwork>
