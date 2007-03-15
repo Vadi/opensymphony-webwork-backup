@@ -55,7 +55,7 @@
         <li><ww:url id="url" value="/filedownload"/><ww:a href="%{url}">File Download Example</ww:a></li>
         
         <!-- model-driven -->
-        <li><ww:url id="url" action="modelDriven" namespace="/modelDriven" method="input"/><ww:a href="%{url}">Model Driven Example</ww:a>
+        <li><ww:url id="url" action="modelDriven" namespace="/modelDriven" method="input"/><ww:a href="%{url}">Model Driven Example</ww:a></li>
         
         <!-- freemarker -->
         <li><ww:url id="url" value="/freemarker" /><ww:a href="%{#url}">Freemarker Example</ww:a></li>
