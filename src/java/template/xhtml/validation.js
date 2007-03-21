@@ -1,7 +1,26 @@
 /*
  * <!-- START SNIPPET: ajaxValidation -->
  */
+ 
+/*
+ * This function is copied over from Dojo, such that 'xhtml' theme doesn't depends
+ * on Dojo.
+ */
+function previousElement(/* Node */ node, /*string? */ tagName) { 
+	//	summary:
+	//		returns the previous sibling element matching tagName
+	if(!node) { return null; }
+	if(tagName) { tagName = tagName.toLowerCase(); }
+	do {
+		node = node.previousSibling;
+	} while(node && node.nodeType != 1 /* ELEMENT_NODE */);
 
+	if(node && tagName && tagName.toLowerCase() != node.tagName.toLowerCase()) {
+		return previousElement(node, tagName);
+	}
+	return node;	//	Element
+} 
+ 
 function clearErrorMessages(form) {
     var table = form.childNodes[1];
     if( typeof table == "undefined" ) {
@@ -26,7 +45,6 @@ function clearErrorMessages(form) {
     for (var i = 0; i < rowsToDelete.length; i++) {
         var r = rowsToDelete[i];
         table.deleteRow(r.rowIndex);
-        //table.removeChild(rowsToDelete[i]); 
     }
 }
 
@@ -41,10 +59,10 @@ function clearErrorLabels(form) {
         if (cells && cells.length >= 2) {  // when labelposition='left'
         	label = cells[0].getElementsByTagName("label")[0];
         }
-        else { // when labelposition='top'
+        else if (cells && cells.length >=1) { // when labelposition='top'
         	if (e.parentNode.parentNode) {
-				if (dojo.dom.prevElement(e.parentNode.parentNode)) {       		
-        			label = dojo.dom.prevElement(e.parentNode.parentNode).getElementsByTagName("label")[0];
+        		if (previousElement(e.parentNode.parentNode)) {      
+        			label = previousElement(e.parentNode.parentNode).getElementsByTagName("label")[0];
         		}
         	}
         }	
@@ -83,8 +101,8 @@ function addError(e, errorText) {
         	 td.colSpan = 2;
         }
         else {
-        	if (dojo.dom.prevElement(row)) { // when labelposition='top'
-        		label = dojo.dom.prevElement(row).getElementsByTagName("label")[0];
+        	if (previousElement(row)) { // when labelposition='top'
+        		label = previousElement(row).getElementsByTagName("label")[0];
         	}
         }	
         
