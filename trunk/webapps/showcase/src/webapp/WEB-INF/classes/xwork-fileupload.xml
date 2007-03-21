@@ -14,7 +14,11 @@
 		</action>
 
         <action name="doUpload" class="com.opensymphony.webwork.showcase.fileupload.FileUploadAction" method="upload">
+        	<interceptor-ref name="defaultStack">
+        		<param name="fileUpload.maximumSize">1048576</param>
+        	</interceptor-ref>
 			<result>upload-success.jsp</result>
+			<result name="input">upload.jsp</result>
 		</action>
 
     </package>
