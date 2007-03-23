@@ -10,6 +10,13 @@ import java.io.Writer;
  * complex expression and then simply reference that variable each time rather than the complex expression. This is
  * useful in both cases: when the complex expression takes time (performance improvement) or is hard to read (code
  * readability improvement).</P>
+ * 
+ * <p>The set tag accepts body. However the followings need to be take note when using set tag with body</p>
+ * <ul>
+ *    <li>body are treated as String and will not be parsed by OGNL</li>
+ *    <li>body could be scriptlet or JSP tags, the String representation of scriptlet or JSP tags will be used</li>
+ *    <li>A non-empty will take precedence if there's also a value attribute present, if the body is empty, then the value attribute will be used</li>
+ * </ul>
  *
  * <!-- END SNIPPET: javadoc -->
  *
@@ -35,7 +42,17 @@ import java.io.Writer;
  * <pre>
  * <!-- START SNIPPET: example -->
  * &lt;ww:set name="personName" value="person.name"/&gt;
- * Hello, &lt;ww:property value="#personName"/&gt;. How are you?
+ * Hello, &lt;ww:property value="%{#personName}"/&gt;. How are you?
+ * 
+ * &lt;ww:set name="personName"&gt;
+ *   &lt;ww:property value="%{'some string'}" /&gt;
+ * &lt;/ww:set&gt;
+ * Hello, &lt;ww:property value="%{#personName}"/&gt;. How are you?
+ * 
+ * &lt;ww:set name="personName"&gt;
+ *    &lt;c:set value="${person.name}" /&gt;
+ * &lt;/ww:set&gt;
+ * Hello, &lt;ww:property value="%{#personName}"/&gt;. How are you?
  * <!-- END SNIPPET: example -->
  * </pre>
  *
