@@ -83,7 +83,13 @@ public class WebWorkBodyTagSupport extends BodyTagSupport {
         if (bodyContent == null) {
             return "";
         } else {
-            return bodyContent.getString().trim();
+            String body =  bodyContent.getString();
+            if (body == null) { 
+            	return ""; 
+            }
+            else {
+            	return body.trim();
+            }
         }
     }
     

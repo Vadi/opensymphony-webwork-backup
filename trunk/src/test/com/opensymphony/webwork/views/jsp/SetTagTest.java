@@ -1,22 +1,95 @@
 /*
- * Copyright (c) 2002-2003 by OpenSymphony
+ * Copyright (c) 2002-2007 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.views.jsp;
 
 import javax.servlet.jsp.JspException;
 
+import com.mockobjects.servlet.MockBodyContent;
+
 
 /**
- * @author $Author$
- * @version $Revision$
+ * @author plightbo
+ * @author tmjee
+ * @version $Date$ $Id$
  */
 public class SetTagTest extends AbstractUITagTest {
 
     Chewbacca chewie;
     SetTag tag;
 
-
+    public void testSetTagWithBodyContent() throws Exception {
+    	MockBodyContent bodyContent = new MockBodyContent() {
+    		public String getString() {
+    			return "testing testing 123";
+    		}
+    	};
+    	tag.setName("foo");
+    	tag.doStartTag();
+    	tag.setBodyContent(bodyContent);
+    	tag.doInitBody();
+    	tag.doAfterBody();
+    	tag.doEndTag();
+    	
+    	assertEquals(stack.getContext().get("foo"), "testing testing 123");
+    }
+    
+    
+    public void testSetTagWithEmptyBody() throws Exception {
+    	MockBodyContent bodyContent = new MockBodyContent() {
+    		public String getString() {
+    			return "";
+    		}
+    	};
+    	tag.setValue("%{'Hello World'}");
+    	tag.setName("foo");
+    	tag.doStartTag();
+    	tag.setBodyContent(bodyContent);
+    	tag.doInitBody();
+    	tag.doAfterBody();
+    	tag.doEndTag();
+    	
+    	assertEquals(stack.getContext().get("foo"), "Hello World");
+    }
+    
+    public void testSetTagWithNullBody() throws Exception {
+    	MockBodyContent bodyContent = new MockBodyContent() {
+    		public String getString() {
+    			return null;
+    		}
+    	};
+    	tag.setValue("%{'Hello World'}");
+    	tag.setName("foo");
+    	tag.doStartTag();
+    	tag.setBodyContent(bodyContent);
+    	tag.doInitBody();
+    	tag.doAfterBody();
+    	tag.doEndTag();
+    	
+    	assertEquals(stack.getContext().get("foo"), "Hello World");
+    }
+    
+    
+    public void testSetTagWithBodyAndScope() throws Exception {
+    	MockBodyContent bodyContent = new MockBodyContent() {
+    		public String getString() {
+    			return "testing testing 123";
+    		}
+    	};
+    	tag.setScope("request");
+    	tag.setName("foo");
+    	tag.doStartTag();
+    	tag.setBodyContent(bodyContent);
+    	tag.doInitBody();
+    	tag.doAfterBody();
+    	tag.doEndTag();
+    	
+    	assertEquals(request.getAttribute("foo"), "testing testing 123");
+    	assertEquals(stack.getContext().get("foo"), "testing testing 123");
+    }
+    
+    
     public void testApplicationScope() throws JspException {
         tag.setName("foo");
         tag.setValue("name");
