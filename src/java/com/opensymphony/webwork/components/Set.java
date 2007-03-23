@@ -44,7 +44,7 @@ import java.io.Writer;
  * @version $Revision$
  * @since 2.2
  *
- * @ww.tag name="set" tld-body-content="empty" tld-tag-class="com.opensymphony.webwork.views.jsp.SetTag"
+ * @ww.tag name="set" tld-body-content="JSP" tld-tag-class="com.opensymphony.webwork.views.jsp.SetTag"
  * description="Assigns a value to a variable in a specified scope"
  */
 public class Set extends Component {
@@ -55,15 +55,30 @@ public class Set extends Component {
     public Set(OgnlValueStack stack) {
         super(stack);
     }
+    
+    /**
+     * Returns true, so that we use EVAL_BODY_BUFFERED instead of EVAL_BODY_INCLUDE
+     * @see com.opensymphony.webwork.components.Component#usesBody()
+     */
+    public boolean usesBody() {
+    	return true;
+    }
 
     public boolean end(Writer writer, String body) {
         OgnlValueStack stack = getStack();
 
-        if (value == null) {
-            value = "top";
+        Object o = null;
+        if (body != null && body.trim().length() > 0) {
+        	o = body;
+        	body=""; // empty the body, we don't want it to be writen out.
         }
-
-        Object o = findValue(value);
+        else {
+        	if (value == null) {
+        		value = "top";
+        	}
+        	o = findValue(value);
+        }
+        
 
         String name;
         if (altSyntax()) {

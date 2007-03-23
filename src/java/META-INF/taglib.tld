@@ -3,7 +3,7 @@
 <!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
 <taglib>
 
-   <tlib-version>2.2.3</tlib-version>
+   <tlib-version>2.2.5</tlib-version>
    <jsp-version>1.2</jsp-version>
    <short-name>WebWork Taglib</short-name>
 
@@ -1181,7 +1181,7 @@
 
       <name>set</name>
       <tag-class>com.opensymphony.webwork.views.jsp.SetTag</tag-class>
-      <body-content>empty</body-content>
+      <body-content>JSP</body-content>
       <description><![CDATA[Assigns a value to a variable in a specified scope]]></description>
 
       <attribute>
@@ -2993,14 +2993,15 @@
            <description><![CDATA[whether the request parameters are to be included when the action is invoked]]></description>
 
       </attribute>
-	  <attribute>
+      <attribute>
          <name>flush</name>
          <required>false</required>
          <rtexprvalue>true</rtexprvalue>
-         
-         	<description><![CDATA[whether the writer should be flush upon end of the action tag, default to true.]]></description>
-         	
+
+           <description><![CDATA[whether the writer should be flush upon end of the action tag, default to true.]]></description>
+
       </attribute>
+
    </tag>
    <tag>
 
@@ -8053,6 +8054,14 @@
          <rtexprvalue>true</rtexprvalue>
 
            <description><![CDATA[The anchor for this URL]]></description>
+
+      </attribute>
+      <attribute>
+         <name>escapeAmp</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>
+
+           <description><![CDATA[Whether to escape ampersand (&) to (&amp;) or not, default to true.]]></description>
 
       </attribute>
       <attribute>
