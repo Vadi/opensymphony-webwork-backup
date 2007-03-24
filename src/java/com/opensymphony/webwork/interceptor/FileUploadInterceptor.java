@@ -303,11 +303,11 @@ public class FileUploadInterceptor implements Interceptor {
      * @param key            - Key to search for.
      * @return true if itemCollection contains the key, false otherwise.
      */
-    private static boolean containsItem(Collection itemCollection, String key) {
+    protected boolean containsItem(Collection itemCollection, String key) {
         return itemCollection.contains(key.toLowerCase());
     }
 
-    private static Set getDelimitedValues(String delimitedString) {
+    protected Set getDelimitedValues(String delimitedString) {
         Set delimitedValues = new HashSet();
         if (delimitedString != null) {
             StringTokenizer stringTokenizer = new StringTokenizer(delimitedString, DEFAULT_DELIMITER);
@@ -321,7 +321,7 @@ public class FileUploadInterceptor implements Interceptor {
         return delimitedValues;
     }
 
-    private static boolean isNonEmpty(Object[] objArray) {
+    protected boolean isNonEmpty(Object[] objArray) {
         boolean result = false;
         for (int index = 0; index < objArray.length && !result; index++) {
             if (objArray[index] != null) {
@@ -331,7 +331,7 @@ public class FileUploadInterceptor implements Interceptor {
         return result;
     }
 
-    private String getTextMessage(String messageKey, Object[] args, Locale locale) {
+    protected String getTextMessage(String messageKey, Object[] args, Locale locale) {
         if (args == null || args.length == 0) {
             return LocalizedTextUtil.findText(this.getClass(), messageKey, locale);
         } else {
