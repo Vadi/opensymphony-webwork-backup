@@ -123,6 +123,7 @@ import java.util.Map;
  *
  * @author Patrick Lightbody
  * @author tm_jee
+ * @version $Date$ $Id$
  */
 public class DefaultActionMapper implements ActionMapper {
 
@@ -198,7 +199,19 @@ public class DefaultActionMapper implements ActionMapper {
         return mapping;
     }
 
-    public static void handleSpecialParameters(HttpServletRequest request, ActionMapping mapping) {
+    /**
+     * Extension hook, that handle special parameters, namely those with prefix
+     * eg. 
+     * <ul>
+     *    <li>action:someAction</li>
+     *    <li>method:someMethod</li>
+     *    <li>redirect:http://www.google.com</li>
+     *    <li>redirect-action:someRedirectAction</li>
+     * </ul>
+     * @param request
+     * @param mapping
+     */
+    protected void handleSpecialParameters(HttpServletRequest request, ActionMapping mapping) {
         // handle special parameter prefixes.
         Map parameterMap = request.getParameterMap();
         for (Iterator iterator = parameterMap.keySet().iterator(); iterator.hasNext();) {
@@ -211,7 +224,7 @@ public class DefaultActionMapper implements ActionMapper {
         }
     }
 
-    void parseNameAndNamespace(String uri, ActionMapping mapping) {
+    protected void parseNameAndNamespace(String uri, ActionMapping mapping) {
         String namespace, name;
         int lastSlash = uri.lastIndexOf("/");
         if (lastSlash == -1) {
