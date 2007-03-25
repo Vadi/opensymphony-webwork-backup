@@ -33,8 +33,9 @@
     <include file="xwork-freemarker.xml" />
 
 	<include file="xwork-wizard.xml" />
-	
-	<!--include file="xwork-sessionInvalidation.xml" /-->
+
+    <!-- Commented, see Jira http://jira.opensymphony.com/browse/WW-1437 for details -->
+    <!--include file="xwork-sessionInvalidation.xml" /-->
 	
 	<include file="xwork-flash.xml" />
 	
