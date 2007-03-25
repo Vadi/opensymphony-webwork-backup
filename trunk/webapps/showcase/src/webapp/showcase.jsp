@@ -68,7 +68,10 @@
         
         <!--  flash  -->
         <li><ww:url id="url" action="start" namespace="/flash"/><ww:a href="%{url}">Flash Example</ww:a></li>
-        
+
+        <!--  i18n  -->
+        <li><ww:url id="url" action="changeLocale" namespace="/i18n"/><ww:a href="%{url}">I18N Example</ww:a></li>
+
     </ul>
 </p>
 

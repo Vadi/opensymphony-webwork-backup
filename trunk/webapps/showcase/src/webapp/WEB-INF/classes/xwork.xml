@@ -34,11 +34,13 @@
 
 	<include file="xwork-wizard.xml" />
 	
-	<include file="xwork-sessionInvalidation.xml" />
+	<!--include file="xwork-sessionInvalidation.xml" /-->
 	
 	<include file="xwork-flash.xml" />
 	
 	<include file="xwork-sitemesh.xml" />
+
+    <include file="xwork-i18n.xml" />
 
     <package name="default" extends="webwork-default">
         <interceptors>

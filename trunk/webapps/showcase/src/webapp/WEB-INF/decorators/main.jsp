@@ -79,6 +79,7 @@
                     <li><a href="<ww:url action="index" namespace="/wizard" />">Wizard</a></li>
                     <li><a href="<ww:url action="start" namespace="/sessionInvalidation"/>">Session Invalidation</a></li>
                     <li><a href="<ww:url action="start" namespace="/flash"/>">Flash</a></li>
+                    <li><a href="<ww:url action="changeLocale" namespace="/i18n"/>">I18N</a></li>
                     <li class="last"><a href="<ww:url value="/help.jsp"/>">Help</a></li>
                 </ul>
             </div>
