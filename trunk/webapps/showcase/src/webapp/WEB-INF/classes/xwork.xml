@@ -34,8 +34,8 @@
 
 	<include file="xwork-wizard.xml" />
 
-    <!-- Commented, see Jira http://jira.opensymphony.com/browse/WW-1437 for details -->
-    <!--include file="xwork-sessionInvalidation.xml" /-->
+    <!-- See Jira http://jira.opensymphony.com/browse/WW-1437 for details -->
+    <include file="xwork-sessionInvalidation.xml" />
 	
 	<include file="xwork-flash.xml" />
 	
