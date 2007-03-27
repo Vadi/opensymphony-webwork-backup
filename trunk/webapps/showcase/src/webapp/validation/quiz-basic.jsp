@@ -10,7 +10,6 @@
 
 <body>
 
-<b>What is your favorite color?</b>
 <p/>
 
 <ww:form method="post">
