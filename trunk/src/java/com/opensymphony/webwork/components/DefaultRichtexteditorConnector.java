@@ -48,7 +48,9 @@ public class DefaultRichtexteditorConnector extends AbstractRichtexteditorConnec
     }
 
     protected String calculateActualServerPath(String actualServerPath, String type, String folderPath) throws Exception {
-        String path = "file://"+servletContext.getRealPath("/WEB-INF/classes"+actualServerPath);
+        String path = "file:////"+servletContext.getRealPath("/WEB-INF/classes"+actualServerPath);
+        path = path.trim();
+        path = path.replace('\\', '/'); 
         makeDirIfNotExists(path);
         path = path.endsWith("/") ? path : path+"/";
         return path+type+folderPath;
@@ -140,6 +142,7 @@ public class DefaultRichtexteditorConnector extends AbstractRichtexteditorConnec
                     if (a > 100) {
                         return FileUploadResult.invalidFile();
                     }
+                    tmpFile = calculateActualServerPath(getActualServerPath(), type, virtualFolderPath)+filename+ext;
                 }
                 copyFile(newFile, new java.io.File(new URI(tmpFile)));
                 return FileUploadResult.uploadCompleteWithFilenamChanged(filename+ext);
@@ -171,7 +174,9 @@ public class DefaultRichtexteditorConnector extends AbstractRichtexteditorConnec
     protected boolean makeDirIfNotExists(String path) throws URISyntaxException {
         java.io.File dir = new java.io.File(new URI(path));
         if (! dir.exists()) {
-            _log.debug("make directory "+dir);
+        	if (_log.isDebugEnabled()) {
+        		_log.debug("make directory "+dir);
+        	}
             boolean ok = dir.mkdirs();
             if (! ok) {
                 throw new WebWorkException("cannot make directory "+dir);
@@ -189,7 +194,9 @@ public class DefaultRichtexteditorConnector extends AbstractRichtexteditorConnec
     protected boolean makeFileIfNotExists(String filePath) throws IOException, URISyntaxException {
         java.io.File f = new java.io.File(new URI(filePath));
         if (! f.exists()) {
-            _log.debug("creating file "+filePath);
+        	if (_log.isDebugEnabled()) {
+        		_log.debug("creating file "+filePath);
+        	}
             boolean ok = f.createNewFile();
             if (! ok) {
                 throw new WebWorkException("cannot create file "+filePath);
@@ -203,7 +210,9 @@ public class DefaultRichtexteditorConnector extends AbstractRichtexteditorConnec
         FileInputStream fis = null;
         FileOutputStream fos = null;
         try {
-            _log.debug("copy file from "+from+" to "+to);
+        	if (_log.isDebugEnabled()) {
+        		_log.debug("copy file from "+from+" to "+to);
+        	}
             fis = new FileInputStream(from);
             fos = new FileOutputStream(to);
             int tmpByte = fis.read();
@@ -235,7 +244,9 @@ public class DefaultRichtexteditorConnector extends AbstractRichtexteditorConnec
         if (size > 0) {
             size = (size / 100);
         }
-        _log.debug("size of file "+file+" is "+size+" kb");
+        if (_log.isDebugEnabled()) {
+        	_log.debug("size of file "+file+" is "+size+" kb");
+        }
         return size;
     }
 }
