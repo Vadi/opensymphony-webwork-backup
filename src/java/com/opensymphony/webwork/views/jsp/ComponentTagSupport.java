@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 
 /**
- * User: plightbo
- * Date: Sep 1, 2005
- * Time: 8:44:53 PM
+ * @auhtor plightbo
+ * @author tmjee
+ * @version $Date$ $Id$
  */
 public abstract class ComponentTagSupport extends WebWorkBodyTagSupport {
     protected Component component;
@@ -18,9 +18,14 @@ public abstract class ComponentTagSupport extends WebWorkBodyTagSupport {
     public abstract Component getBean(OgnlValueStack stack, HttpServletRequest req, HttpServletResponse res);
 
     public int doEndTag() throws JspException {
-        component.end(pageContext.getOut(), getBody());
-        component = null;
-        return EVAL_PAGE;
+        boolean evalBodyAgain = component.end(pageContext.getOut(), getBody());
+        if (evalBodyAgain) {
+        	return EVAL_BODY_AGAIN;
+        }
+        else {
+            component = null;
+        	return EVAL_PAGE;
+        }
     }
 
     public int doStartTag() throws JspException {
