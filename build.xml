@@ -164,6 +164,10 @@
         <copy file="pom.xml" tofile="/opt/repository/ibiblio.org/opensymphony/poms/${name}-${version}-SNAPSHOT.pom"/>
         <copy file="${build}/${name}-${version}.jar" tofile="/opt/repository/ibiblio.org/opensymphony/jars/${name}-${version}-SNAPSHOT.jar"/>
         <copy file="${build}/${name}-src-${version}.jar" tofile="/opt/repository/ibiblio.org/opensymphony/jars/${name}-src-${version}-SNAPSHOT.jar"/>
+
+        <copy file="pom.xml" tofile="/var/www/domains/opensymphony.com/maven1/htdocs/opensymphony/poms/${name}-${version}-SNAPSHOT.pom" overwrite="true"/>
+        <copy file="${build}/${name}-${version}.jar" tofile="/var/www/domains/opensymphony.com/maven1/htdocs/opensymphony/jars/${name}-${version}-SNAPSHOT.jar" overwrite="true"/>
+        <copy file="${build}/${name}-src-${version}.jar" tofile="/var/www/domains/opensymphony.com/maven1/htdocs/opensymphony/jars/${name}-src-${version}-SNAPSHOT.jar" overwrite="true"/>
     </target>
 
     <!-- overridden targets -->
