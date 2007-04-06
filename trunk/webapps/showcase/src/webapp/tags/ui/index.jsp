@@ -15,6 +15,7 @@
 		<li><ww:url id="url" namespace="/tags/ui" action="example" method="input" /><ww:a href="%{url}">UI Example</ww:a></li>
 		<li><ww:url id="url" namespace="/tags/ui" action="exampleVelocity" method="input" /><ww:a href="%{url}">UI Example (Velocity)</ww:a></li>
 		<li><ww:url id="url" namespace="/tags/ui" action="lotsOfOptiontransferselect" method="input" /><ww:a href="%{url}">Option Transfer Select UI Example</ww:a></li>
+		<li><ww:url id="url" namespace="/tags/ui" action="optiontransferselectInMultipleForms" /><ww:a href="%{#url}">Option Transfer Select UI Example (multiple forms)</ww:a></li>
 		<li><ww:url id="url" namespace="/tags/ui" action="lotsOfRichtexteditor" method="input" /><ww:a href="%{url}">Rich Text Editor UI Example</ww:a></li>
 		<li><ww:url id="url" namespace="/tags/ui" value="treeExampleStatic.jsp" /><ww:a href="%{url}">Tree Example (static)</ww:a>
 		<li><ww:url id="url" namespace="/tags/ui" action="showDynamicTreeAction"/><ww:a href="%{url}">Tree Example (dynamic)</ww:a>
