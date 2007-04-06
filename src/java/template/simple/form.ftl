@@ -1,8 +1,8 @@
 <#if (parameters.validate?default(false) == false)><#rt/>
 	<#if parameters.onsubmit?exists><#rt/>
-		${tag.addParameter('onsubmit', "${parameters.onsubmit}; customOnsubmit(); return true;") }
+		${tag.addParameter('onsubmit', "${parameters.onsubmit}; customOnsubmit_${parameters.id}(); return true;") }
 	<#else>
-		${tag.addParameter('onsubmit', "customOnsubmit(); return true;") }	
+		${tag.addParameter('onsubmit', "customOnsubmit_${parameters.id}(); return true;") }	
 	</#if>
 </#if>
 <form<#rt/>

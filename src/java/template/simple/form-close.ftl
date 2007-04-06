@@ -2,7 +2,7 @@
 
 
 <script type="text/javascript">
-	function customOnsubmit() {
+	function customOnsubmit_${parameters.id}() {
 	<#-- 
 	   Code that will auto-select optiontransferselect elements upon containing form submission
 	--><#t/>
