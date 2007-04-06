@@ -31,6 +31,13 @@
         	<result name="input">lotsOfRichtexteditor.jsp</result>
 			<result>lotsOfRichtexteditorSubmit.jsp</result>        
         </action>
+        <action name="optiontransferselectInMultipleForms" class="com.opensymphony.webwork.showcase.LotsOfOptiontransferselectAction" method="input">
+        	<result>optiontransferselect_multipleform.jsp</result>
+        </action>
+        <action name="optiontransferselectInMultipleFormsSubmit" class="com.opensymphony.webwork.showcase.LotsOfOptiontransferselectAction" method="submit">
+        	<result name="input">optiontransferselect_multipleform.jsp</result>
+			<result>lotsOfOptiontransferselectSubmit.jsp</result>        
+        </action>
         <action name="tooltipExample">
         	<result>tooltipExample.jsp</result>
         </action>
