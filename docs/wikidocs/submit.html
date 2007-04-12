@@ -1,0 +1,148 @@
+<html>
+    <head>
+        <title>WebWork - 
+        submit
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>Please make sure you have read the <a href="Tag Syntax.html" title="Tag Syntax">Tag Syntax</a> document and understand how tag attribute syntax works.</p></td></tr></table>
+
+<h1><a name="submit-Description"></a>Description</h1>
+
+<p>Render a submit button. The submit tag is used together with the form tag to provide asynchronous form submissions.
+The submit can have three different types of rendering:
+<ul>
+<li>input: renders as html &lt;input type="submit"...&gt;</li>
+<li>image: renders as html &lt;input type="image"...&gt;</li>
+<li>button: renders as html &lt;button type="submit"...&gt;</li>
+</ul>
+Please note that the button type has advantages by adding the possibility to seperate the submitted value from the
+text shown on the button face, but has issues with Microsoft Internet Explorer at least up to 6.0</p>
+<p><B>THE FOLLOWING IS ONLY VALID WHEN AJAX IS CONFIGURED</B>
+<ul>
+		<li>resultDivId</li>
+		<li>notifyTopics</li>
+		<li>onLoadJS</li>
+		<li>preInvokeJS</li>
+</ul>
+The remote form has three basic modes of use, using the resultDivId, 
+the notifyTopics, or the onLoadJS. You can mix and match any combination of 
+them to get your desired result. All of these examples are contained in the 
+Ajax example webapp. Lets go through some scenarios to see how you might use it:</p><table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><br/>
+This tag works with all themes, but has special importance when combined with the <a href="form.html" title="form">form</a> tag in the <a href="ajax theme.html" title="ajax theme">ajax theme</a>. Please read up on the <a href="ajax theme.html" title="ajax theme">ajax theme</a> for more information.</td></tr></table>
+
+<h1><a name="submit-Parameters"></a>Parameters</h1>
+
+An error occurred: http://svn.opensymphony.com/svn/webwork/docs/tags/Submit.html. The system administrator has been notified.
+
+<h1><a name="submit-Examples"></a>Examples</h1>
+
+
+<h3><a name="submit-Example1"></a>Example 1</h3>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:submit value=<span class="code-quote">"%{'Submit'}"</span> /&gt;</span></pre>
+</div></div>
+
+<h3><a name="submit-Example2"></a>Example 2</h3>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml">Render an image submit:
+<span class="code-tag">&lt;ww:submit type=<span class="code-quote">"image"</span> value=<span class="code-quote">"%{'Submit'}"</span> label=<span class="code-quote">"Submit the form"</span> src=<span class="code-quote">"submit.gif"</span>/&gt;</span></pre>
+</div></div>
+
+<h3><a name="submit-Example3"></a>Example 3</h3>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml">Render an button submit:
+<span class="code-tag">&lt;ww:submit type=<span class="code-quote">"button"</span> value=<span class="code-quote">"%{'Submit'}"</span> label=<span class="code-quote">"Submit the form"</span>/&gt;</span></pre>
+</div></div>
+
+<h3><a name="submit-Example4"></a>Example 4</h3>
+
+<p>Show the results in another div. If you want your results to be shown in 
+a div, use the resultDivId where the id is the id of the div you want them 
+shown in. This is an inner HTML approah. Your results get jammed into 
+the div for you. Here is a sample of this approach:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">Remote form replacing another div:
+<span class="code-tag">&lt;div id='two' style=<span class="code-quote">"border: 1px solid yellow;"</span>&gt;</span>Initial content<span class="code-tag">&lt;/div&gt;</span>
+&lt;ww:form
+      id='theForm2'
+      cssStyle=<span class="code-quote">"border: 1px solid green;"</span>
+      action='/AjaxRemoteForm.action'
+      method='post'
+      theme=<span class="code-quote">"ajax"</span>&gt;
+
+  <span class="code-tag">&lt;input type='text' name='data' value='WebWork User' /&gt;</span>
+  <span class="code-tag">&lt;ww:submit value=<span class="code-quote">"GO2"</span> theme=<span class="code-quote">"ajax"</span> resultDivId=<span class="code-quote">"two"</span> /&gt;</span>
+
+<span class="code-tag">&lt;/ww:form &gt;</span></pre>
+</div></div>
+
+<h3><a name="submit-Example5"></a>Example 5</h3>
+
+<p>Notify other controls(divs) of a change. Using an pub-sub model you can 
+notify others that your control changed and they can take the appropriate action. 
+Most likely they will execute some action to refresh. The notifyTopics does this 
+for you. You can have many topic names in a comma delimited list. 
+eg: notifyTopics="newPerson, dataChanged" .
+Here is an example of this approach:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:form id=<span class="code-quote">"frm1"</span> action=<span class="code-quote">"newPersonWithXMLResult"</span> theme=<span class="code-quote">"ajax"</span>  &gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"Name"</span> name=<span class="code-quote">"person.name"</span> value=<span class="code-quote">"person.name"</span> size=<span class="code-quote">"20"</span> required=<span class="code-quote">"true"</span> /&gt;</span>
+    <span class="code-tag">&lt;ww:submit id=<span class="code-quote">"submitBtn"</span> value=<span class="code-quote">"Save"</span> theme=<span class="code-quote">"ajax"</span>  cssClass=<span class="code-quote">"primary"</span>  notifyTopics=<span class="code-quote">"personUpdated, systemWorking"</span> /&gt;</span>
+<span class="code-tag">&lt;/ww:form &gt;</span>
+
+&lt;ww:div href=<span class="code-quote">"/listPeople.action"</span> theme=<span class="code-quote">"ajax"</span> errorText=<span class="code-quote">"error opps"</span>
+        loadingText=<span class="code-quote">"loading..."</span> id=<span class="code-quote">"cart-body"</span> &gt;
+    <span class="code-tag">&lt;ww:action namespace=<span class="code-quote">"" name="</span>listPeople<span class="code-quote">" executeResult="</span>true" /&gt;</span>
+<span class="code-tag">&lt;/ww:div&gt;</span></pre>
+</div></div>
+
+<h3><a name="submit-Example6"></a>Example 6</h3>
+
+<p>Massage the results with JavaScript. Say that your result returns some h
+appy XML and you want to parse it and do lots of cool things with it. 
+The way to do this is with a onLoadJS handler. Here you provide the name of
+a JavaScript function to be called back with the result and the event type.
+The only key is that you must use the variable names 'data' and 'type' when 
+defining the callback. For example: onLoadJS="myFancyDancyFunction(data, type)".
+While I talked about XML in this example, your not limited to XML, the data in 
+the callback will be exactly whats returned as your result.
+Here is an example of this approach:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;script language=<span class="code-quote">"JavaScript"</span> type=<span class="code-quote">"text/javascript"</span>&gt;</span>
+    function doGreatThings(data, type) {
+        //Do whatever with your returned fragment... 
+        //Perhapps.... if xml...
+              var xml = dojo.xml.domUtil.createDocumentFromText(data);
+              var people = xml.getElementsByTagName(<span class="code-quote">"person"</span>);
+              for(var i = 0;i &lt; people.length; i ++){
+                  var person = people[i];
+                  var name = person.getAttribute(<span class="code-quote">"name"</span>)
+                  var id = person.getAttribute(<span class="code-quote">"id"</span>)
+                  alert('Thanks dude. Person: ' + name + ' saved great!!!');
+              }
+
+    }
+<span class="code-tag">&lt;/script&gt;</span>
+
+<span class="code-tag">&lt;ww:form id=<span class="code-quote">"frm1"</span> action=<span class="code-quote">"newPersonWithXMLResult"</span> theme=<span class="code-quote">"ajax"</span>  &gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"Name"</span> name=<span class="code-quote">"person.name"</span> value=<span class="code-quote">"person.name"</span> size=<span class="code-quote">"20"</span> required=<span class="code-quote">"true"</span> /&gt;</span>
+    <span class="code-tag">&lt;ww:submit id=<span class="code-quote">"submitBtn"</span> value=<span class="code-quote">"Save"</span> theme=<span class="code-quote">"ajax"</span>  cssClass=<span class="code-quote">"primary"</span>  onLoadJS=<span class="code-quote">"doGreatThings(data, type)"</span> /&gt;</span> 
+<span class="code-tag">&lt;/ww:form&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

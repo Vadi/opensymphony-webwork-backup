@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Flash Result
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>A flash result, that save the current action into the http session before 
+invoking <code>super.doExecute(...)</code>, which actually just do 
+a redirect to a specific location just as a normal ServletRedirectResult
+would.</p>
+
+<h1><a name="FlashResult-Parameters"></a>Parameters</h1>
+
+<p><ul>
+	key - The key under which current action is stored in Http Session. Default to 
+            FlashInterceptor#DEFAULT_KEY which is the string '__flashAction'
+</ul></p>
+
+<h1><a name="FlashResult-Examples"></a>Examples</h1>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;action name=<span class="code-quote">"store"</span>&gt;</span>
+	<span class="code-tag">&lt;result type=<span class="code-quote">"flash"</span>&lt;/redirectToSomeWhere.jsp&lt;/result&gt;</span>
+<span class="code-tag">&lt;/action&gt;</span>
+<span class="code-tag">&lt;action name=<span class="code-quote">"retrieve"</span>&gt;</span>
+	<span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"flash"</span>&gt;</span>
+       <span class="code-tag">&lt;param name=<span class="code-quote">"operation"</span>&gt;</span>Retrieve<span class="code-tag">&lt;/param&gt;</span>
+    <span class="code-tag">&lt;/interceptor-ref&gt;</span>
+    <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultStack"</span> /&gt;</span>
+    <span class="code-tag">&lt;result&gt;</span>pageWhereWeNeedFlashActionStored.jsp<span class="code-tag">&lt;/result&gt;</span>
+<span class="code-tag">&lt;/action&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

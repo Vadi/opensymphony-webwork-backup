@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Workings Of WebWork Ajax Validation
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>WebWork uses DWR to implement its ajax validation feature.</p>
+
+<p>To have DWR configured, the following snippet needs to be in web.xml</p>
+An error occurred: http://svn.opensymphony.com/svn/webwork/webapps/showcase/src/webapp/WEB-INF/web.xml. The system administrator has been notified.
+
+<p>and dwr.xml under WEB-INF should contains snippet like </p>
+An error occurred: http://svn.opensymphony.com/svn/webwork/webapps/showcase/src/webapp/WEB-INF/dwr.xml. The system administrator has been notified.
+
+<p>With the above configuration, WebWork would be able to call </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">validator.doPost(
+        function(validationAwareSupportReturned) { 
+           ... 
+        }, 
+        action, namespace, params);</pre>
+</div></div>
+<p>to invoke WebWork's DWRValidator's doPost(action, namespace, params) and processed the ValidationAwareSupport returned.</p>
+
+<p>When there's a change on webwork ui components, WebWork will make such an ajax call, (as shown in /template/ajax/validation.js)</p>
+
+An error occurred: http://svn.opensymphony.com/svn/webwork/src/java/template/ajax/validation.js. The system administrator has been notified.
+
+<p>A new instance of ValidationClient js function is created for each form and the internal of contacting dwr is done there as well. Bellow is snippet of validationClient.js located in /static/validationClient.js</p>
+An error occurred: http://svn.opensymphony.com/svn/webwork/src/java/com/opensymphony/webwork/static/validationClient.js. The system administrator has been notified.
+
+<p>In ValidationClient.js function there's an empty implementation of onErrors, this is where codes of update the ui when there's an error etc. WebWork's ajax's theme actually overrides this with custom hooks as shown in /template/ajax/validation.js. Therefore a particular theme would need to implement the following functions to suite their own needs. </p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">/**
+  * Clear error message from the &lt;code&gt;form&lt;/code&gt;
+  */
+ function clearErrorMessages(form)() { 
+   ...
+ }
+
+ /*
+  * Clear the error label from &lt;code&gt;form&lt;/code&gt;, eg. change the style so they don't appeared as red in color
+  */
+ function clearErrorLabels(form) {
+
+ }
+
+ /*
+  * Add error &lt;code&gt;errorOfFieldElement&lt;/code&gt; to &lt;code&gt;fieldElement&lt;/code&gt;.
+  */
+ function addError(fieldElement, errorOfFieldElement) {
+
+ }</pre>
+</div></div>
+
+<p>An example of xhtml's implementation of the above functions is as follows:-</p>
+An error occurred: http://svn.opensymphony.com/svn/webwork/src/java/template/xhtml/validation.js. The system administrator has been notified.
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

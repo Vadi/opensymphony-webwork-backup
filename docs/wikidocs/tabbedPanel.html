@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>WebWork - 
+        tabbedPanel
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h1><a name="tabbedPanel-Description"></a>Description</h1>
+
+<p>The tabbedpanel widget is primarily an AJAX component, where each tab can either be local content or remote
+content (refreshed each time the user selects that tab).</p></p>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>This tag only works with the <a href="ajax theme.html" title="ajax theme">ajax theme</a>. Be sure to read up on the theme before using this tag.</td></tr></table>
+
+<h1><a name="tabbedPanel-Parameters"></a>Parameters</h1>
+
+An error occurred: http://svn.opensymphony.com/svn/webwork/docs/tags/TabbedPanel.html. The system administrator has been notified.
+
+<h1><a name="tabbedPanel-Examples"></a>Examples</h1>
+
+<p>The following is an example of a tabbedpanel and panel tag utilizing local and remote content.<p/></p>
+An error occurred: http://svn.opensymphony.com/svn/webwork/webapps/showcase/src/webapp/ajax/tabbedpanel/example3.jsp. The system administrator has been notified.
+<p>If you are looking for the "nifty" rounded corner look, there is additional configuration. This assumes
+that the background color of the tabs is white. If you are using a different color, please modify the
+parameter in the Rounded() method.<p/></p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;link rel=<span class="code-quote">"stylesheet"</span> type=<span class="code-quote">"text/css"</span> href=<span class="code-quote">"&lt;ww:url value="</span>/webwork/tabs.css<span class="code-quote">"/&gt;</span>"</span>&gt;
+<span class="code-tag">&lt;link rel=<span class="code-quote">"stylesheet"</span> type=<span class="code-quote">"text/css"</span> href=<span class="code-quote">"&lt;ww:url value="</span>/webwork/niftycorners/niftyCorners.css<span class="code-quote">"/&gt;</span>"</span>&gt;
+<span class="code-tag">&lt;link rel=<span class="code-quote">"stylesheet"</span> type=<span class="code-quote">"text/css"</span> href=<span class="code-quote">"&lt;ww:url value="</span>/webwork/niftycorners/niftyPrint.css<span class="code-quote">"/&gt;</span>"</span> media=<span class="code-quote">"print"</span>&gt;
+<span class="code-tag">&lt;script type=<span class="code-quote">"text/javascript"</span> src=<span class="code-quote">"&lt;ww:url value="</span>/webwork/niftycorners/nifty.js<span class="code-quote">"/&gt;</span>"</span>&gt;<span class="code-tag">&lt;/script&gt;</span>
+<span class="code-tag">&lt;script type=<span class="code-quote">"text/javascript"</span>&gt;</span>
+    dojo.event.connect(window, <span class="code-quote">"onload"</span>, function() {
+        if (!NiftyCheck())
+            return;
+        Rounded(<span class="code-quote">"li.tab_selected"</span>, <span class="code-quote">"top"</span>, <span class="code-quote">"white"</span>, <span class="code-quote">"transparent"</span>, <span class="code-quote">"border #ffffffS"</span>);
+        Rounded(<span class="code-quote">"li.tab_unselected"</span>, <span class="code-quote">"top"</span>, <span class="code-quote">"white"</span>, <span class="code-quote">"transparent"</span>, <span class="code-quote">"border #ffffffS"</span>);
+        // <span class="code-quote">"white"</span> needs to be replaced with the background color
+    });
+<span class="code-tag">&lt;/script&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

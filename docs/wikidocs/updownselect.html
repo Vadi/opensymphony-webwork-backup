@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>WebWork - 
+        updownselect
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please make sure you have read the <a href="Tag Syntax.html" title="Tag Syntax">Tag Syntax</a> document and understand how tag attribute syntax works.</td></tr></table>
+
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Important</b><br />
+<p>Note that the listkey and listvalue attribute will default to "key" and "value"
+respectively only when the list attribute is evaluated to a Map or its decendant.
+Other thing else, will result in listkey and listvalue to be null and not used.</p>
+</td></tr></table>
+
+<h1><a name="updownselect-Description"></a>Description</h1>
+
+<p>Create a Select component with buttons to move the elements in the select component
+up and down. When the containing form is submited, its elements will be submitted in 
+the order they are arranged (top to bottom).</p>
+
+
+<h1><a name="updownselect-Parameters"></a>Parameters</h1>
+An error occurred: http://svn.opensymphony.com/svn/webwork/docs/tags/UpDownSelect.html. The system administrator has been notified.
+
+<h1><a name="updownselect-Examples"></a>Examples</h1>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag"><span class="code-comment">&lt;!-- Example 1: simple example --&gt;</span></span>
+&lt;ww:updownselect 
+list=<span class="code-quote">"#{'england':'England', 'america':'America', 'germany':'Germany'}"</span> 
+name=<span class="code-quote">"prioritisedFavouriteCountries"</span> 
+headerKey=<span class="code-quote">"-1"</span> 
+headerValue=<span class="code-quote">"--- Please Order Them Accordingly ---"</span> 
+emptyOption=<span class="code-quote">"true"</span> /&gt;
+
+<span class="code-tag"><span class="code-comment">&lt;!-- Example 2: more complex example --&gt;</span></span>
+&lt;ww:updownselect 
+list=<span class="code-quote">"defaultFavouriteCartoonCharacters"</span> 
+name=<span class="code-quote">"prioritisedFavouriteCartoonCharacters"</span> 
+headerKey=<span class="code-quote">"-1"</span> 
+headerValue=<span class="code-quote">"--- Please Order ---"</span> 
+emptyOption=<span class="code-quote">"true"</span> 
+allowMoveUp=<span class="code-quote">"true"</span> 
+allowMoveDown=<span class="code-quote">"true"</span> 
+allowSelectAll=<span class="code-quote">"true"</span> 
+moveUpLabel=<span class="code-quote">"Move Up"</span>
+moveDownLabel=<span class="code-quote">"Move Down"</span> 
+selectAllLabel=<span class="code-quote">"Select All"</span> /&gt;</pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

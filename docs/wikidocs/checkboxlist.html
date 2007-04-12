@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>WebWork - 
+        checkboxlist
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please make sure you have read the <a href="Tag Syntax.html" title="Tag Syntax">Tag Syntax</a> document and understand how tag attribute syntax works.</td></tr></table>
+
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Important</b><br />
+<p>Note that the listkey and listvalue attribute will default to "key" and "value"
+respectively only when the list attribute is evaluated to a Map or its decendant.
+Other thing else, will result in listkey and listvalue to be null and not used.</p>
+</td></tr></table>
+
+<h1><a name="checkboxlist-Description"></a>Description</h1>
+
+<p>Creates a series of checkboxes from a list. Setup is like &lt;ww:select /&gt; or &lt;ww:radio /&gt;, but creates checkbox tags.</p>
+
+
+
+<h1><a name="checkboxlist-Parameters"></a>Parameters</h1>
+An error occurred: http://svn.opensymphony.com/svn/webwork/docs/tags/CheckboxList.html. The system administrator has been notified.
+
+
+<h1><a name="checkboxlist-Examples"></a>Examples</h1>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:checkboxlist name=<span class="code-quote">"foo"</span> list=<span class="code-quote">"bar"</span>/&gt;</span></pre>
+</div></div>
+
+<p>It is possible to select multiple checkboxes, by handling a List  into the value attribute.
+The List passed into the value attribute could be :-
+<ul>
+   <li>key if the list attribute is passed in is a Map</li>
+   <li>listKey properties if listKey attribute is used</li>
+   <li>entry/entries passed into the list attribute</li> 
+</ul></p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&lt;ww:checkboxlist name=<span class="code-quote">"options"</span> 
+                             list=<span class="code-quote">"%{#{'FOO':'foo','BAR':'bar','BAZ':'baz','BOO':'boo'}}"</span> 
+                             value=<span class="code-quote">"%{{'FOO','BAZ'}}"</span> /&gt;
+                             
+&lt;ww:checkboxlist name=<span class="code-quote">"options"</span>
+                             list=<span class="code-quote">"%{{'Foo','Bar','Baz'}}"</span>
+                             value=<span class="code-quote">"%{{'Foo','Bar'}}"</span> /&gt;
+                             
+ public class MyAction extends ActionSupport {
+      public List<span class="code-tag">&lt;Choice&gt;</span> getChoices() {
+         .... 
+      }
+      ....                       
+      public List<span class="code-tag">&lt;String&gt;</span> getPreSelectedChoices() {
+         // returns a list of Choice.getKey(), which is a String
+         ....
+      }
+ }     
+  
+ public class Choice {
+     public String getKey() { ...}
+     public String getDisplayName() { ... }
+     ....
+ }
+ 
+ &lt;ww:checkboxlist name=<span class="code-quote">"myChoice"</span>
+                              list=<span class="code-quote">"%{choices}"</span>
+                              listKey=<span class="code-quote">"%{'key'}"</span>
+                              listValue=<span class="code-quote">"%{'displayName'}"</span>
+                              value=<span class="code-quote">"%{preSelectedChoices}"</span> /&gt;</pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
