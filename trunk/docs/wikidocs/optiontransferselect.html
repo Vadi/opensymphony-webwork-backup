@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>WebWork - 
+        optiontransferselect
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>Please make sure you have read the <a href="Tag Syntax.html" title="Tag Syntax">Tag Syntax</a> document and understand how tag attribute syntax works.</p></td></tr></table>
+
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Important</b><br />
+<p>Note that the doublelistkey and doublelistvalue attribute will default to "key" and "value"
+respectively only when the doublelist attribute is evaluated to a Map or its decendant.
+Other thing else, will result in doublelistkey and doublelistvalue to be null and not used.</p>
+</td></tr></table>
+
+
+<h1><a name="optiontransferselect-Description"></a>Description</h1>
+
+
+<p>Create a option transfer select component which is basically two &lt;select ...&gt;
+tag with buttons in the middle of them allowing options in each of the 
+&lt;select ...&gt; to be moved between themselves. Will auto-select all its 
+elements upon its containing form submision.</p>
+
+
+<p>NOTE: The id and doubleId need not be supplied as they will generated provided
+that the optiontransferselect tag is being used in a form tag. The generated id 
+and doubleId will be &lt;form_id&gt;_&lt;optiontransferselect_doubleName&gt; and 
+&lt;form_id&gt;_&lt;optiontransferselect_doubleName&gt; respectively.</p>
+ 
+<p>&nbsp;</p>
+
+<h1><a name="optiontransferselect-Parameters"></a>Parameters</h1>
+
+An error occurred: http://svn.opensymphony.com/svn/webwork/docs/tags/OptionTransferSelect.html. The system administrator has been notified.
+<p>&nbsp;</p>
+
+<h1><a name="optiontransferselect-Examples"></a>Examples</h1>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;-- minimum configuration --&gt;</span>
+&lt;ww:optiontransferselect 
+  	label=<span class="code-quote">"Favourite Cartoons Characters"</span>
+	name=<span class="code-quote">"leftSideCartoonCharacters"</span> 
+	list=<span class="code-quote">"{'Popeye', 'He-Man', 'Spiderman'}"</span> 
+	doubleName=<span class="code-quote">"rightSideCartoonCharacters"</span>
+	doubleList=<span class="code-quote">"{'Superman', 'Mickey Mouse', 'Donald Duck'}"</span> 
+/&gt;
+
+ <span class="code-tag">&lt;-- possible configuration --&gt;</span>
+ &lt;ww:optiontransferselect 
+  	label=<span class="code-quote">"Favourite Cartoons Characters"</span>
+	name=<span class="code-quote">"leftSideCartoonCharacters"</span> 
+	leftTitle=<span class="code-quote">"Left Title"</span>
+	rightTitle=<span class="code-quote">"Right Title"</span>
+	list=<span class="code-quote">"{'Popeye', 'He-Man', 'Spiderman'}"</span> 
+	multiple=<span class="code-quote">"true"</span>
+	headerKey=<span class="code-quote">"headerKey"</span>
+	headerValue=<span class="code-quote">"--- Please Select ---"</span>
+	emptyOption=<span class="code-quote">"true"</span>
+	doubleList=<span class="code-quote">"{'Superman', 'Mickey Mouse', 'Donald Duck'}"</span> 
+	doubleName=<span class="code-quote">"rightSideCartoonCharacters"</span>
+	doubleHeaderKey=<span class="code-quote">"doubleHeaderKey"</span>
+	doubleHeaderValue=<span class="code-quote">"--- Please Select ---"</span> 
+	doubleEmptyOption=<span class="code-quote">"true"</span>
+	doubleMultiple=<span class="code-quote">"true"</span>
+/&gt;</pre>
+</div></div>
+<p>&nbsp;</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

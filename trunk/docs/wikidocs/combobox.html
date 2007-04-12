@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>WebWork - 
+        combobox
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please make sure you have read the <a href="Tag Syntax.html" title="Tag Syntax">Tag Syntax</a> document and understand how tag attribute syntax works.</td></tr></table>
+
+<h1><a name="combobox-Description"></a>Description</h1>
+<p>The combo box is basically an HTML INPUT of type text and HTML SELECT grouped together to give you a combo box
+functionality. You can place text in the INPUT control by using the SELECT control or type it in directly in
+the text field.<p/></p>
+
+<p>In this example, the SELECT will be populated from id=year attribute. Counter is itself an Iterator. It will
+span from first to last. The population is done via javascript, and requires that this tag be surrounded by a
+&lt;form&gt;.<p/></p>
+
+<p>Note that unlike the &lt;ww:select/&gt; tag, there is no ability to define the individual &lt;option&gt; tags' id attribute
+or content separately. Each of these is simply populated from the toString() method of the list item. Presumably
+this is because the select box isn't intended to actually submit useful data, but to assist the user in filling
+out the text field.<p/></p>
+
+
+<h1><a name="combobox-Parameters"></a>Parameters</h1>
+An error occurred: http://svn.opensymphony.com/svn/webwork/docs/tags/ComboBox.html. The system administrator has been notified.
+
+
+<h1><a name="combobox-Examples"></a>Examples</h1>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">JSP:
+<span class="code-tag">&lt;ww:bean name=<span class="code-quote">"webwork.util.Counter"</span> id=<span class="code-quote">"year"</span>&gt;</span>
+  <span class="code-tag">&lt;ww:param name=<span class="code-quote">"first"</span> value=<span class="code-quote">"text('firstBirthYear')"</span>/&gt;</span>
+  <span class="code-tag">&lt;ww:param name=<span class="code-quote">"last"</span> value=<span class="code-quote">"2000"</span>/&gt;</span>
+
+  <span class="code-tag">&lt;ww:combobox label=<span class="code-quote">"Birth year"</span> size=<span class="code-quote">"6"</span> maxlength=<span class="code-quote">"4"</span> name=<span class="code-quote">"birthYear"</span> list=<span class="code-quote">"#year"</span>/&gt;</span>
+<span class="code-tag">&lt;/ww:bean&gt;</span>
+
+Velocity:
+#tag( ComboBox <span class="code-quote">"label=Birth year"</span> <span class="code-quote">"size=6"</span> <span class="code-quote">"maxlength=4"</span> <span class="code-quote">"name=birthYear"</span> <span class="code-quote">"list=#year"</span> )</pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

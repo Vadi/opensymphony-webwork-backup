@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>WebWork - 
+        webwork-default.xml
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>A base configuration file named webwork-default.xml is included in the webwork jar file. This file may be included at the top of your xwork.xml file to include the standard configuration settings without having to copy them, like so:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;!DOCTYPE xwork PUBLIC <span class="code-quote">"-//OpenSymphony Group//XWork 1.0//EN"</span> <span class="code-quote">"http://www.opensymphony.com/xwork/xwork-1.0.dtd"</span>&gt;</span><span class="code-tag">&lt;xwork&gt;</span>
+    <span class="code-tag">&lt;include file=<span class="code-quote">"webwork-default.xml"</span>/&gt;</span>    
+    
+    <span class="code-tag">&lt;package name=<span class="code-quote">"default"</span> extends=<span class="code-quote">"webwork-default"</span>&gt;</span>
+    ...
+    <span class="code-tag">&lt;/package&gt;</span>
+<span class="code-tag">&lt;/xwork&gt;</span></pre>
+</div></div>
+
+<p>The contents of webwork-default.xml are here:</p>
+
+<div class="error"><span class="error">Error formatting macro: snippet: java.lang.IllegalArgumentException: Invalid url: must begin with a configured prefix.</span> </div>
+
+<p>This file defines all of the default bundled results and interceptors and many interceptor stacks which you can use either as-is or as a basis for your own application-specific interceptor stacks. <b>Notice the name of the package is "webwork-default"</b>.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

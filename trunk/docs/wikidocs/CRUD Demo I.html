@@ -1,0 +1,410 @@
+<html>
+    <head>
+        <title>WebWork - 
+         Demo I
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h1><a name="CRUDDemoI-WebWorkCRUDExample"></a>WebWork CRUD Example</h1>
+
+<p>(Last update: 04/28/2006)</p>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>This is a copy of the tutorial written for <a href="http://www.learntechnology.net" title="Visit page outside Confluence">http://www.learntechnology.net</a></td></tr></table>
+
+<h2><a name="CRUDDemoI-Introduction"></a>Introduction</h2>
+
+<p>Welcome to the WebWork (WW) CRUD Example. This example was created to be as simple as possible and outline the differences with the other CRUD example on this site (Apache Struts 1.x, JSF, ..), and as such, it does not use all of the advanced (integration) features such as Spring IoC, Hibernate Open-session-in-view, OS Sitemesh, annotations, etc .. For these and other examples, please refer to the official WW site.</p>
+
+<p>Note: Larry has also created a second WW tutorial, which uses Spring and JSTL - so you might want to check that one out as well.</p>
+
+<h2><a name="CRUDDemoI-WebWork"></a>WebWork</h2>
+
+<p>WebWork is a traditional MVC2 action-based framework (such as Struts, Stripes, Simple, ..) as opposed to the newer event-based frameworks (such as JSF, Wicket, Rife, ..). WebWork uses XWork under the hood, a command-pattern based framework that handles conversion, validation, interception, and a lot more. WebWork was originally started as an effort to overcome the problems of Apache Struts 1, and has recently agreed to join the Apache Foundation again to become the successor of Struts 1, consequently named Struts Action 2 ('Action' because Struts has been divided in a number of standalone subprojects with different technologies).<br/>
+Therefore, besides a change in the package names, this example will be entirely valid for Struts Action 2.</p>
+
+<h3><a name="CRUDDemoI-.warlayout"></a>.war layout</h3>
+
+<p>The .war file you can download on this site can be dropped in your servlet container and contains the source code under the WEB-INF directory. The .war layout is also kept as simple as possible:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">- learn-ww
+-- [css] (contains the stylesheets)
+-- [WEB-INF]
+---- [classes] (contains the compiled src files)
+---- [lib] (contains the dependencies)
+---- [jsp] (contains the view pages)
+---- [src] (contains the source files)
+---- web.xml (our webapplication descriptor)
+-- index.html (simple redirect page)</pre>
+</div></div>
+
+<h3><a name="CRUDDemoI-Configurationfiles"></a>Configuration files</h3>
+
+
+<h4><a name="CRUDDemoI-WEBINF%2Fweb.xml"></a>WEB-INF/web.xml</h4>
+
+<p>The webapplication's descriptor file contains one filter and its mapping. By default, the filter is mapped to /*, meaning all requests will be intercepted, but only those ending with a specific suffix (.action, by default) and certain special paths (for static files) will be processed and handled by WebWork.&lt;/p&gt;</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;web-app&gt;</span>
+	<span class="code-tag">&lt;display-name&gt;</span>WebWork Demo<span class="code-tag">&lt;/display-name&gt;</span>
+	<span class="code-tag">&lt;filter&gt;</span>
+		<span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+		<span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.FilterDispatcher<span class="code-tag">&lt;/filter-class&gt;</span>
+	<span class="code-tag">&lt;/filter&gt;</span>
+
+	<span class="code-tag">&lt;filter-mapping&gt;</span>
+		<span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+		<span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+	<span class="code-tag">&lt;/filter-mapping&gt;</span>
+<span class="code-tag">&lt;/web-app&gt;</span></pre>
+</div></div>
+<p>More information on <a href="web.xml.html" title="web.xml">web.xml</a></p>
+
+<h4><a name="CRUDDemoI-WEBINF%2Fclasses%2Fxwork.xml"></a>WEB-INF/classes/xwork.xml</h4>
+
+<p>xwork.xml contains the configuration for XWork: actions, validation, interceptors and results are defined in there.<br/>
+To understand these terms, we'll need to take a look at WebWork's (and XWork's) architecture. A basic request goes a bit like this:<br/>
+A request is submitted, and our ActionMapper will try to determine the correct Action to execute. To find it, it will look up the registered names in your xwork.xml. If one is found, before executing the Action, it will loop through a defined stack of interceptors.</p>
+
+<p>Interceptors are a very important part of WW - they will be invoked before and after your action is executed, and as such, they are perfect for validation, authentication, open-session-in-view patterns, catching exceptions, setting or altering parameters, hiding complex operations, and more. WW provides a number of prebuilt stacks with a ranging number of features, but nothing keeps you from defining your own interceptor stack with custom interceptors.<br/>
+One of the most practical interceptors is the 'params' interceptor. It will translate your request parameters to set them on your action. Thus, if your action had a setName(String), and one of your request parameters is called 'name', then WW will set the name for you. Not so special, you say ? Ok, how about setId(Long id) ? This will work just fine as long as your id parameter value can be converted to a Long. Still not special enough ? How about submitting a parameter named empolyee.id ? As you might have guessed, this will invoke a getEmployee().setId(Long id). WW handles all common objects (Integer, String, Date, .. and Arrays, Lists, Maps, ..) And for those who just can't get enough, you can always add your own convertors for those (or your own) very complex objects (think social security number).</p>
+
+<p>An important aspect of a framework is validation. Adding validation can be a slow and complex process - not to mention the user feedback when something goes wrong. As we think you shouldn't reinvent the wheel, so WW has a loosely coupled validation framework which you'll see this in action when you try to insert or update an Employee.</p>
+
+<p>Now, when an Action is executed, the result will be used to control the flow - these simple Strings ("success", "error", "input", ..) will be used to invoke a certain Result - this Result can be a dispatcher to a jsp file, render a freemarker template, generate a chart, output xml, you name it. And, it's totally independend from your Action. Note when validation fails, the result will be by default "input".</p>
+
+<p>Now, as soon as the result is rendered/dispatched/executed/.. WW will loop through the interceptors again in reverse order - which is perfect for cleaning up resources, logging, timing, .. etc.</p>
+
+<p>Let us take a more detailed look at our <a href="xwork.xml.html" title="xwork.xml">xwork.xml</a>:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;xwork&gt;</span>
+	<span class="code-tag"><span class="code-comment">&lt;!-- Include webwork default (from WebWork JAR). --&gt;</span></span>
+	<span class="code-tag">&lt;include file=<span class="code-quote">"webwork-default.xml"</span>/&gt;</span>
+
+	<span class="code-tag"><span class="code-comment">&lt;!-- Configuration for the default package. --&gt;</span></span>
+	<span class="code-tag">&lt;package name=<span class="code-quote">"default"</span> extends=<span class="code-quote">"webwork-default"</span>&gt;</span>
+
+		<span class="code-tag"><span class="code-comment">&lt;!-- Default interceptor stack. --&gt;</span></span>
+		<span class="code-tag">&lt;default-interceptor-ref name=<span class="code-quote">"paramsPrepareParamsStack"</span>/&gt;</span>
+		<span class="code-tag">&lt;action name=<span class="code-quote">"index"</span> class=<span class="code-quote">"net.vaultnet.learn.action.EmployeeAction"</span> method=<span class="code-quote">"list"</span>&gt;</span>
+			<span class="code-tag">&lt;result name=<span class="code-quote">"success"</span>&gt;</span>/jsp/employees.jsp<span class="code-tag">&lt;/result&gt;</span>
+			<span class="code-tag"><span class="code-comment">&lt;!-- we don't need the full stack here --&gt;</span></span>
+			<span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"basicStack"</span>/&gt;</span>
+		<span class="code-tag">&lt;/action&gt;</span>
+		<span class="code-tag">&lt;action name=<span class="code-quote">"crud"</span> class=<span class="code-quote">"net.vaultnet.learn.action.EmployeeAction"</span> method=<span class="code-quote">"input"</span>&gt;</span>
+			<span class="code-tag">&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"redirect-action"</span>&gt;</span>index<span class="code-tag">&lt;/result&gt;</span>
+			<span class="code-tag">&lt;result name=<span class="code-quote">"input"</span>&gt;</span>/jsp/employeeForm.jsp<span class="code-tag">&lt;/result&gt;</span>
+			<span class="code-tag">&lt;result name=<span class="code-quote">"error"</span>&gt;</span>/jsp/error.jsp<span class="code-tag">&lt;/result&gt;</span>
+		<span class="code-tag">&lt;/action&gt;</span>
+	<span class="code-tag">&lt;/package&gt;</span>
+<span class="code-tag">&lt;/xwork&gt;</span></pre>
+</div></div>
+<p>First thing you encounter is the inclusion of the webwork-default.xml. This file, located in the root of your webwork.jar, contains the default interceptors, interceptor stacks and results so you don't have to register them.<br/>
+Next up are the packages - packages can inherit from other packages - and are used to group actions together on different namespaces. Not important right now, so we are going to use the default one. We also specified we want to use the paramsPrepareParams interceptor stack, for reasons explained later.<br/>
+Two actions are defined, and they both use the same Action class, EmployeeAction. One is registered with the name 'index', and will be used for the index page, while the other one, 'crud' will be used to execute the various create/read/update/delete actions. You also note they list different method attributes: one will execute, by default, the list method while our crud action goes with the input method.<br/>
+After that, we arrive at the results. Remember how I told each Action execution has to return a String result ? Well, here they are. For our index action, we don't require any input, we will assume nothing goes wrong, so we only list the success result (Note: you can register global results as well). This result uses, under the hood, the default DispatcherResult result-type to dispatch the request to an employees.jsp file. Also note the fact that since I didn't need the full stack (no validation, fileupload, preparing, or other funky things), I chose to use the basic interceptor stack for this request.</p>
+
+<p>It gets more interesting for our crud Action: besides the success result, we also specify the input result (which dispatches to our input form) and the error result (which is returned when an exception is thrown during the Action execution - for example a database exception). You can also see we specified a different result-type for our success result, in casu the 'redirect-action'. This is nothing more than a fancy redirect which will append the chosen WW suffix, so we could have also used the redirect result-type, with index.action as its text. But this approach is slightly better since it is suffix agnostic (you can switch suffixes very easily in WW, so that is why we always advise to program suffix agnostic and let the framework handle it for you).</p>
+
+<p>More information on <a href="xwork.xml.html" title="xwork.xml">xwork.xml</a></p>
+
+<h4><a name="CRUDDemoI-WEBINF%2Fclasses%2Fwebwork.properties"></a>WEB-INF/classes/webwork.properties</h4>
+
+<p>This file only contains one line, and is used to set webwork specific settings (such as which IoC container to use, which fileuploader, what templates, etc ..). You don't really need it, but for i18n reasons, we use it to register our resource bundle 'guest.properties'.</p>
+
+<p>More information on <a href="webwork.properties.html" title="webwork.properties">webwork.properties</a></p>
+
+<h4><a name="CRUDDemoI-WEBINF%2Fclasses%2Fguest.properties"></a>WEB-INF/classes/guest.properties</h4>
+
+<p>This guest.properties file will contain the keys and values to internationalize your webapplication in a straightforward way. Rather than hardcoding Welcome &#33; in your page, you should use specify a key (eg. 'welcome_msg') with a certain value ('Welcome &#33;'). By adding new resource bundles, you can override the key and specify a different value (eg. 'Bienvenue &#33;' for a french Locale).</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">webwork.custom.i18n.resources=guest</pre>
+</div></div>
+
+<h3><a name="CRUDDemoI-Thecode"></a>The code</h3>
+
+<p>Since 90% of the code is identical to the other CRUD examples displayed on this site, we'll only analyze the Action class, EmployeeAction.<br/>
+As always, first things first - the class definition:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">...
+<span class="code-keyword">import</span> com.opensymphony.xwork.Action;
+<span class="code-keyword">import</span> com.opensymphony.xwork.ActionSupport;
+<span class="code-keyword">import</span> com.opensymphony.xwork.Preparable;
+...
+
+<span class="code-keyword">public</span> class EmployeeAction <span class="code-keyword">extends</span> ActionSupport <span class="code-keyword">implements</span> Preparable {
+	...</pre>
+</div></div>
+<p>Now, first there is the extending of the ActionSupport class - although you don't have to extend it, it provides a lot of useful extras, so you are encouraged to extend and override parts of it, but you don't have to. The interface we are implementing is a bit more interesting. The Preparable interface only defines one method, public void prepare(). By implementing this interface in your Action, you tell the prepare interceptor to call this method on your Action - so that makes it perfect to, for example, retrieve objects from a database, which is what we're 'faking' here by requesting an Employee object from the EmployeeService.</p>
+
+<p>There are quite some different interfaces that you can implement that will be used by interceptors (SessionAware, ServletAware, ..), but you need to be sure the interceptors are listed in your interceptor stack, or the interceptor won't be executed on your action.</p>
+
+<p>Besides the prepare() method we just explained, our Action also contains the doInput(), doSave(), doList() and doDelete() methods. Remember how we specified the method attribute in the xwork.xml file ? Well, these are the methods that are going to be executed. Technically, you could have defined input(), save(), list() and delete() as well, but WW will automagically find the correct method. Originally, this was because often a default() method is declared - but since default is a reserved keyword, you have to make that doDefault(). You don't have to care about that, but just so you know.</p>
+
+<p>Let's explore the doList method, which is the default method we specified in our xwork.xml for our index action.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> <span class="code-object">String</span> doList() {
+	employees = empService.getAllEmployees();
+	<span class="code-keyword">return</span> Action.SUCCESS;
+}</pre>
+</div></div>
+<p>Surprisingly simple, no ? Simply fill in the employees object, and return "success" (defined as a final static variable SUCCESS). That's it ? That's it. The only thing you need now to show the list in your view layer is a simple getter for employees in your Action. The reason for this is another WebWork feature: the ValueStack.</p>
+
+<h4><a name="CRUDDemoI-TheValueStack%3Ait%27smagic%2Cbaby%5C%21"></a>The ValueStack: it's magic, baby &#33;</h4>
+
+<p>The ValueStack is like a normal stack. You can put objects on it, remove them from it, and query it. And even more, you can query it with expressions &#33; It's the heart of WebWork, and allows easy access to a wide range of objects from nearly any place in the framework: interceptors, results, tags, .. you name it.<br/>
+Now, when you execute your Action, it will be placed on top of the stack.</p>
+
+<p>So, once it's on the valueStack, you could query for it 'employees' - a special glue language called OGNL will then transform that request to 'top.getEmployees()' - and since top is the top of your stack, and your Action is located just there, it will invoke the getEmployees() method on your Action, and return the result.</p>
+
+<p>More information on <a href="Architecture.html" title="Architecture">the WebWork architecture</a>, <a href="Interceptors.html" title="Interceptors">Interceptors</a>, <a href="OGNL.html" title="OGNL">OGNL</a></p>
+
+<h3><a name="CRUDDemoI-Firstview%3Atheemployeelisting"></a>First view: the employee listing</h3>
+
+<p>WW defines a lot of tags that will dramatically speed up your development. They can alter or query the value stack, render input forms, javascript widgets, loop iteratable objects, and so on. On top of that, they have different themes, which add even more functionality/layout by the switch of a parameter. Themes are out of the scope of this example, but you should definitely check them out.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag"><span class="code-comment">&lt;!-- /webwork is automatically found, you don't have to register it in your web.xml --&gt;</span></span>
+<span class="code-tag">&lt;%@taglib prefix=<span class="code-quote">"ww"</span> uri=<span class="code-quote">"/webwork"</span> %&gt;</span>
+
+<span class="code-tag">&lt;head&gt;</span>
+    <span class="code-tag">&lt;link href=<span class="code-quote">"&lt;ww:url value='/css/main.css'/&gt;</span>"</span> rel=<span class="code-quote">"stylesheet"</span> type=<span class="code-quote">"text/css"</span>/&gt;
+    <span class="code-tag">&lt;title&gt;</span><span class="code-tag">&lt;ww:text name=<span class="code-quote">"label.employees"</span>/&gt;</span><span class="code-tag">&lt;/title&gt;</span>
+<span class="code-tag">&lt;/head&gt;</span></pre>
+</div></div>
+<p>I'll explain the first two tags: ww:url and ww:text (ww: being the most commonly used taglib prefix - and it helps to clear the confusion when talking about html tags).<br/>
+The ww:url tag allows you to build urls with parameters for actions (rather than having to type them out manually), and the ww:text tag will look up keys in resource bundles in the valueStack (depending on the locale). So adding a new language would be a breeze. In these cases we build an url '/css/main' and we display the value of a key 'label.employees' from our guest.properties resource bundle.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:url id=<span class="code-quote">"url"</span> action=<span class="code-quote">"crud!input"</span> /&gt;</span>
+<span class="code-tag">&lt;a href=<span class="code-quote">"&lt;ww:property value="</span>#url<span class="code-quote">"/&gt;</span>"</span>&gt;Add New Employee<span class="code-tag">&lt;/a&gt;</span></pre>
+</div></div>
+<p>There's something special about this as well. We already know what the ww:url tag does, but here we specified an id, and our action attribute looks really weird.<br/>
+First, about the action value, forget about that for now - we'll get to that in a minute.<br/>
+Then there's that id attribute. A lot of tags (esp. those that generate/display something) share it, and it allows you to store the result of the tag on the valueStack, as #(id_value). Thus, my generated url would be available on the stack as #url, and as you can see, we use that same #url to output it later on in our anchor tag.</p>
+
+<p>More information on &lt;a href="http://wiki.opensymphony.com/display/WW/Tags"  &gt;the WebWork tags&lt;/a&gt;&lt;/p&gt;</p>
+
+<h4><a name="CRUDDemoI-TheActionMapper"></a>The ActionMapper</h4>
+
+<p>The WW ActionMapper doesn't just map names to Actions - it can also change the method, or even action, by using special requests. The weird value we encountered above, crud&#33;input, tells the ActionMapper to invoke the input()/doInput() method of the Action known as crud. So for example, you could have several slighly different methods, and rather than having to register each of them in the xwork.xml file, you can use the &#33; notation to specify which method to execute.</p>
+
+<p>Another thing is the fact that you can override which action/method to invoke based on a special name:action parameter, which we'll use later on in our employeeForm.jsp to make a nice cancel button.</p>
+
+<p>After this small intermezzo, back to the employee listing.</p>
+
+<p>More information on the <a href="ActionMapper.html" title="ActionMapper">ActionMapper</a></p>
+
+<h4><a name="CRUDDemoI-Moretags%3Aww%3Aiterator%2Cww%3Aif%2Felse%2Candww%3Aproperty"></a>More tags: ww:iterator, ww:if/else, and ww:property</h4>
+
+<p>Take a look at the following lines from our employees.jsp:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:iterator value=<span class="code-quote">"employees"</span> status=<span class="code-quote">"status"</span>&gt;</span>
+	<span class="code-tag">&lt;tr class=<span class="code-quote">"&lt;ww:if test="</span>#status.even<span class="code-quote">"&gt;</span>even<span class="code-tag">&lt;/ww:if&gt;</span><span class="code-tag">&lt;ww:else&gt;</span>odd<span class="code-tag">&lt;/ww:else&gt;</span>"</span>&gt;</pre>
+</div></div>
+<p>The ww:iterator tag does pretty much what you expect from it: it loops through an array/list/collection, and pushes each object it encounters on the stack on each iteration. It also has a helper attribute called status, which generates a status object that keep track of the index, tells you if you're in an even or odd row, and so on, while you're inside the ww:iterator tag.</p>
+
+<p>As you can see, we use that same status object in our next tag, the ww:if and its compagnon, the ww:else tag. The test attribute of the if tag allows you to query the valueStack with an OGNL expression, which is exactly what we do here: see if the status object from our ww:iterator tag we put on the valueStack, returns true when the method isEven() is invoked. The corresponding ww:else method is then executed if the test method return false.</p>
+
+<p>Finally, there's the ww:property tag, which is used for displaying objects/expressions from the ValueStack. Examine this:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:property value=<span class="code-quote">"age"</span> /&gt;</span></pre>
+</div></div>
+<p>This might be a little confusing at first, but it's very simple. This actually translates to top.getAge(), meaning we'll execute a getAge() on the top object on our ValueStack. Which happens to be .. the Action ? Nope. The employees List ? Closer. The current Employee object in the employee list ? Bingo.<br/>
+Why ? Because I told you what the ww:iterator tag did: it places each object on the top of the stack. Since the employees List contains Employee objects, an Employee object gets 'on top'. So that's why you can simply type age (or top.age) and have the employee's age printed out.</p>
+
+<h2><a name="CRUDDemoI-Adding%26Editinganemployee"></a>Adding &amp; Editing an employee</h2>
+
+<p>Easy enough: return "input" from your Action, and register the result in your xwork.xml with a dispatcher to employeeForm.jsp.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> <span class="code-object">String</span> doInput() {
+	<span class="code-keyword">return</span> Action.INPUT;
+}</pre>
+</div></div>
+<p>Nothing to it. So let's take a look at how we are going to edit an Employee.</p>
+
+<p>Editting, or better, preparing for editing, comes in many flavours. Fact is, you often need 'extra' objects, like a list of possible departments in our case, to be set up before rendering the insert or edit page. In WW, there are quite some ways to accomplish this, but two approaches are recommended:<br/>
+&#45; Using a prepare() method and interceptor to setup any additional objects you need<br/>
+&#45; Using a ww:action tag to use another action to create the objects for you - for example, a DepartmentAction could return a list of Department objects.<br/>
+Here I'll show you both, but in the example application you'll only find the first one (might change, that's why I'm adding it here).</p>
+
+<h4><a name="CRUDDemoI-Theprepareapproach"></a>The prepare approach</h4>
+
+<p>A little rehearsal: the prepare interceptor, when listed in your interceptor stack, will call the prepare method. We use this prepare method to set up our deparments, so the list will be available whenever our crud action is called.<br/>
+We also use this to retrieve an employee bean whenever an id is set - which is precisely how we make the difference between inserting and editing (and we use a similar method in the doSave() method in our EmployeeAction). So, visiting the crud&#33;input action without an employee.id parameter to retrieve the employee, will result in an empty form, while passing the parameter will result in an Employee object to be retrieved for editing.</p>
+
+<p>More information on the <a href="Prepare interceptor.html" title="Prepare Interceptor">Prepare interceptor</a></p>
+
+<h4><a name="CRUDDemoI-Theww%3Aactionapproach"></a>The ww:action approach</h4>
+
+<p>The other commonly used approach is to use the ww:action tag. The ww:action tag allows you to execute (additional) WW actions, which makes them perfect to generate objects for input forms, such as select boxes. You could create for example, a Department action, which does nothing more than listing an doList() method to set up a list of departments, and getter for it, called getDepartments().</p>
+
+<p>Register the DepartmentAction in your xwork.xml as 'department', and you can simply call it in your page, and use the id approach we used in the ww:url tag to store the result on the stack under a custom name called allDepartments:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:action name=<span class="code-quote">"department!list"</span> id=<span class="code-quote">"allDepartments"</span>/&gt;</span></pre>
+</div></div>
+<p>Now, this, by itself, does not do much. I'll show you later when we talk about the employeeForm page how to use it as an alternative approach.</p>
+
+<p>More information on the <a href="action.html" title="action">ww:action</a> tag</p>
+
+<h3><a name="CRUDDemoI-Formsmadeeasy"></a>Forms made easy</h3>
+
+<p>The employeeForm.jsp page is really concise. I told you about the themes that WW uses under the cover, right ? Well, those are going to be responsable for rendering our form, complete with labels for names and errors, input fields, and so on.</p>
+
+<p>But first, we find another useful tag: ww:set</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:if test=<span class="code-quote">"employee==null || employee.employeeId == null"</span>&gt;</span>
+	<span class="code-tag">&lt;ww:set name=<span class="code-quote">"title"</span> value=<span class="code-quote">"%{'Add new employee'}"</span>/&gt;</span>
+<span class="code-tag">&lt;/ww:if&gt;</span>
+<span class="code-tag">&lt;ww:else&gt;</span>
+	<span class="code-tag">&lt;ww:set name=<span class="code-quote">"title"</span> value=<span class="code-quote">"%{'Update employee'}"</span>/&gt;</span>
+<span class="code-tag">&lt;/ww:else&gt;</span></pre>
+</div></div>
+<p>The set tag allows you to store certain objects on the stack (as well as their scope - request/session/page/..), which is what we're going to do here because out of sheer laziness (and performance reasons) I refuse to do the same if/else more than once. As you can guess, it relies on the same principle as the id attribute of the ww:url tag we saw earlier, meaning I can access it with #title on the ValueStack.</p>
+
+<p>More information on the <a href="if.html" title="if">ww:if</a> tag, <a href="else.html" title="else">ww:else</a> tag</p>
+
+<h4><a name="CRUDDemoI-Theactualform"></a>The actual form</h4>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:form action=<span class="code-quote">"crud!save.action"</span> method=<span class="code-quote">"post"</span>&gt;</span>
+    <span class="code-tag">&lt;ww:textfield name=<span class="code-quote">"employee.firstName"</span> value=<span class="code-quote">"%{employee.firstName}"</span> label=<span class="code-quote">"%{getText('label.firstName')}"</span> size=<span class="code-quote">"40"</span>/&gt;</span>
+    <span class="code-tag">&lt;ww:textfield name=<span class="code-quote">"employee.lastName"</span> value=<span class="code-quote">"%{employee.lastName}"</span> label=<span class="code-quote">"%{getText('label.lastName')}"</span> size=<span class="code-quote">"40"</span>/&gt;</span>
+    <span class="code-tag">&lt;ww:textfield name=<span class="code-quote">"employee.age"</span> value=<span class="code-quote">"%{employee.age}"</span> label=<span class="code-quote">"%{getText('label.age')}"</span> size=<span class="code-quote">"20"</span>/&gt;</span>
+    <span class="code-tag">&lt;ww:select name=<span class="code-quote">"employee.department.departmentId"</span> value=<span class="code-quote">"%{employee.department.departmentId}"</span> list=<span class="code-quote">"departments"</span> listKey=<span class="code-quote">"departmentId"</span> listValue=<span class="code-quote">"name"</span>/&gt;</span>
+    <span class="code-tag">&lt;ww:hidden name=<span class="code-quote">"employee.employeeId"</span> value=<span class="code-quote">"%{employee.employeeId}"</span>/&gt;</span>
+    <span class="code-tag">&lt;ww:submit value=<span class="code-quote">"%{getText('button.label.submit')}"</span>/&gt;</span>
+    <span class="code-tag">&lt;ww:submit value=<span class="code-quote">"%{getText('button.label.cancel')}"</span> name=<span class="code-quote">"redirect-action:index"</span>/&gt;</span>
+<span class="code-tag">&lt;/ww:form&gt;</span></pre>
+</div></div>
+<p>Wow - a lot of code at once. Let's dissect it tag by tag. It may seem complicated, but as you'll see, it's actually really easy.</p>
+
+<p>The ww:form tag generates a standard html form (note: there's a small bug when using the action&#33;method notation without suffix, that's why I am including .action here), while the first ww:textfield will generate an &lt;input type="text" .. /&gt; - but wait, it does more. It transforms your first tag from this:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:textfield name=<span class="code-quote">"employee.firstName"</span> value=<span class="code-quote">"%{employee.firstName}"</span> label=<span class="code-quote">"%{getText('label.firstName')}"</span> size=<span class="code-quote">"40"</span>/&gt;</span></pre>
+</div></div>
+<p>Into this:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;tr&gt;</span>
+	<span class="code-tag">&lt;td class=<span class="code-quote">"tdLabel"</span>&gt;</span>
+		<span class="code-tag">&lt;label for=<span class="code-quote">"crud!save_employee_firstName"</span> class=<span class="code-quote">"label"</span>&gt;</span>First Name:<span class="code-tag">&lt;/label&gt;</span>
+	<span class="code-tag">&lt;/td&gt;</span>
+	<span class="code-tag">&lt;td&gt;</span>
+		<span class="code-tag">&lt;input type=<span class="code-quote">"text"</span> name=<span class="code-quote">"employee.firstName"</span> size=<span class="code-quote">"40"</span> value=<span class="code-quote">"" id="</span>crud!save_employee_firstName"/&gt;</span>
+	<span class="code-tag">&lt;/td&gt;</span>
+<span class="code-tag">&lt;/tr&gt;</span></pre>
+</div></div>
+<p>Let's analyze that ww:textfield tag in greater detail. First thing we encounter is the name attribute, which is similar to the HTML input tag's name attribute. So it is by itself, not very special. However, as we've seen above, this allows WW to call the getEmployee().setFirstName() method - and even, if necessary, create the Employee object for you. So no more tens of property setters in your action - just one setter for a good ol' POJO, and you can call its setters right away (Note: for those who are concerned about mailicious injections, you can limit what can be set on your POJO) &#33;</p>
+
+<p>The value attribute uses a special %{..} notation, to indicate the value is not just a string 'employee.firstName', but in fact an expression that should be looked up on the ValueStack. So this one will make OGNL analyze the content, and look up on the ValueStack to see if it can find a method named getEmployee(), which returns a POJO which has a getFirstName() method on it. Now, when such an expression returns null (since our Employee pojo is NOT initialised - we are doing an insert here, remember ?), WW creates the Employee object for you, and its getFirstName() returns, of course, null. So, we're actually cheating here, because it will allow us to reuse that same form when we are going to edit an Employee. In that case, our getEmployee() would return an initialised object, so its getFirstName() would return a value, and thus display it in our input field &#33; Great - reusal of forms is always nice (of course, you can always use two seperate forms, but you don't need to).</p>
+
+<p>Ok, so %{..} indicates an expression on the ValueStack, and returns a blank if a null is returned, or the toString() value otherwise. The OGNL analyzer is pretty powerful, so you can do things like value="my_special_valentine_is_%{girlfriend.name}", %{100 * loan.tax}, or even %{new int[100]} and %{new java.util.Date()}.</p>
+
+<p>Now, we saw earlier that we could use the ww:text tag to retrieve values from resource bundles for i18n reasons. Now that begs the question, how do we use those same values in our tags ? Let's say we want to i18n'ize our textfield label. Something like this ?:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:textfield name=<span class="code-quote">"employee.firstName"</span> value=<span class="code-quote">"%{employee.firstName}"</span> label=<span class="code-quote">"&lt;ww:text name="</span>label.firstName<span class="code-quote">"/&gt;</span>"</span> size=<span class="code-quote">"40"</span>/&gt;</pre>
+</div></div>
+<p>Ugh. No, that's ugly, and it wouldn't work either. The solution is much cleaner and simpler: use another expression &#33; If you were to check the extra methods provided by making our EmployeeAction extends ActionSupport, you would see a method called getText(String key). This method will look up a value in the resource bundle by its key, which is exactly what we need. So, the label would become something like this: %{getText('our_key')}. Makes sense ? Thought so.</p>
+
+<p>Meet the next tag, ww:select, which renders a select box using an iteratable collection:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:select name=<span class="code-quote">"employee.department.departmentId"</span> value=<span class="code-quote">"%{employee.department.departmentId}"</span> list=<span class="code-quote">"departments"</span> listKey=<span class="code-quote">"departmentId"</span> listValue=<span class="code-quote">"name"</span>/&gt;</span></pre>
+</div></div>
+<p>We already covered the name attribute, so let's look at the list attribute: departments. Hmm, this might seems strange at first. Where does it come from ? Well, perhaps it makes much more sense to see this: list="%{departments}". Yes, it is in fact an expression on the ValueStack that will query our action for the departments we've setup before &#33; Then, why are we missing the %{..} ? The answer is twofold: you can still write %{departments}, and it would work as you expected. But you have to realize, that whatever you are going to iterate is going to be an expression &#33; So, being pretty lazy and with all this Ruby-on-rails 'minimalistic' code, we decided we might as well save you a couple of RSI-related finger moves and let you discard the %{..}.</p>
+
+<p>Another quick intermezzo: you can use expressions to make your own list in an expression - which is perfect for small yes/no and male/female/eunuch selections - like this:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:select name=<span class="code-quote">"gender"</span> list=<span class="code-quote">"%{#{'male':'Male', 'female':'Female'}}"</span> /&gt;</span></pre>
+</div></div>
+<p>By the way, did you remember the ww:action tag we used as an alternative to the prepare method to fill up the select box ? We can now use the action we executed and stored on the ValueStack by referencing it by its id:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:select name=<span class="code-quote">"gender"</span> list=<span class="code-quote">"%{#allDepartments.departments}"</span> /&gt;</span></pre>
+</div></div>
+<p>So, instead of getting the departments from the current action, we used the ww:tag to execute another one, and now we're using that action to get the department List. This allows you to split up, and reuse Actions (Note: you can go even further and program your own components with built-in actions, but that's out of scope).<br/>
+Let's get back to the original plan.</p>
+
+<p>Now, the listKey and listValue attributes tell WW what it should use as keys and values in our select box - and what do you know, those (hidden) expressions are going to be invoked on each object it encounters in your list - in this case, getDepartmentId() and getName().<br/>
+Finally, the value attribute will tell WW where to place the typical 'selected' attribute in our generated options, and it will print it as soon as the value expression equals the key expression. Thus, in our case, as soon as your employee.getDepartment().getDepartmentId() equals the getDepartmentId() expression on one of the Department objects in our departments List. Since we don't have an employee we're editing, the expression would return null, so no selected attribute would be printed.</p>
+
+<p>Finally, the last two tags, the submission tags. Submission tags, yes. One for submitting the form, and another one to cancel it. The first submit button, submits the form to the form's action attribute, in case crud&#33;save.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:submit value=<span class="code-quote">"%{getText('button.label.submit')}"</span>/&gt;</span>
+<span class="code-tag">&lt;ww:submit value=<span class="code-quote">"%{getText('button.label.cancel')}"</span> name=<span class="code-quote">"redirect-action:index"</span>/&gt;</span></pre>
+</div></div>
+<p>The second one is more interesting though. It also submits the form to the same crud&#33;save action as the first one, but lists a special name attribute. This name attribute will cause the ActionMapper to intercept the call, and in this case, redirect it to another action. No more fiddling with javascript to have forms with multiple submit buttons - it's all done for you, without any javascript or the troubles that come with it.</p>
+
+<p>More information about &lt;a href="http://wiki.opensymphony.com/display/WW/Themes+and+Templates"  &gt;themes and templates&lt;/a&gt;, &lt;a href="http://wiki.opensymphony.com/display/WW/Form+Tags"  &gt;form tags&lt;/a&gt;, &lt;a href="http://wiki.opensymphony.com/display/WW/ActionMapper"  &gt;action mapping&lt;/a&gt; &lt;/p&gt;</p>
+
+<h3><a name="CRUDDemoI-Validation"></a>Validation</h3>
+
+<p>Alright, so you've set up the form for adding and updating employees. This is the point where you normally start sweating, you hands start shaking and you feel slightly dizzy. Have no fear, WW is here &#33;</p>
+
+<p>WW uses XWork's validation framework internally. It allows you to validate Models and Actions using a set of specialised (field)validators, grouped together in an xml file named YourModel-validation.xml or ActionName-validation (and, in the case of the alias, ActionName-alias-validation.xml). Since we only want to validate the crud action, we create a file EmployeeAction-crud-validation.xml and place it in our classpath (mostly next to our compiled Action class).</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;validators&gt;</span>
+  <span class="code-tag">&lt;field name=<span class="code-quote">"employee.firstName"</span>&gt;</span>
+     <span class="code-tag">&lt;field-validator type=<span class="code-quote">"requiredstring"</span>&gt;</span>
+        <span class="code-tag">&lt;message key=<span class="code-quote">"errors.required.firstname"</span>/&gt;</span>
+      <span class="code-tag">&lt;/field-validator&gt;</span>
+  <span class="code-tag">&lt;/field&gt;</span>
+  <span class="code-tag">&lt;field name=<span class="code-quote">"employee.lastName"</span>&gt;</span>
+     <span class="code-tag">&lt;field-validator type=<span class="code-quote">"requiredstring"</span>&gt;</span>
+        <span class="code-tag">&lt;message key=<span class="code-quote">"errors.required.lastname"</span>/&gt;</span>
+      <span class="code-tag">&lt;/field-validator&gt;</span>
+  <span class="code-tag">&lt;/field&gt;</span>
+  <span class="code-tag">&lt;field name=<span class="code-quote">"employee.age"</span>&gt;</span>
+     <span class="code-tag">&lt;field-validator type=<span class="code-quote">"required"</span> short-circuit=<span class="code-quote">"true"</span>&gt;</span>
+        <span class="code-tag">&lt;message key=<span class="code-quote">"errors.required.age"</span>/&gt;</span>
+      <span class="code-tag">&lt;/field-validator&gt;</span>
+      <span class="code-tag">&lt;field-validator type=<span class="code-quote">"int"</span>&gt;</span>
+      	<span class="code-tag">&lt;param name=<span class="code-quote">"min"</span>&gt;</span>18<span class="code-tag">&lt;/param&gt;</span>
+      	<span class="code-tag">&lt;param name=<span class="code-quote">"max"</span>&gt;</span>65<span class="code-tag">&lt;/param&gt;</span>
+        <span class="code-tag">&lt;message key=<span class="code-quote">"errors.required.age.limit"</span>/&gt;</span>
+      <span class="code-tag">&lt;/field-validator&gt;</span>
+  <span class="code-tag">&lt;/field&gt;</span>
+<span class="code-tag">&lt;/validators&gt;</span></pre>
+</div></div>
+<p>A very important reminder: validation is once again done by an interceptor, so it should be in your stack. Even more important, validators 'query your Action/Model' and NOT your request &#33; Keep this in mind at all times.</p>
+
+<p>With that out of the way, let's analyze this snippet: there are two types of validators: field validators and general validators. We start by analyzing the field employee.firstName - so this means: we will analyze the result from the invocation of getEmployee().getFirstName() on our Action, not the request parameter named employee.firstName &#33;</p>
+
+<p>Field validators will not validate input fields - they are named field validators because they will automatically mark the input field in your form with the validation error, whereas normal validators would create actionErrors.</p>
+
+<p>So, first we apply a requiredstring validator to the getEmployee().getFirstName() return value. There are quite a few validators, ranging from requiredstring, required, intrange, emailaddress, url, .. etc. Writing your own validator is not hard, and it can be reused easily. Here we use the requiredstring, which does 2 checks:</p>
+<ul class="alternate" type="square">
+	<li>check the availabilty of the string (&#33;= null)</li>
+	<li>check the length of the string to be &gt; 0</li>
+</ul>
+
+
+<p>Why the stringlength greater than 0 ? Well, if you are submitting an empty text input field, the variable name will be send, and thus will WW set our field name to an empty "" String (contrary to not sending a parameter normally results in nothing being set, or null).</p>
+
+<p>The employee.lastName validation is exactly the same as the firstName. The only difference is in the validation of the age property.<br/>
+We use in fact 2 validators: a 'required' one, which will make sure that our age is in fact set, and not null, and another one that will check the range to make sure our employee is between 18 and 65 years old. If course, if the first validator fails, we shouldn't continue processing, so that's why we can specify the short-circuit attribute. If a validator short-cicuits the validation, validation is failed and skips to the current (field)validator.</p>
+
+<p>The "int" validator takes 2 optional parameters: min and max, who can be set by providing two simple param tags (most items in WW can be configured that way). This way, we ensure validation to be loosely coupled with our code and don't require re-compilation.</p>
+
+<p>Of course, you should also be able to i18n'ize your error messages, so that's why we providing a &lt;message key="my_key"/&gt; - if you prefer otherwise, you can always add a hardcoded text as a child element of the message tags.&lt;br /&gt;</p>
+
+<p>It doesn't stop there. The text you pass, be it hardcoded or a looked-up value, can in fact contain OGNL expressions as well &#33;<br/>
+Take a look at the value we get back from the 'errors.required.age.limit'-key:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">errors.required.age.limit=Please provide an age between ${min} and ${max}.</pre>
+</div></div>
+<p>And guess what: min and max are indeed the two parameters we just set before &#33; Using OGNL expressions you can retrieve whatever you want from your action, giving you really nice error messages (we like nice error messages). In fact, you can not only use these expressions in your error messages, but you can even set the min and max parameters dynamically. Different types of employees could have different age requirements - OGNL and polymorphy to the rescue &#33;</p>
+
+<p>More information about <a href="Validation.html" title="Validation">Validation</a></p>
+
+<h2><a name="CRUDDemoI-Conclusion"></a>Conclusion</h2>
+
+<p>This 'quick intro' turned out a bit longer than I anticipated. We haven't even barely touched the possibilities with WebWork - different templates, IoC (with XWork or Spring), annotations, REST-ful action mappings, components, Hibernate integration, ajax support, pdf/xml/rss/.. generation, groovy, .. . More info on 3th party integration.</p>
+
+<p>When you look at the various frameworks out there, they all let you create a certain type of (web)application really, really quickly. It's only when you want to add new/different/complex things, that you discover the limitations of the framework, often meaning serious hacking to get it working. WebWork is different. It is no out-of-the-box framework, where you just click a few buttons to generate a blog/cms/product catalog, but it's a framework in the true spirit of the word. Its architecture and design is so flexible that we yet have to discover where we cannot use it for, and as such it's a great overall framework that should belong in the backpack of any serious Java (web)application programmer.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
