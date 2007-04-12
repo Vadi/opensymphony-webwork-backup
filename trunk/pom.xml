@@ -23,6 +23,31 @@
         <system>JIRA</system>
         <url>http://jira.opensymphony.com/browse/WW</url>
     </issueManagement>
+    <distributionManagement>
+        <!--
+          For this to work, you need to:
+
+          1) Get the private key from someone that trusts you :)
+          2) Add the following to ~/.m2/settings.xml
+
+          <settings>
+              ...
+              <servers>
+                  <server>
+                        <id>opensymphony</id>
+                        <username>maven</username>
+                        <privateKey>/path/to/private/maven_opensymphony_key</privateKey>
+                  </server>
+              </servers>
+              ...
+          </settings>
+          -->
+        <repository>
+            <id>opensymphony</id>
+            <name>OpenSymphony Maven Repository</name>
+            <url>scp://maven2.opensymphony.com/opt/repository/maven2</url>
+        </repository>
+    </distributionManagement>
     <mailingLists>
         <mailingList>
             <name>WebWork users list</name>
@@ -107,12 +132,12 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                  <source>1.4</source>
-                  <target>1.4</target>
+                    <source>1.4</source>
+                    <target>1.4</target>
                 </configuration>
             </plugin>
             <plugin>
-            	<groupId>org.apache.maven.plugins</groupId>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
@@ -157,7 +182,7 @@
         </repository>
     </repositories>
 
-    
+
     <dependencies>
         <!-- unreferenced dependencies:
              * clover, mockobjects, xdoclet : only needed for build
@@ -364,7 +389,7 @@
             <artifactId>nanocontainer</artifactId>
             <version>1.0</version>
             <optional>true</optional>
-             <exclusions>
+            <exclusions>
                 <exclusion>
                     <groupId>cglib</groupId>
                     <artifactId>cglib-asm</artifactId>
