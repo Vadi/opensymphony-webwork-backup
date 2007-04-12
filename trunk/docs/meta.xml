@@ -17,11 +17,15 @@
     <owners>
         <person>
             <name>Patrick Lightbody</name>
-            <email>plightbo@gmail.com</email>
+            <email>plightbo AT gmail.com</email>
         </person>
         <person>
             <name>Jason Carreira</name>
-            <email>jcarreira@gmail.com</email>
+            <email>jcarreira AT gmail.com</email>
+        </person>
+        <person>
+            <name>Rainer Hermanns</name>
+            <email>rainerh AT gmail.com</email>
         </person>
     </owners>
 
@@ -42,11 +46,6 @@
             <role>Docmentation, Development, etc</role>
         </person>
         <person>
-            <name>Rainer Hermanns</name>
-            <email></email>
-            <role>Development, Portlet, AJAX, etc</role>
-        </person>
-        <person>
             <name>Alexandru Popescu</name>
             <email></email>
             <role>Development</role>
@@ -63,11 +62,6 @@
         </person>
         <person>
             <name>Nils-Helge Garli</name>
-            <email></email>
-            <role>Portlet integration</role>
-        </person>
-        <person>
-            <name>Henry Hu</name>
             <email></email>
             <role>Portlet integration</role>
         </person>
@@ -94,11 +88,22 @@
         <person>
             <name>Philip Luppens</name>
             <email></email>
-            <role>Documentation</role>
+            <role>Bugfixing, Documentation</role>
         </person>
     </developers>
 
     <releases>
+        <release>
+            <version>2.2.5</version>
+            <date>04/12/2007</date>
+            <jiraId>21672</jiraId>
+            <downloads>
+                <download>
+                    <url>https://webwork.dev.java.net/files/documents/693/55236/webwork-2.2.5.zip</url>
+                    <name>Full release</name>
+                </download>
+            </downloads>
+        </release>
         <release>
             <version>2.2.4</version>
             <date>09/02/2006</date>
