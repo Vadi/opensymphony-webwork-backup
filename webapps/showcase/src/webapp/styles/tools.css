@@ -6,6 +6,9 @@
 /* A CSS Framework by Mike Stenhouse of Content with Style */
 
 /* clearing */
+	.clearfix {
+		zoom: 1;
+	}
 	.stretch,
 	.clear {
 		clear:both; 
@@ -24,6 +27,7 @@
 	}
 	* html>body .clearfix {
 		display: inline-block; 
+		height: 100%;
 		width: 100%;
 	}
 	
