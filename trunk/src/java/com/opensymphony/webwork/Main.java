@@ -22,6 +22,10 @@ import java.util.List;
  * <p/> You can access the help information for these tools by simply running the jar without any arguments.
  *
  * <!-- END SNIPPET: javadoc -->
+ * 
+ * @author plightbo
+ * @author tmjee
+ * @version $Date$ $Id$
  */
 public class Main {
     public static void main(String[] args) {
@@ -45,7 +49,11 @@ public class Main {
 
         // check the JDK version
         String version = System.getProperty("java.version");
-        boolean jdk15 = version.indexOf("1.5") != -1;
+        boolean jdk14 = (version.indexOf("1.4") != -1);
+        boolean jdk13 = (version.indexOf("1.3") != -1);
+        boolean jdk12 = (version.indexOf("1.2") != -1);
+        boolean jdk11 = (version.indexOf("1.1") != -1);
+        boolean jdkOk = ((!jdk14) && (!jdk13) && (!jdk12) && (!jdk11));
 
         String javaHome = System.getProperty("java.home");
         ArrayList urls = new ArrayList();
@@ -119,10 +127,10 @@ public class Main {
         }
 
         if ("quickstart".equals(command)) {
-            if (!jdk15) {
+            if (!jdkOk) {
                 System.out.println("Sorry, but QuickStart only runs on Java 1.5.");
                 System.out.println("You are running: " + version);
-                System.out.println("Please try again with Java 1.5, or deploy");
+                System.out.println("Please try again with Java 1.5 or greater, or deploy");
                 System.out.println("  as a normal J2EE webapp to use Java 1.4.");
                 return;
             }
