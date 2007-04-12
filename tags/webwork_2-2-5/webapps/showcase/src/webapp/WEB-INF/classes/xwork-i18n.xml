@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xwork PUBLIC
+	"-//OpenSymphony Group//XWork 1.1.1//EN"
+	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+
+<xwork>
+	<package name="i18n" namespace="/i18n" extends="webwork-default">
+        <action name="changeLocale" class="com.opensymphony.webwork.showcase.i18n.ChangeRequestLocaleAction">
+            <interceptor-ref name="i18n"/>
+            <result name="success">index.jsp</result>
+        </action>
+	</package>
+</xwork>
+
+

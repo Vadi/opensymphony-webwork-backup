@@ -1,0 +1,404 @@
+<html>
+    <head>
+        <title>WebWork - 
+        richtexteditor
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>Please make sure you have read the <a href="Tag Syntax.html" title="Tag Syntax">Tag Syntax</a> document and understand how tag attribute syntax works.</p></td></tr></table>
+
+<h1><a name="richtexteditor-Description"></a>Description</h1>
+
+
+<p>Create a Rich Text Editor based on FCK editor (www.fckeditor.net). </p>
+
+
+<h1><a name="richtexteditor-Parameters"></a>Parameters</h1>
+
+An error occurred: http://svn.opensymphony.com/svn/webwork/docs/tags/RichTextEditor.html. The system administrator has been notified.
+
+<h1><a name="richtexteditor-Examples"></a>Examples</h1>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&lt;ww:richtexteditor 
+		toolbarCanCollapse=<span class="code-quote">"false"</span>
+		width=<span class="code-quote">"700"</span>
+		label=<span class="code-quote">"Description 1"</span> 
+		name=<span class="code-quote">"description1"</span> 
+		value=<span class="code-quote">"Some Content I keyed In In The Tag Itself"</span>
+		/&gt;</pre>
+</div></div>
+
+<h1><a name="richtexteditor-ServerSideBrowsing"></a>Server Side Browsing</h1>
+
+
+<p>It is possible to have a rich text editor do server side browsing  
+when for example the image button is clicked. To integrate this functionality with 
+webwork, one need to defined the following action definition typically in xwork.xml</p>
+
+<p><pre>
+  &lt;package name="richtexteditor-browse" extends="webwork-default" 
+  namespace="/webwork/richtexteditor/editor/filemanager/browser/default/connectors/jsp"&gt;
+  	&lt;action name="connector" 
+     class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" 
+     method="browse">
+  		&lt;result name="getFolders" type="richtexteditorGetFolders" /&gt;
+  		&lt;result name="getFoldersAndFiles" type="richtexteditorGetFoldersAndFiles" /&gt;
+  		&lt;result name="createFolder" type="richtexteditorCreateFolder" /&gt;
+  		&lt;result name="fileUpload" type="richtexteditorFileUpload" /&gt;
+  	&lt;/action&gt;
+  &lt;/package&gt;
+</pre></p>
+
+<p>By default whenever a browse command is triggered (eg. by clicking on the 'image' button and then
+'browse server' button, the url '/webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?&Type=Image&Connector=connectors/jsp/connector.action'.
+The page browser.html which comes with FCK Editor will trigger the url 
+'/webwork/richtexteditor/editor/filemanager/browser/default/connectors/jsp/connector.action' which will
+caused the webwork's DefaultRichtexteditorConnector to be executed. The trigerring url could be
+changed by altering the 'imageBrowseURL'. There 3 types of such related url, namely 'imageBrowseURL', 
+'linkBrowseURL' and 'flashBrowseURL'. It is recomended that the default one being used. One could change the
+Connector parameter instead. For example</p>
+
+<p><pre>
+/webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?
+&Type=Image&Connector=connectors/jsp/connector.action
+</pre></p>
+
+<p>could be changed to </p>
+
+<p><pre>
+/webwork/static/richtexteditor/editor/filemanager/browser/default/browser.html?
+&Type=Image&Connector=myLittlePath/myConnector.action
+</pre></p>
+
+<p>In this case the action will need to have a namespace of '/webwork/richtexteditor/editor/filemanager/browser/default/myLittlePath'
+and action name of 'myConnector'</p>
+
+<p><p/></p>
+
+<p>By default the action method that needs to be defined in xwork.xml needs to be 'browse'. If this needs
+to be something else say, myBrowse, the following could be used</p>
+
+<p><pre>
+  public String myBrowse() {
+      browse();
+  }
+</pre></p>
+
+
+<h1><a name="richtexteditor-ServerSideUploading"></a>Server Side Uploading</h1>
+
+
+<p>It is possible for the richtexteditor to do server side uploading as well. For example when clicking
+on the 'Image' button and then the 'Upload' tab and then selecting a file from client local
+machine and the clicking 'Send it to the server'. To integrate this functionality with 
+webwork, one need to defined the following action definition typically in xwork.xml</p>
+
+<p><pre>
+  &lt;package name="richtexteditor-upload" extends="webwork-default" 
+  namespace="/webwork/richtexteditor/editor/filemanager/upload"&gt;
+	&lt;action name="uploader" 
+      class="com.opensymphony.webwork.components.DefaultRichtexteditorConnector" 
+      method="upload"&gt;
+		&lt;result name="richtexteditorFileUpload" /&gt;
+	&lt;/action&gt;    
+  &lt;/package&gt;
+</pre></p>
+
+<p>By default whenever an upload command is triggered, a '/webwork/static/richtexteditor/editor/filemanager/upload/uploader.action?Type=Image'
+will be issued. This could be changed by setting the imageUploadURL attribute of the tag. 
+When this link is issued, the webwork action will get executed. There's 3 such related upload url
+namely, 'imageUploadURL', 'linkUploadURL' and 'flashUploadURL'. It is recomended that the default 
+one being used. However one could change the url, but need to include the Type parameter. For example</p>
+
+<p><pre>
+/webwork/static/richtexteditor/editor/filemanager/upload/uploader.action?Type=Image
+</pre></p>
+
+<p>could be changed to </p>
+
+<p><pre>
+/webwork/static/richtexteditor/editor/filemanager/upload/aDifferentUploader.action?Type=Image
+</pre></p>
+
+<p>In this case the action will need to have a namespace of '/webwork/static/richtexteditor/editor/filemanager/upload'
+and action name of 'aDifferentUploader'</p>
+
+<p>By default the action method that needs to be defined in xwork.xml needs to be 'upload'. If this needs
+to be something else say, myUpload, the following could be used</p>
+
+<p><pre>
+  public String myUpload() {
+      upload();
+  }
+</pre></p>
+
+
+<h1><a name="richtexteditor-WebWorkAction"></a>WebWork Action</h1>
+
+
+<h2><a name="richtexteditor-AbstractRichtexteditorConnector"></a>AbstractRichtexteditorConnector</h2>
+
+
+<p>An abstract class to be extended in order for the Rich text editor to perform server-side
+browsing and uploading. </p>
+
+
+<p>The webwork action that handles the server-side browsing and uploading needs to extends from 
+AbstractRichtexteditorConnector.</p>
+
+<p>There are four abstract methods need to be implemented, namely </p>
+
+<p><p/></p>
+
+<p><pre>
+ protected abstract String calculateServerPath(String serverPath, String folderPath, 
+       String type) throws Exception;
+ protected abstract Folder[] getFolders(String virtualFolderPath, String type) 
+       throws Exception;
+ protected abstract FoldersAndFiles getFoldersAndFiles(String virtualFolderPath, 
+       String type) throws Exception;
+ protected abstract CreateFolderResult createFolder(String virtualFolderPath, 
+       String type, String newFolderName) throws Exception;
+ protected abstract FileUploadResult fileUpload(String virtualFolderPath, 
+       String type, String filename, String contentType, java.io.File newFile) 
+       throws Exception;
+ protected abstract void unknownCommand(String command, String virtualFolderPath, 
+       String type, String filename, String contentType, java.io.File newFile) 
+       throws Exception;
+</pre></p>
+
+
+<h2><a name="richtexteditor-browsemethod"></a>browse method</h2>
+
+
+<p>The method that does the functionality when the richtexteditor 'browse' command is 
+issued. </p>
+
+<p><p/></p>
+
+<p>Following are the result name that gets returned depending on the actual 'browse' 
+command.</p>
+
+<p><table border=1>
+   <tr>
+   	  <td>Browse Command</td>
+   	  <td>Result Name</td>
+   </tr>
+   <tr>
+       <td>GetFolders</td>
+       <td>getFolders</td>
+   </tr>
+   <tr>
+       <td>GetFoldersAndFiles</td>
+       <td>getFoldersAndFiles</td>
+   </tr>
+   <tr>
+       <td>CreateFolder</td>
+       <td>createFolder</td>
+   </tr>
+   <tr>
+       <td>FileUpload</td>
+       <td>fileUpload</td>
+   </tr>
+</table></p>
+
+
+<h2><a name="richtexteditor-uploadmethod"></a>upload method</h2>
+
+
+<p>The method that does the functionality when the richtexteditor 'upload' command is '/webwork/richtexteditor/data/'
+issued. </p>
+
+<p><p/></p>
+
+<p>It return a result name of 'fileUpload'.</p>
+
+
+<h2><a name="richtexteditor-getFoldersmethod"></a>getFolders method</h2>
+
+
+<p>Method that gets called when a 'GetFolders' command is issued by the rich text editor.
+This method should search the server-side and return an Folder[] that the server side has.</p>
+
+<p><p/></p>
+
+<p>The folder path queried by the rich text editor is <code>folderPath</code>. While the 
+type of could be one of 'Image', 'Link' or 'Flash'.</p>
+
+
+<h2><a name="richtexteditor-getFoldersAndFilesmethod"></a>getFoldersAndFiles method</h2>
+
+
+<p>Method that gets called when a 'GetFoldersAndFiles' command is issued by the rich text
+editor. This method should typically search the server-side for files and folders under the 
+provided virtualFolderPath and return a FoldersAndFiles object.</p>
+
+<p><p/></p>
+
+<p>The folder path queried by the richtexted editor is <code>virtualFolderPath</code>.
+While the type could be one of 'Image', 'Link' or 'Flash'.</p>
+
+
+<h2><a name="richtexteditor-createFoldermethod"></a>createFolder method</h2>
+
+
+<p>Method that gets called when a 'CreateFolder' command is issued by the rich text 
+editor. This method would typically create a folder in the server-side if it is 
+allowed to do so and return the result through CreateFolderResult object. CreateFolderResult
+contains static methods to return the available results.</p>
+
+<p><p/></p>
+
+<p>The folder path queried by the richtexted editor is <code>virtualFolderPath</code>.
+While the type could be one of 'Image', 'Link' or 'Flash'. The new folder name 
+to be created is <code>newFolderName</code>.</p>
+
+
+<h2><a name="richtexteditor-fileUploadmethod"></a>fileUpload method</h2>
+
+
+<p>Method that gets called when a 'FileUpload' command is issued by the rich text
+editor. This method would typically handle the file upload and return a 
+FileUploadResult object. FileUploadResult contains only static methods that 
+could create the available results.</p>
+
+<p><p/></p>
+
+<p>The folder path queried by the richtexted editor is <code>virtualFolderPath</code>.
+While the type could be one of 'Image', 'Link' or 'Flash'. The upload file name
+is <code>filename</code> while its content type is <code>conetnType</code> and 
+its content could be read off the <code>newFile</code> object.</p>
+
+
+<h1><a name="richtexteditor-Result"></a>Result</h1>
+
+
+<h2><a name="richtexteditor-AbstractRichtexteditorResult"></a>AbstractRichtexteditorResult</h2>
+
+
+<p>Abstract result for all Rich Text Editor results. It contains common methods
+that might come in handy to its subclass. </p>
+
+<p>Configuration of result necessary in xwork.xml (is already there by default) are
+as follows:</p>
+
+<p><pre>
+ &lt;!-- Results necessary when using 'browse server' and 'upload' feature of Richtexteditor --&gt;
+ &lt;result-type name="richtexteditorGetFolders" 
+                 class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorGetFoldersResult" /&gt;
+ &lt;result-type name="richtexteditorGetFoldersAndFiles" 
+                 class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorGetFoldersAndFilesResult" /&gt;
+ &lt;result-type name="richtexteditorCreateFolder" 
+                 class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorCreateFolderResult" /&gt;
+ &lt;result-type name="richtexteditorFileUpload" 
+                 class="com.opensymphony.webwork.views.jsp.ui.RichtexteditorFileUploadResult" /&gt;
+</pre></p>
+
+
+<h2><a name="richtexteditor-RichtexteditorGetFoldersResult"></a>RichtexteditorGetFoldersResult</h2>
+
+
+<p>WebWork's result, creating the appropriate result (in xml form) and write to the 
+response stream corresponding the the Rich Text Editor's 'GetFolders' command.</p>
+
+<p><p/></p>
+
+<p>An example of the response would be as follows:</p>
+
+<p><pre>
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;Connector command="GetFolders" resourceType="File"&gt;
+  &lt;CurrentFolder path="/Samples/Docs/" url="/UserFiles/File/Samples/Docs/" /&gt;
+  &lt;Folders&gt;
+    &lt;Folder name="Documents" /&gt;
+    &lt;Folder name="Files" /&gt;
+    &lt;Folder name="Other Files" /&gt;
+    &lt;Folder name="Related" /&gt;
+ &lt;/Folders&gt;
+&lt;/Connector&gt;
+</pre></p>
+
+
+<h2><a name="richtexteditor-RichtexteditorGetFoldersAndFilesResult"></a>RichtexteditorGetFoldersAndFilesResult</h2>
+
+
+<p>WebWork's result, creating the appropriate result (in xml form) and write to 
+the response stream corresponding to the Rich Text Editor's 'GetFoldersAndFiles' 
+command</p>
+
+<p><p/></p>
+
+<p>An example of the response would be as follows:</p>
+
+<p><pre>
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;Connector command="GetFoldersAndFiles" resourceType="File"&gt;
+  &lt;CurrentFolder path="/Samples/Docs/" url="/UserFiles/File/Samples/Docs/" /&gt;
+  &lt;Folders&gt;
+    &lt;Folder name="Documents" /&gt;
+    &lt;Folder name="Files" /&gt;
+    &lt;Folder name="Other Files" /&gt;
+    &lt;Folder name="Related" /&gt;
+  &lt;/Folders&gt;
+  &lt;Files&gt;
+    &lt;File name="XML Definition.doc" size="14" /&gt;
+    &lt;File name="Samples.txt" size="5" /&gt;
+    &lt;File name="Definition.txt" size="125" /&gt;
+    &lt;File name="External Resources.drw" size="840" /&gt;
+    &lt;File name="Todo.txt" size="2" /&gt;
+  &lt;/Files&gt;
+&lt;/Connector&gt;
+</pre></p>
+
+
+<h2><a name="richtexteditor-RichtexteditorCreateFolderResult"></a>RichtexteditorCreateFolderResult</h2>
+
+
+<p>WebWork's result, creating the apropriate result (in xml form) and write it out
+to the response stream corresponding to a 'CreateFolder' command from the 
+Rich Text Editor.</p>
+
+<p><p/></p>
+
+<p>An example of the response would be as follows:</p>
+
+<p><pre>
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;Connector command="CreateFolder" resourceType="File"&gt;
+  &lt;CurrentFolder path="/Samples/Docs/" url="/UserFiles/File/Samples/Docs/" /&gt;
+  &lt;Error number="0" /&gt;
+&lt;/Connector&gt;
+</pre></p>
+
+
+<h2><a name="richtexteditor-RichtexteditorUploadFileResult"></a>RichtexteditorUploadFileResult</h2>
+
+
+<p>WebWork's result, creating the appropriate result (in javascript form) and write to 
+the response stream corresponding to a 'FileUpload' command from the 
+Rich Text Editor.</p>
+
+<p><p/></p>
+
+<p>An example of the response would be as follows:</p>
+
+<p><pre>
+&lt;script type="text/javascript"&gt;
+     window.parent.frames['frmUpload'].OnUploadCompleted(0) ;
+&lt;/script&gt;
+</pre></p>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

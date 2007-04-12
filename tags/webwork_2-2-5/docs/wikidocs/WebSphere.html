@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>WebWork - 
+        WebSphere
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h2><a name="WebSphere-Websphere"></a>Websphere</h2>
+
+<h3><a name="WebSphere-Websphere5.1"></a>Websphere 5.1</h3>
+<ul class="alternate" type="square">
+	<li><a href="http://forums.opensymphony.com/thread.jspa?threadID=26068&amp;tstart=0" title="Visit page outside Confluence">http://forums.opensymphony.com/thread.jspa?threadID=26068&amp;tstart=0</a></li>
+</ul>
+
+
+<p>"Summary: Make sure to install fix pack 1".</p>
+
+<h3><a name="WebSphere-Websphere6.0"></a>Websphere 6.0</h3>
+<ul class="alternate" type="square">
+	<li><a href="http://forums.opensymphony.com/thread.jspa?threadID=26068&amp;messageID=68992#68992" title="Visit page outside Confluence">http://forums.opensymphony.com/thread.jspa?threadID=26068&amp;messageID=68992#68992</a></li>
+</ul>
+
+
+<p>Eivind Waaler wrote:</p>
+
+<p>Figured out a "solution". It seems I need to get the web application loaded on startup. To achieve this I just added the old ServletDispatcher with a load-on-startup setting, without any servlet mapping. In web.xml, simply add these lines:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">...
+   <span class="code-tag">&lt;servlet&gt;</span>
+      <span class="code-tag">&lt;servlet-name&gt;</span>dummyaction<span class="code-tag">&lt;/servlet-name&gt;</span>
+      <span class="code-tag">&lt;servlet-class&gt;</span>com.opensymphony.webwork.dispatcher.ServletDispatcher<span class="code-tag">&lt;/servlet-class&gt;</span>
+      <span class="code-tag">&lt;load-on-startup&gt;</span>1<span class="code-tag">&lt;/load-on-startup&gt;</span>
+   <span class="code-tag">&lt;/servlet&gt;</span>
+...</pre>
+</div></div>
+
+<p>Hope this can help others with the same problem. I've been using latest WebWork (2.2.2) and WebSphere (6.0.2.11) as of writing.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

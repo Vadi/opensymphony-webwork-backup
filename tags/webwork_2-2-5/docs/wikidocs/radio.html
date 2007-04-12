@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>WebWork - 
+        radio
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>Please make sure you have read the <a href="Tag Syntax.html" title="Tag Syntax">Tag Syntax</a> document and understand how tag attribute syntax works.</td></tr></table>
+
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Important</b><br />
+<p>Note that the listkey and listvalue attribute will default to "key" and "value"
+respectively only when the list attribute is evaluated to a Map or its decendant.
+Other thing else, will result in listkey and listvalue to be null and not used.</p>
+</td></tr></table>
+
+<h1><a name="radio-Description"></a>Description</h1>
+<p>Render a radio button input field.</p></p>
+
+<h1><a name="radio-Parameters"></a>Parameters</h1>
+An error occurred: http://svn.opensymphony.com/svn/webwork/docs/tags/Radio.html. The system administrator has been notified.
+
+<h1><a name="radio-Examples"></a>Examples</h1>
+<p>In this example, a radio control is displayed with a list of genders. The gender list is built from attribute
+id=genders. WW calls getGenders() which will return a Map. For examples using listKey and listValue attributes,
+see the section select tag. The default selected one will be determined (in this case) by the getMale() method 
+in the action class which should retun a value similar to the key of the getGenters() map if that particular 
+gender is to be selected.<p/></p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;ww:action name=<span class="code-quote">"GenderMap"</span> id=<span class="code-quote">"genders"</span>/&gt;</span>
+<span class="code-tag">&lt;ww:radio label=<span class="code-quote">"Gender"</span> name=<span class="code-quote">"male"</span> list=<span class="code-quote">"#genders.genders"</span>/&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

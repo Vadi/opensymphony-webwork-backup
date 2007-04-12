@@ -1,0 +1,177 @@
+<html>
+    <head>
+        <title>WebWork - 
+         2.1 Expression Language And WebWork Tag
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>Content of this page is to be verified of its validity.</p></td></tr></table>
+
+<p>With JSP 2.1 pattern like ${} and #{} are valid expression (immediate and deferred expression respectively).</p>
+
+<p>From JSP 2.1 specification the following is how a container should treat page level expression in a JSP page.</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>JSP Configuration (el-ignored)</th>
+<th class='confluenceTh'>Page Directive (isELIgnored)</th>
+<th class='confluenceTh'>EL Encountered</th>
+</tr>
+<tr>
+<td class='confluenceTd'>unspecified</td>
+<td class='confluenceTd'>unspecified</td>
+<td class='confluenceTd'>Ignored if &lt;= 2.3 web.xml is used, evalute otherwise</td>
+</tr>
+<tr>
+<td class='confluenceTd'>false</td>
+<td class='confluenceTd'>unspecified</td>
+<td class='confluenceTd'>Evalute</td>
+</tr>
+<tr>
+<td class='confluenceTd'>true</td>
+<td class='confluenceTd'>unspecified</td>
+<td class='confluenceTd'>Ignored</td>
+</tr>
+<tr>
+<td class='confluenceTd'>don't care</td>
+<td class='confluenceTd'>false</td>
+<td class='confluenceTd'>Evalute</td>
+</tr>
+<tr>
+<td class='confluenceTd'>don't care</td>
+<td class='confluenceTd'>true</td>
+<td class='confluenceTd'>Ignored</td>
+</tr>
+</tbody></table>
+
+<p>The following is how container should treat tag directive should evalute expression or not.</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>Tag Directive isELIgnored</th>
+<th class='confluenceTh'>EL Encountered</th>
+</tr>
+<tr>
+<td class='confluenceTd'>unspecified</td>
+<td class='confluenceTd'>Evalute</td>
+</tr>
+<tr>
+<td class='confluenceTd'>false</td>
+<td class='confluenceTd'>Evalute</td>
+</tr>
+<tr>
+<td class='confluenceTd'>true</td>
+<td class='confluenceTd'>Ignored</td>
+</tr>
+</tbody></table>
+
+<p>Both tables above are found in JSP 2.1 specification at page 80.</p>
+
+<p>The JSP 2.1 expression like #{} has different meaning in OGNL expression, in the later it means create a Map. However, using WebWork tags like </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:set name=<span class="code-quote">"myMap"</span> value=<span class="code-quote">"%{#{'one':'ONE','two':'TWO','three':'THREE'}}"</span> /&gt;</pre>
+</div></div>
+<p>would still continue to work, if it doesn't for some reason, another alternative would be to replace it with</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:set name=<span class="code-quote">"myMap"</span> value=<span class="code-quote">"%{#@java.util.HashMap@{'one':'ONE','two':'TWO','three':'THREE'}}"</span></pre>
+</div></div>
+<p>if order is important, we could use</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:set name=<span class="code-quote">"myMap"</span> value=<span class="code-quote">"%{#@java.util.LinkedHashMap@{'one':'ONE','two':'TWO','three':'THREE'}}"</span> /&gt;</pre>
+</div></div>
+<p>The first version should continue to work because WebWork tags are defined using tld </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;taglib&gt;
+   ...
+   &lt;jsp-version&gt;1.2&lt;/jsp-version&gt;
+   ...
+ &lt;/taglib&gt;</pre>
+</div></div>
+
+<p>as oppose to </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;taglib&gt;
+    ...
+    &lt;jsp-version&gt;2.1&lt;/jsp-version&gt;
+    ...
+  &lt;/taglib&gt;</pre>
+</div></div>
+<p>where JSP 2.1 diferred expression ( #{} ) will be parsed.</p>
+
+<p>Using WebWork tags like</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:url id=<span class="code-quote">"url"</span> action=<span class="code-quote">"myAction"</span> namespace=<span class="code-quote">"/namespace"</span> /&gt;
+ &lt;ww:a href=<span class="code-quote">"%{#url}"</span>&gt;Click on ME !&lt;/ww:a&gt;</pre>
+</div></div>
+<p>should contine to work regardless of whether its in a JSP 2.1 container or not, as the syntax recongnized by JSP 2.1 containers are ${} and #{}</p>
+
+<p>With JSP 2.1 containers we could do</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:url id=<span class="code-quote">"url"</span> action=<span class="code-quote">"myAction"</span> namespace=<span class="code-quote">"/namespace"</span> /&gt;
+ &lt;ww:set name=<span class="code-quote">"myUrl"</span> value=<span class="code-quote">"%{#url}"</span> scope=<span class="code-quote">"request"</span> /&gt;
+ The url is (using JSP 2.1 EL) ${requestScope.myUrl} 
+ The url is (using WebWork's property tag) &lt;ww:property value=<span class="code-quote">"%{#request.myUrl}"</span> /&gt;</pre>
+</div></div>
+<p>such that WebWork's tag could live side by side with JSP 2.1 EL</p>
+
+<p>As far as WebWork's tag is concerned, it doesn't have tag directive isELIgnored specified, which means that it will evalute JSP 2.1 EL as indicated in the table above. In fact we could do stuff like</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:set name=<span class="code-quote">"varOne"</span> value=<span class="code-quote">"%{'apple'}"</span> /&gt;
+&lt;ww:set name=<span class="code-quote">"varTwo"</span> value=<span class="code-quote">"%{'orange'}"</span> scope=<span class="code-quote">"request"</span> /&gt;
+&lt;ww:property value=<span class="code-quote">"%{#varOne+' and ${requestScope.varTwo}'}"</span> /&gt;</pre>
+</div></div>
+<p>which will print out </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">apple and orange</pre>
+</div></div>
+
+<p>The explanation being, JSP 2.1 EL will be parsed by the container, such that the WebWork property tag OGNL value expression </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">%{#varOne+' and ${requestScope.varTwo}'}</pre>
+</div></div>
+<p>will now be </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">%{#varOne+ ' and orange'}</pre>
+</div></div>
+<p>before it is passed to WebWork's property tag, which upon evaluation will become</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">apple and orange</pre>
+</div></div>
+
+<p>Some other information (web.xml) that might be usefull :-</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;jsp-property-group&gt;
+   &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
+
+   &lt;!-- ignore JSP 2.1 expression language --&gt;
+   &lt;el-ignored&gt;<span class="code-keyword">true</span>&lt;/el-ignored&gt;
+
+   &lt;!-- don't allow scriptlets --&gt;
+   &lt;scripting-invalid&gt;<span class="code-keyword">true</span>&lt;/scripting-invalid&gt;
+
+   &lt;!-- allow differed syntax as literal --&gt;
+   &lt;deferred-syntax-allowed-as-literal&gt;<span class="code-keyword">true</span>&lt;/deferred-syntax-allowed-as-literal&gt;
+ &lt;/jsp-property-group&gt;</pre>
+</div></div>
+
+<p>or at page level</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;%@page isELIgnored=<span class="code-quote">"<span class="code-keyword">true</span>"</span> scriptingInvalid=<span class="code-quote">"<span class="code-keyword">true</span>"</span> deferredSyntaxAllowedAsLiteral=<span class="code-quote">"<span class="code-keyword">true</span>"</span> &gt;</pre>
+</div></div>
+
+
+<h4><a name="JSP2.1ExpressionLanguageAndWebWorkTag-References"></a>References</h4>
+<p>[1] - <a href="http://today.java.net/pub/a/today/2006/03/07/unified-jsp-jsf-expression-language.html" title="Visit page outside Confluence">http://today.java.net/pub/a/today/2006/03/07/unified-jsp-jsf-expression-language.html</a><br/>
+[2] - <a href="http://java.sun.com/products/jsp/reference/techart/unifiedEL.html#Now_Its_Your_Turn_" title="Visit page outside Confluence">http://java.sun.com/products/jsp/reference/techart/unifiedEL.html#Now_Its_Your_Turn_</a></p>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

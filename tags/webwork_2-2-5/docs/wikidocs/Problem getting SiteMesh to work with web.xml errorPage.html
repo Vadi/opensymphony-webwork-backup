@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Problem getting SiteMesh to work with web.xml errorPage
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>The doFilter() method of PageFilter sets the boolean variable FILTER_APPLIED on the request to true, before executing. When an exception occurs in the call to chain.doFilter(), the execution stops. After the servlet invokes the error page, the PageFilter is invoked again, but stops when it sees that the FILTER_APPLIED attribute is already set to true.</p>
+
+<p>The solution is to extend the PageFilter, catch all exceptions and set the FILTER_APPLIED variable to null. Then use this filter in the web.xml.</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> class ErrorHandlingSiteMeshPageFilter <span class="code-keyword">extends</span> PageFilter {
+ 
+    <span class="code-keyword">public</span> void doFilter(ServletRequest request, ServletResponse rs, FilterChain chain) <span class="code-keyword">throws</span> IOException, ServletException {
+        <span class="code-keyword">try</span> {
+            <span class="code-keyword">super</span>.doFilter(request, rs, chain);
+        } <span class="code-keyword">catch</span> (RuntimeException e) {
+            clearFilteredVariable(request);
+            <span class="code-keyword">throw</span> e;
+        } <span class="code-keyword">catch</span>(IOException e) {
+            clearFilteredVariable(request);
+            <span class="code-keyword">throw</span> e;
+        } <span class="code-keyword">catch</span>(ServletException e) {
+            clearFilteredVariable(request);
+            <span class="code-keyword">throw</span> e;
+        }            
+    }
+    
+    <span class="code-keyword">private</span> void clearFilteredVariable(ServletRequest request) {
+        request.setAttribute(FILTER_APPLIED, <span class="code-keyword">null</span>);
+    }
+}</pre>
+</div></div>
+
+<p>For more information of related discussion, see <a href="http://forums.opensymphony.com/thread.jspa?threadID=25837&amp;tstart=0" title="Visit page outside Confluence">here</a></p>
+
+<p>Sollution contributed by Hendrikd. Thx Hendrikd.   </p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

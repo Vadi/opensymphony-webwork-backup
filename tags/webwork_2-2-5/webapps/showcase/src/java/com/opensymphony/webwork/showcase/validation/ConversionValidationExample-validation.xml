@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC 
+	"-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+	<field name="age">
+		<field-validator type="required" short-circuit="true">
+			<message>Age is required</message>
+		</field-validator>
+		<field-validator type="conversion" short-circuit="true">
+			<param name="repopulateField">true</param>
+			<message>Age needs to be a number</message>
+		</field-validator>
+	</field>
+	
+	<field name="bean.age">
+		<field-validator type="required" short-circuit="true">
+			<message>Bean's Age is required</message>
+		</field-validator>
+		<field-validator type="conversion" short-circuit="true">
+			<param name="repopulateField">true</param>
+			<message>Bean's Age needs to be a number</message>
+		</field-validator>
+	</field>
+</validators>	
+	

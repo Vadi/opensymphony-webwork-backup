@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Acegi Security
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>The following details a possible integration of Acegi Security with WebWork:&#45;</p>
+
+<h3><a name="AcegiSecurity-Step1DeclaringAuthzInterface"></a>Step 1 - Declaring Authz Interface</h3>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">import</span> org.acegisecurity.taglibs.velocity.Authz;
+<span class="code-keyword">public</span> <span class="code-keyword">interface</span> AuthzAware {
+        void setAuthz(Authz authz);
+}</pre>
+</div></div>
+
+<h3><a name="AcegiSecurity-Step2ImplementingAuthzInterceptor"></a>Step 2 - Implementing Authz Interceptor</h3>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">import</span> org.acegisecurity.taglibs.velocity.Authz;
+<span class="code-keyword">import</span> org.acegisecurity.taglibs.velocity.AuthzImpl;
+<span class="code-keyword">import</span> <span class="code-keyword">package</span>.api.AuthzAware;
+
+<span class="code-keyword">import</span> com.opensymphony.xwork.ActionInvocation;
+<span class="code-keyword">import</span> com.opensymphony.xwork.interceptor.Interceptor;
+
+<span class="code-keyword">public</span> class AuthzInterceptor <span class="code-keyword">implements</span> Interceptor {
+        <span class="code-keyword">public</span> void destroy()
+        {}
+
+        <span class="code-keyword">public</span> void init()
+        {}
+
+        <span class="code-keyword">public</span> <span class="code-object">String</span> intercept(ActionInvocation invocation)
+                <span class="code-keyword">throws</span> Exception
+        {
+                <span class="code-keyword">if</span> (invocation.getAction() <span class="code-keyword">instanceof</span> AuthzAware) {
+                        Authz authz = <span class="code-keyword">new</span> AuthzImpl();
+
+                        AuthzAware authzAware = (AuthzAware)invocation.getAction();
+                        authzAware.setAuthz(authz);
+                }
+
+                <span class="code-keyword">return</span> invocation.invoke();
+        }
+}</pre>
+</div></div>
+
+<h3><a name="AcegiSecurity-Step3MakingAuthzAwareaction"></a>Step 3 - Making AuthzAware action</h3>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">import</span> org.acegisecurity.taglibs.velocity.Authz;
+<span class="code-keyword">import</span> <span class="code-keyword">package</span>.api.AuthzAware;
+<span class="code-keyword">import</span> com.opensymphony.xwork.ActionSupport;
+
+
+<span class="code-keyword">public</span> class DashboardAction <span class="code-keyword">extends</span> ActionSupport <span class="code-keyword">implements</span> AuthzAware
+{
+        <span class="code-keyword">private</span> Authz authz;
+
+        <span class="code-keyword">public</span> Authz getAuthz(){
+                <span class="code-keyword">return</span> authz;
+        }
+
+        <span class="code-keyword">public</span> void setAuthz(Authz authz)
+        {
+                <span class="code-keyword">this</span>.authz = authz;
+        }
+
+        <span class="code-keyword">public</span> <span class="code-object">String</span> execute() <span class="code-keyword">throws</span> Exception
+        {
+                <span class="code-keyword">return</span> SUCCESS;
+        }
+}</pre>
+</div></div>
+
+<h3><a name="AcegiSecurity-Step4Declaringinterceptor"></a>Step 4 - Declaring interceptor</h3>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;interceptor name=<span class="code-quote">"authz"</span> class=<span class="code-quote">"<span class="code-keyword">package</span>.interceptor.AuthzInterceptor"</span>/&gt;</pre>
+</div></div>
+
+<h3><a name="AcegiSecurity-Step5Declaringaction"></a>Step 5 - Declaring action</h3>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;action name=<span class="code-quote">"dashboard"</span> class=<span class="code-quote">"<span class="code-keyword">package</span>.action.DashboardAction"</span>&gt;
+        &lt;interceptor-ref name=<span class="code-quote">"authz"</span> /&gt;
+        &lt;result type=<span class="code-quote">"velocity"</span> name=<span class="code-quote">"success"</span>&gt;dashboard.vm&lt;/result&gt;
+&lt;/action&gt;</pre>
+</div></div>
+
+<h3><a name="AcegiSecurity-Step6Implementingdashboard.vm"></a>Step 6 - Implementing dashboard.vm</h3>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">Actualy you are logged as $authz.principal</pre>
+</div></div>
+<p>Contributed by Luca Marrocco.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

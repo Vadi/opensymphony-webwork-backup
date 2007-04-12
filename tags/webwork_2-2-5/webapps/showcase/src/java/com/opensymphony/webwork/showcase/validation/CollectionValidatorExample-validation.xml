@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC 
+	"-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+	
+<validators>
+	<field name="persons">
+		<field-validator type="collection">
+			<param name="property">persons.name</param>
+			<param name="validatorRef">requiredstring</param>
+			<param name="validatorParams['defaultMessage']">need to be string</param>
+			<message></message>
+		</field-validator>
+		<field-validator type="collection">
+			<param name="property">persons.age</param>
+			<param name="validatorRef">required</param>
+			<param name="validatorParams['defaultMessage']">need to be filled in</param>
+			<message></message>
+		</field-validator>
+		<field-validator type="collection">
+			<param name="property">persons.age</param>
+			<param name="validatorRef">int</param>
+			<param name="validatorParams['defaultMessage']">need to be integer</param>
+			<message></message>
+		</field-validator>
+	</field>
+</validators>

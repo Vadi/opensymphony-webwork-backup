@@ -1,0 +1,22 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.1.1//EN" "http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+<xwork>
+	<include file="webwork-default.xml"/>
+    <package name="webwork-portlet-default" extends="webwork-default">
+
+	   <result-types>
+			<result-type name="dispatcher" class="com.opensymphony.webwork.portlet.result.PortletResult" default="true"/>
+			<result-type name="freemarker" class="com.opensymphony.webwork.views.freemarker.PortletFreemarkerResult"/>
+			<result-type name="velocity" class="com.opensymphony.webwork.portlet.result.PortletVelocityResult"/>
+	   </result-types>
+
+	   <action name="renderDirect" class="com.opensymphony.webwork.portlet.dispatcher.DirectRenderFromEventAction">
+	   		<result name="success">${location}</result>
+	   </action>
+	   <action name="freemarkerDirect" class="com.opensymphony.webwork.portlet.dispatcher.DirectRenderFromEventAction">
+	   		<result type="freemarker" name="success">${location}</result>
+	   </action>
+	   <action name="velocityDirect" class="com.opensymphony.webwork.portlet.dispatcher.DirectRenderFromEventAction">
+	   		<result type="velocity" name="success">${location}</result>
+	   </action>
+	</package>
+</xwork>
