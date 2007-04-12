@@ -6,7 +6,7 @@
 
 <body>
 <p>
-    <h4>Using URL Tag</h4>
+    <h4>Using URL (&lt;ww:url/&gt;) Tag</h4>
     <ww:url id="changeLanguageURLen" action="changeLocale" includeParams="none">
         <ww:param name="request_locale">en</ww:param>
     </ww:url>
@@ -24,7 +24,7 @@
     <ww:a href="%{changeLanguageURLfr}">French (fr)</ww:a>
 </p>
 <p>
-    <h4>Using href with request_locale parameter</h4>
+    <h4>Using href (plain html &lt;a/&gt; tag) with request_locale parameter</h4>
 
     <a href="changeLocale.action?request_locale=en">English (en)</a>
     <a href="changeLocale.action?request_locale=de">German (de)</a>
@@ -32,7 +32,7 @@
 </p>
 
 <p>
-    <h4></h4>
+    <h4>Using href (&lt;ww:url/&gt; tag) with request_locale parameter</h4>
 
     <ww:url id="changeLanguageURLenParam" action="changeLocale?request_locale=en"  includeParams="none"/>
     <ww:url id="changeLanguageURLdeParam" action="changeLocale?request_locale=de"  includeParams="none"/>
@@ -43,6 +43,7 @@
     <ww:a href="%{changeLanguageURLfrParam}">French (fr)</ww:a>
 </p>
 
+<p>
 <hr width="90%" />
 <h4>Internationalized Labels for Locale <ww:property value="%{locale}"/></h4>
 <table>
@@ -75,5 +76,6 @@
         <td><ww:property value="%{getText('label.search')}" /></td>
     </tr>
 </table>
+</p>
 </body>
 </html>
