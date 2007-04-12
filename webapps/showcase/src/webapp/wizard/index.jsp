@@ -8,12 +8,16 @@
 <title>Showcase Wizard Example</title>
 </head>
 <body>
-
-	<ww:url id="url" action="start" namespace="/wizard" />	
-	<ww:a href="%{#url}">Wizard Example</ww:a>
-	<ww:url id="url" action="startTabbedWizard" namespace="wizard" />
-	<ww:a href="%{#url}">Tabbed Panel Wizard Example</ww:a>
-	
+	<ul>
+	<li>
+		<ww:url id="url" action="start" namespace="/wizard" />	
+		<ww:a href="%{#url}">Wizard Example</ww:a>
+	</li>
+	<li>
+		<ww:url id="url" action="startTabbedWizard" namespace="/wizard" />
+		<ww:a href="%{#url}">Tabbed Panel Wizard Example</ww:a>
+	</li>
+	</ul>
 </body>
 </html>
 
