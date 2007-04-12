@@ -1,13 +1,25 @@
 function clearErrorMessages(form) {
 	// clear out any rows with an "errorFor" attribute
 	var divs = form.getElementsByTagName("div");
+	var spans = form.getElementsByTagName("span");
     var paragraphsToDelete = new Array();
 
-    for(var i = 0; i < divs.length; i++) {
-        var p = divs[i];
-        if (p.getAttribute("errorFor")) {
-            paragraphsToDelete.push(p);
-        }
+	if (divs) {
+    	for(var i = 0; i < divs.length; i++) {
+        	var p = divs[i];
+        	if (p.getAttribute("errorFor")) {
+            	paragraphsToDelete.push(p);
+        	}
+    	}
+    }
+    
+    if (spans) {
+    	for (var i = 0; i < spans.length; i++) {
+    		var p = spans[i];
+    		if (p.getAttribute("errorFor")) {
+    			paragraphsToDelete.push(p);
+    		}
+    	}
     }
 
     // now delete the paragraphsToDelete
