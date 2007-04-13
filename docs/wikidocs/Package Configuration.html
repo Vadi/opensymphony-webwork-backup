@@ -49,7 +49,113 @@
 
 <h1><a name="PackageConfiguration-Sampleusageofpackagesinxwork.xml"></a>Sample usage of packages in xwork.xml</h1>
 
-An error occurred: http://svn.opensymphony.com/svn/webwork/webapps/showcase/src/webapp/WEB-INF/classes/xwork.xml. The system administrator has been notified.
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;xwork&gt;</span>
+
+    <span class="code-tag">&lt;include file=<span class="code-quote">"webwork-default.xml"</span> /&gt;</span>
+    
+    <span class="code-tag">&lt;include file=<span class="code-quote">"config-browser.xml"</span>/&gt;</span>
+
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-continuations.xml"</span>/&gt;</span>
+
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-tags.xml"</span>/&gt;</span>
+    
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-validation.xml"</span> /&gt;</span>
+    
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-actionchaining.xml"</span> /&gt;</span>
+
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-ajax.xml"</span> /&gt;</span>
+
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-fileupload.xml"</span> /&gt;</span>
+
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-person.xml"</span> /&gt;</span>
+
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-wait.xml"</span> /&gt;</span>
+
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-token.xml"</span> /&gt;</span>
+    
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-model-driven.xml"</span> /&gt;</span>
+    
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-filedownload.xml"</span> /&gt;</span>
+    
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-freemarker.xml"</span> /&gt;</span>
+
+	<span class="code-tag">&lt;include file=<span class="code-quote">"xwork-wizard.xml"</span> /&gt;</span>
+
+    <span class="code-tag"><span class="code-comment">&lt;!-- See Jira http://jira.opensymphony.com/browse/WW-1437 for details --&gt;</span></span>
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-sessionInvalidation.xml"</span> /&gt;</span>
+	
+	<span class="code-tag">&lt;include file=<span class="code-quote">"xwork-flash.xml"</span> /&gt;</span>
+	
+	<span class="code-tag">&lt;include file=<span class="code-quote">"xwork-sitemesh.xml"</span> /&gt;</span>
+
+    <span class="code-tag">&lt;include file=<span class="code-quote">"xwork-i18n.xml"</span> /&gt;</span>
+
+    <span class="code-tag">&lt;package name=<span class="code-quote">"default"</span> extends=<span class="code-quote">"webwork-default"</span>&gt;</span>
+        <span class="code-tag">&lt;interceptors&gt;</span>
+            <span class="code-tag">&lt;interceptor-stack name=<span class="code-quote">"crudStack"</span>&gt;</span>
+                <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"params"</span> /&gt;</span>
+                <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultStack"</span> /&gt;</span>
+            <span class="code-tag">&lt;/interceptor-stack&gt;</span>
+        <span class="code-tag">&lt;/interceptors&gt;</span>
+		
+		<span class="code-tag">&lt;default-action-ref name=<span class="code-quote">"showcase"</span>/&gt;</span>
+		
+        <span class="code-tag">&lt;action name=<span class="code-quote">"showcase"</span>&gt;</span>
+            <span class="code-tag">&lt;result&gt;</span>showcase.jsp<span class="code-tag">&lt;/result&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+
+        <span class="code-tag">&lt;action name=<span class="code-quote">"date"</span> class=<span class="code-quote">"com.opensymphony.webwork.showcase.DateAction"</span>&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"success"</span>&gt;</span>/date.jsp<span class="code-tag">&lt;/result&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+
+    <span class="code-tag">&lt;/package&gt;</span>
+
+    <span class="code-tag">&lt;package name=<span class="code-quote">"skill"</span> extends=<span class="code-quote">"default"</span> namespace=<span class="code-quote">"/skill"</span>&gt;</span>
+        <span class="code-tag">&lt;default-interceptor-ref name=<span class="code-quote">"crudStack"</span>/&gt;</span>
+
+        <span class="code-tag">&lt;action name=<span class="code-quote">"list"</span> class=<span class="code-quote">"com.opensymphony.webwork.showcase.action.SkillAction"</span> method=<span class="code-quote">"list"</span>&gt;</span>
+            <span class="code-tag">&lt;result&gt;</span>/empmanager/listSkills.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultStack"</span>/&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+        <span class="code-tag">&lt;action name=<span class="code-quote">"edit"</span> class=<span class="code-quote">"com.opensymphony.webwork.showcase.action.SkillAction"</span>&gt;</span>
+            <span class="code-tag">&lt;result&gt;</span>/empmanager/editSkill.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"params"</span> /&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"basicStack"</span>/&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+        <span class="code-tag">&lt;action name=<span class="code-quote">"save"</span> class=<span class="code-quote">"com.opensymphony.webwork.showcase.action.SkillAction"</span> method=<span class="code-quote">"save"</span>&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"input"</span>&gt;</span>/empmanager/editSkill.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;result type=<span class="code-quote">"redirect"</span>&gt;</span>edit.action?skillName=${currentSkill.name}<span class="code-tag">&lt;/result&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+        <span class="code-tag">&lt;action name=<span class="code-quote">"delete"</span> class=<span class="code-quote">"com.opensymphony.webwork.showcase.action.SkillAction"</span> method=<span class="code-quote">"delete"</span>&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"error"</span>&gt;</span>/empmanager/editSkill.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;result type=<span class="code-quote">"redirect"</span>&gt;</span>edit.action?skillName=${currentSkill.name}<span class="code-tag">&lt;/result&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+    <span class="code-tag">&lt;/package&gt;</span>
+
+    <span class="code-tag">&lt;package name=<span class="code-quote">"employee"</span> extends=<span class="code-quote">"default"</span> namespace=<span class="code-quote">"/employee"</span>&gt;</span>
+        <span class="code-tag">&lt;default-interceptor-ref name=<span class="code-quote">"crudStack"</span>/&gt;</span>
+
+        <span class="code-tag">&lt;action name=<span class="code-quote">"list"</span> class=<span class="code-quote">"com.opensymphony.webwork.showcase.action.EmployeeAction"</span> method=<span class="code-quote">"list"</span>&gt;</span>
+            <span class="code-tag">&lt;result&gt;</span>/empmanager/listEmployees.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"basicStack"</span>/&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+        <span class="code-tag">&lt;action name=<span class="code-quote">"edit"</span> class=<span class="code-quote">"com.opensymphony.webwork.showcase.action.EmployeeAction"</span>&gt;</span>
+            <span class="code-tag">&lt;result&gt;</span>/empmanager/editEmployee.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"crudStack"</span>&gt;</span><span class="code-tag">&lt;param name=<span class="code-quote">"validation.excludeMethods"</span>&gt;</span>execute<span class="code-tag">&lt;/param&gt;</span><span class="code-tag">&lt;/interceptor-ref&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+        <span class="code-tag">&lt;action name=<span class="code-quote">"save"</span> class=<span class="code-quote">"com.opensymphony.webwork.showcase.action.EmployeeAction"</span> method=<span class="code-quote">"save"</span>&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"input"</span>&gt;</span>/empmanager/editEmployee.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;result type=<span class="code-quote">"redirect"</span>&gt;</span>edit.action?empId=${currentEmployee.empId}<span class="code-tag">&lt;/result&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+        <span class="code-tag">&lt;action name=<span class="code-quote">"delete"</span> class=<span class="code-quote">"com.opensymphony.webwork.showcase.action.EmployeeAction"</span> method=<span class="code-quote">"delete"</span>&gt;</span>
+            <span class="code-tag">&lt;result name=<span class="code-quote">"error"</span>&gt;</span>/empmanager/editEmployee.jsp<span class="code-tag">&lt;/result&gt;</span>
+            <span class="code-tag">&lt;result type=<span class="code-quote">"redirect"</span>&gt;</span>edit.action?empId=${currentEmployee.empId}<span class="code-tag">&lt;/result&gt;</span>
+        <span class="code-tag">&lt;/action&gt;</span>
+    <span class="code-tag">&lt;/package&gt;</span>
+
+<span class="code-tag">&lt;/xwork&gt;</span></pre>
+</div></div>
 
                     			    </td>
 		    </tr>

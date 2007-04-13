@@ -51,14 +51,66 @@ instead defer cleanup to this filter. The ordering of the filters should then be
 
 <p>If you are using Velocity for your SiteMesh decorators, we recommend using the VelocityPageFilter. This is an extension of the SiteMesh PageFilter, which should be placed in the web.xml in between the <b>ActionContextCleanUp</b> and the <b>FilterDispatcher</b>. Now the Velocity decorators will have access to WebWork variables such as $stack and $request.</p>
 
-An error occurred: http://svn.opensymphony.com/svn/webwork/trunk/webwork/webapps/showcase/src/webapp/WEB-INF/web.xml?content-type=text%2Fplain. The system administrator has been notified.
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork-cleanup<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.ActionContextCleanUp<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+<span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>sitemesh<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.sitemesh.VelocityPageFilter<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+<span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.FilterDispatcher<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork-cleanup<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span>
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>sitemesh<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span>
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span></pre>
+</div></div>
 
 
 <h3><a name="SiteMesh-FreeMarker"></a>FreeMarker </h3>
 
 <p>If you are using FreeMarker for your SiteMesh decorators, we recommend using the FreeMarkerPageFilter. This is an extension of the SiteMesh PageFilter, which should be placed in the web.xml in between the <b>ActionContextCleanUp</b> and the <b>FilterDispatcher</b>. Now the FreeMarker decorators will have access to WebWork variables such as ${stack} and ${request}.</p>
 
-An error occurred: http://svn.opensymphony.com/svn/webwork/trunk/webwork/webapps/showcase/src/webapp/WEB-INF/web.xml?content-type=text%2Fplain. The system administrator has been notified.
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork-cleanup<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.ActionContextCleanUp<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+<span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>sitemesh<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.sitemesh.FreeMarkerPageFilter<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+<span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.FilterDispatcher<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork-cleanup<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span>
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>sitemesh<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span>
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span></pre>
+</div></div>
 
 <p>The following variables are available to the decorating freemarker page :-
 <ul>
