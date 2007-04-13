@@ -1,0 +1,24 @@
+<!DOCTYPE xwork PUBLIC 
+	"-//OpenSymphony Group//XWork 1.1.1//EN" 
+	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+	
+<xwork>
+	<package name="sitemesh-default" extends="webwork-default" namespace="/sitemesh">
+		<action name="" class="">
+		</action>
+		
+		<action name="useFreemarkerApplyDecoratorTransform">
+			<result type="freemarker">/sitemesh/pageUsingFreemarkerApplyDecoratorTransform.ftl</result>
+		</action>
+		
+		<action name="useFreemarkerApplyDecoratorTag">
+			<result type="freemarker">/sitemesh/pageUsingFreemarkerApplyDecoratorTag.ftl</result>
+		</action>
+		
+		<action name="useJspApplyDecoratorTag">
+			<result>/sitemesh/pageUsingJspApplyDecoratorTag.jsp</result>
+		</action>
+		
+	</package>
+</xwork>	
+	

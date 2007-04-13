@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>WebWork - 
+         do I populate my action properties upon validation failure
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>Say for example we have a </p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&amp;lt;ww:checkboxlist
+      name=<span class="code-quote">"selectedOptions"</span>
+      list=<span class="code-quote">"options"</span>
+      listKey=<span class="code-quote">"id"</span>
+      listValue=<span class="code-quote">"name"</span> /&amp;gt;</pre>
+</div></div>
+
+<p>If we like to populate options upon validation failure, we could have a prepare interceptor above the validation interceptor in the interceptor stack.</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">....
+   <span class="code-keyword">public</span> void prepare() <span class="code-keyword">throws</span> Exception {
+      <span class="code-comment">// populate the options property list with options
+</span>      <span class="code-comment">// that are supposed to be checked.
+</span>   }
+   ....</pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

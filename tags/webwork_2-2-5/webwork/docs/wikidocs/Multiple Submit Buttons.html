@@ -1,0 +1,122 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Multiple Submit Buttons
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h2><a name="MultipleSubmitButtons-Introduction"></a>Introduction</h2>
+
+<p>Often, we have multiple submit buttons within a single form. The below is just a simple way of identifying which button was clicked, and which actions to take.</p>
+
+<p>There are, of course, many ways of doing this, including the use of javascript to identify the actions, etc... You're welcome to pick and choose whichever method you find most useful. Webwork is flexible enough.</p>
+
+<h2><a name="MultipleSubmitButtons-Form"></a>Form</h2>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;button type=<span class="code-quote">"submit"</span> value=<span class="code-quote">"Submit"</span> name=<span class="code-quote">"submit"</span>&gt;
+&lt;button type=<span class="code-quote">"submit"</span> value=<span class="code-quote">"Cancel"</span> name=<span class="code-quote">"cancel"</span>&gt;</pre>
+</div></div>
+<p>&nbsp;</p>
+
+<h2><a name="MultipleSubmitButtons-Actionwithbooleanproperties"></a>Action with boolean properties</h2>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">class MyAction <span class="code-keyword">extends</span> ActionSupport {
+   <span class="code-keyword">private</span> <span class="code-object">boolean</span> submitbutton;
+   <span class="code-keyword">private</span> <span class="code-object">boolean</span> cancelbutton;
+   <span class="code-keyword">public</span> void setSubmitbutton( <span class="code-object">boolean</span> submitbutton )    {
+      <span class="code-keyword">this</span>.submitbutton = submitbutton;
+   }
+   <span class="code-keyword">public</span> void setCancelbutton( <span class="code-object">boolean</span> cancelbutton )    {
+      <span class="code-keyword">this</span>.cancelbutton = cancelbutton;
+   }
+   <span class="code-keyword">public</span> <span class="code-object">String</span> execute()    {
+      <span class="code-keyword">if</span> ( submitbutton )       {
+         doSubmit();
+         <span class="code-keyword">return</span> <span class="code-quote">"submitResult"</span>;
+      }
+      <span class="code-keyword">if</span> ( cancelbutton )       {
+         doClear();
+         <span class="code-keyword">return</span> <span class="code-quote">"cancelResult"</span>;
+      }
+      <span class="code-keyword">return</span> <span class="code-keyword">super</span>.execute();
+   }
+}</pre>
+</div></div>
+<p>&nbsp;</p>
+
+<h2><a name="MultipleSubmitButtons-Explanation"></a>Explanation</h2>
+
+<p>The boolean properties 'submit' and 'cancel' will be set to 'true' or 'false' according weather the submit or clear form element is present in the submitted form.</p>
+
+<p>In this case, the properties are boolean, therefore the values set would be boolean.</p>
+
+<p>There is another method, using String properties, described below...</p>
+
+<h2><a name="MultipleSubmitButtons-Form"></a>Form</h2>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;button type=<span class="code-quote">"submit"</span> value=<span class="code-quote">"Submit"</span> name=<span class="code-quote">"submitbutton"</span>&gt;
+&lt;button type=<span class="code-quote">"submit"</span> value=<span class="code-quote">"Cancel"</span> name=<span class="code-quote">"cancelbutton"</span>&gt;</pre>
+</div></div>
+<p>&nbsp;</p>
+
+<h2><a name="MultipleSubmitButtons-ActionwithStringproperties"></a>Action with String properties</h2>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">class MyAction <span class="code-keyword">extends</span> ActionSupport {
+   <span class="code-keyword">private</span> <span class="code-object">String</span> submitbutton;   <span class="code-keyword">private</span> <span class="code-object">String</span> cancelbutton;
+
+   <span class="code-keyword">public</span> void setSubmitbutton( <span class="code-object">String</span> submitbutton )      {
+      <span class="code-keyword">this</span>.submitbutton = submitbutton;
+   }   <span class="code-keyword">public</span> void setCancelbutton( <span class="code-object">String</span> cancelbutton )     {
+      <span class="code-keyword">this</span>.cancelbutton= cancelbutton;
+   }
+    <span class="code-keyword">public</span> <span class="code-object">String</span> execute()    {
+      <span class="code-keyword">if</span> ( <span class="code-quote">"Submit"</span>.equals( submitbutton ) )      {
+         doSubmit();
+         <span class="code-keyword">return</span> <span class="code-quote">"submitResult"</span>;
+      }
+      <span class="code-keyword">if</span> ( <span class="code-quote">"Cancel"</span>.equals( cancelbutton ) )       {
+         doClear();
+         <span class="code-keyword">return</span> <span class="code-quote">"cancelResult"</span>;
+      }
+      <span class="code-keyword">return</span> <span class="code-keyword">super</span>.execute();
+   }
+}</pre>
+</div></div>
+<p>&nbsp;</p>
+
+<h2><a name="MultipleSubmitButtons-Explanation"></a>Explanation</h2>
+
+<p>In this case, the properties are String, therefore the values set are also String in nature.</p>
+
+<p>I don't really like this method, as it ties in the Action to the Form. (What happens if you want different text to show up on the button ? You would have to change both the form as well as the corresponding action.)</p>
+
+<h2><a name="MultipleSubmitButtons-Warning"></a>Warning</h2>
+
+<ul>
+	<li>Field names are all in small caps because xwork seems to fail and search the web page otherwise. Values get set to null when not in small caps</li>
+	<li>Field names of the buttons must be different from each other. Although having one name for all your submit buttons work in Firefox, it does not with Internet Explorer (IE). The difference is that Firefox returns only the value of the submit button pressed, while Internet Explorer would return the values of all elements with the given name.</li>
+</ul>
+
+
+
+<h2><a name="MultipleSubmitButtons-Conclusion"></a>Conclusion</h2>
+
+<p>There are other ways to achieve the same functionality. There are pros and cons to each methods. Feedback welcome.</p>
+
+<p>&nbsp;</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

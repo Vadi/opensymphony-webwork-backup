@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xwork PUBLIC 
+	"-//OpenSymphony Group//XWork 1.1.1//EN" 
+	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+	
+<xwork>
+	<package name="sessionInvalidation-default" extends="webwork-default" namespace="/sessionInvalidation">
+		<action name="start" method="start" class="com.opensymphony.webwork.showcase.sessionInvalidation.SessionInvalidationAction">
+			<result>/sessionInvalidation/index.jsp</result>
+		</action>
+		<action name="invalidateNow" method="invalidateNow" class="com.opensymphony.webwork.showcase.sessionInvalidation.SessionInvalidationAction">
+			<interceptor-ref name="sessionInvalidation">
+				<param name="type">Now</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result>/sessionInvalidation/invalidateNow.jsp</result>
+		</action>
+		<action name="invalidateOnNextRequest" method="invalidateOnNextRequest" class="com.opensymphony.webwork.showcase.sessionInvalidation.SessionInvalidationAction">
+			<interceptor-ref name="sessionInvalidation">
+				<param name="type">NextRequest</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result>/sessionInvalidation/invalidateOnNextRequest.jsp</result>
+		</action>
+		<action name="issueAnotherRequest" method="issueAnotherRequest" class="com.opensymphony.webwork.showcase.sessionInvalidation.SessionInvalidationAction">
+			<interceptor-ref name="sessionInvalidation">
+				<param name="type">NoOperation</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result>/sessionInvalidation/anotherRequest.jsp</result>
+		</action>
+	</package>
+</xwork>	
+

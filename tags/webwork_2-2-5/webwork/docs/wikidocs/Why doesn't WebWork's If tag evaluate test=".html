@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>WebWork - 
+         doesn't WebWork's If tag evaluate test="
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>try either </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:<span class="code-keyword">if</span> test=<span class="code-quote">"%{#parameters.search[0] == 'something'}"</span>&gt;
+   ....
+ &lt;/ww:<span class="code-keyword">if</span>&gt;</pre>
+</div></div>
+
+<p>or </p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:<span class="code-keyword">if</span> test=<span class="code-quote">"#parameters.search[0] == 'something'"</span>&gt;
+   ....
+ &lt;/ww:<span class="code-keyword">if</span>&gt;</pre>
+</div></div>
+
+<h3><a name="Whydoesn%27tWebWork%27sIftagevaluatetest%3D%22-Whytousesearch0%3F"></a>Why to use search [ 0 ]?</h3>
+<p>The reason is that #parameters would return a Map, WebWork conveniently make request parameters into a Map to make unit testing action easier and WebWork also uses </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">request.getParameterMap();</pre>
+</div></div>
+<p>which returns a map where the key is the parameter (String) while the value is an array of the parameter value (Array of String), hence the need to use [ 0 ].</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

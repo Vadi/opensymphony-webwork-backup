@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <title>WebWork - 
+        conversion validator
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h1><a name="conversionvalidator-Description"></a>Description</h1>
+<p>Field Validator that checks if a conversion error occured for this field.</p>
+
+<h1><a name="conversionvalidator-Parameters"></a>Parameters</h1>
+<p><ul>
+    <li>fieldName - The field name this validator is validating. Required if using Plain-Validator Syntax otherwise not required</li>
+</ul></p>
+
+<h1><a name="conversionvalidator-Examples"></a>Examples</h1>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;pre&gt;</span>
+    <span class="code-tag"><span class="code-comment">&lt;!-- Plain Validator Syntax --&gt;</span></span>
+    <span class="code-tag">&lt;validator type=<span class="code-quote">"conversion"</span>&gt;</span>
+    		<span class="code-tag">&lt;param name=<span class="code-quote">"fieldName"</span>&gt;</span>myField<span class="code-tag">&lt;/param&gt;</span>
+         <span class="code-tag">&lt;message&gt;</span>Conversion Error Occurred<span class="code-tag">&lt;/message&gt;</span>
+    <span class="code-tag">&lt;/validator&gt;</span>
+     
+    <span class="code-tag"><span class="code-comment">&lt;!-- Field Validator Syntax --&gt;</span></span>
+    <span class="code-tag">&lt;field name=<span class="code-quote">"myField"</span>&gt;</span>
+       <span class="code-tag">&lt;field-validator type=<span class="code-quote">"conversion"</span>&gt;</span>
+          <span class="code-tag">&lt;message&gt;</span>Conversion Error Occurred<span class="code-tag">&lt;/message&gt;</span>
+       <span class="code-tag">&lt;/field-validator&gt;</span>
+    <span class="code-tag">&lt;/field&gt;</span>
+<span class="code-tag">&lt;/pre&gt;</span></pre>
+</div></div>
+
+<h1><a name="conversionvalidator-RepopulatingFielduponconversionError"></a>Repopulating Field upon conversion Error</h1>
+
+<p>The capability of auto-repopulating the stack with a fake parameter map when 
+a conversion error has occurred can be done with 'repopulateField' property 
+set to "true". </p>
+
+<p><p/></p>
+
+<p>This is typically usefull when one wants to repopulate the field with the original value 
+when a conversion error occurred. Eg. with a textfield that only allows an Integer 
+(the action class have an Integer field declared), upon conversion error, the incorrectly
+entered integer (maybe a text 'one') will not appear when dispatched back. With 'repopulateField'
+porperty set to true, it will, meaning the textfield will have 'one' as its value 
+upon conversion error.</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag"><span class="code-comment">&lt;!-- myJspPage.jsp --&gt;</span></span>
+<span class="code-tag">&lt;ww:form action=<span class="code-quote">"someAction"</span> method=<span class="code-quote">"POST"</span>&gt;</span>
+  ....
+  &lt;ww:textfield 
+      label=<span class="code-quote">"My Integer Field"</span>
+      name=<span class="code-quote">"myIntegerField"</span> /&gt;
+  ....
+  <span class="code-tag">&lt;ww:submit /&gt;</span>       
+<span class="code-tag">&lt;/ww:form&gt;</span></pre>
+</div></div>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag"><span class="code-comment">&lt;!-- xwork.xml --&gt;</span></span>
+<span class="code-tag">&lt;xwork&gt;</span>
+<span class="code-tag">&lt;include file=<span class="code-quote">"webwork-default.xml"</span> /&gt;</span>
+....
+<span class="code-tag">&lt;package name=<span class="code-quote">"myPackage"</span> extends=<span class="code-quote">"webwork-default"</span>&gt;</span>
+  ....
+  <span class="code-tag">&lt;action name=<span class="code-quote">"someAction"</span> class=<span class="code-quote">"example.MyActionSupport.java"</span>&gt;</span>
+     <span class="code-tag">&lt;result name=<span class="code-quote">"input"</span>&gt;</span>myJspPage.jsp<span class="code-tag">&lt;/result&gt;</span>
+     <span class="code-tag">&lt;result&gt;</span>success.jsp<span class="code-tag">&lt;/result&gt;</span>
+  <span class="code-tag">&lt;/action&gt;</span>
+  ....
+<span class="code-tag">&lt;/package&gt;</span>
+....
+<span class="code-tag">&lt;/xwork&gt;</span></pre>
+</div></div>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;!-- MyActionSupport.java --&gt;
+<span class="code-keyword">public</span> class MyActionSupport <span class="code-keyword">extends</span> ActionSupport {
+   <span class="code-keyword">private</span> <span class="code-object">Integer</span> myIntegerField;
+   
+   <span class="code-keyword">public</span> <span class="code-object">Integer</span> getMyIntegerField() { <span class="code-keyword">return</span> <span class="code-keyword">this</span>.myIntegerField; }
+   <span class="code-keyword">public</span> void setMyIntegerField(<span class="code-object">Integer</span> myIntegerField) { 
+      <span class="code-keyword">this</span>.myIntegerField = myIntegerField; 
+   }
+}</pre>
+</div></div>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag"><span class="code-comment">&lt;!-- MyActionSupport-someAction-validation.xml --&gt;</span></span>
+<span class="code-tag">&lt;validators&gt;</span>
+  ...
+  <span class="code-tag">&lt;field name=<span class="code-quote">"myIntegerField"</span>&gt;</span>
+     <span class="code-tag">&lt;field-validator type=<span class="code-quote">"conversion"</span>&gt;</span>
+        <span class="code-tag">&lt;param name=<span class="code-quote">"repopulateField"</span>&gt;</span>true<span class="code-tag">&lt;/param&gt;</span>
+        <span class="code-tag">&lt;message&gt;</span>Conversion Error (Integer Wanted)<span class="code-tag">&lt;/message&gt;</span>
+     <span class="code-tag">&lt;/field-validator&gt;</span>
+  <span class="code-tag">&lt;/field&gt;</span>
+  ...
+<span class="code-tag">&lt;/validators&gt;</span></pre>
+</div></div>
+
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
