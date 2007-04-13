@@ -1,0 +1,334 @@
+<html>
+    <head>
+        <title>WebWork - 
+        SiteMesh
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h2><a name="SiteMesh-Overview"></a>Overview</h2>
+
+<p><a href="http://www.opensymphony.com/sitemesh" title="Visit page outside Confluence">SiteMesh</a> is a web-page layout and decoration framework and web- application integration framework to aid in creating large sites consisting of many pages for which a consistent look/feel, navigation and layout scheme is required.</p>
+
+<p>Integrating WebWork with SiteMesh is amazingly simple: you don't have to do anything in fact. WebWork stores all its value stack information in the request attributes, meaning that if you wish to display data that is in the stack (or even the ActionContext) you can do so by using the normal tag libraries that come with WebWork. That's it!</p>
+
+<h2><a name="SiteMesh-ActionContextCleanUp"></a>ActionContextCleanUp</h2>
+
+<p>In WebWork's <a href="Architecture.html" title="Architecture">Architecture</a>, the standard filter-chain optionally starts with the <b>ActionContextCleanUp</b> filter, followed by other desired filters. Lastly, the <b>FilterDispatcher</b> handles the request, usually passing it on to the ActionMapper. The primary purpose of the <b>ActionContextCleanUp</b> is for SiteMesh integration. This tells the FilterDispatcher when exactly, to clean-up the request. Otherwise, the ActionContext may be removed before the decorator attempts to access it.</p>
+
+<table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Warning</b><br /><em>If</em> ActionContext access is required within the decorators, the <b>ActionContextCleanUp</b> filter <em>must</em> be placed at the beginning of the filter-chain. </td></tr></table>
+
+<p>For more information, see the javadocs of the ActionContextCleanUp filter:</p>
+
+<p>Special filter designed to work with the FilterDispatcher and allow
+for easier integration with SiteMesh. Normally, ordering your filters to have
+SiteMesh go first, and then FilterDispatcher go second is perfectly fine.
+However, sometimes you may wish to access WebWork-features, including the
+value stack, from within your SiteMesh decorators. Because FilterDispatcher
+cleans up the ActionContext, your decorator won't have access to the
+date you want.
+<p/>
+<p/>
+By adding this filter, the FilterDispatcher will know to not clean up and
+instead defer cleanup to this filter. The ordering of the filters should then be:
+<p/>
+<ul>
+<li>this filter</li>
+<li>SiteMesh filter</li>
+<li>FilterDispatcher</li>
+</ul></p>
+
+<h2><a name="SiteMesh-VelocityandFreeMarkerDecorators"></a>Velocity and FreeMarker Decorators</h2>
+
+<p>WebWork provides extension of the SiteMesh PageFilter that assist with integration with <a href="Velocity.html" title="Velocity">Velocity</a> and <a href="FreeMarker.html" title="FreeMarker">FreeMarker</a>. We strongly recommend using these filters, instead of the support provided by SiteMesh, because they also will provide the standard variables and <a href="Tags.html" title="Tags">Tags</a> that you are used to when created views in your favoriate template language.</p>
+
+<h3><a name="SiteMesh-Velocity"></a>Velocity</h3>
+
+<p>If you are using Velocity for your SiteMesh decorators, we recommend using the VelocityPageFilter. This is an extension of the SiteMesh PageFilter, which should be placed in the web.xml in between the <b>ActionContextCleanUp</b> and the <b>FilterDispatcher</b>. Now the Velocity decorators will have access to WebWork variables such as $stack and $request.</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork-cleanup<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.ActionContextCleanUp<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+<span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>sitemesh<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.sitemesh.VelocityPageFilter<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+<span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.FilterDispatcher<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork-cleanup<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span>
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>sitemesh<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span>
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span></pre>
+</div></div>
+
+
+<h3><a name="SiteMesh-FreeMarker"></a>FreeMarker </h3>
+
+<p>If you are using FreeMarker for your SiteMesh decorators, we recommend using the FreeMarkerPageFilter. This is an extension of the SiteMesh PageFilter, which should be placed in the web.xml in between the <b>ActionContextCleanUp</b> and the <b>FilterDispatcher</b>. Now the FreeMarker decorators will have access to WebWork variables such as ${stack} and ${request}.</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork-cleanup<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.ActionContextCleanUp<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+<span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>sitemesh<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.sitemesh.FreeMarkerPageFilter<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+<span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.FilterDispatcher<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork-cleanup<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span>
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>sitemesh<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span>
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span></pre>
+</div></div>
+
+<p>The following variables are available to the decorating freemarker page :-
+<ul>
+    <li>${title}           - content of &lt;title&gt; tag in the decorated page</li>
+    <li>${head}            - content of &lt;head&gt; tag in the decorated page</li>
+    <li>${body}            - content of t&lt;body&gt; tag in the decorated page</li>
+    <li>${page.properties} - content of the page properties</li>
+</ul>
+<p/>
+With the following decorated page :-
+<pre>
+&lt;html&gt;
+    &lt;meta name="author" content="tm_jee" /&gt;
+    &lt;head&gt;
+        &lt;title&gt;My Title&lt;/title&gt;
+        &lt;link rel="stylesheet" type="text/css" href="mycss.css" /&gt;
+        &lt;style type="text/javascript" language="javascript" src="myjavascript.js"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&lt;
+        &lt;h1&gt;Sample&lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p/>
+<table border="1">
+    <tr>
+        <td>Properties</td>
+        <td>Content</td>
+    </tr>
+    <tr>
+        <td>${title}</td>
+        <td>My Title</td>
+    </tr>
+    <tr>
+        <td>${head}</td>
+        <td>
+            &lt;link rel="stylesheet" type="text/css" href="mycss.css" /&gt;
+            &lt;style type="text/javascript" language="javascript" src="myjavascript.js"&gt;&lt;/script&gt;
+        </td>
+    </tr>
+    <tr>
+        <td>${body}</td>
+        <td>
+            &lt;h1&gt;Sample&lt;/h1&gt;
+        </td>
+    </tr>
+    <tr>
+        <td>${page.properties.meta.author}</td>
+        <td>tm_jee</td>
+    </tr>
+</table></p>
+
+
+<h4><a name="SiteMesh-ApplyingFreemarkerdecoratorintagform"></a>Applying Freemarker decorator in tag form</h4>
+<h5><a name="SiteMesh-Method1%3AUsingWebWork%27sFreemarkerapplydecoratorTransform"></a>Method 1: Using WebWork's Freemarker applydecorator Transform</h5>
+
+<p>This is the WebWork component that implements Freemarker's ApplyDecorator
+Transform. To use this Freemarker Transform, it needs to be enabled in
+webwork.properties (which is enabled by default)</p>
+
+<p><pre>
+webwork.freemarker.sitemesh.applyDecoratorTransform = true
+</pre></p>
+
+<p>An example of usage would be as follows:- <p/></p>
+
+<p>In Sitemesh's decorators.xml
+<pre>
+  &lt;decorators defaultdir="/WEB-INF/decorators"&gt;
+  	....
+     &lt;decorator name="panel" page="/panelDecorator.ftl" /&gt;
+  &lt;/decorators*gt;
+</pre></p>
+
+<p>Decorator (panelDecorator.ftl)<p/>
+<pre>
+ &lt;table border="1"&gt;
+   &lt;tr&gt;
+   	&lt;td&gt;${title}&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;${body}&lt;/td&gt;
+   &lt;/tr&gt;
+ &lt;/table&gt;
+</pre></p>
+
+<p>Freemarker page that uses decorator <p/>
+<pre>
+	 &lt;html&gt; 
+   &lt;head&gt;
+      &lt;title&gt;some title&lt;/title&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+     &lt;h1&gt;some body title&lt;/h1&gt;
+     &lt;@sitemesh.applydecorator name=&quot;panel&quot; page=&quot;/pages/pageToBeDecorated.ftl&quot; /&gt;
+   &lt;/body&gt;
+  &lt;/html&gt;
+</pre></p>
+
+
+<p>An example of pageToBeDecorated.ftl<p/>
+<pre>
+ &lt;html&gt;
+   &lt;head&gt;
+      &lt;title&gt;Panel Title&lt;/title&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+      Panel Content
+   &lt;/body&gt;
+ &lt;/html&gt;
+</pre></p>
+
+
+<p>The nett outcome would be:-
+<pre>
+  &lt;html&gt;
+    &lt;title&gt;some title&l/title&gt;
+  &lt;body&gt;
+    &lt;h1&gt;some body title&lt;/h1&gt;
+    &lt;table border="1"&gt;
+      &lt;tr&gt;
+      	&lt;td&gt;Panel Title&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Panel Content&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+</pre></p>
+
+<p>The following are method hooks available to ApplyDecoratorBean and its subclass
+<ul>
+	<li>getFreemarkerTemplate(String templatePath) - create a Freemarker Template based on the template path given </li>
+	<li>parsePageFromContent(String content) - returns a Sitemesh Page object based on the content as the to-be-decorated-page</li>
+	<li>parsePageFromAbsoluteUrl(String absoluteUrl) - returns a Sitemesh Page object using the absoluteUrl to get the content of the to-be-decorated-page</li>
+	<li>parsePageFromRelativeUrlPath(String relativeUrl) - returns a Sitemesh Page object using the relativeUrl to get the content of the to-be-decorated-page.</li>
+	<li>getSitemeshFactory() - returns a Sitemesh Factory object</li>
+	<li>getPageParser(String contentType) - returns a Sitemesh PageParser object</li>
+	<li>getDecorator(HttpServletRequest request, String decoratorName) - returns a Sitemesh Decorator object with the decoratorName supplied.</li>
+	<li>deduceLocale(ActionInvocation invocation, Configuration freemarkerConfiguration) - deduce the Locale from invocation else use the Locale supplied by Freemarker</li>
+	<li>createModel() - create a Freemarker model for the template</li>
+</ul></p>
+
+
+<h5><a name="SiteMesh-Method2%3AUsingSitemesh%27sApplyDecoratorTag"></a>Method 2: Using Sitemesh's ApplyDecorator Tag</h5>
+<p>Add Sitemesh's FreemarkerDecoratorServlet to web.xml</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;servlet&gt;
+   &lt;servlet-name&gt;freemarkerDecoratorServlet&lt;/servlet-name&gt;
+   &lt;servlet-class&gt;com.opensymphony.module.sitemesh.freemarker.FreemarkerDecoratorServlet&lt;/servlet-class&gt;
+ &lt;/servlet&gt;
+ &lt;servlet-mapping&gt;
+   &lt;servlet-name&gt;freemarkerDecoratorServlet&lt;/servlet-name&gt;
+   &lt;url-pattern&gt;*.dec&lt;/url-pattern&gt;
+ &lt;/servlet-mapping&gt;</pre>
+</div></div>
+
+<p>Add in Sitemesh decodator in decorator.xml eg.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;decorators&gt;
+     ...
+     &lt;decorator name=<span class="code-quote">"panel"</span> page=<span class="code-quote">"panelDecorator.dec"</span> /&gt;
+  &lt;/decorators&gt;</pre>
+</div></div>
+
+<p>Use Sitemesh's ApplyDecorator tag in page eg.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;#assign page=JspTaglibs['/WEB-INF/sitemesh-page.tld'] /&gt;
+ ...
+   &lt;@page.applyDecorator name=<span class="code-quote">"panel"</span> page=<span class="code-quote">"/pageToBeDecorated.ftl"</span> /&gt;
+ ...</pre>
+</div></div>
+
+<p>An example of pageToBeDecorated.ftl</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Some Title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+     Some Body
+  &lt;/body&gt;
+ &lt;/html&gt;</pre>
+</div></div>
+
+<p>An example of panel.dec</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;table border=<span class="code-quote">"1"</span>&gt;
+   &lt;tr&gt;
+     &lt;td&gt;${title}&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;${body}&lt;/td&gt;
+   &lt;/tr&gt;
+ &lt;/table&gt;</pre>
+</div></div>
+
+<p>Nett effect after applying decorator</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;html&gt;
+    ...
+    &lt;table border=<span class="code-quote">"1"</span>&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Some Title&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td&gt;Some Body&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+    ...
+  &lt;/html&gt;</pre>
+</div></div>
+
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

@@ -1,0 +1,8 @@
+<form id="foo" onsubmit="customOnsubmit_foo(); return true;" action="/foo.jsp">
+<table class="wwFormTable">
+</table>
+</form>
+
+<script type="text/javascript">
+	function customOnsubmit_foo() {}
+</script>

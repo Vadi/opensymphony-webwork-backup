@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>WebWork - 
+        PreResultListener
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>PreResultListener is a little hook that results in a callback being made to it before the actual result is to be executed but after the action invocation took place.</p>
+
+<h3><a name="PreResultListener-Howdoesitworks"></a>How does it works</h3>
+<ul>
+	<li>start request
+	<ul>
+		<li>begin of interception 1
+		<ul>
+			<li>begin of interception 2
+			<ul>
+				<li>action</li>
+				<li>pre-result-listener kicks in</li>
+				<li>execution of result</li>
+			</ul>
+			</li>
+			<li>end of interception 2</li>
+		</ul>
+		</li>
+		<li>end of interception 1</li>
+	</ul>
+	</li>
+	<li>end request</li>
+</ul>
+
+
+<h3><a name="PreResultListener-HowtoaddPreResultListenerinmycode%3F"></a>How to add PreResultListener in my code?</h3>
+<h4><a name="PreResultListener-ThroughInterceptor"></a>Through Interceptor</h4>
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> class MyInterceptor <span class="code-keyword">implements</span> Interceptor {
+   ...
+   <span class="code-keyword">public</span> <span class="code-object">String</span> intercept(ActionInvocation invocation) <span class="code-keyword">throws</span> Exception {
+      <span class="code-comment">// we could hook up PreResultListener here
+</span>      invocation.addPreResultListener(<span class="code-keyword">new</span> PreResultListener() { 
+          <span class="code-keyword">public</span> void beforeResult(ActionInvocation invocation, <span class="code-object">String</span> result) {
+             ....
+          }
+      });
+   }
+   ...
+ }</pre>
+</div></div>
+
+<h4><a name="PreResultListener-ThroughAction"></a>Through Action</h4>
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> class MyAction <span class="code-keyword">extends</span> ActionSupport {
+    <span class="code-keyword">public</span> <span class="code-object">String</span> execute() <span class="code-keyword">throws</span> Exception {
+         ActionContext.getContext().getActionInvocation().addPreResultListener() { 
+              <span class="code-keyword">new</span> PreResultListener() {
+                  <span class="code-keyword">public</span> void beforeResult(ActionInvocation invocation, <span class="code-object">String</span> result) {
+                     ....
+                  }
+              }
+         };
+    }
+ }</pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
