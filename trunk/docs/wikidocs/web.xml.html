@@ -15,11 +15,35 @@
 
 <p>The filter is configured as:</p>
 
-An error occurred: http://svn.opensymphony.com/svn/webwork/trunk/webwork/webapps/starter/src/webapp/WEB-INF/web.xml?content-type=text%2Fplain&rev=HEAD. The system administrator has been notified.
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;filter&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;filter-class&gt;</span>com.opensymphony.webwork.dispatcher.FilterDispatcher<span class="code-tag">&lt;/filter-class&gt;</span>
+<span class="code-tag">&lt;/filter&gt;</span>
+
+<span class="code-tag">&lt;filter-mapping&gt;</span>
+    <span class="code-tag">&lt;filter-name&gt;</span>webwork<span class="code-tag">&lt;/filter-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/filter-mapping&gt;</span>
+
+<span class="code-tag">&lt;listener&gt;</span>
+    <span class="code-tag">&lt;listener-class&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="code-tag">&lt;/listener-class&gt;</span>
+<span class="code-tag">&lt;/listener&gt;</span></pre>
+</div></div>
 
 <p>For those using JSP, you may also configuration the tag library as:</p>
 
-An error occurred: http://svn.opensymphony.com/svn/webwork/trunk/webwork/webapps/starter/src/webapp/WEB-INF/web.xml?content-type=text%2Fplain&rev=HEAD. The system administrator has been notified.
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&lt;!--
+    This typically isn't required, as the taglib is included in webwork.jar.
+    If you really need a taglib configuration within web.xml, copy webwork/src/java/META-INF/taglib.tld
+    to the WEB-INF directory as webwork.tld.
+ --&gt;
+<span class="code-tag">&lt;!--taglib&gt;</span>
+    <span class="code-tag">&lt;taglib-uri&gt;</span>webwork<span class="code-tag">&lt;/taglib-uri&gt;</span>
+    <span class="code-tag">&lt;taglib-location&gt;</span>/WEB-INF/webwork.tld<span class="code-tag">&lt;/taglib-location&gt;</span>
+<span class="code-tag">&lt;/taglib--&gt;</span></pre>
+</div></div>
 
 <table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>In case you want to use <a href="http://www.opensymphony.com/sitemesh" title="Visit page outside Confluence">SiteMesh</a> for page decoration, you should add some <a href="SiteMesh.html" title="SiteMesh">additional filters</a></td></tr></table>
 

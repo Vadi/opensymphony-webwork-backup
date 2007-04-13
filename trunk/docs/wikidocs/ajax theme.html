@@ -37,7 +37,18 @@
 <h1><a name="ajaxtheme-ExtendingtheXHTMLTheme"></a>Extending the XHTML Theme</h1>
 
 <p>The wrapping behavior provided by this theme is almost exactly like that provided by the <a href="xhtml theme.html" title="xhtml theme">xhtml theme</a>. The only difference is that the <b>controlheader.ftl</b> template is slightly different:</p>
-An error occurred: http://svn.opensymphony.com/svn/webwork/src/java/template/ajax/controlheader.ftl. The system administrator has been notified.
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;#--include <span class="code-quote">"/${parameters.templateDir}/xhtml/controlheader-core.ftl"</span> /--&gt;</span>
+<span class="code-tag">&lt;#if parameters.form?exists &amp;&amp; parameters.form.validate?default(false) == true&gt;</span>
+	<span class="code-tag">&lt;#-- can't mutate the data model in freemarker --&gt;</span>
+    <span class="code-tag">&lt;#if parameters.onblur?exists&gt;</span>
+        ${tag.addParameter('onblur', <span class="code-quote">"validate(this);${parameters.onblur}"</span>)}
+    <span class="code-tag">&lt;#else&gt;</span>
+        ${tag.addParameter('onblur', <span class="code-quote">"validate(this);"</span>)}
+    <span class="code-tag">&lt;/#if&gt;</span>
+<span class="code-tag">&lt;/#if&gt;</span>
+<span class="code-tag">&lt;#include <span class="code-quote">"/${parameters.templateDir}/${themeProperties.parent}/controlheader.ftl"</span> /&gt;</span></pre>
+</div></div>
 <p>This provides for <a href="AJAX Client Side Validation.html" title="AJAX Client Side Validation">AJAX Client Side Validation</a> by checking if the <em>validate</em> attribute is set to true. If it is, on each <b>onblur</b> event for HTML <a href="Tags.html" title="Tags">Tags</a>, a validation request is made. Some people don't like the onblur behavior and would rather a more advanced timer (say, 200ms) be kicked off after every keystroke. You can override this template and provide that type of behavior if you would like.</p>
 
 <h1><a name="ajaxtheme-SpecialNotes"></a>Special Notes</h1>

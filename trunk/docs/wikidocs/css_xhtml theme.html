@@ -23,7 +23,12 @@
 <h1><a name="css_xhtmltheme-WrappingtheSimpleTheme"></a>Wrapping the Simple Theme</h1>
 
 <p>The css_xhtml theme uses the <b>wrapping</b> technique mentioned in <a href="Extending Themes.html" title="Extending Themes">Extending Themes</a>, also done by the <a href="xhtml theme.html" title="xhtml theme">xhtml theme</a>. As such, it is important to understand how the HTML tags are wrapped by a standard header and footer. For example, take a look at the <a href="textfield.html" title="textfield">textfield</a> template, <b>text.ftl</b>:</p>
-An error occurred: http://svn.opensymphony.com/svn/webwork/src/java/template/css_xhtml/text.ftl. The system administrator has been notified.
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;#--include <span class="code-quote">"/${parameters.templateDir}/css_xhtml/controlheader.ftl"</span> / --&gt;</span>
+<span class="code-tag">&lt;#include <span class="code-quote">"/${parameters.templateDir}/${parameters.theme}/controlheader.ftl"</span> /&gt;</span>
+<span class="code-tag">&lt;#include <span class="code-quote">"/${parameters.templateDir}/simple/text.ftl"</span> /&gt;</span>
+<span class="code-tag">&lt;#include <span class="code-quote">"/${parameters.templateDir}/css_xhtml/controlfooter.ftl"</span> /&gt;</span></pre>
+</div></div>
 <p>&nbsp;</p>
 
 <p>As you can see, the <b>controlheader.ftl</b> and <b>controlfooter.ftl</b> templates are wrapped around the simple template.</p>
@@ -31,7 +36,15 @@ An error occurred: http://svn.opensymphony.com/svn/webwork/src/java/template/css
 <h2><a name="css_xhtmltheme-CSSXHTMLThemeHeader"></a>CSS XHTML Theme Header</h2>
 
 <p>Now let's look at the controlheader.ftl:</p>
-An error occurred: http://svn.opensymphony.com/svn/webwork/src/java/template/css_xhtml/controlheader.ftl. The system administrator has been notified.
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;#include <span class="code-quote">"/${parameters.templateDir}/css_xhtml/controlheader-core.ftl"</span>&gt;</span>
+<span class="code-tag">&lt;#if parameters.labelposition?default(<span class="code-quote">"top"</span>) == 'top'&gt;</span>
+<span class="code-tag">&lt;div &lt;#rt/&gt;</span>
+<span class="code-tag">&lt;#else&gt;</span>
+<span class="code-tag">&lt;span &lt;#rt/&gt;</span>
+<span class="code-tag">&lt;/#if&gt;</span>
+<span class="code-tag">&lt;#if parameters.id?exists&gt;</span>id=<span class="code-quote">"wwctrl_${parameters.id}"</span><span class="code-tag">&lt;#rt/&gt;</span><span class="code-tag">&lt;/#if&gt;</span> class=<span class="code-quote">"wwctrl"</span>&gt;</pre>
+</div></div>
 <p>&nbsp;</p>
 
 <p>The header used by the HTML tags in the css_xhtml theme is somewhat complex. Unlike the <a href="xhtml theme.html" title="xhtml theme">xhtml theme</a>, this theme does not support the <em>labelposition</em> attribute. Instead, your CSS rules can define how the layout is done.</p>
@@ -41,7 +54,16 @@ An error occurred: http://svn.opensymphony.com/svn/webwork/src/java/template/css
 <h2><a name="css_xhtmltheme-CSSXHTMLThemeFooter"></a>CSS XHTML Theme Footer</h2>
 
 <p>And the controlfooter.ftl contents:</p>
-An error occurred: http://svn.opensymphony.com/svn/webwork/src/java/template/css_xhtml/controlfooter.ftl. The system administrator has been notified.
+<div class="code"><div class="codeContent">
+<pre class="code-xml">${parameters.after?if_exists}<span class="code-tag">&lt;#t/&gt;</span>
+    <span class="code-tag">&lt;#lt/&gt;</span>
+<span class="code-tag">&lt;#if parameters.labelposition?default(<span class="code-quote">"top"</span>) == 'top'&gt;</span>
+<span class="code-tag">&lt;/div&gt;</span> <span class="code-tag">&lt;#rt/&gt;</span>
+<span class="code-tag">&lt;#else&gt;</span>
+<span class="code-tag">&lt;/span&gt;</span> <span class="code-tag">&lt;#rt/&gt;</span>
+<span class="code-tag">&lt;/#if&gt;</span>
+<span class="code-tag">&lt;/div&gt;</span></pre>
+</div></div>
 <p>&nbsp;</p>
 
 <h1><a name="css_xhtmltheme-SpecialNotes"></a>Special Notes</h1>

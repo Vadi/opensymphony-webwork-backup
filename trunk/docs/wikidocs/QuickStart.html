@@ -118,7 +118,73 @@
 <h2><a name="QuickStart-Usingthequickstart.xmlFile"></a>Using the quickstart.xml File</h2>
 
 <p>Sometimes the command line options still aren't enough. For whatever reasons, port 8080 might not be enough, or you may need to extend other configurations. Or perhaps your libs are not in your project but instead are in some other directory (very common if you use Maven to build your project). To help out, QuickStart provides a configuration file that let's you tweak how the deployment happens and how it is configured as much as you'd like. Consider the sample quickstart.xml file:</p>
-An error occurred: http://svn.opensymphony.com/svn/webwork/webapps/showcase/quickstart.xml. The system administrator has been notified.
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;configuration&gt;</span>
+    &lt;!--
+    QuickStart can be used to extend other QuickStart configurations.
+    This is great for applications that have multiple <span class="code-quote">"editions"</span> and
+    extend upon a base webapp or evven just a base set of classes.
+    --&gt;
+    <span class="code-tag"><span class="code-comment">&lt;!--&lt;extendsConfig&gt;</span>../path/to/quickstart.xml<span class="code-tag">&lt;/extendsConfig&gt;</span>--&gt;</span>
+
+    &lt;!--
+    QuickStart supports reading your IDEA module configuration and
+    using the libraries there. This is especially useful for maven
+    users who don't have a single directory in their project that
+    contains all the libraries they need.
+    --&gt;
+    <span class="code-tag"><span class="code-comment">&lt;!--&lt;ideaConfig&gt;</span>ShowCase.iml<span class="code-tag">&lt;/ideaConfig&gt;</span>--&gt;</span>
+
+    <span class="code-tag"><span class="code-comment">&lt;!-- The context in which to deploy the web application --&gt;</span></span>
+    <span class="code-tag">&lt;context&gt;</span>/showcase<span class="code-tag">&lt;/context&gt;</span>
+
+    <span class="code-tag"><span class="code-comment">&lt;!-- The port in which to deploy the web application --&gt;</span></span>
+    <span class="code-tag">&lt;port&gt;</span>8080<span class="code-tag">&lt;/port&gt;</span>
+
+    &lt;!--
+    The libs directories can be a jar, a directory of jars, or even
+    a directory of directories (searched recursively)
+    --&gt;
+    <span class="code-tag">&lt;libs&gt;</span>
+        <span class="code-tag">&lt;dir&gt;</span>../../lib<span class="code-tag">&lt;/dir&gt;</span>
+    <span class="code-tag">&lt;/libs&gt;</span>
+
+    &lt;!--
+    Optional: the location where your source files are. If this is
+    not included, the auto-recompiling feature of QuickStart will
+    not be enabled. You may wish to do this anyway, as this feature
+    has been known to cause strange side effects. If you don't
+    specify your sources, you must specify where your classes are by
+    using the classDirs and libs elements
+    --&gt;
+    <span class="code-tag">&lt;sources&gt;</span>
+        <span class="code-tag">&lt;dir&gt;</span>src/java<span class="code-tag">&lt;/dir&gt;</span>
+    <span class="code-tag">&lt;/sources&gt;</span>
+
+    &lt;!--
+    The classDirs directories can be a jar or a directory of classes.
+    The WEB-INF/classes directory for each webDir (below) will automatically
+    be added if it exists.
+
+    <span class="code-tag">&lt;classDirs&gt;</span>
+        <span class="code-tag">&lt;dir&gt;</span>src/webapp/WEB-INF/classes<span class="code-tag">&lt;/dir&gt;</span>
+    <span class="code-tag">&lt;/classDirs&gt;</span>
+    --&gt;
+
+    &lt;!--
+    You can specify one or more directories where your webapp files
+    are located. This is useful if you have your project split up in
+    unique ways. You can also specify the path that the directory is
+    mapped to, relative to the context.
+    --&gt;
+    <span class="code-tag">&lt;webDirs&gt;</span>
+        <span class="code-tag">&lt;webDir&gt;</span>
+            <span class="code-tag">&lt;path&gt;</span>/<span class="code-tag">&lt;/path&gt;</span>
+            <span class="code-tag">&lt;dir&gt;</span>src/webapp<span class="code-tag">&lt;/dir&gt;</span>
+        <span class="code-tag">&lt;/webDir&gt;</span>
+    <span class="code-tag">&lt;/webDirs&gt;</span>
+<span class="code-tag">&lt;/configuration&gt;</span></pre>
+</div></div>
 <p>&nbsp;</p>
 
 <p>If you use this deployment technique, <b>you must remember</b> that quickstart.xml must be in the same working directory in which you execute the <b>java &#45;jar webwork.jar quickstart</b> command. You don't need to pass any additional command line arguments to QuickStart, but you must have this file in your working directory.</p>
