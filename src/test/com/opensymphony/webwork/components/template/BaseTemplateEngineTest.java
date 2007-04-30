@@ -96,6 +96,56 @@ public class BaseTemplateEngineTest extends TestCase {
 	}
 	
 	
+	private boolean wentThroughWebAppPath = false;
+	public void testGetPropsThroughWebAppResourceByPassingClassPathResource() throws Exception {
+		
+		final MockServletContext mockServletContext = new MockServletContext() {
+			public InputStream getResourceAsStream(String resource) {
+				if ("/template/myTheme/dummy.properties".equals(resource)) {
+					wentThroughWebAppPath = true;
+					return ClassLoaderUtil.getResourceAsStream("com/opensymphony/webwork/components/template/dummy.properties", BaseTemplateEngineTest.class);
+				}
+				return null;
+			}
+		};
+		
+		JspSupportServlet.jspSupportServlet = new JspSupportServlet() {
+			public ServletContext getServletContext() {
+				return mockServletContext;
+			}
+		};
+		
+		wentThroughWebAppPath = false;
+		
+		Template template = new Template("template", "myTheme", "myComponent");
+		TemplateEngine templateEngine = new InnerBaseTemplateEngine("dummy.properties");
+		Map propertiesMap = templateEngine.getThemeProps(template);
+		
+		assertNotNull(propertiesMap);
+		assertTrue(wentThroughWebAppPath);
+	}
+	
+	public void testGetPropsThroughClassPathResourceByPassingWebAppResource() throws Exception {
+		JspSupportServlet.jspSupportServlet = null;
+		wentThroughWebAppPath = false;
+	
+		Template template = new Template("template", "myTheme", "myComponent");
+		TemplateEngine templateEngine = new InnerBaseTemplateEngine("dummy.properties");
+		Map propertiesMap = templateEngine.getThemeProps(template);
+		
+		assertNotNull(propertiesMap);
+		assertFalse(wentThroughWebAppPath);
+	}
+	
+	protected void setUp() throws Exception {
+	}
+	
+	protected void tearDown() throws Exception {
+		JspSupportServlet.jspSupportServlet = null;
+		wentThroughWebAppPath = false;
+	}
+	
+	
 	public class InnerBaseTemplateEngine extends BaseTemplateEngine {
 		
 		private String themePropertiesFileName;

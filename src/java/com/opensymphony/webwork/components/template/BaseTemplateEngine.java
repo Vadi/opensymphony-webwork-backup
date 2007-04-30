@@ -54,11 +54,6 @@ public abstract class BaseTemplateEngine implements TemplateEngine {
                 }
                 
                 if (is == null) {
-                	// if its not in filesystem. let's try the classpath
-                	is = ClassLoaderUtil.getResourceAsStream(propName, getClass());
-                }
-                
-                if (is == null) {
                 	// let's try webapp's context
                 	if (JspSupportServlet.jspSupportServlet != null) {
                 		String _propName = propName.trim();
@@ -68,6 +63,13 @@ public abstract class BaseTemplateEngine implements TemplateEngine {
                 		is = JspSupportServlet.jspSupportServlet.getServletContext().getResourceAsStream(_propName);
                 	}
                 }
+                
+                if (is == null) {
+                	// if its not in filesystem. let's try the classpath
+                	is = ClassLoaderUtil.getResourceAsStream(propName, getClass());
+                }
+                
+                
                 
                 props = new Properties();
                 
