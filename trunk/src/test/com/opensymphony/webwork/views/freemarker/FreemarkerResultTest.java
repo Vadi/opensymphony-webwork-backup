@@ -67,7 +67,7 @@ public class FreemarkerResultTest extends WebWorkTestCase {
 			}
 		};
 		
-		result.setWriteCompleted(true);
+		result.setBufferOutput(true);
 		result.doExecute("/test.ftl", new MockActionInvocation());
 		
 		assertEquals(writer.getBuffer().toString(), "testing");
@@ -113,7 +113,7 @@ public class FreemarkerResultTest extends WebWorkTestCase {
 			}
 		};
 		
-		result.setWriteCompleted(false);
+		result.setBufferOutput(false);
 		result.doExecute("/test.ftl", new MockActionInvocation());
 		
 		assertEquals(writer.getBuffer().toString(), "testing");
