@@ -48,7 +48,7 @@ import java.util.Locale;
  * </ul>
  * 
  * <p>
- * <b>NOTE (writeComplete attribute):</b><br/>
+ * <b>NOTE (bufferOutput attribute):</b><br/>
  * Allow customization of either (when true) to write result to response
  * stream/writer only when everything is ok (without exception) or otherwise.
  * This is usefull when using Freemarker's "rethrow" exception handler, where we
@@ -72,7 +72,7 @@ import java.util.Locale;
  * 
  * <li><b>contentType</b> - defaults to "text/html" unless specified.</li>
  * 
- * <li><b>writeComplete</b> - default to false. If true, will only write to
+ * <li><b>bufferOutput</b> - default to false. If true, will only write to
  * the response if the whole freemarker page could be rendered ok. </li>
  * 
  * </ul>
@@ -97,7 +97,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
     protected Configuration configuration;
     protected ObjectWrapper wrapper;
 
-    protected boolean writeCompleted = false;
+    protected boolean bufferOutput = false;
     
     /*
      * webwork results are constructed for each result execeution
@@ -120,8 +120,8 @@ public class FreemarkerResult extends WebWorkResultSupport {
         return pContentType;
     }
     
-    public void setWriteCompleted(boolean writeCompleted) {
-    	this.writeCompleted = writeCompleted;
+    public void setBufferOutput(boolean bufferedOutput) {
+    	this.bufferOutput = bufferedOutput;
     }
     
     /**
@@ -134,8 +134,8 @@ public class FreemarkerResult extends WebWorkResultSupport {
      * 
      * @return boolean
      */
-    public boolean getWriteCompleted() {
-    	return writeCompleted;
+    public boolean getBufferOutput() {
+    	return bufferOutput;
     }
     
 
@@ -203,7 +203,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
                     // freemarker's "rethrow" exception handler to take over but its too late since 
                     // part of the response has already been 'commited' to the stream/writer.
                 	if (configuration.getTemplateExceptionHandler() == TemplateExceptionHandler.RETHROW_HANDLER || 
-                			getWriteCompleted()) {
+                			getBufferOutput()) {
                 		CharArrayWriter tempBuffer = new CharArrayWriter();
                 		template.process(model, tempBuffer);
                 		tempBuffer.flush();
