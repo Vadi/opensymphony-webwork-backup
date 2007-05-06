@@ -28,8 +28,8 @@ import java.util.Locale;
 
 /**
  * <!-- START SNIPPET: description -->
- *
- * Renders a view using the Freemarker template engine.  Alternatively, the
+ * 
+ * Renders a view using the Freemarker template engine. Alternatively, the
  * {@link com.opensymphony.webwork.dispatcher.ServletDispatcherResult
  * dispatcher} result type can be used in conjunction Webwork's {@link
  * FreemarkerServlet}.
@@ -37,40 +37,56 @@ import java.util.Locale;
  * The FreemarkarManager class configures the template loaders so that the
  * template location can be either
  * </p>
- *
+ * 
  * <ul>
- *
+ * 
  * <li>relative to the web root folder. eg <code>/WEB-INF/views/home.ftl</code>
  * </li>
  * 
  * <li>a classpath resuorce. eg <code>com/company/web/views/home.ftl</code></li>
- *
+ * 
  * </ul>
- *
+ * 
+ * <p>
+ * <b>NOTE (writeComplete attribute):</b><br/>
+ * Allow customization of either (when true) to write result to response
+ * stream/writer only when everything is ok (without exception) or otherwise.
+ * This is usefull when using Freemarker's "rethrow" exception handler, where we
+ * don't want partial of the page to be writen and then exception occurred and
+ * we have freemarker's "rethrow" exception handler to take over but its too late
+ * since part of the response has already been 'commited' to the stream/writer.
+ * </p>
+ * 
  * <!-- END SNIPPET: description -->
- *
+ * 
  * <b>This result type takes the following parameters:</b>
- *
+ * 
  * <!-- START SNIPPET: params -->
- *
+ * 
  * <ul>
- *
+ * 
  * <li><b>location (default)</b> - the location of the template to process.</li>
- *
- * <li><b>parse</b> - true by default. If set to false, the location param will 
- * not be parsed for Ognl expressions.</li>
- *
+ * 
+ * <li><b>parse</b> - true by default. If set to false, the location param
+ * will not be parsed for Ognl expressions.</li>
+ * 
  * <li><b>contentType</b> - defaults to "text/html" unless specified.</li>
- *
+ * 
+ * <li><b>writeComplete</b> - default to false. If true, will only write to
+ * the response if the whole freemarker page could be rendered ok. </li>
+ * 
  * </ul>
- *
+ * 
  * <!-- END SNIPPET: params -->
- *
+ * 
  * <b>Example:</b>
- *
- * <pre><!-- START SNIPPET: example -->
- * &lt;result name="success" type="freemarker"&gt;foo.ftl&lt;/result&gt;
- * <!-- END SNIPPET: example --></pre>
+ * 
+ * <pre>
+ * &lt;!-- START SNIPPET: example --&gt;
+ *  &lt;result name=&quot;success&quot; type=&quot;freemarker&quot;&gt;foo.ftl&lt;/result&gt;
+ *  &lt;!-- END SNIPPET: example --&gt;
+ * </pre>
+ * 
  * @author CameronBraid
  */
 public class FreemarkerResult extends WebWorkResultSupport {
@@ -112,7 +128,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
      * Allow customization of either (when true) to write result to response stream/writer
      * only when everything is ok (without exception) or otherwise. This is usefull 
      * when using Freemarker's "rethrow" exception handler, where we don't want
-     * partial of the page to be writen and then exception occurred and we get 
+     * partial of the page to be writen and then exception occurred and we have 
      * freemarker's "rethrow" exception handler to take over but its too late since 
      * part of the response has already been 'commited' to the stream/writer.
      * 
@@ -183,7 +199,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
                 	// Allow customization of either (when true) to write result to response stream/writer
                     // only when everything is ok (without exception) or otherwise. This is usefull 
                     // when using Freemarker's "rethrow" exception handler, where we don't want
-                    // partial of the page to be writen and then exception occurred and we get 
+                    // partial of the page to be writen and then exception occurred and we have 
                     // freemarker's "rethrow" exception handler to take over but its too late since 
                     // part of the response has already been 'commited' to the stream/writer.
                 	if (configuration.getTemplateExceptionHandler() == TemplateExceptionHandler.RETHROW_HANDLER || 
