@@ -19,6 +19,8 @@ import freemarker.template.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Locale;
@@ -79,6 +81,8 @@ public class FreemarkerResult extends WebWorkResultSupport {
     protected Configuration configuration;
     protected ObjectWrapper wrapper;
 
+    protected boolean writeCompleted = false;
+    
     /*
      * webwork results are constructed for each result execeution
      *
@@ -99,6 +103,25 @@ public class FreemarkerResult extends WebWorkResultSupport {
     public String getContentType() {
         return pContentType;
     }
+    
+    public void setWriteCompleted(boolean writeCompleted) {
+    	this.writeCompleted = writeCompleted;
+    }
+    
+    /**
+     * Allow customization of either (when true) to write result to response stream/writer
+     * only when everything is ok (without exception) or otherwise. This is usefull 
+     * when using Freemarker's "rethrow" exception handler, where we don't want
+     * partial of the page to be writen and then exception occurred and we get 
+     * freemarker's "rethrow" exception handler to take over but its too late since 
+     * part of the response has already been 'commited' to the stream/writer.
+     * 
+     * @return boolean
+     */
+    public boolean getWriteCompleted() {
+    	return writeCompleted;
+    }
+    
 
     /**
      * Execute this result, using the specified template location.
@@ -114,7 +137,7 @@ public class FreemarkerResult extends WebWorkResultSupport {
         this.invocation = invocation;
         this.configuration = getConfiguration();
         this.wrapper = getObjectWrapper();
-
+        
         if (!location.startsWith("/")) {
             ActionContext ctx = invocation.getInvocationContext();
             HttpServletRequest req = (HttpServletRequest) ctx.get(ServletActionContext.HTTP_REQUEST);
@@ -140,17 +163,40 @@ public class FreemarkerResult extends WebWorkResultSupport {
                     // This can happen on some application servers such as WebLogic 8.1
                     useOutputStream = true;
                 }
-                if (useOutputStream) {
+                if (useOutputStream) { 
+                	// If we are here, we don't have the issue of WW-1458, since 
+                	// we are already writing through a temporary buffer.
+                	
                     // Use a StringWriter as a buffer to write the template output to
                     writer = new java.io.StringWriter();
                     template.process(model, writer);
+                    writer.flush();
+                    
                     // Then write the contents of the writer to the OutputStream
                     java.io.OutputStream os = ServletActionContext.getResponse().getOutputStream();
                     os.write(writer.toString().getBytes());
                 }
                 else {
                     // Process the template with the normal writer since it was available
-                    template.process(model, writer);
+                	
+                	// WW-1458
+                	// Allow customization of either (when true) to write result to response stream/writer
+                    // only when everything is ok (without exception) or otherwise. This is usefull 
+                    // when using Freemarker's "rethrow" exception handler, where we don't want
+                    // partial of the page to be writen and then exception occurred and we get 
+                    // freemarker's "rethrow" exception handler to take over but its too late since 
+                    // part of the response has already been 'commited' to the stream/writer.
+                	if (configuration.getTemplateExceptionHandler() == TemplateExceptionHandler.RETHROW_HANDLER || 
+                			getWriteCompleted()) {
+                		CharArrayWriter tempBuffer = new CharArrayWriter();
+                		template.process(model, tempBuffer);
+                		tempBuffer.flush();
+                		
+                		tempBuffer.writeTo(writer);
+                	}
+                	else {
+                		template.process(model, writer);
+                	}
                 }
             } finally {
                 // Give subclasses a chance to hook into postprocessing
