@@ -11,7 +11,10 @@
 
 <body>
     <h1>Fileupload sample</h1>
-	<p>There is a file upload limit of 1048576 bytes (approximately 2MB)</p>
+	<ul>
+		<li>There is a file upload limit of 1048576 bytes (approximately 2MB)</li>
+		<li>The filename must not be greater than 15 characters (eg. readme.txt is 10 characters)</li>
+	</ul>
 	
 	<ww:fielderror />
 	

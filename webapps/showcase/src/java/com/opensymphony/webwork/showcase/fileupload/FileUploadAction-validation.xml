@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC 
+	"-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+	
+<validators>
+	<field name="uploadFileName">
+		<field-validator type="stringlength">
+			<param name="maxLength">15</param>
+			<param name="trim">true</param>
+			<message>File Name is toooo long</message>
+		</field-validator>
+	</field>
+</validators>
