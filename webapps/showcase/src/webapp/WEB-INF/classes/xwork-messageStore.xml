@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xwork PUBLIC 
+	"-//OpenSymphony Group//XWork 1.1.1//EN" 
+	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+<xwork>
+	
+	<package name="messageStore" extends="webwork-default" namespace="/messageStore">
+		<action name="showForm" class="com.opensymphony.webwork.showcase.messageStore.ShowFormAction">
+			<interceptor-ref name="store">
+				<param name="operationMode">RETRIEVE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result>/messageStore/showForm.jsp</result>
+			<result name="input">/messageStore/showForm.jsp</result>
+		</action>
+		<action name="submitForm" class="com.opensymphony.webwork.showcase.messageStore.ShowFormAction">
+			<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result type="redirect">/messageStore/showForm.action</result>
+			<result name="input" type="redirect">/messageStore/showForm.action</result>
+		</action>
+	</package>
+</xwork>	
+	
+	
