@@ -20,6 +20,7 @@ import com.opensymphony.xwork.config.RuntimeConfiguration;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import com.opensymphony.xwork.config.entities.InterceptorMapping;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
@@ -131,7 +132,7 @@ public class FormTagTest extends AbstractUITagTest {
     					return actionConfig;
     				}
     				public Map getActionConfigs() {
-    					return null;
+    					return Collections.EMPTY_MAP;
     				}
     			};
     		}
@@ -214,7 +215,7 @@ public class FormTagTest extends AbstractUITagTest {
     					return actionConfig;
     				}
     				public Map getActionConfigs() {
-    					return null;
+    					return Collections.EMPTY_MAP;
     				}
     			};
     		}

@@ -19,6 +19,7 @@ import com.opensymphony.webwork.util.ObjectFactoryDestroyable;
 import com.opensymphony.webwork.util.ObjectFactoryInitializable;
 import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.ConfigurationException;
+import com.opensymphony.xwork.config.ConfigurationManager;
 import com.opensymphony.xwork.interceptor.component.ComponentInterceptor;
 import com.opensymphony.xwork.interceptor.component.ComponentManager;
 import com.opensymphony.xwork.util.*;
@@ -83,6 +84,7 @@ public class DispatcherUtils {
     }
 
     public void cleanup() {
+    	// clean up ObjectFactory
         ObjectFactory objectFactory = ObjectFactory.getObjectFactory();
         if (objectFactory == null) {
             LOG.warn("Object Factory is null, something is seriously wrong, no clean up will be performed");
@@ -96,6 +98,9 @@ public class DispatcherUtils {
                 LOG.error("exception occurred while destroying ObjectFactory ["+objectFactory+"]", e);
             }
         }
+        
+        // clean up ConfigurationManager
+        ConfigurationManager.destroyConfiguration();
     }
 
     protected void init(ServletContext servletContext) {
