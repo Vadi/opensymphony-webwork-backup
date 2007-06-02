@@ -4,7 +4,15 @@
 	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
 	
 <validators>
+	<validator type="expression">
+		<param name="expression"><![CDATA[persons.{#this.name.length() > 4}.{? #this == false }.size() <= 0 ]]></param>
+		<message>name needs to be 4 chars long</message>
+	</validator>
 	<field name="persons">
+		<field-validator type="fieldexpression">
+			<param name="expression"><![CDATA[persons.{#this.name.length() > 4}.{? #this == false }.size() <= 0 ]]></param>
+			<message>name needs to be 4 chars long</message>
+		</field-validator>
 		<field-validator type="collection">
 			<param name="property">persons.name</param>
 			<param name="validatorRef">requiredstring</param>
