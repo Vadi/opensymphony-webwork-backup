@@ -71,6 +71,9 @@
 
         <!--  i18n  -->
         <li><ww:url id="url" action="changeLocale" namespace="/i18n"/><ww:a href="%{url}">I18N Example</ww:a></li>
+        
+        <!-- MessageStoreInterceptor (capture error/field/action error/messages across request -->
+        <li><ww:url id="url" action="showForm" namespace="/messageStore" /><ww:a href="%{url}">Message Store Eample</ww:a></li>
 
     </ul>
 </p>
