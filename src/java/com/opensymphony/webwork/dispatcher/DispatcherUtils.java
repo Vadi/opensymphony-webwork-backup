@@ -84,8 +84,29 @@ public class DispatcherUtils {
     }
 
     public void cleanup() {
-    	// clean up ObjectFactory
         ObjectFactory objectFactory = ObjectFactory.getObjectFactory();
+        
+    	// inform ShutDownListener, we are shuting down
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_DISPATCHER_SHUTDOWN_LISTENER)) {
+        	String[] shutdownListenerClassNames = Configuration.getString(WebWorkConstants.WEBWORK_DISPATCHER_SHUTDOWN_LISTENER).split(",");
+        	for (int a=0; a<shutdownListenerClassNames.length; a++) {
+        		String shutdownListenerClassName = shutdownListenerClassNames[a].trim();
+        		try {
+        			ShutDownListener shutDownListener = (ShutDownListener) objectFactory.buildBean(shutdownListenerClassName, Collections.EMPTY_MAP);
+        			if (LOG.isDebugEnabled()) {
+        				LOG.debug("notifying shutdown listener ["+shutDownListener+"]");
+        			}
+        			shutDownListener.shutdown();
+        		}
+        		catch(Exception e) { // we might also get ClassCastException
+        			LOG.warn("shutdown listener ["+shutdownListenerClassName+"] failed to be initialized, it will be ignored", e);
+        		}
+        	}
+        }
+    	
+    	
+    	
+    	// clean up ObjectFactory
         if (objectFactory == null) {
             LOG.warn("Object Factory is null, something is seriously wrong, no clean up will be performed");
         }
@@ -107,6 +128,8 @@ public class DispatcherUtils {
         boolean reloadi18n = Boolean.valueOf((String) Configuration.get(WebWorkConstants.WEBWORK_I18N_RELOAD)).booleanValue();
         LocalizedTextUtil.setReloadBundles(reloadi18n);
 
+        // initialize ObjectFactory
+        ObjectFactory objectFactory = null;
         if (Configuration.isSet(WebWorkConstants.WEBWORK_OBJECTFACTORY)) {
             String className = (String) Configuration.get(WebWorkConstants.WEBWORK_OBJECTFACTORY);
             if (className.equals("spring")) {
@@ -121,7 +144,7 @@ public class DispatcherUtils {
 
             try {
                 Class clazz = ClassLoaderUtil.loadClass(className, DispatcherUtils.class);
-                ObjectFactory objectFactory = (ObjectFactory) clazz.newInstance();
+                objectFactory = (ObjectFactory) clazz.newInstance();
                 if (objectFactory instanceof ObjectFactoryInitializable) {
                     ((ObjectFactoryInitializable) objectFactory).init(servletContext);
                 }
@@ -131,6 +154,8 @@ public class DispatcherUtils {
             }
         }
 
+        
+        // Intialize ObjecTypeDeterminer
         if (Configuration.isSet(WebWorkConstants.WEBWORK_OBJECTTYPEDETERMINER)) {
             String className = (String) Configuration.get(WebWorkConstants.WEBWORK_OBJECTTYPEDETERMINER);
             if (className.equals("tiger")) {
@@ -176,6 +201,24 @@ public class DispatcherUtils {
             paramsWorkaroundEnabled = "true".equals(Configuration.get(WebWorkConstants.WEBWORK_DISPATCHER_PARAMETERSWORKAROUND));
         } else {
             LOG.debug("Parameter access work-around disabled.");
+        }
+        
+        // inform startup listeners
+        if (Configuration.isSet(WebWorkConstants.WEBWORK_DISPATCHER_START_UP_LISTENER)) {
+        	String[] startupListenerClassNames = Configuration.getString(WebWorkConstants.WEBWORK_DISPATCHER_START_UP_LISTENER).split(",");
+        	for (int a=0; a<startupListenerClassNames.length; a++) {
+        		String startupListenerClassName = startupListenerClassNames[a].trim();
+        		try {
+        			StartUpListener startUpListener = (StartUpListener) objectFactory.buildBean(startupListenerClassName, Collections.EMPTY_MAP);
+        			if (LOG.isDebugEnabled()) {
+        				LOG.debug("notifying start up listener ["+startUpListener+"]");
+        			}
+        			startUpListener.startup();
+        		}
+        		catch(Exception e) { // we might also get ClassCastException
+        			LOG.warn("shutdown listener ["+startupListenerClassName+"] failed to be initialized, it will be ignored", e);
+        		}
+        	}
         }
 
     }
