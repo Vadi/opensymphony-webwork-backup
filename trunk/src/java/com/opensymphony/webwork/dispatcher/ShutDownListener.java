@@ -5,6 +5,8 @@
 package com.opensymphony.webwork.dispatcher;
 
 /**
+ * <!-- START SNIPPET: javadoc -->
+ * 
  * An interface to be implemented if require to get informed when WebWork
  * shuts down, It's being hooked up through {@link FilterDispatcher#destroy()} 
  * -> {@link DispatcherUtils#cleanup()} methods calls.
@@ -22,9 +24,13 @@ package com.opensymphony.webwork.dispatcher;
  *  It must implements this interface, else a ClassCastException will be registered in the log.
  *  Multiple class names could be specified, but they must be comma separated.
  * 
+ * <!-- END SNIPPET: javadoc -->
+ * 
  * @author tmjee
  * @version $Date$ $Id$
  */
+// START SNIPPET: code
 public interface ShutDownListener {
 	void shutdown();
 }
+// END SNIPPET: code

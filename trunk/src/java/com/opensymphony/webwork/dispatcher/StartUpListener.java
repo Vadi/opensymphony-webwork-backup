@@ -29,6 +29,8 @@ package com.opensymphony.webwork.dispatcher;
  * @author tmjee
  * @version $Date$ $Id$
  */
+// START SNIPPET: code
 public interface StartUpListener {
 	void startup();
 }
+// END SNIPPET: code
