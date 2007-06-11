@@ -68,4 +68,6 @@ public final class WebWorkConstants {
     
     public static final String WEBWORK_FREEMARKER_SITEMESH_APPLY_DECORATOR_TRANSFORM = "webwork.freemarker.sitemesh.applyDecoratorTransform";
 
+    public static final String WEBWORK_DISPATCHER_START_UP_LISTENER = "webwork.dispatcher.startUpListener";
+    public static final String WEBWORK_DISPATCHER_SHUTDOWN_LISTENER = "webwork.dispatcher.shutDownListener";
 }
