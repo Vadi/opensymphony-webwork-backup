@@ -1,6 +1,8 @@
 package com.opensymphony.webwork.showcase.exception;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /**
  * CreateException.
@@ -10,7 +12,7 @@ import org.apache.log4j.Logger;
 
 public class CreateException extends StorageException {
 
-    private static final Logger log = Logger.getLogger(CreateException.class);
+    private static final Log log = LogFactory.getLog(CreateException.class);
 
     public CreateException(String message) {
         super(message);

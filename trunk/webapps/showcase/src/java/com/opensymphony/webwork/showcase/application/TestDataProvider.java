@@ -55,8 +55,9 @@ import com.opensymphony.webwork.showcase.dao.SkillDao;
 import com.opensymphony.webwork.showcase.exception.StorageException;
 import com.opensymphony.webwork.showcase.model.Employee;
 import com.opensymphony.webwork.showcase.model.Skill;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -66,11 +67,12 @@ import java.util.Arrays;
  * TestDataProvider.
  *
  * @author <a href="mailto:gielen@it-neering.net">Rene Gielen</a>
+ * @author tmjee
  */
 
 public class TestDataProvider implements Serializable, InitializingBean {
 
-    private static final Logger log = Logger.getLogger(TestDataProvider.class);
+    private static final Log log = LogFactory.getLog(TestDataProvider.class);
 
     public static final String[] POSITIONS = {
             "Developer",
