@@ -3,6 +3,7 @@
     <jiraId>10030</jiraId>
     <jiraName>WW</jiraName>
     <confluenceName>WW</confluenceName>
+    <svn>true</svn>
 
     <forums>
         <usersId>1</usersId>
