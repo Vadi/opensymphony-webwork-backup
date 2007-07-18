@@ -589,11 +589,13 @@ public abstract class UIBean extends Component {
 
     public boolean end(Writer writer, String body) {
         evaluateParams();
+        Template _template = null;
         try {
+            _template = buildTemplateName(template, getDefaultTemplate());
             super.end(writer, body, false);
-            mergeTemplate(writer, buildTemplateName(template, getDefaultTemplate()));
+            mergeTemplate(writer, _template);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("an exception occurred while merging themplate ["+_template+"]", e);
         }
         finally {
         	popComponentStack();
