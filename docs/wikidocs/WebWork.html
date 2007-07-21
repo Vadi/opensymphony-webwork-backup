@@ -19,7 +19,7 @@ Welcome to the <b>WebWork</b> wiki. WebWork's official homepage is <a href="http
 
 <ul class="alternate" type="square">
 	<li><a href="WebWork Overview.html" title="WebWork Overview">Features</a></li>
-	<li><a href="WebWork 2.2.5.html" title="WebWork 2.2.5">Release notes</a></li>
+	<li><a href="WebWork 2.2.6.html" title="WebWork 2.2.6">Release notes</a></li>
 	<li><a href="http://today.java.net/pub/a//today/2005/02/25/opensymphony.html" title="Visit page outside Confluence">History</a>, <a href="http://www.opensymphony.com/webwork/members.action" title="Visit page outside Confluence">Team</a></li>
 	<li><a href="http://www.opensymphony.com/webwork/contribute.action" title="Visit page outside Confluence">Contributing</a></li>
 	<li><a href="http://www.opensymphony.com/webwork/reporting.action" title="Visit page outside Confluence">Bugs and issues</a> (<a href="http://jira.opensymphony.com/browse/WW" title="Visit page outside Confluence">direct</a>)</li>
@@ -67,6 +67,7 @@ Welcome to the <b>WebWork</b> wiki. WebWork's official homepage is <a href="http
 		<li><a href="Result Types.html" title="Result Types">Result Types</a></li>
 		<li><a href="Exception Handling.html" title="Exception Handling">Exception Handling</a></li>
 		<li><a href="File Upload Interceptor.html" title="File Upload Interceptor">File uploading</a></li>
+		<li><a href="Initalization and Shutdown.html" title="Initalization and Shutdown">Initalization and Shutdown</a></li>
 	</ul>
 	</li>
 	<li>Advanced
@@ -93,13 +94,24 @@ Welcome to the <b>WebWork</b> wiki. WebWork's official homepage is <a href="http
 		<li>View technlogies
 		<ul class="alternate" type="square">
 			<li><a href="JSP.html" title="JSP">JSP</a> (<a href="JSP Tags.html" title="JSP Tags">specific tags</a>)</li>
-			<li><a href="FreeMarker.html" title="FreeMarker">FreeMarker</a> (<a href="FreeMarker Tags.html" title="FreeMarker Tags">specific tags</a>)</li>
+			<li><a href="FreeMarker.html" title="FreeMarker">FreeMarker</a> (<a href="FreeMarker Tags.html" title="FreeMarker Tags">specific tags</a>)
+			<ul class="alternate" type="square">
+				<li><a href="FreemarkerTemplateExceptionHandling.html" title="FreemarkerTemplateExceptionHandling">Exception Handling</a></li>
+			</ul>
+			</li>
 			<li><a href="Velocity.html" title="Velocity">Velocity</a> (<a href="Velocity Tags.html" title="Velocity Tags">specific tags</a>)</li>
 			<li><a href="JasperReports.html" title="JasperReports">JasperReports</a></li>
 		</ul>
 		</li>
 		<li><a href="Themes and Templates.html" title="Themes and Templates">Themes and Templates</a></li>
 		<li><a href="component.html" title="component">Components</a></li>
+	</ul>
+	</li>
+	<li><a href="Testing.html" title="Testing">Testing</a>
+	<ul class="alternate" type="square">
+		<li><a href="Testing Actions.html" title="Testing Actions">Testing Actions</a></li>
+		<li><a href="Testing Interceptors.html" title="Testing Interceptors">Testing Interceptors</a></li>
+		<li><a href="Testing Validation.html" title="Testing Validation">Testing Validation</a></li>
 	</ul>
 	</li>
 	<li><a href="J2SE 5 Support.html" title="J2SE 5 Support">J2SE 5 Support (Annotations)</a></li>
@@ -111,7 +123,6 @@ Welcome to the <b>WebWork</b> wiki. WebWork's official homepage is <a href="http
 <h3><a name="WebWork-Users"></a>Users</h3>
 
 <ul class="alternate" type="square">
-	<li><a href="JUnit.html" title="JUnit">Testing</a></li>
 	<li><a href="Cookbook.html" title="Cookbook">Code snippets</a> and <a href="Examples.html" title="Examples">example applications</a></li>
 </ul>
 
@@ -129,7 +140,7 @@ Welcome to the <b>WebWork</b> wiki. WebWork's official homepage is <a href="http
 <h3><a name="WebWork-Integration%2CTools%2CIDE"></a>Integration, Tools, IDE</h3>
 
 <ul class="alternate" type="square">
-	<li>IDE Plugins: <a href="EclipseWork.html" title="EclipseWork">Eclipse</a>, <a href="IDEA Plugin.html" title="IDEA Plugin">IntelliJ</a></li>
+	<li>IDE Plugins: <a href="EclipseWork.html" title="EclipseWork">Eclipse</a>, <a href="IDEA Plugin.html" title="IDEA Plugin">IntelliJ</a>, <a href="http://www.netbeans.org/kb/55/quickstart-webwork-in-netbeans.html" title="Visit page outside Confluence">NetBeans</a></li>
 	<li><a href="Related Tools.html" title="Related Tools">Tools</a> (<a href="SiteGraph.html" title="SiteGraph">SiteGraph</a>, <a href="Config Browser.html" title="Config Browser">Config Browser</a>, <a href="QuickStart.html" title="QuickStart">QuickStart</a>, <a href="ValueStack Explorer.html" title="ValueStack Explorer">ValueStack Explorer</a>)</li>
 	<li><a href="3rd Party Integration.html" title="3rd Party Integration">3d party</a>: <a href="SiteMesh.html" title="SiteMesh">SiteMesh</a>, <a href="Spring.html" title="Spring">Spring</a>, <a href="Pico.html" title="Pico">Pico</a>, <a href="Hibernate.html" title="Hibernate">Hibernate</a>, <a href="JSTL.html" title="JSTL">JSTL</a>, <a href="JUnit.html" title="JUnit">JUnit</a>, <a href="Quartz.html" title="Quartz">Quartz</a>, <a href="Tiles.html" title="Tiles">Tiles</a>, <a href="Acegi Security.html" title="Acegi Security">Acegi Security</a>, <a href="Spring Webflow.html" title="Spring Webflow">Spring Webflow</a></li>
 </ul>
@@ -147,6 +158,7 @@ Welcome to the <b>WebWork</b> wiki. WebWork's official homepage is <a href="http
 	</ul>
 	</li>
 	<li><a href="Chat.html" title="Chat">Chat</a> (<a href="Meetings Minutes.html" title="Meetings Minutes">Chat logs</a>)</li>
+	<li><a href="Presentations and slide shows.html" title="Presentations and slide shows">Presentations, slide shows etc</a></li>
 </ul>
 
 

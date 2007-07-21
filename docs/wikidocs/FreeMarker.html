@@ -205,6 +205,10 @@ Click <span class="code-tag">&lt;a xhref=<span class="code-quote">"${url}"</span
 
 <p>There are some advanced features that may be useful when building WebWork applications with FreeMarker.</p>
 
+<h2><a name="FreeMarker-ExceptionHandling"></a>Exception Handling</h2>
+
+<p>By default when an exception occurs a error report is printed.  You can <a href="FreemarkerTemplateExceptionHandling.html" title="FreemarkerTemplateExceptionHandling">change the handler to meet your environment's needs</a>, such as having it ignore errors or present a friendly error page.</p>
+
 <h2><a name="FreeMarker-TypeConversionandLocales"></a>Type Conversion and Locales</h2>
 
 <p>FreeMarker has built in support for formatting dates and numbers. The formatting rules are based on the locale associated with the action request, which is by default set in <a href="webwork.properties.html" title="webwork.properties">webwork.properties</a> but can be over-ridden using the <a href="I18n Interceptor.html" title="I18n Interceptor">I18n Interceptor</a>. This is normally perfect for your needs, but it is important to remember that these formatting rules are handled by FreeMarker and not by WebWork's <a href="Type Conversion.html" title="Type Conversion">Type Conversion</a> support.</p>
@@ -219,7 +223,30 @@ Click <span class="code-tag">&lt;a xhref=<span class="code-quote">"${url}"</span
 <div class="code"><div class="codeContent">
 <pre class="code-none">webwork.freemarker.manager.classname = com.yourcompany.YourFreeMarkerManager</pre>
 </div></div>
-<p>&nbsp;</p>
+
+<p>The custom Freemarker Manager could also be instatiated using IoC container like Spring. To learn how to allow IoC containers to instantiate WebWork's component (eg. Action, Interceptor etc.) have a look at <a href="3rd Party Integration.html" title="3rd Party Integration">here</a> typically</p>
+<ul>
+	<li><a href="Spring.html" title="Spring">This for Spring</a></li>
+	<li><a href="Pico.html" title="Pico">This for Pico</a></li>
+</ul>
+
+
+<p>For example if we have the following Spring beans xml configuration :-</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;beans ...&gt;</span>
+   <span class="code-tag">&lt;bean name=<span class="code-quote">"CustomFreemarkerManager"</span> class=<span class="code-quote">"com.yourcompany.YourFreeMarkerManager"</span>&gt;</span>
+     ...
+   <span class="code-tag">&lt;/bean&gt;</span>
+ <span class="code-tag">&lt;beans&gt;</span></pre>
+</div></div>
+
+<p>The <a href="webwork.properties.html" title="webwork.properties">webwork.properties</a> file would look something like :-</p>
+<div class="code"><div class="codeContent">
+<pre class="code-none"># turn on Spring integration
+webwork.objectFactory=spring
+webwork.freemarker.manager.classname = CustomFreemarkerManager</pre>
+</div></div>
+
 
 <h2><a name="FreeMarker-ObjectWrapperSettings"></a>ObjectWrapper Settings</h2>
 
