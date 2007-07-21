@@ -106,7 +106,7 @@ public class URL extends Component {
 
     /**
      * The includeParams attribute may have the value 'none', 'get' or 'all'.
-     * It is used when the url tag is used without a value attribute.
+     * It is used when the url tag is used with or without a value attribute.
      * Its value is looked up on the ValueStack
      * If no includeParams is specified then 'get' is used.
      * none - include no parameters in the URL
