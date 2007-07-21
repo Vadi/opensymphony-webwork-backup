@@ -2,8 +2,8 @@
 <?xml-stylesheet type="text/xsl" href="http://www.jayasoft.fr/org/ivyrep/ivy-doc.xsl"?>
 <ivy-module version="1.0">
     <info organisation="opensymphony" module="webwork"
-          revision="2.2.6"
-          status="release"
+          revision="2.2.7"
+          status="integration"
           publication="20070721000000">
         <license name="Apache" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
         <ivyauthor name="opensymphony" url="http://www.opensymphony.com/"/>
@@ -69,9 +69,9 @@
         <dependency org="xjavadoc" name="xjavadoc" rev="1.1" conf="build->*"/>
 
         <!-- default -->
-        <dependency org="opensymphony" name="xwork" rev="1.2.3" conf="default->default"/>
+        <dependency org="opensymphony" name="xwork" rev="1.2.4+" conf="default->default"/>
         <dependency org="apache" name="commons-logging" rev="1.0.4" conf="default->default"/>
-        <dependency org="opensymphony" name="xwork" rev="1.2.3" conf="source->source"/>
+        <dependency org="opensymphony" name="xwork" rev="1.2.4+" conf="source->source"/>
         <dependency org="freemarker" name="freemarker" rev="2.3.8" conf="default->default"/>
         <dependency org="opensymphony" name="ognl" rev="2.6.11" conf="default->default" />
 
@@ -134,7 +134,7 @@
         <dependency org="portlet-api" name="portlet-api" rev="1.0" conf="portlet->default"/>
 
         <!-- spring -->
-        <dependency org="opensymphony" name="xwork" rev="1.2.3" conf="spring->spring"/>
+        <dependency org="opensymphony" name="xwork" rev="1.2.4+" conf="spring->spring"/>
 
         <!-- pico -->
         <dependency org="picocontainer" name="picocontainer" rev="1.2-RC-2" conf="pico->*"/>
@@ -151,7 +151,7 @@
         <dependency org="w3c" name="dom" rev="3.0" conf="xslt->*"/>
 
         <!-- tiger -->
-        <dependency org="opensymphony" name="xwork-tiger" rev="1.2.3" conf="tiger->*"/>
+        <dependency org="opensymphony" name="xwork-tiger" rev="1.2.4+" conf="tiger->*"/>
 
         <!-- cewolf -->
         <dependency org="cewolf" name="cewolf" rev="1.0" conf="cewolf->*"/>
