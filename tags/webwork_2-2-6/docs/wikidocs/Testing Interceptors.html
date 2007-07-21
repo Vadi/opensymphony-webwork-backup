@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Testing Interceptors
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h3><a name="TestingInterceptors-TestingInterceptors"></a>Testing Interceptors</h3>
+
+<p>Implement ConfigurationProvider. This mocks your XWork configuration (xwork.xml). You can either have one configuration per interceptor under test or one for your whole suite.</p>
+
+<div class="code"><div class="codeHeader"><b>MockConfigurationProvider.java</b></div><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> class MockConfigurationProvider <span class="code-keyword">implements</span> ConfigurationProvider {
+ 
+  <span class="code-keyword">private</span> <span class="code-keyword">static</span> <span class="code-keyword">final</span> <span class="code-object">String</span> DEFAULT_PACKAGE = <span class="code-quote">"defaultPackage"</span>;
+  /** */
+  <span class="code-keyword">public</span> <span class="code-keyword">static</span> <span class="code-keyword">final</span> <span class="code-object">String</span> TEST = <span class="code-quote">"test"</span>;
+ 
+  /* (non-Javadoc)
+   * @see com.opensymphony.xwork.config.ConfigurationProvider#destroy()
+   */
+  <span class="code-keyword">public</span> void destroy() {
+    <span class="code-comment">// <span class="code-keyword">do</span> nothing
+</span>  }
+ 
+  /* (non-Javadoc)
+   * @see com.opensymphony.xwork.config.ConfigurationProvider#init(com.opensymphony.xwork.config.Configuration)
+   */
+  <span class="code-keyword">public</span> void init(Configuration configurationManager) {
+    PackageConfig defaultPackageContext = <span class="code-keyword">new</span>   PackageConfig(DEFAULT_PACKAGE);
+ 
+    List&lt;InterceptorMapping&gt; interceptors = <span class="code-keyword">new</span> ArrayList&lt;InterceptorMapping&gt;();
+    interceptors.add(<span class="code-keyword">new</span> InterceptorMapping(<span class="code-quote">"test"</span>, <span class="code-keyword">new</span> MyTestInterceptor()));
+    ActionConfig actionConfig = <span class="code-keyword">new</span> ActionConfig(<span class="code-keyword">null</span>, MyAction.class, <span class="code-keyword">null</span>, <span class="code-keyword">null</span>, interceptors);
+    actionConfig.setPackageName(DEFAULT_PACKAGE);
+    defaultPackageContext.addActionConfig(TEST, actionConfig);
+ 
+    configurationManager.addPackageConfig(DEFAULT_PACKAGE, defaultPackageContext);
+  }
+ 
+  /* (non-Javadoc)
+   * @see com.opensymphony.xwork.config.ConfigurationProvider#needsReload()
+   */
+  <span class="code-keyword">public</span> <span class="code-object">boolean</span> needsReload() {
+    <span class="code-keyword">return</span> <span class="code-keyword">false</span>;
+  }
+}</pre>
+</div></div>
+
+<p>Then you can simply request the actions for testing from ActionProxyFactory, and they will have the correct interceptors set. The only other requirement is loading the mock configuration in set up </p>
+
+<div class="code"><div class="codeHeader"><b>MyInterceptorUnitTest.java</b></div><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> class MyInterceptorUnitTest <span class="code-keyword">extends</span> TestCase {
+ 
+  /* (non-Javadoc)
+   * @see com.opensymphony.xwork.XWorkTestCase#setUp()
+   */
+  @Override
+  <span class="code-keyword">protected</span> void setUp() <span class="code-keyword">throws</span> Exception {
+    ConfigurationManager.clearConfigurationProviders();
+    ConfigurationManager.addConfigurationProvider(<span class="code-keyword">new</span> MockConfigurationProvider());
+    ConfigurationManager.getConfiguration().reload();
+  }
+ 
+  /**
+   * @<span class="code-keyword">throws</span> Exception
+   */
+  <span class="code-keyword">public</span> void testShouldOnlyAllowContinuationWhenInterceptorAllows() <span class="code-keyword">throws</span> Exception {
+    Map&lt;<span class="code-object">String</span>, Map&gt;&lt;<span class="code-object">String</span>, <span class="code-object">String</span>&gt;&gt; extraContext = <span class="code-keyword">new</span> HashMap&lt;<span class="code-object">String</span>, Map&gt;&lt;<span class="code-object">String</span>, <span class="code-object">String</span>&gt;&gt;();
+    extraContext.put(ActionContext.PARAMETERS, <span class="code-keyword">new</span> HashMap&lt;<span class="code-object">String</span>, <span class="code-object">String</span>&gt;());
+ 
+    ActionProxy proxy = ActionProxyFactory.getFactory().createActionProxy("", MockConfigurationProvider.TEST, extraContext);
+    assertEquals(<span class="code-quote">"myredirect.result"</span>, proxy.execute());
+  }
+}</pre>
+</div></div>
+
+<h3><a name="TestingInterceptors-ExistingTestSuites"></a>Existing Test Suites</h3>
+
+<p>Check out the test suites in XWork/WebWork.  These are pretty comprehensive and provide a good starting point.  For example,  this is how the <b>ParametersInterceptor</b> is tested:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> void testDoesNotAllowMethodInvocations() {
+  Map params = <span class="code-keyword">new</span> HashMap();
+  params.put(<span class="code-quote">"@java.lang.<span class="code-object">System</span>@exit(1).dummy"</span>, <span class="code-quote">"dumb value"</span>);
+
+  HashMap extraContext = <span class="code-keyword">new</span> HashMap();
+  extraContext.put(ActionContext.PARAMETERS, params);
+
+  <span class="code-keyword">try</span> {
+    ActionProxy proxy = ActionProxyFactory.getFactory().
+      createActionProxy("", MockConfigurationProvider.MODEL_DRIVEN_PARAM_TEST, extraContext);
+    assertEquals(Action.SUCCESS, proxy.execute());
+
+    ModelDrivenAction action = (ModelDrivenAction) proxy.getAction();
+    TestBean model = (TestBean) action.getModel();
+
+    <span class="code-object">String</span> property = <span class="code-object">System</span>.getProperty(<span class="code-quote">"webwork.security.test"</span>);
+    assertNull(property);
+  } <span class="code-keyword">catch</span> (Exception e) {
+    e.printStackTrace();
+    fail();
+  }
+}</pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

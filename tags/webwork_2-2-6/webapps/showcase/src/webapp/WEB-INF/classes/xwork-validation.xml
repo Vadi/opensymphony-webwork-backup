@@ -1,0 +1,139 @@
+<!DOCTYPE xwork PUBLIC 
+	"-//OpenSymphony Group//XWork 1.1.1//EN"
+	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+	
+<xwork>
+	<package name="validation" extends="webwork-default" namespace="/validation">
+	    <action name="quizBasic" class="com.opensymphony.webwork.showcase.validation.QuizAction">
+            <result name="input">quiz-basic.jsp</result>
+            <result>quiz-success.jsp</result>
+        </action>
+
+        <action name="quizClient" class="com.opensymphony.webwork.showcase.validation.QuizAction">
+            <result name="input">quiz-client.jsp</result>
+            <result>quiz-success.jsp</result>
+        </action>
+
+        <action name="quizClientCss" class="com.opensymphony.webwork.showcase.validation.QuizAction">
+            <result name="input">quiz-client-css.jsp</result>
+            <result>quiz-success.jsp</result>
+        </action>
+
+        <action name="quizAjax" class="com.opensymphony.webwork.showcase.validation.QuizAction">
+            <result name="input">quiz-ajax.jsp</result>
+            <result>quiz-success.jsp</result>
+        </action>
+	</package>
+
+
+	<package name="validationExamples" extends="webwork-default" namespace="/validation" >
+
+		<action name="list">
+			<result>index.jsp</result>
+		</action>
+		
+		
+		<!-- ======================== -->
+		<!-- === Field Validators === -->
+		<!-- ======================== -->
+		
+		<action name="showFieldValidatorsExamples" class="com.opensymphony.webwork.showcase.validation.FieldValidatorsExampleAction" method="input">
+			<result name="input" type="dispatcher">/validation/fieldValidatorsExample.jsp</result>
+		</action>
+		
+		<action name="submitFieldValidatorsExamples" class="com.opensymphony.webwork.showcase.validation.FieldValidatorsExampleAction" method="submit">
+			<result name="input" type="dispatcher">/validation/fieldValidatorsExample.jsp</result>
+			<result type="dispatcher">/validation/successFieldValidatorsExample.jsp</result>
+		</action>
+		
+		
+		
+		<!-- ============================ -->
+		<!-- === Non Field Validators === -->
+		<!-- ============================ -->
+		
+		<action name="showNonFieldValidatorsExamples" class="com.opensymphony.webwork.showcase.validation.NonFieldValidatorsExampleAction" method="input">
+			<result name="input">/validation/nonFieldValidatorsExample.jsp</result>		
+		</action>
+		
+		<action name="submitNonFieldValidatorsExamples" class="com.opensymphony.webwork.showcase.validation.NonFieldValidatorsExampleAction" method="submit">
+			<result name="input">/validation/nonFieldValidatorsExample.jsp</result>		
+			<result>/validation/successNonFieldValidatorsExample.jsp</result>
+		</action>
+		
+		
+		
+		<!-- ========================== -->
+		<!-- === Visitor Validators === -->
+		<!-- ========================== -->
+		
+		<action name="showVisitorValidatorsExamples" class="com.opensymphony.webwork.showcase.validation.VisitorValidatorsExampleAction" method="input">
+			<result name="input">/validation/visitorValidatorsExample.jsp</result>
+		</action>
+		
+		<action name="submitVisitorValidatorsExamples" class="com.opensymphony.webwork.showcase.validation.VisitorValidatorsExampleAction" method="submit">
+			<result name="input">/validation/visitorValidatorsExample.jsp</result>
+			<result>/validation/successVisitorValidatorsExample.jsp</result>
+		</action>
+
+
+
+		<!-- ========================== -->
+		<!-- === Visitor Validators === -->
+		<!-- ========================== -->
+
+		<action name="clientSideValidationExample" class="com.opensymphony.webwork.showcase.validation.FieldValidatorsExampleAction" method="input">
+			<result name="input">/validation/clientSideValidationExample.jsp</result>
+		</action>
+
+		<action name="submitClientSideValidationExample" class="com.opensymphony.webwork.showcase.validation.FieldValidatorsExampleAction" method="submit">
+			<result name="input">/validation/clientSideValidationExample.jsp</result>
+			<result>/validation/successClientSideValidationExample.jsp</result>
+		</action>
+
+
+	    <!--  ========================== -->
+	    <!--  === Conversion Validator                     === -->
+	    <!--  ========================== -->
+	    <action name="conversionValidationExample" class="com.opensymphony.webwork.showcase.validation.ConversionValidationExample" method="input">
+	    	<result name="input">/validation/conversionValidationExample.jsp</result>
+	    </action>
+	    
+	    <action name="submitConversionValidationExample" class="com.opensymphony.webwork.showcase.validation.ConversionValidationExample" method="submit">
+	    		<interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="model-driven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="static-params"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+	    
+			<result name="input">/validation/conversionValidationExample.jsp</result>
+			<result name="success">/validation/successConversionValidationExample.jsp</result>	    
+	    </action>
+	    
+	    
+	    <!-- =======================  -->
+	    <!-- === Collection Valdiator Example ===  -->
+	    <!-- ======================= -->
+	    <action name="collectionValidationExample" class="com.opensymphony.webwork.showcase.validation.CollectionValidatorExample" method="input">
+	    	<result>/validation/collectionValidatorExample.jsp</result>
+	    </action>
+	    <action name="submitCollectionValidationExample" class="com.opensymphony.webwork.showcase.validation.CollectionValidatorExample" method="submit">
+			<result name="input">/validation/collectionValidatorExample.jsp</result>
+			<result name="success">/validation/successCollectionValidatorExample.jsp</result>	    
+	    </action>
+
+    </package>
+</xwork>
+	

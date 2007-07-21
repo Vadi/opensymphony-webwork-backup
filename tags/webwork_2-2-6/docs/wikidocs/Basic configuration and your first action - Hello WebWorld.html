@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Basic configuration and your first action - Hello WebWorld
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h3><a name="Basicconfigurationandyourfirstaction-HelloWebWorld-YourfirstactionHelloWebWorld"></a>Your first action - Hello WebWorld</h3>
+
+<p>TODO: finish this.</p>
+
+<h3><a name="Basicconfigurationandyourfirstaction-HelloWebWorld-TheCode"></a>The Code</h3>
+
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>com.acme.action.HelloWorld.java</b></div><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">package</span> com.acme.test;
+
+<span class="code-keyword">import</span> com.opensymphony.xwork.ActionSupport;
+
+<span class="code-keyword">public</span> class HelloWorld <span class="code-keyword">extends</span> ActionSupport
+{
+	<span class="code-keyword">private</span> <span class="code-object">String</span> message;
+
+	<span class="code-keyword">public</span> <span class="code-object">String</span> execute()
+	{
+		message = <span class="code-quote">"Hello, WebWorld!"</span>;
+		<span class="code-keyword">return</span> SUCCESS;
+	}
+	
+	<span class="code-keyword">public</span> <span class="code-object">String</span> getMessage()
+	{
+		<span class="code-keyword">return</span> message;
+	}
+}</pre>
+</div></div>
+
+<p>Let us create the view page. Create a file hello.jsp and place it under the YOUR_WEBAPP/WEB-INF/jsp directory:</p>
+
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>hello.jsp</b></div><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;%@ taglib prefix=<span class="code-quote">"ww"</span> uri=<span class="code-quote">"/webwork"</span> %&gt;</span>
+ <span class="code-tag">&lt;html&gt;</span>
+   <span class="code-tag">&lt;head&gt;</span>
+    <span class="code-tag">&lt;title&gt;</span>Hello Page<span class="code-tag">&lt;/title&gt;</span>
+   <span class="code-tag">&lt;/head&gt;</span>
+  <span class="code-tag">&lt;body&gt;</span>
+    WebWork says:
+    <span class="code-tag">&lt;h1&gt;</span><span class="code-tag">&lt;ww:property value=<span class="code-quote">"message"</span>/&gt;</span><span class="code-tag">&lt;/h1&gt;</span>
+  <span class="code-tag">&lt;/body&gt;</span>
+ <span class="code-tag">&lt;/html&gt;</span></pre>
+</div></div>
+
+
+<p>Edit the WEB-INF/classes/xwork.xml file as shown below, adding the helloWorld action and something called an interceptor to the default package. Read more: <a href="xwork.xml.html" title="xwork.xml">xwork.xml</a></p>
+<div class="code" style="border-style: solid; "><div class="codeHeader" style="border-bottom-style: solid; "><b>xwork.xml</b></div><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;!DOCTYPE xwork PUBLIC <span class="code-quote">"-//OpenSymphony Group//XWork 1.0//EN"</span> <span class="code-quote">"http://www.opensymphony.com/xwork/xwork-1.0.dtd"</span>&gt;</span>
+  <span class="code-tag">&lt;xwork&gt;</span>
+   <span class="code-tag"><span class="code-comment">&lt;!-- Include webwork defaults (from WebWork JAR). --&gt;</span></span>
+   <span class="code-tag">&lt;include file=<span class="code-quote">"webwork-default.xml"</span>/&gt;</span>
+
+   <span class="code-tag">&lt;package name=<span class="code-quote">"default"</span> extends=<span class="code-quote">"webwork-default"</span>&gt;</span>
+     <span class="code-tag">&lt;default-interceptor-ref name=<span class="code-quote">"basicStack"</span>/&gt;</span>
+
+      <span class="code-tag">&lt;action name=<span class="code-quote">"helloWorld"</span> class=<span class="code-quote">"com.acme.test.HelloWorld"</span>&gt;</span>
+         <span class="code-tag">&lt;result name=<span class="code-quote">"success"</span>&gt;</span>/WEB-INF/jsp/hello.jsp<span class="code-tag">&lt;/result&gt;</span>
+      <span class="code-tag">&lt;/action&gt;</span>
+   <span class="code-tag">&lt;/package&gt;</span>
+  <span class="code-tag">&lt;/xwork&gt;</span></pre>
+</div></div>
+
+<p>Go ahead and try it now: go to the url <a href="http://localhost:8080/YOUR_WEBAPP/helloWorld.action" title="Visit page outside Confluence">http://localhost:8080/YOUR_WEBAPP/helloWorld.action</a> and see what happens. You should see a page that says "Hello, WebWorld&#33;".</p>
+
+<h3><a name="Basicconfigurationandyourfirstaction-HelloWebWorld-Howthecodeworksm"></a>How the code worksm</h3>
+
+<p>The above four files work together like this.</p>
+<ul>
+	<li>The WebWork filter (mapped on /*, meaning every request) receives the request for helloWorld.action.</li>
+	<li>WebWork passes the request on to its ActionMapper, and lets this ActionMapper handle the request for a helloWorld action.</li>
+	<li>The ActionMapper finds the class registered with the helloWorld name in the xwork.xml.</li>
+	<li>By default, the execute() method gets called (but you can override this).</li>
+	<li>execute() returns a String called SUCCESS, and WebWork looks again in xwork.xml to what and if any result is registered with that name. It finds the result (by default, a ServletDispatcher), which maps to /WEB-INF/jsp/hello.jsp.</li>
+	<li>The page hello.jsp is processed (the &lt;ww:property value="message" /&gt; tag then uses OGNL to call the getter getMessage() of the HelloWorld.java action) and sent back to the browser.</li>
+</ul>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

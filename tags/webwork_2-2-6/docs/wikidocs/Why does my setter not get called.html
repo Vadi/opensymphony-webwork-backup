@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>WebWork - 
+         does my setter not get called
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h2><a name="Whydoesmysetternotgetcalled-Whydoesn%27tmysettergetcalled%3F"></a>Why doesn't my setter get called ?</h2>
+
+<p><a href="http://cephas.net/blog/" title="Visit page outside Confluence">Aaron Johnson</a> had a <a href="http://cephas.net/blog/2007/01/04/ognl-getter-and-setter-types-must-match/" title="Visit page outside Confluence">problem</a> with a setter for a property that never seemed to get called. He had a getter/setter combination that did not match:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> void setUser(<span class="code-object">String</span> username) {
+    ...
+}
+<span class="code-keyword">public</span> User getUser() {
+    ...
+}</pre>
+</div></div>
+
+<p>The short answer is that your getter and setter must match the property type, or OGNL will not be able to call it (due to a reflection API semantics). You can read the full explanation <a href="http://cephas.net/blog/2007/01/04/ognl-getter-and-setter-types-must-match/" title="Visit page outside Confluence">here</a>.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
