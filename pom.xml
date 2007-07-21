@@ -151,6 +151,50 @@
                     <argLine>-Xmx1024m</argLine>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-source</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- sourcepath>src/java</sourcepath  does not work when enabled -->
+                    <encoding>UTF-8</encoding>
+                    <groups>
+                        <group>
+                            <title>WebWork Packages</title>
+                            <packages>com.opensymphony.webwork*</packages>
+                        </group>
+                    </groups>
+                    <show>protected</show>
+                    <links>
+                        <link>http://www.opensymphony.com/xwork/api/</link>
+                        <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
+                        <link>http://java.sun.com/javaee/5/docs/api/</link>
+                        <link>http://struts.apache.org/2.x/struts2-core/apidocs</link>
+                        <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                        <link>http://logging.apache.org/log4j/docs/api/</link>
+                        <link>http://static.springframework.org/spring/docs/2.0.x/api</link>
+                    </links>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-source</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
