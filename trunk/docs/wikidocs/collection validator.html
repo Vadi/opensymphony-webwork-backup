@@ -14,9 +14,30 @@
 				    <table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
 <p>This is an experimental feature. Feedback welcome !</p></td></tr></table>
 
+<table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>This validator will not work when its nested validator is a 'fieldexpression' validator due to 'fieldexpression' validator applies the expression directly on the action itself, not the value of current field.</p></td></tr></table>
+
 <h1><a name="collectionvalidator-Description"></a>Description</h1>
 
-<p>Validate a property available in the object of a collection.</p>
+<p>Validate a property available in the object of a collection. This validator will not work
+when the 'nested' validator is an 'fieldexpression' or 'expression' validator.. If we want to use
+'fieldexpression' or 'expression' validator we might want to use eg. the following 
+expression for validation collections (using OGNL's projection and filtering capabilities.
+<p/>
+For example if we have a collection of <code>person</code>s objects with 'name'
+properties we might want to consider the following OGNL expression.
+<pre>
+persons.{#this.name.length() > 4}.{? #this == false }.size() <= 0 
+</pre></p>
+
+<p>The idea is 
+<ul>
+	<li>- project across the collection of <code>person</code> objects 
+             and make sure the conditions are valid (eg. name is more than 4 characters</li>
+     <li>- filter out the result of previous projection that are not valid (eg. false)</li>
+     <li>- check the size of the filtered collection, if its greater than zero, 
+              we have some validation that fails</li>
+</ul></p>
 
 
 <h1><a name="collectionvalidator-Parameters"></a>Parameters</h1>
@@ -61,19 +82,19 @@ public class Person {
        		<span class="code-tag">&lt;param name=<span class="code-quote">"validatorRef"</span>&gt;</span>requiredstring<span class="code-tag">&lt;/param&gt;</span>
             <span class="code-tag">&lt;param name=<span class="code-quote">"validatorParams['defaultMessage']"</span>&gt;</span>Must be String<span class="code-tag">&lt;/param&gt;</span>
             <span class="code-tag">&lt;param name=<span class="code-quote">"validatorParams['trim']"</span>&gt;</span>true<span class="code-tag">&lt;/param&gt;</span>
-            <span class="code-tag">&lt;message&gt;</span><span class="code-tag">&lt;/message&gt;</span>
+            <span class="code-tag">&lt;message&gt;</span> ... <span class="code-tag">&lt;/message&gt;</span>
        <span class="code-tag">&lt;/field-validator&gt;</span>
        <span class="code-tag">&lt;field-validator type=<span class="code-quote">"collection"</span>&gt;</span>
            <span class="code-tag">&lt;param name=<span class="code-quote">"property"</span>&gt;</span>persons.age<span class="code-tag">&lt;/param&gt;</span>
-           <span class="code-tag">&lt;param name=<span class="code-quote">"validatorRef"</span>&gt;</span><span class="code-tag">&lt;/required&lt;/param&gt;</span>
+           <span class="code-tag">&lt;param name=<span class="code-quote">"validatorRef"</span>&gt;</span>required<span class="code-tag">&lt;/param&gt;</span>
            <span class="code-tag">&lt;param name=<span class="code-quote">"validatorParams['defaultMessage']"</span>&gt;</span>Must be filled in<span class="code-tag">&lt;/param&gt;</span>
-           <span class="code-tag">&lt;message&gt;</span><span class="code-tag">&lt;/message&gt;</span>
+           <span class="code-tag">&lt;message&gt;</span> ... <span class="code-tag">&lt;/message&gt;</span>
        <span class="code-tag">&lt;/field-validator&gt;</span>
        <span class="code-tag">&lt;field-validator type=<span class="code-quote">"collection"</span>&gt;</span>
        		<span class="code-tag">&lt;param name=<span class="code-quote">"property"</span>&gt;</span>persons.age<span class="code-tag">&lt;/param&gt;</span>
             <span class="code-tag">&lt;param name=<span class="code-quote">"validatorRef"</span>&gt;</span>int<span class="code-tag">&lt;/param&gt;</span>
             <span class="code-tag">&lt;param name=<span class="code-quote">"validatorParams['defaultMessage']"</span>&gt;</span>Needs to be an integer<span class="code-tag">&lt;/param&gt;</span>
-            <span class="code-tag">&lt;message&gt;</span><span class="code-tag">&lt;/message&gt;</span>
+            <span class="code-tag">&lt;message&gt;</span> ... <span class="code-tag">&lt;/message&gt;</span>
        <span class="code-tag">&lt;/field-validator&gt;</span>
    <span class="code-tag">&lt;/field&gt;</span>
 <span class="code-tag">&lt;/validators&gt;</span></pre>

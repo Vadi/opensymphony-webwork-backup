@@ -181,6 +181,11 @@ and/or after delegating the rest of the procesing using ActionInvocation#invoke(
 <td class='confluenceTd'> cookie </td>
 <td class='confluenceTd'> Inject cookie with a certain configurable name / value into action </td>
 </tr>
+<tr>
+<td class='confluenceTd'> <a href="Message Store Interceptor.html" title="Message Store Interceptor">Message Store Interceptor</a> </td>
+<td class='confluenceTd'> store </td>
+<td class='confluenceTd'>Store field errors / action errors / action messages into HttpSession and also retrive them from HttpSession depending on the <em>operationMode</em> the interceptor is in to allow field errors / action errors / action messages to be available throughout different Http requests.</td>
+</tr>
 </tbody></table>
 
 <h4><a name="Interceptors-MethodFiltering"></a>Method Filtering</h4>
@@ -279,6 +284,77 @@ the dot (.) specifies the parameter itself. Essetially it is as follows :-</p>
 <p><b>Note</b> also that in this case the <interceptor-ref ... > name attribute 
 is used to indicate an interceptor stack which makes sense as if it is refering 
 to the interceptor itself it would be just using Method 1 describe above.</p>
+
+
+
+<h4><a name="Interceptors-NestedParameterOverriding"></a>Nested Parameter Overriding</h4>
+<table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">WebWork 2.2.5 and earlier</b><br />
+<p>There's a bug (XW-516) that prevents this from working for version earlier thatn WebWork-2.2.6.</p></td></tr></table>
+
+<p> Interceptor stack parameter overriding could be nested into as many level as possible, though it would
+ be advisable not to nest it too deep as to avoid confusion, For example, 
+<pre>
+&lt;interceptor name="interceptor1" class="foo.bar.Interceptor1" /&gt;
+&lt;interceptor name="interceptor2" class="foo.bar.Interceptor2" /&gt;
+&lt;interceptor name="interceptor3" class="foo.bar.Interceptor3" /&gt;
+&lt;interceptor name="interceptor4" class="foo.bar.Interceptor4" /&gt;
+&lt;interceptor-stack name="stack1"&gt;
+    &lt;interceptor-ref name="interceptor1" /&gt;
+&lt;/interceptor-stack&gt;
+&lt;interceptor-stack name="stack2"&gt;
+    &lt;interceptor-ref name="intercetor2" /&gt;
+    &lt;interceptor-ref name="stack1" /&gt;
+&lt;/interceptor-stack&gt;
+&lt;interceptor-stack name="stack3"&gt;
+    &lt;interceptor-ref name="interceptor3" /&gt;
+    &lt;interceptor-ref name="stack2" /&gt;
+&lt;/interceptor-stack&gt;
+&lt;interceptor-stack name="stack4"&gt;
+    &lt;interceptor-ref name="interceptor4" /&gt;
+    &lt;interceptor-ref name="stack3" /&gt;
+ &lt;/interceptor-stack&gt;
+</pre>
+ Assuming the interceptor has the following properties
+ <table border="1" width="100%">
+   <tr>
+      <td>Interceptor</td>
+      <td>property</td>
+   </tr>
+   <tr>	
+   	   <td>Interceptor1</td>
+       <td>param1</td>
+   </tr>
+   <tr>	
+   	   <td>Interceptor2</td>
+       <td>param2</td>
+   </tr>
+   <tr>	
+   	   <td>Interceptor3</td>
+       <td>param3</td>
+   </tr>
+   <tr>	
+   	   <td>Interceptor4</td>
+       <td>param4</td>
+   </tr>
+ </table>
+ We could override them as follows :-
+ <pre>
+   &lt;action ... &gt;
+       &lt;!-- to override parameters of interceptor located directly in the stack  --&gt;
+       &lt;interceptor-ref name="stack4"&gt;
+          &lt;param name="interceptor4.param4"&gt; ... &lt;/param&gt;
+       &lt;/interceptor-ref&gt;
+   &lt;/action&gt;
+   &lt;action ... &gt;
+       &lt;!-- to override parameters of interceptor located under nested stack --&gt;
+       &lt;interceptor-ref name="stack4"&gt;
+           &lt;param name="stack3.interceptor3.param3"&gt; ... &lt;/param&gt;
+           &lt;param name="stack3.stack2.interceptor2.param2"&gt; ... &lt;/param&gt;
+           &lt;param name="stack3.stack2.stack1.interceptor1.param1"&gt; ... &lt;/param&gt;
+       &lt;/interceptor-ref&gt;
+   &lt;/action&gt;
+ </pre></p>
+
 
 
 <h4><a name="Interceptors-OrderofInterceptorExecution"></a>Order of Interceptor Execution</h4>
