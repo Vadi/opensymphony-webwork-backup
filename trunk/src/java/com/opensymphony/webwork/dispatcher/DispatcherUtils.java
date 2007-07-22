@@ -92,7 +92,7 @@ public class DispatcherUtils {
         	for (int a=0; a<shutdownListenerClassNames.length; a++) {
         		String shutdownListenerClassName = shutdownListenerClassNames[a].trim();
         		try {
-        			ShutDownListener shutDownListener = (ShutDownListener) objectFactory.buildBean(shutdownListenerClassName, Collections.EMPTY_MAP);
+                    ShutDownListener shutDownListener = (ShutDownListener) objectFactory.buildBean(shutdownListenerClassName, Collections.EMPTY_MAP);
         			if (LOG.isDebugEnabled()) {
         				LOG.debug("notifying shutdown listener ["+shutDownListener+"]");
         			}
@@ -129,7 +129,6 @@ public class DispatcherUtils {
         LocalizedTextUtil.setReloadBundles(reloadi18n);
 
         // initialize ObjectFactory
-        ObjectFactory objectFactory = null;
         if (Configuration.isSet(WebWorkConstants.WEBWORK_OBJECTFACTORY)) {
             String className = (String) Configuration.get(WebWorkConstants.WEBWORK_OBJECTFACTORY);
             if (className.equals("spring")) {
@@ -144,7 +143,7 @@ public class DispatcherUtils {
 
             try {
                 Class clazz = ClassLoaderUtil.loadClass(className, DispatcherUtils.class);
-                objectFactory = (ObjectFactory) clazz.newInstance();
+                ObjectFactory objectFactory = (ObjectFactory) clazz.newInstance();
                 if (objectFactory instanceof ObjectFactoryInitializable) {
                     ((ObjectFactoryInitializable) objectFactory).init(servletContext);
                 }
@@ -153,6 +152,7 @@ public class DispatcherUtils {
                 LOG.error("Could not load ObjectFactory named " + className + ". Using default ObjectFactory.", e);
             }
         }
+       
 
         
         // Intialize ObjecTypeDeterminer
@@ -209,14 +209,15 @@ public class DispatcherUtils {
         	for (int a=0; a<startupListenerClassNames.length; a++) {
         		String startupListenerClassName = startupListenerClassNames[a].trim();
         		try {
-        			StartUpListener startUpListener = (StartUpListener) objectFactory.buildBean(startupListenerClassName, Collections.EMPTY_MAP);
+                    ObjectFactory objectFactory = ObjectFactory.getObjectFactory();
+                    StartUpListener startUpListener = (StartUpListener) objectFactory.buildBean(startupListenerClassName, Collections.EMPTY_MAP);
         			if (LOG.isDebugEnabled()) {
         				LOG.debug("notifying start up listener ["+startUpListener+"]");
         			}
         			startUpListener.startup();
         		}
         		catch(Exception e) { // we might also get ClassCastException
-        			LOG.warn("shutdown listener ["+startupListenerClassName+"] failed to be initialized, it will be ignored", e);
+        			LOG.warn("startup listener ["+startupListenerClassName+"] failed to be initialized, it will be ignored", e);
         		}
         	}
         }
