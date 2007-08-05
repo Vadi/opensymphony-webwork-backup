@@ -52,16 +52,17 @@ import com.opensymphony.xwork.util.TextParseUtil;
  * 
  * <ul>
  * 	<li>cookiesName (mandatory) - Name of cookies to be injected into the action. If more
- * 								   than one cookie name is desired it could be comma-separated.
- * 								   If all cookies name is desired, it could simply be *, an asterik.
- * 								   When many cookies name are comma-separated either of the cookie
+ * 								  than one cookie name is desired it could be comma-separated.
+ * 								  If all cookies name is desired, it could simply be *, an asterik.
+ * 								  When many cookies name are comma-separated either of the cookie
  * 						          that match the name in the comma-separated list will be qualified.</li>
- *     <li>cookiesValue (mandatory) - Value of cookies that if its name matches cookieName attribute
- *                                                         and its value matched this, will be injected into WebWork's 
- *                                                         action. If more than one cookie name is desired it could be 
- *                                                         comma-separated. If left empty, it will assume any value would
- *                                                         be ok. If more than one value is specified (comma-separated) 
- *                                                         it will assume a match if either value is matched.
+ *  <li>cookiesValue - Value of cookies that if its name matches cookieName attribute
+ *                     and its value matched this, will be injected into WebWork's
+ *                     action. If more than one cookie name is desired it could be
+ *                     comma-separated. If left empty, as * (asterik) or not specified,
+ *                     it will assume any value would
+ *                     be ok. If more than one value is specified (comma-separated)
+ *                     it will assume a match if either value is matched.
  * </ul>
  * 
  * <!-- END SNIPPET: parameters -->
