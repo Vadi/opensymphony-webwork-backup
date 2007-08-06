@@ -169,7 +169,7 @@ public class MessageStoreInterceptor implements Interceptor {
 	 * Set the request parameter string that is used to determine the mode this
 	 * interceptor should operates in .
 	 * 
-	 * @see setRequestParameterSwitch
+	 * @see {@link #setRequestParameterSwitch}
 	 * @param requestParameterSwitch
 	 */
 	public void setRequestParameterSwitch(String requestParameterSwitch) {
@@ -180,7 +180,7 @@ public class MessageStoreInterceptor implements Interceptor {
 	 * Returns the request parameter string that is used to determine the mode this 
 	 * interceptor should operatoes in.
 	 * 
-	 * @see setRequestParameterSwitch
+	 * @see {@link #setRequestParameterSwitch}
 	 * @return String
 	 */
 	public String getRequestParameterSwitch() {
