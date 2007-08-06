@@ -103,6 +103,9 @@ import com.opensymphony.xwork.interceptor.Interceptor;
  *    &lt;interceptor-ref name="store"&gt;
  *       &lt;param name="operationMode"&gt;RETRIEVE&lt;/param&gt;
  *    &lt;/interceptor-ref&gt;
+ *    &lt;-- this result will get executed if its field/error message(s) --&gt;
+ *    &lt;result name="input"&gt;applicationFailed.jsp&lt;/result&gt;
+ *    &lt;-- this result will get executed if its action message(s) --&gt;
  *    &lt;result&gt;applicationFailed.jsp&lt;/result&gt;
  * &lt;/action&gt;
  * 
@@ -166,7 +169,7 @@ public class MessageStoreInterceptor implements Interceptor {
 	 * Set the request parameter string that is used to determine the mode this
 	 * interceptor should operates in .
 	 * 
-	 * @see setAllowRequestParameterSwitch
+	 * @see setRequestParameterSwitch
 	 * @param requestParameterSwitch
 	 */
 	public void setRequestParameterSwitch(String requestParameterSwitch) {
@@ -177,7 +180,7 @@ public class MessageStoreInterceptor implements Interceptor {
 	 * Returns the request parameter string that is used to determine the mode this 
 	 * interceptor should operatoes in.
 	 * 
-	 * @see setAllowRequestParameterSwitch
+	 * @see setRequestParameterSwitch
 	 * @return String
 	 */
 	public String getRequestParameterSwitch() {
