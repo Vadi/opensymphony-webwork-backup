@@ -19,6 +19,7 @@
         </mapper>
 
         <mapper class="com.opensymphony.module.sitemesh.mapper.FrameSetDecoratorMapper">
+            <param name="decorator" value="plain" />
         </mapper>
 
         <mapper class="com.opensymphony.module.sitemesh.mapper.AgentDecoratorMapper">
