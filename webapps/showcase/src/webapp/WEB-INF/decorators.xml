@@ -16,6 +16,7 @@
         <pattern>/tags/ui/ajax/*</pattern>
         <pattern>/nodecorate/*</pattern>
         <pattern>/sitemesh/useFreemarkerApplyDecoratorTag.action</pattern>
+        <pattern>/selenium/core/*</pattern>
     </excludes>
 
     <decorator name="main" page="main.jsp">
@@ -24,7 +25,8 @@
     <decorator name="panel" page="panel.ftl" />
     <decorator name="panelDec" page="panel.dec" />
     <decorator name="panelJsp" page="panel.jsp" />
-    
+    <decorator name="plain" page="plain.jsp" />
+
     <!--<decorator name="dashedBox" page="dashedBox.jsp"/>-->
     <!--<decorator name="printable" page="printable.jsp"/>-->
 </decorators>
