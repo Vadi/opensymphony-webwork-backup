@@ -94,7 +94,8 @@
     		name="picture" />
     		
     <ww:optiontransferselect
-    		tooltip="Select Your Favourite Cartoon Characters"
+            id="favCartoonCharacters"
+            tooltip="Select Your Favourite Cartoon Characters"
     		label="Favourite Cartoons Characters"
 			name="leftSideCartoonCharacters" 
 			leftTitle="Left Title"
@@ -112,13 +113,14 @@
 			doubleMultiple="true" />
     
     <ww:richtexteditor
-    		width="700"
-    		label="Your Thougths"
+            id="thoughts"
+            width="700"
+    		label="Your Thoughts"
      		name="thoughts" 
      		tooltip="Enter your thoughts here" />
      		
-    <ww:submit onclick="alert('aaaa');" />
-    <ww:reset onclick="alert('bbbb');" />
+    <ww:submit onclick="alert('You are submiting this form.');" />
+    <ww:reset onclick="alert('You are resetting this form');" />
 </ww:form>
     
 </body>
