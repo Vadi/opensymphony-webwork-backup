@@ -70,4 +70,6 @@ public final class WebWorkConstants {
 
     public static final String WEBWORK_DISPATCHER_START_UP_LISTENER = "webwork.dispatcher.startUpListener";
     public static final String WEBWORK_DISPATCHER_SHUTDOWN_LISTENER = "webwork.dispatcher.shutDownListener";
+
+    public static final String WEBWORK_COMPOSITE_ACTION_MAPPER = "webwork.compositeActionMapper.";
 }
