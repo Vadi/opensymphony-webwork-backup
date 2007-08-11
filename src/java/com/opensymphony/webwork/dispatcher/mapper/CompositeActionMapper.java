@@ -19,7 +19,7 @@ import com.opensymphony.xwork.ObjectFactory;
 
 
 /**
- * <!-- START SNIPPET: javadoc -->
+ * <!-- START SNIPPET: doc -->
  * 
  * This is an {@link ActionMapper} that could take in {@link ActionMapper}s and consult each {@link ActionMapper}
  * in the order they are given where {@link ActionMapper} with higher order will take precedence.
@@ -55,7 +55,7 @@ import com.opensymphony.xwork.ObjectFactory;
  * passed in as an array. The order of the {@link ActionMapper}s is important as they will be consulted
  * in order.
  *
- * <!-- END SNIPPET: javadoc -->
+ * <!-- END SNIPPET: doc -->
  *
  *
  * @author tmjee
