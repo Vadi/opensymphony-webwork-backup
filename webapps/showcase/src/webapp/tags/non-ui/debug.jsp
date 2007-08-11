@@ -22,7 +22,7 @@
     <p/>
     <b>Sample URL:</b> <ww:property value="console" />
     <p/>
-    <a href="<ww:property value="console" />">ValueStack in Debug Console</a>
+    <a id="showConsoleButton" href="<ww:property value="console" />">ValueStack in Debug Console</a>
     <p/>
     <b>Usage:</b> Just enter OGNL expressions into the console window and press Return. <br>
     The OGNL expression will be submitted against the current action and the result will be shown within the console output.<br>
@@ -34,7 +34,7 @@
     <p/>
     <b>Sample URL:</b> <ww:property value="xml" />
     <p/>
-    <a href="<ww:property value="xml" />">ValueStack Debug as XML</a>
+    <a id="showXmlButton" href="<ww:property value="xml" />">ValueStack Debug as XML</a>
     <p/>
 
 	<h1>Debug Tag Usage</h1>
