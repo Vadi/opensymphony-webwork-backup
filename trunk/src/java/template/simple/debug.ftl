@@ -16,7 +16,7 @@
 <p/>
 
 
-<a href="#" onclick="toggleDebug('<#if parameters.id?if_exists != "">${parameters.id?html}<#else>debug</#if>');return false;">[Debug]</a>
+<a href="#" name="debugAnchor" onclick="toggleDebug('<#if parameters.id?if_exists != "">${parameters.id?html}<#else>debug</#if>');return false;">[Debug]</a>
 <div style="display:none" id="<#if parameters.id?if_exists != "">${parameters.id?html}<#else>debug</#if>">
 <h2>WebWork ValueStack Debug</h2>
 <p/>
