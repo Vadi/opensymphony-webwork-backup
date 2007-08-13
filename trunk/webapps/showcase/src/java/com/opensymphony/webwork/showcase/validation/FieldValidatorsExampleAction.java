@@ -5,7 +5,6 @@
 package com.opensymphony.webwork.showcase.validation;
 
 import java.sql.Date;
-import java.util.Random;
 
 /**
  * @author tm_jee
@@ -25,9 +24,6 @@ public class FieldValidatorsExampleAction extends AbstractValidationActionSuppor
 	private String stringLengthValidatorField = null;
 	private String regexValidatorField = null;
 	private String fieldExpressionValidatorField = null;
-	
-	
-	private String randomNumber = null;
 	
 	
 	public Date getDateValidatorField() {
