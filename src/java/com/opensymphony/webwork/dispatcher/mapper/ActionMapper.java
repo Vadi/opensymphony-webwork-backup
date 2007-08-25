@@ -20,10 +20,42 @@ import javax.servlet.http.HttpServletRequest;
  * HTTP requests (when shown in HTTP responses) must be in String form, a String is returned rather than an actual
  * request object.
  *
+ * <p/> ActionMapper should return null ({@link #getMapping(javax.servlet.http.HttpServletRequest)} and
+ * {@link #getUriFromActionMapping(ActionMapping)} if it cannot handle the context.
+ *
  * <!-- END SNIPPET: javadoc -->
+ *
+ * @author plightbo
+ * @author tmjee
+ *
+ * @version $Date$ $Id$
  */
 public interface ActionMapper {
+
+    /**
+     * Return the {@link ActionMapping} for the given {@link javax.servlet.http.HttpServletRequest}, the format of
+     * {@link javax.servlet.http.HttpServletRequest} url depends on the implementation of {@link ActionMapper}, eg.
+     * a {@link com.opensymphony.webwork.dispatcher.mapper.RestfulActionMapper} might handle it differently from
+     * {@link com.opensymphony.webwork.dispatcher.mapper.DefaultActionMapper}.
+     * <p/>
+     * Implementation should return null if it cannot handle the format of request (eg. if it is bad etc.) such that
+     * we could cascade {@link ActionMapping} together using
+     * {@link com.opensymphony.webwork.dispatcher.mapper.CompositeActionMapper}
+     *
+     * @param request
+     * @return ActionMapping
+     */
     ActionMapping getMapping(HttpServletRequest request);
 
+    /**
+     * Return the uri of the {@link com.opensymphony.webwork.dispatcher.mapper.ActionMapping} passed in as the argument.
+     * <p/>
+     * Implementation should return null if it cannot handle the format of request (eg. if it is bad etc.) such that
+     * we could cascade {@link ActionMapping} together using
+     * {@link com.opensymphony.webwork.dispatcher.mapper.CompositeActionMapper}
+     *
+     * @param mapping
+     * @return String
+     */
     String getUriFromActionMapping(ActionMapping mapping);
 }
