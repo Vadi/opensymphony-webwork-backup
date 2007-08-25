@@ -16,6 +16,9 @@ import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletRequest;
  * Unit test for {@link RestfulActionMapper}.
  *
  * @author Claus Ibsen
+ * @author tmjee
+ *
+ * @version $Date$ $Id$
  */
 public class RestfulActionMapperTest extends TestCase {
 
@@ -24,10 +27,9 @@ public class RestfulActionMapperTest extends TestCase {
     public void testGetUri() {
         ActionMapping am = new ActionMapping();
         am.setName("view");
-        am.setNamespace("secure");
         am.setParams(Collections.EMPTY_MAP);
 
-        assertEquals("secureview", mapper.getUriFromActionMapping(am));
+        assertEquals("view", mapper.getUriFromActionMapping(am));
     }
 
     public void testGetUriParam() {
@@ -35,10 +37,9 @@ public class RestfulActionMapperTest extends TestCase {
         param.put("article", "123");
         ActionMapping am = new ActionMapping();
         am.setName("view");
-        am.setNamespace("secure");
         am.setParams(param);
 
-        assertEquals("secureview", mapper.getUriFromActionMapping(am));
+        assertEquals("view", mapper.getUriFromActionMapping(am));
     }
 
     public void testGetUriParamId() {
@@ -47,10 +48,9 @@ public class RestfulActionMapperTest extends TestCase {
         param.put("viewId", "456");
         ActionMapping am = new ActionMapping();
         am.setName("view");
-        am.setNamespace("secure");
         am.setParams(param);
 
-        assertEquals("secureview/456", mapper.getUriFromActionMapping(am));
+        assertEquals("view/456", mapper.getUriFromActionMapping(am));
     }
 
     public void testGetMappingNoSlash() throws Exception {
