@@ -31,7 +31,6 @@ public abstract class FormButton extends UIBean {
         super(stack, request, response);
     }
 
-    //public void evaluateParams() {
     public void evaluateExtraParams() {
     	super.evaluateExtraParams();
         if (align == null) {
@@ -43,8 +42,6 @@ public abstract class FormButton extends UIBean {
         {
             submitType = type;
         }
-
-        //super.evaluateParams();
 
         addParameter("type", submitType);
 

@@ -40,9 +40,3 @@
  onSubmit="return isAjaxFormSubmit(this);"
 >
 <#include "/${parameters.templateDir}/${themeProperties.parent}/control.ftl" />
-<#--
-<table class="${parameters.cssClass?default('wwFormTable')?html}"<#rt/>
-<#if parameters.cssStyle?exists> style="${parameters.cssStyle?html}"<#rt/>
-</#if>
->
--->
