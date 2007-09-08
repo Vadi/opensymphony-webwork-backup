@@ -39,7 +39,7 @@ public class RestfulActionMapperTest extends TestCase {
         am.setName("view");
         am.setParams(param);
 
-        assertEquals("view", mapper.getUriFromActionMapping(am));
+        assertEquals("view/article/123", mapper.getUriFromActionMapping(am));
     }
 
     public void testGetUriParamId() {
@@ -50,7 +50,7 @@ public class RestfulActionMapperTest extends TestCase {
         am.setName("view");
         am.setParams(param);
 
-        assertEquals("view/456", mapper.getUriFromActionMapping(am));
+        assertEquals("view/456/article/123", mapper.getUriFromActionMapping(am));
     }
 
     public void testGetMappingNoSlash() throws Exception {

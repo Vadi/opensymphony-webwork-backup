@@ -155,12 +155,20 @@ public class RestfulActionMapper implements ActionMapper {
         // is being used.
         if ((mapping.getNamespace() == null) || (mapping.getNamespace().trim().length() <= 0)) {
             String base = mapping.getName();
-            for (Iterator iterator = mapping.getParams().entrySet().iterator(); iterator.hasNext();) {
+
+            // let's see if we have the <actionName>Id first, if so this should go first,
+            // cause in {#link #getMapping(HttpServletRequest) the <actionName>Id is expected to be
+            // first if the / separated element is odd
+            Map parameters = mapping.getParams();
+            if (parameters.containsKey(mapping.getName()+"Id")) {
+                base = base + "/" + parameters.get(mapping.getName()+"Id");
+            }
+
+            for (Iterator iterator = parameters.entrySet().iterator(); iterator.hasNext();) {
                 Map.Entry entry = (Map.Entry) iterator.next();
                 String name = (String) entry.getKey();
-                if (name.equals(mapping.getName() + "Id")) {
-                    base = base + "/" + entry.getValue();
-                    break;
+                if (! name.equals(mapping.getName() + "Id")) {
+                    base = base + "/" + entry.getKey() + "/" + entry.getValue();
                 }
             }
             return base;
