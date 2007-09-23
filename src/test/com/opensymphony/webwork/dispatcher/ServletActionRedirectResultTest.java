@@ -10,6 +10,7 @@ import java.util.Map;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkTestCase;
 import com.opensymphony.webwork.dispatcher.ServletActionRedirectResult;
+import com.opensymphony.webwork.views.util.UrlHelper;
 
 import org.easymock.MockControl;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -88,7 +89,16 @@ public class ServletActionRedirectResultTest extends WebWorkTestCase {
 		actionInvocationControl.replay();
 		
 		result.execute(mockInvocation);
-		assertEquals("/myNamespace/myAction.action?param2=value+2&param1=value+1&param3=value+3", res.getRedirectedUrl());
+		
+		// ugly hack to ensure consistent ordering
+		HashMap hm = new HashMap();
+		hm.put("param1", "value 1");		
+		hm.put("param2", "value 2");		
+		hm.put("param3", "value 3");	
+		StringBuffer expected = new StringBuffer("/myNamespace/myAction.action");
+		UrlHelper.buildParametersString(hm, expected,"&");
+
+		assertEquals(expected.toString(), res.getRedirectedUrl());
 		
 		actionProxyControl.verify();
 		actionInvocationControl.verify();
@@ -146,9 +156,20 @@ public class ServletActionRedirectResultTest extends WebWorkTestCase {
 		
 		actionProxyControl.replay();
 		actionInvocationControl.replay();
+
 		
+				
 		result.execute(mockInvocation);
-		assertEquals("/myNamespace/myAction.action?param2=value+2&param1=value+1&param3=value+3", res.getRedirectedUrl());
+		
+		//ugly hack to ensure consistent ordering
+		HashMap hm = new HashMap();
+		hm.put("param1", "value 1");		
+		hm.put("param2", "value 2");		
+		hm.put("param3", "value 3");	
+		StringBuffer expected = new StringBuffer("/myNamespace/myAction.action");
+		UrlHelper.buildParametersString(hm, expected,"&");
+
+		assertEquals(expected.toString(), res.getRedirectedUrl());
 		
 		actionProxyControl.verify();
 		actionInvocationControl.verify();

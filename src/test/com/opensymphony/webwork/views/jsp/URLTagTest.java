@@ -14,6 +14,8 @@ import java.io.StringWriter;
 import com.opensymphony.webwork.components.URL;
 
 import com.opensymphony.webwork.views.jsp.ParamTag;
+import com.opensymphony.webwork.views.util.UrlHelper;
+
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
                                                                         
@@ -219,7 +221,16 @@ public class URLTagTest extends AbstractUITagTest {
         tag.component.addParameter("param1", "value1");
         tag.component.addParameter("param2", "value2");
         tag.doEndTag();
-        assertEquals("/TestAction.action?param2=value2&amp;param0=value0&amp;param1=value1", writer.toString());
+        
+		//ugly hack to ensure consistent ordering
+		HashMap hm = new HashMap();
+		hm.put("param1", "value1");		
+		hm.put("param2", "value2");		
+		hm.put("param0", "value0");	
+		StringBuffer expected = new StringBuffer("/TestAction.action");
+		UrlHelper.buildParametersString(hm, expected);
+
+        assertEquals(expected.toString(), writer.toString());
     }
 
     public void testEvaluateValue() throws Exception {
@@ -276,8 +287,15 @@ public class URLTagTest extends AbstractUITagTest {
     	paramTag.doStartTag();
     	paramTag.doEndTag();
     	urlTag.doEndTag();
+       	
+		//ugly hack to ensure consistent ordering
+		HashMap hm = new HashMap();
+		hm.put("name", "John");		
+		hm.put("id", "33");		
+		StringBuffer expected = new StringBuffer("/context/someAction.action");
+		UrlHelper.buildParametersString(hm, expected);
     	
-    	assertEquals(writer.getBuffer().toString(), "/context/someAction.action?name=John&amp;id=33");
+    	assertEquals(expected.toString(),writer.getBuffer().toString());
     }
 
     public void testParamPrecedenceWithAnchor() throws Exception {
@@ -299,8 +317,16 @@ public class URLTagTest extends AbstractUITagTest {
     	paramTag.doStartTag();
     	paramTag.doEndTag();
     	urlTag.doEndTag();
-
-    	assertEquals(writer.getBuffer().toString(), "/context/someAction.action?name=John&amp;id=33#testAnchor");
+    	
+		//ugly hack to ensure consistent ordering
+		HashMap hm = new HashMap();
+		hm.put("name", "John");		
+		hm.put("id", "33");		
+		StringBuffer expected = new StringBuffer("/context/someAction.action");
+		UrlHelper.buildParametersString(hm, expected);
+		expected.append("#testAnchor");
+		
+    	assertEquals(expected.toString(), writer.getBuffer().toString());
     }
 
     public void testPutId() throws Exception {
@@ -340,8 +366,14 @@ public class URLTagTest extends AbstractUITagTest {
         tag.setIncludeParams("get");
         tag.doStartTag();
         tag.doEndTag();
+		//ugly hack to ensure consistent ordering
+		HashMap hm = new HashMap();
+		hm.put("section", "team");		
+		hm.put("company", "acme inc");		
+		StringBuffer expected = new StringBuffer("/team.action");
+		UrlHelper.buildParametersString(hm, expected);
 
-        assertEquals("/team.action?section=team&amp;company=acme+inc", writer.toString());
+        assertEquals(expected.toString(), writer.toString());
     }
 
     public void testRequestURINoActionIncludeNone() throws Exception {
@@ -365,7 +397,14 @@ public class URLTagTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        assertEquals("/public/about?section=team&amp;company=acme+inc", writer.toString());
+		//ugly hack to ensure consistent ordering
+		HashMap hm = new HashMap();
+		hm.put("section", "team");		
+		hm.put("company", "acme inc");		
+		StringBuffer expected = new StringBuffer("/public/about");
+		UrlHelper.buildParametersString(hm, expected);
+
+        assertEquals(expected.toString(), writer.toString());
     }
 
     public void testRequestURIActionIncludeAll() throws Exception {
@@ -386,9 +425,16 @@ public class URLTagTest extends AbstractUITagTest {
         paramTag.doEndTag();
 
         tag.doEndTag();
+		//ugly hack to ensure consistent ordering
+		HashMap hm = new HashMap();
+		hm.put("section", "team");		
+		hm.put("company", "acme inc");		
+		hm.put("year", "2006");	
+		StringBuffer expected = new StringBuffer("/team.action");
+		UrlHelper.buildParametersString(hm, expected);
 
-        assertEquals("/team.action?section=team&amp;year=2006&amp;company=acme+inc", writer.toString());
-    }
+        assertEquals(expected.toString(), writer.toString());
+   }
 
     public void testRequestURINoActionIncludeAll() throws Exception {
         request.setRequestURI("/public/about");
@@ -408,8 +454,15 @@ public class URLTagTest extends AbstractUITagTest {
         paramTag.doEndTag();
 
         tag.doEndTag();
+		//ugly hack to ensure consistent ordering
+		HashMap hm = new HashMap();
+		hm.put("section", "team");		
+		hm.put("company", "acme inc");		
+		hm.put("year", "2006");	
+		StringBuffer expected = new StringBuffer("/public/about");
+		UrlHelper.buildParametersString(hm, expected);
 
-        assertEquals("/public/about?section=team&amp;year=2006&amp;company=acme+inc", writer.toString());
+        assertEquals(expected.toString(), writer.toString());
     }
 
     public void testUnknownIncludeParam() throws Exception {
