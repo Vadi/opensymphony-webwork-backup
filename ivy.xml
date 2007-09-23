@@ -68,6 +68,8 @@
         <dependency org="xdoclet" name="xdoclet-web-module" rev="1.2.3" conf="build->*"/>
         <dependency org="xjavadoc" name="xjavadoc" rev="1.1" conf="build->*"/>
 
+        <dependency org="xmlunit" name="xmlunit" rev="1.0" conf="build->*" />
+
         <!-- default -->
         <dependency org="opensymphony" name="xwork" rev="1.2.4+" conf="default->default"/>
         <dependency org="apache" name="commons-logging" rev="1.0.4" conf="default->default"/>
