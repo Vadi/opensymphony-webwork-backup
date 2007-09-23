@@ -16,6 +16,7 @@
 package com.opensymphony.webwork.views.jsp;
 
 import java.lang.reflect.Field;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -283,9 +284,34 @@ public class PortletUrlTagTest extends MockObjectTestCase {
 	}
 	
 	public void testResourceUrlWithTwoNestedParam() throws Exception {
+		// this is ugly, and replicates  what is done
+		// in ProtletUrlHelper - but prevents faulures ariding
+		// from inconsistent ordering of hashmap 
+		// unfortunately it is impossible to use PortletURLHelper, due to 
+		// mocked classes in context 
+		HashMap pp = new HashMap();
+		pp.put("testParam1", "testValue1");
+		pp.put("testParam2", "testValue2");
+		
+		StringBuffer sb = new StringBuffer("/contextPath/image.gif?");
+        Iterator it = pp.keySet().iterator();
+        while(it.hasNext()) {
+            String key = (String)it.next();
+            String val = (String)pp.get(key);
+            sb.append(URLEncoder.encode(key)).append("=");
+            sb.append(URLEncoder.encode(val));
+            if(it.hasNext()) {
+                sb.append("&");
+            }
+        }
+	
+		
+		String toCompare = sb.toString();
+		// end of ulgy hack.
+		
 		mockHttpReq.stubs().method("getQueryString").will(returnValue(""));
-		mockPortletRes.expects(once()).method("encodeURL").with(eq("/contextPath/image.gif?testParam1=testValue1&testParam2=testValue2")).will(returnValue("/contextPath/image.gif?testParam1=testValue1&testParam2=testValue2"));
-		mockJspWriter.setExpectedData("/contextPath/image.gif?testParam1=testValue1&testParam2=testValue2");
+		mockPortletRes.expects(once()).method("encodeURL").with(eq(toCompare)).will(returnValue(toCompare));
+		mockJspWriter.setExpectedData(toCompare);
 		
 		ParamTag paramTag = new ParamTag();
 		paramTag.setPageContext((PageContext)mockPageCtx.proxy());
