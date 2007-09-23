@@ -518,6 +518,13 @@
             <!-- has to be compile for WebWorkTestCase, which is part of the base package so others can write unit tests -->
             <optional>true</optional>
         </dependency>
+        <!-- test scoped dependency for xml result testing -->
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
 
         <dependency>
             <groupId>jmock</groupId>
