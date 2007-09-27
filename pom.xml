@@ -112,7 +112,9 @@
                 </includes>
                 <excludes>
                     <exclude>**/*.java</exclude>
-                    <exclude>**/*.html</exclude>
+                    <exclude>**/package.html</exclude>
+                    <exclude>**/release-notes.html</exclude>
+                    <exclude>**/overview.html</exclude>
                 </excludes>
             </resource>
         </resources>
