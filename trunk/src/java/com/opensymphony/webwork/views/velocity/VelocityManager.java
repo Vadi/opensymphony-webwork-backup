@@ -7,6 +7,7 @@ package com.opensymphony.webwork.views.velocity;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.WebWorkException;
+import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.util.VelocityWebWorkUtil;
 import com.opensymphony.webwork.views.jsp.ui.OgnlTool;
@@ -135,6 +136,20 @@ public class VelocityManager {
         }
         context.put(WEBWORK, new VelocityWebWorkUtil(context, stack, req, res));
 
+        // populate stack with request, response and session
+        // in case we are coming  from velocity servlet without prior action
+        // invocation
+        if(stack.getContext().get(WebWorkStatics.HTTP_REQUEST) == null) {
+        	stack.getContext().put(WebWorkStatics.HTTP_REQUEST,req);
+        }
+        if(stack.getContext().get(WebWorkStatics.HTTP_RESPONSE) == null) {
+        	stack.getContext().put(WebWorkStatics.HTTP_RESPONSE,res);
+        }        
+        if(stack.getContext().get(WebWorkStatics.SERVLET_CONTEXT) == null) {
+        	stack.getContext().put(WebWorkStatics.SERVLET_CONTEXT,req.getSession().getServletContext());
+        }
+
+        
 
         ServletContext ctx = null;
         try {
