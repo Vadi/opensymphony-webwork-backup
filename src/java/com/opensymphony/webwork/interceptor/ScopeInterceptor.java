@@ -316,16 +316,18 @@ public class ScopeInterceptor implements Interceptor, PreResultListener {
                     String string = session[i];
                     if (ends) {
                         ses.remove(key + string);
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("session scoped variable removed key=["+key+string+"]");
+                        }
                     } else {
                         Object value = stack.findValue(string);
+
+                        // Null value should be scoped too
+                        ses.put(key + string, nullConvert(value));
 
                         if (LOG.isDebugEnabled()) {
                             LOG.debug("session scoped variable saved " + string + " = " + String.valueOf(value));
                         }
-
-                        // Null value should be scoped too
-                        //if( value != null)
-                        ses.put(key + string, nullConvert(value));
                     }
                 }
             }
