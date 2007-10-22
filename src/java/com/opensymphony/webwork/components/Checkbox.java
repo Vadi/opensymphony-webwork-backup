@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * <pre>
  * <!-- START SNIPPET: example -->
+ * FREEMARKER:
+ * &lt;@ww.checkbox label="checkbox" name="checkboxField1" value="aBoolean" fieldValue="true" /&gt;
+ *
  * JSP:
  * &lt;ww:checkbox label="checkbox test" name="checkboxField1" value="aBoolean" fieldValue="true"/&gt;
  *
