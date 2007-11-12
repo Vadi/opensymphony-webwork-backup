@@ -22,9 +22,13 @@ function previousElement(/* Node */ node, /*string? */ tagName) {
 } 
  
 function clearErrorMessages(form) {
-    var table = form.childNodes[1];
-    if( typeof table == "undefined" ) {
-        table = form.childNodes[0];
+
+    var table = null;
+    for (var z=0; z<form.childNodes.length; z++) {
+        if ("TABLE" == form.childNodes[z].nodeName) {
+            table = form.childNodes[z];
+            break;
+        }
     }
 
     // clear out any rows with an "errorFor" attribute
