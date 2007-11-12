@@ -29,7 +29,7 @@ public class RestfulActionMapperTest extends TestCase {
         am.setName("view");
         am.setParams(Collections.EMPTY_MAP);
 
-        assertEquals("view", mapper.getUriFromActionMapping(am));
+        assertEquals("/view/", mapper.getUriFromActionMapping(am));
     }
 
     public void testGetUriParam() {
@@ -39,7 +39,7 @@ public class RestfulActionMapperTest extends TestCase {
         am.setName("view");
         am.setParams(param);
 
-        assertEquals("view/article/123", mapper.getUriFromActionMapping(am));
+        assertEquals("/view/article/123/", mapper.getUriFromActionMapping(am));
     }
 
     public void testGetUriParamId() {
@@ -50,7 +50,7 @@ public class RestfulActionMapperTest extends TestCase {
         am.setName("view");
         am.setParams(param);
 
-        assertEquals("view/456/article/123", mapper.getUriFromActionMapping(am));
+        assertEquals("/view/456/article/123/", mapper.getUriFromActionMapping(am));
     }
 
     public void testGetMappingNoSlash() throws Exception {
@@ -62,7 +62,7 @@ public class RestfulActionMapperTest extends TestCase {
 
     public void testGetMapping() throws Exception {
         WebWorkMockHttpServletRequest request = new WebWorkMockHttpServletRequest();
-        request.setupGetServletPath("/myapp/view/12");
+        request.setupGetServletPath("/myapp/view/12/");
 
         ActionMapping am = mapper.getMapping(request);
         assertEquals("myapp", am.getName());
@@ -72,7 +72,7 @@ public class RestfulActionMapperTest extends TestCase {
 
     public void testGetMapping2() throws Exception {
         WebWorkMockHttpServletRequest request = new WebWorkMockHttpServletRequest();
-        request.setupGetServletPath("/myapp/12/region/europe");
+        request.setupGetServletPath("/myapp/12/region/europe/");
 
         ActionMapping am = mapper.getMapping(request);
         assertEquals("myapp", am.getName());
@@ -83,7 +83,7 @@ public class RestfulActionMapperTest extends TestCase {
 
     public void testGetMapping3() throws Exception {
         WebWorkMockHttpServletRequest request = new WebWorkMockHttpServletRequest();
-        request.setupGetServletPath("/myapp/view/12/region/europe");
+        request.setupGetServletPath("/myapp/view/12/region/europe/");
 
         ActionMapping am = mapper.getMapping(request);
         assertEquals("myapp", am.getName());

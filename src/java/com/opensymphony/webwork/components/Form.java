@@ -210,8 +210,8 @@ public class Form extends ClosingUIBean {
         String actionName = action;
         if (actionConfig != null) {
 
-            ActionMapping mapping = new ActionMapping(action, namespace, actionMethod, parameters);
-            String result = UrlHelper.buildUrl(ActionMapperFactory.getMapper().getUriFromActionMapping(mapping), request, response, null);
+            String result = determineActionURL(action, namespace, actionMethod, request, response, Collections.EMPTY_MAP, null, true, true, true);
+
             addParameter("action", result);
 
             // let's try to get the actual action class and name

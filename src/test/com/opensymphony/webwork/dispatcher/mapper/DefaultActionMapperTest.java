@@ -4,14 +4,14 @@
  */
 package com.opensymphony.webwork.dispatcher.mapper;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.opensymphony.webwork.dispatcher.ServletRedirectResult;
 import com.opensymphony.webwork.views.jsp.WebWorkMockHttpServletRequest;
 import com.opensymphony.xwork.Result;
-
 import junit.framework.TestCase;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * DefaultActionMapper test case.
@@ -249,5 +249,25 @@ public class DefaultActionMapperTest extends TestCase {
 
         assertEquals("/myActionName.action?test=bla", uri);
     }
+
+    // ==================================================
+	// === test action?param1=value1&param2=value2 ... ===
+	// ==================================================
+
+    public void testGetUriWithParamsFromActionMapper() throws Exception {
+        DefaultActionMapper mapper = new DefaultActionMapper();
+        ActionMapping actionMapping = new ActionMapping();
+        actionMapping.setName("myAction");
+        actionMapping.setNamespace("/myNamespace");
+        actionMapping.setParams(new LinkedHashMap() {
+            {
+                put("param1", "value1");
+                put("param2", "value2");
+            }
+        });
+        String uri = mapper.getUriFromActionMapping(actionMapping);
+        assertEquals("/myNamespace/myAction.action?param1=value1&amp;param2=value2", uri);
+    }
+
 
 }

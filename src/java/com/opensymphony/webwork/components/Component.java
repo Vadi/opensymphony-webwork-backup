@@ -4,14 +4,14 @@
  */
 package com.opensymphony.webwork.components;
 
+import com.opensymphony.webwork.WebWorkException;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
+import com.opensymphony.webwork.dispatcher.mapper.ActionMappingEx;
 import com.opensymphony.webwork.util.FastByteArrayOutputStream;
 import com.opensymphony.webwork.views.jsp.TagUtils;
 import com.opensymphony.webwork.views.util.ContextUtil;
-import com.opensymphony.webwork.views.util.UrlHelper;
-import com.opensymphony.webwork.dispatcher.mapper.ActionMapping;
-import com.opensymphony.webwork.dispatcher.mapper.ActionMapper;
-import com.opensymphony.webwork.dispatcher.mapper.ActionMapperFactory;
-import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.xwork.util.OgnlValueStack;
 import com.opensymphony.xwork.util.TextParseUtil;
 import org.apache.commons.logging.Log;
@@ -321,13 +321,17 @@ public class Component {
      */
     protected String determineActionURL(String action, String namespace, String method,
                                         HttpServletRequest req, HttpServletResponse res, Map parameters, String scheme,
-                                        boolean includeContext, boolean encodeResult, boolean escapeXml) {
+                                        boolean includeContext, boolean encodeResult, boolean escapeAmp) {
         String finalAction = findString(action);
         String finalNamespace = determineNamespace(namespace, getStack(), req);
-        ActionMapping mapping = new ActionMapping(finalAction, finalNamespace, method, parameters);
+
+        ActionMapping mapping = new ActionMappingEx(finalAction, finalNamespace, method, parameters, scheme,
+                                                    includeContext, encodeResult, escapeAmp, req, res);
+
         ActionMapper mapper = ActionMapperFactory.getMapper();
         String uri = mapper.getUriFromActionMapping(mapping);
-        return UrlHelper.buildUrl(uri, req, res, parameters, scheme, includeContext, encodeResult, false, escapeXml);
+
+        return uri;
     }
 
     /**

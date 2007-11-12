@@ -30,8 +30,7 @@ import java.util.ArrayList;
  * FormTagTest
  *
  * @author Jason Carreira
- *         Created Apr 3, 2003 10:28:58 AM
- *         
+ * @author tmjee
  * @version $Date$ $Id$
  */
 public class FormTagTest extends AbstractUITagTest {
@@ -52,7 +51,7 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        verify(FormTag.class.getResource("Formtag-9.txt"));
+        verify(FormTagTest.class.getResource("Formtag-9.txt"));
 	}
 
 
@@ -73,7 +72,7 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        verify(FormTag.class.getResource("Formtag-10.txt"));
+        verify(FormTagTest.class.getResource("Formtag-10.txt"));
 	}
 
 
@@ -95,7 +94,7 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        verify(FormTag.class.getResource("Formtag-1.txt"));
+        verify(FormTagTest.class.getResource("Formtag-1.txt"));
     }
 
         /**
@@ -172,7 +171,7 @@ public class FormTagTest extends AbstractUITagTest {
         t.doEndTag();
         tag.doEndTag();
 
-        verify(FormTag.class.getResource("Formtag-2.txt"));
+        verify(FormTagTest.class.getResource("Formtag-2.txt"));
     	}
     	finally {
     		ConfigurationManager.setConfiguration(originalConfiguration);
@@ -255,7 +254,7 @@ public class FormTagTest extends AbstractUITagTest {
         t.doEndTag();
         tag.doEndTag();
 
-        verify(FormTag.class.getResource("Formtag-11.txt"));
+        verify(FormTagTest.class.getResource("Formtag-11.txt"));
     	}
     	finally {
     		ConfigurationManager.setConfiguration(originalConfiguration);
@@ -288,7 +287,7 @@ public class FormTagTest extends AbstractUITagTest {
         t.doEndTag();
         tag.doEndTag();
     	
-        verify(FormTag.class.getResource("Formtag-6.txt"));
+        verify(FormTagTest.class.getResource("Formtag-6.txt"));
     }
     
     
@@ -318,7 +317,7 @@ public class FormTagTest extends AbstractUITagTest {
 
         Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, oldConfiguration);
 
-        verify(FormTag.class.getResource("Formtag-5.txt"));
+        verify(FormTagTest.class.getResource("Formtag-5.txt"));
 
         // set it back to the default
         Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, "action");
@@ -342,7 +341,7 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        verify(FormTag.class.getResource("Formtag-5.txt"));
+        verify(FormTagTest.class.getResource("Formtag-5.txt"));
     }
 
     public void testFormWithNamespaceDefaulting() throws Exception {
@@ -360,7 +359,7 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        verify(FormTag.class.getResource("Formtag-3.txt"));
+        verify(FormTagTest.class.getResource("Formtag-3.txt"));
     }
     
     public void testFormTagForStackOverflowException1() throws Exception {
@@ -495,7 +494,7 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        verify(FormTag.class.getResource("Formtag-4.txt"));
+        verify(FormTagTest.class.getResource("Formtag-4.txt"));
     }
 
     public void testFormWithStaticAction() throws Exception {
@@ -509,7 +508,7 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doStartTag();
         tag.doEndTag();
 
-        verify(FormTag.class.getResource("Formtag-7.txt"));
+        verify(FormTagTest.class.getResource("Formtag-7.txt"));
     }
 
     public void testFormWithActionAndExtension() throws Exception {
@@ -527,7 +526,7 @@ public class FormTagTest extends AbstractUITagTest {
         tag.doEndTag();
         Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, oldConfiguration);
 
-        verify(FormTag.class.getResource("Formtag-8.txt"));
+        verify(FormTagTest.class.getResource("Formtag-8.txt"));
 
         // set it back to the default
         Configuration.set(WebWorkConstants.WEBWORK_ACTION_EXTENSION, "action");
