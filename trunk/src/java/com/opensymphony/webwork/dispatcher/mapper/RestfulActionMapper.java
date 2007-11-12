@@ -154,7 +154,7 @@ public class RestfulActionMapper implements ActionMapper {
         // return null, and let the next ActionMapper kicks in if say if a CompositeActionMapper
         // is being used.
         if ((mapping.getNamespace() == null) || (mapping.getNamespace().trim().length() <= 0)) {
-            String base = mapping.getName();
+            String base = "/"+mapping.getName();
 
             // let's see if we have the <actionName>Id first, if so this should go first,
             // cause in {#link #getMapping(HttpServletRequest) the <actionName>Id is expected to be
@@ -171,7 +171,7 @@ public class RestfulActionMapper implements ActionMapper {
                     base = base + "/" + entry.getKey() + "/" + entry.getValue();
                 }
             }
-            return base;
+            return base+"/";
         }
         return null;
     }

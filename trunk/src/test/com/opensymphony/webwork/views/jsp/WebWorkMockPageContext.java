@@ -7,10 +7,14 @@ package com.opensymphony.webwork.views.jsp;
 import com.mockobjects.servlet.MockPageContext;
 
 import javax.servlet.ServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.jsp.el.ExpressionEvaluator;
+import javax.servlet.jsp.el.VariableResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.IOException;
 
 
 /**
@@ -50,6 +54,10 @@ public class WebWorkMockPageContext extends MockPageContext {
         return response;
     }
 
+    public void include(String s, boolean b) throws ServletException, IOException {
+        include(s);
+    }
+
     public HttpSession getSession() {
         HttpSession session = super.getSession();
 
@@ -66,5 +74,13 @@ public class WebWorkMockPageContext extends MockPageContext {
 
     public void removeAttribute(String key) {
         this.attributes.remove(key);
+    }
+
+    public ExpressionEvaluator getExpressionEvaluator() {
+        return null;
+    }
+
+    public VariableResolver getVariableResolver() {
+        return null;
     }
 }

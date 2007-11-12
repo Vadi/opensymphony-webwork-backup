@@ -21,10 +21,9 @@ import java.util.HashMap;
 
 
 /**
- * DOCUMENT ME!
- *
- * @author $author$
- * @version $Revision$
+ * @author jcarreira
+ * @author tmjee
+ * @version $Date$ $Id$
  */
 public class ServletRedirectResultTest extends WebWorkTestCase implements WebWorkStatics {
 
@@ -89,6 +88,7 @@ public class ServletRedirectResultTest extends WebWorkTestCase implements WebWor
 
         requestMock = new Mock(HttpServletRequest.class);
         requestMock.matchAndReturn("getContextPath", "/context");
+        requestMock.matchAndReturn("getParameterMap", new HashMap());
 
         ActionContext ac = new ActionContext(Ognl.createDefaultContext(null));
         ac.put(ServletActionContext.HTTP_REQUEST, requestMock.proxy());

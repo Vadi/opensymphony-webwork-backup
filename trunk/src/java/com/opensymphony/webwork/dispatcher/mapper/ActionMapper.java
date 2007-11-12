@@ -53,6 +53,8 @@ public interface ActionMapper {
      * Implementation should return null if it cannot handle the format of request (eg. if it is bad etc.) such that
      * we could cascade {@link ActionMapping} together using
      * {@link com.opensymphony.webwork.dispatcher.mapper.CompositeActionMapper}
+     * <p/>
+     * The parameter <code>mapping</code> is an instance of {@link ActionMappingEx}.
      *
      * @param mapping
      * @return String

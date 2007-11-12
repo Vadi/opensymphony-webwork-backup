@@ -148,8 +148,8 @@ public class UrlHelper {
                 }
             }
         }
-        else if (  
-           (scheme != null) && !scheme.equals(request.getScheme())) {
+        else if (
+           (scheme != null) && (scheme.trim().length() > 0) && (!scheme.equals(request.getScheme()))) {
             changedScheme = true;
             link.append(scheme);
             link.append("://");

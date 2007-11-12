@@ -9,12 +9,10 @@ import com.opensymphony.webwork.WebWorkConstants;
 import com.opensymphony.webwork.config.Configuration;
 import com.opensymphony.webwork.dispatcher.ServletRedirectResult;
 import com.opensymphony.webwork.util.PrefixTrie;
+import com.opensymphony.webwork.views.util.UrlHelper;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <!-- START SNIPPET: javadoc -->
@@ -200,6 +198,7 @@ public class DefaultActionMapper implements ActionMapper {
             mapping.setName(name.substring(0, exclamation));
             mapping.setMethod(name.substring(exclamation + 1));
         }
+        mapping.setParams(new LinkedHashMap(request.getParameterMap()));
         return mapping;
     }
 
@@ -331,8 +330,18 @@ public class DefaultActionMapper implements ActionMapper {
             }
         }
 
-        return uri.toString();
+        if (mapping instanceof ActionMappingEx) {
+            ActionMappingEx mappingEx = (ActionMappingEx)mapping;
+            return UrlHelper.buildUrl(uri.toString(), mappingEx.getRequest(), mappingEx.getResponse(),
+                                      mappingEx.getParams(), mappingEx.getScheme(),
+                                      mappingEx.isIncludeContext(),mappingEx.isEncodeResult(), false,
+                                      mappingEx.isEscapeAmp());
+        }
+        else {
+            return UrlHelper.buildUrl(uri.toString(), null, null, mapping.getParams(), null, false, false, false, true);
+        }
     }
+
 
     interface ParameterAction {
         void execute(String key, ActionMapping mapping);
