@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2002-2007 by OpenSymphony
+ * All rights reserved.
+ */
 package com.opensymphony.webwork.dispatcher.json;
 
 import com.opensymphony.webwork.WebWorkTestCase;
