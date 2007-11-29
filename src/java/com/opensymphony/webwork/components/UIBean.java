@@ -889,7 +889,11 @@ public abstract class UIBean extends Component {
     protected String escape(String name) {
         // escape any possible values that can make the ID painful to work with in JavaScript
         if (name != null) {
-            return name.replaceAll("[\\.\\[\\]]", "_");
+            // NOTE:
+            // replace all non a-z, A-Z, 0-9 and '_' to '_'
+            // as javascript spec allows only those characters as it's
+            // attributes. (see WW-1453)
+            return name.replaceAll("[^a-zA-Z0-9_]", "_");
         } else {
             return "";
         }
