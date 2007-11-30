@@ -9,6 +9,8 @@ import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -37,6 +39,8 @@ import java.util.Map;
  * @version $Date$ $Id$
  */
 public abstract class AbstractHttpHeaderPopulatingResult extends WebWorkResultSupport {
+
+    private static final Log LOG = LogFactory.getLog(AbstractHttpHeaderPopulatingResult.class);
 
     private Map headers;
     
@@ -73,6 +77,21 @@ public abstract class AbstractHttpHeaderPopulatingResult extends WebWorkResultSu
                 String value = (String) entry.getValue();
                 String finalValue = conditionalParse(value, invocation);
                 response.addHeader((String) entry.getKey(), finalValue);
+            }
+
+            // log headers we've just populated
+            if (LOG.isDebugEnabled()) {
+                if (!headers.isEmpty()) {
+                    String log_statement = "populated HttpServletRespons's Header with";
+                    for(Iterator i = headers.entrySet().iterator()) {
+                        Map.Entry entry = (Map.Entry) i.next();
+                        log_statement = log_statement + "\n\t"+entry.getKey()+"="+entry.getValue();
+                    }
+                    LOG.debug(log_statement);
+                }
+                else {
+                    LOG.debug("Nothing was populated to HttpServletResponse's header");
+                }
             }
         }
 

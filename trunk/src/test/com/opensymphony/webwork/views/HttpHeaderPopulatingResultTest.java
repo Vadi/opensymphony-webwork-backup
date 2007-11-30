@@ -21,7 +21,6 @@ import java.util.HashMap;
  */
 public class HttpHeaderPopulatingResultTest extends WebWorkTestCase {
 
-    
     public void test() throws Exception {
         AbstractHttpHeaderPopulatingResult result = new AbstractHttpHeaderPopulatingResult() {
             protected void afterHttpHeadersPopulatedExecute(String finalLocation, ActionInvocation invocation) throws Exception {
