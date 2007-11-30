@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2005 by OpenSymphony
+ * Copyright (c) 2002-2007 by OpenSymphony
  * All rights reserved.
  */
 package com.opensymphony.webwork.views.jasperreports;
@@ -32,6 +32,7 @@ import org.apache.commons.logging.LogFactory;
 import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.webwork.WebWorkException;
+import com.opensymphony.webwork.views.AbstractHttpHeaderPopulatingResult;
 import com.opensymphony.webwork.dispatcher.WebWorkResultSupport;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.OgnlValueStack;
@@ -103,8 +104,10 @@ import com.opensymphony.xwork.util.OgnlValueStack;
  *
  * @author Patrick Lightbody
  * @author Rainer Hermanns
+ * @author tmjee
+ * @version $Date$ $Id$
  */
-public class JasperReportsResult extends WebWorkResultSupport implements JasperReportConstants {
+public class JasperReportsResult extends AbstractHttpHeaderPopulatingResult implements JasperReportConstants {
     private final static Log LOG = LogFactory.getLog(JasperReportsResult.class);
 
 
@@ -144,7 +147,8 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
         this.delimiter = delimiter;
     }
 
-    protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
+    protected void afterHttpHeadersPopulatedExecute(String finalLocation, ActionInvocation invocation) throws Exception {
+        
         if (this.format == null) {
             this.format = FORMAT_PDF;
         }
@@ -299,6 +303,8 @@ public class JasperReportsResult extends WebWorkResultSupport implements JasperR
             }
         }
     }
+
+
 
     /**
      * Run a Jasper report to CSV format and put the results in a byte array
