@@ -19,7 +19,7 @@
         <field-validator type="int">
             <param name="min">10</param>
             <param name="max">19</param>
-            <message key="validation.age.invalid1111">
+            <message key="validation.age.invalid">
                 <param name="0">'Contestant'</param>
                 <param name="1">minAge</param>
                 <param name="2">maxAge</param>
