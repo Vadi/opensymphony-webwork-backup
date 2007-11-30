@@ -9,9 +9,28 @@ import com.opensymphony.xwork.ActionSupport;
 // START SNIPPET: quizAction 
 
 public class QuizAction extends ActionSupport {
+    int minAge = 13;
+    int maxAge = 19;
+
     String name;
     int age;
     String answer;
+
+    public int getMinAge() {
+        return minAge;
+    }
+
+    public void setMinAge(int minAge) {
+        this.minAge = minAge;
+    }
+
+    public int getMaxAge() {
+        return maxAge;
+    }
+
+    public void setMaxAge(int maxAge) {
+        this.maxAge = maxAge;
+    }
 
     public String getName() {
         return name;
