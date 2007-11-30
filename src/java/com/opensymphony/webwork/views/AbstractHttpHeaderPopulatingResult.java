@@ -17,6 +17,18 @@ import java.util.Map;
 
 /**
  * An abstract class that will auto populate the http response header of the current http request.
+ * Subclass would want to override {@link #afterHttpHeadersPopulatedExecute(String, com.opensymphony.xwork.ActionInvocation)}
+ * which would be called, after the http headers are being populated into {@link javax.servlet.http.HttpServletResponse}.
+ * Normally, we'd do
+ * <pre>
+ *    ActionContext.getContext().get(ServletActionContext.HTTP_RESPONSE);
+ * </pre>
+ * or
+ * <pre>
+ *    ServetActionContext.getResponse();
+ * </pre>
+ * to get hold of {@link javax.servlet.http.HttpServletResponse}.
+ *
  *
  * @see HttpHeaderResult
  * @see JasperReportsResult
