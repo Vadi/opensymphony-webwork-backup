@@ -5,7 +5,9 @@
 <!--  START SNIPPET: quizValidators -->
 <!--
     Add the following DOCTYPE declaration as first line of your XXX-validation.xml file:
-    <!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+    <!DOCTYPE validators PUBLIC
+                    "-//OpenSymphony Group//XWork Validator 1.0.3//EN"
+                    "http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd">
 -->
 <validators>
     <field name="name">
@@ -17,7 +19,7 @@
         <field-validator type="int">
             <param name="min">10</param>
             <param name="max">19</param>
-            <message key="validation.age.invalid">
+            <message key="validation.age.invalid1111">
                 <param name="0">'Contestant'</param>
                 <param name="1">minAge</param>
                 <param name="2">maxAge</param>
