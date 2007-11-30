@@ -11,6 +11,7 @@ import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.XWorkTestCase;
 import com.opensymphony.xwork.util.OgnlUtil;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class HttpHeaderResultTest extends XWorkTestCase {
     HttpHeaderResult result;
     HttpServletResponse response;
     Mock responseMock;
+    Mock invocationMock;
 
 
     public void testHeaderValuesAreNotParsedWhenParseIsFalse() throws Exception {
@@ -56,13 +58,20 @@ public class HttpHeaderResultTest extends XWorkTestCase {
 
         Map values = new HashMap();
         values.put("bar", "abc");
-        ActionContext.getContext().getValueStack().push(values);
+        OgnlValueStack valueStack = ActionContext.getContext().getValueStack();
+        valueStack.push(values);
 
         OgnlUtil.setProperties(params, result);
 
         responseMock.expect("addHeader", C.args(C.eq("foo"), C.eq("abc")));
         responseMock.expect("addHeader", C.args(C.eq("baz"), C.eq("baz")));
+
+        // We need to do this twice in MockObject, maybe we should switch to easymock.
+        invocationMock.expectAndReturn("getStack", valueStack);
+        invocationMock.expectAndReturn("getStack", valueStack);
+
         result.execute(invocation);
+        invocationMock.verify();
         responseMock.verify();
     }
 
@@ -78,7 +87,8 @@ public class HttpHeaderResultTest extends XWorkTestCase {
         result = new HttpHeaderResult();
         responseMock = new Mock(HttpServletResponse.class);
         response = (HttpServletResponse) responseMock.proxy();
-        invocation = (ActionInvocation) new Mock(ActionInvocation.class).proxy();
+        invocationMock = new Mock(ActionInvocation.class);
+        invocation = (ActionInvocation) invocationMock.proxy();
         ServletActionContext.setResponse(response);
     }
 

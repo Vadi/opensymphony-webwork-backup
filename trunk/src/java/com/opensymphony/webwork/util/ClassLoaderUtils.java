@@ -7,6 +7,7 @@ package com.opensymphony.webwork.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Collections;
 
 
 /**
@@ -16,8 +17,9 @@ import java.net.URL;
  * It has come out of many months of frustrating use of multiple application servers at Atlassian,
  * please don't change things unless you're sure they're not going to break in one server or another!
  *
- * @author $Author$
- * @version $Revision$
+ * @author plightbo
+ * @author tmjee
+ * @version $Date$ $Id$
  */
 public class ClassLoaderUtils {
 
