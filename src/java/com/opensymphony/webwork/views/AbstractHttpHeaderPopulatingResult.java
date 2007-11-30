@@ -83,7 +83,7 @@ public abstract class AbstractHttpHeaderPopulatingResult extends WebWorkResultSu
             if (LOG.isDebugEnabled()) {
                 if (!headers.isEmpty()) {
                     String log_statement = "populated HttpServletRespons's Header with";
-                    for(Iterator i = headers.entrySet().iterator()) {
+                    for(Iterator i = headers.entrySet().iterator(); i.hasNext(); ) {
                         Map.Entry entry = (Map.Entry) i.next();
                         log_statement = log_statement + "\n\t"+entry.getKey()+"="+entry.getValue();
                     }
