@@ -56,6 +56,7 @@
             <interceptor name="flash" class="com.opensymphony.webwork.interceptor.FlashInterceptor" />
             <interceptor name="cookie" class="com.opensymphony.webwork.interceptor.CookieInterceptor" />
             <interceptor name="store" class="com.opensymphony.webwork.interceptor.MessageStoreInterceptor" />
+            <interceptor name="booleanTweaker" class="com.opensymphony.webwork.interceptor.BooleanTweaker" />
             
 
             <!-- Basic stack -->
