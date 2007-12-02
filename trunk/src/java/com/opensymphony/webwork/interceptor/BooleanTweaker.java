@@ -29,6 +29,13 @@ import com.opensymphony.xwork.interceptor.AroundInterceptor;
  * <!-- END SNIPPET: description -->
  *
  *
+ * <!-- START SNIPPET: extending -->
+ *
+ * No known extension points.
+ *
+ * <!-- END SNIPPET: extending -->
+ *
+ *
  * <!-- START SNIPPET: parameters -->
  * 
  * <ul>
