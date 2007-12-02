@@ -36,7 +36,7 @@
 </#if>
 <button type="submit" dojoType="webwork:BindButton"<#rt/>
 <#if parameters.id?exists>
-id="${parameters.id}"<#rt/>
+ id="${parameters.id}"<#rt/>
 </#if>
 <#if parameters.form?exists && parameters.form.id?exists>
  formId="${parameters.form.id}"<#rt/>
