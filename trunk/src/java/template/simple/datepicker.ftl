@@ -5,7 +5,7 @@
 <script type="text/javascript" src="<@ww.url value="/webwork/jscalendar/" encode='false' includeParams='none'/>calendar-setup.js"></script>
 </#if>
 <#include "/${parameters.templateDir}/simple/text.ftl" />
-<#if !parameters.readonly?default(false)><a href="#" id="${parameters.id}_button"></#if>
+<#if (!(parameters.readonly?default(false) || parameters.disabled?default(false)))><a href="#" id="${parameters.id}_button"></#if>
 <img src="<@ww.url value="/webwork/jscalendar/img.gif" encode='false' includeParams='none'/>" width="16" height="16" border="0" alt="Click Here to Pick up the date"
 <#if parameters.cssStyle?exists>
   style="${parameters.cssStyle?html}"
@@ -14,8 +14,8 @@
   class="${parameters.cssClass?html}"
 </#if>
 >
-<#if !parameters.readonly?default(false)></a></#if>
-<#if !parameters.readonly?default(false)>
+<#if (!(parameters.readonly?default(false) || parameters.disabled?default(false)))></a></#if>
+<#if (!(parameters.readonly?default(false) || parameters.disabled?default(false)))>
 <script type="text/javascript">
     Calendar.setup({
         inputField     :    "${parameters.id}",
