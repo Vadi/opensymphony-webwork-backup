@@ -1,3 +1,4 @@
+<input type="hidden" name="_FALSE_.${parameters.name?html}" value="false"/>
 <input type="checkbox" name="${parameters.name?html}" value="${parameters.fieldValue?html}"<#rt/>
 <#if parameters.nameValue?exists && parameters.nameValue>
  checked="checked"<#rt/>
