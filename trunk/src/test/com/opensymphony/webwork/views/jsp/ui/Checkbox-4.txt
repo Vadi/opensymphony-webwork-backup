@@ -5,6 +5,7 @@
 </tr>
 <tr>
     <td colspan="2">
+        <input type="hidden" name="_FALSE_.foo" value="false"/>
 		<input type="checkbox" name="foo" value="baz" checked="checked" id="someId" title="mytitle" onfocus="test();"/>
     </td>
 </tr>

@@ -40,7 +40,7 @@ import com.opensymphony.xwork.interceptor.AroundInterceptor;
  * 
  * <ul>
  *      <li>prefix - The prefix that identify the parameter whose corresponding property will be set to false (by default).
- *                   Default to '_FALSE_'</li>
+ *                   Default to '_FALSE_.'</li>
  *      <li>booleanValue - The boolean value to be set (default to 'false')</li>
  * </ul>
  *

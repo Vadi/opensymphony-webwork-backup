@@ -9,6 +9,7 @@
 	
 	</td>
     <td valign="top" align="left">
+          <input type="hidden" name="_FALSE_.foo" value="false"/>  
           <input type="checkbox" name="foo" value="baz" checked="checked" id="foo" title="mytitle" onclick="test();" ondblclick="test();"/>
           <label for="foo" class="checkboxErrorLabel">mylabel</label>
     </td>
