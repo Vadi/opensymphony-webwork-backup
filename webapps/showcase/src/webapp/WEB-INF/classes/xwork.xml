@@ -8,7 +8,9 @@
     
     <include file="config-browser.xml"/>
 
-	<include file="xwork-messageStore.xml" />
+    <include file="xwork-dwr.xml" />
+
+    <include file="xwork-messageStore.xml" />
 
     <include file="xwork-continuations.xml"/>
 
