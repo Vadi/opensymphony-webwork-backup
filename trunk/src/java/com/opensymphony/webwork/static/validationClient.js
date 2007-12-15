@@ -34,12 +34,17 @@ function ValidationClient(servletUrl) {
                 params[e.name] = e.value;
             }
         }
-
-		validator.doPost(function(action) {
-            if (action) {
-                vc.onErrors(input, action);
-            }
-        }, namespace, actionName, params);
+            validator.doPost(namespace, actionName, params, {
+                callback: function(action) {
+                            if (action) {
+                                vc.onErrors(input, action);
+                            }
+                          },
+                timeout: 10000,
+                errorHandler: function(message) {
+                    alert('Error '+message);
+                }
+           });
     }
     
 	return this;

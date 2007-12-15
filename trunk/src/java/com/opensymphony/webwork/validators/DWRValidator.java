@@ -35,6 +35,9 @@ public class DWRValidator {
     private static final Log LOG = LogFactory.getLog(DWRValidator.class);
 
     public ValidationAwareSupport doPost(String namespace, String action, Map params) throws Exception {
+
+        System.out.println("******************** start");
+
         HttpServletRequest req = ExecutionContext.get().getHttpServletRequest();
         ServletContext servletContext = ExecutionContext.get().getServletContext();
         HttpServletResponse res = ExecutionContext.get().getHttpServletResponse();
@@ -76,6 +79,10 @@ public class DWRValidator {
         } catch (Exception e) {
             LOG.error("Error while trying to validate", e);
             return null;
+        }
+        finally {
+            System.out.println("********************* end");
+
         }
     }
 

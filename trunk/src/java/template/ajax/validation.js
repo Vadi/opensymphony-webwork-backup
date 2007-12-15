@@ -24,7 +24,7 @@
  */
 var webworkValidator = new ValidationClient("$!base/validation");
 webworkValidator.onErrors = function(input, errors) {
-	var form = input.form;
+    var form = input.form;
 
 	clearErrorMessages(form);
 	clearErrorLabels(form);
@@ -53,7 +53,7 @@ function validate(element) {
     element.touched = true;
     var namespace = element.form.attributes['namespace'].nodeValue;
     var actionName = element.form.attributes['name'].nodeValue;
-	webworkValidator.validate(element, namespace, actionName);
+    webworkValidator.validate(element, namespace, actionName);
 }
 
 /*
