@@ -6,7 +6,6 @@ package com.opensymphony.webwork.showcase.dwr;
 
 import com.opensymphony.xwork.ActionSupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
