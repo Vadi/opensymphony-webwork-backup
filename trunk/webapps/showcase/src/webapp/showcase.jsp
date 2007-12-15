@@ -75,6 +75,9 @@
         <!-- MessageStoreInterceptor (capture error/field/action error/messages across request -->
         <li><ww:url id="url" action="showForm" namespace="/messageStore" /><ww:a href="%{url}">Message Store Eample</ww:a></li>
 
+        <!-- WebWork / DWR integration -->
+        <li><ww:url id="url" action="index" namespace="/webwork_dwr" /><ww:a href="">WebWork DWR integration</ww:a></li>
+
     </ul>
 </p>
 
