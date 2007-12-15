@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.io.File;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Patrick Lightbody (plightbo at gmail dot com)
