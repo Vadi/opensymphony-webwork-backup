@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Opensymphony. All Rights Reserved.
+ * Copyright (c) 2007 Opensymphony. All Rights Reserved.
  */
 package com.opensymphony.webwork.validators;
 
@@ -11,7 +11,8 @@ import com.opensymphony.xwork.*;
 import com.opensymphony.xwork.config.entities.ActionConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import uk.ltd.getahead.dwr.ExecutionContext;
+import org.directwebremoting.WebContext;
+import org.directwebremoting.WebContextFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -20,27 +21,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * User: plightbo
- * Date: Dec 11, 2004
- * Time: 6:17:58 PM
+ * Perform validation using DWR. To configure this, add the following to web.xml :-
  * <p/>
- * <dwr>
- * <allow>
- * <create creator="new" javascript="validator" class="com.opensymphony.webwork.validators.DWRValidator"/>
- * <convert converter="bean" match="com.opensymphony.xwork.ValidationAwareSupport"/>
- * </allow>
- * </dwr>
+ * <pre>
+ *  &lt;dwr>
+ *       &lt;allow&gt;
+ *          &lt;create creator="new" javascript="validator" class="com.opensymphony.webwork.validators.DWRValidator"/&gt;
+ *          &lt;convert converter="bean" match="com.opensymphony.xwork.ValidationAwareSupport"/&gt;
+ *      &lt;/allow&gt;
+ *  &lt;/dwr&gt;
+ * </pre>
+ *
+ * @author plightbo
+ * @author tmjee
+ * @version $Date$ $Id$
  */
 public class DWRValidator {
     private static final Log LOG = LogFactory.getLog(DWRValidator.class);
 
     public ValidationAwareSupport doPost(String namespace, String action, Map params) throws Exception {
 
-        System.out.println("******************** start");
 
-        HttpServletRequest req = ExecutionContext.get().getHttpServletRequest();
-        ServletContext servletContext = ExecutionContext.get().getServletContext();
-        HttpServletResponse res = ExecutionContext.get().getHttpServletResponse();
+        WebContext webContext = WebContextFactory.get();
+        HttpServletRequest req = webContext.getHttpServletRequest();
+        ServletContext servletContext = webContext.getServletContext();
+        HttpServletResponse res = webContext.getHttpServletResponse();
+
+
 
         Map requestParams = new HashMap(req.getParameterMap());
         if (params != null) {
@@ -79,10 +86,6 @@ public class DWRValidator {
         } catch (Exception e) {
             LOG.error("Error while trying to validate", e);
             return null;
-        }
-        finally {
-            System.out.println("********************* end");
-
         }
     }
 

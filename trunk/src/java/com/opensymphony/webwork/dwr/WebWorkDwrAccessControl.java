@@ -12,7 +12,28 @@ import java.lang.reflect.Method;
 /**
  * Control who should be accessing which methods on which classes, allowing
  * WebWork to access classes under org.directwebremoting.webwork package.
- * 
+ * <p/>
+ * To configure this, add the following in web.xml
+ * <pre>
+ * &lt;servlet&gt;
+ *       &lt;servlet-name&gt;dwr&lt;/servlet-name&gt;
+ *       &lt;servlet-class&gt;org.directwebremoting.servlet.DwrServlet&lt;/servlet-class&gt;
+ *       &lt;init-param&gt;
+ *           &lt;param-name&gt;debug&lt;/param-name&gt;
+ *           &lt;param-value&gt;true&lt;/param-value&gt;
+ *       &lt;/init-param&gt;
+ *       &lt;init-param&gt;
+ *           &lt;param-name&gt;org.directwebremoting.extend.AccessControl&lt;/param-name&gt;
+ *           &lt;param-value&gt;com.opensymphony.webwork.dwr.WebWorkDwrAccessControl&lt;/param-value&gt;
+ *       &lt;/init-param&gt;
+ *   &lt;/servlet&gt;
+ *
+ *   &lt;servlet-mapping&gt;
+ *       &lt;servlet-name&gt;dwr&lt;/servlet-name&gt;
+ *       &lt;url-pattern&gt;/dwr/*&lt;/url-pattern&gt;
+ *   &lt;/servlet-mapping&gt;
+ * </pre>
+ *
  * @author tmjee
  * @version $Date$ $Id$
  */
