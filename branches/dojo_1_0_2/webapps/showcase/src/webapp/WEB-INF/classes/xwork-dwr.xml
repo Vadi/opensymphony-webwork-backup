@@ -1,0 +1,20 @@
+<!DOCTYPE xwork PUBLIC
+        "-//OpenSymphony Group//XWork 1.1.2//EN"
+        "http://www.opensymphony.com/xwork/xwork-1.1.2.dtd">
+
+<xwork>
+    <package name="webwork_dwr" extends="webwork-default" namespace="/webwork_dwr">
+        <action name="index">
+            <result>/webwork_dwr/wordCheck.jsp</result>
+        </action>
+
+        <action name="checkWord" class="com.opensymphony.webwork.showcase.dwr.WordCheckAction">
+        </action>
+
+        <action name="wordList" class="com.opensymphony.webwork.showcase.dwr.WordListAction">
+            <result>/webwork_dwr/wordList.jsp</result>
+        </action>
+    </package>
+</xwork>
+
+        

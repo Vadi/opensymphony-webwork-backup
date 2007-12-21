@@ -1,0 +1,32 @@
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator 1.0.3//EN"
+        "http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd">
+
+<!--  START SNIPPET: quizValidators -->
+<!--
+    Add the following DOCTYPE declaration as first line of your XXX-validation.xml file:
+    <!DOCTYPE validators PUBLIC
+                    "-//OpenSymphony Group//XWork Validator 1.0.3//EN"
+                    "http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd">
+-->
+<validators>
+    <field name="name">
+        <field-validator type="requiredstring">
+            <message key="validation.name.required" />
+        </field-validator>
+    </field>
+    <field name="age">
+        <field-validator type="int">
+            <param name="min">10</param>
+            <param name="max">19</param>
+            <message key="validation.age.invalid">
+                <param name="0">'Contestant'</param>
+                <param name="1">minAge</param>
+                <param name="2">maxAge</param>
+                <param name="defaultMessage">Your age, its invalid</param>
+            </message>
+        </field-validator>
+    </field>
+</validators>
+
+<!--  END SNIPPET: quizValidators  -->

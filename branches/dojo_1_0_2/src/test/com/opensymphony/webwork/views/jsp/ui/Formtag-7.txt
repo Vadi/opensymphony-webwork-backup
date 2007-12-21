@@ -1,0 +1,8 @@
+<form id="test" onsubmit="customOnsubmit_test(); return true;" action="test.html">
+<table class="wwFormTable">
+</table>
+</form>
+
+<script type="text/javascript">
+	function customOnsubmit_test() {}
+</script>

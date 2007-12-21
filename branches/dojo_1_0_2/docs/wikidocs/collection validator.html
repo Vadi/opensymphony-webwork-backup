@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>WebWork - 
+        collection validator
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>This is an experimental feature. Feedback welcome !</p></td></tr></table>
+
+<table cellpadding='5' width='85%' cellspacing='8px' class='warningMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/forbidden.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>This validator will not work when its nested validator is a 'fieldexpression' validator due to 'fieldexpression' validator applies the expression directly on the action itself, not the value of current field.</p></td></tr></table>
+
+<h1><a name="collectionvalidator-Description"></a>Description</h1>
+
+<p>Validate a property available in the object of a collection. This validator will not work
+when the 'nested' validator is an 'fieldexpression' or 'expression' validator.. If we want to use
+'fieldexpression' or 'expression' validator we might want to use eg. the following 
+expression for validation collections (using OGNL's projection and filtering capabilities.
+<p/>
+For example if we have a collection of <code>person</code>s objects with 'name'
+properties we might want to consider the following OGNL expression.
+<pre>
+persons.{#this.name.length() > 4}.{? #this == false }.size() <= 0 
+</pre></p>
+
+<p>The idea is 
+<ul>
+	<li>- project across the collection of <code>person</code> objects 
+             and make sure the conditions are valid (eg. name is more than 4 characters</li>
+     <li>- filter out the result of previous projection that are not valid (eg. false)</li>
+     <li>- check the size of the filtered collection, if its greater than zero, 
+              we have some validation that fails</li>
+</ul></p>
+
+
+<h1><a name="collectionvalidator-Parameters"></a>Parameters</h1>
+
+<p><ul>
+	<li>property - the full property name that this validator should validate. 
+							eg. if "persons" is a collection of Persons object with a property
+                            called name the property would be "persons.name" </li>
+	<li>validatorRef - validator name of an existing validator (could not be "collection" validator)
+							     eg. required, requiredstring, int etc.</li>
+	<li>validatorParams - the parameters to be passed into the validator referenced
+										by the "validatorParams" attribute above.</li>
+</ul></p>
+
+
+<h1><a name="collectionvalidator-Examples"></a>Examples</h1>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">public class MyAction extends ActionSupport {
+	private List persons = new ArrayList();
+    ....
+    public List getPersons() { return this.persons; }
+    public void setPersons(List persons) { this.persons = persons; } 
+}
+
+
+public class Person {
+   private String name;
+   private Integer age;
+   
+   public String getName() { return name; }
+   public void setName(String name) { this.name = name; }
+   
+   public Integer getAge() { return age; }
+   public void setAge(Integer age) { this.age = age; }
+}
+
+
+<span class="code-tag">&lt;validators&gt;</span>
+   <span class="code-tag">&lt;field name=<span class="code-quote">"persons"</span>&gt;</span>
+       <span class="code-tag">&lt;field-validator type=<span class="code-quote">"collection"</span>&gt;</span>
+       		<span class="code-tag">&lt;param name=<span class="code-quote">"property"</span>&gt;</span>persons.name<span class="code-tag">&lt;/param&gt;</span>
+       		<span class="code-tag">&lt;param name=<span class="code-quote">"validatorRef"</span>&gt;</span>requiredstring<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"validatorParams['defaultMessage']"</span>&gt;</span>Must be String<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"validatorParams['trim']"</span>&gt;</span>true<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;message&gt;</span> ... <span class="code-tag">&lt;/message&gt;</span>
+       <span class="code-tag">&lt;/field-validator&gt;</span>
+       <span class="code-tag">&lt;field-validator type=<span class="code-quote">"collection"</span>&gt;</span>
+           <span class="code-tag">&lt;param name=<span class="code-quote">"property"</span>&gt;</span>persons.age<span class="code-tag">&lt;/param&gt;</span>
+           <span class="code-tag">&lt;param name=<span class="code-quote">"validatorRef"</span>&gt;</span>required<span class="code-tag">&lt;/param&gt;</span>
+           <span class="code-tag">&lt;param name=<span class="code-quote">"validatorParams['defaultMessage']"</span>&gt;</span>Must be filled in<span class="code-tag">&lt;/param&gt;</span>
+           <span class="code-tag">&lt;message&gt;</span> ... <span class="code-tag">&lt;/message&gt;</span>
+       <span class="code-tag">&lt;/field-validator&gt;</span>
+       <span class="code-tag">&lt;field-validator type=<span class="code-quote">"collection"</span>&gt;</span>
+       		<span class="code-tag">&lt;param name=<span class="code-quote">"property"</span>&gt;</span>persons.age<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"validatorRef"</span>&gt;</span>int<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"validatorParams['defaultMessage']"</span>&gt;</span>Needs to be an integer<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;message&gt;</span> ... <span class="code-tag">&lt;/message&gt;</span>
+       <span class="code-tag">&lt;/field-validator&gt;</span>
+   <span class="code-tag">&lt;/field&gt;</span>
+<span class="code-tag">&lt;/validators&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
