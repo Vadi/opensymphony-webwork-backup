@@ -8,6 +8,8 @@
     
     <include file="config-browser.xml"/>
 
+    <include file="xwork-json.xml" />
+
     <include file="xwork-dwr.xml" />
 
     <include file="xwork-messageStore.xml" />
