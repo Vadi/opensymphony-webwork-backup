@@ -81,6 +81,7 @@
                     <li><a href="<ww:url action="start" namespace="/flash"/>">Flash</a></li>
                     <li><a href="<ww:url action="changeLocale" namespace="/i18n"/>">I18N</a></li>
                     <li><a href="<ww:url action="index" namespace="/webwork_dwr"/>">DWR</a></li>
+                    <li><a href="<ww:url action="index" namespace="/json"/>">JSON</a></li>
                     <li class="last"><a href="<ww:url value="/help.jsp"/>">Help</a></li>
                 </ul>
             </div>

@@ -76,7 +76,10 @@
         <li><ww:url id="url" action="showForm" namespace="/messageStore" /><ww:a href="%{url}">Message Store Eample</ww:a></li>
 
         <!-- WebWork / DWR integration -->
-        <li><ww:url id="url" action="index" namespace="/webwork_dwr" /><ww:a href="">WebWork DWR integration</ww:a></li>
+        <li><ww:url id="url" action="index" namespace="/webwork_dwr" /><ww:a href="%{url}">WebWork DWR integration</ww:a></li>
+
+        <!-- JSON -->
+        <li><ww:url id="url" action="index" namespace="/json" /><ww:a href="%{url}">JSON</ww:a></li>
 
     </ul>
 </p>
