@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Selenium Tests for WebWork Showcase
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>WebWork 2.2.6 have <a href="http://www.openqa.org/selenium" title="Visit page outside Confluence">Selenium</a> test cases for the showcase web application that comes with the distribution. Showcase is there to help us make sure the functionalities in WebWork works as expected. </p>
+
+<h2><a name="SeleniumTestsforWebWorkShowcase-RunShowcaseSeleniumTestCases"></a>Run Showcase Selenium Test Cases </h2>
+<p>To run <a href="http://www.openqa.org/selenium" title="Visit page outside Confluence">Selenium</a> test cases for showcase. </p>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>Step</th>
+<th class='confluenceTh'>Description</th>
+</tr>
+<tr>
+<td class='confluenceTd'>1</td>
+<td class='confluenceTd'>Start up Tomcat with WebWork showcase deployed in it</td>
+</tr>
+<tr>
+<td class='confluenceTd'>2</td>
+<td class='confluenceTd'>Navigate to
+     <div class="code"><div class="codeContent">
+<pre class="code-java">http:<span class="code-comment">//localhost:8080/selenium/core/TestRunner.html</span></pre>
+</div></div></td>
+</tr>
+<tr>
+<td class='confluenceTd'>3</td>
+<td class='confluenceTd'>Click the "go" button on the left side of the frame, the text suite text field should be filled in with
+     <div class="code"><div class="codeContent">
+<pre class="code-java">../tests/TestSuite.html</pre>
+</div></div>
+<p>This will load all the test cases</p></td>
+</tr>
+<tr>
+<td class='confluenceTd'>4</td>
+<td class='confluenceTd'>Click on the "Run All Test" button on the right of the frame, it should be the first button<br/>
+or<br/>
+Click on the particular test case and then the "Run Test" button on the right of the frame, it should be the second button</td>
+</tr>
+</tbody></table>
+
+
+<h2><a name="SeleniumTestsforWebWorkShowcase-Structure"></a>Structure</h2>
+<p>The selenium core source files are under the directory</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">[Directory Where WebWork Distribution is Unziped]/webapps/showcase/src/webapp/selenium/core</pre>
+</div></div>
+<p>in the distribution of WebWork.</p>
+
+<p>The tests are under the directory</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">[Directory Where WebWork Distribution is Unzipped]/webapps/showcase/src/webapp/selenium/tests</pre>
+</div></div>
+
+<h2><a name="SeleniumTestsforWebWorkShowcase-Addingmoretestcases"></a>Adding more test cases</h2>
+<p>To add more test cases, create the test cases and place them in </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">[Directory Where WebWork Distribution is Unzipped]/webapps/showcase/src/webapp/selenium/tests</pre>
+</div></div>
+<p>Then alter </p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">[Directory Where WebWork Distribution is Unzipped]/webapps/showcase/src/webapp/selenium/tests/TestSuite.html</pre>
+</div></div>
+<p>to add the newly created test case. TestSuite.html looks something like </p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">...
+<span class="code-tag">&lt;body onload=<span class="code-quote">"filterTestsForBrowser()"</span>&gt;</span>
+    &lt;table id=<span class="code-quote">"suiteTable"</span>    
+           cellpadding=<span class="code-quote">"1"</span>
+           cellspacing=<span class="code-quote">"1"</span>
+           border=<span class="code-quote">"1"</span>
+           class=<span class="code-quote">"selenium"</span>&gt;
+        <span class="code-tag">&lt;tbody&gt;</span>
+        <span class="code-tag">&lt;tr&gt;</span>
+            <span class="code-tag">&lt;td&gt;</span><span class="code-tag">&lt;b&gt;</span>Test Suite<span class="code-tag">&lt;/b&gt;</span><span class="code-tag">&lt;/td&gt;</span>
+        <span class="code-tag">&lt;/tr&gt;</span>
+	<span class="code-tag">&lt;tr&gt;</span>
+            <span class="code-tag">&lt;td&gt;</span>
+                <span class="code-tag">&lt;a href=<span class="code-quote">"./../tests/ConfigBrowserTest.jsp"</span>&gt;</span>ConfigBrowserTest<span class="code-tag">&lt;/a&gt;</span>
+            <span class="code-tag">&lt;/td&gt;</span>
+        <span class="code-tag">&lt;/tr&gt;</span>
+        
+        <span class="code-tag"><span class="code-comment">&lt;!-- here is where the newly created test case should be linked --&gt;</span></span>
+        ...
+        
+       <span class="code-tag">&lt;/tbody&gt;</span>
+    <span class="code-tag">&lt;/table&gt;</span>
+<span class="code-tag">&lt;body&gt;</span>
+...</pre>
+</div></div>
+
+<p>Enjoy.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

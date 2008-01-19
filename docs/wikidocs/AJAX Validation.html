@@ -1,0 +1,226 @@
+<html>
+    <head>
+        <title>WebWork - 
+         Validation
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h1><a name="AJAXValidation-Description"></a>Description</h1>
+
+<p>The following is describes how to do simple ajax validation in webwork.</p>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>This requires DWR servlet being setup, dojo and the ajax theme being used.</td></tr></table>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>In the Ajax theme, dwr is used for normal validation while dojo everything else (widgets, XHR, browser JS events etc.)</td></tr></table>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>In order for validation to function properly it is advised to used standard WebWork Tags.</td></tr></table>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>A description of the internal working of Ajax Validation using DWR could be found here.</td></tr></table>
+
+<h1><a name="AJAXValidation-SetupDWR"></a>Setup DWR</h1>
+
+<p>DWR could be setup by having the following dwr configuration (dwr.xml) at /WEB-INF/ directory. If it needs to be in other places, refer to <a href="http://getahead.ltd.uk/dwr/" title="Visit page outside Confluence">http://getahead.ltd.uk/dwr/</a> for more information.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&lt;!DOCTYPE dwr PUBLIC
+        <span class="code-quote">"-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"</span>
+        <span class="code-quote">"http://getahead.org/dwr//dwr20.dtd"</span>&gt;
+
+<span class="code-tag">&lt;dwr&gt;</span>
+    <span class="code-tag">&lt;allow&gt;</span>
+        <span class="code-tag">&lt;create creator=<span class="code-quote">"new"</span> javascript=<span class="code-quote">"validator"</span>&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"class"</span> value=<span class="code-quote">"com.opensymphony.webwork.validators.DWRValidator"</span>/&gt;</span>
+        <span class="code-tag">&lt;/create&gt;</span>
+        <span class="code-tag">&lt;convert converter=<span class="code-quote">"bean"</span> match=<span class="code-quote">"com.opensymphony.xwork.ValidationAwareSupport"</span>/&gt;</span>
+
+        <span class="code-tag">&lt;create creator=<span class="code-quote">"new"</span> javascript=<span class="code-quote">"dwraction"</span>&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"class"</span> value=<span class="code-quote">"org.directwebremoting.webwork.DWRAction"</span> /&gt;</span>
+        <span class="code-tag">&lt;/create&gt;</span>
+        <span class="code-tag">&lt;convert converter=<span class="code-quote">"bean"</span> match=<span class="code-quote">"org.directwebremoting.webwork.ActionDefinition"</span>/&gt;</span>
+        <span class="code-tag">&lt;convert converter=<span class="code-quote">"bean"</span> match=<span class="code-quote">"org.directwebremoting.webwork.AjaxResult"</span> /&gt;</span>
+        <span class="code-tag">&lt;convert converter=<span class="code-quote">"bean"</span> match=<span class="code-quote">"com.opensymphony.xwork.ActionSupport"</span> /&gt;</span>
+    <span class="code-tag">&lt;/allow&gt;</span>
+
+    <span class="code-tag">&lt;signatures&gt;</span>
+        &lt;![CDATA[
+        import java.util.Map;
+        import com.opensymphony.webwork.validators.DWRValidator;
+        import org.directwebremoting.webwork.ActionDefinition;
+        import org.directwebremoting.webwork.DWRAction;
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletResponse;
+        import javax.servlet.ServletContext;
+
+        DWRValidator.doPost(String, String, Map<span class="code-tag">&lt;String, String&gt;</span>);
+        DWRAction.execute(ActionDefinition, Map<span class="code-tag">&lt;String, String&gt;</span>, HttpServletRequest, HttpServletResponse, ServletContext);
+        ]]&gt;
+    <span class="code-tag">&lt;/signatures&gt;</span>
+    
+<span class="code-tag">&lt;/dwr&gt;</span></pre>
+</div></div>
+<p>A DWRServlet need to be registered with the web application as well. The following shows a typical web.xml with DWRSerlvet.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;servlet&gt;</span>
+    <span class="code-tag">&lt;servlet-name&gt;</span>dwr<span class="code-tag">&lt;/servlet-name&gt;</span>
+    <span class="code-tag">&lt;servlet-class&gt;</span>org.directwebremoting.servlet.DwrServlet<span class="code-tag">&lt;/servlet-class&gt;</span>
+    <span class="code-tag">&lt;init-param&gt;</span>
+        <span class="code-tag">&lt;param-name&gt;</span>debug<span class="code-tag">&lt;/param-name&gt;</span>
+        <span class="code-tag">&lt;param-value&gt;</span>true<span class="code-tag">&lt;/param-value&gt;</span>
+    <span class="code-tag">&lt;/init-param&gt;</span>
+    <span class="code-tag">&lt;init-param&gt;</span>
+        <span class="code-tag">&lt;param-name&gt;</span>org.directwebremoting.extend.AccessControl<span class="code-tag">&lt;/param-name&gt;</span>
+        <span class="code-tag">&lt;param-value&gt;</span>com.opensymphony.webwork.dwr.WebWorkDwrAccessControl<span class="code-tag">&lt;/param-value&gt;</span>
+    <span class="code-tag">&lt;/init-param&gt;</span>
+<span class="code-tag">&lt;/servlet&gt;</span>
+
+<span class="code-tag">&lt;servlet-mapping&gt;</span>
+    <span class="code-tag">&lt;servlet-name&gt;</span>dwr<span class="code-tag">&lt;/servlet-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/dwr/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/servlet-mapping&gt;</span></pre>
+</div></div>
+
+<h1><a name="AJAXValidation-Step1"></a>Step 1</h1>
+
+<p>Create the jsp page. Note the &lt;ww:head ...&gt; tag is used to set the theme which will put in necesary dojo sripts etc. See ajax's theme head.ftl for more information.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;html&gt;</span>
+<span class="code-tag">&lt;head&gt;</span>
+    <span class="code-tag">&lt;title&gt;</span>Validation - Basic<span class="code-tag">&lt;/title&gt;</span>
+    <span class="code-tag">&lt;ww:head theme=<span class="code-quote">"ajax"</span> debug=<span class="code-quote">"true"</span>/&gt;</span>
+<span class="code-tag">&lt;/head&gt;</span>
+
+<span class="code-tag">&lt;body&gt;</span>
+<span class="code-tag">&lt;p&gt;</span>
+This quiz (ajax) example is customized to use 2 locale, namely en_US and cn_ZH, as I don't know 
+how to write / read chinese, the chinese resource bundle is just like the english but prefixed with (cn)
+<span class="code-tag">&lt;/p&gt;</span>
+<span class="code-tag">&lt;ul&gt;</span>
+	<span class="code-tag">&lt;li&gt;</span>
+		<span class="code-tag">&lt;ww:url id=<span class="code-quote">"url"</span> namespace=<span class="code-quote">"/validation"</span> action=<span class="code-quote">"quizAjax"</span> method=<span class="code-quote">"input"</span>&gt;</span>
+			<span class="code-tag">&lt;ww:param name=<span class="code-quote">"request_locale"</span> value=<span class="code-quote">"%{'zh_CN'}"</span> /&gt;</span>
+		<span class="code-tag">&lt;/ww:url&gt;</span>
+		To swich to use the chinese resource bundle click <span class="code-tag">&lt;ww:a href=<span class="code-quote">"%{#url}"</span>&gt;</span>here<span class="code-tag">&lt;/ww:a&gt;</span>.
+	<span class="code-tag">&lt;/li&gt;</span>
+	<span class="code-tag">&lt;li&gt;</span>
+		<span class="code-tag">&lt;ww:url id=<span class="code-quote">"url"</span> namespace=<span class="code-quote">"/validation"</span> action=<span class="code-quote">"quizAjax"</span> method=<span class="code-quote">"input"</span>&gt;</span>
+			<span class="code-tag">&lt;ww:param name=<span class="code-quote">"request_locale"</span> value=<span class="code-quote">"%{'en_US'}"</span> /&gt;</span>
+		<span class="code-tag">&lt;/ww:url&gt;</span>
+		To swich to use the english resource bundle click <span class="code-tag">&lt;ww:a href=<span class="code-quote">"%{#url}"</span>&gt;</span>here<span class="code-tag">&lt;/ww:a&gt;</span>.
+	<span class="code-tag">&lt;/li&gt;</span>
+<span class="code-tag">&lt;/ul&gt;</span>
+
+<span class="code-tag">&lt;p&gt;</span>
+The following form uses the labelposition=<span class="code-quote">"left"</span>
+<span class="code-tag">&lt;ww:form id=<span class="code-quote">"f1"</span> action=<span class="code-quote">"quizAjax"</span> namespace=<span class="code-quote">"/validation"</span> method=<span class="code-quote">"post"</span> validate=<span class="code-quote">"true"</span> theme=<span class="code-quote">"ajax"</span>&gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"Name"</span> name=<span class="code-quote">"name"</span> labelposition=<span class="code-quote">"left"</span> /&gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"Age"</span> name=<span class="code-quote">"age"</span> labelposition=<span class="code-quote">"left"</span> /&gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"Favorite color"</span> name=<span class="code-quote">"answer"</span> labelposition=<span class="code-quote">"left"</span> /&gt;</span>
+    <span class="code-tag">&lt;ww:submit id=<span class="code-quote">"b1"</span> /&gt;</span>
+<span class="code-tag">&lt;/ww:form&gt;</span>
+<span class="code-tag">&lt;/p&gt;</span>
+
+<span class="code-tag">&lt;p&gt;</span>
+The following form uses the labelposition=<span class="code-quote">"top"</span>
+<span class="code-tag">&lt;ww:form id=<span class="code-quote">"f2"</span> action=<span class="code-quote">"quizAjax"</span> namespace=<span class="code-quote">"/validation"</span> method=<span class="code-quote">"post"</span> validate=<span class="code-quote">"true"</span> theme=<span class="code-quote">"ajax"</span>&gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"Name"</span> name=<span class="code-quote">"name"</span> labelposition=<span class="code-quote">"top"</span> /&gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"Age"</span> name=<span class="code-quote">"age"</span> labelposition=<span class="code-quote">"top"</span> /&gt;</span>
+    <span class="code-tag">&lt;ww:textfield label=<span class="code-quote">"Favorite color"</span> name=<span class="code-quote">"answer"</span> labelposition=<span class="code-quote">"top"</span> /&gt;</span>
+    <span class="code-tag">&lt;ww:submit id=<span class="code-quote">"b2"</span>/&gt;</span>
+<span class="code-tag">&lt;/ww:form&gt;</span> 
+<span class="code-tag">&lt;/p&gt;</span>
+
+<span class="code-tag">&lt;/body&gt;</span>
+<span class="code-tag">&lt;/html&gt;</span></pre>
+</div></div>
+
+<h1><a name="AJAXValidation-Step2"></a>Step 2</h1>
+
+<p>Create the action class</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java"><span class="code-keyword">public</span> class QuizAction <span class="code-keyword">extends</span> ActionSupport {
+    <span class="code-object">int</span> minAge = 13;
+    <span class="code-object">int</span> maxAge = 19;
+
+    <span class="code-object">String</span> name;
+    <span class="code-object">int</span> age;
+    <span class="code-object">String</span> answer;
+
+    <span class="code-keyword">public</span> <span class="code-object">int</span> getMinAge() {
+        <span class="code-keyword">return</span> minAge;
+    }
+
+    <span class="code-keyword">public</span> void setMinAge(<span class="code-object">int</span> minAge) {
+        <span class="code-keyword">this</span>.minAge = minAge;
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">int</span> getMaxAge() {
+        <span class="code-keyword">return</span> maxAge;
+    }
+
+    <span class="code-keyword">public</span> void setMaxAge(<span class="code-object">int</span> maxAge) {
+        <span class="code-keyword">this</span>.maxAge = maxAge;
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">String</span> getName() {
+        <span class="code-keyword">return</span> name;
+    }
+
+    <span class="code-keyword">public</span> void setName(<span class="code-object">String</span> name) {
+        <span class="code-keyword">this</span>.name = name;
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">int</span> getAge() {
+        <span class="code-keyword">return</span> age;
+    }
+
+    <span class="code-keyword">public</span> void setAge(<span class="code-object">int</span> age) {
+        <span class="code-keyword">this</span>.age = age;
+    }
+
+    <span class="code-keyword">public</span> <span class="code-object">String</span> getAnswer() {
+        <span class="code-keyword">return</span> answer;
+    }
+
+    <span class="code-keyword">public</span> void setAnswer(<span class="code-object">String</span> answer) {
+        <span class="code-keyword">this</span>.answer = answer;
+    }
+}</pre>
+</div></div>
+
+<h1><a name="AJAXValidation-Step3"></a>Step 3</h1>
+
+<p>Create the validation.xml</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&lt;!--
+    Add the following DOCTYPE declaration as first line of your XXX-validation.xml file:
+    &lt;!DOCTYPE validators PUBLIC
+                    <span class="code-quote">"-//OpenSymphony Group//XWork Validator 1.0.3//EN"</span>
+                    <span class="code-quote">"http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd"</span>&gt;
+--&gt;
+<span class="code-tag">&lt;validators&gt;</span>
+    <span class="code-tag">&lt;field name=<span class="code-quote">"name"</span>&gt;</span>
+        <span class="code-tag">&lt;field-validator type=<span class="code-quote">"requiredstring"</span>&gt;</span>
+            <span class="code-tag">&lt;message key=<span class="code-quote">"validation.name.required"</span> /&gt;</span>
+        <span class="code-tag">&lt;/field-validator&gt;</span>
+    <span class="code-tag">&lt;/field&gt;</span>
+    <span class="code-tag">&lt;field name=<span class="code-quote">"age"</span>&gt;</span>
+        <span class="code-tag">&lt;field-validator type=<span class="code-quote">"int"</span>&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"min"</span>&gt;</span>10<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"max"</span>&gt;</span>19<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;message key=<span class="code-quote">"validation.age.invalid"</span>&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"0"</span>&gt;</span>'Contestant'<span class="code-tag">&lt;/param&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"1"</span>&gt;</span>minAge<span class="code-tag">&lt;/param&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"2"</span>&gt;</span>maxAge<span class="code-tag">&lt;/param&gt;</span>
+                <span class="code-tag">&lt;param name=<span class="code-quote">"defaultMessage"</span>&gt;</span>Your age, its invalid<span class="code-tag">&lt;/param&gt;</span>
+            <span class="code-tag">&lt;/message&gt;</span>
+        <span class="code-tag">&lt;/field-validator&gt;</span>
+    <span class="code-tag">&lt;/field&gt;</span>
+<span class="code-tag">&lt;/validators&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

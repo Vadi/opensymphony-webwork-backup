@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Boolean Tweaker
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    
+<p>Interceptor tweaking boolean parameters. parameters with names
+starting by PREFIX will be stripped of it, and if no value is available under
+stripped name explicitely set to false.</p>
+
+<p>This helps to overcome problem with boolean checkboxes ( unchecked value is not sent
+by browser )</p>
+
+<p>To be used before ParametersInterceptor. </p>
+
+
+<h1><a name="BooleanTweaker-Parameters"></a>Parameters</h1>
+
+
+<p><ul>
+     <li>prefix - The prefix that identify the parameter whose corresponding property will be set to false (by default).
+                  Default to '<em>FALSE</em>.'</li>
+     <li>booleanValue - The boolean value to be set (default to 'false')</li>
+</ul></p>
+
+
+<h1><a name="BooleanTweaker-ExtendingtheInterceptor"></a>Extending the Interceptor</h1>
+
+
+<p>No known extension points.</p>
+
+
+<h1><a name="BooleanTweaker-Examples"></a>Examples</h1>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;package ...&gt;</span>
+     <span class="code-tag">&lt;interceptors&gt;</span>
+          <span class="code-tag">&lt;interceptor-stack name=<span class="code-quote">"myStack"</span>&gt;</span>
+             ....
+             <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"booleanTweaker"</span> /&gt;</span>
+             <span class="code-tag">&lt;intercetor-ref name=<span class="code-quote">"params"</span> /&gt;</span>
+             ....
+          <span class="code-tag">&lt;/interceptor-stack&gt;</span>
+      <span class="code-tag">&lt;/interceptors&gt;</span>
+
+     <span class="code-tag">&lt;action ....&gt;</span>
+         <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"myStack"</span> /&gt;</span>
+         ....
+     <span class="code-tag">&lt;/action&gt;</span>
+     ....
+<span class="code-tag">&lt;/package&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

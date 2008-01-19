@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>WebWork - 
+         do I set a date into datepicker component
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>The trick is to format the date correctly before sending it to the datepicker, and let datepicker what format it is supposed to be usinging. </p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:form name=<span class="code-quote">"form"</span> action=<span class="code-quote">"to_infinity_and_beyond"</span> method=<span class="code-quote">"post"</span>&gt;
+     &lt;ww:date name=<span class="code-quote">"%{<span class="code-keyword">new</span> java.util.Date()}"</span> format=<span class="code-quote">"dd-MM-yyyy hh:mm"</span> id=<span class="code-quote">"date"</span>/&gt;
+     &lt;ww:datepicker value=<span class="code-quote">"%{#date}"</span> showstime=<span class="code-quote">"%{<span class="code-keyword">true</span>}"</span> format=<span class="code-quote">"%d-%m-%Y %H:%M"</span>/&gt;
+&lt;/ww:form&gt;</pre>
+</div></div>
+
+<p>contributed by Philip Luppens</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

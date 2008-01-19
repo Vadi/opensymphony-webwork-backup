@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Installation
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h2><a name="Installation-Installation"></a>Installation</h2>
+
+<p>Installation of WebWork is not very different from any other framework. <a href="http://www.opensymphony.com/webwork/download.action" title="Visit page outside Confluence">Download</a> the latest release (or nightly build, if you like living on the edge), and unpack the compressed file. You should see the following directory structure (left out some files for brevity):</p>
+<ul class="alternate" type="square">
+	<li>[<b>webwork-2.2.x</b>]
+	<ul class="alternate" type="square">
+		<li>[<b>dist]</b>
+		<ul class="alternate" type="square">
+			<li>webwork-static-2.2.x.zip <font color="#999999">//contains static (javascript) resources such as dojo, jscalendar, tooltips, ..</font></li>
+			<li>webwork-nostatic-2.2.x.jar <font color="#999999">//smaller webwork jar, contains no static resources</font></li>
+		</ul>
+		</li>
+		<li>[<b>docs</b>] <font color="#999999">//wiki documentation in html and pdf</font></li>
+		<li>[<b>lib</b>] <font color="#999999">//jars in subdirectories required for a webwork installation</font></li>
+		<li>[<b>src</b>] <font color="#999999">//full source from webwork unpacked</font></li>
+		<li>[<b>webapps</b>] <font color="#999999">//example webapps</font></li>
+		<li>webwork-2.2.x.jar <font color="#999999">//webwork framework</font></li>
+		<li>webwork-src-2.2.x.jar <font color="#999999">//webwork framework source code</font></li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Installation-Webapplayout"></a>Webapp layout</h2>
+
+<p>Now, a typical (minimal) layout for a webapplication in WebWork may look like this:</p>
+<ul class="alternate" type="square">
+	<li>[<b>js</b>] <font color="#999999">//contains extra javascript files</font></li>
+	<li>[<b>images</b>]</li>
+	<li>[<b>template</b>] <font color="#999999">//contains extra templates for custom themes, etc ..</font></li>
+	<li>[<b>WEB-INF</b>]
+	<ul class="alternate" type="square">
+		<li>[<b>classes</b>] <font color="#999999">//contains your compiled application</font>
+		<ul class="alternate" type="square">
+			<li><a href="xwork.xml.html" title="xwork.xml">xwork.xml</a> <font color="#999999">//contains your action declarations</font></li>
+		</ul>
+		</li>
+		<li>[<b>src</b>] <font color="#999999">//contains your application's source files</font></li>
+		<li>[<b>lib</b>] <font color="#999999">//contains the required libraries</font></li>
+		<li>[<b>pages</b>] <font color="#999999">//contains the view layer (jsp, freemarker, velocity)</font></li>
+		<li><a href="Spring.html" title="Spring">applicationContext.xml</a> <font color="#999999">//required by the Spring IoC container</font></li>
+		<li><a href="web.xml.html" title="web.xml">web.xml</a> <font color="#999999">//standard webapp descriptor</font></li>
+	</ul>
+	</li>
+</ul>
+
+
+<h2><a name="Installation-Minimaldependencies"></a>Minimal dependencies</h2>
+
+<p>The following libraries should be copied to your WEB-INF/lib folder (they can be found in the webwork/lib folder in various subdirectories).<br/>
+If you get a ClassNotFoundException, it mostly means that you should add a jar from the webwork/lib folder. If you're not sure about which jar, use a standard decompression tool (7-zip, winzip, ..) to open the files and look inside to see if you can find the correct .class file.</p>
+
+<ul class="alternate" type="square">
+	<li>cglib.jar</li>
+	<li>commons-attributes.jar</li>
+	<li>commons-logging.jar</li>
+	<li>freemarker.jar</li>
+	<li>ognl.jar</li>
+	<li>oscore.jar</li>
+	<li>rife-continuations</li>
+	<li>spring-aop.jar</li>
+	<li>spring-beans.jar</li>
+	<li>spring-context.jar</li>
+	<li>spring-core.jar</li>
+	<li>spring-web.jar</li>
+	<li>webwork-2.2.x.jar</li>
+	<li>xwork.jar</li>
+</ul>
+
+
+<h3><a name="Installation-Furtherreading"></a>Further reading</h3>
+
+<p>With this setup, it's time to move onward. First, you should edit your <a href="web.xml.html" title="web.xml">web.xml</a>, then your <a href="xwork.xml.html" title="xwork.xml">xwork.xml</a>. Have a look at the <a href="Spring.html" title="Spring">Spring</a> integration (you'll have to make sure your applicationContext.xml is correct), and finally move on to the first <a href="Tutorial.html" title="Tutorial">Tutorial</a>.</p>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

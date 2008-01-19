@@ -1,0 +1,241 @@
+<html>
+    <head>
+        <title>WebWork - 
+        ValueStack Explorer
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h2><a name="ValueStackExplorer-TheValueStackExplorer"></a>The ValueStack Explorer</h2>
+
+
+<h3><a name="ValueStackExplorer-Introduction"></a>Introduction</h3>
+
+<p>One of the most powerful parts of WebWork 2 and Struts 2 is the OGNL ValueStack, a stack which can be queried with OGNL expressions. Unfortuneatly enough, this very same part is the cause of much confusion amongst new users of the framework. There is a lot of information exposed to the view layer, but often it requires exploring the stack by a number of iterators. Testing expressions takes time, and sometimes a tiny typo can cause much grief.</p>
+
+<h3><a name="ValueStackExplorer-Whatisit%3F"></a>What is it ?</h3>
+
+<p>The ValueStack Explorer is a combination of 2 tags (breakpoint and snapshot), a switch, and a monitoring client. The client allows you to send expressions to the breakpoint tag, which will block the current execution and send the response to the client. As such, it effectively operates as a breakpoint like any standard debugger.</p>
+
+<h3><a name="ValueStackExplorer-Howdoesitwork%3F"></a>How does it work ?</h3>
+
+<p>You start by starting the Switch - which is nothing more than a very simple message relay (=chat server). It accepts connections on a socket (by default it runs on port 4281). The client, created in Adobe Flash (should be ported to Java Swing - one day ..) connects to the Switch, can send OGNL statements and parses incoming (XML wrapped) responses. The breakpoint tag, when active, will open a socket and connect to the Switch as well, and execute any command against the OGNL Value Stack.</p>
+
+<h3><a name="ValueStackExplorer-Installation"></a>Installation</h3>
+
+<p>Download the first binary release here: <a href="http://wiki.opensymphony.com/download/attachments/8204/explorer-0.1.zip" title="Visit page outside Confluence">http://wiki.opensymphony.com/download/attachments/8204/explorer-0.1.zip</a> (source is coming, need to check Flash sources).</p>
+
+<p>Unzip the explorer-x.x.zip file.</p>
+
+<p>Place the explorer.jar file in your webapplication's WEB-INF/lib directory. Doubleclick it (or execute java &#45;jar explorer.jar in a terminal) to start the switch.<br/>
+Either run the client/explorer.swf file directly or open the client/explorer.html page. You should see the Flash client (make sure you have Flash 7&#43; plugin installed). It will connect by default to localhost on port 4281. If you want it to connect to another host, you'll have to provide the parameters yourself in the explorer.html file.<br/>
+Open the explorer.html file in your favorite text editor, and change <b>both</b> explorer.swf?host=127.0.0.1&amp;port=4281 (one for firefox/Opera, one for IE) references to whatever you want:</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">..
+<span class="code-tag">&lt;param name=<span class="code-quote">"movie"</span> value=<span class="code-quote">"explorer.swf?host=127.0.0.1&amp;amp;port=4281"</span> /&gt;</span>
+..
+&lt;embed src=<span class="code-quote">"explorer.swf?host=127.0.0.1&amp;amp;port=4281"</span> quality=<span class="code-quote">"high"</span> bgcolor=<span class="code-quote">"#ffffff"</span> 
+width=<span class="code-quote">"1000"</span> height=<span class="code-quote">"600"</span> name=<span class="code-quote">"explorer"</span> align=<span class="code-quote">"middle"</span> allowScriptAccess=<span class="code-quote">"sameDomain"</span> 
+type=<span class="code-quote">"application/x-shockwave-flash"</span> pluginspage=<span class="code-quote">"http://www.macromedia.com/go/getflashplayer"</span> /&gt;
+..</pre>
+</div></div>
+
+<h3><a name="ValueStackExplorer-Tutorial"></a>Tutorial</h3>
+
+<p>Create a simple action called TestAction.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">..
+<span class="code-keyword">public</span> class TestAction <span class="code-keyword">extends</span> ActionSupport {
+
+	<span class="code-keyword">private</span> List list;
+
+	<span class="code-keyword">public</span> <span class="code-object">String</span> execute() <span class="code-keyword">throws</span> Exception {
+
+		list = <span class="code-keyword">new</span> ArrayList();
+		list.add(<span class="code-quote">"Rene"</span>);
+		list.add(<span class="code-quote">"Peter"</span>);
+		list.add(<span class="code-quote">"Toby"</span>);
+		list.add(<span class="code-quote">"Rainer"</span>);
+		list.add(<span class="code-quote">"Patrick"</span>);
+
+		<span class="code-keyword">return</span> <span class="code-keyword">super</span>.execute();
+	}
+
+	<span class="code-keyword">public</span> List getList() {
+		<span class="code-keyword">return</span> list;
+	}
+}</pre>
+</div></div>
+<p>Create a test page test.jsp which will display the list of names, and place it under the /WEB-INF/jsp/ directory.</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;%@ taglib uri=<span class="code-quote">"/webwork"</span> prefix=<span class="code-quote">"ww"</span> %&gt;</span>
+<span class="code-tag">&lt;%@ taglib uri=<span class="code-quote">"/vs"</span> prefix=<span class="code-quote">"vs"</span> %&gt;</span>
+
+<span class="code-tag">&lt;html&gt;</span>
+	<span class="code-tag">&lt;head&gt;</span>
+		<span class="code-tag">&lt;title&gt;</span>Test Page<span class="code-tag">&lt;/title&gt;</span>
+		<span class="code-tag">&lt;ww:head /&gt;</span>
+	<span class="code-tag">&lt;/head&gt;</span>
+
+	<span class="code-tag">&lt;body&gt;</span>
+		<span class="code-tag">&lt;vs:snapshot value=<span class="code-quote">"top.class"</span> /&gt;</span>
+		<span class="code-tag">&lt;ww:iterator value=<span class="code-quote">"list"</span> status=<span class="code-quote">"status"</span>&gt;</span>
+			<span class="code-tag">&lt;li&gt;</span>
+				<span class="code-tag">&lt;ww:property value=<span class="code-quote">"top"</span>/&gt;</span>
+				<span class="code-tag">&lt;vs:breakpoint active=<span class="code-quote">"true"</span> name=<span class="code-quote">"personBP"</span>/&gt;</span>
+			<span class="code-tag">&lt;/li&gt;</span>
+		<span class="code-tag">&lt;/ww:iterator&gt;</span>
+
+		<span class="code-tag">&lt;vs:breakpoint active=<span class="code-quote">"true"</span> name=<span class="code-quote">"finalBP"</span> value=<span class="code-quote">"#context"</span>/&gt;</span>
+
+		<span class="code-tag">&lt;ww:iterator value=<span class="code-quote">"list"</span> status=<span class="code-quote">"status"</span>&gt;</span>
+			<span class="code-tag">&lt;li&gt;</span><span class="code-tag">&lt;ww:property value=<span class="code-quote">"top"</span>/&gt;</span><span class="code-tag">&lt;/li&gt;</span>
+		<span class="code-tag">&lt;/ww:iterator&gt;</span>
+	<span class="code-tag">&lt;/body&gt;</span>
+<span class="code-tag">&lt;/html&gt;</span></pre>
+</div></div>
+<p>Register the action and the result in xwork.xml</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">..
+&lt;action name=<span class="code-quote">"index"</span> class=<span class="code-quote">"com.acme.test.TestAction"</span>&gt;
+	&lt;result name=<span class="code-quote">"success"</span> type=<span class="code-quote">"dispatcher"</span>&gt;/WEB-INF/jsp/test.jsp&lt;/result&gt;
+&lt;/action&gt;
+..</pre>
+</div></div>
+<p>Start the Switch if you already haven't done so (see Installation above)&#45; it should start running on port 4281.</p>
+
+<p>Visit the test action in your browser (preferably in another tab or window). It should render until you see about this: </p>
+
+<ul class="alternate" type="square">
+	<li>Rene <font color="#ff0000"><b>(BP PersonBP)</b></font></li>
+</ul>
+
+
+<p>It should keep loading (well, at least in FireFox). Now, when you check your Switch log you should see two connections - one from your Flash client, and one from the first breakpoint tag. If you can't see this, verify that the Switch is running, your Flash client is running (reconnect using the menu if necessary), and you're not dealing with a firewall or an already occupied port).</p>
+
+<p><a href='http://wiki.opensymphony.com/download/attachments/8204/first_breakpoint.png' target='first_breakpoint.png' onClick='window.open("http://wiki.opensymphony.com/download/attachments/8204/first_breakpoint.png", "first_breakpoint.png", "height=473,width=723,menubar=no,status=no,toolbar=no"); return false;'><img src='/download/thumbnails/8204/first_breakpoint.png' title="First Breakpoint" align="absmiddle" border="0" /></a></p>
+
+<h4><a name="ValueStackExplorer-Exploringthestack"></a>Exploring the stack</h4>
+
+<p>Let's examine the Flash client here for a moment. What you see is the result of a very first command sent by the breakpoint, to the Switch, which relayed it to the Flash client, which in turned transformed the XML into a tree.<br/>
+We can see the name of the breakpoint (personBP), we can see the command (top), and we can see the result: a single object with a toString() method which resulted in 'Rene'. That makes sense, because if we look at our TestAction, we can see we've got a list of names, starting with Rene, and in the jsp we're iterating those names, and we have a breakpoint on every iteration. Now, we see "Rene" (normally followed by the classname between brackets, except when dealing with java.lang.String objects), and we can click on the arrow in front of "Rene" to make the tree expand, and show all the methods available to this object.</p>
+
+<p><a href='http://wiki.opensymphony.com/download/attachments/8204/first_breakpoint_expanded.png' target='first_breakpoint_expanded.png' onClick='window.open("http://wiki.opensymphony.com/download/attachments/8204/first_breakpoint_expanded.png", "first_breakpoint_expanded.png", "height=472,width=721,menubar=no,status=no,toolbar=no"); return false;'><img src='/download/thumbnails/8204/first_breakpoint_expanded.png' title="First Breakpoint Expanded" align="absmiddle" border="0" /></a></p>
+
+<p>A full list will dropdown as soon as you click the arrow, and you can see every method, its return value and parameters. Now you can click every leaf in the three, and the tool will create the OGNL expression for you. If you click on "Rene", <b>top</b> will display in the input field below. Click on hashCode(), toString(), .. and it will result in <b>top.hashCode()</b> and <b>top.toString()</b>. When you're dealing with getters, Maps or Collections/Arrays, the client will provide you with the correct expression.</p>
+
+<p>Let's try issueing a custom command. Click on the input field below (besides the 'Query' button), and type <b>#context</b>, followed by a click on the Query button, or an &lt;Enter&gt;. A big list of objects will dropdown. These are all the objects which can be retrieved with the command #context. In fact, this is nothing more than a Map with a lot of Map.Entry objects in it. Once again, you can use the arrow to see what methods are available, but keep in mind: these are the methods for Map.Entry !</p>
+
+<p><a href='http://wiki.opensymphony.com/download/attachments/8204/first_breakpoint_context.png' target='first_breakpoint_context.png' onClick='window.open("http://wiki.opensymphony.com/download/attachments/8204/first_breakpoint_context.png", "first_breakpoint_context.png", "height=472,width=722,menubar=no,status=no,toolbar=no"); return false;'><img src='/download/thumbnails/8204/first_breakpoint_context.png' title="First Breakpoint Context" align="absmiddle" border="0" /></a></p>
+
+<p>Once again, clicking on the object is enough to create the OGNL expression, so let's click "com.opensymphony.xwork.ActionContext.locale" [java.util.HashMap$Entry], and in the input field below, you'll get #context['com.opensymphony.xwork.ActionContext.locale']. Click the Query button again, and you'll receive the answer: "en_US" [java.util.Locale] (or some other Locale). When you expand the node now, you'll see it has all the methods for java.util.Locale instead of the old Map.Entry methods ! For example, clicking the getLanguage() method will result in #context['com.opensymphony.xwork.ActionContext.locale'].language, and submitting that will get you "en" as a response, on which you can invoke more String methods, and so on, ad infinitum.</p>
+
+<p>Now, this is nice, but there's more (of course, there's always more). There's a menu on top of the tree (Connection, Breakpoint, Stack, About), which we'll explore now. Connection is fairly obvious, it controls the connection to the Switch server, About just displays a mildly uninteresting popup, Breakpoint is something we'll talk about in a minute, which leaves us with .. Stack.</p>
+
+<p>Stack simply contains a list of some common commands, including #context (which we used above), #request, #session, etc .. clicking on them will simply send the command and show the result. Please note that not all commands return something (some are just empty - for example, #session will be empty until you actually place something in it (yes, this tool does not bend reality nor logic).</p>
+
+<h4><a name="ValueStackExplorer-Breakpoints"></a>Breakpoints</h4>
+
+<p>Now, let's go to the next breakpoint. Remember, this is the very first breakpoint, and we have place a breakpoint inside a loop of a list with 5 names. Click the &gt; arrow on the right of the Query button. Within an instant, you will be greated by "Peter". Clicking the &gt; arrow again will show the next entry, "Toby". Take a look again at the test page in our browser, and you'll see it actually has advanced 2 items as well.<br/>
+The Breakpoint menu on top has the very same command, plus some others: 'Next' (which we used now), 'Skip Next' (which will skip the next breakpoint) and 'Skip All' (which will skip all of the breakpoints and just render the page - surpise, surpise). Choose 'Skip Next' from the Breakpoint menu and see how it indeed skips one breakpoint, displaying "Patrick" rather than "Rainer" (take a look at the rendered page in your browser, you'll see there is no (BP personBP) entry next to Rainer's name.</p>
+
+<h4><a name="ValueStackExplorer-Morecommands"></a>More commands</h4>
+
+<p>Of course, you can do more than just simple object retrieval. How about testing ? You'll often find yourself using if/else structures, so we can easily test them as well. Let's try <b>top eq "Jason"</b>, and just like you expected (I hope, if not, back away from the computer), "false" will be the result of this statement (with a nice icon - thanks Eclipse !). Similary, <b>top eq "Patrick"</b> will return "true", as will <b>top.substring(0,2) == "Pa"</b>. Great !</p>
+
+<p>Use the next button (&gt;) to proceed to our next breakpoint. You'll see the breakpoint name has changed to finalBP (check the jsp page, you'll see we used that name on our last breakpoint, outside the loop - if you can't find this in your jsp, you're one lousy copy/paster, and you should exchange your PC for a Mac immediatly), and we can see the #context result is being displayed again. This is because we actually specified value="#context" in our tag (it defaults to 'top' if it's not specified). Sending <b>top</b> again will display the Action class.<br/>
+You can see it has a method getList(), so sending top.list will give us back our names list. Of course, nothing stops us from altering this list, so let's do that:</p>
+
+<p><b>top.list.add("Claus")</b>, press enter, and behold, a "true" tells us that we successfully added Claus to our list. A quick <b>top.list</b> indeed shows the name has been added. By the way, pressing the up key in the input field allows you to cycle through the used commands (a bit buggy atm though).</p>
+
+<h4><a name="ValueStackExplorer-Snapshots"></a>Snapshots</h4>
+
+<p>There is one last thing you might find interesting. There are snapshot tags that allow you to place anything on the stack (for comparison later on), which can be retrieved using #snapshots.</p>
+
+<p><a href='http://wiki.opensymphony.com/download/attachments/8204/final_breakpoint_snapshots.png' target='final_breakpoint_snapshots.png' onClick='window.open("http://wiki.opensymphony.com/download/attachments/8204/final_breakpoint_snapshots.png", "final_breakpoint_snapshots.png", "height=472,width=724,menubar=no,status=no,toolbar=no"); return false;'><img src='/download/thumbnails/8204/final_breakpoint_snapshots.png' title="Final Breakpoint Snapshots" align="absmiddle" border="0" /></a></p>
+
+<h4><a name="ValueStackExplorer-Closingthoughts"></a>Closing thoughts</h4>
+
+<p>Since this was the last breakpoint, pressing next will cause the page to be fully rendered. When you take a look at it, you'll see that we have in fact our initial 5 names, wich visual breakpoint marks, and a secondary listing with the additional 'Claus' name added to it. When you reload the page, you'll get "Rene" again, and so on ..<br/>
+I do suggest you take a look at the Tag reference; esp. the 'active' attribute is interesting (it allows for conditional breakpoints, thank you very much, and by default its value, when not specified, is equal to weither or not you have the WebWork development mode on. So keep this in mind.</p>
+
+<p>Finally, I do realise that it's a bit awkward to use a Java daemon and a Flash client, and that we really should move to a single (preferably WebStart) Swing application instead. I just didn't have time for it (and I wanted to provide a quick popup in a webpage at first, so I guess one could say it's historically 'grown' <img class="emoticon" src="./icons/emoticons/wink.gif" height="20" width="20" align="absmiddle" alt="" border="0"/>).</p>
+
+<h3><a name="ValueStackExplorer-Tagreference"></a>Tag reference</h3>
+
+<h4><a name="ValueStackExplorer-BreakpointTag"></a>Breakpoint Tag</h4>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>Name</th>
+<th class='confluenceTh'>Required</th>
+<th class='confluenceTh'>Default</th>
+<th class='confluenceTh'>Type</th>
+<th class='confluenceTh'>Description</th>
+</tr>
+<tr>
+<td class='confluenceTd'>name</td>
+<td class='confluenceTd'>false</td>
+<td class='confluenceTd'>net.vaultnet.explorer.Breakpoint.toString()</td>
+<td class='confluenceTd'>String</td>
+<td class='confluenceTd'>The name you wish to give to this breakpoint.</td>
+</tr>
+<tr>
+<td class='confluenceTd'>active</td>
+<td class='confluenceTd'>false</td>
+<td class='confluenceTd'>webwork.devMode</td>
+<td class='confluenceTd'>Object/Boolean</td>
+<td class='confluenceTd'>Weither or not this tag is active. Accepts an expression.</td>
+</tr>
+<tr>
+<td class='confluenceTd'>value</td>
+<td class='confluenceTd'>false</td>
+<td class='confluenceTd'>top</td>
+<td class='confluenceTd'>Object/String</td>
+<td class='confluenceTd'>Initial request that will be executed against the OGNL stack.</td>
+</tr>
+<tr>
+<td class='confluenceTd'>host</td>
+<td class='confluenceTd'>false</td>
+<td class='confluenceTd'>localhost</td>
+<td class='confluenceTd'>String</td>
+<td class='confluenceTd'>The hostname where the Switch server is running on.</td>
+</tr>
+<tr>
+<td class='confluenceTd'>port</td>
+<td class='confluenceTd'>false</td>
+<td class='confluenceTd'>4281</td>
+<td class='confluenceTd'>int</td>
+<td class='confluenceTd'>The port the Switch server is running on.</td>
+</tr>
+</tbody></table>
+
+<h4><a name="ValueStackExplorer-SnapshotTag"></a>Snapshot Tag</h4>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>Name</th>
+<th class='confluenceTh'>Required</th>
+<th class='confluenceTh'>Default</th>
+<th class='confluenceTh'>Type</th>
+<th class='confluenceTh'>Description</th>
+</tr>
+<tr>
+<td class='confluenceTd'>value</td>
+<td class='confluenceTd'>false</td>
+<td class='confluenceTd'>top</td>
+<td class='confluenceTd'>Object/String</td>
+<td class='confluenceTd'>The expression result you want to store in this snapshot.</td>
+</tr>
+</tbody></table>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
