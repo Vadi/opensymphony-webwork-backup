@@ -1,6 +1,0 @@
-name = webwork
-fullname = WebWork
-version = 2.2.7
-status = integration
-cvs.tag = webwork_2-2-7
-svn.tag = webwork_2-2-7
