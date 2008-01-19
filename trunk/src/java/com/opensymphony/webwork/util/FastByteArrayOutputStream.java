@@ -17,8 +17,10 @@ import java.util.LinkedList;
  * does not copy buffers when it's expanded. There's also no copying of the internal buffer
  * if it's contents is extracted with the writeTo(stream) method.
  *
- * @author Rickard Öberg
- * @version $Revision$
+ * @author Rickard ï¿½berg
+ * @author Brat Baker (Atlassian)
+ * @author Alexey
+ * @version $Date$ $Id$
  */
 public class FastByteArrayOutputStream extends OutputStream {
 
@@ -165,27 +167,89 @@ public class FastByteArrayOutputStream extends OutputStream {
     }
 
     public void writeTo(Writer out, String encoding) throws IOException {
-        // Check if we have a list of buffers
-        if (buffers != null) {
-            Iterator iter = buffers.iterator();
+        /*
+          There is design tradeoff between being fast, correct and using too much memory when decoding bytes to strings.
 
-            while (iter.hasNext()) {
-                byte[] bytes = (byte[]) iter.next();
+         The rules are thus :
 
-                if (encoding != null) {
-                    out.write(new String(bytes, encoding));
-                } else {
-                    out.write(new String(bytes));
-                }
-            }
+         1. if there is only one buffer then its a simple String conversion
+
+              REASON : Fast!!!
+
+         2. uses full buffer allocation annd System.arrayCopy() to smooosh together the bytes
+              and then use String conversion
+
+              REASON : Fast at the expense of a known amount of memory (eg the used memory * 2)
+        */
+        if (buffers != null)
+        {
+            // RULE 2 : a balance between using some memory and speed
+            writeToViaSmoosh(out, encoding);
         }
-
-        // write the internal buffer directly
-        if (encoding != null) {
-            out.write(new String(buffer, 0, index, encoding));
-        } else {
-            out.write(new String(buffer, 0, index));
+        else
+        {
+            // RULE 1 : fastest!
+            writeToViaString(out, encoding);
         }
+    }
+
+    /**
+     * This can <b>ONLY</b> be called if there is only a single buffer to write, instead
+     * use {@link #writeTo(java.io.Writer, String)}, which auto detects if
+     * {@link #writeToViaString(java.io.Writer, String)} is to be used or
+     * {@link #writeToViaSmoosh(java.io.Writer, String)}.
+     *
+     * @param out      the JspWriter
+     * @param encoding the encoding
+     * @throws IOException
+     */
+    void writeToViaString(Writer out, String encoding) throws IOException
+    {
+        byte[] bufferToWrite = buffer; // this is always the last buffer to write
+        int bufferToWriteLen = index;  // index points to our place in the last buffer
+        writeToImpl(out, encoding, bufferToWrite, bufferToWriteLen);
+    }
+
+    /**
+     * This is recommended to be used where there's more than 1 buffer to write, instead
+     * use {@link #writeTo(java.io.Writer, String)} which auto detects if
+     * {@link #writeToViaString(java.io.Writer, String)} is to be used or
+     * {@link #writeToViaSmoosh(java.io.Writer, String)}.
+     * 
+     * @param out
+     * @param encoding
+     * @throws IOException
+     */
+    void writeToViaSmoosh(Writer out, String encoding) throws IOException
+    {
+        byte[] bufferToWrite = toByteArray();
+        int bufferToWriteLen = bufferToWrite.length;
+        writeToImpl(out, encoding, bufferToWrite, bufferToWriteLen);
+    }
+
+    /**
+     * Write <code>bufferToWriteLen</code> of bytes from <code>bufferToWrite</code> to
+     * <code>out</code> encoding it at the same time.
+     * 
+     * @param out
+     * @param encoding
+     * @param bufferToWrite
+     * @param bufferToWriteLen
+     * @throws IOException
+     */
+    private void writeToImpl(Writer out, String encoding, byte[] bufferToWrite, int bufferToWriteLen)
+            throws IOException
+    {
+        String writeStr;
+        if (encoding != null)
+        {
+            writeStr = new String(bufferToWrite, 0, bufferToWriteLen, encoding);
+        }
+        else
+        {
+            writeStr = new String(bufferToWrite, 0, bufferToWriteLen);
+        }
+        out.write(writeStr);
     }
 
     /**
