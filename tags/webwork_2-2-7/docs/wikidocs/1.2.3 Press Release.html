@@ -1,0 +1,418 @@
+<html>
+    <head>
+        <title>WebWork - 
+        1.2.3 Press Release
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h2><a name="1.2.3PressRelease-XWork1.2.3Released"></a>XWork 1.2.3 Released</h2>
+
+<p>The <a href="http://www.opensymphony.com/xwork" title="Visit page outside Confluence">OpenSymphony XWork</a> team is proud to announce the release of XWork 1.2.3, the latest release in the 1.2 branch of XWork, a command pattern framework, which forms the core of the WebWork 2 framework.</p>
+
+<p>This release specifically addresses a critical security issue allowing users to execute arbituary any OGNL expression.<br/>
+We encourage all users of XWork 1.2.x and WebWork 2.2.x to update to this release.</p>
+
+<h2><a name="1.2.3PressRelease-Summary"></a>Summary</h2>
+
+
+<p>Remote code exploit on form validation error</p>
+
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'>Who should read this</th>
+<td class='confluenceTd'>All XWork 1.2.x, XWork 2.x, WebWork 2.2.x, Struts 2 developers</td>
+</tr>
+<tr>
+<th class='confluenceTh'>Impact of vulnerability</th>
+<td class='confluenceTd'>Remote code execution</td>
+</tr>
+<tr>
+<th class='confluenceTh'>Maximum security rating</th>
+<td class='confluenceTd'>Critical</td>
+</tr>
+<tr>
+<th class='confluenceTh'>Recommendation</th>
+<td class='confluenceTd'>Developers should either apply the patch or upgrade XWork immediately</td>
+</tr>
+<tr>
+<th class='confluenceTh'>Affected Software</th>
+<td class='confluenceTd'> WebWork 2.1 (with altSyntax enabled), WebWork 2.2.0 - WebWork 2.2.5, Struts 2.0.0 - Struts 2.0.8 </td>
+</tr>
+<tr>
+<th class='confluenceTh'>Non-Affected Software</th>
+<td class='confluenceTd'> WebWork 2.0, WebWork 2.1 (with altSyntax disabled, which is the default)</td>
+</tr>
+<tr>
+<th class='confluenceTh'>Original JIRA Ticket</th>
+<td class='confluenceTd'> <a href="http://issues.apache.org/struts/browse/WW-2030" title="Visit page outside Confluence">WW-2030</a></td>
+</tr>
+</tbody></table>
+
+<h2><a name="1.2.3PressRelease-Problem"></a>Problem</h2>
+
+<p>The 'altSyntax' feature of WebWork 2.1+ and Struts 2 allows OGNL expressions to be inserted into text strings and is processed recursively.  This allows a malicious user to submit a string, usually through an HTML text field, containing an OGNL expression that will then be executed by the server if the form validation has failed.  For example, say we had this form that required the 'phoneNumber' field to not be blank:</p>
+
+<div class="code"><div class="codeContent">
+<pre class="code-html"><span class="code-tag">&lt;s:form action=<span class="code-quote">"editUser"</span>&gt;</span>
+  <span class="code-tag">&lt;s:textfield name=<span class="code-quote">"name"</span> /&gt;</span>
+  <span class="code-tag">&lt;s:textfield name=<span class="code-quote">"phoneNumber"</span> /&gt;</span>
+<span class="code-tag">&lt;/s:form&gt;</span></pre>
+</div></div>
+
+<p>The user could leave the 'phoneNumber' field blank to trigger the validation error, then populate the 'name' field with %{1+1}.  When the form is re-displayed to the user, the value of the 'name' field will be '2'.  The reason is the value field is, by default, processed as %{name}, and since OGNL expressions are evaluated recursively, it is evaluated as if the expression was %{%{1+1}}.</p>
+
+<p>The OGNL parsing code is actually in XWork and not in WebWork 2 or Struts 2.</p>
+
+<h2><a name="1.2.3PressRelease-Solution"></a>Solution</h2>
+
+<p>The fixed version of XWork changes the OGNL parsing so that it is not recursive.  Therefore, in the example above, the result will be the expected %{1+1}.  You can either obtain the latest version of WebWork 2 or Struts 2, which contains the fixed XWork library, or download the fixed XWork library directly.  Alternatively, you can obtain the patch and apply it to the XWork source code yourself.</p>
+
+
+<p>For users of the WebWork 2.2 series, please upgrade to version 2.2.6 available from the <a href="http://www.opensymphony.com/webwork/download.action" title="Visit page outside Confluence">download page</a> as drop in replacement.</p>
+
+<p>For a complete list of all the changes, please refer to the<br/>
+<a href="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&amp;&amp;pid=10050&amp;fixfor=21701&amp;status=5&amp;status=6&amp;sorter/field=issuekey&amp;sorter/order=DESC" title="Visit page outside Confluence">complete changelog</a></p>
+<p><a name="jiraissues">
+    <table  width="100%" cellspacing="0" class="grid">
+        <tr>
+            <th colspan="11" style="text-align: left;">
+                                    <a href="/spaces/doexportspace.action?key=WW&macro.refresh=true#jiraissues"><img src="/images/icons/refresh_16.png" height="16" width="16" border="0" align="right" title="refresh"/></a>
+                                <a href="http://jira.opensymphony.com/sr/jira.issueviews:searchrequest-xml/temp/SearchRequest.xml?&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC&tempMax=1000">OpenSymphony JIRA</a>
+                <span class="smalltext">(8 issues)</span>
+            </th>
+        </tr>
+        <tr>
+                        <th style="text-align: left;">
+                T                                                                                                                                                                            </th>
+                        <th style="text-align: left;">
+                                Key                                                                                                                                                            </th>
+                        <th style="text-align: left;">
+                                                Summary                                                                                                                                            </th>
+                        <th style="text-align: left;">
+                                                                Assignee                                                                                                                            </th>
+                        <th style="text-align: left;">
+                                                                                Reporter                                                                                                            </th>
+                        <th style="text-align: left;">
+                                                                                                Pr                                                                                            </th>
+                        <th style="text-align: left;">
+                                                                                                                Status                                                                            </th>
+                        <th style="text-align: left;">
+                                                                                                                                Res                                                            </th>
+                        <th style="text-align: left;">
+                                                                                                                                                Created                                            </th>
+                        <th style="text-align: left;">
+                                                                                                                                                                Updated                            </th>
+                        <th style="text-align: left;">
+                                                                                                                                                                                Due            </th>
+                    </tr>
+                                            <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-544"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-544">XW-544</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/XW-544">User input is evaluated as an OGNL expression</a>
+                                    </td>
+                                <td nowrap="true">
+                                            Rainer Hermanns
+                                    </td>
+                                <td nowrap="true">
+                                            Rainer Hermanns
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/priority_blocker.gif" alt="Blocker" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/status_closed.gif" alt="Closed" border="0" />Closed
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Jul 18, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Jul 19, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-535"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-535">XW-535</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/XW-535">external-ref tag&#39;s content cannot be read occasionally by some parser</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Jul 01, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Jul 02, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-524"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-524">XW-524</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/XW-524">ParameterInterceptor log parameter value twice for the first parameter when there&#39;s more than one parameter of the same name.</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/priority_minor.gif" alt="Minor" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            May 30, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Jul 17, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-523"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/improvement.gif" alt="Improvement" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-523">XW-523</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/XW-523">eliminate the use of static block to call ConfigurationManager&#39;s destroyConfiguration() method</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            May 28, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Jun 02, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-522"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-522">XW-522</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/XW-522">Interceptor destroy() method is never called.</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            May 27, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Jun 02, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-507"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-507">XW-507</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/XW-507">XWorkBasicConvert - RFC3339 not thread safe</a>
+                                    </td>
+                                <td nowrap="true">
+                                            Claus Ibsen
+                                    </td>
+                                <td nowrap="true">
+                                            Claus Ibsen
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Apr 13, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Apr 13, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-501"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-501">XW-501</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/XW-501"> VisitorFieldValidator loses original TextProvider </a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Vlad Kravchenko
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Mar 28, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Jul 21, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-443"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/XW-443">XW-443</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/XW-443">Validator parameters and message handled improperly</a>
+                                    </td>
+                                <td nowrap="true">
+                                            Don Brown
+                                    </td>
+                                <td nowrap="true">
+                                            Michal Karwanski
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/priority_minor.gif" alt="Minor" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10050&fixfor=21701&status=5&status=6&sorter/field=issuekey&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 28, 2006
+                                    </td>
+                                <td nowrap="true">
+                                            Jul 18, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+            </table>
+</p>
+
+<h3><a name="1.2.3PressRelease-AboutWebWork"></a>About WebWork</h3>
+<p>WebWork is a leading open source Java web application framework. Developed originally by Rickard Oberg (original developer of JBoss and creator of XDoclet, among other accomplishments), WebWork aims to lower the bar for developing web applications by making the more tedious tasks of web development automated. By taking the best features from other web frameworks available today, WebWork represents a best-of-bread solution to web development created by through the feedback of an active OpenSymphony community.</p>
+
+<p>WebWork is built on top of <a href="http://www.opensymphony.com/xwork" title="Visit page outside Confluence">XWork</a>, a generic command pattern framework. WebWork uses the capabilities of XWork to provide the following features:</p>
+
+<ul>
+	<li>Advanced UI components, allowing you to build complex, reusable UI components, ranging from simple text fields to advanced date pickers.</li>
+	<li>A robust inversion of control (IoC) container that binds to the native Servlet lifecycles: request, session, and application.</li>
+	<li>Pluggable configuration, allowing you to develop web "modules" that can easily be integrated together to form complete applications independently.</li>
+	<li>Complete data mapping from HTTP to Java data objects, enabling you to focus more on application development and less on tedious data conversion.</li>
+	<li>A complete validation framework, both on the server side and client side. This lets you choose the most optimal way to ensure user input is correct before processing it.</li>
+	<li>An advanced expression language, based on <a href="http://www.ognl.org" title="Visit page outside Confluence">OGNL</a>, providing the most common operations usually associated with building web-based user interfaces.</li>
+	<li>Support for integration with many popular open source projects, including: Spring, Pico, OSWorkflow, FreeMarker, Velocity, JasperReports, JFreeChart, and many more.</li>
+</ul>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

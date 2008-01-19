@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/webwork/xhtml/styles.css" type="text/css"/>
+<link rel="stylesheet" href="/webwork/jscalendar/calendar-blue.css" type="text/css"/>
+<script language="JavaScript" type="text/javascript">
+    // Dojo configuration
+    djConfig = {
+        isDebug: false,
+        bindEncoding: "ISO-8859-1"
+    };
+</script>
+<script language="JavaScript" type="text/javascript"
+        src="/webwork/dojo/dojo.js"></script>
+<script language="JavaScript" type="text/javascript"
+        src="/webwork/ajax/dojoRequire.js"></script>
+<script language="JavaScript" type="text/javascript"
+        src="/webwork/CommonFunctions.js"></script>

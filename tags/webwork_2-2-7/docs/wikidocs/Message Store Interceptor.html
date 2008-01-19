@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Message Store Interceptor
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    
+<p>An interceptor to store ValidationAware action's messages / errors and field errors into 
+Http Session, such that it will be retrieveable at a later stage. This allows the action's message /
+errors and field errors to be available longer that just the particular http request.</p>
+
+<p><p/></p>
+
+<p>In the 'STORE' mode, the interceptor will store the ValidationAware action's message / errors 
+and field errors into Http session.</p>
+
+<p><p/></p>
+
+<p>In the 'RETRIEVE' mode, the interceptor will retrieve the stored action's message / errors  and field
+errors and put them back into the ValidationAware action.</p>
+
+<p><p/></p>
+
+<p>The interceptor does nothing in the 'NONE' mode, which is the default.</p>
+
+<p><p/></p>
+
+<p>The operation mode could be switched using :- <p/>
+1] Setting the iterceptor parameter eg.
+<pre>
+  &lt;action name="submitApplication" ...&gt;
+     &lt;interceptor-ref name="store"&gt;
+        &lt;param name="operationMode"&gtl;STORE&lt;/param&gt;
+     &lt;/interceptor-ref&gt;
+     &lt;interceptor-ref name="defaultStack" /&gt;
+     ....
+  &lt;/action&gt;
+</pre></p>
+
+<p>2] Through request parameter (allowRequestParameterSwitch must be 'true' which is the default)
+<pre>
+  // the request will have the operation mode in 'STORE'
+  http://localhost:8080/context/submitApplication.action?operationMode=STORE
+</pre></p>
+
+
+<h1><a name="MessageStoreInterceptor-Parameters"></a>Parameters</h1>
+
+
+<p><ul>
+		<li>allowRequestParameterSwitch - To enable request parameter that could switch the operation mode 
+										  of this interceptor. </li>
+		<li>requestParameterSwitch - The request parameter that will indicate what mode this 
+									 interceptor is in. </li>
+		<li>operationMode - The operation mode this interceptor should be in 
+							(either 'STORE', 'RETRIEVE' or 'NONE'). 'NONE' being the default.</li>
+</ul></p>
+
+
+<h1><a name="MessageStoreInterceptor-ExtendingtheInterceptor"></a>Extending the Interceptor</h1>
+
+
+<p>The following method could be overriden :-
+<ul>
+	<li>getRequestOperationMode - get the operation mode of this interceptor based on the request parameters</li>
+ <li>mergeCollection - merge two collections</li>
+ <li>mergeMap - merge two map</li>
+</ul></p>
+
+
+<h1><a name="MessageStoreInterceptor-Examples"></a>Examples</h1>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;action name=<span class="code-quote">"submitApplication"</span> ....&gt;</span>
+   <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"store"</span>&gt;</span>
+   	<span class="code-tag">&lt;param name=<span class="code-quote">"operationMode"</span>&gt;</span>STORE<span class="code-tag">&lt;/param&gt;</span>
+   <span class="code-tag">&lt;/interceptor-ref&gt;</span>
+   <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"defaultStack"</span> /&gt;</span>
+   <span class="code-tag">&lt;result name=<span class="code-quote">"input"</span> type=<span class="code-quote">"redirect"</span>&gt;</span>applicationFailed.action<span class="code-tag">&lt;/result&gt;</span>
+   <span class="code-tag">&lt;result type=<span class="code-quote">"dispatcher"</span>&gt;</span>applicationSuccess.jsp<span class="code-tag">&lt;/result&gt;</span>
+<span class="code-tag">&lt;/action&gt;</span>
+
+<span class="code-tag">&lt;action name=<span class="code-quote">"applicationFailed"</span> ....&gt;</span>
+   <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"store"</span>&gt;</span>
+      <span class="code-tag">&lt;param name=<span class="code-quote">"operationMode"</span>&gt;</span>RETRIEVE<span class="code-tag">&lt;/param&gt;</span>
+   <span class="code-tag">&lt;/interceptor-ref&gt;</span>
+   <span class="code-tag">&lt;-- this result will get executed if its field/error message(s) --&gt;</span>
+   <span class="code-tag">&lt;result name=<span class="code-quote">"input"</span>&gt;</span>applicationFailed.jsp<span class="code-tag">&lt;/result&gt;</span>
+   <span class="code-tag">&lt;-- this result will get executed if its action message(s) --&gt;</span>
+   <span class="code-tag">&lt;result&gt;</span>applicationFailed.jsp<span class="code-tag">&lt;/result&gt;</span>
+<span class="code-tag">&lt;/action&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

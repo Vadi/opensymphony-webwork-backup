@@ -1,0 +1,1268 @@
+<html>
+    <head>
+        <title>WebWork - 
+        WebWork 2.2.7
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <h1><a name="WebWork2.2.7-WebWork2.2.7ReleaseNotes"></a>WebWork 2.2.7 Release Notes</h1>
+
+<h2><a name="WebWork2.2.7-KeyChanges"></a>Key Changes</h2>
+<p>There's no major changes in this release. The more significant improvements are probably bumping up WebWork DWR support to DWR 2.x and adding i18n validation parameterizing support. </p>
+
+<p>The remaining changes are pretty trivial, including a few issues backported from Struts2, configurable start up and shut down listener and some trivial bug fixes.</p>
+
+<p>See below for the complete list of changes.</p>
+
+<h2><a name="WebWork2.2.7-MigrationNotes"></a>Migration Notes</h2>
+
+<p>This 2.2.7 release, is basically a maintaintance release.</p>
+
+<p>It is fully backwords compatible with WebWork 2.2.6 and should be an easy and straight forward drop in replacement for it.</p>
+
+<p>As usual, we'd like to thank both users and contributors for helping out, submitting patches, testing, providing feedback and participating in various discussion related to WebWork.</p>
+
+<p>Once again thanks for using WebWork.</p>
+
+<h2><a name="WebWork2.2.7-Changelog"></a>Changelog</h2>
+
+<p>For a complete list of all the changes, please refer to the <a href="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&amp;&amp;pid=10030&amp;fixfor=21715" title="Visit page outside Confluence">complete changelog</a></p>
+
+<p><a name="jiraissues">
+    <table  width="100%" cellspacing="0" class="grid">
+        <tr>
+            <th colspan="11" style="text-align: left;">
+                                    <a href="/spaces/doexportspace.action?key=WW&macro.refresh=true#jiraissues"><img src="/images/icons/refresh_16.png" height="16" width="16" border="0" align="right" title="refresh"/></a>
+                                <a href="http://jira.opensymphony.com/secure/IssueNavigator.jspa?&&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC&reset=true&&tempMax=150">OpenSymphony JIRA</a>
+                <span class="smalltext">(34 issues)</span>
+            </th>
+        </tr>
+        <tr>
+                        <th style="text-align: left;">
+                T                                                                                                                                                                            </th>
+                        <th style="text-align: left;">
+                                Key                                                                                                                                                            </th>
+                        <th style="text-align: left;">
+                                                Summary                                                                                                                                            </th>
+                        <th style="text-align: left;">
+                                                                Assignee                                                                                                                            </th>
+                        <th style="text-align: left;">
+                                                                                Reporter                                                                                                            </th>
+                        <th style="text-align: left;">
+                                                                                                Pr                                                                                            </th>
+                        <th style="text-align: left;">
+                                                                                                                Status                                                                            </th>
+                        <th style="text-align: left;">
+                                                                                                                                Res                                                            </th>
+                        <th style="text-align: left;">
+                                                                                                                                                Created                                            </th>
+                        <th style="text-align: left;">
+                                                                                                                                                                Updated                            </th>
+                        <th style="text-align: left;">
+                                                                                                                                                                                Due            </th>
+                    </tr>
+                                            <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1482"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1482">WW-1482</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1482">m2 build leaves all the html widgets out of jar</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Konstantin Pribluda
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_blocker.gif" alt="Blocker" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Sep 26, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Sep 27, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1449"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1449">WW-1449</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1449">xwork configuration fails to configure when using net.sf.saxon.TransformerFactoryImpl as the javax.xml.transform.TransformerFactory</a>
+                                    </td>
+                                <td nowrap="true">
+                                            Unassigned
+                                    </td>
+                                <td nowrap="true">
+                                            Dave Casserly
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_blocker.gif" alt="Blocker" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_closed.gif" alt="Closed" border="0" />Closed
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">CANNOT REPRODUCE</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Apr 13, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 17, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1461"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1461">WW-1461</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1461">Pagination issue</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Rajeev Kumar
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_blocker.gif" alt="Blocker" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">NOT A PROBLEM</font>
+                                    </td>
+                                <td nowrap="true">
+                                            May 30, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 18, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1113"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1113">WW-1113</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1113">Remote form bug for multipart enctype ,(upload file ..)</a>
+                                    </td>
+                                <td nowrap="true">
+                                            Ian Roughley
+                                    </td>
+                                <td nowrap="true">
+                                            firebody
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_critical.gif" alt="Critical" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_closed.gif" alt="Closed" border="0" />Closed
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Jan 23, 2006
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 17, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1467"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1467">WW-1467</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1467">Startup listener throws NPE when Object Factory is not configured in webwork.properties</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Jul 21, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Jul 21, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1469"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/task.gif" alt="Task" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1469">WW-1469</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1469">Integrate Selenium testing into showcase</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Aug 07, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Aug 07, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1452"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/task.gif" alt="Task" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1452">WW-1452</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1452">Composite action mapper</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Apr 17, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Aug 11, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1473"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/improvement.gif" alt="Improvement" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1473">WW-1473</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1473">RestfulActionMapper should return null for both getMapping(HttpServletRequest) and getUrlFromActionMapping(ActionMapping) method when it cannot handle the situation</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Aug 25, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Aug 25, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1480"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1480">WW-1480</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1480">Unit test fail randomly on different boxes</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Konstantin Pribluda
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Sep 23, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Sep 23, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1481"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1481">WW-1481</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1481">Maven pom.xml is using &quot;com.opensymphony&quot; as the groupId, it should be &quot;opensymphony&quot;</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Sep 23, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Sep 23, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1483"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/improvement.gif" alt="Improvement" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1483">WW-1483</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1483">template tags in velocity even without prior action execution</a>
+                                    </td>
+                                <td nowrap="true">
+                                            Unassigned
+                                    </td>
+                                <td nowrap="true">
+                                            Konstantin Pribluda
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Sep 27, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Oct 01, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1478"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1478">WW-1478</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1478">URL and Form Tag doesn&#39;t generate url properly when using ActionMapper other that DefaultActionMapper like RestfulActionMapper</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Sep 08, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 12, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1477"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1477">WW-1477</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1477">RestfulActionMapper getMapping and getUriFromMapping methods conflicts</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Sep 08, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 12, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1487"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/improvement.gif" alt="Improvement" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1487">WW-1487</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1487">Enable Spring Object Factory to be configured via init-param</a>
+                                    </td>
+                                <td nowrap="true">
+                                            Tom Schneider
+                                    </td>
+                                <td nowrap="true">
+                                            Joshua Partogi
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">WON'T FIX</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 13, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 18, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1484"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/improvement.gif" alt="Improvement" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1484">WW-1484</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1484">Support ContextLoaderServlet for WebWorkSpringObjectFactory</a>
+                                    </td>
+                                <td nowrap="true">
+                                            Tom Schneider
+                                    </td>
+                                <td nowrap="true">
+                                            Joshua Partogi
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Oct 10, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 18, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1488"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/newfeature.gif" alt="New Feature" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1488">WW-1488</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1488">Add JSON result</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 19, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 21, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1466"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/task.gif" alt="Task" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1466">WW-1466</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1466">Updgrate Ognl dependency to 2.7 for WebWork 2.2.6 release</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Jun 30, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 22, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1485"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/newfeature.gif" alt="New Feature" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1485">WW-1485</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1485">Parameterizing i18n messages</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 05, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 26, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1442"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1442">WW-1442</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1442">webwork tag attribute should take js escaping into account</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Mar 30, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 29, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1453"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1453">WW-1453</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1453">customOnSubmit_parameters.id() function name cause problem when parameters.id contains forbidden characters</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Marcin Kuthan
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Apr 18, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 29, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1456"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1456">WW-1456</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1456">IE not friendly to SSL headers in JasperReportsResult </a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Paul Boudreaux
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Apr 27, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 30, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1471"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1471">WW-1471</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1471">DatePicker Script Url problem</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Daniel Liu
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">CANNOT REPRODUCE</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Aug 20, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 30, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1475"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1475">WW-1475</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1475">ChainingInterceptor does not properly parse the incoming included or excluded methods</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Onyeje Bose
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Aug 30, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 30, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1489"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/newfeature.gif" alt="New Feature" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1489">WW-1489</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1489">Handling of unchecked checkboxes</a>
+                                    </td>
+                                <td nowrap="true">
+                                            Unassigned
+                                    </td>
+                                <td nowrap="true">
+                                            Konstantin Pribluda
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 30, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Dec 02, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1490"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/task.gif" alt="Task" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1490">WW-1490</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1490">Upgrade DWR to 2.x version</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Dec 06, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Dec 15, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1491"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/task.gif" alt="Task" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1491">WW-1491</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1491">Add an example for DWR webwork integration</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Dec 06, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Dec 15, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1492"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/task.gif" alt="Task" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1492">WW-1492</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1492">Add docs for DWR webwork integration</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Dec 06, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Dec 15, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1495"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1495">WW-1495</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1495">FastByteArrayOutputStream has an encoding bug</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Brad Baker
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_major.gif" alt="Major" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Jan 09, 2008
+                                    </td>
+                                <td nowrap="true">
+                                            Jan 18, 2008
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1486"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1486">WW-1486</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1486">Unexpected behavior in Firefox with &lt;ww:hidden&gt; tag and ajax validation</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Giuseppe Pace
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_minor.gif" alt="Minor" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 06, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 14, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1465"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1465">WW-1465</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1465">webwork 2.1.7 is not  compatible to use tooltip </a>
+                                    </td>
+                                <td nowrap="true">
+                                            Tom Schneider
+                                    </td>
+                                <td nowrap="true">
+                                            kishore reddy vaddipalle
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_minor.gif" alt="Minor" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">IMPLEMENTED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Jun 13, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 18, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1434"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1434">WW-1434</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1434">Action redirect when using &lt;ww:submit type=&quot;image&quot; .../&gt;  </a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Rafael Torres
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_minor.gif" alt="Minor" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">WON'T FIX</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Mar 22, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Dec 01, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1463"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1463">WW-1463</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1463">Missing blank in submit-ajax.ftl</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Jack Hung
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_minor.gif" alt="Minor" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Jun 05, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Dec 01, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowNormal">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1460"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1460">WW-1460</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1460">IE Dojo innerHTML</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Damián
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_trivial.gif" alt="Trivial" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">CANNOT REPRODUCE</font>
+                                    </td>
+                                <td nowrap="true">
+                                            May 09, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Nov 30, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+                                    <tr class="rowAlternate">
+                                                            <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1476"><img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/bug.gif" alt="Bug" border="0" /></a>
+                                    </td>
+                                <td nowrap="true">
+                                            <a href="http://jira.opensymphony.com/browse/WW-1476">WW-1476</a>
+                                    </td>
+                                <td >
+                                            <a href="http://jira.opensymphony.com/browse/WW-1476">datepicker.ftl simple theme</a>
+                                    </td>
+                                <td nowrap="true">
+                                            tm_jee
+                                    </td>
+                                <td nowrap="true">
+                                            Paul Zepernick
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/priority_trivial.gif" alt="Trivial" border="0" />
+                                    </td>
+                                <td nowrap="true">
+                                            <img src="http://jira.opensymphony.com/secure/IssueNavigator.jspa?reset=true&pid=10030&fixfor=21715&status=5&status=6&sorter/field=priority&sorter/order=DESC/images/icons/status_resolved.gif" alt="Resolved" border="0" />Resolved
+                                    </td>
+                                <td nowrap="true">
+                                            <font color="990000">FIXED</font>
+                                    </td>
+                                <td nowrap="true">
+                                            Sep 05, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            Dec 02, 2007
+                                    </td>
+                                <td nowrap="true">
+                                            
+                                    </td>
+                            </tr>
+            </table>
+</p>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
