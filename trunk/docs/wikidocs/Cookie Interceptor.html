@@ -1,0 +1,129 @@
+<html>
+    <head>
+        <title>WebWork - 
+        Cookie Interceptor
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    
+<p>The aim of this interceptor is to set values in the stack/action based on cookie name/value 
+of interest. <p/></p>
+
+<p>If an asterik is present in cookiesName parameter, it will be assume that 
+all cookies name are to be injected into webwork's action, even though 
+cookiesName is comma-separated by other values, eg (cookie1,*,cookie2). <p/></p>
+
+<p>If cookiesName is left empty it will assume that no cookie will be injected 
+into WebWork's action. <p/></p>
+
+<p>If an asterik is present in cookiesValue parameter, it will assume that all 
+cookies name irrespective of its value will be injected into WebWork's action so
+long as the cookie name matches those specified in cookiesName parameter.<p/></p>
+
+<p>If cookiesValue is left empty it will assume that all cookie that match the cookieName
+parameter will be injected into WebWork's action.<p/></p>
+
+<p>The action could implements CookiesAware in order to have a Map
+of filtered cookies set into it. <p/></p>
+
+
+<h1><a name="CookieInterceptor-Parameters"></a>Parameters</h1>
+
+
+<p><ul>
+	<li>cookiesName (mandatory) - Name of cookies to be injected into the action. If more
+								  than one cookie name is desired it could be comma-separated.
+								  If all cookies name is desired, it could simply be *, an asterik.
+								  When many cookies name are comma-separated either of the cookie
+						          that match the name in the comma-separated list will be qualified.</li>
+ <li>cookiesValue - Value of cookies that if its name matches cookieName attribute
+                    and its value matched this, will be injected into WebWork's
+                    action. If more than one cookie name is desired it could be
+                    comma-separated. If left empty, as * (asterik) or not specified,
+                    it will assume any value would
+                    be ok. If more than one value is specified (comma-separated)
+                    it will assume a match if either value is matched.
+</ul></p>
+
+
+<h1><a name="CookieInterceptor-ExtendingtheInterceptor"></a>Extending the Interceptor</h1>
+
+
+<p><ul>
+	populateCookieValueIntoStack - this method will decide if this cookie value is qualified to be 
+													   populated into the value stack (hence into the action itself)
+	injectIntoCookiesAwareAction - this method will inject selected cookies (as a java.util.Map) into 
+													  action that implements CookiesAware.
+</ul></p>
+
+
+<h1><a name="CookieInterceptor-Examples"></a>Examples</h1>
+
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&lt;!--
+  This example will inject cookies named either 'cookie1' or 'cookie2' whose
+  value could be either 'cookie1value' or 'cookie2value' into WebWork's action.
+--&gt;
+<span class="code-tag">&lt;action ... &gt;</span>
+   <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"cookie"</span>&gt;</span>
+       <span class="code-tag">&lt;param name=<span class="code-quote">"cookiesName"</span>&gt;</span>cookie1, cookie2<span class="code-tag">&lt;/param&gt;</span>
+       <span class="code-tag">&lt;param name=<span class="code-quote">"cookiesValue"</span>&gt;</span>cookie1value, cookie2value<span class="code-tag">&lt;/param&gt;</span>
+   <span class="code-tag">&lt;/interceptor-ref&gt;</span>
+   ....
+<span class="code-tag">&lt;/action&gt;</span>
+
+
+&lt;!--
+	This example will inject cookies named either 'cookie1' or 'cookie2' 
+    regardless of their value into WebWork's action.
+--&gt;
+<span class="code-tag">&lt;action ... &gt;</span>
+  <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"cookie"</span>&gt;</span>
+     <span class="code-tag">&lt;param name=<span class="code-quote">"cookiesName"</span>&gt;</span>cookie1, cookie2<span class="code-tag">&lt;/param&gt;</span>
+     <span class="code-tag">&lt;param name=<span class="code-quote">"cookiesValue"</span>&gt;</span>*<span class="code-tag">&lt;/param&gt;</span>
+  <span class="code-tag">&lt;interceptor-ref&gt;</span>
+  ...
+<span class="code-tag">&lt;/action&gt;</span>
+
+
+&lt;!--
+	This example will inject cookies named either 'cookie1' with value 
+     'cookie1value' or 'cookie2' with value 'cookie2value' into WebWork's
+     action.
+--&gt;
+<span class="code-tag">&lt;action ... &gt;</span>
+  <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"cookie"</span>&gt;</span>
+     <span class="code-tag">&lt;param name=<span class="code-quote">"cookiesName"</span>&gt;</span>cookie1<span class="code-tag">&lt;/param&gt;</span>
+     <span class="code-tag">&lt;param name=<span class="code-quote">"cookiesValue"</span>&gt;</span>cookie1value<span class="code-tag">&lt;/param&gt;</span>
+  <span class="code-tag">&lt;/interceptor-ref&gt;</span>
+  <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"cookie"</span>&gt;</span>
+  	<span class="code-tag">&lt;param name=<span class="code-quote">"cookiesName"</span>&lt;cookie2&lt;/param&gt;</span>
+    <span class="code-tag">&lt;param name=<span class="code-quote">"cookiesValue"</span>&gt;</span>cookie2value<span class="code-tag">&lt;/param&gt;</span>
+  <span class="code-tag">&lt;/interceptor-ref&gt;</span>
+  ....
+<span class="code-tag">&lt;/action&gt;</span>
+
+&lt;!--
+   This example will inject any cookies regardless of its value into 
+   WebWork's action.
+ --&gt;
+<span class="code-tag">&lt;action ... &gt;</span>
+  <span class="code-tag">&lt;interceptor-ref name=<span class="code-quote">"cookie"</span>&gt;</span>
+     <span class="code-tag">&lt;param name=<span class="code-quote">"cookiesName"</span>&gt;</span>*<span class="code-tag">&lt;/param&gt;</span>
+     <span class="code-tag">&lt;param name=<span class="code-quote">"cookiesValue"</span>&gt;</span>*<span class="code-tag">&lt;/param&gt;</span>
+  <span class="code-tag">&lt;/interceptor-ref&gt;</span>
+   ...
+<span class="code-tag">&lt;/action&gt;</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

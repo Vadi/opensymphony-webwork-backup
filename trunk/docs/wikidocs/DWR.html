@@ -1,0 +1,171 @@
+<html>
+    <head>
+        <title>WebWork - 
+        DWR
+         </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>This integration is mean for DWR version 2.x.</p></td></tr></table>
+
+<h2><a name="DWR-Overview"></a>Overview</h2>
+<p><a href="http://www.directwebremoting.org" title="Visit page outside Confluence">DWR</a> is a powerful tool allows Javascript in a browser to interact with Java on a server and helps you manipulate web pages with the results. WebWork integrates with DWR to allow WebWork's action to be invoked through XHR (Ajax) and the results / action made available at the client side (browser).</p>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>There's also a page in DWR documentation about WebWork integration at <a href="http://getahead.org/dwr/server/webwork" title="Visit page outside Confluence">here</a></p></td></tr></table>
+
+
+<h2><a name="DWR-Configuration"></a>Configuration</h2>
+<p>To configure DWR integration with WebWork, first we need to set up web.xml</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;servlet&gt;</span>
+    <span class="code-tag">&lt;servlet-name&gt;</span>dwr<span class="code-tag">&lt;/servlet-name&gt;</span>
+    <span class="code-tag">&lt;servlet-class&gt;</span>org.directwebremoting.servlet.DwrServlet<span class="code-tag">&lt;/servlet-class&gt;</span>
+    <span class="code-tag">&lt;init-param&gt;</span>
+        <span class="code-tag">&lt;param-name&gt;</span>debug<span class="code-tag">&lt;/param-name&gt;</span>
+        <span class="code-tag">&lt;param-value&gt;</span>true<span class="code-tag">&lt;/param-value&gt;</span>
+    <span class="code-tag">&lt;/init-param&gt;</span>
+    <span class="code-tag">&lt;init-param&gt;</span>
+        <span class="code-tag">&lt;param-name&gt;</span>org.directwebremoting.extend.AccessControl<span class="code-tag">&lt;/param-name&gt;</span>
+        <span class="code-tag">&lt;param-value&gt;</span>com.opensymphony.webwork.dwr.WebWorkDwrAccessControl<span class="code-tag">&lt;/param-value&gt;</span>
+    <span class="code-tag">&lt;/init-param&gt;</span>
+<span class="code-tag">&lt;/servlet&gt;</span>
+
+<span class="code-tag">&lt;servlet-mapping&gt;</span>
+    <span class="code-tag">&lt;servlet-name&gt;</span>dwr<span class="code-tag">&lt;/servlet-name&gt;</span>
+    <span class="code-tag">&lt;url-pattern&gt;</span>/dwr/*<span class="code-tag">&lt;/url-pattern&gt;</span>
+<span class="code-tag">&lt;/servlet-mapping&gt;</span></pre>
+</div></div>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>Take note that we need to configure WebWorkDwrAccessControl as the AccessControl. This is due to DWR by default will not allow any classes declared with org.directwebremoting.* to be invoked remotely nor does it allows those classes to be passed as arguments. This is for security reasons. With WebWorkDwrAccessControl, we'll allow org.directwebremoting.webwork.* classes to be invoked and passed as arguments to methods. This is because WebWork and DWR integration code is distributed together with DWR. It doesn't lies within WebWork distribution.</p></td></tr></table>
+
+<p>Then we need to configure dwr.xml, which typically resides under /WEB-INF)</p>
+<div class="code"><div class="codeContent">
+<pre class="code-xml">&lt;!DOCTYPE dwr PUBLIC
+        <span class="code-quote">"-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"</span>
+        <span class="code-quote">"http://getahead.org/dwr//dwr20.dtd"</span>&gt;
+
+<span class="code-tag">&lt;dwr&gt;</span>
+    <span class="code-tag">&lt;allow&gt;</span>
+        <span class="code-tag">&lt;create creator=<span class="code-quote">"new"</span> javascript=<span class="code-quote">"validator"</span>&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"class"</span> value=<span class="code-quote">"com.opensymphony.webwork.validators.DWRValidator"</span>/&gt;</span>
+        <span class="code-tag">&lt;/create&gt;</span>
+        <span class="code-tag">&lt;convert converter=<span class="code-quote">"bean"</span> match=<span class="code-quote">"com.opensymphony.xwork.ValidationAwareSupport"</span>/&gt;</span>
+
+        <span class="code-tag">&lt;create creator=<span class="code-quote">"new"</span> javascript=<span class="code-quote">"dwraction"</span>&gt;</span>
+            <span class="code-tag">&lt;param name=<span class="code-quote">"class"</span> value=<span class="code-quote">"org.directwebremoting.webwork.DWRAction"</span> /&gt;</span>
+        <span class="code-tag">&lt;/create&gt;</span>
+        <span class="code-tag">&lt;convert converter=<span class="code-quote">"bean"</span> match=<span class="code-quote">"org.directwebremoting.webwork.ActionDefinition"</span>/&gt;</span>
+        <span class="code-tag">&lt;convert converter=<span class="code-quote">"bean"</span> match=<span class="code-quote">"org.directwebremoting.webwork.AjaxResult"</span> /&gt;</span>
+        <span class="code-tag">&lt;convert converter=<span class="code-quote">"bean"</span> match=<span class="code-quote">"com.opensymphony.xwork.ActionSupport"</span> /&gt;</span>
+    <span class="code-tag">&lt;/allow&gt;</span>
+
+    <span class="code-tag">&lt;signatures&gt;</span>
+        &lt;![CDATA[
+        import java.util.Map;
+        import com.opensymphony.webwork.validators.DWRValidator;
+        import org.directwebremoting.webwork.ActionDefinition;
+        import org.directwebremoting.webwork.DWRAction;
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletResponse;
+        import javax.servlet.ServletContext;
+
+        DWRValidator.doPost(String, String, Map<span class="code-tag">&lt;String, String&gt;</span>);
+        DWRAction.execute(ActionDefinition, Map<span class="code-tag">&lt;String, String&gt;</span>, HttpServletRequest, HttpServletResponse, ServletContext);
+        ]]&gt;
+    <span class="code-tag">&lt;/signatures&gt;</span>
+    
+<span class="code-tag">&lt;/dwr&gt;</span></pre>
+</div></div>
+
+<h2><a name="DWR-Concept"></a>Concept</h2>
+<p>The concept of WebWork/DWR integration is to allow :-</p>
+<ul>
+	<li>WebWork action to be invoked through client side using dwr and the rendered result given back as String</li>
+	<li>WebWork action to be invoked through client side using dwr but the result is not executed, instead the action is exposed, so the client could called any of its exposed methods (following JavaBean spec.) through DWR.</li>
+</ul>
+
+
+<h2><a name="DWR-Usage"></a>Usage</h2>
+<p>We need to declare the following script for DWR / WebWork integration to work</p>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p> Declaration of util.js is optional, but the remaning are crucial.</p></td></tr></table>
+<div class="code"><div class="codeContent">
+<pre class="code-xml"><span class="code-tag">&lt;script src='&lt;ww:url value=<span class="code-quote">"/dwr/interface/dwraction.js"</span> /&gt;</span>'&gt;<span class="code-tag">&lt;/script&gt;</span>
+<span class="code-tag">&lt;script src='&lt;ww:url value=<span class="code-quote">"/dwr/engine.js"</span> /&gt;</span>'&gt;<span class="code-tag">&lt;/script&gt;</span>
+<span class="code-tag">&lt;script src='&lt;ww:url value=<span class="code-quote">"/dwr/util.js"</span> /&gt;</span>'&gt;<span class="code-tag">&lt;/script&gt;</span></pre>
+</div></div>
+
+<h3><a name="DWR-InvokeWebWork%27sActionandexecutetheresult"></a>Invoke WebWork's Action and execute the result</h3>
+<p>To invoke WebWork's action and execute its result we'd do</p>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p> Do take note that we are invoking WebWork action using dwraction, this is due to the fact that it is<br/>
+ declared so in the &lt;script&gt; section as indicated above.</p></td></tr></table>
+<div class="code"><div class="codeContent">
+<pre class="code-java">dwraction.execute(
+   <span class="code-comment">// An Javascript <span class="code-object">Object</span> that will be converted to ActionDefinition by DWR
+</span>   {
+      action: 'myWebWorkAction', <span class="code-comment">// our webwork action name
+</span>      namespace: '/myNamespace', <span class="code-comment">// our webwork namespace
+</span>      executeResult: <span class="code-keyword">true</span>        <span class="code-comment">// let's execute our result as well
+</span>   },
+   <span class="code-comment">// Parameters we'd like to passed to WebWork's Action
+</span>   {
+      param1: 'value1', 
+      param2: 'value2'
+   },
+   <span class="code-comment">// our callback function
+</span>   function(ajaxResult) {
+      <span class="code-comment">// ajaxResult will be DefaultAjaxTextResult (converted to js object by DWR)
+</span>      <span class="code-comment">// the executed result (<span class="code-object">String</span>) will be stored in ajaxResult.text
+</span>      document.getElementById(<span class="code-quote">"ourDivId"</span>).innerHTML = ajaxResult.text;
+   }
+ );</pre>
+</div></div>
+
+<h3><a name="DWR-InvokeWebWork%27sActionbutdon%27texecuteitsresult%2CinsteadexposeitsAction"></a>Invoke WebWork's Action but don't execute its result, instead expose its Action</h3>
+<div class="code"><div class="codeContent">
+<pre class="code-java">dwraction.execute(
+   <span class="code-comment">// An Javascript <span class="code-object">Object</span> that will be converted to ActionDefinition by DWR
+</span>   {
+      action: 'myWebWorkAction', <span class="code-comment">// our webwork action name
+</span>      namespace: '/myNamespace', <span class="code-comment">// our webwork namespace
+</span>      executeResult: <span class="code-keyword">false</span>       <span class="code-comment">// let's NOT execute our result as well
+</span>   },
+   <span class="code-comment">// Parameters we'd like to passed to WebWork's Action
+</span>   {
+      param1: 'value1', 
+      param2: 'value2'
+   },
+   <span class="code-comment">// our callback function
+</span>   function(ajaxResult) {
+      <span class="code-comment">// ajaxResult will be DefaultAjaxDataResult (converted to js object by DWR)
+</span>      <span class="code-comment">// the action will be exposed as ajaxResult.data
+</span>      <span class="code-comment">// Let's say <span class="code-keyword">for</span> example, we have a getter <span class="code-keyword">for</span> MyString in our WebWork action, we could <span class="code-keyword">do</span>
+</span>      <span class="code-comment">// the following to retrieve it
+</span>      document.getElementById(<span class="code-quote">"ourDivId"</span>).innerHTML = ajaxResult.data.myString;
+   }
+ );</pre>
+</div></div>
+
+<h2><a name="DWR-Example"></a>Example</h2>
+<p>There's an example in WebWork's showcase under the section WebWork DWR integration. Might want to check it out as well.</p>
+
+<h2><a name="DWR-Debugging"></a>Debugging</h2>
+<p>We could turn on debugging as in this example (through debug init-param web.xml), and access</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">http:<span class="code-comment">//host:port/context/dwr/</span></pre>
+</div></div>
+<p>To see if dwraction interface is exposed properly without any warnings or errors.</p>
+
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>

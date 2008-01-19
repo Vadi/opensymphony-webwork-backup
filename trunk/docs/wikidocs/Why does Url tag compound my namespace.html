@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>WebWork - 
+         does Url tag compound my namespace
+        </title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <p>If there's a page called home.jsp under the 'agent' namspace, using</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:url namespace=<span class="code-quote">"agent"</span> action=<span class="code-quote">"myAction"</span> /&gt;</pre>
+</div></div>
+
+<p>would generate</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">http:<span class="code-comment">//&lt;host&gt;:&lt;port&gt;/&lt;context&gt;/agent/agent/myAction.action</span></pre>
+</div></div>
+
+<p>WebWork (DefaultActionMapper) needs namespace to start with slash '/'</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">&lt;ww:url namespace=<span class="code-quote">"/agent"</span> action=<span class="code-quote">"myAction"</span> /&gt;</pre>
+</div></div>
+
+<p>should generate the desired url</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">http:<span class="code-comment">//&lt;host&gt;:&lt;port&gt;/&lt;context&gt;/agent/myAction.action</span></pre>
+</div></div>
+
+                    			    </td>
+		    </tr>
+	    </table>
+    </body>
+</html>
