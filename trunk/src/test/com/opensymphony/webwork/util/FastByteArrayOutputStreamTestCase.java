@@ -9,7 +9,7 @@ import javax.servlet.jsp.JspWriter;
  * @author Brad Baker (Atlassian)
  * @since $Date$ $Id$
  */
-public class FastByteArrayOutputStreamTestCase extends EncodingTestCase
+public class FastByteArrayOutputStreamTestCase extends AbstractEncodingTestCase
 {
 
     public void testLatinCharsets() throws Exception

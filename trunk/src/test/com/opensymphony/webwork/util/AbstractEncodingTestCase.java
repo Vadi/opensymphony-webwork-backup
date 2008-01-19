@@ -13,9 +13,8 @@ import java.nio.charset.Charset;
  * @author Brad Baker (Atlassian)
  * @version $Date$ $Id$
  */
-public abstract class EncodingTestCase extends TestCase
+public abstract class AbstractEncodingTestCase extends TestCase
 {
-
     static final int K = 1024;
 
     static final String ASCII = "ASCII";
