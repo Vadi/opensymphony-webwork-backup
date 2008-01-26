@@ -1,0 +1,15 @@
+<!DOCTYPE xwork PUBLIC
+        "-//OpenSymphony Group//XWork 1.1.2//EN"
+        "http://www.opensymphony.com/xwork/xwork-1.1.2.dtd">
+        
+<xwork>
+    <package name="webwork_json" extends="webwork-default" namespace="/json">
+         <action name="index">
+             <result>/json/index.jsp</result>
+         </action>
+        <action name="countryCities" class="com.opensymphony.webwork.showcase.json.CountryCitiesAction">
+            <result type="json" />
+        </action>
+    </package>
+</xwork>
+        
